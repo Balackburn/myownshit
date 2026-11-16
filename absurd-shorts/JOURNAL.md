@@ -2913,3 +2913,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   deux prix tenus plus d'une seconde, coups de sifflet avec joues rondes et voitures qui sautent, le garde porte-coussin derrière le ministre et
   son plumet qui retombe au réveil, voisins en larmes sur un balcon de pierre, « FRAIS DE » aussi grand que « DÉPLACEMENT »). Rendu final en file
   après les trois autres (un rendu final à la fois).
+- 10 h 10 — « Les lunettes » (69) LIVRÉE : final contrôlé (1080x1920, 30,3 s, −16,1 LUFS, aucune chute de luminosité, contrôles HyperFrames sans
+  erreur), relu sur une planche de 13 images, envoyé et publié sur TikTok (publication directe, sans mention d'IA). Le rendu final de « La
+  tondeuse » démarre à la suite, puis « L'ascenseur » et « Le centime ».

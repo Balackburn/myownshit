@@ -1,0 +1,667 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a perdu ses lunettes.",
+   "hl": [
+    "perdu",
+    "lunettes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L01.mp3",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.7,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.26
+    },
+    {
+     "w": "mec",
+     "s": 0.3,
+     "e": 0.5
+    },
+    {
+     "w": "a",
+     "s": 0.54,
+     "e": 0.58
+    },
+    {
+     "w": "perdu",
+     "s": 0.66,
+     "e": 0.82
+    },
+    {
+     "w": "ses",
+     "s": 0.9,
+     "e": 0.98
+    },
+    {
+     "w": "lunettes.",
+     "s": 1.02,
+     "e": 1.7
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il a cherché partout.",
+   "hl": [
+    "partout."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L02.mp3",
+   "file_start": 1.8,
+   "speech_start": 1.8,
+   "speech_end": 3.16,
+   "words": [
+    {
+     "w": "Il",
+     "s": 1.8,
+     "e": 1.88
+    },
+    {
+     "w": "a",
+     "s": 1.92,
+     "e": 1.96
+    },
+    {
+     "w": "cherché",
+     "s": 2.04,
+     "e": 2.36
+    },
+    {
+     "w": "partout.",
+     "s": 2.52,
+     "e": 3.16
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Sous le canapé.",
+   "hl": [
+    "canapé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L03.mp3",
+   "file_start": 3.26,
+   "speech_start": 3.26,
+   "speech_end": 4.38,
+   "words": [
+    {
+     "w": "Sous",
+     "s": 3.26,
+     "e": 3.42
+    },
+    {
+     "w": "le",
+     "s": 3.46,
+     "e": 3.5
+    },
+    {
+     "w": "canapé.",
+     "s": 3.58,
+     "e": 4.38
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Dans le frigo.",
+   "hl": [
+    "frigo."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L04.mp3",
+   "file_start": 4.48,
+   "speech_start": 4.48,
+   "speech_end": 5.52,
+   "words": [
+    {
+     "w": "Dans",
+     "s": 4.48,
+     "e": 4.64
+    },
+    {
+     "w": "le",
+     "s": 4.68,
+     "e": 4.72
+    },
+    {
+     "w": "frigo.",
+     "s": 4.8,
+     "e": 5.52
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Il a porté plainte.",
+   "hl": [
+    "plainte."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L05.mp3",
+   "file_start": 5.62,
+   "speech_start": 5.62,
+   "speech_end": 6.82,
+   "words": [
+    {
+     "w": "Il",
+     "s": 5.62,
+     "e": 5.7
+    },
+    {
+     "w": "a",
+     "s": 5.74,
+     "e": 5.78
+    },
+    {
+     "w": "porté",
+     "s": 5.86,
+     "e": 6.1
+    },
+    {
+     "w": "plainte.",
+     "s": 6.26,
+     "e": 6.82
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "La police a fouillé tout le quartier.",
+   "hl": [
+    "police",
+    "quartier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L06.mp3",
+   "file_start": 6.92,
+   "speech_start": 6.92,
+   "speech_end": 8.92,
+   "words": [
+    {
+     "w": "La",
+     "s": 6.92,
+     "e": 7.08
+    },
+    {
+     "w": "police",
+     "s": 7.16,
+     "e": 7.4
+    },
+    {
+     "w": "a",
+     "s": 7.44,
+     "e": 7.48
+    },
+    {
+     "w": "fouillé",
+     "s": 7.52,
+     "e": 7.88
+    },
+    {
+     "w": "tout",
+     "s": 7.96,
+     "e": 8.04
+    },
+    {
+     "w": "le",
+     "s": 8.08,
+     "e": 8.12
+    },
+    {
+     "w": "quartier.",
+     "s": 8.16,
+     "e": 8.92
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Des plongeurs ont vidé la Seine.",
+   "hl": [
+    "plongeurs",
+    "Seine."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L07.mp3",
+   "file_start": 9.02,
+   "speech_start": 9.02,
+   "speech_end": 10.78,
+   "words": [
+    {
+     "w": "Des",
+     "s": 9.02,
+     "e": 9.18
+    },
+    {
+     "w": "plongeurs",
+     "s": 9.22,
+     "e": 9.58
+    },
+    {
+     "w": "ont",
+     "s": 9.66,
+     "e": 9.74
+    },
+    {
+     "w": "vidé",
+     "s": 9.82,
+     "e": 9.98
+    },
+    {
+     "w": "la",
+     "s": 10.06,
+     "e": 10.14
+    },
+    {
+     "w": "Seine.",
+     "s": 10.22,
+     "e": 10.78
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "L'armée a envoyé des hélicoptères.",
+   "hl": [
+    "armée",
+    "hélicoptères."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L08.mp3",
+   "file_start": 10.88,
+   "speech_start": 10.88,
+   "speech_end": 13.04,
+   "words": [
+    {
+     "w": "L'armée",
+     "s": 10.88,
+     "e": 11.36
+    },
+    {
+     "w": "a",
+     "s": 11.44,
+     "e": 11.48
+    },
+    {
+     "w": "envoyé",
+     "s": 11.52,
+     "e": 11.88
+    },
+    {
+     "w": "des",
+     "s": 11.92,
+     "e": 12.0
+    },
+    {
+     "w": "hélicoptères.",
+     "s": 12.08,
+     "e": 13.04
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Les satellites ont scanné la planète.",
+   "hl": [
+    "satellites",
+    "planète."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L09.mp3",
+   "file_start": 13.14,
+   "speech_start": 13.14,
+   "speech_end": 15.14,
+   "words": [
+    {
+     "w": "Les",
+     "s": 13.14,
+     "e": 13.22
+    },
+    {
+     "w": "satellites",
+     "s": 13.3,
+     "e": 13.78
+    },
+    {
+     "w": "ont",
+     "s": 13.86,
+     "e": 13.94
+    },
+    {
+     "w": "scanné",
+     "s": 14.02,
+     "e": 14.26
+    },
+    {
+     "w": "la",
+     "s": 14.34,
+     "e": 14.42
+    },
+    {
+     "w": "planète.",
+     "s": 14.54,
+     "e": 15.14
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Les autres pays ont envoyé leurs chiens.",
+   "hl": [
+    "pays",
+    "chiens."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L10.mp3",
+   "file_start": 15.24,
+   "speech_start": 15.24,
+   "speech_end": 17.24,
+   "words": [
+    {
+     "w": "Les",
+     "s": 15.24,
+     "e": 15.4
+    },
+    {
+     "w": "autres",
+     "s": 15.48,
+     "e": 15.64
+    },
+    {
+     "w": "pays",
+     "s": 15.72,
+     "e": 15.96
+    },
+    {
+     "w": "ont",
+     "s": 16.04,
+     "e": 16.12
+    },
+    {
+     "w": "envoyé",
+     "s": 16.2,
+     "e": 16.52
+    },
+    {
+     "w": "leurs",
+     "s": 16.6,
+     "e": 16.68
+    },
+    {
+     "w": "chiens.",
+     "s": 16.76,
+     "e": 17.24
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Le gouvernement a promis un million d'euros.",
+   "hl": [
+    "million"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L11.mp3",
+   "file_start": 17.34,
+   "speech_start": 17.34,
+   "speech_end": 19.82,
+   "words": [
+    {
+     "w": "Le",
+     "s": 17.34,
+     "e": 17.42
+    },
+    {
+     "w": "gouvernement",
+     "s": 17.46,
+     "e": 18.06
+    },
+    {
+     "w": "a",
+     "s": 18.14,
+     "e": 18.22
+    },
+    {
+     "w": "promis",
+     "s": 18.34,
+     "e": 18.62
+    },
+    {
+     "w": "un",
+     "s": 18.7,
+     "e": 18.78
+    },
+    {
+     "w": "million",
+     "s": 18.94,
+     "e": 19.1
+    },
+    {
+     "w": "d'euros.",
+     "s": 19.127,
+     "e": 19.82
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le monde entier a cherché pendant un an.",
+   "hl": [
+    "monde",
+    "an."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L12.mp3",
+   "file_start": 19.92,
+   "speech_start": 19.92,
+   "speech_end": 22.24,
+   "words": [
+    {
+     "w": "Le",
+     "s": 19.92,
+     "e": 20.0
+    },
+    {
+     "w": "monde",
+     "s": 20.08,
+     "e": 20.24
+    },
+    {
+     "w": "entier",
+     "s": 20.36,
+     "e": 20.64
+    },
+    {
+     "w": "a",
+     "s": 20.68,
+     "e": 20.72
+    },
+    {
+     "w": "cherché",
+     "s": 20.8,
+     "e": 21.12
+    },
+    {
+     "w": "pendant",
+     "s": 21.2,
+     "e": 21.52
+    },
+    {
+     "w": "un",
+     "s": 21.6,
+     "e": 21.68
+    },
+    {
+     "w": "an.",
+     "s": 21.76,
+     "e": 22.24
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Hier, un enfant les a trouvées.",
+   "hl": [
+    "enfant",
+    "trouvées."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L13.mp3",
+   "file_start": 22.34,
+   "speech_start": 22.34,
+   "speech_end": 24.42,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 22.34,
+     "e": 22.98
+    },
+    {
+     "w": "un",
+     "s": 23.06,
+     "e": 23.14
+    },
+    {
+     "w": "enfant",
+     "s": 23.22,
+     "e": 23.38
+    },
+    {
+     "w": "les",
+     "s": 23.46,
+     "e": 23.54
+    },
+    {
+     "w": "a",
+     "s": 23.58,
+     "e": 23.62
+    },
+    {
+     "w": "trouvées.",
+     "s": 23.7,
+     "e": 24.42
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Sur sa tête.",
+   "hl": [
+    "tête."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L14.mp3",
+   "file_start": 24.52,
+   "speech_start": 24.52,
+   "speech_end": 25.56,
+   "words": [
+    {
+     "w": "Sur",
+     "s": 24.52,
+     "e": 24.68
+    },
+    {
+     "w": "sa",
+     "s": 24.76,
+     "e": 24.92
+    },
+    {
+     "w": "tête.",
+     "s": 24.96,
+     "e": 25.56
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "L'enfant a touché le million.",
+   "hl": [
+    "million."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L15.mp3",
+   "file_start": 25.66,
+   "speech_start": 25.66,
+   "speech_end": 27.26,
+   "words": [
+    {
+     "w": "L'enfant",
+     "s": 25.66,
+     "e": 26.06
+    },
+    {
+     "w": "a",
+     "s": 26.14,
+     "e": 26.22
+    },
+    {
+     "w": "touché",
+     "s": 26.34,
+     "e": 26.5
+    },
+    {
+     "w": "le",
+     "s": 26.54,
+     "e": 26.62
+    },
+    {
+     "w": "million.",
+     "s": 26.82,
+     "e": 27.26
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Le mec, lui, cherche ses clés.",
+   "hl": [
+    "clés."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lunettes/tts/L16.mp3",
+   "file_start": 27.36,
+   "speech_start": 27.36,
+   "speech_end": 29.44,
+   "words": [
+    {
+     "w": "Le",
+     "s": 27.36,
+     "e": 27.44
+    },
+    {
+     "w": "mec,",
+     "s": 27.52,
+     "e": 27.92
+    },
+    {
+     "w": "lui,",
+     "s": 28.0,
+     "e": 28.4
+    },
+    {
+     "w": "cherche",
+     "s": 28.48,
+     "e": 28.72
+    },
+    {
+     "w": "ses",
+     "s": 28.8,
+     "e": 28.88
+    },
+    {
+     "w": "clés.",
+     "s": 28.96,
+     "e": 29.44
+    }
+   ]
+  }
+ ],
+ "total": 30.28
+}
