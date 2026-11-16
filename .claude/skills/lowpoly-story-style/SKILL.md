@@ -1739,3 +1739,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   encore lu comme une focale au premier tour : tous les plans étaient trop serrés. Le redire dans chaque consigne de mise en scène déléguée.
 - (cycle 42) Planche de contrôle d'images extraites par ffmpeg : `dsheet.py` (fait pour les images de `render3 --stills`) rend une planche noire ;
   utiliser `ffmpeg -pattern_type glob -i 'f_*.jpg' -vf tile=7x2 planche.jpg`.
+- (cycle 42) Saut sur un pied qui s'effondre une image au décollage : ce n'est pas un chevauchement de clés. Le moteur ajoute deux couches automatiques
+  calculées sur l'accélération du corps (inclinaison de la colonne jusqu'à 0,5 rad, écrasement jusqu'à 38 %). Une réception en ease-in suivie
+  d'une montée en ease-out inverse la vitesse en une image et le corps se plie. Remède : chaque moitié de saut en ease-in-out ET `'auto': 0.15`
+  dans la pose du saut. Vérifier sur des images prises aux instants exacts de décollage.
+- (cycle 42) Un pied qui doit rester en l'air (plâtre, jambe tenue derrière) : un `plant` toon à un point du monde surélevé. Une flexion seule
+  est écrasée par les autres couches.
+- (cycle 42) Rangée d'immeubles troués « en enfilade » : le décalage latéral de chaque bloc vu par la caméra doit dépasser la demi-largeur du bloc
+  plus le rayon du trou, sinon les trous se cachent derrière le bloc précédent (ici 40° hors de l'axe, pas 28°). Vérifier les unités de `ry`.
+- (cycle 42) Cône de faisceau d'hélicoptère près de la caméra : il remplit le cadre (le rendu avertit « camera inside prop »). L'enlever ou
+  placer la caméra loin du cône.
