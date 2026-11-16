@@ -1786,3 +1786,14 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 43) Le clip `writeOnHeld` plus une cible de regard fait basculer la tête : utiliser `stand` avec un `reach` sur le porte-bloc.
 - (cycle 43) Gag d'échelle (un porte-avions dans un évier) dans un cadre 9:16 étroit : caméra haute et en diagonale, robinet et rebord du bac
   dans le champ, chercher les candidats avec `project()` sur les accessoires et le visage du héros, et sortir la suspension du cadre.
+- (cycle 42) `lay` = [bascule avant/arrière, bascule latérale] dans le repère du personnage. Une bascule avant d'un personnage tourné en
+  diagonale par rapport à la caméra déplace sa tête de côté à l'écran (c'est ce qui empilait sa tête sur celle du gardien).
+- (cycle 42) Une cible de regard (`look`) basse ou très hors axe fait rouler la tête sur le côté (« cou cassé »). Regarder à niveau, à hauteur
+  de tête, et tourner le corps vers la cible.
+- (cycle 42) Un pied tenu qui doit se lire à côté d'un plateau de table : point d'appui planté sur le côté (`side_pose`), pas la pose de saut
+  tenue devant (devant, le pied se cache derrière le plateau et les mains se rejoignent à l'entrejambe : ça se lit comme un coup bas).
+- (cycle 42) Un accessoire attaché à la main suit l'avant-bras : pour une loupe ou une pancarte qui doit faire face à la caméra, un accessoire
+  libre animé avec la main.
+- (cycle 42) Une poignée vue en bout se lit comme un disque : frapper une plaque verticale en biais pour que le côté du tampon se voie au contact.
+- (cycle 42) `fitBack` vise le milieu des points : un cadrage pieds et têtes laisse le tiers bas vide. Pour un sujet bas dans le cadre, placer la
+  caméra à la main et vérifier avec `story_kit.project()`.
