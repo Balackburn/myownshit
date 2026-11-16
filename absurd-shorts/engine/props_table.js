@@ -18,7 +18,8 @@ export const TABLE_PROPS = {
   // The coffee table, the story's hero (pivot at the floor under its middle; o.w 1.1, o.d 0.6, o.h 0.42): a thick warm wooden top with a darker edge,
   // an apron under it and four square legs. The same model in every shot. o.squash [[t, v], ...]: the legs crushed to 1 - 0.75 v (a giant stamp:
   // key 0 -> 1 in one frame and back with a bounce); o.bruise: a blue bruise on the front right leg (true, or the time it appears); o.cuffs: a steel
-  // ring round each leg (four soldiers cuffed to it); o.legT (0.075): the legs' thickness (thicker for the extreme close-up)
+  // ring round each leg (four soldiers cuffed to it); o.legT (0.075): the legs' thickness (thicker for the extreme close-up); o.bandage: a white
+  // bandage wound round the bruised leg (the plaintiff in court)
   coffeeTable(o) {
     const w = o.w ?? 1.1, d = o.d ?? 0.6, h = o.h ?? 0.42, lt = o.legT ?? 0.075, top = 0.06, g = grp(), up = grp(), legs = [];
     const wood = o.color || '#B9824C', dark = o.edge || '#7A4E2A';
@@ -42,6 +43,8 @@ export const TABLE_PROPS = {
         c.fillStyle = 'rgba(120,200,120,0.35)'; c.beginPath(); c.ellipse(W * 0.62, H * 0.66, W * 0.18, H * 0.12, 0.4, 0, TAU); c.fill(); }, { res: 128, transparent: true });
       bruise.position.set(0, L0 * 0.55, lt / 2 + 0.003); legs[0].lg.add(bruise);
     }
+    if (o.bandage) { for (let i = 0; i < 3; i++) legs[0].lg.add(at(box(lt * 1.35, 0.045, lt * 1.35, '#F7F6F1', { outline: 0.004 }), 0, L0 * (0.42 + 0.11 * i), 0, 0, 0, (i - 1) * 0.12));
+      legs[0].lg.add(at(box(lt * 0.5, 0.09, 0.012, '#F7F6F1', { outline: 0.003 }), lt * 0.35, L0 * 0.62, lt * 0.7, 0, 0, -0.5)); }
     g.userData.update = t => {
       const v = clamp01(keyAt(o.squash, t, 0)), sy = 1 - 0.75 * v, sx = 1 + 0.6 * v;
       for (const L of legs) { L.lg.scale.set(sx, sy, sx); L.lg.position.x = L.sx * (w / 2 - 0.09) * (1 + 0.18 * v); L.lg.position.z = L.sz * (d / 2 - 0.09) * (1 + 0.18 * v); }
@@ -88,7 +91,7 @@ export const TABLE_PROPS = {
   // A block of flats (pivot at the floor under its front middle, front +Z, depth toward -Z): a cream facade with rows of windows, shutters and small
   // balconies, a grey roof; o.w 4.4, o.h 7.2, o.d 4.0, o.color. o.hole [x, y, r] (in the facade's frame; default [0, 1.3, 1.25]): a round hole right
   // through it, front to back, with a brick rim and a dark tunnel (one in a row of three lines up: you see through all three);
-  // o.holeAt: before it the facade is whole (a tank about to come through)
+  // o.holeAt: before it the facade is whole (a tank about to come through); o.backAt: the same for the back facade (a tank about to come out)
   holedBlock(o) {
     const W = o.w ?? 4.4, H = o.h ?? 7.2, D = o.d ?? 4.0, [hx, hy, hr] = o.hole || [0, 1.3, 1.25], col = o.color || '#EBDDC4', g = grp();
     const drawFace = (holed, back) => (c, Wc, Hc) => { const k = Wc / W; c.fillStyle = col; c.fillRect(0, 0, Wc, Hc);
@@ -103,20 +106,21 @@ export const TABLE_PROPS = {
         if (r > 0) { c.fillStyle = '#2E3238'; c.fillRect((x - 0.42) * k, Hc - (y + 0.05) * k, 0.84 * k, 0.06 * k); for (let b = 0; b < 6; b++) c.fillRect((x - 0.4 + b * 0.16) * k, Hc - (y + 0.3) * k, 0.025 * k, 0.25 * k); } }
       if (holed) { c.save(); c.globalCompositeOperation = 'destination-out'; c.beginPath(); c.arc((W / 2 + hx) * k, Hc - hy * k, hr * k, 0, TAU); c.fill(); c.restore(); } };
     const mk = (holed, back) => { const p = canvasPlane(W, H, drawFace(holed, back), { res: 512, transparent: holed }); return p; };
-    const fWhole = mk(false, false), fHole = mk(true, false), bHole = mk(true, true);
-    fWhole.position.set(0, H / 2, 0.002); fHole.position.set(0, H / 2, 0.002); bHole.position.set(0, H / 2, -D - 0.002); bHole.rotation.y = PI;
-    g.add(fWhole, fHole, bHole);
+    const fWhole = mk(false, false), fHole = mk(true, false), bHole = mk(true, true), bWhole = mk(false, true);
+    fWhole.position.set(0, H / 2, 0.002); fHole.position.set(0, H / 2, 0.002); bHole.position.set(0, H / 2, -D - 0.002); bHole.rotation.y = PI; bWhole.position.copy(bHole.position); bWhole.rotation.y = PI;
+    g.add(fWhole, fHole, bHole, bWhole);
     // the walls behind the facades: sides, roof, a dark inside (seen through the hole only as the tunnel)
     g.add(at(box(0.12, H, D, '#D8C8AC', { pivot: 'bottom', outline: 0.01 }), -W / 2 + 0.06, 0, -D / 2), at(box(0.12, H, D, '#D8C8AC', { pivot: 'bottom', outline: 0.01 }), W / 2 - 0.06, 0, -D / 2));
     g.add(at(box(W + 0.3, 0.5, D + 0.3, '#5F6B78', { pivot: 'bottom', outline: 0.01 }), 0, H, -D / 2), at(box(W + 0.1, 0.18, 0.18, '#CDBB9C', { outline: 0.006 }), 0, H - 0.1, 0.06));
     const tun = new THREE.Mesh(new THREE.CylinderGeometry(hr, hr, D, 20, 1, true), new THREE.MeshLambertMaterial({ color: '#4A3A30', side: THREE.BackSide }));
     tun.rotation.x = PI / 2; tun.position.set(hx, hy, -D / 2); g.add(tun);
-    const rim = grp(); for (const z of [0.03, -D - 0.03]) for (let i = 0; i < 18; i++) { const a = i / 18 * TAU + hsh(i) * 0.2, rr = hr + 0.05 + 0.1 * hsh(i + 7);
-      rim.add(at(box(0.28 + 0.12 * hsh(i + 3), 0.13, 0.12, i % 3 ? '#B8573A' : '#9C4630', { outline: 0.006 }), hx + rr * Math.cos(a), hy + rr * Math.sin(a), z, 0, 0, a + PI / 2)); }
-    g.add(rim);
+    const rims = [grp(), grp()]; [0.03, -D - 0.03].forEach((z, q) => { for (let i = 0; i < 18; i++) { const a = i / 18 * TAU + hsh(i) * 0.2, rr = hr + 0.05 + 0.1 * hsh(i + 7);
+      rims[q].add(at(box(0.28 + 0.12 * hsh(i + 3), 0.13, 0.12, i % 3 ? '#B8573A' : '#9C4630', { outline: 0.006 }), hx + rr * Math.cos(a), hy + rr * Math.sin(a), z, 0, 0, a + PI / 2)); } });
+    g.add(rims[0], rims[1]);
     // the floor of the tunnel: a strip of rubble
     g.add(at(box(hr * 1.2, 0.08, D, '#8C7A66'), hx, hy - hr + 0.04, -D / 2));
-    g.userData.update = t => { const holed = o.holeAt == null || t >= o.holeAt; fWhole.visible = !holed; fHole.visible = holed; rim.visible = holed; tun.visible = holed; };
+    g.userData.update = t => { const holed = o.holeAt == null || t >= o.holeAt, bh = o.backAt == null || t >= o.backAt;
+      fWhole.visible = !holed; fHole.visible = holed; rims[0].visible = holed; bWhole.visible = !bh; bHole.visible = bh; rims[1].visible = bh; tun.visible = holed || bh; };
     g.userData.update(0); return g;
   },
 
