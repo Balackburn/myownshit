@@ -1690,3 +1690,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   rotation de la tête. Clouée à la tête, une barbe jusqu'aux genoux entrait dans le torse dès que la tête tournait de 90° (« L'ascenseur »,
   revue 2 : « la barbe tombe en moignons au col »). Les lunettes, elles, restent clouées, mais SUR le visage : la face avant de la tête est à
   z ≈ 0,094 (profondeur 0,17 × 1,1) ; un décalage z de 0,16 les faisait flotter six centimètres devant le profil.
+
+- (cycle 41) Le visage peint n'existe que sur la face AVANT de la tête : un personnage de profil montre une face vide avec une oreille. L'accroche
+  et le dernier plan doivent montrer le héros de trois quarts face (au pire de trois quarts), jamais de profil ni de dos, même s'il appuie sur
+  un bouton ou joue aux cartes : il agit de la main la plus éloignée et nous regarde (« Le parcmètre », revue 2 : « le visage du héros n'est
+  jamais à l'écran dans le premier ni dans le dernier plan »). Et le mot que la voix prononce (« quatre cents ans ») doit être dégagé PENDANT
+  qu'elle le dit : ni tête ni manche devant.
+- (cycle 41) Une chute se place entre 40 et 55 % de la durée du plan, puis se tient : quatre plans du « Parcmètre » posaient leur chute dans
+  les 0,2 dernières secondes (ciseaux levés, sourire à la caméra, doigt qui lâche), invisible au rythme d'un plan par phrase.
+- (cycle 41) La rotation d'un accessoire attaché se donne DANS `on={…, 'rot': […]}` ; passée en dehors (`rot=` sur l'accessoire), elle est
+  ignorée dès qu'il est porté (« Le service client » : le téléphone restait de chant).

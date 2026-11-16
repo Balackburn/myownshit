@@ -2828,3 +2828,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   tout seul à partir du plan 6, calendrier qui s'effeuille, touche 1 verte dégagée, deux caméras de télévision). Cause du téléphone illisible à
   la revue 1 : la main droite croisait devant le menton, et la rotation de l'accessoire était passée hors de `on={…}` (ignorée sur un accessoire
   attaché). Brouillon 2 en file, revue 2 préparée.
+- 2 h 35 — « Le parcmètre » (75) : revue 2 = 6,0 (animation) ; 6,6 (direction artistique), contre 5,0 ; 6,2. Reste : le visage du héros n'est
+  jamais à l'écran dans l'accroche ni au dernier plan (le visage peint n'est que sur l'avant de la tête : un profil est une face vide), « 400 ANS »
+  caché par sa tête pendant qu'on le dit, la glissade sur la vitre est figée une seconde, les tickets ne jaillissent pas. Passe 3 confiée à un
+  agent dérivé.
