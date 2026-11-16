@@ -332,7 +332,7 @@ st.shot('S18', 'parisStreet', setOpts=PARIS, actors=[act('mec', ME1, -60, 'stand
             k(r(POP18 + 0.55), toon={**TILT18, 'face': {**DEAD, 'gx': 0.9, 'mouth': 'line'}}, toonDur=0.2), k(1.45, toon={**TILT18, 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.12),   # ...and come back to us
             *BL(1.56, {**DEAD, 'mouth': 'line'}, **TILT18)])],
         props=[MJ('pull18', False, turn={'at': T18, 'dur': TD18, 'amp': 0.45}, popS=1.5, popAmp=0.6, popDecay=3.4, popFreq=19.0, tagKickAmp=1.4, tagSway=0.05)],
-        cams=[FC(0.0, [3.4, 2.0, 2.68], [[ME1[0], 3.0, ME1[2]], [ME1[0], 0.55, ME1[2]], LBL(ME1, -60, 1, 0.6, 2.5), [r(ME1[0] - 0.35), 2.0, r(ME1[2] + 0.2)], [r(ME1[0] + 0.55), 2.0, r(ME1[2] + 0.3)]], top=0.1, bottom=0.9)])   # (review 2) from his label's side, down to the knees: the caption falls on his navy trousers (it sat on the salmon knit)
+        cams=[FC(0.0, [3.98, 1.8, 2.92], [[ME1[0], 3.0, ME1[2]], [ME1[0], 0.55, ME1[2]], LBL(ME1, -60, 1, 0.6, 2.5), [r(ME1[0] - 0.35), 2.0, r(ME1[2] + 0.2)], [r(ME1[0] + 0.55), 2.0, r(ME1[2] + 0.3)]], top=0.1, bottom=0.9)])   # (review 2) from his label's side, down to the knees: the caption falls on his navy trousers (it sat on the salmon knit)
 st.cue('sfx:zip', 'S18', T18, 0.2); st.cue('pop', 'S18', POP18, 0.25)
 
 # 19: for life. Close on him: deadpan, the label up beside his head, still wobbling; a look at us; a slow blink; (review 2) framed down to the hem: the
