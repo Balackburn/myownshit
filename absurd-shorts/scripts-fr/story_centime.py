@@ -249,8 +249,8 @@ st.cue('sfx:ticks', 'S10', 0.1, 0.2); st.cue('sfx:boing', 'S10', NOD10, 0.15)
 #     her eye, heads thrown back, mouths wide in a wail; thick tear jets arc out from both eyes across the dark window glass beside them
 D11 = st.dur('S11')
 NB11 = [('voisin1', [9.75, 3.25, -0.55], 'mamie'), ('voisin2', [9.75, 3.25, 0.55], 'madame')]   # the house fronts are at x 10.2 (two, side by side on one balcony: three small figures read as a pattern)
-HANKY = {'touch': {'R': ['face', -0.14, 0.6, 0.12, 1, 0.02]}, 'hands': {'R': 'pinch'}}
-WAIL11 = lambda i: {**HANKY, 'bend': {'neck': [-0.42 if i % 2 else -0.28, 0, 0, 1, None]}, 'sq': [1.04, 0.95, 1.04] if i % 2 else [0.98, 1.04, 0.98], 'face': {'lid': 0.85, 'mouth': 'cry', 'brow': 1.0}}   # the head thrown back on each sob
+HANKY = {'touch': {'R': ['face', -0.08, 0.26, 0.13, 1, 0.02]}, 'hands': {'R': 'pinch'}}   # (final pass) the hand at the eye (at y 0.6 it reached for a point over the head and hung at her side)
+WAIL11 = lambda i: {**HANKY, 'bend': {'neck': [-0.62 if i % 2 else -0.42, 0, 0, 1, None]}, 'sq': [1.04, 0.95, 1.04] if i % 2 else [0.98, 1.04, 0.98], 'face': {'lid': 0.85, 'mouth': 'cry', 'brow': 1.0}}   # the head thrown back on each sob
 st.shot('S11', 'parisStreet', setOpts=STREET, actors=[*[act(n_, p_, -90, 'stand', 'sad', keys=[k(0.0, look=[4.4, 1.0, 0.3]), k(0.0, toon=WAIL11(0), toonDur=0.0),
             *[k(r(0.12 + 0.24 * i + 0.08 * j), toon=WAIL11(i + 1), toonDur=0.09) for i in range(int(D11 / 0.24))]]) for j, (n_, p_, _) in enumerate(NB11)]],
         props=[*[P(f'larmes11{j}', 'tearFountain', on={'actor': n_, 'joint': 'head'}, opts={'at': r(0.05 + 0.08 * j), 'r': 0.1, 'speed': 2.5, 'rate': 8, 'life': 0.75, 'dx': 0.1}) for j, (n_, p_, _) in enumerate(NB11)],   # (final pass) jets three times thicker, arcing out across the windows
