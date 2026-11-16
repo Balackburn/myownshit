@@ -66,6 +66,8 @@ export const PARCMETRE_PROPS = {
   // pavement); o.rep (0.6 m): the length of one print; o.textH (0.42): the height of the print across the paper.
   // o.across: the print written across the paper, upright for someone the ticket runs toward (a low lens in its way); o.turn: the print turned
   // half a turn (it reads upright from the other side of the run).
+  // (final pass of 75) o.spurts [t...]: at each time the paper jumps o.spurtLen (0.4 m) further in o.spurtDur (0.08 s), on top of o.rate: a machine
+  // that spits it out in gulps. At a turn sharper than the paper is wide, the inner edge no longer folds back over itself (the black wedge of S22).
   ticketRibbon(o) {
     const w = o.w ?? 0.09, drop = o.drop ?? 0.64, g = grp(), R = Math.min(0.2, drop * 0.4), yg = -drop + 0.006;
     const raw = [new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0.05)];
@@ -80,10 +82,13 @@ export const PARCMETRE_PROPS = {
     for (let i = 1; i < raw.length; i++) { const A = raw[i - 1], B = raw[i], L = A.distanceTo(B); if (L < 1e-4) continue;
       const n = Math.max(1, Math.ceil(L / step)); for (let j = 1; j <= n; j++) { P.push(A.clone().lerp(B, j / n)); S.push(S[S.length - 1] + L / n); } }
     const N = P.length, Ltot = S[N - 1], pos = new Float32Array(N * 6), uv = new Float32Array(N * 4), idx = [];
-    let prev = new THREE.Vector3(1, 0, 0);
+    let prev = new THREE.Vector3(1, 0, 0), lastA = null, lastB = null;
     for (let i = 0; i < N; i++) { const tg = P[Math.min(N - 1, i + 1)].clone().sub(P[Math.max(0, i - 1)]).normalize(), sd = new THREE.Vector3(tg.z, 0, -tg.x);
       if (sd.length() < 0.3) sd.copy(prev); else { sd.normalize(); if (sd.dot(prev) < 0) sd.negate(); } prev = sd;
-      const a = P[i].clone().addScaledVector(sd, -w / 2), b = P[i].clone().addScaledVector(sd, w / 2);
+      let a = P[i].clone().addScaledVector(sd, -w / 2), b = P[i].clone().addScaledVector(sd, w / 2);
+      if (lastA && a.clone().sub(lastA).dot(tg) < 0) a = lastA.clone();   // the inner edge of a sharp turn waits where it is instead of going back
+      if (lastB && b.clone().sub(lastB).dot(tg) < 0) b = lastB.clone();
+      lastA = a; lastB = b;
       pos.set([a.x, a.y, a.z, b.x, b.y, b.z], i * 6); uv.set([-S[i] / rp, 0, -S[i] / rp, 1], i * 4);
       if (i < N - 1) idx.push(i * 2, i * 2 + 1, i * 2 + 2, i * 2 + 1, i * 2 + 3, i * 2 + 2); }
     const base = pos.slice(), geo = new THREE.BufferGeometry();
@@ -97,7 +102,9 @@ export const PARCMETRE_PROPS = {
       if (!o.across) { c.fillStyle = 'rgba(40,60,110,0.35)'; for (let k = 0; k < 6; k++) c.fillRect(W * (0.55 + k * 0.06), H * 0.3, W * 0.03, H * 0.4); } }, { res: 256 }).material.map;
     tex.wrapS = THREE.RepeatWrapping;
     const strip = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: tex, side: THREE.DoubleSide })); strip.castShadow = strip.receiveShadow = true; g.add(strip);
-    const len = t => { const u = t - (o.from ?? 0), A = o.accel ?? 0.3, r = o.rate ?? 1.6; const d = u <= 0 ? 0 : u < A ? r * u * u / (2 * A) : r * (u - A / 2); return Math.min(Ltot, (o.len0 ?? 0) + d); };
+    const len = t => { const u = t - (o.from ?? 0), A = o.accel ?? 0.3, r = o.rate ?? 1.6; let d = u <= 0 ? 0 : u < A ? r * u * u / (2 * A) : r * (u - A / 2);
+      for (const s0 of (o.spurts || [])) { const v = clamp01((t - s0) / (o.spurtDur ?? 0.08)); d += (o.spurtLen ?? 0.4) * (1 - (1 - v) * (1 - v)); }
+      return Math.min(Ltot, (o.len0 ?? 0) + d); };
     let lifted = []; const wv = o.wave ?? 0, air = []; for (let i = 0; i < N; i++) if (base[i * 6 + 1] > yg + 0.02 && S[i] > 0.1) air.push(i);
     g.userData.update = t => { const L = len(t); for (const i of lifted) for (const e of [0, 3]) pos[i * 6 + e + 1] = base[i * 6 + e + 1]; lifted = [];
       let n = 0; while (n < N - 1 && S[n + 1] <= L) n++;
@@ -114,6 +121,7 @@ export const PARCMETRE_PROPS = {
   // a fishbone TV aerial (o.aerial), a BIENVENUE doormat under the driver's door (o.mat), two wipers at the foot of the windscreen; o.letterAt: an envelope
   // slides in under the driver's-side wiper at that time and flutters there (o.letter: already there).
   // (pass 3 of 75) o.matAt [x, z]: where the mat lies (car-local); o.matRot (rad): the mat turned about the vertical (PI: its word reads from the other side).
+  // (final pass of 75) o.smokeBig: the puffs white, twice the size, rising higher, each with a dark ink rim (grey puffs vanished against the sky).
   carHome(o) {
     const g = grp(), on = k => o[k] !== false;
     if (on('curtains')) { const cur = (flip) => canvasPlane(0.42, 0.98, (c, W, H) => { c.clearRect(0, 0, W, H); c.save(); if (flip) { c.translate(W, 0); c.scale(-1, 1); }
@@ -126,7 +134,9 @@ export const PARCMETRE_PROPS = {
         val.position.set(-0.96, 1.92, sz * 0.825); if (sz < 0) val.rotation.y = PI; g.add(val); } }
     let puffs = [];
     if (on('smoke')) { g.add(at(cyl(0.065, 0.065, 0.5, '#4A4E55', 10, { pivot: 'bottom', outline: 0.005 }), -1.15, 2.05, 0.42), at(cyl(0.11, 0.11, 0.04, '#33363B', 10), -1.15, 2.57, 0.42));
-      puffs = [0, 1, 2, 3].map(i => { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), new THREE.MeshLambertMaterial({ color: '#D9DCDF', transparent: true, depthWrite: false })); g.add(m); return m; }); }
+      puffs = [0, 1, 2, 3].map(i => { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), new THREE.MeshLambertMaterial({ color: o.smokeBig ? '#F7F8FA' : '#D9DCDF', transparent: true, depthWrite: !!o.smokeBig })); g.add(m);
+        if (o.smokeBig) { const ol = new THREE.Mesh(m.geometry, new THREE.MeshBasicMaterial({ color: '#2A2C31', side: THREE.BackSide, transparent: true, depthWrite: false })); ol.scale.setScalar(1.1); ol.renderOrder = 1; m.add(ol); m.userData.ol = ol; }
+        return m; }); }
     if (on('plant')) { g.add(at(cyl(0.11, 0.085, 0.16, '#C2653A', 10, { pivot: 'bottom', outline: 0.005 }), 0.5, 2.055, -0.32));
       [[0, 0.24, 0, 0.1], [0.08, 0.2, 0.05, 0.08], [-0.08, 0.21, -0.04, 0.08], [0.03, 0.19, -0.09, 0.07]].forEach(([x, y, z, r]) => g.add(at(sphere(r, '#3E8E4A', 1), 0.5 + x, 2.055 + y, -0.32 + z)));
       [[0.02, 0.33, 0.02], [0.1, 0.28, 0.06], [-0.08, 0.3, -0.05], [0.05, 0.29, -0.1], [-0.04, 0.34, 0.08]].forEach(([x, y, z]) => g.add(at(sphere(0.045, '#E0303A', 1), 0.5 + x, 2.055 + y, -0.32 + z))); }
@@ -142,7 +152,9 @@ export const PARCMETRE_PROPS = {
         c.fillStyle = '#C8322A'; c.fillRect(W * 0.78, H * 0.12, W * 0.14, H * 0.26); c.fillStyle = '#4A4A4A'; c.fillRect(W * 0.12, H * 0.62, W * 0.4, H * 0.06); c.fillRect(W * 0.12, H * 0.74, W * 0.3, H * 0.06); }, { res: 256 });
       env.rotation.y = PI / 2; wip.add(env); }
     g.userData.update = t => {
-      puffs.forEach((m, i) => { const u = ((t * 0.55 + i / 4) % 1 + 1) % 1, s = 0.07 + 0.2 * u; m.position.set(-1.15 - 0.35 * u * u, 2.65 + 0.95 * u, 0.42 + 0.05 * Math.sin(t * 2 + i)); m.scale.setScalar(s); m.material.opacity = 0.85 * (1 - u) * Math.min(1, u * 8); });
+      const big = o.smokeBig ? 1.9 : 1;
+      puffs.forEach((m, i) => { const u = ((t * 0.55 + i / 4) % 1 + 1) % 1, s = (0.07 + 0.2 * u) * big; m.position.set(-1.15 - 0.35 * big * u * u, 2.65 + 0.95 * big * u, 0.42 + 0.05 * Math.sin(t * 2 + i)); m.scale.setScalar(s); m.material.opacity = (o.smokeBig ? 0.97 : 0.85) * (1 - u) * Math.min(1, u * 8);
+        if (m.userData.ol) m.userData.ol.material.opacity = 0.9 * m.material.opacity; });
       if (env) { const a = o.letter ? 1 : clamp01((t - o.letterAt) / 0.3); env.visible = a > 0; env.position.set(0.03, 0.1 + 0.25 * (1 - a) * (1 - a), -0.38); env.rotation.x = a >= 1 ? 0.06 * Math.sin(t * 9) : 0; } };
     g.userData.update(-1); return g;
   },
@@ -162,12 +174,12 @@ export const PARCMETRE_PROPS = {
     for (const z of [-0.45, 0.45]) body.add(at(box(0.45, 0.12, 0.46, '#3A3D44'), 1.15, 0.95, z), at(box(0.1, 0.62, 0.46, '#3A3D44'), 0.92, 1.3, z, 0, 0, 0.12));   // seats
     body.add(at(box(0.3, 0.26, 1.8, '#2A2A2E'), 1.88, 1.28, 0), at(new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.025, 6, 16), new THREE.MeshLambertMaterial({ color: '#1A1B1E' })), 1.62, 1.5, -0.45, 0, PI / 2, 0.35));
     body.add(at(box(0.06, 0.32, 1.5, '#23262B', { outline: 0.005 }), 2.3, 0.78, 0), at(box(0.12, 0.2, 2.06, '#1C1E22', { outline: 0.006 }), 2.33, 0.5, 0));   // grille, bumper
-    for (const z of [-0.78, 0.78]) body.add(at(box(0.04, 0.14, 0.3, '#FFF3C2', { emissive: '#FFE38A', noGrain: true }), 2.31, 1.02, z));
+    for (const z of [-0.78, 0.78]) body.add(at(box(0.03, 0.17, 0.33, '#2A2C31'), 2.315, 1.02, z), at(box(0.03, 0.12, 0.27, '#FFF3C2', { emissive: '#FFE38A', noGrain: true }), 2.335, 1.02, z));   // (final pass of 75) in a dark bezel, proud of the grille (they shared its front plane with the hazard lamps and flickered)
     for (const s of [1, -1]) { const t = label(o.text || 'LIVRAISON', 2.6, 0.5, { bg: '#F4F4F0', fg: '#2F62B5', wrap: false }); t.position.set(-0.9, 1.75, s * 1.004); if (s < 0) t.rotation.y = PI; body.add(t);
       body.add(at(box(2.8, 0.1, 0.01, '#2F62B5'), -0.9, 1.35, s * 1.004)); }
     for (const x of [-1.9, 1.55]) for (const z of [-0.9, 0.9]) { const wh = cyl(0.4, 0.4, 0.26, '#22252A', 14); wh.rotation.x = PI / 2; wh.position.set(x, 0.4, z); g.add(wh);
       const hub = cyl(0.17, 0.17, 0.02, '#B9BEC4', 8); hub.rotation.x = PI / 2; hub.position.set(x, 0.4, z * 1.16); g.add(hub); }
-    const hz = [[2.31, 0.92, -0.85], [2.31, 0.92, 0.85], [-2.61, 0.95, -0.82], [-2.61, 0.95, 0.82]].map(([x, y, z]) => { const off = at(lamp(0.04, 0.12, 0.2, false), x, y, z), lit = at(lamp(0.05, 0.14, 0.22, true), x, y, z); lit.visible = false; body.add(off, lit); return lit; });
+    const hz = [[2.325, 0.78, -0.86], [2.325, 0.78, 0.86], [-2.61, 0.95, -0.82], [-2.61, 0.95, 0.82]].map(([x, y, z]) => { const off = at(lamp(0.04, 0.12, 0.2, false), x, y, z), lit = at(lamp(0.05, 0.14, 0.22, true), x, y, z); lit.visible = false; body.add(off, lit); return lit; });
     g.userData.update = t => { const blink = o.hazardFrom != null && t >= o.hazardFrom && ((t - o.hazardFrom) * (o.hazardRate ?? 1.6)) % 1 < 0.5; hz.forEach(l => { l.visible = blink; });
       const u = o.brakeAt == null ? -1 : t - o.brakeAt, a = u >= 0 && u < 1.2 ? Math.exp(-4.5 * u) * Math.sin(u * 13) : 0;
       const ba = o.brakeAmp ?? 1; body.rotation.z = -0.07 * ba * a; body.position.y = -0.04 * ba * Math.abs(a); body.scale.set(1 + 0.05 * ba * Math.max(0, a), 1 - 0.04 * ba * Math.max(0, a), 1); };
@@ -176,12 +188,13 @@ export const PARCMETRE_PROPS = {
 
   // A washing line (pivot at its first end): a sagging cord to o.to [x, y, z] (o.sag 0.18) with o.n (4) things pegged on it, swaying: a shirt, socks,
   // trousers, a vest, in o.colors.
+  // (final pass of 75) o.u0 / o.u1: the washing hangs only between these fractions of the cord (none over a car roof it crosses).
   clothesline(o) {
     const to = new THREE.Vector3(...(o.to || [2, 0, 0])), n = o.n ?? 4, sag = o.sag ?? 0.18, g = grp(), cols = o.colors || ['#5B8BD9', '#E25C7A', '#3A4A6A', '#F2C94E', '#FFFFFF'];
     const P = u => new THREE.Vector3(to.x * u, to.y * u - 4 * sag * u * (1 - u), to.z * u);
     for (let i = 0; i < 12; i++) g.add(rod(P(i / 12).toArray(), P((i + 1) / 12).toArray(), 0.006, '#E8E4D8'));
     const ry = Math.atan2(-to.z, to.x), items = [];
-    for (let i = 0; i < n; i++) { const u = (i + 1) / (n + 1), it = grp(), c = cols[i % cols.length], kind = i % 4;
+    for (let i = 0; i < n; i++) { const u = o.u0 != null ? o.u0 + ((o.u1 ?? 0.9) - o.u0) * i / Math.max(1, n - 1) : (i + 1) / (n + 1), it = grp(), c = cols[i % cols.length], kind = i % 4;
       if (kind === 0) it.add(at(box(0.3, 0.32, 0.012, c, { outline: 0.004 }), 0, -0.18, 0), at(box(0.12, 0.1, 0.012, c), -0.2, -0.07, 0, 0, 0, 0.5), at(box(0.12, 0.1, 0.012, c), 0.2, -0.07, 0, 0, 0, -0.5));
       else if (kind === 1) for (const dx of [-0.07, 0.07]) it.add(at(box(0.07, 0.2, 0.012, c, { outline: 0.003 }), dx, -0.11, 0), at(box(0.1, 0.06, 0.012, c), dx + 0.02, -0.2, 0));
       else if (kind === 2) it.add(at(box(0.28, 0.1, 0.012, c, { outline: 0.004 }), 0, -0.06, 0), at(box(0.12, 0.42, 0.012, c), -0.075, -0.32, 0), at(box(0.12, 0.42, 0.012, c), 0.075, -0.32, 0));
@@ -207,6 +220,7 @@ export const PARCMETRE_PROPS = {
   // A giant roll of ticket paper (pivot at its lowest point, its axis along X): radius o.r (0.5), o.w (0.12) wide, the sides drawn as a tight spiral,
   // the rim white with blue print; o.tail (0.5): the loose end hanging from the front and lying on the floor ahead of it.
   // (pass 3 of 75) o.text: printed big across both sides and as blue marks round the rim (an unprinted roll read as a white wheel).
+  // (final pass of 75) o.tailText: the loose end (o.tail on the floor and the part hanging down the front) printed with it along its length.
   paperRoll(o) {
     const r = o.r ?? 0.5, w = o.w ?? 0.12, g = grp();
     const side = canvasPlane(2 * r, 2 * r, (c, W, H) => { c.clearRect(0, 0, W, H); c.fillStyle = '#FBFBF6'; c.beginPath(); c.arc(W / 2, H / 2, W / 2, 0, TAU); c.fill(); c.strokeStyle = 'rgba(150,150,140,0.55)'; c.lineWidth = W * 0.004;
@@ -215,7 +229,13 @@ export const PARCMETRE_PROPS = {
     for (const s of [-1, 1]) { const m = side.clone(); m.position.set(s * (w / 2 + 0.002), r, 0); m.rotation.y = s * PI / 2; g.add(m); }
     const rim = cyl(r, r, w, '#F4F4EE', 28, { outline: 0.006 }); rim.rotation.z = PI / 2; rim.position.set(0, r, 0); g.add(rim);
     if (o.text) for (let k = 0; k < 22; k++) { const a = k / 22 * TAU; g.add(at(box(w * 0.62, 0.012, 0.05, o.textColor || '#2A4FA0'), 0, r + (r + 0.004) * Math.cos(a), (r + 0.004) * Math.sin(a), a, 0, 0)); }
-    const tail = o.tail ?? 0.5; if (tail > 0) g.add(at(box(w * 0.95, 0.004, tail, '#FBFBF6', { outline: 0.002 }), 0, 0.004, r * 0.75 + tail / 2), at(box(w * 0.95, r * 0.9, 0.004, '#FBFBF6'), 0, r * 0.45, r * 0.98));
+    const tail = o.tail ?? 0.5;
+    if (tail > 0 && o.tailText) { const tt = o.tailText, strip = L => canvasPlane(w * 0.95, L, (c, W, H) => { c.fillStyle = '#FBFBF6'; c.fillRect(0, 0, W, H); c.fillStyle = o.textColor || '#2A4FA0';
+        c.fillRect(0, 0, W * 0.06, H); c.fillRect(W * 0.94, 0, W * 0.06, H); c.save(); c.translate(W / 2, H / 2); c.rotate(PI / 2); c.textAlign = 'center'; c.textBaseline = 'middle';
+        c.font = `900 ${Math.min(W * 0.7, H * 0.86 / (0.64 * tt.length))}px Arial`; c.fillText(tt, 0, 0); c.restore(); }, { res: 256 });
+      const hang = strip(r * 0.9); hang.position.set(0, r * 0.45, r * 0.99); g.add(hang);
+      const fl = strip(tail); fl.rotation.x = -PI / 2; fl.position.set(0, 0.005, r * 0.99 + tail / 2); g.add(fl); }
+    else if (tail > 0) g.add(at(box(w * 0.95, 0.004, tail, '#FBFBF6', { outline: 0.002 }), 0, 0.004, r * 0.75 + tail / 2), at(box(w * 0.95, r * 0.9, 0.004, '#FBFBF6'), 0, r * 0.45, r * 0.98));
     return g;
   },
 
@@ -261,6 +281,25 @@ export const PARCMETRE_PROPS = {
       for (const { hg, s } of halves) { const a = u < 0 ? 0 : Math.min(1.35, u * 9) - 0.18 * Math.sin(Math.max(0, u - 0.15) * 11) * Math.exp(-Math.max(0, u - 0.15) * 3); hg.rotation.z = s * a; }
       ros.position.y = Math.max(0.1, h - 4.9 * f * f); ros.rotation.z = u > 0 ? 7 * Math.min(f, 0.42) : 0.06 * Math.sin(t * 5); };
     g.userData.update(0); return g;
+  },
+
+  // (final pass of 75) A pane of glass (front +Z, origin at its centre): o.w (1.4) x o.h (1.0), tinted o.color (pale blue) at o.opacity (0.18), with two
+  // white reflections on the slant (o.streaks [[x fraction, width fraction]...]); o.smear {x, w, top, keys [[t, bottom]...]}: the greasy trail a face
+  // leaves sliding down it, a pale streaky band o.smear.w wide from o.smear.top down to the height keyed at t (pane-local metres), none before the
+  // first key.
+  glassPane(o) {
+    const w = o.w ?? 1.4, h = o.h ?? 1.0, g = grp();
+    g.add(new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshLambertMaterial({ color: o.color || '#D8EEF8', transparent: true, opacity: o.opacity ?? 0.18, depthWrite: false, side: THREE.DoubleSide })));
+    for (const [x, sw] of (o.streaks || [[0.3, 0.07], [0.4, 0.025]])) { const L = h * 0.85, s = new THREE.Mesh(new THREE.PlaneGeometry(sw * w, L), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.3, depthWrite: false, side: THREE.DoubleSide }));
+      s.position.set(x * w, 0, 0.002); s.rotation.z = -0.5; g.add(s); }
+    const S = o.smear; let sm = null;
+    if (S) { sm = canvasPlane(S.w ?? 0.4, 1, (c, W, H) => { c.clearRect(0, 0, W, H); c.fillStyle = 'rgba(255,255,255,0.16)'; c.fillRect(W * 0.04, 0, W * 0.92, H);
+        for (let i = 0; i < 24; i++) { const x = W * (0.05 + 0.86 * ((i * 0.618) % 1)), lw = W * (0.012 + 0.03 * ((i * 0.37) % 1)), gr = c.createLinearGradient(0, 0, 0, H);
+          gr.addColorStop(0, 'rgba(255,255,255,0.6)'); gr.addColorStop(1, 'rgba(255,255,255,0.2)'); c.fillStyle = gr; c.fillRect(x, 0, lw, H); } }, { res: 256, transparent: true });
+      sm.material.depthWrite = false; sm.position.set(S.x ?? 0, 0, 0.004); g.add(sm); }
+    g.userData.update = t => { if (!sm) return; const ks = S.keys || [], top = S.top ?? 0, L = top - lin(ks, t, top); sm.visible = ks.length > 0 && t >= ks[0][0] && L > 0.01;
+      sm.scale.y = Math.max(0.01, L); sm.position.y = top - Math.max(0.01, L) / 2; };
+    g.userData.update(-1); return g;
   },
 
   // (pass 3 of 75) Giant ceremonial scissors that read against a red car and a grey road (pivot at their screw, the blades along +X): white blades
