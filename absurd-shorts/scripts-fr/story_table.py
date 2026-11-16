@@ -234,7 +234,7 @@ st.cue('sfx:rattleShort', 'S05', 0.0, 0.25); st.cue('sfx:punch', 'S05', BANG5, 0
 D6 = st.dur('S06')
 AIM6 = [(-0.85, -0.8, 32), (-0.25, -1.05, 6), (0.18, -1.2, -10)]
 SPOT6 = [[-0.22, 0.43, -0.02], [0.0, 0.43, 0.06], [0.2, 0.43, -0.02]]   # where each beam lands on the tabletop
-PEER6 = [1.02, 0, 0.22]
+PEER6 = [1.15, 0, 0.22]   # (review 3) far enough right that his leaning head clears the third man's
 CR6 = {'spine': [0.3, 0, 0, 1, None], 'legL': [-0.6, 0, 0, 1, None], 'shinL': [1.05, 0, 0, 1, None], 'legR': [-0.6, 0, 0, 1, None], 'shinR': [1.05, 0, 0, 1, None]}
 def lamp6(j):
     x_, z_, a_ = AIM6[j]; g_ = loc([x_, 0, z_], a_, [-0.05, 1.15, 0.45]); Z = unit3([SPOT6[j][i] - g_[i] for i in range(3)])
