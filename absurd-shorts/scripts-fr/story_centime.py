@@ -80,25 +80,25 @@ st.cue('thud', 'S02', BANG2, 0.35)
 #    the frame; the rubber stamp hovers over the envelope's corner, rises toward the lens, slams (the desk shakes, the cheque flips): a postage stamp
 #    3,00 € beside the cheque's 0,01 €; then head and shoulders on the official, sweating, his eyes darting
 D3 = st.dur('S03'); SLAP3 = 0.6
-ENV3 = [-4.6, 0.772, -1.62]; CHQ3 = [-4.6, 0.772, -1.26]; STP3 = [-4.455, 0.79, -1.665]
+ENV3 = [-4.6, 0.772, -1.6]; CHQ3 = [-4.6, 0.772, -1.32]; STP3 = [-4.47, 0.79, -1.645]   # (stills 1) the cheque above the caption band
 SW3 = {'lid': 0.2, 'mouth': 'zigzag', 'sweat': 1.0, 'brow': 0.6}
 st.shot('S03', 'office', fx=[{'type': 'shake', 'at': SLAP3, 'dur': 0.3, 'amount': 0.012}], actors=[act('agent2', [-4.6, 0, -2.15], 0, 'sit', 'neutral', keys=[k(0.0, look=[-4.5, 0.77, -1.6]),
             k(0.0, toon={'reach': {'R': [STP3[0], 1.02, STP3[2], 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.3}}, toonDur=0.0),
-            k(0.28, toon={'reach': {'R': [STP3[0], 1.34, r(STP3[2] - 0.03), 1, 0.03]}, 'hands': {'R': 'grip'}, 'sq': [0.97, 1.05, 0.97], 'face': {'lid': 0.2, 'brow': -0.6}}, toonDur=0.26, toonEase='out'),   # the wind-up, toward the lens
+            k(0.28, toon={'reach': {'R': [-4.5, 1.2, -1.6, 1, 0.03]}, 'hands': {'R': 'grip'}, 'sq': [0.97, 1.05, 0.97], 'face': {'lid': 0.2, 'brow': -0.6}}, toonDur=0.26, toonEase='out'),   # the wind-up, toward the lens (stills 1: lower and nearer the middle, it left the frame by the corner)
             k(SLAP3, toon={'reach': {'R': [STP3[0], 0.9, STP3[2], 1, 0.03]}, 'hands': {'R': 'grip'}, 'sq': [1.05, 0.94, 1.05], 'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'O', 'brow': 0.8}}, toonDur=0.05, toonEase='in'),   # thump
             k(r(SLAP3 + 0.16), toon={'reach': {'R': [-4.28, 1.12, -2.0, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': SW3}, toonDur=0.14, toonEase='out'),   # the hand lifts away: the stamp shows
             k(r(SLAP3 + 0.4), look='camera'), *BLINK(1.3, SW3), k(1.5, look=[-6.2, 1.7, 0.5], lookDur=0.08), k(1.72, look=[-3.0, 1.7, 0.5], lookDur=0.08), k(1.95, look='camera', lookDur=0.08),   # his eyes dart: left, right, us
             k(2.08, toon={'reach': {'R': [-4.28, 1.12, -2.0, 1, 0.03]}, 'hands': {'R': 'grip'}, 'sq': [1.04, 0.94, 1.04], 'face': {**SW3, 'mouth': 'clench'}}, toonDur=0.08),   # a gulp
             k(2.22, toon={'reach': {'R': [-4.28, 1.12, -2.0, 1, 0.03]}, 'hands': {'R': 'grip'}, 'sq': [1.0, 1.0, 1.0], 'face': SW3}, toonDur=0.1), *BLINK(2.36, SW3)])],
         props=[P('pc3', 'laptop', pos=[-5.05, 0.76, -1.75], ry=200),
-               P('sous3', 'slab', pos=[-4.6, 0.764, -1.44], opts={'w': 0.5, 'h': 0.008, 'd': 0.8, 'color': '#2F5D50', 'outline': 0.004}, keys=[k(1.02, visible=False)]),   # a desk pad: one calm ground under the two papers
+               P('sous3', 'slab', pos=[-4.6, 0.764, -1.42], opts={'w': 0.5, 'h': 0.008, 'd': 0.86, 'color': '#2F5D50', 'outline': 0.004}, keys=[k(1.02, visible=False)]),   # a desk pad: one calm ground under the two papers
                P('env3', 'slab', pos=ENV3, opts={'w': 0.4, 'h': 0.006, 'd': 0.25, 'color': '#FDFBF3', 'outline': 0.004}, keys=[k(SLAP3, squash=[1.06, 0.6, 1.06], dur=0.3)]),
-               *[P(f'adr3{j}', 'slab', pos=[-4.68, 0.777, r(-1.62 + 0.045 * j)], opts={'w': 0.17 - 0.03 * j, 'h': 0.003, 'd': 0.012, 'color': '#8A8F98'}) for j in range(3)],
-               P('timbre3', 'postStamp', pos=STP3, rot=[-PI / 2, 0, -0.08], opts={'w': 0.155, 'h': 0.19, 'text': '3,00 €', 'at': SLAP3}),
+               *[P(f'adr3{j}', 'slab', pos=[-4.68, 0.777, r(ENV3[2] + 0.045 * j)], opts={'w': 0.17 - 0.03 * j, 'h': 0.003, 'd': 0.012, 'color': '#8A8F98'}) for j in range(3)],
+               P('timbre3', 'postStamp', pos=STP3, rot=[-PI / 2, 0, -0.08], opts={'w': 0.145, 'h': 0.18, 'text': '3,00 €', 'at': SLAP3}),
                P('chq3', 'taxCheque', pos=CHQ3, rot=[-PI / 2, 0, 0.06], opts={'w': 0.4, 'h': 0.185, 'amount': '0,01 €'},
                  keys=[k(SLAP3, to=[CHQ3[0], 0.96, CHQ3[2]], dur=0.12, ease='out'), k(SLAP3, rotTo=[r(-PI / 2 - 2 * PI, 4), 0.0, 0.06], dur=0.3, ease='inOut'), k(r(SLAP3 + 0.12), to=CHQ3, dur=0.18, ease='in')]),   # it hops and turns right over at the thump
                P('tampon3', 'rubberStamp', on={'actor': 'agent2', 'hand': 'R', 'offset': [0.0, -0.08, 0.03]}, scale=2.2)],
-        cams=[cam(0.0, [-4.6, 3.05, -1.36], [-4.6, 2.95, -1.36], [-4.6, 0.77, -1.44], lens=20),   # straight down: 0.45 m wide, the desk pad edge to edge
+        cams=[cam(0.0, [-4.6, 3.05, -1.325], [-4.6, 2.95, -1.325], [-4.6, 0.77, -1.405], lens=20),   # straight down: 0.45 m wide, the desk pad edge to edge
               FC(1.05, [-4.2, 1.8, -0.45], [[-4.6, 2.15, -2.15], [-4.6, 1.25, -2.15], [-4.97, 1.7, -2.15], [-4.23, 1.7, -2.15]], top=0.14, bottom=0.72, inside=(-6.8, 6.8, 0.5, 3.0, -3.3, 9.0))])   # then head and shoulders, sweating, at us
 st.cue('thud', 'S03', SLAP3, 0.4); st.cue('sfx:gasp', 'S03', r(SLAP3 + 0.4), 0.2)
 
@@ -108,17 +108,17 @@ st.cue('thud', 'S03', SLAP3, 0.4); st.cue('sfx:gasp', 'S03', r(SLAP3 + 0.4), 0.2
 D4 = st.dur('S04'); STOP4 = 0.55; DOOR4 = 0.6; OUT4 = 0.78
 CAR4 = [3.9, 0, -2.84]; GAP4 = [4.78, 0, -1.9]; MIN4 = [5.55, 0, -0.75]; ME4 = [6.9, 0, 0.3]
 TUG4 = lambda y, sq, f: {'touch': {'R': ['torso', 0.11, y, 0.2, 1, 0.02], 'L': ['torso', -0.11, y, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': sq, 'face': f}
-st.shot('S04', 'parisStreet', setOpts=STREET, fx=[{'type': 'shake', 'at': STOP4, 'dur': 0.25, 'amount': 0.02}], actors=[
-        act('ministre', GAP4, 50, 'stand', 'neutral', keys=[k(0.0, look=[ME4[0], 2.0, ME4[2]]), k(0.0, visible=False), k(r(OUT4 - 0.02), visible=True), k(0.0, toon={'sq': [0.42, 1.5, 0.42]}, toonDur=0.0),   # squeezed thin in the doorway...
+st.shot('S04', 'parisStreet', setOpts={**STREET, 'clear': [-9.0, 6.0]}, fx=[{'type': 'shake', 'at': STOP4, 'dur': 0.25, 'amount': 0.02}], actors=[
+        act('ministre', GAP4, 50, 'stand', 'neutral', keys=[k(0.0, look=[ME4[0], 2.0, ME4[2]]), k(0.0, visible=False), k(r(OUT4 - 0.02), visible=True), k(0.0, toon={'sq': [0.6, 1.2, 0.6]}, toonDur=0.0),   # squeezed thin in the doorway (stills 1: at 1.5 his head left the frame)...
             k(OUT4, to=MIN4, dur=0.3, clip='walk', then='stand', ease='out', face='keep'),
             k(r(OUT4 + 0.28), toon={'sq': [1.24, 0.78, 1.24]}, toonDur=0.06, toonEase='out'), k(r(OUT4 + 0.42), toon={'sq': [0.95, 1.06, 0.95]}, toonDur=0.1), k(r(OUT4 + 0.54), toon={'sq': [1.0, 1.0, 1.0]}, toonDur=0.08),   # ...he lands in a squash, re-inflates
             k(r(OUT4 + 0.62), toon=TUG4(0.42, [0.98, 1.05, 0.98], {'lid': 0.3, 'brow': -0.4, 'mouth': 'line'}), toonDur=0.14, toonEase='out'),   # both hands to his lapels, a breath in...
             k(r(OUT4 + 0.84), toon=TUG4(0.2, [1.06, 0.93, 1.06], {'lid': 0.2, 'brow': 0.5, 'mouth': 'line'}), toonDur=0.05, toonEase='in'),      # ...the snap
             k(r(OUT4 + 0.98), toon=TUG4(0.24, [1.0, 1.0, 1.0], {'lid': 0.25, 'mouth': 'line'}), toonDur=0.1), k(r(OUT4 + 1.2), toon={'face': {'lid': 0.2, 'mouth': 'open', 'brow': 0.5}}, toonDur=0.15)]),
         act('mec', ME4, -95, 'stand', 'neutral', keys=[k(0.0, look=[3.9, 1.2, 2.5]), k(0.0, toon=LIP, toonDur=0.0), k(0.3, look=[GAP4[0], 1.5, GAP4[2]], lookDur=0.2), k(r(OUT4 + 0.3), look=[MIN4[0], 2.2, MIN4[2]], lookDur=0.1), *BLINK(1.3, {'mouth': 'line'}),
-            k(r(D4 - 0.42), look='camera', lookDur=0.16), *BLINK(r(D4 - 0.2), {'mouth': 'line'})])],   # his back to us, his head following the car, the minister; then a look at us
+            k(r(D4 - 0.55), face=[6.95, 0, 2.9], turn=0.24), k(r(D4 - 0.5), look='camera', lookDur=0.16), *BLINK(r(D4 - 0.18), {'mouth': 'line'})])],   # his back to us, his head following the car, the minister; then he turns round to us
         props=[P('auto4', 'ministerCar', pos=[3.9, 0, 6.6], ry=90, opts={'doorSide': 1, 'hingeFront': True, 'doorAt': DOOR4}, keys=[k(0.0, to=CAR4, dur=STOP4, ease='out'), k(STOP4, squash=[1.05, 0.8, 1.05], dur=0.5)]), COCK('ck4', 'ministre')],
-        cams=[FC(0.0, [6.95, 1.55, 2.9], [[ME4[0], 2.5, ME4[2]], [ME4[0], 1.0, ME4[2]], [r(ME4[0] + 0.3), 1.8, ME4[2]], [MIN4[0], 2.5, MIN4[2]], [MIN4[0], 0.3, MIN4[2]], [4.83, 2.05, -1.9], [4.68, 1.5, -4.59]], top=0.12, bottom=0.8, lenses=range(26, 72))])
+        cams=[FC(0.0, [6.95, 1.55, 2.9], [[ME4[0], 2.5, ME4[2]], [ME4[0], 1.0, ME4[2]], [r(ME4[0] + 0.3), 1.8, ME4[2]], [MIN4[0], 2.5, MIN4[2]], [MIN4[0], 0.3, MIN4[2]], [5.05, 1.5, -0.6], [4.83, 2.05, -1.9], [4.68, 1.5, -4.59]], top=0.12, bottom=0.8, lenses=range(26, 72))])
 st.cue('sfx:brake', 'S04', r(STOP4 - 0.1), 0.25); st.cue('sfx:carDoor', 'S04', r(DOOR4), 0.25); st.cue('whoosh', 'S04', OUT4, 0.2)
 
 # 5: with the republican guard. A line of guards along the kerb; (pass 3) gold helmets with a tall red plume and a black tail, red epaulettes, white
@@ -152,10 +152,10 @@ CARS6 = [[-1.0, 0, 5.4], [1.3, 0, 5.9], [-1.0, 0, 9.3], [1.3, 0, 9.8], [-1.0, 0,
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[act('flic', FL6, 180, 'stand', 'neutral', keys=[k(0.0, look='camera'), WH6(0.0, False, 0.0), WH6(0.1, True, -0.12), WH6(0.3, True, 0.12), WH6(0.5, False, -0.12), WH6(0.7, False, 0.12),
             k(0.62, look=[CARS6[0][0], 1.2, CARS6[0][2]], lookDur=0.1), WH6(0.9, True, -0.12), WH6(1.1, True, 0.12), k(1.05, look='camera', lookDur=0.1), WH6(1.3, False, -0.12), WH6(1.48, False, 0.0)])],   # two blasts, a glance over his shoulder at the honk
         props=[*[P(f'barr6{j}', 'crowdBarrier', pos=[r(-3.0 + 2.0 * j), 0, 2.9], opts={'w': 1.9}) for j in range(4)],
-               P('ferme6', 'signBoard', pos=[-0.4, 0, 2.5], ry=180, opts={'text': 'RUE FERMÉE', 'bg': '#C8322A', 'fg': '#FFFFFF', 'w': 1.3, 'h': 0.42, 'height': 1.05, 'posts': True}),
-               *[P(f'voit6{j}', 'car', pos=CARS6[j], ry=90, opts={'color': ['#C8322A', '#2F62B5', '#E2B53C', '#4A8C5A', '#8A5AA8', '#D9734E'][j], 'glass': 0.8, 'glassColor': '#33404A'},
+               P('ferme6', 'signBoard', pos=[-0.78, 0, 2.5], ry=180, opts={'text': 'RUE FERMÉE', 'bg': '#C8322A', 'fg': '#FFFFFF', 'w': 1.15, 'h': 0.4, 'height': 1.05, 'posts': True}),
+               *[P(f'voit6{j}', 'car', pos=CARS6[j], ry=90, opts={'color': ['#E2B53C', '#4A8C5A', '#C8322A', '#2F62B5', '#8A5AA8', '#D9734E'][j], 'glass': 0.8, 'glassColor': '#33404A'},
                    keys=(HONK6(CARS6[0], 0.6) if j == 0 else HONK6(CARS6[1], 1.12) if j == 1 else [])) for j in range(6)]],   # (pass 3) the cars face us (ry 180 laid them across the street)
-        cams=[FC(0.0, [0.25, 0.95, -3.1], [[FL6[0], 2.5, FL6[2]], [FL6[0], 0.75, FL6[2]], [r(FL6[0] + 0.7), 2.4, FL6[2]], [-1.05, 1.5, 2.5]], top=0.12, bottom=0.78, lenses=range(26, 66))])   # a portrait frame is 2.5 m wide at him: the sign half behind him, the cars straight behind
+        cams=[FC(0.0, [0.25, 0.95, -3.1], [[FL6[0], 2.5, FL6[2]], [FL6[0], 0.75, FL6[2]], [r(FL6[0] + 0.7), 2.4, FL6[2]], [-1.42, 1.5, 2.5]], top=0.12, bottom=0.78, lenses=range(26, 68))])   # a portrait frame is 2.5 m wide at him: the sign half behind him, the cars straight behind
 st.cue('sfx:whistle', 'S06', 0.1, 0.25); st.cue('sfx:honkLong', 'S06', 0.6, 0.2); st.cue('sfx:whistle', 'S06', 0.9, 0.2); st.cue('sfx:honkLong', 'S06', 1.12, 0.18)
 
 # 7: a brass band played. Three bandsmen in red; (pass 3) a trumpet at the mouth, a sousaphone whose bell rises over the head, a drum on the belly
@@ -195,7 +195,7 @@ st.cue('engine', 'S08', 0.0, 0.3)
 # 9: the cent arrived on a velvet cushion. (pass 3) A macro first: the copper cent standing on the red velvet, 1 CENT on its face, a star flashing
 #    beside it; then the camera pulls back to the guard who carries it, gold helmet against the sky, and he walks it slowly toward us down the boulevard
 D9 = st.dur('S09'); G9 = [3.0, 0, -1.6]; WALK9 = 1.05
-CUSH9 = {'touch': {'R': ['torso', -0.12, 0.08, 0.32, 1, 0.02], 'L': ['torso', 0.12, 0.08, 0.32, 1, 0.02]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'lid': 0.35, 'mouth': 'line'}}
+CUSH9 = {'touch': {'R': ['torso', -0.12, 0.08, 0.32, 1, 0.02], 'L': ['torso', 0.12, 0.08, 0.32, 1, 0.02]}, 'hands': {'R': 'open', 'L': 'open'}, 'hip': 0.0, 'face': {'lid': 0.35, 'mouth': 'line'}}   # hip 0: no idle weight shift (it slid the pelvis, and the cushion, 17 cm out of the macro)
 st.shot('S09', 'parisStreet', setOpts=STREET, actors=[act('garde3', G9, 0, 'stand', 'determined', keys=[k(0.0, look='camera'), k(0.0, toon=CUSH9, toonDur=0.0),
             k(WALK9, to=[3.0, 0, -0.6], dur=r(D9 - WALK9), clip='walk', ease='linear'), k(WALK9, clip='walk', speed=0.55), k(1.7, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.07, keepPose=True), k(1.82, toon={'face': {'lid': 0.35, 'mouth': 'line'}}, toonDur=0.08, keepPose=True)])],
         props=[GUARD('casque9', 'garde3'), EPAU('epau9', 'garde3'), P('coussin9', 'velvetCushion', on={'actor': 'garde3', 'joint': 'torso', 'offset': [0.0, 0.12, 0.36]}, opts={'w': 0.36}),
@@ -244,18 +244,18 @@ st.cue('sfx:gasp', 'S11', 0.1, 0.15)
 # 12: television filmed it live. (pass 3) The reporter faces us, a microphone with a red ball at her chin, her free hand going; beside her a pale grey
 #     camera on its tripod, in profile, its lens on her and its red light blinking; EN DIRECT on a red board over it; behind the barriers, small, the
 #     man on his doorstep, facing the cameras, deadpan
-D12 = st.dur('S12'); REP12 = [4.09, 0, 1.52]; ME12 = [6.44, 0, -1.65]; NC12 = [4.227, 0, 2.285]; MIC12 = [3.798, 1.95, 1.577]
-TALK12 = lambda j: {'reach': {'R': [*MIC12, 1, 0.03], 'L': [r(3.985 + (0.1 if j % 2 else -0.06)), r(1.5 + (0.3 if j % 2 else 0.0)), r(1.931 + (0.05 if j % 2 else 0.0)), 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'open'},
+D12 = st.dur('S12'); REP12 = [3.98, 0, 1.35]; ME12 = [6.3, 0, -1.87]; NC12 = [4.28, 0, 2.37]; MIC12 = [3.688, 1.95, 1.407]
+TALK12 = lambda j: {'reach': {'R': [*MIC12, 1, 0.03], 'L': [r(3.875 + (0.1 if j % 2 else -0.06)), r(1.5 + (0.3 if j % 2 else 0.0)), r(1.761 + (0.05 if j % 2 else 0.0)), 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'open'},
                     'sq': [1.03, 0.97, 1.03] if j % 2 else [0.98, 1.03, 0.98], 'face': {'mouth': 'open' if j % 2 else 'O', 'lid': 0.1, 'brow': 0.8}}
 st.shot('S12', 'parisStreet', setOpts=STREET, actors=[
         act('reporter', REP12, -59, 'stand', 'happy', keys=[k(0.0, look='camera'), k(0.0, toon=TALK12(0), toonDur=0.0), *[k(r(0.1 + 0.22 * j), toon=TALK12(j + 1), toonDur=0.09, toonEase='out') for j in range(int(D12 / 0.22))],
             k(1.0, look=[ME12[0], 1.9, ME12[2]], lookDur=0.12), k(1.3, look='camera', lookDur=0.12)]),   # a glance back at him, and to us
         act('mec', ME12, -46, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=LIP, toonDur=0.0), *BLINK(0.8, {'mouth': 'line'}), *BLINK(1.5, {'mouth': 'line'})])],
-        props=[P('cam12', 'newsCam', pos=NC12, ry=-170, opts={'h': 1.3}),
-               P('direct12', 'signBoard', pos=[5.7, 2.75, 1.25], face='camera', opts={'text': 'EN DIRECT', 'bg': '#C8322A', 'fg': '#FFFFFF', 'w': 1.15, 'h': 0.34, 'posts': False, 'height': 0}),
+        props=[P('cam12', 'newsCam', pos=NC12, ry=-164, opts={'h': 1.3}),
+               P('direct12', 'signBoard', pos=[5.75, 3.0, 1.3], face='camera', opts={'text': 'EN DIRECT', 'bg': '#C8322A', 'fg': '#FFFFFF', 'w': 1.15, 'h': 0.34, 'posts': False, 'height': 0}),
                P('micro12', 'handMic', on={'actor': 'reporter', 'hand': 'R', 'offset': [0.0, -0.02, 0.03], 'face': 'camera'}, opts={'s': 1.3}),
                *[P(f'barr12{j}', 'crowdBarrier', pos=p_, ry=-57, opts={'w': 1.9}) for j, p_ in enumerate([[4.765, 0, -0.756], [5.791, 0, 0.84]])]],
-        cams=[FC(0.0, [1.6, 1.45, 3.0], [[REP12[0], 2.5, REP12[2]], [REP12[0], 0.9, REP12[2]], [3.7, 1.8, 1.25], [NC12[0], 1.75, NC12[2]], [4.4, 1.2, 2.5], [ME12[0], 2.5, ME12[2]], [5.7, 3.2, 1.25], [6.2, 2.95, 1.55]], top=0.1, bottom=0.78, lenses=range(26, 72))])
+        cams=[FC(0.0, [1.6, 1.45, 3.0], [[REP12[0], 2.5, REP12[2]], [REP12[0], 0.9, REP12[2]], [3.6, 1.8, 1.1], [NC12[0], 1.75, NC12[2]], [4.45, 1.2, 2.6], [ME12[0], 2.5, ME12[2]], [5.75, 3.45, 1.3], [6.25, 3.2, 1.6]], top=0.1, bottom=0.78, lenses=range(26, 72))])
 st.cue('sfx:shutter', 'S12', 0.3, 0.15); st.cue('sfx:shutter', 'S12', 0.9, 0.15)
 
 # 13: he put the cent in his piggy bank. His kitchen table, close: his fingers hold the cent over the pink pig; (pass 3) a dark copper cent with a
@@ -263,11 +263,11 @@ st.cue('sfx:shutter', 'S12', 0.3, 0.15); st.cue('sfx:shutter', 'S12', 0.9, 0.15)
 #     jiggles; a look at us
 D13 = st.dur('S13'); DROP13 = 0.65; PIG = [0.15, 0.76, -1.3]
 PIN13 = lambda y, h='pinch', z=-1.31: {'reach': {'R': [0.16, y, z, 1, 0.03]}, 'hands': {'R': h}, **LIP}
-st.shot('S13', 'kitchenDay', actors=[act('mec', [0.15, 0, -1.95], 0, 'stand', 'neutral', keys=[k(0.0, look=PIG), k(0.0, toon=PIN13(1.275), toonDur=0.0),
-            k(0.2, toon=PIN13(1.262), toonDur=0.12, toonEase='inOut'), k(0.38, toon=PIN13(1.28), toonDur=0.12, toonEase='inOut'),   # a small dip: he lines it up with the slot
+st.shot('S13', 'kitchenDay', actors=[act('mec', [0.15, 0, -1.95], 0, 'stand', 'neutral', keys=[k(0.0, look=PIG), k(0.0, toon=PIN13(1.235), toonDur=0.0),
+            k(0.2, toon=PIN13(1.222), toonDur=0.12, toonEase='inOut'), k(0.38, toon=PIN13(1.24), toonDur=0.12, toonEase='inOut'),   # a small dip: he lines it up with the slot
             k(r(DROP13 - 0.08), toon=PIN13(1.44, 'open', -1.4), toonDur=0.1, toonEase='out'), k(r(DROP13 + 0.45), look='camera'), *BLINK(r(DROP13 + 0.8), {'mouth': 'line'}), *BLINK(1.95, {'mouth': 'line'})])],
         props=[P('table13', 'table', pos=[0.15, 0, -1.3], opts={'w': 1.0, 'd': 0.7, 'h': 0.76}),
-               P('cochon13', 'piggyBank', pos=PIG, ry=20, opts={'s': 1.25, 'dropAt': [DROP13], 'jig': 3.0, 'coin': {'r': 0.03, 'color': '#A2562A', 'rim': '#F2B98C', 'pre': 0.64, 'hover': 0.35, 'ry': 0.9}})],   # (review 1) a jiggle three times bigger
+               P('cochon13', 'piggyBank', pos=PIG, ry=20, opts={'s': 1.25, 'dropAt': [DROP13], 'jig': 3.0, 'coin': {'r': 0.032, 'color': '#A85A2C', 'rim': '#E3A070', 'pre': 0.64, 'hover': 0.35, 'ry': 0.9}})],   # (review 1) a jiggle three times bigger
         cams=[FC(0.0, [0.42, 1.12, -0.82], [[0.18, 1.3, -1.3], [PIG[0], 0.78, PIG[2]], [r(PIG[0] - 0.2), 0.95, PIG[2]], [r(PIG[0] + 0.2), 0.95, PIG[2]]], top=0.18, bottom=0.72, lenses=range(20, 60)),   # (review 1) a macro: fingers, cent, slot
               FC(r(DROP13 + 0.42), [0.7, 1.5, 0.3], [[0.15, 2.45, -1.95], [PIG[0], 0.75, PIG[2]], [r(PIG[0] - 0.3), 1.0, PIG[2]], [r(PIG[0] + 0.3), 1.0, PIG[2]]], top=0.12, bottom=0.78)])   # then him and the pig at us
 st.cue('sfx:clink', 'S13', r(DROP13 + 0.2), 0.35)
@@ -277,7 +277,7 @@ st.cue('sfx:clink', 'S13', r(DROP13 + 0.2), 0.35)
 #     of paper drops out of it
 D14 = st.dur('S14'); IN14 = 0.2; H14 = [1.2, 0, -1.75]; DOOR14 = [2.8, 0, -3.55]; E14 = [1.05, 0.012, -1.2]; TEAR14 = 1.5; BILL14 = 1.72
 HOLD14 = lambda dx=0.0, f=None: {'reach': {'R': [r(1.1 - dx), 1.6, -1.38, 1, 0.03], 'L': [r(1.3 + dx), 1.6, -1.38, 1, 0.03]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, **(f or LIP)}
-BILLO = {'w': 0.5, 'top': 1.55, 'max': 4.4, 'totalAt': 2.7, 'totalLen': 0.8}
+BILLO = {'w': 0.5, 'top': 1.55, 'max': 4.4, 'totalAt': 0.95, 'totalLen': 0.85, 'oneLine': True}   # (stills 1) the rows on one line each, the total 0.95 m down the strip
 st.shot('S14', 'kitchenDay', actors=[act('mec', H14, 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=LIP, toonDur=0.0), k(r(IN14 + 0.05), look=[2.6, 0.9, -3.4], lookDur=0.1), k(0.5, look=E14, lookDur=0.15),
             k(0.7, toon={'bend': {'spine': [0.6, 0, 0, 1, None]}, 'reach': {'R': [r(E14[0] - 0.02), 0.12, r(E14[2] - 0.03), 1, 0.03]}, 'hands': {'R': 'pinch'}, **LIP}, toonDur=0.2, toonEase='inOut'),
             k(1.15, toon=HOLD14(), toonDur=0.2, toonEase='inOut'), k(1.38, look=[1.2, 1.6, -1.38]),
@@ -293,27 +293,29 @@ st.cue('clack', 'S14', IN14, 0.2); st.cue('sfx:paper', 'S14', r(IN14 + 0.1), 0.2
 # 15: two million euros. (pass 3) The bill runs out of his hands to the floor and on across it toward us, past the lens, its roll hopping; in the
 #     middle of the floor, as wide as the paper, a red block: TOTAL 2 000 000 €; his eyes follow the roll, come up to us, snap back down to the
 #     total, out on stalks (a closer camera for the take), then up to us
-D15 = st.dur('S15'); BP15 = [1.2, 1.55, -1.37]; TOT15 = r(BP15[2] + 2.7 - 1.52 + 0.8)       # where the red block ends on the floor (z)
-H15 = {'reach': {'R': [1.1, 1.55, -1.4, 1, 0.03], 'L': [1.3, 1.55, -1.4, 1, 0.03]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, **LIP}
-st.shot('S15', 'kitchenDay', actors=[act('mec', H14, 0, 'stand', 'neutral', keys=[k(0.0, look=[1.2, 0.3, -1.0]), k(0.0, toon=H15, toonDur=0.0),
-            *doubleTake(0.26, [1.2, 0.0, r(TOT15 - 0.4)], keep=H15, back='camera', pop=0.85, blank=0.2, hold=0.42), k(1.12, look='camera', lookDur=0.12)])],
-        props=[P('facture15', 'expenseBill', pos=BP15, opts={**BILLO, 'len': [[0.0, 1.3], [0.5, 4.4]]})],
-        cams=[FC(0.0, [1.7, 1.2, 1.95], [[H14[0], 2.5, H14[2]], [0.95, 0.0, TOT15], [1.45, 0.0, TOT15], [0.85, 1.4, H14[2]], [1.55, 1.4, H14[2]]], top=0.2, bottom=0.72, lenses=range(26, 76)),   # the total above the captions, his head below the card
-              FC(0.8, [1.45, 1.8, 0.1], [[H14[0], 2.5, H14[2]], [H14[0], 1.42, -1.4], [0.85, 1.9, H14[2]], [1.55, 1.9, H14[2]]], top=0.22, bottom=0.72)])   # closer: the eyes out on stalks, the top of the bill in his hands
+D15 = st.dur('S15'); HP15 = [0.95, 0, -1.75]; BP15 = [0.95, 1.55, -1.37]; TILT15 = 1.03   # HP15: a quarter of a metre nearer the pig's table than in S14 (the end hold frames him and the pig: the nearer they are, the larger the sheet)
+# (stills 1) the strip shoots out at 59 degrees from the vertical: its total faces the lens (flat on the floor it was a red dash)
+BLK15 = lambda s_: [BP15[0], r(BP15[1] - s_ * math.cos(TILT15)), r(BP15[2] + s_ * math.sin(TILT15))]   # the point s_ metres down the strip
+H15 = {'reach': {'R': [r(BP15[0] - 0.1), 1.55, -1.4, 1, 0.03], 'L': [r(BP15[0] + 0.1), 1.55, -1.4, 1, 0.03]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, **LIP}
+st.shot('S15', 'kitchenDay', actors=[act('mec', HP15, 0, 'stand', 'neutral', keys=[k(0.0, look=[BP15[0], 0.3, -1.0]), k(0.0, toon=H15, toonDur=0.0),
+            *doubleTake(0.26, BLK15(1.4), keep=H15, back='camera', pop=0.85, blank=0.2, hold=0.42), k(1.12, look='camera', lookDur=0.12)])],
+        props=[P('facture15', 'expenseBill', pos=BP15, opts={**BILLO, 'len': [[0.0, 1.3], [0.5, 4.4]], 'tilt': [[0.0, 0.0], [0.22, TILT15]]})],
+        cams=[FC(0.0, [1.3, 1.25, 2.3], [[HP15[0], 2.5, HP15[2]], [r(BP15[0] - 0.27), BLK15(1.8)[1], BLK15(1.8)[2]], [r(BP15[0] + 0.27), BLK15(1.8)[1], BLK15(1.8)[2]], [r(HP15[0] - 0.35), 1.4, HP15[2]], [r(HP15[0] + 0.35), 1.4, HP15[2]]], top=0.2, bottom=0.74, lenses=range(26, 70)),   # the total above the captions, his head below the card
+              FC(0.8, [1.2, 1.8, 0.1], [[HP15[0], 2.5, HP15[2]], [HP15[0], 1.42, -1.4], [r(HP15[0] - 0.35), 1.9, HP15[2]], [r(HP15[0] + 0.35), 1.9, HP15[2]]], top=0.22, bottom=0.72)])   # closer: the eyes out on stalks, the top of the bill in his hands
 st.cue('sfx:paper', 'S15', 0.02, 0.2); st.cue('sfx:slideDown', 'S15', 0.05, 0.25); st.cue('sfx:boing', 'S15', 0.64, 0.12)
 
 # 16: travel expenses. (pass 3) Close on the sheet he holds by its side edges, his hands out of the words: FRAIS DE DÉPLACEMENT, clear for the whole
 #     insert; then up to him: his eyes come to us, a breath, one slow blink in the middle of the hold; beside him on the table, the pink pig
-D16 = st.dur('S16'); SH16 = [1.2, 1.32, -1.3]
-H16 = lambda sq=None, f=None: {'reach': {'R': [r(SH16[0] - 0.275), 1.32, -1.36, 1, 0.03], 'L': [r(SH16[0] + 0.275), 1.32, -1.36, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, **({'sq': sq} if sq else {}), 'face': f or DEAD | {'mouth': 'line'}}
-st.shot('S16', 'kitchenDay', actors=[act('mec', H14, 0, 'stand', 'neutral', keys=[k(0.0, look=SH16), k(0.0, toon=H16(), toonDur=0.0), k(0.98, look='camera', lookDur=0.14),
+D16 = st.dur('S16'); SH16 = [HP15[0], 1.32, -1.3]; SW16 = 0.62
+H16 = lambda sq=None, f=None: {'reach': {'R': [r(SH16[0] - SW16 / 2 - 0.025), 1.32, -1.36, 1, 0.03], 'L': [r(SH16[0] + SW16 / 2 + 0.025), 1.32, -1.36, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, **({'sq': sq} if sq else {}), 'face': f or DEAD | {'mouth': 'line'}}
+st.shot('S16', 'kitchenDay', actors=[act('mec', HP15, 0, 'stand', 'neutral', keys=[k(0.0, look=SH16), k(0.0, toon=H16(), toonDur=0.0), k(0.98, look='camera', lookDur=0.14),
             k(1.1, toon=H16([0.99, 1.035, 0.99]), toonDur=0.25, toonEase='inOut'),                                                    # a breath in...
             k(1.36, toon=H16([0.99, 1.035, 0.99], {'lid': 1.0, 'mouth': 'line'}), toonDur=0.14, toonEase='inOut'),                    # ...the slow blink...
             k(1.62, toon=H16([1.0, 1.0, 1.0]), toonDur=0.2, toonEase='inOut')])],                                                      # ...and out
-        props=[P('frais16', 'paperSheet', pos=SH16, face='camera', opts={'w': 0.5, 'h': 0.3, 'head': 'FRAIS DE', 'big': 'DÉPLACEMENT', 'bright': True}),   # (pass 3) a free sheet turned to the lens, in front of both hands (in his hand, his palms covered the words)
+        props=[P('frais16', 'paperSheet', pos=SH16, face='camera', opts={'w': SW16, 'h': 0.37, 'head': 'FRAIS DE', 'big': 'DÉPLACEMENT', 'bright': True}),   # (pass 3) a free sheet turned to the lens, in front of both hands (in his hand, his palms covered the words)
                P('table16', 'table', pos=[0.15, 0, -1.3], opts={'w': 1.0, 'd': 0.7, 'h': 0.76}), P('cochon16', 'piggyBank', pos=PIG, ry=20, opts={'s': 1.25})],
-        cams=[FC(0.0, [1.2, 1.38, -0.3], [[SH16[0], 1.5, SH16[2]], [SH16[0], 1.14, SH16[2]], [r(SH16[0] - 0.33), 1.32, SH16[2]], [r(SH16[0] + 0.33), 1.32, SH16[2]]], top=0.25, bottom=0.66),   # the two lines, as wide as the frame
-              glide([FC(0.6, [0.35, 1.45, 0.45], [[H14[0], 2.5, H14[2]], [H14[0], 1.1, H14[2]], [PIG[0], 0.85, PIG[2]], [r(PIG[0] - 0.22), 1.0, PIG[2]], [r(SH16[0] + 0.3), 1.32, SH16[2]]], top=0.12, bottom=0.78, lenses=range(26, 68))], 0.35)])   # ...then up to his face, the pig beside him
+        cams=[FC(0.0, [SH16[0], 1.38, -0.3], [[SH16[0], 1.53, SH16[2]], [SH16[0], 1.11, SH16[2]], [r(SH16[0] - 0.38), 1.32, SH16[2]], [r(SH16[0] + 0.38), 1.32, SH16[2]]], top=0.25, bottom=0.66),   # the two lines, as wide as the frame
+              glide([FC(0.6, [0.25, 1.45, 0.45], [[HP15[0], 2.5, HP15[2]], [HP15[0], 1.1, HP15[2]], [PIG[0], 0.85, PIG[2]], [r(PIG[0] - 0.22), 1.0, PIG[2]], [r(SH16[0] + 0.44), 1.32, r(SH16[2] + 0.14)]], top=0.12, bottom=0.78, lenses=range(26, 68))], 0.35)])   # ...then up to his face, the pig beside him
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
 st.write("Le centime", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, debugJoints=['mec'], extra_cast={

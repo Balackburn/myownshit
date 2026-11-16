@@ -32,7 +32,7 @@ export const CENTIME_PROPS = {
     // `pre` seconds before the drop, hanging `hover` above the floor of the pig (clear of the fingers)
     const CO = o.coin || {}, cr = CO.r ?? 0.022, hov = CO.hover ?? 0.33, pre = CO.pre ?? 0.12;
     const coin = grp(); const cd = cyl(cr, cr, 0.005, CO.color || '#E2B53C', 16, { outline: 0.002 }); cd.rotation.x = PI / 2; coin.add(cd);
-    if (CO.rim) for (const z of [-0.003, 0.003]) { const rg = new THREE.Mesh(new THREE.TorusGeometry(cr * 0.86, cr * 0.09, 5, 20), L(CO.rim)); rg.position.z = z; coin.add(rg); }
+    if (CO.rim) for (const z of [-0.003, 0.003]) { const rg = new THREE.Mesh(new THREE.TorusGeometry(cr * 0.9, cr * 0.055, 5, 20), L(CO.rim)); rg.position.z = z; coin.add(rg); }
     coin.position.set(0, hov, -0.01); coin.rotation.y = CO.ry ?? PI / 2; coin.visible = false; g.add(coin);
     g.scale.setScalar(s);
     const drops = o.dropAt || [];
@@ -242,11 +242,11 @@ export const CENTIME_PROPS = {
     const br = o.color || '#E2B53C', g = grp(), k = o.kind || 'sousa', beat = o.beat || [];
     const hit = t => { let a = 0; for (const b of beat) { const u = t - b; if (u >= 0 && u < 0.2) a = Math.max(a, 1 - u / 0.2); } return a; };
     if (k === 'sousa') { const ring = new THREE.Mesh(new THREE.TorusGeometry(0.4, 0.06, 8, 22), L(br)); ring.rotation.set(0.3, 0, 0.55); ring.position.set(0, 0.1, 0); g.add(ring);
-      g.add(rod([0.32, 0.3, -0.08], [0.3, 1.0, -0.02], 0.055, br));
+      g.add(rod([0.32, 0.3, -0.08], [0.3, 1.22, -0.16], 0.055, br));
       const bell = grp(), cone = new THREE.Mesh(new THREE.CylinderGeometry(0.44, 0.09, 0.42, 18, 1, true), new THREE.MeshLambertMaterial({ color: br, side: THREE.DoubleSide })); cone.position.y = 0.21; bell.add(cone);
       const rimT = new THREE.Mesh(new THREE.TorusGeometry(0.44, 0.03, 6, 22), L('#F6D878')); rimT.rotation.x = PI / 2; rimT.position.y = 0.42; bell.add(rimT);
       const hole = new THREE.Mesh(new THREE.CircleGeometry(0.2, 16), new THREE.MeshBasicMaterial({ color: '#7A5A16' })); hole.rotation.x = -PI / 2; hole.position.y = 0.2; bell.add(hole);
-      bell.position.set(0.3, 0.98, 0.0); bell.rotation.x = 1.0; g.add(bell);
+      bell.position.set(0.3, 1.2, -0.16); bell.rotation.x = 0.8; g.add(bell);
       g.userData.update = t => { const a = hit(t); bell.scale.setScalar(1 + 0.2 * a); }; }
     else if (k === 'trumpet') { const tube = cyl(0.016, 0.016, 0.42, br, 8, { outline: 0.003 }); tube.rotation.x = PI / 2; tube.position.set(0, 0.02, 0.16); g.add(tube);
       const bell = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.016, 0.16, 16, 1, true), new THREE.MeshLambertMaterial({ color: br, side: THREE.DoubleSide })); bell.rotation.x = PI / 2; bell.position.set(0, 0.02, 0.44); g.add(bell);
@@ -271,8 +271,11 @@ export const CENTIME_PROPS = {
     x.fillStyle = '#FBF4DC'; x.fillRect(0, 0, W, H); x.fillStyle = '#C9B98A'; x.fillRect(0, 0, W * 0.025, H); x.fillRect(W * 0.975, 0, W * 0.025, H);
     x.textBaseline = 'middle'; x.fillStyle = '#C8302A'; x.fillRect(0, 0, W, 0.22 * m); x.fillStyle = '#FFFFFF'; x.textAlign = 'center'; fitText(x, o.head || 'FACTURE', W * 0.86, 0.16 * m); x.fillText(o.head || 'FACTURE', W / 2, 0.115 * m);
     const y0 = 0.3 * m, step = (tAt * m - y0) / rows.length;
-    rows.forEach(([nm, pr], i) => { const y = y0 + step * i; x.fillStyle = '#2A2C33'; x.textAlign = 'left'; fitText(x, nm, W * 0.88, step * 0.3, 800); x.fillText(nm, W * 0.06, y + step * 0.26);
-      x.textAlign = 'right'; x.fillStyle = '#C8302A'; fitText(x, pr, W * 0.88, step * 0.36); x.fillText(pr, W * 0.94, y + step * 0.64); x.fillStyle = '#B9A878'; x.fillRect(W * 0.06, y + step * 0.92, W * 0.88, 3); });
+    rows.forEach(([nm, pr], i) => { const y = y0 + step * i; x.fillStyle = '#2A2C33';
+      if (o.oneLine) { x.textAlign = 'right'; x.fillStyle = '#C8302A'; const fs = fitText(x, pr, W * 0.5, step * 0.5), pw = x.measureText(pr).width; x.fillText(pr, W * 0.95, y + step * 0.48);
+        x.textAlign = 'left'; x.fillStyle = '#2A2C33'; fitText(x, nm, W * 0.88 - pw - W * 0.04, fs, 800); x.fillText(nm, W * 0.05, y + step * 0.48); }
+      else { x.textAlign = 'left'; fitText(x, nm, W * 0.88, step * 0.3, 800); x.fillText(nm, W * 0.06, y + step * 0.26); x.textAlign = 'right'; x.fillStyle = '#C8302A'; fitText(x, pr, W * 0.88, step * 0.36); x.fillText(pr, W * 0.94, y + step * 0.64); }
+      x.fillStyle = '#B9A878'; x.fillRect(W * 0.06, y + step * 0.92, W * 0.88, 3); });
     const ty = tAt * m, th = tLen * m; x.fillStyle = '#C8302A'; x.fillRect(W * 0.04, ty + th * 0.05, W * 0.92, th * 0.9); x.fillStyle = '#FFFFFF'; x.textAlign = 'center';
     fitText(x, 'TOTAL', W * 0.6, th * 0.26); x.fillText('TOTAL', W / 2, ty + th * 0.27); fitText(x, total, W * 0.84, th * 0.44); x.fillText(total, W / 2, ty + th * 0.64);
     x.fillStyle = '#8A8F98'; for (let y = ty + th + 0.08 * m; y < H - 0.04 * m; y += 0.09 * m) x.fillRect(W * 0.06, y, W * (0.5 + 0.38 * ((y * 7 % 13) / 13)), 4);
@@ -280,12 +283,17 @@ export const CENTIME_PROPS = {
     const down = mk(), along = mk(); along.rotation.x = -PI / 2;
     const roll = cyl(0.04, 0.04, w * 1.03, '#F4F0E2', 12, { outline: 0.004 }); roll.rotation.z = PI / 2;
     g.add(down, along, roll);
+    // o.tilt (radians, or [[t, radians], ...]): the strip does not hang straight down but shoots out toward +Z at that angle from the vertical, like a
+    // party blower, and only the length beyond its touchdown runs on the floor: seen from in front it faces the lens and fills the lower half of a
+    // portrait frame (flat on the floor, a low camera saw it edge-on and a high one had to back away until the man was a quarter of the frame)
     g.userData.update = t => {
-      const Lc = Math.max(0.02, Math.min(Lmax, lenAt(o.len ?? 1, t))), Lv = Math.min(Lc, top - 0.03), Lf = Math.max(0, Lc - Lv);
-      down.scale.y = Lv; down.material.map.repeat.set(1, Lv / Lmax); down.material.map.offset.set(0, 1 - Lv / Lmax);
-      along.visible = Lf > 0.002; along.scale.y = Math.max(0.002, Lf); along.position.set(0, -top + 0.012, 0); along.material.map.repeat.set(1, Lf / Lmax); along.material.map.offset.set(0, 1 - Lc / Lmax);
+      const th = Math.min(1.35, Math.max(0, lenAt(o.tilt ?? 0, t))), ct = Math.cos(th), st = Math.sin(th);
+      const Lc = Math.max(0.02, Math.min(Lmax, lenAt(o.len ?? 1, t))), Lv = Math.min(Lc, (top - 0.03) / ct), Lf = Math.max(0, Lc - Lv), zt = (top - 0.03) * st / ct;
+      down.rotation.x = -th; down.scale.y = Lv; down.material.map.repeat.set(1, Lv / Lmax); down.material.map.offset.set(0, 1 - Lv / Lmax);
+      along.visible = Lf > 0.002; along.scale.y = Math.max(0.002, Lf); along.position.set(0, -top + 0.012, zt); along.material.map.repeat.set(1, Lf / Lmax); along.material.map.offset.set(0, 1 - Lc / Lmax);
       const end = Lc >= Lmax - 1e-3;
-      if (Lf > 0.002) { roll.visible = !end; roll.position.set(0, -top + 0.045 + (o.hop ?? 0.07) * Math.abs(Math.sin(Lf * 6)) * Math.exp(-Lf * 0.5), Lf); roll.rotation.x = Lf / 0.04; } else { roll.visible = true; roll.position.set(0, -Lv, 0.0); roll.rotation.x = Lv / 0.04; }
+      if (Lf > 0.002) { roll.visible = !end; roll.position.set(0, -top + 0.045 + (o.hop ?? 0.07) * Math.abs(Math.sin(Lf * 6)) * Math.exp(-Lf * 0.5), zt + Lf); roll.rotation.x = Lf / 0.04; }
+      else { roll.visible = true; roll.position.set(0, -Lv * ct - 0.02 * st, Lv * st - 0.02 * ct); roll.rotation.x = Lv / 0.04; }
     };
     g.userData.update(0); return g;
   },
