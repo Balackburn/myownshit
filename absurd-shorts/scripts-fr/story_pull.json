@@ -8859,6 +8859,37 @@
        "scale": 1.0
       }
      ]
+    },
+    {
+     "id": "paume16",
+     "name": "bigPalm",
+     "on": {
+      "actor": "flic2",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.05,
+       0.05
+      ],
+      "face": "camera"
+     },
+     "opts": {
+      "w": 0.26,
+      "spread": [
+       1.0,
+       1.42
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.3,
+       "visible": true
+      }
+     ]
     }
    ],
    "sfx": [],

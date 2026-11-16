@@ -153,6 +153,18 @@ export const PULL_PROPS = {
     return g;
   },
 
+  // (final pass) A big cartoon palm to hold over a face (attach to the hand with face: 'camera'; pivot at the heel of the hand, the fingers up +Y,
+  // the palm toward the face -Z): a flat palm o.w wide (0.24) in o.color (skin), four fingers and a thumb; o.spread [t0, t1]: the two middle
+  // fingers part in that window (a peek between the fingers); a small hand on the nose left both eyes in sight
+  bigPalm(o) {
+    const w = o.w ?? 0.24, c = o.color || '#E3A066', ph = w * 0.62, fw = w * 0.21, fl = w * 0.55, g = grp(at(box(w, ph, 0.04, c, { outline: 0.006 }), 0, ph / 2, 0));
+    const fingers = [-1.5, -0.5, 0.5, 1.5].map(i => { const f = grp(at(box(fw * 0.9, fl, 0.035, c, { outline: 0.005 }), 0, fl / 2, 0)); f.position.set(i * fw * 1.02, ph - 0.01, 0); g.add(f); return { f, i }; });
+    const th = grp(at(box(fw * 0.9, fl * 0.75, 0.035, c, { outline: 0.005 }), 0, fl * 0.37, 0)); th.position.set(w / 2 + 0.005, ph * 0.25, 0); th.rotation.z = -0.9; g.add(th);
+    g.userData.update = t => { const sp = o.spread && t >= o.spread[0] && t <= o.spread[1] ? Math.min(1, (t - o.spread[0]) / 0.06) : 0;
+      for (const { f, i } of fingers) { f.rotation.z = -Math.sign(i) * (Math.abs(i) < 1 ? 0.32 : 0.08) * sp; f.position.x = i * fw * 1.02 + Math.sign(i) * (Math.abs(i) < 1 ? 0.03 : 0.01) * sp; } };
+    g.userData.update(0); return g;
+  },
+
   // (review 2) A studio light on a stand (pivot at the floor, the lit face +Z): a tripod, a pole o.h high (2.0) and a softbox o.w x o.bh (0.55 x 0.42)
   // whose face glows in o.color (warm white); o.tilt (rad): the box tips down
   studioLight(o) {
