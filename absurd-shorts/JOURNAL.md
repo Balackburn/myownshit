@@ -2924,3 +2924,9 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   des quatre finals dure environ huit heures). Les seuils sont relâchés d'un cran : un brouillon et une série d'images de contrôle peuvent
   tourner à côté d'un rendu final (7 Go libres mesurés). Les brouillons 3 du « Parcmètre » et du « Bocal », perdus lors du redémarrage de la
   session (le premier était à 420 images sur 495), sont remis en file.
+- 11 h 15 — « Le pull » (74) : passe finale terminée et relue sur images (l'étiquette garde sa grande taille jusqu'à « À vie » puis s'affaisse,
+  grande paume du policier, passants qui viennent vers nous le cou étiré 2,2 fois, bureaux en diagonale pour la vague, costume visible sous le
+  pull qui remonte). Reste : au plan 16 la paume couvre un peu haut. Rendu final en file après « Le centime ».
+- « Le bus » (72) : revue 3 = 7,2 (animation) ; 7,1 (direction artistique), contre 6,8 ; 6,5. Reste pour la passe finale : la semelle et les
+  chaussures neuves ne se lisent pas, le poing couvre encore la bouche aux plans 9 et 10, le virage du peloton est minuscule et trop rapide, la
+  nouille est un trait fin, la roue de jambes ressemble à un signe plus qui tourne. Passe finale confiée à un agent dérivé.

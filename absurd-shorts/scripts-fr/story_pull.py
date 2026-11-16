@@ -215,7 +215,8 @@ st.cue('sfx:click', 'S12', 0.2, 0.15); st.cue('sfx:click', 'S12', 0.5, 0.15); st
 
 # 13: yesterday he saw himself in a shop window. On the pavement at a big shop window, a dark shop behind the glass: (review 2) his reflection
 #     takes its own label in one hand, holds it out and shakes it, and with the other arm, long and straight, points at him; a held beat; his take; he
-#     looks at his own shoulder
+#     looks at his own shoulder; (final pass) the pointing arm stretched out to the glass; two glints across the window and a BOUTIQUE sign over it (it
+#     read as a navy board)
 D13 = st.dur('S13'); ZW = -1.0; ME13 = [0.4, 0, -0.1]; L13 = LBL(ME13, 180); R13 = [L13[0], L13[1], r(2 * ZW - L13[2])]; TAKE13 = 1.1; RZ13 = r(2 * ZW - ME13[2])
 SRC13 = act('mec', ME13, 180, 'stand', 'neutral', keys=[k(0.0, look=[0.4, 2.0, -2.0]), k(0.0, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.0),
         k(TAKE13, toon={'sq': [0.92, 1.1, 0.92], 'face': {'lid': 0.0, 'pop': 0.6, 'popLen': 0.12, 'mouth': 'O', 'brow': 1.0, 'noBlink': 1}}, toonDur=0.06, toonEase='out'),   # the take
@@ -283,7 +284,8 @@ st.cue('sfx:gasp', 'S15', 0.3, 0.3); st.cue('thud', 'S15', r(DROP15 + 0.2), 0.2)
 
 # 16: the police arrested him for indecent dress. Close on the three, two policemen in jumpers inside out, both three-quarters to us: one snaps the
 #     cuffs on the wrists he holds out low, on the plain red; then pulls out a censor bar and holds it over the right-side-out jumper; the other, a hand
-#     over his eyes, spreads his fingers, peeks with one eye, and snaps them shut; he looks down at the cuffs, at the bar, then at us (INDÉCENT)
+#     over his eyes, spreads his fingers, peeks with one eye, and snaps them shut; he looks down at the cuffs, at the bar, then at us (INDÉCENT);
+#     (final pass) both his hands go up to his eyes behind one big cartoon palm; for the peek the palm slides down, its fingers parting, one eye looks
 D16 = st.dur('S16'); CUFF16 = 0.55; BAR16 = 1.25; PEEK16 = 1.0; WY16 = 1.12
 F1 = [r(ME1[0] - LW[0] * 0.62 + FW[0] * 0.2), 0, r(ME1[2] - LW[1] * 0.62 + FW[1] * 0.2)]; F2 = [r(ME1[0] + LW[0] * 0.64 + FW[0] * 0.3), 0, r(ME1[2] + LW[1] * 0.64 + FW[1] * 0.3)]   # (review 2) shoulder to shoulder: three abreast in a tall frame
 WR = lambda s_, y=WY16: [r(ME1[0] + FW[0] * 0.42 + LW[0] * 0.075 * s_), y, r(ME1[2] + FW[1] * 0.42 + LW[1] * 0.075 * s_), 1, 0.04]
