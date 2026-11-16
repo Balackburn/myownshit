@@ -166,7 +166,7 @@ st.cue('sfx:click', 'S09', LIT9, 0.25)
 #     straightens his collar, lifts his chin; no label in sight yet
 D10 = st.dur('S10'); PR10 = [0.0, 0, -0.3]; ELY = {'backdrop': 'PRÉSIDENCE', 'fontScale': 0.6, 'podium': False, 'flags': False, 'chairs': False, 'bg': '#5878A8', 'wall': '#4C6A96', 'fg': 'rgba(255,255,255,0.45)'}   # no rows of chairs: the low camera of S10 backs up through them; paler lettering: his white hair merged with it
 FLAGS10 = lambda: [P(f'fl10{j}', 'flag', pos=[x, 0, -0.6], scale=1.5, opts={'colors': ['#2F62B5', '#F4F4F0', '#E0413A'], 'vertical': True, 'poleColor': '#D8C27A'}) for j, x in enumerate([-1.3, 0.38])]   # a tricolour either side of him, above his shoulders
-TRUSS10 = lambda: P('truss10', 'lightTruss', pos=[0.0, 3.05, -1.25], opts={'w': 3.0, 'n': 3, 'len': 2.4, 'tilt': -0.25, 'sweep': 0.08, 'color': '#FFE2A8', 'opacity': 0.17})   # behind him: in front, its cones veiled the close shot
+TRUSS10 = lambda: P('truss10', 'lightTruss', pos=[0.0, 3.05, -1.25], opts={'w': 3.0, 'n': 2, 'len': 2.4, 'tilt': -0.25, 'fan': 0.1, 'sweep': 0.08, 'color': '#FFE2A8', 'opacity': 0.17})   # behind him, a spot over each flag: in front, its cones veiled the close shot; a lamp in the middle sat on his head like a hat
 st.shot('S10', 'pressRoom', setOpts=ELY, actors=[act('president', PR10, 0, 'podiumTalk', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.2}}, toonDur=0.0),
             k(0.15, toon={'touch': {'R': ['torso', 0.02, 0.52, 0.27, 1, 0.02]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.2}, 'sq': [1.02, 0.98, 1.02]}, toonDur=0.16, toonEase='out'),   # he straightens his collar...
             *BL(0.4, {'lid': 0.2}), k(0.62, toon={'face': {'lid': 0.2}, 'bend': {'neck': [-0.14, 0, 0, 1.04, None]}, 'sq': [0.98, 1.03, 0.98]}, toonDur=0.2)])],   # ...and lifts his chin
@@ -179,7 +179,7 @@ D11 = st.dur('S11'); L11 = LBL(PR10, 0, 1, 0.66, 1.95)
 st.shot('S11', 'pressRoom', setOpts=ELY, actors=[act('president', PR10, 0, 'podiumTalk', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.2}, 'bend': {'neck': [-0.14, 0, 0, 1.04, None]}}, toonDur=0.0), *BL(0.5, {'lid': 0.2}),
             k(1.05, toon={'bend': {'neck': [0.32, 0, 0, 1, None]}, 'face': {'lid': 0.5}}, toonDur=0.12, toonEase='out'), k(1.3, toon={'face': {'lid': 0.2}, 'bend': {'neck': [0.0, 0, 0, 1, None]}}, toonDur=0.15), *BL(1.5, {'lid': 0.2})])],
         props=[P('pod11', 'podium', pos=[0.0, 0, 0.2], opts={'text': 'RÉPUBLIQUE'}), JUMP('pj11', 'president', '#2F62B5', tag=1.25, tagRise={'at': 0.1, 'dur': 0.8}, tagSway=0.05, tagKick=[1.12]), *FLAGS10(), TRUSS10()],
-        cams=[FC(0.0, [0.7, 2.1, 1.3], [[0.16, 2.6, PR10[2]], [0.16, 1.55, PR10[2]], [0.82, 2.4, L11[2]], [0.82, 1.6, L11[2]], [-0.2, 2.0, PR10[2]]], top=0.16, bottom=0.74)])
+        cams=[FC(0.0, [0.7, 2.1, 1.3], [[0.16, 2.6, PR10[2]], [0.16, 1.55, PR10[2]], [0.82, 2.4, L11[2]], [1.02, 2.2, L11[2]], [0.82, 1.6, L11[2]], [-0.2, 2.0, PR10[2]]], top=0.16, bottom=0.74)])
 
 # 12: the fashion shows went inside out. A catwalk under the spots, from the end of it, low: a model strides at us in a jumper inside out, its
 #     head-tall label flopping at each step, another behind her, two more posing by the backdrop; flashes on both sides (À L'ENVERS)
@@ -195,7 +195,8 @@ st.shot('S12', 'pressRoom', setOpts={'backdrop': 'PARIS', 'fontScale': 0.9, 'pod
                JUMP('pj12a', 'mod1', '#C255C8', tag=2.0, tagSway=0.32, tagRate=9.4), JUMP('pj12b', 'mod2', '#F2C94E', tag=2.0, tagSide=-1, tagSway=0.32, tagRate=9.4, tagPhase=1.6),
                *[JUMP(f'pj12{mid}', mid, mc, tag=1.6, tagSide=-1 if j else 1, tagSway=0.12, tagRate=5.0, tagPhase=r(1.3 * j)) for j, (mid, mx, mz, mry, mc) in enumerate(POSE12)],
                P('truss12', 'lightTruss', pos=[0.0, 3.0, -2.75], opts={'w': 3.8, 'n': 5, 'len': 2.8, 'tilt': -0.12, 'fan': 0.5, 'sweep': 0.2, 'spread': 0.13, 'opacity': 0.13}),   # (review 2) spots and their beams in the black above the catwalk
-               P('band12', 'signBoard', pos=[0.0, 2.62, -2.93], opts={'text': 'COLLECTION HIVER', 'bg': '#F4F1E8', 'fg': '#23252E', 'frame': '#C9A227', 'w': 2.3, 'h': 0.3, 'posts': False, 'height': 0}),
+               P('truss12b', 'lightTruss', pos=[0.0, 3.05, -1.5], opts={'w': 3.6, 'n': 4, 'len': 2.2, 'tilt': 0.12, 'fan': 0.3, 'sweep': 0.2, 'spread': 0.12, 'opacity': 0.11}),   # a nearer one, higher in the frame, its cones falling behind the first model
+               P('band12', 'signBoard', pos=[0.0, 3.0, -2.93], opts={'text': 'COLLECTION HIVER', 'bg': '#F4F1E8', 'fg': '#23252E', 'frame': '#C9A227', 'w': 2.3, 'h': 0.3, 'posts': False, 'height': 0}),
                *[P(f'cam12{j}', 'pressCamera', on={'actor': f'photo{j + 1}', 'hand': 'R', 'offset': [0.06, 0.0, 0.08]}, opts={'flashAt': [r(0.2 + 0.3 * j), r(0.9 + 0.25 * j)], 'burst': 0.5}) for j in range(4)]],
         cams=[FC(0.0, [0.12, 0.9, 3.4], [[0.0, 2.5, 0.4], [0.0, 0.75, 0.4], [-0.6, 1.5, 0.4], [0.9, 2.0, 0.4]], top=0.2, bottom=0.8)])   # (review 1) low at the end of the catwalk: she fills the frame as she comes
 st.cue('sfx:click', 'S12', 0.2, 0.15); st.cue('sfx:click', 'S12', 0.5, 0.15); st.cue('sfx:click', 'S12', 0.8, 0.15); st.cue('sfx:click', 'S12', 1.1, 0.15)
@@ -271,7 +272,7 @@ F1 = [r(ME1[0] - LW[0] * 0.62 + FW[0] * 0.2), 0, r(ME1[2] - LW[1] * 0.62 + FW[1]
 WR = lambda s_, y=WY16: [r(ME1[0] + FW[0] * 0.42 + LW[0] * 0.075 * s_), y, r(ME1[2] + FW[1] * 0.42 + LW[1] * 0.075 * s_), 1, 0.04]
 OFFER = lambda f, **more: {'reach': {'L': WR(1), 'R': WR(-1)}, 'hands': {'L': 'fist', 'R': 'fist'}, 'face': f, **more}
 CB16 = [r(ME1[0] + FW[0] * 0.36), 1.47, r(ME1[2] + FW[1] * 0.36)]   # the censor bar: flat in front of his chest, above the cuffed wrists
-EYES = lambda hand: {'touch': {'R': ['face', 0.0, 0.12, 0.22, 1, 0.02]}, 'hands': {'R': hand}}
+EYES = lambda hand: {'touch': {'R': ['face', 0.0, 0.3, 0.22, 1, 0.02]}, 'hands': {'R': hand}}   # (stills 2) over his eyes: 0.12 put the palm on his chin
 CR16 = lambda out=0.0: [r(WR(-1)[0] - LW[0] * (0.2 + out)), r(WY16 - 0.06 + out), r(WR(-1)[2] - LW[1] * (0.2 + out)), 1, 0.04]
 CLAMP = lambda f, out=0.0, sq=None: {'reach': {'L': [r(WR(-1)[0] - LW[0] * (0.1 + out) + FW[0] * 0.04), r(WY16 + 0.04 + out), r(WR(-1)[2] - LW[1] * (0.1 + out) + FW[1] * 0.04), 1, 0.04], 'R': CR16(out)},
                                      'hands': {'L': 'grip', 'R': 'grip'}, 'face': f, **({'sq': sq} if sq else {})}
@@ -283,12 +284,12 @@ st.shot('S16', 'parisStreet', setOpts=PARIS, actors=[act('mec', ME1, -60, 'stand
             k(r(BAR16 + 0.1), toon=OFFER({'lid': 0.3, 'mouth': 'line', 'brow': 0.6}, sq=[0.97, 1.04, 0.97]), toonDur=0.08), k(r(BAR16 + 0.1), look=CB16, lookDur=0.1),   # ...at the bar...
             k(1.68, look='camera', lookDur=0.2), k(1.7, toon=OFFER({**DEAD, 'mouth': 'line'}), toonDur=0.15),   # ...then at us
             k(2.02, toon=OFFER({'lid': 1.0, 'mouth': 'line'}), toonDur=0.14), k(2.3, toon=OFFER({**DEAD, 'mouth': 'line'}), toonDur=0.14)]),
-        act('flic1', F1, -35, 'stand', 'determined', keys=[k(0.0, look=WR(-1)[:3]), k(0.0, toon=CLAMP(FL1, 0.2), toonDur=0.0),
-            k(r(CUFF16 - 0.2), toon=CLAMP(FL1, 0.28), toonDur=0.1, toonEase='out'), k(r(CUFF16 - 0.05), toon=CLAMP({'lid': 0.4, 'brow': -0.7, 'mouth': 'clench'}, 0.0, [1.04, 0.96, 1.04]), toonDur=0.05, toonEase='in'),   # a wind-up, snap
-            k(0.8, look='camera', lookDur=0.15), k(0.85, toon=CLAMP({'lid': 0.4, 'brow': -0.5, 'mouth': 'line'}), toonDur=0.12),
-            k(r(BAR16 - 0.14), toon=CLAMP({'lid': 0.4, 'brow': -0.7, 'mouth': 'line'}, 0.0, [1.05, 0.94, 1.05]), toonDur=0.08), k(r(BAR16 - 0.12), look=CB16, lookDur=0.1),   # a dip...
-            k(BAR16, toon=HOLD16({'lid': 0.3, 'brow': -0.7, 'mouth': 'clench'}, [0.96, 1.05, 0.96]), toonDur=0.08, toonEase='out'),   # ...and the censor bar is on him
-            k(r(BAR16 + 0.25), toon=HOLD16(FL1), toonDur=0.15), k(1.75, look='camera', lookDur=0.15), k(1.95, toon=HOLD16({'lid': 0.3, 'brow': -0.3, 'mouth': 'smirk'}), toonDur=0.12),
+        act('flic1', F1, -35, 'stand', 'determined', keys=[k(0.0, look='camera'), k(0.0, toon=CLAMP({**FL1, 'gx': 0.6, 'gy': 0.7}, 0.2), toonDur=0.0),   # (stills 2) his eyes go down to the wrists, his head stays up: turned to them it leaned onto the hero's
+            k(r(CUFF16 - 0.2), toon=CLAMP({**FL1, 'gx': 0.6, 'gy': 0.7}, 0.28), toonDur=0.1, toonEase='out'), k(r(CUFF16 - 0.05), toon=CLAMP({'lid': 0.4, 'brow': -0.7, 'mouth': 'clench', 'gx': 0.6, 'gy': 0.7}, 0.0, [1.04, 0.96, 1.04]), toonDur=0.05, toonEase='in'),   # a wind-up, snap
+            k(0.85, toon=CLAMP({'lid': 0.4, 'brow': -0.5, 'mouth': 'line'}), toonDur=0.12),
+            k(r(BAR16 - 0.14), toon=CLAMP({'lid': 0.4, 'brow': -0.7, 'mouth': 'line', 'gx': 0.7, 'gy': 0.3}, 0.0, [1.05, 0.94, 1.05]), toonDur=0.08),   # a dip...
+            k(BAR16, toon=HOLD16({'lid': 0.3, 'brow': -0.7, 'mouth': 'clench', 'gx': 0.7, 'gy': 0.3}, [0.96, 1.05, 0.96]), toonDur=0.08, toonEase='out'),   # ...and the censor bar is on him
+            k(r(BAR16 + 0.25), toon=HOLD16({**FL1, 'gx': 0.7, 'gy': 0.3}), toonDur=0.15), k(1.95, toon=HOLD16({'lid': 0.3, 'brow': -0.3, 'mouth': 'smirk'}), toonDur=0.12),
             k(2.2, toon=HOLD16({'lid': 1.0, 'brow': -0.3, 'mouth': 'smirk'}), toonDur=0.06), k(2.32, toon=HOLD16({'lid': 0.3, 'brow': -0.3, 'mouth': 'smirk'}), toonDur=0.08)]),
         act('flic2', F2, -80, 'stand', 'neutral', keys=[k(0.0, look=[ME1[0], 1.6, ME1[2]]), k(0.1, toon={'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'O', 'brow': 0.9}, 'sq': [0.95, 1.07, 0.95]}, toonDur=0.08, toonEase='out'),   # he sees the jumper...
             k(0.28, look='camera', lookDur=0.12), k(0.3, toon={**EYES('open'), 'face': {'lid': 1.0, 'mouth': 'O'}}, toonDur=0.12),   # ...and covers his eyes, his face to us
@@ -304,12 +305,12 @@ st.cue('sfx:click', 'S16', CUFF16, 0.3); st.cue('sfx:whistle', 'S16', 0.2, 0.2);
 
 # 17: he was sentenced... The courtroom, close: the judge, a label standing beside his wig, winds the gavel up out to the side and brings it down on its
 #     block; the bench, the wig and the label bounce; (review 2) a navy front on the bench: the caption sat on plain red
-D17 = st.dur('S17'); BANG17 = 0.34; JG = [0.0, 0.3, -4.0]; BLK17 = [-0.74, 1.53, -3.3]
+D17 = st.dur('S17'); BANG17 = 0.34; JG = [0.0, 0.3, -4.0]; BLK17 = [-0.72, 1.53, -3.3]
 GAV = lambda x, y, z, f, sq=None: {'reach': {'R': [x, y, z, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': f, **({'sq': sq} if sq else {})}
 st.shot('S17', 'courtroom', actors=[act('juge', JG, 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=GAV(-0.72, 2.7, -3.6, {'lid': 0.2, 'brow': -0.5, 'mouth': 'line'}), toonDur=0.0),
             k(0.05, toon=GAV(-0.8, 2.95, -3.75, {'lid': 0.2, 'brow': -0.7, 'mouth': 'line'}, [0.95, 1.07, 0.95]), toonDur=0.12, toonEase='out'),   # the wind-up, out beside his head...
-            k(r(BANG17 - 0.07), toon=GAV(-0.5, 1.64, -3.3, {'lid': 0.0, 'brow': -0.8, 'mouth': 'open'}, [1.08, 0.9, 1.08]), toonDur=0.07, toonEase='in'),   # ...the hit
-            k(r(BANG17 + 0.03), toon=GAV(-0.5, 1.96, -3.3, {'lid': 0.0, 'brow': -0.8, 'mouth': 'open'}, [0.97, 1.04, 0.97]), toonDur=0.08), k(r(BANG17 + 0.15), toon=GAV(-0.5, 1.67, -3.3, {'lid': 0.3, 'brow': -0.6, 'mouth': 'line'}), toonDur=0.1),   # the bounce
+            k(r(BANG17 - 0.07), toon=GAV(-0.2, 1.64, -3.3, {'lid': 0.0, 'brow': -0.8, 'mouth': 'open'}, [1.08, 0.9, 1.08]), toonDur=0.07, toonEase='in'),   # ...the hit
+            k(r(BANG17 + 0.03), toon=GAV(-0.22, 1.96, -3.3, {'lid': 0.0, 'brow': -0.8, 'mouth': 'open'}, [0.97, 1.04, 0.97]), toonDur=0.08), k(r(BANG17 + 0.15), toon=GAV(-0.2, 1.67, -3.3, {'lid': 0.3, 'brow': -0.6, 'mouth': 'line'}), toonDur=0.1),   # the bounce
             *BL(0.62, {'lid': 0.3, 'brow': -0.6, 'mouth': 'line'})])],
         props=[P('gav17', 'gavel', on={'actor': 'juge', 'hand': 'R', 'offset': [0.0, -0.02, 0.05]}), P('etiq17', 'careLabel', on={'actor': 'juge', 'joint': 'torso', 'offset': [0.32, 0.58, -0.08]}, opts={'s': 1.3, 'lean': -0.3, 'kick': [r(BANG17 + 0.02)], 'kickAmp': 1.3}),
                P('bloc17', 'soundBlock', pos=BLK17, scale=1.5, keys=[k(BANG17, squash=[1.25, 0.6, 1.25], dur=0.2)]),
@@ -343,7 +344,7 @@ st.shot('S19', 'parisStreet', setOpts=PARIS, actors=[act('mec', ME1, -60, 'stand
             k(0.9, toon={'face': {**DEAD, 'mouth': 'line', 'gx': 0.7}}, toonDur=0.1), k(1.2, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.1),   # his eyes go to the label, and back to us
             k(1.4, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.08), k(1.54, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.1)])],
         props=[MJ('pull19', tagSway=0.1, tagKick=[0.05, 0.95])],
-        cams=[FC(0.0, [2.9, 2.1, 1.6], [[ME1[0], 2.5, ME1[2]], [ME1[0], 0.98, ME1[2]], [L19[0], 2.25, L19[2]], [r(ME1[0] - 0.3), 2.0, ME1[2]]], top=0.14, bottom=0.73)])
+        cams=[FC(0.0, [2.9, 2.1, 1.6], [[ME1[0], 2.5, ME1[2]], [ME1[0], 0.98, ME1[2]], [L19[0], 2.25, L19[2]], [r(ME1[0] - 0.3), 2.0, ME1[2]]], top=0.05, bottom=0.66)])   # (stills 2) the snap push-in on his face (x 1.14) lowers the hem: framed higher, it stays above the caption band
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
 # (review 1) the jumpers' sleeves: each wearer's jacket in the colour of his jumper (and trousers of his own): the arms read as knitted sleeves
