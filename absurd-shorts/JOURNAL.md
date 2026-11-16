@@ -2857,3 +2857,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   finale : le pouce levé du président ne se lit pas comme un pouce (cube pâle sur nuage blanc), les deux gendarmes sortent en un seul paquet
   bleu, la tondeuse ne « joue » que dans trois plans, le rangement au garage est expédié. Passe finale confiée à un agent dérivé ; rendu
   définitif ensuite.
+- 7 h 00 — « Le bocal » (78) : passe 3 terminée et relue sur images, y compris la chute réglée en dernier (la grand-mère en plan moyen, de trois
+  quarts, souriante ; « POP ! », couvercle qui vole de face, mâchoire du gardien puis yeux du héros derrière elle). Cuillère qui plie à angle
+  droit, pince à bec qui mord le couvercle, nouveau char au canon braqué sur le bocal, deux chaînes d'astronautes devant un hublot. Brouillon 3
+  en file, revue 3 préparée. Brouillons prêts et revues lancées : « Le bus » (2), « Le service client » (2), « Le centime » (3).
