@@ -1,0 +1,165 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a porté plainte contre une guêpe.",
+  "hl": [
+   "plainte",
+   "guêpe."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "La police a chargé.",
+  "hl": [
+   "police",
+   "chargé."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il a exigé une frappe aérienne.",
+  "hl": [
+   "frappe",
+   "aérienne."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Un satellite a repéré la guêpe.",
+  "hl": [
+   "satellite"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Près du sucrier.",
+  "hl": [
+   "sucrier."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Un porte-avions a pris la mer.",
+  "hl": [
+   "porte-avions"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Dans l'évier.",
+  "hl": [
+   "l'évier."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Un avion de chasse a décollé de l'évier.",
+  "hl": [
+   "avion",
+   "chasse",
+   "décollé"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Il a raté la guêpe.",
+  "hl": [
+   "raté"
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Il a rasé l'immeuble.",
+  "hl": [
+   "rasé",
+   "l'immeuble."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Et la mairie, par précaution.",
+  "hl": [
+   "mairie,",
+   "précaution."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "La guêpe a fini son sucre.",
+  "hl": [
+   "fini",
+   "sucre."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le front s'est figé entre le frigo et l'évier.",
+  "hl": [
+   "front",
+   "figé"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Tout l'hiver, le sucre a été rationné.",
+  "hl": [
+   "l'hiver,",
+   "rationné."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "L'État a demandé un cessez-le-feu.",
+  "hl": [
+   "cessez-le-feu."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "La guêpe a obtenu le sucrier.",
+  "hl": [
+   "obtenu",
+   "sucrier."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "L'état-major s'est distribué des médailles.",
+  "hl": [
+   "médailles."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Même à la guêpe.",
+  "hl": [
+   "guêpe."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "C'était une mouche.",
+  "hl": [
+   "mouche."
+  ]
+ }
+]
