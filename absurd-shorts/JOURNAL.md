@@ -2836,3 +2836,12 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   passe 2 a rendu l'étiquette lisible partout et animé le retournement du pull). Reste : la série des imitateurs (plans 4 à 11) change de porteur
   mais pas de comportement — l'étiquette est déjà dressée et ne fait qu'osciller —, le plan 10 est figé, le retour de l'étiquette (plan 18) est
   sous-joué. Passe 3 confiée à un agent dérivé. « Le bocal » (78) : brouillon 2 prêt sans passage figé, revue 2 en cours.
+- 4 h 00 — « Le bocal » (78) : revue 2 = 6,2 (animation) ; 6,5 (direction artistique), contre 5,5 ; 5,6. Reste : la chute (la grand-mère ouvre
+  le bocal d'une pichenette) est filmée de loin, visage caché, couvercle vu de chant ; la cuillère ne plie jamais ; la pince des pompiers flotte
+  sans effort ; cinq étapes sont des tableaux presque immobiles. Passe 3 confiée à un agent dérivé.
+- « Le centime » (77) et « L'ascenseur » (76) : passes 3 terminées et relues sur images (timbre « 3,00 € » et chèque « 0,01 € » en gros plan,
+  ministre de face, feuille « FRAIS DE DÉPLACEMENT » tenue par les bords ; sol carrelé gris, cabine plus claire que le palier, canne sur la main
+  de l'enfant, les deux vieux qui se retournent dans l'escalier). Brouillons 3 en file, revues 3 préparées.
+- Outil : `tools/review/round_config.py` prépare la config de la revue suivante et réécrit les descriptions de plans à partir des commentaires
+  de mise en scène du script (`# N: phrase. mise en scène…`) : les critiques lisent ce que le plan montre maintenant. Tenir ces commentaires à
+  jour à chaque passe.
