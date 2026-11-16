@@ -32,18 +32,73 @@ export const LUNETTES_PROPS = {
   // Big black-rimmed glasses that read at phone size (origin at the bridge, the lenses facing +Z, the temples back along -Z): o.r (0.055 lens radius),
   // o.dx (0.075 from the bridge to a lens centre), o.color (rims, '#151515'); pale lenses with a white streak; o.glint [t, ...]: a sparkle flashes on the
   // left lens at each (0.35 s: it swells and turns), o.glintSize (0.12)
+  // (pass 3 of 69) o.rim (0.2: the rims' thickness as a share of the lens radius); o.tap [t, ...]: knocked by a finger at each, they rock on the head
+  // and settle (o.tapAmp, 0.5 rad); the parts hang in an inner group so that the rocking survives a prop turned to the camera
   bigGlasses(o) {
-    const R = o.r ?? 0.055, dx = o.dx ?? 0.075, C = o.color || '#151515', g = grp();
+    const R = o.r ?? 0.055, dx = o.dx ?? 0.075, C = o.color || '#151515', g0 = grp(), g = grp(); g0.add(g);
     for (const s of [-1, 1]) {
-      g.add(at(new THREE.Mesh(new THREE.TorusGeometry(R, R * 0.2, 6, 20), lam(C)), s * dx, 0, 0));
+      g.add(at(new THREE.Mesh(new THREE.TorusGeometry(R, R * (o.rim ?? 0.2), 6, 20), lam(C)), s * dx, 0, 0));
       g.add(at(new THREE.Mesh(new THREE.CircleGeometry(R * 0.96, 20), new THREE.MeshLambertMaterial({ color: '#CFE8F6', transparent: true, opacity: 0.55, side: THREE.DoubleSide, depthWrite: false })), s * dx, 0, 0.001));
       g.add(at(new THREE.Mesh(new THREE.PlaneGeometry(R * 0.28, R * 1.1), basic('#FFFFFF', 0.8)), s * dx - R * 0.35, R * 0.1, 0.003, 0, 0, -0.6));
       const tl = 0.16; g.add(at(box(0.012, 0.012, tl, C), s * (dx + R * 1.1), 0, -tl / 2), at(box(0.012, 0.03, 0.012, C), s * (dx + R * 1.1), -0.012, -tl));
     }
     g.add(at(box(dx * 2 - R * 2 + 0.01, 0.012, 0.012, C), 0, R * 0.25, 0));
     const sp = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: sparkTex(), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending })); sp.position.set(-dx + R * 0.3, R * 0.3, 0.01); g.add(sp);
-    g.userData.update = t => { let k = 0; for (const t0 of o.glint || []) { const u = (t - t0) / 0.35; if (u >= 0 && u < 1) k = Math.max(k, Math.sin(PI * u)); } sp.visible = k > 0.01; if (sp.visible) { const s = (o.glintSize ?? 0.12) * k; sp.scale.set(s, s, 1); sp.rotation.z = t * 3; } };
+    g0.userData.update = t => { let k = 0; for (const t0 of o.glint || []) { const u = (t - t0) / 0.35; if (u >= 0 && u < 1) k = Math.max(k, Math.sin(PI * u)); } sp.visible = k > 0.01; if (sp.visible) { const s = (o.glintSize ?? 0.12) * k; sp.scale.set(s, s, 1); sp.rotation.z = t * 3; }
+      let rock = 0, hop = 0; for (const t0 of o.tap || []) { const u = t - t0; if (u >= 0 && u < 1.2) { rock += (o.tapAmp ?? 0.5) * Math.exp(-u * 5) * Math.sin(u * 30); hop += 0.03 * Math.exp(-u * 9) * Math.abs(Math.sin(u * 30)); } }
+      g.rotation.z = rock; g.position.y = hop; };
+    g0.userData.update(0); return g0;
+  },
+
+  // (pass 3 of 69) A big magnifying glass with a huge magnified eye in it (pivot at the middle of the lens, facing +Z, the handle down to the right):
+  // o.r (0.16: the lens radius); the eye looks about by itself (a slow scan) or follows o.look [[t, x, y], ...] (-1..1), and blinks at o.blink [t, ...];
+  // o.iris ('#4A7FB5'), o.skin ('#E2A878')
+  eyeLens(o) {
+    const R = o.r ?? 0.16, g = grp(), flat = (r, c, z, seg = 28) => at(new THREE.Mesh(new THREE.CircleGeometry(r, seg), basic(c)), 0, 0, z);
+    g.add(new THREE.Mesh(new THREE.TorusGeometry(R, R * 0.1, 8, 28), lam('#C9A23A')));
+    g.add(at(cyl(R * 0.11, R * 0.13, R * 1.3, '#3B2A20', 8, { outline: 0.004 }), R * 1.2, -R * 1.2, 0, 0, 0, PI / 4));
+    g.add(flat(R * 0.97, o.skin || '#E2A878', 0.001));
+    const white = flat(R * 0.84, '#FBFBF6', 0.002), eye = grp(); white.scale.y = 0.62; g.add(white, eye);
+    eye.add(flat(R * 0.4, o.iris || '#4A7FB5', 0.003), flat(R * 0.2, '#15151A', 0.004), at(new THREE.Mesh(new THREE.CircleGeometry(R * 0.07, 10), basic('#FFFFFF')), R * 0.1, R * 0.12, 0.005));
+    g.add(at(box(R * 1.1, R * 0.13, 0.004, '#2A2420'), 0, R * 0.7, 0.003, 0, 0, 0.12));
+    g.add(at(new THREE.Mesh(new THREE.CircleGeometry(R * 0.97, 28), basic('#DDF0FF', 0.14)), 0, 0, 0.006), at(new THREE.Mesh(new THREE.RingGeometry(R * 0.62, R * 0.76, 14, 1, 2.1, 0.9), basic('#FFFFFF', 0.7)), 0, 0, 0.007));
+    g.userData.update = t => { let gx = 0.8 * Math.sin(t * 2.6), gy = 0.25 * Math.sin(t * 1.7 + 1), op = 0.62;
+      if (o.look) { gx = keyAt(o.look.map(q => [q[0], q[1]]), t, 0); gy = keyAt(o.look.map(q => [q[0], q[2]]), t, 0); }
+      for (const t0 of o.blink || []) { const u = (t - t0) / 0.16; if (u >= 0 && u < 1) op = 0.62 * Math.max(0.06, Math.abs(1 - 2 * u)); }
+      white.scale.y = op; eye.position.set(gx * R * 0.36, gy * R * 0.2, 0); eye.scale.y = Math.min(1, op / 0.5); };
     g.userData.update(0); return g;
+  },
+
+  // (pass 3 of 69) A big wall calendar that sheds its months toward us (pivot at its middle, on the wall, facing +Z): o.months (names), o.w (0.9) x
+  // o.h (1.15); from o.flipAt a page tears off every o.dur (0.17 s): it lifts, comes off, flies o.fly ([dx, dy, dz] m, [0.5, -0.9, 1.6]) tumbling and
+  // growing, and is gone after o.life (0.5 s); the last month stays on the wall
+  shedCalendar(o) {
+    const W = o.w ?? 0.9, H = o.h ?? 1.15, months = o.months || ['JANVIER', 'FÉVRIER', 'MARS'], g = grp(), fly = o.fly || [0.5, -0.9, 1.6], life = o.life ?? 0.5;
+    g.add(at(box(W + 0.06, H + 0.06, 0.03, '#3A3D44', { outline: 0.006 }), 0, 0, -0.02));
+    for (let i = 0; i < 6; i++) g.add(at(cyl(0.022, 0.022, 0.02, '#9AA0A8', 8), -W * 0.36 + i * W * 0.144, H / 2 + 0.01, 0.01, PI / 2, 0, 0));
+    const pages = months.map((m, i) => { const pg = canvasPlane(W, H, (c, cw, ch) => { c.fillStyle = '#FBF8F0'; c.fillRect(0, 0, cw, ch); c.fillStyle = '#C8322A'; c.fillRect(0, 0, cw, ch * 0.3);
+        c.fillStyle = '#FFFFFF'; c.textAlign = 'center'; c.textBaseline = 'middle'; let px = ch * 0.2; c.font = `900 ${px}px Arial`; const tw = c.measureText(m).width; if (tw > cw * 0.9) { px *= cw * 0.9 / tw; c.font = `900 ${px}px Arial`; } c.fillText(m, cw / 2, ch * 0.16);
+        c.fillStyle = '#3A3D44'; c.font = `700 ${ch * 0.06}px Arial`; for (let d = 0; d < 31; d++) c.fillText(String(d + 1), (d % 7 + 0.5) / 7 * cw, ch * (0.42 + Math.floor(d / 7) * 0.115)); }, { res: 256, emissive: 0.12 });
+      pg.position.z = 0.004 + (months.length - i) * 0.0015; g.add(pg); return pg; });
+    g.userData.update = t => pages.forEach((pg, i) => { const z0 = 0.004 + (months.length - i) * 0.0015;
+      if (i === pages.length - 1 || o.flipAt == null) { pg.visible = true; pg.position.set(0, 0, z0); pg.rotation.set(0, 0, 0); pg.scale.setScalar(1); return; }
+      const u = (t - o.flipAt - i * (o.dur ?? 0.17)) / life; pg.visible = u < 1;
+      if (u <= 0) { pg.position.set(0, 0, z0); pg.rotation.set(0, 0, 0); pg.scale.setScalar(1); return; }
+      const sd = hash(i + 5) - 0.5; pg.position.set(fly[0] * u * (1 + sd), fly[1] * u * u + 0.18 * Math.sin(PI * u), z0 + 0.05 + fly[2] * u);
+      pg.rotation.set(-0.5 - 2.2 * u, sd * 1.2 * u, sd * 2.4 * u); pg.scale.setScalar(1 + 0.25 * u); });
+    g.userData.update(0); return g;
+  },
+
+  // (pass 3 of 69) Big field binoculars seen from the front (pivot between the barrels at the eyepieces, the objectives toward +Z): o.r (0.06), o.len
+  // (0.17), o.color ('#22252B'); pale-blue objective glasses with a white streak, a bridge between the barrels
+  bigBinoculars(o) {
+    const R = o.r ?? 0.06, L = o.len ?? 0.17, C = o.color || '#22252B', g = grp();
+    for (const s of [-1, 1]) {
+      g.add(at(cyl(R, R * 0.72, L, C, 12, { outline: 0.006 }), s * R * 1.12, 0, L / 2, PI / 2, 0, 0));
+      g.add(at(new THREE.Mesh(new THREE.CircleGeometry(R * 0.82, 16), basic('#9FD0EA')), s * R * 1.12, 0, L + 0.002), at(new THREE.Mesh(new THREE.PlaneGeometry(R * 0.26, R * 1.0), basic('#FFFFFF', 0.85)), s * R * 1.12 - R * 0.3, R * 0.1, L + 0.004, 0, 0, -0.6));
+    }
+    g.add(at(box(R * 0.9, R * 0.5, L * 0.5, C), 0, 0, L * 0.45));
+    return g;
   },
 
   // A low-poly military helicopter facing +Z (pivot at its centre of mass, about 9 m long at scale 1): olive body, a glazed nose, the tail boom with

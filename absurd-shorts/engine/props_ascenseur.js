@@ -69,10 +69,10 @@ export const ASCENSEUR_PROPS = {
     // (pass 3) the lit button is called out the way the call button is in the hall: a wide amber ring that breathes and a halo round it (a fingertip
     // on the button hid the only lit thing), and its name on a plate under it, clear of a hand that comes in from either side
     const yR = h / 2 - 0.08 - 8 * (h - 0.14) / 8.5, isRC = (o.lit ?? 'RC') === 'RC';
-    const ringR = at(cyl(0.05, 0.05, 0.008, '#FFB02E', 22, { emissive: '#FF8A10', noGrain: true }), 0, yR, 0.0125, PI / 2, 0, 0);
-    const haloR = new THREE.Mesh(new THREE.CircleGeometry(0.1, 24), new THREE.MeshBasicMaterial({ color: '#FF9A2E', transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending, depthWrite: false })); haloR.position.set(0, yR, 0.0112);
+    const ringR = at(cyl(0.064, 0.064, 0.008, '#FFB02E', 22, { emissive: '#FF8A10', noGrain: true }), 0, yR, 0.0125, PI / 2, 0, 0);
+    const haloR = new THREE.Mesh(new THREE.CircleGeometry(0.12, 24), new THREE.MeshBasicMaterial({ color: '#FF9A2E', transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending, depthWrite: false })); haloR.position.set(0, yR, 0.0112);
     const tag = canvasPlane(0.07, 0.05, (c, W, H) => { c.fillStyle = '#F2EFE6'; c.fillRect(0, 0, W, H); c.strokeStyle = '#1E2228'; c.lineWidth = H * 0.08; c.strokeRect(H * 0.04, H * 0.04, W - H * 0.08, H - H * 0.08); c.fillStyle = '#1E2228'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.66}px Arial`; c.fillText('RC', W / 2, H * 0.56); }, { res: 128 });
-    tag.position.set(0, yR - 0.084, 0.0115);
+    tag.position.set(0, yR - 0.1, 0.0115);
     if (isRC) g.add(ringR, haloR, tag);
     if (o.dusty) { const d = canvasPlane(w, h, (c, W, H) => { const gr = c.createRadialGradient(W * 0.4, H * 0.6, W * 0.05, W * 0.5, H * 0.5, W * 0.9); gr.addColorStop(0, 'rgba(150,140,125,0.15)'); gr.addColorStop(1, 'rgba(120,110,95,0.55)'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
         c.globalCompositeOperation = 'destination-out'; c.beginPath(); c.ellipse(W * 0.5, H * (0.5 - (yR - 0.03) / h), W * 0.34, W * 0.42, 0, 0, TAU); c.fill(); c.globalCompositeOperation = 'source-over'; }, { res: 128, transparent: true });   /* twenty years of one finger: no dust round the button and its name */
@@ -102,10 +102,10 @@ export const ASCENSEUR_PROPS = {
     // throws an amber halo on the plate and the wall round it (o.pulse false: steady), so the lit button reads from across the hall and a held
     // insert on it is never a still picture
     arrow.position.set(0, -0.055, 0.012); arrow.rotation.z = o.arrow === 'down' ? PI : 0; g.add(arrow);
-    const halo = new THREE.Mesh(new THREE.CircleGeometry(0.085, 24), new THREE.MeshBasicMaterial({ color: '#FF9A2E', transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+    const halo = new THREE.Mesh(new THREE.CircleGeometry(0.072, 24), new THREE.MeshBasicMaterial({ color: '#FF9A2E', transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
     halo.position.set(0, 0.01, 0.0108); g.add(halo);
     g.userData.update = t => { const p = o.pressAt != null && t >= o.pressAt, d = p && t < o.pressAt + 0.25; b.position.z = d ? 0.012 : 0.02; lit.visible = p || (o.litAfter != null && t >= o.litAfter); ring.visible = !lit.visible;
-      const pu = lit.visible && o.pulse !== false ? 0.5 + 0.5 * Math.sin((t - (o.pressAt ?? o.litAfter ?? 0)) * 5.5 - PI / 2) : 0; lit.scale.set(1 + 0.12 * pu, 1, 1 + 0.12 * pu); halo.material.opacity = lit.visible ? 0.3 + 0.32 * pu : 0; };
+      const pu = lit.visible && o.pulse !== false ? 0.5 + 0.5 * Math.sin((t - (o.pressAt ?? o.litAfter ?? 0)) * 5.5 - PI / 2) : 0; lit.scale.set(1 + 0.12 * pu, 1, 1 + 0.12 * pu); halo.material.opacity = lit.visible ? 0.2 + 0.26 * pu : 0; };
     g.userData.update(-1); return g;
   },
 
@@ -113,7 +113,7 @@ export const ASCENSEUR_PROPS = {
   // and o.d (16) deep with darker joints every o.tile (0.6) m. The hall set reads its floor display from the option that also names its floor
   // colour, so its tiles came out near white (luma 0.87) and the white captions sat on them.
   tileFloor(o) {
-    const w = o.w ?? 6.8, d = o.d ?? 16, s = o.tile ?? 0.6, J = o.joint || '#8F6A4C', g = grp(at(box(w, 0.008, d, o.color || '#B88C66'), 0, 0.005, d / 2));
+    const w = o.w ?? 6.8, d = o.d ?? 16, s = o.tile ?? 0.6, J = o.joint || '#72604F', g = grp(at(box(w, 0.008, d, o.color || '#988474'), 0, 0.005, d / 2));
     for (let x = -Math.floor(w / 2 / s) * s; x <= w / 2 - 0.01; x += s) g.add(at(box(0.022, 0.003, d, J), x, 0.0095, d / 2));
     for (let z = s / 2; z < d; z += s) g.add(at(box(w, 0.003, 0.022, J), 0, 0.0095, z));
     g.traverse(m => { if (m.isMesh) m.castShadow = false; });
@@ -122,8 +122,8 @@ export const ASCENSEUR_PROPS = {
 
   // (pass 3) The light of an open lift car (pivot at the foot of the doorway, the hall out along +Z): a warm trapezoid on the hall floor that widens
   // with the doors (o.doors [[t, 0..1], ...]: the set's own door keys, eased the same way), a warm point light in front of the doorway (o.light,
-  // 14) that falls on whoever sits near it, another inside the car (o.carLight, 10; the car's own walls are unlit paint, the people in it are not)
-  // and a glow on the car's back wall (o.wall, 0.3; o.depth 1.3: how deep the car is). o.len (2.6): how far the trapezoid runs, o.spread (1.9): how
+  // 4.5) that falls on whoever sits near it, another inside the car (o.carLight, 4; the car's own walls are unlit paint, the people in it are not)
+  // and a glow on the car's back wall (o.wall, 0.14; o.depth 1.3: how deep the car is). o.len (2.6): how far the trapezoid runs, o.spread (1.9): how
   // much wider it is at its far end.
   doorGlow(o) {
     const DW = o.w ?? 1.1, Ln = o.len ?? 2.6, sp = o.spread ?? 1.9, g = grp(), D = o.doors || [[0, 1]], Y = 0.027;
@@ -136,13 +136,13 @@ export const ASCENSEUR_PROPS = {
     geo.setAttribute('uv', new THREE.BufferAttribute(new Float32Array([0, 1, 1, 1, 0, 0, 1, 0]), 2)); geo.setIndex([0, 2, 1, 2, 3, 1]);
     const beam = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ map: tex, color: o.color || '#FFD49A', transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
     beam.frustumCulled = false; g.add(beam);
-    const hall = new THREE.PointLight(o.color || '#FFD49A', 0, 6, 1.2); hall.position.set(0, 1.5, 0.45); g.add(hall);
+    const hall = new THREE.PointLight(o.color || '#FFD49A', 0, 4.5, 1.3); hall.position.set(0, 1.3, 0.75); g.add(hall);
     const car = new THREE.PointLight('#FFE2B8', 0, 4, 1.2); car.position.set(0, 1.85, -0.45); g.add(car);
-    const wall = new THREE.Mesh(new THREE.PlaneGeometry(DW + 0.4, 2.3), new THREE.MeshBasicMaterial({ color: '#FFC98A', transparent: true, opacity: o.wall ?? 0.3, blending: THREE.AdditiveBlending, depthWrite: false }));
+    const wall = new THREE.Mesh(new THREE.PlaneGeometry(DW + 0.4, 2.3), new THREE.MeshBasicMaterial({ color: '#FFC98A', transparent: true, opacity: o.wall ?? 0.14, blending: THREE.AdditiveBlending, depthWrite: false }));
     wall.position.set(0, 1.2, -(o.depth ?? 1.3) + 0.07); g.add(wall);
     g.userData.update = t => { const a = openAt(t), h0 = a * (DW / 2 - 0.03), h1 = h0 * sp + 0.12 * a;
       pos.set([-h0, Y, 0.02, h0, Y, 0.02, -h1, Y, Ln, h1, Y, Ln]); geo.attributes.position.needsUpdate = true;
-      beam.visible = a > 0.01; beam.material.opacity = (o.floor ?? 0.5) * Math.min(1, a * 1.6); hall.intensity = (o.light ?? 14) * a; car.intensity = (o.carLight ?? 10) * Math.min(1, a * 2); wall.visible = a > 0.01; };
+      beam.visible = a > 0.01; beam.material.opacity = (o.floor ?? 0.5) * Math.min(1, a * 1.6); hall.intensity = (o.light ?? 4.5) * a; car.intensity = (o.carLight ?? 4) * Math.min(1, a * 2); wall.visible = a > 0.01; };
     g.userData.update(0); return g;
   },
 
@@ -152,7 +152,7 @@ export const ASCENSEUR_PROPS = {
   // above the thing it hit. Turn the prop (ry) so that its +Z points from the hand to the target.
   cane(o) {
     const Ln = o.len ?? 0.95, C = o.color || '#6B4A2E', g = grp(), sw = grp(); g.add(sw);
-    sw.add(at(cyl(0.016, 0.014, Ln, C, 8, { pivot: 'bottom', outline: 0.004 }), 0, 0, 0), at(box(0.03, 0.03, 0.13, C, { outline: 0.004 }), 0, 0, -0.05), at(cyl(0.02, 0.02, 0.03, '#2A2622', 8), 0, Ln - 0.015, 0));
+    sw.add(at(cyl(0.022, 0.019, Ln, C, 8, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(0.04, 0.04, 0.15, C, { outline: 0.005 }), 0, 0, -0.055), at(cyl(0.025, 0.025, 0.035, '#2A2622', 8), 0, Ln - 0.017, 0));
     const fanG = grp(); fanG.rotation.y = -PI / 2; g.add(fanG);
     const fan = new THREE.Mesh(new THREE.CircleGeometry(Ln, 10, 0, 0.5), new THREE.MeshBasicMaterial({ color: C, transparent: true, opacity: 0.38, side: THREE.DoubleSide, depthWrite: false })); fan.visible = false; fanG.add(fan);
     const S = o.swing, an = o.antic ?? 0.3, rest = o.rest ?? 0.22; let last = null;

@@ -41,7 +41,7 @@ CH = [1.45, 0, -2.5]; SITP = [1.45, 0, -2.42]     # the armchair and where he si
 CAL = [-1.15, 1.62, BACK + 0.02]; CLK = [-1.15, 2.6, BACK + 0.04]
 HALL = lambda **kw: {'notice': 'SYNDIC', 'car': True, **kw}   # (pass 2) a lit car behind the doors (the doorway showed the hall's own wall)
 FLOOR = lambda pid: P(pid, 'tileFloor', pos=[0, 0, BACK])     # (pass 3) terracotta tiles over the set's near-white floor (the captions sat on white)
-DIM = {'fill': 0.5, 'sun': 0.45, 'probe': 0.9, 'autoExposure': False}   # (pass 3) the hall once the lift is there: darker, so the car is the light
+DIM = {'fill': 0.45, 'sun': 0.4, 'probe': 0.85, 'autoExposure': False}   # (pass 3) the hall once the lift is there: darker, so the car is the light
 GLOW = lambda pid, doors, **kw: P(pid, 'doorGlow', pos=[0, 0, BACK], opts={'doors': doors, **kw})   # (pass 3) the car's light across the hall floor and on whoever is near
 BUTTON = lambda pid, **kw: P(pid, 'callButton', pos=BTN, opts=kw)
 CHAIR = lambda pid, **kw: P(pid, 'armchair', pos=CH, opts={'color': '#B5523A', **kw})
@@ -144,16 +144,16 @@ st.cue('thud', 'S07', SINK, 0.4); st.cue('sfx:poof', 'S07', SINK, 0.4)
 
 # 8: the residents' association voted for works. A meeting in the hall: the chairman bangs his gavel at a folding table, three residents raise their
 #    hands, and so does he, from his armchair, his arm twice as long as theirs (VOTÉ)
-D8 = st.dur('S08'); BANG8 = 0.75; SYN = [-0.12, 0, -2.78]; TAB = [-0.1, 0, -2.35]   # (pass 3) the chairman at his table in front of the lift doors, facing us
-RES8 = [('voisin1', 0.42, -1.95, -60), ('voisin2', 0.68, -1.5, -60), ('voisin3', 0.95, -1.98, -62)]   # (pass 3) the three residents in a tight group between him and the armchair, three-quarters to us (two had their backs to us and one hid behind another)
+D8 = st.dur('S08'); BANG8 = 0.75; SYN = [-0.42, 0, -2.78]; TAB = [-0.4, 0, -2.35]   # (pass 3) the chairman at his table in front of the lift doors, facing us
+RES8 = [('voisin1', 0.1, -1.95, -60), ('voisin2', 0.34, -1.5, -60), ('voisin3', 0.58, -1.98, -62)]   # (pass 3) the three residents in a tight group between him and the armchair, three-quarters to us (two had their backs to us and one hid behind another)
 UP8 = {'reach': {'R': [1.6, 2.7, -2.2, 1, 0.04]}, 'hands': {'R': 'open'}}
 st.shot('S08', 'immeubleHall', setOpts=HALL(floor=[[0.0, '5']]), actors=[act('mec', SITP, 0, 'sit', 'neutral', darts=0, keys=[k(0.0, look='camera'), k(0.0, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.0),
             k(0.3, toon={**UP8, 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.2, toonEase='out'),
             k(1.3, toon={**UP8, 'face': {'lid': 1.0, 'gx': GX, 'mouth': 'line'}}, toonDur=0.08), k(1.42, toon={**UP8, 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.12)]),
-        act('syndic', SYN, 20, 'stand', 'neutral', keys=[k(0.0, look=[0.7, 1.6, -1.2]), k(0.0, toon={'reach': {'R': [-0.38, 1.62, -2.38, 1, 0.04]}, 'hands': {'R': 'grip'}}, toonDur=0.0),
-            k(r(BANG8 - 0.14), toon={'reach': {'R': [-0.38, 1.8, -2.44, 1, 0.04]}, 'hands': {'R': 'grip'}, 'sq': [0.98, 1.03, 0.98]}, toonDur=0.12),   # the gavel goes up a little first
-            k(BANG8, toon={'reach': {'R': [-0.38, 0.86, -2.34, 1, 0.04]}, 'hands': {'R': 'grip'}, 'sq': [1.04, 0.95, 1.04]}, toonDur=0.05, toonEase='in'),
-            k(r(BANG8 + 0.15), toon={'reach': {'R': [-0.38, 0.98, -2.34, 1, 0.04]}, 'hands': {'R': 'grip'}, 'sq': [1.0, 1.0, 1.0]}, toonDur=0.15)]),
+        act('syndic', SYN, 20, 'stand', 'neutral', keys=[k(0.0, look=[0.5, 1.6, -1.0]), k(0.0, toon={'reach': {'R': [-0.68, 1.62, -2.38, 1, 0.04]}, 'hands': {'R': 'grip'}}, toonDur=0.0),
+            k(r(BANG8 - 0.14), toon={'reach': {'R': [-0.68, 1.8, -2.44, 1, 0.04]}, 'hands': {'R': 'grip'}, 'sq': [0.98, 1.03, 0.98]}, toonDur=0.12),   # the gavel goes up a little first
+            k(BANG8, toon={'reach': {'R': [-0.68, 0.86, -2.34, 1, 0.04]}, 'hands': {'R': 'grip'}, 'sq': [1.04, 0.95, 1.04]}, toonDur=0.05, toonEase='in'),
+            k(r(BANG8 + 0.15), toon={'reach': {'R': [-0.68, 0.98, -2.34, 1, 0.04]}, 'hands': {'R': 'grip'}, 'sq': [1.0, 1.0, 1.0]}, toonDur=0.15)]),
         *[act(rid, [rx, 0, rz], rry, 'stand', 'neutral', keys=[k(0.0, look=[SYN[0], 1.8, SYN[2]]),
             k(r(0.15 + 0.08 * j), toon={'reach': {'R': [r(rx - 0.1), r(2.55 + 0.08 * j), r(rz - 0.08), 1, 0.04]}, 'hands': {'R': 'open'}}, toonDur=0.2, toonEase='out'),
             k(r(0.9 + 0.2 * j), toon={'reach': {'R': [r(rx - 0.1), r(2.63 + 0.08 * j), r(rz - 0.08), 1, 0.04]}, 'hands': {'R': 'open'}, 'face': {'lid': 1.0}}, toonDur=0.08),
@@ -161,8 +161,8 @@ st.shot('S08', 'immeubleHall', setOpts=HALL(floor=[[0.0, '5']]), actors=[act('me
           for j, (rid, rx, rz, rry) in enumerate(RES8)]],
         props=[FLOOR('sol8'), BUTTON('bt8', litAfter=0.0), CHAIR('fauteuil8'), BEARD('barbe8', s=0.9, color='#7A6E62'), P('table8', 'desk', pos=TAB, ry=180, opts={'w': 0.9}),
                P('marteau8', 'gavel', on={'actor': 'syndic', 'hand': 'R', 'offset': [0.0, -0.02, 0.05]}),
-               P('banniere8', 'signBoard', pos=[0.0, 2.9, BACK + 0.05], opts={'text': 'ASSEMBLÉE GÉNÉRALE', 'bg': '#F3EBD6', 'fg': '#7A2A1E', 'w': 1.2, 'h': 0.26, 'posts': False, 'height': 0})],
-        cams=[FC(0.0, [0.65, 1.4, 2.2], [[1.62, 2.78, -2.2], [1.95, 0.7, CH[2]], [r(SYN[0] - 0.42), 1.3, SYN[2]], [r(TAB[0] - 0.5), 0.5, TAB[2]], [-0.6, 3.04, BACK], [0.68, 0.3, -1.5]], top=0.1, bottom=0.76, lenses=range(26, 61))])   # (pass 3) lower and closer: a frame 2.6 m wide instead of 4, his whole armchair in it
+               P('banniere8', 'signBoard', pos=[-0.2, 2.9, BACK + 0.05], opts={'text': 'ASSEMBLÉE GÉNÉRALE', 'bg': '#F3EBD6', 'fg': '#7A2A1E', 'w': 1.2, 'h': 0.26, 'posts': False, 'height': 0})],
+        cams=[FC(0.0, [0.65, 1.4, 2.2], [[1.62, 2.78, -2.2], [1.95, 0.7, CH[2]], [r(SYN[0] - 0.42), 1.3, SYN[2]], [r(TAB[0] - 0.5), 0.5, TAB[2]], [-0.8, 3.04, BACK], [0.34, 0.3, -1.5]], top=0.1, bottom=0.76, lenses=range(26, 61))])   # (pass 3) lower and closer: a frame 2.8 m wide instead of 4, his whole armchair in it, nobody in front of him
 st.cue('sfx:gavel', 'S08', BANG8, 0.4)
 
 # 9: the works lasted... A worker drills the floor in front of the lift with a jackhammer: the worker, the armchair, his beard and the camera all
@@ -176,9 +176,9 @@ st.shot('S09', 'immeubleHall', setOpts=HALL(floor=[[0.0, '—']]), fx=[{'type': 
             *[k(r(0.07 * j), toon={'reach': {'R': [r(HAM[0] - 0.17), 1.02, HAM[2], 1, 0.04], 'L': [r(HAM[0] + 0.17), 1.02, HAM[2], 1, 0.04]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': [1.06, 0.93, 1.06] if j % 2 else [0.96, 1.05, 0.96]}, toonDur=0.035) for j in range(1, N9)]])],
         props=[FLOOR('sol9'), BUTTON('bt9', litAfter=0.0), P('fauteuil9', 'armchair', pos=CH, opts={'color': '#B5523A'}, keys=[k(r(0.07 * j), to=[CH[0], 0.05 if j % 2 else 0.0, CH[2]], dur=0.035) for j in range(1, N9)]),
                BEARD('barbe9', who='gris', s=0.95, color='#A49C90', swing=[0.0, D9, 0.14]),   # (pass 3) the beard buzzes
-               P('piqueur9', 'jackhammer', pos=HAM, opts={'from': 0.0, 'floorY': -1.0}), P('panneau9', 'signBoard', pos=[1.3, 2.3, BACK + 0.05], opts={'text': 'TRAVAUX', 'bg': '#F2C230', 'fg': '#1B1B1E', 'w': 0.95, 'h': 0.34, 'posts': False, 'height': 0}),   # (pass 3) the sign on the wall over him (on the floor at the left it spread the frame too wide)
+               P('piqueur9', 'jackhammer', pos=HAM, opts={'from': 0.0, 'floorY': -1.0}), P('panneau9', 'signBoard', pos=[1.6, 2.3, BACK + 0.05], opts={'text': 'TRAVAUX', 'bg': '#F2C230', 'fg': '#1B1B1E', 'w': 0.95, 'h': 0.34, 'posts': False, 'height': 0}),   # (pass 3) the sign on the wall over him (on the floor at the left it spread the frame too wide)
                P('nuage9', 'workDust', pos=[HAM[0], 0.0, HAM[2]], opts={'drift': [-0.75, 0, 0.3], 's': 1.15})],   # (pass 3) opaque puffs that drift away from him (translucent boulders ghosted him out)
-        cams=[FC(0.0, [0.5, 1.25, 1.1], [[SITP[0], 1.75, SITP[2]], [r(SITP[0] + 0.48), 0.9, SITP[2]], [1.3, 2.52, BACK], [r(OUV[0] - 0.35), 1.95, OUV[2]], [r(OUV[0] - 0.3), 0.25, HAM[2]]], top=0.12, bottom=0.76)])   # (pass 3) close: the worker, him and the sign fill the frame
+        cams=[FC(0.0, [0.5, 1.25, 1.1], [[SITP[0], 1.75, SITP[2]], [r(SITP[0] + 0.48), 0.9, SITP[2]], [2.05, 2.5, BACK], [r(OUV[0] - 0.35), 1.95, OUV[2]], [r(OUV[0] - 0.3), 0.25, HAM[2]]], top=0.12, bottom=0.76)])   # (pass 3) close: the worker, him and the sign fill the frame
 st.cue('sfx:rattle', 'S09', 0.0, 0.9); st.cue('sfx:chainsaw', 'S09', 0.0, 0.9)
 
 # 10: ...fifteen years. Close on the wall calendar: the years fly off page after page, 2007 to 2021, past the clock spinning above
@@ -228,7 +228,7 @@ HANDP = [1.27, 0.73, -2.1]                          # his hand on the arm of the
 KHAND = [0.7, 1.1, -2.3]                            # the child's hand, over the rope, on its way to the button
 _dx, _dy, _dz = KHAND[0] - HANDP[0], KHAND[1] - HANDP[1], KHAND[2] - HANDP[2]
 CRY = r(math.degrees(math.atan2(_dx, _dz)), 1); A1 = r(math.atan2(math.hypot(_dx, _dz), _dy))   # where the stick points when it lands, and how far it comes down
-K1 = [0.3, 0, -2.3]; TEA = [0.0, 0, -2.78]
+K1 = [0.3, 0, -2.3]; TEA = [0.1, 0, -2.86]
 KREACH = lambda p, hand='point': {'reach': {'L': [*p, 1, 0.04]}, 'hands': {'L': hand}}
 SHOCK = {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 1.0}
 st.shot('S14', 'immeubleHall', setOpts=HALL(floor=[[0.0, '6']]), actors=[act('vieux', SIT14, 0, 'sit', 'neutral', darts=0, keys=[k(0.0, look=[0.5, 1.3, -1.0]),
@@ -243,10 +243,10 @@ st.shot('S14', 'immeubleHall', setOpts=HALL(floor=[[0.0, '6']]), actors=[act('vi
             k(r(TAP + 0.07), toon={**KREACH([0.44, 0.95, -2.22], 'open'), 'sq': [0.9, 1.14, 0.9], 'face': {**SHOCK}}, toonDur=0.06, toonEase='out'), k(r(TAP + 0.07), look='camera', lookDur=0.08),   # ...and jumps back, the hand snatched to his chest, his face to us
             *[k(r(TAP + 0.2 + 0.07 * i_), toon={**KREACH([r(0.5 + (0.07 if i_ % 2 else -0.05)), r(0.98 + (0.06 if i_ % 2 else 0.0)), -2.2], 'open'), 'sq': [1.0, 1.0, 1.0], 'face': {**SHOCK}}, toonDur=0.05) for i_ in range(8)]]),   # he shakes the hand
         *[act(kid, [kx, 0, kz], kry, 'stand', 'happy', keys=[k(0.0, look=BTN), k(r(0.3 + 0.2 * j), look=[K1[0], 0.9, K1[2]], lookDur=0.2), k(r(TAP + 0.1), toon={'face': {**SHOCK}, 'sq': [0.96, 1.06, 0.96]}, toonDur=0.08), k(r(TAP + 0.3), toon={'face': {**SHOCK}}, toonDur=0.15)])
-          for j, (kid, kx, kz, kry) in enumerate([('eleve2', 0.27, -2.78, 70), ('eleve3', 0.05, -2.52, 75)])]],   # (pass 3) the class in a cluster with the teacher, behind him
+          for j, (kid, kx, kz, kry) in enumerate([('eleve2', 0.42, -2.8, 70), ('eleve3', 0.14, -2.6, 75)])]],   # (pass 3) the class in a cluster with the teacher, behind him
         props=[FLOOR('sol14'), BUTTON('bt14', litAfter=0.0), P('plaque14', 'bronzePlaque', pos=[BTN[0], 0.82, BACK + 0.04], scale=0.8, opts={'text': "BOUTON D'APPEL/2006"}),
                P('spot14', 'lightCone', pos=[BTN[0], 3.3, BACK + 0.45], opts={'h': 2.3, 'r': 0.42, 'opacity': 0.14}),
-               P('cordon14', 'stanchions', pos=[0.79, 0, BACK + 0.75], opts={'w': 0.76}), P('fauteuil14', 'armchair', pos=CH14, opts={'color': '#B5523A'}), BEARD('barbe14', who='vieux', s=1.25), SPECS('lun14', who='vieux'), WEB('toile14c'),
+               P('cordon14', 'stanchions', pos=[0.705, 0, BACK + 0.75], opts={'w': 0.59}), P('fauteuil14', 'armchair', pos=CH14, opts={'color': '#B5523A'}), BEARD('barbe14', who='vieux', s=1.25), SPECS('lun14', who='vieux'), WEB('toile14c'),
                P('canne14', 'cane', pos=HANDP, ry=CRY, opts={'len': 0.92, 'swing': [r(TAP - 0.07), -1.1, A1, 0.07], 'antic': 0.3, 'rest': 0.25})],   # (pass 3) the stick lies across his lap, whips over the top about his hand and lands on the child's hand over the rope, with a smear (it hung over the child's head and never touched anything)
         cams=[FC(0.0, [2.6, 1.3, 0.4], [[SIT14[0], 1.7, SIT14[2]], [r(SIT14[0] + 0.48), 0.9, SIT14[2]], [BTN[0], 0.66, BTN[2]], [r(K1[0] - 0.28), 1.1, K1[2]], [r(K1[0] - 0.28), 0.45, K1[2]], [TEA[0], 1.82, TEA[2]], [HANDP[0], 1.65, HANDP[2]]], top=0.12, bottom=0.76, lenses=range(26, 62), drift=(-0.1, 0.0, -0.12), inside=ROOM)])   # (pass 3) from his side, low: the child and his class at the left, the button and its plaque in the gap, the stick across it, him at the right (the button hid behind a child, he was cut by the edge)
 st.cue('sfx:bonk', 'S14', TAP, 0.3); st.cue('whoosh', 'S14', r(TAP - 0.08), 0.2)
@@ -272,7 +272,8 @@ TWIN = lambda pfx, at_=AUT: [P(f'fauteuil{pfx}', 'armchair', pos=at_, opts={'col
 st.shot('S16', 'immeubleHall', setOpts=HALL(floor=[[0.0, 'RC']], doors=DOORS16), look=DIM, actors=[act('vieux', SITP, -35, 'sit', 'neutral', keys=[k(0.0, look=[0.0, 1.5, ZF]),
             k(0.0, toon={'face': {'lid': 0.0, 'eye': 0.45, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.0), *[k(r(0.2 + 0.08 * j), toon={'face': {'lid': 0.0, 'eye': 0.45, 'mouth': 'O', 'brow': 1.0}, 'sq': [1.0, 1.02 if j % 2 else 0.98, 1.0]}, toonDur=0.04) for j in range(10)]]),
         act('autre', [AUT[0], 0, AUT[2] + 0.08], 0, 'sit', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {**OLDF, 'mouth': 'line'}}, toonDur=0.0)])],
-        props=[FLOOR('sol16'), GLOW('lueur16', DOORS16), BUTTON('bt16', litAfter=0.0), P('fauteuil16', 'armchair', pos=CH, ry=-35, opts={'color': '#B5523A'}), BEARD('barbe16', who='vieux', s=1.25, swing=[0.2, 1.0, 0.12]), SPECS('lun16', who='vieux'), STICK('canne16', who='vieux'),
+        props=[FLOOR('sol16'), GLOW('lueur16', DOORS16), BUTTON('bt16', litAfter=0.0), P('fauteuil16', 'armchair', pos=CH, ry=-35, opts={'color': '#B5523A'}), BEARD('barbe16', who='vieux', s=1.25, swing=[0.2, 1.0, 0.12]), SPECS('lun16', who='vieux'),
+               P('canne16', 'cane', on={'actor': 'vieux', 'hand': 'R', 'offset': [0.0, 0.0, 0.05], 'hang': True, 'hangYaw': 1.0}, opts={'a': r(PI), 'len': 0.7}),   # (pass 3) his stick stands on the floor under his hand (carried along the forearm it lay level, like a lance at the doors)
                WEB('toile16c'), *TWIN('16b')],
         cams=[FC(0.0, [-2.4, 1.3, -0.8], [[-0.62, 2.25, ZF], [-0.62, 0.25, ZF], [SITP[0], 1.72, SITP[2]], [1.95, 0.7, CH[2]], [0.3, 0.2, -1.5]], top=0.14, bottom=0.76, lenses=range(26, 62), drift=(0.15, 0.0, -0.05), inside=ROOM)])   # (pass 3) along the wall from the letter boxes: the doors part in front of us, their light runs across the floor to him, and he faces us, lit (the frontal wide left him small in profile in a pale frame, and showed the car empty)
 st.cue('sfx:slideUp', 'S16', OPEN, 0.6)
@@ -288,7 +289,7 @@ st.shot('S17', 'immeubleHall', setOpts=HALL(floor=[[0.0, 'RC']], doors=DOORS17),
 
 # 18: he had been waiting for the ground floor... Close on the car's panel beside him: his finger on the RC button, its amber ring breathing as in
 #     the first shot, RC on a plate under it, dust everywhere but there; then up to his face
-D18 = st.dur('S18'); PAN = [-0.78, 1.2, BACK - 0.78]; AUT18 = [0.08, 0, BACK - 0.62]; YRC = r(PAN[1] - 0.222); OPEN1 = [[0.0, 1.0]]   # (pass 3) the panel deeper on the car's left wall, filmed from inside the car, three-quarters, like the call button in the first shot
+D18 = st.dur('S18'); PAN = [-0.78, 1.2, BACK - 0.78]; AUT18 = [0.22, 0, BACK - 0.62]; YRC = r(PAN[1] - 0.222); OPEN1 = [[0.0, 1.0]]   # (pass 3) the panel deeper on the car's left wall, filmed from inside the car, three-quarters, like the call button in the first shot
 PRESS18 = {'reach': {'R': [r(PAN[0] + 0.06), YRC, PAN[2], 1, 0.04]}, 'hands': {'R': 'point'}}
 st.shot('S18', 'immeubleHall', setOpts=HALL(floor=[[0.0, 'RC']], doors=OPEN1), look=DIM, actors=[act('autre', [AUT18[0], 0, AUT18[2] + 0.08], 0, 'sit', 'neutral', keys=[k(0.0, look=PAN), k(0.65, look='camera', lookDur=0.25),
             k(0.0, toon={**PRESS18, 'face': {**OLDF, 'mouth': 'line'}}, toonDur=0.0),
@@ -296,8 +297,8 @@ st.shot('S18', 'immeubleHall', setOpts=HALL(floor=[[0.0, 'RC']], doors=OPEN1), l
             k(0.95, toon={**PRESS18, 'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.07), k(1.07, toon={**PRESS18, 'face': {**OLDF, 'mouth': 'line'}}, toonDur=0.08)])],
         props=[FLOOR('sol18'), GLOW('lueur18', OPEN1), P('fauteuil18', 'armchair', pos=AUT18, opts={'color': '#B5523A'}), BEARD('barbe18', who='autre', s=1.25), SPECS('lun18', who='autre'),
                P('panneau18', 'liftPanel', pos=PAN, ry=90, opts={'lit': 'RC', 'dusty': True}), P('toile18', 'cobweb', pos=[r(PAN[0] + 0.03), r(PAN[1] + 0.36), r(PAN[2] + 0.2)], ry=90, opts={'s': 0.3})],
-        cams=[FC(0.0, [-0.34, 1.1, BACK - 0.32], [[PAN[0], r(YRC + 0.2), PAN[2]], [PAN[0], r(YRC - 0.13), PAN[2]], [PAN[0], YRC, r(PAN[2] + 0.17)], [PAN[0], YRC, r(PAN[2] - 0.15)]], top=0.22, bottom=0.68, lenses=range(18, 60), step=0.05, most=0.2),   # (pass 3) no door edge and no glasses rim across the frame: the camera stands between him and the panel
-              glide([FC(0.55, [0.2, 1.55, -1.9], [[AUT18[0], 2.15, AUT18[2]], [AUT18[0], 1.3, AUT18[2]], [r(AUT18[0] - 0.3), 1.8, AUT18[2]], [r(AUT18[0] + 0.3), 1.8, AUT18[2]]], top=0.16, bottom=0.74, lenses=range(18, 56))], 0.45)])   # (stills 2) out through the doorway to his face (inside the car the door post filled the frame)   # (pass 2) the callback to S01: close on the finger on RC, then up to his face
+        cams=[FC(0.0, [-0.36, 1.12, BACK - 1.2], [[PAN[0], r(YRC + 0.12), PAN[2]], [PAN[0], r(YRC - 0.15), PAN[2]], [PAN[0], YRC, r(PAN[2] + 0.15)], [PAN[0], YRC, r(PAN[2] - 0.1)]], top=0.2, bottom=0.72, lenses=range(18, 66), step=0.02, most=0.06),   # (pass 3) from the back of the car, behind his arm: the button, its ring and its plate in front, the finger coming onto it from beyond, the open doors behind (no door edge, no glasses rim, no sleeve across the frame)
+              FC(0.55, [0.3, 1.55, -1.9], [[AUT18[0], 2.15, AUT18[2]], [AUT18[0], 1.3, AUT18[2]], [r(AUT18[0] - 0.3), 1.8, AUT18[2]], [r(AUT18[0] + 0.3), 1.8, AUT18[2]]], top=0.16, bottom=0.74, lenses=range(18, 56))])   # (pass 3) a cut (the glide flew through his sleeve)   # (stills 2) out through the doorway to his face (inside the car the door post filled the frame)   # (pass 2) the callback to S01: close on the finger on RC, then up to his face
 st.cue('sfx:beep', 'S18', 0.2, 0.25)
 
 # 19: ...for twenty years. The two old men face to face across the threshold, identical beards, identical armchairs, the same deadpan; they blink
@@ -335,11 +336,11 @@ def climb(x, i0, t0, n, step=0.32): return [k(r(t0 + i * step), to=STEP(x, i0 + 
 DOORS21 = [[0.0, 1.0], [0.45, 1.0], [1.2, 0.0]]
 F21 = {'face': {**OLDF, 'mouth': 'line'}, 'sq': [1.03, 0.95, 1.03]}
 st.shot('S21', 'immeubleHall', setOpts=HALL(floor=[[0.0, 'RC']], doors=DOORS21, plant=False), look=DIM, actors=[
-        act('vieux', STEP(XV, 2), 180, 'stand', 'neutral', keys=[*climb(XV, 2, 0.0, 4), k(TURN, face='camera', turn=0.25), k(TURN, look='camera', lookDur=0.2), k(0.0, toon=F21, toonDur=0.0),   # (pass 3) they turn right round to us and hold it (the look back was the back of two heads)
+        act('vieux', STEP(XV, 2), 180, 'stand', 'neutral', keys=[*climb(XV, 2, 0.0, 4), k(TURN, face=12, turn=0.3), k(TURN, look='camera', lookDur=0.2), k(0.0, toon=F21, toonDur=0.0),   # (pass 3) they turn right round to us and hold it (the look back was the back of two heads)
             k(r(TURN + 0.5), toon={'face': {'lid': 1.0, 'mouth': 'line'}, 'sq': [1.03, 0.95, 1.03]}, toonDur=0.08), k(r(TURN + 0.62), toon=F21, toonDur=0.1)]),
-        act('autre', STEP(XA, 1), 180, 'stand', 'neutral', keys=[*climb(XA, 1, 0.12, 4), k(r(TURN + 0.06), face='camera', turn=0.25), k(r(TURN + 0.06), look='camera', lookDur=0.2), k(0.0, toon=F21, toonDur=0.0),
+        act('autre', STEP(XA, 1), 180, 'stand', 'neutral', keys=[*climb(XA, 1, 0.12, 4), k(r(TURN + 0.06), face=6, turn=0.3), k(r(TURN + 0.06), look='camera', lookDur=0.2), k(0.0, toon=F21, toonDur=0.0),
             k(r(TURN + 0.5), toon={'face': {'lid': 1.0, 'mouth': 'line'}, 'sq': [1.03, 0.95, 1.03]}, toonDur=0.08), k(r(TURN + 0.62), toon=F21, toonDur=0.1)])],
-        props=[FLOOR('sol21'), GLOW('lueur21', DOORS21), P('escalier21', 'stairs', pos=ST, opts={'steps': 9, 'w': 1.1, 'rail': False}), P('porte21', 'stairDoor', pos=[ST[0], 1.8, BACK + 0.03], opts={'w': 1.15, 'h': 1.6}),   # (pass 3) the stairs lead somewhere: a dark way up and its sign (they ran into a blank wall)
+        props=[FLOOR('sol21'), GLOW('lueur21', DOORS21), P('escalier21', 'stairs', pos=ST, opts={'steps': 9, 'w': 1.1, 'rail': False}), P('porte21', 'stairDoor', pos=[ST[0], 1.8, BACK + 0.03], opts={'w': 1.15, 'h': 1.6, 'sign': [-1.33, 0.5]}),   # (pass 3) the stairs lead somewhere: a dark way up and its sign (they ran into a blank wall)
                BEARD('barbe21a', who='vieux', s=1.25), SPECS('lun21a', who='vieux'), STICK('canne21a', who='vieux'), BEARD('barbe21b', who='autre', s=1.25), SPECS('lun21b', who='autre'),
                STICK('canne21b', who='autre'), BUTTON('bt21', litAfter=0.0)],
         cams=[FC(0.0, [2.9, 1.45, 2.7], [[XV, 3.0, STEP(XV, 6)[2]], [XA, 0.2, STEP(XA, 1)[2]], [r(XA + 0.3), 1.3, STEP(XA, 1)[2]], [0.5, 0.25, ZF], [-0.3, 2.15, ZF]], top=0.1, bottom=0.78, lenses=range(26, 61), inside=ROOM)])   # (pass 3) from the foot of the stairs: the two men big, the closing doors and their light in the left third
