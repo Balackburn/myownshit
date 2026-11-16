@@ -389,7 +389,7 @@ st.cue('sfx:shutter', 'S14', 0.52, 0.2); st.cue('sfx:shutter', 'S14', 1.8, 0.18)
 
 # 15: then his grandmother came by. Low, three-quarter front: a little old lady with her handbag trots in toward us, straight to the case, smiling
 #     at us; she stops, reaches up and lifts the glass off the jar and puts it aside (review 2: far away, faceless; the glass lift is here now)
-D15 = st.dur('S15'); NAN15 = [2.95, 0, -1.0]; NAN16 = [0.56, 0, -1.3]; ARR15 = 1.0; LIFT15 = 1.1; MEC16 = [-0.12, 0, -2.2]; GAR16 = [-0.74, 0, -2.32]
+D15 = st.dur('S15'); NAN15 = [2.95, 0, -1.0]; NAN16 = [0.56, 0, -1.3]; ARR15 = 1.0; LIFT15 = 1.1; MEC16 = [-0.1, 0, -2.2]; GAR16 = [-0.64, 0, -2.32]
 COVT = [0.14, r(0.95 + 0.6), -1.08]                              # the near top corner of the glass
 NANU = lambda p_, f, hr='grip', **kw: {'reach': {'R': [*p_, 1, 0.03]}, 'hands': {'R': hr, 'L': 'grip'}, 'face': f, **kw}
 C15 = [-1.35, 1.0, 0.25]
@@ -397,7 +397,7 @@ LK15A, LN15A, _ = fit(C15, [[2.7, 2.15, -1.0], [2.7, 0.6, -1.0], [1.6, 2.1, -1.1
 LK15B, LN15B, _ = fit(C15, [[NAN16[0], 2.15, NAN16[2]], [0.82, 1.2, NAN16[2]], [0.0, 0.95, -1.2], [-0.28, 1.5, -1.2], [NAN16[0], 0.75, NAN16[2]], [0.2, 2.15, -1.1]], top=0.14, bottom=0.8)
 LN15 = max(LN15A or 40, LN15B or 40)
 st.shot('S15', 'mairie', setOpts=MUSEE, actors=[
-        act('mamie', NAN15, -95, 'walk', 'happy', keys=[k(0.0, to=NAN16, dur=ARR15, clip='walk', then='stand', ease='out'), k(0.0, look='camera'), k(0.0, toon={'hands': {'L': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.0),
+        act('mamie', NAN15, -95, 'stand', 'happy', keys=[k(0.0, to=NAN16, dur=ARR15, clip='walk', then='stand', ease='out'), k(0.0, look='camera'), k(0.0, toon={'hands': {'L': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.0),
             k(0.55, look=[JAR14[0], 1.3, JAR14[2]]), k(r(ARR15 - 0.02), toon=NANU(COVT, {'lid': 0.3, 'mouth': 'smile'}), toonDur=0.1, toonEase='out'),                              # a hand on the glass...
             k(LIFT15, toon=NANU([COVT[0], r(COVT[1] + 0.42), COVT[2]], {'lid': 0.3, 'mouth': 'smile'}, sq=[0.97, 1.05, 0.97]), toonDur=0.22),                                      # ...up it goes...
             k(r(LIFT15 + 0.27), toon=NANU([0.3, 1.75, -1.45], {'lid': 0.3, 'mouth': 'smile'}, 'spread'), toonDur=0.14), k(r(LIFT15 + 0.3), look='camera', lookDur=0.12),             # ...and over her shoulder
@@ -429,17 +429,17 @@ st.shot('S16', 'mairie', setOpts=MUSEE, actors=[
             k(r(POP16 + 0.11), toon={'face': {'lid': 0.0, 'eye': 0.5, 'jaw': 1.0, 'jawBlock': 1, 'mouth': 'O', 'brow': 1.0}, 'sq': [0.92, 1.12, 0.92]}, toonDur=0.05, toonEase='out'),   # three frames later: his jaw drops (overshoot)...
             k(r(POP16 + 0.25), toon={'face': {'lid': 0.0, 'eye': 0.5, 'jaw': 0.8, 'jawBlock': 1, 'mouth': 'O', 'brow': 1.0}, 'sq': [1.03, 0.97, 1.03]}, toonDur=0.1),                  # ...settles...
             *[k(t_, toon={'face': {'lid': 0.0, 'eye': 0.5, 'jaw': 0.9 if i % 2 else 0.74, 'jawBlock': 1, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.08) for i, t_ in enumerate(WOB16)],   # ...and quivers
-            k(r(POP16 + 0.3), look=[0.1, 2.9, -0.6], lookDur=0.15), k(r(POP16 + 0.75), look=[NAN16[0], 1.9, NAN16[2]], lookDur=0.15)]),
+            k(r(POP16 + 0.09), look=[-0.9, 1.7, -0.3], lookDur=0.08), k(r(POP16 + 0.75), look=[NAN16[0], 1.9, NAN16[2]], lookDur=0.15)]),
         act('mec', MEC16, 0, 'stand', 'neutral', keys=[k(0.0, look=LIDC), k(0.0, toon={'face': LIP}, toonDur=0.0),
             k(r(POP16 + 0.2), toon={'sq': [0.9, 1.14, 0.9], 'face': {'lid': 0.0, 'pop': 1.0, 'popLen': 0.2, 'mouth': 'O', 'brow': 1.0, 'noBlink': 1}}, toonDur=0.05, toonEase='out'),   # six frames later: his eyes come out on stalks...
             k(r(POP16 + 0.34), toon={'sq': [1.04, 0.96, 1.04], 'face': {'lid': 0.0, 'pop': 1.0, 'popLen': 0.14, 'mouth': 'O', 'brow': 1.0, 'noBlink': 1}}, toonDur=0.1),
             *[k(t_, toon={'face': {'lid': 0.0, 'pop': 1.0, 'popLen': 0.17 if i % 2 else 0.12, 'mouth': 'O', 'brow': 1.0, 'noBlink': 1}}, toonDur=0.08) for i, t_ in enumerate(WOB16)],   # ...and wobble
-            k(r(POP16 + 0.3), look=[0.1, 2.9, -0.6], lookDur=0.15), k(r(POP16 + 0.8), look=[NAN16[0], 1.9, NAN16[2]], lookDur=0.15)])],
+            k(r(POP16 + 0.18), look=[NAN16[0], 1.9, NAN16[2]], lookDur=0.08)])],
         props=[P('vitrine16', 'displayCase', pos=CASE, opts={**CASEO, 'noCover': True}),
                P('jar16', 'picklesJar', pos=JAR14, scale=JS14, opts={'openAt': POP16, 'lidFace': True, 'lidOut': True, 'lidArc': 0.3, 'lidFar': -0.45, 'lidZ': 0.5, 'lidFly': 0.4, 'lidSize': 1.15, 'hops': [[POP16, 0.008]]}),
                P('sac16', 'briefcase', on={'actor': 'mamie', 'hand': 'L', 'offset': [0.0, -0.1, 0.03]}, scale=0.55),
                BURST('pop16', [-0.02, r(LIDC[1] + 0.22), -1.12], r(POP16 + 0.06), 'POP !', 0.32, 0.34)],
-        cams=[FC(0.0, [0.3, 1.4, 1.5], [[-0.9, 2.47, -2.32], [0.86, 1.5, NAN16[2]], [NAN16[0], 2.14, NAN16[2]], [0.0, 0.93, -0.9], [-0.14, 1.3, -1.2], [0.2, 2.44, -2.2]], top=0.12, bottom=0.76, drift=(0.0, 0.0, -0.1))])
+        cams=[FC(0.0, [0.3, 1.4, 1.5], [[-0.8, 2.47, -2.32], [0.86, 1.5, NAN16[2]], [NAN16[0], 2.14, NAN16[2]], [0.0, 0.93, -0.9], [-0.14, 1.3, -1.2], [0.2, 2.44, -2.2]], top=0.12, bottom=0.76, drift=(0.0, 0.0, -0.1))])
 st.cue('sfx:pop', 'S16', POP16, 0.45)
 
 # 17: he doesn't like pickles. Close on him: he holds the open jar she gave him, looks down into it, then at us, deadpan; a slow blink; he hands it back
