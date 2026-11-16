@@ -56,7 +56,7 @@ st.card('S13', 'JARDINIÈRE', at=0.4)
 #    his fist): a cough; again: a cough; a third time: it squashes like a spring, catches with a jolt and shoots off on its own into the tall grass,
 #    mowing; the camera glides up and left after it: a pale cut lane opens behind it; his hand stays up in the air to the end, deadpan
 D1 = st.dur('S01'); START1 = 1.15; Z1 = M0[2]
-_f1, _l1, _n1 = fitBack([-1.3, 2.3, 4.0], [[ME0[0], 2.45, Z1], [ME0[0], 0.6, Z1], [2.15, 2.1, -0.35], [-1.2, 0.0, Z1], [-0.4, 0.0, 0.4]], top=0.1, bottom=0.84, lenses=range(26, 80))
+_f1, _l1, _n1 = fitBack([-1.3, 2.3, 4.0], [[ME0[0], 2.45, Z1], [ME0[0], 0.6, Z1], [2.15, 2.1, -0.35], [-1.2, 0.0, Z1], [-0.4, 0.0, 0.4]], top=0.1, bottom=0.84, lenses=range(26, 66))
 GL1 = cam(r(START1 + 0.22), list(_f1), list(_f1), _l1, _l1, lens=_n1)
 PULL = lambda x, y, z: {'reach': {'R': [r(x), r(y), r(z), 1, 0.03], 'L': [r(M0[0] + 0.85), 0.98, -0.6, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': DEAD}
 CORD = [r(M0[0] + 0.75), 0.86, -0.28]                                  # the cord's handle on the mower's handle (world)
@@ -240,7 +240,7 @@ st.shot('S09', 'pavillon', setOpts={'houseColor': '#D8DDE6', 'roof': '#3A4A6A', 
                P('dust9b', 'dustPuff', pos=[1.1, 0, -3.5], scale=0.7, opts={'once': True, 'startAt': r(OUT9[1] + SCR9), 'period': 0.9, 'seed': 8}),
                P('flag9', 'regionFlag', pos=[2.9, 0, -3.8], opts={'kind': 'fr'}),
                MOWER('mow9', [MX9(0.0), 0, MZ9], ry=-90, runAt=0.0, keys=[k(0.0, to=[MX9(D9), 0, MZ9], dur=D9, ease='linear')])],
-        cams=[FC(0.0, [-3.3, 1.45, 5.4], [[-0.4, 3.0, -4.0], [2.4, 3.0, -4.0], [0.97, 0.0, -3.6], [MX9(0.0), 0.0, MZ9], [END9[0][0], 2.6, END9[0][2]], [END9[0][0], 0.0, END9[0][2]]], top=0.12, bottom=0.8, drift=(-0.9, 0.0, 0.3), lenses=range(26, 76))])   # (final pass) from the side the mower goes to: their faces three quarters to us all the way, the sign still read
+        cams=[FC(0.0, [-3.3, 1.45, 5.4], [[-0.4, 3.0, -4.0], [2.4, 3.0, -4.0], [0.97, 0.0, -3.6], [MX9(0.0), 0.0, MZ9], [END9[0][0], 2.6, END9[0][2]], [END9[0][0], 0.0, END9[0][2]]], top=0.12, bottom=0.8, drift=(-0.9, 0.0, 0.3), lenses=range(26, 62))])   # (final pass) from the side the mower goes to: their faces three quarters to us all the way, the sign still read
 st.cue('clack', 'S09', OPEN9, 0.4); st.cue('sfx:whistle', 'S09', r(OPEN9 + 0.15), 0.3)
 
 # 10: on foot. A long lens down the pavement: the mower trundles toward us; behind it the two gendarmes pump their arms, sweating, tongues out, necks
