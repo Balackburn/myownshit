@@ -242,9 +242,10 @@ st.shot('S07', 'parisStreet', setOpts=STREET7, fx=[{'type': 'shake', 'at': t_, '
 st.cue('engine', 'S07', 0.0, 0.35)
 for t_, a in PULSE7[2:]: st.cue('thud', 'S07', t_, r(0.1 + a * 6))
 
-# 8: the tank drove over it. From the side, wide and low: the whole tank and the road; its near track runs onto the jar: the lid squashes, the tank
-#    rocks up on it nose high and comes level ON the jar, held there teetering; then it lurches off and slams down on the road in a ring of dust, the
-#    picture shakes; two frames later the jar hops, and stands, untouched (review 3: the hull glided over the jar with a gap; the frame was too tight)
+# 8: the tank drove over it. Low at road level, 1.7 m from the jar, which stands big in the lower middle of the frame; the near track comes at us from
+#    behind it and fills the top of the picture: it runs onto the jar, the lid squashes, the tank rocks up on it nose high and comes level ON the jar,
+#    held there teetering; then it lurches off and its back slams down beside the jar in a puff of dust, the picture shakes; two frames later the jar
+#    hops, and stands, untouched (review 3: the hull glided over the jar with a gap; final pass: seen whole from the side the jar was 35 px tall)
 D8 = st.dur('S08'); TX8 = -1.32; TOUCH8 = 0.3; TOP8 = 0.72; HOLD8 = 0.9; SLAM8 = 1.08   # the tank rolls along x = -1.32: its near (+X) track runs right over the jar
 TANK8 = [k(0.0, to=[TX8, 0, 0.05], dur=TOUCH8, ease='linear'),                                                                  # it rolls in: the front roller meets the jar
          k(TOUCH8, to=[TX8, 0.27, 1.1], dur=0.22, ease='out'), k(TOUCH8, rotTo=[-0.14, 0.0, 0.0], dur=0.22, ease='out'),             # the track climbs the lid: nose up, the back on the road
@@ -257,10 +258,9 @@ st.shot('S08', 'parisStreet', setOpts=STREET7, look={'hemi': 0.3}, fx=[{'type': 
         props=[P('jar8', 'picklesJar', pos=JR, scale=2.2, opts={'hops': [[r(SLAM8 + 0.07), 0.12]]}, keys=[k(TOUCH8, squash=[1.22, 0.74, 1.22], dur=0.14), k(TOP8, squash=[1.1, 0.88, 1.1], dur=0.2), k(r(SLAM8 + 0.27), squash=[1.14, 0.86, 1.14], dur=0.2)]),   # the lid squashes; the hop two frames after the slam
                P('char8', 'battleTank', pos=[TX8, 0, -0.9], ry=0, opts={'rumble': [[0.0, 9.0, 0.015]], 'gun': [[0.0, 0.04], [TOUCH8, 0.04], [r(TOUCH8 + 0.12), -0.22], [HOLD8, -0.16], [r(SLAM8 + 0.05), 0.32], [r(SLAM8 + 0.25), -0.06], [r(SLAM8 + 0.45), 0.04]]}, keys=TANK8),
                P('fill8', 'glowLight', pos=[1.4, 2.6, 3.4], opts={'color': '#FFEBD4', 'k': 12.0, 'dist': 8.0}),   # (review 3) a warm fill under the tank: its shadow read as blue water
-               P('pouss8', 'toonPuff', pos=[TX8, 0.15, 5.3], opts={'n': 18, 'size': 0.55, 'life': 0.7, 'rise': 0.4, 'spread': 3.4, 'at': SLAM8, 'color': '#E6E1D8'}),   # a ring of dust round it
-               P('pouss8b', 'toonPuff', pos=[0.45, 0.12, 5.3], opts={'n': 9, 'size': 0.45, 'life': 0.6, 'rise': 0.35, 'spread': 1.4, 'flatZ': 2.2, 'at': SLAM8, 'color': '#E6E1D8'})],   # and along the near track
-        cams=[FC(0.0, [6.0, 3.0, 6.2], [[JR[0], 0.0, JR[2]], [JR[0], 0.6, JR[2]], [0.31, 0.0, 0.65], [0.31, 0.0, 5.55], [0.31, 0.46, 0.65], [0.31, 0.46, 5.55], [TX8, 2.9, 3.1], [-2.95, 0.46, 3.1]],
-                 top=0.16, bottom=0.74, drift=(0.0, 0.0, 0.9), inside=(-4.4, 9.0, 0.2, 6.0, -40.0, 40.0), lenses=range(26, 70))])   # wide: the whole tank where it sits on the jar
+               P('pouss8', 'toonPuff', pos=[TX8, 0.15, 5.3], opts={'n': 14, 'size': 0.4, 'life': 0.7, 'rise': 0.4, 'spread': 2.2, 'at': SLAM8, 'color': '#E6E1D8'}),   # a ring of dust round it (kept off the lens)
+               P('pouss8b', 'toonPuff', pos=[0.35, 0.06, 3.3], opts={'n': 8, 'size': 0.16, 'life': 0.55, 'rise': 0.25, 'spread': 0.55, 'at': SLAM8, 'color': '#E6E1D8'})],   # and where the back of the track lands, beside the jar
+        cams=[cam(0.0, [1.45, 0.3, 3.55], [1.41, 0.3, 3.5], [-6.879, 1.098, -1.909], [-6.919, 1.098, -1.959], lens=52)])   # (final pass) at road level, 1.7 m off: the jar at 0.48-0.76 of the frame height, the track filling the top
 st.cue('engine', 'S08', 0.0, 0.3); st.cue('clang', 'S08', TOUCH8, 0.35); st.cue('thud', 'S08', SLAM8, 0.35)
 
 # 9: the tank got a flat. Behind the jar in the foreground: the tank has turned its gun back at the jar; its near track goes flat in three sags, a
