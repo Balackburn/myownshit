@@ -38,9 +38,9 @@ export const TABLE_PROPS = {
     let bruise = null;
     if (o.bruise != null && o.bruise !== false) {
       bruise = canvasPlane(lt * 0.92, lt * 1.4, (c, W, H) => { c.clearRect(0, 0, W, H);
-        const gr = c.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W * 0.5); gr.addColorStop(0, '#3B2A7A'); gr.addColorStop(0.45, '#4C5BB5'); gr.addColorStop(0.8, 'rgba(110,150,200,0.85)'); gr.addColorStop(1, 'rgba(140,170,200,0)');
-        c.fillStyle = gr; c.beginPath(); c.ellipse(W / 2, H / 2, W * 0.48, H * 0.46, 0, 0, TAU); c.fill();
-        c.fillStyle = 'rgba(120,200,120,0.35)'; c.beginPath(); c.ellipse(W * 0.62, H * 0.66, W * 0.18, H * 0.12, 0.4, 0, TAU); c.fill(); }, { res: 128, transparent: true });
+        c.fillStyle = 'rgba(176,186,72,0.85)'; c.beginPath(); c.ellipse(W / 2, H / 2, W * 0.48, H * 0.46, 0, 0, TAU); c.fill();
+        c.fillStyle = '#6A4C9A'; c.beginPath(); c.ellipse(W / 2, H / 2, W * 0.38, H * 0.36, 0.2, 0, TAU); c.fill();
+        c.fillStyle = '#4A2F78'; c.beginPath(); c.ellipse(W * 0.48, H * 0.5, W * 0.24, H * 0.22, -0.3, 0, TAU); c.fill(); }, { res: 128, transparent: true });
       bruise.position.set(0, L0 * 0.55, lt / 2 + 0.003); legs[0].lg.add(bruise);
     }
     if (o.bandage) { for (let i = 0; i < 3; i++) legs[0].lg.add(at(box(lt * 1.35, 0.045, lt * 1.35, '#F7F6F1', { outline: 0.004 }), 0, L0 * (0.42 + 0.11 * i), 0, 0, 0, (i - 1) * 0.12));
@@ -74,8 +74,14 @@ export const TABLE_PROPS = {
     const ball = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 2), basic('#FFF8D8', { opacity: 1 })); g.add(ball);
     const core = new THREE.Mesh(new THREE.IcosahedronGeometry(0.55, 2), basic('#FFFFFF', { opacity: 1 })); g.add(core);
     const rays = []; for (let i = 0; i < 12; i++) { const r_ = new THREE.Mesh(new THREE.BoxGeometry(0.08, 1, 0.02), basic('#FFFFFF', { opacity: 1 })); r_.geometry.translate(0, 0.5, 0); r_.rotation.z = i / 12 * TAU; g.add(r_); rays.push(r_); }
+    let glow = null;
+    if (o.soft) { const cv = document.createElement('canvas'); cv.width = cv.height = 256; const c2 = cv.getContext('2d'), gr = c2.createRadialGradient(128, 128, 0, 128, 128, 128);
+      gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.35, 'rgba(255,250,225,0.9)'); gr.addColorStop(0.7, 'rgba(255,245,210,0.35)'); gr.addColorStop(1, 'rgba(255,245,210,0)'); c2.fillStyle = gr; c2.fillRect(0, 0, 256, 256);
+      const tx = new THREE.CanvasTexture(cv); tx.colorSpace = THREE.SRGBColorSpace;
+      glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: tx, transparent: true, depthTest: false, depthWrite: false })); glow.renderOrder = 10; g.add(glow); ball.material.opacity = 0; core.material.opacity = 0; }
     g.userData.update = t => { const u = t - (o.at ?? 0), grow = clamp01(u / 0.1), f = u < 0.1 ? 1 : clamp01(1 - (u - 0.1) / fade);
-      const on = u >= 0 && f > 0.01; ball.visible = core.visible = on; rays.forEach(r_ => { r_.visible = on; });
+      const on = u >= 0 && f > 0.01; if (glow) { glow.visible = on; ball.visible = core.visible = false; rays.forEach(r_ => { r_.visible = false; }); if (on) { glow.scale.setScalar(R * 2.6 * (0.3 + 0.7 * grow)); glow.material.opacity = f; } return; }
+      ball.visible = core.visible = on; rays.forEach(r_ => { r_.visible = on; });
       if (!on) return; ball.scale.setScalar(R * (0.2 + 0.8 * grow)); ball.material.opacity = 0.9 * f; core.scale.setScalar(R * (0.3 + 0.7 * grow)); core.material.opacity = f;
       rays.forEach((r_, i) => { r_.position.set(0, 0, 0.05); r_.scale.set(1, R * (0.9 + 0.9 * grow) * (0.8 + 0.4 * hsh(i)), 1); r_.material.opacity = f; }); };
     g.userData.update(-1); return g;
@@ -100,10 +106,21 @@ export const TABLE_PROPS = {
       const cols = Math.max(2, Math.round(W / 1.25)), rows = Math.max(2, Math.floor((H - 0.6) / 1.6));
       for (let r = 0; r < rows; r++) for (let q = 0; q < cols; q++) { const x = (q + 0.5) * W / cols, y = 0.9 + r * 1.6;
         if (holed && Math.hypot(x - (W / 2 + hx), y + 0.55 - hy) < hr + 0.55) continue;
+        if (o.door && !back && r === 0 && Math.abs(x - W / 2 - (o.doorX ?? 0)) < 1.2) continue;
         c.fillStyle = '#3F6E8C'; c.fillRect((x - 0.32) * k, Hc - (y + 1.0) * k, 0.64 * k, 1.0 * k);
         c.fillStyle = '#9CC7DE'; c.fillRect((x - 0.27) * k, Hc - (y + 0.95) * k, 0.54 * k, 0.42 * k);
         c.fillStyle = back ? '#7D8C6A' : '#5E7F52'; c.fillRect((x - 0.5) * k, Hc - (y + 1.0) * k, 0.16 * k, 1.0 * k); c.fillRect((x + 0.34) * k, Hc - (y + 1.0) * k, 0.16 * k, 1.0 * k);
         if (r > 0) { c.fillStyle = '#2E3238'; c.fillRect((x - 0.42) * k, Hc - (y + 0.05) * k, 0.84 * k, 0.06 * k); for (let b = 0; b < 6; b++) c.fillRect((x - 0.4 + b * 0.16) * k, Hc - (y + 0.3) * k, 0.025 * k, 0.25 * k); } }
+      if (o.door && !back) { const dw = 1.3, dh = 2.3, dx = W / 2 + (o.doorX ?? 0);
+        c.fillStyle = '#E9DCC2'; c.fillRect((dx - dw / 2 - 0.18) * k, Hc - (dh + 0.25) * k, (dw + 0.36) * k, (dh + 0.25) * k);
+        c.fillStyle = '#2F4A3A'; c.fillRect((dx - dw / 2) * k, Hc - dh * k, dw * k, dh * k); c.strokeStyle = '#1C2C22'; c.lineWidth = 0.05 * k; c.strokeRect((dx - dw / 2) * k, Hc - dh * k, dw * k, dh * k);
+        c.beginPath(); c.moveTo(dx * k, Hc - dh * k); c.lineTo(dx * k, Hc); c.stroke(); c.fillStyle = '#F2C94C'; c.fillRect((dx - 0.12) * k, Hc - 1.15 * k, 0.06 * k, 0.12 * k); c.fillRect((dx + 0.06) * k, Hc - 1.15 * k, 0.06 * k, 0.12 * k);
+        c.fillStyle = '#FFE7A6'; c.fillRect((dx - dw / 2) * k, Hc - (dh + 0.22) * k, dw * k, 0.16 * k); }
+      if (o.night) { c.fillStyle = 'rgba(16,24,52,0.62)'; c.fillRect(0, 0, Wc, Hc);
+        for (let r = 0; r < rows; r++) for (let q = 0; q < cols; q++) { if (hsh(r * 7 + q * 3 + 1) > 0.3) continue; const x = (q + 0.5) * W / cols, y = 0.9 + r * 1.6;
+          if (holed && Math.hypot(x - (W / 2 + hx), y + 0.55 - hy) < hr + 0.55) continue; if (o.door && r === 0 && Math.abs(x - W / 2) < 1.2) continue;
+          c.fillStyle = '#FFD67A'; c.fillRect((x - 0.27) * k, Hc - (y + 0.95) * k, 0.54 * k, 0.9 * k); }
+        if (o.door && !back) { c.fillStyle = '#FFE7A6'; c.fillRect((W / 2 + (o.doorX ?? 0) - 0.65) * k, Hc - 2.52 * k, 1.3 * k, 0.16 * k); } }
       if (holed) { c.save(); c.globalCompositeOperation = 'destination-out'; c.beginPath(); c.arc((W / 2 + hx) * k, Hc - hy * k, hr * k, 0, TAU); c.fill(); c.restore(); } };
     const mk = (holed, back) => { const p = canvasPlane(W, H, drawFace(holed, back), { res: 512, transparent: holed }); return p; };
     const fWhole = mk(false, false), fHole = mk(true, false), bHole = mk(true, true), bWhole = mk(false, true);
@@ -118,9 +135,10 @@ export const TABLE_PROPS = {
       rims[q].add(at(box(0.28 + 0.12 * hsh(i + 3), 0.13, 0.12, i % 3 ? '#B8573A' : '#9C4630', { outline: 0.006 }), hx + rr * Math.cos(a), hy + rr * Math.sin(a), z, 0, 0, a + PI / 2)); } });
     g.add(rims[0], rims[1]);
     // the floor of the tunnel: a strip of rubble
-    g.add(at(box(hr * 1.2, 0.08, D, '#8C7A66'), hx, hy - hr + 0.04, -D / 2));
+    const rub = at(box(hr * 1.2, 0.08, D - 0.02, '#8C7A66'), hx, hy - hr + 0.04, -D / 2); g.add(rub);
+    // (review 1) the tunnel and its rubble show only once the front is open: behind a whole facade their ends drew a faint circle on it
     g.userData.update = t => { const holed = o.holeAt == null || t >= o.holeAt, bh = o.backAt == null || t >= o.backAt;
-      fWhole.visible = !holed; fHole.visible = holed; rims[0].visible = holed; bWhole.visible = !bh; bHole.visible = bh; rims[1].visible = bh; tun.visible = holed || bh; };
+      fWhole.visible = !holed; fHole.visible = holed; rims[0].visible = holed; bWhole.visible = !bh; bHole.visible = bh; rims[1].visible = bh && holed; tun.visible = holed; rub.visible = holed; };
     g.userData.update(0); return g;
   },
 
@@ -129,13 +147,14 @@ export const TABLE_PROPS = {
   brickBurst(o) {
     const n = o.n ?? 26, g = grp(), bricks = [], fl = o.floor ?? 1.3, sp = o.speed ?? 5, spr = o.spread ?? 1.0;
     for (let i = 0; i < n; i++) { const b = box(0.24, 0.11, 0.12, i % 4 ? '#B8573A' : '#D9CBB0', { outline: 0.006 }); b.visible = false; g.add(b); bricks.push(b); }
-    const dust = []; for (let i = 0; i < 7; i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(0.5, 1), new THREE.MeshLambertMaterial({ color: '#CFC6B8', transparent: true, opacity: 0.9 })); m.visible = false; g.add(m); dust.push(m); }
+    const dust = []; for (let i = 0; i < 16; i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(0.5, 0), new THREE.MeshLambertMaterial({ color: i % 3 ? '#CFC6B8' : '#B9AE9E', transparent: true, opacity: 0.9, flatShading: true })); m.visible = false; g.add(m); dust.push(m); }
     g.userData.update = t => { const u = t - (o.at ?? 0);
       bricks.forEach((b, i) => { if (u < 0) { b.visible = false; return; } b.visible = true;
         const a = (hsh(i) - 0.5) * PI * spr, vz = sp * (0.6 + 0.6 * hsh(i + 11)), vx = Math.sin(a) * sp * 0.7, vy = 1.5 + 3.5 * hsh(i + 23);
         let tt = u, y = vy * tt - 4.9 * tt * tt; const land = (vy + Math.sqrt(vy * vy + 2 * 9.8 * fl)) / 9.8; if (tt > land) { tt = land; y = -fl + 0.055; }
         b.position.set(vx * tt + (hsh(i + 5) - 0.5) * 0.6, Math.max(-fl + 0.055, y), vz * tt); b.rotation.set(tt * 9 * hsh(i + 2), tt * 7 * hsh(i + 4), tt * 8 * hsh(i + 6)); });
-      dust.forEach((m, i) => { const v = (u - i * 0.03) / 1.1; m.visible = v > 0 && v < 1; if (!m.visible) return; m.position.set((hsh(i + 40) - 0.5) * 2.4 * Math.sqrt(v), -0.3 + 0.8 * v, 0.8 + 1.4 * v * hsh(i + 50)); m.scale.setScalar(0.5 + 1.6 * Math.sqrt(v)); m.material.opacity = 0.85 * (1 - v); }); };
+      dust.forEach((m, i) => { const v = (u - i * 0.02) / 1.0; m.visible = v > 0 && v < 1; if (!m.visible) return; const a = hsh(i + 40) * TAU, rr = 0.6 + 1.6 * hsh(i + 60);
+        m.position.set(Math.cos(a) * rr * Math.sqrt(v) * 1.3, -0.4 + Math.sin(a) * rr * 0.6 * Math.sqrt(v) + 0.5 * v, 0.5 + 1.8 * v * hsh(i + 50)); m.scale.setScalar(0.2 + 0.55 * Math.sqrt(v) * (0.7 + 0.6 * hsh(i + 70))); m.rotation.set(i, v * 2, i * 0.5); m.material.opacity = 0.85 * (1 - v * v); }); };
     g.userData.update(-1); return g;
   },
 
@@ -213,7 +232,7 @@ export const TABLE_PROPS = {
     for (const y of [0.06, H * 0.5, H - 0.06]) leaf.add(at(box(W, 0.08, 0.07, '#26324E', { outline: 0.006 }), W / 2, y, 0));
     for (let i = 1; i < 9; i++) leaf.add(at(cyl(0.017, 0.017, H, '#59606A', 6, { pivot: 'bottom' }), i * W / 9, 0, 0));
     leaf.add(at(box(0.14, 0.2, 0.1, '#E2B53C', { outline: 0.006 }), W - 0.12, H * 0.5, 0.02));
-    if (o.plate) leaf.add(at(box(W * 0.8, 0.5, 0.03, '#F4F1E8', { outline: 0.006 }), W / 2, H * 0.62, 0.06));
+    if (o.plate) leaf.add(at(box(W * 0.8, 0.5, 0.03, '#F4F1E8', { outline: 0.006 }), W / 2, o.plateY ?? H * 0.62, 0.06));
     const A = o.open ?? 1.6;
     g.userData.update = t => { let a = A; if (o.slam != null) { const u = t - o.slam; if (u >= 0) { if (u < 0.12) a = A * (1 - (u / 0.12) * (u / 0.12)); else { const v = u - 0.12; a = v < 0.12 ? 0.18 * Math.sin(PI * v / 0.12) : v < 0.2 ? 0.06 * Math.sin(PI * (v - 0.12) / 0.08) : 0; } } } leaf.rotation.y = a; };
     g.userData.update(0); return g;
@@ -267,5 +286,95 @@ export const TABLE_PROPS = {
     g.add(at(box(0.26 * s, 0.05 * s, 0.03 * s, '#6B4A32', { outline: 0.004 }), 0, 0.06 * s, 0.14 * s));
     for (const sx of [-1, 1]) g.add(at(cyl(0.035 * s, 0.035 * s, 0.03 * s, '#9CC7DE', 10), sx * 0.06 * s, 0.075 * s, 0.155 * s, PI / 2, 0, 0));
     return g;
+  },
+
+  // (review 1) A rolled-up plan flying through the air (pivot at its middle, its axis along X): a cream tube o.w (1.6) long with darker ends, spinning
+  // about its axis at o.spin (14 rad/s)
+  paperRoll(o) {
+    const w = o.w ?? 1.6, g = grp(), tube = grp(at(cyl(0.07, 0.07, w, '#EFE8D2', 12, { outline: 0.006 }), 0, 0, 0, 0, 0, PI / 2)); g.add(tube);
+    for (const sx of [-1, 1]) tube.add(at(cyl(0.072, 0.072, 0.02, '#BFB49A', 12), sx * w / 2, 0, 0, 0, 0, PI / 2));
+    tube.add(at(box(w * 0.98, 0.012, 0.02, '#1F3B73'), 0, 0.068, 0));
+    g.userData.update = t => { tube.rotation.x = -(o.spin ?? 14) * t; };
+    g.userData.update(0); return g;
+  },
+
+  // (review 1) A gas mask (attach to the head joint, offset [0, 0, 0]; built for a head 0.222 wide, 0.5 tall, 0.17 deep, the face at +Z): a black rubber
+  // snout with a round filter, two round glass lenses over the painted eyes, a strap round the head
+  gasMask(o) {
+    const g = grp(), hw = o.hw ?? 0.222, hd = o.hd ?? 0.17, fz = hd / 2;
+    g.add(at(box(hw * 1.06, 0.05, hd * 1.06, '#16181C'), 0, 0.33, 0));
+    g.add(at(box(hw * 0.92, 0.2, 0.05, '#2A2D33', { outline: 0.006 }), 0, 0.27, fz + 0.02));
+    g.add(at(box(0.11, 0.12, 0.09, '#1E2126', { outline: 0.006, taper: { x: 0.75, z: 1 } }), 0, 0.14, fz + 0.05));
+    g.add(at(cyl(0.045, 0.045, 0.05, '#3A3E46', 12, { outline: 0.004 }), 0, 0.12, fz + 0.12, PI / 2, 0, 0), at(cyl(0.03, 0.03, 0.01, '#5A606A', 10), 0, 0.12, fz + 0.15, PI / 2, 0, 0));
+    for (const sx of [-1, 1]) { g.add(at(cyl(0.05, 0.05, 0.03, '#0E0F12', 14, { outline: 0.004 }), sx * 0.052, 0.3, fz + 0.04, PI / 2, 0, 0));
+      g.add(at(cyl(0.038, 0.038, 0.01, '#8FB3C9', 14, { emissive: '#3E5C70' }), sx * 0.052, 0.3, fz + 0.058, PI / 2, 0, 0)); }
+    return g;
+  },
+
+  // (review 1) A black assault helmet (attach to the head joint at its top: offset [0, 0.47, 0]): a rounded dome with a brim ridge and a strap
+  tacHelmet(o) {
+    const g = grp(), c = o.color || '#1A1D22';
+    g.add(at(box(0.27, 0.13, 0.23, c, { pivot: 'bottom', outline: 0.008, taper: { x: 0.78, z: 0.78 } }), 0, 0, 0), at(box(0.28, 0.03, 0.24, '#24282E', { outline: 0.004 }), 0, 0.005, 0));
+    for (const sx of [-1, 1]) g.add(at(box(0.02, 0.12, 0.03, '#24282E'), sx * 0.125, -0.06, 0.02));
+    return g;
+  },
+
+  // (review 1) A tactical vest with pouches and no lettering (attach to the torso joint, offset [0, 0, 0]): a dark slab over the chest and back, three
+  // pouches across the front, a radio on the left shoulder; o.color
+  tacVest(o) {
+    const g = grp(), c = o.color || '#262B33', w = o.w ?? 0.44, h = o.h ?? 0.34, d = o.d ?? 0.27, y = o.y ?? 0.34;
+    g.add(at(box(w, h, d, c, { outline: 0.008 }), 0, y, 0));
+    for (let i = 0; i < 3; i++) g.add(at(box(0.1, 0.1, 0.05, '#1B1F25', { outline: 0.004 }), (i - 1) * 0.13, y - 0.08, d / 2 + 0.02));
+    g.add(at(box(0.06, 0.1, 0.04, '#111316', { outline: 0.004 }), 0.14, y + 0.12, d / 2 + 0.01));
+    return g;
+  },
+
+  // (review 1) An open door in a back wall (pivot at the floor under the doorway's middle, front +Z): a dark doorway o.w (0.9) x o.h (2.1) with a
+  // wooden frame, the leaf swung into the room by o.open (1.1 rad) about its left edge; nothing behind it but darkness
+  openDoor(o) {
+    const W = o.w ?? 0.9, H = o.h ?? 2.1, g = grp(), fr = o.frame || '#E9E2D2';
+    g.add(at(box(W, H, 0.02, '#15171B'), 0, H / 2, 0.005));
+    g.add(at(box(0.08, H + 0.08, 0.06, fr, { outline: 0.006 }), -W / 2 - 0.04, (H + 0.08) / 2, 0.03), at(box(0.08, H + 0.08, 0.06, fr, { outline: 0.006 }), W / 2 + 0.04, (H + 0.08) / 2, 0.03), at(box(W + 0.16, 0.08, 0.06, fr, { outline: 0.006 }), 0, H + 0.04, 0.03));
+    const leaf = grp(at(box(W - 0.02, H - 0.02, 0.045, o.color || '#C9A47A', { outline: 0.008 }), (W - 0.02) / 2, (H - 0.02) / 2, 0));
+    leaf.add(at(sphere(0.03, '#E2B53C'), W - 0.12, H * 0.48, 0.04)); leaf.position.set(-W / 2, 0, 0.03); leaf.rotation.y = -(o.open ?? 1.1); g.add(leaf);
+    return g;
+  },
+
+  // (review 1) A flashbang canister rolling across the floor (pivot at the floor): a bright yellow-green cylinder with black bands and a lever, lying on
+  // its side, it rolls along o.path [[t, x, z], ...] (world, from its pivot's start), spinning as it goes, a spark at its fuse; hidden after o.hide
+  flashCanister(o) {
+    const g = grp(), body = grp(), R = 0.045, L = 0.16, S = o.s ?? 1; g.add(body); body.scale.setScalar(S);
+    body.add(at(cyl(R, R, L, '#C8E04A', 12, { outline: 0.006 }), 0, 0, 0, 0, 0, PI / 2));
+    for (const x of [-0.05, 0.05]) body.add(at(cyl(R + 0.003, R + 0.003, 0.018, '#1B1B1B', 12), x, 0, 0, 0, 0, PI / 2));
+    body.add(at(box(0.02, 0.025, 0.07, '#9AA3AD', { outline: 0.004 }), L / 2 + 0.005, R * 0.6, 0));
+    const spark = at(sphere(0.022, '#FFF3B0', 1, { emissive: '#FFE070' }), L / 2 + 0.02, 0, 0); body.add(spark);
+    const P0 = o.path || [[0, 0, 0], [0.4, 1, 0]];
+    g.userData.update = t => { let i = 1; while (i < P0.length - 1 && t > P0[i][0]) i++; const [t0, x0, z0] = P0[i - 1], [t1, x1, z1] = P0[i], u = clamp01((t - t0) / Math.max(1e-6, t1 - t0)), e = u * (2 - u);
+      const x = x0 + (x1 - x0) * e, z = z0 + (z1 - z0) * e; body.position.set(x, R * S, z); body.rotation.y = Math.atan2(-(z1 - z0), x1 - x0);
+      let dist = 0; for (let j = 1; j < i; j++) dist += Math.hypot(P0[j][1] - P0[j - 1][1], P0[j][2] - P0[j - 1][2]); dist += Math.hypot(x - x0, z - z0);
+      body.children[0].rotation.x = dist / (R * S); spark.visible = Math.floor(t * 30) % 2 === 0; g.visible = !(o.hide != null && t >= o.hide); };
+    g.userData.update(0); return g;
+  },
+
+  // (review 1) A bare bulb hanging from the ceiling on its wire (pivot at the ceiling point): a warm glowing bulb o.drop (0.6 m) down and a warm point
+  // light (o.power 5, range o.range 6) that gives the cell's wood back its honey colour; o.swing (0): it sways
+  cellBulb(o) {
+    const g = grp(), d = o.drop ?? 0.6, arm = grp(); g.add(arm);
+    arm.add(at(cyl(0.006, 0.006, d, '#222222', 4, { pivot: 'top' }), 0, 0, 0), at(cyl(0.02, 0.02, 0.05, '#3A3A3A', 8), 0, -d, 0), at(sphere(0.05, '#FFE9B0', 1, { emissive: '#FFD27A' }), 0, -d - 0.06, 0));
+    const l = new THREE.PointLight(o.color || '#FFCF8A', o.power ?? 5, o.range ?? 6, 1.3); l.position.set(0, -d - 0.1, 0); arm.add(l);
+    g.userData.update = t => { arm.rotation.z = (o.swing ?? 0) * Math.sin(t * 2.4); };
+    g.userData.update(0); return g;
+  },
+
+  // (review 1) A round seal (pivot at its centre, front +Z) to hang over the courtroom's emblem: a gold disc with a cream face and the scales of justice
+  // drawn in navy; o.r (0.34)
+  courtSeal(o) {
+    const R = o.r ?? 0.34, g = grp();
+    g.add(at(cyl(R, R, 0.04, '#E2B53C', 24, { outline: 0.006 }), 0, 0, 0, PI / 2, 0, 0));
+    const f = canvasPlane(R * 1.6, R * 1.6, (c, W, H) => { c.fillStyle = '#F3EFE6'; c.beginPath(); c.arc(W / 2, H / 2, W / 2, 0, TAU); c.fill(); c.strokeStyle = '#1F2D4E'; c.fillStyle = '#1F2D4E'; c.lineWidth = W * 0.05;
+      c.beginPath(); c.moveTo(W / 2, H * 0.18); c.lineTo(W / 2, H * 0.78); c.moveTo(W * 0.22, H * 0.32); c.lineTo(W * 0.78, H * 0.32); c.moveTo(W * 0.34, H * 0.8); c.lineTo(W * 0.66, H * 0.8); c.stroke();
+      for (const x of [0.25, 0.75]) { c.beginPath(); c.moveTo(W * x, H * 0.32); c.lineTo(W * (x - 0.1), H * 0.56); c.lineTo(W * (x + 0.1), H * 0.56); c.closePath(); c.lineWidth = W * 0.025; c.stroke();
+        c.beginPath(); c.arc(W * x, H * 0.56, W * 0.12, 0, PI); c.fill(); } }, { res: 256, transparent: true });
+    f.position.set(0, 0, 0.025); g.add(f); return g;
   },
 };

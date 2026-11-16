@@ -1,0 +1,8399 @@
+{
+ "version": 3,
+ "title": "La guêpe",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   },
+   "toon": {
+    "breathe": 1.7,
+    "holdLife": 1.6
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "seed": 811,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "crs1": {
+   "preset": "swat",
+   "seed": 812,
+   "hat": "none",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "crs2": {
+   "preset": "swat",
+   "seed": 813,
+   "hat": "none",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "crs3": {
+   "preset": "swat",
+   "seed": 814,
+   "hat": "none",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "sold1": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "gloves": "#F6F6F2",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   },
+   "preset": "cop",
+   "seed": 815
+  },
+  "sold2": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "gloves": "#F6F6F2",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   },
+   "preset": "cop2",
+   "seed": 816
+  },
+  "sold3": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "gloves": "#F6F6F2",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   },
+   "preset": "cop",
+   "seed": 817
+  },
+  "officier": {
+   "outfit": "suit",
+   "suit": "#4E5A32",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "gloves": "#F6F6F2",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   },
+   "preset": "cop",
+   "seed": 818,
+   "facial": "mustache"
+  },
+  "gen1": {
+   "preset": "politique",
+   "seed": 820,
+   "suit": "#4A5530",
+   "lapel": "#4A5530",
+   "tie": "#2E351E",
+   "glasses": false,
+   "facial": "mustache",
+   "hairColor": "#9A9A96",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2,
+    "belly": 0.12
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "gen2": {
+   "preset": "politique",
+   "seed": 821,
+   "suit": "#4A5530",
+   "lapel": "#4A5530",
+   "tie": "#2E351E",
+   "glasses": false,
+   "hairColor": "#9A9A96",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2,
+    "belly": 0.12
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "gen3": {
+   "preset": "politique",
+   "seed": 822,
+   "suit": "#4A5530",
+   "lapel": "#4A5530",
+   "tie": "#2E351E",
+   "glasses": false,
+   "facial": "mustache",
+   "hairColor": "#9A9A96",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2,
+    "belly": 0.12
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "gen4": {
+   "preset": "politique",
+   "seed": 823,
+   "suit": "#4A5530",
+   "lapel": "#4A5530",
+   "tie": "#2E351E",
+   "glasses": false,
+   "hairColor": "#9A9A96",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2,
+    "belly": 0.12
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "gen5": {
+   "preset": "politique",
+   "seed": 824,
+   "suit": "#4A5530",
+   "lapel": "#4A5530",
+   "tie": "#2E351E",
+   "glasses": false,
+   "facial": "mustache",
+   "hairColor": "#9A9A96",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2,
+    "belly": 0.12
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        0.9,
+        -0.95
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.35,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ],
+         "L": [
+          0.16,
+          1.0,
+          -1.18,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "point"
+        },
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ],
+         "L": [
+          0.12,
+          0.93,
+          -1.02,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "point"
+        },
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.85,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ],
+         "L": [
+          0.16,
+          1.0,
+          -1.18,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "point"
+        },
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ],
+         "L": [
+          0.12,
+          0.93,
+          -1.02,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "point"
+        },
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.6,
+       "look": "camera",
+       "lookDur": 0.2
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic",
+     "pos": [
+      0.4,
+      0,
+      -1.62
+     ],
+     "ry": -25,
+     "clip": "writeOnHeld",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.0,
+        -1.1
+       ]
+      },
+      {
+       "at": 0.9,
+       "look": [
+        0.2,
+        1.1,
+        -1.25
+       ]
+      },
+      {
+       "at": 1.5,
+       "look": [
+        0.0,
+        0.9,
+        -0.95
+       ]
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": false
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "sucrier",
+     "name": "sugarBowl",
+     "pos": [
+      0.0,
+      0.76,
+      -0.95
+     ],
+     "opts": {
+      "lid": "on",
+      "dust": false,
+      "snow": false
+     }
+    },
+    {
+     "id": "tasse",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "opts": {
+      "color": "#E8452C"
+     }
+    },
+    {
+     "id": "bloc",
+     "name": "clipboardProp",
+     "on": {
+      "actor": "flic",
+      "hand": "L"
+     }
+    },
+    {
+     "id": "mouche1",
+     "name": "houseFly",
+     "pos": [
+      0.08,
+      1.05,
+      -0.85
+     ],
+     "ry": 0,
+     "scale": 0.85,
+     "opts": {
+      "buzz": [
+       [
+        0.0,
+        1.45
+       ]
+      ],
+      "rub": [
+       [
+        1.7,
+        2.4
+       ]
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -0.12,
+        0.98,
+        -0.88
+       ],
+       "dur": 0.45,
+       "ease": "inOut"
+      },
+      {
+       "at": 0.45,
+       "to": [
+        0.1,
+        0.93,
+        -0.9
+       ],
+       "dur": 0.45,
+       "ease": "inOut"
+      },
+      {
+       "at": 0.9,
+       "to": [
+        0.03,
+        0.9,
+        -0.88
+       ],
+       "dur": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": 1.2,
+       "to": [
+        0.0,
+        0.845,
+        -0.876
+       ],
+       "dur": 0.25,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      1.0,
+      0.2
+     ],
+     "to": [
+      0.0,
+      1.0,
+      0.08
+     ],
+     "lookAt": [
+      0.0,
+      1.12,
+      -1.4
+     ],
+     "lens": 56,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.12,
+      -1.4
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 2.4,
+   "setOpts": {
+    "fridge": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.18,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.88,
+          -1.45
+         ],
+         "L": [
+          -0.05,
+          1.35,
+          -1.6
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "open"
+        },
+        "bend": {
+         "spine": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ],
+         "neck": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.06,
+         0.88,
+         1.06
+        ],
+        "face": {
+         "lid": 0.6,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "out"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "crs1",
+     "pos": [
+      2.8,
+      0,
+      -3.3
+     ],
+     "ry": -45.0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.15,
+        0,
+        -1.65
+       ],
+       "dur": 1.167,
+       "clip": "run",
+       "ease": "out"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          2.616,
+          1.15,
+          -2.946,
+          1,
+          0.03
+         ],
+         "R": [
+          2.482,
+          1.1,
+          -3.123,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.167,
+       "toon": {
+        "reach": {
+         "L": [
+          0.966,
+          1.15,
+          -1.296,
+          1,
+          0.03
+         ],
+         "R": [
+          0.832,
+          1.1,
+          -1.473,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        }
+       },
+       "toonDur": 1.167
+      }
+     ],
+     "expr": "determined"
+    },
+    {
+     "id": "crs2",
+     "pos": [
+      3.1,
+      0,
+      -3.0
+     ],
+     "ry": -38.48,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.08,
+       "to": [
+        1.55,
+        0,
+        -1.05
+       ],
+       "dur": 1.087,
+       "clip": "run",
+       "ease": "out"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          2.957,
+          1.15,
+          -2.628,
+          1,
+          0.03
+         ],
+         "R": [
+          2.804,
+          1.1,
+          -2.788,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.167,
+       "toon": {
+        "reach": {
+         "L": [
+          1.407,
+          1.15,
+          -0.678,
+          1,
+          0.03
+         ],
+         "R": [
+          1.254,
+          1.1,
+          -0.838,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        }
+       },
+       "toonDur": 1.087
+      }
+     ],
+     "expr": "determined"
+    },
+    {
+     "id": "crs3",
+     "pos": [
+      2.6,
+      0,
+      -2.9
+     ],
+     "ry": -71.565,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.16,
+       "to": [
+        0.95,
+        0,
+        -2.35
+       ],
+       "dur": 1.007,
+       "clip": "run",
+       "ease": "out"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          2.277,
+          1.15,
+          -2.666,
+          1,
+          0.03
+         ],
+         "R": [
+          2.236,
+          1.1,
+          -2.884,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.167,
+       "toon": {
+        "reach": {
+         "L": [
+          0.627,
+          1.15,
+          -2.116,
+          1,
+          0.03
+         ],
+         "R": [
+          0.586,
+          1.1,
+          -2.334,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        }
+       },
+       "toonDur": 1.007
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": false
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "sucrier",
+     "name": "sugarBowl",
+     "pos": [
+      0.0,
+      0.76,
+      -0.95
+     ],
+     "opts": {
+      "lid": "on",
+      "dust": false,
+      "snow": false
+     }
+    },
+    {
+     "id": "tasse",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "opts": {
+      "color": "#E8452C"
+     }
+    },
+    {
+     "id": "bouclier20",
+     "name": "riotShield",
+     "pos": [
+      2.503,
+      1.0,
+      -3.003
+     ],
+     "ry": -45.0,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.853,
+        1.0,
+        -1.353
+       ],
+       "dur": 1.167,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "bouclier21",
+     "name": "riotShield",
+     "pos": [
+      2.839,
+      1.0,
+      -2.671
+     ],
+     "ry": -38.48,
+     "keys": [
+      {
+       "at": 0.08,
+       "to": [
+        1.289,
+        1.0,
+        -0.721
+       ],
+       "dur": 1.087,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "bouclier22",
+     "name": "riotShield",
+     "pos": [
+      2.202,
+      1.0,
+      -2.767
+     ],
+     "ry": -71.565,
+     "keys": [
+      {
+       "at": 0.16,
+       "to": [
+        0.552,
+        1.0,
+        -2.217
+       ],
+       "dur": 1.007,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "casque20",
+     "name": "riotHelmet",
+     "on": {
+      "actor": "crs1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque21",
+     "name": "riotHelmet",
+     "on": {
+      "actor": "crs2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque22",
+     "name": "riotHelmet",
+     "on": {
+      "actor": "crs3",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "assiettes",
+     "name": "plateShelf",
+     "pos": [
+      0.2,
+      1.85,
+      -3.58
+     ],
+     "opts": {
+      "w": 1.0,
+      "n": 5,
+      "burst": 0.35,
+      "floor": 1.85
+     }
+    },
+    {
+     "id": "mouche2",
+     "name": "houseFly",
+     "pos": [
+      0.0,
+      1.0,
+      -0.95
+     ],
+     "ry": 20,
+     "scale": 0.7,
+     "opts": {
+      "buzz": [
+       [
+        0.0,
+        1.267
+       ]
+      ],
+      "bob": 0.02
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.45,
+      1.6,
+      2.3
+     ],
+     "to": [
+      -1.4,
+      1.58,
+      2.15
+     ],
+     "lookAt": [
+      1.35,
+      1.15,
+      -2.5
+     ],
+     "lens": 52,
+     "ease": "linear",
+     "lookAt2": [
+      1.35,
+      1.15,
+      -2.5
+     ]
+    }
+   ],
+   "start": 2.4,
+   "duration": 1.2667,
+   "setOpts": {
+    "fridge": false
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.05,
+     "dur": 0.2,
+     "amount": 0.015
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.45,
+        1.5,
+        -1.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.25,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ],
+         "L": [
+          0.25,
+          1.35,
+          -1.55,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "open"
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.4
+        }
+       },
+       "toonDur": 0.3,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.83,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ],
+         "L": [
+          0.38,
+          1.22,
+          -1.1,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "open"
+        },
+        "sq": [
+         1.04,
+         0.95,
+         1.04
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.34,
+       "look": "camera",
+       "lookDur": 0.2
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic",
+     "pos": [
+      0.62,
+      0,
+      -1.3
+     ],
+     "ry": -60,
+     "clip": "writeOnHeld",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.25,
+        -1.8
+       ]
+      },
+      {
+       "at": 0.89,
+       "toon": {
+        "sq": [
+         1.05,
+         0.9,
+         1.05
+        ],
+        "face": {
+         "lid": 0.0,
+         "eye": 0.45,
+         "mouth": "O",
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.14,
+       "toon": {
+        "face": {
+         "lid": 0.5,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.2
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": false
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "sucrier",
+     "name": "sugarBowl",
+     "pos": [
+      0.0,
+      0.76,
+      -0.95
+     ],
+     "opts": {
+      "lid": "on",
+      "dust": false,
+      "snow": false
+     }
+    },
+    {
+     "id": "tasse",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "opts": {
+      "color": "#E8452C"
+     }
+    },
+    {
+     "id": "bloc",
+     "name": "clipboardProp",
+     "on": {
+      "actor": "flic",
+      "hand": "L"
+     }
+    },
+    {
+     "id": "casque3",
+     "name": "riotHelmet",
+     "on": {
+      "actor": "flic",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95,
+      "dent": true
+     }
+    },
+    {
+     "id": "demande",
+     "name": "strikeForm",
+     "pos": [
+      0.22,
+      1.32,
+      -1.55
+     ],
+     "rot": [
+      -0.3,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 0.16,
+      "stamp": -1.0
+     },
+     "keys": [
+      {
+       "at": 0.25,
+       "to": [
+        0.26,
+        1.38,
+        -1.5
+       ],
+       "dur": 0.3,
+       "ease": "out"
+      },
+      {
+       "at": 0.83,
+       "to": [
+        0.38,
+        1.23,
+        -1.09
+       ],
+       "dur": 0.06,
+       "ease": "in"
+      }
+     ],
+     "ry": 0.0
+    },
+    {
+     "id": "bouclier3a",
+     "name": "riotShield",
+     "pos": [
+      1.35,
+      0.03,
+      -2.4
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0.4
+     ],
+     "opts": {
+      "bent": 0.5
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "bouclier3b",
+     "name": "riotShield",
+     "pos": [
+      1.0,
+      0.25,
+      -2.75
+     ],
+     "rot": [
+      -0.6,
+      0.3,
+      0.1
+     ],
+     "opts": {
+      "bent": 0.7
+     },
+     "ry": 17.189
+    },
+    {
+     "id": "etoiles3",
+     "name": "impactStars",
+     "pos": [
+      0.38,
+      1.35,
+      -1.12
+     ],
+     "opts": {
+      "at": 0.89,
+      "n": 4
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.32,
+      1.45,
+      1.5
+     ],
+     "to": [
+      0.3,
+      1.44,
+      1.38
+     ],
+     "lookAt": [
+      0.3,
+      1.32,
+      -1.45
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      1.32,
+      -1.45
+     ]
+    }
+   ],
+   "start": 3.6667,
+   "duration": 1.9666,
+   "setOpts": {
+    "fridge": false
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.89,
+     "dur": 0.12,
+     "amount": 0.01
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "terre4",
+     "name": "earthGlobe",
+     "pos": [
+      0.0,
+      -9.0,
+      -26.0
+     ],
+     "scale": 7.0,
+     "opts": {
+      "spin": 0.06
+     }
+    },
+    {
+     "id": "sat4",
+     "name": "satellite",
+     "pos": [
+      0.0,
+      1.55,
+      -3.2
+     ],
+     "rot": [
+      0.25,
+      0.4,
+      1.0
+     ],
+     "scale": 0.32,
+     "keys": [
+      {
+       "at": 0.25,
+       "rotTo": [
+        0.25,
+        0.4,
+        0.0
+       ],
+       "dur": 0.8,
+       "ease": "inOut"
+      },
+      {
+       "at": 0.0,
+       "to": [
+        0.25,
+        1.6,
+        -3.2
+       ],
+       "dur": 2.033,
+       "ease": "linear"
+      }
+     ],
+     "ry": 22.918
+    },
+    {
+     "id": "eclat4",
+     "name": "lensGlint",
+     "pos": [
+      0.24,
+      1.22,
+      -3.05
+     ],
+     "opts": {
+      "at": 1.25,
+      "size": 1.3,
+      "dur": 0.5
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      1.0,
+      5.0
+     ],
+     "to": [
+      0.1,
+      1.0,
+      4.8
+     ],
+     "lookAt": [
+      0.0,
+      0.3,
+      -6.0
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0.06,
+      0.3,
+      -6.0
+     ]
+    }
+   ],
+   "start": 5.6333,
+   "duration": 2.0334,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        0.9,
+        -0.95
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic",
+     "pos": [
+      0.78,
+      0,
+      -1.4
+     ],
+     "ry": -40,
+     "clip": "writeOnHeld",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.0,
+        -1.1
+       ]
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": false
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "sucrier",
+     "name": "sugarBowl",
+     "pos": [
+      0.0,
+      0.76,
+      -0.95
+     ],
+     "opts": {
+      "lid": "on",
+      "dust": false,
+      "snow": false
+     }
+    },
+    {
+     "id": "tasse",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "opts": {
+      "color": "#E8452C"
+     }
+    },
+    {
+     "id": "bloc",
+     "name": "clipboardProp",
+     "on": {
+      "actor": "flic",
+      "hand": "L"
+     }
+    },
+    {
+     "id": "casque5",
+     "name": "riotHelmet",
+     "on": {
+      "actor": "flic",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95,
+      "dent": true
+     }
+    },
+    {
+     "id": "mouche5",
+     "name": "houseFly",
+     "pos": [
+      0.0,
+      0.845,
+      -0.876
+     ],
+     "ry": 0,
+     "scale": 0.7,
+     "opts": {
+      "rub": [
+       [
+        0.0,
+        1.2
+       ]
+      ]
+     }
+    },
+    {
+     "id": "cible5",
+     "name": "satReticle",
+     "pos": [
+      0.0,
+      0.762,
+      -0.95
+     ],
+     "opts": {
+      "r": 0.22,
+      "at": 0.05
+     }
+    },
+    {
+     "id": "punaise5",
+     "name": "mapPin",
+     "pos": [
+      0.06,
+      0.891,
+      -0.95
+     ],
+     "opts": {
+      "s": 1.6,
+      "at": 0.45,
+      "drop": 1.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      2.32,
+      -1.15
+     ],
+     "to": [
+      0.0,
+      2.26,
+      -1.15
+     ],
+     "lookAt": [
+      0.0,
+      0.76,
+      -1.13
+     ],
+     "lens": 64,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.76,
+      -1.13
+     ]
+    }
+   ],
+   "start": 7.6667,
+   "duration": 1.2,
+   "setOpts": {
+    "fridge": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "seaSurface",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "pa6",
+     "name": "carrier",
+     "pos": [
+      -30.0,
+      0.0,
+      -68.0
+     ],
+     "ry": 60,
+     "scale": 16.0,
+     "opts": {
+      "L": 1.8,
+      "wake": true,
+      "waterline": false
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -15.0,
+        0.0,
+        -59.0
+       ],
+       "dur": 1.8,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      8.0,
+      2.6,
+      -8.0
+     ],
+     "to": [
+      7.0,
+      2.5,
+      -8.6
+     ],
+     "lookAt": [
+      -22.0,
+      3.5,
+      -63.0
+     ],
+     "lens": 30,
+     "ease": "linear",
+     "lookAt2": [
+      -17.0,
+      3.5,
+      -60.0
+     ]
+    }
+   ],
+   "start": 8.8667,
+   "duration": 1.8,
+   "setOpts": {
+    "parasols": false,
+    "shore": 40
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -1.6,
+        1.1,
+        -2.5
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.6,
+       "look": "camera",
+       "lookDur": 0.2
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": false
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "sucrier",
+     "name": "sugarBowl",
+     "pos": [
+      0.0,
+      0.76,
+      -0.95
+     ],
+     "opts": {
+      "lid": "on",
+      "dust": false,
+      "snow": false
+     }
+    },
+    {
+     "id": "tasse",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "opts": {
+      "color": "#E8452C"
+     }
+    },
+    {
+     "id": "flot7",
+     "name": "waterSpill",
+     "pos": [
+      -1.15,
+      0.9,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "w": 0.5,
+      "h": 0.9,
+      "at": 0.0,
+      "r0": 0.5,
+      "r": 0.9,
+      "grow": 1.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.85,
+      1.95,
+      -0.75
+     ],
+     "to": [
+      -0.88,
+      1.93,
+      -0.82
+     ],
+     "lookAt": [
+      -1.65,
+      1.0,
+      -2.45
+     ],
+     "lens": 54,
+     "ease": "linear",
+     "lookAt2": [
+      -1.65,
+      1.0,
+      -2.45
+     ]
+    }
+   ],
+   "start": 10.6667,
+   "duration": 1.0,
+   "setOpts": {
+    "fridge": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -1.4,
+        1.2,
+        -2.5
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": false
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "sucrier",
+     "name": "sugarBowl",
+     "pos": [
+      0.0,
+      0.76,
+      -0.95
+     ],
+     "opts": {
+      "lid": "on",
+      "dust": false,
+      "snow": false
+     }
+    },
+    {
+     "id": "tasse",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "opts": {
+      "color": "#E8452C"
+     }
+    },
+    {
+     "id": "flot8",
+     "name": "waterSpill",
+     "pos": [
+      -1.15,
+      0.9,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "w": 0.5,
+      "h": 0.9,
+      "r0": 0.9,
+      "r": 1.0
+     }
+    },
+    {
+     "id": "jet8",
+     "name": "fighterJet",
+     "pos": [
+      -2.106,
+      1.182,
+      -2.608
+     ],
+     "ry": 90,
+     "scale": 0.022,
+     "opts": {
+      "burner": 0.8,
+      "glow": 0.5
+     },
+     "keys": [
+      {
+       "at": 0.913,
+       "to": [
+        -2.006,
+        1.182,
+        -2.608
+       ],
+       "dur": 0.12,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "vap80",
+     "name": "toonPuff",
+     "pos": [
+      -1.966,
+      1.147,
+      -2.608
+     ],
+     "opts": {
+      "at": 0.1,
+      "n": 4,
+      "size": 0.02,
+      "rise": 0.07,
+      "spread": 0.04,
+      "life": 0.7
+     }
+    },
+    {
+     "id": "vap81",
+     "name": "toonPuff",
+     "pos": [
+      -1.846,
+      1.147,
+      -2.608
+     ],
+     "opts": {
+      "at": 0.25,
+      "n": 4,
+      "size": 0.02,
+      "rise": 0.07,
+      "spread": 0.04,
+      "life": 0.7
+     }
+    },
+    {
+     "id": "vap82",
+     "name": "toonPuff",
+     "pos": [
+      -1.726,
+      1.147,
+      -2.608
+     ],
+     "opts": {
+      "at": 0.4,
+      "n": 4,
+      "size": 0.02,
+      "rise": 0.07,
+      "spread": 0.04,
+      "life": 0.7
+     }
+    },
+    {
+     "id": "vap83",
+     "name": "toonPuff",
+     "pos": [
+      -1.606,
+      1.147,
+      -2.608
+     ],
+     "opts": {
+      "at": 0.55,
+      "n": 4,
+      "size": 0.02,
+      "rise": 0.07,
+      "spread": 0.04,
+      "life": 0.7
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.576,
+      1.297,
+      -2.728
+     ],
+     "to": [
+      -2.526,
+      1.287,
+      -2.728
+     ],
+     "lookAt": [
+      0.0,
+      1.05,
+      -1.75
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.05,
+      -1.75
+     ]
+    }
+   ],
+   "start": 11.6667,
+   "duration": 1.0333,
+   "setOpts": {
+    "fridge": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.28,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "hairUp": 1.0,
+        "tie": [
+         1.2,
+         0.2,
+         0.9
+        ],
+        "sq": [
+         1.03,
+         0.97,
+         1.03
+        ],
+        "face": {
+         "lid": 0.0,
+         "eye": 0.2,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "hairUp": 0.6,
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.25
+      },
+      {
+       "at": 0.85,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "hairUp": 0.5,
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": false
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "sucrier",
+     "name": "sugarBowl",
+     "pos": [
+      0.0,
+      0.76,
+      -0.95
+     ],
+     "opts": {
+      "lid": "on",
+      "dust": false,
+      "snow": false
+     }
+    },
+    {
+     "id": "tasse",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "opts": {
+      "color": "#E8452C"
+     }
+    },
+    {
+     "id": "flot9",
+     "name": "waterSpill",
+     "pos": [
+      -1.15,
+      0.9,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "w": 0.5,
+      "h": 0.9,
+      "r0": 1.0,
+      "r": 1.0
+     }
+    },
+    {
+     "id": "jet9",
+     "name": "fighterJet",
+     "pos": [
+      -1.14,
+      1.182,
+      -2.608
+     ],
+     "ry": 90,
+     "scale": 0.03,
+     "opts": {
+      "burner": 1.0,
+      "glow": 0.6,
+      "contrail": false
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -0.94,
+        1.232,
+        -2.608
+       ],
+       "dur": 0.08,
+       "ease": "in"
+      },
+      {
+       "at": 0.08,
+       "to": [
+        0.22,
+        1.33,
+        -1.35
+       ],
+       "dur": 0.2,
+       "ease": "linear"
+      },
+      {
+       "at": 0.28,
+       "to": [
+        1.7,
+        1.2,
+        0.3
+       ],
+       "dur": 0.25,
+       "ease": "linear"
+      },
+      {
+       "at": 0.0,
+       "rotTo": [
+        0.0,
+        1.5708,
+        0.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 0.08,
+       "rotTo": [
+        0.15,
+        1.0,
+        -0.6
+       ],
+       "dur": 0.2
+      },
+      {
+       "at": 0.28,
+       "rotTo": [
+        0.1,
+        0.8,
+        -0.9
+       ],
+       "dur": 0.2
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.55,
+      1.3,
+      0.75
+     ],
+     "to": [
+      0.53,
+      1.3,
+      0.65
+     ],
+     "lookAt": [
+      0.0,
+      1.15,
+      -1.8
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.15,
+      -1.8
+     ]
+    }
+   ],
+   "start": 12.7,
+   "duration": 1.0667,
+   "setOpts": {
+    "fridge": false
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.3,
+     "dur": 0.2,
+     "amount": 0.012
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.05,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.85,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": false
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "sucrier",
+     "name": "sugarBowl",
+     "pos": [
+      0.0,
+      0.76,
+      -0.95
+     ],
+     "opts": {
+      "lid": "on",
+      "dust": false,
+      "snow": false
+     }
+    },
+    {
+     "id": "tasse",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "opts": {
+      "color": "#E8452C"
+     }
+    },
+    {
+     "id": "mouche10",
+     "name": "houseFly",
+     "pos": [
+      0.0,
+      1.02,
+      -0.95
+     ],
+     "ry": 0,
+     "scale": 1.0,
+     "opts": {
+      "buzz": [
+       [
+        0.0,
+        1.267
+       ]
+      ],
+      "bob": 0.008
+     }
+    },
+    {
+     "id": "missiles10",
+     "name": "missileSalvo",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "shots": [
+       {
+        "from": [
+         -0.18,
+         1.05,
+         0.9
+        ],
+        "to": [
+         -0.8,
+         1.25,
+         -3.55
+        ],
+        "t0": 0.0,
+        "dur": 0.95
+       },
+       {
+        "from": [
+         0.2,
+         1.0,
+         0.9
+        ],
+        "to": [
+         0.98,
+         1.2,
+         -3.55
+        ],
+        "t0": 0.03,
+        "dur": 0.92
+       }
+      ],
+      "size": 0.09,
+      "trail": 0.35,
+      "flame": 0.8,
+      "glow": 0.5
+     }
+    },
+    {
+     "id": "trou10a",
+     "name": "wallImpact",
+     "pos": [
+      -0.8,
+      1.25,
+      -3.53
+     ],
+     "opts": {
+      "at": 0.95,
+      "r": 0.32,
+      "seed": 3
+     }
+    },
+    {
+     "id": "trou10b",
+     "name": "wallImpact",
+     "pos": [
+      0.98,
+      1.2,
+      -3.53
+     ],
+     "opts": {
+      "at": 0.98,
+      "r": 0.32,
+      "seed": 8
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.06,
+      1.05,
+      0.35
+     ],
+     "to": [
+      0.06,
+      1.05,
+      0.3
+     ],
+     "lookAt": [
+      0.0,
+      1.1,
+      -2.0
+     ],
+     "lens": 52,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.1,
+      -2.0
+     ]
+    }
+   ],
+   "start": 13.7667,
+   "duration": 1.2666,
+   "setOpts": {
+    "fridge": false
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.95,
+     "dur": 0.25,
+     "amount": 0.02
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.15,
+      2.2,
+      -17.9
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.75,
+       "toon": {
+        "reach": {
+         "R": [
+          0.28,
+          3.18,
+          -17.62,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.9,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "tas",
+     "name": "rubbleHeap",
+     "pos": [
+      0.0,
+      0,
+      -18.0
+     ],
+     "opts": {
+      "r": 3.4,
+      "h": 2.2,
+      "wall": [
+       0.3
+      ],
+      "dust": true
+     }
+    },
+    {
+     "id": "chaise11",
+     "name": "chair",
+     "pos": [
+      0.15,
+      2.18,
+      -18.05
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "tasse11",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "opts": {
+      "color": "#E8452C"
+     }
+    },
+    {
+     "id": "frigo11",
+     "name": "fridge",
+     "pos": [
+      1.7,
+      1.2,
+      -17.6
+     ],
+     "rot": [
+      0.25,
+      -0.5,
+      0.35
+     ],
+     "ry": -28.648
+    },
+    {
+     "id": "evier11",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      1.05,
+      -17.7
+     ],
+     "rot": [
+      -0.2,
+      0.3,
+      -0.3
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     },
+     "ry": 17.189
+    },
+    {
+     "id": "pa11",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      1.92,
+      -17.6
+     ],
+     "rot": [
+      -0.2,
+      1.87,
+      -0.3
+     ],
+     "opts": {
+      "L": 1.8
+     },
+     "ry": 107.143
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.0,
+      1.7,
+      -9.5
+     ],
+     "to": [
+      1.85,
+      1.72,
+      -9.9
+     ],
+     "lookAt": [
+      0.0,
+      2.45,
+      -18.0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      2.45,
+      -18.0
+     ]
+    }
+   ],
+   "start": 15.0333,
+   "duration": 1.3667,
+   "setOpts": {
+    "eiffelStyle": "v2",
+    "clear": [
+     -40.0,
+     10.0
+    ],
+    "clearL": [
+     -40.0,
+     10.0
+    ]
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.55,
+     "dur": 0.2,
+     "amount": 0.012
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "mairie12",
+     "name": "collapse",
+     "pos": [
+      0.0,
+      0,
+      -36.0
+     ],
+     "opts": {
+      "of": "townHall",
+      "opts": {
+       "w": 8.0,
+       "h": 5.5,
+       "d": 4.5,
+       "gable": "v2"
+      },
+      "at": 0.4,
+      "dur": 0.4,
+      "flat": 0.12,
+      "pole": true,
+      "poleAt": [
+       -2.6,
+       5.0
+      ],
+      "poleH": 6.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.0,
+      1.5,
+      -19.5
+     ],
+     "to": [
+      1.9,
+      1.5,
+      -20.0
+     ],
+     "lookAt": [
+      -0.6,
+      3.2,
+      -36.0
+     ],
+     "lens": 48,
+     "ease": "linear",
+     "lookAt2": [
+      -0.6,
+      3.0,
+      -36.0
+     ]
+    }
+   ],
+   "start": 16.4,
+   "duration": 1.7333,
+   "setOpts": {
+    "eiffelStyle": "v2",
+    "clear": [
+     -40.0,
+     10.0
+    ],
+    "clearL": [
+     -40.0,
+     10.0
+    ]
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.7,
+     "dur": 0.3,
+     "amount": 0.02
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        0.9,
+        -0.95
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": false
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "sucrier",
+     "name": "sugarBowl",
+     "pos": [
+      0.0,
+      0.76,
+      -0.95
+     ],
+     "opts": {
+      "lid": "off",
+      "dust": true,
+      "snow": false
+     }
+    },
+    {
+     "id": "ruines",
+     "name": "ruinFloor",
+     "pos": [
+      0.0,
+      0,
+      -1.9
+     ],
+     "opts": {
+      "w": 5.6,
+      "d": 3.2,
+      "smoke": true,
+      "snow": false
+     }
+    },
+    {
+     "id": "tasse",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "opts": {
+      "color": "#E8452C"
+     }
+    },
+    {
+     "id": "mouche13",
+     "name": "houseFly",
+     "pos": [
+      -0.072,
+      0.845,
+      -0.95
+     ],
+     "ry": 90,
+     "scale": 0.6,
+     "opts": {
+      "eat": [
+       [
+        0.15,
+        1.733
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.38,
+      1.12,
+      0.1
+     ],
+     "to": [
+      0.34,
+      1.1,
+      0.0
+     ],
+     "lookAt": [
+      0.0,
+      0.9,
+      -0.95
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.9,
+      -0.95
+     ]
+    }
+   ],
+   "start": 18.1333,
+   "duration": 1.7334,
+   "setOpts": {
+    "eiffelStyle": "v2",
+    "clear": [
+     -40.0,
+     10.0
+    ],
+    "clearL": [
+     -40.0,
+     10.0
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S14",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "touch": {
+         "R": [
+          "face",
+          -0.06,
+          0.22,
+          0.1,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.2
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.2
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "sold1",
+     "pos": [
+      -1.05,
+      0,
+      -1.65
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.9,
+        1.0,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ]
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.05,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.4,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          0.7,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.4,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.7,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.75,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ]
+       },
+       "toonDur": 0.12,
+       "toonEase": "in"
+      }
+     ],
+     "expr": "determined"
+    },
+    {
+     "id": "sold2",
+     "pos": [
+      -1.12,
+      0,
+      -1.2
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.9,
+        1.0,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ]
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "determined"
+    },
+    {
+     "id": "sold3",
+     "pos": [
+      -1.0,
+      0,
+      -2.1
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.9,
+        1.0,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ]
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": false
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "sucrier",
+     "name": "sugarBowl",
+     "pos": [
+      0.0,
+      0.76,
+      -0.95
+     ],
+     "opts": {
+      "lid": "on",
+      "dust": true,
+      "snow": false
+     }
+    },
+    {
+     "id": "ruines",
+     "name": "ruinFloor",
+     "pos": [
+      0.0,
+      0,
+      -1.9
+     ],
+     "opts": {
+      "w": 5.6,
+      "d": 3.2,
+      "smoke": true,
+      "snow": false
+     }
+    },
+    {
+     "id": "tasse",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "opts": {
+      "color": "#E8452C"
+     }
+    },
+    {
+     "id": "sacs1",
+     "name": "sandbags",
+     "pos": [
+      -0.7,
+      0,
+      -1.7
+     ],
+     "ry": 90,
+     "opts": {
+      "n": 6,
+      "rows": 3,
+      "seed": 4
+     }
+    },
+    {
+     "id": "sacs2",
+     "name": "sandbags",
+     "pos": [
+      1.0,
+      0,
+      -2.1
+     ],
+     "ry": -90,
+     "opts": {
+      "n": 5,
+      "rows": 3,
+      "seed": 7
+     }
+    },
+    {
+     "id": "drapeau",
+     "name": "pennantFlag",
+     "pos": [
+      1.45,
+      1.9,
+      -2.3
+     ],
+     "scale": 3.0
+    },
+    {
+     "id": "casque140",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "sold1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque141",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "sold2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque142",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "sold3",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.3,
+      1.7,
+      -0.55
+     ],
+     "to": [
+      -2.25,
+      1.68,
+      -0.6
+     ],
+     "lookAt": [
+      0.7,
+      0.95,
+      -2.1
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0.7,
+      0.95,
+      -2.1
+     ]
+    }
+   ],
+   "start": 19.8667,
+   "duration": 1.2666,
+   "setOpts": {
+    "eiffelStyle": "v2",
+    "clear": [
+     -40.0,
+     10.0
+    ],
+    "clearL": [
+     -40.0,
+     10.0
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S15",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.9,
+        1.9,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "sold1",
+     "pos": [
+      -1.05,
+      0,
+      -1.65
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.9,
+        1.0,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ]
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "determined"
+    },
+    {
+     "id": "sold2",
+     "pos": [
+      -1.12,
+      0,
+      -1.2
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.9,
+        1.0,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ]
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "determined"
+    },
+    {
+     "id": "sold3",
+     "pos": [
+      -1.0,
+      0,
+      -2.1
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.9,
+        1.0,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ]
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": false
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "sucrier",
+     "name": "sugarBowl",
+     "pos": [
+      0.0,
+      0.76,
+      -0.95
+     ],
+     "opts": {
+      "lid": "on",
+      "dust": true,
+      "snow": false
+     }
+    },
+    {
+     "id": "ruines",
+     "name": "ruinFloor",
+     "pos": [
+      0.0,
+      0,
+      -1.9
+     ],
+     "opts": {
+      "w": 5.6,
+      "d": 3.2,
+      "smoke": true,
+      "snow": false
+     }
+    },
+    {
+     "id": "tasse",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "opts": {
+      "color": "#E8452C"
+     }
+    },
+    {
+     "id": "sacs1",
+     "name": "sandbags",
+     "pos": [
+      -0.7,
+      0,
+      -1.7
+     ],
+     "ry": 90,
+     "opts": {
+      "n": 6,
+      "rows": 3,
+      "seed": 4
+     }
+    },
+    {
+     "id": "sacs2",
+     "name": "sandbags",
+     "pos": [
+      1.0,
+      0,
+      -2.1
+     ],
+     "ry": -90,
+     "opts": {
+      "n": 5,
+      "rows": 3,
+      "seed": 7
+     }
+    },
+    {
+     "id": "drapeau",
+     "name": "pennantFlag",
+     "pos": [
+      1.45,
+      1.9,
+      -2.3
+     ],
+     "scale": 3.0
+    },
+    {
+     "id": "casque150",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "sold1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque151",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "sold2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque152",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "sold3",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "mouche15",
+     "name": "houseFly",
+     "pos": [
+      1.53,
+      1.9,
+      -2.18
+     ],
+     "ry": -100,
+     "scale": 0.7,
+     "opts": {
+      "rub": [
+       [
+        0.2,
+        1.133
+       ]
+      ],
+      "look": [
+       [
+        0.0,
+        0.0
+       ],
+       [
+        0.5,
+        0.35
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.46,
+      2.22,
+      -2.3
+     ],
+     "to": [
+      2.44,
+      2.21,
+      -2.28
+     ],
+     "lookAt": [
+      -1.05,
+      1.0,
+      -1.65
+     ],
+     "lens": 48,
+     "ease": "linear",
+     "lookAt2": [
+      -1.05,
+      1.0,
+      -1.65
+     ]
+    }
+   ],
+   "start": 21.1333,
+   "duration": 1.1334,
+   "setOpts": {
+    "eiffelStyle": "v2",
+    "clear": [
+     -40.0,
+     10.0
+    ],
+    "clearL": [
+     -40.0,
+     10.0
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S16",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "buzzXZ": 0.08,
+     "buzzY": 0.3,
+     "expr": "unimpressed"
+    },
+    {
+     "id": "sold1",
+     "pos": [
+      -1.05,
+      0,
+      -1.65
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.9,
+        1.0,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ]
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "determined"
+    },
+    {
+     "id": "sold2",
+     "pos": [
+      -1.12,
+      0,
+      -1.2
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.9,
+        1.0,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ]
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "determined"
+    },
+    {
+     "id": "sold3",
+     "pos": [
+      -1.0,
+      0,
+      -2.1
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.9,
+        1.0,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ]
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": true
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "sucrier",
+     "name": "sugarBowl",
+     "pos": [
+      0.0,
+      0.76,
+      -0.95
+     ],
+     "opts": {
+      "lid": "on",
+      "dust": true,
+      "snow": true
+     }
+    },
+    {
+     "id": "ruines",
+     "name": "ruinFloor",
+     "pos": [
+      0.0,
+      0,
+      -1.9
+     ],
+     "opts": {
+      "w": 5.6,
+      "d": 3.2,
+      "smoke": false,
+      "snow": true
+     }
+    },
+    {
+     "id": "tasse",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "opts": {
+      "color": "#E8452C"
+     }
+    },
+    {
+     "id": "sacs1",
+     "name": "sandbags",
+     "pos": [
+      -0.7,
+      0,
+      -1.7
+     ],
+     "ry": 90,
+     "opts": {
+      "n": 6,
+      "rows": 3,
+      "seed": 4
+     }
+    },
+    {
+     "id": "sacs2",
+     "name": "sandbags",
+     "pos": [
+      1.0,
+      0,
+      -2.1
+     ],
+     "ry": -90,
+     "opts": {
+      "n": 5,
+      "rows": 3,
+      "seed": 7
+     }
+    },
+    {
+     "id": "drapeau",
+     "name": "pennantFlag",
+     "pos": [
+      1.45,
+      1.9,
+      -2.3
+     ],
+     "scale": 3.0
+    },
+    {
+     "id": "casque160",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "sold1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95,
+      "snow": true
+     }
+    },
+    {
+     "id": "casque161",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "sold2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95,
+      "snow": true
+     }
+    },
+    {
+     "id": "casque162",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "sold3",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95,
+      "snow": true
+     }
+    },
+    {
+     "id": "neige16",
+     "name": "snowCap",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.42,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.32,
+      "h": 0.2,
+      "t0": 0.0,
+      "t1": 0.967
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      1.35,
+      2.5
+     ],
+     "to": [
+      0.24,
+      1.34,
+      2.38
+     ],
+     "lookAt": [
+      0.15,
+      1.0,
+      -2.0
+     ],
+     "lens": 64,
+     "ease": "linear",
+     "lookAt2": [
+      0.15,
+      1.0,
+      -2.0
+     ]
+    }
+   ],
+   "start": 22.2667,
+   "duration": 0.9666,
+   "setOpts": {
+    "eiffelStyle": "v2",
+    "clear": [
+     -40.0,
+     10.0
+    ],
+    "clearL": [
+     -40.0,
+     10.0
+    ],
+    "snow": true,
+    "snowN": 2600,
+    "snowSize": 0.07
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S17",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "sold1",
+     "pos": [
+      -1.0,
+      0,
+      -2.1
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -1.55,
+        1.5,
+        -2.1
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ],
+        "reach": {
+         "R": [
+          -0.72,
+          0.86,
+          -2.22,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.5,
+         "mouth": "line",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.4,
+       "look": [
+        -0.72,
+        0.86,
+        -2.22
+       ],
+       "lookDur": 0.15
+      }
+     ],
+     "buzzXZ": 0.25,
+     "buzzY": 0.6,
+     "expr": "sad"
+    },
+    {
+     "id": "sold2",
+     "pos": [
+      -1.08,
+      0,
+      -1.65
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -1.55,
+        1.5,
+        -1.65
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ],
+        "reach": {
+         "R": [
+          -0.8,
+          0.86,
+          -1.77,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.5,
+         "mouth": "line",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.75,
+       "look": [
+        -0.8,
+        0.86,
+        -1.77
+       ],
+       "lookDur": 0.15
+      }
+     ],
+     "buzzXZ": 0.25,
+     "buzzY": 0.6,
+     "expr": "sad"
+    },
+    {
+     "id": "sold3",
+     "pos": [
+      -1.02,
+      0,
+      -1.2
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -1.55,
+        1.5,
+        -1.2
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ],
+        "reach": {
+         "R": [
+          -0.74,
+          0.86,
+          -1.32,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.5,
+         "mouth": "line",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.1,
+       "look": [
+        -0.74,
+        0.86,
+        -1.32
+       ],
+       "lookDur": 0.15
+      }
+     ],
+     "buzzXZ": 0.25,
+     "buzzY": 0.6,
+     "expr": "sad"
+    },
+    {
+     "id": "officier",
+     "pos": [
+      -1.55,
+      0,
+      -2.55
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -1.0,
+        0.9,
+        -2.1
+       ]
+      },
+      {
+       "at": 0.0,
+       "to": [
+        -1.55,
+        0,
+        -1.45
+       ],
+       "dur": 1.267,
+       "clip": "walk",
+       "ease": "linear"
+      },
+      {
+       "at": 0.18,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.72,
+          0.86,
+          -2.22,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "L": "pinch"
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.53,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.8,
+          0.86,
+          -1.77,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "L": "pinch"
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.88,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.74,
+          0.86,
+          -1.32,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "L": "pinch"
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.38,
+       "toon": {
+        "hands": {
+         "L": "rest"
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.73,
+       "toon": {
+        "hands": {
+         "L": "rest"
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 1.08,
+       "toon": {
+        "hands": {
+         "L": "rest"
+        }
+       },
+       "toonDur": 0.12
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": true
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "ruines",
+     "name": "ruinFloor",
+     "pos": [
+      0.0,
+      0,
+      -1.9
+     ],
+     "opts": {
+      "w": 5.6,
+      "d": 3.2,
+      "smoke": false,
+      "snow": true
+     }
+    },
+    {
+     "id": "sacs1",
+     "name": "sandbags",
+     "pos": [
+      -0.7,
+      0,
+      -1.7
+     ],
+     "ry": 90,
+     "opts": {
+      "n": 6,
+      "rows": 3,
+      "seed": 4
+     }
+    },
+    {
+     "id": "sacs2",
+     "name": "sandbags",
+     "pos": [
+      1.0,
+      0,
+      -2.1
+     ],
+     "ry": -90,
+     "opts": {
+      "n": 5,
+      "rows": 3,
+      "seed": 7
+     }
+    },
+    {
+     "id": "drapeau",
+     "name": "pennantFlag",
+     "pos": [
+      1.45,
+      1.9,
+      -2.3
+     ],
+     "scale": 3.0
+    },
+    {
+     "id": "casque170",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "sold1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95,
+      "snow": true
+     }
+    },
+    {
+     "id": "casque171",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "sold2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95,
+      "snow": true
+     }
+    },
+    {
+     "id": "casque172",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "sold3",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95,
+      "snow": true
+     }
+    },
+    {
+     "id": "kepi17",
+     "name": "kepi",
+     "on": {
+      "actor": "officier",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.222,
+      "d": 0.17,
+      "color": "#2B3A2A",
+      "band": "#E2B53C"
+     }
+    },
+    {
+     "id": "morceau170",
+     "name": "sugarCube",
+     "pos": [
+      -0.72,
+      0.9,
+      -2.22
+     ],
+     "scale": 1.8,
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.3,
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "morceau171",
+     "name": "sugarCube",
+     "pos": [
+      -0.8,
+      0.9,
+      -1.77
+     ],
+     "scale": 1.8,
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.65,
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "morceau172",
+     "name": "sugarCube",
+     "pos": [
+      -0.74,
+      0.9,
+      -1.32
+     ],
+     "scale": 1.8,
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 1.0,
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.7,
+      0.6
+     ],
+     "to": [
+      0.58,
+      1.69,
+      0.52
+     ],
+     "lookAt": [
+      -1.0,
+      1.0,
+      -1.65
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      -1.0,
+      1.0,
+      -1.65
+     ]
+    }
+   ],
+   "start": 23.2333,
+   "duration": 1.2667,
+   "setOpts": {
+    "eiffelStyle": "v2",
+    "clear": [
+     -40.0,
+     10.0
+    ],
+    "clearL": [
+     -40.0,
+     10.0
+    ],
+    "snow": true,
+    "snowN": 2600,
+    "snowSize": 0.07
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S18",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "sold1",
+     "pos": [
+      -1.05,
+      0,
+      -1.65
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.9,
+        1.0,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ]
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "determined"
+    },
+    {
+     "id": "sold2",
+     "pos": [
+      -1.12,
+      0,
+      -1.2
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.9,
+        1.0,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ]
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "determined"
+    },
+    {
+     "id": "sold3",
+     "pos": [
+      -1.0,
+      0,
+      -2.1
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.9,
+        1.0,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.9,
+         1.04
+        ]
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": true,
+      "hatch": [
+       [
+        0.25,
+        1.0
+       ]
+      ]
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "ruines",
+     "name": "ruinFloor",
+     "pos": [
+      0.0,
+      0,
+      -1.9
+     ],
+     "opts": {
+      "w": 5.6,
+      "d": 3.2,
+      "smoke": false,
+      "snow": true
+     }
+    },
+    {
+     "id": "sacs1",
+     "name": "sandbags",
+     "pos": [
+      -0.7,
+      0,
+      -1.7
+     ],
+     "ry": 90,
+     "opts": {
+      "n": 6,
+      "rows": 3,
+      "seed": 4
+     }
+    },
+    {
+     "id": "sacs2",
+     "name": "sandbags",
+     "pos": [
+      1.0,
+      0,
+      -2.1
+     ],
+     "ry": -90,
+     "opts": {
+      "n": 5,
+      "rows": 3,
+      "seed": 7
+     }
+    },
+    {
+     "id": "drapeau",
+     "name": "pennantFlag",
+     "pos": [
+      1.45,
+      1.9,
+      -2.3
+     ],
+     "scale": 3.0
+    },
+    {
+     "id": "casque180",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "sold1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95,
+      "snow": true
+     }
+    },
+    {
+     "id": "casque181",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "sold2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95,
+      "snow": true
+     }
+    },
+    {
+     "id": "casque182",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "sold3",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95,
+      "snow": true
+     }
+    },
+    {
+     "id": "blanc18",
+     "name": "whiteFlag",
+     "pos": [
+      -2.11,
+      0.717,
+      -2.356
+     ],
+     "scale": 0.15,
+     "opts": {
+      "w": 1.6,
+      "h": 1.0,
+      "pole": 3.0,
+      "speed": 5
+     },
+     "keys": [
+      {
+       "at": 0.35,
+       "to": [
+        -2.11,
+        1.117,
+        -2.356
+       ],
+       "dur": 1.1,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.35,
+      1.45,
+      -1.55
+     ],
+     "to": [
+      -1.4,
+      1.44,
+      -1.6
+     ],
+     "lookAt": [
+      -2.15,
+      1.25,
+      -2.4
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.15,
+      1.3,
+      -2.4
+     ]
+    }
+   ],
+   "start": 24.5,
+   "duration": 2.0333,
+   "setOpts": {
+    "eiffelStyle": "v2",
+    "clear": [
+     -40.0,
+     10.0
+    ],
+    "clearL": [
+     -40.0,
+     10.0
+    ],
+    "snow": true,
+    "snowN": 2600,
+    "snowSize": 0.07
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S19",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        0.95,
+        -0.95
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": true
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "ruines",
+     "name": "ruinFloor",
+     "pos": [
+      0.0,
+      0,
+      -1.9
+     ],
+     "opts": {
+      "w": 5.6,
+      "d": 3.2,
+      "smoke": false,
+      "snow": true
+     }
+    },
+    {
+     "id": "tasse",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "opts": {
+      "color": "#E8452C"
+     }
+    },
+    {
+     "id": "traite19",
+     "name": "treatySheet",
+     "pos": [
+      0.0,
+      0.761,
+      -0.93
+     ],
+     "opts": {
+      "w": 0.3
+     }
+    },
+    {
+     "id": "sucrier19",
+     "name": "sugarBowl",
+     "pos": [
+      0.0,
+      0.76,
+      -0.95
+     ],
+     "opts": {
+      "dust": true,
+      "flag": 0.85,
+      "flagFrom": 0.0
+     }
+    },
+    {
+     "id": "mouche19",
+     "name": "houseFly",
+     "pos": [
+      0.04,
+      0.867,
+      -0.95
+     ],
+     "ry": -90,
+     "scale": 0.55,
+     "opts": {
+      "plant": [
+       0.0,
+       0.85
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.17,
+      1.03,
+      -0.45
+     ],
+     "to": [
+      0.16,
+      1.02,
+      -0.48
+     ],
+     "lookAt": [
+      0.0,
+      0.91,
+      -0.95
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.91,
+      -0.95
+     ]
+    }
+   ],
+   "start": 26.5333,
+   "duration": 2.0334,
+   "setOpts": {
+    "eiffelStyle": "v2",
+    "clear": [
+     -40.0,
+     10.0
+    ],
+    "clearL": [
+     -40.0,
+     10.0
+    ],
+    "snow": true,
+    "snowN": 2600,
+    "snowSize": 0.07
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S20",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gen1",
+     "pos": [
+      -0.96,
+      0,
+      -0.45
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "smirk"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.7,
+       "toon": {
+        "lay": [
+         0.42,
+         0.0
+        ],
+        "face": {
+         "lid": 0.0,
+         "eye": 0.35,
+         "mouth": "O",
+         "brow": 0.7
+        }
+       },
+       "toonDur": 0.9,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.65,
+       "toon": {
+        "lay": [
+         0.38,
+         0.0
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.25
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "gen2",
+     "pos": [
+      -0.48,
+      0,
+      -0.52
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "smirk"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.73,
+       "toon": {
+        "lay": [
+         0.42,
+         0.0
+        ],
+        "face": {
+         "lid": 0.0,
+         "eye": 0.35,
+         "mouth": "O",
+         "brow": 0.7
+        }
+       },
+       "toonDur": 0.9,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.68,
+       "toon": {
+        "lay": [
+         0.38,
+         0.0
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.25
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "gen3",
+     "pos": [
+      0.0,
+      0,
+      -0.48
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "smirk"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.76,
+       "toon": {
+        "lay": [
+         0.42,
+         0.0
+        ],
+        "face": {
+         "lid": 0.0,
+         "eye": 0.35,
+         "mouth": "O",
+         "brow": 0.7
+        }
+       },
+       "toonDur": 0.9,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.71,
+       "toon": {
+        "lay": [
+         0.38,
+         0.0
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.25
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "gen4",
+     "pos": [
+      0.48,
+      0,
+      -0.52
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "smirk"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.79,
+       "toon": {
+        "lay": [
+         0.42,
+         0.0
+        ],
+        "face": {
+         "lid": 0.0,
+         "eye": 0.35,
+         "mouth": "O",
+         "brow": 0.7
+        }
+       },
+       "toonDur": 0.9,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.74,
+       "toon": {
+        "lay": [
+         0.38,
+         0.0
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.25
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "gen5",
+     "pos": [
+      0.96,
+      0,
+      -0.45
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "smirk"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.82,
+       "toon": {
+        "lay": [
+         0.42,
+         0.0
+        ],
+        "face": {
+         "lid": 0.0,
+         "eye": 0.35,
+         "mouth": "O",
+         "brow": 0.7
+        }
+       },
+       "toonDur": 0.9,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.77,
+       "toon": {
+        "lay": [
+         0.38,
+         0.0
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.25
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": true
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "ruines",
+     "name": "ruinFloor",
+     "pos": [
+      0.0,
+      0,
+      -1.9
+     ],
+     "opts": {
+      "w": 5.6,
+      "d": 3.2,
+      "smoke": false,
+      "snow": true
+     }
+    },
+    {
+     "id": "kepi200",
+     "name": "kepi",
+     "on": {
+      "actor": "gen1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.222,
+      "d": 0.17,
+      "color": "#2B3A2A",
+      "band": "#E2B53C"
+     }
+    },
+    {
+     "id": "kepi201",
+     "name": "kepi",
+     "on": {
+      "actor": "gen2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.222,
+      "d": 0.17,
+      "color": "#2B3A2A",
+      "band": "#E2B53C"
+     }
+    },
+    {
+     "id": "kepi202",
+     "name": "kepi",
+     "on": {
+      "actor": "gen3",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.222,
+      "d": 0.17,
+      "color": "#2B3A2A",
+      "band": "#E2B53C"
+     }
+    },
+    {
+     "id": "kepi203",
+     "name": "kepi",
+     "on": {
+      "actor": "gen4",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.222,
+      "d": 0.17,
+      "color": "#2B3A2A",
+      "band": "#E2B53C"
+     }
+    },
+    {
+     "id": "kepi204",
+     "name": "kepi",
+     "on": {
+      "actor": "gen5",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.222,
+      "d": 0.17,
+      "color": "#2B3A2A",
+      "band": "#E2B53C"
+     }
+    },
+    {
+     "id": "medailles200",
+     "name": "medalRack",
+     "on": {
+      "actor": "gen1",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.48,
+       0.18
+      ]
+     },
+     "opts": {
+      "rows": 7,
+      "n": 5,
+      "seed": 20
+     }
+    },
+    {
+     "id": "medailles201",
+     "name": "medalRack",
+     "on": {
+      "actor": "gen2",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.48,
+       0.18
+      ]
+     },
+     "opts": {
+      "rows": 7,
+      "n": 5,
+      "seed": 21
+     }
+    },
+    {
+     "id": "medailles202",
+     "name": "medalRack",
+     "on": {
+      "actor": "gen3",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.48,
+       0.18
+      ]
+     },
+     "opts": {
+      "rows": 7,
+      "n": 5,
+      "seed": 22
+     }
+    },
+    {
+     "id": "medailles203",
+     "name": "medalRack",
+     "on": {
+      "actor": "gen4",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.48,
+       0.18
+      ]
+     },
+     "opts": {
+      "rows": 7,
+      "n": 5,
+      "seed": 23
+     }
+    },
+    {
+     "id": "medailles204",
+     "name": "medalRack",
+     "on": {
+      "actor": "gen5",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.48,
+       0.18
+      ]
+     },
+     "opts": {
+      "rows": 7,
+      "n": 5,
+      "seed": 24
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.2,
+      1.22,
+      2.55
+     ],
+     "to": [
+      0.19,
+      1.21,
+      2.43
+     ],
+     "lookAt": [
+      0.0,
+      1.18,
+      -0.48
+     ],
+     "lens": 60,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.18,
+      -0.48
+     ]
+    }
+   ],
+   "start": 28.5667,
+   "duration": 2.1666,
+   "setOpts": {
+    "eiffelStyle": "v2",
+    "clear": [
+     -40.0,
+     10.0
+    ],
+    "clearL": [
+     -40.0,
+     10.0
+    ],
+    "snow": true,
+    "snowN": 2600,
+    "snowSize": 0.07
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S21",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gen1",
+     "pos": [
+      0.42,
+      0,
+      -0.62
+     ],
+     "ry": -145,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.045,
+        0.867,
+        -0.95
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "reach": {
+         "R": [
+          0.2,
+          1.0,
+          -0.8,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.05,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "reach": {
+         "R": [
+          0.095,
+          0.927,
+          -0.91,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        }
+       },
+       "toonDur": 0.37,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "reach": {
+         "R": [
+          0.25,
+          1.1,
+          -0.75,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "rest"
+        }
+       },
+       "toonDur": 0.3
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": true
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "ruines",
+     "name": "ruinFloor",
+     "pos": [
+      0.0,
+      0,
+      -1.9
+     ],
+     "opts": {
+      "w": 5.6,
+      "d": 3.2,
+      "smoke": false,
+      "snow": true
+     }
+    },
+    {
+     "id": "sucrier21",
+     "name": "sugarBowl",
+     "pos": [
+      0.0,
+      0.76,
+      -0.95
+     ],
+     "opts": {
+      "dust": true,
+      "flag": -1.0
+     }
+    },
+    {
+     "id": "traite21",
+     "name": "treatySheet",
+     "pos": [
+      0.0,
+      0.761,
+      -0.93
+     ],
+     "opts": {
+      "w": 0.3
+     }
+    },
+    {
+     "id": "kepi21",
+     "name": "kepi",
+     "on": {
+      "actor": "gen1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.222,
+      "d": 0.17,
+      "color": "#2B3A2A",
+      "band": "#E2B53C"
+     }
+    },
+    {
+     "id": "rack21",
+     "name": "medalRack",
+     "on": {
+      "actor": "gen1",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.48,
+       0.18
+      ]
+     },
+     "opts": {
+      "rows": 7,
+      "n": 5,
+      "seed": 20
+     }
+    },
+    {
+     "id": "petite21",
+     "name": "medal",
+     "pos": [
+      0.2,
+      0.98,
+      -0.8
+     ],
+     "scale": 0.3,
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        0.075,
+        0.917,
+        -0.92
+       ],
+       "dur": 0.37,
+       "ease": "out"
+      },
+      {
+       "at": 0.42,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "mouche21",
+     "name": "houseFly",
+     "pos": [
+      0.045,
+      0.867,
+      -0.95
+     ],
+     "ry": -10,
+     "scale": 0.7,
+     "opts": {
+      "medal": 0.42,
+      "medalSide": -1,
+      "salute": 0.54
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.36,
+      1.0,
+      -0.5
+     ],
+     "to": [
+      -0.34,
+      0.995,
+      -0.52
+     ],
+     "lookAt": [
+      0.04,
+      0.93,
+      -0.95
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0.04,
+      0.93,
+      -0.95
+     ]
+    }
+   ],
+   "start": 30.7333,
+   "duration": 1.1334,
+   "setOpts": {
+    "eiffelStyle": "v2",
+    "clear": [
+     -40.0,
+     10.0
+    ],
+    "clearL": [
+     -40.0,
+     10.0
+    ],
+    "snow": true,
+    "snowN": 2600,
+    "snowSize": 0.07
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S22",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "touch": {
+         "R": [
+          "face",
+          -0.06,
+          0.22,
+          0.1,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.25
+      },
+      {
+       "at": 1.7,
+       "toon": {
+        "reach": {
+         "R": [
+          0.13,
+          0.98,
+          -1.52,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.25
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.75,
+      "h": 0.76,
+      "color": "#C9935C",
+      "legs": "#8A5A34"
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#C9935C"
+     }
+    },
+    {
+     "id": "evier",
+     "name": "islandSink",
+     "pos": [
+      -1.9,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "h": 0.9
+     }
+    },
+    {
+     "id": "pa",
+     "name": "carrier",
+     "pos": [
+      -1.75,
+      0.88,
+      -2.5
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 1.8,
+      "snow": true
+     }
+    },
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      1.6,
+      0,
+      -2.4
+     ],
+     "ry": -20
+    },
+    {
+     "id": "ruines",
+     "name": "ruinFloor",
+     "pos": [
+      0.0,
+      0,
+      -1.9
+     ],
+     "opts": {
+      "w": 5.6,
+      "d": 3.2,
+      "smoke": false,
+      "snow": true
+     }
+    },
+    {
+     "id": "tasse",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "opts": {
+      "color": "#E8452C"
+     }
+    },
+    {
+     "id": "sucrier22",
+     "name": "sugarBowl",
+     "pos": [
+      0.0,
+      0.76,
+      -0.95
+     ],
+     "opts": {
+      "dust": true,
+      "snow": true
+     }
+    },
+    {
+     "id": "neige22",
+     "name": "snowCap",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.42,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.32,
+      "h": 0.22,
+      "t0": -2.0,
+      "t1": -1.0
+     }
+    },
+    {
+     "id": "mouche22",
+     "name": "houseFly",
+     "pos": [
+      0.0,
+      0.845,
+      -0.876
+     ],
+     "ry": -15,
+     "scale": 0.7,
+     "opts": {
+      "medal": true,
+      "medalSide": -1,
+      "rub": [
+       [
+        0.3,
+        2.523
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      1.0,
+      0.2
+     ],
+     "to": [
+      0.0,
+      1.0,
+      0.08
+     ],
+     "lookAt": [
+      0.0,
+      1.12,
+      -1.4
+     ],
+     "lens": 56,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.12,
+      -1.4
+     ]
+    },
+    {
+     "at": 0.45,
+     "from": [
+      0.04,
+      0.95,
+      -0.43
+     ],
+     "to": [
+      0.04,
+      0.95,
+      -0.45
+     ],
+     "lookAt": [
+      0.0,
+      0.89,
+      -0.88
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.89,
+      -0.88
+     ],
+     "cut": false,
+     "glide": 0.55
+    }
+   ],
+   "start": 31.8667,
+   "duration": 2.5233,
+   "setOpts": {
+    "eiffelStyle": "v2",
+    "clear": [
+     -40.0,
+     10.0
+    ],
+    "clearL": [
+     -40.0,
+     10.0
+    ],
+    "snow": true,
+    "snowN": 2600,
+    "snowSize": 0.07
+   },
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 34.39,
+ "look": "natural",
+ "gags": [
+  {
+   "t": 2.8,
+   "who": "mec",
+   "name": "duck",
+   "sid": "S02"
+  },
+  {
+   "t": 4.557,
+   "who": "mec",
+   "name": "slap",
+   "sid": "S03"
+  },
+  {
+   "t": 13.0,
+   "who": "mec",
+   "name": "swoop",
+   "sid": "S09"
+  },
+  {
+   "t": 29.567,
+   "who": "gen3",
+   "name": "tip",
+   "sid": "S20"
+  }
+ ],
+ "cardTimes": [
+  27.483,
+  31.233
+ ],
+ "rig": "toon",
+ "fingers": true,
+ "cloth": true,
+ "idleShift": 1.6,
+ "holdLife": 1,
+ "limbSmear": 1,
+ "follow": 1,
+ "pupil": 0.5,
+ "hairRest": 0.07
+}
