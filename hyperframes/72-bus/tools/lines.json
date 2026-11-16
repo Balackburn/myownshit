@@ -1,0 +1,144 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a raté son bus de deux secondes.",
+  "hl": [
+   "raté",
+   "bus"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Alors il a couru derrière.",
+  "hl": [
+   "couru"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il ne s'est jamais arrêté.",
+  "hl": [
+   "jamais"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Au bout d'une heure, il avait quitté la ville.",
+  "hl": [
+   "quitté"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Les gendarmes l'ont escorté à moto.",
+  "hl": [
+   "gendarmes"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Les villages l'applaudissaient au bord de la route.",
+  "hl": [
+   "l'applaudissaient"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Le ministère des Sports lui a donné un dossard.",
+  "hl": [
+   "dossard."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "La course cycliste a changé de parcours pour le suivre.",
+  "hl": [
+   "cycliste",
+   "suivre."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "On lui a lancé le maillot jaune.",
+  "hl": [
+   "maillot",
+   "jaune."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Le chauffeur, lui, ne regardait jamais dans son rétroviseur.",
+  "hl": [
+   "rétroviseur."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Ils ont traversé les Alpes.",
+  "hl": [
+   "Alpes."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "En Italie, un serveur lui a tendu des pâtes en courant.",
+  "hl": [
+   "pâtes"
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Il a usé quatre cents paires de chaussures.",
+  "hl": [
+   "quatre",
+   "cents"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Des savants ont mesuré ses mollets.",
+  "hl": [
+   "mollets."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Au bout de trois ans, le bus s'est arrêté.",
+  "hl": [
+   "trois",
+   "arrêté."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Il est monté.",
+  "hl": [
+   "monté."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "C'était pas le bon bus.",
+  "hl": [
+   "pas",
+   "bon"
+  ]
+ }
+]

@@ -99,7 +99,7 @@ JAB = lambda t_, p_: k(t_, toon={'reach': {'R': [*CUPR, 1, 0.03], 'L': [*p_, 1, 
 st.shot('S01', 'kitchenDay', setOpts=KIT, actors=[
         MECSIT([*sit_keys(look=[0.0, 0.9, -0.95]), JAB(0.35, [0.1, 1.02, -1.2]), JAB(0.6, [0.05, 0.94, -1.04]), JAB(0.85, [0.1, 1.02, -1.2]), JAB(1.1, [0.05, 0.94, -1.04]),
                 k(1.6, look='camera', lookDur=0.2)]),
-        act('flic', [0.42, 0, -1.95], -20, 'writeOnHeld', 'unimpressed', keys=[k(0.0, look=[0.0, 1.0, -1.1]), k(0.9, look=[0.2, 1.1, -1.25]), k(1.5, look=[0.0, 0.9, -0.95])])],
+        act('flic', [0.45, 0, -2.3], -20, 'writeOnHeld', 'unimpressed', keys=[k(0.0, look=[0.0, 1.0, -1.1]), k(0.9, look=[0.2, 1.1, -1.25]), k(1.5, look=[0.0, 0.9, -0.95])])],
         props=[*KITCHEN(), CUP(), P('bloc', 'clipboardProp', on={'actor': 'flic', 'hand': 'L'}),
                FLY('mouche1', [0.08, 1.05, -0.85], ry=0, s=0.85, keys=FL1, buzz=[[0.0, LAND1]], rub=[[1.7, D1]])],
         cams=[cam(0.0, [0.0, 1.0, 0.2], [0.0, 1.0, 0.08], [0.0, 1.12, -1.4], [0.0, 1.12, -1.4], lens=56)])
@@ -221,12 +221,12 @@ st.cue('sfx:jet', 'S09', 0.0, 0.5); st.cue('whoosh', 'S09', PASS9, 0.45)
 # 10: it missed the wasp. Slow motion, low behind the sugar bowl: the insect hovers calmly in the middle of the frame; two missiles come from behind
 #     us and pass slowly either side of it, then either side of his head, and blow two scorched holes in the back wall behind him; he does not move
 D10 = st.dur('S10'); HIT10 = 0.95
-SH10 = [{'from': [-0.18, 1.05, 0.9], 'to': [-0.8, 1.25, -3.55], 't0': 0.0, 'dur': HIT10}, {'from': [0.2, 1.0, 0.9], 'to': [0.98, 1.2, -3.55], 't0': 0.03, 'dur': r(HIT10 - 0.03)}]
+SH10 = [{'from': [-0.1, 1.05, 0.9], 'to': [-0.6, 1.2, -3.55], 't0': 0.0, 'dur': HIT10}, {'from': [0.1, 1.0, 0.9], 'to': [0.85, 1.15, -3.55], 't0': 0.03, 'dur': r(HIT10 - 0.03)}]
 st.shot('S10', 'kitchenDay', setOpts=KIT, actors=[MECSIT([*sit_keys(), k(1.05, toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.85, 'mouth': 'line'}}, toonDur=0.08)])],
         props=[*KITCHEN(), CUP(), FLY('mouche10', [0.0, 1.02, -0.95], ry=0, s=1.0, buzz=[[0.0, D10]], bob=0.008),
                P('missiles10', 'missileSalvo', pos=[0, 0, 0], opts={'shots': SH10, 'size': 0.11, 'trail': 0.4, 'flame': 1.2, 'glow': 0.9}),
-               P('trou10a', 'wallImpact', pos=[-0.8, 1.25, -3.53], opts={'at': HIT10, 'r': 0.45, 'seed': 3}), P('trou10b', 'wallImpact', pos=[0.98, 1.2, -3.53], opts={'at': r(HIT10 + 0.03), 'r': 0.45, 'seed': 8}),
-               *[P(f'boum10{j}', 'toonPuff', pos=[x_, y_, -3.4], opts={'at': r(HIT10 + 0.03 * j), 'n': 6, 'size': 0.16, 'rise': 0.4, 'spread': 0.35, 'life': 0.6, 'color': '#E8E2D6'}) for j, (x_, y_) in enumerate([(-0.8, 1.25), (0.98, 1.2)])]],
+               P('trou10a', 'wallImpact', pos=[-0.6, 1.2, -3.53], opts={'at': HIT10, 'r': 0.45, 'seed': 3}), P('trou10b', 'wallImpact', pos=[0.85, 1.15, -3.53], opts={'at': r(HIT10 + 0.03), 'r': 0.45, 'seed': 8}),
+               *[P(f'boum10{j}', 'toonPuff', pos=[x_, y_, -3.4], opts={'at': r(HIT10 + 0.03 * j), 'n': 6, 'size': 0.16, 'rise': 0.4, 'spread': 0.35, 'life': 0.6, 'color': '#E8E2D6'}) for j, (x_, y_) in enumerate([(-0.6, 1.2), (0.85, 1.15)])]],
         fx=[{'type': 'shake', 'at': HIT10, 'dur': 0.25, 'amount': 0.02}],
         cams=[cam(0.0, [0.06, 1.05, 0.35], [0.06, 1.05, 0.3], [0.0, 1.1, -2.0], [0.0, 1.1, -2.0], lens=52)])
 st.cue('whoosh', 'S10', 0.1, 0.3); st.cue('thunder', 'S10', HIT10, 0.45); st.cue('sfx:crunch', 'S10', HIT10, 0.4)
@@ -259,15 +259,16 @@ st.cue('thunder', 'S12', r(COL12 + 0.3), 0.5); st.cue('sfx:crunch', 'S12', r(COL
 #     head into the sugar cubes and keeps eating, dab, dab, dab
 D13 = st.dur('S13')
 st.shot('S13', 'parisStreet', setOpts=STREET, actors=[MECSIT([*sit_keys(look=[0.0, 0.9, -0.95])])],
-        props=[*KITCHEN(lidOff=True, ruins=True), CUP(), FLY('mouche13', [-0.072, RIM[1], -0.95], ry=90, s=0.6, eat=[[0.15, D13]])],
+        props=[*KITCHEN(lidOff=True, ruins=True), CUP(), FLY('mouche13', [-0.072, RIM[1], -0.95], ry=90, s=0.75, eat=[[0.15, D13]])],
         cams=[cam(0.0, [0.38, 1.12, 0.1], [0.34, 1.1, 0.0], [0.0, 0.9, -0.95], [0.0, 0.9, -0.95], lens=44)])
 st.cue('sfx:wind', 'S13', 0.0, 0.15); [st.cue('sfx:tick', 'S13', r(0.2 + 0.25 * i), 0.06) for i in range(6)]
 
 # the front, in the ruins: sandbags along x -1.0 in front of the sink and the carrier, soldiers crouched behind them; sandbags along x 1.15 in front
 # of the fridge, the insect's black flag on top of the fridge; him at his table in the middle, in no man's land
 SOLDP = [(-1.05, -1.65), (-1.12, -1.2), (-1.0, -2.1)]
+SINKY = -0.42   # (stills 2) the toon leg bends do not lower the pelvis: crouched behind the sandbags means sunk into the floor (the tiles hide the legs)
 def soldier(j, x_, z_, keys=(), clip='stand'):
-    return act(f'sold{j + 1}', [x_, 0, z_], 90, clip, 'determined', keys=[k(0.0, look=[1.9, 1.0, -2.3]), k(0.0, toon={**CROUCH}, toonDur=0.0), *keys])
+    return act(f'sold{j + 1}', [x_, SINKY, z_], 90, clip, 'determined', keys=[k(0.0, look=[1.6, 1.0, -2.4]), k(0.0, toon={**CROUCH}, toonDur=0.0), *keys])
 FRONT = lambda snow=False: [P('sacs1', 'sandbags', pos=[-0.7, 0, -1.7], ry=90, opts={'n': 6, 'rows': 3, 'seed': 4}),
                             P('sacs2', 'sandbags', pos=[1.0, 0, -2.1], ry=-90, opts={'n': 5, 'rows': 3, 'seed': 7}),
                             P('drapeau', 'pennantFlag', pos=[1.45, 1.9, -2.3], scale=3.0)]
@@ -278,11 +279,10 @@ SOLD = {'outfit': 'suit', 'suit': '#5B6638', 'pants': '#4E5730', 'shirt': '#D9D3
 D14 = st.dur('S14')
 st.shot('S14', 'parisStreet', setOpts=STREET, actors=[
         MECSIT([*sit_keys(), k(0.5, toon={**SIP, 'face': DEAD}, toonDur=0.2), k(0.95, toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.2)]),
-        soldier(0, *SOLDP[0], keys=[k(0.3, toon={'bend': {'spine': [0.05, 0, 0, 1, None], 'legL': [-0.4, 0, 0, 1, None], 'shinL': [0.7, 0, 0, 1, None], 'legR': [-0.4, 0, 0, 1, None], 'shinR': [0.7, 0, 0, 1, None]}}, toonDur=0.15, toonEase='out'),
-                                    k(0.75, toon={**CROUCH}, toonDur=0.12, toonEase='in')]),
+        soldier(0, *SOLDP[0], keys=[k(0.3, to=[SOLDP[0][0], -0.12, SOLDP[0][1]], dur=0.15, ease='out', glide=True, face='keep'), k(0.8, to=[SOLDP[0][0], SINKY, SOLDP[0][1]], dur=0.12, ease='in', glide=True, face='keep')]),
         soldier(1, *SOLDP[1]), soldier(2, *SOLDP[2])],
         props=[*KITCHEN(ruins=True), CUP(), *FRONT(), *[HELMET(f'casque14{j}', f'sold{j + 1}') for j in range(3)]],
-        cams=[cam(0.0, [-2.3, 1.7, -0.55], [-2.25, 1.68, -0.6], [0.7, 0.95, -2.1], [0.7, 0.95, -2.1], lens=50)])
+        cams=[cam(0.0, [-2.9, 2.0, -0.3], [-2.85, 1.98, -0.35], [0.6, 0.9, -2.1], [0.6, 0.9, -2.1], lens=46)])
 st.cue('sfx:wind', 'S14', 0.0, 0.2)
 
 # 15: ...between the fridge and the sink. The reverse, from the top of the fridge: the insect stands by its black flag, big in the foreground, and
@@ -309,9 +309,9 @@ st.cue('sfx:wind', 'S16', 0.0, 0.35)
 D17 = st.dur('S17'); OFF17 = [-1.55, 0, -2.55]
 GIVE17 = [0.3, 0.65, 1.0]
 SL17 = [(-1.0, -2.1), (-1.08, -1.65), (-1.02, -1.2)]   # the line, from the back to the front; the officer walks it behind them (x -1.55)
-HAND17 = lambda x_, z_: [r(x_ + 0.28), 0.86, r(z_ - 0.12)]   # a soldier's right glove held out in front of him (he faces +X: his right is -Z)
+HAND17 = lambda x_, z_: [r(x_ + 0.28), 0.62, r(z_ - 0.12)]   # a soldier's right glove held out in front of him (he faces +X: his right is -Z)
 st.shot('S17', 'parisStreet', setOpts=SNOW, actors=[
-        *[act(f'sold{j + 1}', [x_, 0, z_], 90, 'stand', 'sad', buzzXZ=0.25, buzzY=0.6, keys=[k(0.0, look=[-1.55, 1.5, z_]),
+        *[act(f'sold{j + 1}', [x_, SINKY, z_], 90, 'stand', 'sad', buzzXZ=0.25, buzzY=0.6, keys=[k(0.0, look=[-1.55, 1.5, z_]),
             k(0.0, toon={**CROUCH, 'reach': {'R': [*HAND17(x_, z_), 1, 0.03]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.5, 'mouth': 'line', 'brow': 0.6}}, toonDur=0.0),
             k(r(GIVE17[j] + 0.1), look=HAND17(x_, z_), lookDur=0.15)]) for j, (x_, z_) in enumerate(SL17)],
         act('officier', OFF17, 0, 'stand', 'determined', keys=[k(0.0, look=[-1.0, 0.9, -2.1]), k(0.0, to=[-1.55, 0, -1.45], dur=D17, clip='walk', ease='linear'),
@@ -319,8 +319,8 @@ st.shot('S17', 'parisStreet', setOpts=SNOW, actors=[
             *[k(r(t_ + 0.08), toon={'hands': {'L': 'rest'}}, toonDur=0.12) for t_ in GIVE17]])],
         props=[*KITCHEN(ruins=True, snow=True, sugar=False), *FRONT(), *[HELMET(f'casque17{j}', f'sold{j + 1}', snow=True) for j in range(3)],
                KEPI('kepi17', 'officier', color='#2B3A2A', band='#E2B53C'),
-               *[P(f'morceau17{i}', 'sugarCube', pos=[HAND17(*SL17[i])[0], 0.9, HAND17(*SL17[i])[2]], scale=1.8, keys=[k(0.0, visible=False), k(t_, visible=True)]) for i, t_ in enumerate(GIVE17)]],
-        cams=[cam(0.0, [0.6, 1.7, 0.6], [0.58, 1.69, 0.52], [-1.0, 1.0, -1.65], [-1.0, 1.0, -1.65], lens=46)])
+               *[P(f'morceau17{i}', 'sugarCube', pos=[HAND17(*SL17[i])[0], 0.66, HAND17(*SL17[i])[2]], scale=1.8, keys=[k(0.0, visible=False), k(t_, visible=True)]) for i, t_ in enumerate(GIVE17)]],
+        cams=[cam(0.0, [0.6, 1.9, 1.0], [0.58, 1.89, 0.92], [-1.05, 0.95, -1.75], [-1.05, 0.95, -1.75], lens=40)])
 for t_ in GIVE17: st.cue('sfx:pop', 'S17', t_, 0.15)
 st.cue('sfx:wind', 'S17', 0.0, 0.3)
 
@@ -351,11 +351,11 @@ D20 = st.dur('S20'); TIP20 = 0.7
 GENS = [(-0.96, -0.45), (-0.48, -0.52), (0.0, -0.48), (0.48, -0.52), (0.96, -0.45)]
 st.shot('S20', 'parisStreet', setOpts=SNOW, actors=[
         *[act(f'gen{j + 1}', [x_, 0, z_], 0, 'stand', 'smug', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.45, 'mouth': 'smirk'}}, toonDur=0.0),
-            k(r(TIP20 + 0.03 * j), toon={'lay': [0.42, 0.0], 'face': {'lid': 0.0, 'eye': 0.35, 'mouth': 'O', 'brow': 0.7}}, toonDur=0.9, toonEase='inOut'),
-            k(r(TIP20 + 0.95 + 0.03 * j), toon={'lay': [0.38, 0.0], 'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.25)]) for j, (x_, z_) in enumerate(GENS)]],
+            k(r(TIP20 + 0.03 * j), toon={'lay': [0.62, 0.0], 'face': {'lid': 0.0, 'eye': 0.35, 'mouth': 'O', 'brow': 0.7}}, toonDur=0.9, toonEase='inOut'),
+            k(r(TIP20 + 0.95 + 0.03 * j), toon={'lay': [0.56, 0.0], 'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.25)]) for j, (x_, z_) in enumerate(GENS)]],
         props=[*KITCHEN(ruins=True, snow=True, sugar=False), *[KEPI(f'kepi20{j}', f'gen{j + 1}', color='#2B3A2A', band='#E2B53C') for j in range(5)],
-               *[P(f'medailles20{j}', 'medalRack', on={'actor': f'gen{j + 1}', 'joint': 'torso', 'offset': [0.0, 0.48, 0.18]}, opts={'rows': 7, 'n': 5, 'seed': 20 + j}) for j in range(5)]],
-        cams=[cam(0.0, [0.2, 1.22, 2.55], [0.19, 1.21, 2.43], [0.0, 1.18, -0.48], [0.0, 1.18, -0.48], lens=60)])
+               *[P(f'medailles20{j}', 'medalRack', on={'actor': f'gen{j + 1}', 'joint': 'torso', 'offset': [0.0, 0.48, 0.18]}, opts={'rows': 9, 'n': 6, 'w': 0.36, 'seed': 20 + j}) for j in range(5)]],
+        cams=[cam(0.0, [0.15, 1.0, 3.0], [0.14, 1.0, 2.88], [0.0, 1.2, -0.48], [0.0, 1.2, -0.48], lens=64)])
 st.cue('sfx:clink', 'S20', 0.2, 0.2); st.cue('sfx:clink', 'S20', r(TIP20 + 0.4), 0.25); st.cue('sfx:stretch', 'S20', TIP20, 0.2)
 
 # 21: even the wasp. Over a general's shoulder: his big fingers bring a tiny medal to the insect on the sugar bowl's lid (its flag planted in the
@@ -383,7 +383,7 @@ st.shot('S22', 'parisStreet', setOpts=SNOW, actors=[
                P('neige22', 'snowCap', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.42, 0.0]}, opts={'w': 0.32, 'h': 0.22, 't0': -2.0, 't1': -1.0}),
                FLY('mouche22', RIM, ry=-15, s=0.7, medal=True, medalSide=-1, rub=[[0.3, D22]])],
         cams=[cam(0.0, [0.0, 1.0, 0.2], [0.0, 1.0, 0.08], [0.0, 1.12, -1.4], [0.0, 1.12, -1.4], lens=56),
-              glide([cam(0.45, [0.04, 0.95, -0.43], [0.04, 0.95, -0.45], [0.0, 0.89, -0.88], [0.0, 0.89, -0.88], lens=40)], 0.55)])
+              glide([cam(0.45, [0.04, 1.0, -0.4], [0.04, 1.0, -0.42], [0.0, 0.94, -0.88], [0.0, 0.94, -0.88], lens=40)], 0.55)])
 st.cue('sfx:static', 'S22', 0.0, 0.04); st.cue('sfx:sting', 'S22', 0.5, 0.25)
 
 MEC = {'preset': 'lemec', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}, 'toon': {'breathe': 1.7, 'holdLife': 1.6}}

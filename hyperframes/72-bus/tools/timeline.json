@@ -1,0 +1,869 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a raté son bus de deux secondes.",
+   "hl": [
+    "raté",
+    "bus"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L01.mp3",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.26,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.26
+    },
+    {
+     "w": "mec",
+     "s": 0.34,
+     "e": 0.5
+    },
+    {
+     "w": "a",
+     "s": 0.54,
+     "e": 0.58
+    },
+    {
+     "w": "raté",
+     "s": 0.66,
+     "e": 0.82
+    },
+    {
+     "w": "son",
+     "s": 0.9,
+     "e": 0.98
+    },
+    {
+     "w": "bus",
+     "s": 1.06,
+     "e": 1.22
+    },
+    {
+     "w": "de",
+     "s": 1.34,
+     "e": 1.46
+    },
+    {
+     "w": "deux",
+     "s": 1.5,
+     "e": 1.58
+    },
+    {
+     "w": "secondes.",
+     "s": 1.62,
+     "e": 2.26
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Alors il a couru derrière.",
+   "hl": [
+    "couru"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L02.mp3",
+   "file_start": 2.36,
+   "speech_start": 2.36,
+   "speech_end": 3.88,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 2.36,
+     "e": 2.6
+    },
+    {
+     "w": "il",
+     "s": 2.64,
+     "e": 2.68
+    },
+    {
+     "w": "a",
+     "s": 2.76,
+     "e": 2.84
+    },
+    {
+     "w": "couru",
+     "s": 2.92,
+     "e": 3.08
+    },
+    {
+     "w": "derrière.",
+     "s": 3.16,
+     "e": 3.88
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il ne s'est jamais arrêté.",
+   "hl": [
+    "jamais"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L03.mp3",
+   "file_start": 3.98,
+   "speech_start": 3.98,
+   "speech_end": 5.42,
+   "words": [
+    {
+     "w": "Il",
+     "s": 3.98,
+     "e": 4.06
+    },
+    {
+     "w": "ne",
+     "s": 4.14,
+     "e": 4.22
+    },
+    {
+     "w": "s'est",
+     "s": 4.26,
+     "e": 4.46
+    },
+    {
+     "w": "jamais",
+     "s": 4.54,
+     "e": 4.78
+    },
+    {
+     "w": "arrêté.",
+     "s": 4.94,
+     "e": 5.42
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Au bout d'une heure, il avait quitté la ville.",
+   "hl": [
+    "quitté"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L04.mp3",
+   "file_start": 5.52,
+   "speech_start": 5.52,
+   "speech_end": 7.68,
+   "words": [
+    {
+     "w": "Au",
+     "s": 5.52,
+     "e": 5.68
+    },
+    {
+     "w": "bout",
+     "s": 5.72,
+     "e": 5.76
+    },
+    {
+     "w": "d'une",
+     "s": 5.8,
+     "e": 5.92
+    },
+    {
+     "w": "heure,",
+     "s": 6.0,
+     "e": 6.44
+    },
+    {
+     "w": "il",
+     "s": 6.48,
+     "e": 6.52
+    },
+    {
+     "w": "avait",
+     "s": 6.56,
+     "e": 6.72
+    },
+    {
+     "w": "quitté",
+     "s": 6.76,
+     "e": 6.96
+    },
+    {
+     "w": "la",
+     "s": 7.0,
+     "e": 7.04
+    },
+    {
+     "w": "ville.",
+     "s": 7.12,
+     "e": 7.68
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Les gendarmes l'ont escorté à moto.",
+   "hl": [
+    "gendarmes"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L05.mp3",
+   "file_start": 7.78,
+   "speech_start": 7.78,
+   "speech_end": 9.7,
+   "words": [
+    {
+     "w": "Les",
+     "s": 7.78,
+     "e": 7.86
+    },
+    {
+     "w": "gendarmes",
+     "s": 7.94,
+     "e": 8.34
+    },
+    {
+     "w": "l'ont",
+     "s": 8.38,
+     "e": 8.5
+    },
+    {
+     "w": "escorté",
+     "s": 8.7,
+     "e": 8.94
+    },
+    {
+     "w": "à",
+     "s": 8.98,
+     "e": 9.02
+    },
+    {
+     "w": "moto.",
+     "s": 9.06,
+     "e": 9.7
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Les villages l'applaudissaient au bord de la route.",
+   "hl": [
+    "l'applaudissaient"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L06.mp3",
+   "file_start": 9.8,
+   "speech_start": 9.8,
+   "speech_end": 12.12,
+   "words": [
+    {
+     "w": "Les",
+     "s": 9.8,
+     "e": 9.88
+    },
+    {
+     "w": "villages",
+     "s": 9.96,
+     "e": 10.28
+    },
+    {
+     "w": "l'applaudissaient",
+     "s": 10.36,
+     "e": 11.0
+    },
+    {
+     "w": "au",
+     "s": 11.04,
+     "e": 11.08
+    },
+    {
+     "w": "bord",
+     "s": 11.16,
+     "e": 11.24
+    },
+    {
+     "w": "de",
+     "s": 11.32,
+     "e": 11.36
+    },
+    {
+     "w": "la",
+     "s": 11.4,
+     "e": 11.48
+    },
+    {
+     "w": "route.",
+     "s": 11.76,
+     "e": 12.12
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Le ministère des Sports lui a donné un dossard.",
+   "hl": [
+    "dossard."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L07.mp3",
+   "file_start": 12.22,
+   "speech_start": 12.22,
+   "speech_end": 14.46,
+   "words": [
+    {
+     "w": "Le",
+     "s": 12.22,
+     "e": 12.3
+    },
+    {
+     "w": "ministère",
+     "s": 12.38,
+     "e": 12.7
+    },
+    {
+     "w": "des",
+     "s": 12.78,
+     "e": 12.86
+    },
+    {
+     "w": "Sports",
+     "s": 13.02,
+     "e": 13.18
+    },
+    {
+     "w": "lui",
+     "s": 13.22,
+     "e": 13.34
+    },
+    {
+     "w": "a",
+     "s": 13.38,
+     "e": 13.42
+    },
+    {
+     "w": "donné",
+     "s": 13.46,
+     "e": 13.66
+    },
+    {
+     "w": "un",
+     "s": 13.7,
+     "e": 13.74
+    },
+    {
+     "w": "dossard.",
+     "s": 13.78,
+     "e": 14.46
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "La course cycliste a changé de parcours pour le suivre.",
+   "hl": [
+    "cycliste",
+    "suivre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L08.mp3",
+   "file_start": 14.56,
+   "speech_start": 14.56,
+   "speech_end": 17.52,
+   "words": [
+    {
+     "w": "La",
+     "s": 14.56,
+     "e": 14.64
+    },
+    {
+     "w": "course",
+     "s": 14.72,
+     "e": 14.96
+    },
+    {
+     "w": "cycliste",
+     "s": 15.04,
+     "e": 15.52
+    },
+    {
+     "w": "a",
+     "s": 15.6,
+     "e": 15.68
+    },
+    {
+     "w": "changé",
+     "s": 15.76,
+     "e": 16.0
+    },
+    {
+     "w": "de",
+     "s": 16.04,
+     "e": 16.08
+    },
+    {
+     "w": "parcours",
+     "s": 16.16,
+     "e": 16.56
+    },
+    {
+     "w": "pour",
+     "s": 16.6,
+     "e": 16.64
+    },
+    {
+     "w": "le",
+     "s": 16.72,
+     "e": 16.8
+    },
+    {
+     "w": "suivre.",
+     "s": 16.88,
+     "e": 17.52
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "On lui a lancé le maillot jaune.",
+   "hl": [
+    "maillot",
+    "jaune."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L09.mp3",
+   "file_start": 17.62,
+   "speech_start": 17.62,
+   "speech_end": 19.3,
+   "words": [
+    {
+     "w": "On",
+     "s": 17.62,
+     "e": 17.7
+    },
+    {
+     "w": "lui",
+     "s": 17.74,
+     "e": 17.82
+    },
+    {
+     "w": "a",
+     "s": 17.86,
+     "e": 17.9
+    },
+    {
+     "w": "lancé",
+     "s": 17.94,
+     "e": 18.22
+    },
+    {
+     "w": "le",
+     "s": 18.26,
+     "e": 18.34
+    },
+    {
+     "w": "maillot",
+     "s": 18.38,
+     "e": 18.58
+    },
+    {
+     "w": "jaune.",
+     "s": 18.66,
+     "e": 19.3
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Le chauffeur, lui, ne regardait jamais dans son rétroviseur.",
+   "hl": [
+    "rétroviseur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L10.mp3",
+   "file_start": 19.4,
+   "speech_start": 19.4,
+   "speech_end": 22.76,
+   "words": [
+    {
+     "w": "Le",
+     "s": 19.4,
+     "e": 19.48
+    },
+    {
+     "w": "chauffeur,",
+     "s": 19.56,
+     "e": 20.12
+    },
+    {
+     "w": "lui,",
+     "s": 20.16,
+     "e": 20.627
+    },
+    {
+     "w": "ne",
+     "s": 20.653,
+     "e": 20.68
+    },
+    {
+     "w": "regardait",
+     "s": 20.76,
+     "e": 21.16
+    },
+    {
+     "w": "jamais",
+     "s": 21.24,
+     "e": 21.48
+    },
+    {
+     "w": "dans",
+     "s": 21.56,
+     "e": 21.64
+    },
+    {
+     "w": "son",
+     "s": 21.72,
+     "e": 21.8
+    },
+    {
+     "w": "rétroviseur.",
+     "s": 21.853,
+     "e": 22.76
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Ils ont traversé les Alpes.",
+   "hl": [
+    "Alpes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L11.mp3",
+   "file_start": 22.86,
+   "speech_start": 22.86,
+   "speech_end": 24.46,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 22.86,
+     "e": 23.02
+    },
+    {
+     "w": "ont",
+     "s": 23.1,
+     "e": 23.18
+    },
+    {
+     "w": "traversé",
+     "s": 23.22,
+     "e": 23.633
+    },
+    {
+     "w": "les",
+     "s": 23.687,
+     "e": 23.74
+    },
+    {
+     "w": "Alpes.",
+     "s": 23.82,
+     "e": 24.46
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "En Italie, un serveur lui a tendu des pâtes en courant.",
+   "hl": [
+    "pâtes"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L12.mp3",
+   "file_start": 24.56,
+   "speech_start": 24.56,
+   "speech_end": 27.52,
+   "words": [
+    {
+     "w": "En",
+     "s": 24.56,
+     "e": 24.72
+    },
+    {
+     "w": "Italie,",
+     "s": 24.8,
+     "e": 25.36
+    },
+    {
+     "w": "un",
+     "s": 25.44,
+     "e": 25.52
+    },
+    {
+     "w": "serveur",
+     "s": 25.6,
+     "e": 25.92
+    },
+    {
+     "w": "lui",
+     "s": 25.96,
+     "e": 26.04
+    },
+    {
+     "w": "a",
+     "s": 26.08,
+     "e": 26.16
+    },
+    {
+     "w": "tendu",
+     "s": 26.213,
+     "e": 26.4
+    },
+    {
+     "w": "des",
+     "s": 26.48,
+     "e": 26.56
+    },
+    {
+     "w": "pâtes",
+     "s": 26.6,
+     "e": 26.8
+    },
+    {
+     "w": "en",
+     "s": 26.84,
+     "e": 26.88
+    },
+    {
+     "w": "courant.",
+     "s": 26.96,
+     "e": 27.52
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Il a usé quatre cents paires de chaussures.",
+   "hl": [
+    "quatre",
+    "cents"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L13.mp3",
+   "file_start": 27.62,
+   "speech_start": 27.62,
+   "speech_end": 29.86,
+   "words": [
+    {
+     "w": "Il",
+     "s": 27.62,
+     "e": 27.7
+    },
+    {
+     "w": "a",
+     "s": 27.74,
+     "e": 27.78
+    },
+    {
+     "w": "usé",
+     "s": 27.86,
+     "e": 28.18
+    },
+    {
+     "w": "quatre",
+     "s": 28.26,
+     "e": 28.5
+    },
+    {
+     "w": "cents",
+     "s": 28.58,
+     "e": 28.74
+    },
+    {
+     "w": "paires",
+     "s": 28.793,
+     "e": 28.9
+    },
+    {
+     "w": "de",
+     "s": 28.94,
+     "e": 28.98
+    },
+    {
+     "w": "chaussures.",
+     "s": 29.06,
+     "e": 29.86
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Des savants ont mesuré ses mollets.",
+   "hl": [
+    "mollets."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L14.mp3",
+   "file_start": 29.96,
+   "speech_start": 29.96,
+   "speech_end": 31.96,
+   "words": [
+    {
+     "w": "Des",
+     "s": 29.96,
+     "e": 30.12
+    },
+    {
+     "w": "savants",
+     "s": 30.2,
+     "e": 30.6
+    },
+    {
+     "w": "ont",
+     "s": 30.68,
+     "e": 30.76
+    },
+    {
+     "w": "mesuré",
+     "s": 30.84,
+     "e": 31.16
+    },
+    {
+     "w": "ses",
+     "s": 31.24,
+     "e": 31.32
+    },
+    {
+     "w": "mollets.",
+     "s": 31.4,
+     "e": 31.96
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Au bout de trois ans, le bus s'est arrêté.",
+   "hl": [
+    "trois",
+    "arrêté."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L15.mp3",
+   "file_start": 32.06,
+   "speech_start": 32.06,
+   "speech_end": 34.54,
+   "words": [
+    {
+     "w": "Au",
+     "s": 32.06,
+     "e": 32.14
+    },
+    {
+     "w": "bout",
+     "s": 32.22,
+     "e": 32.3
+    },
+    {
+     "w": "de",
+     "s": 32.38,
+     "e": 32.46
+    },
+    {
+     "w": "trois",
+     "s": 32.5,
+     "e": 32.7
+    },
+    {
+     "w": "ans,",
+     "s": 32.78,
+     "e": 33.22
+    },
+    {
+     "w": "le",
+     "s": 33.26,
+     "e": 33.34
+    },
+    {
+     "w": "bus",
+     "s": 33.46,
+     "e": 33.58
+    },
+    {
+     "w": "s'est",
+     "s": 33.633,
+     "e": 33.74
+    },
+    {
+     "w": "arrêté.",
+     "s": 33.9,
+     "e": 34.54
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Il est monté.",
+   "hl": [
+    "monté."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L16.mp3",
+   "file_start": 34.64,
+   "speech_start": 34.64,
+   "speech_end": 35.6,
+   "words": [
+    {
+     "w": "Il",
+     "s": 34.64,
+     "e": 34.72
+    },
+    {
+     "w": "est",
+     "s": 34.76,
+     "e": 34.8
+    },
+    {
+     "w": "monté.",
+     "s": 34.88,
+     "e": 35.6
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "C'était pas le bon bus.",
+   "hl": [
+    "pas",
+    "bon"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bus/tts/L17.mp3",
+   "file_start": 35.7,
+   "speech_start": 35.7,
+   "speech_end": 37.06,
+   "words": [
+    {
+     "w": "C'était",
+     "s": 35.7,
+     "e": 36.02
+    },
+    {
+     "w": "pas",
+     "s": 36.06,
+     "e": 36.1
+    },
+    {
+     "w": "le",
+     "s": 36.14,
+     "e": 36.18
+    },
+    {
+     "w": "bon",
+     "s": 36.26,
+     "e": 36.42
+    },
+    {
+     "w": "bus.",
+     "s": 36.62,
+     "e": 37.06
+    }
+   ]
+  }
+ ],
+ "total": 37.9
+}

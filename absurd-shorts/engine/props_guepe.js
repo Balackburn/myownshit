@@ -76,9 +76,9 @@ export const GUEPE_PROPS = {
     let medal = null;
     if (o.medal != null && o.medal !== false) {
       const ms = o.medalSide ?? 1; medal = grp();
-      ['#2F62B5', '#F4F4F0', '#E0413A'].forEach((c, i) => medal.add(at(box(0.0045, 0.014, 0.0012, c), -0.0045 + i * 0.0045, 0.0, 0)));
-      const disc = at(cyl(0.0085, 0.0085, 0.002, '#E6B84A', 12, { emissive: '#5A3E0A' }), 0, -0.012, 0.0006, PI / 2, 0, 0); addOutline(disc, 0.12); medal.add(disc);
-      medal.position.set(ms * 0.021, 0.033, 0.012); medal.rotation.y = ms * PI / 4; bd.add(medal);
+      ['#2F62B5', '#F4F4F0', '#E0413A'].forEach((c, i) => medal.add(at(box(0.0055, 0.016, 0.0012, c), -0.0055 + i * 0.0055, 0.0, 0)));
+      const disc = at(cyl(0.011, 0.011, 0.0025, '#E6B84A', 14, { emissive: '#5A3E0A' }), 0, -0.016, 0.0008, PI / 2, 0, 0); addOutline(disc, 0.12); medal.add(disc);
+      medal.position.set(ms * 0.012, 0.03, 0.033); medal.rotation.y = ms * 0.35; bd.add(medal);
     }
     if (o.halo) { const hs = glowSprite('#FFF4D6', 0.22, o.halo); hs.position.set(0, 0.03, -0.01); g.add(hs); }
     const lookAt_ = (t) => { const L = o.look; if (!L || !L.length) return 0; if (t <= L[0][0]) return L[0][1]; for (let i = 1; i < L.length; i++) if (t <= L[i][0]) { const u = smooth((t - L[i - 1][0]) / Math.max(1e-6, L[i][0] - L[i - 1][0])); return L[i - 1][1] + (L[i][1] - L[i - 1][1]) * u; } return L[L.length - 1][1]; };
@@ -429,7 +429,7 @@ export const GUEPE_PROPS = {
     g.userData.update = t => { const u = t - (o.at ?? 0), d = o.dur ?? 0.45, f = o.flat ?? 0.12;
       const k = u <= 0 ? 0 : Math.min(1, (u / d) ** 2); pv.scale.set(1 + 0.06 * k, 1 - (1 - f) * k, 1 + 0.06 * k); pv.rotation.z = u > 0 && u < d * 1.6 ? 0.05 * Math.sin(u * 14) * (1 - k * 0.5) : 0;
       deb.visible = u > d * 0.6;
-      puffs.forEach((m, i) => { const v = u < 0 ? -1 : u / 1.4; m.visible = v >= 0 && v < 1; const a = m.userData.a, r = W * (0.4 + 0.5 * smooth(v * 1.5)); m.position.set(Math.cos(a) * r, 0.6 + 1.2 * v + 0.3 * (i % 3), Math.sin(a) * r * 0.6 + 0.8); m.scale.setScalar(0.6 + 1.8 * smooth(v * 2)); m.material.opacity = 0.9 * (1 - v); });
+      puffs.forEach((m, i) => { const v = u < 0.18 ? -1 : (u - 0.18) / 1.4; m.visible = v >= 0 && v < 1; const a = m.userData.a, r = W * (0.4 + 0.5 * smooth(v * 1.5)); m.position.set(Math.cos(a) * r, 0.6 + 1.2 * v + 0.3 * (i % 3), Math.sin(a) * r * 0.6 + 0.8); m.scale.setScalar(0.6 + 1.8 * smooth(v * 2)); m.material.opacity = 0.9 * (1 - v); });
       if (flagG) { const PH = flagG.userData.PH, uf = u - 0.25; if (uf <= 0) { flagG.position.y = PH - 0.05; flagG.rotation.set(0, 0, 0); flagG.children.forEach((c, i) => { c.rotation.y = 0.2 * Math.sin(t * 5 + i); }); }
         else { const fall = Math.min(1, (uf / 0.55) ** 2); flagG.position.y = (PH - 0.05) * (1 - fall) + 0.45 * fall; flagG.rotation.z = -1.3 * fall; flagG.children.forEach(c => { c.rotation.y = 0.2 * (1 - fall); }); } }
     };
