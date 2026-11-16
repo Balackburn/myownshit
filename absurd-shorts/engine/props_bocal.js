@@ -104,24 +104,27 @@ export const BOCAL_PROPS = {
   // power pack, a grip handle on each side (local x = +-0.17, z = 0.12: where the two hands go) and a real jaw head: two steel arms in two segments
   // with teeth and hooked tips that close on the lid. o.open [[t, 0..1], ...]: how wide the tips are; o.bow [[t, 0..1], ...]: the arms bow outward
   // under the strain while the tips stay shut on the lid; o.breakAt (s): the arms snap off and fly apart, tumbling, with a puff
+  // o.vertical: the jaw works up and down like a beak (seen from the side, two arms side by side were one bar): the lower arm stays under the
+  // lid's rim, the upper one opens (o.open) and clamps down on the lid
   bigJaws(o) {
     const s = o.s ?? 1, g = grp(), yel = '#E8C02A', blk = '#1E1F24', steel = '#AEB5BD', L1 = 0.22, L2 = 0.25;
     g.add(at(cyl(0.075, 0.085, 0.42, yel, 12, { outline: 0.006 }), 0, 0, 0.21, PI / 2), at(box(0.13, 0.1, 0.16, blk, { outline: 0.005 }), 0, 0.1, 0.16), at(box(0.05, 0.05, 0.07, '#C9CED4', { outline: 0.004 }), 0, 0, 0.44));
     for (const sd of [-1, 1]) g.add(at(box(0.1, 0.03, 0.03, blk), sd * 0.125, 0, 0.12), at(box(0.035, 0.035, 0.15, blk, { outline: 0.004 }), sd * 0.17, 0, 0.12));   // the two side grips
     g.add(at(box(0.16, 0.03, 0.03, '#C8322A'), 0, 0.0, 0.34));   // a red band
-    const arms = [];
+    const arms = [], head = grp(); if (o.vertical) head.rotation.z = PI / 2; g.add(head);
     for (const sd of [-1, 1]) { const p1 = grp(), p2 = grp(); p1.position.set(sd * 0.02, 0, 0.45);
       p1.add(at(box(0.05, 0.045, L1, steel, { outline: 0.005 }), 0, 0, L1 / 2)); p2.position.set(0, 0, L1); p1.add(p2);
       p2.add(at(box(0.046, 0.04, L2, steel, { outline: 0.005, taper: { x: 0.55, z: 1 }, taperAxis: 'z' }), 0, 0, L2 / 2));
       for (let i = 0; i < 4; i++) p2.add(at(box(0.016, 0.03, 0.022, '#5A6068'), -sd * 0.026, 0, 0.05 + i * 0.05, 0, sd * 0.5, 0));   // the teeth, on the inside
       p2.add(at(box(0.05, 0.045, 0.035, '#5A6068', { outline: 0.004 }), -sd * 0.022, 0, L2 - 0.005, 0, -sd * 0.7, 0));   // the hooked tip
-      g.add(p1); arms.push({ p1, p2, sd }); }
-    const puff = new THREE.Mesh(new THREE.IcosahedronGeometry(0.12, 1), new THREE.MeshLambertMaterial({ color: '#FFFFFF', flatShading: true })); addOutline(puff, 0.06); puff.position.set(0, 0, 0.8); puff.visible = false; g.add(puff);
+      head.add(p1); arms.push({ p1, p2, sd }); }
+    const puff = new THREE.Mesh(new THREE.IcosahedronGeometry(0.12, 2), new THREE.MeshLambertMaterial({ color: '#FFFFFF' })); addOutline(puff, 0.06); puff.position.set(0, 0, 0.8); puff.visible = false; g.add(puff);
     g.scale.setScalar(s);
     g.userData.update = t => {
       const k = keyAt(o.open, t, 0), bw = keyAt(o.bow, t, 0), br = o.breakAt != null && t >= o.breakAt ? t - o.breakAt : -1;
-      const th = 0.1 + 0.5 * k, b = 0.3 * bw, tip = (L1 + L2) * Math.sin(th), th2 = Math.asin(Math.max(-1, Math.min(1, (tip - L1 * Math.sin(th + b)) / L2))) - (th + b);
-      for (const a of arms) { if (br < 0) { a.p1.position.set(a.sd * 0.02, 0, 0.45); a.p1.rotation.set(0, a.sd * (th + b), 0); a.p2.rotation.set(0, a.sd * th2, 0); }
+      const b = 0.3 * bw; if (o.vertical) head.rotation.z = br < 0 ? PI / 2 : 0;   // once snapped off, the two arms fly apart sideways
+      for (const a of arms) { const th = 0.1 + 0.5 * (o.vertical && a.sd < 0 ? 0 : k) - (o.vertical && a.sd < 0 ? 0.04 : 0), tip = (L1 + L2) * Math.sin(th), th2 = Math.asin(Math.max(-1, Math.min(1, (tip - L1 * Math.sin(th + b)) / L2))) - (th + b);
+        if (br < 0) { a.p1.position.set(a.sd * 0.02, 0, 0.45); a.p1.rotation.set(0, a.sd * (th + b), 0); a.p2.rotation.set(0, a.sd * th2, 0); }
         else { a.p1.position.set(a.sd * (0.02 + 1.3 * br), 1.1 * br - 2.6 * br * br, 0.45 + 0.35 * br); a.p1.rotation.set(br * 9 * a.sd, a.sd * (0.6 + br * 2), br * 6); a.p2.rotation.set(0, -a.sd * 0.5, 0); } }
       puff.visible = br >= 0 && br < 0.4; if (puff.visible) { const u = br / 0.4; puff.scale.setScalar(u < 0.3 ? 0.4 + 4.5 * u : 1.75 * (1 - (u - 0.3) / 0.7)); }
     };
@@ -161,7 +164,7 @@ export const BOCAL_PROPS = {
     for (const sd of [-1, 1]) { const st = canvasPlane(0.5, 0.5, (cc, W, H) => { cc.clearRect(0, 0, W, H); cc.fillStyle = '#F4F1E8'; cc.beginPath(); for (let i = 0; i < 10; i++) { const a = -PI / 2 + i * PI / 5, rr = i % 2 ? W * 0.2 : W * 0.48; cc.lineTo(W / 2 + rr * Math.cos(a), H / 2 + rr * Math.sin(a)); } cc.closePath(); cc.fill(); }, { res: 128, transparent: true });
       st.rotation.y = sd * PI / 2; st.position.set(sd * 0.69, 0.28, 0.0); tur.add(st); }
     g.add(hull);
-    const puff = new THREE.Mesh(new THREE.IcosahedronGeometry(0.42, 1), new THREE.MeshLambertMaterial({ color: '#FFFFFF', flatShading: true })); addOutline(puff, 0.05); puff.visible = false; g.add(puff);
+    const puff = new THREE.Mesh(new THREE.IcosahedronGeometry(0.42, 2), new THREE.MeshLambertMaterial({ color: '#FFFFFF' })); addOutline(puff, 0.05); puff.visible = false; g.add(puff);
     const fs = o.flatSide ?? 1;
     g.userData.update = t => {
       const f = keyAt(o.flat, t, 0); let ry = 0; for (const [a, b, amp] of o.rumble || []) if (t >= a && t < b) ry += (amp ?? 0.02) * Math.sin(t * 61);
@@ -178,8 +181,8 @@ export const BOCAL_PROPS = {
   // and shrink away over o.life (0.9 s). o.at (s): one burst; without it they come one after another for ever (o.every between two, default
   // life / n): a column that keeps rising. o.size (0.3 m), o.rise (0.8 m), o.spread (0.4 m), o.color
   toonPuff(o) {
-    const n = o.n ?? 6, life = o.life ?? 0.9, g = grp(), m = new THREE.MeshLambertMaterial({ color: o.color || '#FFFFFF', flatShading: true }), balls = [];
-    for (let i = 0; i < n; i++) { const b = new THREE.Mesh(new THREE.IcosahedronGeometry(o.size ?? 0.3, 1), m); addOutline(b, 0.05); b.visible = false; g.add(b); balls.push(b); }
+    const n = o.n ?? 6, life = o.life ?? 0.9, g = grp(), m = new THREE.MeshLambertMaterial({ color: o.color || '#FFFFFF', emissive: new THREE.Color(o.color || '#FFFFFF'), emissiveIntensity: 0.25 }), balls = [];   // round and smooth (faceted, they read as boulders)
+    for (let i = 0; i < n; i++) { const b = new THREE.Mesh(new THREE.IcosahedronGeometry(o.size ?? 0.3, 2), m); addOutline(b, 0.05); b.visible = false; g.add(b); balls.push(b); }
     const every = o.every ?? life / n, hsh = i => { const x = Math.sin(i * 127.1 + 31.7) * 43758.5453; return x - Math.floor(x); };
     g.userData.update = t => { balls.forEach((b, i) => {
       let u; if (o.at != null) u = (t - o.at - i * 0.03) / life; else { const ph = (t - (o.startAt ?? 0) - i * every) / (n * every); u = t < (o.startAt ?? 0) + i * every ? -1 : (ph - Math.floor(ph)) * (n * every) / life; }
