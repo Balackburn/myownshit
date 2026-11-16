@@ -2945,3 +2945,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - « Le parcmètre » (75) : revue 3 = 6,8 ; 7,2, contre 6,0 ; 6,6. Reste pour la passe finale : le visage écrasé sur la vitre tombe sous les
   sous-titres, le tampon « REFUSÉ » est tenu à l'envers, le selfie ne se lit pas comme un selfie, plusieurs plans tenus sont figés. Passe
   finale confiée à un agent dérivé.
+- 13 h 25 — « Le bocal » (78) : revue 3 = 6,8 ; 6,8, contre 6,2 ; 6,5. Reste pour la passe finale : le char ne touche jamais le bocal (il glisse
+  au-dessus), le bocal flotte devant lui au dernier plan sans main dessous, les tractions des pompiers et des astronautes ne montent pas, et deux
+  temps de visage (cuillère, pichenette) se jouent de profil. Passe finale confiée à un agent dérivé.
