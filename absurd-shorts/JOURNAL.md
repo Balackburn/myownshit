@@ -2892,3 +2892,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   une : le visage peint a l'œil gauche plus bas que le droit, et sous des lunettes droites cet œil se lisait comme un sourire avec une dent ; les
   lunettes sont maintenant inclinées comme le visage, un verre sur chaque œil. Frigo lisible (étagère, lait, bocal, comté, buée), lampadaire en
   trois quarts, faisceaux des satellites qui balaient puis se verrouillent. Rendu final en file derrière celui de « La tondeuse ».
+- 8 h 50 — « L'ascenseur » (76) : passe finale terminée et relue sur 26 images couvrant tous les plans, après une reprise (le contrôle des
+  commandes ne répondait plus au milieu de la passe). Nouvelle barbe d'un seul bloc effilé (`beardMass`, toujours suspendue au menton), vote avec
+  le président derrière sa table et le bras qui se déroule en S, canne qui tombe sur la main de l'enfant, face-à-face en miroir, escalier avec
+  rampe. Rendu final en file après « La tondeuse » et « Les lunettes ».
