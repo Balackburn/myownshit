@@ -1749,3 +1749,12 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   plus le rayon du trou, sinon les trous se cachent derrière le bloc précédent (ici 40° hors de l'axe, pas 28°). Vérifier les unités de `ry`.
 - (cycle 42) Cône de faisceau d'hélicoptère près de la caméra : il remplit le cadre (le rendu avertit « camera inside prop »). L'enlever ou
   placer la caméra loin du cône.
+- (cycle 43) Un personnage tourné vers +Z a sa main DROITE en −X. Un accessoire posé en +X passe dans sa main gauche et bloque le bras qui montre.
+- (cycle 43) Les flexions de jambes toon ne descendent pas le bassin. Pour accroupir des soldats derrière des sacs de sable : enfoncer l'acteur
+  (`pos y −0.42`), le sol cache les jambes.
+- (cycle 43) `missileSalvo` est en ease-in : les images prises au milieu du plan ratent les missiles. En ralenti, passer en `lin`.
+- (cycle 43) Décors muraux (affiches, plaques) : devant la couche du bandeau (z −3.53, pas −3.58), sinon ils disparaissent derrière.
+- (cycle 43) Caméra plongeante qui regarde un peu vers +Z : l'image se retourne (le fond se retrouve en bas). Viser légèrement vers −Z.
+- (cycle 43) `kitchenDay` : la suspension à y 2,7 bloque toute caméra placée au-dessus de la table.
+- (cycle 43) Passer `story_kit.project()` sur CHAQUE caméra avant les images de contrôle : trois cadrages calculés à l'œil (S14, S15, S17 de
+  « La guêpe ») étaient hors champ ou bouchés.
