@@ -1,0 +1,837 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec s'est cogné l'orteil contre sa table basse.",
+   "hl": [
+    "l'orteil",
+    "table",
+    "basse."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.47,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "s'est",
+     "s": 0.507,
+     "e": 0.619
+    },
+    {
+     "w": "cogné",
+     "s": 0.693,
+     "e": 0.915
+    },
+    {
+     "w": "l'orteil",
+     "s": 0.94,
+     "e": 1.285
+    },
+    {
+     "w": "contre",
+     "s": 1.433,
+     "e": 1.581
+    },
+    {
+     "w": "sa",
+     "s": 1.656,
+     "e": 1.73
+    },
+    {
+     "w": "table",
+     "s": 1.841,
+     "e": 1.952
+    },
+    {
+     "w": "basse.",
+     "s": 1.989,
+     "e": 2.47
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "C'était prémédité.",
+   "hl": [
+    "prémédité."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L02.k.wav",
+   "file_start": 2.57,
+   "speech_start": 2.57,
+   "speech_end": 3.756,
+   "words": [
+    {
+     "w": "C'était",
+     "s": 2.57,
+     "e": 2.867
+    },
+    {
+     "w": "prémédité.",
+     "s": 2.904,
+     "e": 3.756
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Les forces spéciales ont encerclé l'immeuble.",
+   "hl": [
+    "forces",
+    "spéciales"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L03.k.wav",
+   "file_start": 3.856,
+   "speech_start": 3.856,
+   "speech_end": 5.93,
+   "words": [
+    {
+     "w": "Les",
+     "s": 3.856,
+     "e": 4.004
+    },
+    {
+     "w": "forces",
+     "s": 4.152,
+     "e": 4.3
+    },
+    {
+     "w": "spéciales",
+     "s": 4.337,
+     "e": 4.67
+    },
+    {
+     "w": "ont",
+     "s": 4.744,
+     "e": 4.819
+    },
+    {
+     "w": "encerclé",
+     "s": 4.967,
+     "e": 5.263
+    },
+    {
+     "w": "l'immeuble.",
+     "s": 5.312,
+     "e": 5.93
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "La table a refusé d'obtempérer.",
+   "hl": [
+    "refusé",
+    "d'obtempérer."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L04.k.wav",
+   "file_start": 6.03,
+   "speech_start": 6.03,
+   "speech_end": 7.881,
+   "words": [
+    {
+     "w": "La",
+     "s": 6.03,
+     "e": 6.104
+    },
+    {
+     "w": "table",
+     "s": 6.252,
+     "e": 6.474
+    },
+    {
+     "w": "a",
+     "s": 6.548,
+     "e": 6.622
+    },
+    {
+     "w": "refusé",
+     "s": 6.696,
+     "e": 7.03
+    },
+    {
+     "w": "d'obtempérer.",
+     "s": 7.067,
+     "e": 7.881
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Alors un char est entré par la façade.",
+   "hl": [
+    "char"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L05.k.wav",
+   "file_start": 7.981,
+   "speech_start": 7.981,
+   "speech_end": 10.13,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 7.981,
+     "e": 8.278
+    },
+    {
+     "w": "un",
+     "s": 8.5,
+     "e": 8.648
+    },
+    {
+     "w": "char",
+     "s": 8.759,
+     "e": 8.87
+    },
+    {
+     "w": "est",
+     "s": 8.944,
+     "e": 9.019
+    },
+    {
+     "w": "entré",
+     "s": 9.093,
+     "e": 9.241
+    },
+    {
+     "w": "par",
+     "s": 9.278,
+     "e": 9.315
+    },
+    {
+     "w": "la",
+     "s": 9.389,
+     "e": 9.463
+    },
+    {
+     "w": "façade.",
+     "s": 9.537,
+     "e": 10.13
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Il est ressorti trois immeubles plus loin.",
+   "hl": [
+    "trois",
+    "immeubles"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L06.k.wav",
+   "file_start": 10.23,
+   "speech_start": 10.23,
+   "speech_end": 12.156,
+   "words": [
+    {
+     "w": "Il",
+     "s": 10.23,
+     "e": 10.304
+    },
+    {
+     "w": "est",
+     "s": 10.341,
+     "e": 10.378
+    },
+    {
+     "w": "ressorti",
+     "s": 10.489,
+     "e": 10.822
+    },
+    {
+     "w": "trois",
+     "s": 10.896,
+     "e": 11.044
+    },
+    {
+     "w": "immeubles",
+     "s": 11.119,
+     "e": 11.415
+    },
+    {
+     "w": "plus",
+     "s": 11.489,
+     "e": 11.563
+    },
+    {
+     "w": "loin.",
+     "s": 11.6,
+     "e": 12.156
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Quatre paires de menottes.",
+   "hl": [
+    "menottes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L07.k.wav",
+   "file_start": 12.256,
+   "speech_start": 12.256,
+   "speech_end": 13.441,
+   "words": [
+    {
+     "w": "Quatre",
+     "s": 12.256,
+     "e": 12.478
+    },
+    {
+     "w": "paires",
+     "s": 12.552,
+     "e": 12.7
+    },
+    {
+     "w": "de",
+     "s": 12.737,
+     "e": 12.774
+    },
+    {
+     "w": "menottes.",
+     "s": 12.885,
+     "e": 13.441
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Le pilote du char a été décoré.",
+   "hl": [
+    "décoré."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L08.k.wav",
+   "file_start": 13.541,
+   "speech_start": 13.541,
+   "speech_end": 15.393,
+   "words": [
+    {
+     "w": "Le",
+     "s": 13.541,
+     "e": 13.615
+    },
+    {
+     "w": "pilote",
+     "s": 13.689,
+     "e": 13.911
+    },
+    {
+     "w": "du",
+     "s": 13.985,
+     "e": 14.059
+    },
+    {
+     "w": "char",
+     "s": 14.133,
+     "e": 14.356
+    },
+    {
+     "w": "a",
+     "s": 14.43,
+     "e": 14.467
+    },
+    {
+     "w": "été",
+     "s": 14.504,
+     "e": 14.652
+    },
+    {
+     "w": "décoré.",
+     "s": 14.726,
+     "e": 15.393
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Au procès, elle n'a exprimé aucun remords.",
+   "hl": [
+    "aucun",
+    "remords."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L09.k.wav",
+   "file_start": 15.493,
+   "speech_start": 15.493,
+   "speech_end": 17.937,
+   "words": [
+    {
+     "w": "Au",
+     "s": 15.493,
+     "e": 15.641
+    },
+    {
+     "w": "procès,",
+     "s": 15.752,
+     "e": 16.27
+    },
+    {
+     "w": "elle",
+     "s": 16.307,
+     "e": 16.381
+    },
+    {
+     "w": "n'a",
+     "s": 16.406,
+     "e": 16.456
+    },
+    {
+     "w": "exprimé",
+     "s": 16.53,
+     "e": 16.974
+    },
+    {
+     "w": "aucun",
+     "s": 17.048,
+     "e": 17.27
+    },
+    {
+     "w": "remords.",
+     "s": 17.381,
+     "e": 17.937
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "La défense a plaidé qu'elle était là avant.",
+   "hl": [
+    "là",
+    "avant."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L10.k.wav",
+   "file_start": 18.037,
+   "speech_start": 18.037,
+   "speech_end": 20.037,
+   "words": [
+    {
+     "w": "La",
+     "s": 18.037,
+     "e": 18.111
+    },
+    {
+     "w": "défense",
+     "s": 18.185,
+     "e": 18.481
+    },
+    {
+     "w": "a",
+     "s": 18.519,
+     "e": 18.556
+    },
+    {
+     "w": "plaidé",
+     "s": 18.593,
+     "e": 18.852
+    },
+    {
+     "w": "qu'elle",
+     "s": 18.889,
+     "e": 19.0
+    },
+    {
+     "w": "était",
+     "s": 19.111,
+     "e": 19.222
+    },
+    {
+     "w": "là",
+     "s": 19.296,
+     "e": 19.37
+    },
+    {
+     "w": "avant.",
+     "s": 19.444,
+     "e": 20.037
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Vingt ans ferme.",
+   "hl": [
+    "Vingt",
+    "ans"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L11.k.wav",
+   "file_start": 20.137,
+   "speech_start": 20.137,
+   "speech_end": 21.174,
+   "words": [
+    {
+     "w": "Vingt",
+     "s": 20.137,
+     "e": 20.359
+    },
+    {
+     "w": "ans",
+     "s": 20.433,
+     "e": 20.507
+    },
+    {
+     "w": "ferme.",
+     "s": 20.581,
+     "e": 21.174
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "En prison, elle a récidivé.",
+   "hl": [
+    "récidivé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L12.k.wav",
+   "file_start": 21.274,
+   "speech_start": 21.274,
+   "speech_end": 22.978,
+   "words": [
+    {
+     "w": "En",
+     "s": 21.274,
+     "e": 21.348
+    },
+    {
+     "w": "prison,",
+     "s": 21.422,
+     "e": 21.941
+    },
+    {
+     "w": "elle",
+     "s": 22.015,
+     "e": 22.089
+    },
+    {
+     "w": "a",
+     "s": 22.114,
+     "e": 22.138
+    },
+    {
+     "w": "récidivé.",
+     "s": 22.163,
+     "e": 22.978
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Trois gardiens. Perpétuité.",
+   "hl": [
+    "Perpétuité."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L13.k.wav",
+   "file_start": 23.078,
+   "speech_start": 23.078,
+   "speech_end": 24.93,
+   "words": [
+    {
+     "w": "Trois",
+     "s": 23.078,
+     "e": 23.226
+    },
+    {
+     "w": "gardiens.",
+     "s": 23.3,
+     "e": 24.004
+    },
+    {
+     "w": "Perpétuité.",
+     "s": 24.041,
+     "e": 24.93
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "En appel, la table a passé une radio.",
+   "hl": [
+    "radio."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L14.k.wav",
+   "file_start": 25.03,
+   "speech_start": 25.03,
+   "speech_end": 27.178,
+   "words": [
+    {
+     "w": "En",
+     "s": 25.03,
+     "e": 25.178
+    },
+    {
+     "w": "appel,",
+     "s": 25.289,
+     "e": 25.77
+    },
+    {
+     "w": "la",
+     "s": 25.844,
+     "e": 25.919
+    },
+    {
+     "w": "table",
+     "s": 25.993,
+     "e": 26.141
+    },
+    {
+     "w": "a",
+     "s": 26.178,
+     "e": 26.215
+    },
+    {
+     "w": "passé",
+     "s": 26.326,
+     "e": 26.486
+    },
+    {
+     "w": "une",
+     "s": 26.536,
+     "e": 26.585
+    },
+    {
+     "w": "radio.",
+     "s": 26.77,
+     "e": 27.178
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Elle avait un bleu.",
+   "hl": [
+    "bleu."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L15.k.wav",
+   "file_start": 27.278,
+   "speech_start": 27.278,
+   "speech_end": 28.241,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 27.278,
+     "e": 27.389
+    },
+    {
+     "w": "avait",
+     "s": 27.426,
+     "e": 27.574
+    },
+    {
+     "w": "un",
+     "s": 27.648,
+     "e": 27.722
+    },
+    {
+     "w": "bleu.",
+     "s": 27.796,
+     "e": 28.241
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Ce mec a été condamné pour coups et blessures.",
+   "hl": [
+    "coups",
+    "blessures."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L16.k.wav",
+   "file_start": 28.341,
+   "speech_start": 28.341,
+   "speech_end": 30.637,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 28.341,
+     "e": 28.489
+    },
+    {
+     "w": "mec",
+     "s": 28.526,
+     "e": 28.711
+    },
+    {
+     "w": "a",
+     "s": 28.748,
+     "e": 28.785
+    },
+    {
+     "w": "été",
+     "s": 28.859,
+     "e": 28.933
+    },
+    {
+     "w": "condamné",
+     "s": 29.044,
+     "e": 29.378
+    },
+    {
+     "w": "pour",
+     "s": 29.452,
+     "e": 29.526
+    },
+    {
+     "w": "coups",
+     "s": 29.6,
+     "e": 29.748
+    },
+    {
+     "w": "et",
+     "s": 29.785,
+     "e": 29.822
+    },
+    {
+     "w": "blessures.",
+     "s": 29.921,
+     "e": 30.637
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Et pour les trois immeubles.",
+   "hl": [
+    "trois",
+    "immeubles."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L17.k.wav",
+   "file_start": 30.737,
+   "speech_start": 30.737,
+   "speech_end": 32.161,
+   "words": [
+    {
+     "w": "Et",
+     "s": 30.737,
+     "e": 30.885
+    },
+    {
+     "w": "pour",
+     "s": 30.959,
+     "e": 31.033
+    },
+    {
+     "w": "les",
+     "s": 31.107,
+     "e": 31.181
+    },
+    {
+     "w": "trois",
+     "s": 31.219,
+     "e": 31.404
+    },
+    {
+     "w": "immeubles.",
+     "s": 31.478,
+     "e": 32.144
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Sa codétenue, c'est la table.",
+   "hl": [
+    "codétenue,",
+    "table."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L18.k.wav",
+   "file_start": 32.261,
+   "speech_start": 32.261,
+   "speech_end": 33.964,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 32.261,
+     "e": 32.409
+    },
+    {
+     "w": "codétenue,",
+     "s": 32.52,
+     "e": 33.149
+    },
+    {
+     "w": "c'est",
+     "s": 33.174,
+     "e": 33.224
+    },
+    {
+     "w": "la",
+     "s": 33.298,
+     "e": 33.372
+    },
+    {
+     "w": "table.",
+     "s": 33.446,
+     "e": 33.964
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Il s'est recogné le premier soir.",
+   "hl": [
+    "recogné"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/table/tts/L19.k.wav",
+   "file_start": 34.064,
+   "speech_start": 34.064,
+   "speech_end": 35.768,
+   "words": [
+    {
+     "w": "Il",
+     "s": 34.064,
+     "e": 34.138
+    },
+    {
+     "w": "s'est",
+     "s": 34.212,
+     "e": 34.361
+    },
+    {
+     "w": "recogné",
+     "s": 34.509,
+     "e": 34.731
+    },
+    {
+     "w": "le",
+     "s": 34.805,
+     "e": 34.879
+    },
+    {
+     "w": "premier",
+     "s": 34.953,
+     "e": 35.175
+    },
+    {
+     "w": "soir.",
+     "s": 35.249,
+     "e": 35.768
+    }
+   ]
+  }
+ ],
+ "total": 37.07
+}
