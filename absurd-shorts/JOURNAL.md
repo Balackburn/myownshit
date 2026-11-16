@@ -2820,3 +2820,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   couvrent « FRAIS DE DÉPLACEMENT » pendant que la phrase est dite, trois plans d'institutions montrent leur sujet de dos ou derrière une voiture
   noire (plans 4, 10, 12), la pièce ne se lit pas comme une pièce. Passe 3 confiée à un agent dérivé. « Les lunettes » (69) : brouillon 2 prêt
   sans passage figé, revue 2 en cours.
+- 2 h 00 — « Les lunettes » (69) : revue 2 = 6,3 (animation) ; 6,6 (direction artistique), contre 5,5 ; 6,0. Reste : les plans où quelqu'un
+  regarde les lunettes sans les voir (agent, chien, enfant) ne se lisent pas, le héros reste raide pendant toute la montée, le chèque ne tient
+  pas à l'écran. Passe 3 confiée à un agent dérivé. « Le parcmètre » (75) : brouillon 2 prêt (un passage figé au plan 20), revue 2 en cours.
+  Disque : 600 Mo de fichiers de travail périmés supprimés (recadrages des critiques des revues terminées, brouillons des histoires livrées).
