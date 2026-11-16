@@ -197,7 +197,7 @@ st.cue('engine', 'S08', 0.0, 0.3)
 D9 = st.dur('S09'); G9 = [3.0, 0, -1.6]; WALK9 = 1.05
 CUSH9 = {'touch': {'R': ['torso', -0.12, 0.08, 0.32, 1, 0.02], 'L': ['torso', 0.12, 0.08, 0.32, 1, 0.02]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'lid': 0.35, 'mouth': 'line'}}
 st.shot('S09', 'parisStreet', setOpts=STREET, actors=[act('garde3', G9, 0, 'stand', 'determined', keys=[k(0.0, look='camera'), k(0.0, toon=CUSH9, toonDur=0.0),
-            k(WALK9, to=[3.0, 0, -0.6], dur=r(D9 - WALK9), clip='walk', then='stand', ease='linear', speed=0.55), k(1.7, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.07, keepPose=True), k(1.82, toon={'face': {'lid': 0.35, 'mouth': 'line'}}, toonDur=0.08, keepPose=True)])],
+            k(WALK9, to=[3.0, 0, -0.6], dur=r(D9 - WALK9), clip='walk', ease='linear'), k(WALK9, clip='walk', speed=0.55), k(1.7, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.07, keepPose=True), k(1.82, toon={'face': {'lid': 0.35, 'mouth': 'line'}}, toonDur=0.08, keepPose=True)])],
         props=[GUARD('casque9', 'garde3'), EPAU('epau9', 'garde3'), P('coussin9', 'velvetCushion', on={'actor': 'garde3', 'joint': 'torso', 'offset': [0.0, 0.12, 0.36]}, opts={'w': 0.36}),
                P('piece9', 'centCoin', on={'actor': 'garde3', 'joint': 'torso', 'offset': [0.0, 0.283, 0.36], 'rot': [-0.3, 0, 0]}, opts={'r': 0.055, 'glint': [0.2, 0.75, 1.9], 'glintAt': [0.095, 0.07]})],   # a coin of eleven centimetres: a cartoon cent
         cams=[FC(0.0, [3.3, 1.62, -0.2], [[2.78, 1.2, -1.24], [3.22, 1.2, -1.24], [3.0, 1.43, -1.24], [3.0, 1.1, -1.24]], top=0.3, bottom=0.68, lenses=range(16, 60)),
@@ -231,14 +231,14 @@ st.cue('sfx:ticks', 'S10', 0.1, 0.2); st.cue('sfx:boing', 'S10', NOD10, 0.15)
 
 # 11: the neighbours wept. Up the facade, the neighbours at their windows, handkerchiefs out, tears spurting in arcs
 D11 = st.dur('S11')
-NB11 = [('voisin1', [7.25, 3.25, -1.6], 'mamie'), ('voisin2', [7.25, 3.25, 1.8], 'madame'), ('voisin3', [7.25, 6.3, 0.1], 'boss')]   # (stills 1) on the balconies (in front of the facade they floated)
+NB11 = [('voisin1', [9.8, 3.25, -1.6], 'mamie'), ('voisin2', [9.8, 3.25, 1.8], 'madame'), ('voisin3', [9.8, 6.3, 0.1], 'boss')]   # (stills 1) on the balconies (in front of the facade they floated); (pass 3) the house fronts are at x 10.2: the balconies hung three metres out from them
 HANKY = {'touch': {'R': ['face', -0.14, 0.6, 0.12, 1, 0.02]}, 'hands': {'R': 'pinch'}}
 st.shot('S11', 'parisStreet', setOpts=STREET, actors=[*[act(n_, p_, -90, 'stand', 'sad', keys=[k(0.0, look=[4.4, 1.0, 0.3]), k(0.0, toon={**HANKY, 'face': {'lid': 0.7, 'mouth': 'cry', 'brow': 1.0}}, toonDur=0.0),
             *[k(r(0.12 + 0.22 * i + 0.07 * j), toon={**HANKY, 'sq': [1.04, 0.95, 1.04] if i % 2 else [0.98, 1.03, 0.98], 'face': {'lid': 0.75, 'mouth': 'cry', 'brow': 1.0}}, toonDur=0.08) for i in range(int(D11 / 0.22))]]) for j, (n_, p_, _) in enumerate(NB11)]],   # (review 1) the handkerchief held at the eye on every sob
         props=[*[P(f'larmes11{j}', 'tearFountain', on={'actor': n_, 'joint': 'head'}, opts={'at': r(0.05 + 0.1 * j), 'r': 0.036, 'speed': 1.8, 'rate': 10}) for j, (n_, p_, _) in enumerate(NB11)],   # (review 1) tears twice as big
-               *[P(f'mouch11{j}', 'slab', on={'actor': n_, 'hand': 'R', 'offset': [0.0, -0.06, 0.03], 'face': 'camera'}, opts={'w': 0.15, 'h': 0.15, 'd': 0.006, 'color': '#F8F6F0', 'outline': 0.004}) for j, (n_, p_, _) in enumerate(NB11)],   # a white handkerchief
-               *[P(f'balc11{j}', 'balcony', pos=[7.2, p_[1], p_[2]], ry=-90, opts={'w': 1.3, 'd': 0.85, 'rail': 'front'}) for j, (n_, p_, _) in enumerate(NB11)]],   # (review 1) a stone balcony with an iron rail under each (black slabs read as voids)
-        cams=[FC(0.0, [3.6, 2.6, 2.4], [[7.25, 5.75, -1.6], [7.25, 5.75, 1.8], [7.25, 8.8, 0.1], [7.25, 3.4, -1.6], [7.25, 3.4, 1.8]], top=0.12, bottom=0.8, lenses=range(26, 64))])
+               *[P(f'mouch11{j}', 'slab', on={'actor': n_, 'hand': 'R', 'offset': [0.0, -0.06, 0.03], 'face': 'camera'}, opts={'w': 0.27, 'h': 0.27, 'd': 0.006, 'color': '#FFFFFF', 'outline': 0.006}) for j, (n_, p_, _) in enumerate(NB11)],   # a white handkerchief; (pass 3) nearly twice the size
+               *[P(f'balc11{j}', 'balcony', pos=[9.77, p_[1], p_[2]], ry=-90, opts={'w': 1.3, 'd': 0.85, 'rail': 'front'}) for j, (n_, p_, _) in enumerate(NB11)]],   # (review 1) a stone balcony with an iron rail under each (black slabs read as voids)
+        cams=[FC(0.0, [5.6, 2.2, 2.6], [[9.8, 5.75, -1.6], [9.8, 5.75, 1.8], [9.8, 8.8, 0.1], [9.8, 3.4, -1.6], [9.8, 3.4, 1.8]], top=0.12, bottom=0.8, lenses=range(26, 64))])
 st.cue('sfx:gasp', 'S11', 0.1, 0.15)
 
 # 12: television filmed it live. (pass 3) The reporter faces us, a microphone with a red ball at her chin, her free hand going; beside her a pale grey
