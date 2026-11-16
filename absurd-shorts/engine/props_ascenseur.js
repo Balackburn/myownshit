@@ -155,9 +155,9 @@ export const ASCENSEUR_PROPS = {
     sw.add(at(cyl(0.022, 0.019, Ln, C, 8, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(0.04, 0.04, 0.15, C, { outline: 0.005 }), 0, 0, -0.055), at(cyl(0.025, 0.025, 0.035, '#2A2622', 8), 0, Ln - 0.017, 0));
     const fanG = grp(); fanG.rotation.y = -PI / 2; g.add(fanG);
     const fan = new THREE.Mesh(new THREE.CircleGeometry(Ln, 10, 0, 0.5), new THREE.MeshBasicMaterial({ color: C, transparent: true, opacity: 0.38, side: THREE.DoubleSide, depthWrite: false })); fan.visible = false; fanG.add(fan);
-    const S = o.swing, an = o.antic ?? 0.3, rest = o.rest ?? 0.22; let last = null;
+    const S = o.swing, an = o.antic ?? 0.3, rest = o.rest ?? 0.22, ad = o.anticDur ?? 0.12; let last = null;   // (final pass) o.anticDur: how long the wind-up lasts (0.12 s was one frame of the draft)
     const ang = t => { if (!S) return o.a ?? 0; const [t0, a0, a1, dur = 0.07] = S, u = t - t0;
-      if (u < -0.12) return a0; if (u < 0) { const k = (u + 0.12) / 0.12; return a0 - an * k * k * (3 - 2 * k); }
+      if (u < -ad) return a0; if (u < 0) { const k = (u + ad) / ad; return a0 - an * k * k * (3 - 2 * k); }
       if (u < dur) { const k = u / dur; return a0 - an + (a1 - a0 + an) * k * k; }
       const v = u - dur; return a1 - rest * (1 - Math.exp(-7 * v)) - 0.3 * Math.exp(-9 * v) * Math.abs(Math.sin(17 * v)); };
     g.userData.update = t => { const a = ang(t); sw.rotation.x = a;
@@ -179,7 +179,14 @@ export const ASCENSEUR_PROPS = {
       pg.position.y = -h / 2; piv.add(pg);
       const bk = at(box(w, h, 0.0006, '#F1ECDF'), 0, -h / 2, -0.0011); bk.castShadow = false; piv.add(bk); return piv; });
     for (let i = 0; i < 5; i++) g.add(at(cyl(0.012, 0.012, 0.006, '#9AA0A8', 8), -w * 0.3 + i * w * 0.15, h / 2, 0.012, PI / 2, 0, 0));
-    g.userData.update = t => pages.forEach((p, i) => { if (i === pages.length - 1) return; const q = o.flipAt == null ? 0 : clamp01((t - o.flipAt - i * (o.dur || 0.5)) / 0.28); p.rotation.x = -io(q) * 2.6; p.visible = q < 0.98; });
+    // (final pass) o.fly: once lifted, each page tears off and flies away on an arc (out and up, then down), spinning, several in the air at once
+    // (the pages piled up on the wall as a grey stack)
+    g.userData.update = t => pages.forEach((p, i) => { if (i === pages.length - 1) return; const t0 = o.flipAt == null ? 1e9 : o.flipAt + i * (o.dur || 0.5), q = clamp01((t - t0) / 0.28);
+      if (!o.fly) { p.rotation.x = -io(q) * 2.6; p.visible = q < 0.98; return; }
+      const u = Math.max(0, t - t0 - 0.12), sd = i % 2 ? 1 : -1, sp = 0.7 + 0.5 * hash(i + 3);
+      p.rotation.set(-io(Math.min(1, q * 1.6)) * 1.4 - u * 6 * sp, sd * u * 4 * sp, sd * u * 3);
+      p.position.set(sd * (0.45 + 0.3 * hash(i + 7)) * u * 2.2, h / 2 + 1.6 * u - 4.2 * u * u, 0.002 + (months.length - i) * 0.002 + 0.9 * u);
+      p.visible = u < 0.75; });
     g.userData.update(0); return g;
   },
 
@@ -203,5 +210,53 @@ export const ASCENSEUR_PROPS = {
     g.add(at(box(w + 0.16, 0.08, 0.06, '#8C7B5E', { outline: 0.005 }), 0, h + 0.04, 0.02));
     const s = canvasPlane(0.62, 0.2, (c, W, H) => { c.fillStyle = '#1F6B4A'; c.fillRect(0, 0, W, H); c.fillStyle = '#FFFFFF'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.56}px Arial`; c.fillText(o.text || 'ESCALIER', W / 2, H * 0.54); }, { res: 256, emissive: 0.4 });
     s.position.set(sg[0], sg[1], 0.03); g.add(s); return g;
+  },
+
+  // (final pass) A deep soup bowl held level (pivot at its foot): a white bowl with a blue rim, orange soup near the brim, a spoon, and three wisps
+  // of steam that rise, sway and fade on a loop (the flat plate of the champagne story read as a blue plate)
+  steamBowl(o) {
+    const g = grp(), R = o.r ?? 0.1;
+    g.add(at(cyl(R, R * 0.6, R * 0.9, '#F4F2EC', 18, { pivot: 'bottom', outline: 0.004 }), 0, 0, 0), at(new THREE.Mesh(new THREE.TorusGeometry(R, 0.008, 5, 24), new THREE.MeshLambertMaterial({ color: '#3A6FB5' })), 0, R * 0.9, 0, PI / 2, 0, 0));
+    g.add(at(cyl(R * 0.93, R * 0.93, 0.006, o.soup || '#E39A3A', 18), 0, R * 0.8, 0), at(box(0.014, 0.006, 0.17, '#C9CDD2', { outline: 0.002 }), R * 0.45, R * 0.95, 0.02, 0.5, 0.4, 0));
+    const wisps = [0, 1, 2].map(i => { const w = new THREE.Mesh(new THREE.SphereGeometry(1, 8, 6), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.6, depthWrite: false })); w.castShadow = false; g.add(w); return w; });
+    g.userData.update = t => wisps.forEach((w, i) => { const u = ((t * 0.9 + i / 3) % 1 + 1) % 1, k = Math.sin(PI * u);
+      w.position.set(Math.sin(t * 3 + i * 2.1) * 0.025 + (i - 1) * 0.03, R * 0.9 + 0.04 + 0.22 * u, 0); w.scale.set(0.022 + 0.03 * u, 0.035 + 0.05 * u, 0.022 + 0.03 * u); w.material.opacity = 0.55 * k; });
+    g.userData.update(0); return g;
+  },
+
+  // (final pass) A baguette (pivot and grip at its middle, along X): a long golden loaf, paler rounded ends, five diagonal slashes on top (the
+  // square plank of the shared one read as wood)
+  loaf(o) {
+    const L = o.len ?? 0.62, r = o.r ?? 0.036, g = grp(at(cyl(r, r, L - 2 * r, '#D9A35C', 10, { outline: 0.006 }), 0, 0, 0, 0, 0, PI / 2));
+    for (const sd of [-1, 1]) { const e = sphere(r, '#E8C48A', 1); e.scale.set(1.25, 1, 1); e.position.set(sd * (L / 2 - r), 0, 0); g.add(e); }
+    for (let i = 0; i < 5; i++) g.add(at(box(0.07, 0.008, 0.016, '#F2DDB0'), -L * 0.32 + i * L * 0.16, r * 0.92, 0, 0, 0.55, 0));
+    g.userData.grip = [0, 0, 0]; return g;
+  },
+
+  // (final pass) A folding table (front +Z, pivot on the floor): a pale wooden top o.w (1.0) x o.d (0.55) at 0.74, two pairs of crossed steel legs
+  // (the teal office desk with drawers did not read as the folding table of a residents' meeting)
+  foldTable(o) {
+    const w = o.w ?? 1.0, d = o.d ?? 0.55, h = 0.74, g = grp(at(box(w, 0.04, d, o.top || '#D9B98A', { outline: 0.006 }), 0, h - 0.02, 0));
+    for (const sx of [-1, 1]) for (const sz of [-1, 1]) g.add(rod([sx * (w / 2 - 0.08), 0, sz * (d / 2 - 0.04)], [sx * (w / 2 - 0.08), h - 0.04, -sz * (d / 2 - 0.04)], 0.014, '#7A7F88'));
+    g.add(at(box(w - 0.1, 0.012, 0.012, '#7A7F88'), 0, h * 0.5, 0)); return g;
+  },
+
+  // (final pass) Dust motes in a spotlight (pivot at the lamp, the cone opening down -Y): o.n (40) small bright specks inside a cone o.h (2.3) high
+  // and o.r (0.42) wide at its foot, each drifting slowly down and round and twinkling; the light pool held still for most of the shot
+  coneDust(o) {
+    const n = o.n ?? 40, H = o.h ?? 2.3, R = o.r ?? 0.42, g = grp(), ps = [];
+    const mat = new THREE.MeshBasicMaterial({ color: o.color || '#FFF4D8', transparent: true, opacity: 0.9, depthWrite: false });
+    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.SphereGeometry(o.s ?? 0.008, 5, 4), mat.clone()); m.castShadow = false; g.add(m); ps.push(m); }
+    g.userData.update = t => ps.forEach((m, i) => { const f = ((hash(i + 1) + t * (0.03 + 0.04 * hash(i + 5))) % 1), y = -0.2 - f * (H - 0.4), rr = R * (-y / H) * Math.sqrt(hash(i + 9)), a = hash(i + 13) * TAU + t * (0.25 + 0.3 * hash(i + 17));
+      m.position.set(Math.cos(a) * rr, y, Math.sin(a) * rr); m.material.opacity = 0.35 + 0.55 * Math.max(0, Math.sin(t * (3 + 4 * hash(i + 21)) + i)); });
+    g.userData.update(0); return g;
+  },
+
+  // (final pass) A stair banister (pivot at the foot of its first post): a wooden rail from (0, o.h0 (0.9), 0) up to (0, o.rise + o.h0, -o.run) on
+  // o.posts (5) thin posts, for the open side of a flight (o.rise 1.4, o.run 1.96)
+  banister(o) {
+    const rise = o.rise ?? 1.4, run = o.run ?? 1.96, h0 = o.h0 ?? 0.9, n = o.posts ?? 5, g = grp(rod([0, h0, 0], [0, rise + h0, -run], 0.028, o.color || '#6B4A2E'));
+    for (let i = 0; i < n; i++) { const k = i / (n - 1), y = rise * k; g.add(rod([0, y, -run * k], [0, y + h0, -run * k], 0.014, '#3A3D44')); }
+    return g;
   },
 };

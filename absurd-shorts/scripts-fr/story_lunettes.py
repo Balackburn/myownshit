@@ -31,12 +31,14 @@ def r(v, n=3): return round(v, n)
 BURST = lambda pid, pos, at_, text, w=0.5, hold=0.3: P(pid, 'hicBurst', pos=pos, face='camera', opts={'at': [at_], 'w': w, 'text': text, 'inner': 0.76, 'fit': 0.6, 'hold': hold, 'bold': True})
 DEAD = {'lid': 0.45}
 SQUINT = {'lid': 0.35, 'low': 0.3, 'brow': -0.35, 'mouth': 'pout'}       # without his glasses: he squints
-def GL(pid, glint=(), fc=0.0, s=1.0, tap=(), off=(0.0, 0.6, 0.045), lens=None):
+def GL(pid, glint=(), fc=0.0, s=1.0, tap=(), off=(0.0, 0.6, 0.045), lens=None, rot=None, dx=None, r_=None, keys=None):
     # pushed up on top of his head in every shot; (stills 1) at 0.47 they sat on his brow and read as worn. (pass 3) fc: how far they turn to the camera
     # (0..1: upright on a head seen in profile they went edge-on, black on black hair, review 2); tap [t, ...]: knocked, they rock; thicker rims
-    on = {'actor': 'mec', 'joint': 'head', 'offset': list(off)}
+    # (final pass) rot: a roll on the head ([0, 0, rz]); dx / r_: the lenses' spacing and radius; keys: visibility keys (one pair swapped for another)
+    on = {'actor': 'mec', 'joint': 'head', 'offset': list(off), **({'rot': list(rot)} if rot else {})}
     if fc: on.update({'face': 'camera', 'faceAmt': fc})
-    return P(pid, 'bigGlasses', on=on, scale=s, opts={'glint': list(glint), 'tap': list(tap), 'rim': 0.26, **({'lens': lens} if lens is not None else {})})
+    return P(pid, 'bigGlasses', on=on, scale=s, opts={'glint': list(glint), 'tap': list(tap), 'rim': 0.26, **({'lens': lens} if lens is not None else {}), **({'dx': dx} if dx else {}), **({'r': r_} if r_ else {})},
+             **({'keys': keys} if keys else {}))
 DOGC = [{'body': '#C99A62', 'collar': '#2F62B5'}, {'body': '#3B2E26', 'collar': '#E0413A'}, {'body': '#E8E2D6', 'collar': '#2F8F6B'}, {'body': '#8A6A4A', 'collar': '#F2C94E'}]
 
 for g_ in [('S01', 1.0, 'mec', 'squint'), ('S05', 0.8, 'mec', 'mime'), ('S10', 1.2, 'chien1', 'stare'), ('S14', 1.2, 'gamin', 'point'), ('S15', 0.6, 'mec', 'found'),
@@ -61,20 +63,22 @@ st.shot('S01', 'livingRoom', actors=[
 st.cue('sfx:stepSoft', 'S01', 0.2, 0.1); st.cue('sfx:stepSoft', 'S01', 0.45, 0.1); st.cue('sfx:ding', 'S01', 1.15, 0.15)
 
 # 2: he looked everywhere. Wide on the living room: bent over the sofa he throws its cushions over his shoulder one after another; they fly across the
-#    room in arcs, a sock and a book after them
+#    room in arcs, a sock and a book after them. (final pass, review 3: we saw the sofa's plain back, a teal slab over the bottom third, and flat brick
+#    cushions: a man throwing things behind a counter) the sofa turned to us, seat, arms and back cushions in view, a little from above; he is
+#    bent over its back, digging in the seat; the cushions are puffy
 D2 = st.dur('S02'); ME2 = [0.2, 0, -2.2]; SOFA2 = [0.2, 0, -1.45]   # (build) facing us behind a sofa: his face, not his back
 THROW = lambda j: [k(r(0.12 + 0.3 * j), toon={'reach': {'R': [0.25, 0.75, -1.6, 1, 0.04]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.7, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'open', 'brow': 0.7}}, toonDur=0.1, toonEase='in'),
                    k(r(0.26 + 0.3 * j), toon={'reach': {'R': [0.45, 2.75, -2.5, 1, 0.04]}, 'hands': {'R': 'open'}, 'bend': {'spine': [-0.1, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'open', 'brow': 0.7}}, toonDur=0.07, toonEase='out')]
-FLY2 = [('cush1', 'slab', [0.25, 0.62, -1.55], {'w': 0.55, 'h': 0.16, 'd': 0.45, 'color': '#E07A5F'}, 0.26, [-0.6, 3.3, -2.8], [-1.9, 0.1, -3.3]),
-        ('cush2', 'slab', [0.55, 0.62, -1.55], {'w': 0.55, 'h': 0.16, 'd': 0.45, 'color': '#3D9A8B'}, 0.56, [1.0, 3.4, -2.9], [2.3, 0.1, -3.3]),
+FLY2 = [('cush1', 'puffCushion', [0.25, 0.7, -1.4], {'w': 0.5, 'h': 0.42, 'd': 0.2, 'color': '#E07A5F'}, 0.26, [-0.6, 3.3, -2.8], [-1.9, 0.2, -3.3]),
+        ('cush2', 'puffCushion', [0.55, 0.7, -1.4], {'w': 0.5, 'h': 0.42, 'd': 0.2, 'color': '#F2C94E'}, 0.56, [1.0, 3.4, -2.9], [2.3, 0.2, -3.3]),
         ('sock2', 'slab', [0.0, 0.62, -1.55], {'w': 0.25, 'h': 0.06, 'd': 0.1, 'color': '#F2F2EE'}, 0.86, [-0.2, 3.5, -2.8], [-0.9, 0.05, -3.4]),
         ('book2', 'slab', [0.4, 0.62, -1.55], {'w': 0.3, 'h': 0.06, 'd': 0.22, 'color': '#2F62B5'}, 1.16, [0.6, 3.5, -2.9], [1.4, 0.05, -3.4])]
 K2 = [k(0.0, look=[0.3, 0.6, -1.5]), k(0.0, toon={'bend': {'spine': [0.6, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'open'}}, toonDur=0.0)]
 for j in range(4): K2 += THROW(j)
 st.shot('S02', 'livingRoom', setOpts={'sofa': False}, actors=[act('mec', ME2, 0, 'stand', 'neutral', keys=K2 + [k(1.3, look='camera')])],
-        props=[GL('gl2'), P('sofa2', 'sofaProp', pos=SOFA2, ry=180), *[P(pid, kind, pos=p0, opts=o, keys=[k(r(t0 - 0.02), to=mid, dur=0.22, ease='out'), k(r(t0 + 0.2), to=end, dur=0.28, ease='in'),
+        props=[GL('gl2'), P('sofa2', 'sofaProp', pos=SOFA2, ry=0), *[P(pid, kind, pos=p0, opts=o, keys=[k(r(t0 - 0.02), to=mid, dur=0.22, ease='out'), k(r(t0 + 0.2), to=end, dur=0.28, ease='in'),
                                                                  k(r(t0 - 0.02), rot=[2.5, 1.5, 0.8], dur=0.5, ease='linear')]) for pid, kind, p0, o, t0, mid, end in FLY2]],
-        cams=[FC(0.0, [0.9, 1.6, 1.6], [[0.2, 2.9, -2.2], [0.2, 0.6, -1.45], [-0.6, 3.4, -2.8], [1.0, 3.4, -2.9]], top=0.1, bottom=0.78)])
+        cams=[FC(0.0, [0.9, 2.05, 1.6], [[0.2, 2.9, -2.2], [0.2, 0.42, -1.2], [-0.6, 3.4, -2.8], [1.0, 3.4, -2.9]], top=0.1, bottom=0.8)])   # (final pass) a little from above: the seat and its cushions read
 for j in range(4): st.cue('whoosh', 'S02', r(0.26 + 0.3 * j), 0.2, 0.25, 500, 1500)
 
 # 3: under the sofa. The camera under the sofa at floor level, looking out (review 1: from the side he read as a headless navy arch): the dark
@@ -95,55 +99,81 @@ st.cue('sfx:scratch', 'S03', 0.35, 0.15)
 # 4: in the fridge. The camera inside the fridge behind the food, looking out (review 1: from outside his head stayed in the fridge). (pass 3, review 2:
 #    five beats in 1.17 s and the two that mattered hidden) two beats only: his face comes in between the shelves, squinting left and right, the
 #    glasses on his head in the clear (no mist: its puffs sat on the lens as a pink dome); then one jolt of cold: a stretch straight into a squashed
-#    pose, hair on end, teeth chattering, held to the cut
-D4 = st.dur('S04'); FR4 = [0.0, 0, -2.4]; IN4 = [0.1, 0, -1.12]; JOLT4 = 0.4   # (stills r3a) a step back: at -1.4 his face filled the lens and the shelf above the camera hid the glasses
+#    pose, hair on end, teeth chattering, held to the cut. (final pass, review 3: no shelf, no food, no door edge: an empty kitchen; the squash took his
+#    face out of the bottom of the frame; the glasses sank among the spikes) the fridge's own walls and door edge frame him left and right, a glass
+#    shelf with a milk carton, a jar and a cheese along the bottom, cool blue light on his face; a smaller squash that keeps his chin above the
+#    captions; when his hair shoots up the glasses ride up on the tips of the spikes; his breath puffs white
+D4 = st.dur('S04'); FR4 = [0.0, 0, -2.4]; FR4F = [0.21, 0, -2.4]; IN4 = [0.1, 0, -1.12]; JOLT4 = 0.4   # (stills r3a) a step back: at -1.4 his face filled the lens and the shelf above the camera hid the glasses
 IN4P = lambda f, sq=None, hair=0.0: {'bend': {'spine': [0.5, 0, 0, 1, None]}, 'face': f, **({'sq': list(sq)} if sq else {}), **({'hairUp': hair} if hair else {})}
 COLD4 = {'lid': 0.0, 'eye': 0.45, 'mouth': 'zigzag', 'tremble': 1.0, 'brow': 0.8, 'pupilShake': 1.0, 'noBlink': 1}
 st.shot('S04', 'kitchenDay', setOpts={'fridge': False}, actors=[
         act('mec', IN4, 180, 'peerIn', 'neutral', keys=[k(0.0, look=[0.1, 1.0, -2.8]), k(0.0, toon=IN4P(SQUINT), toonDur=0.0), k(0.14, look=[-0.3, 1.0, -2.8]), k(0.27, look=[0.35, 1.0, -2.8]), k(JOLT4, look='camera'),
             k(JOLT4, toon=IN4P({'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 1.0, 'noBlink': 1}, (0.88, 1.16, 0.88), 1.0), toonDur=0.05, toonEase='out'),   # the cold: a stretch...
-            k(r(JOLT4 + 0.1), toon=IN4P(COLD4, (1.2, 0.8, 1.2), 1.0), toonDur=0.06, toonEase='in'),                                                   # ...into the squash, hair on end...
-            *[k(r(JOLT4 + 0.22 + 0.07 * j), toon=IN4P(COLD4, (1.12 + 0.05 * (j % 2), 0.86, 1.12 + 0.05 * (j % 2)), 1.0), toonDur=0.06) for j in range(8)]])],   # ...and he shivers there to the cut
-        props=[P('fr4', 'bigFridge', pos=FR4, opts={'open': 1.0, 'mode': 'lived', 'mist': False, 'light': True}), GL('gl4', glint=[0.2], fc=0.7)],   # (stills r3a) 'lived': no glass shelf just over the camera (it hid everything above his brow as a pink dome)
+            k(r(JOLT4 + 0.1), toon=IN4P(COLD4, (1.24, 0.9, 1.24), 1.0), toonDur=0.06, toonEase='in'),                                                 # ...into the squash, hair on end (final pass: 0.9, at 0.8 his chin sank into the captions)...
+            *[k(r(JOLT4 + 0.22 + 0.07 * j), toon=IN4P(COLD4, (1.14 + 0.05 * (j % 2), 0.93, 1.14 + 0.05 * (j % 2)), 1.0), toonDur=0.06) for j in range(8)]])],   # ...and he shivers there to the cut
+        props=[P('fr4', 'bigFridge', pos=FR4F, opts={'w': 0.5, 'open': 1.0, 'mode': 'lived', 'mist': False, 'light': True}),   # (final pass) a narrower cabin: its walls and the door edge now frame him (at 1.04 m they sat outside the lens)
+               GL('gl4', glint=[0.2], fc=0.7, keys=[k(0.0, visible=True), k(r(JOLT4 + 0.04), visible=False)]),
+               GL('gl4b', fc=0.75, off=(0.0, 0.84, 0.05), tap=[r(JOLT4 + 0.05)], keys=[k(0.0, visible=False), k(r(JOLT4 + 0.04), visible=True)]),   # lifted by the spikes: on their tips, not among them
+               P('shelf4', 'slab', pos=[0.21, 0.71, -2.17], opts={'w': 0.5, 'h': 0.018, 'd': 0.4, 'color': '#E4F4FA', 'outline': 0.004}),
+               P('shelf4f', 'slab', pos=[0.21, 0.71, -1.98], opts={'w': 0.5, 'h': 0.03, 'd': 0.025, 'color': '#FFFFFF'}),
+               P('lait4', 'milkCarton', pos=[0.4, 0.72, -2.16], ry=200), P('fromage4', 'cheeseWheel', pos=[0.02, 0.72, -2.12], ry=150, scale=0.55),
+               P('bocal4', 'picklesJar', pos=[0.27, 0.72, -2.24], opts={'s': 0.9}),
+               P('froid4', 'glowLight', pos=[0.18, 1.25, -2.15], opts={'color': '#CFE6FF', 'k': 4.0, 'dist': 2.0}),
+               P('souffle4', 'dustPuff', pos=[0.1, 1.02, -1.86], scale=0.06, opts={'color': '#EEF6FF', 'startAt': r(JOLT4 + 0.25), 'period': 0.45, 'seed': 4})],
         cams=[FC(0.0, [0.25, 1.05, -2.76], [[0.1, 1.72, -1.72], [0.1, 0.7, -1.72], [-0.28, 1.1, -1.72], [0.48, 1.1, -1.72]], top=0.14, bottom=0.8, inside=(-0.45, 0.45, 0.86, 1.2, -2.78, -2.3), lenses=range(26, 86))])
 st.cue('sfx:click', 'S04', 0.05, 0.15); st.cue('sfx:ding', 'S04', 0.2, 0.15); st.cue('whoosh', 'S04', JOLT4, 0.2, 0.25, 600, 1500); st.cue('sfx:sniff', 'S04', r(JOLT4 + 0.3), 0.2)
 
 # 5: he filed a complaint. (pass 3, review 2: over the officer's shoulder the officer was a cap and the look up at the glasses did not read; fists over
 #    the eyes read as rubbing them) from the front, three-quarters on both: the officer behind his desk, writing; the man at the end of the desk mimes
 #    glasses, a ring of thumb and finger in front of each wide eye, twice; the officer's eyes go up to the glasses on his head (glint), hold there,
-#    go back down, and he writes
+#    go back down, and he writes. (final pass, review 3: both hands bunched into one fist in front of his face, which read as rubbing his eyes; the
+#    officer looked level at his chest; the glint sat on the POLICE sign) he turns almost to us, elbows out wide, a ring of thumb and finger held in
+#    front of each wide-open eye (his crooked face: the right eye high, the left one low), twice, his face clear between his hands; the officer
+#    tips his head back and his pupils go right up to the glasses for a held beat; the sign moved off behind the glint
 D5 = st.dur('S05'); ME5 = [-1.75, 0, -2.3]; OFF5 = [-2.7, 0, -2.75]; GLP5 = [ME5[0], 2.35, ME5[2]]
-RING5 = lambda a, b=0.4: {'touch': {'R': ['face', r(-0.2 - 0.1 * math.cos(a)), r(0.62 + 0.13 * math.sin(a)), 0.16, 1, 0.05], 'L': ['face', r(0.2 + 0.1 * math.cos(a)), r(0.62 + 0.13 * math.sin(a)), 0.16, 1, 0.05]}, 'hands': {'R': 'point', 'L': 'point'}, 'face': {'lid': 0.15, 'low': 0.35, 'brow': b, 'mouth': 'o'}}   # (stills r3b) a fingertip circling each eye: hands held still at the face read as a salute, then as hands on his head
+OKH = [0.62, 0.05, 0.05, 0.05, 0.85, 0.55]   # (final pass) a ring of thumb and index, the other fingers up and fanned (« glasses »)
+# (final pass) each ring right in front of its eye, the hands out at the sides of the face (elbows out), a small circle; wide open eyes, not the squint
+RING5 = lambda a, b=0.5: {'touch': {'R': ['face', r(-0.36 - 0.03 * math.cos(a)), r(0.74 + 0.03 * math.sin(a)), 0.14, 1, 0.0, [-0.9, -0.2, 0.2]], 'L': ['face', r(0.33 + 0.03 * math.cos(a)), r(0.54 + 0.03 * math.sin(a)), 0.14, 1, 0.0, [0.9, -0.2, 0.2]]},
+                          'hands': {'R': OKH, 'L': OKH}, 'face': {'lid': 0.0, 'low': 0.0, 'eye': 0.35, 'brow': b, 'mouth': 'o', 'noBlink': 1}}
 st.shot('S05', 'policeStation', actors=[
-        act('mec', ME5, -40, 'stand', 'neutral', keys=[k(0.0, look=[-2.3, 1.7, -1.2]), k(0.0, toon={'face': SQUINT}, toonDur=0.0), k(0.1, toon=RING5(PI / 2), toonDur=0.12, toonEase='out'),
-            *[k(r(0.22 + 0.09 * j), toon=RING5(PI / 2 + (j + 1) * PI / 2, r(0.3 + 0.3 * (j % 2))), toonDur=0.09, toonEase='linear') for j in range(8)],   # two circles round each eye: glasses!
-            k(1.02, toon={'face': {**SQUINT, 'brow': 0.3, 'mouth': 'line'}}, toonDur=0.14)]),   # glasses! glasses!
+        act('mec', ME5, -12, 'stand', 'neutral', keys=[k(0.0, look=[-2.1, 1.75, 0.2]), k(0.0, toon={'face': SQUINT}, toonDur=0.0), k(0.08, toon=RING5(PI / 2), toonDur=0.1, toonEase='out'),
+            *[k(r(0.18 + 0.075 * j), toon=RING5(PI / 2 + (j + 1) * PI / 2, r(0.35 + 0.35 * (j % 2))), toonDur=0.075, toonEase='linear') for j in range(4)],   # glasses!...
+            k(0.5, toon={'touch': {'R': ['face', -0.42, 0.62, 0.2, 1, 0.0], 'L': ['face', 0.4, 0.45, 0.2, 1, 0.0]}, 'hands': {'R': OKH, 'L': OKH}, 'face': {'lid': 0.0, 'eye': 0.35, 'brow': 0.8, 'mouth': 'O', 'noBlink': 1}}, toonDur=0.08),   # (a pump)
+            *[k(r(0.6 + 0.075 * j), toon=RING5(PI / 2 + (j + 1) * PI / 2, r(0.45 + 0.35 * (j % 2))), toonDur=0.075, toonEase='linear') for j in range(4)],   # ...glasses!
+            k(1.02, toon={'face': {**SQUINT, 'brow': 0.3, 'mouth': 'line'}}, toonDur=0.14)]),
         act('flic', OFF5, 0, 'sitWrite', 'unimpressed', keys=[k(0.0, look=[-2.6, 0.9, -2.1]), k(0.0, toon={'face': {'lid': 0.5, 'gy': 0.6, 'mouth': 'line'}}, toonDur=0.0),
-            k(0.3, look=[r(GLP5[0] - 0.25), 2.2, r(GLP5[2] + 0.35)], lookDur=0.16), k(0.3, toon={'face': {'lid': 0.0, 'eye': 0.25, 'gy': -0.9, 'gx': 0.6, 'brow': 0.35, 'mouth': 'line', 'noBlink': 1}}, toonDur=0.14),   # up to the glasses...
+            k(0.28, look=[GLP5[0], r(GLP5[1] + 0.1), GLP5[2]], lookDur=0.16), k(0.28, toon={'bend': {'neck': [-0.3, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.3, 'gy': -1.0, 'gx': 0.7, 'brow': 0.45, 'mouth': 'line', 'noBlink': 1}}, toonDur=0.14),   # up to the glasses (final pass: the head tips back and the pupils go right up)...
             k(0.9, look=[-2.6, 0.9, -2.1], lookDur=0.14), k(0.9, toon={'face': {'lid': 0.5, 'gy': 0.6, 'mouth': 'line'}}, toonDur=0.12)])],                                      # ...a hold, and back to his form
         props=[GL('gl5', glint=[0.52], fc=0.6),
-               P('pol5', 'signBoard', pos=[-2.45, 2.85, -3.5], opts={'text': 'POLICE', 'bg': '#1B2A4A', 'fg': '#FFFFFF', 'w': 1.5, 'h': 0.42, 'posts': False, 'height': 0})],   # (stills r3b) the set's own board is out of this frame
+               P('pol5', 'signBoard', pos=[-3.35, 2.75, -3.5], opts={'text': 'POLICE', 'bg': '#1B2A4A', 'fg': '#FFFFFF', 'w': 1.3, 'h': 0.4, 'posts': False, 'height': 0})],   # (stills r3b) the set's own board is out of this frame; (final pass) to the left, off the glint
         cams=[FC(0.0, [-1.25, 1.75, 0.5], [[GLP5[0], 2.62, GLP5[2]], [GLP5[0], 1.25, GLP5[2]], [-2.7, 1.8, -2.75], [-3.05, 0.95, -2.3], [-1.35, 1.9, -2.3]], top=0.14, bottom=0.76, inside=(-6.8, 6.8, 0.3, 3.4, -3.3, 13.0))])
 st.cue('sfx:ding', 'S05', 0.52, 0.15); st.cue('sfx:paper', 'S05', 1.05, 0.2)
 
 # 6: the police searched the whole district. (pass 3, review 2: the three search gags sat on the frame edges and under the caption, he only walked,
 #    arms hanging) a policeman in the foreground sweeps his big binoculars straight past us; behind him another has dived into a bin, his legs
 #    kicking in the air, a brown dog sniffing at it; between them the man gropes his way along, arms out, straight into a lamp post: flat as paper
-#    against it, he peels off, puffs back up and gropes on, the glasses on his head unmoved (FOUILLE)
-D6 = st.dur('S06'); W6 = [0.819, 0.574]; LAMP6 = [5.75, 0, 1.0]; HIT6 = 0.8; POP6 = 1.3   # (stills r3a) nearer and less in profile: at z 0.2 he was 28 % of the frame height and a sliver when flat
-S6 = [r(LAMP6[0] - 1.35 * W6[0]), 0, r(LAMP6[2] - 1.35 * W6[1])]; E6 = [r(LAMP6[0] - 0.2 * W6[0]), 0, r(LAMP6[2] - 0.2 * W6[1])]
+#    against it, he peels off, puffs back up and gropes on, the glasses on his head unmoved (FOUILLE). (final pass, review 3: he hit the post from its
+#    far side, the post cut through him and the flattening read as a thin stretch behind it; he was a quarter of the frame tall between an oversized
+#    policeman and oversized legs) three-quarters on him, about 40 % of the frame tall, the post beside him: he gropes in from the right and hits it
+#    face first; flat as a sheet (the three-quarter view shows how thin), held, a stagger as he peels off, a pop back with an overshoot, and he gropes
+#    on round it toward us; the binoculars policeman further left, a little smaller, sweeping right across the lens; the bin and its kicking legs
+#    pushed back on the right, the dog at the bin
+D6 = st.dur('S06'); LAMP6 = [5.75, 0, 1.0]; HIT6 = 0.8; POP6 = 1.3
+S6 = [7.3, 0, 1.0]; E6 = [6.02, 0, 1.0]
 GROPE = {'touch': {'R': ['torso', -0.2, 0.34, 0.6, 1, 0.0], 'L': ['torso', 0.2, 0.42, 0.6, 1, 0.0]}, 'hands': {'R': 'spread', 'L': 'spread'}, 'face': SQUINT}
 st.shot('S06', 'parisStreet', setOpts={'clear': [-12.0, 12.0], 'clearL': [-12.0, 12.0]}, actors=[
-        act('mec', S6, 55, 'walk', 'neutral', keys=[k(0.0, to=E6, dur=HIT6, clip='walk', ease='linear', face='keep'), k(0.0, look=[r(LAMP6[0] + 4 * W6[0]), 2.1, r(LAMP6[2] + 4 * W6[1])]), k(0.0, toon=GROPE, toonDur=0.0),
-            k(HIT6, clip='paperThin', params={'thin': 0.07, 'popAt': r(POP6 - HIT6)}, blend=0.02), k(HIT6, toon={'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 0.9, 'cross': 0.7, 'noBlink': 1}}, toonDur=0.03),   # flat against the post
-            k(r(POP6 + 0.3), to=[r(LAMP6[0] - 0.3), 0, r(LAMP6[2] + 0.9)], dur=r(D6 - POP6 - 0.3), clip='walk', ease='inOut'), k(r(POP6 + 0.3), toon=GROPE, toonDur=0.15)]),                           # he peels off, puffs back up and gropes on round it
-        act('flic1', [4.35, 0, 2.5], 8, 'binocs', 'neutral', keys=[k(0.0, look=[9.0, 2.6, 9.0]), k(0.5, look=[4.6, 2.2, 9.0], lookDur=0.8), k(1.4, look=[0.5, 2.6, 9.0], lookDur=0.7)]),   # sweeping past us
-        act('flic2', [6.7, 0.5, 1.5], 0, 'headStuck', 'neutral', params={'sink': 0.2, 'decay': 0.45, 'freq': 15}),                                                                         # in the bin, legs up
-        act('chien0', [6.1, 0, 2.35], 80, 'walk', 'neutral', scale=0.9, keys=[k(0.0, to=[6.45, 0, 2.25], dur=D6, clip='walk', ease='inOut', face='keep')])],
-        props=[GL('gl6', fc=0.6), P('lamp6', 'streetLamp', pos=LAMP6, ry=180, opts={'color': '#3F5E4A'}), P('bin6', 'trashCan', pos=[6.7, 0, 1.5], scale=1.3, opts={'open': True}),
+        act('mec', S6, -90, 'walk', 'neutral', keys=[k(0.0, to=E6, dur=HIT6, clip='walk', ease='linear', face='keep'), k(0.0, look=[2.0, 2.1, 1.0]), k(0.0, toon=GROPE, toonDur=0.0),
+            k(HIT6, clip='paperThin', params={'thin': 0.05, 'puffs': [[r(POP6 - HIT6 - 0.18), 0.35], [r(POP6 - HIT6), 1.12], [r(POP6 - HIT6 + 0.12), 1.0]]}, blend=0.02),   # flat as a sheet on the post (held), a first puff as he peels off, then the pop past full and back
+            k(HIT6, toon={'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 0.9, 'cross': 0.7, 'noBlink': 1}}, toonDur=0.03),
+            k(r(POP6 - 0.18), to=[6.12, 0, 1.08], dur=0.12, ease='out'),   # he peels off the post, lagging back
+            k(r(POP6 + 0.3), to=[5.4, 0, 1.75], dur=r(D6 - POP6 - 0.3), clip='walk', ease='inOut', face='keep'), k(r(POP6 + 0.3), look=[3.0, 2.0, 4.0]), k(r(POP6 + 0.3), toon=GROPE, toonDur=0.15)]),   # ...and gropes on round it, toward us
+        act('flic1', [5.0, 0, 1.55], -18, 'binocs', 'neutral', scale=0.86, keys=[k(0.0, look=[-3.0, 2.2, 7.0]), k(0.35, look=[4.0, 1.5, 4.6], lookDur=0.6), k(1.0, look=[11.0, 2.2, 6.0], lookDur=0.7)]),   # sweeping right across the lens
+        act('flic2', [7.3, 0.5, 0.2], 20, 'headStuck', 'neutral', scale=0.85, params={'sink': 0.2, 'decay': 0.45, 'freq': 15}),                                                          # in the bin, legs up, further back
+        act('chien0', [6.85, 0, 0.55], 120, 'walk', 'neutral', scale=0.85, keys=[k(0.0, to=[7.05, 0, 0.45], dur=D6, clip='walk', ease='inOut', face='keep')])],
+        props=[GL('gl6', fc=0.65), P('lamp6', 'streetLamp', pos=LAMP6, ry=180, opts={'color': '#3F5E4A'}), P('bin6', 'trashCan', pos=[7.3, 0, 0.2], scale=1.05, opts={'open': True}),
                P('bino6', 'bigBinoculars', on={'actor': 'flic1', 'joint': 'head', 'offset': [0.0, 0.31, 0.1]}),
-               P('choc6', 'flashBursts', pos=[r(LAMP6[0] - 0.1), 1.9, r(LAMP6[2] + 0.1)], face='camera', opts={'n': 1, 'w': 0.0, 'h': 0.0, 'at': [HIT6], 'life': 0.22})],
-        cams=[FC(0.0, [5.3, 1.3, 6.3], [[4.35, 2.55, 2.5], [4.2, 0.5, 2.5], [6.7, 2.5, 1.5], [LAMP6[0], 2.65, LAMP6[2]], [S6[0], 0.6, S6[2]], [6.9, 0.4, 1.6]], top=0.12, bottom=0.76)])
+               P('choc6', 'flashBursts', pos=[5.82, 1.95, 1.08], face='camera', opts={'n': 1, 'w': 0.0, 'h': 0.0, 'at': [HIT6], 'life': 0.25})],
+        cams=[FC(0.0, [4.4, 1.2, 3.9], [[6.02, 2.4, 1.0], [6.02, 0.05, 1.0]], top=0.3, bottom=0.74, lenses=range(26, 70))])
 st.cue('sfx:sniff', 'S06', 0.3, 0.2); st.cue('sfx:bonk', 'S06', HIT6, 0.3); st.cue('pop', 'S06', POP6, 0.2)
 
 # 7: divers drained the river. In the mud of the emptied river between the stone quays: two divers in masks dig, one holds up an old boot; a fish
@@ -174,12 +204,13 @@ D8 = st.dur('S08'); PASS8 = 1.0
 WASH8 = lambda lean, w: {'lay': [lean, 0], 'wind': [0, -2.0, w], 'touch': {'R': ['face', -0.05, 0.9, 0.12, 1, 0.0]}, 'hands': {'R': 'open'}, 'face': {**SQUINT, 'lid': 0.6, 'mouth': 'grimace'}}
 st.shot('S08', 'parisStreet', setOpts={'night': True, 'clear': [-12.0, 12.0], 'clearL': [-12.0, 12.0]}, look={'sun': 0.15, 'fill': 0.35, 'exposure': 1.1}, actors=[
         act('mec', [5.0, 0, 0.0], 20, 'stand', 'neutral', keys=[k(0.0, look=[3.0, 12.0, -10.0]), k(0.0, toon={'face': SQUINT}, toonDur=0.0),
-            k(r(PASS8 - 0.45), toon=WASH8(0.42, 11.0), toonDur=0.3, toonEase='out'), k(r(PASS8 + 0.15), look='camera'),   # (pass 3, review 2: he stood arms at his sides for 2.27 s) the rotor wash bends him forward, tie and hair flying; he shades his eyes, and his hand knocks the glasses
+            k(r(PASS8 - 0.45), toon=WASH8(0.42, 11.0), toonDur=0.3, toonEase='out'), k(r(PASS8 - 0.35), look=[5.8, 3.2, 3.0]), k(r(PASS8 + 0.15), look='camera'),   # (final pass) half to us under the beam (turned away, his head was a black silhouette)   # (pass 3, review 2: he stood arms at his sides for 2.27 s) the rotor wash bends him forward, tie and hair flying; he shades his eyes, and his hand knocks the glasses
             *[k(r(PASS8 - 0.1 + 0.16 * j), toon=WASH8(r(0.42 + 0.05 * (j % 2)), r(11.0 - 3.0 * (j % 2))), toonDur=0.12) for j in range(4)],
             k(r(PASS8 + 0.6), toon=WASH8(0.22, 6.0), toonDur=0.3), k(r(D8 - 0.3), toon=WASH8(0.12, 3.0), toonDur=0.25)])],
         props=[P('heli8', 'helicopter', pos=[2.5, 13.0, -9.0], ry=150, rot=[0.12, 0, 0], scale=0.9, opts={'spin': 5, 'beam': True, 'beamLen': 18, 'beamR': 2.4, 'tilt': 30, 'sweep': [[0.0, -40], [PASS8, -8], [D8, 30]]},
+                 keys=[k(0.0, to=[3.5, 13.5, -8.0], dur=D8, ease='linear')]) if False else P('heli8', 'helicopter', pos=[2.5, 13.0, -9.0], ry=150, rot=[0.12, 0, 0], scale=0.9, opts={'spin': 5, 'beam': True, 'beamLen': 18, 'beamR': 2.4, 'tilt': 30, 'sweep': [[0.0, -40], [PASS8, -8], [D8, 30]], 'bladeOpacity': 0.35, 'discOpacity': 0.1},
                  keys=[k(0.0, to=[3.5, 13.5, -8.0], dur=D8, ease='linear')]), GL('gl8', glint=[r(PASS8 - 0.05)], tap=[r(PASS8 - 0.2)]), P('star8', 'flashBursts', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.68, 0.12], 'face': 'camera'}, opts={'n': 1, 'w': 0.0, 'h': 0.0, 'at': [r(PASS8 - 0.08)], 'life': 0.25}),   # (review 1) no flash registered
-               P('spot8', 'glowLight', pos=[5.0, 3.0, 0.4], opts={'color': '#FFF4C8', 'k': 6.0, 'dist': 4.0}, keys=[k(0.0, visible=False), k(r(PASS8 - 0.15), visible=True), k(r(PASS8 + 0.2), visible=False)])],
+               P('spot8', 'glowLight', pos=[5.4, 2.6, 1.3], opts={'color': '#FFF4C8', 'k': 9.0, 'dist': 4.0}, keys=[k(0.0, visible=False), k(r(PASS8 - 0.3), visible=True), k(r(PASS8 + 0.35), visible=False)])],   # (final pass) in front of his face, longer: the beam lights it
         cams=[FC(0.0, [6.4, 0.9, 3.0], [[5.0, 2.9, 0.0], [5.0, 0.9, 0.0], [2.5, 16.0, -9.0], [6.0, 12.0, -8.0]], top=0.08, bottom=0.8)])
 st.cue('sfx:engine', 'S08', 0.05, 0.4); st.cue('sfx:ding', 'S08', r(PASS8 - 0.05), 0.25)
 

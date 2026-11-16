@@ -123,7 +123,8 @@ export const LUNETTES_PROPS = {
       const tb = o.backAt ?? 1e9, lk = (o.lookAt == null ? 0 : back(t - o.lookAt, 0.22) * (t >= o.lookAt ? 1 : 0)) * (1 - sm(t - tb, 0.18)), tl = (o.tiltAt == null ? 0 : back(t - o.tiltAt, 0.2) * (t >= o.tiltAt ? 1 : 0)) * (1 - sm(t - tb, 0.15));
       const sniff = 1 - Math.min(1, Math.max(0, lk)), su = o.sitAt == null ? 9 : t - o.sitAt, sq = su >= 0 && su < 0.5 ? 1 - 0.22 * Math.exp(-su * 9) * Math.cos(su * 22) : 1;
       all.scale.set(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq)); all.position.y = su < 0 ? 0.1 : 0;
-      neck.rotation.x = 1.25 * sniff + 0.05 * sniff * Math.sin(t * 17); nk.scale.y = 1 + 1.3 * lk; nk.position.y = 0.08 * (1 + 1.3 * lk); head.position.y = 0.16 * (1 + 1.3 * lk) - 0.02;
+      const st = o.stretch ?? 1.3;   // (final pass of 69) o.stretch: how far the neck grows when it looks up (1.3: +130 %)
+      neck.rotation.x = 1.25 * sniff + 0.05 * sniff * Math.sin(t * 17); nk.scale.y = 1 + st * lk; nk.position.y = 0.08 * (1 + st * lk); head.position.y = 0.16 * (1 + st * lk) - 0.02;
       head.rotation.set(-(o.up ?? 0.85) * lk + 0.25 * sniff, 0, (o.tilt ?? 0.55) * tl);
       const lag = o.tiltAt == null ? 0 : (o.tilt ?? 0.55) * 0.9 * Math.exp(-Math.max(0, t - o.tiltAt) * 6) * Math.cos(Math.max(0, t - o.tiltAt) * 16) * (t >= o.tiltAt ? 1 : 0);
       ears.forEach((e, i) => { e.rotation.z = -(o.tilt ?? 0.55) * tl * 0.8 + lag + (i ? -0.06 : 0.06); e.rotation.x = 0.5 * lk; });
@@ -221,6 +222,16 @@ export const LUNETTES_PROPS = {
     for (let i = 0; i < 8; i++) { const a = i / 8 * PI; g.add(at(cyl(0.008, 0.008, 0.68, '#9AA0A6', 4), 1.6, 0.25, 2.5, 0.3, 0.6, a)); }
     const basket = grp(at(box(0.6, 0.35, 0.4, '#9AA0A6', { outline: 0.004 }), 0, 0.17, 0)); basket.position.set(-2.2, 0, -3.5); basket.rotation.set(0.2, 0.7, 0.3); g.add(basket);
     g.add(at(box(0.14, 0.32, 0.12, '#3B2A20'), -1.0, 0.16, 4.2, 0, 0.4, 1.3), at(box(0.28, 0.1, 0.12, '#3B2A20'), -0.85, 0.06, 4.15, 0, 0.4, 0));
+    return g;
+  },
+
+  // (final pass of 69) A puffy sofa cushion (origin at its middle, the broad faces toward +Z/-Z): a squashed ball o.w (0.5) x o.h (0.42) x o.d (0.2),
+  // o.color, a darker seam round its edge and a button in the middle of each face (a flat slab read as a brick, a shelf on the wall, review 3)
+  puffCushion(o) {
+    const w = o.w ?? 0.5, h = o.h ?? 0.42, d = o.d ?? 0.2, C = o.color || '#E07A5F', g = grp();
+    const body = new THREE.Mesh(new THREE.SphereGeometry(0.5, 10, 7), lam(C)); body.scale.set(w, h, d); g.add(body);
+    const seam = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.035, 5, 18), lam(o.seam || new THREE.Color(C).multiplyScalar(0.72))); seam.scale.set(w * 0.98, h * 0.98, 1); g.add(seam);
+    for (const s of [-1, 1]) g.add(at(new THREE.Mesh(new THREE.SphereGeometry(0.03, 8, 6), lam(new THREE.Color(C).multiplyScalar(0.6))), 0, 0, s * d * 0.47));
     return g;
   },
 
