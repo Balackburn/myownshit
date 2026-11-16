@@ -2958,12 +2958,13 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   client » (quatrième chaîne de finales, une seule finale à la fois). Passes finales du « Parcmètre » et du « Bocal » reprises après leurs
   images de contrôle. Histoire 80 : écriture lancée (cinq auteurs, trois juges, réécriture), dans le ton de la tornade avec police et armée,
   sans reprendre les pistes réservées à l'histoire 79.
-- 15 h 10 — « Le parcmètre » (75) : passe finale terminée et relue sur trois séries d'images (visage écrasé sur la vitre de la camionnette
+- 14 h 30 — « Le parcmètre » (75) : passe finale terminée et relue sur trois séries d'images (visage écrasé sur la vitre de la camionnette
   au-dessus des sous-titres avec trois glissades, tampon REFUSÉ tenu caoutchouc en bas qui laisse l'encre rouge, rouleau 400 ANS derrière lui,
   vrai selfie, plans tenus qui respirent et clignent, ticket en quatre jets, sauts de la voiture d'un mètre). Reste : au plan 8 la corde à linge
   est trop loin pour se lire, au plan 16 le téléphone sort du cadre. Rendu final en file après « Le bus » (cinquième chaîne).
 - « Le bocal » (78) : passe finale terminée. Le plan du char était encore faible (bocal de 35 pixels sur 768) : refait au ras du sol à 1,7 m du
   bocal, la chenille monte sur le couvercle, le char tangue dessus puis retombe à côté, le bocal rebondit sans perdre son couvercle (le rebond
   intégré soulevait le couvercle : on déplace désormais le bocal entier). Rendu final en file après « Le parcmètre » (sixième chaîne).
-- « Le centime » (77) : couche 3D du rendu final terminée, assemblage en cours.
+- « Le centime » (77) LIVRÉE : final contrôlé (1080x1920, 33,5 s, −16,0 LUFS, aucune chute de luminosité, contrôles HyperFrames sans erreur),
+  relu sur une planche de 14 images, envoyé et publié sur TikTok. « Le pull » suit dans la file des finaux.
 - Histoire 80 « La table basse » : mise en scène confiée à un agent dérivé (accessoires et plans, images de contrôle seulement).
