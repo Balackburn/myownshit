@@ -82,7 +82,16 @@ export const TONDEUSE_PROPS = {
       if (bowing) { const d = bu < 0.18 ? bu / 0.18 : bu < 0.5 ? 1 : 1 - (bu - 0.5) / 0.4, e = d * d * (3 - 2 * d); rx += 0.62 * e; hr += 0.4 * e; }
       if (o.slumpAt != null && t >= o.slumpAt && !o.dead) { const u = clamp01((t - o.slumpAt) / 0.35), e = u * u * (3 - 2 * u); sy *= 1 - (o.slumpK ?? 0.38) * e + 0.05 * Math.sin(u * PI); hr -= 1.05 * e + (u >= 1 ? 0.04 * Math.exp(-6 * (t - o.slumpAt - 0.35)) * Math.sin((t - o.slumpAt - 0.35) * 20) : 0); }
       if (o.dead) { sy *= 1 - (o.slumpK ?? 0.38); hr -= 1.05; }   // (review 2 of 70) o.slumpK (0.38): how flat it goes, a punctured tyre at 0.6
-      body.position.set(jx, jy, 0); body.rotation.x = rx; body.scale.set(1 + (1 - sy) * 0.35, sy, sz); hdl.rotation.x = hr;
+      // (final pass of 70) it acts with its handle, which is its neck: o.whip [[t, k], ...]: the handle whips back at t (an acceleration) and swings to rest;
+      // o.lean [[t0, t1, a], ...]: the body rolls a rad into a turn between t0 and t1; o.hops [[t, h, T], ...]: it hops h high over T s (0.22) and squashes
+      // as it lands; o.wag [t0, t1, a]: it wags (a rad of yaw, five times a second) with little hops, the handle swinging: pleased with itself
+      let rz = 0, ry2 = 0;
+      for (const w of o.whip || []) { const u = t - w[0]; if (u > 0 && u < 0.7) hr -= (w[1] ?? 0.5) * Math.exp(-5 * u) * Math.cos(u * 16); }
+      for (const l of o.lean || []) { if (t > l[0] && t < l[1]) rz += l[2] * Math.sin((t - l[0]) / (l[1] - l[0]) * PI); }
+      for (const hp of o.hops || []) { const T = hp[2] ?? 0.22, u = t - hp[0]; if (u > 0 && u < T) { jy += hp[1] * Math.sin(u / T * PI); rx -= 0.18 * Math.sin(u / T * TAU); hr -= 0.25 * Math.sin(u / T * PI); }
+        else if (u >= T && u < T + 0.12) sy *= 1 - 0.16 * Math.sin((u - T) / 0.12 * PI); }
+      if (o.wag && t > o.wag[0] && t < o.wag[1]) { const u = t - o.wag[0]; ry2 = (o.wag[2] ?? 0.3) * Math.sin(u * 31); jy += 0.04 * Math.abs(Math.sin(u * 15.5)); hr += 0.18 * Math.sin(u * 31 + 1); }
+      body.position.set(jx, jy, 0); body.rotation.set(rx, ry2, rz); body.scale.set(1 + (1 - sy) * 0.35, sy, sz); hdl.rotation.x = hr;
       lines.forEach((m, i) => { m.visible = on && !dead; m.scale.z = 0.6 + 0.5 * Math.abs(Math.sin(t * 9 + i)); m.position.z = -0.6 - m.scale.z / 2; });
       const spray = on && !sput && !dead && o.spray !== false;
       base.forEach(([ph, rot, v, s2], i) => { const q = ((t * 1.7) + ph) % 1; if (!spray) dm.scale.setScalar(0.0001); else { dm.scale.setScalar(1); dm.position.set(0.38 + q * v * 0.9, 0.22 + q * 0.95 - q * q * 1.1, s2 * q * 0.9); dm.rotation.set(t * 9 + rot, rot, t * 7); } dm.updateMatrix(); clip.setMatrixAt(i, dm.matrix); });
@@ -109,8 +118,10 @@ export const TONDEUSE_PROPS = {
     tree.add(at(cyl(0.12 * s, 0.16 * s, 1.4 * s + cr, o.trunk || '#7A5230', 7, { pivot: 'bottom' }), 0, 0, 0));
     [[1.05, 1.3], [1.75, 1.05], [2.35, 0.75]].forEach(([y, r]) => { const c = new THREE.Mesh(new THREE.ConeGeometry(r * s, 1.2 * s, 7), L(green)); c.position.y = y * s + cr; c.castShadow = true; tree.add(c); });
     pivot.position.y = 0.25 * s; pivot.rotation.y = o.dir ?? 0; pivot.add(tree); g.add(pivot);
-    g.userData.update = t => { const u = o.fallAt == null ? -1 : t - o.fallAt; let a = 0;
-      if (u > 0) { const k = Math.min(1, u / 0.42); a = (PI / 2 - 0.06) * k * k; if (u > 0.42) a = PI / 2 - 0.06 - 0.09 * Math.exp(-(u - 0.42) * 7) * Math.abs(Math.sin((u - 0.42) * 24)); }
+    // (final pass of 70) o.hang (s): it tips a little at o.fallAt, hangs there trembling for o.hang seconds, then goes down (the last big tree of the lane)
+    g.userData.update = t => { const u0 = o.fallAt == null ? -1 : t - o.fallAt, hg = o.hang ?? 0, u = u0 - hg, a0 = hg > 0 ? 0.3 : 0; let a = 0;
+      if (hg > 0 && u0 > 0 && u <= 0) a = a0 * Math.min(1, u0 / 0.12) + 0.025 * Math.sin(u0 * 44) * Math.min(1, u0 / 0.12);
+      else if (u > 0) { const k = Math.min(1, u / 0.42); a = a0 + (PI / 2 - 0.06 - a0) * k * k; if (u > 0.42) a = PI / 2 - 0.06 - 0.09 * Math.exp(-(u - 0.42) * 7) * Math.abs(Math.sin((u - 0.42) * 24)); }
       tree.rotation.x = a; };
     g.userData.update(0); return g;
   },
@@ -163,7 +174,9 @@ export const TONDEUSE_PROPS = {
       const w = o.hatAt == null ? -1 : t - o.hatAt, T = o.hatT ?? 0.75;
       if (w <= 0) { hat.position.set(0, 0.42 * s, 0); hat.rotation.set(0, 0, 0); }
       else if (w < T) { const q = w / T, hgt = Math.sin(PI * Math.pow(q, 0.8)); hat.position.set(0.03 * s * q, 0.42 * s + (o.hatUp ?? 0.9) * s * hgt, 0); hat.rotation.set(0, 0, q * TAU * 2 + 0.45 * q); }
-      else { hat.position.set(0.03 * s, 0.4 * s + 0.03 * s * Math.exp(-8 * (w - T)) * Math.abs(Math.sin(30 * (w - T))), 0); hat.rotation.set(0, 0, 0.45); } };
+      else { hat.position.set(0.03 * s, 0.4 * s + 0.03 * s * Math.exp(-8 * (w - T)) * Math.abs(Math.sin(30 * (w - T))), 0); hat.rotation.set(0, 0, 0.45); }
+      // (final pass of 70) o.wobble (rad): after the pop the hat goes on rocking, slower and slower, to the end of the shot (a hold that lives)
+      if (o.popAt != null && o.wobble && o.hatAt == null) { const u = t - o.popAt - 0.15; if (u > 0) { hat.rotation.z = o.wobble * Math.exp(-1.6 * u) * Math.sin(13 * u); body.rotation.z = 0.25 * o.wobble * Math.exp(-2.2 * u) * Math.sin(13 * u + 1.2); } } };
     g.userData.update(0); return g;
   },
 
@@ -235,5 +248,75 @@ export const TONDEUSE_PROPS = {
       const len = Math.max(0.01, Math.min(14, Math.abs(x - x0))); wake.scale.x = len; wake.position.x = x - dir * len / 2; wake.position.z = -b.y; wake.visible = mow.visible && len > 0.05;
     };
     g.userData.update(0); return g;
+  },
+
+  // (final pass of 70) A cartoon thumb-up on the end of an arm (pivot at the wrist, the knuckles facing +Z, the thumb up +Y): a skin-coloured fist
+  // 0.24 wide with four finger lines, a long thumb standing clear of it on its left with a pale nail, a white cuff and a stub of sleeve (o.sleeve)
+  // under it. The rig's own thumb-up, a pale cube a few pixels wide, read as a raised fist or a wave (review 3 of 70). Attach it to the hand with
+  // face 'camera' and scale the hand itself away.
+  bigThumb(o) {
+    const g = grp(), skin = o.skin || '#D9A877', dark = o.line || '#8A5A36';
+    g.add(at(box(0.27, 0.1, 0.19, o.sleeve || '#A3A8B0', { outline: 0.02 }), 0, -0.1, 0), at(box(0.25, 0.06, 0.18, '#F4F4F0', { outline: 0.02 }), 0, -0.02, 0));
+    g.add(at(box(0.24, 0.2, 0.17, skin, { outline: 0.03 }), 0, 0.11, 0));
+    for (let i = 1; i < 4; i++) g.add(at(box(0.008, 0.13, 0.01, dark), -0.12 + i * 0.06, 0.125, 0.087));
+    const th = grp(at(box(0.09, 0.26, 0.1, skin, { outline: 0.03 }), 0, 0.13, 0), at(ball(0.052, skin, 8), 0, 0.26, 0), at(box(0.06, 0.07, 0.012, '#F3D2B4'), 0, 0.235, 0.052));
+    th.position.set(-0.115, 0.17, 0.0); th.rotation.z = 0.2; g.add(th);
+    return g;
+  },
+
+  // (final pass of 70) A front door that is slammed open (pivot at the foot of the doorway in its middle, facing +Z): a dark doorway o.w x o.h in a
+  // pale frame, and a leaf (o.color) hinged on its right that flies open at o.openAt, hits the wall flat (almost a half turn in 0.07 s, two ghost
+  // leaves on the way: a smear) and shudders against it. It hides the set's own small door behind it.
+  slamDoor(o) {
+    const W = o.w ?? 1.0, H = o.h ?? 2.05, g = grp(), col = o.color || '#1F3B73', A = o.angle ?? 2.95;
+    g.add(at(box(W, H, 0.03, '#15171C'), 0, H / 2, -0.015), at(box(0.1, H + 0.1, 0.1, o.frame || '#F4F4F0', { outline: 0.008 }), -W / 2 - 0.05, (H + 0.1) / 2, 0.02),
+      at(box(0.1, H + 0.1, 0.1, o.frame || '#F4F4F0', { outline: 0.008 }), W / 2 + 0.05, (H + 0.1) / 2, 0.02), at(box(W + 0.2, 0.1, 0.1, o.frame || '#F4F4F0', { outline: 0.008 }), 0, H + 0.05, 0.02));
+    const mk = (mat_) => { const h = grp(); h.position.set(W / 2, 0, 0.04); const m = mat_ ? new THREE.Mesh(new THREE.BoxGeometry(W, H, 0.05), mat_) : box(W, H, 0.05, col, { outline: 0.008 }); m.position.set(-W / 2, H / 2, 0); h.add(m); return h; };
+    const leaf = mk(null); leaf.children[0].add(at(ball(0.045, '#F2C230', 8), -W * 0.36, 0, 0.05)); g.add(leaf);
+    const ghosts = [0.35, 0.7].map(k => { const h = mk(new THREE.MeshLambertMaterial({ color: col, transparent: true, opacity: 0.38 })); h.rotation.y = A * k; h.visible = false; h.traverse(n => { n.castShadow = false; }); g.add(h); return h; });
+    g.userData.update = t => { const u = o.openAt == null ? -1 : t - o.openAt; let a = 0;
+      if (u > 0) a = u < 0.07 ? A * Math.pow(u / 0.07, 0.7) : A - 0.3 * Math.exp(-(u - 0.07) * 8) * Math.abs(Math.sin((u - 0.07) * 21));
+      leaf.rotation.y = a; ghosts.forEach(h => { h.visible = u > 0.02 && u < 0.14; }); };
+    g.userData.update(0); return g;
+  },
+
+  // (final pass of 70) A garden gate, open (pivot on the ground in the middle of the opening, the street +Z): two square white posts o.w apart with a
+  // ball on top, taller than the fence, and a picket leaf hinged on the left one, swung o.open rad into the garden. « Right in front of his gate »: the
+  // set's fence only had a gap there.
+  gardenGate(o) {
+    const W = o.w ?? 1.3, H = o.h ?? 1.2, g = grp(), wh = o.color || '#F4F4F0';
+    for (const sd of [-1, 1]) g.add(at(box(0.14, H, 0.14, wh, { outline: 0.02 }), sd * (W / 2 + 0.07), H / 2, 0), at(ball(0.09, wh, 8), sd * (W / 2 + 0.07), H + 0.06, 0));
+    const leaf = grp(); leaf.position.set(-W / 2, 0, 0); leaf.rotation.y = o.open ?? 1.9;
+    const n = 6, lw = W - 0.06; for (let i = 0; i < n; i++) leaf.add(at(box(0.09, 0.82 + 0.06 * Math.sin(i / (n - 1) * PI), 0.03, wh, { outline: 0.015 }), 0.08 + i * (lw - 0.1) / (n - 1), 0.47, 0));
+    leaf.add(at(box(lw, 0.07, 0.035, wh), lw / 2 + 0.02, 0.28, -0.02), at(box(lw, 0.07, 0.035, wh), lw / 2 + 0.02, 0.68, -0.02)); g.add(leaf);
+    return g;
+  },
+
+  // (final pass of 70) A big white mug of coffee that steams (pivot under it, the handle on +X): three white wisps rise from it in turn, swaying, and
+  // thin out; the grip is on the handle. The series' small teal mug was hidden in his fist at phone size.
+  steamMug(o) {
+    const g = grp(), wh = o.color || '#F7F5EE';
+    g.add(at(cyl(0.085, 0.075, 0.17, wh, 10, { pivot: 'bottom', outline: 0.03 }), 0, 0, 0), at(cyl(0.07, 0.07, 0.008, '#4A2E1C', 10), 0, 0.166, 0));
+    const hd = new THREE.Mesh(new THREE.TorusGeometry(0.05, 0.016, 5, 10, PI), L(wh)); hd.rotation.z = -PI / 2; hd.position.set(0.085, 0.085, 0); g.add(hd);
+    const wisps = [0, 1, 2].map(i => { const m = ball(0.03, new THREE.MeshLambertMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.8 }), 7); m.castShadow = false; g.add(m); return m; });
+    g.userData.update = t => { wisps.forEach((m, i) => { const u = ((t * 0.9) + i / 3) % 1; m.position.set(0.03 * Math.sin(u * 7 + i * 2.1), 0.2 + 0.34 * u, 0.012 * Math.cos(u * 5 + i)); m.scale.setScalar(0.7 + 1.5 * u); m.material.opacity = 0.85 * (1 - u) * Math.min(1, u * 6); }); };
+    g.userData.update(0); g.userData.grip = [0.13, 0.085, 0]; return g;
+  },
+
+  // (final pass of 70) A root across a forest lane (pivot on the ground in its middle, lying along X, o.l long): a brown hump with two smaller ones
+  // beside it: what the mower hops over
+  rootHump(o) {
+    const l = o.l ?? 1.7, r = o.r ?? 0.1, g = grp(), c = o.color || '#6A4628';
+    const mk = (len, rad, x, z, ry) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(rad, rad * 0.8, len, 7), L(c)); m.rotation.set(0, ry, PI / 2); m.position.set(x, rad * 0.35, z); m.castShadow = true; return m; };
+    g.add(mk(l, r, 0, 0, 0), mk(l * 0.45, r * 0.6, -l * 0.2, 0.18, 0.3), mk(l * 0.4, r * 0.55, l * 0.24, -0.16, -0.35));
+    return g;
+  },
+
+  // (final pass of 70) The T-handle of a starter cord (pivot in its middle, the bar along X): a short yellow bar in his fist, so that the pull reads
+  // as a cord and not as the mower's handlebar
+  cordHandle(o) {
+    const g = grp(), c = o.color || '#F2C230';
+    const m = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, o.l ?? 0.2, 8), L(c)); m.rotation.z = PI / 2; m.castShadow = true; g.add(m, at(ball(0.03, c, 7), -(o.l ?? 0.2) / 2, 0, 0), at(ball(0.03, c, 7), (o.l ?? 0.2) / 2, 0, 0));
+    return g;
   },
 };

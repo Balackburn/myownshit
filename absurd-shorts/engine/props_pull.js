@@ -38,7 +38,8 @@ export const PULL_PROPS = {
   // o.tagHop (m): it hops at each step (|sin| of half o.tagRate, o.tagPhase), stretching as it goes up; o.tagKickAmp (1): how hard the kicks flop it;
   // o.popS / o.popAmp / o.popDecay / o.popFreq: after a turn the label comes back o.popS times bigger with o.popAmp of stretch that dies at
   // o.popDecay and rings at o.popFreq (1, 0.35, 9, 26: one flop; 1.5, 0.6, 3.6, 19: it shoots up and boings three times);
-  // o.turn.amp (1): how far the jumper stretches and bulges over the head (0.45: one flat, resigned yank)
+  // o.turn.amp (1): how far the jumper stretches and bulges over the head (0.45: one flat, resigned yank); o.tagLean (0.36 rad): how far the label
+  // leans away from the wearer's head at rest (0.05: upright, beside a neighbour's head)
   knitJumper(o) {
     const w = o.w ?? 0.62, h = o.h ?? 0.62, d = o.d ?? 0.4, C = new THREE.Color(o.color || '#C8322A'), g = grp(), body = grp(); g.add(body);
     const knit = (purl, front) => canvasPlane(w, h, (c, W, H) => { const base = purl ? C.clone().lerp(new THREE.Color('#FFFFFF'), 0.18) : C.clone(); c.fillStyle = base.getStyle(); c.fillRect(0, 0, W, H);
@@ -85,7 +86,7 @@ export const PULL_PROPS = {
         if (o.tagRise) { const u = clamp01((t - o.tagRise.at) / o.tagRise.dur); ry = Math.max(0.001, u * u * (3 - 2 * u)); }
         const hop = o.tagHop ? Math.abs(Math.sin(t * (o.tagRate ?? 4.2) * 0.5 + (o.tagPhase ?? 0))) : 0;
         tag.scale.set(sc * (1 - 0.45 * st), sc * (1 + st) * ry * (1 + (o.tagHop ? 0.3 * (hop - 0.5) : 0)), sc); tag.position.y = tagY + (o.tagHop ?? 0) * hop;
-        tag.rotation.set(-0.12, 0, -side * 0.36 + (o.tagSway ?? 0.07) * Math.sin(t * (o.tagRate ?? 4.2) + (o.tagPhase ?? 0)) + KA * kickOf(kicks, t)); }
+        tag.rotation.set(-0.12, 0, -side * (o.tagLean ?? 0.36) + (o.tagSway ?? 0.07) * Math.sin(t * (o.tagRate ?? 4.2) + (o.tagPhase ?? 0)) + KA * kickOf(kicks, t)); }
       if (sewn) { const v = t - o.sewn; sewn.visible = v >= 0; if (v >= 0) sewn.scale.setScalar(1 + 0.4 * Math.exp(-10 * v) * Math.cos(28 * v)); }
     };
     g.userData.update(-1); return g;
@@ -136,13 +137,13 @@ export const PULL_PROPS = {
 
   // (review 2) A lighting truss with spots and their beams (pivot at the middle of the bar, which runs along X): o.w wide (3), o.n spots (4), each
   // with a pale see-through cone of light o.len long (2.4) that tips forward by o.tilt (0.25 rad) and fans out sideways by o.fan (0.35 rad at the
-  // ends); o.sweep (rad): the beams swing slowly; o.color the light; o.opacity (0.16)
+  // ends); o.sweep (rad): the beams swing slowly; o.color the light; o.opacity (0.16); o.spread (0.22): how much each cone widens per metre
   lightTruss(o) {
     const w = o.w ?? 3, n = o.n ?? 4, len = o.len ?? 2.4, g = grp(at(box(w, 0.07, 0.07, '#4A4F58', { outline: 0.006 }), 0, 0.05, 0), at(box(w, 0.07, 0.07, '#4A4F58', { outline: 0.006 }), 0, -0.05, 0)), beams = [];
     for (let i = 0; i <= 8; i++) g.add(at(box(0.03, 0.17, 0.03, '#4A4F58'), -w / 2 + i * w / 8, 0, 0));
     for (let i = 0; i < n; i++) { const x = n > 1 ? -w / 2 + 0.25 + i * (w - 0.5) / (n - 1) : 0, piv = grp(); piv.position.set(x, -0.1, 0);
       piv.add(at(cyl(0.09, 0.07, 0.2, '#23262D', 8, { outline: 0.006 }), 0, -0.1, 0), at(cyl(0.085, 0.085, 0.015, o.color || '#FFF3CF', 8), 0, -0.21, 0));
-      const cone = cyl(0.07, 0.07 + len * 0.22, len, o.color || '#FFF3CF', 10); cone.position.y = -0.21 - len / 2;
+      const cone = cyl(0.07, 0.07 + len * (o.spread ?? 0.22), len, o.color || '#FFF3CF', 10); cone.position.y = -0.21 - len / 2;
       cone.traverse(m => { m.castShadow = false; m.receiveShadow = false; if (m.isMesh && m.material) { m.material = m.material.clone(); m.material.transparent = true; m.material.opacity = o.opacity ?? 0.16; m.material.depthWrite = false; if (m.material.emissive) { m.material.emissive = new THREE.Color(o.color || '#FFF3CF'); m.material.emissiveIntensity = 0.6; } } });
       piv.add(cone); g.add(piv); beams.push({ piv, u: n > 1 ? i / (n - 1) - 0.5 : 0, i }); }
     g.userData.update = t => { for (const b of beams) b.piv.rotation.set(o.tilt ?? 0.25, 0, -b.u * 2 * (o.fan ?? 0.35) + (o.sweep ?? 0) * Math.sin(t * 1.7 + b.i * 1.3)); };
