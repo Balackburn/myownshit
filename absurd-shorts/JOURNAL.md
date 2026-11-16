@@ -2870,3 +2870,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   session continue sur un autre modèle : les trois agents dérivés ont été relancés là où ils s'étaient arrêtés (leur travail était enregistré),
   et les deux revues reprises (la critique déjà rendue est réutilisée). Brouillons 3 de « L'ascenseur » (trois courts passages figés) et des
   « Lunettes » (aucun) prêts pendant la coupure ; leurs revues 3 sont lancées.
+- 9 h 00 — « La tondeuse » (70) : passe finale relue sur images, dont la mise à genoux du président réglée en dernier (pouce couleur peau, long,
+  sur le ciel bleu, environ 10 % de la largeur). Rendu final lancé (1080x1920, 30 i/s), puis contrôle et publication.
+  « Le pull » (74) : passe 3 relue ; le maillet du juge frappe bien son socle (vérifié après le dernier réglage). Brouillon 3 en file, revue 3
+  préparée. Disque : brouillons 1 dépassés et rendu de travail du « Robinet » supprimés (environ 100 Mo).
