@@ -146,7 +146,7 @@ st.cue('whoosh', 'S05', 0.0, 1.0)
 
 # 6: the town hall refuses to refund him. Over the clerk's shoulder: him at the counter, the paper roll standing behind him a head taller than he is,
 #    400 ANS printed on its side and down its loose end (review 3: chin-high, unprinted); the big stamp raised high in her left hand, the right way
-#    up, knob in her fist and red rubber down (review 3: upside down, a gavel), comes down square on his claim and leaves REFUSÉ in red ink on it
+#    up, knob in her fist and red rubber down (review 3: upside down, a gavel), comes down square on his claim; she lifts it off: REFUSÉ in red ink
 D6 = st.dur('S06'); HIT6 = 0.9; ME6 = [0.3, 0, 1.05]; ST6 = [0.12, 1.16, -0.14]; ROLL6 = [0.75, 0, 1.95]   # the roll stands behind him, to his left, turned to the lens
 st.shot('S06', 'mairie', setOpts={'front': 3.6, 'frontSign': {'text': 'ÉTAT CIVIL', 'x': -1.15, 'y': 1.78, 'w': 1.5, 'h': 0.36}, 'map': False}, actors=[
         act('mec', ME6, 180, 'stand', 'neutral', keys=[k(0.0, look=[0.12, 1.9, -0.3]), k(r(HIT6 + 0.02), toon={'face': {'lid': 1.0, 'mouth': 'line'}, 'sq': [0.94, 1.06, 0.94], 'lay': [-0.08, 0.0]}, toonDur=0.04, toonEase='out'),   # (review 1) a real flinch at the stamp
@@ -178,7 +178,8 @@ st.cue('sfx:carDoor', 'S07', 0.05, 0.4)
 
 # 8: he lives in his car. Three-quarter front, closer (review 3: his face 8 % of the width): gingham curtains, a stove pipe puffing white smoke
 #    rimmed in ink, a geranium on the roof, an aerial, the BIENVENUE mat, washing strung from the aerial to the machine's P sign (review 3: never in
-#    the frame); him inside with a big cup of coffee, a sip, a breath, a blink; a slow push in
+#    the frame; from this side it still reads small), the smoke a column of rimmed puffs drifting off; him inside with a big cup of coffee, seen
+#    through the windscreen clear of the pillar, a sip, a breath, a blink; a slow push in
 D8 = st.dur('S08')
 st.shot('S08', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, 180, 'drive', 'happy', keys=[k(0.0, look=[3.45, 1.9, -5.0]),
             k(0.0, toon={'reach': {'R': [3.55, 1.55, -0.55, 1, 0.04]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.0),
