@@ -229,7 +229,7 @@ END9 = [[-1.35, 0, 0.2], [0.45, 0, -1.2]]                                   # wh
 MID9 = [[-0.5, 0, -1.5], [0.7, 0, -2.4]]                                    # (stills 2) the first veers left as he comes out, the second stays right: seen from the camera they never cross
 CF9 = [-2.6, 1.2, 5.2]; CL9 = [0.45, 1.2, -3.0]; DR9 = [-0.35, 0.0, 0.15]      # (stills 1) the camera set by hand (lens 44): the sign at 0.28 of the height, the door in the middle, the mower along the foot of the frame, the gendarmes run up to it
 st.shot('S09', 'pavillon', setOpts={'houseColor': '#D8DDE6', 'roof': '#3A4A6A', 'door': '#1F3B73', 'frame': '#1F3B73', 'fence': False, 'mailbox': False}, look=XLOOK, fx=[{'type': 'shake', 'at': OPEN9, 'dur': 0.2, 'amount': 0.014}], actors=[
-        *[act(f'gend{j + 1}', [r(0.85 + 0.25 * j), 0, -4.35], 0, 'run', 'angry', keys=[k(0.0, visible=False), k(OUT9[j], visible=True), k(0.0, look=[-2.6, 1.2, 5.2]),
+        *[act(f'gend{j + 1}', [r(0.85 + 0.25 * j), 0, -3.85], 0, 'run', 'angry', keys=[k(0.0, visible=False), k(OUT9[j], visible=True), k(0.0, look=[-2.6, 1.2, 5.2]),
             k(0.0, toon={**RUNK(), 'sq': [1.16, 0.76, 1.16]}, toonDur=0.0),                                                  # squashed in the doorway...
             k(r(OUT9[j] + SCR9), toon={**RUNK(), 'sq': [0.9, 1.13, 0.9]}, toonDur=0.07, toonEase='out'), k(r(OUT9[j] + SCR9 + 0.2), toon=RUNK(), toonDur=0.12),   # ...a stretch as he launches
             k(r(OUT9[j] + SCR9), to=MID9[j], dur=0.3, ease='out', clip='run'),

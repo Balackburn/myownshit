@@ -2861,3 +2861,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   quarts, souriante ; « POP ! », couvercle qui vole de face, mâchoire du gardien puis yeux du héros derrière elle). Cuillère qui plie à angle
   droit, pince à bec qui mord le couvercle, nouveau char au canon braqué sur le bocal, deux chaînes d'astronautes devant un hublot. Brouillon 3
   en file, revue 3 préparée. Brouillons prêts et revues lancées : « Le bus » (2), « Le service client » (2), « Le centime » (3).
+- 7 h 30 — « Le bus » (72) : revue 2 = 6,8 (animation) ; 6,5 (direction artistique), contre 5,2 ; 5,6. Reste : le peloton est déjà sur la route
+  au début du plan 8 (on ne le voit pas quitter son parcours), le dossard cache le visage puis son chiffre disparaît sous la cravate, trois
+  accents durent une seule image du brouillon (accroupi du départ, maillot qui tombe, chaussures neuves), la nouille est une barre rigide, les
+  savants sont cachés derrière lui. Passe 3 confiée à un agent dérivé.
