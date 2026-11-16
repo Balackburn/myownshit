@@ -71,7 +71,8 @@ st.shot('S01', 'livingRoom', setOpts=LR, actors=[act('mec', ME1, 0, 'stand', 'ne
             k(0.12, toon=SHOW(F1, TAP1), toonDur=0.07, toonEase='in'), k(0.26, toon=SHOW(F1, TAP0), toonDur=0.1),                       # he dials: one tap
             k(LIFT1, toon=HOLD({'lid': 0.3, 'mouth': 'line'}), toonDur=0.3, toonEase='inOut'),                                           # the phone goes up to his ear
             k(r(LIFT1 + 0.31), toon=HOLD({'lid': 0.3, 'mouth': 'line'}, {'sq': [1.03, 0.96, 1.03]}), toonDur=0.05), k(r(LIFT1 + 0.38), toon=HOLD(), toonDur=0.12),   # it lands: a little settle
-            *BL(1.5, {**DEAD, 'mouth': 'line'})])],
+            FK(1.08, {'lid': 0.3, 'mouth': 'line', 'gx': 0.8}, 0.1), FK(1.3, {**DEAD, 'mouth': 'line'}, 0.1),                               # a glance at the phone while it rings, and back to us
+            *BL(1.55, {**DEAD, 'mouth': 'line'})])],
         props=[TEL('tel1', start=FRONT, keys=CARRY('mec', LIFT1, 0.3, FRONT, EAR))],
         cams=[FC(0.0, [1.65, 1.55, 1.3], [[ME1[0], 2.42, ME1[2]], [ME1[0], 1.0, ME1[2]], [r(ME1[0] + 0.55), 2.0, ME1[2]], [r(ME1[0] - 0.4), 2.0, ME1[2]], [r(ME1[0] + 0.2), 1.4, r(ME1[2] + 0.5)]], top=0.14, bottom=0.74)])   # (pass 2) from his left, three quarters: the phone side
 st.cue('sfx:click', 'S01', 0.14, 0.15); st.cue('sfx:ring', 'S01', 0.9, 0.12)
