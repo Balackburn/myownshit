@@ -50,8 +50,8 @@ GLOW = lambda pid, doors, **kw: P(pid, 'doorGlow', pos=[0, 0, BACK], opts={'door
 BUTTON = lambda pid, **kw: P(pid, 'callButton', pos=BTN, opts=kw)
 CHAIR = lambda pid, **kw: P(pid, 'armchair', pos=CH, opts={'color': '#B5523A', **kw})
 def _dk(c, f=0.86): return '#' + ''.join(f'{int(int(c[i:i + 2], 16) * f):02X}' for i in (1, 3, 5))
-BEARD = lambda pid, who='mec', s=1.2, color='#E4E0D8', keys=None, swing=None: P(pid, 'beardHair', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.02, 0.1], 'hang': True, 'hangYaw': 0.4}, scale=s,   # (pass 3) hang: it hangs by gravity from the chin (nailed to the head it swung into the chest when the head turned)
-                                                       opts={'len': 0.95, 'coil': 0.0, 'color': color, 'dark': _dk(color), 'n': 7, 'r': 0.05, 'bulge': 0.1, 'depth': 0.12, 'w': 0.26, **({'swing': swing, 'whip': True} if swing else {})}, **({'keys': keys} if keys else {}))   # (final pass) seven thick locks in two close values: one tapered mass (nine thin ones in four tones read as pipes)
+BEARD = lambda pid, who='mec', s=1.2, color='#E4E0D8', keys=None, swing=None: P(pid, 'beardMass', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.02, 0.1], 'hang': True, 'hangYaw': 0.4}, scale=s,   # (pass 3) hang: it hangs by gravity from the chin (nailed to the head it swung into the chest when the head turned)
+                                                       opts={'len': 0.95, 'color': color, 'dark': _dk(color, 0.88), 'depth': 0.12, 'w': 0.26, **({'swing': swing, 'whip': True} if swing else {})}, **({'keys': keys} if keys else {}))   # (final pass) beardMass: one tapered mass in two close values with a point (the bundle of locks read as pipes, and as tentacles when he stood)
 SPECS = lambda pid, who='mec', keys=None: P(pid, 'glasses', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.23, 0.106]}, opts={'r': 0.042, 'dx': 0.055}, **({'keys': keys} if keys else {}))   # (pass 2) at eye level (they sat at the jaw); (pass 3) on the face (z 0.16 floated 6 cm in front of it: seen in profile they hung in the air)
 PLAID = '#2E7D5B'   # (pass 2) a green blanket against the red armchair (it was lost under the dust)
 STICK = lambda pid, who='mec', hand='R': P(pid, 'slab', on={'actor': who, 'hand': hand, 'offset': [0.0, -0.45, 0.04]}, opts={'w': 0.03, 'h': 0.95, 'd': 0.03, 'color': '#6B4A2E'})
@@ -120,7 +120,7 @@ st.shot('S05', 'immeubleHall', setOpts=HALL(floor=[[0.0, '3']]), actors=[act('me
             k(r(GIVE + 0.12), toon={'hands': {'R': 'open', 'L': 'open'}}, toonDur=0.25), k(r(GIVE + 0.3), look='camera', lookDur=0.2)])],   # (pass 3) she ends three-quarters to us beside him (she had her back to us)
         props=[FLOOR('sol5'), BUTTON('bt5', litAfter=0.0), BEARD('barbe5', s=0.75, color='#5A4636'),
                P('soupe5', 'steamBowl', on={'actor': 'mamie', 'hand': 'R', 'offset': [0.0, -0.02, 0.05], 'hang': True, 'hangYaw': 1.0}, scale=1.5, keys=[k(GIVE, attach='mec', hand='R', offset=[0.0, -0.02, 0.06], hang=True, hangYaw=1.0)]),   # (pass 3) the hand-over as a flat key (given as a dictionary it was not read: bowl and baguette fell to the floor, into the caption band); hang: the bowl stays level; (final pass) a deep bowl with steam (the flat plate read as a blue plate)
-               P('pain5', 'loaf', on={'actor': 'mamie', 'hand': 'L'}, scale=1.3, keys=[k(GIVE, attach='mec', hand='L')])],   # (final pass) a slashed baguette gripped in the fist by its middle (hung upright beside the hand it floated)
+               P('pain5', 'loaf', on={'actor': 'mamie', 'hand': 'L'}, scale=0.9, keys=[k(GIVE, attach='mec', hand='L')])],   # (final pass) a slashed baguette gripped in the fist by its middle (hung upright beside the hand it floated)
         cams=[FC(0.0, [0.45, 1.3, 0.9], [[ME[0], 2.02, ME[2]], [r(ME[0] + 0.45), 1.0, ME[2]], [r(MAM[0] - 0.3), 1.78, MAM[2]], [r(MAM[0] - 0.42), 0.72, MAM[2]], [1.2, 0.68, -2.1]], top=0.14, bottom=0.74, drift=(0.05, 0.0, -0.12))])   # (pass 3) low and close, from the knees up: nothing in the caption band
 st.cue('sfx:stepSoft', 'S05', 0.15, 0.15); st.cue('sfx:stepSoft', 'S05', 0.4, 0.15)
 
@@ -132,7 +132,7 @@ st.shot('S06', 'immeubleHall', setOpts=HALL(floor=[[0.0, '8']]), actors=[act('me
             k(0.0, toon={'bend': {'spine': [0.32, 0.0, 0.0, 1.0]}}, toonDur=0.0)])],   # (final pass) leaning into the push
         props=[FLOOR('sol6'), BUTTON('bt6', litAfter=0.0), BEARD('barbe6', s=0.85, color='#6E6052'),
                P('fauteuil6', 'armchair', pos=[-0.22, 0, -1.95], ry=95, keys=[k(0.0, to=[0.78, 0, -2.05], dur=D6, ease='linear')], opts={'color': '#B5523A'})],   # (final pass) its back to her, so her hands are on it (turned to us, her hands floated over its side)
-        cams=[FC(0.0, [2.0, 1.3, 1.4], [[ME[0], 2.02, ME[2]], [r(ME[0] + 0.42), 0.9, ME[2]], [r(CON0[0] - 0.2), 1.9, CON0[2]], [r(CON0[0] - 0.25), 0.4, CON0[2]], [0.78, 0.3, -1.65]], top=0.14, bottom=0.76, lenses=range(26, 62), drift=(-0.1, 0.0, -0.1), inside=ROOM)])   # (pass 3) from his side, low: he is big at the right, she comes toward us pushing (they were a third of the frame); (final pass) from further round in front, her start point in the fit (lens 68 from the side)
+        cams=[FC(0.0, [2.0, 1.3, 1.4], [[ME[0], 2.02, ME[2]], [r(ME[0] + 0.42), 0.9, ME[2]], [r(CON0[0] - 0.2), 1.9, CON0[2]], [r(CON0[0] - 0.25), 0.4, CON0[2]], [0.78, 0.3, -1.65]], top=0.2, bottom=0.86, lenses=range(26, 62), drift=(-0.1, 0.0, -0.1), inside=ROOM)])   # (pass 3) from his side, low: he is big at the right, she comes toward us pushing (they were a third of the frame); (final pass) from further round in front, her start point in the fit (lens 68 from the side)
 st.cue('sfx:rattle', 'S06', 0.0, 1.0)
 
 # 7: ...an armchair. He drops into it: the cushion squashes and springs back in a puff of dust; she tucks a blanket over his knees
@@ -151,8 +151,8 @@ st.cue('thud', 'S07', SINK, 0.4); st.cue('sfx:poof', 'S07', SINK, 0.4)
 # 8: the residents' association voted for works. A meeting in the hall: at the left the chairman behind a folding table bangs his gavel, three
 #    residents in a row with gaps between them, three-quarters to us, raise their hands, and so does he from his armchair at the right: his arm
 #    unrolls in an S, overshoots above theirs, twice as long, and sways there; the gavel bangs on the vote and again at the end (VOTÉ)
-D8 = st.dur('S08'); BANG8 = 0.75; BANG8B = 1.55; SYN = [-1.15, 0, -2.5]; TAB = [-1.05, 0, -2.08]; TOP8 = [-1.18, 0.8, -2.05]   # (final pass) the chairman clear at the left behind a real folding table (hidden behind the residents, only his gavel arm showed)
-RES8 = [('voisin1', -0.45, -1.92, -26), ('voisin2', 0.12, -1.72, -24), ('voisin3', 0.66, -2.04, -30)]   # (final pass) a row with gaps, three-quarters to us (their heads piled on each other)
+D8 = st.dur('S08'); BANG8 = 0.75; BANG8B = 1.55; SYN = [-1.2, 0, -2.62]; TAB = [-1.12, 0, -2.18]; TOP8 = [-1.25, 0.8, -2.15]   # (final pass) the chairman clear at the left behind a real folding table (hidden behind the residents, only his gavel arm showed)
+RES8 = [('voisin1', -0.55, -2.12, -22), ('voisin2', 0.1, -1.62, -18), ('voisin3', 0.7, -2.22, -28)]   # (final pass) a row with gaps, staggered in depth, three-quarters to us (their heads piled on each other)
 UPV = 2.3                                          # (final pass) their hands stop at 2.3 m: under the VOTÉ card (they reached into its band)
 UP8 = lambda y=2.76, dx=0.0, wv=None: {'reach': {'R': [r(1.6 + dx), y, -2.2, 1, 0.04]}, 'hands': {'R': 'open'}, **({'wave': {'armR': wv, 'foreR': wv}} if wv else {})}
 BANG = lambda t0, n: [k(r(t0 - 0.22), toon={'reach': {'R': [TOP8[0], 1.72, r(TOP8[2] - 0.05), 1, 0.04]}, 'hands': {'R': 'grip'}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.18, toonEase='out'),   # the gavel goes up, high...
@@ -174,7 +174,7 @@ st.shot('S08', 'immeubleHall', setOpts=HALL(floor=[[0.0, '5']]), actors=[act('me
         props=[FLOOR('sol8'), BUTTON('bt8', litAfter=0.0), CHAIR('fauteuil8'), BEARD('barbe8', s=0.9, color='#7A6E62'), P('table8', 'foldTable', pos=TAB, ry=30, opts={'w': 0.95, 'd': 0.5}),
                P('marteau8', 'gavel', on={'actor': 'syndic', 'hand': 'R', 'offset': [0.0, -0.02, 0.05]}),
                P('banniere8', 'signBoard', pos=[-0.75, 2.42, BACK + 0.05], opts={'text': 'ASSEMBLÉE GÉNÉRALE', 'bg': '#F3EBD6', 'fg': '#7A2A1E', 'w': 1.2, 'h': 0.26, 'posts': False, 'height': 0})],   # (final pass) lower, over the chairman: clear of the card band
-        cams=[FC(0.0, [0.3, 1.35, 2.3], [[1.62, 2.82, -2.2], [1.95, 0.7, CH[2]], [r(SYN[0] - 0.35), 2.0, SYN[2]], [r(TAB[0] - 0.55), 0.3, TAB[2]], [-0.45, 2.35, -1.92], [0.12, 0.2, -1.72], [1.95, 0.0, CH[2]]], top=0.19, bottom=0.76, lenses=range(26, 61))])   # (final pass) his raised hand at 19 % of the height, the residents' under it: the VOTÉ card above all of them
+        cams=[FC(0.0, [0.3, 1.35, 2.3], [[1.62, 2.82, -2.2], [1.95, 0.7, CH[2]], [r(SYN[0] - 0.35), 2.0, SYN[2]], [r(TAB[0] - 0.55), 0.3, TAB[2]], [-0.55, 2.35, -2.12], [0.1, 0.2, -1.62], [1.95, 0.0, CH[2]]], top=0.25, bottom=0.88, lenses=range(26, 61))])   # (final pass) the group lower in the frame (a third of floor under them): his raised hand under the VOTÉ card, the residents' under his
 st.cue('sfx:gavel', 'S08', BANG8, 0.4); st.cue('sfx:gavel', 'S08', BANG8B, 0.3)
 
 # 9: the works lasted... A worker drills the floor in front of the lift with a jackhammer: the worker, the armchair, his beard and the camera all
@@ -233,7 +233,7 @@ st.shot('S13', 'immeubleHall', setOpts=HALL(floor=[[0.0, '6']]), dark=[[0.0, 0.5
         props=[FLOOR('sol13'), BUTTON('bt13', litAfter=0.0), P('plaque13', 'bronzePlaque', pos=[BTN[0], 0.82, BACK + 0.04], scale=0.8, opts={'text': "BOUTON D'APPEL/2006"}),
                P('spot13', 'lightCone', pos=[BTN[0], 3.3, BACK + 0.45], opts={'h': 2.3, 'r': 0.42}), P('cordon13', 'stanchions', pos=[BTN[0], 0, BACK + 0.75], opts={'w': 1.0}),
                CHAIR('fauteuil13'), BEARD('barbe13', who='vieux', s=1.25), SPECS('lun13', who='vieux'), STICK('canne13', who='vieux'), *WEBS('toile13'), WEB('toile13c'),
-               P('poussiere13', 'coneDust', pos=[BTN[0], 3.3, BACK + 0.45], opts={'h': 2.3, 'r': 0.42, 'n': 46})],   # (final pass) dust drifting in the beam
+               P('poussiere13', 'coneDust', pos=[BTN[0], 3.3, BACK + 0.45], opts={'h': 2.3, 'r': 0.42, 'n': 54, 's': 0.02})],   # (final pass) dust drifting in the beam
         cams=[FC(0.0, [-0.3, 1.8, 1.6], [[SITP[0], 2.2, SITP[2]], [BTN[0], 3.3, BACK + 0.45], [BTN[0] - 0.5, 0.0, BACK + 0.75], [CH[0] + 0.45, 0.0, CH[2]], [DISP[0], 2.6, DISP[2]]], top=0.12, bottom=0.78, drift=(0.12, -0.08, -0.45))])   # (final pass) a slow push-in
 
 # 14: schools come to visit it. A teacher shows the button to a class lined up along the wall, gaps between them; the nearest child, in profile,
@@ -264,7 +264,7 @@ st.shot('S14', 'immeubleHall', setOpts=HALL(floor=[[0.0, '6']]), actors=[act('vi
                P('spot14', 'lightCone', pos=[BTN[0], 3.3, BACK + 0.45], opts={'h': 2.3, 'r': 0.42, 'opacity': 0.14}),
                P('cordon14', 'stanchions', pos=[0.705, 0, BACK + 0.75], opts={'w': 0.59}), P('fauteuil14', 'armchair', pos=CH14, opts={'color': '#B5523A'}), BEARD('barbe14', who='vieux', s=1.25), SPECS('lun14', who='vieux'), WEB('toile14c'),
                P('canne14', 'cane', pos=HANDP, ry=CRY, opts={'len': 0.92, 'swing': [r(TAP - 0.07), -1.1, A1, 0.07], 'antic': 0.6, 'anticDur': 0.2, 'rest': 0.25})],   # (final pass) a six-frame wind-up (it went up in one frame)   # (pass 3) the stick lies across his lap, whips over the top about his hand and lands on the child's hand over the rope, with a smear (it hung over the child's head and never touched anything)
-        cams=[FC(0.0, [1.75, 1.2, 1.1], [[SIT14[0], 1.7, SIT14[2]], [r(SIT14[0] + 0.48), 0.9, SIT14[2]], [BTN[0], 0.66, BTN[2]], [r(K1[0] - 0.2), 1.1, K1[2]], [r(K1[0] - 0.2), 0.3, K1[2]], [r(TEA[0] - 0.2), 1.85, TEA[2]], [r(TEA[0] - 0.2), 0.5, TEA[2]], [HANDP[0], 1.65, HANDP[2]]], top=0.12, bottom=0.76, lenses=range(26, 62), drift=(-0.08, 0.0, -0.12), inside=ROOM)])   # (final pass) more frontal: the class reads as a row of separate silhouettes, the stick swings across the frame onto the hand   # (pass 3) from his side, low: the child and his class at the left, the button and its plaque in the gap, the stick across it, him at the right (the button hid behind a child, he was cut by the edge)
+        cams=[FC(0.0, [1.75, 1.2, 1.1], [[SIT14[0], 1.7, SIT14[2]], [r(SIT14[0] + 0.48), 0.9, SIT14[2]], [BTN[0], 0.66, BTN[2]], [r(K1[0] - 0.2), 1.1, K1[2]], [r(K1[0] - 0.2), 0.3, K1[2]], [r(TEA[0] - 0.2), 1.85, TEA[2]], [r(TEA[0] - 0.2), 0.5, TEA[2]], [HANDP[0], 1.65, HANDP[2]]], top=0.2, bottom=0.86, lenses=range(26, 62), drift=(-0.08, 0.0, -0.12), inside=ROOM)])   # (final pass) more frontal: the class reads as a row of separate silhouettes, the stick swings across the frame onto the hand   # (pass 3) from his side, low: the child and his class at the left, the button and its plaque in the gap, the stick across it, him at the right (the button hid behind a child, he was cut by the edge)
 st.cue('sfx:bonk', 'S14', TAP, 0.3); st.cue('whoosh', 'S14', r(TAP - 0.08), 0.2)
 
 # 15: yesterday... The floor display at last shows RC; a ding; the old man's head snaps up, his eyes out past his glasses, which jump on his nose
@@ -361,8 +361,8 @@ def knees(t0, n, step=0.32):   # (final pass) the leading knee lifts at each ste
     out = []
     for i in range(n):
         sd = 'L' if i % 2 == 0 else 'R'
-        out += [k(r(t0 + i * step), toon={**F21, 'bend': {f'leg{sd}': [-0.95, 0.0, 0.0, 1.0], f'shin{sd}': [1.35, 0.0, 0.0, 1.0]}}, toonDur=0.1, toonEase='out'),
-                k(r(t0 + i * step + 0.18), toon={**F21, 'bend': {}}, toonDur=0.1, toonEase='inOut')]
+        out += [k(r(t0 + i * step), toon={**F21, 'bend': {f'leg{sd}': [-1.25, 0.0, 0.0, 1.0], f'shin{sd}': [1.7, 0.0, 0.0, 1.0]}}, toonDur=0.09, toonEase='out'),
+                k(r(t0 + i * step + 0.22), toon={**F21, 'bend': {}}, toonDur=0.09, toonEase='inOut')]
     return out
 DOORS21 = [[0.0, 1.0], [0.45, 1.0], [1.2, 0.0]]
 F21 = {'face': {**OLDF, 'mouth': 'line'}, 'sq': [1.03, 0.95, 1.03]}
