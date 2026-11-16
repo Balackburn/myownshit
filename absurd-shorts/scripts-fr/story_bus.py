@@ -161,8 +161,8 @@ st.shot('S05', 'grassland', actors=[act('mec', [0, 0, 0], 90, 'run', 'determined
         act('gend1', [-0.62, 0.57, -0.95], 90, 'ride', 'determined', params={'cadence': 0.0, 'lean': 0.3}, keys=[k(0.0, look=[12.0, 2.2, -0.95]), k(0.0, toon=BAR5(-0.35, -0.95, {'lid': 0.1, 'mouth': 'line'}), toonDur=0.0),
             k(0.35, look=[9.0, 1.6, -8.0], lookDur=0.22), k(0.95, look=[9.0, 1.6, 7.0], lookDur=0.3), k(1.6, look=[12.0, 2.2, -0.95], lookDur=0.22)]),   # (pass 3) he scans the road
         act('gend2', [-1.02, 0.57, 0.95], 90, 'ride', 'determined', params={'cadence': 0.0, 'lean': 0.3}, keys=[k(0.0, look=[12.0, 2.2, 0.95]), k(0.0, toon=BAR5(-0.75, 0.95, {'lid': 0.1, 'mouth': 'line'}), toonDur=0.0),
-            k(0.7, look='camera', lookDur=0.15), k(0.95, toon=BAR5(-0.75, 0.95, {'lid': 0.2, 'mouth': 'smirk'}, R=[-0.55, 2.15, 1.35, 1, 0.04], hR='thumbUp'), toonDur=0.14, toonEase='out'),
-            *[k(r(1.15 + 0.17 * i), toon=BAR5(-0.75, 0.95, {'lid': 0.2, 'mouth': 'smirk'}, R=[-0.55, r(2.15 + (0.08 if i % 2 == 0 else 0.0)), 1.35, 1, 0.04], hR='thumbUp'), toonDur=0.08) for i in range(5)]])],
+            k(0.7, look='camera', lookDur=0.15), k(0.95, toon=BAR5(-0.75, 0.95, {'lid': 0.2, 'mouth': 'smirk'}, R=[-0.55, 2.3, 1.02, 1, 0.04], hR='thumbUp'), toonDur=0.14, toonEase='out'),
+            *[k(r(1.15 + 0.17 * i), toon=BAR5(-0.75, 0.95, {'lid': 0.2, 'mouth': 'smirk'}, R=[-0.55, r(2.3 + (0.09 if i % 2 == 0 else 0.0)), 1.02, 1, 0.04], hR='thumbUp'), toonDur=0.08) for i in range(5)]])],
         props=[ROADS('road5', D5), *scroll(TREES('5', -6.5, -10.0, 26.0, 9), D5),
                *[P(f'moto5{j}', 'policeBike', pos=[gx, 0, gz], scale=MS5, opts={'roll': 40, 'phase': 1.7 * j}) for j, (_, gz, gx) in enumerate(G5)],
                STREAK('sl5', [-2.4, 1.5, 0.3], n=8, ln=2.2, w=1.0), *DUST('5')],
@@ -280,14 +280,14 @@ st.cue('whoosh', 'S10', 0.15, 0.25); st.cue('thud', 'S10', ON10, 0.25); st.cue('
 
 # 11: the driver, though... Inside the bus, behind the driver: his cap, his arms on the big wheel, whistling; (pass 2) the road and the trees
 #     stream toward us through the windscreen; (pass 3) notes puff out of his far cheek and his fingers drum on the wheel; (final pass) the camera
-#     moved round to three-quarter front from the door side: his whistling face at the top, the wheel and his drumming hands mid-frame (from behind,
-#     the back of his head hid them; the scenery streams in the side windows behind him)
+#     moved right and tilted down: his cap at the left, his arm and drumming hand mid-frame, the road in the windscreen (the back of his head
+#     filled the middle and the wheel sat under the captions)
 D11 = st.dur('S11')
 st.shot('S11', 'grassland', actors=[act('chauffeur', [2.75, 0.45, -0.5], 90, 'drive', 'neutral', keys=[k(0.0, look=[12.0, 2.2, -0.5]),
             *[k(r(0.1 + 0.18 * j), toon={'face': {'lid': 0.3, 'mouth': 'whistle', 'cheeks': 0.7 if j % 2 else 0.2}, 'sq': [1.0, 1.02 if j % 2 else 0.99, 1.0], 'hands': {'L': 'open' if j % 2 else 'grip', 'R': 'grip' if j % 2 else 'open'}}, toonDur=0.06) for j in range(6)]])],
         props=[ROADS('road11', D11), BUS('bus11', [0.0, 0, 0.0], 0), *scroll(TREES('11', -5.0, 8.0, 64.0, 10), D11), *scroll(TREES('11b', 5.0, 10.0, 66.0, 10), D11),
                P('notes11', 'holdNotes', on={'actor': 'chauffeur', 'joint': 'head', 'offset': [0.36, 0.3, 0.22], 'face': 'camera'}, opts={'rate': 4, 'life': 1.1, 'size': 0.15, 'dy': 0.45, 'dx': 0.4, 'from': -0.6, 'color': '#22305A'})],
-        cams=[cam(0.0, [3.45, 2.35, 0.95], [3.45, 2.35, 0.95], [3.05, 1.4, -0.5], lens=58)])   # (stills 3) over his shoulder from the aisle: his cap, the wheel, the whole windscreen (a pole stood across the lens)
+        cams=[cam(0.0, [1.3, 2.6, 0.15], [1.3, 2.6, 0.15], [3.8, 1.45, -0.5], lens=60)])   # (stills 3) over his shoulder from the aisle: his cap, the wheel, the whole windscreen (a pole stood across the lens)
 st.cue('sfx:whistle', 'S11', 0.15, 0.2)
 
 # 12: ...never looked in his mirror. (pass 2) From in front of the windscreen (clear glass): the driver whistling, his eyes on the road; over the
