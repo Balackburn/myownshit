@@ -312,13 +312,13 @@ st.shot('S16', 'kitchenDay', actors=[act('mec', HP15, 0, 'stand', 'neutral', key
             k(1.1, toon=H16([0.99, 1.035, 0.99]), toonDur=0.25, toonEase='inOut'),                                                    # a breath in...
             k(1.36, toon=H16([0.99, 1.035, 0.99], {'lid': 1.0, 'mouth': 'line'}), toonDur=0.14, toonEase='inOut'),                    # ...the slow blink...
             k(1.62, toon=H16([1.0, 1.0, 1.0]), toonDur=0.2, toonEase='inOut')])],                                                      # ...and out
-        props=[P('frais16', 'paperSheet', pos=SH16, face='camera', opts={'w': SW16, 'h': 0.37, 'head': 'FRAIS DE', 'big': 'DÉPLACEMENT', 'bright': True}),   # (pass 3) a free sheet turned to the lens, in front of both hands (in his hand, his palms covered the words)
+        props=[P('frais16', 'paperSheet', pos=SH16, face='camera', opts={'w': SW16, 'h': 0.27, 'head': 'FRAIS DE', 'big': 'DÉPLACEMENT', 'bright': True}),   # (pass 3) a free sheet turned to the lens, in front of both hands (in his hand, his palms covered the words)
                P('table16', 'table', pos=[0.15, 0, -1.3], opts={'w': 1.0, 'd': 0.7, 'h': 0.76}), P('cochon16', 'piggyBank', pos=PIG, ry=20, opts={'s': 1.25})],
-        cams=[FC(0.0, [SH16[0], 1.38, -0.3], [[SH16[0], 1.53, SH16[2]], [SH16[0], 1.11, SH16[2]], [r(SH16[0] - 0.38), 1.32, SH16[2]], [r(SH16[0] + 0.38), 1.32, SH16[2]]], top=0.25, bottom=0.66),   # the two lines, as wide as the frame
+        cams=[FC(0.0, [SH16[0], 1.38, -0.3], [[SH16[0], 1.48, SH16[2]], [SH16[0], 1.16, SH16[2]], [r(SH16[0] - 0.38), 1.32, SH16[2]], [r(SH16[0] + 0.38), 1.32, SH16[2]]], top=0.25, bottom=0.66),   # the two lines, as wide as the frame
               glide([FC(0.6, [0.25, 1.45, 0.45], [[HP15[0], 2.5, HP15[2]], [HP15[0], 1.1, HP15[2]], [PIG[0], 0.85, PIG[2]], [r(PIG[0] - 0.22), 1.0, PIG[2]], [r(SH16[0] + 0.44), 1.32, r(SH16[2] + 0.14)]], top=0.12, bottom=0.78, lenses=range(26, 68))], 0.35)])   # ...then up to his face, the pig beside him
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
-st.write("Le centime", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, debugJoints=['mec'], extra_cast={
+st.write("Le centime", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, extra_cast={
     'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}, 'toon': {'breathe': 1.7, 'holdLife': 1.6}},   # (pass 3) he breathes in the holds
     'agent': {'preset': 'officiel', 'seed': 771, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'agent2': {'preset': 'avocat', 'seed': 772, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},

@@ -2832,3 +2832,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   jamais à l'écran dans l'accroche ni au dernier plan (le visage peint n'est que sur l'avant de la tête : un profil est une face vide), « 400 ANS »
   caché par sa tête pendant qu'on le dit, la glissade sur la vitre est figée une seconde, les tickets ne jaillissent pas. Passe 3 confiée à un
   agent dérivé.
+- 3 h 15 — « Le pull » (74) : revue 2 = 6,8 (animation) ; 7,3 (direction artistique), contre 5,0 ; 6,2 : la plus forte progression du lot (la
+  passe 2 a rendu l'étiquette lisible partout et animé le retournement du pull). Reste : la série des imitateurs (plans 4 à 11) change de porteur
+  mais pas de comportement — l'étiquette est déjà dressée et ne fait qu'osciller —, le plan 10 est figé, le retour de l'étiquette (plan 18) est
+  sous-joué. Passe 3 confiée à un agent dérivé. « Le bocal » (78) : brouillon 2 prêt sans passage figé, revue 2 en cours.

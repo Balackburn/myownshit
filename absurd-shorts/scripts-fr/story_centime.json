@@ -8993,7 +8993,7 @@
      "face": "camera",
      "opts": {
       "w": 0.62,
-      "h": 0.37,
+      "h": 0.27,
       "head": "FRAIS DE",
       "big": "DÉPLACEMENT",
       "bright": true
@@ -9043,14 +9043,14 @@
      ],
      "lookAt": [
       0.95,
-      0.511,
+      0.508,
       -9.762
      ],
      "lens": 56,
      "ease": "linear",
      "lookAt2": [
       0.95,
-      0.511,
+      0.508,
       -9.762
      ]
     },
@@ -9141,8 +9141,5 @@
  "limbSmear": 1,
  "follow": 1,
  "pupil": 0.5,
- "hairRest": 0.07,
- "debugJoints": [
-  "mec"
- ]
+ "hairRest": 0.07
 }

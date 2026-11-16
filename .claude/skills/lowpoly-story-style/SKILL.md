@@ -1700,3 +1700,8 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   les 0,2 dernières secondes (ciseaux levés, sourire à la caméra, doigt qui lâche), invisible au rythme d'un plan par phrase.
 - (cycle 41) La rotation d'un accessoire attaché se donne DANS `on={…, 'rot': […]}` ; passée en dehors (`rot=` sur l'accessoire), elle est
   ignorée dès qu'il est porté (« Le service client » : le téléphone restait de chant).
+
+- (cycle 41) Un gag qui se propage (tout le monde imite le héros) doit changer de COMPORTEMENT à chaque étape, pas seulement de porteur ou de
+  taille : une action différente de l'accessoire par plan (il jaillit quand le collègue s'arrête ; une vague d'un bureau à l'autre ; il rebondit à
+  contretemps des pas ; il se lève lentement comme un drapeau). Et quand une phrase tient sur deux plans, le premier ne montre pas ce que le
+  second révèle. « Le pull », revue 2 : 40 % du film en « tableaux où l'étiquette est déjà dressée et oscille ».
