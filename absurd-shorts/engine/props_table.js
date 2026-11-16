@@ -205,13 +205,15 @@ export const TABLE_PROPS = {
   },
 
   // A barred cell door (pivot at its hinge, the left edge at the floor; it closes along +X): a navy frame with nine bars and a lock plate; o.w 0.95,
-  // o.h 2.15; o.open (1.6 rad) until o.slam, then it swings shut in 0.12 s and bounces twice (0.18, 0.06 rad) before it sits
+  // o.h 2.15; o.open (1.6 rad) until o.slam, then it swings shut in 0.12 s and bounces twice (0.18, 0.06 rad) before it sits; o.plate: a white
+  // plate across the bars at chest height (something to stamp)
   barDoor(o) {
     const W = o.w ?? 0.95, H = o.h ?? 2.15, g = grp(), leaf = grp(); g.add(leaf);
     leaf.add(at(box(0.07, H, 0.07, '#26324E', { pivot: 'bottom', outline: 0.006 }), 0.035, 0, 0), at(box(0.07, H, 0.07, '#26324E', { pivot: 'bottom', outline: 0.006 }), W - 0.035, 0, 0));
     for (const y of [0.06, H * 0.5, H - 0.06]) leaf.add(at(box(W, 0.08, 0.07, '#26324E', { outline: 0.006 }), W / 2, y, 0));
     for (let i = 1; i < 9; i++) leaf.add(at(cyl(0.017, 0.017, H, '#59606A', 6, { pivot: 'bottom' }), i * W / 9, 0, 0));
     leaf.add(at(box(0.14, 0.2, 0.1, '#E2B53C', { outline: 0.006 }), W - 0.12, H * 0.5, 0.02));
+    if (o.plate) leaf.add(at(box(W * 0.8, 0.5, 0.03, '#F4F1E8', { outline: 0.006 }), W / 2, H * 0.62, 0.06));
     const A = o.open ?? 1.6;
     g.userData.update = t => { let a = A; if (o.slam != null) { const u = t - o.slam; if (u >= 0) { if (u < 0.12) a = A * (1 - (u / 0.12) * (u / 0.12)); else { const v = u - 0.12; a = v < 0.12 ? 0.18 * Math.sin(PI * v / 0.12) : v < 0.2 ? 0.06 * Math.sin(PI * (v - 0.12) / 0.08) : 0; } } } leaf.rotation.y = a; };
     g.userData.update(0); return g;
@@ -242,6 +244,17 @@ export const TABLE_PROPS = {
     g.add(at(box(w, h, 0.06, c, { pivot: 'bottom', outline: 0.01 }), 0, 0, d / 2), at(box(0.06, h, d, c, { pivot: 'bottom', outline: 0.01 }), -w / 2, 0, 0), at(box(0.06, h, d, c, { pivot: 'bottom', outline: 0.01 }), w / 2, 0, 0));
     g.add(at(box(w + 0.1, 0.06, 0.1, c2, { outline: 0.006 }), 0, h, d / 2), at(box(0.1, 0.06, d, c2, { outline: 0.006 }), -w / 2, h, 0), at(box(0.1, 0.06, d, c2, { outline: 0.006 }), w / 2, h, 0));
     g.add(at(box(w * 0.8, h * 0.55, 0.01, c2), 0, h * 0.42, d / 2 + 0.032));
+    return g;
+  },
+
+  // A tactical lamp held like a rifle (pivot at its grip, pointing +Z): a black body with a short stock and a glowing lens, a soft cone of light o.len
+  // (3 m) long and o.r (0.45 m) wide at its end; o.beam (0.22): the cone's opacity (lower by day)
+  tacLight(o) {
+    const L = o.len ?? 3, R = o.r ?? 0.45, g = grp();
+    g.add(at(box(0.07, 0.08, 0.42, '#1E2024', { outline: 0.006 }), 0, 0.02, 0.12), at(box(0.06, 0.12, 0.05, '#1E2024'), 0, -0.05, 0.0), at(box(0.06, 0.07, 0.16, '#2C2F35'), 0, 0.0, -0.14));
+    g.add(at(cyl(0.05, 0.05, 0.06, '#2C2F35', 10), 0, 0.03, 0.34, PI / 2, 0, 0), at(cyl(0.042, 0.042, 0.01, '#FFF6C8', 10, { emissive: '#FFF6C8' }), 0, 0.03, 0.372, PI / 2, 0, 0));
+    if (L > 0) { const cone = new THREE.Mesh(new THREE.ConeGeometry(R, L, 18, 1, true), new THREE.MeshBasicMaterial({ color: '#FFF3C2', transparent: true, opacity: o.beam ?? 0.22, depthWrite: false, side: THREE.DoubleSide }));
+      cone.rotation.x = -PI / 2; cone.position.set(0, 0.03, 0.38 + L / 2); cone.castShadow = false; g.add(cone); }
     return g;
   },
 
