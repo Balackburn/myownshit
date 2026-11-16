@@ -22,7 +22,15 @@ then eyes out on long stalks with the jaw dropped, overshoot and wobble (S06 kee
 soldiers and the official salute together on « hymne », the flag starts above the heads; S16 newsCamera (props_conseiller.js: light grey, lens, TV
 plate, red light) at his sides three quarters to us, the reporter's head out of frame; S08 closer, chrome helmets, yellow bands; S09 and S11 his head
 rocks on the music, S20 he flattens into the sofa and re-inflates, S03 his eyes lead the glance; S13 chalk-white notes on the board, the camera above
-the heads; the old man's hair mid-grey."""
+the heads; the old man's hair mid-grey.
+Final pass (review 3: 7.3 / 7.3): S10 the bride on the far side of the phone, her lips at its edge, the phone in full view between his ear and her
+mouth, OUI bursting from its top (tail on it) while it squashes, his face clear, the banner moved left out of the bubble's way; S07 the stretch eased
+over 6 frames, a bigger tremble, the slipping hand flung on in the same arc, a tall snap-back then a squash; S18 the head pulled to 3.1 times its
+width, held 0.4 s trembling harder and harder, filmed low from the phone side so the stretch runs out of the frame, then the head dips to the keypad;
+S11 the saluting cast spread so that no arm hides behind him, one-frame snap; S12 trumpets up, tuba bell pumping, drum hoops, sticks and a squash on
+each beat, closer; S13 the children bob together on the ruler; S14 a new take: the stalks swing to the phone, the chin drops like a block, the tongue
+out; S16 the two TV cameras in the lower corners dolly in on him, pushed in; S20 his eyes open on a flat stare, then the long slow blink; firemen in
+crested chrome helmets, soldiers in navy with kepis and white gloves, no cloned glasses on the extras."""
 from story_kit import *
 import math
 
@@ -148,22 +156,24 @@ def PULL(s, f, extra=None, brace=0.0, dy=0.0):   # s: the width of his head (1 =
     # (pass 3) brace: he leans back and away from the phone (the spine, not the scale of the body); dy: the head's height, for the tremble
     return {'touch': {'L': ['head', 0.27, 0.3, 0.045, 1, 0.02, [1, -0.3, 0.0]], 'R': ['head', 0.23, 0.0, 0.1, 1, 0.02, [-0.5, -1, 0.6]]}, 'hands': {'L': 'grip', 'R': 'grip'},
             'scl': {'head': [s, r(1 - 0.12 * (s - 1) + dy), 1.0]}, 'lay': [0, r(-0.063 * (s - 1))], 'bend': {'spine': [r(-0.14 * brace), r(0.1 * brace), 0, 1, None]}, 'face': f, **(extra or {})}
+FLING7 = lambda s, sy, lp, f, sq: {'reach': {'L': [*lp, 1, 0.03], 'R': [-0.7, 1.5, r(ME[2] + 0.2), 1, 0.03]}, 'hands': {'L': 'open', 'R': 'open'}, 'scl': {'head': [s, sy, 1.0]}, 'lay': [0, r(-0.063 * (s - 1))], 'sq': sq, 'face': f}   # (final pass) the slipping hand flung on along its arc
 LOOSE7 = lambda s, sy, f: {'reach': {'L': [0.75, 1.5, r(ME[2] + 0.2), 1, 0.03], 'R': [-0.7, 1.5, r(ME[2] + 0.2), 1, 0.03]}, 'hands': {'L': 'open', 'R': 'open'}, 'scl': {'head': [s, sy, 1.0]}, 'lay': [0, r(-0.063 * (s - 1))], 'face': f}
 STRAIN = {'lid': 0.15, 'mouth': 'clench', 'brow': -0.8, 'sweat': 1.0, 'tremble': 1.0, 'pupilShake': 1.0}
 st.shot('S07', 'livingRoom', setOpts=LR, actors=[act('mec', ME, 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=PULL(1.0, {'lid': 0.3, 'mouth': 'clench', 'brow': -0.6}), toonDur=0.0),
             k(0.0, toon=PULL(0.88, {'lid': 0.4, 'mouth': 'clench', 'brow': -0.7}, brace=1.0), toonDur=0.12, toonEase='inOut'),            # (pass 3) he braces, leans back: 4 frames...
-            k(0.13, toon=PULL(1.35, STRAIN, brace=1.2), toonDur=0.08, toonEase='in'),                                                    # ...and pulls: the head is dragged after the phone...
-            k(0.22, toon=PULL(2.0, STRAIN, brace=1.3), toonDur=0.1, toonEase='out'),                                                     # ...over 6 frames, to twice its width
-            *[k(r(0.33 + 0.066 * j), toon=PULL(2.14 if j % 2 else 1.9, STRAIN, brace=1.3, dy=0.03 if j % 2 else -0.03), toonDur=0.05, toonEase='linear') for j in range(5)],   # it trembles there, up and down too
+            k(0.13, toon=PULL(1.22, STRAIN, brace=1.15), toonDur=0.07, toonEase='in'),                                                   # ...and pulls: the head is dragged after the phone, slow at first...
+            k(0.2, toon=PULL(1.62, STRAIN, brace=1.25), toonDur=0.07, toonEase='linear'),                                                # (final pass) ...over 6 frames (it popped in one)...
+            k(0.27, toon=PULL(2.0, STRAIN, brace=1.3), toonDur=0.07, toonEase='out'),                                                    # ...to twice its width
+            *[k(r(0.36 + 0.06 * j), toon=PULL(2.2 if j % 2 else 1.84, STRAIN, brace=1.3, dy=0.05 if j % 2 else -0.05), toonDur=0.045, toonEase='linear') for j in range(5)],   # it trembles there, hard, up and down too
             k(0.66, toon=PULL(2.3, {**STRAIN, 'mouth': 'grimace'}, brace=1.5), toonDur=0.08, toonEase='in'),                             # one more heave
-            k(0.77, toon=LOOSE7(0.76, 1.2, {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 1.0}), toonDur=0.05, toonEase='out'),          # his grip slips: the head snaps back too far...
-            k(0.85, toon=LOOSE7(1.14, 0.93, {'lid': 0.0, 'eye': 0.4, 'mouth': 'o', 'brow': 0.8}), toonDur=0.07),
-            k(0.94, toon=LOOSE7(0.94, 1.04, {'lid': 0.2, 'mouth': 'wavy', 'brow': 0.3, 'cross': 0.5}), toonDur=0.07),
+            k(0.76, toon=FLING7(0.74, 1.26, [0.95, 2.25, r(ME[2] + 0.25)], {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 1.0}, [0.94, 1.08, 0.94]), toonDur=0.04, toonEase='out'),   # his grip slips: the hand flies on in the same arc, the head snaps back too far, tall...
+            k(0.82, toon=FLING7(1.16, 0.9, [1.0, 1.75, r(ME[2] + 0.3)], {'lid': 0.0, 'eye': 0.4, 'mouth': 'o', 'brow': 0.8}, [1.07, 0.9, 1.07]), toonDur=0.06),   # ...then squashes
+            k(0.9, toon=FLING7(0.95, 1.05, [0.8, 1.5, r(ME[2] + 0.25)], {'lid': 0.2, 'mouth': 'wavy', 'brow': 0.3, 'cross': 0.5}, [0.98, 1.02, 0.98]), toonDur=0.07),
             k(1.03, toon=FREE({'lid': 0.3, 'mouth': 'wavy', 'cross': 0.3}, {'scl': {'head': [1.0, 1.0, 1.0]}, 'lay': [0, 0]}), toonDur=0.1),   # ...wobbles, and is a head again
             FK(1.2, {'lid': 0.2, 'mouth': 'line', 'gx': 1.0}, 0.1),                                                                      # a look at the phone: still there
             *BL(1.34, {**DEAD, 'mouth': 'line', 'gx': 0.6})])],
         props=[TEL('tel7'), NOTES('mus7', size=0.12)],
-        cams=[FC(0.0, [0.3, 1.95, 1.3], [[ME[0], 2.5, ME[2]], [ME[0], 1.5, ME[2]], [0.85, 2.05, ME[2]], [-0.45, 2.05, ME[2]]], top=0.14, bottom=0.74)])
+        cams=[FC(0.0, [0.3, 1.95, 1.0], [[ME[0], 2.5, ME[2]], [ME[0], 1.62, ME[2]], [0.8, 2.05, ME[2]], [-0.22, 2.05, ME[2]]], top=0.14, bottom=0.74)])   # (final pass) 0.5 m closer: a close-up of the stretch, the flung hand leaves the frame
 st.cue('sfx:stretch', 'S07', 0.12, 0.25); st.cue('sfx:stretch', 'S07', 0.6, 0.25); st.cue('sfx:boing', 'S07', 0.76, 0.25)
 
 # 8: the firemen moved house with him. Down the street, toward us, close: two firemen in chrome helmets carry his sofa on two poles at chest height,
@@ -195,31 +205,31 @@ st.shot('S09', 'mairie', setOpts=MAIRIE, actors=[
             k(0.55, toon={**BOUQ, 'face': {'lid': 0.1, 'mouth': 'smile', 'brow': 0.4}}, toonDur=0.1), k(1.15, look='camera'), k(1.15, toon={**BOUQ, 'face': {'lid': 1.0, 'mouth': 'bigsmile'}}, toonDur=0.12)]),   # a look at the phone on his ear, and she beams
         act('maire', MA, 0, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.35, r(MA[2] + 0.4)]), k(0.0, toon=READ9(1), toonDur=0.0), *[k(r(0.15 + 0.22 * j), toon=READ9(j), toonDur=0.1) for j in range(6)], k(1.2, look=[GR[0], 2.1, GR[2]])])],
         props=[TEL('tel9'), NOTES('mus9', size=0.2, rate=3.5, life=0.95, dx=0.5, dy=0.38), P('voile9', 'bridalVeil', on={'actor': 'femme', 'joint': 'head', 'offset': [0.0, 0.45, 0.0]}), P('bouq9', 'bouquet', on={'actor': 'femme', 'hand': 'R', 'offset': [0.0, 0.0, 0.05]}),
-               P('reg9', 'paperSheet', on={'actor': 'maire', 'hand': 'R', 'offset': [0.0, 0.0, 0.03], 'face': 'camera'}, opts={'w': 0.3, 'h': 0.22, 'lines': ['REGISTRE']})],
+               P('reg9', 'paperSheet', on={'actor': 'maire', 'hand': 'R', 'offset': [0.0, 0.0, 0.03], 'face': 'camera'}, opts={'w': 0.5, 'h': 0.34, 'lines': ['REGISTRE', 'MARIAGES']})],   # (final pass) a big register (a tiny white card)
         cams=[FC(0.0, [0.0, 1.5, 4.3], [[r(GR[0] - 0.45), 0.15, GR[2]], [r(BR[0] + 0.5), 0.15, BR[2]], [0.0, 3.55, -2.55], [r(GR[0] - 0.45), 2.4, GR[2]], [r(BR[0] + 0.5), 2.4, BR[2]]], top=0.08, bottom=0.82)])   # (pass 2) both of them whole, the banner over them
 st.cue('sfx:bell', 'S09', 0.2, 0.2)
 
 # 10: his wife said yes on the speaker. Three quarters to us, she bends at the waist and stretches up to the phone on his ear, her mouth on it, and
 #     says it into it: OUI ! bursts out of the phone; he does not move; she eases back up; behind her shoulder the mayor claps
-D10 = st.dur('S10'); OUI10 = 0.75; BR10 = [-0.02, 0, 0.08]; MA10 = [1.15, 0, -1.3]   # (stills 2) she stands three quarters to us: in profile a box head shows no mouth; (pass 3) closer to him (0.27)
+D10 = st.dur('S10'); OUI10 = 0.75; BR10 = [0.28, 0, 0.0]; MA10 = [-1.05, 0, -1.25]   # (final pass) she stands on the far side of the phone, the mayor behind his other shoulder   # (stills 2) she stands three quarters to us: in profile a box head shows no mouth; (pass 3) closer to him (0.27)
 # (pass 3) u 0..1: how far she reaches for the phone: the spine bows forward and toward her right (his side) and stretches, the neck tips her mouth onto it
-LEAN10 = lambda u, f, sq=None: {**BOUQ, 'bend': {'spine': [r(0.42 * u), r(0.3 * u), 0, r(1 + 0.3 * u), None], 'neck': [r(0.25 * u), r(0.2 * u), 0, 1, None]}, 'face': f, **({'sq': sq} if sq else {})}
+LEAN10 = lambda u, f, sq=None: {**BOUQ, 'bend': {'spine': [r(0.5 * u), r(0.12 * u), 0, r(1 + 0.35 * u), None], 'neck': [r(0.3 * u), r(0.08 * u), 0, 1, None]}, 'face': f, **({'sq': sq} if sq else {})}   # (final pass) forward, toward the phone in front of her
 CLAP10 = lambda j: {'touch': {'R': ['torso', r(-0.03 if j % 2 else -0.16), 0.52, 0.3, 1, 0.04], 'L': ['torso', r(0.03 if j % 2 else 0.16), 0.52, 0.3, 1, 0.04]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'lid': 0.0, 'mouth': 'bigsmile'}}
-st.shot('S10', 'mairie', setOpts=MAIRIE, actors=[
+st.shot('S10', 'mairie', setOpts={**MAIRIE, 'bannerX': -1.45}, actors=[   # (final pass) the banner to the left: the bubble covered its « IE »
         act('mec', GR, 5, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=FREE(), toonDur=0.0), FK(r(OUI10 + 0.1), {'lid': 0.3, 'mouth': 'line', 'gx': 0.8}), FK(r(OUI10 + 0.55), {**DEAD, 'mouth': 'line'}, 0.12),
             *BL(1.7, {**DEAD, 'mouth': 'line'})]),                                                                                       # one look aside at the yes, and back to us
-        act('femme', BR10, -45, 'stand', 'happy', keys=[k(0.0, look=[-1.6, 1.8, 3.0]), k(0.0, toon=LEAN10(0.0, {'lid': 0.2, 'mouth': 'smile'}), toonDur=0.0),
+        act('femme', BR10, -50, 'stand', 'happy', keys=[k(0.0, look=[-0.2, 2.0, 0.6]), k(0.0, toon=LEAN10(0.0, {'lid': 0.2, 'mouth': 'smile'}), toonDur=0.0),
             k(0.26, toon=LEAN10(1.0, {'lid': 0.2, 'mouth': 'smile'}), toonDur=0.33, toonEase='inOut'),                                    # (pass 3) she bends to the phone, her mouth on it (later: earlier her head crossed his face while he still stood close)...
             k(r(OUI10 - 0.13), toon=LEAN10(0.92, {'lid': 0.6, 'mouth': 'o'}, [1.04, 0.95, 1.04]), toonDur=0.08),                          # ...takes a breath...
             k(OUI10, toon=LEAN10(1.05, {'lid': 0.0, 'mouth': 'scream', 'brow': 0.8}, [0.95, 1.07, 0.95]), toonDur=0.05, toonEase='out'),  # ...OUI ! into it
             k(r(OUI10 + 0.4), toon=LEAN10(1.0, {'lid': 0.1, 'mouth': 'bigsmile'}), toonDur=0.15),
             k(r(OUI10 + 0.6), toon=LEAN10(0.3, {'lid': 0.1, 'mouth': 'bigsmile'}), toonDur=0.5, toonEase='inOut'),                        # she eases back up
             k(r(OUI10 + 1.2), toon=LEAN10(0.2, {'lid': 1.0, 'mouth': 'bigsmile'}), toonDur=0.2)]),
-        act('maire', MA10, -15, 'stand', 'happy', keys=[k(0.0, look=[0.0, 2.0, 0.3]), k(0.0, toon=CLAP10(0), toonDur=0.0), *[k(r(OUI10 + 0.15 + 0.13 * j), toon=CLAP10(j + 1), toonDur=0.07) for j in range(10)]])],
-        props=[TEL('tel10'), NOTES('mus10', size=0.16, t1=r(OUI10 - 0.4), life=0.95, dx=0.3, dy=0.38), P('voile10', 'bridalVeil', on={'actor': 'femme', 'joint': 'head', 'offset': [0.0, 0.45, 0.0]}),
+        act('maire', MA10, 15, 'stand', 'happy', keys=[k(0.0, look=[0.0, 2.0, 0.3]), k(0.0, toon=CLAP10(0), toonDur=0.0), *[k(r(OUI10 + 0.15 + 0.13 * j), toon=CLAP10(j + 1), toonDur=0.07) for j in range(10)]])],
+        props=[TEL('tel10', keys=[k(OUI10, squash=[1.32, 0.78, 1.32], dur=0.35)]), NOTES('mus10', size=0.16, t1=r(OUI10 - 0.4), life=0.95, dx=0.3, dy=0.38), P('voile10', 'bridalVeil', on={'actor': 'femme', 'joint': 'head', 'offset': [0.0, 0.45, 0.0]}),
                P('bouq10', 'bouquet', on={'actor': 'femme', 'hand': 'R', 'offset': [0.0, 0.0, 0.05]}),
-               P('oui10', 'voiceBubble', on={'actor': 'mec', 'joint': 'head', 'offset': [0.26, 0.42, 0.22], 'face': 'camera'}, opts={'at': OUI10, 'until': r(OUI10 + 1.0), 'text': 'OUI !', 'w': 0.66, 'fill': '#FFD83A', 'ink': '#D22B2B', 'jagK': 0.72})],   # (pass 3) the yes bursts out of the phone, its tail on it (it floated over the banner)
-        cams=[FC(0.0, [-0.6, 1.75, 3.0], [[GR[0], 2.45, GR[2]], [r(GR[0] - 0.25), 1.9, GR[2]], [0.45, 1.6, BR10[2]], [r(MA10[0] + 0.22), 2.3, MA10[2]], [0.35, 2.7, 0.5], [0.0, 1.4, 0.3]], top=0.14, bottom=0.76)])   # (pass 3) from the left front: her head beside the phone, not in front of it or of his face   # (pass 2) face on to him; (after stills 4, by calculation) tighter than S09: cut at the belt, his far shoulder out of frame
+               P('oui10', 'voiceBubble', on={'actor': 'mec', 'joint': 'head', 'offset': [0.2, 0.44, 0.05], 'face': 'camera'}, opts={'at': OUI10, 'until': r(OUI10 + 1.0), 'text': 'OUI !', 'w': 0.5, 'fill': '#FFD83A', 'ink': '#D22B2B', 'jagK': 0.72})],   # (final pass) its tail on the top of the phone   # (pass 3) the yes bursts out of the phone, its tail on it (it floated over the banner)
+        cams=[FC(0.0, [0.45, 1.75, 3.1], [[-0.37, 2.34, 0.29], [-0.8, 1.3, 0.29], [-1.1, 2.25, MA10[2]], [0.5, 1.4, 0.05], [0.42, 2.7, 0.33]], top=0.12, bottom=0.78)])   # (final pass) from the right front: his face, the phone, her lips at its far edge, left to right   # (pass 3) from the left front: her head beside the phone, not in front of it or of his face   # (pass 2) face on to him; (after stills 4, by calculation) tighter than S09: cut at the belt, his far shoulder out of frame
 st.cue('sfx:pop', 'S10', OUI10, 0.2); st.cue('sfx:fanfare', 'S10', r(OUI10 + 0.2), 0.15)
 
 # 11: the music became the national anthem. A ceremony in the street: him in front, in the middle, the phone on his ear, his head rocking on it;
@@ -236,33 +246,34 @@ st.shot('S11', 'parisStreet', setOpts={'clear': [-8.0, 8.0], 'eiffelStyle': 'v2'
             *BL(1.85, {**DEAD, 'mouth': 'line'})]),                                                                                       # his eyes follow his notes up, and come back to us
         *[act(oid, [x, 0, z], ry, 'stand', 'determined', keys=[k(0.0, look=[r(POLE[0] * 0.5), 2.2, 2.0]), k(0.0, toon=ATT({'lid': 0.3, 'mouth': 'line'}), toonDur=0.0),
             k(r(SAL11 - 0.1), toon=ATT({'lid': 0.3, 'mouth': 'line', 'brow': -0.3}), toonDur=0.06, toonEase='in'),                      # (pass 3) a little dip...
-            k(SAL11, toon=SALUTE({'lid': 0.2, 'mouth': 'line', 'brow': -0.4}, 0.04, [0.97, 1.04, 0.97]), toonDur=0.07, toonEase='out'),   # ...and the salute snaps up, all three together
+            k(SAL11, toon=SALUTE({'lid': 0.2, 'mouth': 'line', 'brow': -0.4}, 0.04, [0.97, 1.04, 0.97]), toonDur=0.033, toonEase='out'),   # ...and the salute snaps up in one frame, all three together
             k(r(SAL11 + 0.1), toon=SALUTE({'lid': 0.2, 'mouth': 'line', 'brow': -0.4}, -0.02, [1.02, 0.98, 1.02]), toonDur=0.08),        # the bounce
             k(r(SAL11 + 0.2), toon=SALUTE({'lid': 0.25, 'mouth': 'line', 'brow': -0.4}), toonDur=0.08),
             *BL(r(1.5 + 0.15 * i), {'lid': 0.25, 'mouth': 'line', 'brow': -0.4})])
-          for i, (oid, x, z, ry, pre) in enumerate([('off1', -0.85, -1.4, 8, 'politique'), ('sold1', 0.8, -1.2, -5, 'cop'), ('sold2', 1.35, -1.9, -8, 'cop')])]],
+          for i, (oid, x, z, ry, pre) in enumerate([('off1', -1.0, -1.3, 10, 'politique'), ('sold1', 1.05, -1.25, -8, 'cop'), ('sold2', 1.75, -1.95, -12, 'cop')])]],   # (final pass) spread: the saluting arms hid behind him
         props=[TEL('tel11'), NOTES('mus11', rate=4.0, size=0.27, dy=1.5, dx=0.04, life=1.7, sway=0.1), P('mat11', 'flagPole', pos=POLE, opts={'h': 5.0, 'w': 1.1, 'raise': [0.1, r(D11 - 0.3)], 'y0': 2.5})],   # (pass 3) from above their heads (it started behind them)
-        cams=[FC(0.0, [0.2, 0.9, 4.5], [[H11[0], 1.15, H11[2]], [H11[0], 2.45, H11[2]], [POLE[0], 5.25, POLE[2]], [r(POLE[0] + 1.25), 4.6, POLE[2]], [-0.95, 2.3, -1.4], [1.45, 2.3, -1.9]], top=0.08, bottom=0.86)])   # (pass 2) low, him in front, the pole over his shoulder
+        cams=[FC(0.0, [0.25, 0.9, 4.6], [[H11[0], 1.15, H11[2]], [H11[0], 2.45, H11[2]], [POLE[0], 5.25, POLE[2]], [r(POLE[0] + 1.25), 4.6, POLE[2]], [-1.42, 2.3, -1.3], [2.1, 2.3, -1.95]], top=0.08, bottom=0.86)])   # (final pass) the official whole, saluting hand included   # (pass 2) low, him in front, the pole over his shoulder
 st.cue('sfx:fanfare', 'S11', 0.2, 0.25)
 
 # 12: the band played it at the parade. The street with flags: a marching band comes at us, the bass drum and the big tuba in the front rank, two
 #     trumpets behind, in step, playing it
-D12 = st.dur('S12'); X12 = 3.5; Z12 = 2.2; V12 = 1.2; ZE12 = r(Z12 - V12 * D12); BEATS = [0.1, 0.5, 0.9, 1.3, 1.7]
+D12 = st.dur('S12'); X12 = 3.5; Z12 = 2.2; V12 = 1.2; ZE12 = r(Z12 - V12 * D12); BEATS = [0.1, 0.5, 0.9, 1.3, 1.7]; HITS12 = [0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 1.7]   # (final pass) a stick lands every 0.2 s
 BAND = [('mus1', -0.55, 0.0, 'drum'), ('mus2', 0.55, 0.0, 'tuba'), ('mus3', 0.0, 1.25, 'trumpet'), ('mus4', -1.1, 1.25, 'trumpet')]   # (stills 2) the trumpets in the gaps of the front rank, seen from the camera
 PUFF = {'lid': 0.4, 'mouth': 'kiss', 'cheeks': 0.9, 'puff': 0.6}
 def PLAY12(kind, j=0):
-    if kind == 'trumpet': return {'touch': {'R': ['head', 0.05, 0.1, 0.52, 1, 0.03], 'L': ['head', -0.05, 0.1, 0.36, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': PUFF, 'sq': [1.0, 1.03 if j % 2 else 0.98, 1.0]}
+    if kind == 'trumpet': return {'touch': {'R': ['head', 0.05, 0.36, 0.44, 1, 0.03], 'L': ['head', -0.05, 0.25, 0.3, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': PUFF, 'sq': [1.0, 1.03 if j % 2 else 0.98, 1.0]}
     if kind == 'tuba': return {'touch': {'R': ['torso', -0.3, 0.5, 0.3, 1, 0.03], 'L': ['torso', 0.32, 0.3, 0.3, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {**PUFF, 'cheeks': 1.0, 'puff': 1.0}, 'sq': [1.03, 0.97, 1.03] if j % 2 else [0.98, 1.03, 0.98]}
     return {'touch': {'R': ['torso', -0.42, 0.28 if j % 2 else 0.78, 0.42, 1, 0.03], 'L': ['torso', 0.42, 0.78 if j % 2 else 0.28, 0.42, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'clench', 'brow': -0.4}}   # the drummer: one fist up, one on the drum
-INSTR = {'trumpet': ({'joint': 'head', 'offset': [0.0, 0.1, 0.1], 'rot': [-0.2, 0.0, 0.0]}, 2.0), 'tuba': ({'joint': 'torso', 'offset': [0.0, 0.25, 0.24]}, 2.3), 'drum': ({'joint': 'torso', 'offset': [0.0, 0.22, 0.36]}, 1.75)}
+INSTR = {'trumpet': ({'joint': 'head', 'offset': [0.0, 0.1, 0.1], 'rot': [-0.6, 0.0, 0.0]}, 2.0), 'tuba': ({'joint': 'torso', 'offset': [0.0, 0.25, 0.24]}, 2.3), 'drum': ({'joint': 'torso', 'offset': [0.0, 0.22, 0.36]}, 1.75)}   # (final pass) the trumpet bells up, clear of the faces
 st.shot('S12', 'parisStreet', setOpts={'clear': [-8.0, 8.0], 'eiffelStyle': 'v2'}, actors=[
         act(mid, [r(X12 + dx), 0, r(Z12 + dz)], 180, 'walk', 'determined', keys=[k(0.0, to=[r(X12 + dx), 0, r(ZE12 + dz)], dur=D12, clip='walk', ease='linear'), k(0.0, toon=PLAY12(kind, 0), toonDur=0.0),
             *[k(r(b_ - 0.08), toon=PLAY12(kind, j + 1), toonDur=0.08, toonEase='in') for j, b_ in enumerate([0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 1.7])]])
         for mid, dx, dz, kind in BAND],
-        props=[*[P(f'ins12{j}', 'brass', on={'actor': mid, **INSTR[kind][0]}, scale=INSTR[kind][1], opts={'kind': kind, 'beat': BEATS if kind == 'drum' else []}) for j, (mid, dx, dz, kind) in enumerate(BAND)],
+        props=[*[P(f'ins12{j}', 'brass', on={'actor': mid, **INSTR[kind][0]}, scale=INSTR[kind][1], opts={'kind': kind, 'beat': HITS12 if kind == 'drum' else [], 'squash': 0.12, 'pump': BEATS if kind == 'tuba' else None}) for j, (mid, dx, dz, kind) in enumerate(BAND)],
+               *[P(f'stick12{sd}', 'slab', on={'actor': 'mus1', 'hand': sd, 'offset': [0.0, -0.06, 0.1], 'rot': [1.0, 0.0, 0.0]}, opts={'w': 0.03, 'h': 0.34, 'd': 0.03, 'color': '#E8D9B0', 'outline': 0.004}) for sd in ('L', 'R')],   # (final pass) the drummer's sticks
                *[P(f'n12{j}', 'holdNotes', on={'actor': BAND[2 + j][0], 'joint': 'head', 'offset': [0.0, 0.25, 0.85], 'face': 'camera'}, opts={'rate': 2.5, 'size': 0.34, 'dy': 0.9, 'dx': 0.3, 'sway': 0.08, 'side': 1 if j else -1, 'from': -1.0}) for j in range(2)],
                *[P(f'dr12{j}', 'flag', pos=[r(6.2 if j % 2 else 0.8), 2.2, r(-2.0 + 2.6 * j)], scale=0.5, opts={'colors': ['#2F62B5', '#F4F4F0', '#E0413A']}) for j in range(3)]],
-        cams=[FC(0.0, [r(X12 - 0.9), 0.75, r(ZE12 - 4.6)], [[r(X12 - 0.95), 0.1, ZE12], [r(X12 + 0.95), 2.95, ZE12], [r(X12 + 0.95), 0.2, ZE12], [r(X12 - 1.35), 2.5, r(ZE12 + 1.25)], [X12, 2.5, r(ZE12 + 1.25)]], top=0.1, bottom=0.82)])   # (pass 2) low, the big instruments in front
+        cams=[FC(0.0, [r(X12 - 0.9), 0.75, r(ZE12 - 4.2)], [[r(X12 - 0.95), 0.55, ZE12], [r(X12 + 0.95), 2.95, ZE12], [r(X12 + 0.95), 0.55, ZE12], [r(X12 - 1.35), 2.5, r(ZE12 + 1.25)], [X12, 2.5, r(ZE12 + 1.25)]], top=0.1, bottom=0.88)])   # (final pass) closer: the band fills the frame, cut at the knees   # (pass 2) low, the big instruments in front
 st.cue('sfx:fanfare', 'S12', 0.05, 0.3); st.cue('thud', 'S12', 0.1, 0.15); st.cue('thud', 'S12', 0.5, 0.15); st.cue('thud', 'S12', 0.9, 0.15); st.cue('thud', 'S12', 1.3, 0.15)
 
 # 13: the children whistle it at school. A classroom: three children in a row in front of the board, facing us, whistle it, big white chalk notes
@@ -270,7 +281,8 @@ st.cue('sfx:fanfare', 'S12', 0.05, 0.3); st.cue('thud', 'S12', 0.1, 0.15); st.cu
 D13 = st.dur('S13'); KIDS = [('el1', -0.85), ('el2', -0.27), ('el3', 0.31)]; ZK = -2.5; PROF = [0.92, 0, -3.1]   # (stills 2) the teacher behind them, between two heads: beside them she widened the frame past the first desks
 st.shot('S13', 'classroom', setOpts={'board': 'MUSIQUE', 'board2': "L'hymne national", 'board3': 'la la la la'}, actors=[
         *[act(eid, [x, 0, ZK], 0, 'stand', 'happy', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.3, 'mouth': 'kiss', 'mouthW': 0.7, 'mouthH': 0.7, 'cheeks': 0.6}}, toonDur=0.0),
-            *[k(r(0.08 + 0.28 * j + 0.09 * i), toon={'face': {'lid': 0.3 if j % 3 else 1.0, 'mouth': 'kiss', 'mouthW': 0.7, 'mouthH': 0.7, 'cheeks': 0.6 if j % 2 else 0.9, 'puff': 0.5}, 'sq': [0.97, 1.06, 0.97] if (j + i) % 2 else [1.04, 0.95, 1.04]}, toonDur=0.14, toonEase='inOut') for j in range(7)]])
+            *[k(r(0.05 + 0.24 * j), toon={'face': {'lid': 1.0 if (j == 3 and i == 1) else 0.3, 'mouth': 'kiss', 'mouthW': 0.7, 'mouthH': 0.7, 'cheeks': 1.0 if j % 2 else 0.45, 'puff': 0.95 if j % 2 else 0.2}, 'sq': [0.96, 1.06, 0.96] if j % 2 else [1.04, 0.95, 1.04],
+                'bend': {'neck': [r(0.16 if j % 2 else -0.05), 0, 0, 1, None]}}, toonDur=0.12, toonEase='inOut') for j in range(8)]])   # (final pass) all three together, nodding and puffing on the ruler's beat
           for i, (eid, x) in enumerate(KIDS)],
         act('prof', PROF, -90, 'stand', 'happy', keys=[k(0.0, look=[-0.5, 2.05, PROF[2]]), *[k(r(0.05 + 0.24 * j), toon={'reach': {'R': [r(PROF[0] - 0.45 + (0.12 if j % 2 else -0.05)), r(2.15 + (0.2 if j % 2 else -0.1)), r(PROF[2] + 0.1), 1, 0.04]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.4, 'mouth': 'smile'}}, toonDur=0.14, toonEase='inOut') for j in range(8)]])],
         props=[*[P(f'n13{i}', 'holdNotes', on={'actor': eid, 'joint': 'head', 'offset': [0.0, 0.62, 0.1], 'face': 'camera'}, opts={'rate': 2.2, 'size': 0.2, 'from': r(-1.0 + 0.15 * i), 'dy': 0.32, 'dx': 0.12, 'side': (-1, 1, 1)[i], 'color': '#FFFFFF', 'halo': '#2B3A33'}) for i, (eid, x) in enumerate(KIDS)],   # (pass 3) chalk white, kept low on the green board (they rose onto the cream wall)
@@ -283,15 +295,15 @@ st.cue('sfx:whistle', 'S13', 0.1, 0.25)
 #     wobble back
 D14 = st.dur('S14'); CLK14 = 0.4; HANG14 = 0.24; TAK14 = 0.82; AGE = {'low': 0.32}   # (pass 3) the notes hang 7 frames, then drop; the take after the squash   # ten years on: grey hair (cast), heavier lower lids; the gloom over his eyes (shadow) only before the click and at the very end
 A = lambda **f: {**AGE, **f}
+TAKE14 = lambda yaw, pitch, ln: A(lid=0.0, eye=0.5, pop=1.0, popLen=ln, stalkYaw=yaw, stalkPitch=pitch, eyeYaw=0.5, stalkRed=0.5, stalkBow=0.05, jaw=1.0, jawBlock=1, jawLen=0.85, tongue=0.8, tongueLen=0.22, mouth='scream', brow=1.0)   # (final pass) toward the phone (+: his left)
 SITCAM = lambda frm, extra=(), **kw: FC(0.0, frm, [[SIT[0], 1.92, SIT[2]], [SIT[0], 0.95, SIT[2]], [0.48, 1.6, SIT[2]], [-0.42, 1.6, SIT[2]], *extra], **kw)
 st.shot('S14', 'livingRoom', setOpts=LR, actors=[act(OLD, SIT, 0, 'sit', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=FREE(A(lid=0.5, mouth='line', shadow=0.85)), toonDur=0.0),
             FK(r(CLK14 + 0.03), A(lid=0.45, mouth='line', shadow=0.6)),                                                                             # (pass 3) the click: the notes hang still...
             FK(r(CLK14 + 0.12), A(lid=0.2, mouth='line', gx=1.0, brow=0.4, shadow=0.2), 0.1),                                                        # ...his eyes slide to the phone...
             k(r(TAK14 - 0.14), toon=FREE(A(lid=0.9, mouth='clench', brow=-0.7, gx=1.0), {'sq': [1.1, 0.84, 1.1]}), toonDur=0.07, toonEase='in'),     # ...the notes drop, he squashes (4 frames)...
-            k(TAK14, toon=FREE(A(lid=0.0, eye=0.5, pop=1.0, popLen=0.42, stalkYaw=-0.55, stalkPitch=-0.3, stalkRed=0.5, stalkBow=0.04, jaw=0.85, jawLen=0.55, mouth='scream', brow=1.0), {'sq': [0.9, 1.16, 0.9]}), toonDur=0.05, toonEase='out'),   # ...THE take
-            *[k(r(TAK14 + 0.07 + 0.08 * j), toon=FREE(A(lid=0.0, eye=0.5, pop=1.0, popLen=r(0.42 - 0.1 * (-0.5) ** (j + 1)), stalkYaw=r(-0.55 + 0.22 * (-0.6) ** j), stalkPitch=r(-0.3 + 0.12 * (-0.6) ** j), stalkRed=0.5, stalkBow=0.04,
-                jaw=0.85, jawLen=0.55, mouth='scream', brow=1.0), {'sq': [1.0, 1.0, 1.0] if j else [1.03, 0.97, 1.03]}), toonDur=0.07, toonEase='inOut') for j in range(4)],   # the stalks overshoot and wobble back
-            k(r(TAK14 + 0.62), toon=FREE(A(lid=0.0, eye=0.5, pop=1.0, popLen=0.4, stalkYaw=-0.5, stalkPitch=-0.25, stalkRed=0.5, stalkBow=0.04, jaw=0.8, jawLen=0.55, mouth='scream', brow=1.0, pupilShake=0.8)), toonDur=0.2)])],   # held, the pupils shivering
+            k(TAK14, toon=FREE(TAKE14(0.6, -0.12, 0.5), {'sq': [0.9, 1.16, 0.9]}), toonDur=0.05, toonEase='out'),                       # ...THE take (final pass: a new one): the eyes spring out AT the phone, the chin drops like a block, the tongue out
+            *[k(r(TAK14 + 0.07 + 0.08 * j), toon=FREE(TAKE14(r(0.6 + 0.22 * (-0.6) ** j), r(-0.12 + 0.1 * (-0.6) ** j), r(0.5 - 0.1 * (-0.5) ** (j + 1))), {'sq': [1.0, 1.0, 1.0] if j else [1.03, 0.97, 1.03]}), toonDur=0.07, toonEase='inOut') for j in range(4)],   # the stalks overshoot and wobble back
+            k(r(TAK14 + 0.62), toon=FREE({**TAKE14(0.58, -0.1, 0.48), 'pupilShake': 0.8}), toonDur=0.2)])],   # held, the pupils shivering
         props=[TEL('tel14', OLD), NOTES('mus14', OLD, t0=-2.0, rate=3.5, size=0.14, stopAt=CLK14, hang=HANG14, drop=11)],
         cams=[SITCAM([0.4, 1.5, 0.3], [[0.85, 2.35, SIT[2]]], top=0.16, bottom=0.74)])
 st.cue('sfx:click', 'S14', CLK14, 0.35); st.cue('sfx:boing', 'S14', TAK14, 0.3); st.cue('sfx:gasp', 'S14', r(TAK14 + 0.05), 0.25)
@@ -318,10 +330,10 @@ st.shot('S16', 'livingRoom', setOpts=LR, actors=[act(OLD, SIT, 0, 'sit', 'neutra
             k(0.95, toon=MICK([r(MIC16[0] + 0.02), r(MIC16[1] + 0.04), MIC16[2]], 0.3, {'lid': 0.1, 'mouth': 'open', 'brow': 0.6}), toonDur=0.25, toonEase='inOut')])],
         props=[TEL('tel16', OLD), TEARS('larmes16', 0.024, 22, 1.7),
                P('mic16', 'pressMic', on={'actor': 'repo', 'hand': 'R', 'offset': [0.0, -0.02, 0.04]}, scale=1.5, opts={'text': 'INFO', 'color': '#C8322A'}),
-               *[P(f'tv16{j}', 'newsCamera', pos=[x, 0, -2.45], ry=r(-70 if x > 0 else 70), opts={'h': 0.85, 'logo': 'TV', 'blink': 0.7 + 0.1 * j},
-                   keys=[k(0.0, to=[r(x * 0.88), 0, -2.5], dur=D16, ease='inOut'), k(r(0.2 + 0.3 * j), rotTo=[0, r(math.radians(-82 if x > 0 else 82), 4), 0], dur=0.5, ease='inOut')]) for j, x in enumerate((-0.95, 0.95))],   # (pass 3) at his sides, three quarters to us (lens, plate, red light): they push in and pan on him
+               *[P(f'tv16{j}', 'newsCamera', pos=[x, 0, -1.72], ry=r(-164 if x > 0 else 164), opts={'h': 0.62, 'logo': 'TV', 'blink': 0.7 + 0.1 * j},
+                   keys=[k(0.0, to=[r(x * 0.85), 0, -1.97], dur=D16, ease='inOut')]) for j, x in enumerate((-0.31, 0.31))],   # (final pass) in the lower corners, aimed at him, they dolly in
                P('direct16', 'signBoard', pos=[0.0, 0, -3.45], opts={'text': 'EN DIRECT', 'bg': '#D22B2B', 'fg': '#FFFFFF', 'w': 1.15, 'h': 0.32, 'height': 2.02})],
-        cams=[FC(0.0, [0.0, 1.45, -0.5], [[SIT[0], 1.92, SIT[2]], [SIT[0], 0.95, SIT[2]], [0.0, 2.44, -3.45], [-0.95, 1.4, -2.45], [0.95, 1.4, -2.45]], top=0.12, bottom=0.76)])   # (pass 2) between the two cameras; (pass 3) wide enough for the two TV cameras at his sides
+        cams=[FC(0.0, [0.0, 1.3, -0.4], [[SIT[0], 1.95, SIT[2]], [SIT[0], 0.75, r(SIT[2] + 0.35)], [0.5, 1.5, SIT[2]], [-0.5, 1.5, SIT[2]]], top=0.12, bottom=0.8, drift=(0.0, 0.0, -0.22))])   # (final pass) the TV cameras in the lower corners, a push in: his face in the middle third   # (pass 2) between the two cameras; (pass 3) wide enough for the two TV cameras at his sides
 st.cue('sfx:click', 'S16', 0.2, 0.15)
 
 # 17: the voice said... Close on the phone on his ear: a flat electronic voice, a jagged little bubble with its tail on the phone; his eyes slide to it
@@ -335,21 +347,21 @@ st.cue('sfx:ding', 'S17', 0.1, 0.15)
 # 18: ...for an adviser, press one. His hand goes up to the phone and pulls: the ear and the head stretch after it like taffy, further than when he
 #     first pulled, and hold there trembling; POP, it comes free, the head springs back in three smaller and smaller bounces; he holds the phone in
 #     front of him, the keypad to us, and his eyes drop to it
-D18 = st.dur('S18'); POP18 = 0.58; CAR18 = 0.24   # (pass 3) the pop later: the stretch has time to grow and hold
+D18 = st.dur('S18'); POP18 = 0.86; CAR18 = 0.24   # (final pass) held 0.4 s at full stretch before the pop   # (pass 3) the pop later: the stretch has time to grow and hold
 def OFF18(u, s, sy, f, lay=0.0): return {'touch': {'L': MIX(GRIP, FGRIP, eio(min(1.0, max(0.0, u))))}, 'hands': {'L': 'grip'}, 'scl': {'head': [s, sy, 1.0]}, 'lay': [0, lay], 'face': f}
 st.shot('S18', 'livingRoom', setOpts=LR, actors=[act(OLD, SIT, 0, 'sit', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=FREE(A(lid=0.0, eye=0.3, mouth='o')), toonDur=0.0),
             k(0.03, toon=HOLD(A(lid=0.2, mouth='clench', brow=-0.4)), toonDur=0.14, toonEase='inOut'),                                    # the hand goes up to the phone
-            k(0.19, toon=OFF18(0, 0.9, 1.05, A(lid=0.3, mouth='clench', brow=-0.6, gx=0.8)), toonDur=0.06),                              # an anticipation...
-            k(0.25, toon=OFF18(0, 1.5, 0.94, A(lid=0.15, mouth='grimace', brow=-0.8, gx=0.8, sweat=1.0), -0.03), toonDur=0.08, toonEase='in'),     # ...he pulls: the head is dragged after the phone...
-            k(0.36, toon=OFF18(0, 2.6, 0.8, A(lid=0.1, mouth='grimace', brow=-0.9, gx=0.8, sweat=1.0, tremble=1.0), -0.1), toonDur=0.1, toonEase='out'),   # ...to 2.6 times its width (2.25 in S07)
-            *[k(r(0.46 + 0.04 * j), toon=OFF18(0, 2.68 if j % 2 else 2.52, 0.8, A(lid=0.1, mouth='grimace', brow=-0.9, gx=0.8, sweat=1.0, tremble=1.0, pupilShake=1.0), -0.1), toonDur=0.035, toonEase='linear') for j in range(3)],   # held, trembling
+            k(0.17, toon=OFF18(0, 0.9, 1.05, A(lid=0.3, mouth='clench', brow=-0.6, gx=0.8)), toonDur=0.06),                              # an anticipation...
+            k(0.23, toon=OFF18(0, 1.5, 0.94, A(lid=0.15, mouth='grimace', brow=-0.8, gx=0.8, sweat=1.0), -0.03), toonDur=0.07, toonEase='in'),     # ...he pulls: the head is dragged after the phone...
+            k(0.3, toon=OFF18(0, 2.3, 0.84, A(lid=0.1, mouth='grimace', brow=-0.9, gx=0.8, sweat=1.0, tremble=1.0), -0.07), toonDur=0.07, toonEase='linear'),
+            k(0.37, toon=OFF18(0, 2.9, 0.76, A(lid=0.1, mouth='grimace', brow=-0.9, gx=0.8, sweat=1.0, tremble=1.0), -0.12), toonDur=0.08, toonEase='out'),   # ...to 2.9 times its width (2.0 to 2.3 in S07)...
+            *[k(r(0.47 + 0.065 * j), toon=OFF18(0, r(2.95 + 0.03 * j + (0.06 + 0.025 * j) * (1 if j % 2 else -1)), r(0.75 - 0.005 * j), A(lid=0.1, mouth='grimace', brow=-0.9, gx=0.8, sweat=1.0, tremble=1.0, pupilShake=1.0), -0.12), toonDur=0.04, toonEase='linear') for j in range(6)],   # ...and held 0.4 s, trembling harder and harder
             *[k(r(POP18 + 0.06 * j), toon=OFF18((0.06 * (j + 1)) / CAR18, s_, sy_, A(lid=0.0, eye=0.5, mouth='O', brow=1.0), l_), toonDur=0.06, toonEase='linear')
               for j, (s_, sy_, l_) in enumerate([(0.66, 1.24, 0.05), (1.26, 0.9, -0.02), (0.85, 1.08, 0.01), (1.1, 0.95, 0.0), (0.96, 1.02, 0.0), (1.0, 1.0, 0.0)])],   # POP: it comes free, the head springs back: three smaller and smaller bounces
-            FK(r(POP18 + 0.4), A(lid=0.3, mouth='line', gy=0.85), 0.1),                                                                  # his eyes drop to the screen
-            *BL(1.28, A(lid=0.3, mouth='line', gy=0.85)),
-            k(1.42, toon=SHOW(A(lid=0.3, mouth='line', gy=0.85), TAP0), toonDur=0.25, toonEase='inOut')])],                              # the other index comes up over the keypad
-        props=[TEL('tel18', OLD, keys=CARRY(OLD, POP18, CAR18, EAR, FRONT), keypad=1), BURST('pop18', [0.55, 1.85, r(SIT[2] + 0.1)], POP18, 'POP !', 0.42, 0.4)],
-        cams=[SITCAM([0.25, 1.1, -0.5], [[0.75, 2.05, SIT[2]], [0.15, 0.78, r(SIT[2] + 0.45)]], top=0.16, bottom=0.74)])   # lower and closer than S14
+            k(r(POP18 + 0.42), toon={**OFF18(1, 1.0, 1.0, A(lid=0.3, mouth='line', gy=1.0)), 'bend': {'neck': [0.3, 0, 0, 1, None]}}, toonDur=0.12),   # (final pass) his head dips, his eyes onto the keypad
+            k(1.5, toon={**SHOW(A(lid=0.3, mouth='line', gy=1.0), TAP0), 'bend': {'neck': [0.3, 0, 0, 1, None]}}, toonDur=0.2, toonEase='inOut')])],   # the other index comes up over the keypad
+        props=[TEL('tel18', OLD, keys=CARRY(OLD, POP18, CAR18, EAR, FRONT), keypad=1), BURST('pop18', [0.32, 1.78, r(SIT[2] + 0.25)], POP18, 'POP !', 0.42, 0.4)],
+        cams=[FC(0.0, [0.9, 1.15, -1.5], [[SIT[0], 1.95, SIT[2]], [SIT[0], 0.95, SIT[2]], [-0.38, 1.5, SIT[2]], [0.12, 0.85, r(SIT[2] + 0.42)]], top=0.14, bottom=0.76)])   # (final pass) low from the phone side, tight on him: the stretch runs out of the frame (S07 is face on)
 st.cue('sfx:stretch', 'S18', 0.25, 0.3); st.cue('pop', 'S18', POP18, 0.3); st.cue('sfx:boing', 'S18', r(POP18 + 0.06), 0.2)
 
 # 19: he pressed one. Insert, from below: the red phone big in his hand, its keypad square to us; one finger comes in from the lower right, presses the
@@ -369,7 +381,8 @@ st.shot('S20', 'livingRoom', setOpts=LR, actors=[act(OLD, SIT, 0, 'sit', 'neutra
             k(BACK20, toon=HOLD(A(lid=0.5, mouth='line', shadow=0.9), {'sq': [1.12, 0.8, 1.12]}), toonDur=0.2, toonEase='inOut'),        # back on the ear, re-inflating...
             k(r(BACK20 + 0.24), toon=HOLD(A(lid=0.5, mouth='line', shadow=0.9), {'sq': [0.95, 1.07, 0.95]}), toonDur=0.1, toonEase='out'), # ...overshoot...
             k(r(BACK20 + 0.36), toon=HOLD(A(lid=0.5, mouth='line', shadow=0.9), {'sq': [1.02, 0.98, 1.02]}), toonDur=0.08), k(r(BACK20 + 0.46), toon=HOLD(A(lid=0.5, mouth='line', shadow=0.9)), toonDur=0.1),   # ...and settles
-            *BL(1.3, A(lid=0.5, mouth='line', shadow=0.9)), k(1.72, toon=HOLD(A(lid=1.0, mouth='line', shadow=0.9)), toonDur=0.18, toonEase='inOut'), k(1.98, toon=HOLD(A(lid=0.55, mouth='line', shadow=0.9)), toonDur=0.16)])],   # a long, slow blink
+            k(1.08, toon=HOLD(A(lid=0.08, low=0.06, mouth='line', shadow=0.9)), toonDur=0.14),                                           # (final pass) his eyes open: a flat stare into the lens...
+            k(1.62, toon=HOLD(A(lid=1.0, low=0.06, mouth='line', shadow=0.9)), toonDur=0.24, toonEase='inOut'), k(1.94, toon=HOLD(A(lid=0.1, low=0.06, mouth='line', shadow=0.9)), toonDur=0.18)])],   # ...then the long, slow blink
         props=[TEL('tel20', OLD, start=FRONT, keys=CARRY(OLD, BACK20, 0.3, FRONT, EAR), keypad=1), NOTES('mus20a', OLD, t0=0.08, t1=r(BACK20 - 0.05), rate=5.0, size=0.14, off=[0.2, -0.2, 0.46]),
                NOTES('mus20b', OLD, t0=r(BACK20 + 0.28), rate=4.0, size=0.14)],
         cams=[SITCAM([0.8, 1.55, -1.0], [[0.72, 2.3, SIT[2]]], top=0.14, bottom=0.76)])   # three quarters from the phone side   # wider, from the phone side: the end hold
@@ -377,17 +390,17 @@ st.cue('sfx:ding', 'S20', 0.1, 0.12)
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
 MEC = {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}}
-FIRE = {'preset': 'pompier', 'suit': '#23304E', 'pants': '#23304E', 'hatColor': '#E9EDF3', 'bandColor': '#F2D23C', 'bandH': 0.06,   # (pass 3) chrome helmets, yellow reflective bands (red ones read as nothing)
+FIRE = {'preset': 'pompier', 'suit': '#23304E', 'pants': '#23304E', 'hat': 'firecrest', 'hatColor': '#C9CFD7', 'glasses': False, 'bandColor': '#F2D23C', 'bandH': 0.06,   # (final pass) crested chrome helmets (white caps read as cooks)   # (pass 3) chrome helmets, yellow reflective bands (red ones read as nothing)
         'build': {'width': 1.05, 'headWidth': 1.2}, 'toon': EX}
-st.write("Le service client", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, debugJoints=['mec', OLD], extra_cast={
+st.write("Le service client", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, debugJoints=['mec', OLD, 'femme'], extra_cast={
     'mec': MEC, OLD: {**MEC, 'hairColor': '#80868F'},   # (pass 3) mid-grey: the pale grey read as a white bandage
     'pomp1': {**FIRE, 'seed': 731}, 'pomp2': {**FIRE, 'seed': 732},
     'femme': {'preset': 'femme', 'seed': 733, 'suit': '#F7F5EF', 'build': {'width': 0.92, 'headWidth': 1.25}, 'toon': EX},
     'maire': {'preset': 'politique', 'seed': 734, 'sash': ['#2F62B5', '#F4F4F0', '#E0413A'], 'sashW': 0.12, 'suit': '#26365F', 'lapel': '#26365F', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
-    'off1': {'preset': 'politique', 'seed': 735, 'suit': '#33363D', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
-    'sold1': {'preset': 'cop', 'seed': 737, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
-    'sold2': {'preset': 'cop2', 'seed': 738, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
-    **{mid: {'preset': 'officiel', 'seed': 740 + j, 'suit': '#8E2B2B', 'hat': 'copcap', 'hatColor': '#8E2B2B', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX} for j, (mid, _, _, _) in enumerate(BAND)},
+    'off1': {'preset': 'politique', 'seed': 735, 'suit': '#33363D', 'glasses': False, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
+    **{sid: {'preset': pre_, 'seed': sd_, 'suit': '#22304F', 'pants': '#1A2440', 'shirt': '#22304F', 'lapel': '#1A2440', 'tie': '#1A2440', 'cuff': '#22304F', 'hat': 'maocap', 'hatColor': '#1E2846', 'gloves': '#F6F6F2', 'glasses': False,
+       'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX} for sid, pre_, sd_ in (('sold1', 'cop', 737), ('sold2', 'cop2', 739))},   # (final pass) soldiers: navy, kepis, white gloves (the light-blue cops read as police)
+    **{mid: {'preset': 'officiel', 'seed': 740 + j, 'suit': '#8E2B2B', 'hat': 'copcap', 'hatColor': '#8E2B2B', 'glasses': False, 'facial': ('mustache', 'none', 'stubble', 'none')[j], 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX} for j, (mid, _, _, _) in enumerate(BAND)},   # (final pass) no cloned glasses
     **{eid: {'preset': 'gamin', 'seed': 750 + j, 'suit': c_, 'glasses': False, 'build': {'headScale': 1.25}, 'toon': EX} for j, ((eid, _), c_) in enumerate(zip(KIDS, ['#E0413A', '#3A9BDC', '#E8A33C']))},
     'prof': {'preset': 'madame', 'seed': 755, 'suit': '#8E6CC4', 'build': {'width': 0.95, 'headWidth': 1.25}, 'toon': EX},
     'repo': {'preset': 'journaliste', 'seed': 756, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},

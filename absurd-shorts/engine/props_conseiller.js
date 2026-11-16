@@ -109,9 +109,16 @@ export const CONSEILLER_PROPS = {
       const bell = at(new THREE.Mesh(new THREE.ConeGeometry(0.06, 0.12, 14, 1, true), new THREE.MeshLambertMaterial({ color: G, side: THREE.DoubleSide })), 0, 0.02, 0.3); bell.rotation.x = -PI / 2; g.add(bell);
       for (const z of [0.02, 0.06, 0.1]) g.add(at(cyl(0.008, 0.008, 0.06, '#C9A043', 6), 0, 0.06, z)); }
     else if (k === 'tuba') { const coil = new THREE.Mesh(new THREE.TorusGeometry(0.16, 0.035, 8, 18), new THREE.MeshLambertMaterial({ color: G })); coil.position.set(0, 0.1, 0); g.add(coil);
-      const bell = at(new THREE.Mesh(new THREE.ConeGeometry(0.17, 0.26, 16, 1, true), new THREE.MeshLambertMaterial({ color: G, side: THREE.DoubleSide })), 0.12, 0.38, 0); bell.rotation.z = PI; g.add(bell); }
+      const bell = at(new THREE.Mesh(new THREE.ConeGeometry(0.17, 0.26, 16, 1, true), new THREE.MeshLambertMaterial({ color: G, side: THREE.DoubleSide })), 0.12, 0.38, 0); bell.rotation.z = PI; g.add(bell);
+      // (final pass) o.pump [t...]: the bell swells on each note (the tuba read as a still gold ring)
+      if (o.pump) g.userData.update = t => { let a = 0; for (const b of o.pump) { const u = t - b; if (u >= 0 && u < 0.3) a = Math.max(a, Math.exp(-u * 12)); } bell.scale.set(1 + 0.35 * a, 1 + 0.2 * a, 1 + 0.35 * a); coil.scale.setScalar(1 + 0.06 * a); }; }
     else { const dr = grp(at(cyl(0.18, 0.18, 0.2, '#C8322A', 16, { outline: 0.004 }), 0, 0, 0), at(cyl(0.185, 0.185, 0.02, '#F4F1E8', 16), 0, 0.105, 0), at(cyl(0.185, 0.185, 0.02, '#F4F1E8', 16), 0, -0.105, 0)); dr.rotation.x = PI / 2; g.add(dr);
-      const skin = dr.children[1]; g.userData.update = t => { let a = 0; for (const b of o.beat || []) { const u = t - b; if (u >= 0 && u < 0.15) a = Math.max(a, Math.exp(-u * 30)); } skin.position.y = 0.105 + 0.02 * a; }; }
+      // (final pass) hoops, tension rods and a strap: a plain white disc did not read as a bass drum
+      for (const y of [0.112, -0.112]) { const hp = new THREE.Mesh(new THREE.TorusGeometry(0.188, 0.016, 6, 22), new THREE.MeshLambertMaterial({ color: '#1F2A44' })); hp.rotation.x = PI / 2; hp.position.y = y; dr.add(hp); }
+      for (let i = 0; i < 8; i++) { const a = i * TAU / 8; dr.add(at(cyl(0.006, 0.006, 0.22, '#E2B53C', 4), Math.cos(a) * 0.19, 0, Math.sin(a) * 0.19)); }
+      g.add(at(box(0.05, 0.42, 0.012, '#F4F1E8', { outline: 0.003 }), -0.12, 0.33, -0.02, 0, 0, -0.35), at(box(0.05, 0.42, 0.012, '#F4F1E8', { outline: 0.003 }), 0.12, 0.33, -0.02, 0, 0, 0.35));
+      const skin = dr.children[1]; g.userData.update = t => { let a = 0; for (const b of o.beat || []) { const u = t - b; if (u >= 0 && u < 0.15) a = Math.max(a, Math.exp(-u * 30)); } skin.position.y = 0.105 + 0.02 * a;
+        const sq = o.squash ? o.squash * a : 0; dr.scale.set(1 + sq, 1 - 1.6 * sq, 1 + sq); }; }
     if (o.s) g.scale.setScalar(o.s); return g;
   },
 
@@ -159,9 +166,10 @@ export const CONSEILLER_PROPS = {
       for (let i = 0; i < 4; i++) hd.add(at(box(w * 0.2, w * 0.13, 0.1, SKIN, { outline: 0.004 }), w * 0.52, -h * 0.4 + i * w * 0.16, -0.02)); g.add(hd); }
     let fg = null;
     if (o.finger) { fg = grp(); const L = w * 0.62;   // the index along -X+Y (toward the upper left), its tip at the group's origin
-      const idx = at(box(L, w * 0.15, w * 0.14, SKIN, { outline: 0.005 }), L / 2, 0, 0), fist = at(box(w * 0.5, w * 0.46, w * 0.3, SKIN, { outline: 0.006 }), L + w * 0.22, -w * 0.1, 0),
+      const idx = at(box(L * 0.52, w * 0.15, w * 0.14, SKIN, { outline: 0.005 }), L * 0.3, 0, 0), knuckle = at(box(L * 0.46, w * 0.17, w * 0.15, SKIN, { outline: 0.005 }), L * 0.77, -w * 0.01, 0),   // (final pass) two phalanges, a knuckle
+        tip = at(sphere(w * 0.076, SKIN, 1), w * 0.04, 0, 0), crease = at(box(w * 0.012, w * 0.15, w * 0.145, '#C98E68'), L * 0.555, 0, 0), fist = at(box(w * 0.5, w * 0.46, w * 0.3, SKIN, { outline: 0.006 }), L + w * 0.22, -w * 0.1, 0),
         cuff = at(box(w * 0.14, w * 0.5, w * 0.34, '#FAF8F2'), L + w * 0.52, -w * 0.1, 0), arm = at(box(w * 2.4, w * 0.52, w * 0.36, '#1F3550', { outline: 0.006 }), L + w * 1.78, -w * 0.1, 0);
-      const nail = at(box(w * 0.1, w * 0.11, 0.004, '#F1CBA4'), w * 0.07, 0, w * 0.072); fg.add(idx, fist, cuff, arm, nail); fg.rotation.z = -0.62; g.add(fg); }
+      const nail = at(box(w * 0.1, w * 0.11, 0.004, '#F6DCC3', { outline: 0.002 }), w * 0.09, 0, w * 0.072); fg.add(idx, knuckle, tip, crease, fist, cuff, arm, nail); fg.rotation.z = -0.62; g.add(fg); }
     g.userData.update = t => { const pa = o.pressAt, p = pa != null && t >= pa; on.visible = p; off.visible = !p;
       if (fg && pa != null) { const u = t - pa, rest = [w * 0.62, -h * 0.52], far = [w * 1.5, -h * 0.95];   // far (out of frame) -> the key (u = 0) -> rest (the lower right corner, the key in the clear)
         const e = x => x < 0.5 ? 2 * x * x : 1 - 2 * (1 - x) * (1 - x); let x, y, z;
