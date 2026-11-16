@@ -2916,3 +2916,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 10 h 10 — « Les lunettes » (69) LIVRÉE : final contrôlé (1080x1920, 30,3 s, −16,1 LUFS, aucune chute de luminosité, contrôles HyperFrames sans
   erreur), relu sur une planche de 13 images, envoyé et publié sur TikTok (publication directe, sans mention d'IA). Le rendu final de « La
   tondeuse » démarre à la suite, puis « L'ascenseur » et « Le centime ».
+- 10 h 30 — « Le service client » (73) : revue 3 = 7,3 ; 7,3, contre 6,8 ; 7,0 puis 5,4 ; 5,4. Reste pour la passe finale : la tête de la mariée
+  cache le téléphone au moment du « OUI », l'étirement de la chute n'est tenu que 0,2 s (celui du plan 7, plus faible, 0,47 s), les plans du
+  milieu (défilé, classe, caméras) restent des tableaux raides, et les yeux sur tiges reprennent tels quels ceux d'un épisode précédent. Passe
+  finale confiée à un agent dérivé.
