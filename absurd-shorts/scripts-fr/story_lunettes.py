@@ -221,14 +221,16 @@ D9 = st.dur('S09'); EARTH9 = [0.0, -9.0, -26.0]   # (stills 6) at -15 the globe 
 SATS9 = [('sat9', [-0.2, 1.75, -3.2], [0.32, 0.3, 0.0], 0.3, 7.0, 0.1), ('sat9b', [-1.9, 2.9, -10.0], [0.3, -0.5, 0.15], 0.22, 29.0, 0.3), ('sat9c', [2.2, 2.2, -12.0], [0.32, 0.7, -0.15], 0.22, 28.0, 0.2)]   # (pass 3, review 2) shorter fans that end on the globe with a lit footprint (they ran past the planet to the bottom of the frame, red through the captions)
 st.shot('S09', 'spaceDark', actors=[],
         props=[P('earth9', 'earthGlobe', pos=EARTH9, scale=7.0, opts={'spin': 0.06}),
-               *[P(n_, 'satellite', pos=p_, rot=ro_, scale=s_, opts={'scan': [[t_, 9.0]], 'scanLen': L_, 'sweepDeg': 11, 'foot': True, 'fanOpacity': 0.34, 'fanBlend': 'normal', 'fanColor': '#FF2A1E', 'fanWidth': 0.11},   # (stills 7) narrow beams: wide ones hid the Earth
-                   keys=[k(0.0, to=[r(p_[0] + 0.35), r(p_[1] + 0.08), p_[2]], dur=D9, ease='linear')]) for n_, p_, ro_, s_, L_, t_ in SATS9]],
+               *[P(n_, 'satellite', pos=p_, rot=ro_, scale=s_, opts={'scan': [[t_, 9.0]], 'scanLen': L_, 'sweepDeg': 26, 'sweepSpeed': 4.6, 'lockAt': r(1.0 + 0.12 * j_), 'foot': True, 'fanOpacity': 0.34, 'fanBlend': 'normal', 'fanColor': '#FF2A1E', 'fanWidth': 0.11},   # (stills 7) narrow beams: wide ones hid the Earth; (final pass) they sweep the globe, then lock one after the other (review 3: they barely moved)
+                   keys=[k(0.0, to=[r(p_[0] + 0.35), r(p_[1] + 0.08), p_[2]], dur=D9, ease='linear')]) for j_, (n_, p_, ro_, s_, L_, t_) in enumerate(SATS9)]],
         cams=[cam(0.0, [0.0, 1.0, 5.0], [0.12, 1.0, 4.85], [0.0, -0.3, -6.0], [0.08, -0.3, -6.0], lens=44)])
-st.cue('sfx:static', 'S09', 0.1, 0.2); st.cue('sfx:ding', 'S09', 1.2, 0.15)
+st.cue('sfx:static', 'S09', 0.1, 0.2); st.cue('sfx:click', 'S09', 1.0, 0.12); st.cue('sfx:click', 'S09', 1.12, 0.12); st.cue('sfx:ding', 'S09', 1.26, 0.15)
 
 # 10: the other countries sent their dogs. (pass 3, review 2: the staring dog never sat and no tilt of its head read; the shot barely moved) low, at
 #    dog height: in the foreground, in profile, a dog sniffs at his shoes, sits down with a bounce, stretches its neck right up at the glasses on his
-#    head, tilts its head, ears flopping (glint), holds... and goes back to his shoe; behind, dogs of every colour sniff about; he looks down at it
+#    head, tilts its head, ears flopping (glint), holds... and goes back to his shoe; behind, dogs of every colour sniff about; he looks down at it.
+#    (final pass, review 3: the camera was at his hip and the stretch barely changed the dog's outline) the lens at the dog's height, the dog bigger
+#    in the foreground, its neck growing to more than twice its length as it stares up
 D10 = st.dur('S10'); STARE10 = 0.5; TILT10 = 0.85; BACK10 = 1.55; DOG10 = [4.7, 0, 1.15]
 DOGP = [[5.55, 0, -0.75], [4.3, 0, -0.65], [5.95, 0, -0.15], [4.0, 0, 0.1]]
 st.shot('S10', 'parisStreet', setOpts={'clear': [-12.0, 12.0], 'clearL': [-12.0, 12.0]}, actors=[
@@ -238,8 +240,8 @@ st.shot('S10', 'parisStreet', setOpts={'clear': [-12.0, 12.0], 'clearL': [-12.0,
             k(r(D10 - 0.3), toon={'face': {**SQUINT, 'lid': 1.0, 'mouth': 'line'}}, toonDur=0.04), k(r(D10 - 0.24), toon={'face': {**SQUINT, 'mouth': 'line'}}, toonDur=0.06)]),
         *[act(f'chien{j + 1}', DOGP[j], [120, -40, 30, 60][j], 'walk', 'neutral', scale=0.85, keys=[k(0.0, to=[r(DOGP[j][0] + [0.4, -0.3, 0.35, 0.3][j]), 0, r(DOGP[j][2] + [0.2, 0.4, 0.3, -0.3][j])], dur=D10, clip='walk', ease='inOut', face='keep')]) for j in range(4)]],
         props=[GL('gl10', glint=[r(TILT10 + 0.05)], fc=0.5),
-               P('fixe10', 'stareDog', pos=DOG10, ry=165, scale=1.05, opts={'body': '#C99A62', 'ear': '#8A5A32', 'collar': '#2F62B5', 'sitAt': 0.15, 'lookAt': STARE10, 'tiltAt': TILT10, 'backAt': BACK10, 'up': 1.0, 'tilt': 0.6})],
-        cams=[FC(0.0, [6.6, 0.5, 1.4], [[5.0, 2.62, 0.1], [5.0, 0.15, 0.1], [DOG10[0], 0.1, DOG10[2]], [DOG10[0], 1.3, r(DOG10[2] - 0.2)], [4.4, 1.0, 1.5]], top=0.12, bottom=0.76)])
+               P('fixe10', 'stareDog', pos=DOG10, ry=165, scale=1.25, opts={'body': '#C99A62', 'ear': '#8A5A32', 'collar': '#2F62B5', 'sitAt': 0.15, 'lookAt': STARE10, 'tiltAt': TILT10, 'backAt': BACK10, 'up': 1.15, 'tilt': 0.65, 'stretch': 2.4})],   # (final pass) bigger, the neck stretched right up
+        cams=[FC(0.0, [6.9, 0.32, 1.9], [[5.0, 2.62, 0.1], [DOG10[0], 0.05, DOG10[2]], [DOG10[0], 1.6, r(DOG10[2] - 0.2)], [r(DOG10[0] - 0.55), 0.6, DOG10[2]], [r(DOG10[0] + 0.45), 0.6, DOG10[2]]], top=0.1, bottom=0.8, level=False)])   # (final pass) at dog height, the dog big in profile in front (review 3: the camera stood at his hip)
 st.cue('sfx:sniff', 'S10', 0.1, 0.2); st.cue('sfx:boing', 'S10', STARE10, 0.2); st.cue('sfx:squeak', 'S10', TILT10, 0.2); st.cue('sfx:ding', 'S10', r(TILT10 + 0.05), 0.15); st.cue('sfx:sniff', 'S10', r(BACK10 + 0.1), 0.2)
 
 # 11-12: the government promised a million euros. At the podium the minister announces it; a reward poster pops up at his side: RÉCOMPENSE, the
@@ -258,9 +260,15 @@ st.shot('S11', 'pressRoom', setOpts=PRESS, actors=[MIN([k(0.0, look='camera'), k
             k(0.9, toon=UP11({'lid': 1.0, 'mouth': 'open', 'brow': 0.6}), toonDur=0.05), k(1.0, toon=UP11({'lid': 0.2, 'mouth': 'open', 'brow': 0.6}), toonDur=0.07)])],
         props=[SASH('echarpe11'), *[P(f'fl11{j}', 'glowLight', pos=[r(-1.2 + 1.2 * j), 1.8, 1.2], opts={'color': '#FFFFFF', 'k': 6.0, 'dist': 6.0}, keys=[k(0.0, visible=False), k(r(0.3 + 0.35 * j), visible=True), k(r(0.36 + 0.35 * j), visible=False)]) for j in range(3)]],
         cams=[FC(0.0, [0.7, 1.7, 1.6], [[0.0, 2.6, -2.45], [0.45, 2.95, -2.42], [0.0, 0.9, -2.0], [-0.6, 1.3, -2.0]], top=0.14, bottom=0.78)])
-st.shot('S12', 'pressRoom', setOpts=PRESS, actors=[MIN([k(0.0, look=[1.1, 1.9, -2.2]), k(0.0, toon={'reach': {'R': LECT['R'], 'L': [0.74, 1.85, -2.3, 1, 0.05]}, 'hands': {'R': 'open', 'L': 'point'}, 'face': {'lid': 0.2, 'mouth': 'smirk', 'brow': 0.5}}, toonDur=0.0),
-            k(0.6, look='camera'), k(0.85, toon={'reach': {'R': LECT['R'], 'L': [0.74, 1.85, -2.3, 1, 0.05]}, 'hands': {'R': 'open', 'L': 'point'}, 'face': {'lid': 1.0, 'mouth': 'smirk', 'brow': 0.5}}, toonDur=0.05),
-            k(0.95, toon={'reach': {'R': LECT['R'], 'L': [0.74, 1.85, -2.3, 1, 0.05]}, 'hands': {'R': 'open', 'L': 'point'}, 'face': {'lid': 0.2, 'mouth': 'smirk', 'brow': 0.5}}, toonDur=0.07)])],
+# (final pass, review 3: once the poster popped he froze 0.8 s, his hand on its corner read as a thumbs-up) his index lands on the glasses drawn on
+#    the poster and taps them twice; he turns to us, a nod, an eyebrow up, a blink, breathing
+GLP12 = lambda dz=0.0: [0.95, 1.64, r(-2.25 + dz), 1, 0.06]   # the left lens drawn on the poster (pos 1.15, ry -15, 1.0 x 1.35 on a 0.9 m stand)
+PT12 = lambda f, dz=0.0, extra=None: {'reach': {'R': LECT['R'], 'L': GLP12(dz)}, 'hands': {'R': 'open', 'L': 'point'}, 'face': f, **(extra or {})}
+F12 = {'lid': 0.2, 'mouth': 'smirk', 'brow': 0.5}
+st.shot('S12', 'pressRoom', setOpts=PRESS, actors=[MIN([k(0.0, look=[1.0, 1.7, -2.3]), k(0.0, toon=PT12(F12, 0.12), toonDur=0.0),
+            k(0.1, toon=PT12(F12), toonDur=0.08, toonEase='out'), k(0.22, toon=PT12(F12, 0.07), toonDur=0.06), k(0.3, toon=PT12(F12), toonDur=0.06, toonEase='in'),   # tap... tap, on the drawn glasses
+            k(0.45, look='camera', lookDur=0.15), k(0.62, toon=PT12({**F12, 'brow': 0.95}, 0.0, {'bend': {'neck': [0.16, 0, 0, 1, None]}}), toonDur=0.08),   # to us: a nod, an eyebrow up...
+            k(0.74, toon=PT12({**F12, 'brow': 0.8}), toonDur=0.1), k(0.95, toon=PT12({**F12, 'lid': 1.0}), toonDur=0.05), k(1.03, toon=PT12(F12), toonDur=0.08)])],   # ...a blink
         props=[SASH('echarpe12'), P('poster12', 'rewardPoster', pos=[1.15, 0, -2.3], ry=-15, opts={'at': 0.05, 'w': 1.0, 'h': 1.35, 'stand': 0.9})],
         cams=[FC(0.0, [0.5, 1.65, 1.5], [[0.0, 2.6, -2.45], [1.15, 2.35, -2.3], [1.15, 0.9, -2.3], [0.0, 1.0, -2.0], [1.72, 2.4, -2.45], [1.72, 0.9, -2.45]], top=0.2, bottom=0.78)])   # (stills 1) its right edge was cut
 st.cue('sfx:click', 'S11', 0.3, 0.2); st.cue('sfx:click', 'S11', 0.65, 0.2); st.cue('sfx:boing', 'S12', 0.05, 0.25); st.cue('sfx:cash', 'S12', 0.25, 0.3)
