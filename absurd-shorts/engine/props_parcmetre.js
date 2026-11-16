@@ -152,8 +152,9 @@ export const PARCMETRE_PROPS = {
         c.fillStyle = '#C8322A'; c.fillRect(W * 0.78, H * 0.12, W * 0.14, H * 0.26); c.fillStyle = '#4A4A4A'; c.fillRect(W * 0.12, H * 0.62, W * 0.4, H * 0.06); c.fillRect(W * 0.12, H * 0.74, W * 0.3, H * 0.06); }, { res: 256 });
       env.rotation.y = PI / 2; wip.add(env); }
     g.userData.update = t => {
-      const big = o.smokeBig ? 1.9 : 1;
-      puffs.forEach((m, i) => { const u = ((t * 0.55 + i / 4) % 1 + 1) % 1, s = (0.07 + 0.2 * u) * big; m.position.set(-1.15 - 0.35 * big * u * u, 2.65 + 0.95 * big * u, 0.42 + 0.05 * Math.sin(t * 2 + i)); m.scale.setScalar(s); m.material.opacity = (o.smokeBig ? 0.97 : 0.85) * (1 - u) * Math.min(1, u * 8);
+      const big = o.smokeBig ? 1.5 : 1;   // (stills 1 of the final pass) twice the size and fading from the start, they read as glass bubbles: now solid until 0.65 of their rise
+      puffs.forEach((m, i) => { const u = ((t * 0.55 + i / 4) % 1 + 1) % 1, s = (0.07 + 0.2 * u) * big; m.position.set(-1.15 - 0.35 * big * u * u, 2.65 + 0.95 * big * u, 0.42 + 0.05 * Math.sin(t * 2 + i)); m.scale.setScalar(s);
+        m.material.opacity = o.smokeBig ? Math.min(1, (1 - u) * 2.9) * Math.min(1, u * 8) : 0.85 * (1 - u) * Math.min(1, u * 8);
         if (m.userData.ol) m.userData.ol.material.opacity = 0.9 * m.material.opacity; });
       if (env) { const a = o.letter ? 1 : clamp01((t - o.letterAt) / 0.3); env.visible = a > 0; env.position.set(0.03, 0.1 + 0.25 * (1 - a) * (1 - a), -0.38); env.rotation.x = a >= 1 ? 0.06 * Math.sin(t * 9) : 0; } };
     g.userData.update(-1); return g;
