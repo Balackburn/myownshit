@@ -122,7 +122,7 @@ export const ASCENSEUR_PROPS = {
 
   // (pass 3) The light of an open lift car (pivot at the foot of the doorway, the hall out along +Z): a warm trapezoid on the hall floor that widens
   // with the doors (o.doors [[t, 0..1], ...]: the set's own door keys, eased the same way), a warm point light in the doorway (o.light,
-  // 7) that falls on whoever sits near it, another inside the car (o.carLight, 4; the car's own walls are unlit paint, the people in it are not)
+  // 3) that falls on whoever sits near it, another inside the car (o.carLight, 3: with 7 and 4 the man in the car was bleached; the car's own walls are unlit paint, the people in it are not)
   // and a glow on the car's back wall (o.wall, 0.14; o.depth 1.3: how deep the car is). o.len (2.6): how far the trapezoid runs, o.spread (1.9): how
   // much wider it is at its far end.
   doorGlow(o) {
@@ -142,7 +142,7 @@ export const ASCENSEUR_PROPS = {
     wall.position.set(0, 1.2, -(o.depth ?? 1.3) + 0.07); g.add(wall);
     g.userData.update = t => { const a = openAt(t), h0 = a * (DW / 2 - 0.03), h1 = h0 * sp + 0.12 * a;
       pos.set([-h0, Y, 0.02, h0, Y, 0.02, -h1, Y, Ln, h1, Y, Ln]); geo.attributes.position.needsUpdate = true;
-      beam.visible = a > 0.01; beam.material.opacity = (o.floor ?? 0.5) * Math.min(1, a * 1.6); hall.intensity = (o.light ?? 7) * a; car.intensity = (o.carLight ?? 4) * Math.min(1, a * 2); wall.visible = a > 0.01; };
+      beam.visible = a > 0.01; beam.material.opacity = (o.floor ?? 0.5) * Math.min(1, a * 1.6); hall.intensity = (o.light ?? 3) * a; car.intensity = (o.carLight ?? 3) * Math.min(1, a * 2); wall.visible = a > 0.01; };
     g.userData.update(0); return g;
   },
 

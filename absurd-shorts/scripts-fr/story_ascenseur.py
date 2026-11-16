@@ -266,7 +266,9 @@ st.cue('sfx:ding', 'S15', RC, 0.5)
 
 # 16: ...the doors opened. From his side: the doors slide apart, their light widens across the dim hall floor and falls on him; in the gap, a
 #     seated shape; he grips his stick, beard trembling
-D16 = st.dur('S16'); OPEN = 0.1; AUT = [0.0, 0, BACK - 0.62]; DOORS16 = [[0.0, 0.0], [OPEN, 0.0], [r(D16 + 0.25), 0.6]]   # (pass 3) half open at the cut (fully open, the car stood empty before the cut to the man in it)
+D16 = st.dur('S16'); OPEN = 0.1
+AUT = [0.0, 0, BACK - 0.77]   # (pass 3) the man in the car 15 cm deeper: at 0.62 his knees, hands and stick came through the closed leaves
+DOORS16 = [[0.0, 0.0], [OPEN, 0.0], [r(D16 + 0.25), 0.6]]   # (pass 3) half open at the cut (fully open, the car stood empty before the cut to the man in it)
 HCANE = lambda pid, who='vieux', hand='R': P(pid, 'cane', on={'actor': who, 'hand': hand, 'offset': [0.0, 0.0, 0.05], 'hang': True, 'hangYaw': 1.0}, opts={'a': r(PI), 'len': 0.7})   # (pass 3) a stick that stands on the floor under the hand of a seated man (carried along the forearm it lay level, like a lance: the double's went through the closed doors)
 TWIN = lambda pfx, at_=AUT: [P(f'fauteuil{pfx}', 'armchair', pos=at_, opts={'color': '#B5523A'}), BEARD(f'barbe{pfx}', who='autre', s=1.25), SPECS(f'lun{pfx}', who='autre'), HCANE(f'canne{pfx}', who='autre'),
                              P(f'plaid{pfx}', 'blanketDrape', pos=[at_[0], 0.72, at_[2] + 0.46], opts={'w': 0.75, 'h': 0.42, 'color': PLAID})]

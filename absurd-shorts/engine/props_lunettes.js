@@ -38,8 +38,8 @@ export const LUNETTES_PROPS = {
     const R = o.r ?? 0.055, dx = o.dx ?? 0.075, C = o.color || '#151515', g0 = grp(), g = grp(); g0.add(g);
     for (const s of [-1, 1]) {
       g.add(at(new THREE.Mesh(new THREE.TorusGeometry(R, R * (o.rim ?? 0.2), 6, 20), lam(C)), s * dx, 0, 0));
-      g.add(at(new THREE.Mesh(new THREE.CircleGeometry(R * 0.96, 20), new THREE.MeshLambertMaterial({ color: '#CFE8F6', transparent: true, opacity: 0.55, side: THREE.DoubleSide, depthWrite: false })), s * dx, 0, 0.001));
-      g.add(at(new THREE.Mesh(new THREE.PlaneGeometry(R * 0.28, R * 1.1), basic('#FFFFFF', 0.8)), s * dx - R * 0.35, R * 0.1, 0.003, 0, 0, -0.6));
+      g.add(at(new THREE.Mesh(new THREE.CircleGeometry(R * 0.96, 20), new THREE.MeshLambertMaterial({ color: '#CFE8F6', transparent: true, opacity: o.lens ?? 0.55, side: THREE.DoubleSide, depthWrite: false })), s * dx, 0, 0.001));   // o.lens: the glass's opacity (0.2 on his nose: his eyes show behind it)
+      g.add(at(new THREE.Mesh(new THREE.PlaneGeometry(R * 0.28, R * 1.1), basic('#FFFFFF', o.lens != null ? Math.min(0.8, o.lens * 2.5) : 0.8)), s * dx - R * 0.35, R * 0.1, 0.003, 0, 0, -0.6));
       const tl = 0.16; g.add(at(box(0.012, 0.012, tl, C), s * (dx + R * 1.1), 0, -tl / 2), at(box(0.012, 0.03, 0.012, C), s * (dx + R * 1.1), -0.012, -tl));
     }
     g.add(at(box(dx * 2 - R * 2 + 0.01, 0.012, 0.012, C), 0, R * 0.25, 0));
