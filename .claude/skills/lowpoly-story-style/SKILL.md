@@ -1705,3 +1705,8 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   taille : une action différente de l'accessoire par plan (il jaillit quand le collègue s'arrête ; une vague d'un bureau à l'autre ; il rebondit à
   contretemps des pas ; il se lève lentement comme un drapeau). Et quand une phrase tient sur deux plans, le premier ne montre pas ce que le
   second révèle. « Le pull », revue 2 : 40 % du film en « tableaux où l'étiquette est déjà dressée et oscille ».
+
+- (cycle 41) Une caméra « à l'intérieur » d'un meuble (frigo, placard, canapé) doit MONTRER le meuble : bords flous d'étagères, deux ou trois
+  objets au premier plan sur les bords, sa lumière propre (bleutée pour un frigo). Sans eux, le plan montre juste le héros devant sa cuisine et
+  le gag disparaît (« Les lunettes », revue 3 : « on n'est jamais dans le frigo »). Et quand un accessoire remplace la bouche (porte-clés,
+  sifflet, paille), masquer la bouche peinte : sinon le visage a deux bouches.

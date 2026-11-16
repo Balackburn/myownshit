@@ -2874,3 +2874,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   sur le ciel bleu, environ 10 % de la largeur). Rendu final lancé (1080x1920, 30 i/s), puis contrôle et publication.
   « Le pull » (74) : passe 3 relue ; le maillet du juge frappe bien son socle (vérifié après le dernier réglage). Brouillon 3 en file, revue 3
   préparée. Disque : brouillons 1 dépassés et rendu de travail du « Robinet » supprimés (environ 100 Mo).
+- 9 h 20 — « Les lunettes » (69) : revue 3 = 6,8 (animation) ; 7,0 (direction artistique), contre 6,3 ; 6,6. Reste pour la passe finale : au
+  dernier plan son visage a deux bouches (la bouche peinte reste visible sous le porte-clés), le frigo ne se voit jamais (on devrait être dedans),
+  le mime au commissariat cache son visage, l'aplatissement contre le lampadaire ne se lit pas de face. Passe finale confiée à un agent dérivé.
