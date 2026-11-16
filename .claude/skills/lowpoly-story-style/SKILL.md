@@ -1762,3 +1762,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   aussi l'attente, et l'arrêt de la tâche ferme le navigateur du rendu (« Target page, context or browser has been closed » vers 80 %). Lancer
   les chaînes longues détachées (`setsid nohup bash chain.sh > log 2>&1 < /dev/null &`) et les surveiller par un guetteur séparé qui attend le
   mot READY dans le journal.
+- (cycle 42) Format 9:16 : une grosse réaction étirée (yeux qui jaillissent compris) a besoin d'environ 10 % de marge en haut. Élargir l'objectif
+  et viser plus haut, ou plafonner `popLen`. Vérifier sur l'image du pic de l'étirement, pas sur la pose de repos.
+- (cycle 42) Rangée de blocs en diagonale : chaque trou se cache deux fois, derrière le bloc de devant ET derrière son mur latéral qui court sur
+  toute sa profondeur. En plus du décalage latéral, réduire la profondeur des blocs (`d`).
+- (cycle 42) Les clés d'un accessoire ne font qu'une échelle uniforme : pour un écrasement (tampon, marteau), l'accessoire a besoin de sa propre
+  option animée, et sa géométrie doit pendre depuis la face de contact.
+- (cycle 42) Rendre lisible la face d'un tampon avant qu'il frappe une plaque verticale : le suspendre incliné vers la caméra, puis le rabattre
+  à plat avec `rotTo` (un arc de marteau).
+- (cycle 42) Un gardien qui pousse quelqu'un par une porte se tient À CÔTÉ de l'embrasure, jamais derrière la personne : sinon les deux têtes
+  s'empilent à l'image.
