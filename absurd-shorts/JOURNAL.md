@@ -2948,3 +2948,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 13 h 25 — « Le bocal » (78) : revue 3 = 6,8 ; 6,8, contre 6,2 ; 6,5. Reste pour la passe finale : le char ne touche jamais le bocal (il glisse
   au-dessus), le bocal flotte devant lui au dernier plan sans main dessous, les tractions des pompiers et des astronautes ne montent pas, et deux
   temps de visage (cuillère, pichenette) se jouent de profil. Passe finale confiée à un agent dérivé.
+- 13 h 40 — « Le service client » (73) : passe finale terminée et relue sur images (la mariée penchée vers le téléphone et « OUI ! » qui en
+  sort, étirement de la chute à 2,9 fois la largeur tenu 0,4 s puis POP, saluts d'un seul coup avec képis, grosse caisse vue de côté qui
+  s'écrase à chaque coup, enfants qui hochent la tête ensemble, caméras de télévision qui avancent). Le dernier réglage proposé par l'agent
+  (panneau MAIRIE décalé pour que la queue de la bulle ne coupe plus le M) est appliqué et en vérification sur trois images.

@@ -152,6 +152,8 @@ st.shot('S06', 'livingRoom', setOpts=LR, actors=[act('mec', ME, 0, 'stand', 'neu
 
 # 7: ...stuck to his ear. Close, face on: both hands on the phone, he braces and leans back, then pulls: his head is dragged out over a fifth of a
 #    second to twice its width after the phone, trembles there, heaves once more, and snaps back when his grip slips; the phone has not moved
+#    (final pass) closer; the stretch eased over 6 frames, a harder tremble; the slipping hand flies on in the same arc, out of the frame; the head
+#    snaps back tall and narrow, then squashes, then settles
 D7 = st.dur('S07')
 def PULL(s, f, extra=None, brace=0.0, dy=0.0):   # s: the width of his head (1 = its own); the body tips that way so that the far side of the head stays where it was
     # (pass 3) brace: he leans back and away from the phone (the spine, not the scale of the body); dy: the head's height, for the tremble
@@ -196,7 +198,7 @@ st.shot('S08', 'parisStreet', setOpts={'clear': [-8.0, 8.0], 'eiffelStyle': 'v2'
 st.cue('sfx:stepSoft', 'S08', 0.3, 0.15); st.cue('sfx:stepSoft', 'S08', 0.8, 0.15); st.cue('sfx:stepSoft', 'S08', 1.3, 0.15)
 
 # 9: he got married on hold. The town hall: the mayor in his sash reads from the register; the bride in her veil beside him; the phone on his ear by
-#    itself, his hands free, notes rising over the wedding; his head and shoulders rock on the hold music
+#    itself, his hands free, notes rising over the wedding; his head and shoulders rock on the hold music (final pass: the register a big open book)
 D9 = st.dur('S09'); BR = [0.5, 0, 0.3]; GR = [-0.5, 0, 0.3]; MA = [0.0, 0, -1.55]; MAIRIE = {'map': False, 'bannerY': 3.25, 'plate': False}
 BOUQ = {'touch': {'R': ['torso', 0.05, 0.4, 0.3, 1, 0.02], 'L': ['torso', -0.05, 0.4, 0.3, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}}
 READ9 = lambda j: {'reach': {'R': [0.15, 1.35, r(MA[2] + 0.4), 1, 0.04], 'L': [-0.15, 1.35, r(MA[2] + 0.4), 1, 0.04]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.4, 'mouth': 'open' if j % 2 else 'line'}}
@@ -210,13 +212,14 @@ st.shot('S09', 'mairie', setOpts=MAIRIE, actors=[
         cams=[FC(0.0, [0.0, 1.5, 4.3], [[r(GR[0] - 0.45), 0.15, GR[2]], [r(BR[0] + 0.5), 0.15, BR[2]], [0.0, 3.55, -2.55], [r(GR[0] - 0.45), 2.4, GR[2]], [r(BR[0] + 0.5), 2.4, BR[2]]], top=0.08, bottom=0.82)])   # (pass 2) both of them whole, the banner over them
 st.cue('sfx:bell', 'S09', 0.2, 0.2)
 
-# 10: his wife said yes on the speaker. Three quarters to us, she bends at the waist and stretches up to the phone on his ear, her mouth on it, and
-#     says it into it: OUI ! bursts out of the phone; he does not move; she eases back up; behind her shoulder the mayor claps
+# 10: his wife said yes on the speaker. (final pass) From the right front: him on the left, deadpan, the phone on his ear in full view, the bride on
+#     the far side of it, bent forward, her lips at its edge; she says it into it: OUI ! bursts out of the top of the phone (the tail on it, the body
+#     above her head and the MAIRIE banner), the phone squashes and jolts; he does not move; she eases back up; the mayor is hidden behind him
 D10 = st.dur('S10'); OUI10 = 0.75; BR10 = [0.28, 0, 0.0]; MA10 = [-1.05, 0, -1.25]   # (final pass) she stands on the far side of the phone; the mayor hidden behind him (over her shoulder only a sliver of his head showed)   # (stills 2) she stands three quarters to us: in profile a box head shows no mouth; (pass 3) closer to him (0.27)
 # (pass 3) u 0..1: how far she reaches for the phone: the spine bows forward and toward her right (his side) and stretches, the neck tips her mouth onto it
 LEAN10 = lambda u, f, sq=None: {**BOUQ, 'bend': {'spine': [r(0.5 * u), r(0.12 * u), 0, r(1 + 0.35 * u), None], 'neck': [r(0.3 * u), r(0.08 * u), 0, 1, None]}, 'face': f, **({'sq': sq} if sq else {})}   # (final pass) forward, toward the phone in front of her
 CLAP10 = lambda j: {'touch': {'R': ['torso', r(-0.03 if j % 2 else -0.16), 0.52, 0.3, 1, 0.04], 'L': ['torso', r(0.03 if j % 2 else 0.16), 0.52, 0.3, 1, 0.04]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'lid': 0.0, 'mouth': 'bigsmile'}}
-st.shot('S10', 'mairie', setOpts={**MAIRIE, 'bannerX': -0.37, 'bannerY': 3.35}, actors=[   # (final pass) the word MAIRIE whole under the bubble, the tail crossing only the blue
+st.shot('S10', 'mairie', setOpts={**MAIRIE, 'bannerX': -0.1, 'bannerY': 3.42}, actors=[   # (final pass) the word MAIRIE whole under the bubble, the tail crossing only the blue; (after it) banner moved right and up, longer tail: the tail crossed the M in two frames
         act('mec', GR, 5, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=FREE(), toonDur=0.0), FK(r(OUI10 + 0.1), {'lid': 0.3, 'mouth': 'line', 'gx': 0.8}), FK(r(OUI10 + 0.55), {**DEAD, 'mouth': 'line'}, 0.12),
             *BL(1.7, {**DEAD, 'mouth': 'line'})]),                                                                                       # one look aside at the yes, and back to us
         act('femme', BR10, -50, 'stand', 'happy', keys=[k(0.0, look=[-0.2, 2.0, 0.6]), k(0.0, toon=LEAN10(0.0, {'lid': 0.2, 'mouth': 'smile'}), toonDur=0.0),
@@ -229,13 +232,14 @@ st.shot('S10', 'mairie', setOpts={**MAIRIE, 'bannerX': -0.37, 'bannerY': 3.35}, 
         act('maire', MA10, 15, 'stand', 'happy', keys=[k(0.0, look=[0.0, 2.0, 0.3]), k(0.0, toon=CLAP10(0), toonDur=0.0), *[k(r(OUI10 + 0.15 + 0.13 * j), toon=CLAP10(j + 1), toonDur=0.07) for j in range(10)]])],
         props=[TEL('tel10', keys=[k(OUI10, squash=[1.32, 0.78, 1.32], dur=0.35)]), NOTES('mus10', size=0.16, t1=r(OUI10 - 0.4), life=0.95, dx=0.3, dy=0.38), P('voile10', 'bridalVeil', on={'actor': 'femme', 'joint': 'head', 'offset': [0.0, 0.45, 0.0]}),
                P('bouq10', 'bouquet', on={'actor': 'femme', 'hand': 'R', 'offset': [0.0, 0.0, 0.05]}),
-               P('oui10', 'voiceBubble', pos=[-0.37, 2.2, 0.32], face='camera', opts={'at': OUI10, 'until': r(OUI10 + 1.0), 'text': 'OUI !', 'w': 0.5, 'stem': 0.5, 'onTop': True, 'fill': '#FFD83A', 'ink': '#D22B2B', 'jagK': 0.72})],   # (final pass) its tail on the top of the phone, the body above her head and the banner (drawn over everything: her hair hid it)   # (pass 3) the yes bursts out of the phone, its tail on it (it floated over the banner)
+               P('oui10', 'voiceBubble', pos=[-0.37, 2.2, 0.32], face='camera', opts={'at': OUI10, 'until': r(OUI10 + 1.0), 'text': 'OUI !', 'w': 0.5, 'stem': 0.58, 'onTop': True, 'fill': '#FFD83A', 'ink': '#D22B2B', 'jagK': 0.72})],   # (final pass) its tail on the top of the phone, the body above her head and the banner (drawn over everything: her hair hid it)   # (pass 3) the yes bursts out of the phone, its tail on it (it floated over the banner)
         cams=[FC(0.0, [0.45, 1.75, 3.1], [[-0.37, 2.34, 0.29], [-0.8, 1.3, 0.29], [-1.1, 2.25, MA10[2]], [0.5, 1.4, 0.05], [0.42, 2.7, 0.33]], top=0.12, bottom=0.78)])   # (final pass) from the right front: his face, the phone, her lips at its far edge, left to right   # (pass 3) from the left front: her head beside the phone, not in front of it or of his face   # (pass 2) face on to him; (after stills 4, by calculation) tighter than S09: cut at the belt, his far shoulder out of frame
 st.cue('sfx:pop', 'S10', OUI10, 0.2); st.cue('sfx:fanfare', 'S10', r(OUI10 + 0.2), 0.15)
 
 # 11: the music became the national anthem. A ceremony in the street: him in front, in the middle, the phone on his ear, his head rocking on it;
 #     behind him the flag climbs its pole from above their heads, a column of notes rises from the phone up along it; on « hymne » the two soldiers
 #     and the official snap a salute together, hand to the brow, with a little bounce (HYMNE)
+#     (final pass) the soldiers in olive with red kepis and white gloves, spread apart so no saluting arm hides behind him; the salute in one frame
 D11 = st.dur('S11'); POLE = [0.55, 0, -2.4]; H11 = [0.0, 0, 0.6]   # (pass 3) x 0.8: a cloud sat on the pole
 HEART = lambda f: {'touch': {'R': ['torso', -0.08, 0.45, 0.25, 1, 0.02]}, 'hands': {'R': 'open'}, 'face': f}
 SAL11 = 0.98                                                     # (pass 3) « l'hymne »: they all salute on it
@@ -257,7 +261,8 @@ st.shot('S11', 'parisStreet', setOpts={'clear': [-8.0, 8.0], 'eiffelStyle': 'v2'
 st.cue('sfx:fanfare', 'S11', 0.2, 0.25)
 
 # 12: the band played it at the parade. The street with flags: a marching band comes at us, the bass drum and the big tuba in the front rank, two
-#     trumpets behind, in step, playing it
+#     trumpets behind, in step, playing it (final pass: closer; the drum side on, red shell, hoops and rods, a squash on every stick; the tuba bell
+#     pumps on the beat; the trumpet bells up)
 D12 = st.dur('S12'); X12 = 3.5; Z12 = 2.2; V12 = 1.2; ZE12 = r(Z12 - V12 * D12); BEATS = [0.1, 0.5, 0.9, 1.3, 1.7]; HITS12 = [0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 1.7]   # (final pass) a stick lands every 0.2 s
 BAND = [('mus1', -0.55, 0.0, 'drum'), ('mus2', 0.55, 0.0, 'tuba'), ('mus3', 0.0, 1.25, 'trumpet'), ('mus4', -1.1, 1.25, 'trumpet')]   # (stills 2) the trumpets in the gaps of the front rank, seen from the camera
 PUFF = {'lid': 0.4, 'mouth': 'kiss', 'cheeks': 0.9, 'puff': 0.6}
@@ -278,7 +283,8 @@ st.shot('S12', 'parisStreet', setOpts={'clear': [-8.0, 8.0], 'eiffelStyle': 'v2'
 st.cue('sfx:fanfare', 'S12', 0.05, 0.3); st.cue('thud', 'S12', 0.1, 0.15); st.cue('thud', 'S12', 0.5, 0.15); st.cue('thud', 'S12', 0.9, 0.15); st.cue('thud', 'S12', 1.3, 0.15)
 
 # 13: the children whistle it at school. A classroom: three children in a row in front of the board, facing us, whistle it, big white chalk notes
-#     over their heads on the green board, MUSIQUE above them; the teacher behind them beats time with a ruler
+#     over their heads on the green board, MUSIQUE above them; the teacher behind them beats time with a ruler (final pass: the three of them nod,
+#     stretch and puff their cheeks together on each beat of the ruler)
 D13 = st.dur('S13'); KIDS = [('el1', -0.85), ('el2', -0.27), ('el3', 0.31)]; ZK = -2.5; PROF = [0.92, 0, -3.1]   # (stills 2) the teacher behind them, between two heads: beside them she widened the frame past the first desks
 st.shot('S13', 'classroom', setOpts={'board': 'MUSIQUE', 'board2': "L'hymne national", 'board3': 'la la la la'}, actors=[
         *[act(eid, [x, 0, ZK], 0, 'stand', 'happy', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.3, 'mouth': 'kiss', 'mouthW': 0.7, 'mouthH': 0.7, 'cheeks': 0.6}}, toonDur=0.0),
@@ -293,7 +299,7 @@ st.cue('sfx:whistle', 'S13', 0.1, 0.25)
 
 # 14: yesterday someone picked up. Ten years on, on his sofa, the phone on his ear: click: the notes stop and hang in the air; his eyes slide to the
 #     phone; the notes drop; he squashes; and the biggest take of the film: his eyes shoot out on long stalks, his jaw drops, the stalks overshoot and
-#     wobble back
+#     wobble back (final pass: the stalks spring toward the phone, the chin drops like a block to his chest, the tongue out)
 D14 = st.dur('S14'); CLK14 = 0.4; HANG14 = 0.24; TAK14 = 0.82; AGE = {'low': 0.32}   # (pass 3) the notes hang 7 frames, then drop; the take after the squash   # ten years on: grey hair (cast), heavier lower lids; the gloom over his eyes (shadow) only before the click and at the very end
 A = lambda **f: {**AGE, **f}
 TAKE14 = lambda yaw, pitch, ln: A(lid=0.0, eye=0.5, pop=1.0, popLen=ln, stalkYaw=yaw, stalkPitch=pitch, eyeYaw=0.5, stalkRed=0.5, stalkBow=0.05, jaw=1.0, jawBlock=1, jawLen=0.85, tongue=0.8, tongueLen=0.22, mouth='scream', brow=1.0)   # (final pass) toward the phone (+: his left)
@@ -319,7 +325,8 @@ st.shot('S15', 'livingRoom', setOpts=LR, actors=[act(OLD, SIT, 0, 'sit', 'neutra
         cams=[SITCAM([0.45, 1.2, -1.2], [[0.66, 1.75, SIT[2]], [-0.62, 1.75, SIT[2]]], top=0.16, bottom=0.74)])   # low, from the phone side: the tears against the wall
 st.cue('sfx:sniff', 'S15', 0.2, 0.25); st.cue('sfx:sniff', 'S15', 0.7, 0.2)
 
-# 16: ...live on television. Wider: two light grey TV cameras on tripods, three quarters to us (lens, viewfinder, TV plate, red light), push in on
+# 16: ...live on television. (final pass: him bigger, the camera pushes in; the two TV cameras in the lower corners, backs three quarters to us,
+#     dolly in on him) Earlier: two light grey TV cameras on tripods, three quarters to us (lens, viewfinder, TV plate, red light), push in on
 #     him from either side; he sobs in the middle, a reporter's INFO mic comes in from the right (only her sleeve shows); over him a red EN DIRECT sign
 D16 = st.dur('S16'); MIC16 = [0.4, 1.4, r(SIT[2] + 0.32)]; ZC16 = r(SIT[2] + 1.3)   # (stills 2) no operators (a back filled a quarter of the frame): two low cameras in the lower corners, the mic from the right
 MICK = lambda p, b, f: {'reach': {'R': [*p, 1, 0.04]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [b, 0, 0, 1, None]}, 'face': f}
@@ -347,7 +354,8 @@ st.cue('sfx:ding', 'S17', 0.1, 0.15)
 
 # 18: ...for an adviser, press one. His hand goes up to the phone and pulls: the ear and the head stretch after it like taffy, further than when he
 #     first pulled, and hold there trembling; POP, it comes free, the head springs back in three smaller and smaller bounces; he holds the phone in
-#     front of him, the keypad to us, and his eyes drop to it
+#     front of him, the keypad to us, and his eyes drop to it (final pass: low, three quarters from his right; stretched to 2.9 times its width,
+#     held 0.4 s trembling harder and harder, the phone at the frame's edge; after the pop his head dips to the keypad)
 D18 = st.dur('S18'); POP18 = 0.86; CAR18 = 0.24   # (final pass) held 0.4 s at full stretch before the pop   # (pass 3) the pop later: the stretch has time to grow and hold
 def OFF18(u, s, sy, f, lay=0.0): return {'touch': {'L': MIX(GRIP, FGRIP, eio(min(1.0, max(0.0, u))))}, 'hands': {'L': 'grip'}, 'scl': {'head': [s, sy, 1.0]}, 'lay': [0, lay], 'face': f}
 st.shot('S18', 'livingRoom', setOpts=LR, actors=[act(OLD, SIT, 0, 'sit', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=FREE(A(lid=0.0, eye=0.3, mouth='o')), toonDur=0.0),
@@ -374,7 +382,7 @@ st.shot('S19', 'livingRoom', setOpts=LR, actors=[],
 st.cue('sfx:click', 'S19', PRESS19, 0.35)
 
 # 20: the music started again. The notes pour out of the phone in his hand; his face falls and he flattens into the sofa; he re-inflates as he puts
-#     it back on his ear, and looks at us, deadpan; a long slow blink
+#     it back on his ear, and looks at us, deadpan; a long slow blink (final pass: his eyes open on a flat stare into the lens first)
 D20 = st.dur('S20'); BACK20 = 0.5
 st.shot('S20', 'livingRoom', setOpts=LR, actors=[act(OLD, SIT, 0, 'sit', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=SHOW(A(lid=0.3, mouth='line', gy=0.85)), toonDur=0.0),
             FK(0.16, A(lid=0.1, mouth='o', gy=0.85, brow=0.7)),                                                                          # the notes: his brows go up...

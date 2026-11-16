@@ -77,11 +77,12 @@ export const BOCAL_PROPS = {
   },
 
   // An astronaut's helmet (pivot at the neck, attach to the 'head' joint): a clear glass bubble with a white glint and a thick white collar ring
+  // (final pass of 78) o.clear: a thinner, single-sided bubble and no glint (under the key light the bubble was a white veil over the faces)
   spaceHelmet(o) {
     const r = o.r ?? 0.3, g = grp();
-    const bub = new THREE.Mesh(new THREE.SphereGeometry(r, 20, 14), new THREE.MeshLambertMaterial({ color: '#E8F4FF', transparent: true, opacity: 0.22, depthWrite: false, side: THREE.DoubleSide })); bub.position.y = r * 0.82; bub.renderOrder = 4; g.add(bub);
+    const bub = new THREE.Mesh(new THREE.SphereGeometry(r, 20, 14), new THREE.MeshLambertMaterial({ color: '#E8F4FF', transparent: true, opacity: o.clear ? 0.08 : 0.22, depthWrite: false, side: o.clear ? THREE.FrontSide : THREE.DoubleSide })); bub.position.y = r * 0.82; bub.renderOrder = 4; g.add(bub);
     g.add(at(new THREE.Mesh(new THREE.TorusGeometry(r * 0.72, r * 0.12, 8, 24), L('#F4F4F2')), 0, 0.02, 0, PI / 2));
-    const gl = at(box(r * 0.08, r * 0.5, 0.004, '#FFFFFF'), -r * 0.45, r * 1.05, r * 0.72); gl.rotation.z = 0.4; gl.rotation.y = -0.5; g.add(gl);
+    const gl = at(box(r * 0.08, r * 0.5, 0.004, '#FFFFFF'), -r * 0.45, r * 1.05, r * 0.72); gl.rotation.z = 0.4; gl.rotation.y = -0.5; if (!o.clear) g.add(gl);
     return g;
   },
 
@@ -256,6 +257,41 @@ export const BOCAL_PROPS = {
     for (const sd of [-1, 1]) { g.add(at(cyl(r, r, 0.03, '#2A2D33', 12, { outline: 0.03 }), sd * dx, 0, 0.0, PI / 2, 0, 0), at(cyl(r * 0.78, r * 0.78, 0.034, o.tint || '#E8B23A', 12, { emissive: o.tint || '#E8B23A' }), sd * dx, 0, 0.004, PI / 2, 0, 0)); }
     return g;
   },
+  // (final pass of 78) Frizzled hair (pivot at the middle of the burst, attach to the 'head' joint above the head): a white ball bristling with o.n (16)
+  // spikes with ink outlines, splayed up and out (a box of hair stretched up read as a box with horns). o.at (s): it springs out with a boing and
+  // keeps quivering (hidden before); o.r (0.15 m) the ball, o.len (0.2 m) the spikes, o.color
+  spikeHair(o) {
+    const n = o.n ?? 16, R = o.r ?? 0.15, len = o.len ?? 0.2, g = grp(), c = o.color || '#EEEDE6', mat = new THREE.MeshLambertMaterial({ color: c, flatShading: true }), spikes = [];
+    const ball = new THREE.Mesh(new THREE.IcosahedronGeometry(R, 1), mat); addOutline(ball, 0.04); g.add(ball);
+    for (let i = 0; i < n; i++) {
+      const a = i * 2.39996, y = 0.1 + 0.85 * (i + 0.5) / n, rr = Math.sqrt(1 - y * y), d = new THREE.Vector3(Math.cos(a) * rr, y, Math.sin(a) * rr);   // a golden-angle spiral over the upper part of a sphere
+      const l1 = len * (0.7 + 0.6 * ((i * 37) % 11) / 11), geo = new THREE.ConeGeometry(R * 0.34, l1, 5); geo.translate(0, l1 / 2, 0);
+      const sp = new THREE.Mesh(geo, mat); addOutline(sp, 0.05); const piv = grp(); piv.add(sp); piv.position.copy(d).multiplyScalar(R * 0.75); piv.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d); g.add(piv); spikes.push(piv); }
+    g.userData.update = t => { const u = o.at == null ? 1 : t - o.at; g.visible = u >= 0; if (u < 0) return;
+      g.scale.setScalar(Math.max(0.05, 1 + 0.35 * Math.exp(-u * 9) * Math.cos(u * 30) - 0.7 * Math.exp(-u * 40)));
+      spikes.forEach((p, i) => p.scale.set(1, 1 + 0.08 * Math.sin(t * 23 + i * 1.7), 1)); };
+    g.userData.update(-1); return g;
+  },
+
+  // (final pass of 78) Dressing for the shared fireTruck seen from the front (same pivot and axes as the truck: its front is local +X; give it the
+  // truck's pos, ry and keys and it moves with it): a chrome bumper, a black grille with bars, two headlights, a framed windscreen, wing mirrors, a
+  // red-and-blue light bar on the cab roof that flashes, and a white stripe low along each side (seen from the front it was a red box)
+  truckKit(o) {
+    const g = grp(), F = 3.16;   // just in front of the cab's face
+    g.add(at(box(0.22, 0.26, 1.86, '#C9CED4', { outline: 0.008 }), F + 0.06, 0.42, 0), at(box(0.05, 0.42, 1.0, '#26282C', { outline: 0.006 }), F + 0.01, 0.82, 0));   // bumper, grille
+    for (let i = 0; i < 4; i++) g.add(at(box(0.03, 0.04, 0.94, '#9AA0A6'), F + 0.04, 0.68 + i * 0.1, 0));
+    for (const sd of [-1, 1]) {
+      g.add(at(box(0.05, 0.18, 0.26, '#FFF6D0', { emissive: '#FFF0B0', outline: 0.006 }), F + 0.02, 0.8, sd * 0.68));   // headlights
+      g.add(at(box(0.16, 0.24, 0.06, '#26282C', { outline: 0.004 }), 2.95, 1.35, sd * 1.0), at(box(0.04, 0.04, 0.16, '#26282C'), 2.95, 1.4, sd * 0.92));   // wing mirrors
+      g.add(at(box(0.03, 0.62, 0.06, '#26282C'), 3.27, 1.25, sd * 0.79), at(box(4.36, 0.12, 0.02, '#F4F1E8'), 0, 0.62, sd * 0.91)); }   // windscreen sides, stripe
+    g.add(at(box(0.03, 0.06, 1.64, '#26282C'), 3.27, 1.56, 0), at(box(0.03, 0.06, 1.64, '#26282C'), 3.27, 0.95, 0));
+    const bar = grp(); bar.position.set(2.55, 1.56, 0); g.add(bar); bar.add(at(box(0.32, 0.06, 1.5, '#2A2D33', { outline: 0.006 }), 0, 0, 0));
+    const lamps = []; for (let i = 0; i < 6; i++) { const red = i % 2 === 0, m = new THREE.MeshLambertMaterial({ color: red ? '#E8342A' : '#3B7FE0', emissive: new THREE.Color(red ? '#FF2A1A' : '#2A6AFF'), emissiveIntensity: 0.5 });
+      const l = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.15, 0.22), m); l.position.set(0, 0.1, -0.6 + i * 0.24); addOutline(l, 0.03); bar.add(l); lamps.push([m, red]); }
+    g.userData.update = t => { const ph = Math.floor(t * 8) % 2; for (const [m, red] of lamps) m.emissiveIntensity = (red ? ph : 1 - ph) ? 2.2 : 0.3; };
+    g.userData.update(0); return g;
+  },
+
   // (cycle 40) A stream of water falling from a tap's spout (origin at the spout's mouth, falling along -Y): o.len (0.3 m) down to where it lands,
   // o.r (0.012 m) thick at the mouth and thinner below, wobbling; drops splash where it lands; o.on [[t0, t1], ...]: when it runs (always by default)
   tapStream(o) {

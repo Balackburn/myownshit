@@ -5474,7 +5474,7 @@
       "until": 1.75,
       "text": "OUI !",
       "w": 0.5,
-      "stem": 0.5,
+      "stem": 0.58,
       "onTop": true,
       "fill": "#FFD83A",
       "ink": "#D22B2B",
@@ -5514,9 +5514,9 @@
    "duration": 2.2,
    "setOpts": {
     "map": false,
-    "bannerY": 3.35,
+    "bannerY": 3.42,
     "plate": false,
-    "bannerX": -0.37
+    "bannerX": -0.1
    },
    "grade": "none",
    "soften": 0.3
