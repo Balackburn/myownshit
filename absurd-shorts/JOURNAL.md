@@ -2952,3 +2952,9 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   sort, étirement de la chute à 2,9 fois la largeur tenu 0,4 s puis POP, saluts d'un seul coup avec képis, grosse caisse vue de côté qui
   s'écrase à chaque coup, enfants qui hochent la tête ensemble, caméras de télévision qui avancent). Le dernier réglage proposé par l'agent
   (panneau MAIRIE décalé pour que la queue de la bulle ne coupe plus le M) est appliqué et en vérification sur trois images.
+- 13 h 50 — « Le bus » (72) : passe finale terminée et relue sur trois séries d'images (chaussures neuves lisibles, poings à hauteur de
+  poitrine, virage du peloton refait au carrefour avec le panneau ARRIVÉE, nouille épaisse, roue de jambes floue au lieu d'un signe plus). Reste :
+  au plan 11 le volant se voit mal, au plan 5 le pouce levé se lit encore un peu comme un salut. Rendu final en file après « Le service
+  client » (quatrième chaîne de finales, une seule finale à la fois). Passes finales du « Parcmètre » et du « Bocal » reprises après leurs
+  images de contrôle. Histoire 80 : écriture lancée (cinq auteurs, trois juges, réécriture), dans le ton de la tornade avec police et armée,
+  sans reprendre les pistes réservées à l'histoire 79.
