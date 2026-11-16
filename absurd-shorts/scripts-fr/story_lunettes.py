@@ -113,7 +113,7 @@ st.shot('S04', 'kitchenDay', setOpts={'fridge': False}, actors=[
             *[k(r(JOLT4 + 0.22 + 0.07 * j), toon=IN4P(COLD4, (1.14 + 0.05 * (j % 2), 0.93, 1.14 + 0.05 * (j % 2)), 1.0), toonDur=0.06) for j in range(8)]])],   # ...and he shivers there to the cut
         props=[P('fr4', 'bigFridge', pos=FR4F, opts={'w': 0.5, 'open': 1.0, 'mode': 'lived', 'mist': False, 'light': True}),   # (final pass) a narrower cabin: its walls and the door edge now frame him (at 1.04 m they sat outside the lens)
                GL('gl4', glint=[0.2], fc=0.7, keys=[k(0.0, visible=True), k(r(JOLT4 + 0.04), visible=False)]),
-               GL('gl4b', fc=0.8, s=1.1, off=(0.0, 0.66, 0.16), tap=[r(JOLT4 + 0.05)], keys=[k(0.0, visible=False), k(r(JOLT4 + 0.04), visible=True)]),   # lifted by the spikes and pushed out in front of them (stills: on the tips they left the frame; black rims among black spikes vanish)
+               GL('gl4b', fc=0.8, s=1.1, off=(-0.07, 0.66, 0.16), tap=[r(JOLT4 + 0.05)], keys=[k(0.0, visible=False), k(r(JOLT4 + 0.04), visible=True)]),   # lifted by the spikes and pushed out in front of them (stills: on the tips they left the frame; black rims among black spikes vanish)
                P('shelf4', 'slab', pos=[0.21, 0.71, -2.17], opts={'w': 0.5, 'h': 0.018, 'd': 0.4, 'color': '#E4F4FA', 'outline': 0.004}),
                P('shelf4f', 'slab', pos=[0.21, 0.71, -1.98], opts={'w': 0.5, 'h': 0.03, 'd': 0.025, 'color': '#FFFFFF'}),
                P('lait4', 'milkCarton', pos=[0.43, 0.72, -2.18], ry=200), P('fromage4', 'cheeseWheel', pos=[0.0, 0.72, -2.12], ry=150, scale=0.55),
@@ -132,7 +132,7 @@ st.cue('sfx:click', 'S04', 0.05, 0.15); st.cue('sfx:ding', 'S04', 0.2, 0.15); st
 D5 = st.dur('S05'); ME5 = [-1.75, 0, -2.3]; OFF5 = [-2.7, 0, -2.75]; GLP5 = [ME5[0], 2.35, ME5[2]]
 OKH = [0.62, 0.05, 0.05, 0.05, 0.85, 0.55]   # (final pass) a ring of thumb and index, the other fingers up and fanned (« glasses »)
 # (final pass) each ring right in front of its eye, the hands out at the sides of the face (elbows out), a small circle; wide open eyes, not the squint
-RING5 = lambda a, b=0.5: {'touch': {'R': ['face', r(-0.4 - 0.07 * math.cos(a)), r(0.74 + 0.06 * math.sin(a)), 0.2, 1, 0.0, [-0.9, -0.2, 0.2]], 'L': ['face', r(0.37 + 0.07 * math.cos(a)), r(0.54 + 0.06 * math.sin(a)), 0.2, 1, 0.0, [0.9, -0.2, 0.2]]},
+RING5 = lambda a, b=0.5: {'touch': {'R': ['face', r(-0.42 - 0.07 * math.cos(a)), r(0.68 + 0.06 * math.sin(a)), 0.22, 1, 0.0, [-0.9, -0.2, 0.2]], 'L': ['face', r(0.42 + 0.07 * math.cos(a)), r(0.68 + 0.06 * math.sin(a)), 0.22, 1, 0.0, [0.9, -0.2, 0.2]]},   # (stills) level: at his crooked eyes' own heights the low hand read as a hand at his mouth
                           'hands': {'R': OKH, 'L': OKH}, 'face': {'lid': 0.0, 'low': 0.0, 'eye': 0.35, 'brow': b, 'mouth': 'o', 'noBlink': 1}}
 st.shot('S05', 'policeStation', actors=[
         act('mec', ME5, -12, 'stand', 'neutral', keys=[k(0.0, look=[-2.1, 1.75, 0.2]), k(0.0, toon={'face': SQUINT}, toonDur=0.0), k(0.08, toon=RING5(PI / 2), toonDur=0.1, toonEase='out'),
@@ -292,7 +292,7 @@ st.shot('S13', 'office', setOpts={'picture': False, 'carpet': False, 'printer': 
         act('cherch3', [1.6, 0, -3.0], -15, 'stand', 'neutral', keys=[k(0.0, look=[POT13[0], r(POT13[1] - 0.05), POT13[2]]), k(0.0, toon=PLANTK({'lid': 0.3, 'mouth': 'O', 'brow': 0.4}), toonDur=0.0),
             k(1.2, toon=PLANTK({'lid': 1.0, 'mouth': 'O', 'brow': 0.4}), toonDur=0.05), k(1.32, toon=PLANTK({'lid': 0.3, 'mouth': 'O', 'brow': 0.4}), toonDur=0.07)])],
         props=[GL('gl13', glint=[1.0], fc=0.3), P('cal13', 'shedCalendar', pos=[-0.92, 2.35, -3.52], opts={'months': MOIS, 'w': 0.95, 'h': 1.2, 'flipAt': 0.12, 'dur': 0.185, 'fly': [-0.55, -1.2, 2.3], 'life': 0.55}),   # (stills r3a) the pages fly off to the left: toward +x they crossed his face
-               P('bureau13', 'table', pos=[-1.05, 0, -1.15], ry=90, opts={'w': 1.25, 'd': 0.7, 'h': 0.74}), P('plante13', 'plant', pos=POT13, scale=0.8, opts={'seed': 21}),
+               P('bureau13', 'table', pos=[-0.68, 0, -1.15], ry=90, opts={'w': 1.25, 'd': 0.62, 'h': 0.74}),   # (stills) over the crawler's head and back: further left it was out of the frame and his legs lay on bare floor P('plante13', 'plant', pos=POT13, scale=0.8, opts={'seed': 21}),
                P('loupe13', 'eyeLens', on={'actor': 'cherch2', 'joint': 'head', 'offset': [0.0, 0.33, 0.3], 'face': 'camera', 'faceAmt': 0.8}, opts={'r': 0.17, 'blink': [0.7, 1.75], 'look': [[0.0, -0.6, 0.3], [0.4, 0.7, 0.5], [0.9, -0.7, 0.6], [1.3, 0.6, 0.2], [1.8, 0.0, 0.7], [2.3, -0.5, 0.4]]})],
         cams=[FC(0.0, [0.45, 1.6, 1.3], [[ME13[0], 2.65, ME13[2]], [-1.4, 2.95, -3.5], [r(POT13[0] + 0.05), 2.7, POT13[2]], [-0.3, 0.3, -1.15], [1.15, 1.0, -1.3]], top=0.1, bottom=0.78, lenses=range(26, 64))])   # (stills r3a) tighter: fitted on the far desk it backed off 2.25 m and half the frame was wall and floor
 st.cue('sfx:paper', 'S13', 0.15, 0.2); st.cue('sfx:paper', 'S13', 0.7, 0.2); st.cue('sfx:paper', 'S13', 1.25, 0.2); st.cue('sfx:paper', 'S13', 1.8, 0.2); st.cue('sfx:squeak', 'S13', 0.3, 0.15)

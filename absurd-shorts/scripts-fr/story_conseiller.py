@@ -14,7 +14,15 @@ Pass 2 (review 1: 5.4 / 5.4): the phone is one big red handset (bigPhone), stuck
 hand up to S05 and hanging there by itself from S07 to S17 (the old one sat in a fist in front of his chin: the right hand crossed over to the left
 side of the face); the notes are bigger, edged in white and come out of the phone; the pull of S07 doubles the width of his head, the take of S06 and
 the pop of S18 are played in full; the calendar tears its pages off; the escalation is restaged shot by shot (sofa carried face on, the yes in
-profile, him in front of the flag, tuba and drum in the front rank, the children facing us); the 1 is pressed by one finger and stays green."""
+profile, him in front of the flag, tuba and drum in the front rank, the children facing us); the 1 is pressed by one finger and stays green.
+Pass 3 (review 2: 6.8 / 7.0): S10 the bride bends and stretches up to the phone, OUI bursts out of it in a yellow bubble with its tail on it (camera
+from the left front, her lean later so that her head never crosses his face); S14 click, notes hanging 7 frames, eyes to the phone, drop, squash,
+then eyes out on long stalks with the jaw dropped, overshoot and wobble (S06 keeps the round-eyed take); S18 the head pulled to 2.6 times its width
+(2.25 in S07), held trembling, POP and three smaller bounces; S07 brace, lean back, the width dragged over 6 frames, a visible tremble; S11 the two
+soldiers and the official salute together on « hymne », the flag starts above the heads; S16 newsCamera (props_conseiller.js: light grey, lens, TV
+plate, red light) at his sides three quarters to us, the reporter's head out of frame; S08 closer, chrome helmets, yellow bands; S09 and S11 his head
+rocks on the music, S20 he flattens into the sofa and re-inflates, S03 his eyes lead the glance; S13 chalk-white notes on the board, the camera above
+the heads; the old man's hair mid-grey."""
 from story_kit import *
 import math
 
@@ -158,8 +166,8 @@ st.shot('S07', 'livingRoom', setOpts=LR, actors=[act('mec', ME, 0, 'stand', 'neu
         cams=[FC(0.0, [0.3, 1.95, 1.3], [[ME[0], 2.5, ME[2]], [ME[0], 1.5, ME[2]], [0.85, 2.05, ME[2]], [-0.45, 2.05, ME[2]]], top=0.14, bottom=0.74)])
 st.cue('sfx:stretch', 'S07', 0.12, 0.25); st.cue('sfx:stretch', 'S07', 0.6, 0.25); st.cue('sfx:boing', 'S07', 0.76, 0.25)
 
-# 8: the firemen moved house with him. Down the street, toward us: two firemen carry his sofa on two poles at chest height, like a sedan chair; he
-#    sits on it above their heads, the phone on his ear by itself, bobbing a little late on their steps, notes rising behind
+# 8: the firemen moved house with him. Down the street, toward us, close: two firemen in chrome helmets carry his sofa on two poles at chest height,
+#    like a sedan chair; he sits on it above their heads, the phone on his ear by itself, bobbing and nodding a little late on their steps, notes rising
 D8 = st.dur('S08'); X8 = 3.6; Z8 = 2.6; V8 = 1.0; Y8 = 1.4; S8 = 0.7; DX8 = 1.0; ZE8 = r(Z8 - V8 * D8); HY8 = r(Y8 + 0.56 * S8 - 0.56)
 CARRY8 = lambda x, z: {'reach': {'R': [x, r(Y8 - 0.04), r(z - 0.28), 1, 0.04], 'L': [x, r(Y8 - 0.04), r(z + 0.28), 1, 0.04]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'clench', 'brow': -0.4, 'sweat': 0.6}}
 st.shot('S08', 'parisStreet', setOpts={'clear': [-8.0, 8.0], 'eiffelStyle': 'v2'}, actors=[
@@ -222,7 +230,7 @@ HEART = lambda f: {'touch': {'R': ['torso', -0.08, 0.45, 0.25, 1, 0.02]}, 'hands
 SAL11 = 0.98                                                     # (pass 3) « l'hymne »: they all salute on it
 ATT = lambda f: {'face': f}                                      # at attention, arms down
 SALUTE = lambda f, up=0.0, sq=None: {'touch': {'R': ['head', -0.11, r(0.33 + up), 0.13, 1, 0.02, [-1, 0.35, 0.25]]}, 'hands': {'R': 'open'}, 'face': f, **({'sq': sq} if sq else {})}   # the right hand flat at the brow, the elbow out
-st.shot('S11', 'parisStreet', setOpts={'clear': [-8.0, 8.0], 'eiffelStyle': 'v2', 'cloudSeed': 11}, actors=[   # (pass 3) other clouds: one sat on the pole
+st.shot('S11', 'parisStreet', setOpts={'clear': [-8.0, 8.0], 'eiffelStyle': 'v2'}, actors=[
         act('mec', H11, 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=FREE(), toonDur=0.0),
             *SWAY(0.05, r(D11 - 0.1), 0.42, [(0.0, {**DEAD, 'mouth': 'line'}), (0.5, {'lid': 0.3, 'mouth': 'line', 'gx': 0.6, 'gy': -0.8}), (1.5, {**DEAD, 'mouth': 'line'})]),   # (pass 3) his head rocks on his anthem
             *BL(1.85, {**DEAD, 'mouth': 'line'})]),                                                                                       # his eyes follow his notes up, and come back to us

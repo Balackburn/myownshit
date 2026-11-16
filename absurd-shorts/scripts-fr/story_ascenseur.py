@@ -152,7 +152,7 @@ st.cue('thud', 'S07', SINK, 0.4); st.cue('sfx:poof', 'S07', SINK, 0.4)
 #    residents in a row with gaps between them, three-quarters to us, raise their hands, and so does he from his armchair at the right: his arm
 #    unrolls in an S, overshoots above theirs, twice as long, and sways there; the gavel bangs on the vote and again at the end (VOTÉ)
 D8 = st.dur('S08'); BANG8 = 0.75; BANG8B = 1.55; SYN = [-1.2, 0, -2.62]; TAB = [-1.12, 0, -2.18]; TOP8 = [-1.25, 0.8, -2.15]   # (final pass) the chairman clear at the left behind a real folding table (hidden behind the residents, only his gavel arm showed)
-RES8 = [('voisin1', -0.55, -2.12, -22), ('voisin2', 0.1, -1.62, -18), ('voisin3', 0.7, -2.22, -28)]   # (final pass) a row with gaps, staggered in depth, three-quarters to us (their heads piled on each other)
+RES8 = [('voisin1', -0.68, -2.12, -22), ('voisin2', 0.2, -1.8, -18), ('voisin3', 0.8, -2.35, -28)]   # (final pass) a row with gaps, staggered in depth, three-quarters to us (their heads piled on each other)
 UPV = 2.3                                          # (final pass) their hands stop at 2.3 m: under the VOTÉ card (they reached into its band)
 UP8 = lambda y=2.76, dx=0.0, wv=None: {'reach': {'R': [r(1.6 + dx), y, -2.2, 1, 0.04]}, 'hands': {'R': 'open'}, **({'wave': {'armR': wv, 'foreR': wv}} if wv else {})}
 BANG = lambda t0, n: [k(r(t0 - 0.22), toon={'reach': {'R': [TOP8[0], 1.72, r(TOP8[2] - 0.05), 1, 0.04]}, 'hands': {'R': 'grip'}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.18, toonEase='out'),   # the gavel goes up, high...
@@ -174,7 +174,7 @@ st.shot('S08', 'immeubleHall', setOpts=HALL(floor=[[0.0, '5']]), actors=[act('me
         props=[FLOOR('sol8'), BUTTON('bt8', litAfter=0.0), CHAIR('fauteuil8'), BEARD('barbe8', s=0.9, color='#7A6E62'), P('table8', 'foldTable', pos=TAB, ry=30, opts={'w': 0.95, 'd': 0.5}),
                P('marteau8', 'gavel', on={'actor': 'syndic', 'hand': 'R', 'offset': [0.0, -0.02, 0.05]}),
                P('banniere8', 'signBoard', pos=[-0.75, 2.42, BACK + 0.05], opts={'text': 'ASSEMBLÉE GÉNÉRALE', 'bg': '#F3EBD6', 'fg': '#7A2A1E', 'w': 1.2, 'h': 0.26, 'posts': False, 'height': 0})],   # (final pass) lower, over the chairman: clear of the card band
-        cams=[FC(0.0, [0.3, 1.35, 2.3], [[1.62, 2.82, -2.2], [1.95, 0.7, CH[2]], [r(SYN[0] - 0.35), 2.0, SYN[2]], [r(TAB[0] - 0.55), 0.3, TAB[2]], [-0.55, 2.35, -2.12], [0.1, 0.2, -1.62], [1.95, 0.0, CH[2]]], top=0.25, bottom=0.88, lenses=range(26, 61))])   # (final pass) the group lower in the frame (a third of floor under them): his raised hand under the VOTÉ card, the residents' under his
+        cams=[FC(0.0, [0.3, 1.35, 2.3], [[1.62, 2.82, -2.2], [1.95, 0.7, CH[2]], [r(SYN[0] - 0.35), 2.0, SYN[2]], [r(TAB[0] - 0.55), 0.3, TAB[2]], [-0.68, 2.35, -2.12], [0.2, 0.2, -1.8], [1.95, 0.0, CH[2]]], top=0.22, bottom=0.84, lenses=range(26, 61))])   # (final pass) the group lower in the frame (a third of floor under them): his raised hand under the VOTÉ card, the residents' under his
 st.cue('sfx:gavel', 'S08', BANG8, 0.4); st.cue('sfx:gavel', 'S08', BANG8B, 0.3)
 
 # 9: the works lasted... A worker drills the floor in front of the lift with a jackhammer: the worker, the armchair, his beard and the camera all
@@ -233,7 +233,7 @@ st.shot('S13', 'immeubleHall', setOpts=HALL(floor=[[0.0, '6']]), dark=[[0.0, 0.5
         props=[FLOOR('sol13'), BUTTON('bt13', litAfter=0.0), P('plaque13', 'bronzePlaque', pos=[BTN[0], 0.82, BACK + 0.04], scale=0.8, opts={'text': "BOUTON D'APPEL/2006"}),
                P('spot13', 'lightCone', pos=[BTN[0], 3.3, BACK + 0.45], opts={'h': 2.3, 'r': 0.42}), P('cordon13', 'stanchions', pos=[BTN[0], 0, BACK + 0.75], opts={'w': 1.0}),
                CHAIR('fauteuil13'), BEARD('barbe13', who='vieux', s=1.25), SPECS('lun13', who='vieux'), STICK('canne13', who='vieux'), *WEBS('toile13'), WEB('toile13c'),
-               P('poussiere13', 'coneDust', pos=[BTN[0], 3.3, BACK + 0.45], opts={'h': 2.3, 'r': 0.42, 'n': 54, 's': 0.02})],   # (final pass) dust drifting in the beam
+               P('poussiere13', 'coneDust', pos=[BTN[0], 3.3, BACK + 0.45], opts={'h': 2.3, 'r': 0.42, 'n': 54, 's': 0.03})],   # (final pass) dust drifting in the beam
         cams=[FC(0.0, [-0.3, 1.8, 1.6], [[SITP[0], 2.2, SITP[2]], [BTN[0], 3.3, BACK + 0.45], [BTN[0] - 0.5, 0.0, BACK + 0.75], [CH[0] + 0.45, 0.0, CH[2]], [DISP[0], 2.6, DISP[2]]], top=0.12, bottom=0.78, drift=(0.12, -0.08, -0.45))])   # (final pass) a slow push-in
 
 # 14: schools come to visit it. A teacher shows the button to a class lined up along the wall, gaps between them; the nearest child, in profile,

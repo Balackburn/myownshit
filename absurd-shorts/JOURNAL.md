@@ -2885,3 +2885,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 10 h 05 — « Le centime » (77) : revue 3 = 6,6 (animation) ; 7,2 (direction artistique), contre 5,8 ; 6,3. Reste pour la passe finale : le timbre
   « 3,00 € » à côté du chèque « 0,01 € » ne reste qu'un quart de seconde à l'écran, les plans de la montée ont perdu leur exagération (sifflet,
   klaxons, joues de la fanfare, larmes en fontaine), le héros se retourne d'un bloc en une image. Passe finale confiée à un agent dérivé.
+- 11 h 00 — « Le service client » (73) : passe 3 terminée et relue sur images (la mariée se penche jusqu'au téléphone et « OUI ! » en sort, prise
+  de conscience avec yeux sur tiges, étirement de la chute plus fort que celui du plan 7, saluts ensemble sur « hymne », vraies caméras de
+  télévision). Brouillon 3 en file, revue 3 préparée. Disque : recadrages des critiques des revues terminées supprimés (550 Mo).
