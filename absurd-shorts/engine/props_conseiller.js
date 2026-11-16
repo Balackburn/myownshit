@@ -26,7 +26,7 @@ export const CONSEILLER_PROPS = {
   // Hold music coming out of a phone, endlessly (pivot at the source; face it to the camera): o.rate notes a second (3) from o.from to o.until, each
   // drifting up and out to the side (o.dx, o.dy m/s) on a wobble, swelling in and fading out over o.life (1.2 s); o.color (navy), o.size (0.09)
   // (pass 2) o.halo: the colour of the sticker edge round each note (white; false: none); o.stopAt: the music stops dead at that time: no new note,
-  // the notes in the air freeze where they are for o.hang (0.18 s), then drop like stones and are gone; o.sway (0.04 m): the wobble
+  // the notes in the air freeze where they are for o.hang (0.18 s), then drop like stones (o.drop, 6) and are gone; o.sway (0.04 m): the wobble
   holdNotes(o) {
     const rate = o.rate ?? 3, life = o.life ?? 1.2, sz = o.size ?? 0.09, n = Math.ceil(rate * life) + 1, g = grp(), N = [], halo = o.halo === false ? null : (o.halo || '#FFFFFF');
     for (let i = 0; i < n; i++) { const pl = noteTex(i % 2, o.color || '#22305A', halo); pl.scale.set(sz, sz, 1); pl.material.depthWrite = false; pl.material.side = THREE.DoubleSide; pl.visible = false; g.add(pl); N.push(pl); }
@@ -34,7 +34,7 @@ export const CONSEILLER_PROPS = {
     g.userData.update = t => { const t0 = o.from ?? 0, t1 = o.until ?? 1e9, stop = o.stopAt ?? 1e9, hang = o.hang ?? 0.18, te = Math.min(t, stop);
       N.forEach((m, i) => { let b = t0 + i / rate; if (te >= b) b += Math.floor((te - b) / per) * per; const u = te - b, on = te >= t0 && b <= t1 && u >= 0 && u < life && t < stop + hang + 0.7; m.visible = on; if (!on) return;
         const side = (o.side ?? (hash(i + Math.floor(b * 3)) > 0.5 ? 1 : -1)), q = u / life, fall = Math.max(0, t - stop - hang);
-        m.position.set(side * (o.dx ?? 0.25) * u + sw * Math.sin(u * 8 + i), (o.dy ?? 0.45) * u - 6 * fall * fall, 0.005 * i); m.rotation.z = 0.35 * Math.sin(u * 6 + i * 2) + (t > stop ? 0.5 * Math.min(1, fall * 4) * (i % 2 ? 1 : -1) : 0);
+        m.position.set(side * (o.dx ?? 0.25) * u + sw * Math.sin(u * 8 + i), (o.dy ?? 0.45) * u - (o.drop ?? 6) * fall * fall, 0.005 * i); m.rotation.z = 0.35 * Math.sin(u * 6 + i * 2) + (t > stop ? 0.5 * Math.min(1, fall * 4) * (i % 2 ? 1 : -1) : 0);
         const s = sz * (u < 0.1 ? u / 0.1 : 1) * (q > 0.75 && t <= stop ? 1 - (q - 0.75) / 0.25 : 1) * (t > stop ? Math.max(0.6, 1 - 0.15 * Math.sin(Math.min(1, (t - stop) / hang) * PI)) : 1); m.scale.set(s, s, 1); }); };
     g.userData.update(-1); return g;
   },
