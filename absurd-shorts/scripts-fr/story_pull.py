@@ -62,11 +62,11 @@ st.cue('sfx:stepSoft', 'S01', 0.3, 0.15); st.cue('sfx:stepSoft', 'S01', 0.7, 0.1
 # 2: ...inside out. Close from behind his shoulder: the pale seams outside; (review 2) the white care label springs up out of the collar, and a
 #    burst points at it; (final pass) a yellow shout bubble with its tail on the label, big letters (a star floating in the sky pointed at nothing)
 D2 = st.dur('S02'); L2 = LBL(ME1, -90); POP2 = 0.3
-TIP2 = [r(L2[0] + 0.03), 1.93, r(L2[2] + 0.04)]; RT2 = (0.66, -0.75)   # the tip of the tail just above the label; the screen's right, on the ground
+TIP2 = [r(L2[0] + 0.01), 1.86, r(L2[2] + 0.06)]; RT2 = (0.66, -0.75)   # the tip of the tail on the label's top; the screen's right, on the ground
 st.shot('S02', 'parisStreet', setOpts=PARIS, actors=[act('mec', ME1, -90, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.8, 0.6]), k(r(POP2 + 0.05), toon={'sq': [0.98, 1.03, 0.98]}, toonDur=0.08), k(0.6, toon={'sq': [1.02, 0.98, 1.02]}, toonDur=0.2), k(0.95, toon={'sq': [1.0, 1.0, 1.0]}, toonDur=0.25)])],
         props=[MJ('pull2', tagPop=POP2, tagKick=[0.66]),
-               P('etiq2', 'voiceBubble', pos=TIP2, face='camera', opts={'at': r(POP2 + 0.06), 'w': 0.72, 'text': "L'ÉTIQUETTE !", 'fill': '#FFE14A', 'edge': '#1C1C1E', 'ink': '#D22B2B', 'jagK': 0.72})],
-        cams=[FC(0.0, [5.9, 2.0, 1.75], [[ME1[0], 2.45, ME1[2]], [ME1[0], 1.4, ME1[2]], [L2[0], 1.95, r(L2[2] + 0.12)], [L2[0], 1.58, r(L2[2] - 0.1)], TIP2, [r(TIP2[0] + RT2[0] * 0.7), 2.48, r(TIP2[2] + RT2[1] * 0.7)]], top=0.12, bottom=0.74)])   # (review 1) the burst inside the frame, over the label
+               P('etiq2', 'voiceBubble', pos=TIP2, face='camera', opts={'at': r(POP2 + 0.06), 'w': 0.66, 'side': -1, 'text': "L'ÉTIQUETTE !", 'fill': '#FFE14A', 'edge': '#1C1C1E', 'ink': '#D22B2B', 'jagK': 0.72})],   # (stills 1) up and to the left: to the right it sat on his head
+        cams=[FC(0.0, [5.9, 2.0, 1.75], [[ME1[0], 2.45, ME1[2]], [ME1[0], 1.4, ME1[2]], [L2[0], 1.95, r(L2[2] + 0.12)], [L2[0], 1.58, r(L2[2] - 0.1)], TIP2, [r(TIP2[0] - RT2[0] * 0.68), 2.38, r(TIP2[2] - RT2[1] * 0.68)]], top=0.12, bottom=0.74)])   # (review 1) the burst inside the frame, over the label
 st.cue('pop', 'S02', POP2, 0.2); st.cue('sfx:sting', 'S02', r(POP2 + 0.06), 0.15)
 
 # 3: nobody dared tell him. (final pass) From behind him, close: he walks away from us down the pavement, the label big over his shoulder; two
@@ -122,7 +122,7 @@ st.shot('S05', 'office', setOpts={'printer': False}, actors=[act('mec', M5, 0, '
         props=[MJ('pull5'), *[JUMP(f'pj5{j}', f'emp{j + 1}', COLS[j % len(COLS)], tagSide=1 if j % 2 else -1, tagSway=0.1, tagRate=r(7.0 + 0.6 * j), tagPhase=r(1.1 * j), tagPop=POP5(j)) for j in range(len(W5))],   # the labels on the aisle side
                *[P(f'ch5{j}', 'chair', pos=[x, 0, z], opts={'color': '#3A3F48'}) for j, (x, z) in enumerate(W5)], *[P(f'dk5{j}', 'desk', pos=[x, 0, r(z - 0.55)], opts={'w': 0.9, 'd': 0.6}) for j, (x, z) in enumerate(W5)],
                *[P(f'pc5{j}', 'laptop', pos=[x, 0.76, r(z - 0.66)], opts={'text': ' ', 'bg': '#2C6EB5'}) for j, (x, z) in enumerate(W5)]],   # (final pass) a laptop on each desk: the heads drop to a keyboard (bare desks read as a classroom)
-        cams=[FC(0.0, [-1.3, 3.2, 4.7], [[-0.86, 1.45, 1.75], [0.86, 1.35, -1.0], [M5[0], 2.55, M5[2]], [0.0, 0.95, 1.75], [0.86, 1.45, 1.2]], top=0.14, bottom=0.8)])   # high over the rows: he stands at the far end above the seated heads
+        cams=[FC(0.0, [-1.4, 3.3, 6.6], [[-0.86, 1.45, 1.75], [0.86, 1.35, -1.0], [M5[0], 2.55, M5[2]], [0.0, 0.95, 1.75], [0.86, 1.45, 1.2]], top=0.14, bottom=0.8, lenses=range(26, 70))])   # (stills 1) further back on a longer lens: close, the front rows filled the frame   # high over the rows: he stands at the far end above the seated heads
 st.cue('pop', 'S05', POP5(0), 0.15); st.cue('pop', 'S05', POP5(2), 0.15); st.cue('pop', 'S05', POP5(4), 0.15)
 
 # 6: then the whole town. A street: everyone walking by in jumpers inside out; (review 2) the labels hop at each step, out of phase; him in the middle
@@ -290,7 +290,7 @@ WR = lambda s_, y=WY16: [r(ME1[0] + FW[0] * 0.42 + LW[0] * 0.075 * s_), y, r(ME1
 OFFER = lambda f, **more: {'reach': {'L': WR(1), 'R': WR(-1)}, 'hands': {'L': 'fist', 'R': 'fist'}, 'face': f, **more}
 CB16 = [r(ME1[0] + FW[0] * 0.36), 1.47, r(ME1[2] + FW[1] * 0.36)]   # the censor bar: flat in front of his chest, above the cuffed wrists
 EYES = lambda hand: {'touch': {'R': ['face', 0.0, 0.3, 0.22, 1, 0.02]}, 'hands': {'R': hand}}   # (stills 2) over his eyes: 0.12 put the palm on his chin
-EYES2 = lambda peek=False: {'touch': {'R': ['face', -0.08, 0.17 if peek else 0.3, 0.24, 1, 0.02], 'L': ['face', 0.08, 0.3, 0.22, 1, 0.02]}, 'hands': {'R': 'spread' if peek else 'open', 'L': 'open'}}   # (final pass) both palms over both eyes; the peek: one hand slides down, fingers spread (one small hand sat on his nose between his eyes)
+EYES2 = lambda peek=False: {'touch': {'R': ['face', -0.12, 0.28 if peek else 0.43, 0.2, 1, 0.02], 'L': ['face', 0.12, 0.43, 0.2, 1, 0.02]}, 'hands': {'R': 'spread' if peek else 'open', 'L': 'open'}}   # (stills 1 of the final pass) at 0.3 both hands met over his mouth: the eyes are higher   # (final pass) both palms over both eyes; the peek: one hand slides down, fingers spread (one small hand sat on his nose between his eyes)
 CR16 = lambda out=0.0: [r(WR(-1)[0] - LW[0] * (0.2 + out)), r(WY16 - 0.06 + out), r(WR(-1)[2] - LW[1] * (0.2 + out)), 1, 0.04]
 CLAMP = lambda f, out=0.0, sq=None: {'reach': {'L': [r(WR(-1)[0] - LW[0] * (0.1 + out) + FW[0] * 0.04), r(WY16 + 0.04 + out), r(WR(-1)[2] - LW[1] * (0.1 + out) + FW[1] * 0.04), 1, 0.04], 'R': CR16(out)},
                                      'hands': {'L': 'grip', 'R': 'grip'}, 'face': f, **({'sq': sq} if sq else {})}
