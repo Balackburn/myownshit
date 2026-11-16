@@ -2,8 +2,8 @@
 // race, fed by an Italian waiter on the run; when the bus stopped he got on: it was not his bus. Conventions as in props.js (metres, front +Z, pivot
 // at the floor unless said); every animated prop is a pure function of the shot time.
 import * as THREE from 'three';
-import { box, cyl, sphere } from './style.js';
-import { grp, at, canvasPlane, glowSprite } from './props.js';
+import { box, cyl, sphere, mat, addOutline } from './style.js';
+import { grp, at, canvasPlane, glowSprite, buildProp } from './props.js';   // (final pass) buildProp: leanBike wraps the bicycle of props.js
 import { FEU_PROPS } from './props_feu.js';   // (pass 3) the beard of story 66, wrapped by streamBeard
 
 const PI = Math.PI, TAU = 2 * PI;
@@ -62,7 +62,11 @@ export const BUS_PROPS = {
   jersey(o) {
     const w = o.w ?? 0.5, h = o.h ?? 0.6, d = o.d ?? 0.3, Y = o.color || '#F7D23A', g = grp(), shell = grp(), em = o.lit ? { emissive: o.lit } : {}; g.add(shell);   // (pass 3) o.lit: an emissive colour (it stayed olive in the shade of a doorway)
     shell.add(at(box(w, h, d, Y, { outline: 0.008, ...em }), 0, h / 2, 0), at(box(w * 0.42, 0.05, d * 1.02, '#1C1E22'), 0, h - 0.02, 0));
-    for (const s of [-1, 1]) shell.add(at(box(0.16, 0.16, d * 0.9, Y, { outline: 0.006, ...em }), s * (w / 2 + 0.06), h - 0.1, 0));
+    if (o.sleeves !== false) for (const s of [-1, 1]) shell.add(at(box(0.16, 0.16, d * 0.9, Y, { outline: 0.006, ...em }), s * (w / 2 + 0.06), h - 0.1, 0));
+    // (final pass of 72) o.sleeves false: no shoulder slabs (they stuck out past the arms like cardboard wings; jerseySleeve wraps each arm instead);
+    // o.collar: a black ring collar round the neck and two shoulder seams instead of the flat band
+    if (o.collar) { const c = new THREE.Mesh(new THREE.TorusGeometry(w * 0.27, 0.028, 6, 18), mat('#1C1E22')); c.rotation.x = PI / 2; c.scale.set(1, d / w * 1.5, 1); c.position.set(0, h + 0.005, 0); shell.add(c);
+      for (const s of [-1, 1]) shell.add(at(box(w * 0.3, 0.012, d * 1.01, '#C9A21E'), s * w * 0.33, h - 0.012, 0)); }
     // (pass 3) o.squash [hold, k]: on landing it squashes flat and wide to k (0.62) for hold s (0.12), then springs up past its size and settles
     g.userData.update = t => { if (o.at == null) return; const u = t - o.at; shell.visible = u >= 0; if (u < 0) return;
       const f = clamp01(u / 0.12); shell.position.y = (1 - f) * 0.6; let sq = u < 0.12 ? 1 : 1 + 0.18 * Math.exp(-14 * (u - 0.12)) * Math.cos((u - 0.12) * 30);
@@ -181,7 +185,7 @@ export const BUS_PROPS = {
       c.fillStyle = '#FFFFFF'; for (const [x, y, rr] of [[0.3, 0.6, 0.2], [0.45, 0.5, 0.26], [0.62, 0.6, 0.2], [0.78, 0.66, 0.13]]) { c.beginPath(); c.arc(W * x, H * y, H * rr, 0, TAU); c.fill(); }
       c.strokeStyle = 'rgba(255,255,255,0.7)'; c.lineWidth = H * 0.05; c.beginPath(); c.moveTo(W * 0.08, H * 0.42); c.lineTo(W * 0.2, H * 0.1); c.stroke(); }, { res: 384 });
     glass.material = new THREE.MeshBasicMaterial({ map: glass.material.map, toneMapped: false });
-    g.add(at(box(0.04, arm, 0.04, '#1C1E22'), 0, -arm / 2, 0), at(box(w + 0.06, h + 0.06, 0.04, '#1C1E22', { outline: 0.006 }), 0, -arm - h / 2, 0)); glass.position.set(0, -arm - h / 2, 0.022); g.add(glass);
+    const mg = grp(at(box(w + 0.06, h + 0.06, 0.04, '#1C1E22', { outline: 0.006 }), 0, -h / 2, 0)); glass.position.set(0, -h / 2, 0.022); mg.add(glass); mg.position.y = -arm; mg.rotation.x = -(o.tilt ?? 0); g.add(at(box(0.04, arm, 0.04, '#1C1E22'), 0, -arm / 2, 0), mg);   // (final pass of 72) o.tilt: the glass swung up on its hinge (it faced us like a TV)
     return g;
   },
 
@@ -222,7 +226,7 @@ export const BUS_PROPS = {
   // door, a red and white striped awning on two posts over the terrace and the sign o.name ('TRATTORIA')
   trattoria(o) {
     const w = o.w ?? 6.5, h = o.h ?? 4.6, g = grp();
-    g.add(at(box(w, h, 0.4, o.wall || '#E9B569', { outline: 0.012 }), 0, h / 2, -0.2), at(box(w + 0.3, 0.3, 0.6, '#C8553A'), 0, h + 0.15, -0.2), at(box(1.3, 2.9, 0.1, '#6B3F26', { outline: 0.008 }), 0, 1.45, 0.03));
+    g.add(at(box(w, h, 0.4, o.wall || '#E9B569', { outline: 0.012 }), 0, h / 2, -0.2), at(box(w + 0.3, 0.3, 0.6, '#C8553A'), 0, h + 0.15, -0.2), at(box(1.3, 2.9, 0.1, o.doorLight ? '#F3D38C' : '#6B3F26', { outline: 0.008, ...(o.doorLight ? { emissive: o.doorLight } : {}) }), 0, 1.45, 0.03));   // (final pass of 72) o.doorLight: the doorway lit warm from inside (a waiter in black vanished against the dark door)
     for (const x of [-w * 0.32, w * 0.32]) { g.add(at(box(1.1, 1.5, 0.06, '#DCEFF2'), x, 2.2, 0.02)); for (const s of [-1, 1]) g.add(at(box(0.5, 1.6, 0.08, '#2E7D4F', { outline: 0.006 }), x + s * 0.82, 2.2, 0.05)); }
     const aw = canvasPlane(w * 0.96, 1.9, (c, W, H) => { const n = 12; for (let i = 0; i < n; i++) { c.fillStyle = i % 2 ? '#F7F3E8' : '#D23A2E'; c.fillRect(i * W / n, 0, W / n + 1, H); } c.fillStyle = 'rgba(0,0,0,0.12)'; c.fillRect(0, H * 0.86, W, H * 0.14); }, { res: 512 });
     aw.rotation.x = -PI / 2 + 0.42; aw.position.set(0, 3.25, 0.85); g.add(aw);
@@ -421,6 +425,140 @@ export const BUS_PROPS = {
     for (let i = 0; i < 6; i++) { const x = -L / 2 + 0.9 + i * (L - 1.6) / 5; for (const s of [-1, 1]) { g.add(at(box(0.12, 0.7, 0.42, '#B5302A', { outline: 0.004 }), x, 1.15, s * 0.6));
         if (hash(i * 2 + (s > 0 ? 1 : 0) + 3) > 0.25) { const hd = sphere(0.17, skins[(i + (s > 0 ? 2 : 0)) % 4], 1); hd.scale.y = 1.15; hd.position.set(x + 0.18, 1.72, s * 0.6); g.add(hd);
           const hr = sphere(0.18, hairs[(i * 3 + (s > 0 ? 1 : 0)) % 5], 1); hr.scale.set(1, 0.6, 1); hr.position.set(x + 0.14, 1.86, s * 0.6); g.add(hr); } } }
+    return g;
+  },
+
+  // (final pass of 72) The legs of a sprint as a cartoon blur, in place of legWheel (attach it at the waist the same way, on: {actor, joint: 'torso'},
+  // his own legs shrunk away): o.n leg images (4) whose feet go round a figure-8 under the hips, each a thigh, a shin and a shoe solved by two-bone
+  // IK (the knee forward) and trailed by o.ghosts fading copies (2), a soft band along the 8 and short speed lines behind. o.rate: turns a second
+  // (2.6); o.stride: half the length of the 8 (0.55); o.lift: half its height (0.26); o.tilt (-0.25: the back loop higher, the heels kicked up);
+  // o.lean: the whole 8 tipped forward (rad: a climb); o.ground: how far below the joint the road is (1.06); o.color (the trousers), o.shoe; o.from / o.to
+  legBlur(o) {
+    const g = grp(), root = grp(), col = o.color || '#1E2A44', shoeC = o.shoe || '#15171C', n = o.n ?? 4, gh = o.ghosts ?? 2, rate = o.rate ?? 2.6;
+    const A = o.stride ?? 0.55, B = o.lift ?? 0.26, tilt = o.tilt ?? -0.25, hy = o.hip ?? -0.08, ground = -(o.ground ?? 1.06), a = o.thigh ?? 0.5, b = o.shin ?? 0.5, yc = ground + B + 0.1;
+    root.rotation.x = o.lean ?? 0; g.add(root);
+    const fade = (c, op) => new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: op, depthWrite: false, toneMapped: false, side: THREE.DoubleSide });
+    const piece = (w, h, d, c, op) => { if (op >= 1) return box(w, h, d, c, { outline: 0.008 }); const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), fade(c, op)); m.castShadow = false; return m; };
+    const path = u => { const th = u * TAU, z = A * Math.sin(th); return [z, yc + B * Math.sin(2 * th) + tilt * z]; };
+    const pts = []; for (let i = 0; i < 48; i++) { const [z, y] = path(i / 48); pts.push(new THREE.Vector3(0, y, z)); }
+    const band = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 96, o.band ?? 0.07, 6, true), fade(col, 0.2)); band.castShadow = false; root.add(band);
+    const legs = [];
+    for (let i = 0; i < n; i++) for (let j = 0; j <= gh; j++) {
+      const op = j === 0 ? 1 : 0.42 / j, th = grp(piece(0.17, a, 0.18, col, op)), sh = grp(piece(0.15, b, 0.16, col, op)), sf = grp(piece(0.14, 0.11, 0.3, shoeC, op));
+      th.children[0].position.y = -a / 2; sh.children[0].position.y = -b / 2; sf.children[0].position.set(0, 0.0, 0.07);
+      const x = (i % 2 ? 0.1 : -0.1) + 0.004 * j; for (const q of [th, sh, sf]) { q.position.x = x; root.add(q); }
+      legs.push({ th, sh, sf, ph: i / n, lag: j * (o.lagStep ?? 0.04) });
+    }
+    const lines = []; for (let i = 0; i < 3; i++) { const ln = new THREE.Mesh(new THREE.PlaneGeometry(1, 0.03), fade(o.lines || '#FFFFFF', 0.75)); ln.rotation.y = PI / 2; ln.castShadow = false; root.add(ln); lines.push(ln); }
+    const solve = (u, L) => {
+      const [fz, fy] = path(((u % 1) + 1) % 1), dz = fz, dy = fy - hy, d = Math.min(a + b - 0.002, Math.max(Math.abs(a - b) + 0.02, Math.hypot(dz, dy)));
+      const phi = Math.atan2(dy, dz), al = Math.acos(Math.max(-1, Math.min(1, (a * a + d * d - b * b) / (2 * a * d)))), kz = a * Math.cos(phi + al), ky = hy + a * Math.sin(phi + al);
+      const ez = hy + d * Math.sin(phi), fz2 = d * Math.cos(phi);
+      L.th.position.y = hy; L.th.position.z = 0; L.th.rotation.x = Math.atan2(-kz, -(ky - hy));
+      L.sh.position.y = ky; L.sh.position.z = kz; L.sh.rotation.x = Math.atan2(-(fz2 - kz), -(ez - ky));
+      L.sf.position.y = ez; L.sf.position.z = fz2; L.sf.rotation.x = -0.25 * Math.sin(u * TAU); };
+    g.userData.update = t => { const on = t >= (o.from ?? -1e9) && t <= (o.to ?? 1e9); g.visible = on; if (!on) return;
+      for (const L of legs) solve(rate * t + L.ph - L.lag, L);
+      lines.forEach((ln, i) => { const s = 0.5 + 0.5 * Math.sin(t * 23 + i * 2.1), len = 0.25 + 0.5 * s; ln.scale.x = len; ln.position.set(0, ground + 0.25 + 0.27 * i, -A - 0.15 - len / 2); }); };
+    g.userData.update(0); return g;
+  },
+
+  // (final pass of 72) A worn sole hanging off the toe of a shoe and slapping (pivot at the toe, the sole running back along -Z: attach it at the toe
+  // of a foot): a sole-shaped plate o.len long (0.5) and o.w wide (0.2) with an ink outline, a heel block at its back, a dark tread on its underside
+  // and notches along its edge; between o.at [t0, t1] it opens o.open rad (0.75) and slaps shut o.rate times a second (4: slow to open, a slam to
+  // shut); hidden outside those times; o.color (the leather, a tan), o.tread
+  soleFlap(o) {
+    const L = o.len ?? 0.5, W = o.w ?? 0.2, th = o.th ?? 0.03, C = o.color || '#C9A27A', D = o.tread || '#3B2C20', g = grp(), fl = grp(); g.add(fl);
+    const ball = W / 2, waist = W * 0.34, heel = W * 0.42, sh = new THREE.Shape();
+    sh.moveTo(0, 0); sh.bezierCurveTo(ball * 0.9, 0, ball, -L * 0.12, ball, -L * 0.3); sh.bezierCurveTo(ball, -L * 0.45, waist, -L * 0.55, waist, -L * 0.62);
+    sh.bezierCurveTo(waist, -L * 0.75, heel, -L * 0.8, heel, -L * 0.9); sh.bezierCurveTo(heel, -L * 1.0, -heel, -L * 1.0, -heel, -L * 0.9);
+    sh.bezierCurveTo(-heel, -L * 0.8, -waist, -L * 0.75, -waist, -L * 0.62); sh.bezierCurveTo(-waist, -L * 0.55, -ball, -L * 0.45, -ball, -L * 0.3);
+    sh.bezierCurveTo(-ball, -L * 0.12, -ball * 0.9, 0, 0, 0);
+    const geo = new THREE.ExtrudeGeometry(sh, { depth: th, bevelEnabled: false, curveSegments: 6 }); geo.rotateX(PI / 2); geo.computeBoundingBox();
+    const c = geo.boundingBox.getCenter(new THREE.Vector3()); geo.translate(-c.x, -c.y, -c.z);
+    const plate = new THREE.Mesh(geo, mat(C)); plate.position.copy(c); plate.castShadow = true; addOutline(plate, 0.035); fl.add(plate);
+    const wAt = z => { const u = -z / L; return u < 0.3 ? W * (0.55 + 1.5 * u) : u < 0.62 ? W - (W - 2 * waist) * (u - 0.3) / 0.32 : 2 * waist + (2 * heel - 2 * waist) * Math.min(1, (u - 0.62) / 0.28); };
+    for (let k = 0; k < 8; k++) { const z = -L * (0.07 + 0.105 * k), wz = wAt(z); fl.add(at(box(wz * 0.78, 0.008, 0.028, D), 0, -th - 0.004, z));
+      for (const s of [-1, 1]) fl.add(at(box(0.008, th * 0.7, 0.026, D), s * (wz / 2 + 0.001), -th / 2, z)); }
+    fl.add(at(box(heel * 1.7, 0.05, L * 0.2, '#A9825C', { outline: 0.006 }), 0, -th - 0.025, -L * 0.88), at(box(heel * 1.4, 0.008, 0.03, D), 0, -th - 0.052, -L * 0.88));
+    g.userData.update = t => { const on = !o.at || (t >= o.at[0] && t < o.at[1]); g.visible = on; if (!on) return;
+      const u = ((((t - (o.at ? o.at[0] : 0)) * (o.rate ?? 4)) % 1) + 1) % 1, Am = o.open ?? 0.75, k = 0.62;
+      const ang = u < k ? Am * Math.sin(PI / 2 * u / k) : Am * (1 - Math.pow((u - k) / (1 - k), 2)); fl.rotation.x = -(0.04 + ang); };
+    g.userData.update(0); return g;
+  },
+
+  // (final pass of 72) The back of the city bus, built to read from behind (put it on the bus: on={'actor': bus}; it sits at the bus's own pivot, the
+  // bus heading +X, its back at x = -o.len / 2): a body-coloured back with a band of dark rear windows where three passengers' heads and shoulders are
+  // painted, a rounded cap over the roof edge, a grille of slats, big tail lights and a plate; o.len (7.6), o.top (the top of the windows, 3.0),
+  // o.color (the body, #2F8F6B), o.roof (#F1EEE3)
+  busRear(o) {
+    const L = o.len ?? 7.6, W = 2.3, top = o.top ?? 3.0, yR = top + 0.48, x0 = -L / 2 - 0.04, C = o.color || '#2F8F6B', g = grp();
+    g.add(at(box(0.03, top - 1.2, W, C, { outline: 0.006 }), x0, (1.2 + top) / 2, 0));
+    const win = canvasPlane(W - 0.3, top - 1.5, (c, w, h) => { const gr = c.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#46586A'); gr.addColorStop(1, '#1F2832'); c.fillStyle = gr; c.fillRect(0, 0, w, h);
+      for (const [x, s, sk, hr] of [[0.2, 1.0, '#C68A5E', '#2B211C'], [0.5, 0.9, '#E8B48A', '#D9C27A'], [0.79, 1.05, '#8D5A3B', '#1C1C1C']]) {
+        const r = h * 0.15 * s, cx = w * x, cy = h * 0.5; c.fillStyle = '#36414E'; c.beginPath(); c.ellipse(cx, h * 0.98, r * 2.1, h * 0.3, 0, PI, TAU); c.fill();
+        c.fillStyle = sk; c.beginPath(); c.arc(cx, cy, r, 0, TAU); c.fill(); c.fillStyle = hr; c.beginPath(); c.arc(cx, cy - r * 0.25, r * 1.04, PI * 1.05, PI * 1.95); c.fill(); }
+      c.fillStyle = 'rgba(255,255,255,0.16)'; c.beginPath(); c.moveTo(w * 0.06, h); c.lineTo(w * 0.3, 0); c.lineTo(w * 0.4, 0); c.lineTo(w * 0.16, h); c.fill(); }, { res: 256 });
+    win.rotation.y = -PI / 2; win.position.set(x0 - 0.02, (1.45 + top) / 2 - 0.02, 0); g.add(win);
+    const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, W + 0.06, 14, 1, false, PI * 0.5, PI), mat(o.roof || '#F1EEE3')); cap.rotation.x = PI / 2; cap.position.set(x0 + 0.18, yR - 0.18, 0); addOutline(cap, 0.012); g.add(cap);
+    for (let i = 0; i < 5; i++) g.add(at(box(0.03, 0.045, 1.1, '#1C1E22'), x0 - 0.02, 0.62 + 0.1 * i, 0));
+    for (const s of [-1, 1]) g.add(at(box(0.05, 0.46, 0.24, '#D8342C', { outline: 0.005, emissive: '#5A0E0A' }), x0 - 0.03, 0.88, s * (W / 2 - 0.2)), at(box(0.05, 0.12, 0.24, '#F2A33A', { emissive: '#4A2A06' }), x0 - 0.03, 1.2, s * (W / 2 - 0.2)));
+    g.add(at(box(0.02, 0.14, 0.52, '#F4F1E8', { outline: 0.004 }), x0 - 0.06, 0.48, 0));
+    return g;
+  },
+
+  // (final pass of 72) One noodle from a plate to a mouth whose two ends stay on the actors as they move (give it face: 'camera': the engine then works
+  // it out again once the actors are posed, userData.afterFace; the facing does not matter, everything is computed in the world and brought back):
+  // o.from [actor, joint, [x, y, z]]: the plate end, the offset in the world frame from that joint; o.to [actor, 'mouth', up (0.24 of the head's
+  // height above its base), out (0.02 m in front of the face)]: his lips (or [actor, joint, [x, y, z]]); the rest as noodleWave: o.rise [t0, t1] it
+  // flies up to the mouth, then sags with a wave running along it; it straightens and thins (o.thin, 0.55) as he sucks; o.snap: it lets go of the
+  // plate, whips and flicks sauce drops; o.suck: the time the tail takes to go in; o.r its thickness (0.07); o.a / o.b: fixed ends (local) if no actor
+  noodleLive(o) {
+    const N = 26, g = grp(), R = o.r ?? 0.07, m = new THREE.MeshLambertMaterial({ color: o.color || '#F6CF3F' }), segs = [], balls = [], drops = [];
+    for (let i = 0; i < N; i++) { const s = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 1, 8), m); g.add(s); segs.push(s); }
+    for (let i = 0; i <= N; i++) { const s = new THREE.Mesh(new THREE.SphereGeometry(1, 8, 6), m); g.add(s); balls.push(s); }
+    for (let i = 0; i < 6; i++) { const d = sphere(R * 0.6, o.sauce || '#C7311E', 0); d.visible = false; g.add(d); drops.push(d); }
+    const A = new THREE.Vector3(), B = new THREE.Vector3(), W = new THREE.Vector3(), upL = new THREE.Vector3(), side = new THREE.Vector3(), ax = new THREE.Vector3(), q0 = new THREE.Quaternion();
+    const p = new THREE.Vector3(), q = new THREE.Vector3(), d = new THREE.Vector3(), Y = new THREE.Vector3(0, 1, 0), P = []; for (let i = 0; i <= N; i++) P.push(new THREE.Vector3());
+    const [r0, r1] = o.rise || [0, 0.15], snap = o.snap ?? 1e9, suck = o.suck ?? 0.2, sag0 = o.sag ?? 0.12, thin = o.thin ?? 0.55;
+    const live = (spec, out) => { if (!spec) return false; const Ac = globalThis.__toonActors?.[spec[0]], J = Ac?.obj?.userData?.joints; if (!J) return false;
+      if (spec[1] === 'mouth') { const h = J.head, dm = Ac.obj.userData.dims; if (!h || !dm) return false; h.updateWorldMatrix(true, false); out.set(0, dm.hh * (spec[2] ?? 0.24), dm.hd / 2 + (spec[3] ?? 0.02)); h.localToWorld(out); return true; }
+      const j = J[spec[1]]; if (!j) return false; j.updateWorldMatrix(true, false); j.getWorldPosition(out); const f = spec[2] || [0, 0, 0]; out.x += f[0]; out.y += f[1]; out.z += f[2]; return true; };
+    g.userData.afterFace = true;
+    g.userData.update = t => {
+      const u1 = clamp01((t - r0) / (r1 - r0)), u0 = t < snap ? 0 : clamp01((t - snap) / suck), on = t >= r0 && u0 < 0.999 && u1 > 0.01; g.visible = on;
+      g.updateWorldMatrix(true, false);
+      if (live(o.from, W)) A.copy(g.worldToLocal(W)); else A.set(...(o.a || [0, 0, 0]));
+      if (live(o.to, W)) B.copy(g.worldToLocal(W)); else B.set(...(o.b || [0, 0.3, 0.3]));
+      g.getWorldQuaternion(q0).invert(); upL.copy(Y).applyQuaternion(q0); ax.subVectors(B, A); side.crossVectors(ax, upL); if (side.lengthSq() < 1e-8) side.set(1, 0, 0); side.normalize();
+      drops.forEach((dr, i) => { const v = t - snap; dr.visible = v > 0 && v < 0.45; if (!dr.visible) return; const an = i * 1.1 + 0.4; dr.position.copy(A).addScaledVector(side, (Math.cos(an) * 0.5 + 0.3) * v).addScaledVector(upL, 0.9 * v - 4.9 * v * v).addScaledVector(ax.clone().normalize(), Math.sin(an) * 0.4 * v); });
+      if (!on) return;
+      const s = t < r1 ? 0 : t < snap ? clamp01((t - r1) / Math.max(0.05, snap - r1)) : 1;
+      const sag = t < r1 ? sag0 * (1.4 - 0.4 * u1) : sag0 * (1 - 0.85 * s), amp = 0.04 * (1 - 0.6 * s), whip = u0 > 0 ? 0.18 * Math.sin(u0 * 12) * (1 - u0) : 0;
+      for (let i = 0; i <= N; i++) { const u = u0 + (u1 - u0) * i / N; P[i].lerpVectors(A, B, u);
+        P[i].addScaledVector(upL, -sag * Math.sin(PI * u) + amp * Math.sin(u * 3 * TAU - t * 22) * Math.sin(PI * u) + whip * (1 - u) * 0.8).addScaledVector(side, whip * (1 - u) * 0.6 + 0.02 * Math.sin(t * 9 + u * 6) * (1 - s)); }
+      for (let i = 0; i <= N; i++) { const u = i / N, rr = R * (1 - (1 - thin) * s * Math.sin(PI * u)); balls[i].position.copy(P[i]); balls[i].scale.setScalar(rr); }
+      for (let i = 0; i < N; i++) { p.copy(P[i]); q.copy(P[i + 1]); d.subVectors(q, p); const Ln = d.length(), sg = segs[i], u = (i + 0.5) / N, rr = R * (1 - (1 - thin) * s * Math.sin(PI * u));
+        sg.visible = Ln > 1e-4; sg.position.copy(p).add(q).multiplyScalar(0.5); if (Ln > 1e-4) sg.quaternion.setFromUnitVectors(Y, d.normalize()); sg.scale.set(rr, Math.max(Ln, 1e-4), rr); } };
+    g.userData.update(0); return g;
+  },
+
+  // (final pass of 72) A bicycle that turns and leans along a track the story works out (put it at pos [0, 0, 0]): o.track [[t, x, z, yaw, lean], ...]
+  // (yaw: rad about the vertical, 0 heading +X as `bicycle`; lean: rad about its own long axis, > 0 toward its right), linear between keys, held
+  // past the ends; o.color as bicycle. (An Euler rotTo on the bicycle locked up heading -Z: a lean there came out as a pitch)
+  leanBike(o) {
+    const b = buildProp('bicycle', { color: o.color }), g = grp(), tilt = grp(b), T = o.track || [[0, 0, 0, 0, 0]]; g.add(tilt);
+    g.userData.update = t => { let i = 0; while (i < T.length - 2 && t >= T[i + 1][0]) i++; const a = T[i], c = T[Math.min(i + 1, T.length - 1)], u = c[0] > a[0] ? clamp01((t - a[0]) / (c[0] - a[0])) : 0;
+      g.position.set(a[1] + (c[1] - a[1]) * u, 0, a[2] + (c[2] - a[2]) * u); g.rotation.y = a[3] + (c[3] - a[3]) * u; tilt.rotation.x = a[4] + (c[4] - a[4]) * u; b.userData.update?.(t); };
+    g.userData.update(0); return g;
+  },
+
+  // (final pass of 72) A short jersey sleeve round an upper arm (attach it at a shoulder joint: on={'actor', 'joint': 'shoulderL'}): a yellow tube o.len
+  // long (0.24) and o.r round (0.11) hanging down the arm from the joint, with a black hem; o.color, o.lit (an emissive colour, as jersey)
+  jerseySleeve(o) {
+    const Ln = o.len ?? 0.24, r = o.r ?? 0.11, em = o.lit ? { emissive: o.lit } : {}, g = grp();
+    const t = cyl(r, r * 0.92, Ln, o.color || '#F7D23A', 10, em); t.position.y = 0.03 - Ln / 2; addOutline(t, 0.05); g.add(t);
+    g.add(at(cyl(r * 0.95, r * 0.95, 0.03, '#1C1E22', 10), 0, 0.03 - Ln + 0.012, 0));
     return g;
   },
 };
