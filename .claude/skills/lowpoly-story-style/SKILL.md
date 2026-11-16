@@ -1726,3 +1726,16 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 41) HyperFrames refuse de rendre sous 1 Go libre (dans /tmp ET dans le dossier `renders` du projet) : le rendu final échoue alors
   APRÈS une heure et demie de rendu 3D, sur « Low disk space ». Vérifier l'espace avant de lancer un rendu final ; si la couche 3D est faite,
   relancer seulement l'étape HyperFrames (`npx hyperframes@0.9.13 render -o renders/X.mp4 --fps 30 --workers 2` dans le projet).
+
+- (cycle 42) Un objet qui saute sous un choc (bocal, boîte, cocotte) se déplace EN ENTIER : animer le couvercle seul, ou le corps seul, le
+  décolle de l'autre et on lit « le couvercle s'ouvre » au lieu de « le bocal sursaute » (« Le bocal », S08).
+- (cycle 42) Un gros véhicule contre un petit objet (char contre bocal, rouleau contre pièce) : caméra au ras du sol, à moins de 0,5 m, l'objet
+  au premier plan et au moins 15 % de la hauteur du cadre ; vu à hauteur d'homme le bocal ne faisait que 35 pixels et le gag disparaissait. Le
+  véhicule ne doit pas traverser l'objet : une clé de 0,06 s qui lève l'avant (le nez monte sur l'objet) au contact.
+- (cycle 42) Un saut sur un pied (orteil cogné) : les clés de position du saut ont besoin de `glide=True`, sinon un cycle de marche joue sous le
+  saut. Face caméra, la jambe repliée est vue en raccourci et le saut se lit mal : tourner le corps d'environ 0,6 rad pendant le saut (les cibles
+  des mains suivent cette rotation).
+- (cycle 42) Rappel : `lens` est l'angle de champ VERTICAL en degrés (plus grand = plus large), pas une focale. L'agent de « La table basse » l'a
+  encore lu comme une focale au premier tour : tous les plans étaient trop serrés. Le redire dans chaque consigne de mise en scène déléguée.
+- (cycle 42) Planche de contrôle d'images extraites par ffmpeg : `dsheet.py` (fait pour les images de `render3 --stills`) rend une planche noire ;
+  utiliser `ffmpeg -pattern_type glob -i 'f_*.jpg' -vf tile=7x2 planche.jpg`.
