@@ -2938,3 +2938,10 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 11 h 55 — « La tondeuse » (70) LIVRÉE : final contrôlé (1080x1920, 36,6 s, −16,0 LUFS, aucune chute de luminosité, contrôles HyperFrames sans
   erreur), relu sur une planche de 14 images, envoyé et publié sur TikTok. Il aura fallu trois essais : manque de mémoire, puis manque de
   disque à l'assemblage.
+- 13 h 15 — « L'ascenseur » (76) LIVRÉE : final contrôlé (1080x1920, 29,7 s, −16,0 LUFS ; la seule alerte de luminosité, à 26,9 s, est le flash
+  voulu de la photo officielle, vérifié image par image), relu sur une planche de 13 images, envoyé et publié sur TikTok. Le rendu final du
+  « Centime » suit. Disque : images des revues des histoires livrées supprimées (390 Mo, rapports et briefs gardés), cache de modèles de
+  transcription de HyperFrames supprimé (545 Mo, inutilisé par la chaîne) : 1,8 Go libres.
+- « Le parcmètre » (75) : revue 3 = 6,8 ; 7,2, contre 6,0 ; 6,6. Reste pour la passe finale : le visage écrasé sur la vitre tombe sous les
+  sous-titres, le tampon « REFUSÉ » est tenu à l'envers, le selfie ne se lit pas comme un selfie, plusieurs plans tenus sont figés. Passe
+  finale confiée à un agent dérivé.

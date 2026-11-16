@@ -212,11 +212,11 @@ st.cue('sfx:bell', 'S09', 0.2, 0.2)
 
 # 10: his wife said yes on the speaker. Three quarters to us, she bends at the waist and stretches up to the phone on his ear, her mouth on it, and
 #     says it into it: OUI ! bursts out of the phone; he does not move; she eases back up; behind her shoulder the mayor claps
-D10 = st.dur('S10'); OUI10 = 0.75; BR10 = [0.28, 0, 0.0]; MA10 = [0.38, 0, -1.2]   # (final pass) she stands on the far side of the phone, the mayor over her shoulder (behind him he was hidden)   # (stills 2) she stands three quarters to us: in profile a box head shows no mouth; (pass 3) closer to him (0.27)
+D10 = st.dur('S10'); OUI10 = 0.75; BR10 = [0.28, 0, 0.0]; MA10 = [-1.05, 0, -1.25]   # (final pass) she stands on the far side of the phone; the mayor hidden behind him (over her shoulder only a sliver of his head showed)   # (stills 2) she stands three quarters to us: in profile a box head shows no mouth; (pass 3) closer to him (0.27)
 # (pass 3) u 0..1: how far she reaches for the phone: the spine bows forward and toward her right (his side) and stretches, the neck tips her mouth onto it
 LEAN10 = lambda u, f, sq=None: {**BOUQ, 'bend': {'spine': [r(0.5 * u), r(0.12 * u), 0, r(1 + 0.35 * u), None], 'neck': [r(0.3 * u), r(0.08 * u), 0, 1, None]}, 'face': f, **({'sq': sq} if sq else {})}   # (final pass) forward, toward the phone in front of her
 CLAP10 = lambda j: {'touch': {'R': ['torso', r(-0.03 if j % 2 else -0.16), 0.52, 0.3, 1, 0.04], 'L': ['torso', r(0.03 if j % 2 else 0.16), 0.52, 0.3, 1, 0.04]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'lid': 0.0, 'mouth': 'bigsmile'}}
-st.shot('S10', 'mairie', setOpts={**MAIRIE, 'bannerX': -1.45}, actors=[   # (final pass) the banner to the left: the bubble covered its « IE »
+st.shot('S10', 'mairie', setOpts={**MAIRIE, 'bannerX': -0.37, 'bannerY': 3.35}, actors=[   # (final pass) the word MAIRIE whole under the bubble, the tail crossing only the blue
         act('mec', GR, 5, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=FREE(), toonDur=0.0), FK(r(OUI10 + 0.1), {'lid': 0.3, 'mouth': 'line', 'gx': 0.8}), FK(r(OUI10 + 0.55), {**DEAD, 'mouth': 'line'}, 0.12),
             *BL(1.7, {**DEAD, 'mouth': 'line'})]),                                                                                       # one look aside at the yes, and back to us
         act('femme', BR10, -50, 'stand', 'happy', keys=[k(0.0, look=[-0.2, 2.0, 0.6]), k(0.0, toon=LEAN10(0.0, {'lid': 0.2, 'mouth': 'smile'}), toonDur=0.0),
@@ -229,7 +229,7 @@ st.shot('S10', 'mairie', setOpts={**MAIRIE, 'bannerX': -1.45}, actors=[   # (fin
         act('maire', MA10, 15, 'stand', 'happy', keys=[k(0.0, look=[0.0, 2.0, 0.3]), k(0.0, toon=CLAP10(0), toonDur=0.0), *[k(r(OUI10 + 0.15 + 0.13 * j), toon=CLAP10(j + 1), toonDur=0.07) for j in range(10)]])],
         props=[TEL('tel10', keys=[k(OUI10, squash=[1.32, 0.78, 1.32], dur=0.35)]), NOTES('mus10', size=0.16, t1=r(OUI10 - 0.4), life=0.95, dx=0.3, dy=0.38), P('voile10', 'bridalVeil', on={'actor': 'femme', 'joint': 'head', 'offset': [0.0, 0.45, 0.0]}),
                P('bouq10', 'bouquet', on={'actor': 'femme', 'hand': 'R', 'offset': [0.0, 0.0, 0.05]}),
-               P('oui10', 'voiceBubble', pos=[-0.17, 2.19, 0.3], face='camera', opts={'at': OUI10, 'until': r(OUI10 + 1.0), 'text': 'OUI !', 'w': 0.5, 'stem': 0.25, 'onTop': True, 'fill': '#FFD83A', 'ink': '#D22B2B', 'jagK': 0.72})],   # (final pass) its tail on the top of the phone, the body above her head (drawn over it: her hair hid it), under the banner's word   # (pass 3) the yes bursts out of the phone, its tail on it (it floated over the banner)
+               P('oui10', 'voiceBubble', pos=[-0.37, 2.2, 0.32], face='camera', opts={'at': OUI10, 'until': r(OUI10 + 1.0), 'text': 'OUI !', 'w': 0.5, 'stem': 0.5, 'onTop': True, 'fill': '#FFD83A', 'ink': '#D22B2B', 'jagK': 0.72})],   # (final pass) its tail on the top of the phone, the body above her head and the banner (drawn over everything: her hair hid it)   # (pass 3) the yes bursts out of the phone, its tail on it (it floated over the banner)
         cams=[FC(0.0, [0.45, 1.75, 3.1], [[-0.37, 2.34, 0.29], [-0.8, 1.3, 0.29], [-1.1, 2.25, MA10[2]], [0.5, 1.4, 0.05], [0.42, 2.7, 0.33]], top=0.12, bottom=0.78)])   # (final pass) from the right front: his face, the phone, her lips at its far edge, left to right   # (pass 3) from the left front: her head beside the phone, not in front of it or of his face   # (pass 2) face on to him; (after stills 4, by calculation) tighter than S09: cut at the belt, his far shoulder out of frame
 st.cue('sfx:pop', 'S10', OUI10, 0.2); st.cue('sfx:fanfare', 'S10', r(OUI10 + 0.2), 0.15)
 
@@ -359,8 +359,8 @@ st.shot('S18', 'livingRoom', setOpts=LR, actors=[act(OLD, SIT, 0, 'sit', 'neutra
             *[k(r(0.47 + 0.065 * j), toon=OFF18(0, r(2.95 + 0.03 * j + (0.06 + 0.025 * j) * (1 if j % 2 else -1)), r(0.75 - 0.005 * j), A(lid=0.1, mouth='grimace', brow=-0.9, gx=0.8, sweat=1.0, tremble=1.0, pupilShake=1.0), -0.12), toonDur=0.04, toonEase='linear') for j in range(6)],   # ...and held 0.4 s, trembling harder and harder
             *[k(r(POP18 + 0.06 * j), toon=OFF18((0.06 * (j + 1)) / CAR18, s_, sy_, A(lid=0.0, eye=0.5, mouth='O', brow=1.0), l_), toonDur=0.06, toonEase='linear')
               for j, (s_, sy_, l_) in enumerate([(0.66, 1.24, 0.05), (1.26, 0.9, -0.02), (0.85, 1.08, 0.01), (1.1, 0.95, 0.0), (0.96, 1.02, 0.0), (1.0, 1.0, 0.0)])],   # POP: it comes free, the head springs back: three smaller and smaller bounces
-            k(r(POP18 + 0.42), toon={**OFF18(1, 1.0, 1.0, A(lid=0.3, mouth='line', gy=1.0)), 'bend': {'neck': [0.3, 0, 0, 1, None]}}, toonDur=0.12),   # (final pass) his head dips, his eyes onto the keypad
-            k(1.5, toon={**SHOW(A(lid=0.3, mouth='line', gy=1.0), TAP0), 'bend': {'neck': [0.3, 0, 0, 1, None]}}, toonDur=0.2, toonEase='inOut')])],   # the other index comes up over the keypad
+            k(r(POP18 + 0.42), toon={**OFF18(1, 1.0, 1.0, A(lid=0.3, mouth='line', gy=1.0)), 'bend': {'neck': [0.55, 0, 0, 1, None], 'spine': [0.12, 0, 0, 1, None]}}, toonDur=0.12),   # (final pass) his head dips, his eyes onto the keypad
+            k(1.5, toon={**SHOW(A(lid=0.3, mouth='line', gy=1.0), TAP0), 'bend': {'neck': [0.55, 0, 0, 1, None], 'spine': [0.12, 0, 0, 1, None]}}, toonDur=0.2, toonEase='inOut')])],   # the other index comes up over the keypad
         props=[TEL('tel18', OLD, keys=CARRY(OLD, POP18, CAR18, EAR, FRONT), keypad=1), BURST('pop18', [0.32, 1.78, r(SIT[2] + 0.25)], POP18, 'POP !', 0.42, 0.4)],
         cams=[FC(0.0, [-0.55, 1.0, -1.0], [[SIT[0], 2.0, SIT[2]], [SIT[0], 0.9, r(SIT[2] + 0.2)], [-0.5, 1.6, SIT[2]], [0.72, 1.6, SIT[2]]], top=0.14, bottom=0.78)])   # (final pass) low, three quarters from his right: the stretch runs across the frame to the phone at its edge (S07 is face on, standing)
 st.cue('sfx:stretch', 'S18', 0.25, 0.3); st.cue('pop', 'S18', POP18, 0.3); st.cue('sfx:boing', 'S18', r(POP18 + 0.06), 0.2)
@@ -393,7 +393,7 @@ EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
 MEC = {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}}
 FIRE = {'preset': 'pompier', 'suit': '#23304E', 'pants': '#23304E', 'hat': 'firecrest', 'hatColor': '#C9CFD7', 'glasses': False, 'bandColor': '#F2D23C', 'bandH': 0.06,   # (final pass) crested chrome helmets (white caps read as cooks)   # (pass 3) chrome helmets, yellow reflective bands (red ones read as nothing)
         'build': {'width': 1.05, 'headWidth': 1.2}, 'toon': EX}
-st.write("Le service client", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, debugJoints=['mec', OLD, 'femme'], extra_cast={
+st.write("Le service client", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, extra_cast={
     'mec': MEC, OLD: {**MEC, 'hairColor': '#80868F'},   # (pass 3) mid-grey: the pale grey read as a white bandage
     'pomp1': {**FIRE, 'seed': 731}, 'pomp2': {**FIRE, 'seed': 732},
     'femme': {'preset': 'femme', 'seed': 733, 'suit': '#F7F5EF', 'build': {'width': 0.92, 'headWidth': 1.25}, 'toon': EX},

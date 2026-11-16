@@ -5008,9 +5008,9 @@
     {
      "id": "maire",
      "pos": [
-      0.38,
+      -1.05,
       0,
-      -1.2
+      -1.25
      ],
      "ry": 15,
      "clip": "stand",
@@ -5464,9 +5464,9 @@
      "id": "oui10",
      "name": "voiceBubble",
      "pos": [
-      -0.17,
-      2.19,
-      0.3
+      -0.37,
+      2.2,
+      0.32
      ],
      "face": "camera",
      "opts": {
@@ -5474,7 +5474,7 @@
       "until": 1.75,
       "text": "OUI !",
       "w": 0.5,
-      "stem": 0.25,
+      "stem": 0.5,
       "onTop": true,
       "fill": "#FFD83A",
       "ink": "#D22B2B",
@@ -5514,9 +5514,9 @@
    "duration": 2.2,
    "setOpts": {
     "map": false,
-    "bannerY": 3.25,
+    "bannerY": 3.35,
     "plate": false,
-    "bannerX": -1.45
+    "bannerX": -0.37
    },
    "grade": "none",
    "soften": 0.3
@@ -12222,7 +12222,14 @@
         },
         "bend": {
          "neck": [
-          0.3,
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ],
+         "spine": [
+          0.12,
           0,
           0,
           1,
@@ -12275,7 +12282,14 @@
         },
         "bend": {
          "neck": [
-          0.3,
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ],
+         "spine": [
+          0.12,
           0,
           0,
           1,
@@ -13192,10 +13206,5 @@
  "limbSmear": 1,
  "follow": 1,
  "pupil": 0.5,
- "hairRest": 0.07,
- "debugJoints": [
-  "mec",
-  "mecVieux",
-  "femme"
- ]
+ "hairRest": 0.07
 }
