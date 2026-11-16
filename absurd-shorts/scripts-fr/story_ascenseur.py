@@ -121,13 +121,14 @@ st.shot('S05', 'immeubleHall', setOpts=HALL(floor=[[0.0, '3']]), actors=[act('me
 st.cue('sfx:stepSoft', 'S05', 0.15, 0.15); st.cue('sfx:stepSoft', 'S05', 0.4, 0.15)
 
 # 6: the concierge put an armchair there... She pushes a big old armchair along the wall, past the lift doors, toward him, cheerful; he does not look
-D6 = st.dur('S06'); CON0, CON1 = [-1.3, 0, -1.9], [0.05, 0, -1.98]
+D6 = st.dur('S06'); CON0, CON1 = [-0.95, 0, -1.92], [0.05, 0, -1.98]   # (final pass) she starts a step nearer: whole in the frame (the left edge cut her)
 st.shot('S06', 'immeubleHall', setOpts=HALL(floor=[[0.0, '8']]), actors=[act('mec', ME, 0, 'stand', 'neutral', darts=0, keys=[k(0.0, look='camera'), k(0.0, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.0),
             k(0.5, toon={'face': {'lid': 1.0, 'gx': GX, 'mouth': 'line'}}, toonDur=0.07), k(0.62, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.08)]),
-        act('concierge', CON0, 95, 'pushCart', 'happy', keys=[k(0.0, to=CON1, dur=D6, clip='pushCart', ease='linear', face='keep'), k(0.0, look=[ME[0], 1.8, ME[2]]), k(0.55, look='camera', lookDur=0.2)])],
+        act('concierge', CON0, 95, 'pushCart', 'happy', keys=[k(0.0, to=CON1, dur=D6, clip='pushCart', ease='linear', face='keep'), k(0.0, look=[ME[0], 1.8, ME[2]]), k(0.55, look='camera', lookDur=0.2),
+            k(0.0, toon={'bend': {'spine': [0.32, 0.0, 0.0, 1.0]}}, toonDur=0.0)])],   # (final pass) leaning into the push
         props=[FLOOR('sol6'), BUTTON('bt6', litAfter=0.0), BEARD('barbe6', s=0.85, color='#6E6052'),
-               P('fauteuil6', 'armchair', pos=[-0.6, 0, -1.95], ry=20, keys=[k(0.0, to=[0.78, 0, -2.05], dur=D6, ease='linear')], opts={'color': '#B5523A'})],
-        cams=[FC(0.0, [2.7, 1.25, -0.2], [[ME[0], 2.02, ME[2]], [r(ME[0] + 0.42), 0.9, ME[2]], [-0.3, 1.85, -1.95], [0.78, 0.3, -1.65]], top=0.14, bottom=0.76, lenses=range(26, 62), drift=(-0.1, 0.0, -0.1), inside=ROOM)])   # (pass 3) from his side, low: he is big at the right, she comes toward us pushing (they were a third of the frame)
+               P('fauteuil6', 'armchair', pos=[-0.22, 0, -1.95], ry=95, keys=[k(0.0, to=[0.78, 0, -2.05], dur=D6, ease='linear')], opts={'color': '#B5523A'})],   # (final pass) its back to her, so her hands are on it (turned to us, her hands floated over its side)
+        cams=[FC(0.0, [2.7, 1.25, -0.2], [[ME[0], 2.02, ME[2]], [r(ME[0] + 0.42), 0.9, ME[2]], [r(CON0[0] - 0.2), 1.9, CON0[2]], [r(CON0[0] - 0.25), 0.4, CON0[2]], [0.78, 0.3, -1.65]], top=0.14, bottom=0.76, lenses=range(26, 62), drift=(-0.1, 0.0, -0.1), inside=ROOM)])   # (pass 3) from his side, low: he is big at the right, she comes toward us pushing (they were a third of the frame); (final pass) her start point in the fit
 st.cue('sfx:rattle', 'S06', 0.0, 1.0)
 
 # 7: ...an armchair. He drops into it: the cushion squashes and springs back in a puff of dust; she tucks a blanket over his knees
