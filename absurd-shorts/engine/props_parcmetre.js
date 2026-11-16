@@ -134,8 +134,8 @@ export const PARCMETRE_PROPS = {
         val.position.set(-0.96, 1.92, sz * 0.825); if (sz < 0) val.rotation.y = PI; g.add(val); } }
     let puffs = [];
     if (on('smoke')) { g.add(at(cyl(0.065, 0.065, 0.5, '#4A4E55', 10, { pivot: 'bottom', outline: 0.005 }), -1.15, 2.05, 0.42), at(cyl(0.11, 0.11, 0.04, '#33363B', 10), -1.15, 2.57, 0.42));
-      puffs = [0, 1, 2, 3].map(i => { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), new THREE.MeshLambertMaterial({ color: o.smokeBig ? '#F7F8FA' : '#D9DCDF', transparent: true, depthWrite: !!o.smokeBig })); g.add(m);
-        if (o.smokeBig) { const ol = new THREE.Mesh(m.geometry, new THREE.MeshBasicMaterial({ color: '#2A2C31', side: THREE.BackSide, transparent: true, depthWrite: false })); ol.scale.setScalar(1.1); ol.renderOrder = 1; m.add(ol); m.userData.ol = ol; }
+      puffs = (o.smokeBig ? [0, 1, 2, 3, 4, 5] : [0, 1, 2, 3]).map(i => { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), new THREE.MeshLambertMaterial({ color: o.smokeBig ? '#F7F8FA' : '#D9DCDF', transparent: true, depthWrite: !!o.smokeBig })); g.add(m);
+        if (o.smokeBig) { const ol = new THREE.Mesh(m.geometry, new THREE.MeshBasicMaterial({ color: '#2A2C31', side: THREE.BackSide, transparent: true, depthWrite: false })); ol.scale.setScalar(1.2); ol.renderOrder = 1; m.add(ol); m.userData.ol = ol; }
         return m; }); }
     if (on('plant')) { g.add(at(cyl(0.11, 0.085, 0.16, '#C2653A', 10, { pivot: 'bottom', outline: 0.005 }), 0.5, 2.055, -0.32));
       [[0, 0.24, 0, 0.1], [0.08, 0.2, 0.05, 0.08], [-0.08, 0.21, -0.04, 0.08], [0.03, 0.19, -0.09, 0.07]].forEach(([x, y, z, r]) => g.add(at(sphere(r, '#3E8E4A', 1), 0.5 + x, 2.055 + y, -0.32 + z)));
@@ -152,8 +152,8 @@ export const PARCMETRE_PROPS = {
         c.fillStyle = '#C8322A'; c.fillRect(W * 0.78, H * 0.12, W * 0.14, H * 0.26); c.fillStyle = '#4A4A4A'; c.fillRect(W * 0.12, H * 0.62, W * 0.4, H * 0.06); c.fillRect(W * 0.12, H * 0.74, W * 0.3, H * 0.06); }, { res: 256 });
       env.rotation.y = PI / 2; wip.add(env); }
     g.userData.update = t => {
-      const big = o.smokeBig ? 1.5 : 1;   // (stills 1 of the final pass) twice the size and fading from the start, they read as glass bubbles: now solid until 0.65 of their rise
-      puffs.forEach((m, i) => { const u = ((t * 0.55 + i / 4) % 1 + 1) % 1, s = (0.07 + 0.2 * u) * big; m.position.set(-1.15 - 0.35 * big * u * u, 2.65 + 0.95 * big * u, 0.42 + 0.05 * Math.sin(t * 2 + i)); m.scale.setScalar(s);
+      const big = o.smokeBig ? 1.25 : 1, np = puffs.length;   // (stills 1-2 of the final pass) twice the size and fading from the start they read as glass bubbles, then as a stack of snowballs: six smaller solid puffs drifting off with the wind, a thick ink rim
+      puffs.forEach((m, i) => { const u = ((t * 0.55 + i / np) % 1 + 1) % 1, s = (0.07 + 0.2 * u) * big; m.position.set(-1.15 - (o.smokeBig ? 0.9 : 0.35) * big * u * u, 2.65 + 0.95 * big * u, 0.42 + (o.smokeBig ? 0.25 * u + 0.04 * Math.sin(t * 3 + i * 1.7) : 0.05 * Math.sin(t * 2 + i))); m.scale.set(s, s * (o.smokeBig ? 0.82 : 1), s);
         m.material.opacity = o.smokeBig ? Math.min(1, (1 - u) * 2.9) * Math.min(1, u * 8) : 0.85 * (1 - u) * Math.min(1, u * 8);
         if (m.userData.ol) m.userData.ol.material.opacity = 0.9 * m.material.opacity; });
       if (env) { const a = o.letter ? 1 : clamp01((t - o.letterAt) / 0.3); env.visible = a > 0; env.position.set(0.03, 0.1 + 0.25 * (1 - a) * (1 - a), -0.38); env.rotation.x = a >= 1 ? 0.06 * Math.sin(t * 9) : 0; } };
@@ -189,11 +189,12 @@ export const PARCMETRE_PROPS = {
 
   // A washing line (pivot at its first end): a sagging cord to o.to [x, y, z] (o.sag 0.18) with o.n (4) things pegged on it, swaying: a shirt, socks,
   // trousers, a vest, in o.colors.
-  // (final pass of 75) o.u0 / o.u1: the washing hangs only between these fractions of the cord (none over a car roof it crosses).
+  // (final pass of 75) o.u0 / o.u1: the washing hangs only between these fractions of the cord (none over a car roof it crosses); o.cord: the cord's radius
+  // (0.006); o.itemScale (1): bigger washing, that reads from across the street.
   clothesline(o) {
     const to = new THREE.Vector3(...(o.to || [2, 0, 0])), n = o.n ?? 4, sag = o.sag ?? 0.18, g = grp(), cols = o.colors || ['#5B8BD9', '#E25C7A', '#3A4A6A', '#F2C94E', '#FFFFFF'];
     const P = u => new THREE.Vector3(to.x * u, to.y * u - 4 * sag * u * (1 - u), to.z * u);
-    for (let i = 0; i < 12; i++) g.add(rod(P(i / 12).toArray(), P((i + 1) / 12).toArray(), 0.006, '#E8E4D8'));
+    for (let i = 0; i < 12; i++) g.add(rod(P(i / 12).toArray(), P((i + 1) / 12).toArray(), o.cord ?? 0.006, '#E8E4D8'));
     const ry = Math.atan2(-to.z, to.x), items = [];
     for (let i = 0; i < n; i++) { const u = o.u0 != null ? o.u0 + ((o.u1 ?? 0.9) - o.u0) * i / Math.max(1, n - 1) : (i + 1) / (n + 1), it = grp(), c = cols[i % cols.length], kind = i % 4;
       if (kind === 0) it.add(at(box(0.3, 0.32, 0.012, c, { outline: 0.004 }), 0, -0.18, 0), at(box(0.12, 0.1, 0.012, c), -0.2, -0.07, 0, 0, 0, 0.5), at(box(0.12, 0.1, 0.012, c), 0.2, -0.07, 0, 0, 0, -0.5));
@@ -201,7 +202,7 @@ export const PARCMETRE_PROPS = {
       else if (kind === 2) it.add(at(box(0.28, 0.1, 0.012, c, { outline: 0.004 }), 0, -0.06, 0), at(box(0.12, 0.42, 0.012, c), -0.075, -0.32, 0), at(box(0.12, 0.42, 0.012, c), 0.075, -0.32, 0));
       else it.add(at(box(0.24, 0.3, 0.012, c, { outline: 0.004 }), 0, -0.16, 0));
       for (const dx of [-0.08, 0.08]) it.add(at(box(0.02, 0.05, 0.02, '#C9A06A'), dx, 0.0, 0.01));
-      const holder = grp(it); holder.position.copy(P(u)); holder.rotation.y = ry; g.add(holder); items.push(it); }
+      it.scale.setScalar(o.itemScale ?? 1); const holder = grp(it); holder.position.copy(P(u)); holder.rotation.y = ry; g.add(holder); items.push(it); }
     g.userData.update = t => items.forEach((it, i) => { it.rotation.x = 0.18 * Math.sin(t * 2.3 + i * 1.4); it.rotation.z = 0.05 * Math.sin(t * 1.7 + i); });
     g.userData.update(0); return g;
   },

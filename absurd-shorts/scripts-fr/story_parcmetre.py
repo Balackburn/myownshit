@@ -186,7 +186,7 @@ st.shot('S08', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, 180, 'dri
             k(0.95, toon={'reach': {'R': [3.55, 1.55, -0.55, 1, 0.04]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.3, toonEase='inOut'), k(1.1, look='camera'),
             *LIFE(0.14, 0.46, {'lid': 0.3, 'mouth': 'smile'}, per=0.16), *LIFE(1.2, D8, {'lid': 0.3, 'mouth': 'smile'}, per=0.12, blink=1.26)])],   # (final pass) the holds breathe
         props=[CARP('car8'), BAY('bay8'), HOME('home8', smokeBig=True), MTR('pm8', screens=[[0.0, '400 ANS']]),
-               P('linge8', 'clothesline', pos=[3.35, 2.62, 0.45], opts={'to': [2.25, -0.54, 2.45], 'n': 3, 'sag': 0.12, 'u0': 0.64, 'u1': 0.94}),   # from the aerial to the top of the P sign, the washing past the car's side
+               P('linge8', 'clothesline', pos=[3.35, 2.62, 0.45], opts={'to': [2.25, -0.54, 2.45], 'n': 3, 'sag': 0.12, 'u0': 0.64, 'u1': 0.94, 'cord': 0.014, 'itemScale': 1.8}),   # from the aerial to the top of the P sign, the washing past the car's side
                P('tasse8', 'hotMug', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, 0.0, 0.05]}, scale=1.5)],
         cams=[FC(0.0, [2.7, 2.6, -4.8], [[SEAT[0], 2.2, SEAT[2]], [METER[0], 2.15, METER[2]], [METER[0], 0.0, METER[2]], [4.27, 3.4, 1.15], [2.6, 0.0, -0.05]], top=0.12, bottom=0.72, drift=(0.15, -0.05, 0.2))])   # (final pass) closer and more in front: his face through the windscreen, clear of the pillar, the machine beside the car
 
@@ -298,7 +298,7 @@ st.cue('sfx:twang', 'S15', SNIP, 0.4); st.cue('pop', 'S15', r(SNIP + 0.05), 0.3)
 #     close, her head big on the left, grinning at the phone she holds out toward us, leaning back and aside so the windscreen sits in the clear gap
 #     on the right with him behind it, thumb up; the second tourist down on one knee at the bumper with a flash; click; she checks the picture while
 #     he wiggles his thumb hard
-D16 = st.dur('S16'); SELF = [4.81, 0, -3.03]; PH16 = [5.0, 1.8, -3.65]; CHK16 = [4.92, 1.6, -3.5]; T2 = [3.62, 0, -2.15]; C16 = [4.7, 1.85, -5.6]; LK16 = [4.1, 1.35, 0.0]
+D16 = st.dur('S16'); SELF = [4.72, 0, -3.03]; PH16 = [4.95, 1.72, -3.72]; CHK16 = [4.88, 1.52, -3.48]; T2 = [3.15, 0, -2.25]; C16 = [4.7, 1.85, -5.6]; LK16 = [4.1, 1.35, 0.0]   # (stills 2) the other tourist off the windscreen line
 TH16 = lambda y=1.75, x=3.8: {'reach': {'R': [x, y, -0.9, 1, 0.04]}, 'hands': {'R': 'thumbUp'}}   # his right hand, in the middle of the windscreen
 EYE16 = {'touch': {'R': ['face', -0.05, 0.6, 0.2, 1, 0.02], 'L': ['face', 0.05, 0.58, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}}
 ARM16 = lambda p=PH16: {'reach': {'R': [*p, 1, 0.04]}, 'hands': {'R': 'grip'}, 'lay': [-0.06, 0.0]}   # arm out toward the lens, leaning back (stills 1: leaning aside took her head out of the frame)
@@ -308,7 +308,7 @@ st.shot('S16', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, 180, 'dri
             *LIFE(0.6, 1.12, {**DEAD, 'mouth': 'smirk'}, per=0.18, blink=0.8),
             *[k(r(1.15 + 0.08 * i), toon={**TH16(1.85 if i % 2 == 0 else 1.66, 3.94 if i % 2 == 0 else 3.66), 'face': {**DEAD, 'mouth': 'smirk', 'brow': 0.5}}, toonDur=0.07, toonEase='inOut') for i in range(6)],   # the wiggle
             k(1.66, toon={**TH16(), 'face': {**DEAD, 'mouth': 'smirk'}}, toonDur=0.1)]),
-        act('touriste1', SELF, 180, 'stand', 'happy', keys=[k(0.0, look=PH16), k(0.0, toon={**ARM16([4.95, 1.6, -3.4]), **SM16(0.4)}, toonDur=0.0),
+        act('touriste1', SELF, 180, 'stand', 'happy', keys=[k(0.0, look=PH16), k(0.0, toon={**ARM16([4.88, 1.6, -3.4]), **SM16(0.4)}, toonDur=0.0),
             k(0.12, toon={**ARM16(), **SM16()}, toonDur=0.3, toonEase='out'),   # the arm goes out, she leans back
             k(0.6, toon={**ARM16(), **SM16(0.8)}, toonDur=0.1), k(0.84, toon={**ARM16(), 'sq': [1.03, 0.95, 1.03], **SM16(0.8)}, toonDur=0.05, toonEase='in'),   # the pose, then the click
             k(0.92, toon={**ARM16(), 'sq': [0.98, 1.03, 0.98], 'face': {'lid': 0.0, 'mouth': 'grin', 'brow': 1.0}}, toonDur=0.06),
@@ -316,7 +316,7 @@ st.shot('S16', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, 180, 'dri
             k(1.55, toon={**ARM16(CHK16), 'sq': [0.97, 1.04, 0.97], 'face': {'lid': 0.15, 'mouth': 'grin', 'brow': 0.7}}, toonDur=0.08), k(1.6, look=C16, lookDur=0.12)]),
         act('touriste2', T2, 25, 'kneel', 'happy', keys=[k(0.0, look=[3.45, 1.75, -0.4]), k(0.0, toon={**EYE16, 'lay': [0.22, 0.0]}, toonDur=0.0), k(0.37, toon={**EYE16, 'lay': [0.22, 0.0], 'sq': [1.0, 0.96, 1.0]}, toonDur=0.05), k(0.55, toon={**EYE16, 'lay': [0.22, 0.0]}, toonDur=0.12),
             k(1.32, toon={**EYE16, 'lay': [0.22, 0.0], 'sq': [1.0, 0.96, 1.0]}, toonDur=0.05), k(1.5, toon={**EYE16, 'lay': [0.22, 0.0]}, toonDur=0.12)])],   # down on one knee at the bumper's corner, bent to the viewfinder
-        props=[CARP('car16'), BAY('bay16'), HOME('home16', smoke=False), P('tel16', 'handset', on={'actor': 'touriste1', 'hand': 'R', 'offset': [0.0, 0.05, 0.04], 'face': 'camera', 'faceBack': True}, scale=1.5, opts={'screen': '#8FD3F2'}),
+        props=[CARP('car16'), BAY('bay16'), HOME('home16', smoke=False), P('tel16', 'handset', on={'actor': 'touriste1', 'hand': 'R', 'offset': [0.0, 0.05, 0.04], 'face': 'camera', 'faceBack': True}, scale=2.0, opts={'screen': '#8FD3F2'}),
                P('app16', 'pressCamera', on={'actor': 'touriste2', 'hand': 'R', 'offset': [0.06, 0.0, 0.08]}, opts={'flashAt': [0.35, 1.3], 'burst': 0.5})],
         cams=[cam(0.0, C16, r3([C16[0] - 0.04, C16[1], C16[2] + 0.12]), LK16, r3([LK16[0] - 0.04, LK16[1], LK16[2] + 0.12]), lens=46)])   # (final pass) beside her phone: her face 20 % of the height on the left, him at 75 % across
 st.cue('sfx:shutter', 'S16', 0.35, 0.3); st.cue('sfx:shutter', 'S16', 0.88, 0.3); st.cue('sfx:shutter', 'S16', 1.3, 0.3)
@@ -432,11 +432,12 @@ st.shot('S22', 'parisStreet', setOpts=STREET, actors=[act('livreur', P1, FACE1, 
         cams=[FC(0.0, [7.5, 0.55, 3.45], [[SCREEN[0], 1.45, 2.9], [METER[0], 0.1, 2.9], [P1[0], 2.3, P1[2]], [7.1, 0.0, 3.1]], top=0.08, bottom=0.86, lenses=range(26, 76))])
 st.cue('sfx:ding', 'S22', 0.17, 0.35); st.cue('sfx:paper', 'S22', FIRE22, 0.6); st.cue('whoosh', 'S22', FIRE22, 0.3, 0.4, 3000, 800); st.cue('pop', 'S22', r(FIRE22 + 0.1), 0.2)
 
-# 23: they play cards on Sundays. (final pass) Front on, down the gap between the two windows, the tray in the middle tipped up to us. (pass 3) At window height across the gap (review 2: from above his head sat under the roof, in profile):
+# 23: they play cards on Sundays. (final pass) Front on from over the van's bonnet, down the gap between the two windows, the tray in the middle tipped
+#     up to us, him leaning out of his window so his face clears his pillar. (pass 3) At window height across the gap (review 2: from above his head sat under the roof, in profile):
 #     he sits up at his window, seen past the pillar, his head in the clear, three-quarters to us like the delivery man's; their eyes go to each other and down to the
 #     cards; each winds up and slaps a card on the tray, tipped to us, which bounces; then the delivery man looks at us, and he does, a beat later
 D23 = st.dur('S23'); TRAY = [2.79, 1.37, 0.0]; SLAPS = [0.5, 1.1, 1.55]; M23 = [3.15, 0.12, -0.05]; PILE = [2.79, 1.48, -0.03]
-def HAND23(pt, f, sq=None): return {'reach': {'R': [*pt, 1, 0.04], 'L': [3.1, 1.28, -0.35, 1, 0.04]}, 'hands': {'R': 'pinch', 'L': 'grip'}, 'face': f, **({'sq': sq} if sq else {})}
+def HAND23(pt, f, sq=None): return {'reach': {'R': [*pt, 1, 0.04], 'L': [3.1, 1.28, -0.35, 1, 0.04]}, 'hands': {'R': 'pinch', 'L': 'grip'}, 'lay': [0.0, -0.15], 'face': f, **({'sq': sq} if sq else {})}   # (final pass) leaning out of his window: his face clear of the pillar
 UP23, REST23 = [2.98, 1.95, -0.15], [2.98, 1.62, -0.12]
 F23 = lambda gx=0.7, gy=0.0, lid=0.45: {'lid': lid, 'mouth': 'line', 'gx': gx, 'gy': gy}
 def HANDV(pt, f, sq=None): return {'reach': {'R': [*pt, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': f, **({'sq': sq} if sq else {})}
@@ -465,7 +466,7 @@ st.shot('S23', 'parisStreet', setOpts=STREET, actors=[act('mec', M23, -165, 'dri
                P('cartes23', 'cardTray', pos=TRAY, rot=[-0.75, 0, 0], opts={'w': 0.7, 'd': 0.4, 'slapAt': SLAPS, 'cardScale': 2.0, 'top': '#2E7D5B', 'bounce': 0.035}),
                P('main23a', 'cardFan', on={'actor': 'mec', 'hand': 'L', 'offset': [0.0, 0.02, 0.03], 'face': 'camera'}, opts={'s': 1.1}),
                P('main23b', 'cardFan', on={'actor': 'livreur', 'hand': 'L', 'offset': [0.0, 0.02, 0.03], 'face': 'camera'}, opts={'s': 1.1})],
-        cams=[FC(0.0, [2.5, 1.75, -3.6], [[3.15, 2.1, -0.05], [2.05, 2.45, 0.0], [3.5, 1.75, -0.05], [1.75, 1.6, 0.0], [TRAY[0], 1.22, -0.1]], top=0.16, bottom=0.74, drift=(0.0, 0.0, 0.15))])   # (final pass) down the gap between the two windows: the tray in the middle (review 3: behind the van's pillar, the bottom 40 % grille)
+        cams=[FC(0.0, [2.45, 2.05, -3.2], [[3.0, 2.1, -0.05], [2.05, 2.45, 0.0], [3.4, 1.75, -0.05], [1.75, 1.6, 0.0], [TRAY[0], 1.22, -0.1]], top=0.16, bottom=0.74, drift=(0.0, 0.0, 0.15))])   # (final pass) from over the van's bonnet: less of its front   # (final pass) down the gap between the two windows: the tray in the middle (review 3: behind the van's pillar, the bottom 40 % grille)
 st.cue('sfx:clink', 'S23', 0.5, 0.25); st.cue('sfx:clink', 'S23', 1.1, 0.25); st.cue('sfx:clink', 'S23', 1.55, 0.25); st.cue('sfx:bell', 'S23', 0.0, 0.25)
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
