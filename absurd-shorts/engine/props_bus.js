@@ -398,7 +398,7 @@ export const BUS_PROPS = {
         if (r === 1 && k % 2 === 0) { c.fillStyle = '#2A2422'; c.fillRect(x - ww * 0.8, y + hh / 2, ww * 1.6, px * 0.1); for (let b = 0; b < 6; b++) c.fillRect(x - ww * 0.8 + b * ww * 0.32, y + hh / 2, px * 0.04, px * 0.5); } }
       c.fillStyle = '#F2E6CC'; c.fillRect(0, gh - px * 0.25, W, px * 0.3); c.fillRect(0, H * 0.02, W, px * 0.45);
       for (let k = 0; k < cols; k++) { const x = W * (k + 0.5) / cols; if (k === 2) { c.fillStyle = '#2B2622'; c.fillRect(x - px * 1.4, gh * 0.08, px * 2.8, gh * 0.82); const s = 8; for (let i = 0; i < s; i++) { c.fillStyle = i % 2 ? '#F4EFE2' : (o.awning || '#2E7D4F'); c.fillRect(x - px * 1.7 + i * px * 3.4 / s, gh * 0.02, px * 3.4 / s, gh * 0.22); } continue; }
-        c.fillStyle = '#4A3328'; c.beginPath(); c.moveTo(x - px * 0.7, gh * 0.95); c.lineTo(x - px * 0.7, gh * 0.4); c.arc(x, gh * 0.4, px * 0.7, PI, 0, false); c.lineTo(x + px * 0.7, gh * 0.95); c.fill(); } }, { res: 1024 });
+        c.fillStyle = '#4A3328'; c.beginPath(); c.moveTo(x - px * 0.7, gh * 0.95); c.lineTo(x - px * 0.7, gh * 0.4); c.arc(x, gh * 0.4, px * 0.7, PI, 0, false); c.lineTo(x + px * 0.7, gh * 0.95); c.fill(); } }, { res: o.res ?? 512 });   // (pass 3) 512: eighteen of these fronts at 1024 took the render to its memory limit (a stills run crashed on the last shot)
     f.rotation.x = PI; f.rotation.z = PI; f.position.y = h / 2; g.add(f);
     g.add(at(box(w + 0.4, 0.5, 1.2, o.roof || '#B5522F', { outline: 0.01 }), 0, h + 0.25, -0.4), at(box(w + 0.2, 0.3, 0.6, '#E9DCC0'), 0, h - 0.15, 0.1));
     return g;

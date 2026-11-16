@@ -138,7 +138,7 @@ st.shot('S04', 'grassland', actors=[act('mec', [X4, 0, 0.3], 90, 'run', 'determi
                P('foule4', 'busCrowd', on={'actor': 'bus4'}, opts={'len': 7.6, 'top': 3.0}),
                P('panneau4', 'exitSign', pos=SG4, ry=35, opts={'name': 'SAINT-ARRÊT', 'exit': True, 'w': 1.9, 'h': 1.3}),
                *[P(f'mais4{j}', 'cottage', pos=[r(-16.0 - 7.0 * j), 0, r(-7.0 + 3.0 * (j % 2))], ry=r(20 * j)) for j in range(3)], *TREES('4', -6.5, -14.0, 14.0, 6)],
-        cams=[FC(0.0, [r(X4 + 1.7), 1.4, 4.5], [[X4, 2.5, 0.3], [X4, 0.45, 0.3], [r(X4 + 1.3), 3.4, 0.85], [r(X4 + 2.4), 0.55, 0.85]], top=0.1, bottom=0.77, drift=(r(V * D4), 0.0, 0.0))])
+        cams=[FC(0.0, [r(X4 + 1.7), 1.4, 4.5], [[X4, 2.5, 0.3], [X4, 0.45, 0.3], [r(X4 - 0.7), 1.3, 0.3], [r(X4 + 1.3), 3.4, 0.85], [r(X4 + 2.4), 0.55, 0.85]], top=0.1, bottom=0.77, drift=(r(V * D4), 0.0, 0.0))])   # (stills) his back arm inside the frame
 st.cue('engine', 'S04', 0.0, 0.3); st.cue('whoosh', 'S04', 0.9, 0.25)
 
 # 5: the gendarmes escorted him on motorbikes. (pass 3) Three-quarter front and closer, the road streaming back: he runs between two gendarmes on
