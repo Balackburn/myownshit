@@ -1,0 +1,135 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a payé ses impôts avec un centime de trop.",
+  "hl": [
+   "centime",
+   "trop."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Le fisc a décidé de le rembourser.",
+  "hl": [
+   "rembourser."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Mais le timbre coûtait plus cher que le centime.",
+  "hl": [
+   "timbre",
+   "centime."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Alors le ministre est venu en personne.",
+  "hl": [
+   "ministre"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Avec la garde républicaine.",
+  "hl": [
+   "garde",
+   "républicaine."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "La rue a été fermée.",
+  "hl": [
+   "fermée."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Une fanfare a joué.",
+  "hl": [
+   "fanfare"
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Des hélicoptères ont survolé le quartier.",
+  "hl": [
+   "hélicoptères"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Le centime est arrivé sur un coussin de velours.",
+  "hl": [
+   "coussin",
+   "velours."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Le ministre a fait un discours d'une heure.",
+  "hl": [
+   "heure."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Les voisins ont pleuré.",
+  "hl": [
+   "pleuré."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "La télé a filmé en direct.",
+  "hl": [
+   "direct."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Il a rangé le centime dans sa tirelire.",
+  "hl": [
+   "tirelire."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Le lendemain, il a reçu une facture.",
+  "hl": [
+   "facture."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Deux millions d'euros.",
+  "hl": [
+   "Deux",
+   "millions"
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Frais de déplacement.",
+  "hl": [
+   "déplacement."
+  ]
+ }
+]
