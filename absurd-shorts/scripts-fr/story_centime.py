@@ -102,7 +102,7 @@ st.shot('S03', 'office', fx=[{'type': 'shake', 'at': SLAP3, 'dur': 0.25, 'amount
                  keys=[k(SLAP3, to=[CHQ3[0], 0.96, CHQ3[2]], dur=0.12, ease='out'), k(SLAP3, rotTo=[r(-PI / 2 - 2 * PI, 4), 0.0, 0.06], dur=0.3, ease='inOut'), k(r(SLAP3 + 0.12), to=CHQ3, dur=0.18, ease='in')]),   # it hops and turns right over at the thump
                P('tampon3', 'rubberStamp', on={'actor': 'agent2', 'hand': 'R', 'offset': [0.0, -0.08, 0.03]}, scale=2.2),
                P('goutte3', 'sweatDrop', on={'actor': 'agent2', 'joint': 'head', 'offset': [0.14, 0.36, 0.1]}, scale=0.9, keys=[k(0.0, visible=False), k(r(CUT3 + 0.3), visible=True)])],   # (final pass) a second drop pops out at his temple
-        cams=[cam(0.0, [-4.6, 3.05, -1.325], [-4.5, 2.7, -1.4], [-4.6, 0.77, -1.405], [-4.5, 0.77, -1.48], lens=20),   # straight down, the desk pad edge to edge; (final pass) a slow push in on the two prices
+        cams=[cam(0.0, [-4.6, 3.05, -1.325], [-4.53, 2.7, -1.4], [-4.6, 0.77, -1.405], [-4.53, 0.77, -1.48], lens=20),   # straight down, the desk pad edge to edge; (final pass) a slow push in on the two prices
               FC(CUT3, [-4.2, 1.8, -0.45], [[-4.6, 2.15, -2.15], [-4.6, 1.25, -2.15], [-4.97, 1.7, -2.15], [-4.23, 1.7, -2.15]], top=0.14, bottom=0.72, inside=(-6.8, 6.8, 0.5, 3.0, -3.3, 9.0))])   # then head and shoulders, sweating, at us
 st.cue('thud', 'S03', SLAP3, 0.4); st.cue('sfx:gasp', 'S03', r(CUT3 + 0.05), 0.2)
 
@@ -111,7 +111,7 @@ st.cue('thud', 'S03', SLAP3, 0.4); st.cue('sfx:gasp', 'S03', r(CUT3 + 0.05), 0.2
 #    rear door swings open on our side and the minister, a tricolour sash across his chest, shoots out of it, squeezed thin, lands in a squash
 #    three-quarters to us, and snaps his jacket straight; the man watches, deadpan, then his eyes and head come round to us and his body follows
 D4 = st.dur('S04'); STOP4 = 0.55; DOOR4 = 0.6; OUT4 = 0.78
-CAR4 = [3.9, 0, -3.6]; GAP4 = [4.78, 0, -2.66]; MIN4 = [5.55, 0, -1.5]; ME4 = [6.9, 0, 0.3]   # (final pass) the car stops 0.76 m further: more of it in the frame
+CAR4 = [3.9, 0, -3.6]; GAP4 = [4.78, 0, -2.66]; MIN4 = [5.85, 0, -1.15]; ME4 = [6.9, 0, 0.3]   # (final pass) the car stops 0.76 m further: more of it in the frame; he lands right of the near flag (it was behind him)
 TUG4 = lambda y, sq, f: {'touch': {'R': ['torso', 0.11, y, 0.2, 1, 0.02], 'L': ['torso', -0.11, y, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': sq, 'face': f}
 st.shot('S04', 'parisStreet', setOpts={**STREET, 'clear': [-40.0, 6.0]}, fx=[{'type': 'shake', 'at': STOP4, 'dur': 0.25, 'amount': 0.02}], actors=[
         act('ministre', GAP4, 50, 'stand', 'neutral', keys=[k(0.0, look=[ME4[0], 2.0, ME4[2]]), k(0.0, visible=False), k(r(OUT4 - 0.02), visible=True), k(0.0, toon={'sq': [0.6, 1.2, 0.6]}, toonDur=0.0),   # squeezed thin in the doorway (stills 1: at 1.5 his head left the frame)...
@@ -122,8 +122,8 @@ st.shot('S04', 'parisStreet', setOpts={**STREET, 'clear': [-40.0, 6.0]}, fx=[{'t
             k(r(OUT4 + 0.98), toon=TUG4(0.24, [1.0, 1.0, 1.0], {'lid': 0.25, 'mouth': 'line'}), toonDur=0.1), k(r(OUT4 + 1.2), toon={'face': {'lid': 0.2, 'mouth': 'open', 'brow': 0.5}}, toonDur=0.15)]),
         act('mec', ME4, -95, 'stand', 'neutral', keys=[k(0.0, look=[3.9, 1.2, 2.5]), k(0.0, toon=LIP, toonDur=0.0), k(0.3, look=[GAP4[0], 1.5, GAP4[2]], lookDur=0.2), k(r(OUT4 + 0.3), look=[MIN4[0], 2.2, MIN4[2]], lookDur=0.1), *BLINK(1.3, {'mouth': 'line'}),
             k(r(D4 - 0.66), look='camera', lookDur=0.2), k(r(D4 - 0.56), face=[6.13, 0, 0.94], turn=0.2), k(r(D4 - 0.38), face=[7.1, 0, 3.1], turn=0.26), *BLINK(r(D4 - 0.14), {'mouth': 'line'})])],   # his back to us, his head following the car, the minister; (final pass) then his eyes and head come round to us and the body follows over a dozen frames (it popped round between two frames)
-        props=[P('auto4', 'ministerCar', pos=[3.9, 0, 6.6], ry=90, opts={'doorSide': 1, 'hingeFront': True, 'doorAt': DOOR4, 'flagScale': 2.4}, keys=[k(0.0, to=CAR4, dur=STOP4, ease='out'), k(STOP4, squash=[1.05, 0.8, 1.05], dur=0.5)]), COCK('ck4', 'ministre'), SASH('sash4', 'ministre')],
-        cams=[FC(0.0, [7.15, 1.05, 3.2], [[ME4[0], 2.5, ME4[2]], [ME4[0], 1.0, ME4[2]], [r(ME4[0] + 0.3), 1.8, ME4[2]], [MIN4[0], 2.5, MIN4[2]], [MIN4[0], 0.3, MIN4[2]], [5.05, 1.5, -1.36], [4.83, 2.05, -2.66], [4.68, 2.3, -5.4], [3.1, 1.5, -5.6]], top=0.12, bottom=0.8, lenses=range(26, 72))])   # (final pass) lower: his head on the sky above the tree line; the car's front and its flags inside
+        props=[P('auto4', 'ministerCar', pos=[3.9, 0, 6.6], ry=90, opts={'doorSide': 1, 'hingeFront': True, 'doorAt': DOOR4, 'flagScale': 3.0}, keys=[k(0.0, to=CAR4, dur=STOP4, ease='out'), k(STOP4, squash=[1.05, 0.8, 1.05], dur=0.5)]), COCK('ck4', 'ministre'), SASH('sash4', 'ministre')],
+        cams=[FC(0.0, [6.3, 1.0, 4.0], [[ME4[0], 2.5, ME4[2]], [ME4[0], 1.0, ME4[2]], [r(ME4[0] + 0.3), 1.8, ME4[2]], [MIN4[0], 2.5, MIN4[2]], [MIN4[0], 0.3, MIN4[2]], [5.05, 1.5, -1.36], [4.83, 2.05, -2.66], [4.68, 2.6, -5.4], [3.1, 2.6, -5.6]], top=0.12, bottom=0.8, lenses=range(26, 72))])   # (final pass) lower, further left and back: his head on the sky above the tree line, a third of the frame; the car's front and its flags inside
 st.cue('sfx:brake', 'S04', r(STOP4 - 0.1), 0.25); st.cue('sfx:carDoor', 'S04', r(DOOR4), 0.25); st.cue('whoosh', 'S04', OUT4, 0.2)
 
 # 5: with the republican guard. A line of guards along the kerb; (pass 3) gold helmets with a tall red plume and a black tail, red epaulettes, white
@@ -208,7 +208,7 @@ st.cue('engine', 'S08', 0.0, 0.3)
 D9 = st.dur('S09'); G9 = [3.0, 0, -1.6]; WALK9 = 1.05
 CUSH9 = {'touch': {'R': ['torso', -0.12, 0.08, 0.32, 1, 0.02], 'L': ['torso', 0.12, 0.08, 0.32, 1, 0.02]}, 'hands': {'R': 'open', 'L': 'open'}, 'hip': 0.0, 'face': {'lid': 0.35, 'mouth': 'line'}}   # hip 0: no idle weight shift (it slid the pelvis, and the cushion, 17 cm out of the macro)
 st.shot('S09', 'parisStreet', setOpts=STREET, actors=[act('garde3', G9, 0, 'stand', 'determined', keys=[k(0.0, look='camera'), k(0.0, toon=CUSH9, toonDur=0.0),
-            k(WALK9, to=[3.0, 0, -0.1], dur=r(D9 - WALK9), clip='marchPomp', ease='linear'), k(WALK9, clip='marchPomp', speed=0.8), k(1.7, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.07, keepPose=True), k(1.82, toon={'face': {'lid': 0.35, 'mouth': 'line'}}, toonDur=0.08, keepPose=True)])],
+            k(WALK9, to=[3.0, 0, -0.1], dur=r(D9 - WALK9), clip='marchPomp', speed=0.8, ease='linear'), k(1.7, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.07, keepPose=True), k(1.82, toon={'face': {'lid': 0.35, 'mouth': 'line'}}, toonDur=0.08, keepPose=True)])],
         props=[GUARD('casque9', 'garde3'), EPAU('epau9', 'garde3'), P('coussin9', 'velvetCushion', on={'actor': 'garde3', 'joint': 'torso', 'offset': [0.0, 0.12, 0.36], 'hang': True, 'hangYaw': 1.0}, opts={'w': 0.36}),   # (final pass) hang: the cushion stays level while the march bobs and tilts him
                P('piece9', 'centCoin', on={'actor': 'garde3', 'joint': 'torso', 'offset': [0.0, 0.283, 0.36], 'rot': [-0.3, 0, 0], 'hang': True, 'hangYaw': 1.0}, opts={'r': 0.055, 'glint': [0.2, 0.75, 1.9], 'glintAt': [0.095, 0.07]})],   # a coin of eleven centimetres: a cartoon cent
         cams=[FC(0.0, [3.3, 1.62, -0.2], [[2.78, 1.2, -1.24], [3.22, 1.2, -1.24], [3.0, 1.43, -1.24], [3.0, 1.1, -1.24]], top=0.3, bottom=0.68, lenses=range(16, 60)),
@@ -248,15 +248,15 @@ st.cue('sfx:ticks', 'S10', 0.1, 0.2); st.cue('sfx:boing', 'S10', NOD10, 0.15)
 # 11: the neighbours wept. (final pass) Closer, up the facade: two neighbours on stone balconies the colour of the facade, each with a handkerchief at
 #     her eye, heads thrown back, mouths wide in a wail; thick tear jets arc out from both eyes across the dark window glass beside them
 D11 = st.dur('S11')
-NB11 = [('voisin1', [9.75, 3.25, -1.0], 'mamie'), ('voisin2', [9.75, 3.25, 1.0], 'madame')]   # the house fronts are at x 10.2 (two, closer: three small figures read as a pattern)
+NB11 = [('voisin1', [9.75, 3.25, -0.55], 'mamie'), ('voisin2', [9.75, 3.25, 0.55], 'madame')]   # the house fronts are at x 10.2 (two, side by side on one balcony: three small figures read as a pattern)
 HANKY = {'touch': {'R': ['face', -0.14, 0.6, 0.12, 1, 0.02]}, 'hands': {'R': 'pinch'}}
 WAIL11 = lambda i: {**HANKY, 'bend': {'neck': [-0.42 if i % 2 else -0.28, 0, 0, 1, None]}, 'sq': [1.04, 0.95, 1.04] if i % 2 else [0.98, 1.04, 0.98], 'face': {'lid': 0.85, 'mouth': 'cry', 'brow': 1.0}}   # the head thrown back on each sob
 st.shot('S11', 'parisStreet', setOpts=STREET, actors=[*[act(n_, p_, -90, 'stand', 'sad', keys=[k(0.0, look=[4.4, 1.0, 0.3]), k(0.0, toon=WAIL11(0), toonDur=0.0),
             *[k(r(0.12 + 0.24 * i + 0.08 * j), toon=WAIL11(i + 1), toonDur=0.09) for i in range(int(D11 / 0.24))]]) for j, (n_, p_, _) in enumerate(NB11)]],
         props=[*[P(f'larmes11{j}', 'tearFountain', on={'actor': n_, 'joint': 'head'}, opts={'at': r(0.05 + 0.08 * j), 'r': 0.1, 'speed': 2.5, 'rate': 8, 'life': 0.75, 'dx': 0.1}) for j, (n_, p_, _) in enumerate(NB11)],   # (final pass) jets three times thicker, arcing out across the windows
                *[P(f'mouch11{j}', 'slab', on={'actor': n_, 'hand': 'R', 'offset': [0.0, -0.06, 0.03], 'face': 'camera'}, opts={'w': 0.24, 'h': 0.24, 'd': 0.006, 'color': '#FFFFFF', 'outline': 0.006}) for j, (n_, p_, _) in enumerate(NB11)],   # a white handkerchief at the eye
-               *[P(f'balc11{j}', 'stoneBalcony', pos=[9.83, p_[1], p_[2]], ry=-90, opts={'w': 1.35, 'd': 0.74}) for j, (n_, p_, _) in enumerate(NB11)]],   # (final pass) stone balconies in the facade's colour, flush with it
-        cams=[FC(0.0, [6.4, 2.55, 0.15], [[9.75, 4.75, -1.0], [9.75, 4.75, 1.0], [9.75, 3.1, -1.0], [9.75, 3.1, 1.0], [9.75, 4.3, -1.85], [9.75, 4.3, 1.85]], top=0.14, bottom=0.76, lenses=range(26, 64))])
+               P('balc11', 'stoneBalcony', pos=[9.8, 3.25, 0.0], ry=-90, opts={'w': 2.4, 'd': 0.8})],   # (final pass) a stone balcony in the facade's colour, flush with it
+        cams=[FC(0.0, [6.6, 2.75, 0.1], [[9.75, 4.85, -0.55], [9.75, 4.85, 0.55], [9.75, 3.15, -0.55], [9.75, 3.15, 0.55], [9.75, 4.2, -0.98], [9.75, 4.2, 0.98]], top=0.14, bottom=0.76, lenses=range(26, 64))])
 st.cue('sfx:gasp', 'S11', 0.1, 0.15)
 
 # 12: television filmed it live. (pass 3) The reporter faces us, a microphone with a red ball at her chin, her free hand going; beside her a pale grey
@@ -310,7 +310,7 @@ st.shot('S14', 'kitchenDay', actors=[act('mec', H14, 0, 'stand', 'neutral', keys
                P('lettre14', 'envelope', pos=[2.8, 0.95, -3.5], rot=[-PI / 2, 0, 0.2], scale=2.4, keys=[k(0.0, visible=False), k(IN14, visible=True), k(IN14, to=[2.2, 0.012, -2.5], dur=0.14, ease='in'), k(r(IN14 + 0.14), to=E14, dur=0.24, ease='out'),
                    k(0.9, attach='mec', hand='R', offset=[0.0, -0.06, 0.03]), k(TEAR14, squash=[1.25, 0.8, 1.0], dur=0.25), k(r(BILL14 + 0.1), visible=False)]),
                P('facture14', 'expenseBill', pos=[1.25, 1.55, -0.92], opts={**BILLO, 'len': [[BILL14, 0.03], [D14, 1.3]]}, keys=[k(0.0, visible=False), k(BILL14, visible=True)])],
-        cams=[FC(0.0, [1.55, 0.34, 0.75], [[DOOR14[0], 1.25, DOOR14[2]], [DOOR14[0], 0.0, DOOR14[2]], [H14[0], 0.0, H14[2]], [r(H14[0] - 0.25), 0.6, H14[2]], [E14[0], 0.0, r(E14[2] + 0.12)], [r(E14[0] - 0.2), 0.0, E14[2]]], top=0.14, bottom=0.8, lenses=range(18, 60)),   # (final pass) low on the tiles: the slot above, his feet, the envelope sliding up to the lens
+        cams=[FC(0.0, [1.5, 0.28, -0.05], [[DOOR14[0], 1.25, DOOR14[2]], [DOOR14[0], 0.0, DOOR14[2]], [H14[0], 0.0, H14[2]], [r(H14[0] - 0.25), 0.6, H14[2]], [E14[0], 0.0, r(E14[2] + 0.12)], [r(E14[0] - 0.2), 0.0, E14[2]]], top=0.14, bottom=0.8, lenses=range(18, 60)),   # (final pass) low on the tiles: the slot above, his feet, the envelope sliding up to the lens
               FC(UP14, [1.45, 1.3, 1.25], [[H14[0], 2.5, H14[2]], [H14[0], 0.5, H14[2]], [r(H14[0] - 0.45), 1.5, H14[2]], [r(H14[0] + 0.45), 1.5, H14[2]], [DOOR14[0], 2.2, DOOR14[2]]], top=0.12, bottom=0.78)])   # then from the knees up as he tears it open, the door behind his shoulder
 st.cue('clack', 'S14', IN14, 0.2); st.cue('sfx:paper', 'S14', r(IN14 + 0.1), 0.25); st.cue('sfx:zip', 'S14', TEAR14, 0.2); st.cue('sfx:slideDown', 'S14', BILL14, 0.2)
 
