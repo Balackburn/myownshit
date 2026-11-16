@@ -68,10 +68,12 @@ export const CENTIME_PROPS = {
     else g.add(at(box(0.31, 0.02, 0.33, chrome, { outline: 0.004 }), 0, 0.0, 0.0));
     g.add(at(box(0.035, 0.07, 0.3, brass, { outline: 0.003 }), 0, o.gold ? 0.17 : 0.14, 0.0));
     for (let i = 0; i < 7; i++) { const st = at(box(0.03, 0.42, 0.012, '#151619'), (i - 3) * 0.012, -0.08, -0.17 - 0.004 * Math.abs(i - 3)); st.rotation.x = 0.35 + 0.02 * (i % 3); g.add(st); }
-    if (o.gold) g.add(at(cyl(0.05, 0.022, 0.36, '#D8202C', 8, { pivot: 'bottom', outline: 0.004 }), 0, 0.17, 0.1), at(sphere(0.052, '#D8202C', 1), 0, 0.53, 0.1));
+    // (final pass of 77) the gold plume hangs from a pivot at its foot: o.flopAt (s): it flops forward over his face (o.flop, rad) and wobbles there
+    let pl = null; if (o.gold) { pl = grp(at(cyl(0.05, 0.022, 0.36, '#D8202C', 8, { pivot: 'bottom', outline: 0.004 }), 0, 0, 0), at(sphere(0.052, '#D8202C', 1), 0, 0.36, 0)); pl.position.set(0, 0.17, 0.1); g.add(pl); }
     else g.add(at(cyl(0.022, 0.012, 0.22, '#C8222E', 8, { pivot: 'bottom' }), 0.1, 0.06, 0.03));
-    const kn = [].concat(o.knockAt ?? []), ka = o.knock ?? 0.55;
-    if (kn.length) { root.userData.update = t => { let a = 0; for (const k0 of kn) { const u = t - k0; if (u >= 0) a = u < 0.07 ? ka * u / 0.07 : ka * (o.stay ?? 0.45) + ka * (1 - (o.stay ?? 0.45)) * Math.exp(-(u - 0.07) * 6) * Math.cos((u - 0.07) * 20); if (o.back != null && t > o.back) a *= Math.max(0, 1 - (t - o.back) / 0.12); }
+    const kn = [].concat(o.knockAt ?? []), ka = o.knock ?? 0.55, fl = o.flopAt;
+    if (kn.length || (pl && fl != null)) { root.userData.update = t => {
+      if (pl && fl != null) { const u = t - fl, F = o.flop ?? 2.0; pl.rotation.x = u <= 0 ? 0 : u < 0.08 ? F * u / 0.08 : F * (1 + 0.12 * Math.exp(-(u - 0.08) * 5) * Math.cos((u - 0.08) * 18)); } let a = 0; for (const k0 of kn) { const u = t - k0; if (u >= 0) a = u < 0.07 ? ka * u / 0.07 : ka * (o.stay ?? 0.45) + ka * (1 - (o.stay ?? 0.45)) * Math.exp(-(u - 0.07) * 6) * Math.cos((u - 0.07) * 20); if (o.back != null && t > o.back) a *= Math.max(0, 1 - (t - o.back) / 0.12); }
       g.rotation.x = a; g.position.set(0, -0.03 * a, 0.09 * a); }; root.userData.update(0); }
     root.scale.setScalar(s); return root;
   },
@@ -142,7 +144,8 @@ export const CENTIME_PROPS = {
     g.add(at(box(0.1, 0.14, 1.9, CH, { outline: 0.006 }), 2.04, 0.5, 0), at(box(0.1, 0.14, 1.9, CH, { outline: 0.006 }), -2.04, 0.5, 0), at(box(0.04, 0.24, 1.0, CH), 2.02, 0.74, 0));
     for (const z of [-0.915, 0.915]) g.add(at(box(3.7, 0.045, 0.02, CH), 0, 0.9, z), at(box(3.9, 0.13, 0.012, LT), 0, 0.74, z), at(box(0.16, 0.035, 0.03, CH), 0.25, 0.82, z));
     g.add(at(box(1.5, 0.012, 1.5, LT), 1.2, 0.916, 0), at(box(2.6, 0.012, 1.4, LT), -0.25, 2.06, 0));
-    for (const z of [-0.78, 0.78]) { g.add(rod([1.75, 0.9, z], [1.75, 1.46, z], 0.012, CH)); ['#2F62B5', '#F4F4F0', '#E0413A'].forEach((c, i) => g.add(at(box(0.1, 0.2, 0.012, c, { outline: 0.003 }), 1.69 - 0.1 * i, 1.35, z))); }
+    const fs = o.flagScale ?? 1;   // (final pass of 77) o.flagScale: bigger flags on the wings (at 1 they were lost at phone size)
+    for (const z of [-0.78, 0.78]) { g.add(rod([1.75, 0.9, z], [1.75, 0.9 + 0.56 * fs, z], 0.012 * Math.sqrt(fs), CH)); ['#2F62B5', '#F4F4F0', '#E0413A'].forEach((c, i) => g.add(at(box(0.1 * fs, 0.2 * fs, 0.012, c, { outline: 0.003 }), 1.75 - 0.06 * fs - 0.1 * fs * i, 0.9 + 0.45 * fs, z))); }
     // o.hingeFront: the leaf hangs from its FRONT edge (the usual way: for a camera behind the car); sx: which way the leaf runs from its hinge
     const x0 = -1.58, x1 = -0.3, dl = x1 - x0, hf = !!o.hingeFront, sx = hf ? -1 : 1, hinge = grp(); hinge.position.set(hf ? x1 : x0, 0, side * 0.93);
     g.add(at(box(dl, 1.6, 0.012, '#20232B'), (x0 + x1) / 2, 1.16, side * 0.914));
@@ -218,8 +221,8 @@ export const CENTIME_PROPS = {
   snoreBubble(o) {
     const g = grp(), b = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 9), new THREE.MeshLambertMaterial({ color: '#BFE3F5', transparent: true, opacity: 0.8 })); g.add(b);
     const hl = new THREE.Mesh(new THREE.SphereGeometry(0.2, 8, 6), new THREE.MeshBasicMaterial({ color: '#FFFFFF' })); hl.position.set(-0.42, 0.45, 0.72); b.add(hl);
-    const from = o.from ?? 0, pop = o.popAt ?? 1e9, R = o.r ?? 0.11, per = o.period ?? 0.6;
-    g.userData.update = t => { const on = t >= from && t < pop + 0.05; b.visible = on; if (!on) return; const k = t >= pop ? 1.4 : 0.3 + 0.7 * (0.5 - 0.5 * Math.cos((t - from) / per * TAU)), s = R * k; b.scale.setScalar(s); b.position.set(0, 0, s); };
+    const from = o.from ?? 0, pop = o.popAt ?? 1e9, R = o.r ?? 0.11, per = o.period ?? 0.6, H = o.hold ?? 0;   // (final pass of 77) o.hold: it holds big, trembling, before the pop
+    g.userData.update = t => { const on = t >= from && t < pop + 0.05; b.visible = on; if (!on) return; const k = t >= pop ? 1.4 : H > 0 && t >= pop - H ? 1.18 + 0.06 * Math.sin((t - pop + H) * 45) : 0.3 + 0.7 * (0.5 - 0.5 * Math.cos((t - from) / per * TAU)), s = R * k; b.scale.setScalar(s); b.position.set(0, 0, s); };
     g.userData.update(0); return g;
   },
 
@@ -227,6 +230,19 @@ export const CENTIME_PROPS = {
   sabre(o) {
     const len = o.len ?? 0.95;
     return grp(at(box(0.03, len, 0.012, '#E4E8EE', { pivot: 'bottom', outline: 0.004 }), 0, 0.1, 0), at(box(0.15, 0.03, 0.05, '#D9A93A', { outline: 0.003 }), 0, 0.09, 0), at(cyl(0.02, 0.02, 0.12, '#23262E', 6, { pivot: 'bottom' }), 0, -0.03, 0));
+  },
+  // (final pass of 77) A stone balcony on a Paris facade (origin: the middle of the slab's top; the facade at local -Z, the rail toward +Z): a slab of
+  // o.w x o.d in the facade's stone (o.color), a moulded edge, two corbels under it and a black iron rail with bars (the shared balcony's raw slab read as
+  // a plank box hung in front of the building)
+  stoneBalcony(o) {
+    const w = o.w ?? 1.3, d = o.d ?? 0.7, col = o.color || '#E6D9C0', dark = o.dark || '#CDBFA4', iron = '#20242C', g = grp();
+    g.add(at(box(w, 0.14, d, col, { outline: 0.005 }), 0, -0.07, 0), at(box(w + 0.06, 0.05, d + 0.03, dark, { outline: 0.004 }), 0, -0.165, 0.015));
+    for (const sx of [-1, 1]) g.add(at(box(0.12, 0.3, d * 0.7, dark, { outline: 0.004 }), sx * (w / 2 - 0.12), -0.33, -d * 0.15));
+    const zr = d / 2 - 0.04;
+    g.add(at(box(w, 0.045, 0.05, iron), 0, 0.95, zr), at(box(w, 0.035, 0.04, iron), 0, 0.12, zr));
+    for (let x = -w / 2 + 0.06; x <= w / 2 - 0.05; x += 0.13) g.add(at(box(0.022, 0.8, 0.022, iron), x, 0.54, zr));
+    for (const sx of [-1, 1]) { g.add(at(box(0.04, 0.95, 0.04, iron), sx * (w / 2 - 0.02), 0.48, zr), at(box(0.04, 0.045, d, iron), sx * (w / 2 - 0.02), 0.95, 0)); for (let z = -d / 2 + 0.16; z < zr; z += 0.13) g.add(at(box(0.022, 0.8, 0.022, iron), sx * (w / 2 - 0.02), 0.54, z)); }
+    return g;
   },
   // ... and his red epaulettes with a gold fringe (pivot between the shoulders, at their height; o.w 0.52: from one shoulder to the other)
   epaulettes(o) {

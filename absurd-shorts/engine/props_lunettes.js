@@ -145,7 +145,10 @@ export const LUNETTES_PROPS = {
     for (const s of [-1, 1]) { g.add(at(box(0.1, 0.1, 3.0, D), s * 0.9, -1.35, 0.1)); for (const z of [-0.8, 0.9]) g.add(at(box(0.08, 0.45, 0.08, D), s * 0.75, -1.1, z, 0, 0, s * 0.35)); }
     g.add(at(cyl(0.12, 0.16, 0.4, D, 8), 0, 1.15, 0));
     const rotor = grp(at(box(10.5, 0.05, 0.38, D), 0, 0, 0), at(box(0.38, 0.05, 10.5, D), 0, 0, 0)); rotor.position.y = 1.36; g.add(rotor);
-    const disc = new THREE.Mesh(new THREE.CircleGeometry(5.3, 32), new THREE.MeshBasicMaterial({ color: '#D8DCD0', transparent: true, opacity: 0.18, side: THREE.DoubleSide, depthWrite: false })); disc.rotation.x = -PI / 2; disc.position.y = 1.4; g.add(disc);
+    // (final pass of 69) o.bladeOpacity (1): the blades see-through, a blur (sampled at 15 frames a second the solid blades read as a grey saucer lid,
+    // review 3); o.discOpacity (0.18): the pale disc of the spin
+    if (o.bladeOpacity != null) rotor.traverse(m => { if (m.isMesh) { m.material = m.material.clone(); m.material.transparent = true; m.material.opacity = o.bladeOpacity; m.material.depthWrite = false; } });
+    const disc = new THREE.Mesh(new THREE.CircleGeometry(5.3, 32), new THREE.MeshBasicMaterial({ color: '#D8DCD0', transparent: true, opacity: o.discOpacity ?? 0.18, side: THREE.DoubleSide, depthWrite: false })); disc.rotation.x = -PI / 2; disc.position.y = 1.4; g.add(disc);
     let beam = null, lamp = null;
     if (o.beam) {
       const L = o.beamLen ?? 14, BR = o.beamR ?? 2.2; beam = grp(); const cone = new THREE.Mesh(new THREE.ConeGeometry(BR, L, 24, 1, true), new THREE.MeshBasicMaterial({ color: '#FFF6C8', transparent: true, opacity: 0.16, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending }));
@@ -174,7 +177,12 @@ export const LUNETTES_PROPS = {
     fan.scale.set(1, 1, 0.12); const fg = grp(); fan.position.y = -L / 2 - 1.0; fg.add(fan); g.add(fg);
     // (pass 3 of 69) o.foot: a bright footprint where the fan ends (the beam stops on the ground instead of running on past the planet)
     if (o.foot) { const ft = new THREE.Mesh(new THREE.CircleGeometry(L * (o.fanWidth ?? 0.35) * 1.05, 20), new THREE.MeshBasicMaterial({ color: o.footColor || '#FFD0C0', transparent: true, opacity: 0.75, side: THREE.DoubleSide, depthWrite: false })); ft.rotation.x = -PI / 2; ft.scale.set(1, 0.3, 1); ft.position.y = -L - 1.0; fg.add(ft); }
-    g.userData.update = t => { fg.visible = inWin(o.scan, t); if (fg.visible) fg.rotation.z = (o.sweepDeg ?? 35) * PI / 180 * Math.sin(t * 3.2); body.rotation.y = 0.05 * Math.sin(t * 0.7); };
+    // (final pass of 69) o.lockAt: the fan sweeps wide (o.sweepDeg) and fast (o.sweepSpeed, 3.2 rad/s) until then, and over the next 0.3 s it settles on
+    // the middle and stays there, locked (the narrow fans barely moved and never stopped, review 3); without it, the old endless to-and-fro
+    g.userData.update = t => { fg.visible = inWin(o.scan, t);
+      if (fg.visible) { const lk = o.lockAt == null ? 1 : t < o.lockAt ? 1 : Math.max(0, 1 - (t - o.lockAt) / 0.3), w = o.sweepSpeed ?? 3.2;
+        fg.rotation.z = (o.sweepDeg ?? 35) * PI / 180 * Math.sin((o.lockAt == null ? t : Math.min(t, o.lockAt)) * w) * lk * lk; }
+      body.rotation.y = 0.05 * Math.sin(t * 0.7); };
     g.userData.update(0); return g;
   },
 

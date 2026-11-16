@@ -85,15 +85,19 @@ export const CONSEILLER_PROPS = {
   // (pass 2) A speech bubble with its tail on whoever speaks (pivot at the tip of the tail; face it to the camera): a white bubble with a dark edge,
   // jagged like an electronic voice (o.jag false: round), o.text in it; it pops in at o.at with an overshoot; o.w wide (0.4); o.side 1: the bubble
   // sits up and to the right of the tip (-1: to the left)
+  // (pass 3) o.fill / o.edge / o.ink: the colours of the bubble, its edge and its text (white, near black, near black: a yellow shout is
+  // fill '#FFD83A', ink '#D22B2B'); o.jagK (0.86): how deep the jags go (0.7: a burst); o.until: it shrinks away from that time over 0.12 s;
+  // side -1 draws the tail on the other side instead of mirroring the plane (the text stayed mirrored)
   voiceBubble(o) {
-    const w = o.w ?? 0.4, hh = w * 0.72, sd = o.side ?? 1, g = grp();
-    const pl = canvasPlane(w, hh, (c, W, H) => { c.clearRect(0, 0, W, H); const cx = W * 0.54, cy = H * 0.4, rx = W * 0.4, ry = H * 0.3, n = 18; c.lineJoin = 'round';
-      c.beginPath(); c.moveTo(W * 0.04, H * 0.97); c.lineTo(W * 0.3, H * 0.52); c.lineTo(W * 0.46, H * 0.62); c.closePath(); c.fillStyle = '#FFFFFF'; c.fill(); c.lineWidth = H * 0.035; c.strokeStyle = '#1C1C1E'; c.stroke();
-      c.beginPath(); for (let i = 0; i <= 2 * n; i++) { const a = i * PI / n, r = o.jag === false ? 1 : (i % 2 ? 0.86 : 1.0); c.lineTo(cx + Math.cos(a) * rx * r, cy + Math.sin(a) * ry * r); } c.closePath(); c.fill(); c.stroke();
-      c.beginPath(); c.moveTo(W * 0.1, H * 0.9); c.lineTo(W * 0.31, H * 0.56); c.lineTo(W * 0.43, H * 0.6); c.closePath(); c.fill();
-      c.fillStyle = '#1C1C1E'; c.textAlign = 'center'; c.textBaseline = 'middle'; const tx = o.text || 'BIP'; let px = H * 0.3; c.font = `900 ${px}px Arial`; const tw = c.measureText(tx).width; if (tw > rx * 1.45) { px *= rx * 1.45 / tw; c.font = `900 ${px}px Arial`; } c.fillText(tx, cx, cy + px * 0.04); }, { res: 256, transparent: true });
-    pl.material.depthWrite = false; pl.scale.x = sd; pl.position.set(sd * w * 0.46, hh * 0.47, 0); const pv = new THREE.Group(); pv.add(pl); g.add(pv);
-    g.userData.update = t => { const u = t - (o.at ?? 0); if (u < 0) { pv.visible = false; return; } pv.visible = true; const k = u < 0.3 ? 1 + 0.35 * Math.exp(-9 * u) * Math.cos(u * 22) - Math.exp(-30 * u) : 1; pv.scale.setScalar(Math.max(0.01, k) * (1 + 0.03 * Math.sin(u * 14))); };
+    const w = o.w ?? 0.4, hh = w * 0.72, sd = o.side ?? 1, g = grp(), fill = o.fill || '#FFFFFF', edge = o.edge || '#1C1C1E', ink = o.ink || '#1C1C1E', jk = o.jagK ?? 0.86;
+    const pl = canvasPlane(w, hh, (c, W, H) => { c.clearRect(0, 0, W, H); const X = x => sd < 0 ? W - x : x, cx = X(W * 0.54), cy = H * 0.4, rx = W * 0.4, ry = H * 0.3, n = 18; c.lineJoin = 'round';
+      c.beginPath(); c.moveTo(X(W * 0.04), H * 0.97); c.lineTo(X(W * 0.3), H * 0.52); c.lineTo(X(W * 0.46), H * 0.62); c.closePath(); c.fillStyle = fill; c.fill(); c.lineWidth = H * 0.035; c.strokeStyle = edge; c.stroke();
+      c.beginPath(); for (let i = 0; i <= 2 * n; i++) { const a = i * PI / n, r = o.jag === false ? 1 : (i % 2 ? jk : 1.0); c.lineTo(cx + Math.cos(a) * rx * r, cy + Math.sin(a) * ry * r); } c.closePath(); c.fill(); c.stroke();
+      c.beginPath(); c.moveTo(X(W * 0.1), H * 0.9); c.lineTo(X(W * 0.31), H * 0.56); c.lineTo(X(W * 0.43), H * 0.6); c.closePath(); c.fill();
+      c.fillStyle = ink; c.textAlign = 'center'; c.textBaseline = 'middle'; const tx = o.text || 'BIP'; let px = H * 0.3; c.font = `900 ${px}px Arial`; const tw = c.measureText(tx).width; if (tw > rx * 1.45) { px *= rx * 1.45 / tw; c.font = `900 ${px}px Arial`; } c.fillText(tx, cx, cy + px * 0.04); }, { res: 256, transparent: true });
+    pl.material.depthWrite = false; pl.position.set(sd * w * 0.46, hh * 0.47, 0); const pv = new THREE.Group(); pv.add(pl); g.add(pv);
+    g.userData.update = t => { const u = t - (o.at ?? 0); if (u < 0) { pv.visible = false; return; } const ue = o.until != null ? t - o.until : -1; if (ue >= 0.12) { pv.visible = false; return; } pv.visible = true;
+      const k = u < 0.3 ? 1 + 0.35 * Math.exp(-9 * u) * Math.cos(u * 22) - Math.exp(-30 * u) : 1, out = ue >= 0 ? 1 - ue / 0.12 : 1; pv.scale.setScalar(Math.max(0.01, k * out) * (1 + 0.03 * Math.sin(u * 14))); };
     g.userData.update(-1); return g;
   },
 
@@ -123,14 +127,14 @@ export const CONSEILLER_PROPS = {
   },
 
   // A flagpole with a flag that rises (pivot at the foot): a white pole o.h high (6), a tricolour flag climbing it between o.raise [t0, t1] and
-  // flapping
+  // flapping; (pass 3) o.y0: the height it starts from (0.6: behind the heads of the people in front)
   flagPole(o) {
     const H = o.h ?? 6, g = grp(), fw = o.w ?? 1.5, fh = fw * 0.66;
     g.add(at(cyl(0.05, 0.06, H, '#EDEDED', 8, { pivot: 'bottom', outline: 0.004 }), 0, 0, 0), at(sphere(0.08, '#E2B53C', 1), 0, H + 0.04, 0));
     const fl = grp(); const cols = o.colors || ['#2F62B5', '#F4F4F0', '#E0413A'];
     cols.forEach((c, i) => { const geo = new THREE.PlaneGeometry(fw / cols.length, fh, 3, 1); const s = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ color: c, side: THREE.DoubleSide })); s.position.set(0.06 + fw / cols.length * (i + 0.5), 0, 0); fl.add(s); });
     g.add(fl);
-    g.userData.update = t => { const [a, b] = o.raise || [-1, -0.5], k = clamp01((t - a) / (b - a)); fl.position.y = 0.6 + (H - fh / 2 - 0.7) * k;
+    g.userData.update = t => { const [a, b] = o.raise || [-1, -0.5], k = clamp01((t - a) / (b - a)), y0 = o.y0 ?? 0.6; fl.position.y = y0 + (H - fh / 2 - 0.1 - y0) * k;
       fl.children.forEach((s, i) => { s.rotation.y = 0.12 * Math.sin(t * 5 + i * 0.9); s.position.z = 0.04 * Math.sin(t * 5 + i * 0.9); }); };
     g.userData.update(0); return g;
   },
@@ -167,5 +171,24 @@ export const CONSEILLER_PROPS = {
         fg.position.set(x, y, z); }
       const up = pa != null ? t - pa : -1, kk = up >= 0 && up < 0.3 ? Math.exp(-10 * up) * Math.cos(up * 30) : 0; on.scale.setScalar(1 + 0.02 * kk); };
     g.userData.update(-1); return g;
+  },
+
+  // (pass 3) A TV news camera that reads as one from the side (pivot at the floor, lens +Z): a light grey body on a black tripod (o.h, 1.0), a long
+  // black lens barrel with a blue glass and a sun hood, a side viewfinder with its eyecup, a carry handle on top, a red tally light that blinks
+  // (o.blink: its period, 0.8 s; 0: steady) and a channel plate on each side (o.logo, 'TV'): seen from behind, a black crate on tripod legs said nothing
+  newsCamera(o) {
+    const H = o.h ?? 1.0, g = grp(), body = o.color || '#B8BEC6', dark = '#1E2126';
+    for (let i = 0; i < 3; i++) { const a = i * TAU / 3 + 0.5; g.add(at(cyl(0.016, 0.02, H, '#2A2D33', 6), Math.sin(a) * 0.22, H / 2 - 0.03, Math.cos(a) * 0.22, Math.cos(a) * 0.2, 0, -Math.sin(a) * 0.2)); }
+    g.add(at(cyl(0.05, 0.05, 0.08, dark, 8), 0, H, 0));
+    const y = H + 0.17; g.add(at(box(0.24, 0.26, 0.46, body, { outline: 0.008 }), 0, y, 0));
+    g.add(at(cyl(0.08, 0.075, 0.3, dark, 14, { outline: 0.006 }), 0, y - 0.01, 0.38, PI / 2, 0, 0), at(cyl(0.1, 0.085, 0.07, dark, 14, { outline: 0.006 }), 0, y - 0.01, 0.56, PI / 2, 0, 0));
+    g.add(at(cyl(0.068, 0.068, 0.006, '#4F86C6', 14), 0, y - 0.01, 0.597, PI / 2, 0, 0));
+    g.add(at(box(0.05, 0.05, 0.36, dark, { outline: 0.005 }), 0, y + 0.19, 0.0), at(box(0.04, 0.07, 0.04, dark), 0, y + 0.15, 0.15), at(box(0.04, 0.07, 0.04, dark), 0, y + 0.15, -0.15));
+    g.add(at(box(0.1, 0.09, 0.16, dark, { outline: 0.005 }), -0.17, y + 0.08, 0.12), at(cyl(0.035, 0.04, 0.05, '#0E0F12', 10), -0.17, y + 0.08, 0.02, PI / 2, 0, 0));
+    for (const sd of [-1, 1]) { const pl = canvasPlane(0.3, 0.16, (c, W, Hh) => { c.fillStyle = '#D22B2B'; c.fillRect(0, 0, W, Hh); c.fillStyle = '#FFFFFF'; c.font = `900 ${Hh * 0.62}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.logo || 'TV', W / 2, Hh * 0.54); }, { res: 128 });
+      pl.position.set(sd * 0.122, y + 0.02, -0.06); pl.rotation.y = sd * PI / 2; g.add(pl); }
+    const tally = new THREE.Mesh(new THREE.SphereGeometry(0.028, 8, 6), new THREE.MeshBasicMaterial({ color: '#FF2A2A', toneMapped: false })); tally.position.set(0.08, y + 0.15, 0.2); g.add(tally);
+    g.userData.update = t => { const per = o.blink ?? 0.8; tally.visible = !per || (t % per) < per * 0.6; };
+    g.userData.update(0); return g;
   },
 };
