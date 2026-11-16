@@ -64,6 +64,8 @@ export const PARCMETRE_PROPS = {
   // (pass 3 of 75) o.jet (m): the paper shoots out level for that far, like water from a hose (drooping o.jetDrop, 0.12 m), then falls to the ground
   // (give o.path from there on); o.wave (m): the part in the air ripples; o.edge: a coloured line along both edges (a ribbon that reads on a pale
   // pavement); o.rep (0.6 m): the length of one print; o.textH (0.42): the height of the print across the paper.
+  // o.across: the print written across the paper, upright for someone the ticket runs toward (a low lens in its way); o.turn: the print turned
+  // half a turn (it reads upright from the other side of the run).
   ticketRibbon(o) {
     const w = o.w ?? 0.09, drop = o.drop ?? 0.64, g = grp(), R = Math.min(0.2, drop * 0.4), yg = -drop + 0.006;
     const raw = [new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0.05)];
@@ -87,9 +89,12 @@ export const PARCMETRE_PROPS = {
     const base = pos.slice(), geo = new THREE.BufferGeometry();
     geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setAttribute('uv', new THREE.BufferAttribute(uv, 2)); geo.setIndex(idx); geo.computeVertexNormals();
     const tex = canvasPlane(rp, w, (c, W, H) => { c.fillStyle = '#FBFBF6'; c.fillRect(0, 0, W, H); if (o.edge) { c.fillStyle = o.edge; c.fillRect(0, 0, W, H * 0.08); c.fillRect(0, H * 0.92, W, H * 0.08); }
-      c.fillStyle = o.color || '#2A4FA0'; c.textBaseline = 'middle';
-      c.font = `900 ${Math.min(H * (o.textH ?? 0.42), W * 0.19)}px Arial`; c.save(); c.translate(W, 0); c.scale(-1, 1); c.fillText(o.text || '400 ANS', W * 0.08, H * 0.5); c.restore();
-      c.fillStyle = 'rgba(40,60,110,0.35)'; for (let k = 0; k < 6; k++) c.fillRect(W * (0.55 + k * 0.06), H * 0.3, W * 0.03, H * 0.4); }, { res: 256 }).material.map;
+      c.fillStyle = o.color || '#2A4FA0'; c.textBaseline = 'middle'; const txt = o.text || '400 ANS';
+      c.save();
+      if (o.across) { c.translate(W / 2, H / 2); c.transform(0, -1, -1, 0, 0, 0); c.textAlign = 'center'; c.font = `900 ${Math.min(W * 0.62, H * 0.88 / (0.6 * txt.length))}px Arial`; c.fillText(txt, 0, 0); }
+      else { c.font = `900 ${Math.min(H * (o.textH ?? 0.42), W * 0.19)}px Arial`; c.translate(W, 0); c.scale(-1, 1); if (o.turn) { c.translate(W / 2, H / 2); c.rotate(PI); c.translate(-W / 2, -H / 2); } c.fillText(txt, W * 0.08, H * 0.5); }
+      c.restore();
+      if (!o.across) { c.fillStyle = 'rgba(40,60,110,0.35)'; for (let k = 0; k < 6; k++) c.fillRect(W * (0.55 + k * 0.06), H * 0.3, W * 0.03, H * 0.4); } }, { res: 256 }).material.map;
     tex.wrapS = THREE.RepeatWrapping;
     const strip = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: tex, side: THREE.DoubleSide })); strip.castShadow = strip.receiveShadow = true; g.add(strip);
     const len = t => { const u = t - (o.from ?? 0), A = o.accel ?? 0.3, r = o.rate ?? 1.6; const d = u <= 0 ? 0 : u < A ? r * u * u / (2 * A) : r * (u - A / 2); return Math.min(Ltot, (o.len0 ?? 0) + d); };
