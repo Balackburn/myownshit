@@ -129,16 +129,16 @@ st.shot('S03', 'parisStreet', setOpts={'clear': [-40.0, 30.0], 'eiffelStyle': 'v
         cams=[FC(0.0, [9.6, 1.3, r(Z3 - 4.5)], [[3.6, 2.5, Z3], [3.6, 0.0, Z3], [4.7, 1.2, r(Z3 - 2.3)], [3.6, 0.8, r(Z3 + 1.1)]], top=0.2, bottom=0.76, drift=(0.0, 0.0, r(-V3 * D3)), inside=(5.3, 9.8, 0.3, 4.0, -200.0, 200.0))])   # (stills 3) three-quarter front (in profile his box head has no face)
 st.cue('engine', 'S03', 0.0, 0.3); st.cue('sfx:stepSoft', 'S03', 0.3, 0.15); st.cue('sfx:stepSoft', 'S03', 0.6, 0.15); st.cue('sfx:stepSoft', 'S03', 0.9, 0.15)
 
-# 4: after an hour he had left the town. (pass 3) Travelling with him three-quarter front, as in 3: the bus's flank fills the right of the frame,
-#    21 ROME near its back, passengers' heads at its windows; as he and the bus go by it, the crossed-out town sign (SAINT-ARRÊT) on the far verge
-#    comes out from behind the bus's back and stays behind him; the last cottages
-D4 = st.dur('S04'); X4 = -4.6; BX4 = 2.5 + 3.8; SG4 = [r(X4 + V * 1.0), 0, -2.8]
+# 4: after an hour he had left the town. (pass 3) From the near verge, travelling with him, as in 3: he runs a step behind the bus's back, its
+#    flank at the right with passengers' heads at the windows and 21 ROME low near its back; as they go by it, the crossed-out town sign
+#    (SAINT-ARRÊT) on the far verge comes out from behind the bus and stays behind him; the last cottages
+D4 = st.dur('S04'); X4 = -4.6; BX4 = 1.3 + 3.8; SG4 = [r(X4 + V * 1.0), 0, -2.8]
 st.shot('S04', 'grassland', actors=[act('mec', [X4, 0, 0.3], 90, 'run', 'determined', params={'bounce': 0.4}, keys=[*RUNK([r(X4 + V * D4), 0, 0.3], D4, 0.0, 2.0), FLATW(), k(0.75, look='camera', lookDur=0.15), k(1.45, look=[40.0, 1.9, 0.3], lookDur=0.15)])],
-        props=[ROAD('road4'), BUS('bus4', [r(X4 + BX4), 0, -0.3], 0, keys=[k(0.0, to=[r(X4 + BX4 + V * D4), 0, -0.3], dur=D4, ease='linear')], glass=0.06), PLQS('plq4', 'bus4', x=-3.0, w=1.6), PLQ('plq4b', 'bus4'),
+        props=[ROAD('road4'), BUS('bus4', [r(X4 + BX4), 0, -0.3], 0, keys=[k(0.0, to=[r(X4 + BX4 + V * D4), 0, -0.3], dur=D4, ease='linear')], glass=0.06), PLQS('plq4', 'bus4', x=-3.0, w=1.6, y=0.78), PLQ('plq4b', 'bus4'),
                P('foule4', 'busCrowd', on={'actor': 'bus4'}, opts={'len': 7.6, 'top': 3.0}),
                P('panneau4', 'exitSign', pos=SG4, ry=35, opts={'name': 'SAINT-ARRÊT', 'exit': True, 'w': 1.9, 'h': 1.3}),
                *[P(f'mais4{j}', 'cottage', pos=[r(-16.0 - 7.0 * j), 0, r(-7.0 + 3.0 * (j % 2))], ry=r(20 * j)) for j in range(3)], *TREES('4', -6.5, -14.0, 14.0, 6)],
-        cams=[FC(0.0, [r(X4 + 3.0), 1.45, 4.6], [[X4, 2.5, 0.3], [X4, 0.45, 0.3], [r(X4 + 2.5), 3.5, -0.3], [r(X4 + 2.5), 0.6, 0.85]], top=0.1, bottom=0.77, drift=(r(V * D4), 0.0, 0.0))])
+        cams=[FC(0.0, [r(X4 + 1.7), 1.4, 4.5], [[X4, 2.5, 0.3], [X4, 0.45, 0.3], [r(X4 + 1.3), 3.4, 0.85], [r(X4 + 2.4), 0.55, 0.85]], top=0.1, bottom=0.77, drift=(r(V * D4), 0.0, 0.0))])
 st.cue('engine', 'S04', 0.0, 0.3); st.cue('whoosh', 'S04', 0.9, 0.25)
 
 # 5: the gendarmes escorted him on motorbikes. (pass 3) Three-quarter front and closer, the road streaming back: he runs between two gendarmes on
@@ -153,7 +153,7 @@ st.shot('S05', 'grassland', actors=[act('mec', [0, 0, 0], 90, 'run', 'determined
         act('gend1', [-0.62, 0.57, -0.95], 90, 'ride', 'determined', params={'cadence': 0.0, 'lean': 0.3}, keys=[k(0.0, look=[12.0, 2.2, -0.95]), k(0.0, toon=BAR5(-0.35, -0.95, {'lid': 0.1, 'mouth': 'line'}), toonDur=0.0),
             k(0.35, look=[9.0, 1.6, -8.0], lookDur=0.22), k(0.95, look=[9.0, 1.6, 7.0], lookDur=0.3), k(1.6, look=[12.0, 2.2, -0.95], lookDur=0.22)]),   # (pass 3) he scans the road
         act('gend2', [-1.02, 0.57, 0.95], 90, 'ride', 'determined', params={'cadence': 0.0, 'lean': 0.3}, keys=[k(0.0, look=[12.0, 2.2, 0.95]), k(0.0, toon=BAR5(-0.75, 0.95, {'lid': 0.1, 'mouth': 'line'}), toonDur=0.0),
-            k(0.7, look='camera', lookDur=0.15), k(0.95, toon=BAR5(-0.75, 0.95, {'lid': 0.2, 'mouth': 'smirk'}, R=[-0.15, 2.4, 1.6, 1, 0.04], hR='thumbUp'), toonDur=0.14, toonEase='out')])],
+            k(0.7, look='camera', lookDur=0.15), k(0.95, toon=BAR5(-0.75, 0.95, {'lid': 0.2, 'mouth': 'smirk'}, R=[-0.3, 2.35, 0.7, 1, 0.04], hR='thumbUp'), toonDur=0.14, toonEase='out')])],
         props=[ROADS('road5', D5), *scroll(TREES('5', -6.5, -10.0, 26.0, 9), D5),
                *[P(f'moto5{j}', 'policeBike', pos=[gx, 0, gz], scale=MS5, opts={'roll': 40, 'phase': 1.7 * j}) for j, (_, gz, gx) in enumerate(G5)],
                STREAK('sl5', [-2.4, 1.5, 0.3], n=8, ln=2.2, w=1.0), *DUST('5')],
@@ -184,15 +184,15 @@ st.shot('S07', 'grassland', actors=[act('mec', [0, 0, 0], 90, 'run', 'determined
             k(r(PIN7 - 0.32), toon=MP7([0.7, 1.2, -0.5], [1.05, 1.75, -0.7], {'lid': 0.1, 'mouth': 'bigsmile'}, hl='open'), toonDur=0.16, toonEase='out'),
             k(r(PIN7 - 0.07), toon=MP7([0.7, 1.2, -0.5], [0.2, 1.52, 0.18], {'lid': 0.1, 'mouth': 'bigsmile'}, hl='open', hr='open'), toonDur=0.07, toonEase='in'),
             k(r(PIN7 + 0.18), look='camera', lookDur=0.15),
-            k(r(CLK7 - 0.22), toon=MP7([1.35, 1.72, 0.1], [0.6, 1.1, -0.55], {'lid': 0.0, 'mouth': 'bigsmile'}, hl='grip', hr='open'), toonDur=0.16, toonEase='out'),
-            k(CLK7, toon=MP7([1.35, 1.72, 0.1], [0.6, 1.1, -0.55], {'lid': 0.0, 'eye': 0.3, 'mouth': 'O'}, hl='grip', hr='open'), toonDur=0.05)])],
+            k(r(CLK7 - 0.22), toon=MP7([0.85, 2.2, -0.2], [0.6, 1.1, -0.55], {'lid': 0.0, 'mouth': 'bigsmile'}, hl='grip', hr='open'), toonDur=0.16, toonEase='out'),
+            k(CLK7, toon=MP7([0.85, 2.2, -0.2], [0.6, 1.1, -0.55], {'lid': 0.0, 'eye': 0.3, 'mouth': 'O'}, hl='grip', hr='open'), toonDur=0.05)])],
         props=[ROADS('road7', D7), *scroll(TREES('7', -6.5, -10.0, 28.0, 9), D7), STREAK('sl7', [-2.2, 1.5, 0.3], n=8, ln=2.2, w=1.0), *DUST('7'),
                P('dos7a', 'raceBib', pos=[0.52, 1.03, -0.38], face='camera', scale=1.7, opts={'num': '1'}, keys=[k(r(PIN7 - 0.32), to=[0.95, 1.65, -0.62], dur=0.16, ease='out'), k(r(PIN7 - 0.07), to=[0.16, 1.5, 0.22], dur=0.07, ease='in'), k(PIN7, visible=False)]),
                P('dos7', 'raceBib', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.3, 0.19]}, scale=1.7, opts={'num': '1'}, keys=[k(0.0, visible=False), k(PIN7, visible=True), k(PIN7, squash=[1.35, 1.35, 1.0], dur=0.25)]),
                P('ech7', 'mayorSash', on={'actor': 'ministre', 'joint': 'torso', 'offset': [0.0, 0.42, 0.0]}, opts={'z': 0.2, 'w': 0.15, 'len': 0.8}),
                P('min7', 'textPatch', on={'actor': 'ministre', 'joint': 'torso', 'offset': [0.08, 0.52, 0.21]}, opts={'text': 'MINISTÈRE', 'text2': 'DES SPORTS', 'w': 0.26, 'h': 0.13}),
                P('chrono7', 'stopwatch', on={'actor': 'ministre', 'hand': 'L', 'offset': [0, 0, 0.03], 'face': 'camera'}, scale=3.0, keys=[k(0.0, visible=False), k(r(CLK7 - 0.22), visible=True), k(CLK7, squash=[1.15, 0.85, 1.0], dur=0.2)])],
-        cams=[FC(0.0, [4.4, 1.6, 3.3], [[0, 2.5, 0], [0, 0.45, 0], [MN7[0], 2.5, MN7[2]], [1.4, 2.2, -0.3], [-0.6, 1.5, 0.3]], top=0.12, bottom=0.77)])
+        cams=[FC(0.0, [4.4, 1.6, 3.3], [[0, 2.5, 0], [0, 0.45, 0], [MN7[0], 2.5, MN7[2]], [1.25, 1.5, -0.95], [-0.6, 1.5, 0.3]], top=0.12, bottom=0.77)])
 st.cue('sfx:click', 'S07', PIN7, 0.25); st.cue('sfx:click', 'S07', CLK7, 0.25)
 
 # 8: the cycle race changed its route... (pass 3) From the back of the bus, looking down the road behind: he runs after us, big in the frame; behind
@@ -285,7 +285,7 @@ st.shot('S14', 'cottageStreet', setOpts={'seed': 23, 'roadColor': '#8C8C88', 'ho
         props=[MJ('mjr14'), P('caffe14', 'trattoria', pos=[-0.4, 0, -2.75]), P('pates14', 'spaghettiPlate', on={'actor': 'serveur', 'hand': 'R', 'offset': [0.0, 0.05, 0.0]}, scale=1.5),
                P('tab14', 'bistroTable', pos=[1.6, 0, -1.6], opts={'r': 0.35, 'h': 0.75}), P('para14', 'parasol', pos=[3.9, 0, -1.5], opts={'openAt': -1.0, 'colors': ['#2E9A4A', '#F4F4F0', '#D23A2E']}),
                P('it14', 'flag', pos=[-3.9, 0, -1.2], opts={'colors': ['#2E9A4A', '#F4F4F0', '#D23A2E'], 'vertical': True})],
-        cams=[FC(0.0, [r(X14 + 2.4), 1.45, r(Z14 + 3.2)], [[X14, 2.5, Z14], [X14, 0.45, Z14], [r(X14 + 0.8), 1.2, r(Z14 + 0.6)], [r(X14 - 0.5), 1.2, Z14]], top=0.12, bottom=0.77, drift=(r(V * D14), 0.0, 0.0))])
+        cams=[FC(0.0, [r(X14 + 2.4), 1.45, r(Z14 + 3.2)], [[X14, 2.5, Z14], [X14, 0.45, Z14], [r(X14 - 0.5), 1.2, Z14], [0.4, 2.5, -1.75]], top=0.12, bottom=0.77, drift=(r(V * D14), 0.0, 0.0))])
 st.cue('sfx:bell', 'S14', 0.05, 0.15)
 
 # 15: ...held out pasta to him on the run. (pass 2) A two-shot from the roadside at chest height, the road streaming: the waiter runs backwards in
@@ -322,7 +322,7 @@ st.shot('S16', 'grassland', setOpts=ITG, look=ITALY, actors=[act('mec', [0, 0, 0
                P('semelle16', 'flapSole', on={'actor': 'mec', 'joint': 'footL', 'offset': [0.0, -0.05, 0.22]}, opts={'at': PEEL16, 'len': 0.95, 'w': 0.22}),
                *[P(f'neuve16{s}', 'newShoe', pos=[0.05, 2.1, r(0.4 + dz)], ry=90, scale=0.01, keys=[k(r(NEW16 - 0.34), scale=1.0, dur=0.08, ease='out'), k(r(NEW16 - 0.3), to=[0.05, 0.42, r(0.4 + dz)], dur=0.16, ease='inOut'),
                      k(r(NEW16 - 0.04), to=[0.05, 0.0, r(0.4 + dz)], dur=0.04, ease='in'), k(NEW16, squash=[1.4, 0.6, 1.4], dur=0.25), k(r(NEW16 + 0.03), attach='mec', joint=f'foot{s}', offset=[0.0, -0.13, -0.1])]) for s, dz in (('L', -0.13), ('R', 0.13))],
-               P('chaus16', 'bigShoe', pos=[0.0, 0.3, 0.4], scale=2.4, opts={'kind': 'brogue', 'color': '#8A5A34', 'worn': True}, keys=[k(0.0, visible=False), k(NEW16, visible=True), k(NEW16, to=[-8.3, 3.5, 5.6], dur=0.55, ease='inOut', arc=2.6), k(NEW16, rotTo=[3.0, 2.0, 1.0], dur=0.55), k(r(NEW16 + 0.57), visible=False)]),
+               P('chaus16', 'bigShoe', pos=[0.0, 0.3, 0.4], scale=2.6, opts={'kind': 'sneaker', 'color': '#ECE6D4', 'worn': True}, keys=[k(0.0, visible=False), k(NEW16, visible=True), k(NEW16, to=[-8.3, 3.5, 5.6], dur=0.55, ease='inOut', arc=3.6), k(NEW16, rotTo=[3.0, 2.0, 1.0], dur=0.55), k(r(NEW16 + 0.57), visible=False)]),
                P('pouf16', 'dustPuff', pos=[-8.3, 3.4, 5.6], scale=1.5, opts={'once': True, 'startAt': r(NEW16 + 0.55), 'period': 0.6, 'color': '#D8CDB8'}),
                *scroll(CYP('16', 14.0, -24.0, 12.0, 7, 7.5, True), D16, V16), *DUST('16', 0.0, 0.4)],
         cams=[FC(0.0, [4.2, 1.95, -3.1], [[0, 2.4, 0.4], [0, 0.45, 0.4], [-7.9, 7.4, 7.0]], top=0.2, bottom=0.77)])   # from the other side of the road (S10's set-up otherwise)
@@ -336,15 +336,15 @@ D17 = st.dur('S17'); PU17 = [[0.28, 0.52, 0.72], [0.86, 1.1, 1.0]]; POP17 = 1.16
 SV17 = lambda hand, hs, f, hl='open': {'reach': {'R': hand + [1, 0.04]}, 'hands': {'R': hs, 'L': hl}, 'face': f}
 EYE17 = lambda pop: {'lid': 0.0, 'eye': 0.5 if pop else 0.3, 'mouth': 'O', 'brow': 1.0 if pop else 0.8, **({'pop': 0.95, 'popLen': 0.26} if pop else {})}
 st.shot('S17', 'grassland', setOpts=ITG, look=ITALY, actors=[act('mec', [0, 0, 0], 90, 'run', 'determined', params={'bounce': 0.3}, keys=[k(0.0, clip='run', speed=1.0), k(0.0, look=[12.0, 1.9, 0.0]), FLAT()]),
-        act('savant1', [0.62, 0, -0.75], -40, 'peerIn', 'neutral', keys=[k(0.0, look=[0.0, 0.55, 0.0]), k(0.0, toon=SV17([0.45, 1.0, -0.35], 'point', EYE17(False), hl='grip'), toonDur=0.0),
-            k(POP17, toon=SV17([0.45, 1.0, -0.35], 'point', EYE17(True), hl='grip'), toonDur=0.06, toonEase='out')]),
-        act('savant2', [-0.62, 0, -0.75], 40, 'peerIn', 'neutral', keys=[k(0.0, look=[-0.15, 0.55, 0.0]), k(0.0, toon=SV17([-0.25, 0.58, -0.2], 'grip', EYE17(False)), toonDur=0.0),
-            k(r(POP17 + 0.08), toon=SV17([-0.25, 0.58, -0.2], 'grip', EYE17(True)), toonDur=0.06, toonEase='out')])],
+        act('savant1', [0.95, 0, -1.0], -45, 'peerIn', 'neutral', keys=[k(0.0, look=[0.0, 0.55, 0.0]), k(0.0, toon=SV17([0.7, 1.0, -0.6], 'point', EYE17(False), hl='grip'), toonDur=0.0),
+            k(POP17, toon=SV17([0.7, 1.0, -0.6], 'point', EYE17(True), hl='grip'), toonDur=0.06, toonEase='out')]),
+        act('savant2', [-0.95, 0, -1.0], 45, 'peerIn', 'neutral', keys=[k(0.0, look=[-0.15, 0.55, 0.0]), k(0.0, toon=SV17([-0.45, 0.6, -0.45], 'grip', EYE17(False)), toonDur=0.0),
+            k(r(POP17 + 0.08), toon=SV17([-0.45, 0.6, -0.45], 'grip', EYE17(True)), toonDur=0.06, toonEase='out')])],
         props=[MJ('mjr17'), ROADS('road17', D17), *scroll(CYP('17', -26.0, -30.0, 40.0, 8, 9.0), D17), *DUST('17'),
                *[P(f'mollet17{s}', 'bigCalf', on={'actor': 'mec', 'joint': f'knee{s}', 'offset': [0.0, 0.0, 0.0]}, opts={'r': 0.22, 'len': 0.5, 'tape': True, 'dig': 0.96, 'pulses': PU17, 'phase': ph, 'color': '#24324F', 'seam': '#DB8F58', **({'snapAt': SNAP17} if s == 'L' else {})}) for s, ph in (('L', 0.0), ('R', 1.6))],
                P('metre17', 'tapeMeasure', on={'actor': 'savant2', 'hand': 'R', 'offset': [0, 0, 0.04]}, scale=2.0),
                P('bloc17', 'clipBoard', on={'actor': 'savant1', 'hand': 'L', 'offset': [0.0, 0.05, 0.05], 'face': 'camera'}, scale=1.6)],
-        cams=[FC(0.0, [0.1, 0.38, 3.0], [[0, 1.65, 0], [0, 0.0, 0], [0.62, 1.6, -0.75], [-0.62, 1.6, -0.75], [0.9, 0.3, -0.75], [-0.9, 0.3, -0.75]], top=0.1, bottom=0.76)])   # the vertical frame is narrow: the scientists lean in from its edges
+        cams=[FC(0.0, [0.1, 0.38, 3.0], [[0, 1.6, 0], [0, 0.0, 0], [0.95, 1.65, -1.0], [-0.95, 1.65, -1.0]], top=0.1, bottom=0.76)])   # the vertical frame is narrow: the scientists lean in from its edges
 st.cue('sfx:stretch', 'S17', PU17[0][0], 0.2); st.cue('sfx:stretch', 'S17', PU17[1][0], 0.2); st.cue('sfx:boing', 'S17', POP17, 0.2); st.cue('sfx:boing', 'S17', SNAP17, 0.2)
 
 # 18: after three years the bus stopped. (pass 3) From the pavement, left to right, in a Roman street (ochre and terracotta fronts, green shutters):
