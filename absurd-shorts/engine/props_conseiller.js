@@ -45,7 +45,10 @@ export const CONSEILLER_PROPS = {
   bigPhone(o) {
     const w = o.w ?? 0.17, h = w * 2.0, d = o.d ?? 0.06, col = o.case || RED, g = grp(at(box(w, h, d, col, { outline: 0.007 }), 0, 0, 0));
     g.add(at(cyl(0.014, 0.014, 0.09, col, 8, { outline: 0.004 }), -w * 0.3, h / 2 + 0.045, 0), at(sphere(0.022, '#1C1C1E', 1), -w * 0.3, h / 2 + 0.1, 0));
-    const scr = canvasPlane(w * 0.84, h * 0.88, (c, W, H) => { c.fillStyle = '#10202E'; c.fillRect(0, 0, W, H); c.fillStyle = '#CFE3F2'; c.textAlign = 'center'; c.textBaseline = 'middle';
+    // o.keypad 1: the screen shows the twelve keys of the insert (phoneKeypad) instead of the call screen
+    const scr = o.keypad ? canvasPlane(w * 0.84, h * 0.88, (c, W, H) => { c.fillStyle = '#0E1A26'; c.fillRect(0, 0, W, H); c.fillStyle = '#CFE3F2'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `700 ${W * 0.085}px Arial`; c.fillText(o.label || 'SERVICE CLIENT', W / 2, H * 0.08);
+      ['1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '0', '#'].forEach((kk, i) => { const x = W * (0.22 + 0.28 * (i % 3)), y = H * (0.3 + 0.16 * Math.floor(i / 3)); c.fillStyle = '#2A3846'; c.beginPath(); c.arc(x, y, W * 0.11, 0, TAU); c.fill(); c.fillStyle = '#FFFFFF'; c.font = `700 ${W * 0.1}px Arial`; c.fillText(kk, x, y + W * 0.005); }); }, { res: 256, emissive: 0.35 })
+      : canvasPlane(w * 0.84, h * 0.88, (c, W, H) => { c.fillStyle = '#10202E'; c.fillRect(0, 0, W, H); c.fillStyle = '#CFE3F2'; c.textAlign = 'center'; c.textBaseline = 'middle';
       const tx = o.label || 'SERVICE CLIENT'; let px = W * 0.13; c.font = `700 ${px}px Arial`; const tw = c.measureText(tx).width; if (tw > W * 0.9) { px *= W * 0.9 / tw; c.font = `700 ${px}px Arial`; } c.fillText(tx, W / 2, H * 0.12);
       c.fillStyle = '#3CCB6A'; c.beginPath(); c.arc(W / 2, H * 0.42, W * 0.3, 0, TAU); c.fill(); handsetIcon(c, W / 2, H * 0.42, W * 0.15, '#FFFFFF');
       c.fillStyle = '#2A3846'; for (let i = 0; i < 6; i++) { c.beginPath(); c.arc(W * (0.22 + 0.28 * (i % 3)), H * (0.72 + 0.14 * Math.floor(i / 3)), W * 0.09, 0, TAU); c.fill(); } }, { res: 256, emissive: 0.35 });
@@ -60,7 +63,7 @@ export const CONSEILLER_PROPS = {
   // off one after the other, faster and faster, each flying up and out on an arc and turning (two or three in the air at once); the last year
   // (o.years [y0, y1]) lands at o.land with a little squash and stays
   tearCalendar(o) {
-    const ys = o.years || [2016, 2026], n = ys[1] - ys[0] + 1, t0 = o.from ?? 0.1, t1 = o.land ?? 1.0, fly = o.fly ?? 0.55, g = grp(), body = grp();
+    const ys = o.years || [2016, 2026], n = ys[1] - ys[0] + 1, t0 = o.from ?? 0.1, t1 = o.land ?? 1.0, fly = o.fly ?? 0.6, g = grp(), body = grp();
     body.add(at(box(0.56, 0.62, 0.02, '#F4F1E8', { outline: 0.005 }), 0, 0, 0), at(box(0.56, 0.12, 0.025, '#C8322A'), 0, 0.25, 0.003));
     for (const x of [-0.16, 0.16]) body.add(at(cyl(0.012, 0.012, 0.05, '#3A3D44', 6), x, 0.31, 0.02));
     g.add(body);
@@ -72,7 +75,7 @@ export const CONSEILLER_PROPS = {
     g.userData.update = t => { let top = 0; for (let i = 0; i < n - 1; i++) if (t >= T[i]) top = i + 1;
       pages.forEach((pv, i) => { const u = i < n - 1 ? t - T[i] : -1; pv.scale.set(1, 1, 1);
         if (i < top) { if (u > fly) { pv.visible = false; return; } pv.visible = true; const sd = i % 2 ? 1 : -1, q = u / fly;
-          pv.position.set(sd * (0.25 + 0.5 * hash(i)) * u * 1.6, 0.15 + 1.5 * u - 0.6 * u * u + 0.05, 0.03 + 0.5 * u); pv.rotation.set(-2.2 * q, 0.6 * sd * q, sd * (0.5 + 1.2 * q)); }
+          pv.position.set(sd * (0.5 + 0.45 * hash(i)) * u * 2, 0.2 + 2.6 * u - 1.5 * u * u, 0.03 + 0.14 * u); pv.rotation.set(-1.9 * q, 0.6 * sd * q, sd * (0.4 + 1.3 * q)); }   // (stills 2) up and out, not at the lens: the year under them stays in view
         else { pv.visible = i === top || i === top + 1; pv.position.set(0, 0.15, 0.012 + 0.0008 * (n - i)); pv.rotation.set(0, 0, 0); } });
       const ul = t - t1, k = ul >= 0 && ul < 0.4 ? Math.exp(-7 * ul) * Math.cos(ul * 26) : 0; body.scale.set(1 + 0.07 * k, 1 - 0.09 * k, 1); pages[n - 1].scale.set(1 + 0.07 * k, 1 - 0.09 * k, 1);
       const sh = t >= t0 && t < t1 ? 0.012 * Math.sin(t * 70) : 0; g.rotation.z = sh; };
