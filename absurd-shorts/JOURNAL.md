@@ -2968,3 +2968,4 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - « Le centime » (77) LIVRÉE : final contrôlé (1080x1920, 33,5 s, −16,0 LUFS, aucune chute de luminosité, contrôles HyperFrames sans erreur),
   relu sur une planche de 14 images, envoyé et publié sur TikTok. « Le pull » suit dans la file des finaux.
 - Histoire 80 « La table basse » : mise en scène confiée à un agent dérivé (accessoires et plans, images de contrôle seulement).
+- 15 h 45 — « Le pull » (74) livré et publié sur TikTok : 1080x1920, 31,6 s, −16 LUFS, aucune chute de luminosité, planche de 14 images correcte. « La table basse » (80) : mise en scène de l'agent enregistrée (24 plans, 37,07 s) ; S16, S17 et le saut de S01/S24 corrigés après la troisième série d'images, à vérifier sur le brouillon 1. Leçons : `lens` est le champ vertical en degrés (plus grand = plus large) ; les clés de position d'un saut sur un pied demandent `glide=True`, sinon un cycle de marche joue dessous.

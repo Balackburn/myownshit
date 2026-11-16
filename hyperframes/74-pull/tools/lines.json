@@ -1,0 +1,126 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec est sorti avec son pull à l'envers.",
+  "hl": [
+   "pull",
+   "l'envers."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Personne n'a osé lui dire.",
+  "hl": [
+   "osé"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Le lendemain, son collègue a fait pareil.",
+  "hl": [
+   "pareil."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Puis tout le bureau.",
+  "hl": [
+   "bureau."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Puis toute la ville.",
+  "hl": [
+   "ville."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Les magasins ont cousu les étiquettes dehors.",
+  "hl": [
+   "étiquettes",
+   "dehors."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Le présentateur du journal l'a porté en direct.",
+  "hl": [
+   "direct."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Le président a fait ses vœux le pull à l'envers.",
+  "hl": [
+   "président",
+   "l'envers."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "La mode a défilé à l'envers à Paris.",
+  "hl": [
+   "défilé"
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Hier, il s'est regardé dans une vitrine.",
+  "hl": [
+   "vitrine."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Il a remis son pull à l'endroit.",
+  "hl": [
+   "l'endroit."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Toute la rue s'est retournée.",
+  "hl": [
+   "retournée."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "La police l'a arrêté pour tenue indécente.",
+  "hl": [
+   "indécente."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Il a été condamné à porter son pull à l'envers.",
+  "hl": [
+   "condamné",
+   "l'envers."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "À vie.",
+  "hl": [
+   "vie."
+  ]
+ }
+]
