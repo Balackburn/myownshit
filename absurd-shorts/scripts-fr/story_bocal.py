@@ -194,8 +194,8 @@ for i, (t_, d, lean, bw, sl) in enumerate(HEAVE5):
 st.shot('S05', 'kitchenDay', actors=[act('pompier1', FP1, 0, 'stand', 'determined', keys=K5A), act('pompier2', P2(), -90, 'stand', 'neutral', keys=K5B)],
         props=[P('table5', 'table', pos=T5, opts={'w': 1.0, 'd': 0.7, 'h': TH}), P('jar5', 'picklesJar', pos=JAR5, scale=JS, opts={'shake': [[t_, r(t_ + 0.24)] for t_, *_ in HEAVE5]}, keys=KJ5),
                P('pince5', 'bigJaws', pos=JAWP(), ry=JRY, opts={'s': JS5, 'vertical': True, 'open': [[0.0, 0.9], [0.12, 0.9], [0.26, -0.12]], 'bow': BOW5}, keys=KT5)],
-        cams=[FC(0.0, [-1.3, 1.15, 0.75], [[JAR5[0], TH, r(JAR5[2] + 0.12)], [0.16, r(TH + 0.2), JAR5[2]], [-0.16, r(TH + 0.2), JAR5[2]], [FP1[0], 2.42, FP1[2]], bodyPt([FP1[0], 0, r(FP1[2] + 0.18)], 0, -0.62, 0.0, 2.38),
-                                             [0.8, 2.3, -0.72], [0.8, 0.9, -0.72], JAWP(0.13)], top=0.1, bottom=0.76, lenses=range(26, 66))])
+        cams=[FC(0.0, [-3.0, 1.45, 2.6], [[JAR5[0], TH, r(JAR5[2] + 0.12)], [0.16, r(TH + 0.2), JAR5[2]], [-0.16, r(TH + 0.2), JAR5[2]], [FP1[0], 2.42, FP1[2]], bodyPt([FP1[0], 0, r(FP1[2] + 0.18)], 0, -0.62, 0.0, 2.38),
+                                             [0.8, 2.3, -0.72], [0.8, 0.9, -0.72], JAWP(0.13)], top=0.1, bottom=0.76, lenses=range(22, 46))])   # far and long: the holder near the camera no longer dwarfs the puller
 st.cue('sfx:rattle', 'S05', 0.14, 0.25)
 for t_, *_ in HEAVE5: st.cue('sfx:squeak', 'S05', t_, 0.22)
 
@@ -254,9 +254,9 @@ TANK8 = [k(0.0, to=[TX8, 0, 0.05], dur=TOUCH8, ease='linear'),                  
          k(r(SLAM8 - 0.06), to=[TX8, 0.0, 5.3], dur=0.06, ease='in'), k(r(SLAM8 - 0.04), rotTo=[0.0, 0.0, 0.0], dur=0.04, ease='in'),   # ...and drops
          k(SLAM8, squash=[1.07, 0.8, 1.07], dur=0.4), k(SLAM8, to=[TX8, 0.0, 6.4], dur=r(D8 - SLAM8), ease='out')]                     # SLAM; it rolls on (where S09 finds it)
 st.shot('S08', 'parisStreet', setOpts=STREET7, look={'hemi': 0.3}, fx=[{'type': 'shake', 'at': TOUCH8, 'dur': 0.12, 'amount': 0.008}, {'type': 'shake', 'at': SLAM8, 'dur': 0.35, 'amount': 0.035}], actors=[],
-        props=[P('jar8', 'picklesJar', pos=JR, scale=2.2, opts={'hops': [[r(SLAM8 + 0.07), 0.06]]}, keys=[k(TOUCH8, squash=[1.22, 0.74, 1.22], dur=0.14), k(TOP8, squash=[1.1, 0.88, 1.1], dur=0.2)]),   # the lid squashes; the hop two frames after the slam
+        props=[P('jar8', 'picklesJar', pos=JR, scale=2.2, opts={'hops': [[r(SLAM8 + 0.07), 0.12]]}, keys=[k(TOUCH8, squash=[1.22, 0.74, 1.22], dur=0.14), k(TOP8, squash=[1.1, 0.88, 1.1], dur=0.2), k(r(SLAM8 + 0.27), squash=[1.14, 0.86, 1.14], dur=0.2)]),   # the lid squashes; the hop two frames after the slam
                P('char8', 'battleTank', pos=[TX8, 0, -0.9], ry=0, opts={'rumble': [[0.0, 9.0, 0.015]], 'gun': [[0.0, 0.04], [TOUCH8, 0.04], [r(TOUCH8 + 0.12), -0.22], [HOLD8, -0.16], [r(SLAM8 + 0.05), 0.32], [r(SLAM8 + 0.25), -0.06], [r(SLAM8 + 0.45), 0.04]]}, keys=TANK8),
-               P('fill8', 'glowLight', pos=[1.4, 1.6, 3.4], opts={'color': '#FFE8CC', 'k': 25.0, 'dist': 7.0}),   # (review 3) a warm fill under the tank: its shadow read as blue water
+               P('fill8', 'glowLight', pos=[1.4, 2.6, 3.4], opts={'color': '#FFEBD4', 'k': 12.0, 'dist': 8.0}),   # (review 3) a warm fill under the tank: its shadow read as blue water
                P('pouss8', 'toonPuff', pos=[TX8, 0.15, 5.3], opts={'n': 18, 'size': 0.55, 'life': 0.7, 'rise': 0.4, 'spread': 3.4, 'at': SLAM8, 'color': '#E6E1D8'}),   # a ring of dust round it
                P('pouss8b', 'toonPuff', pos=[0.45, 0.12, 5.3], opts={'n': 9, 'size': 0.45, 'life': 0.6, 'rise': 0.35, 'spread': 1.4, 'flatZ': 2.2, 'at': SLAM8, 'color': '#E6E1D8'})],   # and along the near track
         cams=[FC(0.0, [6.0, 3.0, 6.2], [[JR[0], 0.0, JR[2]], [JR[0], 0.6, JR[2]], [0.31, 0.0, 0.65], [0.31, 0.0, 5.55], [0.31, 0.46, 0.65], [0.31, 0.46, 5.55], [TX8, 2.9, 3.1], [-2.95, 0.46, 3.1]],
