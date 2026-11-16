@@ -2824,3 +2824,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   regarde les lunettes sans les voir (agent, chien, enfant) ne se lisent pas, le héros reste raide pendant toute la montée, le chèque ne tient
   pas à l'écran. Passe 3 confiée à un agent dérivé. « Le parcmètre » (75) : brouillon 2 prêt (un passage figé au plan 20), revue 2 en cours.
   Disque : 600 Mo de fichiers de travail périmés supprimés (recadrages des critiques des revues terminées, brouillons des histoires livrées).
+- 2 h 20 — « Le service client » (73) : passe 2 relue sur la planche de 24 images (gros combiné rouge sur l'oreille côté objectif, il y tient
+  tout seul à partir du plan 6, calendrier qui s'effeuille, touche 1 verte dégagée, deux caméras de télévision). Cause du téléphone illisible à
+  la revue 1 : la main droite croisait devant le menton, et la rotation de l'accessoire était passée hors de `on={…}` (ignorée sur un accessoire
+  attaché). Brouillon 2 en file, revue 2 préparée.

@@ -8,7 +8,7 @@ Staging: his living room, the phone to his ear, notes pouring out of it; a wall 
 shut; he tries to put the phone down and it stays, his head pulled sideways with it; two firemen carry him down the street on his sofa; the town
 hall wedding, the bride's yes into his phone; the flag rising at a ceremony while the anthem pours out of his phone; the parade band; a classroom
 whistling it; the music stops: a take; tears of joy; TV cameras; the keypad, the finger on 1; the notes come back; a look at us.
-Natural look; cycle 35: props_conseiller.js (holdNotes, brass, bridalVeil, flagPole, phoneKeypad), props reused (smartPhone, yearCalendar, sofaProp,
+Natural look; cycle 35: props_conseiller.js (holdNotes, brass, bridalVeil, flagPole, phoneKeypad; pass 2: bigPhone, tearCalendar, voiceBubble), props reused (sofaProp,
 tearFountain, tvCamera, pressMic, hicBurst, flag, signBoard).
 Pass 2 (review 1: 5.4 / 5.4): the phone is one big red handset (bigPhone), stuck flat on his LEFT ear, the ear on the side of the lens, held by his left
 hand up to S05 and hanging there by itself from S07 to S17 (the old one sat in a fist in front of his chin: the right hand crossed over to the left
@@ -195,7 +195,7 @@ st.shot('S10', 'mairie', setOpts=MAIRIE, actors=[
         act('maire', MA10, -15, 'stand', 'happy', keys=[k(0.0, look=[0.0, 2.0, 0.3]), k(0.0, toon=CLAP10(0), toonDur=0.0), *[k(r(OUI10 + 0.15 + 0.13 * j), toon=CLAP10(j + 1), toonDur=0.07) for j in range(10)]])],
         props=[TEL('tel10'), NOTES('mus10', size=0.16, t1=r(OUI10 - 0.4), life=0.95, dx=0.3, dy=0.38), P('voile10', 'bridalVeil', on={'actor': 'femme', 'joint': 'head', 'offset': [0.0, 0.45, 0.0]}),
                P('bouq10', 'bouquet', on={'actor': 'femme', 'hand': 'R', 'offset': [0.0, 0.0, 0.05]}), BURST('oui10', [-0.1, 2.85, 0.5], OUI10, 'OUI !', 0.55, 1.2)],
-        cams=[FC(0.0, [0.1, 1.85, 3.2], [[GR[0], 2.45, GR[2]], [r(GR[0] - 0.42), 1.5, GR[2]], [0.7, 1.5, BR10[2]], [r(MA10[0] + 0.3), 2.3, MA10[2]], [-0.1, 3.05, 0.5], [0.0, 1.2, 0.3]], top=0.14, bottom=0.76)])   # (pass 2) face on to him, side on to her
+        cams=[FC(0.0, [0.25, 1.75, 3.0], [[GR[0], 2.45, GR[2]], [r(GR[0] - 0.2), 1.9, GR[2]], [0.6, 1.6, BR10[2]], [r(MA10[0] + 0.22), 2.3, MA10[2]], [-0.1, 3.03, 0.5], [0.0, 1.4, 0.3]], top=0.14, bottom=0.76)])   # (pass 2) face on to him; (after stills 4, by calculation) tighter than S09: cut at the belt, his far shoulder out of frame
 st.cue('sfx:pop', 'S10', OUI10, 0.2); st.cue('sfx:fanfare', 'S10', r(OUI10 + 0.2), 0.15)
 
 # 11: the music became the national anthem. A ceremony in the street: him in front, in the middle, the phone on his ear; behind him the flag climbs
