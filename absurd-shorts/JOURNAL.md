@@ -2853,3 +2853,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   yeux vers les lunettes, héros qui s'aplatit contre un lampadaire, chien de profil qui s'assoit et tend le cou, doigt du garçon posé sur les
   lunettes, lunettes sur le nez au dernier plan). Le « dôme rose » du frigo était l'étagère en verre au-dessus de la caméra. Brouillon 3 en
   file, revue 3 préparée.
+- 5 h 30 — « La tondeuse » (70) : revue 3 = 7,0 (animation) ; 7,1 (direction artistique), contre 6,0 ; 6,3 puis 5,5 ; 5,0. Reste pour la passe
+  finale : le pouce levé du président ne se lit pas comme un pouce (cube pâle sur nuage blanc), les deux gendarmes sortent en un seul paquet
+  bleu, la tondeuse ne « joue » que dans trois plans, le rangement au garage est expédié. Passe finale confiée à un agent dérivé ; rendu
+  définitif ensuite.
