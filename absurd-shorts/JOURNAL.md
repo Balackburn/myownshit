@@ -2909,3 +2909,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   chronomètre du ministre à la place du deuxième pouce levé, peloton qui arrive par la route de l'ARRIVÉE et vire, nouille qui ondule et casse,
   montagne de 120 chaussures, Italie avec cyprès et pins parasols, Rome avec façades ocre et dôme). Les façades romaines avaient des textures
   trop grandes : un rendu d'images a planté ; textures divisées par quatre, contrôle refait sans plantage. Brouillon 3 en file, revue 3 préparée.
+- 9 h 55 — « Le centime » (77) : passe finale terminée et relue sur images, une par plan (timbre levé vers l'objectif puis claqué à 0,35 s, les
+  deux prix tenus plus d'une seconde, coups de sifflet avec joues rondes et voitures qui sautent, le garde porte-coussin derrière le ministre et
+  son plumet qui retombe au réveil, voisins en larmes sur un balcon de pierre, « FRAIS DE » aussi grand que « DÉPLACEMENT »). Rendu final en file
+  après les trois autres (un rendu final à la fois).
