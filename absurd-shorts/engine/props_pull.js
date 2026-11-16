@@ -40,6 +40,11 @@ export const PULL_PROPS = {
   // o.popDecay and rings at o.popFreq (1, 0.35, 9, 26: one flop; 1.5, 0.6, 3.6, 19: it shoots up and boings three times);
   // o.turn.amp (1): how far the jumper stretches and bulges over the head (0.45: one flat, resigned yank); o.tagLean (0.36 rad): how far the label
   // leans away from the wearer's head at rest (0.05: upright, beside a neighbour's head)
+  // (final pass) o.tagSag { at, dur, amp }: the label sags slowly from that time, leaning further out (amp rad, 0.35) and a little shorter (the last
+  // word); o.under (a colour, '#1F3550'): a suit front (jacket, white shirt V, red tie) under the jumper, seen while a turn lifts the jumper (one red
+  // knit turning into another read as nothing); o.turn.bulges: in the struggle the jumper bulges twice, one lump on each side, with a still beat
+  // between them (a sine wobble read as three frames of noise); o.sewnSteps [t...]: the sewn label is there loose from o.sewn, tilted and hanging
+  // off its spot, and each step (a stitch) pulls it a share of the way flat into place, with a small snap
   knitJumper(o) {
     const w = o.w ?? 0.62, h = o.h ?? 0.62, d = o.d ?? 0.4, C = new THREE.Color(o.color || '#C8322A'), g = grp(), body = grp(); g.add(body);
     const knit = (purl, front) => canvasPlane(w, h, (c, W, H) => { const base = purl ? C.clone().lerp(new THREE.Color('#FFFFFF'), 0.18) : C.clone(); c.fillStyle = base.getStyle(); c.fillRect(0, 0, W, H);
@@ -66,7 +71,13 @@ export const PULL_PROPS = {
         const sd = at(box(0.004, 0.12, 0.07, '#FFFFFF', { outline: 0.002 }), -side * (w / 2 + 0.01), h * 0.25, 0); s.add(sd); }
       return s; };
     const in0 = o.inside !== false, IN = mk(true), OUT = mk(false); body.add(IN, OUT);
+    let UNDER = null; if (o.under) { const uw = w * 0.9, uh = h * 0.94, ud = d * 0.88; UNDER = grp(at(box(uw, uh, ud, o.under, { outline: 0.008 }), 0, uh / 2, 0));
+      const fr = canvasPlane(uw, uh, (c, W, H) => { c.fillStyle = o.under; c.fillRect(0, 0, W, H); c.fillStyle = '#F4F2EC'; c.beginPath(); c.moveTo(W * 0.3, 0); c.lineTo(W * 0.7, 0); c.lineTo(W * 0.5, H * 0.5); c.closePath(); c.fill();
+        c.fillStyle = '#B5202A'; c.beginPath(); c.moveTo(W * 0.46, 0); c.lineTo(W * 0.54, 0); c.lineTo(W * 0.55, H * 0.4); c.lineTo(W * 0.5, H * 0.47); c.lineTo(W * 0.45, H * 0.4); c.closePath(); c.fill();
+        c.strokeStyle = 'rgba(0,0,0,0.35)'; c.lineWidth = W * 0.03; c.beginPath(); c.moveTo(W * 0.28, 0); c.lineTo(W * 0.5, H * 0.52); c.lineTo(W * 0.72, 0); c.stroke(); }, { res: 128 });
+      fr.position.set(0, uh / 2, ud / 2 + 0.003); UNDER.add(fr); UNDER.visible = false; g.add(UNDER); }
     let sewn = null; if (o.sewn != null) { sewn = careTag(o.sewnS ?? 0.85); sewn.position.set(w * 0.1, h * 0.3, d / 2 + 0.012); sewn.rotation.z = -0.12; OUT.add(sewn); }
+    const SST = o.sewnSteps || null, sewP = sewn ? sewn.position.clone() : null;
     const T = o.turn || null, tPop = T ? T.at + 0.8 * T.dur : -1e9, kicks = [...(o.tagKick || []), ...(T ? [tPop] : []), ...(o.tagPop != null ? [o.tagPop] : [])];
     const TA = T ? (T.amp ?? 1) : 1, KA = o.tagKickAmp ?? 1, PS = o.popS ?? 1, PA = o.popAmp ?? 0.35, PD = o.popDecay ?? 9, PF = o.popFreq ?? 26, tagY = tags.length ? tags[0].position.y : 0;
     g.userData.update = t => {
@@ -76,18 +87,24 @@ export const PULL_PROPS = {
       if (o.flipAt != null) { const u = t - o.flipAt, a = u >= 0 && u < 0.25 ? Math.exp(-12 * u) * Math.cos(u * 40) : 0; sx += 0.15 * a; sy -= 0.15 * a; sz = sx; }
       if (T && t >= T.at) { const u = (t - T.at) / T.dur;
         if (u < 0.3) { const e = 1 - (1 - u / 0.3) * (1 - u / 0.3); py = h * e; sy = 1 + 0.75 * TA * e; sx = 1 - 0.03 * e; sz = 1 + 0.45 * TA * e; }
+        else if (u < 0.68 && T.bulges) { const q = (u - 0.3) / 0.38, b1 = q < 0.36 ? Math.sin(PI * q / 0.36) : 0, b2 = q > 0.56 && q < 0.92 ? Math.sin(PI * (q - 0.56) / 0.36) : 0, hang = q >= 0.36 && q <= 0.56 ? 1 : 0;
+          py = h + 0.05 * TA * (b1 + b2) + 0.006 * hang * Math.sin(q * 60); sy = 1 + 0.75 * TA + 0.12 * TA * (b1 + b2); sx = 0.97 + 0.32 * TA * (b1 + b2); sz = 1 + 0.45 * TA + 0.2 * TA * (b1 + b2); rz = 0.22 * TA * (b1 - b2); }
         else if (u < 0.68) { const q = (u - 0.3) / 0.38; py = h + 0.03 * TA * Math.sin(q * 4 * PI); sy = 1 + 0.75 * TA + 0.1 * TA * Math.sin(q * 6 * PI); sx = 0.97 + 0.15 * TA * Math.sin(q * 4 * PI); sz = 1 + 0.45 * TA + 0.1 * TA * Math.sin(q * 4 * PI + 1.6); rz = 0.09 * TA * Math.sin(q * 4 * PI + 0.8); }
         else if (u < 0.8) { const e = (u - 0.68) / 0.12, e2 = e * e; py = h * (1 - e2); sy = 1 + 0.75 * TA - (0.75 * TA + 0.4 * TA) * e2; sx = 0.97 + (0.03 + 0.28 * TA) * e2; sz = 1 + 0.45 * TA - (0.45 * TA - 0.28 * TA) * e2; }
         else { const v = t - (T.at + 0.8 * T.dur), a = Math.exp(-9 * v) * Math.cos(30 * v); sy = 1 - 0.4 * TA * a; sx = 1 + 0.28 * TA * a; sz = sx; } }
       body.position.y = py; body.scale.set(sx, sy, sz); body.rotation.z = rz;
+      if (UNDER) UNDER.visible = py > h * 0.22;
       for (const tag of tags) { let sc = 1, st = 0, ry = 1;   // its size, its stretch (taller and thinner), how far it is hoisted
         if (T && !in0) { if (t < tPop) sc = 0.001; else { const v = t - tPop; sc = PS; st = PA * Math.exp(-PD * v) * Math.cos(PF * v); } }
         if (o.tagPop != null) { if (t < o.tagPop) sc = 0.001; else { const v = t - o.tagPop; st = 0.5 * Math.exp(-8 * v) * Math.cos(24 * v); } }
         if (o.tagRise) { const u = clamp01((t - o.tagRise.at) / o.tagRise.dur); ry = Math.max(0.001, u * u * (3 - 2 * u)); }
         const hop = o.tagHop ? Math.abs(Math.sin(t * (o.tagRate ?? 4.2) * 0.5 + (o.tagPhase ?? 0))) : 0;
-        tag.scale.set(sc * (1 - 0.45 * st), sc * (1 + st) * ry * (1 + (o.tagHop ? 0.3 * (hop - 0.5) : 0)), sc); tag.position.y = tagY + (o.tagHop ?? 0) * hop;
-        tag.rotation.set(-0.12, 0, -side * (o.tagLean ?? 0.36) + (o.tagSway ?? 0.07) * Math.sin(t * (o.tagRate ?? 4.2) + (o.tagPhase ?? 0)) + KA * kickOf(kicks, t)); }
-      if (sewn) { const v = t - o.sewn; sewn.visible = v >= 0; if (v >= 0) sewn.scale.setScalar(1 + 0.4 * Math.exp(-10 * v) * Math.cos(28 * v)); }
+        let sag = 0; if (o.tagSag) { const u = clamp01((t - o.tagSag.at) / (o.tagSag.dur ?? 0.8)); sag = u * u * (3 - 2 * u); }
+        tag.scale.set(sc * (1 - 0.45 * st), sc * (1 + st) * ry * (1 + (o.tagHop ? 0.3 * (hop - 0.5) : 0)) * (1 - 0.1 * sag), sc); tag.position.y = tagY + (o.tagHop ?? 0) * hop;
+        tag.rotation.set(-0.12, 0, -side * ((o.tagLean ?? 0.36) + (o.tagSag ? (o.tagSag.amp ?? 0.35) * sag : 0)) + (o.tagSway ?? 0.07) * Math.sin(t * (o.tagRate ?? 4.2) + (o.tagPhase ?? 0)) + KA * kickOf(kicks, t)); }
+      if (sewn && SST) { sewn.visible = t >= o.sewn; let n = 0, last = -1e9; for (const ts of SST) if (t >= ts) { n++; last = ts; } const f = n / SST.length, v = t - last, snap = n ? 0.25 * Math.exp(-12 * v) * Math.cos(30 * v) : 0;
+        sewn.rotation.z = -0.12 + (1 - f) * 0.85 + snap * 0.4; sewn.position.set(sewP.x + (1 - f) * 0.05, sewP.y - (1 - f) * 0.07, sewP.z + (1 - f) * 0.02); sewn.scale.setScalar(1 + 0.3 * snap); }
+      else if (sewn) { const v = t - o.sewn; sewn.visible = v >= 0; if (v >= 0) sewn.scale.setScalar(1 + 0.4 * Math.exp(-10 * v) * Math.cos(28 * v)); }
     };
     g.userData.update(-1); return g;
   },
@@ -103,11 +120,22 @@ export const PULL_PROPS = {
   // (review 1) An oversized sewing needle with its thread (attach to the hand; the needle points along +Y from the grip, 0.34 m at s 1): a steel
   // needle with an eye, and a red thread (o.color) that leaves the eye and hangs: it bends toward the ground whatever way the hand turns the
   // needle, and sways
+  // (final pass) o.to [x, y, z] (world) and o.taut [[t0, t1], ...]: in those windows the thread runs from the eye to that point (the label being
+  // sewn) in a shallow arc, pulled tight (a thread that only hung read as jabbing near the label, never into it)
   sewNeedle(o) {
     const s = o.s ?? 1, g = grp(at(cyl(0.005 * s, 0.02 * s, 0.34 * s, '#DCE1E6', 6, { outline: 0.006 }), 0, 0.12 * s, 0), at(box(0.05 * s, 0.07 * s, 0.012 * s, '#DCE1E6', { outline: 0.005 }), 0, -0.07 * s, 0));
     const n = 6, segs = Array.from({ length: n }, () => { const m = box(0.016 * s, 0.075 * s, 0.016 * s, o.color || '#C8322A'); g.add(m); return m; });
-    const q = new THREE.Quaternion(), dn = new THREE.Vector3(), dir = new THREE.Vector3(), Y = new THREE.Vector3(0, 1, 0), p = new THREE.Vector3();
+    const q = new THREE.Quaternion(), dn = new THREE.Vector3(), dir = new THREE.Vector3(), Y = new THREE.Vector3(0, 1, 0), p = new THREE.Vector3(), tg = new THREE.Vector3(), a0 = new THREE.Vector3(), a1 = new THREE.Vector3();
+    const tautAt = t => (o.taut || []).find(w => t >= w[0] && t <= w[1]);
     g.userData.update = t => {
+      const win = o.to ? tautAt(t) : null;
+      if (win) { g.updateWorldMatrix(true, false); tg.set(o.to[0], o.to[1], o.to[2]); g.worldToLocal(tg); p.set(0, -0.1 * s, 0);
+        const L = p.distanceTo(tg), sagK = 0.12 * L * (1 - Math.min(1, (t - win[0]) / 0.08));   // it snaps tight in the first frames
+        g.getWorldQuaternion(q); dn.set(0, -1, 0).applyQuaternion(q.invert());
+        segs.forEach((m, i) => { const u0 = i / n, u1 = (i + 1) / n; a0.copy(p).lerp(tg, u0).addScaledVector(dn, sagK * 4 * u0 * (1 - u0)); a1.copy(p).lerp(tg, u1).addScaledVector(dn, sagK * 4 * u1 * (1 - u1));
+          dir.copy(a1).sub(a0); const l = dir.length(); m.position.copy(a0).add(a1).multiplyScalar(0.5); m.quaternion.setFromUnitVectors(Y, dir.multiplyScalar(1 / Math.max(1e-5, l))); m.scale.set(0.7, l / (0.075 * s), 0.7); });
+        return; }
+      segs.forEach(m => m.scale.set(1, 1, 1));
       g.getWorldQuaternion(q); dn.set(0, -1, 0).applyQuaternion(q.invert());   // the world's down, in the needle's own frame
       p.set(0, -0.1 * s, 0);
       segs.forEach((m, i) => { const k = (i + 1) / n; dir.set(0.3 * Math.sin(t * 6 + i * 0.7) * k, -1, 0).normalize().lerp(dn, Math.min(1, 0.3 + 0.9 * k)).normalize();
