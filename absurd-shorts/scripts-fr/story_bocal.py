@@ -153,7 +153,7 @@ FP1 = [0.0, 0, r(JAWP()[2] - 0.2)]; P2 = lambda d=0.0: [-0.52, 0, r(-1.2 - d)]
 HEAVE5 = [(0.42, 0.04, 0.2, 0.4), (0.84, 0.08, 0.34, 0.7), (1.28, 0.13, 0.5, 1.0)]   # (when, how far the jar is dragged, how far back he leans, how far the arms bow)
 F5 = lambda p: {'lid': r(0.6 + 0.3 * p), 'mouth': 'clench', 'brow': -0.9, 'cheeks': r(0.4 + 0.6 * p), 'blush': r(min(1.0, 0.5 + 0.6 * p)), 'vein': 1.0, 'sweat': 1.0 if p > 0.5 else 0.0}
 PULL5 = lambda d, lean, f, sq=None: {'reach': {'R': [*GR5(d), 1, 0.03], 'L': [*GL5(d), 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'lay': [r(-lean), 0.0], 'face': f, **({'sq': sq} if sq else {})}
-HUG5 = lambda d, f, sq=None: {'reach': {'L': [0.11, r(TH + 0.15), r(JAR5[2] + 0.07 - d), 1, 0.03], 'R': [0.04, r(TH + 0.13), r(JAR5[2] - 0.12 - d), 1, 0.03]}, 'hands': {'L': 'grip', 'R': 'grip'}, 'bend': {'spine': [0.55, 0, 0, 1, None]}, 'face': f, **({'sq': sq} if sq else {})}
+HUG5 = lambda d, f, sq=None: {'reach': {'L': [0.11, r(TH + 0.15), r(JAR5[2] + 0.07 - d), 1, 0.03], 'R': [0.04, r(TH + 0.13), r(JAR5[2] - 0.12 - d), 1, 0.03]}, 'hands': {'L': 'grip', 'R': 'grip'}, 'bend': {'spine': [0.72, 0, 0, 1, None]}, 'face': f, **({'sq': sq} if sq else {})}
 K5A = [k(0.0, look=[LID5[0], LID5[1], LID5[2]]), k(0.0, toon=PULL5(0.0, 0.04, {'lid': 0.4, 'mouth': 'line', 'brow': -0.5}), toonDur=0.0)]
 K5B = [k(0.0, look=[LID5[0], LID5[1], LID5[2]]), k(0.0, toon=HUG5(0.0, {'lid': 0.5, 'mouth': 'line'}), toonDur=0.0)]
 KJ5, KT5, BOW5 = [], [], [[0.0, 0.0]]
@@ -189,15 +189,16 @@ st.shot('S06', 'kitchenDay', actors=[
                           'face': {'lid': 0.0, 'pop': 1.0, 'popLen': 0.22, 'mouth': 'O', 'brow': 1.0, 'noBlink': 1}}, toonDur=0.12),
             k(r(BRK6 + 0.75), toon={'hands': {'R': 'spread', 'L': 'spread'}, 'lay': [-0.12, 0.0], 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 0.8}}, toonDur=0.2), k(r(BRK6 + 0.8), look='camera')]),
         act('pompier2', P2(D6M), 48, 'stand', 'neutral', keys=[k(0.0, look=[LID5[0], LID5[1], LID5[2]]), k(0.0, toon=HUG5(D6M, {'lid': 0.95, 'mouth': 'wavy', 'sweat': 1.0}), toonDur=0.0),
-            k(r(BRK6 + 0.04), toon={'reach': {'L': [-0.2, 1.5, -0.75, 1, 0.03], 'R': [-0.5, 1.5, -0.95, 1, 0.03]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'sq': [0.93, 1.1, 0.93], 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.06, toonEase='out'),
-            k(r(BRK6 + 0.3), toon={'reach': {'L': [-0.2, 1.4, -0.8, 1, 0.03], 'R': [-0.5, 1.4, -1.0, 1, 0.03]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'sq': [1.03, 0.97, 1.03], 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.12),
-            k(r(BRK6 + 0.55), look=[JAR5[0], r(TH + 0.2), JAR5[2]]), k(r(BRK6 + 0.95), look='camera', lookDur=0.12),
-            k(r(BRK6 + 0.95), toon={'hands': {'L': 'rest', 'R': 'rest'}, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.4}}, toonDur=0.15)])],
+            k(r(BRK6 + 0.04), toon={'touch': {'R': ['face', -0.12, 0.5, 0.0, 1, 0.02], 'L': ['face', 0.12, 0.5, 0.0, 1, 0.02]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'sq': [1.22, 0.6, 1.22], 'face': {'lid': 1.0, 'mouth': 'clench', 'brow': -0.8}}, toonDur=0.06, toonEase='out'),   # he ducks, flat as a pancake, hands on his helmet
+            k(r(BRK6 + 0.3), toon={'touch': {'R': ['face', -0.12, 0.5, 0.0, 1, 0.02], 'L': ['face', 0.12, 0.5, 0.0, 1, 0.02]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'sq': [1.14, 0.7, 1.14], 'face': {'lid': 1.0, 'mouth': 'clench', 'brow': -0.8}}, toonDur=0.12),
+            k(r(BRK6 + 0.62), toon={'touch': {'R': ['face', -0.12, 0.5, 0.0, 1, 0.02], 'L': ['face', 0.12, 0.5, 0.0, 1, 0.02]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'sq': [1.1, 0.78, 1.1], 'face': {'lid': 0.2, 'mouth': 'wavy', 'brow': 0.6}}, toonDur=0.12),   # and peeks
+            k(r(BRK6 + 0.62), look=[JAR5[0], r(TH + 0.2), JAR5[2]]), k(r(BRK6 + 0.95), look='camera', lookDur=0.12),
+            k(r(BRK6 + 0.95), toon={'hands': {'L': 'rest', 'R': 'rest'}, 'sq': [1.04, 0.9, 1.04], 'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.4}}, toonDur=0.15)])],
         props=[P('table6', 'table', pos=T5, opts={'w': 1.0, 'd': 0.7, 'h': TH}),
                P('jar6', 'picklesJar', pos=[JAR5[0], JAR5[1], r(JAR5[2] - D6M)], scale=JS, opts={'shake': [[0.0, BRK6]]}, keys=[k(BRK6, to=JAR5, dur=0.1, ease='out'), k(r(BRK6 + 0.08), squash=[1.12, 0.9, 1.12], dur=0.35)]),
                P('pince6', 'bigJaws', pos=JAWP(D6M), ry=JRY, opts={'s': JS5, 'vertical': True, 'open': [[0.0, -0.12]], 'bow': [[0.0, 1.0], [BRK6, 1.3]], 'breakAt': BRK6},
                  keys=[k(BRK6, to=[JAWP()[0], 0.14, r(JAWP()[2] - 0.55)], dur=0.3, ease='in'), k(BRK6, rotTo=[0.0, 0.0, 1.3], dur=0.3)]),   # the body drops behind the table
-               BURST('crac6', [0.5, r(TH + 0.8), -0.7], r(BRK6 + 0.02), 'CRAC !', 0.5, 0.34)],
+               BURST('crac6', [0.3, r(TH + 0.92), -0.7], r(BRK6 + 0.02), 'CRAC !', 0.46, 0.34)],
         cams=[FC(0.0, [0.3, 1.05, 1.0], [[JAR5[0], TH, r(JAR5[2] + 0.12)], bodyPt([0.0, 0, r(FP1[2] - 0.45)], 0, -0.4, 0.0, 2.38), [0.62, r(TH + 1.0), -0.7], [-0.5, r(TH + 0.9), -0.7], [0.0, 2.4, FP1[2]]],
                  top=0.2, bottom=0.76, lenses=range(26, 66))])   # (stills 1 of pass 3) from the left, the fireman who hugs the jar hid the one thrown back
 st.cue('sfx:crunch', 'S06', BRK6, 0.45); st.cue('clang', 'S06', r(BRK6 + 0.3), 0.2)
@@ -388,7 +389,7 @@ st.cue('sfx:shutter', 'S14', 0.52, 0.2); st.cue('sfx:shutter', 'S14', 1.8, 0.18)
 
 # 15: then his grandmother came by. Low, three-quarter front: a little old lady with her handbag trots in toward us, straight to the case, smiling
 #     at us; she stops, reaches up and lifts the glass off the jar and puts it aside (review 2: far away, faceless; the glass lift is here now)
-D15 = st.dur('S15'); NAN15 = [2.95, 0, -1.0]; NAN16 = [0.56, 0, -1.3]; ARR15 = 1.0; LIFT15 = 1.1; MEC16 = [0.05, 0, -2.2]; GAR16 = [-0.45, 0, -2.32]
+D15 = st.dur('S15'); NAN15 = [2.95, 0, -1.0]; NAN16 = [0.56, 0, -1.3]; ARR15 = 1.0; LIFT15 = 1.1; MEC16 = [-0.12, 0, -2.2]; GAR16 = [-0.74, 0, -2.32]
 COVT = [0.14, r(0.95 + 0.6), -1.08]                              # the near top corner of the glass
 NANU = lambda p_, f, hr='grip', **kw: {'reach': {'R': [*p_, 1, 0.03]}, 'hands': {'R': hr, 'L': 'grip'}, 'face': f, **kw}
 C15 = [-1.35, 1.0, 0.25]
@@ -420,7 +421,7 @@ st.shot('S16', 'mairie', setOpts=MUSEE, actors=[
         act('mamie', NAN16, -22, 'stand', 'happy', keys=[k(0.0, look='camera'), k(0.0, toon=NANF([0.16, r(LIDC[1] + 0.06), -1.14], 'pinch', SMILE), toonDur=0.0),
             k(COCK16, toon=NANF([0.25, r(LIDC[1] + 0.13), -1.08], 'pinch', SMILE, sq=[1.02, 0.98, 1.02]), toonDur=0.08, toonEase='out'),          # the wrist cocks (held four frames)...
             k(r(POP16 - 0.04), toon=NANF([0.1, r(LIDC[1] + 0.1), -1.16], 'point', {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}), toonDur=0.04, toonEase='in'),   # ...one flick...
-            k(r(POP16 + 0.02), toon=NANF([0.32, r(LIDC[1] + 0.3), -1.05], 'point', {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}), toonDur=0.1, toonEase='out'),   # ...and the follow-through, a finger up
+            k(r(POP16 + 0.02), toon=NANF([0.34, r(LIDC[1] + 0.2), -1.04], 'point', {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}), toonDur=0.1, toonEase='out'),   # ...and the follow-through, a finger up
             k(r(POP16 + 0.4), toon=NANF([0.26, 1.2, -1.1], 'rest', SMILE), toonDur=0.25),
             k(r(POP16 + 0.62), toon=NANF([0.26, 1.2, -1.1], 'rest', {'lid': 1.0, 'mouth': 'smile'}), toonDur=0.07), k(r(POP16 + 0.76), toon=NANF([0.26, 1.2, -1.1], 'rest', SMILE), toonDur=0.1),   # a slow blink at us
             k(r(POP16 + 0.9), toon={'hands': {'R': 'rest', 'L': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile', 'brow': 0.2}, 'sq': [1.0, 1.0, 1.0]}, toonDur=0.15)]),
@@ -437,8 +438,8 @@ st.shot('S16', 'mairie', setOpts=MUSEE, actors=[
         props=[P('vitrine16', 'displayCase', pos=CASE, opts={**CASEO, 'noCover': True}),
                P('jar16', 'picklesJar', pos=JAR14, scale=JS14, opts={'openAt': POP16, 'lidFace': True, 'lidOut': True, 'lidArc': 0.3, 'lidFar': -0.45, 'lidZ': 0.5, 'lidFly': 0.4, 'lidSize': 1.15, 'hops': [[POP16, 0.008]]}),
                P('sac16', 'briefcase', on={'actor': 'mamie', 'hand': 'L', 'offset': [0.0, -0.1, 0.03]}, scale=0.55),
-               BURST('pop16', [-0.04, r(LIDC[1] + 0.2), -1.12], r(POP16 + 0.01), 'POP !', 0.32, 0.34)],
-        cams=[FC(0.0, [0.3, 1.4, 1.5], [[-0.62, 2.47, -2.32], [0.86, 1.5, NAN16[2]], [NAN16[0], 2.14, NAN16[2]], [0.0, 0.93, -0.9], [-0.14, 1.3, -1.2], [0.2, 2.44, -2.2]], top=0.12, bottom=0.76, drift=(0.0, 0.0, -0.1))])
+               BURST('pop16', [-0.02, r(LIDC[1] + 0.22), -1.12], r(POP16 + 0.06), 'POP !', 0.32, 0.34)],
+        cams=[FC(0.0, [0.3, 1.4, 1.5], [[-0.9, 2.47, -2.32], [0.86, 1.5, NAN16[2]], [NAN16[0], 2.14, NAN16[2]], [0.0, 0.93, -0.9], [-0.14, 1.3, -1.2], [0.2, 2.44, -2.2]], top=0.12, bottom=0.76, drift=(0.0, 0.0, -0.1))])
 st.cue('sfx:pop', 'S16', POP16, 0.45)
 
 # 17: he doesn't like pickles. Close on him: he holds the open jar she gave him, looks down into it, then at us, deadpan; a slow blink; he hands it back
