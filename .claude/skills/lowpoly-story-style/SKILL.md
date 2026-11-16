@@ -1758,3 +1758,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 43) `kitchenDay` : la suspension à y 2,7 bloque toute caméra placée au-dessus de la table.
 - (cycle 43) Passer `story_kit.project()` sur CHAQUE caméra avant les images de contrôle : trois cadrages calculés à l'œil (S14, S15, S17 de
   « La guêpe ») étaient hors champ ou bouchés.
+- (cycle 43) Un brouillon mis en file derrière un rendu final peut attendre une heure son créneau : la limite de 2 h d'une tâche de fond compte
+  aussi l'attente, et l'arrêt de la tâche ferme le navigateur du rendu (« Target page, context or browser has been closed » vers 80 %). Lancer
+  les chaînes longues détachées (`setsid nohup bash chain.sh > log 2>&1 < /dev/null &`) et les surveiller par un guetteur séparé qui attend le
+  mot READY dans le journal.
