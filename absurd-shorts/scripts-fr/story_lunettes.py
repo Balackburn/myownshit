@@ -113,15 +113,16 @@ st.cue('sfx:click', 'S04', 0.05, 0.15); st.cue('sfx:ding', 'S04', 0.2, 0.15); st
 #    glasses, a ring of thumb and finger in front of each wide eye, twice; the officer's eyes go up to the glasses on his head (glint), hold there,
 #    go back down, and he writes
 D5 = st.dur('S05'); ME5 = [-1.75, 0, -2.3]; OFF5 = [-2.7, 0, -2.75]; GLP5 = [ME5[0], 2.35, ME5[2]]
-RINGS = lambda b: {'touch': {'R': ['face', -0.47, 0.6, 0.05, 1, 0.0, [-1.0, 0.1, 0.2]], 'L': ['face', 0.47, 0.6, 0.05, 1, 0.0, [1.0, 0.1, 0.2]]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, 'face': {'lid': 0.15, 'low': 0.35, 'brow': b, 'mouth': 'o'}}
+RING5 = lambda a, b=0.4: {'touch': {'R': ['face', r(-0.2 - 0.1 * math.cos(a)), r(0.62 + 0.13 * math.sin(a)), 0.16, 1, 0.05], 'L': ['face', r(0.2 + 0.1 * math.cos(a)), r(0.62 + 0.13 * math.sin(a)), 0.16, 1, 0.05]}, 'hands': {'R': 'point', 'L': 'point'}, 'face': {'lid': 0.15, 'low': 0.35, 'brow': b, 'mouth': 'o'}}   # (stills r3b) a fingertip circling each eye: hands held still at the face read as a salute, then as hands on his head
 st.shot('S05', 'policeStation', actors=[
-        act('mec', ME5, -40, 'stand', 'neutral', keys=[k(0.0, look=[-2.3, 1.7, -1.2]), k(0.0, toon={'face': SQUINT}, toonDur=0.0), k(0.1, toon=RINGS(0.4), toonDur=0.12, toonEase='out'),
-            *[k(r(0.32 + 0.18 * j), toon={**RINGS(r(0.3 + 0.4 * (j % 2))), 'sq': [1.0, 1.04, 1.0] if j % 2 else [1.0, 0.97, 1.0]}, toonDur=0.08) for j in range(4)],
+        act('mec', ME5, -40, 'stand', 'neutral', keys=[k(0.0, look=[-2.3, 1.7, -1.2]), k(0.0, toon={'face': SQUINT}, toonDur=0.0), k(0.1, toon=RING5(PI / 2), toonDur=0.12, toonEase='out'),
+            *[k(r(0.22 + 0.09 * j), toon=RING5(PI / 2 + (j + 1) * PI / 2, r(0.3 + 0.3 * (j % 2))), toonDur=0.09, toonEase='linear') for j in range(8)],   # two circles round each eye: glasses!
             k(1.02, toon={'face': {**SQUINT, 'brow': 0.3, 'mouth': 'line'}}, toonDur=0.14)]),   # glasses! glasses!
         act('flic', OFF5, 0, 'sitWrite', 'unimpressed', keys=[k(0.0, look=[-2.6, 0.9, -2.1]), k(0.0, toon={'face': {'lid': 0.5, 'gy': 0.6, 'mouth': 'line'}}, toonDur=0.0),
             k(0.3, look=[r(GLP5[0] - 0.25), 2.2, r(GLP5[2] + 0.35)], lookDur=0.16), k(0.3, toon={'face': {'lid': 0.0, 'eye': 0.25, 'gy': -0.9, 'gx': 0.6, 'brow': 0.35, 'mouth': 'line', 'noBlink': 1}}, toonDur=0.14),   # up to the glasses...
             k(0.9, look=[-2.6, 0.9, -2.1], lookDur=0.14), k(0.9, toon={'face': {'lid': 0.5, 'gy': 0.6, 'mouth': 'line'}}, toonDur=0.12)])],                                      # ...a hold, and back to his form
-        props=[GL('gl5', glint=[0.52], fc=0.6)],   # (stills r3a) the set's own POLICE board is behind them
+        props=[GL('gl5', glint=[0.52], fc=0.6),
+               P('pol5', 'signBoard', pos=[-2.45, 2.85, -3.5], opts={'text': 'POLICE', 'bg': '#1B2A4A', 'fg': '#FFFFFF', 'w': 1.5, 'h': 0.42, 'posts': False, 'height': 0})],   # (stills r3b) the set's own board is out of this frame
         cams=[FC(0.0, [-1.25, 1.75, 0.5], [[GLP5[0], 2.62, GLP5[2]], [GLP5[0], 1.25, GLP5[2]], [-2.7, 1.8, -2.75], [-3.05, 0.95, -2.3], [-1.35, 1.9, -2.3]], top=0.14, bottom=0.76, inside=(-6.8, 6.8, 0.3, 3.4, -3.3, 13.0))])
 st.cue('sfx:ding', 'S05', 0.52, 0.15); st.cue('sfx:paper', 'S05', 1.05, 0.2)
 
@@ -186,7 +187,7 @@ st.cue('sfx:engine', 'S08', 0.05, 0.4); st.cue('sfx:ding', 'S08', r(PASS8 - 0.05
 #    over it, the nearest in the upper middle, each sweeping a saturated red fan down across the globe (review 1: the globe filled the whole frame
 #    behind one big satellite and read as a glitch of translucent triangles)
 D9 = st.dur('S09'); EARTH9 = [0.0, -9.0, -26.0]   # (stills 6) at -15 the globe filled the frame
-SATS9 = [('sat9', [-0.2, 1.75, -3.2], [0.32, 0.3, 0.0], 0.3, 34.0, 0.1), ('sat9b', [-1.9, 2.9, -10.0], [0.3, -0.5, 0.15], 0.22, 29.0, 0.3), ('sat9c', [2.2, 2.2, -12.0], [0.32, 0.7, -0.15], 0.22, 28.0, 0.2)]   # (pass 3, review 2) shorter fans that end on the globe with a lit footprint (they ran past the planet to the bottom of the frame, red through the captions)
+SATS9 = [('sat9', [-0.2, 1.75, -3.2], [0.32, 0.3, 0.0], 0.3, 7.0, 0.1), ('sat9b', [-1.9, 2.9, -10.0], [0.3, -0.5, 0.15], 0.22, 29.0, 0.3), ('sat9c', [2.2, 2.2, -12.0], [0.32, 0.7, -0.15], 0.22, 28.0, 0.2)]   # (pass 3, review 2) shorter fans that end on the globe with a lit footprint (they ran past the planet to the bottom of the frame, red through the captions)
 st.shot('S09', 'spaceDark', actors=[],
         props=[P('earth9', 'earthGlobe', pos=EARTH9, scale=7.0, opts={'spin': 0.06}),
                *[P(n_, 'satellite', pos=p_, rot=ro_, scale=s_, opts={'scan': [[t_, 9.0]], 'scanLen': L_, 'sweepDeg': 11, 'foot': True, 'fanOpacity': 0.34, 'fanBlend': 'normal', 'fanColor': '#FF2A1E', 'fanWidth': 0.11},   # (stills 7) narrow beams: wide ones hid the Earth
@@ -238,7 +239,7 @@ st.cue('sfx:click', 'S11', 0.3, 0.2); st.cue('sfx:click', 'S11', 0.65, 0.2); st.
 #    searcher crawls under a desk, legs sticking out; at the back on the right one holds the potted plant up and peers under the pot; and right at his
 #    face a savant inspects him through a big magnifying glass, one huge eye an inch under the glasses on his head; he leans away from it, squinting
 D13 = st.dur('S13'); MOIS = ['JANVIER', 'FÉVRIER', 'MARS', 'AVRIL', 'MAI', 'JUIN', 'JUILLET', 'AOÛT', 'SEPTEMBRE', 'OCTOBRE', 'NOVEMBRE', 'DÉCEMBRE']
-ME13 = [0.1, 0, -1.6]; DESK13 = [-1.2, 0, -0.75]; POT13 = [1.6, 1.9, -2.7]; SAV13 = [0.82, 0, -1.35]
+ME13 = [0.1, 0, -1.6]; DESK13 = [-1.2, 0, -1.15]; POT13 = [1.6, 1.9, -2.7]; SAV13 = [0.82, 0, -1.35]
 PLANTK = lambda f: {'reach': {'R': [r(POT13[0] - 0.16), r(POT13[1] + 0.16), POT13[2], 1, 0.03], 'L': [r(POT13[0] + 0.16), r(POT13[1] + 0.16), POT13[2], 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': f}
 AWAY13 = lambda f, b=-0.22: {'bend': {'spine': [b, 0.2, 0, 1, None], 'neck': [-0.1, 0.15, 0, 1, None]}, 'face': f}
 PEER13 = lambda b: {'bend': {'spine': [b, 0, 0, 1, None], 'neck': [-0.25, 0, 0, 1, None]}, 'touch': {'R': ['head', -0.2, 0.12, 0.3, 1, 0.0]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.0, 'eye': 0.3, 'brow': 0.6, 'mouth': 'o'}}
@@ -247,7 +248,7 @@ st.shot('S13', 'office', setOpts={'picture': False, 'carpet': False, 'printer': 
             k(0.3, look=[0.7, 2.0, -1.2], lookDur=0.12), k(0.3, toon=AWAY13({**SQUINT, 'brow': 0.4, 'mouth': 'wavy'}), toonDur=0.18, toonEase='out'),   # the big eye comes up to his face: he leans away from it
             k(1.2, look=[-1.0, 0.5, -0.7]), k(1.6, look='camera'), k(1.6, toon=AWAY13({**SQUINT, 'mouth': 'line'}, -0.12), toonDur=0.2),
             k(1.9, toon=AWAY13({**SQUINT, 'lid': 1.0, 'mouth': 'line'}, -0.12), toonDur=0.04), k(1.96, toon=AWAY13({**SQUINT, 'mouth': 'line'}, -0.12), toonDur=0.06)]),
-        act('cherch1', [-1.0, 0, -0.75], -90, 'crawl', 'neutral', keys=[k(0.0, look=[-1.8, 0.2, -0.75])]),   # his head under the desk, his legs out
+        act('cherch1', [-1.0, 0, -1.15], -90, 'crawl', 'neutral', keys=[k(0.0, look=[-1.8, 0.2, -1.15])]),   # (stills r3b) further back: at -0.75 his legs lay in the caption band   # his head under the desk, his legs out
         act('cherch2', SAV13, -105, 'stand', 'neutral', keys=[k(0.0, look=[ME13[0], 2.1, ME13[2]]), k(0.0, toon=PEER13(0.1), toonDur=0.0), k(0.2, toon=PEER13(0.38), toonDur=0.2, toonEase='out'),   # he leans right in
             k(1.1, toon=PEER13(0.3), toonDur=0.2), k(1.5, toon=PEER13(0.42), toonDur=0.2)]),
         act('cherch3', [1.6, 0, -3.0], -15, 'stand', 'neutral', keys=[k(0.0, look=[POT13[0], r(POT13[1] - 0.05), POT13[2]]), k(0.0, toon=PLANTK({'lid': 0.3, 'mouth': 'O', 'brow': 0.4}), toonDur=0.0),
@@ -255,7 +256,7 @@ st.shot('S13', 'office', setOpts={'picture': False, 'carpet': False, 'printer': 
         props=[GL('gl13', glint=[1.0], fc=0.3), P('cal13', 'shedCalendar', pos=[-0.92, 2.35, -3.52], opts={'months': MOIS, 'w': 0.95, 'h': 1.2, 'flipAt': 0.12, 'dur': 0.185, 'fly': [-0.55, -1.2, 2.3], 'life': 0.55}),   # (stills r3a) the pages fly off to the left: toward +x they crossed his face
                P('bureau13', 'table', pos=DESK13, opts={'w': 1.0, 'd': 0.62, 'h': 0.74}), P('plante13', 'plant', pos=POT13, scale=0.8, opts={'seed': 21}),
                P('loupe13', 'eyeLens', on={'actor': 'cherch2', 'joint': 'head', 'offset': [0.0, 0.33, 0.3], 'face': 'camera', 'faceAmt': 0.8}, opts={'r': 0.17, 'blink': [0.7, 1.75], 'look': [[0.0, -0.6, 0.3], [0.4, 0.7, 0.5], [0.9, -0.7, 0.6], [1.3, 0.6, 0.2], [1.8, 0.0, 0.7], [2.3, -0.5, 0.4]]})],
-        cams=[FC(0.0, [0.45, 1.6, 1.3], [[ME13[0], 2.65, ME13[2]], [-1.4, 2.95, -3.5], [r(POT13[0] + 0.05), 2.7, POT13[2]], [-0.3, 0.3, -0.75], [1.15, 1.0, -1.3]], top=0.1, bottom=0.8, lenses=range(26, 64))])   # (stills r3a) tighter: fitted on the far desk it backed off 2.25 m and half the frame was wall and floor
+        cams=[FC(0.0, [0.45, 1.6, 1.3], [[ME13[0], 2.65, ME13[2]], [-1.4, 2.95, -3.5], [r(POT13[0] + 0.05), 2.7, POT13[2]], [-0.3, 0.3, -1.15], [1.15, 1.0, -1.3]], top=0.1, bottom=0.78, lenses=range(26, 64))])   # (stills r3a) tighter: fitted on the far desk it backed off 2.25 m and half the frame was wall and floor
 st.cue('sfx:paper', 'S13', 0.15, 0.2); st.cue('sfx:paper', 'S13', 0.7, 0.2); st.cue('sfx:paper', 'S13', 1.25, 0.2); st.cue('sfx:paper', 'S13', 1.8, 0.2); st.cue('sfx:squeak', 'S13', 0.3, 0.15)
 
 # 14: yesterday a child found them. (pass 3, review 2: the boy seen from behind, the glasses edge-on and black on black hair, his finger ending a

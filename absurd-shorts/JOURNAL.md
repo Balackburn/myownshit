@@ -2845,3 +2845,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - Outil : `tools/review/round_config.py` prépare la config de la revue suivante et réécrit les descriptions de plans à partir des commentaires
   de mise en scène du script (`# N: phrase. mise en scène…`) : les critiques lisent ce que le plan montre maintenant. Tenir ces commentaires à
   jour à chaque passe.
+- 4 h 40 — « Le parcmètre » (75) : passe 3 terminée et relue sur images (héros de trois quarts dès l'accroche, « 400 ANS » dégagé sur l'écran,
+  ruban imprimé « 400 ANS » qui coule vers l'objectif, « 500 ANS » qui jaillit à l'horizontale et casquette du livreur en l'air, selfie de la
+  touriste). Point faible restant : au dernier plan le héros est plus petit que le livreur. Brouillon 3 en file, revue 3 préparée.
+  « La tondeuse » (70) : brouillon 3 prêt sans passage figé, revue 3 en cours.
