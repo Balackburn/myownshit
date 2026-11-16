@@ -2920,3 +2920,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   cache le téléphone au moment du « OUI », l'étirement de la chute n'est tenu que 0,2 s (celui du plan 7, plus faible, 0,47 s), les plans du
   milieu (défilé, classe, caméras) restent des tableaux raides, et les yeux sur tiges reprennent tels quels ceux d'un épisode précédent. Passe
   finale confiée à un agent dérivé.
+- 10 h 50 — File de rendu : après la limite d'un seul rendu final, les brouillons ne démarraient plus du tout pendant un rendu final (la série
+  des quatre finals dure environ huit heures). Les seuils sont relâchés d'un cran : un brouillon et une série d'images de contrôle peuvent
+  tourner à côté d'un rendu final (7 Go libres mesurés). Les brouillons 3 du « Parcmètre » et du « Bocal », perdus lors du redémarrage de la
+  session (le premier était à 420 images sur 495), sont remis en file.
