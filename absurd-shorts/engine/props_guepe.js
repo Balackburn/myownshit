@@ -223,7 +223,7 @@ export const GUEPE_PROPS = {
     g.userData.update = t => {
       radar.rotation.y = t * 3.2;
       spray.forEach((b, i) => { const f = (t * 1.7 + b.userData.ph) % 1, s = b.userData.s, a = 0.3 + 0.9 * ((i * 0.37) % 1);
-        b.position.set(s * (0.04 + 0.12 * f * a) * L, (0.01 + 0.09 * Math.sin(PI * f) * (0.6 + 0.4 * a)) * L, (0.47 - 0.12 * f - 0.05 * a) * L); b.scale.setScalar(0.5 + 1.4 * Math.sin(PI * Math.min(1, f * 1.2))); b.visible = f < 0.9; });
+        b.position.set(s * (0.04 + 0.12 * f * a) * L, (0.01 + 0.09 * Math.sin(PI * f) * (0.6 + 0.4 * a)) * L, (0.47 - 0.12 * f - 0.05 * a) * L); b.scale.setScalar(0.35 + 0.9 * Math.sin(PI * Math.min(1, f * 1.2))); b.visible = f < 0.9; });
       const hv = o.hatch ? (() => { let v = 0; for (const [tt, vv] of o.hatch) if (t >= tt) v = vv; return v; })() : 0; hl.rotation.x = -1.9 * hv;
       if (wake) { const p = wake.geometry.attributes.position; for (let i = 0; i < p.count; i++) { const y = p.getY(i), k = (y + L * 1.1) / (L * 2.2); p.setX(i, Math.sign(p.getX(i)) * B * (0.35 + 0.9 * (1 - k)) + 0.02 * L * Math.sin(y * 9 / L + t * 6)); }
         p.needsUpdate = true; wake.material.opacity = 0.75; bowW.scale.setScalar(1 + 0.08 * Math.sin(t * 9)); }
@@ -415,7 +415,7 @@ export const GUEPE_PROPS = {
     let wall = null; if (o.wall) { wall = grp(at(box(1.2, 1.7, 0.18, '#F6D7AE', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(box(1.2, 0.95, 0.02, '#9FD8C8', { pivot: 'bottom' }), 0, 0, 0.1), at(box(0.5, 0.5, 0.2, '#B5AC9A'), 0.45, 1.7, 0, 0.3, 0, 0.6));
       wall.position.set(-0.75, top, -0.7); g.add(wall); }
     if (o.snow) { for (let i = 0; i < 40; i++) { const a = rr() * TAU, d = Math.sqrt(rr()) * R * 0.95, y = Hh * Math.sqrt(Math.max(0, 1 - (d / R) ** 2)); const m = new THREE.Mesh(geo, mat('#F6F8FA')); m.position.set(Math.cos(a) * d, y, Math.sin(a) * d * 0.9); m.scale.set(0.35, 0.08, 0.35); g.add(m); } }
-    const puffs = []; if (o.dust) for (let i = 0; i < 10; i++) { const m = sphere(0.4, '#D8CFBA', 1, { unique: true, opacity: 0.85 }); m.castShadow = false; m.userData.a = i / 10 * TAU + rr() * 0.3; m.userData.ph = rr(); g.add(m); puffs.push(m); }
+    const puffs = []; if (o.dust) for (let i = 0; i < 10; i++) { const m = sphere(0.4, '#D8CFBA', 1, { unique: true, opacity: 0.85 }); noShadow(m); m.receiveShadow = false; m.userData.a = i / 10 * TAU + rr() * 0.3; m.userData.ph = rr(); g.add(m); puffs.push(m); }
     g.userData.update = t => {
       if (wall) { const u = t - o.wall[0]; wall.rotation.x = u <= 0 ? 0 : Math.min(PI / 2, 4.5 * u * u + 0.6 * u); }
       puffs.forEach(m => { const f = (t * 0.55 + m.userData.ph) % 1, a = m.userData.a, d = R * (0.55 + 0.6 * f); m.position.set(Math.cos(a) * d, Hh * 0.55 * (1 - f) + 0.2, Math.sin(a) * d * 0.9); m.scale.setScalar(0.6 + 1.6 * f); m.material.opacity = 0.85 * (1 - f); });
@@ -441,7 +441,7 @@ export const GUEPE_PROPS = {
     for (let i = 0; i < 12; i++) g.add(at(box(0.08 + rr() * 0.1, 0.05, 0.06 + rr() * 0.1, cols[i % cols.length]), (rr() - 0.5) * Wd * 0.9, 0.04, (rr() - 0.5) * Dp * 0.9, 0, rr() * 3, 0));
     if (o.snow) { for (let i = 0; i < 26; i++) g.add(at(box(0.3 + rr() * 0.8, 0.012, 0.3 + rr() * 0.7, '#F6F8FA'), (rr() - 0.5) * Wd, 0.026, (rr() - 0.5) * Dp, 0, rr() * 3, 0));
       for (let i = 0; i < 40; i++) { const m = new THREE.Mesh(geo, mat('#F6F8FA')); const side = i % 3; m.position.set(side === 2 ? Wd / 2 + 0.4 + rr() * 1.2 : -Wd / 2 - 0.2 + rr() * Wd, side === 0 ? 0.35 : 0.25, side === 0 ? -Dp / 2 - 0.6 - rr() : -Dp / 2 + rr() * Dp); if (side === 1) m.position.x = -Wd / 2 - 0.5 - rr(); m.scale.set(0.35, 0.1, 0.35); g.add(m); } }
-    const wisps = []; if (o.smoke) for (let i = 0; i < 9; i++) { const m = sphere(0.18, '#9A958E', 1, { unique: true, opacity: 0.6 }); m.castShadow = false; m.userData.x = [-Wd / 2 - 0.6, Wd / 2 + 0.8, 0.6][i % 3]; m.userData.z = [-0.3, 0.2, -Dp / 2 - 0.8][i % 3]; m.userData.ph = i / 9; g.add(m); wisps.push(m); }
+    const wisps = []; if (o.smoke) for (let i = 0; i < 9; i++) { const m = sphere(0.18, '#9A958E', 1, { unique: true, opacity: 0.6 }); noShadow(m); m.userData.x = [-Wd / 2 - 0.6, Wd / 2 + 0.8, 0.6][i % 3]; m.userData.z = [-0.3, 0.2, -Dp / 2 - 0.8][i % 3]; m.userData.ph = i / 9; g.add(m); wisps.push(m); }
     g.userData.update = t => { wisps.forEach(m => { const f = (t * 0.35 + m.userData.ph * 3) % 1; m.position.set(m.userData.x + 0.3 * Math.sin(t + m.userData.ph * 9), 0.3 + 2.4 * f, m.userData.z); m.scale.setScalar(0.6 + 2.0 * f); m.material.opacity = 0.55 * (1 - f); }); };
     g.userData.update(0); return g;
   },
@@ -466,7 +466,7 @@ export const GUEPE_PROPS = {
     g.userData.update = t => { const u = t - (o.at ?? 0), d = o.dur ?? 0.45, f = o.flat ?? 0.12;
       const k = u <= 0 ? 0 : Math.min(1, (u / d) ** 2); pv.scale.set(1 + 0.06 * k, 1 - (1 - f) * k, 1 + 0.06 * k); pv.rotation.z = u > 0 && u < d * 1.6 ? 0.05 * Math.sin(u * 14) * (1 - k * 0.5) : 0;
       deb.visible = u > d * 0.6;
-      if (sign) { const H0 = ((o.opts && o.opts.h) || 5) * 0.62, w = u <= 0 ? 0 : Math.min(1, (u / (d * 1.2)) ** 2), b = u > d * 1.2 ? 0.12 * Math.exp(-(u - d * 1.2) * 7) * Math.abs(Math.sin((u - d * 1.2) * 16)) : 0;
+      if (sign) { sign.visible = u > 0; const H0 = ((o.opts && o.opts.h) || 5) * 0.62, w = u <= 0 ? 0 : Math.min(1, (u / (d * 1.2)) ** 2), b = u > d * 1.2 ? 0.12 * Math.exp(-(u - d * 1.2) * 7) * Math.abs(Math.sin((u - d * 1.2) * 16)) : 0;
         sign.position.set(-0.3 * w, H0 * (1 - w) + 0.95 * w + b, ((o.opts && o.opts.d) || 4) / 2 + 0.3 + 0.9 * w); sign.rotation.set(-0.5 * w, 0, 0.08 * w); }
       puffs.forEach((m, i) => { const v = u < 0.18 ? -1 : (u - 0.18) / 1.4; m.visible = v >= 0 && v < 1; const a = m.userData.a, r = W * (0.4 + 0.5 * smooth(v * 1.5)); m.position.set(Math.cos(a) * r, 0.6 + 1.2 * v + 0.3 * (i % 3), Math.sin(a) * r * 0.6 + 0.8); m.scale.setScalar(0.6 + 1.8 * smooth(v * 2)); m.material.opacity = 0.9 * (1 - v); });
       if (flagG) { const PH = flagG.userData.PH, uf = u - 0.25; if (uf <= 0) { flagG.position.y = PH - 0.05; flagG.rotation.set(0, 0, 0); flagG.children.forEach((c, i) => { c.rotation.y = 0.2 * Math.sin(t * 5 + i); }); }
@@ -551,9 +551,9 @@ export const GUEPE_PROPS = {
     const geo = new THREE.DodecahedronGeometry(1, 0), rc = ['#C9C0AE', '#B5AC9A', '#D8CFBD', '#A79F8F', '#B9664E'];
     for (let i = 0; i < Math.round(len * 1.6); i++) { const s = 0.3 + rr() * 1.1, m = new THREE.Mesh(i % 9 === 0 ? new THREE.BoxGeometry(1, 0.25, 0.6) : geo, mat(o.snow && i % 3 === 0 ? '#F2F4F6' : rc[i % rc.length]));
       m.position.set(-len / 2 + rr() * len, s * 0.4, 0.4 + rr() * 2.8); m.scale.setScalar(s * (i % 9 === 0 ? 2.4 : 1)); m.rotation.set(rr() * 3, rr() * 3, rr() * 3); m.castShadow = m.receiveShadow = true; g.add(m); }
-    const puffs = []; for (const [sx, sz] of (o.smoke || [])) for (let i = 0; i < 12; i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 2), new THREE.MeshLambertMaterial({ color: '#8E8984', transparent: true, opacity: 0.8, depthWrite: false }));
+    const puffs = []; for (const [sx, sz] of (o.smoke || [])) for (let i = 0; i < 12; i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 2), new THREE.MeshLambertMaterial({ color: '#BDB7AF', emissive: new THREE.Color('#77726B'), emissiveIntensity: 0.6, transparent: true, opacity: 0.7, depthWrite: false }));
       m.castShadow = false; m.userData.x = sx; m.userData.z = sz; m.userData.ph = i / 12; g.add(m); puffs.push(m); }
-    g.userData.update = t => { puffs.forEach(m => { const f = (t * 0.12 + m.userData.ph) % 1; m.position.set(m.userData.x + 2.5 * f + 0.6 * Math.sin(t * 0.7 + m.userData.ph * 9), 3 + 26 * f, m.userData.z - 1.5 * f); m.scale.setScalar(1.6 + 4.5 * f); m.material.opacity = 0.8 * (1 - f * f); }); };
+    g.userData.update = t => { puffs.forEach(m => { const f = (t * 0.12 + m.userData.ph) % 1; m.position.set(m.userData.x + 2.5 * f + 0.6 * Math.sin(t * 0.7 + m.userData.ph * 9), 3 + 26 * f, m.userData.z - 1.5 * f); m.scale.setScalar(1.0 + 3.0 * f); m.material.opacity = 0.7 * (1 - f * f); }); };
     g.userData.update(0); return g;
   },
 };

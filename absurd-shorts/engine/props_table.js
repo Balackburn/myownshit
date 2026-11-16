@@ -378,11 +378,12 @@ export const TABLE_PROPS = {
   },
 
   // (review 2) The giant rubber stamp of « La table basse » (pivot at its knob, the red face 0.38 m below, facing -Y): a brown knob and neck, a dark
-  // wooden block and a red rubber face; o.squash [[t, v], ...]: the block squashes down onto its face (v 1: 25 % shorter, 15 % wider) on contact
+  // wooden block and a red rubber face; o.squash [[t, v], ...]: the block squashes down onto its face (v 1: 25 % shorter, 15 % wider) on contact;
+  // (review 3) o.block: the block's colour (seen from behind against a wall, the dark block read as a black television), o.knob: the knob's colour
   tableStamp(o) {
     const g = grp(), body = grp(); body.position.y = -0.38; g.add(body);   // the whole stamp hangs from its face, so a squash keeps the face in place
-    body.add(at(sphere(0.07, '#5A3A28', 1), 0, 0.38, 0), at(cyl(0.035, 0.05, 0.2, '#6B4A32', 8, { outline: 0.004 }), 0, 0.25, 0));
-    body.add(at(box(0.34, 0.1, 0.24, '#3A2A20', { outline: 0.008 }), 0, 0.08, 0), at(box(0.36, 0.012, 0.26, '#C9A24A'), 0, 0.035, 0), at(box(0.32, 0.03, 0.22, o.color || '#C8202A', { outline: 0.004 }), 0, 0.015, 0));
+    body.add(at(sphere(0.07, o.knob || '#5A3A28', 1), 0, 0.38, 0), at(cyl(0.035, 0.05, 0.2, '#6B4A32', 8, { outline: 0.004 }), 0, 0.25, 0));
+    body.add(at(box(0.34, 0.1, 0.24, o.block || '#3A2A20', { outline: 0.008 }), 0, 0.08, 0), at(box(0.36, 0.012, 0.26, '#C9A24A'), 0, 0.035, 0), at(box(0.32, 0.03, 0.22, o.color || '#C8202A', { outline: 0.004 }), 0, 0.015, 0));
     g.userData.update = t => { const v = keyAt(o.squash, t, 0); body.scale.set(1 + 0.15 * v, 1 - 0.25 * v, 1 + 0.15 * v); };
     g.userData.update(0); return g;
   },
