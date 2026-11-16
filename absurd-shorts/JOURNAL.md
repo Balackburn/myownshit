@@ -2905,3 +2905,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   le rendu final de « L'ascenseur », lancé en même temps, est arrêté et remis en file ; les rendus finaux passent maintenant l'un après l'autre
   (les lunettes, puis la tondeuse relancée, puis l'ascenseur) ; les deux files de rendu (`runq4.sh`, `runqP.sh`) comptent un rendu final pour
   trois rendus, si bien qu'aucun brouillon ne démarre pendant un rendu final et qu'une seule série d'images de contrôle peut l'accompagner.
+- 9 h 40 — « Le bus » (72) : passe 3 terminée et relue sur images (vraies motos de gendarmerie avec gyrophares, dossard claqué sur la poitrine,
+  chronomètre du ministre à la place du deuxième pouce levé, peloton qui arrive par la route de l'ARRIVÉE et vire, nouille qui ondule et casse,
+  montagne de 120 chaussures, Italie avec cyprès et pins parasols, Rome avec façades ocre et dôme). Les façades romaines avaient des textures
+  trop grandes : un rendu d'images a planté ; textures divisées par quatre, contrôle refait sans plantage. Brouillon 3 en file, revue 3 préparée.
