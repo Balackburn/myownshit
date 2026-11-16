@@ -1772,3 +1772,6 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   à plat avec `rotTo` (un arc de marteau).
 - (cycle 42) Un gardien qui pousse quelqu'un par une porte se tient À CÔTÉ de l'embrasure, jamais derrière la personne : sinon les deux têtes
   s'empilent à l'image.
+- (cycle 43) Personnage noirci par une explosion (laser, bombe, four) : de la SUIE gris charbon avec des taches et des bords irréguliers, la
+  peau d'origine visible par endroits, des cheveux en pétard qui fument. Jamais une teinte brune uniforme sur tout le visage : elle se lit comme
+  un changement de couleur de peau, pas comme de la suie (vu sur le savant du « Bocal »).
