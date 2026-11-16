@@ -2896,3 +2896,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   commandes ne répondait plus au milieu de la passe). Nouvelle barbe d'un seul bloc effilé (`beardMass`, toujours suspendue au menton), vote avec
   le président derrière sa table et le bras qui se déroule en S, canne qui tombe sur la main de l'enfant, face-à-face en miroir, escalier avec
   rampe. Rendu final en file après « La tondeuse » et « Les lunettes ».
+- 9 h 20 — « Le pull » (74) : revue 3 = 7,2 (animation) ; 7,6 (direction artistique), la meilleure note du lot. Reste pour la passe finale : au
+  dernier plan l'étiquette reprend sa petite taille pile sur « À vie » (elle doit garder la grande taille du plan 18), le coup d'œil du policier
+  entre ses doigts ne se lit pas, les cous des passants s'étirent trop peu, la vague d'étiquettes s'empile au centre au lieu de partir en
+  profondeur. Passe finale confiée à un agent dérivé.
