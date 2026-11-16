@@ -101,6 +101,37 @@ export const LUNETTES_PROPS = {
     return g;
   },
 
+  // (pass 3 of 69) A sitting dog that stares (pivot on the ground under its rump, facing +Z; about 0.75 m to the top of the head): o.body
+  // ('#8A6A4A'), o.ear ('#5E4630'), o.collar ('#F2C94E'). It sniffs the ground in front of it; at o.sitAt its rump drops with a squash; at o.lookAt
+  // the neck stretches up and the nose goes up (o.up: rad, 0.85); at o.tiltAt the head tilts o.tilt (0.55 rad) and the ears flop after it; at
+  // o.backAt it goes back to sniffing. The tail wags all along. (The engine's four-legged creatures have no head keys: their look is fixed by the clip)
+  stareDog(o) {
+    const C = o.body || '#8A6A4A', E = o.ear || '#5E4630', ol = { outline: 0.012 }, g = grp(), all = grp(); g.add(all);
+    const body = grp(at(box(0.27, 0.3, 0.56, C, ol), 0, 0, 0)); body.position.set(0, 0.33, 0.04); body.rotation.x = -0.85; all.add(body);
+    all.add(at(box(0.3, 0.2, 0.3, C, ol), 0, 0.11, -0.14));
+    for (const sd of [-1, 1]) all.add(at(box(0.075, 0.4, 0.075, C, ol), sd * 0.085, 0.2, 0.24), at(box(0.09, 0.06, 0.2, C, ol), sd * 0.13, 0.03, -0.02));
+    const tail = grp(at(box(0.05, 0.26, 0.05, C, ol), 0, 0.13, 0)); tail.position.set(0, 0.16, -0.3); all.add(tail);
+    const neck = grp(); neck.position.set(0, 0.5, 0.22); all.add(neck);
+    const nk = at(box(0.15, 0.16, 0.15, C, ol), 0, 0.08, 0); neck.add(nk, at(box(0.17, 0.045, 0.17, o.collar || '#F2C94E'), 0, 0.03, 0));
+    const head = grp(); neck.add(head);
+    head.add(at(box(0.25, 0.22, 0.25, C, ol), 0, 0.1, 0.02), at(box(0.14, 0.11, 0.17, C, ol), 0, 0.055, 0.21), at(box(0.06, 0.05, 0.04, '#1C1C20'), 0, 0.085, 0.3));
+    const ears = [-1, 1].map(sd => { const e = grp(at(box(0.03, 0.17, 0.13, E, ol), 0, -0.085, 0)); e.position.set(sd * 0.14, 0.2, -0.02); head.add(e); return e; });
+    for (const sd of [-1, 1]) { head.add(at(new THREE.Mesh(new THREE.CircleGeometry(0.036, 12), basic('#FFFFFF')), sd * 0.126, 0.14, 0.09, 0, sd * PI / 2, 0), at(new THREE.Mesh(new THREE.CircleGeometry(0.018, 10), basic('#15151A')), sd * 0.127, 0.15, 0.1, 0, sd * PI / 2, 0));
+      head.add(at(new THREE.Mesh(new THREE.CircleGeometry(0.034, 12), basic('#FFFFFF')), sd * 0.06, 0.15, 0.146), at(new THREE.Mesh(new THREE.CircleGeometry(0.017, 10), basic('#15151A')), sd * 0.06, 0.157, 0.147)); }
+    const sm = (a, d) => { const u = clamp01(a / d); return u * u * (3 - 2 * u); }, back = (a, d) => { const u = clamp01(a / d); return 1 + 2.2 * Math.pow(u - 1, 3) + 1.2 * Math.pow(u - 1, 2); };
+    g.userData.update = t => {
+      const tb = o.backAt ?? 1e9, lk = (o.lookAt == null ? 0 : back(t - o.lookAt, 0.22) * (t >= o.lookAt ? 1 : 0)) * (1 - sm(t - tb, 0.18)), tl = (o.tiltAt == null ? 0 : back(t - o.tiltAt, 0.2) * (t >= o.tiltAt ? 1 : 0)) * (1 - sm(t - tb, 0.15));
+      const sniff = 1 - Math.min(1, Math.max(0, lk)), su = o.sitAt == null ? 9 : t - o.sitAt, sq = su >= 0 && su < 0.5 ? 1 - 0.22 * Math.exp(-su * 9) * Math.cos(su * 22) : 1;
+      all.scale.set(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq)); all.position.y = su < 0 ? 0.1 : 0;
+      neck.rotation.x = 1.25 * sniff + 0.05 * sniff * Math.sin(t * 17); nk.scale.y = 1 + 1.3 * lk; nk.position.y = 0.08 * (1 + 1.3 * lk); head.position.y = 0.16 * (1 + 1.3 * lk) - 0.02;
+      head.rotation.set(-(o.up ?? 0.85) * lk + 0.25 * sniff, 0, (o.tilt ?? 0.55) * tl);
+      const lag = o.tiltAt == null ? 0 : (o.tilt ?? 0.55) * 0.9 * Math.exp(-Math.max(0, t - o.tiltAt) * 6) * Math.cos(Math.max(0, t - o.tiltAt) * 16) * (t >= o.tiltAt ? 1 : 0);
+      ears.forEach((e, i) => { e.rotation.z = -(o.tilt ?? 0.55) * tl * 0.8 + lag + (i ? -0.06 : 0.06); e.rotation.x = 0.5 * lk; });
+      tail.rotation.set(-0.6, 0, 0.5 * Math.sin(t * (lk > 0.5 ? 6 : 15)));
+    };
+    g.userData.update(0); return g;
+  },
+
   // A low-poly military helicopter facing +Z (pivot at its centre of mass, about 9 m long at scale 1): olive body, a glazed nose, the tail boom with
   // its rotor, skids, the main rotor turning (two blades and a pale blur disc), o.spin (rotor turns per second, 6); o.beam: a searchlight under the
   // nose, a soft cone down to o.beamLen (14 m) and o.beamR (2.2 m) wide at its end, swept by o.sweep [[t, deg about Y], ...] and tilted by o.tilt
@@ -141,6 +172,8 @@ export const LUNETTES_PROPS = {
     body.add(at(cyl(0.025, 0.025, 0.5, '#9AA0A6', 5), 0, -0.85, 0), at(cyl(0.02, 0.02, 0.9, '#9AA0A6', 5), 0.25, 0.95, 0.2));
     const L = o.scanLen ?? 6, fan = new THREE.Mesh(new THREE.ConeGeometry(L * (o.fanWidth ?? 0.35), L, 4, 1, true), new THREE.MeshBasicMaterial({ color: o.fanColor || '#FF4A3A', transparent: true, opacity: o.fanOpacity ?? 0.22, side: THREE.DoubleSide, depthWrite: false, blending: o.fanBlend === 'normal' ? THREE.NormalBlending : THREE.AdditiveBlending }));
     fan.scale.set(1, 1, 0.12); const fg = grp(); fan.position.y = -L / 2 - 1.0; fg.add(fan); g.add(fg);
+    // (pass 3 of 69) o.foot: a bright footprint where the fan ends (the beam stops on the ground instead of running on past the planet)
+    if (o.foot) { const ft = new THREE.Mesh(new THREE.CircleGeometry(L * (o.fanWidth ?? 0.35) * 1.05, 20), new THREE.MeshBasicMaterial({ color: o.footColor || '#FFD0C0', transparent: true, opacity: 0.75, side: THREE.DoubleSide, depthWrite: false })); ft.rotation.x = -PI / 2; ft.scale.set(1, 0.3, 1); ft.position.y = -L - 1.0; fg.add(ft); }
     g.userData.update = t => { fg.visible = inWin(o.scan, t); if (fg.visible) fg.rotation.z = (o.sweepDeg ?? 35) * PI / 180 * Math.sin(t * 3.2); body.rotation.y = 0.05 * Math.sin(t * 0.7); };
     g.userData.update(0); return g;
   },

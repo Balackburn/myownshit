@@ -143,14 +143,15 @@ export const CENTIME_PROPS = {
     for (const z of [-0.915, 0.915]) g.add(at(box(3.7, 0.045, 0.02, CH), 0, 0.9, z), at(box(3.9, 0.13, 0.012, LT), 0, 0.74, z), at(box(0.16, 0.035, 0.03, CH), 0.25, 0.82, z));
     g.add(at(box(1.5, 0.012, 1.5, LT), 1.2, 0.916, 0), at(box(2.6, 0.012, 1.4, LT), -0.25, 2.06, 0));
     for (const z of [-0.78, 0.78]) { g.add(rod([1.75, 0.9, z], [1.75, 1.46, z], 0.012, CH)); ['#2F62B5', '#F4F4F0', '#E0413A'].forEach((c, i) => g.add(at(box(0.1, 0.2, 0.012, c, { outline: 0.003 }), 1.69 - 0.1 * i, 1.35, z))); }
-    const x0 = -1.58, x1 = -0.3, dl = x1 - x0, hinge = grp(); hinge.position.set(x0, 0, side * 0.93);
+    // o.hingeFront: the leaf hangs from its FRONT edge (the usual way: for a camera behind the car); sx: which way the leaf runs from its hinge
+    const x0 = -1.58, x1 = -0.3, dl = x1 - x0, hf = !!o.hingeFront, sx = hf ? -1 : 1, hinge = grp(); hinge.position.set(hf ? x1 : x0, 0, side * 0.93);
     g.add(at(box(dl, 1.6, 0.012, '#20232B'), (x0 + x1) / 2, 1.16, side * 0.914));
-    const leaf = grp(at(box(dl, 0.58, 0.05, C, { outline: 0.008 }), dl / 2, 0.66, 0), at(box(dl, 0.045, 0.06, CH), dl / 2, 0.9, 0), at(box(0.16, 0.035, 0.07, CH), dl - 0.2, 0.82, 0), at(box(dl, 0.13, 0.054, LT), dl / 2, 0.74, 0));
-    const gl = new THREE.Mesh(new THREE.BoxGeometry(dl - 0.1, 0.98, 0.02), glassMat(go, gc)); gl.position.set(dl / 2, 1.46, 0); leaf.add(gl);
-    for (const x of [0.03, dl - 0.03]) leaf.add(at(box(0.06, 1.05, 0.05, C), x, 1.46, 0));
-    leaf.add(at(box(dl, 0.06, 0.05, C), dl / 2, 1.98, 0)); hinge.add(leaf); g.add(hinge);
+    const leaf = grp(at(box(dl, 0.58, 0.05, C, { outline: 0.008 }), sx * dl / 2, 0.66, 0), at(box(dl, 0.045, 0.06, CH), sx * dl / 2, 0.9, 0), at(box(0.16, 0.035, 0.07, CH), sx * (dl - 0.2), 0.82, 0), at(box(dl, 0.13, 0.054, LT), sx * dl / 2, 0.74, 0));
+    const gl = new THREE.Mesh(new THREE.BoxGeometry(dl - 0.1, 0.98, 0.02), glassMat(go, gc)); gl.position.set(sx * dl / 2, 1.46, 0); leaf.add(gl);
+    for (const x of [0.03, dl - 0.03]) leaf.add(at(box(0.06, 1.05, 0.05, C), sx * x, 1.46, 0));
+    leaf.add(at(box(dl, 0.06, 0.05, C), sx * dl / 2, 1.98, 0)); hinge.add(leaf); g.add(hinge);
     const ang = o.doorAngle ?? 1.25, dd = o.doorDur ?? 0.16;
-    g.userData.update = t => { let a = 0; if (o.doorAt != null) { const u = (t - o.doorAt) / dd; a = u <= 0 ? 0 : u < 1 ? ang * (1 - (1 - u) * (1 - u)) : ang * (1 + 0.08 * Math.exp(-(u - 1) * 3) * Math.cos((u - 1) * 9)); } hinge.rotation.y = -side * a; };
+    g.userData.update = t => { let a = 0; if (o.doorAt != null) { const u = (t - o.doorAt) / dd; a = u <= 0 ? 0 : u < 1 ? ang * (1 - (1 - u) * (1 - u)) : ang * (1 + 0.08 * Math.exp(-(u - 1) * 3) * Math.cos((u - 1) * 9)); } hinge.rotation.y = -sx * side * a; };
     g.userData.update(0); return g;
   },
 
