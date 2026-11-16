@@ -201,8 +201,8 @@ st.shot('S10', 'mairie', setOpts=MAIRIE, actors=[
         act('mec', GR, 5, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=FREE(), toonDur=0.0), FK(r(OUI10 + 0.1), {'lid': 0.3, 'mouth': 'line', 'gx': 0.8}), FK(r(OUI10 + 0.55), {**DEAD, 'mouth': 'line'}, 0.12),
             *BL(1.7, {**DEAD, 'mouth': 'line'})]),                                                                                       # one look aside at the yes, and back to us
         act('femme', BR10, -45, 'stand', 'happy', keys=[k(0.0, look=[-1.6, 1.8, 3.0]), k(0.0, toon=LEAN10(0.0, {'lid': 0.2, 'mouth': 'smile'}), toonDur=0.0),
-            k(0.05, toon=LEAN10(1.0, {'lid': 0.2, 'mouth': 'smile'}), toonDur=0.45, toonEase='inOut'),                                    # (pass 3) she bends to the phone, her mouth on it...
-            k(r(OUI10 - 0.14), toon=LEAN10(0.9, {'lid': 0.6, 'mouth': 'o'}, [1.04, 0.95, 1.04]), toonDur=0.1),                            # ...takes a breath...
+            k(0.26, toon=LEAN10(1.0, {'lid': 0.2, 'mouth': 'smile'}), toonDur=0.33, toonEase='inOut'),                                    # (pass 3) she bends to the phone, her mouth on it (later: earlier her head crossed his face while he still stood close)...
+            k(r(OUI10 - 0.13), toon=LEAN10(0.92, {'lid': 0.6, 'mouth': 'o'}, [1.04, 0.95, 1.04]), toonDur=0.08),                          # ...takes a breath...
             k(OUI10, toon=LEAN10(1.05, {'lid': 0.0, 'mouth': 'scream', 'brow': 0.8}, [0.95, 1.07, 0.95]), toonDur=0.05, toonEase='out'),  # ...OUI ! into it
             k(r(OUI10 + 0.4), toon=LEAN10(1.0, {'lid': 0.1, 'mouth': 'bigsmile'}), toonDur=0.15),
             k(r(OUI10 + 0.6), toon=LEAN10(0.3, {'lid': 0.1, 'mouth': 'bigsmile'}), toonDur=0.5, toonEase='inOut'),                        # she eases back up
@@ -222,7 +222,7 @@ HEART = lambda f: {'touch': {'R': ['torso', -0.08, 0.45, 0.25, 1, 0.02]}, 'hands
 SAL11 = 0.98                                                     # (pass 3) « l'hymne »: they all salute on it
 ATT = lambda f: {'face': f}                                      # at attention, arms down
 SALUTE = lambda f, up=0.0, sq=None: {'touch': {'R': ['head', -0.11, r(0.33 + up), 0.13, 1, 0.02, [-1, 0.35, 0.25]]}, 'hands': {'R': 'open'}, 'face': f, **({'sq': sq} if sq else {})}   # the right hand flat at the brow, the elbow out
-st.shot('S11', 'parisStreet', setOpts={'clear': [-8.0, 8.0], 'eiffelStyle': 'v2'}, actors=[
+st.shot('S11', 'parisStreet', setOpts={'clear': [-8.0, 8.0], 'eiffelStyle': 'v2', 'cloudSeed': 11}, actors=[   # (pass 3) other clouds: one sat on the pole
         act('mec', H11, 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=FREE(), toonDur=0.0),
             *SWAY(0.05, r(D11 - 0.1), 0.42, [(0.0, {**DEAD, 'mouth': 'line'}), (0.5, {'lid': 0.3, 'mouth': 'line', 'gx': 0.6, 'gy': -0.8}), (1.5, {**DEAD, 'mouth': 'line'})]),   # (pass 3) his head rocks on his anthem
             *BL(1.85, {**DEAD, 'mouth': 'line'})]),                                                                                       # his eyes follow his notes up, and come back to us
@@ -371,7 +371,7 @@ EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
 MEC = {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}}
 FIRE = {'preset': 'pompier', 'suit': '#23304E', 'pants': '#23304E', 'hatColor': '#E9EDF3', 'bandColor': '#F2D23C', 'bandH': 0.06,   # (pass 3) chrome helmets, yellow reflective bands (red ones read as nothing)
         'build': {'width': 1.05, 'headWidth': 1.2}, 'toon': EX}
-st.write("Le service client", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, debugJoints=['mec', OLD, 'femme'], extra_cast={
+st.write("Le service client", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, debugJoints=['mec', OLD], extra_cast={
     'mec': MEC, OLD: {**MEC, 'hairColor': '#80868F'},   # (pass 3) mid-grey: the pale grey read as a white bandage
     'pomp1': {**FIRE, 'seed': 731}, 'pomp2': {**FIRE, 'seed': 732},
     'femme': {'preset': 'femme', 'seed': 733, 'suit': '#F7F5EF', 'build': {'width': 0.92, 'headWidth': 1.25}, 'toon': EX},

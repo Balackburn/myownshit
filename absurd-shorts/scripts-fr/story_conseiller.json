@@ -4589,7 +4589,7 @@
        "toonDur": 0.0
       },
       {
-       "at": 0.05,
+       "at": 0.26,
        "toon": {
         "touch": {
          "R": [
@@ -4634,11 +4634,11 @@
          "mouth": "smile"
         }
        },
-       "toonDur": 0.45,
+       "toonDur": 0.33,
        "toonEase": "inOut"
       },
       {
-       "at": 0.61,
+       "at": 0.62,
        "toon": {
         "touch": {
          "R": [
@@ -4664,15 +4664,15 @@
         },
         "bend": {
          "spine": [
-          0.378,
-          0.27,
+          0.386,
+          0.276,
           0,
-          1.27,
+          1.276,
           null
          ],
          "neck": [
-          0.225,
-          0.18,
+          0.23,
+          0.184,
           0,
           1,
           null
@@ -4688,7 +4688,7 @@
          1.04
         ]
        },
-       "toonDur": 0.1
+       "toonDur": 0.08
       },
       {
        "at": 0.75,
@@ -6348,7 +6348,8 @@
      -8.0,
      8.0
     ],
-    "eiffelStyle": "v2"
+    "eiffelStyle": "v2",
+    "cloudSeed": 11
    },
    "grade": "none",
    "soften": 0.3
@@ -12599,7 +12600,6 @@
  "hairRest": 0.07,
  "debugJoints": [
   "mec",
-  "mecVieux",
-  "femme"
+  "mecVieux"
  ]
 }
