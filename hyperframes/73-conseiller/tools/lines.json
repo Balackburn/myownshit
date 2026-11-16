@@ -1,0 +1,134 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a appelé le service client.",
+  "hl": [
+   "service",
+   "client."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "On l'a mis en attente.",
+  "hl": [
+   "attente."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "La musique d'attente tourne depuis dix ans.",
+  "hl": [
+   "dix",
+   "ans."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Il connaît chaque note par cœur.",
+  "hl": [
+   "note"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Le téléphone a fini par se coller à son oreille.",
+  "hl": [
+   "coller"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Les pompiers l'ont déménagé avec.",
+  "hl": [
+   "pompiers"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Il s'est marié en attente.",
+  "hl": [
+   "marié"
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Sa femme a dit oui sur le haut-parleur.",
+  "hl": [
+   "oui"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "La musique est devenue l'hymne national.",
+  "hl": [
+   "l'hymne",
+   "national."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "La fanfare l'a jouée au défilé.",
+  "hl": [
+   "fanfare"
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Les enfants la sifflent à l'école.",
+  "hl": [
+   "sifflent"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Hier, quelqu'un a décroché.",
+  "hl": [
+   "décroché."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Il a pleuré de joie, en direct à la télé.",
+  "hl": [
+   "pleuré"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "La voix a dit : pour un conseiller, tapez un.",
+  "hl": [
+   "tapez",
+   "un."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Il a tapé un.",
+  "hl": [
+   "un."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "La musique a repris.",
+  "hl": [
+   "repris."
+  ]
+ }
+]
