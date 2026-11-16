@@ -161,8 +161,8 @@ st.shot('S05', 'grassland', actors=[act('mec', [0, 0, 0], 90, 'run', 'determined
         act('gend1', [-0.62, 0.57, -0.95], 90, 'ride', 'determined', params={'cadence': 0.0, 'lean': 0.3}, keys=[k(0.0, look=[12.0, 2.2, -0.95]), k(0.0, toon=BAR5(-0.35, -0.95, {'lid': 0.1, 'mouth': 'line'}), toonDur=0.0),
             k(0.35, look=[9.0, 1.6, -8.0], lookDur=0.22), k(0.95, look=[9.0, 1.6, 7.0], lookDur=0.3), k(1.6, look=[12.0, 2.2, -0.95], lookDur=0.22)]),   # (pass 3) he scans the road
         act('gend2', [-1.02, 0.57, 0.95], 90, 'ride', 'determined', params={'cadence': 0.0, 'lean': 0.3}, keys=[k(0.0, look=[12.0, 2.2, 0.95]), k(0.0, toon=BAR5(-0.75, 0.95, {'lid': 0.1, 'mouth': 'line'}), toonDur=0.0),
-            k(0.7, look='camera', lookDur=0.15), k(0.95, toon=BAR5(-0.75, 0.95, {'lid': 0.2, 'mouth': 'smirk'}, R=[-0.55, 2.3, 1.02, 1, 0.04], hR='thumbUp'), toonDur=0.14, toonEase='out'),
-            *[k(r(1.15 + 0.17 * i), toon=BAR5(-0.75, 0.95, {'lid': 0.2, 'mouth': 'smirk'}, R=[-0.55, r(2.3 + (0.09 if i % 2 == 0 else 0.0)), 1.02, 1, 0.04], hR='thumbUp'), toonDur=0.08) for i in range(5)]])],
+            k(0.7, look='camera', lookDur=0.15), k(0.95, toon=BAR5(-0.75, 0.95, {'lid': 0.2, 'mouth': 'smirk'}, R=[-0.55, 2.15, 1.35, 1, 0.04], hR='thumbUp'), toonDur=0.14, toonEase='out'),
+            *[k(r(1.15 + 0.17 * i), toon=BAR5(-0.75, 0.95, {'lid': 0.2, 'mouth': 'smirk'}, R=[-0.55, r(2.15 + (0.08 if i % 2 == 0 else 0.0)), 1.35, 1, 0.04], hR='thumbUp'), toonDur=0.08) for i in range(5)]])],
         props=[ROADS('road5', D5), *scroll(TREES('5', -6.5, -10.0, 26.0, 9), D5),
                *[P(f'moto5{j}', 'policeBike', pos=[gx, 0, gz], scale=MS5, opts={'roll': 40, 'phase': 1.7 * j}) for j, (_, gz, gx) in enumerate(G5)],
                STREAK('sl5', [-2.4, 1.5, 0.3], n=8, ln=2.2, w=1.0), *DUST('5')],
@@ -280,14 +280,14 @@ st.cue('whoosh', 'S10', 0.15, 0.25); st.cue('thud', 'S10', ON10, 0.25); st.cue('
 
 # 11: the driver, though... Inside the bus, behind the driver: his cap, his arms on the big wheel, whistling; (pass 2) the road and the trees
 #     stream toward us through the windscreen; (pass 3) notes puff out of his far cheek and his fingers drum on the wheel; (final pass) the camera
-#     moved to his right and over his shoulder, tilted down: his cap at the left edge, the wheel and his drumming hands mid-frame (they sat under the
-#     captions, hidden by the back of his head)
+#     moved round to three-quarter front from the door side: his whistling face at the top, the wheel and his drumming hands mid-frame (from behind,
+#     the back of his head hid them; the scenery streams in the side windows behind him)
 D11 = st.dur('S11')
 st.shot('S11', 'grassland', actors=[act('chauffeur', [2.75, 0.45, -0.5], 90, 'drive', 'neutral', keys=[k(0.0, look=[12.0, 2.2, -0.5]),
             *[k(r(0.1 + 0.18 * j), toon={'face': {'lid': 0.3, 'mouth': 'whistle', 'cheeks': 0.7 if j % 2 else 0.2}, 'sq': [1.0, 1.02 if j % 2 else 0.99, 1.0], 'hands': {'L': 'open' if j % 2 else 'grip', 'R': 'grip' if j % 2 else 'open'}}, toonDur=0.06) for j in range(6)]])],
         props=[ROADS('road11', D11), BUS('bus11', [0.0, 0, 0.0], 0), *scroll(TREES('11', -5.0, 8.0, 64.0, 10), D11), *scroll(TREES('11b', 5.0, 10.0, 66.0, 10), D11),
                P('notes11', 'holdNotes', on={'actor': 'chauffeur', 'joint': 'head', 'offset': [0.36, 0.3, 0.22], 'face': 'camera'}, opts={'rate': 4, 'life': 1.1, 'size': 0.15, 'dy': 0.45, 'dx': 0.4, 'from': -0.6, 'color': '#22305A'})],
-        cams=[cam(0.0, [1.8, 2.8, 0.6], [1.8, 2.8, 0.6], [3.6, 1.4, -0.45], lens=58)])   # (stills 3) over his shoulder from the aisle: his cap, the wheel, the whole windscreen (a pole stood across the lens)
+        cams=[cam(0.0, [3.45, 2.35, 0.95], [3.45, 2.35, 0.95], [3.05, 1.4, -0.5], lens=58)])   # (stills 3) over his shoulder from the aisle: his cap, the wheel, the whole windscreen (a pole stood across the lens)
 st.cue('sfx:whistle', 'S11', 0.15, 0.2)
 
 # 12: ...never looked in his mirror. (pass 2) From in front of the windscreen (clear glass): the driver whistling, his eyes on the road; over the
@@ -307,7 +307,7 @@ st.cue('sfx:whistle', 'S12', 0.1, 0.2); st.cue('engine', 'S12', 0.0, 0.25)
 #     as before, the blur's plane turned 50 degrees toward the lens so the 8 shows (from behind it was edge-on); the back of the bus built to read
 D13 = st.dur('S13')
 st.shot('S13', 'grassland', actors=[act('mec', [-1.2, 0, 0.0], 90, 'run', 'determined', params={'bounce': 0.0}, keys=[k(0.0, clip='run', speed=1.7), k(0.0, toon={'bend': NOLEGS, 'lay': [0.2, 0.0], 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.0)])],
-        props=[*MJ('mjr13'), WHEEL('roue13', rot=[0.0, 0.9, 0.0], rate=1.5, stride=0.42, lift=0.32, tilt=0.05, lean=0.22, lagStep=0.06, ghosts=1), P('alpes13', 'mountainRange', pos=[58.0, 16.0, 0.0], ry=-90, opts={'n': 7, 'w': 110, 'h': 30, 'd': 10, 'seed': 13}), P('pente13', 'alpSlope', pos=[22.0, 0, 0.0], ry=-90, opts={'w': 70, 'up': 46, 'slope': 0.6, 'legs': 5}),
+        props=[*MJ('mjr13'), WHEEL('roue13', rot=[0.0, 0.9, 0.0], lines='#2A3550', rate=1.5, stride=0.42, lift=0.32, tilt=0.05, lean=0.22, lagStep=0.06, ghosts=1), P('alpes13', 'mountainRange', pos=[58.0, 16.0, 0.0], ry=-90, opts={'n': 7, 'w': 110, 'h': 30, 'd': 10, 'seed': 13}), P('pente13', 'alpSlope', pos=[22.0, 0, 0.0], ry=-90, opts={'w': 70, 'up': 46, 'slope': 0.6, 'legs': 5}),
                ROADS('road13', D13), BUS('bus13', [5.4, 0, 0.0], 0), PLQ('plq13', 'bus13'), BUSR('rear13', 'bus13'),
                *scroll([P(f'sapin13{j}', 'tree', pos=[r(-14.0 + 4.6 * j), 0, r(4.6 + 1.2 * (j % 2)) if j % 2 else r(-4.6 - 1.2 * (j % 3))], scale=1.5, opts={'kind': 'pine'}) for j in range(9)], D13, 5.0), *DUST('13', -1.2)],
         cams=[cam(0.0, [-4.8, 0.4, 1.0], [-4.8, 0.4, 1.0], [10.0, 3.0, -0.2], lens=62)])   # (stills 3) lower and closer, looking up: him half the frame, the peaks over the bus
@@ -319,7 +319,7 @@ st.cue('engine', 'S13', 0.0, 0.25); st.cue('gust', 'S13', 0.2, 0.2); st.cue('sfx
 #     and a long white apron on the waiter (his black suit vanished against the dark door); the waiter comes out of the door ahead of him and two
 #     metres further back, then keeps pace there, so the plate stays clear to the right of his head (his head passed over it on « un serveur »)
 D14 = st.dur('S14'); X14 = -1.6; Z14 = 1.3
-WT14 = [(0.0, [-0.4, 0, -2.3]), (0.5, [1.6, 0, -1.1]), (r(D14 - 0.05), [r(1.6 + 4.0 * (D14 - 0.55)), 0, -0.9])]   # the waiter: out of the door, then level with him, ahead and deeper
+WT14 = [(0.0, [-0.4, 0, -2.3]), (0.5, [1.5, 0, -1.1]), (r(D14 - 0.05), [r(1.2 + 4.0 * (D14 - 0.55)), 0, -1.0])]   # the waiter: out of the door, then level with him, ahead and deeper
 WH14 = lambda p_: [r(p_[0] + 0.12), 2.4, r(p_[2] + 0.3), 1, 0.04]   # the plate held up over his right shoulder
 APRON = lambda pid, aid: P(pid, 'slab', on={'actor': aid, 'joint': 'torso', 'offset': [0.0, 0.02, 0.21]}, opts={'w': 0.46, 'h': 0.86, 'd': 0.03, 'color': '#F7F5EF', 'outline': 0.01})   # (final pass) the waiter's long white apron
 IT14 = [{'x': -7.2, 'color': '#E9B569', 'roof': '#B5522F', 'door': '#6B3F26', 'shutters': '#2E7D4F'}, {'x': 1.6, 'color': '#E8946A', 'roof': '#A8452C', 'door': '#2E7D4F'}, {'x': 9.6, 'color': '#F0D08A', 'roof': '#B5522F', 'door': '#6B3F26'},
@@ -334,7 +334,7 @@ st.shot('S14', 'cottageStreet', setOpts={'seed': 23, 'roadColor': '#8C8C88', 'ho
         props=[*MJ('mjr14'), P('caffe14', 'trattoria', pos=[-0.4, 0, -2.75], opts={'doorLight': '#A8701F'}), P('pates14', 'spaghettiPlate', on={'actor': 'serveur', 'hand': 'R', 'offset': [0.0, 0.05, 0.0]}, scale=1.5), APRON('tab14w', 'serveur'),
                P('tab14', 'bistroTable', pos=[3.0, 0, -2.3], opts={'r': 0.35, 'h': 0.75}), P('para14', 'parasol', pos=[4.8, 0, -2.5], opts={'openAt': -1.0, 'colors': ['#2E9A4A', '#F4F4F0', '#D23A2E']}),
                P('it14', 'flag', pos=[-3.9, 0, -1.2], opts={'colors': ['#2E9A4A', '#F4F4F0', '#D23A2E'], 'vertical': True})],
-        cams=[FC(0.0, [r(X14 + 2.4), 1.45, r(Z14 + 3.2)], [[X14, 2.5, Z14], [X14, 0.45, Z14], [r(X14 - 0.5), 1.2, Z14], [-0.4, 2.95, -2.3], [-0.4, 0.3, -2.7], [r(X14 + 1.5), 2.9, -1.1]], top=0.12, bottom=0.77, drift=(r(V * D14), 0.0, 0.0))])
+        cams=[FC(0.0, [r(X14 + 2.4), 1.45, r(Z14 + 3.2)], [[X14, 2.5, Z14], [X14, 0.45, Z14], [r(X14 - 0.5), 1.2, Z14], [-0.4, 2.95, -2.3], [-0.4, 0.3, -2.7], [r(X14 + 1.4), 3.0, -1.1], [r(X14 + 1.4), 0.2, -1.1]], top=0.12, bottom=0.77, drift=(r(V * D14), 0.0, 0.0))])
 st.cue('sfx:bell', 'S14', 0.05, 0.15)
 
 # 15: ...held out pasta to him on the run. (pass 2) A two-shot from the roadside at chest height, the road streaming: the waiter runs backwards in
@@ -406,15 +406,15 @@ D17 = st.dur('S17'); PU17 = [[0.28, 0.52, 0.72], [0.86, 1.1, 1.0]]; POP17 = 1.16
 SV17 = lambda hand, hs, f, hl='open': {'reach': {'R': hand + [1, 0.04]}, 'hands': {'R': hs, 'L': hl}, 'face': f}
 EYE17 = lambda pop: {'lid': 0.0, 'eye': 0.5 if pop else 0.3, 'mouth': 'O', 'brow': 1.0 if pop else 0.8, **({'pop': 0.95, 'popLen': 0.26} if pop else {})}
 st.shot('S17', 'grassland', setOpts=ITG, look=ITALY, actors=[act('mec', [0, 0, 0], 90, 'run', 'determined', params={'bounce': 0.3}, keys=[k(0.0, clip='run', speed=1.0), k(0.0, look=[12.0, 1.9, 0.0]), FLAT()]),
-        act('savant1', [0.62, 0, -0.85], -45, 'peerIn', 'neutral', keys=[k(0.0, look=[0.0, 0.55, 0.0]), k(0.0, toon=SV17([0.7, 1.0, -0.6], 'point', EYE17(False), hl='grip'), toonDur=0.0),
-            k(POP17, toon=SV17([0.7, 1.0, -0.6], 'point', EYE17(True), hl='grip'), toonDur=0.06, toonEase='out')]),
-        act('savant2', [-0.62, 0, -0.85], 45, 'peerIn', 'neutral', keys=[k(0.0, look=[-0.15, 0.55, 0.0]), k(0.0, toon=SV17([-0.45, 0.6, -0.45], 'grip', EYE17(False)), toonDur=0.0),
+        act('savant1', [0.78, 0, -1.0], -45, 'peerIn', 'neutral', keys=[k(0.0, look=[0.0, 0.55, 0.0]), k(0.0, toon=SV17([0.55, 1.0, -0.6], 'point', EYE17(False), hl='grip'), toonDur=0.0),
+            k(POP17, toon=SV17([0.55, 1.0, -0.6], 'point', EYE17(True), hl='grip'), toonDur=0.06, toonEase='out')]),
+        act('savant2', [-0.78, 0, -1.0], 45, 'peerIn', 'neutral', keys=[k(0.0, look=[-0.15, 0.55, 0.0]), k(0.0, toon=SV17([-0.45, 0.6, -0.45], 'grip', EYE17(False)), toonDur=0.0),
             k(r(POP17 + 0.08), toon=SV17([-0.45, 0.6, -0.45], 'grip', EYE17(True)), toonDur=0.06, toonEase='out')])],
         props=[*MJ('mjr17'), ROADS('road17', D17), *scroll(CYP('17', -26.0, -30.0, 40.0, 8, 9.0), D17), *DUST('17'),
                *[P(f'mollet17{s}', 'bigCalf', on={'actor': 'mec', 'joint': f'knee{s}', 'offset': [0.0, 0.0, 0.0]}, opts={'r': 0.22, 'len': 0.5, 'tape': True, 'dig': 0.96, 'pulses': PU17, 'phase': ph, 'color': '#24324F', 'seam': '#F2C4A2', **({'snapAt': SNAP17} if s == 'L' else {})}) for s, ph in (('L', 0.0), ('R', 1.6))],
                P('metre17', 'tapeMeasure', on={'actor': 'savant2', 'hand': 'R', 'offset': [0, 0, 0.04]}, scale=2.0),
                P('bloc17', 'clipBoard', on={'actor': 'savant1', 'hand': 'L', 'offset': [0.0, 0.05, 0.05], 'face': 'camera'}, scale=1.6)],
-        cams=[FC(0.0, [0.05, 0.38, 3.2], [[0, 1.45, 0], [0, 0.0, 0], [0.62, 2.05, -0.85], [-0.62, 2.05, -0.85], [0.8, 1.6, -0.85], [-0.8, 1.6, -0.85]], top=0.03, bottom=0.8)])   # the vertical frame is narrow: the scientists lean in from its edges
+        cams=[FC(0.0, [0.05, 0.38, 3.2], [[0, 1.6, 0], [0, 0.0, 0], [0.78, 1.95, -1.0], [-0.78, 1.95, -1.0]], top=0.03, bottom=0.8)])   # the vertical frame is narrow: the scientists lean in from its edges
 st.cue('sfx:stretch', 'S17', PU17[0][0], 0.2); st.cue('sfx:stretch', 'S17', PU17[1][0], 0.2); st.cue('sfx:boing', 'S17', POP17, 0.2); st.cue('sfx:boing', 'S17', SNAP17, 0.2)
 
 # 18: after three years the bus stopped. (pass 3) From the pavement, left to right, in a Roman street (ochre and terracotta fronts, green shutters):
@@ -433,10 +433,10 @@ st.cue('sfx:brake', 'S18', r(STOP18 - 0.4), 0.35); st.cue('sfx:brake', 'S18', SK
 
 # 19: he got on. (pass 2) From inside the bus, through its open front door: he hops up onto the step toward us, panting, beard and jersey;
 #     (pass 3) the jersey lit as in the sun (it fell to olive in the shade of the door), a Roman street behind him, his beard dark like his hair;
-#     (final pass) on the step he doubles over, one hand on his knee, the other on his hip, his weight on one leg, and heaves for breath, his eyes
-#     on us (he stood symmetrical, both arms hanging)
+#     (final pass) on the step he leans on the door's edge, one hand up on it, the other on his hip, his weight on one leg, and heaves for breath,
+#     his eyes on us (he stood symmetrical, both arms hanging)
 D19 = st.dur('S19'); DZ19 = -5.45
-HV19 = lambda t, sq, dur=0.09: k(r(t), toon={'sq': sq, 'lay': [0.0, 0.07], 'bend': {'spine': [0.48, 0.0, 0.0]}, 'reach': {'R': [4.36, 1.02, r(DZ19 - 0.2), 1, 0.04], 'L': [4.62, 1.32, r(DZ19 + 0.3), 1, 0.04]}, 'hands': {'R': 'open', 'L': 'fist'}, 'face': {**DEAD, 'mouth': 'open'}}, toonDur=dur)   # bent over, a hand on his knee, the other on his hip, his weight on one leg
+HV19 = lambda t, sq, dur=0.09: k(r(t), toon={'sq': sq, 'lay': [0.0, 0.1], 'bend': {'spine': [0.22, 0.0, 0.0]}, 'reach': {'R': [4.45, 2.15, r(DZ19 - 0.52), 1, 0.04], 'L': [4.55, 1.38, r(DZ19 + 0.42), 1, 0.04]}, 'hands': {'R': 'grip', 'L': 'fist'}, 'face': {**DEAD, 'mouth': 'open'}}, toonDur=dur)   # leaning on the door's edge, one hand up on it, the other on his hip, his weight on one leg
 st.shot('S19', 'parisStreet', setOpts={**ROMA, 'clear': [-12.0, 8.0]}, actors=[act('mec', [5.9, 0, DZ19], -90, 'walk', 'neutral', keys=[k(0.1, to=[4.6, 0.44, DZ19], dur=0.4, clip='walk', then='stand', ease='out'), k(0.0, look='camera'),
             k(0.1, toon={'sq': [0.95, 1.08, 0.95], 'face': {**DEAD, 'mouth': 'open'}}, toonDur=0.1), k(0.5, toon={'sq': [1.05, 0.94, 1.05], 'face': {**DEAD, 'mouth': 'open'}}, toonDur=0.06),
             HV19(0.58, [1.02, 0.98, 1.02], 0.14), HV19(0.74, [1.05, 0.95, 1.05]), HV19(0.88, [0.98, 1.03, 0.98]), HV19(1.0, [1.05, 0.95, 1.05])])],
