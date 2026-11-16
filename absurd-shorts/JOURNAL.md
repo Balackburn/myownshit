@@ -2930,3 +2930,8 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - « Le bus » (72) : revue 3 = 7,2 (animation) ; 7,1 (direction artistique), contre 6,8 ; 6,5. Reste pour la passe finale : la semelle et les
   chaussures neuves ne se lisent pas, le poing couvre encore la bouche aux plans 9 et 10, le virage du peloton est minuscule et trop rapide, la
   nouille est un trait fin, la roue de jambes ressemble à un signe plus qui tourne. Passe finale confiée à un agent dérivé.
+- 11 h 50 — « La tondeuse » (70) : la partie 3D du rendu final a réussi cette fois (87 min), mais l'assemblage HyperFrames a refusé de démarrer :
+  il exige 1 Go libre (seuil dans `checkDisk`, 1024 Mo) et il en restait 1,0. Place libérée en ne supprimant que des copies (couches 3D déjà
+  dans les projets livrés, dossiers de rendu des histoires livrées, recadrages des critiques des revues closes, anciennes couches 3D
+  intermédiaires d'histoires livrées depuis longtemps) : 1,3 Go. L'assemblage seul est relancé (deux navigateurs). Un garde (`disk_guard.sh`)
+  supprime désormais ces seules copies quand l'espace passe sous 1,6 Go.

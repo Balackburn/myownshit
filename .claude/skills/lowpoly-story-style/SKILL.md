@@ -1722,3 +1722,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 41) Mémoire : un rendu final (`story_X_render.json`, `--workers 3`) ouvre trois navigateurs d'environ 0,8 Go chacun. Deux rendus finaux et
   neuf séries d'images de contrôle en même temps ont fait tuer le navigateur du premier par le noyau après deux heures (« Target crashed »). Un
   seul rendu final à la fois, et des files qui le comptent pour trois rendus (`tools/review/runq4.sh`, `runqP.sh`).
+
+- (cycle 41) HyperFrames refuse de rendre sous 1 Go libre (dans /tmp ET dans le dossier `renders` du projet) : le rendu final échoue alors
+  APRÈS une heure et demie de rendu 3D, sur « Low disk space ». Vérifier l'espace avant de lancer un rendu final ; si la couche 3D est faite,
+  relancer seulement l'étape HyperFrames (`npx hyperframes@0.9.13 render -o renders/X.mp4 --fps 30 --workers 2` dans le projet).

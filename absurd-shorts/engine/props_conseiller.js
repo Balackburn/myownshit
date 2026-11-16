@@ -89,16 +89,50 @@ export const CONSEILLER_PROPS = {
   // fill '#FFD83A', ink '#D22B2B'); o.jagK (0.86): how deep the jags go (0.7: a burst); o.until: it shrinks away from that time over 0.12 s;
   // side -1 draws the tail on the other side instead of mirroring the plane (the text stayed mirrored)
   voiceBubble(o) {
-    const w = o.w ?? 0.4, hh = w * 0.72, sd = o.side ?? 1, g = grp(), fill = o.fill || '#FFFFFF', edge = o.edge || '#1C1C1E', ink = o.ink || '#1C1C1E', jk = o.jagK ?? 0.86;
-    const pl = canvasPlane(w, hh, (c, W, H) => { c.clearRect(0, 0, W, H); const X = x => sd < 0 ? W - x : x, cx = X(W * 0.54), cy = H * 0.4, rx = W * 0.4, ry = H * 0.3, n = 18; c.lineJoin = 'round';
-      c.beginPath(); c.moveTo(X(W * 0.04), H * 0.97); c.lineTo(X(W * 0.3), H * 0.52); c.lineTo(X(W * 0.46), H * 0.62); c.closePath(); c.fillStyle = fill; c.fill(); c.lineWidth = H * 0.035; c.strokeStyle = edge; c.stroke();
+    // (final pass) o.stem (m): a longer tail, the body that much higher above the tail's tip; o.onTop: drawn over everything (no depth test)
+    const w = o.w ?? 0.4, hh = w * 0.72, ht = hh + (o.stem ?? 0), f = hh / ht, sd = o.side ?? 1, g = grp(), fill = o.fill || '#FFFFFF', edge = o.edge || '#1C1C1E', ink = o.ink || '#1C1C1E', jk = o.jagK ?? 0.86;
+    const pl = canvasPlane(w, ht, (c, W, H) => { c.clearRect(0, 0, W, H); const X = x => sd < 0 ? W - x : x, cx = X(W * 0.54), cy = H * 0.4 * f, rx = W * 0.4, ry = H * 0.3 * f, n = 18; c.lineJoin = 'round';
+      c.beginPath(); c.moveTo(X(W * 0.04), H * 0.97); c.lineTo(X(W * 0.3), H * 0.52 * f); c.lineTo(X(W * 0.46), H * 0.62 * f); c.closePath(); c.fillStyle = fill; c.fill(); c.lineWidth = H * 0.035 * f; c.strokeStyle = edge; c.stroke();
       c.beginPath(); for (let i = 0; i <= 2 * n; i++) { const a = i * PI / n, r = o.jag === false ? 1 : (i % 2 ? jk : 1.0); c.lineTo(cx + Math.cos(a) * rx * r, cy + Math.sin(a) * ry * r); } c.closePath(); c.fill(); c.stroke();
-      c.beginPath(); c.moveTo(X(W * 0.1), H * 0.9); c.lineTo(X(W * 0.31), H * 0.56); c.lineTo(X(W * 0.43), H * 0.6); c.closePath(); c.fill();
-      c.fillStyle = ink; c.textAlign = 'center'; c.textBaseline = 'middle'; const tx = o.text || 'BIP'; let px = H * 0.3; c.font = `900 ${px}px Arial`; const tw = c.measureText(tx).width; if (tw > rx * 1.45) { px *= rx * 1.45 / tw; c.font = `900 ${px}px Arial`; } c.fillText(tx, cx, cy + px * 0.04); }, { res: 256, transparent: true });
-    pl.material.depthWrite = false; pl.position.set(sd * w * 0.46, hh * 0.47, 0); const pv = new THREE.Group(); pv.add(pl); g.add(pv);
+      c.beginPath(); c.moveTo(X(W * 0.1), H * (1 - 0.1 * f)); c.lineTo(X(W * 0.31), H * 0.56 * f); c.lineTo(X(W * 0.43), H * 0.6 * f); c.closePath(); c.fill();
+      c.fillStyle = ink; c.textAlign = 'center'; c.textBaseline = 'middle'; const tx = o.text || 'BIP'; let px = H * 0.3 * f; c.font = `900 ${px}px Arial`; const tw = c.measureText(tx).width; if (tw > rx * 1.45) { px *= rx * 1.45 / tw; c.font = `900 ${px}px Arial`; } c.fillText(tx, cx, cy + px * 0.04); }, { res: 256, transparent: true });
+    pl.material.depthWrite = false; if (o.onTop) { pl.material.depthTest = false; pl.renderOrder = 20; } pl.position.set(sd * w * 0.46, ht * 0.47, 0); const pv = new THREE.Group(); pv.add(pl); g.add(pv);
     g.userData.update = t => { const u = t - (o.at ?? 0); if (u < 0) { pv.visible = false; return; } const ue = o.until != null ? t - o.until : -1; if (ue >= 0.12) { pv.visible = false; return; } pv.visible = true;
       const k = u < 0.3 ? 1 + 0.35 * Math.exp(-9 * u) * Math.cos(u * 22) - Math.exp(-30 * u) : 1, out = ue >= 0 ? 1 - ue / 0.12 : 1; pv.scale.setScalar(Math.max(0.01, k * out) * (1 + 0.03 * Math.sin(u * 14))); };
     g.userData.update(-1); return g;
+  },
+
+  // (final pass) the mayor's register: a big open book held up to us (a red hard cover, two ruled cream pages in a shallow V, handwritten lines, a
+  // ribbon, o.left / o.right the titles on the pages); o.w x o.h open, grip at the bottom of the spine
+  register(o) {
+    const w = o.w ?? 0.6, h = o.h ?? 0.42, pw = w / 2, a = o.open ?? 0.24, g = grp(), book = grp();
+    for (const sd of [-1, 1]) {
+      const pg = canvasPlane(pw, h, (c, W, H) => { c.fillStyle = '#F6F0DE'; c.fillRect(0, 0, W, H); c.strokeStyle = '#9DB4D6'; c.lineWidth = H * 0.006;
+        for (let i = 0; i < 10; i++) { const y = H * (0.3 + i * 0.065); c.beginPath(); c.moveTo(W * 0.08, y); c.lineTo(W * 0.92, y); c.stroke(); }
+        c.strokeStyle = '#2A3550'; c.lineWidth = H * 0.009;
+        for (let i = 0; i < 9; i++) { const y = H * (0.3 + i * 0.065) - H * 0.014, x1 = W * (0.55 + 0.35 * (((i * 37 + (sd > 0 ? 11 : 0)) % 7) / 7)); c.beginPath(); c.moveTo(W * 0.1, y); for (let x = W * 0.1; x < x1; x += W * 0.025) c.lineTo(x, y + Math.sin(x * 0.35 + i) * H * 0.008); c.stroke(); }
+        c.fillStyle = '#1B2A4A'; c.textAlign = 'center'; c.textBaseline = 'middle'; const tx = sd < 0 ? (o.left || 'REGISTRE') : (o.right || 'MARIAGES'); let px = H * 0.12; c.font = `900 ${px}px Arial`;
+        const tw = c.measureText(tx).width; if (tw > W * 0.84) { px *= W * 0.84 / tw; c.font = `900 ${px}px Arial`; } c.fillText(tx, W / 2, H * 0.15); }, { res: 256 });
+      const cx = sd * pw / 2 * Math.cos(a), cz = pw / 2 * Math.sin(a), ry = -sd * a, nx = Math.sin(ry), nz = Math.cos(ry);
+      pg.position.set(cx, 0, cz); pg.rotation.y = ry; book.add(pg);
+      const cv = box(pw + 0.025, h + 0.03, 0.014, '#8E1F24', { outline: 0.004 }); cv.position.set(cx - nx * 0.01 + sd * 0.01, 0, cz - nz * 0.01); cv.rotation.y = ry; book.add(cv);
+    }
+    book.add(at(box(0.026, 0.13, 0.004, '#C8202A'), 0.03, -h / 2 - 0.05, 0.012));
+    book.position.y = h * 0.42; g.add(book); g.userData.grip = [0, 0, 0]; return g;
+  },
+
+  // (final pass) a French kepi to sit on a head (the shared hats have none): a stiff crown, wider at the top, red over a navy band, a flat red
+  // top, a black visor, a gold chinstrap and gold piping; o.w / o.d the head's width and depth; pivot at the bottom of the band
+  kepi(o) {
+    const w = o.w ?? 0.222, d = o.d ?? 0.17, g = grp(), red = o.color || '#B8262C', band = o.band || '#1E2846', gold = '#E2B53C';
+    g.add(at(box(w * 1.06, 0.07, d * 1.12, band, { pivot: 'bottom', outline: 0.004 }), 0, 0, 0));
+    g.add(at(box(w * 1.1, 0.1, d * 1.16, red, { pivot: 'bottom', taper: { x: 1.1, z: 1.1 }, outline: 0.004 }), 0, 0.07, 0));
+    g.add(at(box(w * 1.22, 0.012, d * 1.28, red, { outline: 0.003 }), 0, 0.176, 0));
+    g.add(at(box(w * 1.08, 0.008, d * 1.14, gold), 0, 0.072, 0));
+    const v = at(box(w * 0.92, 0.014, 0.085, '#121316', { outline: 0.003 }), 0, 0.012, d * 0.56 + 0.035); v.rotation.x = 0.28; g.add(v);
+    g.add(at(box(w * 1.08, 0.014, 0.012, gold), 0, 0.04, d * 0.57));
+    g.add(at(box(0.03, 0.04, 0.008, gold), 0, 0.12, d * 0.6));
+    return g;
   },
 
   // A brass band instrument to hold (pivot at the grip): o.kind 'trumpet' (a gold tube and bell pointing +Z), 'tuba' (a big gold coil with the bell
@@ -112,7 +146,7 @@ export const CONSEILLER_PROPS = {
       const bell = at(new THREE.Mesh(new THREE.ConeGeometry(0.17, 0.26, 16, 1, true), new THREE.MeshLambertMaterial({ color: G, side: THREE.DoubleSide })), 0.12, 0.38, 0); bell.rotation.z = PI; g.add(bell);
       // (final pass) o.pump [t...]: the bell swells on each note (the tuba read as a still gold ring)
       if (o.pump) g.userData.update = t => { let a = 0; for (const b of o.pump) { const u = t - b; if (u >= 0 && u < 0.3) a = Math.max(a, Math.exp(-u * 12)); } bell.scale.set(1 + 0.35 * a, 1 + 0.2 * a, 1 + 0.35 * a); coil.scale.setScalar(1 + 0.06 * a); }; }
-    else { const dr = grp(at(cyl(0.18, 0.18, 0.2, '#C8322A', 16, { outline: 0.004 }), 0, 0, 0), at(cyl(0.185, 0.185, 0.02, '#F4F1E8', 16), 0, 0.105, 0), at(cyl(0.185, 0.185, 0.02, '#F4F1E8', 16), 0, -0.105, 0)); dr.rotation.x = PI / 2; g.add(dr);
+    else { const dr = grp(at(cyl(0.18, 0.18, 0.2, '#C8322A', 16, { outline: 0.004 }), 0, 0, 0), at(cyl(0.185, 0.185, 0.02, '#F4F1E8', 16), 0, 0.105, 0), at(cyl(0.185, 0.185, 0.02, '#F4F1E8', 16), 0, -0.105, 0)); if (o.side) dr.rotation.set(0, 0, PI / 2); else dr.rotation.x = PI / 2; g.add(dr);   // (final pass) o.side: the heads to the sides, the red shell to the front
       // (final pass) hoops, tension rods and a strap: a plain white disc did not read as a bass drum
       for (const y of [0.112, -0.112]) { const hp = new THREE.Mesh(new THREE.TorusGeometry(0.188, 0.016, 6, 22), new THREE.MeshLambertMaterial({ color: '#1F2A44' })); hp.rotation.x = PI / 2; hp.position.y = y; dr.add(hp); }
       for (let i = 0; i < 8; i++) { const a = i * TAU / 8; dr.add(at(cyl(0.006, 0.006, 0.22, '#E2B53C', 4), Math.cos(a) * 0.19, 0, Math.sin(a) * 0.19)); }
