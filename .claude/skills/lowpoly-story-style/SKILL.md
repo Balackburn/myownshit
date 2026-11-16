@@ -1714,3 +1714,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 41) Le rappel d'un gag doit être PLUS fort que sa mise en place : l'étirement de la chute du « Service client » (×1,3, deux images)
   était plus faible que celui du plan 7 qu'il rappelle (×2, tenu une demi-seconde), et la prise de conscience du plan 14 reprenait celle du plan
   6 telle quelle (revue 2). Écrire la valeur de la mise en place à côté du rappel dans le script et la dépasser.
+
+- (cycle 41) Le visage peint du héros est de travers (l'œil gauche environ 0,1 m plus bas que le droit sur la tête mise à l'échelle). Des
+  lunettes posées à plat laissent l'œil bas dépasser sous le verre, et il se lit comme un sourire avec une dent. Incliner les lunettes comme
+  le visage (environ 37° dans « Les lunettes »), un verre sur chaque œil, et le vérifier sur une image de face en gros plan.

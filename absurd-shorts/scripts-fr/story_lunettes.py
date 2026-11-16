@@ -132,7 +132,7 @@ st.cue('sfx:click', 'S04', 0.05, 0.15); st.cue('sfx:ding', 'S04', 0.2, 0.15); st
 D5 = st.dur('S05'); ME5 = [-1.75, 0, -2.3]; OFF5 = [-2.7, 0, -2.75]; GLP5 = [ME5[0], 2.35, ME5[2]]
 OKH = [0.62, 0.05, 0.05, 0.05, 0.85, 0.55]   # (final pass) a ring of thumb and index, the other fingers up and fanned (« glasses »)
 # (final pass) each ring right in front of its eye, the hands out at the sides of the face (elbows out), a small circle; wide open eyes, not the squint
-RING5 = lambda a, b=0.5: {'touch': {'R': ['face', r(-0.42 - 0.07 * math.cos(a)), r(0.68 + 0.06 * math.sin(a)), 0.22, 1, 0.0, [-0.9, -0.2, 0.2]], 'L': ['face', r(0.42 + 0.07 * math.cos(a)), r(0.68 + 0.06 * math.sin(a)), 0.22, 1, 0.0, [0.9, -0.2, 0.2]]},   # (stills) level: at his crooked eyes' own heights the low hand read as a hand at his mouth
+RING5 = lambda a, b=0.5: {'touch': {'R': ['face', r(-0.4 - 0.07 * math.cos(a)), r(0.74 + 0.06 * math.sin(a)), 0.2, 1, 0.0, [-0.9, -0.2, 0.2]], 'L': ['face', r(0.37 + 0.07 * math.cos(a)), r(0.54 + 0.06 * math.sin(a)), 0.2, 1, 0.0, [0.9, -0.2, 0.2]]},   # (stills) one ring at each of his crooked eyes' own heights (both level at 0.68 the hands met in front of his face)
                           'hands': {'R': OKH, 'L': OKH}, 'face': {'lid': 0.0, 'low': 0.0, 'eye': 0.35, 'brow': b, 'mouth': 'o', 'noBlink': 1}}
 st.shot('S05', 'policeStation', actors=[
         act('mec', ME5, -12, 'stand', 'neutral', keys=[k(0.0, look=[-2.1, 1.75, 0.2]), k(0.0, toon={'face': SQUINT}, toonDur=0.0), k(0.08, toon=RING5(PI / 2), toonDur=0.1, toonEase='out'),
@@ -198,7 +198,8 @@ st.shot('S07', 'grassland', actors=[
 st.cue('sfx:splash', 'S07', 0.1, 0.15); st.cue('sfx:splash', 'S07', 0.7, 0.12); st.cue('sfx:splash', 'S07', 1.3, 0.12)
 
 # 8: the army sent helicopters. At night in the street, from low: a helicopter hangs over the roofs, its searchlight sweeps the street, crosses him,
-#    and the glasses on his head flash in the beam; the beam sweeps on
+#    and the glasses on his head flash in the beam; the beam sweeps on. (final pass, review 3: his head turned away was a black silhouette, the solid
+#    rotor read as a saucer lid) he turns half to us under the beam, which lights his face; the blades are a see-through blur
 D8 = st.dur('S08'); PASS8 = 1.0
 WASH8 = lambda lean, w: {'lay': [lean, 0], 'wind': [0, -2.0, w], 'touch': {'R': ['face', -0.05, 0.9, 0.12, 1, 0.0]}, 'hands': {'R': 'open'}, 'face': {**SQUINT, 'lid': 0.6, 'mouth': 'grimace'}}
 st.shot('S08', 'parisStreet', setOpts={'night': True, 'clear': [-12.0, 12.0], 'clearL': [-12.0, 12.0]}, look={'sun': 0.15, 'fill': 0.35, 'exposure': 1.1}, actors=[
@@ -215,7 +216,8 @@ st.cue('sfx:engine', 'S08', 0.05, 0.4); st.cue('sfx:ding', 'S08', r(PASS8 - 0.05
 
 # 9: satellites scanned the planet. Space, wide: the opaque blue Earth fills the lower half under a black starry sky; three satellites in orbit
 #    over it, the nearest in the upper middle, each sweeping a saturated red fan down across the globe (review 1: the globe filled the whole frame
-#    behind one big satellite and read as a glitch of translucent triangles)
+#    behind one big satellite and read as a glitch of translucent triangles). (final pass, review 3: the beams barely moved) the fans sweep wide
+#    across the globe, then lock one after the other, click, click, ding
 D9 = st.dur('S09'); EARTH9 = [0.0, -9.0, -26.0]   # (stills 6) at -15 the globe filled the frame
 SATS9 = [('sat9', [-0.2, 1.75, -3.2], [0.32, 0.3, 0.0], 0.3, 7.0, 0.1), ('sat9b', [-1.9, 2.9, -10.0], [0.3, -0.5, 0.15], 0.22, 29.0, 0.3), ('sat9c', [2.2, 2.2, -12.0], [0.32, 0.7, -0.15], 0.22, 28.0, 0.2)]   # (pass 3, review 2) shorter fans that end on the globe with a lit footprint (they ran past the planet to the bottom of the frame, red through the captions)
 st.shot('S09', 'spaceDark', actors=[],
@@ -275,7 +277,8 @@ st.cue('sfx:click', 'S11', 0.3, 0.2); st.cue('sfx:click', 'S11', 0.65, 0.2); st.
 # 13: the whole world searched for a year. (pass 3, review 2: three clerks in a clump, the calendar a stamp behind his head, the magnifying glass a
 #    yellow arc) tighter, on three depths: on the back wall, top left, a big calendar sheds its twelve months toward us; in front on the left a
 #    searcher crawls under a desk, legs sticking out; at the back on the right one holds the potted plant up and peers under the pot; and right at his
-#    face a savant inspects him through a big magnifying glass, one huge eye an inch under the glasses on his head; he leans away from it, squinting
+#    face a savant inspects him through a big magnifying glass, one huge eye an inch under the glasses on his head; he leans away from it, squinting.
+#    (final pass, review 3: the legs stuck out of bare floor) the desk stands over the crawling searcher, his legs come out from under it
 D13 = st.dur('S13'); MOIS = ['JANVIER', 'FÉVRIER', 'MARS', 'AVRIL', 'MAI', 'JUIN', 'JUILLET', 'AOÛT', 'SEPTEMBRE', 'OCTOBRE', 'NOVEMBRE', 'DÉCEMBRE']
 ME13 = [0.1, 0, -1.6]; DESK13 = [-1.2, 0, -1.15]; POT13 = [1.6, 1.9, -2.7]; SAV13 = [0.82, 0, -1.35]
 PLANTK = lambda f: {'reach': {'R': [r(POT13[0] - 0.16), r(POT13[1] + 0.16), POT13[2], 1, 0.03], 'L': [r(POT13[0] + 0.16), r(POT13[1] + 0.16), POT13[2], 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': f}

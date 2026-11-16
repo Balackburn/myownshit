@@ -2888,3 +2888,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 11 h 00 — « Le service client » (73) : passe 3 terminée et relue sur images (la mariée se penche jusqu'au téléphone et « OUI ! » en sort, prise
   de conscience avec yeux sur tiges, étirement de la chute plus fort que celui du plan 7, saluts ensemble sur « hymne », vraies caméras de
   télévision). Brouillon 3 en file, revue 3 préparée. Disque : recadrages des critiques des revues terminées supprimés (550 Mo).
+- 8 h 30 (17 novembre) — « Les lunettes » (69) : passe finale terminée et relue sur images. La « deuxième bouche » du dernier plan n'en était pas
+  une : le visage peint a l'œil gauche plus bas que le droit, et sous des lunettes droites cet œil se lisait comme un sourire avec une dent ; les
+  lunettes sont maintenant inclinées comme le visage, un verre sur chaque œil. Frigo lisible (étagère, lait, bocal, comté, buée), lampadaire en
+  trois quarts, faisceaux des satellites qui balaient puis se verrouillent. Rendu final en file derrière celui de « La tondeuse ».
