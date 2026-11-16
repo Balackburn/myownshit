@@ -1,0 +1,129 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a appelé l'ascenseur il y a vingt ans.",
+  "hl": [
+   "l'ascenseur",
+   "vingt",
+   "ans."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "L'ascenseur n'est jamais venu.",
+  "hl": [
+   "jamais"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Alors il a attendu.",
+  "hl": [
+   "attendu."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Les voisins lui apportent à manger.",
+  "hl": [
+   "manger."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "La concierge lui a installé un fauteuil.",
+  "hl": [
+   "fauteuil."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Le syndic a voté des travaux.",
+  "hl": [
+   "travaux."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Les travaux ont duré quinze ans.",
+  "hl": [
+   "quinze",
+   "ans."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Il a vieilli devant le bouton.",
+  "hl": [
+   "vieilli",
+   "bouton."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Le bouton est classé monument historique.",
+  "hl": [
+   "monument",
+   "historique."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Les écoles viennent le visiter.",
+  "hl": [
+   "écoles"
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Hier, la porte s'est ouverte.",
+  "hl": [
+   "ouverte."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Dedans, il y avait un mec.",
+  "hl": [
+   "mec."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Il attendait le rez-de-chaussée depuis vingt ans.",
+  "hl": [
+   "rez-de-chaussée",
+   "vingt",
+   "ans."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Ils se sont serré la main.",
+  "hl": [
+   "main."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Et ils ont pris l'escalier.",
+  "hl": [
+   "l'escalier."
+  ]
+ }
+]
