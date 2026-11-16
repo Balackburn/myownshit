@@ -2882,3 +2882,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   celle du plan 6, l'étirement de la chute est plus faible que celui du plan 7 qu'il rappelle. Passe 3 confiée à un agent dérivé.
 - « L'ascenseur » (76) : revue 3 = 6,8 ; 7,0, contre 6,0 ; 6,5. Reste pour la passe finale : trois passages figés (plans 8, 13, 19), le coup de
   canne qui tombe sur un visage d'enfant au lieu d'une main, le vote filmé en un seul paquet. Passe finale confiée à un agent dérivé.
+- 10 h 05 — « Le centime » (77) : revue 3 = 6,6 (animation) ; 7,2 (direction artistique), contre 5,8 ; 6,3. Reste pour la passe finale : le timbre
+  « 3,00 € » à côté du chèque « 0,01 € » ne reste qu'un quart de seconde à l'écran, les plans de la montée ont perdu leur exagération (sifflet,
+  klaxons, joues de la fanfare, larmes en fontaine), le héros se retourne d'un bloc en une image. Passe finale confiée à un agent dérivé.
