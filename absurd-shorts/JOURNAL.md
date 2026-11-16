@@ -2849,3 +2849,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   ruban imprimé « 400 ANS » qui coule vers l'objectif, « 500 ANS » qui jaillit à l'horizontale et casquette du livreur en l'air, selfie de la
   touriste). Point faible restant : au dernier plan le héros est plus petit que le livreur. Brouillon 3 en file, revue 3 préparée.
   « La tondeuse » (70) : brouillon 3 prêt sans passage figé, revue 3 en cours.
+- 5 h 00 — « Les lunettes » (69) : passe 3 terminée et relue sur images (frigo en deux temps avec cheveux dressés, agent vu de face qui lève les
+  yeux vers les lunettes, héros qui s'aplatit contre un lampadaire, chien de profil qui s'assoit et tend le cou, doigt du garçon posé sur les
+  lunettes, lunettes sur le nez au dernier plan). Le « dôme rose » du frigo était l'étagère en verre au-dessus de la caméra. Brouillon 3 en
+  file, revue 3 préparée.
