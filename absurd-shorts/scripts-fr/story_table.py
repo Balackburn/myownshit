@@ -48,7 +48,7 @@ TBL = lambda pid, pos, ry=0, **o: P(pid, 'coffeeTable', pos=pos, ry=ry, opts=o)
 MARK = lambda pid, pos, n, at_, ry=0, s=1.0: P(pid, 'evidenceMarker', pos=pos, ry=ry, opts={'n': n, 'at': at_, 's': s})
 KEPI = lambda pid, who, **o: P(pid, 'kepi', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.5, 0.0]}, opts={'w': 0.222, 'd': 0.17, **o})
 GKEPI = lambda pid, who: KEPI(pid, who, color='#1F2A44', band='#1F2A44')   # a gendarme's navy kepi
-CUFF = lambda pid, who, hand: P(pid, 'handcuffs', on={'actor': who, 'hand': hand, 'offset': [0.0, -0.06, 0.0]}, scale=0.45)
+CUFF = lambda pid, who, hand: P(pid, 'handcuffs', on={'actor': who, 'hand': hand, 'offset': [0.0, -0.06, 0.0]}, scale=0.7)   # (review 2) bigger cuffs (15 px rings read as nothing)
 CAST = lambda pid, who, foot='footL': P(pid, 'footCast', on={'actor': who, 'joint': foot, 'offset': [0.0, 0.02, 0.0]}, opts={'s': 1.45})
 PAIN = {'lid': 0.85, 'mouth': 'O', 'brow': 0.9, 'blush': 0.6, 'sweat': 1.0}
 HELM = lambda pid, who: P(pid, 'tacHelmet', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.47, 0.0]})
@@ -69,16 +69,16 @@ def hold_pose(root, ry, face, sq=None, look=None, yaw=YAW):
           'reach': {'L': [*hl, 1, 0.04], 'R': [*hr, 1, 0.04]}, 'hands': {'L': 'grip', 'R': 'grip'}, 'face': face}
     if sq: t_['sq'] = sq
     return t_
-def hop_hold(t0, pts, dt, peak, ry, face, y0=0.0, sqL=0.07):
+def hop_hold(t0, pts, dt, peak, ry, face, y0=0.0, sqL=0.07, yaw=YAW):
     # (review 1) each toon key ends at least 0.02 s before the next one starts: where a key's blend ended on the very frame the next began, the
     # body folded flat for one frame at every take-off; the landing squash eases in over 0.06 s and out over 0.07 s, vertical (sq only)
     keys, toon = [], []
     for i in range(len(pts) - 1):
         a, b = pts[i], pts[i + 1]; t = r(t0 + dt * i); m = [r((a[0] + b[0]) / 2), r(y0 + peak), r((a[1] + b[1]) / 2)]
         keys += [k(t, to=m, dur=r(dt / 2), ease='inOut', face='keep', glide=True), k(r(t + dt / 2), to=[b[0], y0, b[1]], dur=r(dt / 2), ease='inOut', face='keep', glide=True)]
-        toon += [k(r(t + 0.01), toon=hold_pose([a[0], y0, a[1]], ry, face, [1 - sqL * 0.7, 1 + sqL, 1 - sqL * 0.7]), toonDur=0.07, toonEase='out'),
-                 k(r(t + 0.1), toon=hold_pose(m, ry, face, [1.0, 1.0, 1.0]), toonDur=r(dt / 2 - 0.12), toonEase='inOut'),
-                 k(r(t + dt - 0.08), toon=hold_pose([b[0], y0, b[1]], ry, face, [1 + sqL, 1 - sqL, 1 + sqL]), toonDur=0.06, toonEase='inOut')]
+        toon += [k(r(t + 0.01), toon=hold_pose([a[0], y0, a[1]], ry, face, [1 - sqL * 0.7, 1 + sqL, 1 - sqL * 0.7], yaw=yaw), toonDur=0.07, toonEase='out'),
+                 k(r(t + 0.1), toon=hold_pose(m, ry, face, [1.0, 1.0, 1.0], yaw=yaw), toonDur=r(dt / 2 - 0.12), toonEase='inOut'),
+                 k(r(t + dt - 0.08), toon=hold_pose([b[0], y0, b[1]], ry, face, [1 + sqL, 1 - sqL, 1 + sqL], yaw=yaw), toonDur=0.06, toonEase='inOut')]
     return keys, toon
 
 for g_ in [('S01', 0.75, 'mec', 'bonk'), ('S10', 0.6, 'pilote', 'hop'), ('S11', 1.2, 'pilote', 'medal'), ('S20', 0.9, 'mec', 'coupable'), ('S24', 0.7, 'mecP', 'bonk2')]:
@@ -121,11 +121,11 @@ def loop_shot(sid, set_, who, t_hit, setOpts=None, extra_props=(), hang=0.0, tak
              *extra_props]
     st.shot(sid, set_, setOpts=setOpts, actors=[act(who, WALK_FROM, 0, 'stand', 'neutral', keys=ks)], props=props,
             fx=[{'type': 'shake', 'at': t_hit, 'dur': 0.14, 'amount': 0.012}],
-            cams=[cam(0.0, [1.3, 0.26, 1.9], [1.28, 0.26, 1.86], [0.3, 0.8, -0.8], [0.3, 0.81, -0.8], lens=60)])
+            cams=[cam(0.0, [1.3, 0.26, 1.9], [1.28, 0.26, 1.86], [0.3, 0.85, -0.8], [0.3, 0.86, -0.8], lens=68)])   # (review 2) headroom: lens 60 -> 68, aim up 5 cm (the stretched head went out of the top)
     st.cue('sfx:stepSoft', sid, 0.15, 0.12); st.cue('sfx:stepSoft', sid, 0.45, 0.12)
     st.cue('sfx:bonk', sid, t_hit, 0.5); st.cue('sfx:gasp', sid, r(tp + 0.02), 0.3)
     for i in range(len(hops) - 1): st.cue('thud', sid, r(th + 0.3 * i + 0.28), 0.1)
-loop_shot('S01', 'livingRoom', 'mec', 0.7, setOpts={'tv': False, 'carpet': False})
+loop_shot('S01', 'livingRoom', 'mec', 0.7, setOpts={'tv': False, 'carpet': False, 'pictureX': 0.8, 'pictureW': 1.0})   # (review 2) the painting moved right, off his walk and hops: S24's window sits at the same place in the frame
 
 # 2: it was premeditated. The table alone in the empty room, a slow push-in at knee height; a lamp swings over it; four yellow evidence markers pop
 #    up round its legs one after another
@@ -140,12 +140,12 @@ st.cue('sfx:sting', 'S02', 0.05, 0.25)
 # 3: special forces. Night, his street from low: the block's front, a helicopter over it sweeping its searchlight; three ropes hang from it and
 #    three men in black slide down them, one after another
 D3 = st.dur('S03'); BLK3 = [0.0, 0, -8.0]
-SW3 = [(-0.9, 0.0), (0.3, 0.18), (1.3, 0.34)]
+SW3 = [(-0.9, 0.0), (0.3, 0.15), (1.3, 0.3)]   # (review 2) the slides start at the top of the shot, 0.15 s apart
 st.shot('S03', 'parisStreet', setOpts={**STREET, 'night': True}, actors=[
         *[act(f'swat{j + 1}', [x_, r(6.8 - 0.4 * j), -5.6], 15, 'stand', 'determined', keys=[k(0.0, look='camera'),
             k(0.0, toon={'reach': {'L': [x_, r(9.4 - 0.4 * j), -5.45, 1, 0.03], 'R': [x_, r(9.1 - 0.4 * j), -5.45, 1, 0.03]}, 'hands': {'L': 'grip', 'R': 'grip'}, 'bend': {'legL': [-0.3, 0.1, 0, 1, None], 'legR': [-0.2, -0.1, 0, 1, None], 'shinL': [0.5, 0, 0, 1, None], 'shinR': [0.4, 0, 0, 1, None]}}, toonDur=0.0),
-            k(d_, to=[x_, r(2.2 - 0.3 * j), -5.6], dur=r(D3 - d_), ease='in', glide=True, face='keep'),
-            k(d_, toon={'reach': {'L': [x_, r(4.8 - 0.3 * j), -5.45, 1, 0.03], 'R': [x_, r(4.5 - 0.3 * j), -5.45, 1, 0.03]}, 'hands': {'L': 'grip', 'R': 'grip'}, 'bend': {'legL': [-0.3, 0.1, 0, 1, None], 'legR': [-0.2, -0.1, 0, 1, None], 'shinL': [0.5, 0, 0, 1, None], 'shinR': [0.4, 0, 0, 1, None]}}, toonDur=r(D3 - d_), toonEase='in')])
+            k(d_, to=[x_, r(2.7 - 0.25 * j), -5.6], dur=0.72, ease='out', glide=True, face='keep'),   # (review 2) they stop sliding with their feet above the captions
+            k(d_, toon={'reach': {'L': [x_, r(4.8 - 0.3 * j), -5.45, 1, 0.03], 'R': [x_, r(4.5 - 0.3 * j), -5.45, 1, 0.03]}, 'hands': {'L': 'grip', 'R': 'grip'}, 'bend': {'legL': [-0.3, 0.1, 0, 1, None], 'legR': [-0.2, -0.1, 0, 1, None], 'shinL': [0.5, 0, 0, 1, None], 'shinR': [0.4, 0, 0, 1, None]}}, toonDur=0.72, toonEase='out')])
           for j, (x_, d_) in enumerate(SW3)]],
         props=[P('blk3', 'holedBlock', pos=BLK3, opts={'w': 6.0, 'h': 10.0, 'holeAt': 99.0, 'night': True, 'door': True}), *sum([KIT('3', f'swat{j + 1}') for j in range(3)], []),
                P('heli3', 'helicopter', pos=[0.3, 10.2, -5.2], ry=90, scale=1.0, opts={'spin': 6, 'beam': True, 'beamLen': 14, 'beamR': 1.8, 'tilt': 25, 'sweep': [[0.0, -25], [D3, 25]]}),
@@ -159,8 +159,10 @@ for j, (_, d_) in enumerate(SW3): st.cue('sfx:slideDown', 'S03', d_, 0.15)
 #    helicopter's searchlight circle sweeps over them (review 1: the camera was inside the group and the wide lens stretched the heads)
 D4 = st.dur('S04'); DOOR4 = [0.0, 0, -8.0]; STEP4 = 0.4
 RING4 = []
-for a_ in (-52, -18, 18, 52):
-    x_, z_ = r(2.5 * math.sin(math.radians(a_))), r(-8.0 + 2.5 * math.cos(math.radians(a_)))
+# (review 2) a wider arc with gaps, the men turned to the door (seen three-quarter from behind), backlit by the lit doorway, narrow torch beams on the
+# door; the camera low and close behind the right of the arc (black on black, front-on, the lamps read as cream loaves)
+for a_ in (-52, -18, 16, 50):
+    x_, z_ = r(2.1 * math.sin(math.radians(a_))), r(-8.0 + 2.1 * math.cos(math.radians(a_)))
     RING4.append((x_, z_, r(math.degrees(math.atan2(-x_, -8.0 - z_)))))
 def swat4(j, x_, z_, ry_):
     x2, z2 = r(x_ * 0.86), r(-8.0 + (z_ + 8.0) * 0.86)
@@ -173,9 +175,10 @@ def swat4(j, x_, z_, ry_):
 st.shot('S04', 'parisStreet', setOpts={**STREET, 'night': True}, actors=[swat4(j, *q) for j, q in enumerate(RING4)],
         props=[P('blk4', 'holedBlock', pos=DOOR4, opts={'w': 6.0, 'h': 10.0, 'holeAt': 99.0, 'night': True, 'door': True}),
                *sum([KIT('4', f'swat{j + 1}') for j in range(4)], []),
-               *[P(f'lampe4{j}', 'tacLight', pos=loc([x_, 0, z_], ry_, [-0.05, 1.3, 0.45]), ry=ry_, opts={'len': 2.2, 'r': 0.4},
-                   keys=[k(STEP4, to=loc([r(x_ * 0.86), 0, r(-8.0 + (z_ + 8.0) * 0.86)], ry_, [-0.05, 1.3, 0.45]), dur=0.24, ease='inOut')]) for j, (x_, z_, ry_) in enumerate(RING4)]],
-        cams=[FC(0.0, [4.4, 0.6, -0.4], [[0.0, 2.6, -8.0], [0.0, 0.0, -8.0], *[[x_, 1.85, z_] for x_, z_, _ in RING4], *[[x_, 0.0, z_] for x_, z_, _ in RING4]], top=0.16, bottom=0.74, lenses=range(30, 56), drift=(-0.12, 0.0, -0.1))])
+               *[P(f'lampe4{j}', 'tacLight', pos=loc([x_, 0, z_], ry_, [-0.05, 1.3, 0.45]), ry=ry_, opts={'len': 2.3, 'r': 0.1, 'beam': 0.4},
+                   keys=[k(STEP4, to=loc([r(x_ * 0.86), 0, r(-8.0 + (z_ + 8.0) * 0.86)], ry_, [-0.05, 1.3, 0.45]), dur=0.24, ease='inOut')]) for j, (x_, z_, ry_) in enumerate(RING4)],
+               P('contre4', 'glowLight', pos=[0.0, 2.3, -7.5], opts={'at': -1.0, 'k': 16, 'dist': 7, 'color': '#FFD48A'})],
+        cams=[FC(0.0, [2.5, 0.45, -3.4], [[0.0, 2.6, -8.0], [0.0, 0.0, -8.0], *[[x_, 1.85, z_] for x_, z_, _ in RING4], *[[x_, 0.0, z_] for x_, z_, _ in RING4]], top=0.14, bottom=0.74, lenses=range(30, 56), drift=(-0.1, 0.0, -0.12))])
 st.cue('sfx:rotor', 'S04', 0.0, 0.3); st.cue('sfx:stepRun', 'S04', STEP4, 0.25)
 
 # 5: the table refused to comply. The living room from the front right: the open door in the back wall, a bright canister already rolling across
@@ -197,11 +200,12 @@ CR6 = {'spine': [0.3, 0, 0, 1, None], 'legL': [-0.6, 0, 0, 1, None], 'shinL': [1
 st.shot('S06', 'livingRoom', setOpts={'tv': False, 'carpet': False}, actors=[
         *[act(f'swat{j + 1}', [x_, 0, z_], a_, 'stand', 'determined', keys=[k(0.0, look=[0.0, 0.42, 0.0]),
             k(0.0, toon={'reach': {'R': [*loc([x_, 0, z_], a_, [-0.05, 1.2, 0.55]), 1, 0.03], 'L': [*loc([x_, 0, z_], a_, [0.08, 1.15, 0.3]), 1, 0.03]}, 'hands': {'L': 'grip', 'R': 'grip'}, 'bend': CR6, 'sq': [1.04, 0.88, 1.04]}, toonDur=0.0),
-            *([k(0.5, toon={'reach': {'R': [*loc([x_, 0, z_], a_, [-0.05, 0.95, 0.75]), 1, 0.03], 'L': [*loc([x_, 0, z_], a_, [0.08, 0.9, 0.5]), 1, 0.03]}, 'hands': {'L': 'grip', 'R': 'grip'},
-                             'bend': {**CR6, 'spine': [0.75, 0, 0, 1, None]}, 'sq': [1.04, 0.88, 1.04]}, toonDur=0.35, toonEase='inOut')] if j == 2 else [])])
+            *([k(0.45, to=[r(x_ - 0.12), 0, r(z_ + 0.32)], dur=0.3, ease='inOut', glide=True, face='keep'),   # (review 2) the peer: a step in, a deep lean, the neck stretched toward the table
+               k(0.45, toon={'reach': {'R': [*loc([r(x_ - 0.12), 0, r(z_ + 0.32)], a_, [-0.05, 0.8, 0.85]), 1, 0.03], 'L': [*loc([r(x_ - 0.12), 0, r(z_ + 0.32)], a_, [0.08, 0.75, 0.6]), 1, 0.03]}, 'hands': {'L': 'grip', 'R': 'grip'},
+                             'bend': {**CR6, 'spine': [1.1, 0, 0, 1, None], 'neck': [0.45, 0, 0, 1.3, None]}, 'sq': [1.04, 0.9, 1.04]}, toonDur=0.32, toonEase='inOut')] if j == 2 else [])])
           for j, (x_, z_, a_) in enumerate(AIM6)]],
         props=[TBL('t6', T1), *sum([KIT('6', f'swat{j + 1}', mask=True) for j in range(4)], []),
-               *[P(f'lampe6{j}', 'tacLight', pos=loc([x_, 0, z_], a_, [-0.05, 1.2, 0.45]), ry=a_, opts={'len': 1.1, 'r': 0.22, 'beam': 0.12}) for j, (x_, z_, a_) in enumerate(AIM6)],
+               *[P(f'lampe6{j}', 'tacLight', pos=loc([x_, 0, z_], a_, [-0.05, 1.2, 0.45]), ry=a_, opts={'len': 1.5, 'r': 0.1, 'beam': 0.3}) for j, (x_, z_, a_) in enumerate(AIM6) if j != 2],   # (review 2) narrow cones (wide ones read as grey shields)
                P('fumee6', 'toonPuff', pos=[0.0, 0.15, 0.25], opts={'at': -0.5, 'n': 6, 'life': 0.95, 'size': 0.28, 'rise': 0.9, 'spread': 1.1, 'color': '#F2F0EA'})],
         cams=[FC(0.0, [0.4, 1.25, 3.2], [[-0.6, 0.0, 0.3], [0.6, 0.0, 0.3], *[[x_, 1.95, z_] for x_, z_, _ in AIM6], *[[x_, 0.3, z_] for x_, z_, _ in AIM6]], top=0.12, bottom=0.74, lenses=range(30, 60), drift=(-0.08, -0.02, -0.15))])
 st.cue('sfx:static', 'S06', 0.0, 0.08)
@@ -219,7 +223,7 @@ st.cue('engine', 'S07', 0.0, 0.4)
 #    at us in a cloud of dust; the tank disappears inside
 D8 = st.dur('S08'); HIT8 = 0.3
 st.shot('S08', 'parisStreet', setOpts=STREET, fx=[{'type': 'shake', 'at': HIT8, 'dur': 0.3, 'amount': 0.025}], actors=[],
-        props=[P('blk8', 'holedBlock', pos=B1, opts={'w': 6.0, 'h': 10.0, 'hole': [0.0, 1.05, 1.4], 'holeAt': HIT8}),
+        props=[P('blk8', 'holedBlock', pos=B1, opts={'w': 6.0, 'h': 10.0, 'hole': [0.0, 1.05, 1.4], 'holeAt': HIT8, 'bulge': 0.07}),   # (review 2) a bulge before the burst
                P('char8', 'battleTank', pos=[0.0, 0, -5.0], ry=180, scale=0.72, keys=[k(0.0, to=[0.0, 0, -11.1], dur=D8, ease='linear')], opts={'rumble': [[0.0, 9.0, 0.02]]}),
                P('briques8', 'brickBurst', pos=[0.0, 1.05, -8.9], opts={'at': HIT8, 'n': 30, 'floor': 1.05, 'speed': 5.5})],
         cams=[cam(0.0, [3.8, 1.2, -0.6], [3.6, 1.2, -1.0], [0.0, 2.2, -9.0], [0.0, 2.2, -9.0], lens=46)])
@@ -256,32 +260,33 @@ def sold10(j, x_, z_):
         k(0.0, to=[x_, 0, r(z_ + 0.4)], dur=D10, clip='walk', ease='linear'),
         *[k(r(t_), toon={'reach': {hand: [legp[0], legp[1], r(legp[2] - 1.2 + 1.6 * t_ / D10), 1, 0.03]}, 'hands': {hand: 'grip'}}, toonDur=0.2) for t_ in (0.0, D10 * 0.5, D10)]])
 st.shot('S10', 'parisStreet', setOpts=STREET, actors=[*[sold10(j, x_, z_) for j, (x_, z_) in enumerate(SOL10)],
-        act('pilote', [-2.2, 0, -2.4], 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), *sum(hop_hold(0.0, [[-2.2, -2.4], [-2.0, -2.15], [-2.25, -1.9], [-2.05, -1.65], [-2.25, -1.4]], 0.3, 0.2, 0, PAIN, sqL=0.09), [])])],
-        props=[P('t10', 'coffeeTable', pos=[0.0, 0.55, -1.2], opts={'cuffs': True}, keys=[k(0.0, to=[0.0, 0.55, 0.4], dur=D10, ease='linear')]),
+        act('pilote', [-0.35, 0, -2.65], 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), *sum(hop_hold(0.0, [[-0.35, -2.65], [-0.5, -2.25], [-0.3, -1.85], [-0.5, -1.45], [-0.3, -1.05]], 0.3, 0.22, 0, PAIN, sqL=0.1), [])])],   # (review 2) the driver hops right behind the table, in the middle
+        props=[P('t10', 'coffeeTable', pos=[0.0, 0.55, -1.2], opts={'cuffs': True, 'cuffColor': '#4A5058', 'cuffS': 1.5}, keys=[k(0.0, to=[0.0, 0.55, 0.4], dur=D10, ease='linear')]),
                *[CUFF(f'cuff10{j}', f'sold{j + 1}', 'R' if x_ < 0 else 'L') for j, (x_, _) in enumerate(SOL10)],
                *[KEPI(f'kepi10{j}', f'sold{j + 1}') for j in range(4)],
                P('casque10', 'tankHelmet', on={'actor': 'pilote', 'joint': 'head', 'offset': [0.0, 0.47, 0.0]}, opts={'s': 0.82})],
-        cams=[FC(0.0, [-0.9, 3.7, 4.4], [[1.1, 2.5, 0.75], [-1.1, 2.5, 0.75], [1.1, 0.0, 0.75], [-1.1, 0.0, 0.75], [-2.2, 2.6, -2.4], [-2.2, 0.0, -1.4], [1.2, 2.5, -0.9]], top=0.1, bottom=0.76, lenses=range(30, 70))])
+        cams=[cam(0.0, [-0.6, 3.4, 4.6], [-0.6, 3.4, 6.2], [0.0, 0.9, -0.6], [0.0, 0.9, 1.0], lens=48)])   # (review 2) pushed in, travelling back with them: the table a third of the width
 st.cue('sfx:cuff', 'S10', 0.1, 0.3); st.cue('sfx:cuff', 'S10', 0.22, 0.25)
 for i in range(4): st.cue('sfx:stepHeavy', 'S10', r(0.1 + 0.3 * i), 0.15); st.cue('thud', 'S10', r(0.3 + 0.3 * i), 0.08)
 
 # 11: the tank driver was decorated. A square in the sun, flags, a three-man band playing behind; the general pins a medal on the driver's chest; the
 #     driver salutes, balanced on one leg, his left foot in a big plaster cast held up behind him; he wobbles
-D11 = st.dur('S11'); PIN11 = 1.0; PIL11 = [0.2, 0, 0.0]; GEN11 = [-0.75, 0, 0.3]
+D11 = st.dur('S11'); PIN11 = 1.0; PIL11 = [0.2, 0, 0.0]; GEN11 = [-0.45, 0, 0.45]   # (review 2) the general closer and turned to us (we saw the grey back of his head)
 BEATS11 = [r(0.15 + 0.3 * i) for i in range(7)]
-CHEST11 = loc(PIL11, -10, [0.12, 1.78, 0.17])
+CHEST11 = loc(PIL11, -10, [0.1, 1.62, 0.17])   # (review 2) lower on the chest: the pinning arm and the salute met in a knot at the shoulder
+SAL11 = loc(PIL11, -10, [0.17, 2.06, 0.13]); CASTUP11 = loc(PIL11, -10, [0.36, 0.62, 0.12])   # the salute with his far (left) hand; the cast held out at knee height, clear of the standing leg
 st.shot('S11', 'parisStreet', setOpts=STREET, actors=[
-        act('pilote', PIL11, -10, 'stand', 'determined', keys=[k(0.0, look='camera'), k(0.05, clip='salute'),
-            *[k(r(0.02 + 0.3 * i), toon={'plant': {'L': [*loc(PIL11, -10, [0.12, 0.42, -0.36]), 1]}, 'lay': [0.0, r(0.11 * (-1) ** i)], 'face': {'lid': 0.4, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.26, toonEase='inOut') for i in range(7)]]),
-        act('general', GEN11, 55, 'stand', 'determined', keys=[k(0.0, look=[CHEST11[0], CHEST11[1], CHEST11[2]]),
+        act('pilote', PIL11, -10, 'stand', 'determined', keys=[k(0.0, look='camera'),
+            *[k(r(0.02 + 0.3 * i), toon={'plant': {'L': [*CASTUP11, 1]}, 'reach': {'L': [*SAL11, 1, 0.03]}, 'hands': {'L': 'open'}, 'lay': [0.0, r(0.11 * (-1) ** i)], 'face': {'lid': 0.4, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.26 if i else 0.0, toonEase='inOut') for i in range(7)]]),
+        act('general', GEN11, 22, 'stand', 'determined', keys=[k(0.0, look=[CHEST11[0], CHEST11[1], CHEST11[2]]),
             k(0.0, toon={'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.0),
-            k(r(PIN11 - 0.35), toon={'reach': {'R': [r(CHEST11[0] - 0.06), CHEST11[1], r(CHEST11[2] + 0.06), 1, 0.03]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.1, 0, 0, 1, None]}, 'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.3, toonEase='out'),
-            k(r(PIN11 + 0.12), toon={'reach': {'R': [r(CHEST11[0] - 0.06), CHEST11[1], r(CHEST11[2] + 0.06), 1, 0.03]}, 'hands': {'R': 'grip'}, 'sq': [1.04, 0.95, 1.04], 'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.06),
+            k(r(PIN11 - 0.35), toon={'reach': {'L': [r(CHEST11[0] - 0.05), CHEST11[1], r(CHEST11[2] + 0.07), 1, 0.03]}, 'hands': {'L': 'grip'}, 'bend': {'spine': [0.1, 0, 0, 1, None]}, 'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.3, toonEase='out'),
+            k(r(PIN11 + 0.12), toon={'reach': {'L': [r(CHEST11[0] - 0.05), CHEST11[1], r(CHEST11[2] + 0.07), 1, 0.03]}, 'hands': {'L': 'grip'}, 'sq': [1.04, 0.95, 1.04], 'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.06),
             k(r(PIN11 + 0.35), toon={'face': {'lid': 0.4, 'mouth': 'smirk'}}, toonDur=0.25), k(r(PIN11 + 0.4), look='camera')]),
         *[act(f'musi{j + 1}', [[-2.5, 1.6, 2.6][j], 0, -2.8], [20, -10, -20][j], 'stand', 'neutral', keys=[k(0.0, look='camera'), *[k(b_, toon={'sq': [1.03, 0.95, 1.03], 'face': {'lid': 0.5, 'mouth': 'kiss' if j == 0 else 'line'}}, toonDur=0.06) for b_ in BEATS11],
             *[k(r(b_ + 0.12), toon={'sq': [1.0, 1.0, 1.0], 'face': {'lid': 0.4, 'mouth': 'kiss' if j == 0 else 'line'}}, toonDur=0.1) for b_ in BEATS11]]) for j in range(3)]],
-        props=[CAST('platre11', 'pilote'), P('casque11', 'tankHelmet', on={'actor': 'pilote', 'joint': 'head', 'offset': [0.0, 0.47, 0.0]}, opts={'s': 0.82}),
-               P('medaille11', 'medal', on={'actor': 'pilote', 'joint': 'torso', 'offset': [0.12, 0.6, 0.17]}, scale=2.2, keys=[k(0.0, visible=False), k(PIN11, visible=True)]),
+        props=[P('platre11', 'footCast', on={'actor': 'pilote', 'joint': 'footL', 'offset': [0.0, 0.02, 0.0]}, opts={'s': 1.9, 'toes': True}), P('casque11', 'tankHelmet', on={'actor': 'pilote', 'joint': 'head', 'offset': [0.0, 0.47, 0.0]}, opts={'s': 0.82}),
+               P('medaille11', 'medal', on={'actor': 'pilote', 'joint': 'torso', 'offset': [0.1, 0.44, 0.17]}, scale=2.2, keys=[k(0.0, visible=False), k(PIN11, visible=True)]),
                KEPI('kepi11g', 'general', color='#2B3A2A', band='#E2B53C'),
                P('instr110', 'bandInstr', on={'actor': 'musi1', 'joint': 'head', 'offset': [0.0, 0.13, 0.11], 'rot': [-0.3, -0.85, 0.0]}, opts={'kind': 'trumpet', 'beat': BEATS11[::2], 's': 1.15}),
                P('instr111', 'bandInstr', on={'actor': 'musi2', 'joint': 'torso', 'offset': [0.0, 0.3, 0.0]}, opts={'kind': 'sousa', 'beat': BEATS11[::2]}),
@@ -330,6 +335,9 @@ st.shot('S14', 'courtroom', setOpts={'sign': 'TRIBUNAL'}, actors=[
         props=[SEAL('sceau14'), P('plan14', 'planScroll', pos=PLAN14, rot=[-PI / 2, 0, 0], opts={'w': 1.6, 'len': 3.4, 'unroll': [[LAND14, 0.02], [1.05, 1.0]]}, keys=[k(0.0, visible=False), k(LAND14, visible=True)]),
                P('rouleau14', 'paperRoll', pos=[0.0, 2.25, -2.5], opts={'w': 1.6, 'spin': 16}, keys=[k(THROW14, to=[0.0, 1.9, -2.05], dur=r((LAND14 - THROW14) / 2), ease='out'),
                    k(r((THROW14 + LAND14) / 2), to=[0.0, 0.1, PLAN14[2]], dur=r((LAND14 - THROW14) / 2), ease='in'), k(LAND14, visible=False)]),
+               *[P(f'fantome14{j}', 'paperRoll', pos=[0.0, 2.25, -2.5], opts={'w': 1.6, 'spin': 16, 'opacity': [0.45, 0.22][j]},   # (review 2) the smear of the throw: two fading copies trail the roll
+                   keys=[k(0.0, visible=False), k(r(THROW14 + 0.03 * (j + 1)), visible=True), k(r(THROW14 + 0.03 * (j + 1)), to=[0.0, 1.9, -2.05], dur=r((LAND14 - THROW14) / 2), ease='out'),
+                         k(r((THROW14 + LAND14) / 2 + 0.03 * (j + 1)), to=[0.0, 0.1, PLAN14[2]], dur=r((LAND14 - THROW14) / 2), ease='in'), k(r(LAND14 + 0.02 * (j + 1)), visible=False)]) for j in range(2)],
                P('banc14', 'dockBox', pos=[2.75, 0, -1.0], ry=-90, opts={'w': 2.8, 'd': 0.6, 'h': 0.6, 'color': '#6E4A2E'})],
         cams=[cam(0.0, [-0.9, 4.4, 3.9], [-0.85, 4.35, 3.7], [0.5, 0.8, -1.1], [0.5, 0.8, -1.15], lens=52)])
 st.cue('sfx:whoosh', 'S14', THROW14, 0.3); st.cue('sfx:paper', 'S14', LAND14, 0.35); st.cue('sfx:gasp', 'S14', 1.27, 0.3)
@@ -341,25 +349,30 @@ st.shot('S15', 'courtroom', setOpts={'sign': 'TRIBUNAL'}, actors=gend_actors([[k
         props=[SEAL('sceau15'), GKEPI('kepi15a', 'gend1'), GKEPI('kepi15b', 'gend2'), P('box15', 'dockBox', pos=DOCK, opts={'h': DH}), STAND('stand15', [DOCK[0], 0, DOCK[2] - 0.05]),
                P('t15', 'coffeeTable', pos=[TD[0], SH_, TD[2]], opts={'squash': [[0.0, 0.0], [r(STAMP15 - 0.01), 0.0], [STAMP15, 1.0], [r(STAMP15 + 0.3), 1.0], [r(STAMP15 + 0.4), -0.3], [r(STAMP15 + 0.5), 0.12], [r(STAMP15 + 0.6), -0.04], [r(STAMP15 + 0.68), 0.0]]},
                    keys=[k(r(STAMP15 + 0.38), rotTo=[0.0, 0.0, 0.07], dur=0.08, ease='out'), k(r(STAMP15 + 0.46), rotTo=[0.0, 0.0, -0.06], dur=0.08, ease='inOut'), k(r(STAMP15 + 0.54), rotTo=[0.0, 0.0, 0.03], dur=0.08, ease='inOut'), k(r(STAMP15 + 0.62), rotTo=[0.0, 0.0, 0.0], dur=0.08, ease='inOut')]),
-               P('tampon15', 'bigStamp', pos=[TD[0], 4.2, TD[2]], scale=4.0, keys=[k(r(STAMP15 - 0.12), to=[TD[0], r(SH_ + 0.42 * 0.25 + 1.46), TD[2]], dur=0.12, ease='in'), k(r(STAMP15 + 0.08), to=[TD[0], 4.6, TD[2]], dur=0.12, ease='out')])],
+               # (review 2) the stamp drops in, hangs, lifts a little (anticipation), slams, squashes on its face, and goes back up
+               P('tampon15', 'tableStamp', pos=[TD[0], 4.5, TD[2]], scale=4.0, opts={'squash': [[r(STAMP15 - 0.005), 0.0], [STAMP15, 1.0], [r(STAMP15 + 0.04), 1.0], [r(STAMP15 + 0.12), 0.0]]},
+                 keys=[k(0.0, to=[TD[0], 3.42, TD[2]], dur=0.12, ease='out'), k(0.12, to=[TD[0], 3.72, TD[2]], dur=0.08, ease='out'),
+                       k(r(STAMP15 - 0.1), to=[TD[0], r(SH_ + 0.42 * 0.25 + 1.52), TD[2]], dur=0.1, ease='in'), k(r(STAMP15 + 0.1), to=[TD[0], 4.7, TD[2]], dur=0.14, ease='out')])],
         fx=[{'type': 'shake', 'at': STAMP15, 'dur': 0.2, 'amount': 0.025}],
         cams=[cam(0.0, [0.6, 1.8, 4.7], [0.56, 1.79, 4.55], [-1.4, 1.25, 1.3], [-1.4, 1.25, 1.3], lens=40)])
 st.cue('sfx:gavel', 'S15', 0.0, 0.35); st.cue('clack', 'S15', STAMP15, 0.55); st.cue('thud', 'S15', STAMP15, 0.4); st.cue('sfx:boing', 'S15', r(STAMP15 + 0.4), 0.25)
 
-# 16: in prison, it reoffended. From above (19 degrees off the vertical, no bars between us and the floor): the table in the middle under a bare
-#     bulb; three guards on a clean circle round it hop on one foot on the same beat, each holding the other foot, a squash at every landing
-D16 = st.dur('S16'); C16 = [0.0, 0, 0.15]
-def ring16(j):
-    pts = []
-    for i in range(8):
-        a_ = math.radians(j * 120 + i * 18); pts.append([r(C16[0] + 1.05 * math.cos(a_)), r(C16[2] + 1.05 * math.sin(a_))])
-    ry_ = -(j * 120) - 90 + 180
-    kk, tt = hop_hold(0.0, pts, 0.28, 0.16, ry_, PAIN, sqL=0.09)
-    return act(f'gard{j + 1}', [pts[0][0], 0, pts[0][1]], ry_, 'stand', 'neutral', keys=[k(0.0, look='camera'), *kk, *tt])
-st.shot('S16', 'brightCell', setOpts={'w': 4.0, 'd': 4.0, 'h': 7.5, 'bars': False}, actors=[ring16(j) for j in range(3)],
-        props=[TBL('t16', C16), P('ampoule16', 'cellBulb', pos=[0.75, 3.6, 0.85], opts={'drop': 0.4, 'power': 7, 'range': 7})],
-        cams=[FC(0.0, [0.0, 4.3, 3.6], [[r(C16[0] + 1.3 * math.cos(math.radians(a_))), h_, r(C16[2] + 1.3 * math.sin(math.radians(a_)))] for a_ in range(0, 360, 45) for h_ in (0.0, 2.0)], top=0.1, bottom=0.76, lenses=range(30, 70))])
-for i in range(7): st.cue('thud', 'S16', r(0.28 * i + 0.26), 0.12)
+# 16: in prison, it reoffended. A high three-quarter view (about 40 degrees down) pushed in on the table in the middle of the cell under a bare bulb;
+#     three guards on a fixed circle round it, side-on to us, hop in place on the same beat, each holding his raised left foot, a squash at every
+#     landing; nobody covers the table (review 2: from straight above the hops and the held feet did not read, the guards drifted round it, one sat
+#     on the bunk, the near one covered the table)
+D16 = st.dur('S16'); C16 = [0.45, 0, 0.25]
+G16 = [((-0.65, 0.4), 90), ((1.55, 0.4), -90), ((0.45, -1.0), 90)]   # (x, z), facing: left and right guards face the table, the back one faces right
+def guard16(j):
+    (x_, z_), ry_ = G16[j]
+    pts = [[r(x_ + (0.035 if i % 2 else 0.0)), z_] for i in range(8)]
+    kk, tt = hop_hold(0.0, pts, 0.24, 0.2, ry_, PAIN, sqL=0.1, yaw=0.15)
+    return act(f'gard{j + 1}', [x_, 0, z_], ry_, 'stand', 'neutral', keys=[k(0.0, look='camera'), *kk, *tt])
+CAM16 = [1.81, 5.2, 6.66]   # 37 degrees down, 6.9 m back on a 40-degree lens (less perspective: the guards' heads stay inside the frame)
+st.shot('S16', 'brightCell', setOpts={'w': 4.0, 'd': 7.6, 'h': 7.5, 'bars': False}, actors=[guard16(j) for j in range(3)],
+        props=[TBL('t16', C16), P('ampoule16', 'cellBulb', pos=[0.45, 3.5, 0.25], opts={'drop': 0.55, 'power': 7, 'range': 7})],
+        cams=[cam(0.0, CAM16, [1.79, 5.18, 6.58], [0.45, 0.66, 0.1], [0.45, 0.66, 0.1], lens=40)])
+for i in range(7): st.cue('thud', 'S16', r(0.24 * i + 0.22), 0.12)
 st.cue('sfx:grunt', 'S16', 0.3, 0.2)
 
 # 17: three guards. Life. In the corridor outside the cell, front: the three guards in a row on crutches, their left feet in big plaster casts held
@@ -375,16 +388,27 @@ def gard17(j, x_, z_, a_):
         k(r(ST17 + 0.02), toon={**lift, 'sq': [0.95, 1.12, 0.95], 'hat': [0.16, r(0.25 * (-1) ** j), 0.0], 'face': {'lid': 0.0, 'eye': 0.5, 'pop': 0.5, 'popLen': 0.15, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.05, toonEase='out'),
         k(r(ST17 + 0.2), toon={**lift, 'sq': [1.04, 0.95, 1.04], 'hat': [0.0, 0.0, 0.0], 'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.4}}, toonDur=0.12, toonEase='in'),
         k(r(ST17 + 0.4), toon={**lift, 'face': {'lid': 0.4, 'mouth': 'line'}, 'settle': 0.6}, toonDur=0.15)])
+# (review 2) the corridor is roofed (an open top showed a pale sky: it read as a yard), the bars and the door frame are steel grey and a bulb lights the
+# cell behind them (navy guards on navy bars merged), the stamp hangs a beat at three-quarters, its handle and red face to us, then turns flat
+# and slams; the plate is a white board 1 m wide and the camera snaps in on it after the hit (17 % of the width read as nothing on a phone)
+SD17 = [0.461, 0.293, 0.837]; SL17 = 1.14   # the stamp's axis at three-quarters (handle toward us, right and up), and knob-to-face on a scale of 3
+ROT17 = [1.234, 0.0, -0.479]; FLAT17 = [r(PI / 2), 0.0, 0.0]
+P17 = lambda ext: [r(PLATE17[0] + SD17[0] * ext), r(PLATE17[1] + SD17[1] * ext), r(PLATE17[2] + 0.04 + SD17[2] * ext)]
 st.shot('S17', 'brightCell', setOpts={'w': 4.4, 'd': 5.4, 'bars': False}, actors=[gard17(j, *q) for j, q in enumerate(GD17)],
         props=[*[CAST(f'platre17{j}', f'gard{j + 1}') for j in range(3)],
                *[P(f'bequille17{j}', 'crutch', on={'actor': f'gard{j + 1}', 'hand': 'L', 'offset': [0.0, -0.02, 0.0]}) for j in range(3)],
-               P('barreaux17', 'jailBars', pos=[-1.0, 0, 0.0], opts={'width': 1.9, 'height': 2.8}), P('barreaux17b', 'jailBars', pos=[1.65, 0, 0.0], opts={'width': 1.6, 'height': 2.8}),
-               P('porte17', 'barDoor', pos=DOOR17, opts={'w': 0.9, 'open': 0.0, 'plate': True, 'plateY': PLATE17[1]}),
-               P('tampon17', 'bigStamp', pos=[PLATE17[0], PLATE17[1], r(PLATE17[2] + 1.75)], rot=[PI / 2, 0, 0], scale=3.0, keys=[k(0.0, visible=False), k(r(ST17 - 0.12), visible=True),
-                   k(r(ST17 - 0.12), to=[PLATE17[0], PLATE17[1], r(PLATE17[2] + 1.12)], dur=0.12, ease='in'), k(r(ST17 + 0.12), to=[PLATE17[0], r(PLATE17[1] + 0.3), r(PLATE17[2] + 2.6)], dur=0.18, ease='out'), k(r(ST17 + 0.3), visible=False)]),
-               P('marque17', 'stampMark', pos=[PLATE17[0], PLATE17[1], r(PLATE17[2] + 0.02)], opts={'text': 'PERPÉTUITÉ', 'w': 0.66, 'h': 0.24}, keys=[k(0.0, visible=False), k(ST17, visible=True)])],
+               P('plafond17', 'slab', pos=[0.0, 2.86, 4.6], opts={'w': 9.0, 'h': 0.12, 'd': 3.9, 'color': '#D9D2C4'}),
+               P('ampoule17', 'cellBulb', pos=[0.35, 2.78, -1.3], opts={'drop': 0.3, 'power': 8, 'range': 8}),
+               P('barreaux17', 'steelBars', pos=[-1.0, 0, 0.0], opts={'width': 1.9, 'height': 2.8}), P('barreaux17b', 'steelBars', pos=[1.65, 0, 0.0], opts={'width': 1.6, 'height': 2.8}),
+               P('porte17', 'barDoor', pos=DOOR17, opts={'w': 0.9, 'open': 0.0, 'plate': True, 'plateY': PLATE17[1], 'plateW': 1.0, 'plateH': 0.42, 'frame': '#7D858F'}),
+               P('tampon17', 'tableStamp', pos=P17(2.3), rot=ROT17, scale=3.0, opts={'squash': [[r(ST17 - 0.01), 0.0], [ST17, 1.0], [r(ST17 + 0.06), 1.0], [r(ST17 + 0.14), 0.0]]},
+                 keys=[k(0.0, visible=False), k(r(ST17 - 0.36), visible=True), k(r(ST17 - 0.36), to=P17(2.0), dur=0.2, ease='out'),
+                       k(r(ST17 - 0.11), to=[PLATE17[0], PLATE17[1], r(PLATE17[2] + 0.04 + SL17)], dur=0.11, ease='in'), k(r(ST17 - 0.11), rotTo=FLAT17, dur=0.11, ease='in'),
+                       k(r(ST17 + 0.14), to=P17(2.6), dur=0.2, ease='out'), k(r(ST17 + 0.14), rotTo=ROT17, dur=0.2, ease='out'), k(r(ST17 + 0.34), visible=False)]),
+               P('marque17', 'stampMark', pos=[PLATE17[0], PLATE17[1], r(PLATE17[2] + 0.025)], opts={'text': 'PERPÉTUITÉ', 'w': 0.92, 'h': 0.36}, keys=[k(0.0, visible=False), k(ST17, visible=True)])],
         fx=[{'type': 'shake', 'at': ST17, 'dur': 0.2, 'amount': 0.02}],
-        cams=[cam(0.0, [0.0, 1.55, 5.5], [-0.02, 1.55, 5.42], [0.0, 1.3, 0.5], [0.0, 1.3, 0.5], lens=66)])
+        cams=[cam(0.0, [0.0, 1.55, 5.5], [-0.02, 1.55, 5.42], [0.0, 1.3, 0.5], [0.0, 1.3, 0.5], lens=66),
+              glide([cam(r(ST17 + 0.1), [0.12, 1.62, 5.4], [0.12, 1.62, 5.36], [0.4, 1.78, 0.06], [0.4, 1.78, 0.06], lens=46)], 0.2)])
 st.cue('clack', 'S17', ST17, 0.6); st.cue('thud', 'S17', ST17, 0.35); st.cue('clang', 'S17', r(ST17 + 0.02), 0.3)
 
 # 18: on appeal, the table had an X-ray. The radiology room: the table lies on its back on the X-ray table, legs in the air; a doctor at the light
@@ -398,11 +422,12 @@ st.shot('S18', 'hospital', setOpts={'monitor': False}, actors=[
             k(1.05, toon={'touch': {'R': ['face', 0.08, 0.12, 0.05, 1, 0]}, 'hands': {'R': 'point'}, 'bend': {'neck': [0.0, 0.0, -0.12, 1, None]}, 'face': {'lid': 1.0, 'mouth': 'line', 'brow': -0.4}}, toonDur=0.06),
             k(1.13, toon={'touch': {'R': ['face', 0.08, 0.12, 0.05, 1, 0]}, 'hands': {'R': 'point'}, 'bend': {'neck': [0.0, 0.0, -0.12, 1, None]}, 'face': {'lid': 0.45, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.08),
             k(r(XR18 + 0.05), look=[0.55, 1.6, -1.6], lookDur=0.15),
-            k(r(XR18 + 0.1), toon={'reach': {'R': [0.78, 1.62, -1.15, 1, 0.05]}, 'hands': {'R': 'point'}, 'face': {'lid': 0.3, 'mouth': 'O', 'brow': 0.6}}, toonDur=0.2), k(r(XR18 + 0.55), look='camera', lookDur=0.12),
-            k(r(XR18 + 0.75), toon={'reach': {'R': [0.78, 1.62, -1.15, 1, 0.05]}, 'hands': {'R': 'point'}, 'face': {'lid': 0.35, 'mouth': 'smirk', 'brow': 0.3}}, toonDur=0.15)])],
+            k(r(XR18 + 0.04), toon={'reach': {'R': [0.78, 1.62, -1.15, 1, 0.05]}, 'hands': {'R': 'point'}, 'face': {'lid': 0.3, 'mouth': 'O', 'brow': 0.6}}, toonDur=0.12, toonEase='out'), k(r(XR18 + 0.2), look='camera', lookDur=0.1),
+            k(r(XR18 + 0.3), toon={'reach': {'R': [0.78, 1.62, -1.15, 1, 0.05]}, 'hands': {'R': 'point'}, 'face': {'lid': 0.35, 'mouth': 'smirk', 'brow': 0.3}}, toonDur=0.12)])],   # (review 2) the point lands and holds before the cut
         props=[P('lit18', 'xrayBed', pos=BED), P('t18', 'coffeeTable', pos=UP, rot=[0, 0, PI], opts={'bruise': True}),
                P('ecran18', 'xrayScreen', pos=[0.55, 0, -1.65], ry=-8, opts={'at': XR18})],
-        cams=[FC(0.0, [-0.2, 1.75, 3.6], [[r(BED[0] - 0.9), 0.84, BED[2]], [r(BED[0] + 0.9), 0.84, BED[2]], [BED[0], 1.35, BED[2]], [-0.15, 2.1, -1.65], [1.25, 2.1, -1.65], [DOC18[0] + 0.35, 2.5, DOC18[2]], [DOC18[0] + 0.35, 1.2, DOC18[2]], [DOC18[0] - 0.3, 2.5, DOC18[2]]], top=0.1, bottom=0.72, lenses=range(30, 70), drift=(0.0, 0.0, -0.18))])
+        cams=[FC(0.0, [0.16, 1.7, 3.6], [[-0.15, 2.12, -1.65], [1.25, 2.12, -1.65], [-0.15, 1.0, -1.65], [1.25, 1.0, -1.65], [DOC18[0] + 0.35, 2.45, DOC18[2]], [DOC18[0] - 0.3, 2.45, DOC18[2]], [DOC18[0] + 0.35, 1.0, DOC18[2]],
+                                       [r(BED[0] - 0.15), 1.72, BED[2]], [r(BED[0] + 0.55), 0.95, BED[2]]], top=0.1, bottom=0.74, lenses=range(30, 60), drift=(0.0, 0.0, -0.12))])   # (review 2) tighter: the light box 43 % of the width, the doctor whole
 st.cue('sfx:beep', 'S18', XR18, 0.3); st.cue('sfx:click', 'S18', r(XR18 - 0.02), 0.2)
 
 # 19: it had a bruise. Extreme close-up on one leg of the upturned table: a blue bruise on the wood; a yellow evidence marker pops up beside it
@@ -416,14 +441,21 @@ st.cue('sfx:pop', 'S19', 0.3, 0.25); st.cue('sfx:sting', 'S19', 0.05, 0.2)
 # 20: this man was convicted. Now he stands in the dock, in his suit, barefoot, between the gendarmes; the gavel falls (heard), COUPABLE lands and he
 #     staggers back as if hit in the chest
 D20 = st.dur('S20'); HIT20 = 0.74
+# (review 2) he stands on a step inside a lower dock, so his bare feet show over the rail; on COUPABLE he takes a full step back, arms flung out
+DH20 = 0.55; ST20 = [DOCK[0], 0, r(DOCK[2] - 0.2)]; M20 = [DOCK[0], SH_, r(DOCK[2] - 0.05)]; BK20 = [DOCK[0], SH_, r(DOCK[2] - 0.36)]
 st.shot('S20', 'courtroom', setOpts={'sign': 'TRIBUNAL'}, actors=[
-        act('mec', [DOCK[0], 0, r(DOCK[2] - 0.15)], 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.4, 'mouth': 'line', 'brow': 0.2}}, toonDur=0.0),
-            k(HIT20, toon={'lay': [-0.3, 0.0], 'sq': [0.9, 1.12, 0.9], 'reach': {'R': [r(DOCK[0] - 0.05), 1.65, r(DOCK[2] + 0.05), 1, 0.03]}, 'hands': {'R': 'spread', 'L': 'spread'}, 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.05, toonEase='out'),
-            k(r(HIT20 + 0.25), toon={'lay': [-0.1, 0.0], 'sq': [1.04, 0.96, 1.04], 'face': {'lid': 0.2, 'mouth': 'O', 'brow': 0.8}}, toonDur=0.15),
-            k(r(HIT20 + 0.6), toon={'lay': [0.0, 0.0], 'face': {'lid': 0.45, 'mouth': 'line', 'brow': 0.3}}, toonDur=0.25)]), *gend_actors()],
-        props=[SEAL('sceau20'), GKEPI('kepi20a', 'gend1'), GKEPI('kepi20b', 'gend2'), P('box20', 'dockBox', pos=DOCK)],
+        act('mec', M20, 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.4, 'mouth': 'line', 'brow': 0.2}}, toonDur=0.0),
+            k(HIT20, to=BK20, dur=0.16, ease='out', glide=True, face='keep'),
+            k(HIT20, toon={'lay': [-0.32, 0.0], 'sq': [0.9, 1.12, 0.9], 'reach': {'R': [r(DOCK[0] - 0.8), r(SH_ + 1.6), r(BK20[2] + 0.1), 1, 0.04], 'L': [r(DOCK[0] + 0.8), r(SH_ + 1.6), r(BK20[2] + 0.1), 1, 0.04]},
+                           'hands': {'R': 'spread', 'L': 'spread'}, 'bend': {'legR': [0.3, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.5, 'pop': 0.5, 'popLen': 0.15, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.05, toonEase='out'),
+            k(r(HIT20 + 0.22), toon={'lay': [-0.14, 0.0], 'sq': [1.04, 0.96, 1.04], 'reach': {'R': [r(DOCK[0] - 0.6), r(SH_ + 1.3), r(BK20[2] + 0.1), 1, 0.04], 'L': [r(DOCK[0] + 0.6), r(SH_ + 1.3), r(BK20[2] + 0.1), 1, 0.04]},
+                                     'hands': {'R': 'spread', 'L': 'spread'}, 'face': {'lid': 0.2, 'mouth': 'O', 'brow': 0.8}}, toonDur=0.15),
+            k(r(HIT20 + 0.45), toon={'lay': [0.0, 0.0], 'face': {'lid': 0.45, 'mouth': 'line', 'brow': 0.3}}, toonDur=0.08)]), *gend_actors()],
+        props=[SEAL('sceau20'), GKEPI('kepi20a', 'gend1'), GKEPI('kepi20b', 'gend2'), P('box20', 'dockBox', pos=DOCK, opts={'h': DH20}),
+               P('stand20', 'table', pos=ST20, opts={'w': 0.9, 'd': 0.9, 'h': SH_, 'color': '#6B4426', 'legs': '#5A3820'})],
         fx=[{'type': 'shake', 'at': HIT20, 'dur': 0.15, 'amount': 0.015}],
-        cams=[FC(0.0, [-0.9, 1.6, 5.0], [[DOCK[0], 2.6, DOCK[2]], [DOCK[0], 0.9, r(DOCK[2] + 0.5)], [-2.35, 2.55, 1.25], [-0.45, 2.55, 1.25], [-2.35, 0.9, 1.25], [-0.45, 0.9, 1.25]], top=0.12, bottom=0.72)])
+        cams=[FC(0.0, [-0.9, 1.6, 5.0], [[DOCK[0], 3.0, M20[2]], [DOCK[0], SH_, r(DOCK[2] + 0.1)], [r(DOCK[0] - 0.8), r(SH_ + 1.6), BK20[2]], [r(DOCK[0] + 0.8), r(SH_ + 1.6), BK20[2]],
+                                       [-2.35, 2.55, 1.25], [-0.45, 2.55, 1.25], [-2.35, 0.9, 1.25], [-0.45, 0.9, 1.25]], top=0.2, bottom=0.74)])
 st.cue('sfx:gavel', 'S20', r(HIT20 - 0.05), 0.5); st.cue('sfx:punch', 'S20', HIT20, 0.25)
 
 # 21: (on « coups et blessures ») the plaintiff: the coffee table on the courtroom floor, low and close, a white bandage wound round its front leg, an
@@ -442,38 +474,62 @@ D22 = st.dur('S22'); FALL22 = 0.25
 # (review 1) the three blocks stand along a line 40 degrees off the camera's axis, each turned to face back along it: three separate facades step
 # back with gaps between them and the three holes in line; a wooden floor runs up to the wall (no asphalt before it falls); the judge spins round
 TH22 = math.radians(-40); DIR22 = [math.sin(TH22), -math.cos(TH22)]
-BL22 = [([r(1.6 + 7.0 * j * DIR22[0]), 0, r(-11.0 + 7.0 * j * DIR22[1])], h_) for j, h_ in enumerate((7.0, 11.0, 15.0))]
-st.shot('S22', 'parisStreet', setOpts={**STREET, 'clear': [-14.0, 14.0], 'clearL': [-14.0, 14.0]}, actors=[act('juge', [1.5, 0.3, -0.6], -15, 'stand', 'neutral', keys=[k(0.0, look='camera'),
-            k(r(FALL22 + 0.08), look=[-1.0, 2.5, -8.0], lookDur=0.2), k(r(FALL22 + 0.1), toon={'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 1.0}, 'sq': [0.96, 1.06, 0.96]}, toonDur=0.08, toonEase='out'),
-            k(r(FALL22 + 0.42), toon={'face': {'lid': 0.0, 'eye': 0.5, 'pop': 0.6, 'popLen': 0.18, 'mouth': 'O', 'brow': 1.0}, 'sq': [1.06, 0.92, 1.06]}, toonDur=0.05, toonEase='out'),
-            k(r(FALL22 + 0.75), look='camera', lookDur=0.2), k(r(FALL22 + 0.8), toon={'face': {'lid': 0.4, 'mouth': 'line', 'brow': 0.3}}, toonDur=0.2)])],
-        props=[P('sol22', 'carpet', pos=[0.0, 0.0, 3.2], opts={'w': 16.0, 'd': 9.6, 'color': '#B98A5A'}), P('banc22', 'courtBench', pos=[1.5, 0, -0.3]), P('mur22', 'fallWall', pos=[0.0, 0, -1.6], opts={'w': 12.0, 'h': 6.0, 'at': FALL22}),
+# (review 2) a higher camera (4.6 m) puts the judge under the near hole; the judge and his bench move inside the right edge (his spin played half out of
+# frame); the line of blocks starts 1 m further left and its blocks stand 5.6 m apart (the third was cut at the left edge); the wall teeters, holds,
+# falls and slams in a cloud of dust (LAND22)
+BL22 = [([r(0.6 + 5.6 * j * DIR22[0]), 0, r(-11.0 + 5.6 * j * DIR22[1])], h_) for j, h_ in enumerate((7.0, 11.0, 15.0))]
+LAND22 = r(FALL22 + 0.22 + 0.36)
+st.shot('S22', 'parisStreet', setOpts={**STREET, 'clear': [-14.0, 14.0], 'clearL': [-14.0, 14.0]}, actors=[act('juge', [1.15, 0.3, -0.6], -20, 'stand', 'neutral', keys=[k(0.0, look='camera'),
+            k(r(FALL22 + 0.04), look=[-1.0, 2.5, -8.0], lookDur=0.12), k(r(FALL22 + 0.06), toon={'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 1.0}, 'sq': [0.95, 1.07, 0.95], 'lay': [-0.12, 0.0]}, toonDur=0.08, toonEase='out'),
+            k(r(LAND22), toon={'face': {'lid': 0.0, 'eye': 0.5, 'pop': 0.7, 'popLen': 0.2, 'mouth': 'O', 'brow': 1.0}, 'sq': [1.08, 0.9, 1.08], 'lay': [0.0, 0.0]}, toonDur=0.05, toonEase='out'),
+            k(r(LAND22 + 0.32), look='camera', lookDur=0.15), k(r(LAND22 + 0.36), toon={'face': {'lid': 0.4, 'mouth': 'line', 'brow': 0.3}}, toonDur=0.2)])],
+        props=[P('sol22', 'carpet', pos=[0.0, 0.0, 3.2], opts={'w': 16.0, 'd': 9.6, 'color': '#B98A5A'}), P('banc22', 'courtBench', pos=[0.85, 0, -0.3]), P('mur22', 'fallWall', pos=[0.0, 0, -1.6], opts={'w': 12.0, 'h': 6.0, 'at': FALL22, 'teeter': True}),
+               *[P(f'poussiere22{j}', 'toonPuff', pos=[x_, 0.15, z_], opts={'at': LAND22, 'n': 6, 'life': 0.6, 'size': 0.55, 'rise': 0.7, 'spread': 2.2, 'color': '#E3D9C6'}) for j, (x_, z_) in enumerate([(-3.5, -6.8), (0.0, -7.2), (3.5, -6.8), (0.0, -2.0)])],
                *[P(f'blk22{j}', 'holedBlock', pos=p_, ry=r(-math.degrees(TH22)), opts={'w': 4.6, 'h': h_, 'hole': [0.0, 1.05, 1.4], 'color': ['#EBDDC4', '#E6D3D3', '#DCE3EA'][j]}) for j, (p_, h_) in enumerate(BL22)]],
-        cams=[cam(0.0, [0.3, 2.6, 7.5], [0.28, 2.6, 7.2], [-0.6, 2.2, -12.0], [-0.8, 2.3, -12.0], lens=50)])
-st.cue('sfx:stretch', 'S22', 0.0, 0.2); st.cue('thunder', 'S22', r(FALL22 + 0.42), 0.4); st.cue('thud', 'S22', r(FALL22 + 0.42), 0.4)
+        fx=[{'type': 'shake', 'at': LAND22, 'dur': 0.2, 'amount': 0.02}],
+        cams=[cam(0.0, [0.0, 4.6, 7.8], [-0.02, 4.58, 7.55], [-0.9, 1.3, -12.0], [-1.0, 1.32, -12.0], lens=52)])
+st.cue('sfx:stretch', 'S22', FALL22, 0.25); st.cue('thunder', 'S22', LAND22, 0.4); st.cue('thud', 'S22', LAND22, 0.45)
 
 # 23: his cellmate is the table. Inside the narrow cell, toward the bars: a guard shoves him in through the door; he stumbles toward us and stops at
 #     the table, which stands across the cell between him and his bunk; he looks down at it, then at us; the door slams behind him
+# (review 2) the shove is seen: the guard stands beside the doorway (not behind him: two heads stacked), draws his arms back, pushes on his back; he
+# stumbles in on an arc, arms out, and stops short of the table with a heel brake; the guard steps out of the doorway before the door slams, so the
+# man is alone with the table
 D23 = st.dur('S23'); SLAM23 = 1.15; TC = [0.0, 0, 0.85]
+MS23 = [0.8, 0, 2.28]; GD23 = [1.42, 0, 2.62]; PUSH23 = 0.16; STOP23 = 0.66
+BACK23 = [0.83, 1.42, 2.42]   # his back, where the guard's hands land
+GRY23 = r(math.degrees(math.atan2(MS23[0] - GD23[0], MS23[2] - GD23[2])))
 st.shot('S23', 'brightCell', setOpts={'w': 3.0, 'd': 4.4, 'bars': False}, actors=[
-        act('mecP', [0.55, 0, 1.6], 180, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 0.42, 0.2]),
-            k(0.05, toon={'lay': [0.25, 0.0], 'sq': [0.95, 1.06, 0.95], 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 0.8}}, toonDur=0.08, toonEase='out'),
-            k(0.05, to=[0.3, 0, 1.3], dur=0.35, ease='out', glide=True, face='keep'),
-            k(0.45, toon={'lay': [0.0, 0.0], 'bend': {'spine': [0.25, 0, 0, 1, None]}, 'face': {'lid': 0.45, 'mouth': 'line', 'brow': -0.2, 'gy': 0.7}}, toonDur=0.2),
-            k(0.8, look='camera', lookDur=0.15), k(0.8, toon={'face': {'lid': 0.45, 'mouth': 'line'}}, toonDur=0.15),
-            k(1.05, toon={'sq': [1.04, 0.95, 1.04], 'bend': {'spine': [0.12, 0, 0, 1, None]}, 'face': {'lid': 0.6, 'mouth': 'line', 'brow': 0.4}, 'settle': 0.5}, toonDur=0.25, toonEase='inOut'),
+        act('mecP', MS23, 180, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'lay': [-0.06, 0.0], 'face': {'lid': 0.45, 'mouth': 'line'}}, toonDur=0.0),
+            k(r(PUSH23 + 0.02), toon={'lay': [0.32, 0.0], 'sq': [0.95, 1.07, 0.95], 'reach': {'L': [1.2, 1.55, 1.75, 1, 0.04], 'R': [0.35, 1.6, 1.8, 1, 0.04]}, 'hands': {'L': 'spread', 'R': 'spread'},
+                                   'face': {'lid': 0.0, 'eye': 0.5, 'pop': 0.5, 'popLen': 0.14, 'mouth': 'O', 'brow': 0.9}}, toonDur=0.06, toonEase='out'),
+            k(r(PUSH23 + 0.02), path=[[0.72, 0, 1.98], [0.5, 0, 1.68], [0.33, 0, 1.47]], dur=r(STOP23 - PUSH23 - 0.02), ease='out', glide=True, face='keep'),
+            k(r(PUSH23 + 0.24), toon={'lay': [0.22, 0.0], 'reach': {'L': [0.95, 1.85, 1.4, 1, 0.04], 'R': [0.0, 1.5, 1.5, 1, 0.04]}, 'hands': {'L': 'spread', 'R': 'spread'},
+                                   'bend': {'legL': [-0.5, 0, 0, 1, None], 'shinL': [0.6, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 0.9}}, toonDur=0.14, toonEase='inOut'),
+            k(r(STOP23 - 0.04), toon={'lay': [-0.22, 0.0], 'sq': [1.06, 0.93, 1.06], 'reach': {'L': [0.75, 1.95, 1.3, 1, 0.04], 'R': [-0.1, 1.9, 1.35, 1, 0.04]}, 'hands': {'L': 'spread', 'R': 'spread'},
+                                   'bend': {'legR': [0.35, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'clench', 'brow': 1.0}}, toonDur=0.08, toonEase='out'),   # the heel brake: leaning back, arms up
+            k(r(STOP23 + 0.14), toon={'lay': [0.0, 0.0], 'bend': {'spine': [0.22, 0, 0, 1, None]}, 'face': {'lid': 0.45, 'mouth': 'line', 'brow': -0.2, 'gy': 0.7}, 'settle': 0.6}, toonDur=0.2, toonEase='inOut'),
+            k(0.95, look=[0.0, 0.42, TC[2]], lookDur=0.12), k(1.2, look='camera', lookDur=0.15),
             k(1.4, toon={'face': {'lid': 1.0, 'mouth': 'line', 'brow': 0.4}}, toonDur=0.05), k(1.46, toon={'face': {'lid': 0.5, 'mouth': 'line', 'brow': 0.3, 'gy': 0.6}}, toonDur=0.08),
             k(1.6, look=[0.0, 0.42, TC[2]], lookDur=0.15)]),
-        act('gard1', [0.9, 0, 2.3], 200, 'stand', 'determined', keys=[k(0.0, look=[0.4, 1.4, 1.2]), k(0.0, toon={'reach': {'R': [0.65, 1.5, 1.65, 1, 0.03], 'L': [0.45, 1.45, 1.7, 1, 0.03]}, 'hands': {'R': 'open', 'L': 'open'}}, toonDur=0.0),
-            k(0.25, toon={'reach': {'R': [0.6, 1.5, 1.35, 1, 0.03], 'L': [0.4, 1.45, 1.4, 1, 0.03]}, 'hands': {'R': 'open', 'L': 'open'}}, toonDur=0.1, toonEase='out'), k(0.55, toon={'hands': {'R': 'rest', 'L': 'rest'}}, toonDur=0.3)])],
-        props=[TBL('t23', TC), P('ampoule23', 'cellBulb', pos=[0.1, 2.8, 0.6], opts={'drop': 0.6, 'power': 6, 'swing': 0.05}), P('barreaux23', 'jailBars', pos=[-0.45, 0, 2.1], opts={'width': 1.5, 'height': 2.8}), P('porte23', 'barDoor', pos=[0.3, 0, 2.1], opts={'w': 0.9, 'open': -1.6, 'slam': SLAM23})],
+        act('gard1', GD23, GRY23, 'stand', 'determined', keys=[k(0.0, look=[BACK23[0], 1.6, BACK23[2]]),
+            k(0.0, toon={'reach': {'R': [1.32, 1.4, 2.78, 1, 0.03], 'L': [1.52, 1.38, 2.86, 1, 0.03]}, 'hands': {'R': 'open', 'L': 'open'}, 'bend': {'spine': [-0.12, 0, 0, 1, None]}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.0),   # arms drawn back
+            k(r(PUSH23 - 0.04), toon={'reach': {'R': [r(BACK23[0] + 0.05), BACK23[1], r(BACK23[2] - 0.0), 1, 0.03], 'L': [r(BACK23[0] + 0.2), r(BACK23[1] - 0.05), r(BACK23[2] + 0.1), 1, 0.03]}, 'hands': {'R': 'open', 'L': 'open'},
+                                   'bend': {'spine': [0.3, 0, 0, 1, None]}, 'sq': [1.05, 0.95, 1.05]}, toonDur=0.05, toonEase='out'),   # contact
+            k(r(PUSH23 + 0.08), toon={'reach': {'R': [0.62, 1.42, 2.1, 1, 0.03], 'L': [0.8, 1.36, 2.18, 1, 0.03]}, 'hands': {'R': 'open', 'L': 'open'}, 'bend': {'spine': [0.38, 0, 0, 1, None]}}, toonDur=0.1, toonEase='out'),   # follow-through
+            k(0.45, toon={'hands': {'R': 'rest', 'L': 'rest'}}, toonDur=0.2),
+            k(0.5, to=[2.7, 0, 3.0], dur=0.45, clip='walk', ease='in')])],
+        props=[TBL('t23', TC), P('ampoule23', 'cellBulb', pos=[0.1, 2.8, 0.6], opts={'drop': 0.6, 'power': 6, 'swing': 0.05}),
+               P('barreaux23', 'steelBars', pos=[-0.45, 0, 2.1], opts={'width': 1.5, 'height': 2.8}), P('porte23', 'barDoor', pos=[0.3, 0, 2.1], opts={'w': 0.9, 'open': -1.6, 'slam': SLAM23, 'frame': '#7D858F'})],
         cams=[cam(0.0, [-0.65, 1.3, -2.0], [-0.6, 1.29, -1.92], [0.25, 1.0, 1.2], [0.25, 1.0, 1.2], lens=66)])
-st.cue('sfx:stepRun', 'S23', 0.1, 0.2); st.cue('clang', 'S23', SLAM23, 0.5)
+st.cue('sfx:whoosh', 'S23', PUSH23, 0.25); st.cue('sfx:stepRun', 'S23', 0.25, 0.2); st.cue('sfx:brake', 'S23', r(STOP23 - 0.04), 0.2)
+st.cue('clang', 'S23', SLAM23, 0.5)
 
 # 24: he stubbed his toe again the first night. The cell, framed exactly like the first shot: his foot hits the table's leg, he hops on one foot
 loop_shot('S24', 'brightCell', 'mecP', 0.65, setOpts={'w': 3.0, 'd': 4.8, 'bars': False}, hang=0.35, take=1.5,
           hops=[[HIT_AT[0], HIT_AT[2]], [0.25, -0.86], [0.05, -0.98], [-0.12, -1.08], [-0.26, -1.14], [-0.32, -1.18]], bump=[-0.18, 0.0, -1.12],
-          extra_props=[P('ampoule24', 'cellBulb', pos=[0.2, 2.8, -0.6], opts={'drop': 0.7, 'power': 6, 'swing': 0.04})])
+          extra_props=[P('ampoule24', 'cellBulb', pos=[-0.55, 2.85, -0.3], opts={'drop': 0.4, 'power': 6, 'swing': 0.04}),   # (review 2) the bulb in the top left corner, off his head line
+                       P('fenetre24', 'cellWindow', pos=[0.95, 2.0, -2.255], opts={'cover': [0.86, 0.66, '#D9DAD3'], 'coverAt': [-0.55, 0.0, 0.05]})])   # (review 2) the window where S01's painting is; the set's own window hidden
 st.cue('sfx:crickets', 'S24', 0.0, 0.08)
 
 SOLD = {'outfit': 'suit', 'suit': '#5B6638', 'pants': '#4E5730', 'shirt': '#D9D3B6', 'lapel': '#4E5730', 'tie': '#3B4224', 'cuff': '#5B6638', 'hat': 'none', 'gloves': '#F6F6F2', 'glasses': False, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX}
@@ -493,5 +549,5 @@ st.write("La table basse", rig='toon', fingers=True, cloth=True, idleShift=1.6, 
     'jure2': {'preset': 'boss', 'seed': 818, 'glasses': False, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'jure3': {'preset': 'mamie', 'seed': 819, 'build': {'width': 0.92, 'headWidth': 1.25}, 'toon': EX},
     **{f'gard{j + 1}': {'preset': 'cop', 'seed': 820 + j, 'suit': '#4F6273', 'pants': '#3E4D5A', 'glasses': False, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX} for j in range(3)},
-    'docteur': {'preset': 'doctor', 'seed': 823, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
+    'docteur': {'preset': 'doctor', 'seed': 823, 'suit': '#4F9C93', 'lapel': '#4F9C93', 'cuff': '#4F9C93', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},   # (review 2) teal scrubs: a white coat on the cream wall read at 1.04:1
 })

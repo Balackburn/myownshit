@@ -33,7 +33,7 @@ export const TABLE_PROPS = {
     [[1, 1], [-1, 1], [1, -1], [-1, -1]].forEach(([sx, sz], i) => {
       const lg = grp(), leg = at(box(lt, L0, lt, o.legs || '#9A6838', { pivot: 'bottom', outline: 0.008, taper: { x: 0.8, z: 0.8 } }), 0, 0, 0);
       lg.add(leg); lg.position.set(sx * (w / 2 - 0.09), 0, sz * (d / 2 - 0.09)); g.add(lg); legs.push({ lg, sx, sz, i });
-      if (o.cuffs) { const ring = at(new THREE.Mesh(new THREE.TorusGeometry(lt * 0.95, 0.016, 6, 14), new THREE.MeshLambertMaterial({ color: '#D9DDE2' })), 0, L0 * 0.55, 0, PI / 2, 0, 0); addOutline(ring, 0.05); lg.add(ring); }
+      if (o.cuffs) { const cs = o.cuffS ?? 1, ring = at(new THREE.Mesh(new THREE.TorusGeometry(lt * 0.95 * cs, 0.016 * cs, 6, 14), new THREE.MeshLambertMaterial({ color: o.cuffColor || '#D9DDE2' })), 0, L0 * 0.55, 0, PI / 2, 0, 0); addOutline(ring, 0.05); lg.add(ring); }   // (review 2) o.cuffColor / o.cuffS: darker, bigger rings
     });
     let bruise = null;
     if (o.bruise != null && o.bruise !== false) {
@@ -138,7 +138,9 @@ export const TABLE_PROPS = {
     const rub = at(box(hr * 1.2, 0.08, D - 0.02, '#8C7A66'), hx, hy - hr + 0.04, -D / 2); g.add(rub);
     // (review 1) the tunnel and its rubble show only once the front is open: behind a whole facade their ends drew a faint circle on it
     g.userData.update = t => { const holed = o.holeAt == null || t >= o.holeAt, bh = o.backAt == null || t >= o.backAt;
-      fWhole.visible = !holed; fHole.visible = holed; rims[0].visible = holed; bWhole.visible = !bh; bHole.visible = bh; rims[1].visible = bh && holed; tun.visible = holed; rub.visible = holed; };
+      fWhole.visible = !holed; fHole.visible = holed; rims[0].visible = holed; bWhole.visible = !bh; bHole.visible = bh; rims[1].visible = bh && holed; tun.visible = holed; rub.visible = holed;
+      const bu = o.bulge && o.holeAt != null && t < o.holeAt && t >= o.holeAt - o.bulge ? 1 - (o.holeAt - t) / o.bulge * 0.4 : 0;
+      fWhole.scale.set(1 + 0.035 * bu, 1 + 0.035 * bu, 1); fWhole.position.z = 0.002 + 0.16 * bu; };
     g.userData.update(0); return g;
   },
 
@@ -162,7 +164,9 @@ export const TABLE_PROPS = {
   footCast(o) {
     const s = o.s ?? 1, g = grp(at(box(0.2 * s, 0.17 * s, 0.36 * s, '#F7F6F1', { outline: 0.01 }), 0, 0.02 * s, 0.05 * s));
     for (let i = 0; i < 4; i++) g.add(at(box(0.212 * s, 0.025 * s, 0.03 * s, '#E2E0D8'), 0, 0.02 * s, (-0.08 + i * 0.075) * s, 0.25, 0, 0));
-    g.add(at(box(0.16 * s, 0.07 * s, 0.03 * s, '#E9B9A0', { outline: 0.004 }), 0, -0.01 * s, 0.235 * s));
+    if (o.toes) { g.add(at(box(0.22 * s, 0.12 * s, 0.16 * s, '#F7F6F1', { outline: 0.008 }), 0, -0.005 * s, 0.25 * s));
+      for (let i = 0; i < 5; i++) g.add(at(box(0.036 * s, 0.05 * s, 0.05 * s, '#E9B9A0', { outline: 0.004 }), (-0.08 + i * 0.04) * s, (-0.025 + (i === 0 ? 0.012 : 0)) * s, 0.35 * s));
+    } else g.add(at(box(0.16 * s, 0.07 * s, 0.03 * s, '#E9B9A0', { outline: 0.004 }), 0, -0.01 * s, 0.235 * s));
     return g;
   },
 
@@ -228,11 +232,12 @@ export const TABLE_PROPS = {
   // plate across the bars at chest height (something to stamp)
   barDoor(o) {
     const W = o.w ?? 0.95, H = o.h ?? 2.15, g = grp(), leaf = grp(); g.add(leaf);
-    leaf.add(at(box(0.07, H, 0.07, '#26324E', { pivot: 'bottom', outline: 0.006 }), 0.035, 0, 0), at(box(0.07, H, 0.07, '#26324E', { pivot: 'bottom', outline: 0.006 }), W - 0.035, 0, 0));
-    for (const y of [0.06, H * 0.5, H - 0.06]) leaf.add(at(box(W, 0.08, 0.07, '#26324E', { outline: 0.006 }), W / 2, y, 0));
+    const FR = o.frame || '#26324E';
+    leaf.add(at(box(0.07, H, 0.07, FR, { pivot: 'bottom', outline: 0.006 }), 0.035, 0, 0), at(box(0.07, H, 0.07, FR, { pivot: 'bottom', outline: 0.006 }), W - 0.035, 0, 0));
+    for (const y of [0.06, H * 0.5, H - 0.06]) leaf.add(at(box(W, 0.08, 0.07, FR, { outline: 0.006 }), W / 2, y, 0));
     for (let i = 1; i < 9; i++) leaf.add(at(cyl(0.017, 0.017, H, '#59606A', 6, { pivot: 'bottom' }), i * W / 9, 0, 0));
     leaf.add(at(box(0.14, 0.2, 0.1, '#E2B53C', { outline: 0.006 }), W - 0.12, H * 0.5, 0.02));
-    if (o.plate) leaf.add(at(box(W * 0.8, 0.5, 0.03, '#F4F1E8', { outline: 0.006 }), W / 2, o.plateY ?? H * 0.62, 0.06));
+    if (o.plate) leaf.add(at(box(o.plateW ?? W * 0.8, o.plateH ?? 0.5, 0.03, '#F4F1E8', { outline: 0.008 }), W / 2, o.plateY ?? H * 0.62, 0.06));
     const A = o.open ?? 1.6;
     g.userData.update = t => { let a = A; if (o.slam != null) { const u = t - o.slam; if (u >= 0) { if (u < 0.12) a = A * (1 - (u / 0.12) * (u / 0.12)); else { const v = u - 0.12; a = v < 0.12 ? 0.18 * Math.sin(PI * v / 0.12) : v < 0.2 ? 0.06 * Math.sin(PI * (v - 0.12) / 0.08) : 0; } } } leaf.rotation.y = a; };
     g.userData.update(0); return g;
@@ -252,7 +257,12 @@ export const TABLE_PROPS = {
       c.fillStyle = '#F3EFE6'; c.font = `bold ${0.38 * k}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.sign || 'TRIBUNAL', W / 2 * k, Hc - 3.6 * k);
       c.fillStyle = '#E2B53C'; c.beginPath(); c.arc(W / 2 * k, Hc - 4.45 * k, 0.32 * k, 0, TAU); c.fill(); c.fillStyle = '#F3EFE6'; c.beginPath(); c.arc(W / 2 * k, Hc - 4.45 * k, 0.24 * k, 0, TAU); c.fill(); }, { res: 1024 });
     face.position.set(0, H / 2, 0.004); leaf.add(face);
-    g.userData.update = t => { let a = 0; if (o.at != null) { const u = t - o.at; if (u > 0) { if (u < 0.42) a = (PI / 2) * (u / 0.42) * (u / 0.42); else { const v = u - 0.42; a = PI / 2 - (v < 0.16 ? 0.12 * Math.sin(PI * v / 0.16) : 0); } } } leaf.rotation.x = -a; };
+    const fallT = o.teeter ? 0.36 : 0.42, t0 = o.teeter ? 0.22 : 0;
+    g.userData.update = t => { let a = 0; if (o.at != null) { const u = t - o.at; if (u > 0) {
+      if (u < t0) a = u < 0.04 ? 0.05 * u / 0.04 : u < 0.08 ? 0.05 - 0.08 * (u - 0.04) / 0.04 : u < 0.12 ? -0.03 + 0.07 * (u - 0.08) / 0.04 : 0.04;
+      else if (u < t0 + fallT) { const w = (u - t0) / fallT; a = 0.04 + (PI / 2 - 0.04) * w * w; }
+      else { const v = u - t0 - fallT; a = PI / 2 - (v < 0.16 ? 0.14 * Math.sin(PI * v / 0.16) : v < 0.26 ? 0.04 * Math.sin(PI * (v - 0.16) / 0.1) : 0); } } } leaf.rotation.x = -a; };
+    g.userData.landAt = o.at != null ? o.at + t0 + fallT : null;
     g.userData.update(0); return g;
   },
 
@@ -294,6 +304,7 @@ export const TABLE_PROPS = {
     const w = o.w ?? 1.6, g = grp(), tube = grp(at(cyl(0.07, 0.07, w, '#EFE8D2', 12, { outline: 0.006 }), 0, 0, 0, 0, 0, PI / 2)); g.add(tube);
     for (const sx of [-1, 1]) tube.add(at(cyl(0.072, 0.072, 0.02, '#BFB49A', 12), sx * w / 2, 0, 0, 0, 0, PI / 2));
     tube.add(at(box(w * 0.98, 0.012, 0.02, '#1F3B73'), 0, 0.068, 0));
+    if (o.opacity != null) g.traverse(n => { if (n.material) { n.material = n.material.clone(); n.material.transparent = true; n.material.opacity = o.opacity; n.material.depthWrite = false; n.castShadow = false; } });
     g.userData.update = t => { tube.rotation.x = -(o.spin ?? 14) * t; };
     g.userData.update(0); return g;
   },
@@ -364,6 +375,36 @@ export const TABLE_PROPS = {
     const l = new THREE.PointLight(o.color || '#FFCF8A', o.power ?? 5, o.range ?? 6, 1.3); l.position.set(0, -d - 0.1, 0); arm.add(l);
     g.userData.update = t => { arm.rotation.z = (o.swing ?? 0) * Math.sin(t * 2.4); };
     g.userData.update(0); return g;
+  },
+
+  // (review 2) The giant rubber stamp of « La table basse » (pivot at its knob, the red face 0.38 m below, facing -Y): a brown knob and neck, a dark
+  // wooden block and a red rubber face; o.squash [[t, v], ...]: the block squashes down onto its face (v 1: 25 % shorter, 15 % wider) on contact
+  tableStamp(o) {
+    const g = grp(), body = grp(); body.position.y = -0.38; g.add(body);   // the whole stamp hangs from its face, so a squash keeps the face in place
+    body.add(at(sphere(0.07, '#5A3A28', 1), 0, 0.38, 0), at(cyl(0.035, 0.05, 0.2, '#6B4A32', 8, { outline: 0.004 }), 0, 0.25, 0));
+    body.add(at(box(0.34, 0.1, 0.24, '#3A2A20', { outline: 0.008 }), 0, 0.08, 0), at(box(0.36, 0.012, 0.26, '#C9A24A'), 0, 0.035, 0), at(box(0.32, 0.03, 0.22, o.color || '#C8202A', { outline: 0.004 }), 0, 0.015, 0));
+    g.userData.update = t => { const v = keyAt(o.squash, t, 0); body.scale.set(1 + 0.15 * v, 1 - 0.25 * v, 1 + 0.15 * v); };
+    g.userData.update(0); return g;
+  },
+
+  // (review 2) A small barred cell window (pivot at its centre, front +Z): a glowing sky-blue pane o.w (0.7) x o.h (0.5), four dark bars, a grey frame;
+  // o.cover [w, h, colour]: first a patch of wall that hides the set's own window behind it
+  cellWindow(o) {
+    const W = o.w ?? 0.7, H = o.h ?? 0.5, g = grp();
+    if (o.cover) g.add(at(box(o.cover[0], o.cover[1], 0.03, o.cover[2]), o.coverAt?.[0] ?? 0, o.coverAt?.[1] ?? 0, o.coverAt?.[2] ?? -0.03));
+    g.add(at(box(W + 0.1, H + 0.1, 0.05, '#9A9C98', { outline: 0.006 }), 0, 0, -0.01), at(box(W, H, 0.02, '#7FC2EE', { emissive: '#7FC2EE' }), 0, 0, 0.01));
+    for (let i = 0; i < 4; i++) g.add(at(box(0.04, H, 0.05, '#3A3D44'), -W * 0.39 + i * W * 0.26, 0, 0.035));
+    return g;
+  },
+
+  // (review 2) Steel-grey cell bars (pivot at the floor in the middle, along X): round bars every 0.2 m, three flat cross rails, two posts; o.width
+  // (2), o.height (2.6), o.color (the steel, '#8E959D'): lighter than the navy jailBars so a dark uniform reads in front of them
+  steelBars(o) {
+    const w = o.width ?? 2, h = o.height ?? 2.6, c = o.color || '#8E959D', g = grp(), n = Math.round(w / 0.2);
+    for (let i = 1; i < n; i++) g.add(at(cyl(0.022, 0.022, h, c, 6, { pivot: 'bottom' }), -w / 2 + i * w / n, 0, 0));
+    for (const y of [0.05, 1.1, h - 0.06]) g.add(at(box(w, 0.08, 0.06, c, { outline: 0.004 }), 0, y, 0));
+    for (const sx of [-1, 1]) g.add(at(box(0.1, h, 0.1, c, { pivot: 'bottom', outline: 0.006 }), sx * w / 2, 0, 0));
+    return g;
   },
 
   // (review 1) A round seal (pivot at its centre, front +Z) to hang over the courtroom's emblem: a gold disc with a cream face and the scales of justice
