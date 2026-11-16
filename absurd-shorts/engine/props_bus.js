@@ -242,7 +242,7 @@ export const BUS_PROPS = {
     body.add(at(box(0.34, 0.17, 0.26, W, { outline: 0.008 }), 0.16, 0.63, 0), at(box(0.345, 0.04, 0.265, B), 0.16, 0.6, 0), at(box(0.36, 0.08, 0.24, DK), -0.18, 0.6, 0));
     body.add(at(box(0.18, 0.36, 0.38, W, { outline: 0.008 }), 0.5, 0.72, 0), at(box(0.185, 0.07, 0.385, B), 0.5, 0.64, 0));
     const hl = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.065, 0.03, 14), new THREE.MeshBasicMaterial({ color: '#FFF4C8', toneMapped: false })); hl.rotation.z = PI / 2; hl.position.set(0.6, 0.76, 0); body.add(hl);
-    const ws = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.28, 0.34), new THREE.MeshLambertMaterial({ color: '#CDEBF5', transparent: true, opacity: 0.55 })); ws.position.set(0.56, 1.02, 0); ws.rotation.z = 0.35; body.add(ws);
+    const ws = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.18, 0.34), new THREE.MeshLambertMaterial({ color: '#CDEBF5', transparent: true, opacity: 0.5 })); ws.position.set(0.56, 0.96, 0); ws.rotation.z = 0.35; body.add(ws);   // low: a tall one hid the rider's face
     body.add(at(box(0.05, 0.05, 0.56, DK), 0.42, 0.88, 0), at(box(0.04, 0.3, 0.04, '#9AA0A6'), 0.44, 0.74, 0));
     for (const s of [-1, 1]) body.add(at(box(0.3, 0.22, 0.12, W, { outline: 0.006 }), -0.4, 0.5, s * 0.17), at(box(0.305, 0.05, 0.125, B), -0.4, 0.44, s * 0.17));
     for (const s of [-1, 1]) { const tx = canvasPlane(0.56, 0.1, (c, Wd, H) => { c.fillStyle = '#F4F6F8'; c.fillRect(0, 0, Wd, H); c.fillStyle = B; c.textAlign = 'center'; c.textBaseline = 'middle';

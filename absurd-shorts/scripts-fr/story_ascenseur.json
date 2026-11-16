@@ -975,7 +975,7 @@
     },
     {
      "id": "barbe4",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "mec",
       "joint": "head",
@@ -990,8 +990,8 @@
      "scale": 0.05,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#5A4636",
+      "dark": "#4F3D2F",
       "depth": 0.12,
       "w": 0.26
      },
@@ -1446,7 +1446,7 @@
     },
     {
      "id": "barbe5",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "mec",
       "joint": "head",
@@ -1461,8 +1461,8 @@
      "scale": 0.75,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#5A4636",
+      "dark": "#4F3D2F",
       "depth": 0.12,
       "w": 0.26
      }
@@ -1690,7 +1690,7 @@
     },
     {
      "id": "barbe6",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "mec",
       "joint": "head",
@@ -1705,8 +1705,8 @@
      "scale": 0.85,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#6E6052",
+      "dark": "#605448",
       "depth": 0.12,
       "w": 0.26
      }
@@ -1963,7 +1963,7 @@
     },
     {
      "id": "barbe7",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "mec",
       "joint": "head",
@@ -1978,8 +1978,8 @@
      "scale": 0.85,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#6E6052",
+      "dark": "#605448",
       "depth": 0.12,
       "w": 0.26
      }
@@ -3262,7 +3262,7 @@
     },
     {
      "id": "barbe8",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "mec",
       "joint": "head",
@@ -3277,8 +3277,8 @@
      "scale": 0.9,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#7A6E62",
+      "dark": "#6B6056",
       "depth": 0.12,
       "w": 0.26
      }
@@ -4497,7 +4497,7 @@
     },
     {
      "id": "barbe9",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "gris",
       "joint": "head",
@@ -4512,8 +4512,8 @@
      "scale": 0.95,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#A49C90",
+      "dark": "#90897E",
       "depth": 0.12,
       "w": 0.26,
       "swing": [
@@ -4834,7 +4834,7 @@
     },
     {
      "id": "barbe11",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "vieux",
       "joint": "head",
@@ -4849,8 +4849,8 @@
      "scale": 1.25,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#E4E0D8",
+      "dark": "#C8C5BE",
       "depth": 0.12,
       "w": 0.26
      }
@@ -5429,7 +5429,7 @@
     },
     {
      "id": "barbe13",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "vieux",
       "joint": "head",
@@ -5444,8 +5444,8 @@
      "scale": 1.25,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#E4E0D8",
+      "dark": "#C8C5BE",
       "depth": 0.12,
       "w": 0.26
      }
@@ -6347,7 +6347,7 @@
     },
     {
      "id": "barbe14",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "vieux",
       "joint": "head",
@@ -6362,8 +6362,8 @@
      "scale": 1.25,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#E4E0D8",
+      "dark": "#C8C5BE",
       "depth": 0.12,
       "w": 0.26
      }
@@ -6633,7 +6633,7 @@
     },
     {
      "id": "barbe15",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "vieux",
       "joint": "head",
@@ -6648,8 +6648,8 @@
      "scale": 1.25,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#E4E0D8",
+      "dark": "#C8C5BE",
       "depth": 0.12,
       "w": 0.26,
       "swing": [
@@ -7112,7 +7112,7 @@
     },
     {
      "id": "barbe16",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "vieux",
       "joint": "head",
@@ -7127,8 +7127,8 @@
      "scale": 1.25,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#E4E0D8",
+      "dark": "#C8C5BE",
       "depth": 0.12,
       "w": 0.26,
       "swing": [
@@ -7212,7 +7212,7 @@
     },
     {
      "id": "barbe16b",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "autre",
       "joint": "head",
@@ -7227,8 +7227,8 @@
      "scale": 1.25,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#E4E0D8",
+      "dark": "#C8C5BE",
       "depth": 0.12,
       "w": 0.26
      }
@@ -7495,7 +7495,7 @@
     },
     {
      "id": "barbe17",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "autre",
       "joint": "head",
@@ -7510,8 +7510,8 @@
      "scale": 1.25,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#E4E0D8",
+      "dark": "#C8C5BE",
       "depth": 0.12,
       "w": 0.26,
       "swing": [
@@ -7828,7 +7828,7 @@
     },
     {
      "id": "barbe18",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "autre",
       "joint": "head",
@@ -7843,8 +7843,8 @@
      "scale": 1.25,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#E4E0D8",
+      "dark": "#C8C5BE",
       "depth": 0.12,
       "w": 0.26
      }
@@ -8196,7 +8196,7 @@
     },
     {
      "id": "barbe19a",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "vieux",
       "joint": "head",
@@ -8211,8 +8211,8 @@
      "scale": 1.25,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#E4E0D8",
+      "dark": "#C8C5BE",
       "depth": 0.12,
       "w": 0.26
      }
@@ -8259,7 +8259,7 @@
     },
     {
      "id": "barbe19b",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "autre",
       "joint": "head",
@@ -8274,8 +8274,8 @@
      "scale": 1.25,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#E4E0D8",
+      "dark": "#C8C5BE",
       "depth": 0.12,
       "w": 0.26
      }
@@ -8867,7 +8867,7 @@
     },
     {
      "id": "barbe20a",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "vieux",
       "joint": "head",
@@ -8882,8 +8882,8 @@
      "scale": 1.25,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#E4E0D8",
+      "dark": "#C8C5BE",
       "depth": 0.12,
       "w": 0.26
      }
@@ -8926,7 +8926,7 @@
     },
     {
      "id": "barbe20b",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "autre",
       "joint": "head",
@@ -8941,8 +8941,8 @@
      "scale": 1.25,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#E4E0D8",
+      "dark": "#C8C5BE",
       "depth": 0.12,
       "w": 0.26
      }
@@ -9780,7 +9780,7 @@
     },
     {
      "id": "barbe21a",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "vieux",
       "joint": "head",
@@ -9795,8 +9795,8 @@
      "scale": 1.25,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#E4E0D8",
+      "dark": "#C8C5BE",
       "depth": 0.12,
       "w": 0.26
      }
@@ -9839,7 +9839,7 @@
     },
     {
      "id": "barbe21b",
-     "name": "beardHair",
+     "name": "beardMass",
      "on": {
       "actor": "autre",
       "joint": "head",
@@ -9854,8 +9854,8 @@
      "scale": 1.25,
      "opts": {
       "len": 0.95,
-      "coil": 0.0,
       "color": "#E4E0D8",
+      "dark": "#C8C5BE",
       "depth": 0.12,
       "w": 0.26
      }

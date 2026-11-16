@@ -113,12 +113,11 @@ st.shot('S04', 'kitchenDay', setOpts={'fridge': False}, actors=[
             *[k(r(JOLT4 + 0.22 + 0.07 * j), toon=IN4P(COLD4, (1.14 + 0.05 * (j % 2), 0.93, 1.14 + 0.05 * (j % 2)), 1.0), toonDur=0.06) for j in range(8)]])],   # ...and he shivers there to the cut
         props=[P('fr4', 'bigFridge', pos=FR4F, opts={'w': 0.5, 'open': 1.0, 'mode': 'lived', 'mist': False, 'light': True}),   # (final pass) a narrower cabin: its walls and the door edge now frame him (at 1.04 m they sat outside the lens)
                GL('gl4', glint=[0.2], fc=0.7, keys=[k(0.0, visible=True), k(r(JOLT4 + 0.04), visible=False)]),
-               GL('gl4b', fc=0.75, off=(0.0, 0.84, 0.05), tap=[r(JOLT4 + 0.05)], keys=[k(0.0, visible=False), k(r(JOLT4 + 0.04), visible=True)]),   # lifted by the spikes: on their tips, not among them
+               GL('gl4b', fc=0.8, s=1.1, off=(0.0, 0.66, 0.16), tap=[r(JOLT4 + 0.05)], keys=[k(0.0, visible=False), k(r(JOLT4 + 0.04), visible=True)]),   # lifted by the spikes and pushed out in front of them (stills: on the tips they left the frame; black rims among black spikes vanish)
                P('shelf4', 'slab', pos=[0.21, 0.71, -2.17], opts={'w': 0.5, 'h': 0.018, 'd': 0.4, 'color': '#E4F4FA', 'outline': 0.004}),
                P('shelf4f', 'slab', pos=[0.21, 0.71, -1.98], opts={'w': 0.5, 'h': 0.03, 'd': 0.025, 'color': '#FFFFFF'}),
-               P('lait4', 'milkCarton', pos=[0.4, 0.72, -2.16], ry=200), P('fromage4', 'cheeseWheel', pos=[0.02, 0.72, -2.12], ry=150, scale=0.55),
-               P('bocal4', 'picklesJar', pos=[0.27, 0.72, -2.24], opts={'s': 0.9}),
-               P('froid4', 'glowLight', pos=[0.18, 1.25, -2.15], opts={'color': '#CFE6FF', 'k': 4.0, 'dist': 2.0}),
+               P('lait4', 'milkCarton', pos=[0.43, 0.72, -2.18], ry=200), P('fromage4', 'cheeseWheel', pos=[0.0, 0.72, -2.12], ry=150, scale=0.55),
+               P('bocal4', 'picklesJar', pos=[0.36, 0.72, -2.05], opts={'s': 0.7}),   # (stills) to the side and smaller: in the middle it hid his collar; (stills) no glow light here: by the lens it washed the frame white
                P('souffle4', 'dustPuff', pos=[0.1, 1.02, -1.86], scale=0.06, opts={'color': '#EEF6FF', 'startAt': r(JOLT4 + 0.25), 'period': 0.45, 'seed': 4})],
         cams=[FC(0.0, [0.25, 1.05, -2.76], [[0.1, 1.72, -1.72], [0.1, 0.7, -1.72], [-0.28, 1.1, -1.72], [0.48, 1.1, -1.72]], top=0.14, bottom=0.8, inside=(-0.45, 0.45, 0.86, 1.2, -2.78, -2.3), lenses=range(26, 86))])
 st.cue('sfx:click', 'S04', 0.05, 0.15); st.cue('sfx:ding', 'S04', 0.2, 0.15); st.cue('whoosh', 'S04', JOLT4, 0.2, 0.25, 600, 1500); st.cue('sfx:sniff', 'S04', r(JOLT4 + 0.3), 0.2)
@@ -133,7 +132,7 @@ st.cue('sfx:click', 'S04', 0.05, 0.15); st.cue('sfx:ding', 'S04', 0.2, 0.15); st
 D5 = st.dur('S05'); ME5 = [-1.75, 0, -2.3]; OFF5 = [-2.7, 0, -2.75]; GLP5 = [ME5[0], 2.35, ME5[2]]
 OKH = [0.62, 0.05, 0.05, 0.05, 0.85, 0.55]   # (final pass) a ring of thumb and index, the other fingers up and fanned (« glasses »)
 # (final pass) each ring right in front of its eye, the hands out at the sides of the face (elbows out), a small circle; wide open eyes, not the squint
-RING5 = lambda a, b=0.5: {'touch': {'R': ['face', r(-0.36 - 0.03 * math.cos(a)), r(0.74 + 0.03 * math.sin(a)), 0.14, 1, 0.0, [-0.9, -0.2, 0.2]], 'L': ['face', r(0.33 + 0.03 * math.cos(a)), r(0.54 + 0.03 * math.sin(a)), 0.14, 1, 0.0, [0.9, -0.2, 0.2]]},
+RING5 = lambda a, b=0.5: {'touch': {'R': ['face', r(-0.4 - 0.07 * math.cos(a)), r(0.74 + 0.06 * math.sin(a)), 0.2, 1, 0.0, [-0.9, -0.2, 0.2]], 'L': ['face', r(0.37 + 0.07 * math.cos(a)), r(0.54 + 0.06 * math.sin(a)), 0.2, 1, 0.0, [0.9, -0.2, 0.2]]},
                           'hands': {'R': OKH, 'L': OKH}, 'face': {'lid': 0.0, 'low': 0.0, 'eye': 0.35, 'brow': b, 'mouth': 'o', 'noBlink': 1}}
 st.shot('S05', 'policeStation', actors=[
         act('mec', ME5, -12, 'stand', 'neutral', keys=[k(0.0, look=[-2.1, 1.75, 0.2]), k(0.0, toon={'face': SQUINT}, toonDur=0.0), k(0.08, toon=RING5(PI / 2), toonDur=0.1, toonEase='out'),
@@ -167,7 +166,7 @@ st.shot('S06', 'parisStreet', setOpts={'clear': [-12.0, 12.0], 'clearL': [-12.0,
             k(HIT6, toon={'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 0.9, 'cross': 0.7, 'noBlink': 1}}, toonDur=0.03),
             k(r(POP6 - 0.18), to=[6.12, 0, 1.08], dur=0.12, ease='out'),   # he peels off the post, lagging back
             k(r(POP6 + 0.3), to=[5.4, 0, 1.75], dur=r(D6 - POP6 - 0.3), clip='walk', ease='inOut'), k(r(POP6 + 0.3), look=[3.0, 2.0, 4.0]), k(r(POP6 + 0.3), toon=GROPE, toonDur=0.15)]),   # ...and gropes on round it, toward us
-        act('flic1', [5.0, 0, 1.55], -18, 'binocs', 'neutral', scale=0.86, keys=[k(0.0, look=[-3.0, 2.2, 7.0]), k(0.35, look=[4.0, 1.5, 4.6], lookDur=0.6), k(1.0, look=[11.0, 2.2, 6.0], lookDur=0.7)]),   # sweeping right across the lens
+        act('flic1', [4.8, 0, 0.95], -22, 'binocs', 'neutral', scale=0.86, keys=[k(0.0, look=[-3.0, 2.2, 7.0]), k(0.35, look=[4.0, 1.5, 4.6], lookDur=0.6), k(1.0, look=[11.0, 2.2, 6.0], lookDur=0.7)]),   # sweeping right across the lens
         act('flic2', [7.3, 0.5, 0.2], 20, 'headStuck', 'neutral', scale=0.85, params={'sink': 0.2, 'decay': 0.45, 'freq': 15}),                                                          # in the bin, legs up, further back
         act('chien0', [6.85, 0, 0.55], 120, 'walk', 'neutral', scale=0.85, keys=[k(0.0, to=[7.05, 0, 0.45], dur=D6, clip='walk', ease='inOut', face='keep')])],
         props=[GL('gl6', fc=0.65), P('lamp6', 'streetLamp', pos=LAMP6, ry=180, opts={'color': '#3F5E4A'}), P('bin6', 'trashCan', pos=[7.3, 0, 0.2], scale=1.05, opts={'open': True}),
@@ -293,7 +292,7 @@ st.shot('S13', 'office', setOpts={'picture': False, 'carpet': False, 'printer': 
         act('cherch3', [1.6, 0, -3.0], -15, 'stand', 'neutral', keys=[k(0.0, look=[POT13[0], r(POT13[1] - 0.05), POT13[2]]), k(0.0, toon=PLANTK({'lid': 0.3, 'mouth': 'O', 'brow': 0.4}), toonDur=0.0),
             k(1.2, toon=PLANTK({'lid': 1.0, 'mouth': 'O', 'brow': 0.4}), toonDur=0.05), k(1.32, toon=PLANTK({'lid': 0.3, 'mouth': 'O', 'brow': 0.4}), toonDur=0.07)])],
         props=[GL('gl13', glint=[1.0], fc=0.3), P('cal13', 'shedCalendar', pos=[-0.92, 2.35, -3.52], opts={'months': MOIS, 'w': 0.95, 'h': 1.2, 'flipAt': 0.12, 'dur': 0.185, 'fly': [-0.55, -1.2, 2.3], 'life': 0.55}),   # (stills r3a) the pages fly off to the left: toward +x they crossed his face
-               P('bureau13', 'table', pos=[-1.55, 0, -1.15], ry=90, opts={'w': 1.25, 'd': 0.7, 'h': 0.74}), P('plante13', 'plant', pos=POT13, scale=0.8, opts={'seed': 21}),
+               P('bureau13', 'table', pos=[-1.05, 0, -1.15], ry=90, opts={'w': 1.25, 'd': 0.7, 'h': 0.74}), P('plante13', 'plant', pos=POT13, scale=0.8, opts={'seed': 21}),
                P('loupe13', 'eyeLens', on={'actor': 'cherch2', 'joint': 'head', 'offset': [0.0, 0.33, 0.3], 'face': 'camera', 'faceAmt': 0.8}, opts={'r': 0.17, 'blink': [0.7, 1.75], 'look': [[0.0, -0.6, 0.3], [0.4, 0.7, 0.5], [0.9, -0.7, 0.6], [1.3, 0.6, 0.2], [1.8, 0.0, 0.7], [2.3, -0.5, 0.4]]})],
         cams=[FC(0.0, [0.45, 1.6, 1.3], [[ME13[0], 2.65, ME13[2]], [-1.4, 2.95, -3.5], [r(POT13[0] + 0.05), 2.7, POT13[2]], [-0.3, 0.3, -1.15], [1.15, 1.0, -1.3]], top=0.1, bottom=0.78, lenses=range(26, 64))])   # (stills r3a) tighter: fitted on the far desk it backed off 2.25 m and half the frame was wall and floor
 st.cue('sfx:paper', 'S13', 0.15, 0.2); st.cue('sfx:paper', 'S13', 0.7, 0.2); st.cue('sfx:paper', 'S13', 1.25, 0.2); st.cue('sfx:paper', 'S13', 1.8, 0.2); st.cue('sfx:squeak', 'S13', 0.3, 0.15)

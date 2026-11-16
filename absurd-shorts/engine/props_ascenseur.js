@@ -212,6 +212,27 @@ export const ASCENSEUR_PROPS = {
     s.position.set(sg[0], sg[1], 0.03); g.add(s); return g;
   },
 
+  // (final pass) A long beard as one tapered mass (pivot at the chin, hanging -Y): o.n (4) segments of an elliptical cone o.w (0.26) wide and
+  // o.depth (0.12) deep at the chin down to a point o.len (0.95) below, curving forward over the chest then down; in two close values: o.color and
+  // three o.dark strands down its front, and two wavy locks at its edges. o.swing [t0, t1, amp] (o.whip): it swings about the chin, the tip lagging.
+  // (A bundle of nine thin locks read as pipes in four tones, and splayed into tentacles when he stood.)
+  beardMass(o) {
+    const N = o.n ?? 4, L = o.len ?? 0.95, W = (o.w ?? 0.26) / 2, D = (o.depth ?? 0.12) / 2, C = o.color || '#E4E0D8', K = o.dark || '#CFCAC0', g = grp(), segs = [];
+    const bend = [-0.32, 0.12, 0.14, 0.1], h = L / N;
+    let parent = g;
+    for (let k = 0; k < N; k++) {
+      const r0 = W * (1 - 0.82 * k / N), r1 = k === N - 1 ? 0.006 : W * (1 - 0.82 * (k + 1) / N), sg = grp();
+      const m = cyl(r0, r1, h, C, 8, { pivot: 'top', outline: 0.005 }); m.scale.z = D / W; sg.add(m);
+      for (const sx of [-0.45, 0, 0.45]) { const st = at(box(0.006, h * 0.92, 0.006, K), sx * (r0 + r1) / 2, -h / 2, ((r0 + r1) / 2) * (D / W) * 0.97); st.castShadow = false; sg.add(st); }
+      if (k < N - 1) for (const sd of [-1, 1]) { const lk = at(cyl(0.016, 0.008, h * 0.9, C, 5, { pivot: 'top' }), sd * r0 * 0.95, 0, 0, 0, 0, sd * (0.18 + 0.1 * Math.sin(k * 2.1))); sg.add(lk); }
+      sg.position.y = k === 0 ? 0 : -h; sg.rotation.x = bend[k] ?? 0.1; parent.add(sg); segs.push(sg); parent = sg;
+    }
+    g.userData.update = t => { const s = o.swing; if (!s) return; const A = s[2] ?? 0.15, u = t - s[0], env = t <= s[0] ? 0 : t < s[1] ? 1 : Math.exp(-(t - s[1]) * 3.5);
+      segs.forEach((sg, k) => { const f = k / Math.max(1, N - 1), a = env * A * (o.whip ? (0.3 + 0.9 * f) * Math.sin(u * 7 - 1.8 * f) : Math.sin(u * 7)) / (o.whip ? 1.6 : N);
+        sg.rotation.x = (bend[k] ?? 0.1) + a; sg.rotation.z = 0.4 * a; }); };
+    g.userData.update(0); return g;
+  },
+
   // (final pass) A deep soup bowl held level (pivot at its foot): a white bowl with a blue rim, orange soup near the brim, a spoon, and three wisps
   // of steam that rise, sway and fade on a loop (the flat plate of the champagne story read as a blue plate)
   steamBowl(o) {
