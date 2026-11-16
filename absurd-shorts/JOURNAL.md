@@ -2900,3 +2900,8 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   dernier plan l'étiquette reprend sa petite taille pile sur « À vie » (elle doit garder la grande taille du plan 18), le coup d'œil du policier
   entre ses doigts ne se lit pas, les cous des passants s'étirent trop peu, la vague d'étiquettes s'empile au centre au lieu de partir en
   profondeur. Passe finale confiée à un agent dérivé.
+- 9 h 20 — Le rendu final de « La tondeuse » a planté après deux heures : la session a manqué de mémoire (16 Go) et le noyau a tué le navigateur
+  de rendu. Deux rendus finaux (trois navigateurs chacun) tournaient en même temps que neuf rendus d'images de contrôle et un brouillon. Mesures :
+  le rendu final de « L'ascenseur », lancé en même temps, est arrêté et remis en file ; les rendus finaux passent maintenant l'un après l'autre
+  (les lunettes, puis la tondeuse relancée, puis l'ascenseur) ; les deux files de rendu (`runq4.sh`, `runqP.sh`) comptent un rendu final pour
+  trois rendus, si bien qu'aucun brouillon ne démarre pendant un rendu final et qu'une seule série d'images de contrôle peut l'accompagner.

@@ -1718,3 +1718,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 41) Le visage peint du héros est de travers (l'œil gauche environ 0,1 m plus bas que le droit sur la tête mise à l'échelle). Des
   lunettes posées à plat laissent l'œil bas dépasser sous le verre, et il se lit comme un sourire avec une dent. Incliner les lunettes comme
   le visage (environ 37° dans « Les lunettes »), un verre sur chaque œil, et le vérifier sur une image de face en gros plan.
+
+- (cycle 41) Mémoire : un rendu final (`story_X_render.json`, `--workers 3`) ouvre trois navigateurs d'environ 0,8 Go chacun. Deux rendus finaux et
+  neuf séries d'images de contrôle en même temps ont fait tuer le navigateur du premier par le noyau après deux heures (« Target crashed »). Un
+  seul rendu final à la fois, et des files qui le comptent pour trois rendus (`tools/review/runq4.sh`, `runqP.sh`).
