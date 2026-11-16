@@ -214,8 +214,8 @@ st.shot('S08', 'grassland', actors=[act('mec', [X8, 0, 0], 90, 'run', 'determine
                *[x for x in R8 if x.get('name') == 'bicycle'],
                P('fl8', 'signBoard', pos=SG8, ry=90, opts={'text': 'ARRIVÉE →', 'bg': '#F4F4F0', 'fg': '#2F62B5', 'w': 2.2, 'h': 0.62, 'height': 1.7}, keys=[k(r(TURN8 + 0.1), rotTo=[0.0, r(PI / 2 + 2 * 2 * PI), 0.0], dur=0.8, ease='out')]),
                *TREES('8', 9.0, -30.0, 6.0, 6), *TREES('8b', -10.0, -24.0, 14.0, 6)],
-        cams=[FC(0.0, [r(X8 + 6.2), 3.0, 0.5], [[X8, 2.5, 0], [X8, 0.45, 0], [r(F8 - 0.3), 2.2, 4.6], [r(F8 + 0.3), 0.0, -4.5], [SG8[0], 2.4, SG8[2]]], top=0.12, bottom=0.77, drift=(r(V * D8), 0.0, 0.0))])
-st.cue('sfx:bell', 'S08', 0.2, 0.2); st.cue('whoosh', 'S08', TURN8, 0.25); st.cue('sfx:clang', 'S08', r(TURN8 + 0.1), 0.2)
+        cams=[FC(0.0, [r(X8 + 6.2), 3.0, 0.5], [[X8, 2.5, 0], [X8, 0.45, 0], [r(F8 - 0.3), 2.0, 3.0], [r(F8 + 0.3), 0.0, -2.2], [SG8[0], 2.4, SG8[2]]], top=0.12, bottom=0.77, drift=(r(V * D8), 0.0, 0.0))])
+st.cue('sfx:bell', 'S08', 0.2, 0.2); st.cue('whoosh', 'S08', TURN8, 0.25); st.cue('clang', 'S08', r(TURN8 + 0.1), 0.2)
 
 # 9: ...to follow him. (pass 2) Low, three-quarter front, the road streaming: he leads, deadpan, a glance at us; right behind him the riders in a
 #    tight bunch, crouched on their bars, pedalling flat out; (pass 3) the camera at his chin's height (lower, his pumping fist crossed his mouth),
@@ -333,18 +333,18 @@ st.cue('sfx:squeak', 'S16', 0.5, 0.2); st.cue('sfx:squeak', 'S16', 0.9, 0.2); st
 #     round each digging in; two scientists kneel in profile either side of his legs, heads against the sky, one with a clipboard, one holding the
 #     tape; on the second swell their eyes pop out on stalks toward the calves, and one tape snaps
 D17 = st.dur('S17'); PU17 = [[0.28, 0.52, 0.72], [0.86, 1.1, 1.0]]; POP17 = 1.16; SNAP17 = 1.46
-SV17 = lambda hand, hs, f, hl='open': {'reach': {'R': hand + [1, 0.04]}, 'hands': {'R': hs, 'L': hl}, 'face': f}
+SV17 = lambda hand, hs, f, hl='open': {'reach': {'R': hand + [1, 0.04]}, 'hands': {'R': hs, 'L': hl}, 'face': f, 'lay': [0.42, 0.0]}   # leaning in: their heads come down toward his calves
 EYE17 = lambda pop: {'lid': 0.0, 'eye': 0.5 if pop else 0.3, 'mouth': 'O', 'brow': 1.0 if pop else 0.8, **({'pop': 0.95, 'popLen': 0.26} if pop else {})}
 st.shot('S17', 'grassland', setOpts=ITG, look=ITALY, actors=[act('mec', [0, 0, 0], 90, 'run', 'determined', params={'bounce': 0.3}, keys=[k(0.0, clip='run', speed=1.0), k(0.0, look=[12.0, 1.9, 0.0]), FLAT()]),
-        act('savant1', [1.2, 0, 0.0], -90, 'peerIn', 'neutral', keys=[k(0.0, look=[0.0, 0.55, 0.0]), k(0.0, toon=SV17([0.95, 1.0, 0.25], 'point', EYE17(False), hl='grip'), toonDur=0.0),
-            k(POP17, toon=SV17([0.95, 1.0, 0.25], 'point', EYE17(True), hl='grip'), toonDur=0.06, toonEase='out')]),
-        act('savant2', [-1.2, 0, 0.0], 90, 'peerIn', 'neutral', keys=[k(0.0, look=[-0.15, 0.55, 0.0]), k(0.0, toon=SV17([-0.42, 0.58, 0.14], 'grip', EYE17(False)), toonDur=0.0),
-            k(r(POP17 + 0.08), toon=SV17([-0.42, 0.58, 0.14], 'grip', EYE17(True)), toonDur=0.06, toonEase='out')])],
+        act('savant1', [0.85, 0, 0.0], -90, 'peerIn', 'neutral', keys=[k(0.0, look=[0.0, 0.55, 0.0]), k(0.0, toon=SV17([0.62, 0.95, 0.3], 'point', EYE17(False), hl='grip'), toonDur=0.0),
+            k(POP17, toon=SV17([0.62, 0.95, 0.3], 'point', EYE17(True), hl='grip'), toonDur=0.06, toonEase='out')]),
+        act('savant2', [-0.85, 0, 0.0], 90, 'peerIn', 'neutral', keys=[k(0.0, look=[-0.15, 0.55, 0.0]), k(0.0, toon=SV17([-0.36, 0.58, 0.16], 'grip', EYE17(False)), toonDur=0.0),
+            k(r(POP17 + 0.08), toon=SV17([-0.36, 0.58, 0.16], 'grip', EYE17(True)), toonDur=0.06, toonEase='out')])],
         props=[MJ('mjr17'), ROADS('road17', D17), *scroll(CYP('17', -26.0, -30.0, 40.0, 8, 9.0), D17), *DUST('17'),
                *[P(f'mollet17{s}', 'bigCalf', on={'actor': 'mec', 'joint': f'knee{s}', 'offset': [0.0, 0.0, 0.0]}, opts={'r': 0.22, 'len': 0.5, 'tape': True, 'dig': 0.96, 'pulses': PU17, 'phase': ph, 'color': '#24324F', 'seam': '#DB8F58', **({'snapAt': SNAP17} if s == 'L' else {})}) for s, ph in (('L', 0.0), ('R', 1.6))],
                P('metre17', 'tapeMeasure', on={'actor': 'savant2', 'hand': 'R', 'offset': [0, 0, 0.04]}, scale=2.0),
                P('bloc17', 'clipBoard', on={'actor': 'savant1', 'hand': 'L', 'offset': [0.0, 0.05, 0.05], 'face': 'camera'}, scale=1.6)],
-        cams=[FC(0.0, [0.2, 0.38, 3.8], [[0, 1.6, 0], [0, 0.0, 0], [1.2, 1.55, 0.0], [-1.2, 1.55, 0.0], [1.6, 0.3, 0.0], [-1.6, 0.3, 0.0]], top=0.12, bottom=0.76)])
+        cams=[FC(0.0, [0.1, 0.38, 3.0], [[0, 1.65, 0], [0, 0.0, 0], [0.55, 1.45, 0.0], [-0.55, 1.45, 0.0]], top=0.1, bottom=0.76)])   # the vertical frame is narrow: the scientists lean in from its edges
 st.cue('sfx:stretch', 'S17', PU17[0][0], 0.2); st.cue('sfx:stretch', 'S17', PU17[1][0], 0.2); st.cue('sfx:boing', 'S17', POP17, 0.2); st.cue('sfx:boing', 'S17', SNAP17, 0.2)
 
 # 18: after three years the bus stopped. (pass 3) From the pavement, left to right, in a Roman street (ochre and terracotta fronts, green shutters):

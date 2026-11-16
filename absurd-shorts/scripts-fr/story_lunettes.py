@@ -166,7 +166,7 @@ st.shot('S06', 'parisStreet', setOpts={'clear': [-12.0, 12.0], 'clearL': [-12.0,
             k(HIT6, clip='paperThin', params={'thin': 0.05, 'puffs': [[r(POP6 - HIT6 - 0.18), 0.35], [r(POP6 - HIT6), 1.12], [r(POP6 - HIT6 + 0.12), 1.0]]}, blend=0.02),   # flat as a sheet on the post (held), a first puff as he peels off, then the pop past full and back
             k(HIT6, toon={'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 0.9, 'cross': 0.7, 'noBlink': 1}}, toonDur=0.03),
             k(r(POP6 - 0.18), to=[6.12, 0, 1.08], dur=0.12, ease='out'),   # he peels off the post, lagging back
-            k(r(POP6 + 0.3), to=[5.4, 0, 1.75], dur=r(D6 - POP6 - 0.3), clip='walk', ease='inOut', face='keep'), k(r(POP6 + 0.3), look=[3.0, 2.0, 4.0]), k(r(POP6 + 0.3), toon=GROPE, toonDur=0.15)]),   # ...and gropes on round it, toward us
+            k(r(POP6 + 0.3), to=[5.4, 0, 1.75], dur=r(D6 - POP6 - 0.3), clip='walk', ease='inOut'), k(r(POP6 + 0.3), look=[3.0, 2.0, 4.0]), k(r(POP6 + 0.3), toon=GROPE, toonDur=0.15)]),   # ...and gropes on round it, toward us
         act('flic1', [5.0, 0, 1.55], -18, 'binocs', 'neutral', scale=0.86, keys=[k(0.0, look=[-3.0, 2.2, 7.0]), k(0.35, look=[4.0, 1.5, 4.6], lookDur=0.6), k(1.0, look=[11.0, 2.2, 6.0], lookDur=0.7)]),   # sweeping right across the lens
         act('flic2', [7.3, 0.5, 0.2], 20, 'headStuck', 'neutral', scale=0.85, params={'sink': 0.2, 'decay': 0.45, 'freq': 15}),                                                          # in the bin, legs up, further back
         act('chien0', [6.85, 0, 0.55], 120, 'walk', 'neutral', scale=0.85, keys=[k(0.0, to=[7.05, 0, 0.45], dur=D6, clip='walk', ease='inOut', face='keep')])],
@@ -241,7 +241,7 @@ st.shot('S10', 'parisStreet', setOpts={'clear': [-12.0, 12.0], 'clearL': [-12.0,
         *[act(f'chien{j + 1}', DOGP[j], [120, -40, 30, 60][j], 'walk', 'neutral', scale=0.85, keys=[k(0.0, to=[r(DOGP[j][0] + [0.4, -0.3, 0.35, 0.3][j]), 0, r(DOGP[j][2] + [0.2, 0.4, 0.3, -0.3][j])], dur=D10, clip='walk', ease='inOut', face='keep')]) for j in range(4)]],
         props=[GL('gl10', glint=[r(TILT10 + 0.05)], fc=0.5),
                P('fixe10', 'stareDog', pos=DOG10, ry=165, scale=1.25, opts={'body': '#C99A62', 'ear': '#8A5A32', 'collar': '#2F62B5', 'sitAt': 0.15, 'lookAt': STARE10, 'tiltAt': TILT10, 'backAt': BACK10, 'up': 1.15, 'tilt': 0.65, 'stretch': 2.4})],   # (final pass) bigger, the neck stretched right up
-        cams=[FC(0.0, [6.9, 0.32, 1.9], [[5.0, 2.62, 0.1], [DOG10[0], 0.05, DOG10[2]], [DOG10[0], 1.6, r(DOG10[2] - 0.2)], [r(DOG10[0] - 0.55), 0.6, DOG10[2]], [r(DOG10[0] + 0.45), 0.6, DOG10[2]]], top=0.1, bottom=0.8, level=False)])   # (final pass) at dog height, the dog big in profile in front (review 3: the camera stood at his hip)
+        cams=[FC(0.0, [6.6, 0.3, 1.75], [[5.0, 2.62, 0.1], [DOG10[0], 0.05, DOG10[2]], [DOG10[0], 1.6, r(DOG10[2] - 0.2)], [r(DOG10[0] - 0.55), 0.6, DOG10[2]], [r(DOG10[0] + 0.45), 0.6, DOG10[2]]], top=0.1, bottom=0.8, lenses=range(26, 78))])   # (final pass) at dog height, the dog big in profile in front (review 3: the camera stood at his hip)
 st.cue('sfx:sniff', 'S10', 0.1, 0.2); st.cue('sfx:boing', 'S10', STARE10, 0.2); st.cue('sfx:squeak', 'S10', TILT10, 0.2); st.cue('sfx:ding', 'S10', r(TILT10 + 0.05), 0.15); st.cue('sfx:sniff', 'S10', r(BACK10 + 0.1), 0.2)
 
 # 11-12: the government promised a million euros. At the podium the minister announces it; a reward poster pops up at his side: RÉCOMPENSE, the
@@ -287,13 +287,13 @@ st.shot('S13', 'office', setOpts={'picture': False, 'carpet': False, 'printer': 
             k(0.3, look=[0.7, 2.0, -1.2], lookDur=0.12), k(0.3, toon=AWAY13({**SQUINT, 'brow': 0.4, 'mouth': 'wavy'}), toonDur=0.18, toonEase='out'),   # the big eye comes up to his face: he leans away from it
             k(1.2, look=[-1.0, 0.5, -0.7]), k(1.6, look='camera'), k(1.6, toon=AWAY13({**SQUINT, 'mouth': 'line'}, -0.12), toonDur=0.2),
             k(1.9, toon=AWAY13({**SQUINT, 'lid': 1.0, 'mouth': 'line'}, -0.12), toonDur=0.04), k(1.96, toon=AWAY13({**SQUINT, 'mouth': 'line'}, -0.12), toonDur=0.06)]),
-        act('cherch1', [-1.0, 0, -1.15], -90, 'crawl', 'neutral', keys=[k(0.0, look=[-1.8, 0.2, -1.15])]),   # (stills r3b) further back: at -0.75 his legs lay in the caption band   # his head under the desk, his legs out
+        act('cherch1', [-1.0, 0, -1.15], -90, 'crawl', 'neutral', keys=[k(0.0, look=[-1.8, 0.2, -1.15])]),   # (final pass) the desk now stands over him: his legs come out from under it (they stuck out of bare floor)   # (stills r3b) further back: at -0.75 his legs lay in the caption band   # his head under the desk, his legs out
         act('cherch2', SAV13, -105, 'stand', 'neutral', keys=[k(0.0, look=[ME13[0], 2.1, ME13[2]]), k(0.0, toon=PEER13(0.1), toonDur=0.0), k(0.2, toon=PEER13(0.38), toonDur=0.2, toonEase='out'),   # he leans right in
             k(1.1, toon=PEER13(0.3), toonDur=0.2), k(1.5, toon=PEER13(0.42), toonDur=0.2)]),
         act('cherch3', [1.6, 0, -3.0], -15, 'stand', 'neutral', keys=[k(0.0, look=[POT13[0], r(POT13[1] - 0.05), POT13[2]]), k(0.0, toon=PLANTK({'lid': 0.3, 'mouth': 'O', 'brow': 0.4}), toonDur=0.0),
             k(1.2, toon=PLANTK({'lid': 1.0, 'mouth': 'O', 'brow': 0.4}), toonDur=0.05), k(1.32, toon=PLANTK({'lid': 0.3, 'mouth': 'O', 'brow': 0.4}), toonDur=0.07)])],
         props=[GL('gl13', glint=[1.0], fc=0.3), P('cal13', 'shedCalendar', pos=[-0.92, 2.35, -3.52], opts={'months': MOIS, 'w': 0.95, 'h': 1.2, 'flipAt': 0.12, 'dur': 0.185, 'fly': [-0.55, -1.2, 2.3], 'life': 0.55}),   # (stills r3a) the pages fly off to the left: toward +x they crossed his face
-               P('bureau13', 'table', pos=DESK13, opts={'w': 1.0, 'd': 0.62, 'h': 0.74}), P('plante13', 'plant', pos=POT13, scale=0.8, opts={'seed': 21}),
+               P('bureau13', 'table', pos=[-1.55, 0, -1.15], ry=90, opts={'w': 1.25, 'd': 0.7, 'h': 0.74}), P('plante13', 'plant', pos=POT13, scale=0.8, opts={'seed': 21}),
                P('loupe13', 'eyeLens', on={'actor': 'cherch2', 'joint': 'head', 'offset': [0.0, 0.33, 0.3], 'face': 'camera', 'faceAmt': 0.8}, opts={'r': 0.17, 'blink': [0.7, 1.75], 'look': [[0.0, -0.6, 0.3], [0.4, 0.7, 0.5], [0.9, -0.7, 0.6], [1.3, 0.6, 0.2], [1.8, 0.0, 0.7], [2.3, -0.5, 0.4]]})],
         cams=[FC(0.0, [0.45, 1.6, 1.3], [[ME13[0], 2.65, ME13[2]], [-1.4, 2.95, -3.5], [r(POT13[0] + 0.05), 2.7, POT13[2]], [-0.3, 0.3, -1.15], [1.15, 1.0, -1.3]], top=0.1, bottom=0.78, lenses=range(26, 64))])   # (stills r3a) tighter: fitted on the far desk it backed off 2.25 m and half the frame was wall and floor
 st.cue('sfx:paper', 'S13', 0.15, 0.2); st.cue('sfx:paper', 'S13', 0.7, 0.2); st.cue('sfx:paper', 'S13', 1.25, 0.2); st.cue('sfx:paper', 'S13', 1.8, 0.2); st.cue('sfx:squeak', 'S13', 0.3, 0.15)
@@ -343,7 +343,7 @@ CLAP16 = lambda j: {'touch': {'R': ['torso', r(-0.05 - 0.07 * (j % 2)), 0.42, 0.
 st.shot('S16', 'mairie', setOpts={'desk': False, 'map': False}, actors=[   # (review 1) no map: its stamp from another episode showed behind the cheque
         act('gamin', [0.0, 0, -1.2], 0, 'holdUp', 'happy', keys=[k(0.0, look='camera'), k(0.0, toon={**HOLD16, 'face': BOY16}, toonDur=0.0),
             k(0.12, toon={**HOLD16, 'sq': [1.2, 0.74, 1.2], 'face': BOY16}, toonDur=0.14, toonEase='out'),                                                                  # a squat...
-            k(UP16, to=[0.0, 0.8, -1.2], dur=0.2, ease='out'), k(UP16, toon={**HOLD16, 'sq': [0.9, 1.15, 0.9], 'face': {**BOY16, 'mouth': 'scream'}}, toonDur=0.08, toonEase='out'),   # ...up...
+            k(UP16, to=[0.0, 0.6, -1.2], dur=0.2, ease='out'),   # (final pass) 0.6: at 0.8 the cheque's top left the frame at the apex k(UP16, toon={**HOLD16, 'sq': [0.9, 1.15, 0.9], 'face': {**BOY16, 'mouth': 'scream'}}, toonDur=0.08, toonEase='out'),   # ...up...
             k(r(UP16 + 0.2), toon={**HOLD16, 'sq': [1.0, 1.0, 1.0], 'face': {**BOY16, 'mouth': 'scream'}}, toonDur=0.15),                                                     # ...he hangs...
             k(AIR16, to=[0.0, 0.0, -1.2], dur=0.16, ease='in'), k(r(AIR16 + 0.15), toon={**HOLD16, 'sq': [1.12, 0.86, 1.12], 'face': BOY16}, toonDur=0.04), k(r(AIR16 + 0.22), toon={**HOLD16, 'sq': [0.96, 1.05, 0.96], 'face': BOY16}, toonDur=0.1),   # ...lands, squashed
             k(1.18, to=[0.0, 0.25, -1.2], dur=0.14, ease='out'), k(1.32, to=[0.0, 0.0, -1.2], dur=0.12, ease='in'), k(1.44, toon={**HOLD16, 'sq': [1.08, 0.92, 1.08], 'face': BOY16}, toonDur=0.04), k(1.5, toon={**HOLD16, 'face': BOY16}, toonDur=0.1)]),   # a small second hop
@@ -351,19 +351,21 @@ st.shot('S16', 'mairie', setOpts={'desk': False, 'map': False}, actors=[   # (re
         props=[P('cheque16', 'bigCheque', on={'actor': 'gamin', 'joint': 'head', 'offset': [0.0, 0.93, 0.04], 'face': 'camera', 'faceFlat': True}, scale=1.65, opts={'text': 'RÉCOMPENSE', 'amount': '1 000 000 €'}),
                P('echarpe16', 'mayorSash', on={'actor': 'ministre', 'joint': 'torso', 'offset': [0, 0.42, 0]}, opts={'z': 0.21, 'w': 0.17, 'len': 0.8}),
                P('conf16', 'confettiRain', pos=[0.2, 0.0, -1.1], opts={'w': 2.6, 'h': 3.4, 'd': 1.4, 'n': 170, 'size': 0.05})],   # (review 1) the cheque said ASSURANCE 3 000 € and the one-piece `confetti` showed nothing
-        cams=[FC(0.0, [0.35, 1.45, 2.6], [[0.0, 3.3, -1.2], [0.0, 0.0, -1.2], [-0.88, 3.0, -1.2], [0.88, 3.0, -1.2], [1.5, 2.45, -1.55], [1.3, 0.0, -1.55]], top=0.08, bottom=0.78)])
+        cams=[FC(0.0, [0.33, 1.45, 3.35], [[0.0, 3.42, -1.2], [0.0, 0.0, -1.2], [-0.9, 3.05, -1.2], [0.9, 3.05, -1.2], [1.5, 2.45, -1.55], [1.3, 0.0, -1.55]], top=0.07, bottom=0.78)])   # (final pass) fitted on the cheque's top at the apex
 st.cue('sfx:fanfare', 'S16', 0.05, 0.3); st.cue('sfx:boing', 'S16', UP16, 0.2); st.cue('sfx:cash', 'S16', r(UP16 + 0.2), 0.2); st.cue('sfx:step', 'S16', r(AIR16 + 0.16), 0.2)
 
 # 17: the man is looking for his keys. His living room by the door. (pass 3, review 2: the glasses still on his head and the same squint: nothing
 #    said the first search was over) the glasses are on his nose now, his eyes big behind them: he pats every pocket, his big eyes sweep left, right,
-#    down past the key ring that hangs from his own mouth, and on; he stops, a slow blink at us, the keys glint
+#    down past the key ring that hangs from his own mouth, and on; he stops, a slow blink at us, the keys glint. (final pass, review 3: two mouths, eyes
+#    as slits) the glasses tilt with his crooked painted face, a lens over each eye (the low eye peeped out under a level lens and read as a second
+#    grin); wide eyes whose pupils dart ahead of the head; brows down, deadpan; one real slow blink
 D17 = st.dur('S17')
-WORN = {'lid': 0.0, 'low': 0.0, 'eye': 0.55, 'brow': 0.35, 'mouth': 'clench'}   # his eyes big behind the lenses
+WORN = {'lid': 0.0, 'low': 0.0, 'eye': 0.4, 'brow': 0.12, 'mouth': 'clench'}   # his eyes big behind the lenses; (final pass) brow down: deadpan, not a smirk
 st.shot('S17', 'livingRoom', actors=[
-        act('mec', [-0.4, 0, -0.6], 15, 'patPockets', 'unimpressed', keys=[k(0.0, look=[-1.6, 2.3, 0.6]), k(0.0, toon={'face': {**WORN, 'gx': -0.8}}, toonDur=0.0), k(0.55, look=[1.6, 2.3, 0.6]), k(0.55, toon={'face': {**WORN, 'gx': 0.8}}, toonDur=0.12),   # (review 1) looking at his pockets, his face went away
-            k(1.0, look='camera'), k(1.0, toon={'face': {**WORN, 'gy': 0.9, 'cross': 0.5}}, toonDur=0.12), k(1.3, toon={'face': {**WORN, 'gx': -0.6, 'gy': 0.2}}, toonDur=0.12),   # ...down past the keys in his mouth, and on
-            k(1.55, to=[-0.4, 0, -0.6], dur=0.01, clip='stand', face='keep'), k(1.55, toon={'face': WORN}, toonDur=0.12), k(1.85, toon={'face': {**WORN, 'lid': 1.0}}, toonDur=0.12, toonEase='inOut'), k(1.99, toon={'face': WORN}, toonDur=0.14, toonEase='inOut')])],   # he stops: a slow blink at us, held
-        props=[GL('gl17', glint=[0.3], off=(0.0, 0.325, 0.1), lens=0.2), P('keys17', 'keyRing', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.1, 0.13], 'face': 'camera'}, scale=3.0),   # (review 1) twice the size
+        act('mec', [-0.4, 0, -0.6], 15, 'patPockets', 'unimpressed', keys=[k(0.0, toon={'face': {**WORN, 'gx': -0.9}}, toonDur=0.0), k(0.06, look=[-1.6, 2.3, 0.6]), k(0.45, toon={'face': {**WORN, 'gx': 0.9}}, toonDur=0.1), k(0.55, look=[1.6, 2.3, 0.6]),   # (final pass) the pupils lead, the head follows
+            k(0.92, toon={'face': {**WORN, 'gy': 1.0, 'cross': 0.45}}, toonDur=0.1), k(1.0, look='camera'), k(1.3, toon={'face': {**WORN, 'gx': -0.7, 'gy': 0.35}}, toonDur=0.12),   # ...down past the keys in his mouth, and on
+            k(1.55, to=[-0.4, 0, -0.6], dur=0.01, clip='stand', face='keep'), k(1.55, toon={'face': WORN}, toonDur=0.12), k(1.85, toon={'face': {**WORN, 'lid': 1.0}}, toonDur=0.16, toonEase='inOut'), k(2.12, toon={'face': WORN}, toonDur=0.2, toonEase='inOut')])],   # he stops: one real slow blink at us
+        props=[GL('gl17', glint=[0.3], off=(-0.004, 0.321, 0.1), lens=0.18, rot=(0.0, 0.0, -0.645), dx=0.082, r_=0.06), P('keys17', 'keyRing', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.1, 0.13], 'face': 'camera'}, scale=3.0),   # (review 1) twice the size; (final pass) the glasses: one lens over each eye of his crooked face (the painted right eye sits 0.1 m above the left: level, the low eye showed under the lens as a second grin, review 3)
                P('star17', 'flashBursts', on={'actor': 'mec', 'joint': 'head', 'offset': [0.06, -0.05, 0.2], 'face': 'camera'}, opts={'n': 1, 'w': 0.0, 'h': 0.0, 'at': [2.2], 'life': 0.22})],
         cams=[FC(0.0, [-1.1, 1.5, 1.5], [[-0.4, 2.55, -0.6], [-0.4, 1.2, -0.6], [0.0, 1.9, -0.4], [-0.8, 1.9, -0.4]], top=0.14, bottom=0.76, drift=(0.25, 0.12, -0.5))])   # a slow push-in for the end hold   # (pass 3) less from the side: his face and the lenses to us
 st.cue('sfx:rattleShort', 'S17', 0.3, 0.15); st.cue('sfx:rattleShort', 'S17', 0.9, 0.15); st.cue('sfx:ding', 'S17', 2.2, 0.15)
