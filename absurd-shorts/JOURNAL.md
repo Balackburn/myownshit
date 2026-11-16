@@ -2877,3 +2877,8 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 9 h 20 — « Les lunettes » (69) : revue 3 = 6,8 (animation) ; 7,0 (direction artistique), contre 6,3 ; 6,6. Reste pour la passe finale : au
   dernier plan son visage a deux bouches (la bouche peinte reste visible sous le porte-clés), le frigo ne se voit jamais (on devrait être dedans),
   le mime au commissariat cache son visage, l'aplatissement contre le lampadaire ne se lit pas de face. Passe finale confiée à un agent dérivé.
+- 9 h 45 — « Le service client » (73) : revue 2 = 6,8 (animation) ; 7,0 (direction artistique), contre 5,4 ; 5,4 : le téléphone se lit partout.
+  Reste : le « OUI » de la mariée flotte au-dessus du panneau au lieu de sortir dans le téléphone, la prise de conscience du plan 14 répète
+  celle du plan 6, l'étirement de la chute est plus faible que celui du plan 7 qu'il rappelle. Passe 3 confiée à un agent dérivé.
+- « L'ascenseur » (76) : revue 3 = 6,8 ; 7,0, contre 6,0 ; 6,5. Reste pour la passe finale : trois passages figés (plans 8, 13, 19), le coup de
+  canne qui tombe sur un visage d'enfant au lieu d'une main, le vote filmé en un seul paquet. Passe finale confiée à un agent dérivé.

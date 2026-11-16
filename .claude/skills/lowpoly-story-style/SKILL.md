@@ -1710,3 +1710,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   objets au premier plan sur les bords, sa lumière propre (bleutée pour un frigo). Sans eux, le plan montre juste le héros devant sa cuisine et
   le gag disparaît (« Les lunettes », revue 3 : « on n'est jamais dans le frigo »). Et quand un accessoire remplace la bouche (porte-clés,
   sifflet, paille), masquer la bouche peinte : sinon le visage a deux bouches.
+
+- (cycle 41) Le rappel d'un gag doit être PLUS fort que sa mise en place : l'étirement de la chute du « Service client » (×1,3, deux images)
+  était plus faible que celui du plan 7 qu'il rappelle (×2, tenu une demi-seconde), et la prise de conscience du plan 14 reprenait celle du plan
+  6 telle quelle (revue 2). Écrire la valeur de la mise en place à côté du rappel dans le script et la dépasser.
