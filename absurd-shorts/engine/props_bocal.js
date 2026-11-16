@@ -144,7 +144,7 @@ export const BOCAL_PROPS = {
   // (review 2 of 78) An army tank in metres (pivot on the ground under its middle, front +Z; 3.3 m wide, 4.8 m long, 2.3 m high): two track bands with
   // road wheels, an olive hull with a sloped front, a turret with a hatch, a white star and a LONG gun (2.9 m). o.gun [[t, rad], ...]: the gun's
   // pitch (positive: down); o.turret [[t, rad], ...]: the turret's turn; o.flat [[t, 0..1], ...]: the o.flatSide (1: +X) track goes flat, the hull
-  // sinks on that side and the gun droops; o.rumble [[t0, t1, amp], ...]: the hull shudders on its tracks
+  // sinks on that side and the gun droops by o.droop (0.5 rad) more; o.rumble [[t0, t1, amp], ...]: the hull shudders on its tracks
   battleTank(o) {
     const c = o.color || '#66753E', c2 = '#56633A', d = '#2B2E22', g = grp(), hull = grp(), tracks = [];
     for (const sd of [-1, 1]) { const tk = grp(); tk.position.set(sd * 1.32, 0, 0);
@@ -167,7 +167,7 @@ export const BOCAL_PROPS = {
       const f = keyAt(o.flat, t, 0); let ry = 0; for (const [a, b, amp] of o.rumble || []) if (t >= a && t < b) ry += (amp ?? 0.02) * Math.sin(t * 61);
       for (const T of tracks) { const k = T.sd === fs ? f : 0; T.tk.scale.set(1 + 0.22 * k, 1 - 0.55 * k, 1 + 0.03 * k); }
       hull.position.set(0, ry - 0.3 * f, 0); hull.rotation.set(0.006 * Math.sin(t * 53) * (ry ? 1 : 0), 0, -fs * 0.2 * f);
-      tur.rotation.y = keyAt(o.turret, t, 0); gun.rotation.x = keyAt(o.gun, t, 0) + 0.5 * f;
+      tur.rotation.y = keyAt(o.turret, t, 0); gun.rotation.x = keyAt(o.gun, t, 0) + (o.droop ?? 0.5) * f;
       const fk = o.flat || []; let pk = 0; for (let i = 1; i < fk.length; i++) { const u = (t - fk[i - 1][0]) / 0.45; if (fk[i][1] > fk[i - 1][1] && u >= 0 && u < 1) pk = Math.max(pk, u < 0.3 ? u / 0.3 : 1 - (u - 0.3) / 0.7); }
       puff.visible = pk > 0.02; puff.position.set(fs * 1.95, 0.3 + 0.25 * pk, 0.6); puff.scale.setScalar(0.3 + 1.1 * pk);
     };
