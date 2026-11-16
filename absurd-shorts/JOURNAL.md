@@ -2935,3 +2935,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   dans les projets livrés, dossiers de rendu des histoires livrées, recadrages des critiques des revues closes, anciennes couches 3D
   intermédiaires d'histoires livrées depuis longtemps) : 1,3 Go. L'assemblage seul est relancé (deux navigateurs). Un garde (`disk_guard.sh`)
   supprime désormais ces seules copies quand l'espace passe sous 1,6 Go.
+- 11 h 55 — « La tondeuse » (70) LIVRÉE : final contrôlé (1080x1920, 36,6 s, −16,0 LUFS, aucune chute de luminosité, contrôles HyperFrames sans
+  erreur), relu sur une planche de 14 images, envoyé et publié sur TikTok. Il aura fallu trois essais : manque de mémoire, puis manque de
+  disque à l'assemblage.
