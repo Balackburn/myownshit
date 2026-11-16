@@ -33,6 +33,12 @@ export const PULL_PROPS = {
   // o.turn { at, dur }: the jumper is pulled over the head and turned the other way: it rises and stretches over the head (the head and the arms
   // lost inside), bulges twice in the struggle, changes side half-way, snaps down with a squash and settles with a wobble; turned inside out, its
   // label springs up at the end with an overshoot and a flop.
+  // (review 2) one action of the label per shot: o.tagPop (s): hidden until then, it springs up out of the collar with a stretch and a flop (a
+  // colleague who stops, a wave across an office); o.tagRise { at, dur }: it rises slowly out of the collar, like a flag hoisted (a president);
+  // o.tagHop (m): it hops at each step (|sin| of half o.tagRate, o.tagPhase), stretching as it goes up; o.tagKickAmp (1): how hard the kicks flop it;
+  // o.popS / o.popAmp / o.popDecay / o.popFreq: after a turn the label comes back o.popS times bigger with o.popAmp of stretch that dies at
+  // o.popDecay and rings at o.popFreq (1, 0.35, 9, 26: one flop; 1.5, 0.6, 3.6, 19: it shoots up and boings three times);
+  // o.turn.amp (1): how far the jumper stretches and bulges over the head (0.45: one flat, resigned yank)
   knitJumper(o) {
     const w = o.w ?? 0.62, h = o.h ?? 0.62, d = o.d ?? 0.4, C = new THREE.Color(o.color || '#C8322A'), g = grp(), body = grp(); g.add(body);
     const knit = (purl, front) => canvasPlane(w, h, (c, W, H) => { const base = purl ? C.clone().lerp(new THREE.Color('#FFFFFF'), 0.18) : C.clone(); c.fillStyle = base.getStyle(); c.fillRect(0, 0, W, H);
@@ -60,20 +66,26 @@ export const PULL_PROPS = {
       return s; };
     const in0 = o.inside !== false, IN = mk(true), OUT = mk(false); body.add(IN, OUT);
     let sewn = null; if (o.sewn != null) { sewn = careTag(o.sewnS ?? 0.85); sewn.position.set(w * 0.1, h * 0.3, d / 2 + 0.012); sewn.rotation.z = -0.12; OUT.add(sewn); }
-    const T = o.turn || null, tPop = T ? T.at + 0.8 * T.dur : -1e9, kicks = [...(o.tagKick || []), ...(T ? [tPop] : [])];
+    const T = o.turn || null, tPop = T ? T.at + 0.8 * T.dur : -1e9, kicks = [...(o.tagKick || []), ...(T ? [tPop] : []), ...(o.tagPop != null ? [o.tagPop] : [])];
+    const TA = T ? (T.amp ?? 1) : 1, KA = o.tagKickAmp ?? 1, PS = o.popS ?? 1, PA = o.popAmp ?? 0.35, PD = o.popDecay ?? 9, PF = o.popFreq ?? 26, tagY = tags.length ? tags[0].position.y : 0;
     g.userData.update = t => {
       let ins = in0; if (o.flipAt != null && t >= o.flipAt) ins = false; if (T && t >= T.at + 0.5 * T.dur) ins = !in0;
       IN.visible = ins; OUT.visible = !ins;
       let py = 0, sx = 1, sy = 1, sz = 1, rz = 0;
       if (o.flipAt != null) { const u = t - o.flipAt, a = u >= 0 && u < 0.25 ? Math.exp(-12 * u) * Math.cos(u * 40) : 0; sx += 0.15 * a; sy -= 0.15 * a; sz = sx; }
       if (T && t >= T.at) { const u = (t - T.at) / T.dur;
-        if (u < 0.3) { const e = 1 - (1 - u / 0.3) * (1 - u / 0.3); py = h * e; sy = 1 + 0.75 * e; sx = 1 - 0.03 * e; sz = 1 + 0.45 * e; }
-        else if (u < 0.68) { const q = (u - 0.3) / 0.38; py = h + 0.03 * Math.sin(q * 4 * PI); sy = 1.75 + 0.1 * Math.sin(q * 6 * PI); sx = 0.97 + 0.15 * Math.sin(q * 4 * PI); sz = 1.45 + 0.1 * Math.sin(q * 4 * PI + 1.6); rz = 0.09 * Math.sin(q * 4 * PI + 0.8); }
-        else if (u < 0.8) { const e = (u - 0.68) / 0.12, e2 = e * e; py = h * (1 - e2); sy = 1.75 - 1.15 * e2; sx = 0.97 + 0.31 * e2; sz = 1.45 - 0.17 * e2; }
-        else { const v = t - (T.at + 0.8 * T.dur), a = Math.exp(-9 * v) * Math.cos(30 * v); sy = 1 - 0.4 * a; sx = 1 + 0.28 * a; sz = sx; } }
+        if (u < 0.3) { const e = 1 - (1 - u / 0.3) * (1 - u / 0.3); py = h * e; sy = 1 + 0.75 * TA * e; sx = 1 - 0.03 * e; sz = 1 + 0.45 * TA * e; }
+        else if (u < 0.68) { const q = (u - 0.3) / 0.38; py = h + 0.03 * TA * Math.sin(q * 4 * PI); sy = 1 + 0.75 * TA + 0.1 * TA * Math.sin(q * 6 * PI); sx = 0.97 + 0.15 * TA * Math.sin(q * 4 * PI); sz = 1 + 0.45 * TA + 0.1 * TA * Math.sin(q * 4 * PI + 1.6); rz = 0.09 * TA * Math.sin(q * 4 * PI + 0.8); }
+        else if (u < 0.8) { const e = (u - 0.68) / 0.12, e2 = e * e; py = h * (1 - e2); sy = 1 + 0.75 * TA - (0.75 * TA + 0.4 * TA) * e2; sx = 0.97 + (0.03 + 0.28 * TA) * e2; sz = 1 + 0.45 * TA - (0.45 * TA - 0.28 * TA) * e2; }
+        else { const v = t - (T.at + 0.8 * T.dur), a = Math.exp(-9 * v) * Math.cos(30 * v); sy = 1 - 0.4 * TA * a; sx = 1 + 0.28 * TA * a; sz = sx; } }
       body.position.y = py; body.scale.set(sx, sy, sz); body.rotation.z = rz;
-      for (const tag of tags) { const pop = T && !in0 ? (t < tPop ? 0.001 : 1 + 0.35 * Math.exp(-9 * (t - tPop)) * Math.cos(26 * (t - tPop))) : 1;
-        tag.scale.setScalar(pop); tag.rotation.set(-0.12, 0, -side * 0.36 + (o.tagSway ?? 0.07) * Math.sin(t * (o.tagRate ?? 4.2) + (o.tagPhase ?? 0)) + kickOf(kicks, t)); }
+      for (const tag of tags) { let sc = 1, st = 0, ry = 1;   // its size, its stretch (taller and thinner), how far it is hoisted
+        if (T && !in0) { if (t < tPop) sc = 0.001; else { const v = t - tPop; sc = PS; st = PA * Math.exp(-PD * v) * Math.cos(PF * v); } }
+        if (o.tagPop != null) { if (t < o.tagPop) sc = 0.001; else { const v = t - o.tagPop; st = 0.5 * Math.exp(-8 * v) * Math.cos(24 * v); } }
+        if (o.tagRise) { const u = clamp01((t - o.tagRise.at) / o.tagRise.dur); ry = Math.max(0.001, u * u * (3 - 2 * u)); }
+        const hop = o.tagHop ? Math.abs(Math.sin(t * (o.tagRate ?? 4.2) * 0.5 + (o.tagPhase ?? 0))) : 0;
+        tag.scale.set(sc * (1 - 0.45 * st), sc * (1 + st) * ry * (1 + (o.tagHop ? 0.3 * (hop - 0.5) : 0)), sc); tag.position.y = tagY + (o.tagHop ?? 0) * hop;
+        tag.rotation.set(-0.12, 0, -side * 0.36 + (o.tagSway ?? 0.07) * Math.sin(t * (o.tagRate ?? 4.2) + (o.tagPhase ?? 0)) + KA * kickOf(kicks, t)); }
       if (sewn) { const v = t - o.sewn; sewn.visible = v >= 0; if (v >= 0) sewn.scale.setScalar(1 + 0.4 * Math.exp(-10 * v) * Math.cos(28 * v)); }
     };
     g.userData.update(-1); return g;
@@ -83,7 +95,7 @@ export const PULL_PROPS = {
   // 0.3 m), it sways (o.sway 0.07, o.rate 4.2) and flops at each time of o.kick; o.lean (rad): its rest lean about Z.
   careLabel(o) {
     const g = grp(), tag = careTag(o.s ?? 1); g.add(tag);
-    g.userData.update = t => { tag.rotation.set(-0.1, 0, (o.lean ?? 0) + (o.sway ?? 0.07) * Math.sin(t * (o.rate ?? 4.2)) + kickOf(o.kick, t)); };
+    g.userData.update = t => { tag.rotation.set(-0.1, 0, (o.lean ?? 0) + (o.sway ?? 0.07) * Math.sin(t * (o.rate ?? 4.2)) + (o.kickAmp ?? 1) * kickOf(o.kick, t)); };
     g.userData.update(0); return g;
   },
 
@@ -110,5 +122,41 @@ export const PULL_PROPS = {
     for (let i = 0; i < n; i++) { const x = -0.38 + 0.38 * (i % 3), y = 0.75 + 0.07 * Math.floor(i / 3), c = cols[i % cols.length];
       g.add(at(box(0.34, 0.07, 0.3, c, { outline: 0.004 }), x, y + 0.035, 0), at(box(0.14, 0.004, 0.11, '#FFFFFF', { outline: 0.003 }), x, y + 0.073, 0.05)); }
     return g;
+  },
+
+  // (review 2) A studio light on a stand (pivot at the floor, the lit face +Z): a tripod, a pole o.h high (2.0) and a softbox o.w x o.bh (0.55 x 0.42)
+  // whose face glows in o.color (warm white); o.tilt (rad): the box tips down
+  studioLight(o) {
+    const H = o.h ?? 2.0, w = o.w ?? 0.55, bh = o.bh ?? 0.42, g = grp(at(cyl(0.02, 0.02, H, '#3A3F48', 6, { pivot: 'bottom' }), 0, 0, 0));
+    for (let i = 0; i < 3; i++) { const a = i * 2 * PI / 3; g.add(at(cyl(0.014, 0.018, 0.5, '#3A3F48', 6), Math.sin(a) * 0.16, 0.2, Math.cos(a) * 0.16, Math.cos(a) * 0.6, 0, -Math.sin(a) * 0.6)); }
+    const head = grp(at(box(w + 0.06, bh + 0.06, 0.22, '#23262D', { outline: 0.008 }), 0, 0, -0.1), at(box(w, bh, 0.02, o.color || '#FFF3CF'), 0, 0, 0.02));
+    head.children[1].traverse(n => { if (n.isMesh && n.material && n.material.emissive) { n.material = n.material.clone(); n.material.emissive = new THREE.Color(o.color || '#FFF3CF'); n.material.emissiveIntensity = 0.9; } n.castShadow = false; });
+    head.position.set(0, H, 0); head.rotation.x = o.tilt ?? 0.25; g.add(head); return g;
+  },
+
+  // (review 2) A lighting truss with spots and their beams (pivot at the middle of the bar, which runs along X): o.w wide (3), o.n spots (4), each
+  // with a pale see-through cone of light o.len long (2.4) that tips forward by o.tilt (0.25 rad) and fans out sideways by o.fan (0.35 rad at the
+  // ends); o.sweep (rad): the beams swing slowly; o.color the light; o.opacity (0.16)
+  lightTruss(o) {
+    const w = o.w ?? 3, n = o.n ?? 4, len = o.len ?? 2.4, g = grp(at(box(w, 0.07, 0.07, '#4A4F58', { outline: 0.006 }), 0, 0.05, 0), at(box(w, 0.07, 0.07, '#4A4F58', { outline: 0.006 }), 0, -0.05, 0)), beams = [];
+    for (let i = 0; i <= 8; i++) g.add(at(box(0.03, 0.17, 0.03, '#4A4F58'), -w / 2 + i * w / 8, 0, 0));
+    for (let i = 0; i < n; i++) { const x = n > 1 ? -w / 2 + 0.25 + i * (w - 0.5) / (n - 1) : 0, piv = grp(); piv.position.set(x, -0.1, 0);
+      piv.add(at(cyl(0.09, 0.07, 0.2, '#23262D', 8, { outline: 0.006 }), 0, -0.1, 0), at(cyl(0.085, 0.085, 0.015, o.color || '#FFF3CF', 8), 0, -0.21, 0));
+      const cone = cyl(0.07, 0.07 + len * 0.22, len, o.color || '#FFF3CF', 10); cone.position.y = -0.21 - len / 2;
+      cone.traverse(m => { m.castShadow = false; m.receiveShadow = false; if (m.isMesh && m.material) { m.material = m.material.clone(); m.material.transparent = true; m.material.opacity = o.opacity ?? 0.16; m.material.depthWrite = false; if (m.material.emissive) { m.material.emissive = new THREE.Color(o.color || '#FFF3CF'); m.material.emissiveIntensity = 0.6; } } });
+      piv.add(cone); g.add(piv); beams.push({ piv, u: n > 1 ? i / (n - 1) - 0.5 : 0, i }); }
+    g.userData.update = t => { for (const b of beams) b.piv.rotation.set(o.tilt ?? 0.25, 0, -b.u * 2 * (o.fan ?? 0.35) + (o.sweep ?? 0) * Math.sin(t * 1.7 + b.i * 1.3)); };
+    g.userData.update(0); return g;
+  },
+
+  // (review 2) A studio monitor on a wheeled stand (pivot at the floor, the screen +Z): o.h (1.25) to the middle of a 0.62 x 0.4 screen that shows
+  // the programme: a blue set, a presenter's bust in o.jumper with a white label over his shoulder, and a red bar with o.text
+  studioMonitor(o) {
+    const H = o.h ?? 1.25, g = grp(at(cyl(0.025, 0.025, H, '#3A3F48', 6, { pivot: 'bottom' }), 0, 0, 0), at(box(0.5, 0.05, 0.4, '#3A3F48', { outline: 0.006 }), 0, 0.04, 0), at(box(0.7, 0.48, 0.07, '#23262D', { outline: 0.008 }), 0, H, 0));
+    const scr = canvasPlane(0.62, 0.4, (c, W, Hh) => { c.fillStyle = '#5878A8'; c.fillRect(0, 0, W, Hh); c.fillStyle = o.jumper || '#2F8F6B'; c.fillRect(W * 0.3, Hh * 0.55, W * 0.4, Hh * 0.45);
+      c.fillStyle = '#E3B38A'; c.fillRect(W * 0.43, Hh * 0.2, W * 0.14, Hh * 0.36); c.fillStyle = '#3A2A20'; c.fillRect(W * 0.43, Hh * 0.2, W * 0.14, Hh * 0.07);
+      c.fillStyle = '#FFFFFF'; c.strokeStyle = '#17181C'; c.lineWidth = W * 0.012; c.fillRect(W * 0.6, Hh * 0.34, W * 0.11, Hh * 0.22); c.strokeRect(W * 0.6, Hh * 0.34, W * 0.11, Hh * 0.22);
+      c.fillStyle = '#D22B2B'; c.fillRect(0, Hh * 0.82, W, Hh * 0.18); c.fillStyle = '#FFFFFF'; c.font = `900 ${Hh * 0.13}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || 'EN DIRECT', W / 2, Hh * 0.915); }, { res: 256, emissive: 0.5 });
+    scr.position.set(0, H, 0.04); g.add(scr); return g;
   },
 };
