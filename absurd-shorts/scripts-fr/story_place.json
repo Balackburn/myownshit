@@ -1,0 +1,9494 @@
+{
+ "version": 3,
+ "title": "La place",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   },
+   "toon": {
+    "breathe": 1.7,
+    "holdLife": 1.6
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "voleur": {
+   "preset": "boss",
+   "suit": "#B8332B",
+   "lapel": "#8E2420",
+   "tie": "#F2C94C",
+   "facial": "mustache",
+   "glasses": false,
+   "build": {
+    "width": 0.92,
+    "headWidth": 1.25,
+    "belly": 0.08
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   },
+   "seed": 900
+  },
+  "envahisseur": {
+   "preset": "boss",
+   "suit": "#B8332B",
+   "lapel": "#8E2420",
+   "tie": "#F2C94C",
+   "facial": "mustache",
+   "glasses": false,
+   "build": {
+    "width": 0.92,
+    "headWidth": 1.25,
+    "belly": 0.08
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   },
+   "seed": 901
+  },
+  "gris": {
+   "preset": "boss",
+   "suit": "#9C9790",
+   "lapel": "#8A857E",
+   "tie": "#B8B2A6",
+   "facial": "mustache",
+   "glasses": false,
+   "build": {
+    "width": 0.92,
+    "headWidth": 1.25,
+    "belly": 0.08
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   },
+   "seed": 901,
+   "hairColor": "#A8A399"
+  },
+  "general": {
+   "outfit": "suit",
+   "suit": "#4E5A34",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#3E4828",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "hair": "bald",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2,
+    "belly": 0.12
+   },
+   "toon": {
+    "holdLife": 2.2,
+    "shift": 2.0,
+    "breathe": 2.0
+   },
+   "preset": "commissaire",
+   "seed": 902
+  },
+  "soldat1": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "hair": "bald",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.2,
+    "shift": 2.0,
+    "breathe": 2.0
+   },
+   "preset": "cop",
+   "seed": 911
+  },
+  "soldat2": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "hair": "bald",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.2,
+    "shift": 2.0,
+    "breathe": 2.0
+   },
+   "preset": "cop2",
+   "seed": 912
+  },
+  "soldat3": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "hair": "bald",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.2,
+    "shift": 2.0,
+    "breathe": 2.0
+   },
+   "preset": "cop",
+   "seed": 913
+  },
+  "soldat4": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "hair": "bald",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.2,
+    "shift": 2.0,
+    "breathe": 2.0
+   },
+   "preset": "cop2",
+   "seed": 914
+  },
+  "soldat5": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "hair": "bald",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.2,
+    "shift": 2.0,
+    "breathe": 2.0
+   },
+   "preset": "cop",
+   "seed": 915
+  },
+  "soldat6": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "hair": "bald",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.2,
+    "shift": 2.0,
+    "breathe": 2.0
+   },
+   "preset": "cop2",
+   "seed": 916
+  },
+  "musi1": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "hair": "bald",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.2,
+    "shift": 2.0,
+    "breathe": 2.0
+   },
+   "preset": "cop",
+   "seed": 920
+  },
+  "musi2": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "hair": "bald",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.2,
+    "shift": 2.0,
+    "breathe": 2.0
+   },
+   "preset": "cop2",
+   "seed": 921
+  },
+  "forces1": {
+   "outfit": "suit",
+   "suit": "#4A5160",
+   "pants": "#3C424E",
+   "shirt": "#4A5160",
+   "lapel": "#2C3038",
+   "tie": "#2C3038",
+   "cuff": "#4A5160",
+   "hat": "none",
+   "hair": "bald",
+   "gloves": "#16171A",
+   "facial": "none",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   },
+   "preset": "cop",
+   "seed": 930
+  },
+  "forces2": {
+   "outfit": "suit",
+   "suit": "#4A5160",
+   "pants": "#3C424E",
+   "shirt": "#4A5160",
+   "lapel": "#2C3038",
+   "tie": "#2C3038",
+   "cuff": "#4A5160",
+   "hat": "none",
+   "hair": "bald",
+   "gloves": "#16171A",
+   "facial": "none",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   },
+   "preset": "cop2",
+   "seed": 931
+  },
+  "client1": {
+   "preset": "madame",
+   "seed": 940,
+   "suit": "#2E7D4F",
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "client2": {
+   "preset": "worker",
+   "seed": 941,
+   "hat": "none",
+   "suit": "#1F4E8C",
+   "pants": "#22324A",
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "client3": {
+   "preset": "mamie",
+   "seed": 942,
+   "suit": "#7A2E4E",
+   "lapel": "#5A1E38",
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "client4": {
+   "preset": "femme",
+   "seed": 943,
+   "suit": "#E0A030",
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "chef1": {
+   "preset": "politique",
+   "seed": 950,
+   "suit": "#2A2D33",
+   "lapel": "#2A2D33",
+   "tie": "#7A2333",
+   "sash": [
+    "#2E8B57",
+    "#F2C94C"
+   ],
+   "sashW": 0.12,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "chef2": {
+   "preset": "politique",
+   "seed": 951,
+   "suit": "#3A4F6E",
+   "lapel": "#3A4F6E",
+   "tie": "#C8A030",
+   "sash": [
+    "#7A2E8C",
+    "#F4F1E8"
+   ],
+   "sashW": 0.12,
+   "hairColor": "#BDBDBD",
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "chef3": {
+   "preset": "politique",
+   "seed": 952,
+   "suit": "#4A3F5E",
+   "lapel": "#4A3F5E",
+   "tie": "#2E6B8C",
+   "sash": [
+    "#E07A1F",
+    "#1F4E8C"
+   ],
+   "sashW": 0.12,
+   "facial": "mustache",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2,
+    "belly": 0.1
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      12.54,
+      0.06,
+      -4.95
+     ],
+     "ry": -90,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        5.64,
+        0.06,
+        -4.95
+       ],
+       "dur": 1.0,
+       "ease": "out",
+       "glide": true,
+       "face": "keep",
+       "clip": "drive"
+      },
+      {
+       "at": 0.0,
+       "look": [
+        1.25,
+        1.0,
+        -10.6
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.3,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.17,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "pop": 0.45,
+         "mouth": "O",
+         "brow": 0.7
+        },
+        "sq": [
+         0.94,
+         1.08,
+         0.94
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.42,
+       "look": [
+        1.0,
+        1.2,
+        -9.5
+       ],
+       "lookDur": 0.12
+      },
+      {
+       "at": 1.42,
+       "toon": {
+        "face": {
+         "lid": 0.15,
+         "pop": 0.1,
+         "mouth": "O",
+         "brow": 0.4
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 1.84,
+       "look": "camera",
+       "lookDur": 0.1
+      },
+      {
+       "at": 1.84,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": -0.35
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 2.12,
+       "toon": {
+        "face": {
+         "lid": 1.0,
+         "mouth": "line",
+         "brow": -0.35
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 2.22,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": -0.35
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "voleur",
+     "pos": [
+      -14.0,
+      0.06,
+      -4.7
+     ],
+     "ry": 90,
+     "clip": "drive",
+     "keys": [],
+     "visible": false,
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "parking",
+     "name": "parkLot",
+     "pos": [
+      0,
+      0,
+      7.0
+     ],
+     "opts": {
+      "w": 64,
+      "d": 52,
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        5
+       ]
+      ],
+      "lamps": [
+       [
+        -12.5,
+        -5.0
+       ],
+       [
+        12.5,
+        -5.0
+       ],
+       [
+        -12.5,
+        11.0
+       ],
+       [
+        12.5,
+        11.0
+       ],
+       [
+        -12.5,
+        27.0
+       ],
+       [
+        12.5,
+        27.0
+       ]
+      ],
+      "zebra": [
+       0.0,
+       -14.4,
+       5.0
+      ],
+      "arrows": [
+       [
+        -8,
+        -5.2,
+        -1.5707963267948966
+       ],
+       [
+        9,
+        11.2,
+        1.5707963267948966
+       ]
+      ]
+     }
+    },
+    {
+     "id": "rangees",
+     "name": "parkedRows",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        -1
+       ]
+      ],
+      "skip": [
+       "0:10"
+      ],
+      "s": 1.25,
+      "y": 0.06
+     }
+    },
+    {
+     "id": "magasin",
+     "name": "superStore",
+     "pos": [
+      0,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 28,
+      "d": 14,
+      "h": 6.5,
+      "clock": null
+     }
+    },
+    {
+     "id": "voiture",
+     "name": "bayCar",
+     "pos": [
+      12.6,
+      0.06,
+      -5.4
+     ],
+     "ry": -90,
+     "scale": 1.25,
+     "opts": {
+      "color": "#5E8FD0",
+      "plate": "GH-485-PL",
+      "blink": "R",
+      "clear": true,
+      "brake": [
+       0.82,
+       0.45
+      ],
+      "keys": [
+       {
+        "at": 0.0,
+        "to": [
+         5.7,
+         0.06,
+         -5.4
+        ],
+        "dur": 1.0,
+        "ease": "out"
+       }
+      ]
+     }
+    },
+    {
+     "id": "rouge",
+     "name": "bayCar",
+     "pos": [
+      -14.0,
+      0.06,
+      -4.7
+     ],
+     "ry": 90,
+     "scale": 1.0,
+     "opts": {
+      "color": "#D8392B",
+      "plate": "RX-001-ZZ",
+      "hop": [
+       [
+        1.0,
+        0.07
+       ]
+      ],
+      "keys": [
+       {
+        "at": 0.0,
+        "path": [
+         [
+          -2.0,
+          0.06,
+          -4.7
+         ],
+         [
+          0.2,
+          0.06,
+          -5.9
+         ],
+         [
+          1.1,
+          0.06,
+          -8.2
+         ],
+         [
+          1.25,
+          0.06,
+          -10.0
+         ],
+         [
+          1.25,
+          0.06,
+          -10.6
+         ]
+        ],
+        "dur": 1.0,
+        "ease": "out",
+        "faceMove": true
+       }
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      15.4,
+      0.95,
+      -7.1
+     ],
+     "to": [
+      15.0,
+      0.92,
+      -7.05
+     ],
+     "lookAt": [
+      2.0,
+      1.05,
+      -8.6
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      2.0,
+      1.0,
+      -8.5
+     ]
+    },
+    {
+     "at": 1.12,
+     "from": [
+      1.9,
+      1.62,
+      -6.75
+     ],
+     "to": [
+      2.05,
+      1.6,
+      -6.6
+     ],
+     "lookAt": [
+      5.64,
+      1.72,
+      -4.95
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      5.64,
+      1.72,
+      -4.95
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 2.4,
+   "setOpts": {
+    "clouds": 34,
+    "grass": "#86BE5C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "general",
+     "pos": [
+      -0.95,
+      0,
+      -1.95
+     ],
+     "ry": 28,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.16,
+        1.02,
+        -1.34
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.09,
+          1.67,
+          -1.29,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "clench",
+         "brow": -0.6
+        }
+       },
+       "toonDur": 0.0,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.45,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.04,
+          1.97,
+          -1.24,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "clench",
+         "brow": -0.6
+        }
+       },
+       "toonDur": 0.3,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.93,
+       "toon": {
+        "reach": {
+         "R": [
+          0.14,
+          1.37,
+          -1.34,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "sq": [
+         0.97,
+         1.03,
+         0.97
+        ],
+        "bend": {
+         "spine": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "clench",
+         "brow": -0.6
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.16,
+          1.19,
+          -1.34,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "sq": [
+         1.08,
+         0.92,
+         1.08
+        ],
+        "bend": {
+         "spine": [
+          0.25,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.1,
+         "mouth": "clench",
+         "brow": -0.8
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.35,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.14,
+          1.52,
+          -1.19,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "rest"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "smile",
+         "brow": 0.1
+        }
+       },
+       "toonDur": 0.25,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.5,
+       "look": "camera",
+       "lookDur": 0.15
+      },
+      {
+       "at": 1.6,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.14,
+          1.52,
+          -1.19,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "rest"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "neck": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "smile",
+         "brow": 0.2
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 1.8,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.14,
+          1.52,
+          -1.19,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "rest"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "neck": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "smile",
+         "brow": 0.2
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      1.0,
+      0,
+      -2.0
+     ],
+     "ry": -26,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.16,
+        0.92,
+        -1.34
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.51,
+          1.47,
+          -1.19,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.02,
+       "toon": {
+        "reach": {
+         "R": [
+          0.49,
+          1.44,
+          -1.19,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.3
+        },
+        "sq": [
+         0.98,
+         1.02,
+         0.98
+        ]
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.3,
+       "look": "camera",
+       "lookDur": 0.2
+      },
+      {
+       "at": 1.45,
+       "toon": {
+        "reach": {
+         "R": [
+          0.49,
+          1.44,
+          -1.19,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "sq": [
+         0.98,
+         1.02,
+         0.98
+        ],
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.55,
+       "toon": {
+        "reach": {
+         "R": [
+          0.49,
+          1.44,
+          -1.19,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "sq": [
+         0.98,
+         1.02,
+         0.98
+        ],
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "table2",
+     "name": "warMap",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "red": [
+       0.16,
+       -0.14
+      ],
+      "blue": [
+       0.42,
+       0.02
+      ]
+     }
+    },
+    {
+     "id": "epingle2a",
+     "name": "flagPin",
+     "on": {
+      "actor": "general",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.06,
+       0.02
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": true
+      },
+      {
+       "at": 0.98,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "epingle2",
+     "name": "flagPin",
+     "pos": [
+      0.16,
+      0.95,
+      -1.34
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.98,
+       "visible": true
+      }
+     ],
+     "opts": {
+      "s": 1.3
+     }
+    },
+    {
+     "id": "kepi2",
+     "name": "kepi",
+     "on": {
+      "actor": "general",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.222,
+      "d": 0.17,
+      "color": "#4E5730",
+      "band": "#2E3320"
+     }
+    },
+    {
+     "id": "epaul2",
+     "name": "epaulettes",
+     "on": {
+      "actor": "general",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.42,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.52
+     }
+    },
+    {
+     "id": "lampe2",
+     "name": "pendantLamp",
+     "pos": [
+      0.0,
+      3.0,
+      -1.2
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.45,
+      2.2,
+      1.55
+     ],
+     "to": [
+      0.42,
+      2.18,
+      1.4
+     ],
+     "lookAt": [
+      0.05,
+      1.35,
+      -1.4
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0.05,
+      1.35,
+      -1.4
+     ]
+    }
+   ],
+   "start": 2.4,
+   "duration": 1.8,
+   "setOpts": {
+    "door": false,
+    "printer": false,
+    "picture": false,
+    "carpet": false,
+    "wall": "#4A5866",
+    "band": "#2E3A46",
+    "trim": "#1E262E"
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 1.0,
+     "dur": 0.12,
+     "amount": 0.01
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "grassland",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "rondpoint3",
+     "name": "ringRoad",
+     "pos": [
+      48.0,
+      0,
+      36.5
+     ],
+     "opts": {
+      "ri": 6.5,
+      "ro": 13.0,
+      "exitLen": 44,
+      "booms": 0.95,
+      "cars": [
+       {
+        "color": "#F2C94C",
+        "a0": 200
+       },
+       {
+        "color": "#E8E4DA",
+        "a0": 255
+       },
+       {
+        "color": "#7FB069",
+        "a0": 320
+       },
+       {
+        "color": "#D98AA8",
+        "a0": 40
+       }
+      ],
+      "speed": 30.0
+     }
+    },
+    {
+     "id": "navire3",
+     "name": "warship",
+     "pos": [
+      48.0,
+      0.23,
+      36.5
+     ],
+     "ry": -90,
+     "opts": {
+      "aim": [
+       [
+        0.0,
+        -0.334
+       ],
+       [
+        0.4,
+        -0.067
+       ],
+       [
+        0.8,
+        0.201
+       ],
+       [
+        1.2,
+        0.465
+       ],
+       [
+        1.5,
+        1.918
+       ],
+       [
+        1.9,
+        2.109
+       ]
+      ],
+      "aimBlend": 0.28
+     }
+    },
+    {
+     "id": "route3",
+     "name": "parkLot",
+     "pos": [
+      -22.0,
+      0,
+      36.5
+     ],
+     "opts": {
+      "w": 59,
+      "d": 7,
+      "rows": []
+     }
+    },
+    {
+     "id": "parking",
+     "name": "parkLot",
+     "pos": [
+      0,
+      0,
+      7.0
+     ],
+     "opts": {
+      "w": 64,
+      "d": 52,
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        5
+       ]
+      ],
+      "lamps": [
+       [
+        -12.5,
+        -5.0
+       ],
+       [
+        12.5,
+        -5.0
+       ],
+       [
+        -12.5,
+        11.0
+       ],
+       [
+        12.5,
+        11.0
+       ],
+       [
+        -12.5,
+        27.0
+       ],
+       [
+        12.5,
+        27.0
+       ]
+      ],
+      "zebra": [
+       0.0,
+       -14.4,
+       5.0
+      ],
+      "arrows": [
+       [
+        -8,
+        -5.2,
+        -1.5707963267948966
+       ],
+       [
+        9,
+        11.2,
+        1.5707963267948966
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      24.5,
+      1.35,
+      38.6
+     ],
+     "to": [
+      25.2,
+      1.38,
+      38.5
+     ],
+     "lookAt": [
+      48.0,
+      3.4,
+      36.5
+     ],
+     "lens": 36,
+     "ease": "linear",
+     "lookAt2": [
+      48.0,
+      3.3,
+      36.5
+     ]
+    }
+   ],
+   "start": 4.2,
+   "duration": 2.1667,
+   "setOpts": {
+    "clouds": 34,
+    "grass": "#86BE5C"
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.95,
+     "dur": 0.15,
+     "amount": 0.012
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "client1",
+     "pos": [
+      1.2,
+      0.06,
+      -12.9
+     ],
+     "ry": 30.7,
+     "clip": "pushCartWalk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        3.4,
+        0.06,
+        -9.2
+       ],
+       "dur": 2.333,
+       "clip": "pushCartWalk"
+      },
+      {
+       "at": 0.0,
+       "look": [
+        9.6,
+        1.8,
+        -2.4
+       ]
+      }
+     ],
+     "expr": "scared"
+    },
+    {
+     "id": "client2",
+     "pos": [
+      -1.1,
+      0.06,
+      -13.6
+     ],
+     "ry": 29.1,
+     "clip": "pushCartWalk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.9,
+        0.06,
+        -10.0
+       ],
+       "dur": 2.333,
+       "clip": "pushCartWalk"
+      },
+      {
+       "at": 0.0,
+       "look": [
+        9.6,
+        1.8,
+        -2.4
+       ]
+      }
+     ],
+     "expr": "scared"
+    },
+    {
+     "id": "client3",
+     "pos": [
+      2.9,
+      0.06,
+      -14.0
+     ],
+     "ry": 31.7,
+     "clip": "pushCartWalk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        5.0,
+        0.06,
+        -10.6
+       ],
+       "dur": 2.333,
+       "clip": "pushCartWalk"
+      },
+      {
+       "at": 0.0,
+       "look": [
+        9.6,
+        1.8,
+        -2.4
+       ]
+      }
+     ],
+     "expr": "scared"
+    },
+    {
+     "id": "soldat1",
+     "pos": [
+      0.0,
+      0.06,
+      -14.6
+     ],
+     "ry": 28.1,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.6,
+        0.06,
+        -11.6
+       ],
+       "dur": 2.333
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.768,
+          1.51,
+          -11.179,
+          1,
+          0.04
+         ],
+         "L": [
+          1.941,
+          1.41,
+          -11.385,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "soldat2",
+     "pos": [
+      4.3,
+      0.06,
+      -14.8
+     ],
+     "ry": 32.7,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        6.1,
+        0.06,
+        -12.0
+       ],
+       "dur": 2.333
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          6.301,
+          1.51,
+          -11.594,
+          1,
+          0.04
+         ],
+         "L": [
+          6.457,
+          1.41,
+          -11.814,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "parking",
+     "name": "parkLot",
+     "pos": [
+      0,
+      0,
+      7.0
+     ],
+     "opts": {
+      "w": 64,
+      "d": 52,
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        5
+       ]
+      ],
+      "lamps": [
+       [
+        -12.5,
+        -5.0
+       ],
+       [
+        12.5,
+        -5.0
+       ],
+       [
+        -12.5,
+        11.0
+       ],
+       [
+        12.5,
+        11.0
+       ],
+       [
+        -12.5,
+        27.0
+       ],
+       [
+        12.5,
+        27.0
+       ]
+      ],
+      "zebra": [
+       0.0,
+       -14.4,
+       5.0
+      ],
+      "arrows": [
+       [
+        -8,
+        -5.2,
+        -1.5707963267948966
+       ],
+       [
+        9,
+        11.2,
+        1.5707963267948966
+       ]
+      ]
+     }
+    },
+    {
+     "id": "rangees",
+     "name": "parkedRows",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        -1
+       ]
+      ],
+      "skip": [
+       "0:10"
+      ],
+      "s": 1.25,
+      "y": 0.06
+     }
+    },
+    {
+     "id": "magasin",
+     "name": "superStore",
+     "pos": [
+      0,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 28,
+      "d": 14,
+      "h": 6.5,
+      "clock": {
+       "x": 7.5,
+       "base": 600.0,
+       "flipAt": 0.25
+      }
+     }
+    },
+    {
+     "id": "rouge4",
+     "name": "bayCar",
+     "pos": [
+      1.25,
+      0.06,
+      -10.6
+     ],
+     "ry": 180,
+     "scale": 1.0,
+     "opts": {
+      "color": "#D8392B",
+      "plate": "RX-001-ZZ"
+     }
+    },
+    {
+     "id": "chariot40",
+     "name": "fullTrolley",
+     "pos": [
+      1.686,
+      0.06,
+      -12.083
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         3.886,
+         0.06,
+         -8.383
+        ]
+       ],
+       "dur": 2.333,
+       "ease": "linear",
+       "faceMove": true,
+       "yawOffset": -90
+      }
+     ]
+    },
+    {
+     "id": "chariot41",
+     "name": "fullTrolley",
+     "pos": [
+      -0.639,
+      0.06,
+      -12.77
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         1.361,
+         0.06,
+         -9.17
+        ]
+       ],
+       "dur": 2.333,
+       "ease": "linear",
+       "faceMove": true,
+       "yawOffset": -90
+      }
+     ]
+    },
+    {
+     "id": "chariot42",
+     "name": "fullTrolley",
+     "pos": [
+      3.399,
+      0.06,
+      -13.192
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         5.499,
+         0.06,
+         -9.792
+        ]
+       ],
+       "dur": 2.333,
+       "ease": "linear",
+       "faceMove": true,
+       "yawOffset": -90
+      }
+     ]
+    },
+    {
+     "id": "casque40",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "soldat1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque41",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "soldat2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "fusil40",
+     "name": "rifle",
+     "on": {
+      "actor": "soldat1",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.05,
+       0.05
+      ]
+     }
+    },
+    {
+     "id": "fusil41",
+     "name": "rifle",
+     "on": {
+      "actor": "soldat2",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.05,
+       0.05
+      ]
+     }
+    },
+    {
+     "id": "char4",
+     "name": "battleTank",
+     "pos": [
+      -2.6,
+      0.06,
+      -6.2
+     ],
+     "ry": 172,
+     "scale": 0.8,
+     "opts": {
+      "turret": [
+       [
+        0,
+        0.0
+       ]
+      ],
+      "gun": [
+       [
+        0,
+        -0.05
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      9.6,
+      1.25,
+      -2.4
+     ],
+     "to": [
+      9.3,
+      1.3,
+      -2.7
+     ],
+     "lookAt": [
+      1.6,
+      3.9,
+      -14.8
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      1.6,
+      3.95,
+      -14.8
+     ]
+    }
+   ],
+   "start": 6.3667,
+   "duration": 2.3333,
+   "setOpts": {
+    "clouds": 34,
+    "grass": "#86BE5C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "envahisseur",
+     "pos": [
+      -0.15,
+      0,
+      -1.65
+     ],
+     "ry": 26,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.034,
+        1.88,
+        -1.273
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.181,
+          1.68,
+          -1.19,
+          1,
+          0.03
+         ],
+         "L": [
+          0.232,
+          1.68,
+          -1.391,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.5,
+         "mouth": "smile",
+         "brow": 0.3
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.199,
+          1.72,
+          -1.226,
+          1,
+          0.03
+         ],
+         "L": [
+          0.215,
+          1.72,
+          -1.427,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "smile",
+         "brow": 0.6,
+         "cheeks": 0.5
+        },
+        "sq": [
+         0.96,
+         1.06,
+         0.96
+        ],
+        "bend": {
+         "spine": [
+          -0.1,
+          0,
+          0,
+          1,
+          null
+         ],
+         "neck": [
+          -0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.05,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.199,
+          1.7,
+          -1.226,
+          1,
+          0.03
+         ],
+         "L": [
+          0.215,
+          1.7,
+          -1.427,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "bigsmile",
+         "brow": 0.6,
+         "cheeks": 0.6
+        },
+        "sq": [
+         1.02,
+         0.98,
+         1.02
+        ],
+        "bend": {
+         "spine": [
+          0.02,
+          0,
+          0,
+          1,
+          null
+         ],
+         "neck": [
+          0.05,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.3
+      },
+      {
+       "at": 1.45,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.19,
+          1.68,
+          -1.208,
+          1,
+          0.03
+         ],
+         "L": [
+          0.223,
+          1.68,
+          -1.409,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.9,
+         "mouth": "smile",
+         "brow": 0.4,
+         "cheeks": 0.4
+        },
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "bend": {
+         "spine": [
+          -0.06,
+          0,
+          0,
+          1,
+          null
+         ],
+         "neck": [
+          -0.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.2
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "frigo5",
+     "name": "cheeseShelf",
+     "pos": [
+      -0.2,
+      0,
+      -2.75
+     ],
+     "opts": {
+      "w": 3.2
+     }
+    },
+    {
+     "id": "fromage5",
+     "name": "plainCheese",
+     "pos": [
+      0.034,
+      1.62,
+      -1.273
+     ],
+     "rot": [
+      1.45,
+      0,
+      0
+     ],
+     "ry": 26,
+     "opts": {
+      "r": 0.24,
+      "h": 0.14
+     }
+    },
+    {
+     "id": "laser5",
+     "name": "laserDot",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "pts": [
+       [
+        0.0,
+        -0.452,
+        1.25,
+        -1.447
+       ],
+       [
+        0.6,
+        -0.439,
+        1.52,
+        -1.376
+       ],
+       [
+        1.1,
+        -0.447,
+        1.6,
+        -1.505
+       ],
+       [
+        1.5,
+        -0.339,
+        1.98,
+        -1.491
+       ],
+       [
+        2.1,
+        -0.312,
+        2.12,
+        -1.526
+       ]
+      ],
+      "src": [
+       4.5,
+       2.7,
+       2.2
+      ],
+      "r": 0.03
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.95,
+      1.8,
+      1.25
+     ],
+     "to": [
+      0.88,
+      1.8,
+      1.1
+     ],
+     "lookAt": [
+      -0.15,
+      1.72,
+      -1.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.15,
+      1.75,
+      -1.6
+     ]
+    }
+   ],
+   "start": 8.7,
+   "duration": 2.0333,
+   "setOpts": {
+    "fr": true,
+    "signs": [
+     [
+      "FROMAGES",
+      "#2E6FB5",
+      "#FFFFFF",
+      -2.6,
+      -3.2
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "grassland",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "parking",
+     "name": "parkLot",
+     "pos": [
+      0,
+      0,
+      7.0
+     ],
+     "opts": {
+      "w": 64,
+      "d": 52,
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        5
+       ]
+      ],
+      "lamps": [
+       [
+        -12.5,
+        -5.0
+       ],
+       [
+        12.5,
+        -5.0
+       ],
+       [
+        -12.5,
+        11.0
+       ],
+       [
+        12.5,
+        11.0
+       ],
+       [
+        -12.5,
+        27.0
+       ],
+       [
+        12.5,
+        27.0
+       ]
+      ],
+      "zebra": [
+       0.0,
+       -14.4,
+       5.0
+      ],
+      "arrows": [
+       [
+        -8,
+        -5.2,
+        -1.5707963267948966
+       ],
+       [
+        9,
+        11.2,
+        1.5707963267948966
+       ]
+      ]
+     }
+    },
+    {
+     "id": "rangees",
+     "name": "parkedRows",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        -1
+       ]
+      ],
+      "skip": [
+       "0:10"
+      ],
+      "s": 1.25,
+      "y": 0.06
+     }
+    },
+    {
+     "id": "magasin",
+     "name": "superStore",
+     "pos": [
+      0,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 28,
+      "d": 14,
+      "h": 6.5,
+      "clock": {
+       "x": 7.5,
+       "base": 595.88,
+       "flipAt": -1
+      }
+     }
+    },
+    {
+     "id": "rouge6",
+     "name": "bayCar",
+     "pos": [
+      1.25,
+      0.06,
+      -10.6
+     ],
+     "ry": 180,
+     "scale": 1.0,
+     "opts": {
+      "color": "#D8392B",
+      "plate": "RX-001-ZZ",
+      "flatAt": 1.72
+     }
+    },
+    {
+     "id": "avion60",
+     "name": "fighterJet",
+     "pos": [
+      1.25,
+      24.0,
+      55.0
+     ],
+     "ry": 180,
+     "opts": {
+      "burner": 0.8,
+      "glow": 2.2
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.25,
+        24.0,
+        -95.0
+       ],
+       "dur": 2.067,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "avion61",
+     "name": "fighterJet",
+     "pos": [
+      -5.75,
+      24.0,
+      62.0
+     ],
+     "ry": 180,
+     "opts": {
+      "burner": 0.8,
+      "glow": 2.2
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -5.75,
+        24.0,
+        -88.0
+       ],
+       "dur": 2.067,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "avion62",
+     "name": "fighterJet",
+     "pos": [
+      8.25,
+      24.0,
+      62.0
+     ],
+     "ry": 180,
+     "opts": {
+      "burner": 0.8,
+      "glow": 2.2
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        8.25,
+        24.0,
+        -88.0
+       ],
+       "dur": 2.067,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "avion63",
+     "name": "fighterJet",
+     "pos": [
+      -12.75,
+      24.0,
+      69.0
+     ],
+     "ry": 180,
+     "opts": {
+      "burner": 0.8,
+      "glow": 2.2
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -12.75,
+        24.0,
+        -81.0
+       ],
+       "dur": 2.067,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "avion64",
+     "name": "fighterJet",
+     "pos": [
+      15.25,
+      24.0,
+      69.0
+     ],
+     "ry": 180,
+     "opts": {
+      "burner": 0.8,
+      "glow": 2.2
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        15.25,
+        24.0,
+        -81.0
+       ],
+       "dur": 2.067,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "avion65",
+     "name": "fighterJet",
+     "pos": [
+      1.25,
+      24.0,
+      76.0
+     ],
+     "ry": 180,
+     "opts": {
+      "burner": 0.8,
+      "glow": 2.2
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.25,
+        24.0,
+        -74.0
+       ],
+       "dur": 2.067,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "bombes6",
+     "name": "bombDrop",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "drops": [
+       {
+        "from": [
+         1.25,
+         23.0,
+         0.573
+        ],
+        "to": [
+         0.95,
+         0.9,
+         -10.7
+        ],
+        "t0": 0.75,
+        "dur": 0.97
+       },
+       {
+        "from": [
+         -5.75,
+         23.0,
+         5.396
+        ],
+        "to": [
+         1.07,
+         0.9,
+         -10.6
+        ],
+        "t0": 0.78,
+        "dur": 0.94
+       },
+       {
+        "from": [
+         8.25,
+         23.0,
+         3.219
+        ],
+        "to": [
+         1.19,
+         0.9,
+         -10.5
+        ],
+        "t0": 0.81,
+        "dur": 0.91
+       },
+       {
+        "from": [
+         -12.75,
+         23.0,
+         8.042
+        ],
+        "to": [
+         1.31,
+         0.9,
+         -10.7
+        ],
+        "t0": 0.84,
+        "dur": 0.88
+       },
+       {
+        "from": [
+         15.25,
+         23.0,
+         5.865
+        ],
+        "to": [
+         1.43,
+         0.9,
+         -10.6
+        ],
+        "t0": 0.87,
+        "dur": 0.85
+       },
+       {
+        "from": [
+         1.25,
+         23.0,
+         10.688
+        ],
+        "to": [
+         1.55,
+         0.9,
+         -10.5
+        ],
+        "t0": 0.9,
+        "dur": 0.82
+       }
+      ],
+      "s": 1.0
+     }
+    },
+    {
+     "id": "boum6",
+     "name": "timedBurst",
+     "pos": [
+      1.25,
+      0.8,
+      -10.6
+     ],
+     "opts": {
+      "at": 1.72,
+      "size": 2.2,
+      "seed": 6,
+      "life": 0.5
+     }
+    },
+    {
+     "id": "fumee6",
+     "name": "softDust",
+     "pos": [
+      1.25,
+      0.6,
+      -10.6
+     ],
+     "opts": {
+      "at": 1.77,
+      "n": 10,
+      "size": 1.4,
+      "life": 1.4,
+      "rise": 2.0,
+      "spread": 3.0,
+      "color": "#8E8982",
+      "opacity": 0.8
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.9,
+      0.55,
+      -5.0
+     ],
+     "to": [
+      4.85,
+      0.56,
+      -5.1
+     ],
+     "lookAt": [
+      1.0,
+      9.0,
+      -20.0
+     ],
+     "lens": 66,
+     "ease": "linear",
+     "lookAt2": [
+      1.0,
+      9.2,
+      -20.0
+     ]
+    }
+   ],
+   "start": 10.7333,
+   "duration": 2.0667,
+   "setOpts": {
+    "clouds": 34,
+    "grass": "#86BE5C"
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 1.72,
+     "dur": 0.3,
+     "amount": 0.03
+    },
+    {
+     "type": "flash",
+     "at": 1.72,
+     "dur": 0.12
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "client1",
+     "pos": [
+      -1.5,
+      0.06,
+      28.8
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.25,
+        1.0,
+        -10.5
+       ]
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "face": {
+         "lid": 1.0,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "face": {
+         "lid": 0.1,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "surprised"
+    },
+    {
+     "id": "client2",
+     "pos": [
+      1.0,
+      0.06,
+      29.0
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.25,
+        1.0,
+        -10.5
+       ]
+      },
+      {
+       "at": 0.7,
+       "toon": {
+        "face": {
+         "lid": 1.0,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.8,
+       "toon": {
+        "face": {
+         "lid": 0.1,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "surprised"
+    },
+    {
+     "id": "client3",
+     "pos": [
+      3.6,
+      0.06,
+      28.7
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.25,
+        1.0,
+        -10.5
+       ]
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "face": {
+         "lid": 1.0,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "face": {
+         "lid": 0.1,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "surprised"
+    },
+    {
+     "id": "client4",
+     "pos": [
+      6.2,
+      0.06,
+      29.1
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.25,
+        1.0,
+        -10.5
+       ]
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "face": {
+         "lid": 1.0,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.2,
+       "toon": {
+        "face": {
+         "lid": 0.1,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "id": "parking",
+     "name": "parkLot",
+     "pos": [
+      0,
+      0,
+      7.0
+     ],
+     "opts": {
+      "w": 64,
+      "d": 52,
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        5
+       ]
+      ],
+      "lamps": [
+       [
+        -12.5,
+        -5.0
+       ],
+       [
+        12.5,
+        -5.0
+       ],
+       [
+        -12.5,
+        11.0
+       ],
+       [
+        12.5,
+        11.0
+       ],
+       [
+        -12.5,
+        27.0
+       ],
+       [
+        12.5,
+        27.0
+       ]
+      ],
+      "zebra": [
+       0.0,
+       -14.4,
+       5.0
+      ],
+      "arrows": [
+       [
+        -8,
+        -5.2,
+        -1.5707963267948966
+       ],
+       [
+        9,
+        11.2,
+        1.5707963267948966
+       ]
+      ]
+     }
+    },
+    {
+     "id": "epaves",
+     "name": "flatRows",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        -1
+       ]
+      ],
+      "skip": [
+       "0:10"
+      ],
+      "y": 0.06,
+      "wisps": 14
+     }
+    },
+    {
+     "id": "rougeplat7",
+     "name": "bayCar",
+     "pos": [
+      1.25,
+      0.06,
+      -10.6
+     ],
+     "ry": 180,
+     "scale": 1.0,
+     "opts": {
+      "color": "#D8392B",
+      "plate": "RX-001-ZZ",
+      "flat": true
+     }
+    },
+    {
+     "id": "voiture7",
+     "name": "bayCar",
+     "pos": [
+      5.7,
+      0.06,
+      -5.4
+     ],
+     "ry": -90,
+     "scale": 1.25,
+     "opts": {
+      "color": "#5E8FD0",
+      "plate": "GH-485-PL",
+      "blink": "R"
+     }
+    },
+    {
+     "id": "magasin",
+     "name": "superStore",
+     "pos": [
+      0,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 28,
+      "d": 14,
+      "h": 6.5,
+      "clock": {
+       "x": 7.5,
+       "base": 593.82,
+       "flipAt": -1
+      }
+     }
+    },
+    {
+     "id": "roue7",
+     "name": "hubcap",
+     "pos": [
+      -6.0,
+      0.28,
+      11.0
+     ],
+     "ry": 90,
+     "opts": {
+      "r": 0.26,
+      "spin": 10
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.5,
+        0.28,
+        11.2
+       ],
+       "dur": 1.6,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "barriere7",
+     "name": "crowdBarrier",
+     "pos": [
+      2.2,
+      0.06,
+      28.0
+     ],
+     "opts": {
+      "length": 10.0
+     }
+    },
+    {
+     "id": "chariot70",
+     "name": "fullTrolley",
+     "pos": [
+      -0.55,
+      0.06,
+      28.9
+     ],
+     "ry": 180
+    },
+    {
+     "id": "chariot71",
+     "name": "fullTrolley",
+     "pos": [
+      1.95,
+      0.06,
+      29.1
+     ],
+     "ry": 180
+    },
+    {
+     "id": "chariot72",
+     "name": "fullTrolley",
+     "pos": [
+      4.55,
+      0.06,
+      28.8
+     ],
+     "ry": 180
+    },
+    {
+     "id": "chariot73",
+     "name": "fullTrolley",
+     "pos": [
+      7.15,
+      0.06,
+      29.2
+     ],
+     "ry": 180
+    },
+    {
+     "id": "fumees7",
+     "name": "smokeField",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "points": [
+       [
+        1.25,
+        -10.6,
+        9
+       ],
+       [
+        -8,
+        0.5,
+        6
+       ],
+       [
+        9,
+        5.5,
+        6
+       ],
+       [
+        -4,
+        16.5,
+        5
+       ]
+      ],
+      "size": 0.9,
+      "color": "#6E6A66"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.5,
+      11.5,
+      33.5
+     ],
+     "to": [
+      3.4,
+      11.8,
+      33.2
+     ],
+     "lookAt": [
+      2.0,
+      0.0,
+      -5.5
+     ],
+     "lens": 48,
+     "ease": "linear",
+     "lookAt2": [
+      2.0,
+      0.0,
+      -5.7
+     ]
+    }
+   ],
+   "start": 12.8,
+   "duration": 1.6,
+   "setOpts": {
+    "clouds": 34,
+    "grass": "#86BE5C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "envahisseur",
+     "pos": [
+      0.6,
+      0.06,
+      -12.2
+     ],
+     "ry": 172,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.033,
+          1.36,
+          -12.26,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "smirk",
+         "brow": 0.2
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.65,
+       "look": [
+        0.3,
+        3.0,
+        -16.0
+       ],
+       "lookDur": 0.2
+      },
+      {
+       "at": 0.97,
+       "toon": {
+        "reach": {
+         "R": [
+          1.033,
+          1.36,
+          -12.26,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.0,
+         "pop": 0.3,
+         "mouth": "O",
+         "brow": 0.7
+        },
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ]
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.0,
+       "visible": true
+      },
+      {
+       "at": 1.05,
+       "visible": false
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "gris",
+     "pos": [
+      0.6,
+      0.06,
+      -12.2
+     ],
+     "ry": 172,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.033,
+          1.36,
+          -12.26,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "smirk",
+         "brow": 0.2
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.65,
+       "look": [
+        0.3,
+        3.0,
+        -16.0
+       ],
+       "lookDur": 0.2
+      },
+      {
+       "at": 0.97,
+       "toon": {
+        "reach": {
+         "R": [
+          1.033,
+          1.36,
+          -12.26,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.0,
+         "pop": 0.3,
+         "mouth": "O",
+         "brow": 0.7
+        },
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ]
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.3,
+       "look": "camera",
+       "lookDur": 0.15
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "reach": {
+         "R": [
+          1.033,
+          1.36,
+          -12.26,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.5,
+         "mouth": "line",
+         "brow": -0.2
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 1.75,
+       "toon": {
+        "reach": {
+         "R": [
+          1.033,
+          1.36,
+          -12.26,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 1.0,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.85,
+       "toon": {
+        "reach": {
+         "R": [
+          1.033,
+          1.36,
+          -12.26,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 0.5,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 1.05,
+       "visible": true
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "parking",
+     "name": "parkLot",
+     "pos": [
+      0,
+      0,
+      7.0
+     ],
+     "opts": {
+      "w": 64,
+      "d": 52,
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        5
+       ]
+      ],
+      "lamps": [
+       [
+        -12.5,
+        -5.0
+       ],
+       [
+        12.5,
+        -5.0
+       ],
+       [
+        -12.5,
+        11.0
+       ],
+       [
+        12.5,
+        11.0
+       ],
+       [
+        -12.5,
+        27.0
+       ],
+       [
+        12.5,
+        27.0
+       ]
+      ],
+      "zebra": [
+       0.0,
+       -14.4,
+       5.0
+      ],
+      "arrows": [
+       [
+        -8,
+        -5.2,
+        -1.5707963267948966
+       ],
+       [
+        9,
+        11.2,
+        1.5707963267948966
+       ]
+      ]
+     }
+    },
+    {
+     "id": "epaves",
+     "name": "flatRows",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        -1
+       ]
+      ],
+      "skip": [
+       "0:10"
+      ],
+      "y": 0.06,
+      "wisps": 6
+     }
+    },
+    {
+     "id": "magasin",
+     "name": "superStore",
+     "pos": [
+      0,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 28,
+      "d": 14,
+      "h": 6.5,
+      "clock": {
+       "x": 7.5,
+       "base": 592.22,
+       "flipAt": -1
+      },
+      "foldAt": 0.55
+     }
+    },
+    {
+     "id": "fromage8a",
+     "name": "plainCheese",
+     "on": {
+      "actor": "envahisseur",
+      "joint": "torso",
+      "offset": [
+       -0.33,
+       0.12,
+       0.05
+      ]
+     },
+     "rot": [
+      0,
+      0,
+      1.5708
+     ],
+     "opts": {
+      "r": 0.24,
+      "h": 0.14
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "fromage8b",
+     "name": "plainCheese",
+     "on": {
+      "actor": "gris",
+      "joint": "torso",
+      "offset": [
+       -0.33,
+       0.12,
+       0.05
+      ]
+     },
+     "rot": [
+      0,
+      0,
+      1.5708
+     ],
+     "opts": {
+      "r": 0.24,
+      "h": 0.14
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "nuage8",
+     "name": "softDust",
+     "pos": [
+      0.6,
+      1.06,
+      -12.8
+     ],
+     "opts": {
+      "at": 0.91,
+      "n": 12,
+      "size": 1.6,
+      "life": 1.3,
+      "rise": 1.6,
+      "spread": 2.4,
+      "color": "#D8D2C4",
+      "opacity": 0.95
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.3,
+      1.35,
+      -6.9
+     ],
+     "to": [
+      2.25,
+      1.38,
+      -7.05
+     ],
+     "lookAt": [
+      0.3,
+      3.3,
+      -15.5
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      3.0,
+      -15.5
+     ]
+    }
+   ],
+   "start": 14.4,
+   "duration": 2.5333,
+   "setOpts": {
+    "clouds": 34,
+    "grass": "#86BE5C"
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.93,
+     "dur": 0.3,
+     "amount": 0.025
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gris",
+     "pos": [
+      -0.2,
+      0.06,
+      -12.0
+     ],
+     "ry": -39.6,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -4.0,
+        0.06,
+        -7.4
+       ],
+       "dur": 2.567
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -4.4,
+          1.36,
+          -7.575,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "forces1",
+     "pos": [
+      0.341,
+      0.06,
+      -11.682
+     ],
+     "ry": -39.6,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -3.459,
+        0.06,
+        -7.082
+       ],
+       "dur": 2.567
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -3.817,
+          1.51,
+          -7.184,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "forces2",
+     "pos": [
+      -0.614,
+      0.06,
+      -12.472
+     ],
+     "ry": -39.6,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -4.414,
+        0.06,
+        -7.872
+       ],
+       "dur": 2.567
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          -4.247,
+          1.51,
+          -7.539,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      3.7,
+      0.06,
+      -6.3
+     ],
+     "ry": -55,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.2,
+        2.0,
+        -12.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.2,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.35,
+       "toon": {
+        "reach": {
+         "R": [
+          3.18,
+          1.81,
+          -5.997,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "lid": 0.05,
+         "mouth": "scream",
+         "brow": -0.9
+        },
+        "sq": [
+         0.95,
+         1.07,
+         0.95
+        ]
+       },
+       "toonDur": 0.08,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "reach": {
+         "R": [
+          3.146,
+          1.86,
+          -6.01,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "lid": 0.05,
+         "mouth": "scream",
+         "brow": -0.9
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.0,
+       "look": [
+        -4.0,
+        2.0,
+        -7.4
+       ],
+       "lookDur": 0.8
+      },
+      {
+       "at": 0.8,
+       "toon": {
+        "reach": {
+         "R": [
+          3.146,
+          1.86,
+          -6.01,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "lid": 0.05,
+         "mouth": "scream",
+         "brow": -0.9
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.02,
+       "toon": {
+        "reach": {
+         "R": [
+          3.118,
+          1.92,
+          -6.051,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "lid": 0.05,
+         "mouth": "clench",
+         "brow": -0.9
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.24,
+       "toon": {
+        "reach": {
+         "R": [
+          3.146,
+          1.86,
+          -6.01,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "lid": 0.05,
+         "mouth": "scream",
+         "brow": -0.9
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.46,
+       "toon": {
+        "reach": {
+         "R": [
+          3.118,
+          1.92,
+          -6.051,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "lid": 0.05,
+         "mouth": "clench",
+         "brow": -0.9
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.68,
+       "toon": {
+        "reach": {
+         "R": [
+          3.146,
+          1.86,
+          -6.01,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "lid": 0.05,
+         "mouth": "scream",
+         "brow": -0.9
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.9,
+       "toon": {
+        "reach": {
+         "R": [
+          3.118,
+          1.92,
+          -6.051,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "lid": 0.05,
+         "mouth": "clench",
+         "brow": -0.9
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 2.12,
+       "toon": {
+        "reach": {
+         "R": [
+          3.146,
+          1.86,
+          -6.01,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "lid": 0.05,
+         "mouth": "scream",
+         "brow": -0.9
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "parking",
+     "name": "parkLot",
+     "pos": [
+      0,
+      0,
+      7.0
+     ],
+     "opts": {
+      "w": 64,
+      "d": 52,
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        5
+       ]
+      ],
+      "lamps": [
+       [
+        -12.5,
+        -5.0
+       ],
+       [
+        12.5,
+        -5.0
+       ],
+       [
+        -12.5,
+        11.0
+       ],
+       [
+        12.5,
+        11.0
+       ],
+       [
+        -12.5,
+        27.0
+       ],
+       [
+        12.5,
+        27.0
+       ]
+      ],
+      "zebra": [
+       0.0,
+       -14.4,
+       5.0
+      ],
+      "arrows": [
+       [
+        -8,
+        -5.2,
+        -1.5707963267948966
+       ],
+       [
+        9,
+        11.2,
+        1.5707963267948966
+       ]
+      ]
+     }
+    },
+    {
+     "id": "epaves",
+     "name": "flatRows",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        -1
+       ]
+      ],
+      "skip": [
+       "0:10"
+      ],
+      "y": 0.06,
+      "wisps": 6
+     }
+    },
+    {
+     "id": "magasin",
+     "name": "superStore",
+     "pos": [
+      0,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 28,
+      "d": 14,
+      "h": 6.5,
+      "folded": true,
+      "clock": {
+       "x": 7.5,
+       "base": 592.22,
+       "flipAt": -1
+      }
+     }
+    },
+    {
+     "id": "voiture9",
+     "name": "bayCar",
+     "pos": [
+      7.0,
+      0.06,
+      -5.4
+     ],
+     "ry": -90,
+     "scale": 1.25,
+     "opts": {
+      "color": "#5E8FD0",
+      "plate": "GH-485-PL",
+      "blink": "R"
+     }
+    },
+    {
+     "id": "noire9",
+     "name": "bayCar",
+     "pos": [
+      -6.6,
+      0.06,
+      -6.4
+     ],
+     "ry": -90,
+     "scale": 1.25,
+     "opts": {
+      "dark": true,
+      "plate": "AA-000-AA"
+     }
+    },
+    {
+     "id": "fromage9",
+     "name": "plainCheese",
+     "on": {
+      "actor": "gris",
+      "joint": "torso",
+      "offset": [
+       -0.33,
+       0.12,
+       0.05
+      ]
+     },
+     "rot": [
+      0,
+      0,
+      1.5708
+     ],
+     "opts": {
+      "r": 0.24,
+      "h": 0.14
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "couverture9",
+     "name": "blanketDrape",
+     "on": {
+      "actor": "gris",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ]
+     },
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 0.62,
+      "h": 0.9,
+      "color": "#8E9196"
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "cagoule90",
+     "name": "balaclava",
+     "on": {
+      "actor": "forces1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "cagoule91",
+     "name": "balaclava",
+     "on": {
+      "actor": "forces2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.9,
+      1.7,
+      -1.6
+     ],
+     "to": [
+      6.75,
+      1.68,
+      -1.75
+     ],
+     "lookAt": [
+      -1.2,
+      1.35,
+      -9.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -1.3,
+      1.35,
+      -9.6
+     ]
+    }
+   ],
+   "start": 16.9333,
+   "duration": 2.5667,
+   "setOpts": {
+    "clouds": 34,
+    "grass": "#86BE5C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soldat1",
+     "pos": [
+      0.55,
+      0.06,
+      -10.2
+     ],
+     "ry": 138.8,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.25,
+        1.06,
+        -11.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.2,
+          2.01,
+          -10.95,
+          1,
+          0.03
+         ],
+         "L": [
+          1.2,
+          1.61,
+          -10.95,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         0.96,
+         1.05,
+         0.96
+        ]
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.42,
+       "toon": {
+        "reach": {
+         "R": [
+          1.2,
+          1.11,
+          -10.95,
+          1,
+          0.03
+         ],
+         "L": [
+          1.2,
+          0.71,
+          -10.95,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         1.1,
+         0.88,
+         1.1
+        ],
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.1,
+         "mouth": "clench",
+         "brow": -0.8
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.67,
+       "toon": {
+        "reach": {
+         "R": [
+          0.753,
+          2.08,
+          -10.128,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      3.25,
+      0.06,
+      -8.3
+     ],
+     "ry": -60,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.25,
+        2.66,
+        -11.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.52,
+       "toon": {
+        "reach": {
+         "R": [
+          2.865,
+          1.46,
+          -8.367,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "sq": [
+         1.02,
+         0.97,
+         1.02
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": 0.2
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "reach": {
+         "R": [
+          3.081,
+          2.08,
+          -8.433,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "sq": [
+         0.96,
+         1.06,
+         0.96
+        ],
+        "face": {
+         "lid": 0.25,
+         "mouth": "smile",
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.74,
+       "toon": {
+        "reach": {
+         "R": [
+          3.081,
+          2.08,
+          -8.433,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "smile",
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "parking",
+     "name": "parkLot",
+     "pos": [
+      0,
+      0,
+      7.0
+     ],
+     "opts": {
+      "w": 64,
+      "d": 52,
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        5
+       ]
+      ],
+      "lamps": [
+       [
+        -12.5,
+        -5.0
+       ],
+       [
+        12.5,
+        -5.0
+       ],
+       [
+        -12.5,
+        11.0
+       ],
+       [
+        12.5,
+        11.0
+       ],
+       [
+        -12.5,
+        27.0
+       ],
+       [
+        12.5,
+        27.0
+       ]
+      ],
+      "zebra": [
+       0.0,
+       -14.4,
+       5.0
+      ],
+      "arrows": [
+       [
+        -8,
+        -5.2,
+        -1.5707963267948966
+       ],
+       [
+        9,
+        11.2,
+        1.5707963267948966
+       ]
+      ]
+     }
+    },
+    {
+     "id": "epaves",
+     "name": "flatRows",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        -1
+       ]
+      ],
+      "skip": [
+       "0:10"
+      ],
+      "y": 0.06,
+      "wisps": 6
+     }
+    },
+    {
+     "id": "magasin",
+     "name": "superStore",
+     "pos": [
+      0,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 28,
+      "d": 14,
+      "h": 6.5,
+      "folded": true,
+      "clock": {
+       "x": 7.5,
+       "base": 592.22,
+       "flipAt": -1
+      }
+     }
+    },
+    {
+     "id": "drapeau10",
+     "name": "bayFlag",
+     "pos": [
+      1.25,
+      0.06,
+      -11.0
+     ],
+     "opts": {
+      "h": 3.4,
+      "fw": 1.2,
+      "colors": [
+       "#3E5A2E",
+       "#3E5A2E"
+      ],
+      "mark": "star",
+      "markColor": "#E2B53C",
+      "plantAt": 0.42,
+      "drop": 0.9
+     }
+    },
+    {
+     "id": "casque10",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "soldat1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "poussiere10",
+     "name": "softDust",
+     "pos": [
+      1.25,
+      0.16,
+      -11.0
+     ],
+     "opts": {
+      "at": 0.54,
+      "n": 6,
+      "size": 0.35,
+      "life": 0.7,
+      "rise": 0.3,
+      "spread": 0.7,
+      "color": "#C9C3B5",
+      "opacity": 0.8
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.4,
+      0.95,
+      -4.4
+     ],
+     "to": [
+      4.35,
+      0.98,
+      -4.55
+     ],
+     "lookAt": [
+      1.4,
+      2.1,
+      -10.6
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      1.4,
+      2.15,
+      -10.6
+     ]
+    }
+   ],
+   "start": 19.5,
+   "duration": 1.4333,
+   "setOpts": {
+    "clouds": 34,
+    "grass": "#86BE5C"
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.54,
+     "dur": 0.12,
+     "amount": 0.012
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soldat1",
+     "pos": [
+      0.55,
+      0.06,
+      -12.35
+     ],
+     "ry": 90.0,
+     "clip": "marchPomp",
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         0.776,
+         0.06,
+         -12.35
+        ],
+        [
+         1.002,
+         0.06,
+         -12.35
+        ],
+        [
+         1.229,
+         0.06,
+         -12.35
+        ],
+        [
+         1.455,
+         0.06,
+         -12.35
+        ],
+        [
+         1.681,
+         0.06,
+         -12.35
+        ],
+        [
+         1.907,
+         0.06,
+         -12.35
+        ],
+        [
+         1.95,
+         0.06,
+         -12.167
+        ],
+        [
+         1.95,
+         0.06,
+         -11.94
+        ],
+        [
+         1.95,
+         0.06,
+         -11.714
+        ],
+        [
+         1.95,
+         0.06,
+         -11.488
+        ]
+       ],
+       "dur": 1.967,
+       "clip": "marchPomp",
+       "face": "move"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.55,
+          2.06,
+          -12.35,
+          0,
+          0.03
+         ]
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "soldat2",
+     "pos": [
+      1.8,
+      0.06,
+      -12.35
+     ],
+     "ry": 90.0,
+     "clip": "marchPomp",
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         1.95,
+         0.06,
+         -12.274
+        ],
+        [
+         1.95,
+         0.06,
+         -12.048
+        ],
+        [
+         1.95,
+         0.06,
+         -11.821
+        ],
+        [
+         1.95,
+         0.06,
+         -11.595
+        ],
+        [
+         1.95,
+         0.06,
+         -11.369
+        ],
+        [
+         1.95,
+         0.06,
+         -11.143
+        ],
+        [
+         1.95,
+         0.06,
+         -10.917
+        ],
+        [
+         1.95,
+         0.06,
+         -10.69
+        ],
+        [
+         1.95,
+         0.06,
+         -10.464
+        ],
+        [
+         1.95,
+         0.06,
+         -10.238
+        ]
+       ],
+       "dur": 1.967,
+       "clip": "marchPomp",
+       "face": "move"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.8,
+          2.06,
+          -12.35,
+          0,
+          0.03
+         ]
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "soldat3",
+     "pos": [
+      1.95,
+      0.06,
+      -11.25
+     ],
+     "ry": 0.0,
+     "clip": "marchPomp",
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         1.95,
+         0.06,
+         -11.024
+        ],
+        [
+         1.95,
+         0.06,
+         -10.798
+        ],
+        [
+         1.95,
+         0.06,
+         -10.571
+        ],
+        [
+         1.95,
+         0.06,
+         -10.345
+        ],
+        [
+         1.95,
+         0.06,
+         -10.119
+        ],
+        [
+         1.95,
+         0.06,
+         -9.893
+        ],
+        [
+         1.95,
+         0.06,
+         -9.667
+        ],
+        [
+         1.95,
+         0.06,
+         -9.44
+        ],
+        [
+         1.95,
+         0.06,
+         -9.214
+        ],
+        [
+         1.95,
+         0.06,
+         -8.988
+        ]
+       ],
+       "dur": 1.967,
+       "clip": "marchPomp",
+       "face": "move"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.95,
+          2.06,
+          -11.25,
+          0,
+          0.03
+         ]
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "soldat4",
+     "pos": [
+      1.95,
+      0.06,
+      -10.0
+     ],
+     "ry": 0.0,
+     "clip": "marchPomp",
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         1.95,
+         0.06,
+         -9.774
+        ],
+        [
+         1.95,
+         0.06,
+         -9.548
+        ],
+        [
+         1.95,
+         0.06,
+         -9.321
+        ],
+        [
+         1.95,
+         0.06,
+         -9.095
+        ],
+        [
+         1.95,
+         0.06,
+         -8.869
+        ],
+        [
+         1.843,
+         0.06,
+         -8.75
+        ],
+        [
+         1.617,
+         0.06,
+         -8.75
+        ],
+        [
+         1.39,
+         0.06,
+         -8.75
+        ],
+        [
+         1.164,
+         0.06,
+         -8.75
+        ],
+        [
+         0.938,
+         0.06,
+         -8.75
+        ]
+       ],
+       "dur": 1.967,
+       "clip": "marchPomp",
+       "face": "move"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.95,
+          2.06,
+          -10.0,
+          0,
+          0.03
+         ]
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "musi1",
+     "pos": [
+      1.95,
+      0.06,
+      -8.75
+     ],
+     "ry": -90.0,
+     "clip": "marchPomp",
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         1.724,
+         0.06,
+         -8.75
+        ],
+        [
+         1.498,
+         0.06,
+         -8.75
+        ],
+        [
+         1.271,
+         0.06,
+         -8.75
+        ],
+        [
+         1.045,
+         0.06,
+         -8.75
+        ],
+        [
+         0.819,
+         0.06,
+         -8.75
+        ],
+        [
+         0.593,
+         0.06,
+         -8.75
+        ],
+        [
+         0.55,
+         0.06,
+         -8.933
+        ],
+        [
+         0.55,
+         0.06,
+         -9.16
+        ],
+        [
+         0.55,
+         0.06,
+         -9.386
+        ],
+        [
+         0.55,
+         0.06,
+         -9.612
+        ]
+       ],
+       "dur": 1.967,
+       "clip": "marchPomp",
+       "face": "move"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "soldat5",
+     "pos": [
+      0.7,
+      0.06,
+      -8.75
+     ],
+     "ry": -90.0,
+     "clip": "marchPomp",
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         0.55,
+         0.06,
+         -8.826
+        ],
+        [
+         0.55,
+         0.06,
+         -9.052
+        ],
+        [
+         0.55,
+         0.06,
+         -9.279
+        ],
+        [
+         0.55,
+         0.06,
+         -9.505
+        ],
+        [
+         0.55,
+         0.06,
+         -9.731
+        ],
+        [
+         0.55,
+         0.06,
+         -9.957
+        ],
+        [
+         0.55,
+         0.06,
+         -10.183
+        ],
+        [
+         0.55,
+         0.06,
+         -10.41
+        ],
+        [
+         0.55,
+         0.06,
+         -10.636
+        ],
+        [
+         0.55,
+         0.06,
+         -10.862
+        ]
+       ],
+       "dur": 1.967,
+       "clip": "marchPomp",
+       "face": "move"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.7,
+          2.06,
+          -8.75,
+          0,
+          0.03
+         ]
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "musi2",
+     "pos": [
+      0.55,
+      0.06,
+      -9.85
+     ],
+     "ry": 180.0,
+     "clip": "marchPomp",
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         0.55,
+         0.06,
+         -10.076
+        ],
+        [
+         0.55,
+         0.06,
+         -10.302
+        ],
+        [
+         0.55,
+         0.06,
+         -10.529
+        ],
+        [
+         0.55,
+         0.06,
+         -10.755
+        ],
+        [
+         0.55,
+         0.06,
+         -10.981
+        ],
+        [
+         0.55,
+         0.06,
+         -11.207
+        ],
+        [
+         0.55,
+         0.06,
+         -11.433
+        ],
+        [
+         0.55,
+         0.06,
+         -11.66
+        ],
+        [
+         0.55,
+         0.06,
+         -11.886
+        ],
+        [
+         0.55,
+         0.06,
+         -12.112
+        ]
+       ],
+       "dur": 1.967,
+       "clip": "marchPomp",
+       "face": "move"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "soldat6",
+     "pos": [
+      0.55,
+      0.06,
+      -11.1
+     ],
+     "ry": 180.0,
+     "clip": "marchPomp",
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         0.55,
+         0.06,
+         -11.326
+        ],
+        [
+         0.55,
+         0.06,
+         -11.552
+        ],
+        [
+         0.55,
+         0.06,
+         -11.779
+        ],
+        [
+         0.55,
+         0.06,
+         -12.005
+        ],
+        [
+         0.55,
+         0.06,
+         -12.231
+        ],
+        [
+         0.657,
+         0.06,
+         -12.35
+        ],
+        [
+         0.883,
+         0.06,
+         -12.35
+        ],
+        [
+         1.11,
+         0.06,
+         -12.35
+        ],
+        [
+         1.336,
+         0.06,
+         -12.35
+        ],
+        [
+         1.562,
+         0.06,
+         -12.35
+        ]
+       ],
+       "dur": 1.967,
+       "clip": "marchPomp",
+       "face": "move"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.55,
+          2.06,
+          -11.1,
+          0,
+          0.03
+         ]
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      3.3,
+      0.06,
+      -8.0
+     ],
+     "ry": -70,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.25,
+        2.0,
+        -10.5
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          3.156,
+          2.08,
+          -8.161,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "smile",
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "reach": {
+         "R": [
+          3.156,
+          2.08,
+          -8.161,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "smile",
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "reach": {
+         "R": [
+          3.156,
+          2.08,
+          -8.161,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "smile",
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "parking",
+     "name": "parkLot",
+     "pos": [
+      0,
+      0,
+      7.0
+     ],
+     "opts": {
+      "w": 64,
+      "d": 52,
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        5
+       ]
+      ],
+      "lamps": [
+       [
+        -12.5,
+        -5.0
+       ],
+       [
+        12.5,
+        -5.0
+       ],
+       [
+        -12.5,
+        11.0
+       ],
+       [
+        12.5,
+        11.0
+       ],
+       [
+        -12.5,
+        27.0
+       ],
+       [
+        12.5,
+        27.0
+       ]
+      ],
+      "zebra": [
+       0.0,
+       -14.4,
+       5.0
+      ],
+      "arrows": [
+       [
+        -8,
+        -5.2,
+        -1.5707963267948966
+       ],
+       [
+        9,
+        11.2,
+        1.5707963267948966
+       ]
+      ]
+     }
+    },
+    {
+     "id": "epaves",
+     "name": "flatRows",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        -1
+       ]
+      ],
+      "skip": [
+       "0:10"
+      ],
+      "y": 0.06,
+      "wisps": 4
+     }
+    },
+    {
+     "id": "magasin",
+     "name": "superStore",
+     "pos": [
+      0,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 28,
+      "d": 14,
+      "h": 6.5,
+      "folded": true,
+      "clock": {
+       "x": 7.5,
+       "base": 592.22,
+       "flipAt": -1
+      }
+     }
+    },
+    {
+     "id": "drapeau11",
+     "name": "bayFlag",
+     "pos": [
+      1.25,
+      0.06,
+      -11.0
+     ],
+     "opts": {
+      "h": 3.4,
+      "fw": 1.2,
+      "colors": [
+       "#3E5A2E",
+       "#3E5A2E"
+      ],
+      "mark": "star",
+      "markColor": "#E2B53C"
+     }
+    },
+    {
+     "id": "casque110",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "soldat1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque111",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "soldat2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque112",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "soldat3",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque113",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "soldat4",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque115",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "soldat5",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque117",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "soldat6",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "tambour11",
+     "name": "bandInstr",
+     "on": {
+      "actor": "musi1",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.1,
+       0.22
+      ]
+     },
+     "opts": {
+      "kind": "drum",
+      "beat": [
+       0.0,
+       0.3,
+       0.6,
+       0.9,
+       1.2,
+       1.5,
+       1.8
+      ]
+     }
+    },
+    {
+     "id": "trompette11",
+     "name": "bandInstr",
+     "on": {
+      "actor": "musi2",
+      "hand": "R",
+      "offset": [
+       0.0,
+       0.0,
+       0.05
+      ]
+     },
+     "opts": {
+      "kind": "trumpet"
+     }
+    },
+    {
+     "id": "kepi11a",
+     "name": "kepi",
+     "on": {
+      "actor": "musi1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.222,
+      "d": 0.17,
+      "color": "#4E5730",
+      "band": "#2E3320"
+     }
+    },
+    {
+     "id": "kepi11b",
+     "name": "kepi",
+     "on": {
+      "actor": "musi2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.222,
+      "d": 0.17,
+      "color": "#4E5730",
+      "band": "#2E3320"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.6,
+      0.75,
+      -5.6
+     ],
+     "to": [
+      3.55,
+      0.78,
+      -5.75
+     ],
+     "lookAt": [
+      1.25,
+      1.55,
+      -10.6
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      1.25,
+      1.6,
+      -10.6
+     ]
+    }
+   ],
+   "start": 20.9333,
+   "duration": 1.9667,
+   "setOpts": {
+    "clouds": 34,
+    "grass": "#86BE5C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "grassland",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "rondpoint12",
+     "name": "ringRoad",
+     "pos": [
+      48.0,
+      0,
+      36.5
+     ],
+     "opts": {
+      "ri": 6.5,
+      "ro": 13.0,
+      "exitLen": 44,
+      "booms": "down"
+     }
+    },
+    {
+     "id": "navire12",
+     "name": "warship",
+     "pos": [
+      48.0,
+      0.23,
+      36.5
+     ],
+     "ry": -90,
+     "opts": {
+      "aim": [
+       [
+        0.0,
+        0.36
+       ],
+       [
+        0.45,
+        0.432
+       ],
+       [
+        0.95,
+        0.54
+       ],
+       [
+        1.45,
+        0.72
+       ]
+      ],
+      "aimBlend": 0.3,
+      "counter": true,
+      "laps": [
+       [
+        0,
+        0
+       ]
+      ]
+     }
+    },
+    {
+     "id": "route12",
+     "name": "parkLot",
+     "pos": [
+      -22.0,
+      0,
+      36.5
+     ],
+     "opts": {
+      "w": 59,
+      "d": 7,
+      "rows": []
+     }
+    },
+    {
+     "id": "officielle120",
+     "name": "bayCar",
+     "pos": [
+      30.7,
+      0.06,
+      38.3
+     ],
+     "ry": 90,
+     "scale": 1.25,
+     "opts": {
+      "dark": true,
+      "flag": [
+       "#2E8B57",
+       "#F2C94C"
+      ],
+      "plate": "CD-012-XX",
+      "phase": 0.0
+     }
+    },
+    {
+     "id": "officielle121",
+     "name": "bayCar",
+     "pos": [
+      25.6,
+      0.06,
+      38.3
+     ],
+     "ry": 90,
+     "scale": 1.25,
+     "opts": {
+      "dark": true,
+      "flag": [
+       "#7A2E8C",
+       "#F4F1E8"
+      ],
+      "plate": "CD-013-XX",
+      "phase": 0.2
+     }
+    },
+    {
+     "id": "officielle122",
+     "name": "bayCar",
+     "pos": [
+      20.5,
+      0.06,
+      38.3
+     ],
+     "ry": 90,
+     "scale": 1.25,
+     "opts": {
+      "dark": true,
+      "flag": [
+       "#E07A1F",
+       "#1F4E8C"
+      ],
+      "plate": "CD-014-XX",
+      "phase": 0.4
+     }
+    },
+    {
+     "id": "officielle123",
+     "name": "bayCar",
+     "pos": [
+      15.4,
+      0.06,
+      38.3
+     ],
+     "ry": 90,
+     "scale": 1.25,
+     "opts": {
+      "dark": true,
+      "flag": [
+       "#1E7A8C",
+       "#E8504A",
+       "#F4F1E8"
+      ],
+      "plate": "CD-015-XX",
+      "phase": 0.6000000000000001
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      21.5,
+      1.35,
+      44.5
+     ],
+     "to": [
+      21.9,
+      1.37,
+      44.3
+     ],
+     "lookAt": [
+      37.0,
+      2.4,
+      36.5
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      37.2,
+      2.4,
+      36.5
+     ]
+    }
+   ],
+   "start": 22.9,
+   "duration": 1.9333,
+   "setOpts": {
+    "clouds": 34,
+    "grass": "#86BE5C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chef1",
+     "pos": [
+      38.286,
+      -0.42,
+      35.529
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         38.246,
+         -0.42,
+         36.096
+        ],
+        [
+         38.239,
+         -0.42,
+         36.663
+        ],
+        [
+         38.265,
+         -0.42,
+         37.231
+        ],
+        [
+         38.324,
+         -0.42,
+         37.796
+        ],
+        [
+         38.415,
+         -0.42,
+         38.356
+        ],
+        [
+         38.539,
+         -0.42,
+         38.91
+        ],
+        [
+         38.695,
+         -0.42,
+         39.456
+        ],
+        [
+         38.884,
+         -0.42,
+         39.993
+        ],
+        [
+         39.102,
+         -0.42,
+         40.517
+        ],
+        [
+         39.351,
+         -0.42,
+         41.027
+        ],
+        [
+         39.628,
+         -0.42,
+         41.522
+        ],
+        [
+         39.934,
+         -0.42,
+         42.0
+        ]
+       ],
+       "dur": 1.9,
+       "glide": true,
+       "face": "keep"
+      },
+      {
+       "at": 0.0,
+       "look": [
+        30.6,
+        1.8,
+        39.0
+       ]
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "chef2",
+     "pos": [
+      38.7,
+      -0.42,
+      33.531
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         38.543,
+         -0.42,
+         34.077
+        ],
+        [
+         38.419,
+         -0.42,
+         34.63
+        ],
+        [
+         38.326,
+         -0.42,
+         35.191
+        ],
+        [
+         38.265,
+         -0.42,
+         35.755
+        ],
+        [
+         38.239,
+         -0.42,
+         36.323
+        ],
+        [
+         38.246,
+         -0.42,
+         36.891
+        ],
+        [
+         38.284,
+         -0.42,
+         37.457
+        ],
+        [
+         38.356,
+         -0.42,
+         38.02
+        ],
+        [
+         38.461,
+         -0.42,
+         38.579
+        ],
+        [
+         38.598,
+         -0.42,
+         39.13
+        ],
+        [
+         38.767,
+         -0.42,
+         39.672
+        ],
+        [
+         38.967,
+         -0.42,
+         40.204
+        ]
+       ],
+       "dur": 1.9,
+       "glide": true,
+       "face": "keep"
+      },
+      {
+       "at": 0.0,
+       "look": [
+        30.6,
+        1.8,
+        39.0
+       ]
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "rondpoint13",
+     "name": "ringRoad",
+     "pos": [
+      48.0,
+      0,
+      36.5
+     ],
+     "opts": {
+      "ri": 6.5,
+      "ro": 13.0,
+      "exitLen": 44,
+      "booms": "down"
+     }
+    },
+    {
+     "id": "navire13",
+     "name": "warship",
+     "pos": [
+      48.0,
+      0.23,
+      36.5
+     ],
+     "ry": -90,
+     "opts": {
+      "aim": [
+       [
+        0,
+        0.0
+       ]
+      ],
+      "counter": true,
+      "laps": [
+       [
+        0,
+        38
+       ],
+       [
+        0.55,
+        39
+       ],
+       [
+        1.25,
+        40
+       ]
+      ]
+     }
+    },
+    {
+     "id": "route13",
+     "name": "parkLot",
+     "pos": [
+      -22.0,
+      0,
+      36.5
+     ],
+     "opts": {
+      "w": 59,
+      "d": 7,
+      "rows": []
+     }
+    },
+    {
+     "id": "officielle130",
+     "name": "bayCar",
+     "pos": [
+      37.11,
+      0.06,
+      35.355
+     ],
+     "ry": 354.0,
+     "scale": 1.25,
+     "opts": {
+      "dark": true,
+      "flag": [
+       "#2E8B57",
+       "#F2C94C"
+      ],
+      "open": "L",
+      "plate": "CD-012-XX"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         37.062,
+         0.06,
+         35.991
+        ],
+        [
+         37.051,
+         0.06,
+         36.627
+        ],
+        [
+         37.077,
+         0.06,
+         37.264
+        ],
+        [
+         37.14,
+         0.06,
+         37.898
+        ],
+        [
+         37.239,
+         0.06,
+         38.527
+        ],
+        [
+         37.375,
+         0.06,
+         39.149
+        ],
+        [
+         37.547,
+         0.06,
+         39.762
+        ],
+        [
+         37.755,
+         0.06,
+         40.365
+        ],
+        [
+         37.997,
+         0.06,
+         40.954
+        ],
+        [
+         38.273,
+         0.06,
+         41.528
+        ],
+        [
+         38.581,
+         0.06,
+         42.085
+        ],
+        [
+         38.922,
+         0.06,
+         42.623
+        ]
+       ],
+       "dur": 1.9,
+       "ease": "linear",
+       "faceMove": true
+      }
+     ]
+    },
+    {
+     "id": "officielle131",
+     "name": "bayCar",
+     "pos": [
+      37.586,
+      0.06,
+      33.116
+     ],
+     "ry": 342.0,
+     "scale": 1.25,
+     "opts": {
+      "dark": true,
+      "flag": [
+       "#7A2E8C",
+       "#F4F1E8"
+      ],
+      "open": "L",
+      "plate": "CD-013-XX"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         37.407,
+         0.06,
+         33.728
+        ],
+        [
+         37.264,
+         0.06,
+         34.348
+        ],
+        [
+         37.157,
+         0.06,
+         34.976
+        ],
+        [
+         37.086,
+         0.06,
+         35.609
+        ],
+        [
+         37.053,
+         0.06,
+         36.245
+        ],
+        [
+         37.057,
+         0.06,
+         36.882
+        ],
+        [
+         37.097,
+         0.06,
+         37.518
+        ],
+        [
+         37.175,
+         0.06,
+         38.15
+        ],
+        [
+         37.289,
+         0.06,
+         38.777
+        ],
+        [
+         37.44,
+         0.06,
+         39.396
+        ],
+        [
+         37.626,
+         0.06,
+         40.005
+        ],
+        [
+         37.847,
+         0.06,
+         40.602
+        ]
+       ],
+       "dur": 1.9,
+       "ease": "linear",
+       "faceMove": true
+      }
+     ]
+    },
+    {
+     "id": "page13a",
+     "name": "treatySheet",
+     "on": {
+      "actor": "chef1",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.04,
+       0.05
+      ],
+      "face": "camera"
+     },
+     "opts": {
+      "w": 0.34,
+      "text": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": true
+      },
+      {
+       "at": 0.9,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "page13b",
+     "name": "treatySheet",
+     "on": {
+      "actor": "chef2",
+      "hand": "L",
+      "offset": [
+       0.0,
+       -0.04,
+       0.05
+      ],
+      "face": "camera"
+     },
+     "opts": {
+      "w": 0.34,
+      "text": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.9,
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      30.6,
+      1.75,
+      39.0
+     ],
+     "to": [
+      30.8,
+      1.76,
+      38.9
+     ],
+     "lookAt": [
+      41.0,
+      2.6,
+      37.0
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      41.2,
+      2.6,
+      37.0
+     ]
+    }
+   ],
+   "start": 24.8333,
+   "duration": 1.9,
+   "setOpts": {
+    "clouds": 34,
+    "grass": "#86BE5C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S14",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chef1",
+     "pos": [
+      -0.05,
+      0.06,
+      -8.15
+     ],
+     "ry": 151.0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.25,
+        0.96,
+        -10.5
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.251,
+          1.01,
+          -8.383,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.4,
+       "look": "camera",
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.251,
+          1.01,
+          -8.383,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "reach": {
+         "R": [
+          0.251,
+          1.01,
+          -8.383,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.35,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "chef2",
+     "pos": [
+      2.6,
+      0.06,
+      -12.9
+     ],
+     "ry": -29.4,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.25,
+        0.96,
+        -10.5
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          2.298,
+          1.01,
+          -12.669,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.7,
+       "look": "camera",
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.25,
+       "toon": {
+        "reach": {
+         "R": [
+          2.298,
+          1.01,
+          -12.669,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.35,
+       "toon": {
+        "reach": {
+         "R": [
+          2.298,
+          1.01,
+          -12.669,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.35,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "chef3",
+     "pos": [
+      -0.05,
+      0.06,
+      -12.9
+     ],
+     "ry": 28.4,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.25,
+        0.96,
+        -10.5
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.015,
+          1.01,
+          -12.521,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.0,
+       "look": "camera",
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.5,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.015,
+          1.01,
+          -12.521,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.6,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.015,
+          1.01,
+          -12.521,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.35,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      3.4,
+      0.06,
+      -7.55
+     ],
+     "ry": -65,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.25,
+        2.6,
+        -10.8
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          3.243,
+          2.08,
+          -7.697,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "smile",
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "reach": {
+         "R": [
+          3.243,
+          2.08,
+          -7.697,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": 0.1
+        }
+       },
+       "toonDur": 0.3
+      },
+      {
+       "at": 1.2,
+       "toon": {
+        "reach": {
+         "R": [
+          3.137,
+          1.06,
+          -7.758,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "rest"
+        },
+        "face": {
+         "lid": 0.5,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.9,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.7,
+       "look": "camera",
+       "lookDur": 0.4
+      },
+      {
+       "at": 2.1,
+       "toon": {
+        "reach": {
+         "R": [
+          3.137,
+          1.06,
+          -7.758,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "rest"
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 2.2,
+       "toon": {
+        "reach": {
+         "R": [
+          3.137,
+          1.06,
+          -7.758,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "rest"
+        },
+        "face": {
+         "lid": 0.5,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "parking",
+     "name": "parkLot",
+     "pos": [
+      0,
+      0,
+      7.0
+     ],
+     "opts": {
+      "w": 64,
+      "d": 52,
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        5
+       ]
+      ],
+      "lamps": [
+       [
+        -12.5,
+        -5.0
+       ],
+       [
+        12.5,
+        -5.0
+       ],
+       [
+        -12.5,
+        11.0
+       ],
+       [
+        12.5,
+        11.0
+       ],
+       [
+        -12.5,
+        27.0
+       ],
+       [
+        12.5,
+        27.0
+       ]
+      ],
+      "zebra": [
+       0.0,
+       -14.4,
+       5.0
+      ],
+      "arrows": [
+       [
+        -8,
+        -5.2,
+        -1.5707963267948966
+       ],
+       [
+        9,
+        11.2,
+        1.5707963267948966
+       ]
+      ]
+     }
+    },
+    {
+     "id": "epaves",
+     "name": "flatRows",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        -1
+       ]
+      ],
+      "skip": [
+       "0:10"
+      ],
+      "y": 0.06,
+      "wisps": 4
+     }
+    },
+    {
+     "id": "magasin",
+     "name": "superStore",
+     "pos": [
+      0,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 28,
+      "d": 14,
+      "h": 6.5,
+      "folded": true,
+      "clock": {
+       "x": 7.5,
+       "base": 592.22,
+       "flipAt": -1
+      }
+     }
+    },
+    {
+     "id": "drapeau14",
+     "name": "bayFlag",
+     "pos": [
+      1.25,
+      0.06,
+      -11.0
+     ],
+     "opts": {
+      "h": 3.4,
+      "fw": 1.2,
+      "colors": [
+       "#3E5A2E",
+       "#3E5A2E"
+      ],
+      "mark": "star",
+      "markColor": "#E2B53C"
+     }
+    },
+    {
+     "id": "ruban14",
+     "name": "bayTape",
+     "pos": [
+      1.25,
+      0.06,
+      -10.5
+     ],
+     "opts": {
+      "w": 2.5,
+      "l": 5.0,
+      "stretch": [
+       0.15,
+       1.3
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.2,
+      1.6,
+      -4.3
+     ],
+     "to": [
+      -1.1,
+      1.6,
+      -4.45
+     ],
+     "lookAt": [
+      1.6,
+      1.4,
+      -10.2
+     ],
+     "lens": 48,
+     "ease": "linear",
+     "lookAt2": [
+      1.6,
+      1.4,
+      -10.2
+     ]
+    }
+   ],
+   "start": 26.7333,
+   "duration": 2.5334,
+   "setOpts": {
+    "clouds": 34,
+    "grass": "#86BE5C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S15",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      3.5,
+      0.06,
+      -6.9
+     ],
+     "ry": -40,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.25,
+        2.0,
+        -10.5
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.3,
+       "look": [
+        1.25,
+        8.0,
+        -10.5
+       ],
+       "lookDur": 0.9
+      },
+      {
+       "at": 1.25,
+       "toon": {
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": 0.2
+        },
+        "bend": {
+         "neck": [
+          -0.25,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.4
+      },
+      {
+       "at": 1.6,
+       "toon": {
+        "bend": {
+         "neck": [
+          -0.25,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "line",
+         "brow": 0.2
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.7,
+       "toon": {
+        "bend": {
+         "neck": [
+          -0.25,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": 0.2
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "parking",
+     "name": "parkLot",
+     "pos": [
+      0,
+      0,
+      7.0
+     ],
+     "opts": {
+      "w": 64,
+      "d": 52,
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        5
+       ]
+      ],
+      "lamps": [
+       [
+        -12.5,
+        -5.0
+       ],
+       [
+        12.5,
+        -5.0
+       ],
+       [
+        -12.5,
+        11.0
+       ],
+       [
+        12.5,
+        11.0
+       ],
+       [
+        -12.5,
+        27.0
+       ],
+       [
+        12.5,
+        27.0
+       ]
+      ],
+      "zebra": [
+       0.0,
+       -14.4,
+       5.0
+      ],
+      "arrows": [
+       [
+        -8,
+        -5.2,
+        -1.5707963267948966
+       ],
+       [
+        9,
+        11.2,
+        1.5707963267948966
+       ]
+      ]
+     }
+    },
+    {
+     "id": "epaves",
+     "name": "flatRows",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        -1
+       ]
+      ],
+      "skip": [
+       "0:10"
+      ],
+      "y": 0.06,
+      "wisps": 4
+     }
+    },
+    {
+     "id": "magasin",
+     "name": "superStore",
+     "pos": [
+      0,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 28,
+      "d": 14,
+      "h": 6.5,
+      "folded": true,
+      "clock": {
+       "x": 7.5,
+       "base": 592.22,
+       "flipAt": -1
+      }
+     }
+    },
+    {
+     "id": "ruban15",
+     "name": "bayTape",
+     "pos": [
+      1.25,
+      0.06,
+      -10.5
+     ],
+     "opts": {
+      "w": 2.5,
+      "l": 5.0
+     }
+    },
+    {
+     "id": "tours15",
+     "name": "tankTower",
+     "pos": [
+      1.25,
+      0.06,
+      -10.5
+     ],
+     "opts": {
+      "n": 5,
+      "s": 0.62
+     }
+    },
+    {
+     "id": "voiture15",
+     "name": "bayCar",
+     "pos": [
+      5.7,
+      0.06,
+      -5.4
+     ],
+     "ry": -90,
+     "scale": 1.25,
+     "opts": {
+      "color": "#5E8FD0",
+      "plate": "GH-485-PL",
+      "blink": "R"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      5.6,
+      0.6,
+      -0.9
+     ],
+     "to": [
+      5.55,
+      0.62,
+      -1.15
+     ],
+     "lookAt": [
+      1.6,
+      4.4,
+      -10.4
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      1.6,
+      4.6,
+      -10.4
+     ]
+    }
+   ],
+   "start": 29.2667,
+   "duration": 1.9666,
+   "setOpts": {
+    "clouds": 34,
+    "grass": "#86BE5C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S16",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.8,
+      0.06,
+      11.2
+     ],
+     "ry": 35,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.32,
+        11.35
+       ]
+      },
+      {
+       "at": 0.15,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.12,
+          1.74,
+          11.4,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.32,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.12,
+          1.81,
+          11.4,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.49,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.12,
+          1.74,
+          11.4,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.66,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.12,
+          1.81,
+          11.4,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.83,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.12,
+          1.74,
+          11.4,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.12,
+          1.81,
+          11.4,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 1.17,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.12,
+          1.74,
+          11.4,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 1.34,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.12,
+          1.81,
+          11.4,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 1.5,
+       "look": "camera",
+       "lookDur": 0.15
+      },
+      {
+       "at": 1.7,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.12,
+          1.81,
+          11.4,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.8,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.12,
+          1.81,
+          11.4,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "general",
+     "pos": [
+      0.75,
+      0.06,
+      10.6
+     ],
+     "ry": -32,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.1,
+        1.72,
+        11.35
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.17,
+          1.3,
+          11.35,
+          1,
+          0.03
+         ],
+         "L": [
+          0.02,
+          1.28,
+          11.23,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "reach": {
+         "R": [
+          0.17,
+          1.3,
+          11.35,
+          1,
+          0.03
+         ],
+         "L": [
+          0.02,
+          1.28,
+          11.23,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.2,
+       "toon": {
+        "reach": {
+         "R": [
+          0.17,
+          1.3,
+          11.35,
+          1,
+          0.03
+         ],
+         "L": [
+          0.02,
+          1.28,
+          11.23,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "parking",
+     "name": "parkLot",
+     "pos": [
+      0,
+      0,
+      7.0
+     ],
+     "opts": {
+      "w": 64,
+      "d": 52,
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        5
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        5
+       ]
+      ],
+      "lamps": [
+       [
+        -12.5,
+        -5.0
+       ],
+       [
+        12.5,
+        -5.0
+       ],
+       [
+        -12.5,
+        11.0
+       ],
+       [
+        12.5,
+        11.0
+       ],
+       [
+        -12.5,
+        27.0
+       ],
+       [
+        12.5,
+        27.0
+       ]
+      ],
+      "zebra": [
+       0.0,
+       -14.4,
+       5.0
+      ],
+      "arrows": [
+       [
+        -8,
+        -5.2,
+        -1.5707963267948966
+       ],
+       [
+        9,
+        11.2,
+        1.5707963267948966
+       ]
+      ]
+     }
+    },
+    {
+     "id": "epaves",
+     "name": "flatRows",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "rows": [
+       [
+        -10.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        0.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        5.5,
+        -23.75,
+        20,
+        -1
+       ],
+       [
+        16.5,
+        -23.75,
+        20,
+        1
+       ],
+       [
+        21.5,
+        -23.75,
+        20,
+        -1
+       ]
+      ],
+      "skip": [
+       "0:10"
+      ],
+      "y": 0.06,
+      "wisps": 4
+     }
+    },
+    {
+     "id": "magasin",
+     "name": "superStore",
+     "pos": [
+      0,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 28,
+      "d": 14,
+      "h": 6.5,
+      "folded": true,
+      "clock": {
+       "x": 7.5,
+       "base": 592.22,
+       "flipAt": -1
+      }
+     }
+    },
+    {
+     "id": "kepi16",
+     "name": "kepi",
+     "on": {
+      "actor": "general",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.222,
+      "d": 0.17,
+      "color": "#4E5730",
+      "band": "#2E3320"
+     }
+    },
+    {
+     "id": "bol16",
+     "name": "armyHelmet",
+     "pos": [
+      0.0,
+      1.26,
+      11.35
+     ],
+     "rot": [
+      3.1416,
+      0,
+      0
+     ],
+     "opts": {
+      "s": 0.95
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "portefeuille16",
+     "name": "emptyWallet",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.06,
+       0.03
+      ],
+      "face": "camera"
+     },
+     "rot": [
+      3.1416,
+      0,
+      0
+     ],
+     "opts": {
+      "open": 0.55
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "file16",
+     "name": "helmetLine",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        1.8,
+        9.6
+       ],
+       [
+        6.0,
+        3.5
+       ],
+       [
+        16.0,
+        -40.0
+       ],
+       [
+        30.0,
+        -120.0
+       ]
+      ],
+      "gap": 1.15,
+      "y": 0.06,
+      "face": -2.618
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.25,
+      1.85,
+      15.3
+     ],
+     "to": [
+      -0.2,
+      1.84,
+      15.1
+     ],
+     "lookAt": [
+      0.0,
+      1.45,
+      10.6
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.45,
+      10.6
+     ]
+    }
+   ],
+   "start": 31.2333,
+   "duration": 1.8667,
+   "setOpts": {
+    "clouds": 34,
+    "grass": "#86BE5C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S17",
+   "set": "grassland",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "rondpoint17",
+     "name": "ringRoad",
+     "pos": [
+      48.0,
+      0,
+      36.5
+     ],
+     "opts": {
+      "ri": 6.5,
+      "ro": 13.0,
+      "exitLen": 44,
+      "booms": "down",
+      "grass": true
+     }
+    },
+    {
+     "id": "navire17",
+     "name": "warship",
+     "pos": [
+      48.0,
+      0.23,
+      36.5
+     ],
+     "ry": -90,
+     "opts": {
+      "aim": [
+       [
+        0,
+        1.2
+       ],
+       [
+        0.35,
+        1.2
+       ],
+       [
+        1.05,
+        0.122
+       ]
+      ],
+      "aimBlend": 0.6,
+      "counter": true,
+      "laps": [
+       [
+        0,
+        40
+       ]
+      ]
+     }
+    },
+    {
+     "id": "route17",
+     "name": "parkLot",
+     "pos": [
+      -22.0,
+      0,
+      36.5
+     ],
+     "opts": {
+      "w": 59,
+      "d": 7,
+      "rows": []
+     }
+    },
+    {
+     "id": "voiture17",
+     "name": "bayCar",
+     "pos": [
+      30.9,
+      0.06,
+      38.3
+     ],
+     "ry": 90,
+     "scale": 1.25,
+     "opts": {
+      "color": "#5E8FD0",
+      "plate": "GH-485-PL",
+      "blink": "L"
+     }
+    },
+    {
+     "id": "herbe17",
+     "name": "tallGrass",
+     "pos": [
+      29.0,
+      0,
+      41.6
+     ],
+     "opts": {
+      "w": 8,
+      "d": 1.6,
+      "h": 1.0,
+      "count": 260,
+      "seed": 77,
+      "thin": 0.03
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      24.6,
+      1.9,
+      39.8
+     ],
+     "to": [
+      24.75,
+      1.92,
+      39.75
+     ],
+     "lookAt": [
+      40.0,
+      2.6,
+      37.0
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      40.0,
+      2.6,
+      37.0
+     ]
+    }
+   ],
+   "start": 33.1,
+   "duration": 1.8,
+   "setOpts": {
+    "clouds": 34,
+    "grass": "#86BE5C",
+    "sky": [
+     "#9FC4D8",
+     "#DCE6E4"
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S18",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0.06,
+      -2.6
+     ],
+     "ry": 0,
+     "clip": "carryBags",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.4,
+        0.06,
+        2.0
+       ],
+       "dur": 1.75,
+       "clip": "carryBags"
+      },
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "sq": [
+         1.12,
+         0.62,
+         1.12
+        ],
+        "bend": {
+         "spine": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.5,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 1.25,
+       "toon": {
+        "sq": [
+         1.12,
+         0.62,
+         1.12
+        ],
+        "bend": {
+         "spine": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.5,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.3
+      },
+      {
+       "at": 1.45,
+       "toon": {
+        "sq": [
+         0.96,
+         1.05,
+         0.96
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 1.6,
+       "toon": {
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 2.3,
+       "toon": {
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 2.4,
+       "toon": {
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "route18",
+     "name": "parkLot",
+     "pos": [
+      0,
+      0,
+      -20.0
+     ],
+     "opts": {
+      "w": 7,
+      "d": 70,
+      "rows": []
+     }
+    },
+    {
+     "id": "frontiere18",
+     "name": "borderPost",
+     "pos": [
+      -3.6,
+      0.06,
+      0.0
+     ],
+     "opts": {
+      "length": 7.0
+     }
+    },
+    {
+     "id": "baie18",
+     "name": "parkLot",
+     "pos": [
+      1.6,
+      0.06,
+      -30.0
+     ],
+     "opts": {
+      "w": 3.4,
+      "d": 5.8,
+      "y": 0.02,
+      "color": "#6E7178",
+      "rows": [
+       [
+        0,
+        0,
+        1,
+        5
+       ]
+      ]
+     }
+    },
+    {
+     "id": "voiture18",
+     "name": "bayCar",
+     "pos": [
+      1.6,
+      0.08,
+      -30.0
+     ],
+     "ry": 180,
+     "scale": 1.25,
+     "opts": {
+      "color": "#5E8FD0",
+      "plate": "GH-485-PL",
+      "blink": "both"
+     }
+    },
+    {
+     "id": "drapeau18",
+     "name": "bayFlag",
+     "pos": [
+      -0.8,
+      0.06,
+      -30.0
+     ],
+     "opts": {
+      "h": 4.6,
+      "fw": 1.6,
+      "colors": [
+       "#E8833A",
+       "#F4F1E8",
+       "#2E6B8C"
+      ],
+      "mark": "disc",
+      "markColor": "#2E8B57"
+     }
+    },
+    {
+     "id": "sac18a",
+     "name": "shoppingBag",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.4,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "sac18b",
+     "name": "shoppingBag",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0.0,
+       -0.4,
+       0.0
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.15,
+      1.25,
+      6.4
+     ],
+     "to": [
+      1.13,
+      1.27,
+      6.2
+     ],
+     "lookAt": [
+      0.4,
+      1.6,
+      -4.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.4,
+      1.6,
+      -4.0
+     ]
+    }
+   ],
+   "start": 34.9,
+   "duration": 2.89,
+   "setOpts": {
+    "clouds": 30,
+    "grass": "#8CC260"
+   },
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 37.79,
+ "look": "natural",
+ "gags": [
+  {
+   "t": 1.9,
+   "who": "mec",
+   "name": "glare",
+   "sid": "S01"
+  },
+  {
+   "t": 3.45,
+   "who": "general",
+   "name": "stab",
+   "sid": "S02"
+  },
+  {
+   "t": 9.6,
+   "who": "envahisseur",
+   "name": "sniff",
+   "sid": "S05"
+  },
+  {
+   "t": 18.133,
+   "who": "mec",
+   "name": "point",
+   "sid": "S09"
+  },
+  {
+   "t": 20.4,
+   "who": "mec",
+   "name": "salute",
+   "sid": "S10"
+  },
+  {
+   "t": 28.633,
+   "who": "mec",
+   "name": "lower",
+   "sid": "S14"
+  }
+ ],
+ "cardTimes": [
+  15.7,
+  20.27,
+  28.333
+ ],
+ "rig": "toon",
+ "fingers": true,
+ "cloth": true,
+ "idleShift": 1.6,
+ "holdLife": 1,
+ "limbSmear": 1,
+ "follow": 1,
+ "pupil": 0.5,
+ "hairRest": 0.07
+}
