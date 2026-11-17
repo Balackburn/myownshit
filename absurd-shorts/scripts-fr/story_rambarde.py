@@ -161,7 +161,7 @@ st.cue('sfx:squeak', 'S01', 0.9, 0.25)
 
 # 2: the firemen brought out the big ladder. Low on the pavement by his wall: the fire engine skids up in the right lane and stops with a dip; its
 #    arm swings up and the ladder telescopes out in three jerks, the camera tilting with it, until the tip vanishes into a bank of cloud
-D2 = st.dur('S02'); ARR2 = 0.45; RAISE2 = [0.5, 0.3]; STEPS2 = [0.88, 1.18, 1.48]
+D2 = st.dur('S02'); ARR2 = 0.45; RAISE2 = [0.48, 0.36]; STEPS2 = [0.88, 1.18, 1.48]   # (final pass) RAISE2: a 0.36 s eased swing with an overshoot, not a jump
 st.shot('S02', 'parisStreet', setOpts=STREET, actors=[HERO('mec', [STUCK(0.0), k(0.0, look=[2.0, 2.0, 3.0])])],
         props=[RAIL(), *TRUCK(keys=[k(0.0, to=add(TRUCK_P, [0, 0, -0.35]), dur=ARR2, ease='out'), k(ARR2, to=TRUCK_P, dur=0.22, ease='inOut')],
                               lopts={'raise': RAISE2, 'raise0': 6, 'steps': STEPS2, 'cloudFrom': 0.9}, start=add(TRUCK_P, [0, 0, 14.0])),
@@ -173,10 +173,20 @@ st.cue('sfx:brake', 'S02', 0.1, 0.4); st.cue('sfx:rattle', 'S02', STEPS2[0], 0.3
 #    head through the bars, a metre from two firemen who look up at their ladder, which towers into the clouds over the whole building for nothing
 D3 = st.dur('S03')
 F3 = [('pomp1', [7.4, 0, 1.2]), ('pomp2', [6.75, 0, 2.1])]
+def DT3(j, p):
+    """(final pass: they faced the camera, heads level) both tilt their heads up to the top of the ladder together, three-quarter to the camera; the
+    first then turns to the man a metre away, snaps back up to the ladder, and turns to him again slowly: a double take"""
+    UP = [r(p[0] - 1.2), 22.0, r(p[2] - 1.5)]
+    up = lambda t, d=0.0: k(t, toon={'bend': {'neck': [-0.55, 0, 0, 1, None], 'spine': [-0.12, 0, 0, 1, None]}, 'face': {'mouth': 'O', 'brow': 0.55, 'lid': 0.05}}, toonDur=d)
+    man = lambda t, d, f: k(t, toon={'bend': {'neck': [0.05, 0, 0, 1, None], 'spine': [0.0, 0, 0, 1, None]}, 'face': f}, toonDur=d)
+    if j == 0:
+        return [k(0.0, look=UP), up(0.0), k(0.6, look=HEADC, lookDur=0.12), man(0.6, 0.12, {'mouth': 'line', 'brow': 0.2, 'lid': 0.3}),
+                k(0.76, look=UP, lookDur=0.1), up(0.76, 0.1), k(0.9, look=HEADC, lookDur=0.3), man(0.9, 0.3, {'mouth': 'O', 'brow': 0.85, 'lid': 0.0, 'pop': 0.25})]
+    return [k(0.0, look=UP), up(0.0), k(0.65, toon={'bend': {'neck': [-0.48, 0, 0, 1, None], 'spine': [-0.1, 0, 0, 1, None]}, 'face': {'mouth': 'O', 'brow': 0.6, 'lid': 0.1}}, toonDur=0.3)]
 C3 = [-2.0, 1.5, -12.0]; L3 = [8.0, 6.0, 4.0]                  # (round 2: down the pavement the railing was edge-on, a black panel) across the road
 st.shot('S03', 'parisStreet', setOpts=STREET, actors=[
         HERO('mec', [k(0.0, look=[11.0, 1.4, 0.0]), *IDLE(0.0, D3, SQUASHED, blinks=(0.75,), darts=((0.35, -0.5), (0.95, 0.0)))]),
-        *[act(w, p, yaw(p, [9.0, 0, 3.6]), 'stand', 'neutral', keys=[k(0.0, look=[7.0, 30.0, 4.0]), k(r(0.45 + 0.2 * j), look=[7.0, 14.0, 4.0], lookDur=0.3), k(r(0.75 + 0.15 * j), look=HEADC, lookDur=0.25)]) for j, (w, p) in enumerate(F3)]],
+        *[act(w, p, yaw(p, [0.0, 0, -2.0]), 'stand', 'neutral', keys=DT3(j, p)) for j, (w, p) in enumerate(F3)]],
         props=[RAIL(winColor='#C3D2DC'), *TRUCK(), *[FIRE_HAT(f'casque3{j}', w) for j, (w, _) in enumerate(F3)]], light={'dir': [-8.0, 10.0, -6.0]},   # (round 2) a pale window so his dark suit reads
         cams=[cam(0.0, C3, add(C3, [0.3, 0.0, 0.25]), L3, add(L3, [0, 0.1, 0]), lens=74)])
 chk('S03', C3, L3, 74, {'head': HEADC, 'feet': MAN, 'railTop': [RAILX, TOP, 0.8], 'pomp1': [7.4, 2.3, 1.2], 'cloud': [6.42, 19.8, 4.2], 'tip15': [5.5, 15.0, 4.2]})
@@ -226,9 +236,20 @@ for j_, t_ in enumerate((0.5, 1.0, 1.45)): st.cue('sfx:grunt', 'S04', t_, 0.3)
 # 5: he grew twenty centimetres. From the side and above: they heave, his body stretches like elastic and holds stretched while the head stays in the
 #    bars; the hose snaps, the twelve fall flat on their backs one after the other like dominoes; he hangs a beat in the air, drops onto his feet with
 #    a squash and settles, visibly taller
-D5 = st.dur('S05'); STR5 = 0.42; SNAP5 = 0.75; HANG5 = 0.86; DROP5 = 1.0; LAND5 = 1.14
+D5 = st.dur('S05'); STR5 = 0.42; SNAP5 = 0.75; HANG5 = 0.86; DROP5 = 1.12; LAND5 = 1.24
+CUT5C = 0.98                                           # (final pass: the landing played as a lump behind the bars) the cut to the landing view
+KNEEL5 = [7.55, 0, 1.15]
 def FALLER(j, who):
     hp, p = pull_pos(j); a = LEAN[j]; tf = r(SNAP5 + 0.035 * j)
+    if j == 0:   # (final pass) the first fireman is seen kneeling beside him in the landing view, looking up at the man who grew
+        grip = {'reach': {'R': [*add(hp, [0.08, 0, 0]), 1, 0.03], 'L': [*add(hp, [-0.12, 0, 0]), 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}}
+        return act(who, p, PRY4, 'stand', 'angry', keys=[k(0.0, look=HEADC),
+            k(0.0, toon={**grip, 'lay': [r(-a), 0], 'bend': {'spine': [r(-0.9 * a), 0, 0, 1, None]}, 'face': {'mouth': 'grimace', 'brow': -0.8, 'lid': 0.5}}, toonDur=0.0),
+            k(tf, toon={'lay': [-1.52, 0], 'bend': {'spine': [0.1, 0, 0, 1, None]}, 'sq': [1.1, 0.9, 1.1], 'face': {'pop': 0.5, 'mouth': 'O', 'brow': 0.8, 'lid': 0.0}}, toonDur=0.2, toonEase='in'),
+            k(CUT5C, to=KNEEL5, dur=0.0, face=[9.2, 1.9]), k(CUT5C, clip='kneel'), k(CUT5C, look=add(HEADC, [-0.9, 0.5, 0]), lookDur=0.0),
+            k(CUT5C, toon={'lay': [0.0, 0], 'bend': {'spine': [-0.15, 0, 0, 1, None], 'neck': [-0.35, 0, 0, 1, None]}, 'sq': [1, 1, 1], 'face': {'mouth': 'O', 'brow': 0.85, 'lid': 0.0, 'stars': 0.4}}, toonDur=0.0),
+            k(r(LAND5 + 0.02), toon={'bend': {'spine': [-0.3, 0, 0, 1, None], 'neck': [-0.6, 0, 0, 1, None]}, 'sq': [0.95, 1.06, 0.95], 'face': {'mouth': 'O', 'brow': 1.0, 'lid': 0.0, 'pop': 0.25}}, toonDur=0.1),
+            k(r(LAND5 + 0.3), toon={'bend': {'spine': [-0.32, 0, 0, 1, None], 'neck': [-0.62, 0, 0, 1, None]}, 'sq': [1, 1, 1], 'face': {'mouth': 'O', 'brow': 0.9, 'lid': 0.05}}, toonDur=0.15)])
     grip = {'reach': {'R': [*add(hp, [0.08, 0, 0]), 1, 0.03], 'L': [*add(hp, [-0.12, 0, 0]), 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}}
     return act(who, p, PRY4, 'stand', 'angry', keys=[k(0.0, look=HEADC),
         k(0.0, toon={**grip, 'lay': [r(-a), 0], 'bend': {'spine': [r(-0.9 * a), 0, 0, 1, None]}, 'face': {'mouth': 'grimace', 'brow': -0.8, 'lid': 0.5}}, toonDur=0.0),
@@ -239,22 +260,31 @@ def FALLER(j, who):
 STRETCHED = {**SQUASHED, 'pop': 0.5, 'mouth': 'O', 'cheeks': 0.9, 'brow': 0.7, 'lid': 0.0}
 C5 = [5.9, 7.6, 0.1]; L5 = [7.25, 0.3, -0.2]                     # (round 2: a wide street, the body tiny) from above: the stretched body runs down the frame
 C5B = [10.0, 3.5, 2.0]; L5B = [6.5, 0.3, -0.4]; CUT5 = 0.72   # (round 2: the drop was too small) the snap cuts to a closer crane over the terrace: the dominoes, the drop
+C5C = [10.0, 4.4, 2.8]; L5C = [8.3, 0.9, -0.1]                # (final pass) high over the terrace, looking down past the top rail: he hangs, drops and settles in the clear
+HANGF = {**STRETCHED, 'pop': 0.7, 'brow': 0.9}
 st.shot('S05', 'parisStreet', setOpts=STREET, actors=[
         HERO('mec', [k(0.0, look='camera'), HORIZ(0.0, 1.0, (0.95, 1.13, 0.95), dur=0.0),
              HORIZ(0.25, 1.0, (0.86, 1.36, 0.86), dur=0.15), HORIZ(STR5, 1.0, (0.78, 1.62, 0.78), STRETCHED, dur=0.12), HORIZ(r(SNAP5 - 0.02), 1.0, (0.77, 1.65, 0.77), STRETCHED, dur=0.3),
-             HORIZ(r(SNAP5 + 0.06), 1.0, (1.08, 0.86, 1.08), {**STRETCHED, 'pop': 0.2}, dur=0.06), HORIZ(HANG5, 1.0, (0.97, 1.08, 0.97), {**SQUASHED, 'brow': 0.6, 'lid': 0.0}, dur=0.08),
-             HORIZ(DROP5, 0.95, (0.97, 1.08, 0.97), {**SQUASHED, 'brow': 0.6, 'lid': 0.0}, dur=0.14),
-             STUCK(LAND5, {**SQUASHED, 'lid': 0.2, 'brow': 0.4}, extra={'sq': [1.12, 0.86, 1.12]}, dur=0.14),
-             STUCK(r(LAND5 + 0.12), {**SQUASHED, 'lid': 0.3}, extra={'sq': [0.95, 1.11, 0.95]}, dur=0.08),
-             STUCK(r(LAND5 + 0.26), DEAD, extra={'sq': [0.96, 1.09, 0.96]}, dur=0.12)]),
+             HORIZ(r(SNAP5 + 0.06), 1.0, (1.08, 0.86, 1.08), {**STRETCHED, 'pop': 0.2}, dur=0.06), HORIZ(HANG5, 1.0, (0.97, 1.08, 0.97), HANGF, dur=0.08),
+             k(CUT5C, visible=False)]),
+        HERO('grand', [k(0.0, visible=False), k(CUT5C, visible=True), k(0.0, look='camera'), HORIZ(0.0, 1.0, (0.97, 1.08, 0.97), HANGF, dur=0.0),   # (final pass) from the landing cut he is the taller cast
+             HORIZ(1.05, 1.0, (0.96, 1.1, 0.96), {**HANGF, 'pop': 0.8}, dur=0.07),
+             HORIZ(DROP5, 0.95, (0.99, 1.03, 0.99), {**HANGF, 'pop': 0.4}, dur=0.05),
+             STUCK(r(LAND5 - 0.02), {**SQUASHED, 'lid': 0.0, 'brow': 0.7, 'pop': 0.3, 'mouth': 'O'}, spine=1.0, extra={'sq': [0.95, 1.08, 0.95]}, dur=0.1),
+             STUCK(LAND5, {**SQUASHED, 'lid': 0.5, 'brow': 0.3, 'cheeks': 0.9}, spine=1.32, extra={'sq': [1.16, 0.82, 1.16]}, dur=0.04),
+             STUCK(r(LAND5 + 0.12), {**SQUASHED, 'lid': 0.1, 'brow': 0.5}, spine=1.08, extra={'sq': [0.92, 1.12, 0.92]}, dur=0.08),
+             STUCK(r(LAND5 + 0.24), {**DEAD, 'lid': 0.3}, extra={'sq': [1.02, 0.98, 1.02]}, dur=0.08),
+             STUCK(r(LAND5 + 0.32), DEAD, extra={'sq': [1, 1, 1]}, dur=0.06), *BLINK(1.5)]),
         *[FALLER(j, w) for j, w in enumerate(POMP)]],
         props=[RAIL(), *TRUCK(), *[FIRE_HAT(f'casque5{j}', w) for j, w in enumerate(POMP)],
                P('tuyau5', 'rope', pos=ANK4, rot=[0, 0, ROPE_RZ], opts={'len': r(math.dist(ANK4, ROPE_END)), 'r': 0.045, 'color': '#C8322A', 'sway': 0.0}, keys=[k(SNAP5, visible=False)]),
                P('tuyau5b', 'rope', pos=add(ROPE_END, [2.5, 0.0, 0]), rot=[0, 0, -1.25], opts={'len': 3.0, 'r': 0.045, 'color': '#C8322A', 'sway': 0.12}, keys=[k(0.0, visible=False), k(SNAP5, visible=True)]),
                P('choc5', 'burstLines', pos=add(ANK4, [0.1, 0.0, 0.0]), ry=0, opts={'at': SNAP5, 'n': 8, 'r0': 0.15, 'r1': 0.55, 'len': 0.18, 'w': 0.03}),
-                *LBG('echelle5b', C5B, L5B, 68, sx=0.4, d=11, side=1, win=(CUT5, 9.0))],
+                *LBG('echelle5b', C5B, L5B, 68, sx=0.4, d=11, side=1, win=(CUT5, CUT5C)), *LBG('echelle5c', C5C, L5C, 56, sx=0.2, d=16, side=1, win=(CUT5C, 9.0))],
         fx=[{'type': 'shake', 'at': SNAP5, 'dur': 0.15, 'amount': 0.012}],
-        cams=[cam(0.0, C5, add(C5, [0.0, -0.25, 0.0]), L5, L5, lens=50), cam(CUT5, C5B, add(C5B, [0.0, 0.06, 0.08]), L5B, L5B, lens=68)])
+        cams=[cam(0.0, C5, add(C5, [0.0, -0.25, 0.0]), L5, L5, lens=50), cam(CUT5, C5B, add(C5B, [0.0, 0.06, 0.08]), L5B, L5B, lens=68),
+              cam(CUT5C, C5C, add(C5C, [0.0, -0.08, 0.06]), L5C, L5C, lens=56)])
+chk('S05c', C5C, L5C, 56, {'head': HEADC, 'feet': MAN, 'hangFeet': [6.56, 1.4, 0], 'hip': [8.4, 1.35, 0], 'railTop': [RAILX, TOP, 0.6], 'kneelHead': add(KNEEL5, [0, 1.45, 0])})
 chk('S05b', C5B, L5B, 68, {'head': HEADC, 'feet': MAN, 'ankles': ANK4, 'p1': add(pull_pos(0)[1], [0, 2.2, 0]), 'p7': add(pull_pos(6)[1], [0, 2.2, 0]), 'f4': add(pull_pos(3)[1], [-2.3, 0.2, 0])})
 chk('S05', C5, L5, 50, {'head': HEADC, 'ankles': ANK4, 'stretched': [5.6, 1.4, 0], 'pomp1': pull_pos(0)[1], 'pomp12': pull_pos(11)[1]})
 st.cue('sfx:stretch', 'S05', 0.25, 0.35); st.cue('sfx:boing', 'S05', SNAP5, 0.35); st.cue('thud', 'S05', r(SNAP5 + 0.3), 0.4); st.cue('thud', 'S05', LAND5, 0.35)
@@ -262,35 +292,37 @@ st.cue('sfx:stretch', 'S05', 0.25, 0.35); st.cue('sfx:boing', 'S05', SNAP5, 0.35
 # 6: the railing was declared a natural disaster. From the terrace, past his face poking through the taped bars: behind him on the pavement a minister in
 #    a white hard hat at a podium raises a giant rubber stamp and slams it onto the top rail beside his head: stars; he flinches, his eyes dart to it
 D6 = st.dur('S06'); HIT6 = 1.25
-MIN6 = [8.3, 0, 1.12]; MRY6 = yaw(MIN6, [9.1, 0, 0.42])
-STAMP_TOP = [RAILX, TOP, 0.44]
+STEP6 = 0.34                                           # (final pass: hidden behind his own stamp and the head) he stands on a stone step, so his face and hat clear the top rail
+MIN6 = [8.28, STEP6, -1.0]; MRY6 = yaw(MIN6, [9.1, 0, -0.42])
+STAMP_TOP = [RAILX, TOP, -0.44]
 def MK6(t, p, sq=(1, 1, 1), face=None, dur=0.12, ease='inOut', bend=0.0):
     return k(t, toon={'reach': {'R': [*p, 1, 0.05], 'L': [*off(MIN6, MRY6, 0.3, -0.2, 1.12), 1, 0.04]}, 'hands': {'R': 'grip', 'L': 'open'}, 'sq': list(sq), 'bend': {'spine': [bend, 0, 0, 1, None]},
                       'face': face or {'lid': 0.3, 'mouth': 'line', 'brow': -0.4}}, toonDur=dur, toonEase=ease)
-C6 = [10.0, 1.3, -1.12]; L6 = [8.75, 1.66, 0.45]
-SIGN6 = [8.763, 2.232, 0.019]                             # (round 2) the sign pops in above the rail, top right of the frame, clear of the bars and the stamp
+C6 = [10.02, 1.42, 0.62]; L6 = [8.7, 1.86, -0.48]                 # (final pass: his face was a sliver) nearer his axis; the minister in the right third
+SIGN6 = [8.32, 3.18, -1.12]                                        # (final pass) above the minister, top right, clear of the bars and the stamp
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
         HERO('grand', [STUCK(0.0, DEAD), k(0.0, look='camera'), *BLINK(0.55),
              STUCK(r(HIT6 + 0.02), {**DEAD, 'lid': 1.0, 'cheeks': 0.9, 'brow': 0.4, 'mouth': 'clench'}, spine=1.32, extra={'sq': [1.14, 0.84, 1.14], 'scl': {'head': [0.96, 0.94, 1.0]}}, dur=0.03),
              STUCK(r(HIT6 + 0.1), {**DEAD, 'lid': 0.0, 'gx': 0.9, 'gy': -0.6, 'brow': 0.55, 'pop': 0.0}, extra={'sq': [0.95, 1.06, 0.95]}, dur=0.06),
              STUCK(r(HIT6 + 0.3), {**DEAD, 'gx': 0.9, 'gy': -0.6}, dur=0.15),
              k(r(HIT6 + 0.75), toon={'face': {**DEAD, 'gx': 0.0, 'gy': 0.0}}, toonDur=0.12, keepPose=True)]),
-        act('ministre', MIN6, MRY6, 'stand', 'neutral', keys=[k(0.0, look=STAMP_TOP),
+        act('ministre', MIN6, MRY6, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.3, look=STAMP_TOP, lookDur=0.15),
             MK6(0.0, off(MIN6, MRY6, 0.35, 0.25, 1.2), dur=0.0), MK6(0.45, off(MIN6, MRY6, 0.3, 0.25, 2.55), (0.94, 1.1, 0.94), {'lid': 0.1, 'mouth': 'clench', 'brow': -0.7}, 0.3, 'out', -0.1),
             MK6(r(HIT6 - 0.12), off(MIN6, MRY6, 0.32, 0.25, 2.65), (0.92, 1.12, 0.92), {'lid': 0.05, 'mouth': 'clench', 'brow': -0.8}, 0.1),
             MK6(HIT6, add(STAMP_TOP, [-0.08, 0.3, 0.0]), (1.12, 0.88, 1.12), {'lid': 0.0, 'mouth': 'clench', 'brow': -0.9, 'pop': 0.3}, 0.06, 'in', 0.25),
             MK6(r(HIT6 + 0.2), add(STAMP_TOP, [-0.1, 0.36, 0.0]), (0.97, 1.04, 0.97), {'lid': 0.3, 'mouth': 'smile', 'brow': 0.2}, 0.15, bend=0.12),
             k(r(HIT6 + 0.45), look='camera', lookDur=0.15)])],
         props=[RAIL(tape=True), P('casque6', 'hardHat', on={'actor': 'ministre', 'joint': 'head', 'offset': [0.0, 0.46, 0.0]}),
-               P('pupitre6', 'podium', pos=off(MIN6, MRY6, -0.6, -0.6, 0.0), ry=MRY6),
-               P('tampon6', 'rubberStamp', on={'actor': 'ministre', 'hand': 'R', 'offset': [0.0, 0.0, 0.0], 'rot': [PI, 0, 0]}, scale=5.0, opts={'color': '#C23A2E'}),
-               P('panneau6', 'popSign', pos=SIGN6, rot=[0.0, r(math.radians(yaw(SIGN6, C6))), 0.0], opts={'at': r(HIT6 + 0.04), 'text': ['CATASTROPHE', 'NATURELLE'], 'w': 0.46, 'h': 0.23}),   # (round 2: thin red text behind the bars was illegible) above the top rail, clear of the bars
+               P('marche6', 'pedestal', pos=[MIN6[0], 0, MIN6[2]], ry=MRY6, opts={'h': STEP6, 'w': 0.7}),
+               P('pupitre6', 'podium', pos=[r(MIN6[0] - 0.75), 0, r(MIN6[2] - 0.55)], ry=MRY6),
+               P('tampon6', 'giantStamp', on={'actor': 'ministre', 'hand': 'R', 'offset': [0.0, 0.0, 0.0], 'rot': [PI, 0, 0]}, opts={'s': 0.95}),   # (final pass: a dark block) a light rubber pad, a red mount, a wooden knob
+               P('panneau6', 'popSign', pos=SIGN6, rot=[0.0, r(math.radians(yaw(SIGN6, C6))), 0.0], opts={'at': r(HIT6 + 0.04), 'text': ['CATASTROPHE', 'NATURELLE'], 'w': 0.66, 'h': 0.33}),   # (round 2: thin red text behind the bars was illegible) above the top rail, clear of the bars
                P('trainee6', 'smearArc', pos=[0, 0, 0], opts={'pts': [off(MIN6, MRY6, 0.3, 0.25, 2.65), add(STAMP_TOP, [-0.3, 0.9, 0.0]), add(STAMP_TOP, [-0.08, 0.32, 0.0])], 'r': 0.07, 'win': [r(HIT6 - 0.1), r(HIT6 + 0.02)], 'color': '#F2E2DA'}),
                P('etoiles6', 'impactStars', pos=add(STAMP_TOP, [0.05, 0.15, 0.0]), ry=90, opts={'at': HIT6, 'n': 6, 'r': 0.45}),
-               *LBG('echelle6', C6, L6, 54, sx=0.15, d=26, side=1)],
+               *LBG('echelle6', C6, L6, 58, sx=0.12, d=26, side=-1)],
         fx=[{'type': 'shake', 'at': HIT6, 'dur': 0.15, 'amount': 0.012}],
-        cams=[cam(0.0, C6, add(C6, [0.0, 0.0, 0.05]), L6, L6, lens=54)])
-chk('S06', C6, L6, 54, {'head': HEADC, 'stamp': STAMP_TOP, 'minHead': add(MIN6, [0, 2.1, 0]), 'stampUp': off(MIN6, MRY6, 0.3, 0.25, 2.65)})
+        cams=[cam(0.0, C6, add(C6, [0.0, 0.0, -0.05]), L6, L6, lens=58)])
+chk('S06', C6, L6, 58, {'head': HEADC, 'stamp': STAMP_TOP, 'minHead': add(MIN6, [0, 2.1, 0]), 'minFeet': MIN6, 'stampUp': off(MIN6, MRY6, 0.3, 0.25, 2.65), 'sign': SIGN6})
 st.cue('whoosh', 'S06', 0.45, 0.2); st.cue('thud', 'S06', HIT6, 0.55)
 
 # 7: the president ordered the head to come out. (round 1, f1: in profile both box faces vanished and the edge-on railing covered his) From the
