@@ -43,8 +43,8 @@ export const RAMBARDE_PROPS = {
     const W = [0.62, 0.52, 0.42], RC = ['#B9BDBF', '#C9CDCF', '#D9DCDE'];
     for (let s = 0; s < 3; s++) {
       const sg = grp(), w = W[s], rails = [], n = Math.floor(SL / 0.42);
-      for (const sd of [-1, 1]) { const r_ = at(box(0.07, SL, 0.09, RC[s], { pivot: 'bottom', outline: 0.008 }), sd * w / 2, 0, 0.02 * s); sg.add(r_); rails.push(r_); }
-      const rungs = new THREE.InstancedMesh(new THREE.BoxGeometry(w, 0.04, 0.05), mat('#E2E5E7'), n), M = new THREE.Matrix4();
+      for (const sd of [-1, 1]) { const r_ = at(box(o.rail ?? 0.12, SL, 0.12, RC[s], { pivot: 'bottom', outline: 0.012 }), sd * w / 2, 0, 0.02 * s); sg.add(r_); rails.push(r_); }
+      const rungs = new THREE.InstancedMesh(new THREE.BoxGeometry(w, 0.07, 0.07), mat('#E2E5E7'), n), M = new THREE.Matrix4();
       for (let i = 0; i < n; i++) { M.makeTranslation(0, 0.2 + i * 0.42, 0.02 * s); rungs.setMatrixAt(i, M); }
       sg.add(rungs); arm.add(sg); sec.push(sg);
     }
@@ -66,7 +66,8 @@ export const RAMBARDE_PROPS = {
   // His raised ground-floor balcony on the facade (pivot on the pavement at the foot of the wall, under the middle of the balcony; the wall at local
   // z 0, the street toward +Z): o.wall (true): a patch of cream stone facade o.ww (5) x o.wh (2.75) with a dark plinth, a French window behind the
   // balcony; the slab at o.fy (1.15 m) projecting o.d (0.55) on two corbels; an iron railing at its front edge, o.w (2.0) wide, o.rh (1.25) tall,
-  // upright bars every o.gap (0.11 m); the two bars round o.hx (0) are bowed apart (where the head went in).
+  // upright bars every o.gap (0.11 m); the two bars round o.hx (0) are bowed apart by o.bow (0.05 m) at o.bowY (0.62) of their height (where
+  // the head went in).
   // o.quiver [t0, dur, amp]: the bars ring like a tuning fork (decaying side-to-side shiver); o.tape: red-and-white tape wound round the railing;
   // o.char: blackened iron and soot-dark stone; o.ruin: no wall, the slab stands on a cracked blackened pier with chunks round its foot
   balconyRail(o) {
@@ -95,7 +96,7 @@ export const RAMBARDE_PROPS = {
     for (let i = 1; i <= nb; i++) {
       const x = -w / 2 + i * gap, near = Math.abs(x - hx) < gap * 0.75, piv = grp();
       piv.position.set(x, y0, zr); piv.userData.ph = hsh(i) * 6;
-      if (near) { const sd = Math.sign(x - hx) || 1, mid = [sd * 0.05, (y1 - y0) * 0.62, 0];
+      if (near) { const sd = Math.sign(x - hx) || 1, mid = [sd * (o.bow ?? 0.05), (y1 - y0) * (o.bowY ?? 0.62), 0];
         piv.add(rod([0, 0, 0], mid, 0.013, iron), rod(mid, [0, y1 - y0, 0], 0.013, iron)); }
       else piv.add(at(cyl(0.012, 0.012, y1 - y0, iron, 6, { pivot: 'bottom' }), 0, 0, 0));
       bars.add(piv);
