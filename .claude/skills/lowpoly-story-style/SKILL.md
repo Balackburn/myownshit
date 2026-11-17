@@ -2010,3 +2010,11 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   retournement, tourner autour de Z et non de X.
 - (cycle 47) Mât de navire fin avec une vergue : il se lit comme une croix d'église. Tour en treillis, radôme, radar qui tourne, vergue
   courte et basse, pavillons.
+- (cycle 48) Une entrée de distribution sans `preset` retombe sans prévenir sur le costume bleu marine du héros : ses couleurs sont
+  ignorées. Toujours donner un preset aux personnages secondaires (sinon on les prend pour le héros).
+- (cycle 48) Colonnade vue de face : l'écart entre deux colonnes est une fenêtre qui s'élargit avec la profondeur ; garder tout ce qui
+  est derrière la ligne des colonnes dans cette fenêtre angulaire, sinon les colonnes le cachent.
+- (cycle 48) Portes arrière d'un fourgon ouvertes à 1,9 rad : vues de côté, elles font un mur ; les rabattre contre les flancs (environ
+  3,0 rad).
+- (cycle 48) Rangées aplaties derrière des objets debout : caméra à au moins 2,4 m qui regarde vers le bas ; à 1,1 m la rangée debout
+  les cache. Pour un gag de « crêpe », un objet aplati se regonfle à moitié après les autres.
