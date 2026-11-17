@@ -1998,3 +1998,15 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   prendre `whiteVoid` avec une toise à soi.
 - (cycle 48) Rouleau compresseur (ou tout ce qui écrase une rangée) : le filmer de face pendant qu'il avance vers la caméra ; de côté,
   l'engin masque la rangée. Camion à l'arrière ouvert : ajouter un panneau sombre juste à l'extérieur de la face arrière.
+- (cycle 47) Un SpriteMaterial sans texture se rend en carré plein : une lueur (clignotant, lampe) a besoin d'une texture en dégradé
+  radial (`glowSprite` de props.js), sinon elle se lit comme une carte.
+- (cycle 47) Gag de clignotant : un seul côté, tourné vers l'objectif. Retourner la voiture plutôt que montrer les deux côtés qui
+  clignotent (on lit des feux de détresse).
+- (cycle 47) Formation d'avions vue de dessous : elle se fond en une masse sombre. La montrer de face et d'en dessous, à 30-40° et à
+  25-35 m, et réduire les avions pour qu'ils ne se chevauchent pas.
+- (cycle 47) Gros plan sur quelqu'un devant un décor : vérifier d'abord de quel côté il regarde ; couper depuis le côté du décor montre
+  l'arrière de sa tête. Ajouter une clé `face` à la coupe et recalculer les cibles de main guidée.
+- (cycle 47) Portefeuille ouvert face à l'objectif : il paraît plat. Le tourner d'environ 35°, l'intérieur vers l'objectif ; après un
+  retournement, tourner autour de Z et non de X.
+- (cycle 47) Mât de navire fin avec une vergue : il se lit comme une croix d'église. Tour en treillis, radôme, radar qui tourne, vergue
+  courte et basse, pavillons.
