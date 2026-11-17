@@ -1895,3 +1895,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 45) Figurants près de l'objectif : à 1,5 m le cadre fait 0,6 m de large, les placer un par un.
 - (cycle 45) Masquer des pièces d'un accessoire partagé sans le modifier : parcourir le groupe construit et masquer par position.
 - (cycle 45) Fumée de toux ou poussière : sprites à dégradé radial (`softDust`), pas des sphères `toonPuff` (elles se lisent comme des balles).
+- (cycle 46) Mots anglais cachés dans le moteur : le gilet de la tenue `swat` (human.js) portait « SWAT », lisible sur les CRS de
+  « La guêpe » (81) ; l'hélicoptère de base portait aussi « SWAT ». Remplacés par « POLICE », comme MILK → LAIT, GLUE → COLLE,
+  ATM → RETRAIT, SOLD → SOLDES, WANTED → RECHERCHÉ, NO PAIN NO GAIN → TOUJOURS PLUS FORT. Avant chaque rendu final, chercher tout texte
+  visible sur les tenues et accessoires utilisés (`grep -n "label(\|textLabel(" engine/*.js`) et vérifier qu'il est en français.

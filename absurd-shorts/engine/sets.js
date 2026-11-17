@@ -681,7 +681,7 @@ const S = {
     g.add(at(mesh(new THREE.ExtrudeGeometry(star, { depth: 0.04, bevelEnabled: false }), mat(P.yellow)), -1.9, 3.0, back + 0.01), at(mesh(new THREE.ExtrudeGeometry(star, { depth: 0.04, bevelEnabled: false }), mat(P.yellow)), 1.9, 3.0, back + 0.01));
     g.add(prop('desk', { color: P.navyLight }, -2.7, 0, back + 1.5), prop('chair', { color: P.navy }, -2.7, 0, back + 0.8), at(box(0.5, 0.35, 0.05, P.ink, { outline: 0.02 }), -2.9, 1.0, back + 1.3), at(box(0.44, 0.29, 0.01, P.copBlue, { emissive: '#1E3550' }), -2.9, 1.0, back + 1.33), prop('documents', {}, -2.3, 0.76, back + 1.55), prop('mug', {}, -3.3, 0.76, back + 1.6));
     g.add(at(box(1.7, 1.1, 0.04, P.wood, { outline: 0.01 }), 2.1, 1.75, back + 0.02));
-    [[1.65, 1.8, -0.06], [2.15, 1.75, 0.05], [2.6, 1.82, -0.03]].forEach(([x, y, rz]) => g.add(at(label('WANTED', 0.34, 0.45, { bg: P.paper, fg: P.red }), x, y, back + 0.045, 0, 0, rz)));
+    [[1.65, 1.8, -0.06], [2.15, 1.75, 0.05], [2.6, 1.82, -0.03]].forEach(([x, y, rz]) => g.add(at(label('RECHERCHÉ', 0.34, 0.45, { bg: P.paper, fg: P.red }), x, y, back + 0.045, 0, 0, rz)));
     // holding cell on the right
     g.add(wall(0.2, 2.7, 1.6, P.greyDark, 3.5, 1.35, back + 0.8), prop('jailBars', { width: 3.2, height: 2.6 }, 5.1, 0, back + 1.6), at(box(3.2, 0.3, 0.12, P.navy), 5.1, 2.75, back + 1.6));
     g.add(at(box(0.5, 1.3, 0.6, P.greyDark, { pivot: 'bottom', outline: 0.006 }), -4.6, 0, back + 0.32));
@@ -968,7 +968,7 @@ const S = {
   gym() {
     const g = grp(), { back } = room(g, { wall: P.cream, band: P.red, bandH: 1.2, trim: P.navy, floor: '#C08D5A' });
     g.add(at(box(4.2, 2.0, 0.04, P.woodDark), 0.8, 1.35, back + 0.03), at(box(4.0, 1.85, 0.01, '#D3E3E3'), 0.8, 1.35, back + 0.055), at(box(0.08, 1.2, 0.005, P.white, { noGrain: true }), -0.4, 1.5, back + 0.062, 0, 0, -0.5), at(box(0.04, 0.8, 0.005, P.white, { noGrain: true }), -0.2, 1.4, back + 0.062, 0, 0, -0.5));
-    g.add(at(label('NO PAIN NO GAIN', 2.2, 0.5, { bg: P.navy, fg: P.yellow }), 0.8, 2.85, back + 0.02));
+    g.add(at(label('TOUJOURS PLUS FORT', 2.2, 0.5, { bg: P.navy, fg: P.yellow }), 0.8, 2.85, back + 0.02));
     // dumbbell rack
     const rack = grp(at(box(1.6, 0.06, 0.45, P.ink), 0, 0.5, 0), at(box(1.6, 0.06, 0.45, P.ink), 0, 0.9, 0.05), at(box(0.06, 1.0, 0.06, P.ink, { pivot: 'bottom' }), -0.78, 0, 0), at(box(0.06, 1.0, 0.06, P.ink, { pivot: 'bottom' }), 0.78, 0, 0));
     for (let i = 0; i < 5; i++) for (const y of [0.6, 1.0]) { const x = -0.6 + i * 0.3, c = i % 2 ? P.red : P.navy; rack.add(rod([x - 0.12, y, 0.05], [x + 0.12, y, 0.05], 0.015, P.grey), at(cyl(0.06, 0.06, 0.06, c, 8), x - 0.1, y, 0.05, 0, 0, PI / 2), at(cyl(0.06, 0.06, 0.06, c, 8), x + 0.1, y, 0.05, 0, 0, PI / 2)); }

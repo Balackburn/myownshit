@@ -252,7 +252,7 @@ const B = {
     const r = 0.11;
     const g = grp(at(cyl(r, r, 0.26, P.white, 6, { pivot: 'bottom' }), 0, 0, 0, 0, PI / 6), at(cyl(0.05, r, 0.09, P.white, 6, { pivot: 'bottom' }), 0, 0.26, 0, 0, PI / 6),
       at(cyl(0.05, 0.05, 0.05, P.white, 6, { pivot: 'bottom' }), 0, 0.35, 0), at(cyl(0.056, 0.056, 0.035, P.red, 8, { pivot: 'bottom' }), 0, 0.4, 0),
-      at(label('MILK', 0.11, 0.07, { bg: P.tealLight, fg: P.navy }), 0, 0.13, r * Math.cos(PI / 6) + 0.002));
+      at(label('LAIT', 0.11, 0.07, { bg: P.tealLight, fg: P.navy }), 0, 0.13, r * Math.cos(PI / 6) + 0.002));
     g.userData.grip = [0, 0.16, 0]; return g;
   },
   donut() {
@@ -324,7 +324,7 @@ const B = {
   glueTube() {
     const g = grp(at(box(0.15, 0.03, 0.02, P.grey), 0, 0.015, 0), at(box(0.14, 0.3, 0.03, P.white, { pivot: 'bottom', taper: { x: 0.6, z: 2 }, outline: 0.02 }), 0, 0.02, 0),
       at(cyl(0.025, 0.042, 0.03, P.white, 8, { pivot: 'bottom' }), 0, 0.32, 0), at(cyl(0.022, 0.03, 0.08, P.red, 8, { pivot: 'bottom' }), 0, 0.35, 0),
-      at(label('GLUE', 0.1, 0.05, { bg: P.yellow, fg: P.red }), 0, 0.15, 0.026, -0.05));
+      at(label('COLLE', 0.1, 0.05, { bg: P.yellow, fg: P.red }), 0, 0.15, 0.026, -0.05));
     g.userData.grip = [0, 0.15, 0]; return g;
   },
   banana() {
@@ -502,7 +502,7 @@ const B = {
   ATM() {
     const scr = canvasPlane(0.42, 0.28, (g, W, H) => { g.fillStyle = BLUE; g.fillRect(0, 0, W, H); g.fillStyle = '#fff'; g.font = `bold ${H * 0.2}px Arial`; g.textAlign = 'center'; g.fillText('INSERT CARD', W / 2, H * 0.55); }, { res: 256, emissive: 0.5 });
     const g = grp(box(0.85, 1.75, 0.65, P.teal, { pivot: 'bottom', outline: 0.006 }), at(box(0.89, 0.3, 0.69, P.red), 0, 1.9, 0),
-      at(label('ATM', 0.7, 0.24, { bg: P.red, fg: P.white }), 0, 1.9, 0.347), at(box(0.7, 0.75, 0.04, P.cream), 0, 1.15, 0.34),
+      at(label('RETRAIT', 0.7, 0.24, { bg: P.red, fg: P.white }), 0, 1.9, 0.347), at(box(0.7, 0.75, 0.04, P.cream), 0, 1.15, 0.34),
       at(box(0.46, 0.32, 0.01, P.ink), 0, 1.32, 0.365), at(scr, 0, 1.32, 0.372), at(box(0.4, 0.04, 0.02, P.ink), 0, 0.85, 0.37), at(box(0.12, 0.02, 0.02, P.ink), 0.2, 1.05, 0.37));
     for (let i = 0; i < 12; i++) g.add(at(box(0.04, 0.03, 0.015, P.greyDark), -0.07 + (i % 3) * 0.055, 1.08 - Math.floor(i / 3) * 0.04, 0.367));
     return g;
@@ -515,7 +515,7 @@ const B = {
       at(box(0.55, 0.95, 0.08, N, { taper: { x: 0.6, z: 1 } }), -3.55, y0 + 1.35, 0, 0, 0, 0.25),
       at(cyl(0.08, 0.1, 0.3, P.greyDark, 6, { pivot: 'bottom' }), 0, y0 + 1.3, 0));
     [-1, 1].forEach(s => { g.add(at(box(3.0, 0.08, 0.1, P.greyDark), 0.1, 0.04, s * 0.62), at(box(0.06, y0, 0.06, P.greyDark, { pivot: 'bottom' }), 0.8, 0, s * 0.55), at(box(0.06, y0, 0.06, P.greyDark, { pivot: 'bottom' }), -0.7, 0, s * 0.55));
-      g.add(at(box(0.7, 0.5, 0.02, P.tealPale), 0.55, y0 + 0.88, s * 0.71), at(label('SWAT', 1.0, 0.36, { bg: null, fg: P.white }), -0.55, y0 + 0.45, s * 0.705, 0, s > 0 ? 0 : PI, 0)); });
+      g.add(at(box(0.7, 0.5, 0.02, P.tealPale), 0.55, y0 + 0.88, s * 0.71), at(label('POLICE', 1.0, 0.36, { bg: null, fg: P.white }), -0.55, y0 + 0.45, s * 0.705, 0, s > 0 ? 0 : PI, 0)); });
     rotor.position.set(0, y0 + 1.62, 0);
     rotor.add(box(5.0, 0.04, 0.22, P.ink), at(box(5.0, 0.04, 0.22, P.ink), 0, 0, 0, 0, PI / 2, 0), cyl(0.16, 0.16, 0.12, P.greyDark, 8));
     tr.position.set(-3.6, y0 + 1.45, 0.1); tr.add(box(0.08, 0.95, 0.02, P.ink), at(box(0.08, 0.95, 0.02, P.ink), 0, 0, 0, 0, 0, PI / 2));
@@ -799,7 +799,7 @@ const B = {
     const g = grp(box(0.08, 1.6, 0.08, P.white, { pivot: 'bottom', outline: 0.03 }), at(box(0.95, 0.07, 0.07, P.white), 0.44, 1.55, 0),
       rod([0.15, 1.52, 0], [0.15, 1.42, 0], 0.008, P.ink), rod([0.75, 1.52, 0], [0.75, 1.42, 0], 0.008, P.ink),
       at(box(0.82, 0.46, 0.04, P.red, { outline: 0.02 }), 0.45, 1.19, 0));
-    [-1, 1].forEach(s => g.add(at(label('SOLD', 0.74, 0.38, { bg: P.red, fg: P.white }), 0.45, 1.19, s * 0.022, 0, s > 0 ? 0 : PI, 0)));
+    [-1, 1].forEach(s => g.add(at(label('SOLDES', 0.74, 0.38, { bg: P.red, fg: P.white }), 0.45, 1.19, s * 0.022, 0, s > 0 ? 0 : PI, 0)));
     return g;
   },
   cardboardBox(o) {
