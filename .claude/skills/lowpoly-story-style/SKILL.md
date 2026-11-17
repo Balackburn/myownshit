@@ -1944,3 +1944,17 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   sur l'axe de la caméra, pas seulement leur position au sol.
 - (cycle 46) Un renflement sans éclairage sur un visage peint (joues pincées) prend une couleur choisie à la main, proche du visage rendu :
   la valeur de la texture sort beaucoup plus pâle.
+- (cycle 47) Grandes dalles au sol (parking, asphalte) sur `grassland` : même six centimètres au-dessus, l'herbe perce par endroits. Les
+  peindre en couches sans test de profondeur (renderOrder −1,5, marquages à −1,2), comme `roadStrip`.
+- (cycle 47) Un utilitaire qui passe ses `**kwargs` aux opts d'un accessoire avale aussi `keys`, et l'accessoire reste immobile sans erreur :
+  retirer `keys` avant de construire les opts.
+- (cycle 47) Voitures : la distribution de 2,3 m n'entre pas dans une voiture à taille réelle. Mettre les voitures à l'échelle 1,25 environ
+  et donner à celle du héros un pare-brise clair et un toit plat.
+- (cycle 47) Caméra derrière une voiture visant sa cible : la voiture et la rangée garée cachent la cible. Monter la caméra de trois à quatre
+  mètres pour voir par-dessus les toits.
+- (cycle 47) Avions au-dessus puis impact au sol dans le 9:16 : regarder en l'air sur la première clé, puis glisser vers la cible.
+- (cycle 47) Drapeaux inventés : les comparer aux vrais. Orange, blanc, vert ou bleu avec un disque central se lit comme l'Inde ; rouge et
+  blanc en deux bandes comme la Pologne ou l'Indonésie. Des paires rares (violet et jaune, sarcelle et rose) sont sûres.
+- (cycle 47) Boucle de défilé dans une petite surface (une place de parking) : elle se lit de six mètres de haut en trois quarts, pas à
+  hauteur d'œil.
+- (cycle 47) Tout objet monté sur une enseigne qui tombe (une horloge) doit basculer et se poser avec elle, sinon il flotte au-dessus du tas.
