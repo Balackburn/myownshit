@@ -1,0 +1,172 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a été réveillé par le tonnerre.",
+  "hl": [
+   "réveillé",
+   "tonnerre."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il a porté plainte pour nuisances sonores.",
+  "hl": [
+   "plainte",
+   "nuisances"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Le tonnerre a été interpellé à trois mille mètres.",
+  "hl": [
+   "tonnerre",
+   "interpellé"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Deux hélicoptères ont pris la foudre.",
+  "hl": [
+   "hélicoptères",
+   "foudre."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Au tribunal, le tonnerre a gardé le silence.",
+  "hl": [
+   "tribunal,",
+   "tonnerre"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "C'était son droit.",
+  "hl": [
+   "C'était",
+   "droit."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Ce mec n'en demandait pas plus.",
+  "hl": [
+   "n'en",
+   "demandait"
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Le juge a insisté.",
+  "hl": [
+   "juge",
+   "insisté."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Il a répondu.",
+  "hl": [
+   "répondu."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Le quartier a perdu toutes ses vitres.",
+  "hl": [
+   "quartier",
+   "vitres."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Les douze jurés sont sourds.",
+  "hl": [
+   "douze",
+   "sourds."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Trois experts ont confirmé : c'était fort.",
+  "hl": [
+   "experts",
+   "confirmé"
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Il a été placé en cellule capitonnée.",
+  "hl": [
+   "cellule",
+   "capitonnée."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Dans la cellule, il y avait déjà un mime.",
+  "hl": [
+   "cellule,",
+   "déjà"
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Le mime a demandé son transfert.",
+  "hl": [
+   "demandé",
+   "transfert."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "À voix haute.",
+  "hl": [
+   "voix",
+   "haute."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "À sa sortie, le tonnerre n'avait pas d'adresse.",
+  "hl": [
+   "tonnerre",
+   "d'adresse."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Assigné à résidence chez la victime.",
+  "hl": [
+   "Assigné",
+   "résidence"
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Il a pris le côté fenêtre.",
+  "hl": [
+   "pris",
+   "fenêtre."
+  ]
+ }
+]

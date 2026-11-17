@@ -1,0 +1,148 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a un chat qui ne descend plus.",
+  "hl": [
+   "chat",
+   "descend"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Le chat retenait l'arbre en otage.",
+  "hl": [
+   "otage."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Aucune revendication.",
+  "hl": [
+   "revendication."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Les forces spéciales ont donné l'assaut.",
+  "hl": [
+   "forces",
+   "spéciales"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Ils ne descendent plus non plus.",
+  "hl": [
+   "descendent"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Un blindé a visé le chat. À bout portant.",
+  "hl": [
+   "blindé",
+   "portant."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Le chat s'est baissé. Pas la rue d'en face.",
+  "hl": [
+   "baissé.",
+   "face."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Trois jours de frappes aériennes.",
+  "hl": [
+   "Trois",
+   "jours"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Bilan : l'otage a perdu une brindille.",
+  "hl": [
+   "brindille."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Ce mec a été arrêté pour avoir nourri l'ennemi.",
+  "hl": [
+   "nourri",
+   "l'ennemi."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Le chat a été inculpé pour les dégâts.",
+  "hl": [
+   "inculpé",
+   "dégâts."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Jugé au pied de l'arbre, par contumace.",
+  "hl": [
+   "contumace."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "L'otage a demandé à rester avec le chat.",
+  "hl": [
+   "rester"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Condamné à descendre.",
+  "hl": [
+   "descendre."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Escorté par les soldats.",
+  "hl": [
+   "Escorté",
+   "soldats."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Le soir, le chat est descendu manger les scellés.",
+  "hl": [
+   "manger",
+   "scellés."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Puis il est remonté se coucher.",
+  "hl": [
+   "remonté",
+   "coucher."
+  ]
+ }
+]

@@ -1,0 +1,170 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a trouvé un cheveu dans sa soupe.",
+  "hl": [
+   "trouvé",
+   "cheveu"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Un hélicoptère de police a éclairé la soupe.",
+  "hl": [
+   "hélicoptère",
+   "éclairé"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Le cheveu a été arrêté à la pince.",
+  "hl": [
+   "cheveu",
+   "arrêté"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Photographié de face, puis de profil.",
+  "hl": [
+   "Photographié",
+   "profil."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Interrogé douze heures sous la lampe.",
+  "hl": [
+   "Interrogé",
+   "heures"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Il a frisé. Ça a été retenu contre lui.",
+  "hl": [
+   "retenu",
+   "contre"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Les chiens ont remonté sa piste jusqu'au cuisinier.",
+  "hl": [
+   "jusqu'au",
+   "cuisinier."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Ils ont enfoncé sa porte.",
+  "hl": [
+   "enfoncé",
+   "porte."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Et toutes celles de la rue.",
+  "hl": [
+   "celles",
+   "rue."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Le cuisinier était chauve.",
+  "hl": [
+   "cuisinier",
+   "chauve."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Il a été rasé quand même.",
+  "hl": [
+   "rasé"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Puis les clients et les passants, pour comparaison.",
+  "hl": [
+   "passants,",
+   "comparaison."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le chien policier aussi.",
+  "hl": [
+   "chien",
+   "policier"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Ce mec, deux fois.",
+  "hl": [
+   "fois."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Au microscope : aucune correspondance.",
+  "hl": [
+   "microscope",
+   "correspondance."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Le ministre s'est excusé auprès du cheveu.",
+  "hl": [
+   "ministre",
+   "excusé"
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "C'était le dernier cheveu du quartier.",
+  "hl": [
+   "C'était",
+   "quartier."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "L'hélicoptère l'a reposé.",
+  "hl": [
+   "L'hélicoptère",
+   "reposé."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Dans la soupe de ce mec.",
+  "hl": [
+   "soupe"
+  ]
+ }
+]
