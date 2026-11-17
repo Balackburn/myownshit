@@ -437,18 +437,18 @@ FLAGS = [['#6A3FA0', '#F2C94C'], ['#1E7A8C', '#E88AA8'], ['#E07A1F', '#1F2E5C'],
 #           past each one and back (a settle), front car to back car
 INCH12 = 0.9
 AIMS12 = [turret_yaw(add(q, [INCH12, 0, 0])) for q in QUEUE]
-AIM12 = []
-for i, (t0, q) in enumerate(zip((0.05, 0.5, 0.95, 1.4), (0, 1, 2, 3))):
-    v = AIMS12[q] * 3.0; AIM12 += [[t0, r(v * 1.15, 3)], [r(t0 + 0.12), r(v, 3)]]   # (round 2) the swing exaggerated: seen down the queue the aims differ by a few degrees
-FRM12 = [16.6, 3.1, 36.9]
-LK12, LN12 = [45.6, 3.0, 36.6], 28   # (round 2) close behind the queue with a long lens: their roofs in the foreground, the ship big beyond the boom
+# (final) the gun starts turned aside, swings and snaps onto the front car (a little past, back, hold), then nudges to the next ones (true aims:
+#         the x3 exaggeration of round 2 pointed it between the cars)
+AIM12 = [[0.0, -0.9], [0.2, -0.9], [0.42, r(AIMS12[0] + 0.14, 3)], [0.54, AIMS12[0]], [1.05, r(AIMS12[1] - 0.05, 3)], [1.15, AIMS12[1]], [1.5, r(AIMS12[2] - 0.05, 3)], [1.6, AIMS12[2]]]
+FRM12 = [14.0, 5.0, 38.4]
+LK12, LN12 = [42.0, 2.4, 36.6], 30   # (final) higher behind the queue: the roofs read as cars with their flags, the closed boom across the lower third, the ship above
 C12 = cam(0.0, FRM12, add(FRM12, [0.2, 0.0, -0.02]), LK12, add(LK12, [0, 0.05, 0]), lens=LN12)
 chk('S12', C12['from'], C12['lookAt'], C12['lens'], {'car0': QUEUE[0], 'car3': QUEUE[3], 'boom': [33.8, 1.0, 36.0], 'ship': loc(SHIP, SHIP_RY, 0, 0, 4.0), 'turret': loc(SHIP, SHIP_RY, 0, 2.4, 2.2)})
 st.shot('S12', 'grassland', setOpts=LOT_SET, actors=[],
         props=[P('rondpoint12', 'ringRoad', pos=[RING[0], 0, RING[2]], opts={'ri': RI, 'ro': RO, 'exitLen': 44, 'booms': 'down'}),
                P('navire12', 'warship', pos=SHIP, ry=SHIP_RY, opts={'aim': AIM12, 'aimBlend': 0.05, 'counter': True, 'laps': [[0, 0]], 'gunS': 1.9}),   # (round 2) a snap onto each car and a hold
                P('route12', 'parkLot', pos=[-22.0, 0, 36.5], opts={'w': 59, 'd': 7, 'rows': []}),
-               *[CAR(f'officielle12{i}', p, 90, dark=True, flag=FLAGS[i], plate='CD-%03d-XX' % (12 + i), phase=0.2 * i,
+               *[CAR(f'officielle12{i}', p, 90, dark=True, flag=FLAGS[i], plate='CD-%03d-XX' % (12 + i), phase=0.2 * i, roofHi='#5A616C', flagS=2.0,
                      keys=[k(r(0.1 + 0.12 * i), to=add(p, [r(INCH12 * 0.5), 0, 0]), dur=0.35, ease='inOut'), k(r(1.0 + 0.12 * i), to=add(p, [INCH12, 0, 0]), dur=0.35, ease='inOut')]) for i, p in enumerate(QUEUE)]],
         cams=[C12])
 st.cue('engine', 'S12', 0.0, 0.15, 1.8); st.cue('sfx:honk', 'S12', 0.6, 0.12); st.cue('sfx:squeak', 'S12', 0.45, 0.15); st.cue('sfx:squeak', 'S12', 0.95, 0.15); st.cue('sfx:squeak', 'S12', 1.45, 0.15)
@@ -473,11 +473,7 @@ LEAD13A = 24.5
 def mid13(t):
     a_ = A13[0] + (A13[1] - A13[0]) * t / D13; p1, p2 = ring_pos(a_ + LEAD13A, RAD13), ring_pos(a_, RAD13); return [r((p1[0] + p2[0]) / 2), 2.4, r((p1[2] + p2[2]) / 2)]
 M0, M1 = mid13(0.0), mid13(1.15)   # (round 1) a partial pan: the lap counter stays in frame until it reads 40
-C13 = cam(0.0, add(M0, [-14.5, 1.3, 0.4]), add(M0, [-14.3, 1.29, 0.4]), M0, add(M0, [0.1, 0, 0]), lens=46)
-C13b = cam(0.05, add(M1, [-14.5, 1.3, 0.4]), add(M1, [-14.3, 1.29, 0.4]), M1, add(M1, [0.1, 0, 0]), lens=46)
-for tt, cc in ((0.0, C13), (D13, C13b)):
-    a_ = A13[0] + (A13[1] - A13[0]) * tt / D13
-    chk(f'S13@{tt:.1f}', cc['from'], cc['lookAt'], 46, {'car1': add(ring_pos(a_ + 24.5, RAD13), [0, 1.0, 0]), 'car2': add(ring_pos(a_, RAD13), [0, 1.0, 0]), 'chef1head': add(loc(ring_pos(a_ + 24.5, RAD13), a_ + 24.5 + 90, -0.72 * CS, -0.25 * CS), [0, 2.0, 0]), 'counter': loc(SHIP, SHIP_RY, 0, -0.65, 4.5)})
+H0, H1 = None, None   # set below once handoff() exists
 WX13 = -0.5 * CS                                       # the window side (the car's right, -X local), the leader's middle inside the car   # (round 2) seated inside, leaning out
 def leader(w, lead, side, lz, extra=()):
     """a leader standing in the car, his chest out of its right window, turned toward us"""
@@ -495,34 +491,51 @@ def handoff(t):
     """the point between the two leaders' windows where the page changes hands (moving with the cars)"""
     a = A13[0] + (A13[1] - A13[0]) * t / D13
     p1 = loc(ring_pos(a + 12.25, RAD13), a + 12.25 + 90.0, WX13 * 1.35, 0.0); return [p1[0], 2.15, p1[2]]
+# (final) closer on the windows, the camera on the line through the hand-over point: both leaders at the edges, sashes and the page stack readable,
+#         the lap counter on the bridge above them
+def LM13(t):
+    a_ = A13[0] + (A13[1] - A13[0]) * t / D13
+    p1 = loc(ring_pos(a_ + 24.5, RAD13), a_ + 24.5 + 90, WX13, -0.25 * CS); p2 = loc(ring_pos(a_, RAD13), a_ + 90, WX13, 0.55 * CS)
+    return [r((p1[0] + p2[0]) / 2), 2.05, r((p1[2] + p2[2]) / 2)]
+H0, H1 = LM13(0.0), LM13(r(D13 - 0.1))
+C13 = cam(0.0, add(H0, [-7.4, 0.45, 0.0]), add(H0, [-7.3, 0.45, 0.0]), H0, add(H0, [0.1, 0.0, 0]), lens=58)
+C13b = cam(0.05, add(H1, [-7.4, 0.45, 0.0]), add(H1, [-7.3, 0.45, 0.0]), H1, add(H1, [0.1, 0.0, 0]), lens=58)
+for tt, cc in ((0.0, C13), (D13, C13b)):
+    a_ = A13[0] + (A13[1] - A13[0]) * tt / D13
+    chk(f'S13@{tt:.1f}', cc['from'], cc['lookAt'], 58, {'chef1head': add(loc(ring_pos(a_ + 24.5, RAD13), a_ + 24.5 + 90, WX13, -0.25 * CS), [0, 1.7, 0]), 'chef2head': add(loc(ring_pos(a_, RAD13), a_ + 90, WX13, 0.55 * CS), [0, 1.7, 0]), 'counter': loc(SHIP, SHIP_RY, 0, -0.65, 4.5)})
 REACH13 = lambda w, t, hand: k(t, toon={'reach': {hand: [*handoff(t), 1, 0.1]}, 'hands': {hand: 'pinch'}, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.2}, 'bend': {'spine': [0.45, 0, (0.28 if w == 'chef1' else -0.28), 1, None]}}, toonDur=0.25)
 st.shot('S13', 'grassland', setOpts=LOT_SET, actors=[
-        leader('chef1', 24.5, 'R', -0.25 * CS, [REACH13('chef1', 0.35, 'R'), REACH13('chef1', 0.7, 'R'), REACH13('chef1', PASS13, 'R'),
-                                                k(r(PASS13 + 0.3), toon={'face': {'lid': 0.4, 'mouth': 'smile'}, 'bend': {'spine': [0.42, 0, 0.18, 1, None]}}, toonDur=0.3)]),
-        leader('chef2', 0.0, 'R', 0.55 * CS, [REACH13('chef2', 0.55, 'L'), REACH13('chef2', 0.8, 'L'), REACH13('chef2', PASS13, 'L'),
-                                              k(r(PASS13 + 0.35), toon={'reach': {'L': [*add(handoff(PASS13 + 0.35), [0.0, -0.2, 0.0]), 0.0, 0.05]}, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.3}, 'bend': {'spine': [0.42, 0, -0.18, 1, None]}}, toonDur=0.3)])],
+        leader('chef1', 24.5, 'R', -0.25 * CS, [REACH13('chef1', 0.35, 'R'), REACH13('chef1', 0.7, 'R'), REACH13('chef1', PASS13, 'R'), REACH13('chef1', r(PASS13 + 0.16), 'R'),   # (final) the hand-over held 0.16 s
+                                                k(r(PASS13 + 0.45), toon={'face': {'lid': 0.4, 'mouth': 'smile'}, 'bend': {'spine': [0.42, 0, 0.18, 1, None]}}, toonDur=0.3)]),
+        leader('chef2', 0.0, 'R', 0.55 * CS, [REACH13('chef2', 0.55, 'L'), REACH13('chef2', 0.8, 'L'), REACH13('chef2', PASS13, 'L'), REACH13('chef2', r(PASS13 + 0.16), 'L'),
+                                              k(r(PASS13 + 0.5), toon={'reach': {'L': [*add(handoff(PASS13 + 0.5), [0.0, -0.2, 0.0]), 0.0, 0.05]}, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.3}, 'bend': {'spine': [0.42, 0, -0.18, 1, None]}}, toonDur=0.3)])],
         props=[P('rondpoint13', 'ringRoad', pos=[RING[0], 0, RING[2]], opts={'ri': RI, 'ro': RO, 'exitLen': 44, 'booms': 'down'}),
                P('navire13', 'warship', pos=SHIP, ry=SHIP_RY, opts={'aim': [[0, 0.0]], 'counter': True, 'laps': [[0, 38], [0.55, 39], [1.25, 40]]}),
                P('route13', 'parkLot', pos=[-22.0, 0, 36.5], opts={'w': 59, 'd': 7, 'rows': []}), *CARS13,
-               P('page13a', 'treatySheet', on={'actor': 'chef1', 'hand': 'R', 'offset': [0.0, -0.04, 0.05], 'face': 'camera'}, opts={'w': 0.34, 'text': True}, keys=[k(0.0, visible=True), k(PASS13, visible=False)]),
-               P('page13b', 'treatySheet', on={'actor': 'chef2', 'hand': 'L', 'offset': [0.0, -0.04, 0.05], 'face': 'camera'}, opts={'w': 0.34, 'text': True}, keys=[k(0.0, visible=False), k(PASS13, visible=True)])],
+               # (final) a white stack of pages (three sheets offset), both hands on it for 0.12 s
+               *[P(f'page13a{j}', 'treatySheet', on={'actor': 'chef1', 'hand': 'R', 'offset': [0.012 * j, -0.04 - 0.012 * j, 0.05 - 0.008 * j], 'face': 'camera'}, opts={'w': 0.44, 'text': j == 0, 'seed': 17 + j}, keys=[k(0.0, visible=True), k(r(PASS13 + 0.12), visible=False)]) for j in range(3)],
+               *[P(f'page13b{j}', 'treatySheet', on={'actor': 'chef2', 'hand': 'L', 'offset': [0.012 * j, -0.04 - 0.012 * j, 0.05 - 0.008 * j], 'face': 'camera'}, opts={'w': 0.44, 'text': j == 0, 'seed': 17 + j}, keys=[k(0.0, visible=False), k(r(PASS13 + 0.12), visible=True)]) for j in range(3)]],
         cams=[C13, glide([C13b], r(D13 - 0.1))])
 st.cue('engine', 'S13', 0.0, 0.2, 1.8); st.cue('sfx:ding', 'S13', 0.55, 0.25); st.cue('sfx:ding', 'S13', 1.25, 0.35); st.cue('sfx:paper', 'S13', PASS13, 0.25)
 
 # 14: the treaty declared the space a neutral zone. Back at the bay round the flag: three leaders in sashes run a red-and-white tape round its
 #     white lines, post to post; he, at the edge, still saluting, slowly lowers his hand (NEUTRE)
 D14 = st.dur('S14'); LOWER14 = 1.2
-LEAD14 = [('chef1', [-0.05, GY, -8.15]), ('chef2', [2.6, GY, -12.9]), ('chef3', [-0.05, GY, -12.9])]
+LEAD14 = [('chef1', [2.75, GY, -7.7]), ('chef2', [2.6, GY, -12.9]), ('chef3', [-0.05, GY, -12.9])]
+PULL14 = (0.1, 0.85); P14a, P14b = [2.55, 0.85, -7.95], [-0.05, 0.85, -7.95]   # (final) chef1 walks the near side, pulling the tape taut from post to post
 HERO14 = [3.0, GY, -8.0]; RYH14 = -35
-C14 = cam(0.0, [-0.9, 1.75, -1.6], [-0.85, 1.75, -1.75], [2.412, 2.307, -11.019], [2.412, 2.3, -11.019], lens=48)
+C14 = cam(0.0, [1.3, 1.65, -3.5], [1.32, 1.65, -3.62], [1.25, 1.15, -9.6], [1.25, 1.16, -9.6], lens=50)   # (final) in front of the bay: the near side of the tape crosses the frame as he pulls it
 chk('S14', C14['from'], C14['lookAt'], 48, {'heroFace': [HERO14[0], 1.98, HERO14[2]], 'chef1': [LEAD14[0][1][0], 1.98, LEAD14[0][1][2]], 'chef2': [2.6, 1.98, -12.9], 'flagTop': [POLE[0], 3.5, POLE[2]]})
 # (round 2) at 0.95 s a cut in closer on him (three quarters, the taped bay and the flag behind his shoulder) for the slow drop of the salute and the sag
 C14b = cam(0.95, [4.55, 1.95, -5.79], [4.53, 1.95, -5.82], [2.45, 1.8, -9.0], [2.45, 1.79, -9.02], lens=44)   # in front of him on the line from the bay: his face, the taped bay behind his shoulder
 chk('S14b', C14b['from'], C14b['lookAt'], 44, {'heroFace': [HERO14[0], 1.98, HERO14[2]], 'heroHead': [HERO14[0], 2.3, HERO14[2]], 'flagTop': [POLE[0], 3.5, POLE[2]], 'tape': [2.5, 0.9, -8.0]})
 st.card('S14', 'NEUTRE', at=1.6)
 st.shot('S14', 'grassland', setOpts=LOT_SET, actors=[
+        act('chef1', LEAD14[0][1], -90, 'stand', 'neutral', keys=[k(PULL14[0], to=[-0.25, GY, -7.7], dur=r(PULL14[1] - PULL14[0]), clip='walk', face='keep'), k(0.0, look='camera'),
+            *[k(r(PULL14[0] + (PULL14[1] - PULL14[0]) * j / 4), toon={'reach': {'R': [r(P14a[0] + (P14b[0] - P14a[0]) * j / 4 + 0.05), 0.95, -7.9, 1, 0.04]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.08, -0.15, 0, 1, None]}, 'face': {'lid': 0.3, 'mouth': 'clench', 'brow': -0.3}}, toonDur=0.18) for j in range(5)],
+            *stand_blink(1.3, {'lid': 0.35, 'mouth': 'line'})]),
         *[act(w, p, yaw(p, KEYC), 'stand', 'neutral', keys=[k(0.0, look=add(KEYC, [0, 0.9, 0])), k(0.0, toon={'reach': {'R': [*off(p, yaw(p, KEYC), 0.35, 0.15, 0.95), 1, 0.04]}, 'hands': {'R': 'grip'}}, toonDur=0.0),
-            k(r(0.4 + 0.3 * i), look='camera', lookDur=0.3), *stand_blink(r(1.0 + 0.25 * i), {'lid': 0.35, 'mouth': 'line'})]) for i, (w, p) in enumerate(LEAD14)],
+            k(r(0.4 + 0.3 * i), look='camera', lookDur=0.3), *stand_blink(r(1.0 + 0.25 * i), {'lid': 0.35, 'mouth': 'line'})]) for i, (w, p) in enumerate(LEAD14) if w != 'chef1'],
         act('mec', HERO14, RYH14, 'stand', 'happy', keys=[k(0.0, look=[1.25, 2.6, -10.8]), k(0.0, toon={'reach': {'R': SALUTE(HERO14, RYH14)}, 'hands': {'R': 'open'}, 'face': {'lid': 0.3, 'mouth': 'smile', 'brow': 0.4}}, toonDur=0.0),
             k(0.93, face=18, turn=0.02), k(0.93, look='camera', lookDur=0.02),   # (round 2) behind the cut to the close camera he faces it three quarters, the bay behind him
             k(0.94, toon={'reach': {'R': SALUTE(HERO14, 18)}, 'hands': {'R': 'open'}, 'face': {'lid': 0.35, 'mouth': 'line', 'brow': 0.1}}, toonDur=0.02),
@@ -530,7 +543,7 @@ st.shot('S14', 'grassland', setOpts=LOT_SET, actors=[
             k(LOWER14, toon={'reach': {'R': [*off(HERO14, 18, 0.15, 0.3, 1.0), 1, 0.04]}, 'hands': {'R': 'rest'}, 'face': {'lid': 0.5, 'mouth': 'line', 'brow': -0.2}, 'sq': [1.03, 0.95, 1.03], 'bend': {'spine': [0.2, 0, 0, 1, None], 'neck': [0.18, 0, 0, 1, None]}}, toonDur=0.9, toonEase='inOut'),   # (round 2) the shoulders sag
             k(r(LOWER14 + 0.5), look='camera', lookDur=0.4), *[k(t, toon={'face': {'lid': ld, 'mouth': 'line', 'brow': -0.2}, 'sq': [1.03, 0.95, 1.03], 'bend': {'spine': [0.2, 0, 0, 1, None], 'neck': [0.12, 0, 0, 1, None]}}, toonDur=0.05, keepPose=True) for t, ld in ((2.1, 1.0), (2.2, 0.5))]])],
         props=[LOT(), ROWS_FLAT(skip=['0:9', '0:10', '0:11'], wisps=4), STORE(folded=True, clock=CLK8), P('drapeau14', 'bayFlag', pos=POLE, opts=FLAG_ARMY),
-               P('ruban14', 'bayTape', pos=KEYC, opts={'w': 2.5, 'l': 5.0, 'stretch': [0.15, 1.3]})],
+               P('ruban14', 'bayTape', pos=KEYC, opts={'w': 2.5, 'l': 5.0, 'stretch': [PULL14[0], 3.0], 'first': 2})],
         cams=[C14, C14b])
 st.cue('sfx:stretch', 'S14', 0.2, 0.2); st.cue('sfx:stretch', 'S14', 0.75, 0.2); st.cue('sfx:sting', 'S14', 1.6, 0.25)
 
@@ -561,12 +574,16 @@ st.cue('sfx:rattle', 'S15', 0.1, 0.2); st.cue('sfx:squeak', 'S15', 0.88, 0.3); s
 # 16: this man pays the war reparations. In lane B, the flattened rows round them: he shakes his empty open wallet upside down over the general's
 #     upturned helmet, held out like a bowl; behind them a line of soldiers holding out their helmets runs across the car park to the horizon
 D16 = st.dur('S16')
-HERO16 = [0.6, GY, 10.4]; RYH16 = 150; GEN16 = [-0.5, GY, 10.9]; RYG16 = -150
+# (final) the camera looks down lane B so it reads as the car park: wrecks in the bays on both sides, a receding line of soldiers holding out their
+#         helmets down the lane behind the general; the two men in a V, three quarters to us
+HERO16 = [0.95, GY, 9.95]; GEN16 = [0.0, GY, 11.25]
+CAM16 = [8.4, 2.15, 11.0]
+RYH16 = r((yaw(HERO16, GEN16) + yaw(HERO16, CAM16)) / 2, 1); RYG16 = r((yaw(GEN16, HERO16) + yaw(GEN16, CAM16)) / 2, 1)
 # (round 1) the helmet held up at chest height and the wallet upside down right over it (one silhouette); three hard shakes, a single coin drops into
 #           the helmet; the line of helmets starts behind his right shoulder (no blank head between the two men); all above the captions
-BOWL16 = [0.05, 1.46, 10.62]
-C16 = cam(0.0, [0.15, 2.0, 5.3], [0.13, 2.0, 5.5], [0.05, 1.35, 15.6], [0.05, 1.36, 15.6], lens=30)
-chk('S16', C16['from'], C16['lookAt'], 30, {'heroFace': [HERO16[0], 1.98, HERO16[2]], 'genFace': [GEN16[0], 1.98, GEN16[2]], 'bowl': BOWL16, 'wallet': add(BOWL16, [0, 0.3, 0]), 'lineStart': [2.1, 1.8, 13.6]})
+BOWL16 = [0.5, 1.46, 10.62]
+C16 = cam(0.0, CAM16, add(CAM16, [-0.1, 0.0, -0.003]), [-6.0, 1.3, 10.6], [-6.0, 1.31, 10.6], lens=36)
+chk('S16', C16['from'], C16['lookAt'], 30, {'heroFace': [HERO16[0], 1.98, HERO16[2]], 'genFace': [GEN16[0], 1.98, GEN16[2]], 'bowl': BOWL16, 'wallet': add(BOWL16, [0, 0.3, 0]), 'lineStart': [-2.0, 1.8, 10.6], 'lineFar': [-14.0, 1.8, 10.6]})
 WAL16 = lambda dy, dx=0.0: [*add(BOWL16, [r(-0.02 + dx), r(0.3 + dy), -0.02]), 1, 0.03]
 SH16 = [(0.3, 0.0, 0.0), (0.42, 0.14, 0.03), (0.52, -0.04, -0.03), (0.62, 0.15, 0.03), (0.72, -0.04, -0.03), (0.82, 0.15, 0.03), (0.93, -0.03, 0.0)]
 COIN16 = 0.95; MOTH16 = 0.78   # (round 2) a moth flies out of the open wallet instead of a coin
@@ -579,11 +596,11 @@ st.shot('S16', 'grassland', setOpts=LOT_SET, actors=[
             k(0.0, toon={'reach': {'R': [*add(BOWL16, [0.18, -0.03, 0.0]), 1, 0.03], 'L': [*add(BOWL16, [-0.16, -0.04, 0.0]), 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.0),
             k(r(MOTH16 + 0.15), look=add(BOWL16, [0.1, 0.7, 0]), lookDur=0.12), k(r(MOTH16 + 0.15), toon={'reach': {'R': [*add(BOWL16, [0.18, -0.03, 0.0]), 1, 0.03], 'L': [*add(BOWL16, [-0.16, -0.04, 0.0]), 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.2, 'mouth': 'line', 'brow': 0.6}}, toonDur=0.08),
             k(r(MOTH16 + 0.55), look=add(BOWL16, [0.25, 1.3, 0]), lookDur=0.25), *stand_blink(1.55, {'lid': 0.3, 'mouth': 'line', 'brow': 0.4})])],
-        props=[LOT(), ROWS_FLAT(skip=['0:10', '3:7', '3:8', '3:9', '3:10', '3:11', '3:12'], wisps=4), STORE(folded=True, clock=CLK8), KEPI('kepi16', 'general'),
+        props=[LOT(), ROWS_FLAT(skip=['0:10', '2:11', '2:12', '2:13', '3:11', '3:12', '3:13'], wisps=4), STORE(folded=True, clock=CLK8), KEPI('kepi16', 'general'),
                P('bol16', 'armyHelmet', pos=add(BOWL16, [0, -0.06, 0]), rot=[3.1416, 0, 0], opts={'s': 0.95}),
-               P('portefeuille16', 'emptyWallet', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.1, 0.04], 'face': 'camera'}, rot=[0, 0.6, 3.1416], opts={'open': 0.75, 's': 2.0, 'slots': True}),   # (round 2) upside down in the picture with its empty inside toward us, turned so it opens as a V
+               P('portefeuille16', 'emptyWallet', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.1, 0.04], 'face': 'camera'}, rot=[0, 0.61, 3.1416], opts={'open': 1.0, 's': 2.0, 'slots': True, 'cards': True}),   # (round 2) upside down in the picture with its empty inside toward us, turned so it opens as a V   # (final) a real open V with leather leaves, a spine and card slots
                P('mite16', 'moth', pos=[0, 0, 0], opts={'from': add(BOWL16, [-0.02, 0.36, -0.05]), 'to': add(BOWL16, [0.45, 1.5, -0.3]), 'at': MOTH16, 'dur': 1.1, 's': 2.4}),
-               P('file16', 'helmetLine', pos=[0, 0, 0], opts={'path': [[2.1, 13.6], [3.6, 33.0], [6.0, 120.0]], 'gap': 1.1, 'y': GY, 'face': r(PI, 4)})],
+               P('file16', 'helmetLine', pos=[0, 0, 0], opts={'path': [[-2.0, 10.6], [-31.0, 10.6]], 'gap': 1.25, 'y': GY})],   # (final) down lane B, receding, each one facing back up the line toward us
         cams=[C16])
 st.cue('sfx:rattleShort', 'S16', 0.42, 0.2); st.cue('sfx:rattleShort', 'S16', 0.62, 0.2); st.cue('sfx:rattleShort', 'S16', 0.82, 0.2); st.cue('sfx:paper', 'S16', MOTH16, 0.18)
 
@@ -646,7 +663,7 @@ st.write("La place", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLi
     'client2': {'preset': 'worker', 'seed': 941, 'hat': 'none', 'suit': '#1F4E8C', 'pants': '#22324A', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'client3': {'preset': 'mamie', 'seed': 942, 'suit': '#7A2E4E', 'lapel': '#5A1E38', 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': EX},
     'client4': {'preset': 'femme', 'seed': 943, 'suit': '#E0A030', 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': EX},
-    'chef1': {'preset': 'politique', 'seed': 950, 'suit': '#2A2D33', 'lapel': '#2A2D33', 'tie': '#7A2333', 'sash': SASHES[0], 'sashW': 0.12, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
+    'chef1': {'preset': 'politique', 'seed': 950, 'suit': '#4E4470', 'lapel': '#4E4470', 'tie': '#7A2333', 'sash': SASHES[0], 'sashW': 0.12, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'chef2': {'preset': 'politique', 'seed': 951, 'suit': '#3A4F6E', 'lapel': '#3A4F6E', 'tie': '#C8A030', 'sash': SASHES[1], 'sashW': 0.12, 'hairColor': '#BDBDBD', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'chef3': {'preset': 'politique', 'seed': 952, 'suit': '#4A3F5E', 'lapel': '#4A3F5E', 'tie': '#2E6B8C', 'sash': SASHES[2], 'sashW': 0.12, 'facial': 'mustache', 'build': {'width': 1.05, 'headWidth': 1.2, 'belly': 0.1}, 'toon': EX},
 })

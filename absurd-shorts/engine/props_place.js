@@ -89,6 +89,8 @@ export const PLACE_PROPS = {
   // poked through it); o.wheel: a steering wheel in front of the driver's seat (clear cars); o.skirt: dark panels from the body down to the road
   // between the wheels (legs of someone standing in the car do not show under it); o.brakeAmp (0.09 rad): the brake's pitch, about the front axle
   // so the tail lifts
+  // (final) o.flatSpring: the squash overshoots flatter, rebounds a little and settles (a spring, not a 5 % wobble); o.flagS (1): the wing flag and
+  // its rod scaled up (to read from far); o.roofHi: a lighter roof panel on a dark car (its silhouette reads against the asphalt from above)
   bayCar(o) {
     const C = o.color || (o.dark ? '#1C1E22' : '#C9473A'), L = 3.7, Wd = 1.66, g = grp(), body = grp(); g.add(body);
     const GL = o.glass || (o.dark ? '#2C3440' : '#BFDCE8'), DK = '#2E3138';
@@ -103,6 +105,7 @@ export const PLACE_PROPS = {
       if (o.wheel) { const sw = new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.022, 6, 18), mat('#1E1F23')); sw.position.set(0.36, 1.06, 0.24); sw.rotation.set(-0.9, 0, 0); body.add(sw, at(box(0.03, 0.03, 0.2, '#1E1F23'), 0.36, 1.03, 0.32, -0.9, 0, 0)); }
     }
     else body.add(at(box(1.5, 0.5, 2.0, C, { outline: 0.01, taper: { x: 0.82, z: 0.74 } }), 0, 1.16, -0.32));
+    if (o.roofHi && !o.clear) body.add(at(box(1.16, 0.025, 1.4, o.roofHi, { noGrain: true }), 0, 1.42, -0.32));
     body.add(at(pane(1.18, 0.4, 0.02), 0, 1.15, 0.555, -sl, 0, 0), at(box(1.14, 0.36, 0.02, GL, { noGrain: true }), 0, 1.15, -1.19, sl, 0, 0));
     for (const sx of [-1, 1]) {
       const sa = Math.atan2(0.135, 0.5);
@@ -129,8 +132,8 @@ export const PLACE_PROPS = {
     }
     if (o.skirt) for (const sx of [-1, 1]) for (const [z, d] of [[0, 1.7], [1.67, 0.34], [-1.67, 0.34]]) body.add(at(box(0.04, 0.4, d, DK, { pivot: 'bottom' }), sx * (Wd / 2 - 0.02), 0.02, z));
     if (o.flag) {
-      const fl = wavingFlag(0.3, 0.2, flagDraw(o.flag, o.flagMark || null, o.flagMarkColor), 4); fl.position.set(-0.7, 1.27, L / 2 - 0.25); fl.rotation.y = PI / 2;
-      body.add(at(cyl(0.008, 0.008, 0.4, '#C9CED6', 5, { pivot: 'bottom' }), -0.7, 0.9, L / 2 - 0.25), fl); g.userData.flag = fl;
+      const FS = o.flagS ?? 1, fl = wavingFlag(0.3 * FS, 0.2 * FS, flagDraw(o.flag, o.flagMark || null, o.flagMarkColor), 4); fl.position.set(-0.7, 0.9 + 0.37 * FS, L / 2 - 0.25); fl.rotation.y = PI / 2;
+      body.add(at(cyl(0.008 * Math.sqrt(FS), 0.008 * Math.sqrt(FS), 0.4 * FS, '#C9CED6', 5, { pivot: 'bottom' }), -0.7, 0.9, L / 2 - 0.25), fl); g.userData.flag = fl;
     }
     const blinkSide = o.blink === 'both' ? 0 : o.blink === 'L' ? 1 : o.blink === 'R' ? -1 : null;
     let dash = null;
@@ -145,7 +148,9 @@ export const PLACE_PROPS = {
       if (dash) dash.visible = lit;
       let sy = 1, sxz = 1, pitch = 0, y = 0;
       const fa = o.flat ? -10 : o.flatAt;
-      if (fa != null && t >= fa) { const u = (t - fa) / 0.1; sy = u >= 1 ? 0.2 + 0.05 * Math.exp(-(t - fa - 0.1) * 9) * Math.cos((t - fa - 0.1) * 40) : 1 - 0.8 * easeIn(u); sxz = 1 + 0.14 * clamp01(u); }
+      if (fa != null && t >= fa) { const u = (t - fa) / 0.1, tau = t - fa - 0.1;
+        if (o.flatSpring) { sy = u >= 1 ? 0.2 - 0.14 * Math.exp(-tau * 4) * Math.sin(tau * 20) : 1 - 0.8 * easeIn(u); sxz = u >= 1 ? 1.14 + 0.06 * Math.exp(-tau * 4) * Math.sin(tau * 20) : 1 + 0.14 * clamp01(u); }
+        else { sy = u >= 1 ? 0.2 + 0.05 * Math.exp(-(t - fa - 0.1) * 9) * Math.cos((t - fa - 0.1) * 40) : 1 - 0.8 * easeIn(u); sxz = 1 + 0.14 * clamp01(u); } }
       if (o.brake) { const [b0, bd] = o.brake, u = (t - b0) / (bd ?? 0.5), A = o.brakeAmp ?? 0.09; if (u >= 0 && u < 1.6) pitch = A * Math.sin(Math.min(u, 1) * PI) * (u < 1 ? 1 : Math.exp(-(u - 1) * 6)) + (u >= 1 ? -A * 0.28 * Math.sin((u - 1) * 14) * Math.exp(-(u - 1) * 4) : 0); }
       for (const [ht, hh] of o.hop || []) { const u = (t - ht) / 0.32; if (u >= 0 && u < 1) y = Math.max(y, hh * 4 * u * (1 - u)); }
       body.scale.set(sxz, sy, sxz); body.rotation.x = pitch; body.position.y = y; body.position.z = 0;
@@ -297,7 +302,7 @@ export const PLACE_PROPS = {
   // A pin with a little red flag (pivot at its point; it stands up +Y): o.s (1): 0.26 m tall, the flag 0.12 x 0.08
   flagPin(o) {
     const s = o.s ?? 1, g = grp(at(cyl(0.006 * s, 0.002 * s, 0.26 * s, '#C9CCD1', 6, { pivot: 'bottom' }), 0, 0, 0), at(sphere(0.016 * s, '#D8392B', 1), 0, 0.262 * s, 0));
-    const f = wavingFlag(0.12 * s, 0.08 * s, flagDraw(['#D8392B']), 3); f.position.set(0.004 * s, 0.25 * s, 0); g.add(f);
+    const fs = o.fs ?? 1, f = wavingFlag(0.12 * s * fs, 0.08 * s * fs, flagDraw(o.colors || ['#D8392B'], o.mark || null, o.markColor), 3); f.position.set(0.004 * s, 0.25 * s, 0); g.add(f);   // (final) o.colors / o.mark / o.markColor / o.fs (its size)
     g.userData.update = t => f.userData.wave(t, 0.2); g.userData.update(0); return g;
   },
 
@@ -447,7 +452,7 @@ export const PLACE_PROPS = {
     const up = new THREE.Vector3(0, 1, 0);
     g.userData.update = t => { for (const { b, d, A, B } of bombs) {
       const u = (t - d.t0) / d.dur; b.visible = u >= 0 && u < 1; if (!b.visible) continue;
-      const hg = o.hang ?? 0, w = hg > 0 ? (u < hg ? 0.03 * u / hg : 0.03 + 0.97 * Math.pow((u - hg) / (1 - hg), 2.2)) : 0.35 * u + 0.65 * u * u; b.position.copy(A).lerp(B, w);
+      const hg = o.hang ?? 0, pw = o.pow ?? 2.2, w = hg > 0 ? (u < hg ? 0.03 * u / hg : 0.03 + 0.97 * Math.pow((u - hg) / (1 - hg), pw)) : 0.35 * u + 0.65 * u * u; b.position.copy(A).lerp(B, w);   // (final) o.pow: the drop's curve after the hang (2.2)
       const dir = B.clone().sub(A).normalize(); b.quaternion.setFromUnitVectors(up, dir.negate()); b.rotateY(t * 6 + d.t0);
     } };
     g.userData.update(-1); return g;
@@ -536,7 +541,7 @@ export const PLACE_PROPS = {
       const geo = new THREE.PlaneGeometry(1, 0.09); geo.translate(0.5, 0, 0);
       const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: tex, side: THREE.DoubleSide })); m.position.set(ax, Hh, az); m.rotation.y = -Math.atan2(bz - az, bx - ax); g.add(m); sides.push({ m, L });
     }
-    g.userData.update = t => { sides.forEach(({ m, L }, i) => { let k = 1; if (o.stretch) { const [t0, d] = o.stretch; k = clamp01((t - t0 - i * d / 4) / (d / 4)); } m.visible = k > 0.01; m.scale.set(Math.max(0.01, L * k), 1, 1); }); };
+    g.userData.update = t => { sides.forEach(({ m, L }, i) => { let k = 1; if (o.stretch) { const [t0, d] = o.stretch, j = (i - (o.first ?? 0) + 4) % 4; k = clamp01((t - t0 - j * d / 4) / (d / 4)); } m.visible = k > 0.01; m.scale.set(Math.max(0.01, L * k), 1, 1); }); };   // (final) o.first: the side that is pulled first
     g.userData.update(0); return g;
   },
 
@@ -552,8 +557,23 @@ export const PLACE_PROPS = {
   // An open, empty wallet (pivot at its spine; it opens along X, the inside facing +Z): two brown leather leaves at o.open (0.5 rad) with empty card
   // slots
   // (round 2) o.s (1): its size; o.slots: the empty card slots and the bill pocket drawn pale on the inside so it reads open and empty
+  // (final) o.cards: a real open wallet: thick dark leather leaves with stitching, a rounded spine, card slots with the edges of two cards (blue,
+  // white) and a note pocket gaping empty (it read as a framed plaque)
   emptyWallet(o) {
     const g = grp(), a = o.open ?? 0.5, S = o.s ?? 1;
+    if (o.cards) {
+      g.add(at(cyl(0.012, 0.012, 0.09, '#4A2B17', 8), 0, 0, 0.004));   // the spine
+      for (const sx of [-1, 1]) {
+        const leaf = grp(at(box(0.11, 0.09, 0.016, '#5C3820', { outline: 0.005 }), sx * 0.056, 0, 0));
+        leaf.add(at(box(0.104, 0.084, 0.002, '#7A4C2C', { noGrain: true }), sx * 0.056, 0, 0.0095));   // the inner face, lighter leather
+        for (const y of [0.028, 0.006, -0.016]) leaf.add(at(box(0.096, 0.004, 0.003, '#3E2414'), sx * 0.056, y, 0.011));   // slot lips
+        if (sx < 0) { leaf.add(at(box(0.07, 0.012, 0.002, '#2F62B5', { noGrain: true }), sx * 0.05, 0.036, 0.0105), at(box(0.07, 0.012, 0.002, '#F2F0EA', { noGrain: true }), sx * 0.05, 0.014, 0.0105)); }
+        else leaf.add(at(box(0.1, 0.05, 0.003, '#2A1A10', { noGrain: true }), sx * 0.056, -0.012, 0.0108));   // the empty note pocket, gaping dark
+        for (const y of [-0.042, 0.042]) leaf.add(at(box(0.106, 0.0025, 0.003, '#C9A46A', { noGrain: true }), sx * 0.056, y, 0.011));   // stitching
+        leaf.rotation.y = -sx * a; g.add(leaf);
+      }
+      g.scale.setScalar(S); return g;
+    }
     for (const sx of [-1, 1]) {
       const leaf = grp(at(box(0.11, 0.09, 0.012, '#6B4226', { outline: 0.004 }), sx * 0.055, 0, 0), at(box(0.09, 0.012, 0.004, '#4E2E1A'), sx * 0.055, 0.015, 0.008), at(box(0.09, 0.012, 0.004, '#4E2E1A'), sx * 0.055, -0.01, 0.008));
       if (o.slots) leaf.add(at(box(0.096, 0.07, 0.003, '#D9C7A8', { noGrain: true }), sx * 0.055, 0.0, 0.0075), at(box(0.09, 0.008, 0.004, '#5A3620'), sx * 0.055, 0.02, 0.0095), at(box(0.09, 0.008, 0.004, '#5A3620'), sx * 0.055, -0.005, 0.0095));
@@ -566,8 +586,15 @@ export const PLACE_PROPS = {
   // o.at and o.at + o.dur (1.2 s); hidden before; o.s (1) its size
   moth(o) {
     const g = grp(), body = grp(), S = o.s ?? 1; g.add(body); noShadow(g);
-    body.add(at(box(0.012, 0.012, 0.05, '#7A7268'), 0, 0, 0));
-    const wings = [-1, 1].map(sx => { const w = grp(at(box(0.055, 0.004, 0.045, '#D9D3C7', { noGrain: true, outline: 0.002 }), sx * 0.03, 0, 0)); body.add(w); return [sx, w]; });
+    // (final) rounded pale wings with two grey spots each, a fuzzy body and antennae (box wings read as a brown plank)
+    const wm = new THREE.MeshLambertMaterial({ color: '#EFE9DC', side: THREE.DoubleSide }), spm = new THREE.MeshBasicMaterial({ color: '#9A9286', side: THREE.DoubleSide });
+    const wings = [-1, 1].map(sx => {
+      const w = grp(), d = new THREE.Mesh(new THREE.CircleGeometry(0.032, 14), wm); d.rotation.x = -PI / 2; d.scale.set(1.0, 0.8, 1); d.position.set(sx * 0.03, 0, -0.004); w.add(d);
+      const d2 = new THREE.Mesh(new THREE.CircleGeometry(0.02, 12), wm); d2.rotation.x = -PI / 2; d2.position.set(sx * 0.022, 0.0005, 0.022); w.add(d2);
+      for (const [dx, dz] of [[0.034, -0.008], [0.02, 0.018]]) { const sp = new THREE.Mesh(new THREE.CircleGeometry(0.006, 8), spm); sp.rotation.x = -PI / 2; sp.position.set(sx * dx, 0.001, dz); w.add(sp); }
+      body.add(w); return [sx, w]; });
+    body.add(at(cyl(0.008, 0.006, 0.05, '#B9B1A4', 6), 0, 0, 0, PI / 2, 0, 0));
+    for (const sx of [-1, 1]) body.add(at(box(0.002, 0.002, 0.03, '#6E665C'), sx * 0.008, 0.004, -0.035, 0, sx * 0.4, 0));
     body.scale.setScalar(S);
     const A = new THREE.Vector3(...(o.from || [0, 1.4, 0])), B = new THREE.Vector3(...(o.to || [0, 2.4, 0])), D = o.dur ?? 1.2;
     g.userData.update = t => {
