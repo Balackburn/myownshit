@@ -1884,3 +1884,14 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 44) Approche lente puis rapide en Hermite : distance de départ > vitesse × durée / 3, sinon l'objet recule d'abord.
 - (cycle 44) `worldRot` sur la clé de lâcher pose à plat un objet relâché (PV glissé sous une porte).
 - (cycle 44) Bitte d'amarrage vue d'en haut : tête large = chapeau. Fût haut, tête à peine plus large, fonte noire.
+- (cycle 45) Scène sombre avec une flaque de lumière : le moteur l'a déjà (`dark=[[0, k, 0.001]]`, `darkFloor`, `darkTint`,
+  `darkPool={'at','r','k','tint'}`) ; ajouter un cône additif depuis la lampe.
+- (cycle 45) `fx` de type `flash` : plein écran, sous les sous-titres. Trois flashs par seconde au plus (épilepsie photosensible).
+- (cycle 45) Têtes « politique » hautes : bouche vers 2,2 m ; porter une fourchette à la bouche = main vers 1,67 m, devant le visage.
+- (cycle 45) Téléphone fixé à la tête (`on={'joint':'head','offset':[0.135,0.2,0]}`) + main en `touch` : toujours à l'oreille ; tourner
+  le personnage de 50-60° pour que l'oreille se voie.
+- (cycle 45) Dômes à fuseaux rayonnants = parasols. Voile tombée : froissée (icosaèdre déformé, aplati) avec suspentes ; des soldats
+  pendus à leurs suspentes vendent le parachute.
+- (cycle 45) Figurants près de l'objectif : à 1,5 m le cadre fait 0,6 m de large, les placer un par un.
+- (cycle 45) Masquer des pièces d'un accessoire partagé sans le modifier : parcourir le groupe construit et masquer par position.
+- (cycle 45) Fumée de toux ou poussière : sprites à dégradé radial (`softDust`), pas des sphères `toonPuff` (elles se lisent comme des balles).
