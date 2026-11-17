@@ -1,0 +1,169 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a marché dans une flaque.",
+  "hl": [
+   "flaque."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il a signalé une inondation.",
+  "hl": [
+   "inondation."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "La marine l'a déclarée eaux ennemies.",
+  "hl": [
+   "marine",
+   "ennemies."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Un sous-marin a plongé dedans.",
+  "hl": [
+   "sous-marin"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Il est remonté avec la rue sur le dos.",
+  "hl": [
+   "rue",
+   "dos."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Sa torpille a traversé la boulangerie.",
+  "hl": [
+   "torpille",
+   "boulangerie."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Et la caserne des pompiers.",
+  "hl": [
+   "caserne",
+   "pompiers."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "La flaque n'a rien eu.",
+  "hl": [
+   "rien"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "L'aviation a promis une frappe chirurgicale.",
+  "hl": [
+   "frappe",
+   "chirurgicale."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Trois cents bombes.",
+  "hl": [
+   "bombes."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Trois cents cratères.",
+  "hl": [
+   "cratères."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Puis il a plu.",
+  "hl": [
+   "plu."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Trois cents flaques.",
+  "hl": [
+   "flaques."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Le ministre a commandé trois cents sous-marins.",
+  "hl": [
+   "ministre",
+   "sous-marins."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Un par flaque.",
+  "hl": [
+   "flaque."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Avec la ville sur le dos.",
+  "hl": [
+   "ville",
+   "dos."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Ils l'ont garée au port.",
+  "hl": [
+   "port."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Officiellement, la ville a déménagé.",
+  "hl": [
+   "déménagé."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Ce mec, non.",
+  "hl": [
+   "non."
+  ]
+ },
+ {
+  "id": "L20",
+  "who": "N",
+  "text": "La flaque non plus.",
+  "hl": [
+   "flaque"
+  ]
+ }
+]

@@ -1,0 +1,792 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a marché dans une flaque.",
+   "hl": [
+    "flaque."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.73,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "marché",
+     "s": 0.581,
+     "e": 0.841
+    },
+    {
+     "w": "dans",
+     "s": 0.878,
+     "e": 0.989
+    },
+    {
+     "w": "une",
+     "s": 1.063,
+     "e": 1.137
+    },
+    {
+     "w": "flaque.",
+     "s": 1.211,
+     "e": 1.73
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il a signalé une inondation.",
+   "hl": [
+    "inondation."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L02.k.wav",
+   "file_start": 1.83,
+   "speech_start": 1.83,
+   "speech_end": 3.459,
+   "words": [
+    {
+     "w": "Il",
+     "s": 1.83,
+     "e": 1.904
+    },
+    {
+     "w": "a",
+     "s": 1.941,
+     "e": 1.978
+    },
+    {
+     "w": "signalé",
+     "s": 2.052,
+     "e": 2.422
+    },
+    {
+     "w": "une",
+     "s": 2.459,
+     "e": 2.496
+    },
+    {
+     "w": "inondation.",
+     "s": 2.57,
+     "e": 3.459
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "La marine l'a déclarée eaux ennemies.",
+   "hl": [
+    "marine",
+    "ennemies."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L03.k.wav",
+   "file_start": 3.559,
+   "speech_start": 3.559,
+   "speech_end": 5.485,
+   "words": [
+    {
+     "w": "La",
+     "s": 3.559,
+     "e": 3.633
+    },
+    {
+     "w": "marine",
+     "s": 3.707,
+     "e": 4.004
+    },
+    {
+     "w": "l'a",
+     "s": 4.029,
+     "e": 4.078
+    },
+    {
+     "w": "déclarée",
+     "s": 4.152,
+     "e": 4.596
+    },
+    {
+     "w": "eaux",
+     "s": 4.633,
+     "e": 4.744
+    },
+    {
+     "w": "ennemies.",
+     "s": 4.819,
+     "e": 5.485
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Un sous-marin a plongé dedans.",
+   "hl": [
+    "sous-marin"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L04.k.wav",
+   "file_start": 5.585,
+   "speech_start": 5.585,
+   "speech_end": 7.215,
+   "words": [
+    {
+     "w": "Un",
+     "s": 5.585,
+     "e": 5.659
+    },
+    {
+     "w": "sous-marin",
+     "s": 5.733,
+     "e": 6.178
+    },
+    {
+     "w": "a",
+     "s": 6.252,
+     "e": 6.326
+    },
+    {
+     "w": "plongé",
+     "s": 6.363,
+     "e": 6.622
+    },
+    {
+     "w": "dedans.",
+     "s": 6.696,
+     "e": 7.215
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Il est remonté avec la rue sur le dos.",
+   "hl": [
+    "rue",
+    "dos."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L05.k.wav",
+   "file_start": 7.315,
+   "speech_start": 7.315,
+   "speech_end": 9.173,
+   "words": [
+    {
+     "w": "Il",
+     "s": 7.315,
+     "e": 7.389
+    },
+    {
+     "w": "est",
+     "s": 7.463,
+     "e": 7.537
+    },
+    {
+     "w": "remonté",
+     "s": 7.611,
+     "e": 7.907
+    },
+    {
+     "w": "avec",
+     "s": 8.019,
+     "e": 8.13
+    },
+    {
+     "w": "la",
+     "s": 8.204,
+     "e": 8.278
+    },
+    {
+     "w": "rue",
+     "s": 8.315,
+     "e": 8.426
+    },
+    {
+     "w": "sur",
+     "s": 8.5,
+     "e": 8.574
+    },
+    {
+     "w": "le",
+     "s": 8.648,
+     "e": 8.722
+    },
+    {
+     "w": "dos.",
+     "s": 8.833,
+     "e": 9.167
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Sa torpille a traversé la boulangerie.",
+   "hl": [
+    "torpille",
+    "boulangerie."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L06.k.wav",
+   "file_start": 9.273,
+   "speech_start": 9.273,
+   "speech_end": 11.199,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 9.273,
+     "e": 9.421
+    },
+    {
+     "w": "torpille",
+     "s": 9.495,
+     "e": 9.866
+    },
+    {
+     "w": "a",
+     "s": 9.903,
+     "e": 9.94
+    },
+    {
+     "w": "traversé",
+     "s": 9.977,
+     "e": 10.347
+    },
+    {
+     "w": "la",
+     "s": 10.384,
+     "e": 10.458
+    },
+    {
+     "w": "boulangerie.",
+     "s": 10.507,
+     "e": 11.199
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Et la caserne des pompiers.",
+   "hl": [
+    "caserne",
+    "pompiers."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L07.k.wav",
+   "file_start": 11.299,
+   "speech_start": 11.299,
+   "speech_end": 12.706,
+   "words": [
+    {
+     "w": "Et",
+     "s": 11.299,
+     "e": 11.373
+    },
+    {
+     "w": "la",
+     "s": 11.447,
+     "e": 11.521
+    },
+    {
+     "w": "caserne",
+     "s": 11.595,
+     "e": 11.818
+    },
+    {
+     "w": "des",
+     "s": 11.892,
+     "e": 11.966
+    },
+    {
+     "w": "pompiers.",
+     "s": 12.003,
+     "e": 12.706
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "La flaque n'a rien eu.",
+   "hl": [
+    "rien"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L08.k.wav",
+   "file_start": 12.806,
+   "speech_start": 12.806,
+   "speech_end": 13.992,
+   "words": [
+    {
+     "w": "La",
+     "s": 12.806,
+     "e": 12.881
+    },
+    {
+     "w": "flaque",
+     "s": 12.955,
+     "e": 13.177
+    },
+    {
+     "w": "n'a",
+     "s": 13.214,
+     "e": 13.325
+    },
+    {
+     "w": "rien",
+     "s": 13.436,
+     "e": 13.547
+    },
+    {
+     "w": "eu.",
+     "s": 13.658,
+     "e": 13.992
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "L'aviation a promis une frappe chirurgicale.",
+   "hl": [
+    "frappe",
+    "chirurgicale."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L09.k.wav",
+   "file_start": 14.092,
+   "speech_start": 14.092,
+   "speech_end": 16.24,
+   "words": [
+    {
+     "w": "L'aviation",
+     "s": 14.092,
+     "e": 14.61
+    },
+    {
+     "w": "a",
+     "s": 14.647,
+     "e": 14.684
+    },
+    {
+     "w": "promis",
+     "s": 14.795,
+     "e": 14.956
+    },
+    {
+     "w": "une",
+     "s": 15.006,
+     "e": 15.055
+    },
+    {
+     "w": "frappe",
+     "s": 15.092,
+     "e": 15.277
+    },
+    {
+     "w": "chirurgicale.",
+     "s": 15.314,
+     "e": 16.24
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Trois cents bombes.",
+   "hl": [
+    "bombes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L10.k.wav",
+   "file_start": 16.34,
+   "speech_start": 16.34,
+   "speech_end": 17.451,
+   "words": [
+    {
+     "w": "Trois",
+     "s": 16.34,
+     "e": 16.488
+    },
+    {
+     "w": "cents",
+     "s": 16.636,
+     "e": 16.784
+    },
+    {
+     "w": "bombes.",
+     "s": 16.932,
+     "e": 17.451
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Trois cents cratères.",
+   "hl": [
+    "cratères."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L11.k.wav",
+   "file_start": 17.551,
+   "speech_start": 17.551,
+   "speech_end": 18.81,
+   "words": [
+    {
+     "w": "Trois",
+     "s": 17.551,
+     "e": 17.699
+    },
+    {
+     "w": "cents",
+     "s": 17.773,
+     "e": 17.921
+    },
+    {
+     "w": "cratères.",
+     "s": 17.958,
+     "e": 18.81
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Puis il a plu.",
+   "hl": [
+    "plu."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L12.k.wav",
+   "file_start": 18.91,
+   "speech_start": 18.91,
+   "speech_end": 20.095,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 18.91,
+     "e": 19.132
+    },
+    {
+     "w": "il",
+     "s": 19.281,
+     "e": 19.355
+    },
+    {
+     "w": "a",
+     "s": 19.392,
+     "e": 19.429
+    },
+    {
+     "w": "plu.",
+     "s": 19.503,
+     "e": 20.095
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Trois cents flaques.",
+   "hl": [
+    "flaques."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L13.k.wav",
+   "file_start": 20.195,
+   "speech_start": 20.195,
+   "speech_end": 21.306,
+   "words": [
+    {
+     "w": "Trois",
+     "s": 20.195,
+     "e": 20.344
+    },
+    {
+     "w": "cents",
+     "s": 20.418,
+     "e": 20.566
+    },
+    {
+     "w": "flaques.",
+     "s": 20.64,
+     "e": 21.306
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Le ministre a commandé trois cents sous-marins.",
+   "hl": [
+    "ministre",
+    "sous-marins."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L14.k.wav",
+   "file_start": 21.406,
+   "speech_start": 21.406,
+   "speech_end": 23.703,
+   "words": [
+    {
+     "w": "Le",
+     "s": 21.406,
+     "e": 21.481
+    },
+    {
+     "w": "ministre",
+     "s": 21.555,
+     "e": 21.925
+    },
+    {
+     "w": "a",
+     "s": 21.999,
+     "e": 22.073
+    },
+    {
+     "w": "commandé",
+     "s": 22.221,
+     "e": 22.518
+    },
+    {
+     "w": "trois",
+     "s": 22.592,
+     "e": 22.74
+    },
+    {
+     "w": "cents",
+     "s": 22.814,
+     "e": 22.962
+    },
+    {
+     "w": "sous-marins.",
+     "s": 22.987,
+     "e": 23.703
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Un par flaque.",
+   "hl": [
+    "flaque."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L15.k.wav",
+   "file_start": 23.803,
+   "speech_start": 23.803,
+   "speech_end": 24.766,
+   "words": [
+    {
+     "w": "Un",
+     "s": 23.803,
+     "e": 23.951
+    },
+    {
+     "w": "par",
+     "s": 24.025,
+     "e": 24.099
+    },
+    {
+     "w": "flaque.",
+     "s": 24.173,
+     "e": 24.766
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Avec la ville sur le dos.",
+   "hl": [
+    "ville",
+    "dos."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L16.k.wav",
+   "file_start": 24.866,
+   "speech_start": 24.866,
+   "speech_end": 26.273,
+   "words": [
+    {
+     "w": "Avec",
+     "s": 24.866,
+     "e": 25.088
+    },
+    {
+     "w": "la",
+     "s": 25.162,
+     "e": 25.236
+    },
+    {
+     "w": "ville",
+     "s": 25.347,
+     "e": 25.458
+    },
+    {
+     "w": "sur",
+     "s": 25.532,
+     "e": 25.606
+    },
+    {
+     "w": "le",
+     "s": 25.681,
+     "e": 25.755
+    },
+    {
+     "w": "dos.",
+     "s": 25.977,
+     "e": 26.273
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Ils l'ont garée au port.",
+   "hl": [
+    "port."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L17.k.wav",
+   "file_start": 26.373,
+   "speech_start": 26.373,
+   "speech_end": 27.558,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 26.373,
+     "e": 26.447
+    },
+    {
+     "w": "l'ont",
+     "s": 26.521,
+     "e": 26.595
+    },
+    {
+     "w": "garée",
+     "s": 26.669,
+     "e": 26.892
+    },
+    {
+     "w": "au",
+     "s": 26.929,
+     "e": 26.966
+    },
+    {
+     "w": "port.",
+     "s": 27.04,
+     "e": 27.558
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Officiellement, la ville a déménagé.",
+   "hl": [
+    "déménagé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L18.k.wav",
+   "file_start": 27.658,
+   "speech_start": 27.658,
+   "speech_end": 29.584,
+   "words": [
+    {
+     "w": "Officiellement,",
+     "s": 27.658,
+     "e": 28.473
+    },
+    {
+     "w": "la",
+     "s": 28.547,
+     "e": 28.621
+    },
+    {
+     "w": "ville",
+     "s": 28.695,
+     "e": 28.769
+    },
+    {
+     "w": "a",
+     "s": 28.806,
+     "e": 28.844
+    },
+    {
+     "w": "déménagé.",
+     "s": 28.881,
+     "e": 29.584
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Ce mec, non.",
+   "hl": [
+    "non."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L19.k.wav",
+   "file_start": 29.684,
+   "speech_start": 29.684,
+   "speech_end": 30.944,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 29.684,
+     "e": 29.832
+    },
+    {
+     "w": "mec,",
+     "s": 29.906,
+     "e": 30.425
+    },
+    {
+     "w": "non.",
+     "s": 30.536,
+     "e": 30.944
+    }
+   ]
+  },
+  {
+   "id": "L20",
+   "who": "N",
+   "text": "La flaque non plus.",
+   "hl": [
+    "flaque"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/flaque/tts/L20.k.wav",
+   "file_start": 31.044,
+   "speech_start": 31.044,
+   "speech_end": 32.229,
+   "words": [
+    {
+     "w": "La",
+     "s": 31.044,
+     "e": 31.118
+    },
+    {
+     "w": "flaque",
+     "s": 31.266,
+     "e": 31.488
+    },
+    {
+     "w": "non",
+     "s": 31.562,
+     "e": 31.71
+    },
+    {
+     "w": "plus.",
+     "s": 31.821,
+     "e": 32.229
+    }
+   ]
+  }
+ ],
+ "total": 33.53
+}
