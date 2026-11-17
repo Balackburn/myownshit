@@ -40,10 +40,12 @@ const softMat = (color, opacity = 1, add = false) => new THREE.MeshBasicMaterial
 // props (0) are drawn first, the beam adds its light over them, and the actors, bumped to renderOrder 1 by onTopActors(), are drawn last and
 // cover it: the light passes behind every person, never over a face. A thing that must stay crisp inside a beam takes renderOrder 1 as well.
 const BEAM_ORDER = 0.5;
-function onTopActors() {
-  const A = globalThis.__toonActors; if (!A) return;
-  for (const a of Object.values(A)) { const o = a && a.obj; if (!o || o.userData._chvTop) continue; o.userData._chvTop = true;
-    o.traverse(n => { if (n.isMesh && n.renderOrder <= 0 && !(n.material && n.material.transparent)) n.renderOrder = 1; }); }
+function onTopActors(self) {
+  // every frame: everything in the shot but the set, the beams and what is flagged userData.chvUnder (the room, the helicopter) is drawn after
+  // the beams (the cloth and the attached props of an actor are built or re-parented after the first frame)
+  let root = self; while (root && root.parent && !root.parent.isScene) root = root.parent; if (!root || !root.children) return;
+  root.children.forEach((c, i) => { if (i === 0 || c.userData.chvUnder || c.userData.chvBeam) return;
+    c.traverse(n => { if (n.isMesh && n.renderOrder === 0 && !(n.material && n.material.transparent) && n.material?.blending !== THREE.AdditiveBlending) n.renderOrder = 1; }); });
 }
 const onTop = (g, ord = 1) => { g.traverse(n => { if (n.isMesh && n.renderOrder <= 0) n.renderOrder = ord; }); return g; };
 function beamMat(color, opacity) {
@@ -173,7 +175,7 @@ export const CHEVEU_PROPS = {
       sm.emissiveIntensity = (o.litK ?? 0.9) * lv; hot.visible = lv > 0.01; hot.material.opacity = 0.85 * lv;
       glare.visible = lv > 0.01; glare.material.opacity = 0.9 * lv; glare.scale.setScalar(Rb * (o.glareS ?? 3.2) * (0.92 + 0.08 * Math.sin(t * 13)));
       star.visible = lv > 0.3 && !!o.star; star.scale.setScalar(Math.max(0.01, lv * (0.8 + 0.25 * Math.sin(t * 9)))); star.rotation.z = t * 0.8;
-      wisps.forEach((m, i) => { const u = (t * 0.45 + m.userData.ph) % 1; m.position.set(Math.sin(u * 6 + i) * 0.03 + (i - 1) * 0.05, H + 0.05 + u * 0.35, 0); m.scale.setScalar(0.6 + u * 1.2); m.material.opacity = 0.4 * Math.sin(u * PI); });
+      wisps.forEach((m, i) => { const u = (t * 0.45 + m.userData.ph) % 1; m.position.set(Math.sin(u * 6 + i) * 0.03 + (i - 1) * 0.05, H + 0.05 + u * 0.35, 0); m.scale.setScalar((0.4 + u * 0.8) * (o.steamS ?? 1)); m.material.opacity = (o.steamOp ?? 0.22) * Math.sin(u * PI); });
       let rr = -1; for (const r0 of o.ripple || []) if (t >= r0 && t < r0 + 0.7) rr = (t - r0) / 0.7; ring.visible = rr >= 0;
       if (rr >= 0) { const s = 0.03 + rr * Rb * 0.8; ring.scale.set(s, s, 0.12); ring.material.opacity = 0.8 * (1 - rr); }
     };
@@ -221,7 +223,7 @@ export const CHEVEU_PROPS = {
         c.fillStyle = '#F4EFD8'; c.beginPath(); c.arc(w * 0.72, h * 0.22, h * 0.06, 0, TAU); c.fill(); }, { res: 1024, emissive: 1 });
       sk.material.color.set('#000000'); sk.position.set(cx, cy + 2.5, Z - 16); g.add(noShadow(sk));
     }
-    return g;
+    g.userData.chvUnder = true; return g;
   },
 
   // Giant evidence tweezers (pivot at the hinge, the tips o.len (0.5) down -Y): two broad light steel blades (o.bw 0.06 wide) with dark ink
@@ -287,9 +289,9 @@ export const CHEVEU_PROPS = {
     head.add(at(cyl(0.05, 0.05, 0.03, C, 12), 0, 0, 0));
     const bm = new THREE.MeshBasicMaterial({ color: '#FFF4D0' }), bulb = new THREE.Mesh(new THREE.SphereGeometry(0.07, 12, 8), bm); bulb.position.y = -0.17; head.add(bulb);
     const BL = o.beamLen ?? 0.9, cone = beamCone(BL, 0.19, o.beamR ?? 0.5, '#FFE7A8', 0.16, 0.5, 20), cm = cone.material; cone.position.y = -0.2; head.add(cone);   // (round 1) behind people
-    const halo = new THREE.Mesh(new THREE.PlaneGeometry(0.7, 0.7), softMat('#FFE2A0', 0.6, true)); halo.position.y = -0.2; halo.rotation.x = PI / 2; head.add(noShadow(halo));
+    const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: softTex(), color: '#FFE2A0', transparent: true, opacity: 0.6, depthWrite: false, blending: THREE.AdditiveBlending })); halo.position.y = -0.2; halo.scale.setScalar(0.45); head.add(halo);   // (round 1) a sprite: the flat disc read as a line seen edge-on
     const L = new THREE.PointLight('#FFD9A0', o.power ?? 4, o.range ?? 3.5, 1.2); L.position.y = -0.3; head.add(L);
-    g.userData.update = t => { onTopActors(); const h = keyAt(o.heat, t, 0, 0.3), fl = 1 + 0.06 * h * Math.sin(t * 23);
+    g.userData.update = t => { onTopActors(g); const h = keyAt(o.heat, t, 0, 0.3), fl = 1 + 0.06 * h * Math.sin(t * 23);
       bm.color.setRGB(1, 0.96 - 0.35 * h, 0.82 - 0.65 * h); cm.color.setRGB(1, 0.9 - 0.3 * h, 0.66 - 0.5 * h); cm.opacity = (o.beamOp ?? 0.16) * (1 + 0.6 * h) * fl; sm.emissiveIntensity = 0.5 * h;
       L.intensity = (o.power ?? 4) * (1 + 0.8 * h) * fl; L.color.setRGB(1, 0.85 - 0.3 * h, 0.63 - 0.45 * h); halo.material.color.setRGB(1, 0.89 - 0.3 * h, 0.63 - 0.45 * h); };
     g.userData.update(0); return g;
@@ -508,7 +510,8 @@ export const CHEVEU_PROPS = {
     for (const [r, op] of [[Rb, o.op ?? 0.13], [Rb * 0.45, (o.op ?? 0.13) * 1.4]]) { const m = beamCone(Lb, o.r0 ?? 0.12, r, o.color || '#FFF6C8', op, o.fade ?? 0.6); m.userData.op = op; g.add(m); ms.push(m); }
     g.add(at(sphere(o.lampR ?? 0.09, '#FFF6C8', 1, { emissive: '#FFF0B0' }), 0, 0, 0));
     const fl = new THREE.Sprite(new THREE.SpriteMaterial({ map: softTex(), color: '#FFF4CC', transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.9 })); fl.scale.setScalar(o.flare ?? 0.8); g.add(fl);
-    g.userData.update = t => { onTopActors(); const v = keyAt(o.on, t, 1, 0.1); ms.forEach(m => { m.material.opacity = m.userData.op * v; m.visible = v > 0.01; }); fl.material.opacity = 0.9 * v; fl.visible = v > 0.01; };
+    g.userData.chvBeam = true;
+    g.userData.update = t => { onTopActors(g); const v = keyAt(o.on, t, 1, 0.1); ms.forEach(m => { m.material.opacity = m.userData.op * v; m.visible = v > 0.01; }); fl.material.opacity = 0.9 * v; fl.visible = v > 0.01; };
     g.userData.update(0); return g;
   },
   // (round 1) A police helicopter seen at night (pivot at the middle of its cabin, the nose toward +Z), about 3.3 m long: a rounded navy cabin
@@ -517,10 +520,10 @@ export const CHEVEU_PROPS = {
   // under the nose (userData.lamp: its local point) and a red beacon on the fin blinking once a second. No writing, no insignia. o.rim: a pale
   // halo round the whole silhouette (a navy machine against the night sky), o.rimW its thickness (m)
   chvHeli(o) {
-    const C = o.color || '#24406E', D = '#1A2232', G = o.glass || '#9CC6E4', g = grp(), parts = [];
+    const C = o.color || '#34569A', D = '#1A2232', G = o.glass || '#B4D6EE', g = grp(), parts = [];
     const lam = (c, e) => new THREE.MeshLambertMaterial({ color: c, emissive: e || '#000000' });
     const add = (geo, m, x, y, z, rx = 0, ry = 0, rz = 0, sx = 1, sy = 1, sz = 1) => { const ms = new THREE.Mesh(geo, m); ms.position.set(x, y, z); ms.rotation.set(rx, ry, rz); ms.scale.set(sx, sy, sz); ms.castShadow = false; g.add(ms); parts.push(ms); return ms; };
-    const body = lam(C), dark = lam(D);
+    const body = lam(C, o.emissive || '#1C3060'), dark = lam(D, '#0C1220');
     add(new THREE.SphereGeometry(1, 18, 12), body, 0, 0, 0, 0, 0, 0, 0.62, 0.6, 1.0);
     add(new THREE.SphereGeometry(1, 16, 10, 0, TAU, 0, PI * 0.5), lam(G, '#2A4458'), 0, 0.02, 0.32, PI / 2 + 0.25, 0, 0, 0.58, 0.72, 0.5);
     add(new THREE.BoxGeometry(1.0, 0.3, 0.9), body, 0, 0.42, -0.25, 0, 0, 0, 0.62, 1, 1);
@@ -543,7 +546,7 @@ export const CHEVEU_PROPS = {
         ms.geometry.computeBoundingBox(); const bb = ms.geometry.boundingBox, sz = new THREE.Vector3(); bb.getSize(sz);
         h.scale.set(ms.scale.x * (1 + 2 * w / Math.max(0.02, sz.x * ms.scale.x)), ms.scale.y * (1 + 2 * w / Math.max(0.02, sz.y * ms.scale.y)), ms.scale.z * (1 + 2 * w / Math.max(0.02, sz.z * ms.scale.z))); g.add(h); }
       for (const arm of rotor.children) { const b = arm.children[0], h = new THREE.Mesh(b.geometry, rm); h.position.copy(b.position); h.scale.set(1 + 2 * w / 0.13, 1 + 2 * w / 0.025, 1 + 2 * w / 1.75); arm.add(h); } }
-    g.userData.lamp = lampP;
+    g.userData.lamp = lampP; g.userData.chvUnder = true;
     g.userData.update = t => { rotor.rotation.y = (o.spin ?? 1.15) * TAU * t; tr.rotation.x = 5 * TAU * t; beacon.visible = (t % 1) < 0.18;
       const sw = o.sway ?? 0.04; g.rotation.z = sw * Math.sin(t * 1.9); g.position.y = 0.05 * Math.sin(t * 2.3); };
     g.userData.update(0); return g;
@@ -560,7 +563,7 @@ export const CHEVEU_PROPS = {
     const cone = beamCone(o.len ?? 1.2, 0.06, o.r ?? 0.16, '#FFF4C8', o.op ?? 0.22, 0.7, 20); cone.position.y = -0.165; g.add(cone);
     const core = beamCone(o.len ?? 1.2, 0.04, (o.r ?? 0.16) * 0.45, '#FFFBE6', (o.op ?? 0.22) * 1.2, 0.8, 16); core.position.y = -0.165; g.add(core);
     const fl = new THREE.Sprite(new THREE.SpriteMaterial({ map: softTex(), color: '#FFF4CC', transparent: true, depthWrite: false, blending: THREE.AdditiveBlending })); fl.position.y = -0.18; fl.scale.setScalar(0.32); g.add(fl);
-    g.userData.update = t => { onTopActors(); const v = keyAt(o.on, t, 1, 0.08); for (const m of [cone, core]) { m.visible = v > 0.01; } cone.material.opacity = (o.op ?? 0.22) * v; core.material.opacity = (o.op ?? 0.22) * 1.2 * v; fl.material.opacity = v; };
+    g.userData.update = t => { onTopActors(g); const v = keyAt(o.on, t, 1, 0.08); for (const m of [cone, core]) { m.visible = v > 0.01; } cone.material.opacity = (o.op ?? 0.22) * v; core.material.opacity = (o.op ?? 0.22) * 1.2 * v; fl.material.opacity = v; };
     g.userData.update(0); return g;
   },
 
