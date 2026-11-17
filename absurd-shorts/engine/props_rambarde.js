@@ -346,10 +346,11 @@ export const RAMBARDE_PROPS = {
     const pit = new THREE.Mesh(new THREE.CircleGeometry(R * 0.62, 24), lam('#2C2520')); pit.rotation.x = -PI / 2; pit.position.y = 0.06; g.add(pit);
     const ring = new THREE.Mesh(new THREE.RingGeometry(R * 0.6, R * 0.75, 24), lam('#5E5248')); ring.rotation.x = -PI / 2; ring.position.y = 0.065; g.add(ring);
     const geo = new THREE.DodecahedronGeometry(1, 0), cols = ['#8F857A', '#6E655C', '#A39880', '#5A524A'];
-    const NR = o.fine ? 110 : 46;   // (final pass of 84: big flat slabs filled the foreground) o.fine: smaller, chunkier faceted pieces
+    const NR = o.fine ? 110 : 46, KO = o.keepOut || [], near = (x, z, pad = 0) => KO.some(([kx, kz, kr]) => Math.hypot(x - kx, z - kz) < kr + pad);   // (final pass of 84) o.keepOut [[x, z, r], ...] (local): no rubble or beam there (a camera stands in the crater)   // (final pass of 84: big flat slabs filled the foreground) o.fine: smaller, chunkier faceted pieces
     for (let i = 0; i < NR; i++) { const a = (i / NR) * 2 * PI + r() * 0.12, d = R * (0.86 + r() * 0.26), s = o.fine ? 0.1 + r() * 0.26 : 0.2 + r() * 0.55, m = new THREE.Mesh(geo, mat(cols[i % 4]));
-      if (o.fine) m.scale.set(s * (0.8 + 0.5 * r()), s * (0.7 + 0.4 * r()), s * (0.8 + 0.4 * r())); else m.scale.set(s * (1 + r()), s * 0.7, s); m.position.set(Math.cos(a) * d, s * 0.35, Math.sin(a) * d); m.rotation.set(r() * 3, r() * 3, r() * 3); m.castShadow = true; g.add(m); }
-    for (let i = 0; i < 6; i++) { const a = r() * 2 * PI, d = R * (0.3 + r() * 0.5), L = 1.2 + r() * 1.6; g.add(at(box(0.14, L, 0.14, '#2A2420', { pivot: 'bottom' }), Math.cos(a) * d, 0.02, Math.sin(a) * d, (r() - 0.5) * 1.2, r() * 3, (r() - 0.5) * 1.2)); }
+      if (o.fine) m.scale.set(s * (0.8 + 0.5 * r()), s * (0.7 + 0.4 * r()), s * (0.8 + 0.4 * r())); else m.scale.set(s * (1 + r()), s * 0.7, s);
+      if (near(Math.cos(a) * d, Math.sin(a) * d, s)) { r(); r(); r(); continue; } m.position.set(Math.cos(a) * d, s * 0.35, Math.sin(a) * d); m.rotation.set(r() * 3, r() * 3, r() * 3); m.castShadow = true; g.add(m); }
+    for (let i = 0; i < 6; i++) { const a = r() * 2 * PI, d = R * (0.3 + r() * 0.5), L = 1.2 + r() * 1.6; if (near(Math.cos(a) * d, Math.sin(a) * d, L * 0.6)) { r(); r(); r(); continue; } g.add(at(box(0.14, L, 0.14, '#2A2420', { pivot: 'bottom' }), Math.cos(a) * d, 0.02, Math.sin(a) * d, (r() - 0.5) * 1.2, r() * 3, (r() - 0.5) * 1.2)); }
     return g;
   },
 
