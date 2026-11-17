@@ -59,8 +59,9 @@ RIM = [0.0, r(TH + 0.085), r(-0.95 + 0.074)]             # the front of its rim 
 LIDTOP = r(TH + 0.085 + 0.08 * 0.42)                       # the top of its lid
 MAN = [0.0, 0, -1.8]; CHAIR = [0.0, 0, -1.95]
 SINK = [-1.9, 0, -2.5]; SINKH = 0.9                        # islandSink, its long side along X (x -2.65 .. -1.15)
-CARR = [-1.75, 0.88, -2.5]; CARRY = 90                     # the carrier: waterline 2 cm under the sink's top, the bow toward +X (toward him)
-DECK = r(0.88 + 0.13 * 1.8 + 0.012 * 1.8 + 0.0015)       # its deck
+# (review 3) the carrier sunk 10 cm lower in the basin, a raised steel lip wrapping it: it sat on the counter top like a model ship
+CARR = [-1.75, 0.78, -2.5]; CARRY = 90                     # the carrier: waterline 12 cm under the sink's top, the bow toward +X (toward him)
+DECK = r(CARR[1] + 0.13 * 1.8 + 0.012 * 1.8 + 0.0015)    # its deck
 CAT0 = [r(CARR[0] - 0.32 * 1.8), DECK, r(CARR[2] - 0.06 * 1.8)]; CAT1 = [r(CARR[0] + 0.45 * 1.8), DECK, CAT0[2]]   # its catapult (bow end)
 HATCH = [r(CARR[0] - 0.2 * 1.8), DECK, r(CARR[2] + 0.08 * 1.8)]
 FRIDGE = [1.6, 0, -2.4]; FRY = -20
@@ -90,7 +91,7 @@ def RUINS(snow=False, vista=False, smoke=True, holes=3, rubble=1.0):
             P('ruinesD', 'ruinsBackdrop', pos=[9.85, 0, -12.0], ry=-90, opts={'len': 64, 'h': 21, 'seed': 57, 'snow': snow, 'smoke': sm([[8.0, 1.5]]), 'holes': holes, 'rubble': rubble}),
             P('ruinesF', 'ruinsBackdrop', pos=[0.0, 0, -15.0], opts={'len': 20, 'h': 14, 'seed': 63, 'snow': snow, 'gap': g_ or [-2.0, 2.0], 'smoke': sm([[0.0, 1.0]]), 'holes': holes, 'rubble': rubble})]
 # (review 2) the sink's stainless rim round the carrier: without it the hull sat on a counter top, not in a sink
-SINKRIM = lambda pid, snow=False: P(pid, 'sinkRim', pos=[-1.9, SINKH, -2.5], opts={'w': 1.3, 'd': 0.5, 'snow': snow})
+SINKRIM = lambda pid, snow=False: P(pid, 'sinkRim', pos=[-1.9, SINKH, -2.5], opts={'w': 1.3, 'd': 0.5, 'h': 0.065, 'snow': snow})
 FLY = lambda pid, pos, ry=0, s=0.7, keys=None, **o: P(pid, 'houseFly', pos=pos, ry=ry, scale=s, opts=o, **({'keys': keys} if keys else {}))
 HELMET = lambda pid, who, **o: P(pid, 'armyHelmet', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.46, 0.0]}, opts={'s': 0.95, **o})
 KEPI = lambda pid, who, **o: P(pid, 'kepi', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.5, 0.0]}, opts={'w': 0.222, 'd': 0.17, **o})
@@ -102,17 +103,23 @@ st.card('S19', 'SIGNÉ', at=0.95)
 st.card('S21', 'DÉCORÉE', at=0.5)
 
 # 1: the hook. Low at table height, the sugar bowl centred in the foreground; the small dark insect buzzes round it and lands on its rim; behind,
-#    at his breakfast table, he jabs his index finger down at it again and again, deadpan, his cup in the other hand, then holds the finger on it;
-#    at the left, further back and clear of his jabbing hand, a policeman writes on his clipboard and nods
+#    at his breakfast table, he jabs one index finger down at it from the side, three short sharp jabs with a recoil after each, deadpan, his cup in
+#    the other hand, then holds the finger over the rim; at the left, closer and clear of the man's head and shoulder, a policeman holds his
+#    clipboard up beside his face, writes and nods
 D1 = st.dur('S01'); LAND1 = 1.45
 FL1 = [k(0.0, to=[-0.12, 0.98, -0.88], dur=0.45, ease='inOut'), k(0.45, to=[0.1, 0.93, -0.9], dur=0.45, ease='inOut'), k(0.9, to=[0.03, 0.9, -0.88], dur=0.3, ease='inOut'),
        k(1.2, to=RIM, dur=0.25, ease='out')]
-JAB = lambda t_, p_: k(t_, toon={'reach': {'R': [*CUPR, 1, 0.03], 'L': [*p_, 1, 0.06]}, 'hands': {'R': 'grip', 'L': 'point'}, 'scl': {'handL': [1.5, 1.5, 1.5]}, 'face': {'lid': 0.35, 'mouth': 'line', 'brow': -0.3}}, toonDur=0.1, toonEase='out')
+JAB = lambda t_, p_, d_=0.08: k(t_, toon={'reach': {'R': [*CUPR, 1, 0.03], 'L': [*p_, 1, 0.06]}, 'hands': {'R': 'grip', 'L': 'point'}, 'scl': {'handL': [1.15, 1.15, 1.15]}, 'face': {'lid': 0.35, 'mouth': 'line', 'brow': -0.3}}, toonDur=d_, toonEase='out')
+# (review 3) one index finger (no enlarged mitt), jabbing in from the side so it reads in profile: three short sharp jabs, each with a recoil, ending on the rim
+REC1, TIP1 = [0.3, 1.13, -1.12], [0.1, 0.94, -0.96]
+# (review 3) standing square to us (the writing clip leaned his head onto the man's), his clipboard in front of his chest, clear of the man's head
+FLIC1 = [-0.72, 0, -2.75]; BOARD1 = [-0.7, 1.45, -2.5]
 st.shot('S01', 'kitchenDay', setOpts=KIT, actors=[
         # (review 2) every jab comes down at the bowl (the wind-up stays low over the table, clear of the policeman behind)
-        MECSIT([*sit_keys(look=[0.0, 0.9, -0.95]), JAB(0.3, [0.12, 1.1, -1.28]), JAB(0.5, [0.05, 0.95, -1.0]), JAB(0.7, [0.12, 1.1, -1.28]), JAB(0.9, [0.05, 0.95, -1.0]),
-                JAB(1.1, [0.12, 1.1, -1.28]), JAB(1.55, [0.04, 0.94, -0.99]), k(1.75, look='camera', lookDur=0.2)]),
-        act('flic', [-0.7, 0, -3.0], 25, 'writeOnHeld', 'unimpressed', keys=[k(0.0, look=[0.0, 1.0, -1.1]), k(0.9, look=[0.2, 1.1, -1.25]), k(1.5, look=[0.0, 0.9, -0.95])])],
+        MECSIT([*sit_keys(look=[0.0, 0.9, -0.95]), JAB(0.22, REC1, 0.12), JAB(0.38, TIP1, 0.06), JAB(0.52, REC1), JAB(0.68, TIP1, 0.06), JAB(0.82, REC1), JAB(0.98, TIP1, 0.06),
+                JAB(1.14, REC1, 0.1), JAB(1.5, [0.07, 0.93, -0.93], 0.1), k(1.75, look='camera', lookDur=0.2)]),
+        act('flic', FLIC1, 5, 'stand', 'unimpressed', keys=[k(0.0, look=[0.0, 1.0, -1.1]), k(0.0, toon={'reach': {'L': [*BOARD1, 1, 0.03], 'R': [-0.77, 1.47, -2.46, 1, 0.03]}, 'hands': {'L': 'grip', 'R': 'pinch'}}, toonDur=0.0),
+                                                                k(0.9, look=[0.2, 1.1, -1.25]), k(1.5, look=[0.0, 0.9, -0.95])])],
         props=[*KITCHEN(), CUP(), P('bloc', 'clipboardProp', on={'actor': 'flic', 'hand': 'L'}),
                FLY('mouche1', [0.08, 1.05, -0.85], ry=0, s=0.85, keys=FL1, buzz=[[0.0, LAND1]], rub=[[1.7, D1]])],
         cams=[cam(0.0, [0.0, 1.0, 0.2], [0.0, 1.0, 0.08], [0.0, 1.12, -1.4], [0.0, 1.12, -1.4], lens=56)])
@@ -150,33 +157,38 @@ st.shot('S02', 'kitchenDay', setOpts=KIT, blur=[[0.08, 0.5, 0.02]], blurSamples=
         cams=[cam(0.0, [-1.45, 1.6, 2.3], [-1.4, 1.58, 2.15], [1.35, 1.15, -2.5], [1.35, 1.15, -2.5], lens=52)])
 st.cue('sfx:crunch', 'S02', 0.48, 0.5); st.cue('sfx:stepRun', 'S02', 0.1, 0.3); st.cue('sfx:glass', 'S02', BURST2 + 0.3, 0.4); st.cue('sfx:siren', 'S02', 0.0, 0.12)
 
-# 3: he demanded an air strike. Two-shot, closer: he reaches over and slaps a stamped request (a big plane pictogram, URGENT in red) onto the
-#    clipboard of the policeman, who now wears a dented riot dome helmet with a neck guard (no cap) and, on the slap, squashes down into it, eyes
-#    popping, then springs back up a little taller and settles; his hand lands on the request's edge, the plane and URGENT in view; the camera
-#    pushes in until the request fills a quarter of the width
+# 3: he demanded an air strike. Two-shot, closer: the policeman (a dented riot dome helmet with a neck guard, no cap) holds his clipboard at his
+#    chest; the man lifts a stamped request (a big plane pictogram, URGENT in red), winds his hand up over it, arcs down and slaps it flat onto the
+#    clipboard; on that contact frame the policeman squashes down into his helmet, eyes popping, then springs back up a little taller and settles;
+#    the man's hand stays on the sheet's edge through the rebound, the plane and URGENT in view; the camera pushes in a little
 D3 = st.dur('S03'); SLAP3 = 0.89
-FLIC3 = [0.6, 0, -1.75]; BOARD3 = [0.36, 1.2, -1.55]
+# (review 3) the clipboard at the policeman's chest for the whole shot (his keys after the slap dropped the reach: it hung at his hip) and the
+# man's hand landing on it (it stopped beside his own face)
+FLIC3 = [0.85, 0, -1.55]; BOARD3 = [0.58, 1.22, -1.42]
+WIND3 = [0.42, 1.64, -1.45]; HIT3 = [0.5, 1.26, -1.4]
+HOLD3 = {'reach': {'L': [BOARD3[0], r(BOARD3[1] - 0.04), r(BOARD3[2] - 0.03), 1, 0.03]}, 'hands': {'L': 'grip'}}
 st.shot('S03', 'kitchenDay', setOpts=KIT, actors=[
         MECSIT([*sit_keys(look=[0.45, 1.5, -1.3]),
-                # (review 2) his hand holds the request by its left edge and lands on that edge: the plane and URGENT stay in view
-                k(0.25, toon={'reach': {'R': [*CUPR, 1, 0.03], 'L': [0.1, 1.44, -1.58, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'open'}, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.4}}, toonDur=0.3, toonEase='out'),
-                k(r(SLAP3 - 0.06), toon={'reach': {'R': [*CUPR, 1, 0.03], 'L': [r(BOARD3[0] - 0.13), r(BOARD3[1] + 0.1), r(BOARD3[2] + 0.05), 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'open'}, 'sq': [1.04, 0.95, 1.04], 'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.5}}, toonDur=0.06, toonEase='in'),
+                k(0.25, toon={'reach': {'R': [*CUPR, 1, 0.03], 'L': [0.15, 1.45, -1.55, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'open'}, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.4}}, toonDur=0.3, toonEase='out'),
+                k(r(SLAP3 - 0.26), toon={'reach': {'R': [*CUPR, 1, 0.03], 'L': [*WIND3, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'open'}, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.5}}, toonDur=0.16, toonEase='inOut'),
+                k(r(SLAP3 - 0.08), toon={'reach': {'R': [*CUPR, 1, 0.03], 'L': [*HIT3, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'open'}, 'sq': [1.04, 0.95, 1.04], 'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.5}}, toonDur=0.08, toonEase='in'),
                 k(r(SLAP3 + 0.45), look='camera', lookDur=0.2)]),
-        act('flic2', FLIC3, -45, 'stand', 'unimpressed', keys=[ k(0.0, toon={'reach': {'L': [BOARD3[0], r(BOARD3[1] - 0.05), r(BOARD3[2] - 0.02), 1, 0.03]}, 'hands': {'L': 'grip'}}, toonDur=0.0),
-            k(SLAP3, toon={'sq': [1.2, 0.7, 1.2], 'scl': {'head': [1.12, 0.82, 1.12]}, 'face': {'lid': 0.0, 'pop': 0.55, 'eye': 0.5, 'mouth': 'O', 'brow': 0.9}}, toonDur=0.04, toonEase='out'),
-            k(r(SLAP3 + 0.16), toon={'sq': [1.18, 0.72, 1.18], 'scl': {'head': [1.1, 0.84, 1.1]}, 'face': {'lid': 0.0, 'pop': 0.5, 'eye': 0.5, 'mouth': 'O', 'brow': 0.9}}, toonDur=0.1),
-            k(r(SLAP3 + 0.3), toon={'sq': [0.95, 1.06, 0.95], 'face': {'lid': 0.1, 'eye': 0.3, 'mouth': 'o', 'brow': 0.6}}, toonDur=0.1, toonEase='out'),
-            k(r(SLAP3 + 0.45), toon={'sq': [1.0, 1.0, 1.0], 'face': {'lid': 0.5, 'mouth': 'line'}}, toonDur=0.12)])],
+        act('flic2', FLIC3, -60, 'stand', 'unimpressed', keys=[ k(0.0, toon={**HOLD3}, toonDur=0.0),
+            k(SLAP3, toon={**HOLD3, 'sq': [1.2, 0.7, 1.2], 'scl': {'head': [1.12, 0.82, 1.12]}, 'face': {'lid': 0.0, 'pop': 0.55, 'eye': 0.5, 'mouth': 'O', 'brow': 0.9}}, toonDur=0.04, toonEase='out'),
+            k(r(SLAP3 + 0.16), toon={**HOLD3, 'sq': [1.18, 0.72, 1.18], 'scl': {'head': [1.1, 0.84, 1.1]}, 'face': {'lid': 0.0, 'pop': 0.5, 'eye': 0.5, 'mouth': 'O', 'brow': 0.9}}, toonDur=0.1),
+            k(r(SLAP3 + 0.3), toon={**HOLD3, 'sq': [0.95, 1.06, 0.95], 'face': {'lid': 0.1, 'eye': 0.3, 'mouth': 'o', 'brow': 0.6}}, toonDur=0.1, toonEase='out'),
+            k(r(SLAP3 + 0.45), toon={**HOLD3, 'sq': [1.0, 1.0, 1.0], 'face': {'lid': 0.5, 'mouth': 'line'}}, toonDur=0.12)])],
         props=[*KITCHEN(), CUP(), P('bloc', 'clipboardProp', on={'actor': 'flic2', 'hand': 'L'}),
                P('casque3', 'riotHelmet', on={'actor': 'flic2', 'joint': 'head', 'offset': [0.0, 0.4, 0.0]}, opts={'s': 1.22, 'dent': True, 'guard': True}),
                P('demande', 'strikeForm', pos=[0.18, 1.3, -1.62], rot=[-0.3, 0, 0], opts={'w': 0.28, 'stamp': -1.0},
-                 keys=[k(0.25, to=[0.22, 1.38, -1.6], dur=0.3, ease='out'), k(r(SLAP3 - 0.06), to=[BOARD3[0], r(BOARD3[1] + 0.03), r(BOARD3[2] + 0.03)], dur=0.06, ease='in')]),
+                 keys=[k(0.25, to=[0.24, 1.39, -1.57], dur=0.3, ease='out'), k(r(SLAP3 - 0.26), to=[0.5, 1.58, -1.46], dur=0.16, ease='inOut'),
+                       k(r(SLAP3 - 0.08), to=[BOARD3[0], r(BOARD3[1] + 0.03), r(BOARD3[2] + 0.025)], dur=0.08, ease='in')]),
                P('bouclier3a', 'riotShield', pos=[1.35, 0.03, -2.4], rot=[-1.5708, 0, 0.4], opts={'bent': 0.5}),
                P('bouclier3b', 'riotShield', pos=[1.0, 0.25, -2.75], rot=[-0.6, 0.3, 0.1], opts={'bent': 0.7}),
                P('etoiles3', 'impactStars', pos=[BOARD3[0], r(BOARD3[1] + 0.15), BOARD3[2]], opts={'at': SLAP3, 'n': 4})],
         fx=[{'type': 'shake', 'at': SLAP3, 'dur': 0.12, 'amount': 0.01}],
-        cams=[cam(0.0, [0.3, 1.5, 1.05], [0.3, 1.5, 0.95], [0.32, 1.48, -1.7], [0.32, 1.48, -1.7], lens=48),
-              glide([cam(r(SLAP3 + 0.1), [0.34, 1.52, 0.85], [0.34, 1.52, 0.8], [0.38, 1.56, -1.6], [0.38, 1.56, -1.6], lens=48)], 0.35)])   # (review 2) the rebound stays in the frame
+        cams=[cam(0.0, [0.4, 1.5, 1.05], [0.4, 1.5, 0.95], [0.42, 1.48, -1.7], [0.42, 1.48, -1.7], lens=48),
+              glide([cam(r(SLAP3 + 0.1), [0.44, 1.52, 0.85], [0.44, 1.52, 0.8], [0.48, 1.56, -1.6], [0.48, 1.56, -1.6], lens=48)], 0.35)])   # (review 2) the rebound stays in the frame
 st.cue('sfx:paper', 'S03', 0.3, 0.2); st.cue('sfx:punch', 'S03', SLAP3, 0.35); st.cue('sfx:squeak', 'S03', r(SLAP3 + 0.05), 0.2)
 
 # 4: a satellite found the wasp. Space: the blue Earth fills the lower half; a satellite in the upper middle swivels its dish down toward it
@@ -220,7 +232,8 @@ D7 = st.dur('S07')
 TAP = [-2.25, SINKH, -2.81]   # (review 1) a big gooseneck tap behind the basin, clear of the carrier's island: it says « kitchen sink » at a glance
 CAM7 = cam(0.0, [0.9, 2.8, 0.0], [0.86, 2.78, -0.06], [-0.95, 0.55, -2.25], [-0.95, 0.55, -2.25], lens=52)
 # (review 2) his eyes open, go to the water pouring off the bow, then come back to us (they stayed shut for the whole second)
-st.shot('S07', 'kitchenDay', setOpts=KIT, actors=[MECSIT([*sit_keys(look=[-0.9, 0.5, -2.45], face={'lid': 0.15, 'mouth': 'line'}), k(0.5, look='camera', lookDur=0.1),
+# (review 3) his head turns only three-quarters (toward the water it showed us the back of his head); the pupils do the rest of the looking
+st.shot('S07', 'kitchenDay', setOpts=KIT, actors=[MECSIT([*sit_keys(look=[-0.6, 1.9, -0.6], face={'lid': 0.15, 'mouth': 'line', 'gx': -0.8, 'gy': 0.35}), k(0.5, look='camera', lookDur=0.1),
                                                          k(0.5, toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.1),
                                                          k(0.8, toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.05),
                                                          k(0.88, toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.07)])],
@@ -257,23 +270,29 @@ st.shot('S09', 'kitchenDay', setOpts=KIT, actors=[
         cams=[cam(0.0, [0.55, 1.3, 0.75], [0.53, 1.3, 0.65], [0.0, 1.15, -1.8], [0.0, 1.15, -1.8], lens=46)])
 st.cue('sfx:jet', 'S09', 0.0, 0.5); st.cue('whoosh', 'S09', PASS9, 0.45)
 
-# 10: it missed the wasp. Slow motion, low behind the sugar bowl: the insect hovers calmly over the bowl in the middle of the frame; two big
-#     missiles, crisp bodies with fins and flames, come in slowly from just behind us at the bottom corners, pass a hand's width either side of it,
-#     then either side of his head, and punch two scorched holes in the back wall on either side of his head; his hair stirs; one slow blink
-D10 = st.dur('S10'); HIT10 = 0.95
+# 10: it missed the wasp. Slow motion, low behind the sugar bowl: the insect hovers calmly at his eye level, to the right of his head, against the
+#     window; two big missiles, crisp dark bodies with fins and flames, come in from just behind us at the bottom corners, crossing, and crawl past
+#     it a hand's width either side (the slow pass held), then shoot on past his ears and punch two scorched holes in the back wall on either side
+#     of his head; his hair stirs; one slow blink
+D10 = st.dur('S10'); HIT10 = 0.92
 # (review 2) curved paths (they used to run straight from behind the lens: end-on, a white smear across his chest, the holes out of the frame):
 # each passes 17 cm beside the insect, then beside his ears, and lands on the wall where the holes show on either side of his head; short thin trails
 # slow past the insect and his head (v0: they ease in from the lens, then speed up to the wall), dark bodies that read on the pale kitchen
-SH10 = [{'from': [-0.3, 0.9, 0.0], 'ctrl': [0.093, 1.304, -1.138], 'to': [-0.7, 1.85, -3.53], 't0': 0.0, 'dur': HIT10, 'v0': 0.3},
-        {'from': [0.3, 0.9, 0.0], 'ctrl': [-0.093, 1.304, -1.138], 'to': [0.7, 1.85, -3.53], 't0': 0.08, 'dur': HIT10, 'v0': 0.3}]
-HOLE10 = [(-0.7, 1.85), (0.7, 1.85)]
+# (review 3) the fly raised to eye level beside his head (between chin and collar it read as a bow tie); bigger missiles from the lens corners, in
+# two legs each: a crawl past the fly (0.6 s, linear: the held pass), then a dash past his ear to the wall; the first leg's trail stays on
+FLY10 = [0.2, 1.47, -0.95]; CRAWL10 = 0.6
+def m10(p0, q, hole, t0):
+    a = {'from': p0, 'to': q, 't0': t0, 'dur': CRAWL10, 'lin': True}
+    return [a, {**a, 'body': False, 'head': False, 'hide': False}, {'from': q, 'to': hole, 't0': r(t0 + CRAWL10), 'dur': r(HIT10 - CRAWL10), 'v0': 0.7}]
+HOLE10 = [(-0.6, 1.85), (0.72, 1.85)]
+SH10 = [*m10([0.3, 0.98, 0.2], [0.0, 1.5, -1.15], [HOLE10[0][0], HOLE10[0][1], -3.53], 0.0), *m10([-0.22, 0.98, 0.2], [0.42, 1.5, -1.15], [HOLE10[1][0], HOLE10[1][1], -3.53], 0.06)]
 st.shot('S10', 'kitchenDay', setOpts=KIT, actors=[MECSIT([*sit_keys(), k(r(HIT10 + 0.04), toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'hairUp': 0.55, 'face': DEAD}, toonDur=0.06, toonEase='out'),
                                                           k(r(HIT10 + 0.16), toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'hairUp': 0.25, 'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.12),
                                                           k(r(HIT10 + 0.3), toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'hairUp': 0.2, 'face': DEAD}, toonDur=0.12, keepPose=True)])],
-        props=[*KITCHEN(), CUP(), FLY('mouche10', [0.0, 1.2, -0.95], ry=0, s=1.0, buzz=[[0.0, D10]], bob=0.008),
-               P('missiles10', 'missileSalvo', pos=[0, 0, 0], opts={'shots': SH10, 'size': 0.12, 'trail': 0.12, 'trailWidth': 0.07, 'trailOpacity': 0.45, 'flame': 1.3, 'glow': 0.9, 'core': '#FFF0B8', 'bodyColor': '#4E555D'}),
-               P('trou10a', 'wallImpact', pos=[HOLE10[0][0], HOLE10[0][1], -3.53], opts={'at': HIT10, 'r': 0.3, 'seed': 3}), P('trou10b', 'wallImpact', pos=[HOLE10[1][0], HOLE10[1][1], -3.53], opts={'at': r(HIT10 + 0.08), 'r': 0.3, 'seed': 8}),
-               *[P(f'boum10{j}', 'toonPuff', pos=[x_, y_, -3.4], opts={'at': r(HIT10 + 0.08 * j), 'n': 6, 'size': 0.12, 'rise': 0.3, 'spread': 0.25, 'life': 0.5, 'color': '#E8E2D6'}) for j, (x_, y_) in enumerate(HOLE10)]],
+        props=[*KITCHEN(), CUP(), FLY('mouche10', FLY10, ry=-25, s=1.0, buzz=[[0.0, D10]], bob=0.008),
+               P('missiles10', 'missileSalvo', pos=[0, 0, 0], opts={'shots': SH10, 'size': 0.17, 'trail': 0.3, 'trailWidth': 0.06, 'trailOpacity': 0.4, 'flame': 1.1, 'glow': 0.45, 'core': '#FFF0B8', 'bodyColor': '#4E555D'}),
+               P('trou10a', 'wallImpact', pos=[HOLE10[0][0], HOLE10[0][1], -3.53], opts={'at': HIT10, 'r': 0.3, 'seed': 3}), P('trou10b', 'wallImpact', pos=[HOLE10[1][0], HOLE10[1][1], -3.53], opts={'at': r(HIT10 + 0.06), 'r': 0.3, 'seed': 8}),
+               *[P(f'boum10{j}', 'toonPuff', pos=[x_, y_, -3.4], opts={'at': r(HIT10 + 0.06 * j), 'n': 6, 'size': 0.12, 'rise': 0.3, 'spread': 0.25, 'life': 0.5, 'color': '#E8E2D6'}) for j, (x_, y_) in enumerate(HOLE10)]],
         fx=[{'type': 'shake', 'at': HIT10, 'dur': 0.2, 'amount': 0.012}],
         cams=[cam(0.0, [0.04, 1.15, 0.45], [0.04, 1.15, 0.41], [0.0, 1.35, -2.0], [0.0, 1.35, -2.0], lens=52)])
 st.cue('whoosh', 'S10', 0.1, 0.3); st.cue('thunder', 'S10', HIT10, 0.45); st.cue('sfx:crunch', 'S10', HIT10, 0.4)
@@ -298,7 +317,8 @@ st.cue('sfx:wind', 'S11', 0.0, 0.2); st.cue('thud', 'S11', 0.55, 0.35); st.cue('
 #     board drops with it and lands tilted on the front of the heap, still readable; the flagpole in front stays standing while its flag slides down
 #     and flops onto the rubble
 D12 = st.dur('S12'); COL12 = 0.4
-st.shot('S12', 'parisStreet', setOpts=STREET, actors=[],
+# (review 3) the tower nearer and smaller: at 175 m its upper half vanished, only its ink outline left hanging in the sky; at 95 m it renders whole
+st.shot('S12', 'parisStreet', setOpts={**STREET, 'eiffelZ': -95, 'eiffelH': 36, 'eiffelX': -3}, actors=[],
         props=[P('mairie12', 'collapse', pos=[0.0, 0, -36.0], opts={'of': 'townHall', 'opts': {'w': 8.0, 'h': 5.5, 'd': 4.5, 'gable': 'v2'}, 'at': COL12, 'dur': 0.4, 'flat': 0.12, 'pole': True, 'poleAt': [-2.6, 5.0], 'poleH': 6.0,
                                                                         'noPuffs': True, 'sign': 'MAIRIE', 'signW': 3.4}),
                *[P(f'poussiere12{j}', 'toonPuff', pos=[x_, 0.4, z_], opts={'at': r(COL12 + 0.12 + 0.05 * j), 'n': 7, 'size': 0.9, 'rise': 2.2, 'spread': 2.6, 'life': 1.15, 'flatZ': 0.6, 'color': '#E6DCC8'})
@@ -326,34 +346,36 @@ SINKY = -0.42   # (stills 2) the toon leg bends do not lower the pelvis: crouche
 def soldier(j, x_, z_, keys=(), clip='stand', look=None, toon0=None):
     return act(f'sold{j + 1}', [x_, SINKY, z_], 90, clip, 'determined', keys=[k(0.0, look=look or [1.6, 1.15, z_]), k(0.0, toon=toon0 or {**CROUCH}, toonDur=0.0), *keys])
 # (review 2) dark flat-topped burlap sandbags tied at both ends (the pale round ones read as loaves), a thin layer of snow on the top course in winter
-FRONT = lambda snow=False: [P('sacs1', 'burlapBags', pos=[-0.7, 0, -1.7], ry=90, opts={'n': 6, 'rows': 3, 'seed': 4, 'snow': snow}),
+FRONT = lambda snow=False, flagRy=0, flagS=3.0: [P('sacs1', 'burlapBags', pos=[-0.7, 0, -1.7], ry=90, opts={'n': 6, 'rows': 3, 'seed': 4, 'snow': snow}),
                             P('sacs2', 'burlapBags', pos=[1.0, 0, -2.1], ry=-90, opts={'n': 5, 'rows': 3, 'seed': 7, 'snow': snow}),
-                            P('drapeau', 'pennantFlag', pos=[1.45, 1.9, -2.3], scale=3.0)]
+                            P('drapeau', 'pennantFlag', pos=[1.45, 1.9, -2.3], ry=flagRy, scale=flagS)]
 SOLD = {'outfit': 'suit', 'suit': '#5B6638', 'pants': '#4E5730', 'shirt': '#D9D3B6', 'lapel': '#4E5730', 'tie': '#3B4224', 'cuff': '#5B6638', 'hat': 'none', 'gloves': '#2E3320', 'glasses': False, 'build': {'width': 1.0, 'headWidth': 1.2},
         'toon': {'holdLife': 1.2, 'shift': 0.8, 'breathe': 1.4}}   # (review 1) dark gloves: the white sugar cubes read on them; calmer idle (no head tips)
 
-# 14: the front froze... Low behind the carrier wedged in the sink and the soldiers' helmets behind their sandbags: in the gap between two helmets,
-#     alone at his table in no man's land, he sips his cup; behind him, clear, the sandbagged fridge with the insect's black flag on top; one soldier's
-#     helmet pops up on a long stretched neck, hangs there a beat, then snaps down and squashes into the trench; olive helmets cover the backs of
-#     the soldiers' heads; no blot or smoke above
+# 14: the front froze... Low behind the carrier wedged in the sink and the soldiers' helmets behind their sandbags: in a wide gap between two
+#     helmets at the edges of the frame, alone at his table in no man's land, he sips his cup; behind him, clear, the sandbagged fridge with the
+#     insect's black flag on top, turned broadside to us; the left soldier's helmet pops up on a long stretched neck, his head turning in profile to
+#     stare across at him, hangs there a beat, then snaps down and squashes into the trench; no blot or smoke above
 D14 = st.dur('S14')
-SOLD14 = [(-1.05, -1.45), (-1.08, -2.4), (-1.0, -0.9)]   # (review 1) the two near ones frame him at the edges of the frame; the third is off to the side
+SOLD14 = [(-1.05, -1.3), (-1.08, -2.55), (-1.0, -0.9)]   # (review 1) the two near ones frame him at the edges of the frame; the third is off to the side
+# (review 3) wider apart (he was squeezed between a helmet and the popped soldier's olive back); the left one pops, in profile
 POP14 = [0.25, 0.42, 0.78, 0.9]   # up, at the top, hang until, back down
 RY14 = -55; CUP14 = loc(MAN, RY14, [-0.13, 0.98, 0.28])   # (review 1) turned on his chair toward the trench: seen from behind the soldiers his face reads
 st.shot('S14', 'parisStreet', setOpts=STREET, actors=[
         MECSIT([k(0.0, look=[-3.0, 1.45, -2.3]), k(0.0, toon={'reach': {'R': [*CUP14, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.0),
                 k(0.5, toon={**SIP, 'face': DEAD}, toonDur=0.2), k(0.95, toon={'reach': {'R': [*CUP14, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.2)], ry=RY14),
-        soldier(0, *SOLD14[0], look=[1.6, 1.2, SOLD14[0][1]], keys=[
-            k(POP14[0], to=[SOLD14[0][0], -0.12, SOLD14[0][1]], dur=0.12, ease='out', glide=True, face='keep'), k(POP14[2], to=[SOLD14[0][0], -0.5, SOLD14[0][1]], dur=0.08, ease='in', glide=True, face='keep'),
-            k(POP14[3], to=[SOLD14[0][0], SINKY, SOLD14[0][1]], dur=0.1, ease='out', glide=True, face='keep'),
+        soldier(1, *SOLD14[1], look=[1.6, 1.2, SOLD14[1][1]], keys=[
+            k(POP14[0], to=[SOLD14[1][0], -0.12, SOLD14[1][1]], dur=0.12, ease='out', glide=True, face='keep'), k(POP14[2], to=[SOLD14[1][0], -0.5, SOLD14[1][1]], dur=0.08, ease='in', glide=True, face='keep'),
+            k(POP14[3], to=[SOLD14[1][0], SINKY, SOLD14[1][1]], dur=0.1, ease='out', glide=True, face='keep'),
+            k(r(POP14[0] + 0.05), look=[-1.0, 1.9, 0.8], lookDur=0.12), k(r(POP14[3] + 0.05), look=[1.6, 1.2, SOLD14[1][1]], lookDur=0.15),
             k(POP14[0], toon={**CROUCH, 'bend': {**CROUCH['bend'], 'neck': [0.0, 0, 0, 5.0, 0.7]}, 'sq': [0.92, 1.12, 0.92], 'face': {'lid': 0.0, 'eye': 0.35, 'mouth': 'line'}}, toonDur=0.12, toonEase='out'),
             k(POP14[1], toon={**CROUCH, 'bend': {**CROUCH['bend'], 'neck': [0.0, 0, 0, 4.6, 0.7]}, 'face': {'lid': 0.0, 'eye': 0.35, 'mouth': 'line'}}, toonDur=0.1),
             k(POP14[2], toon={**CROUCH, 'bend': {**CROUCH['bend'], 'neck': [0.0, 0, 0, 0.5, 1.4]}, 'sq': [1.2, 0.75, 1.2], 'face': {'lid': 0.5, 'mouth': 'line'}}, toonDur=0.07, toonEase='in'),
             k(POP14[3], toon={**CROUCH, 'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.1)]),
-        soldier(1, *SOLD14[1], look=[1.6, 1.2, SOLD14[1][1]]), soldier(2, *SOLD14[2], look=[1.6, 1.2, SOLD14[2][1]])],
+        soldier(0, *SOLD14[0], look=[1.6, 1.2, SOLD14[0][1]]), soldier(2, *SOLD14[2], look=[1.6, 1.2, SOLD14[2][1]])],
         # (review 2) aimed higher and a little wider: the popped head stays in the frame; no blast holes or smoke on the facades behind (a black
         # blot sat at the top right); the helmets now cover the backs of the heads
-        props=[*KITCHEN(ruins=True, smoke=False), CUP(), *FRONT(), *RUINS(smoke=False, holes=0), *[HELMET(f'casque14{j}', f'sold{j + 1}') for j in range(3)], P('robinet14', 'kitchenTap', pos=TAP, opts={'h': 0.42}), SINKRIM('rebord14')],
+        props=[*KITCHEN(ruins=True, smoke=False), CUP(), *FRONT(flagRy=-90, flagS=3.6), *RUINS(smoke=False, holes=0), *[HELMET(f'casque14{j}', f'sold{j + 1}') for j in range(3)], P('robinet14', 'kitchenTap', pos=TAP, opts={'h': 0.42}), SINKRIM('rebord14')],
         cams=[cam(0.0, [-5.0, 1.45, -1.95], [-4.92, 1.45, -1.96], [0.5, 1.72, -2.05], [0.5, 1.72, -2.05], lens=38)])
 st.cue('sfx:wind', 'S14', 0.0, 0.2)
 
@@ -374,19 +396,22 @@ st.shot('S15', 'parisStreet', setOpts=STREET, actors=[MECSIT([*sit_keys(look=[1.
 st.cue('sfx:wind', 'S15', 0.0, 0.15)
 
 # 16: all winter... The same front under falling snow, down the street to the far tower between blown-out facades: the soldiers vibrate with cold
-#     behind their sandbags, their whole bodies squashing and stretching in a shiver (ghost copies), snow piling on their helmets; at his table in the
-#     middle, snow piled on his head, he holds his cup, deadpan; an overcast winter light, grey-white sky, dark burlap sandbags under a thin snow
+#     behind their sandbags, all three whole in the frame at the left, their bodies snapping between squashed wide and stretched tall on twos, snow
+#     piling on their helmets; at his table at the right, snow piled on his head, he holds his cup, deadpan; the snowy tiles fill the bottom of the
+#     frame; an overcast winter light, grey-white sky, dark burlap sandbags under a thin snow
 D16 = st.dur('S16')
-def shiver(t0, t1, every=0.07, a=0.09):
+# (review 3) on twos, held poses that snap: squashed wide, then stretched tall (the ghost copies of the blur read as jitter, not squash and stretch)
+def shiver(t0, t1, every=0.067, a=0.15):
     ks, t_, i = [], t0, 0
-    while t_ < t1: ks.append(k(r(t_), toon={**CROUCH, 'buzz': 0.02, 'sq': [1.0 + a, 1.0 - a, 1.0 + a] if i % 2 == 0 else [1.0 - a * 0.6, 1.0 + a * 0.8, 1.0 - a * 0.6], 'face': {'lid': 0.3, 'mouth': 'clench', 'tremble': 1.0, 'brow': 0.6}}, toonDur=0.03)); t_ += every; i += 1
+    while t_ < t1: ks.append(k(r(t_), toon={**CROUCH, 'buzz': 0.006, 'sq': [1.0 + a, 1.0 - a, 1.0 + a] if i % 2 == 0 else [1.0 - a * 0.7, 1.0 + a, 1.0 - a * 0.7], 'face': {'lid': 0.3, 'mouth': 'clench', 'tremble': 1.0, 'brow': 0.6}}, toonDur=0.0)); t_ += every; i += 1
     return ks
-st.shot('S16', 'parisStreet', setOpts=SNOW, **WINTER, blur=[[0.0, D16, 0.014]], blurSamples=3, actors=[
+st.shot('S16', 'parisStreet', setOpts=SNOW, **WINTER, actors=[
         MECSIT([*sit_keys()]), *[soldier(j, x_, z_, keys=shiver(0.02 * j, D16)) for j, (x_, z_) in enumerate(SOLDP)]],
         props=[*KITCHEN(ruins=True, snow=True), CUP(), *FRONT(snow=True), *RUINS(snow=True, vista=True), *[HELMET(f'casque16{j}', f'sold{j + 1}', snow=True) for j in range(3)],
                P('robinet16', 'kitchenTap', pos=TAP, opts={'h': 0.42, 'snow': True}), SINKRIM('rebord16', snow=True),
                P('neige16', 'snowCap', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.42, 0.0]}, opts={'w': 0.32, 'h': 0.2, 't0': 0.0, 't1': D16})],
-        cams=[cam(0.0, [0.25, 1.35, 2.5], [0.24, 1.34, 2.38], [0.15, 1.0, -2.0], [0.15, 1.0, -2.0], lens=64)])
+        # (review 3) closer and further left: the three soldiers whole in the frame, the tiles filling the bottom (a flat grey slab was there)
+        cams=[cam(0.0, [-0.35, 1.4, 1.0], [-0.36, 1.39, 0.92], [-0.55, 0.95, -2.0], [-0.55, 0.95, -2.0], lens=62)])
 st.cue('sfx:wind', 'S16', 0.0, 0.35)
 
 # 17: ...sugar was rationed. The line of soldiers from the front, crouched behind their sandbags, each holding out a dark glove: behind them an
@@ -411,22 +436,27 @@ st.shot('S17', 'parisStreet', setOpts=SNOW, **WINTER, actors=[
 for t_ in GIVE17: st.cue('sfx:pop', 'S17', t_, 0.15)
 st.cue('sfx:wind', 'S17', 0.0, 0.3)
 
-# 18: the State asked for a ceasefire. The snowy sink from the front, wide enough to hold him: the chrome tap at the left, the stainless rim round
-#     the basin, the carrier wedged in it under soft drifts of snow, the burlap trench in front; a hatch halfway along the deck opens and a big white
-#     handkerchief with a thin dark outline, two flaps rippling, rises slowly on its stick; at the right, snowed on at his table, his eyes go to it
+# 18: the State asked for a ceasefire. Low, from the front right, wide enough to hold him: the chrome tap at the left, the steel lip round the
+#     basin, the carrier sunk in it under heaped drifts of snow, the burlap trench in front, a scorched wall stub behind; a hatch near the bow opens
+#     and a big white handkerchief with a firm dark outline, two flaps rippling, rises slowly on its stick against the dark wall; at the right,
+#     snowed on at his table, his face three-quarters to us, his eyes go to it, held in the frame to the cut
 D18 = st.dur('S18'); UP18 = 0.3
 # (review 2) the hatch moved toward the bow (aft, it sat 2 m from him: no frame held both); a camera found by search that holds the tap, the rim,
 # the flag and his face; snow drifts instead of flat slabs
 HATCH18 = [r(CARR[0] + 0.25 * 1.8), DECK, r(CARR[2] + 0.08 * 1.8)]
-st.shot('S18', 'parisStreet', setOpts=SNOW, **WINTER, actors=[MECSIT([*sit_keys(look=[HATCH18[0], 1.35, HATCH18[2]]), k(0.95, toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.06),
-                                                                     k(1.05, toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.08), k(1.6, look='camera', lookDur=0.3)])],
+# (review 3) a low camera: the flag rises against a dark scorched wall stub (white on pale snow it measured 1.38:1), twice the size, a firm outline;
+# his head three-quarters to us (the pupils go to the flag), in the frame to the cut (the push-in lost him)
+LOOK18 = [-1.15, 1.5, -0.16]; EYES18 = {'lid': 0.4, 'mouth': 'line', 'gx': -0.85, 'gy': 0.1}
+st.shot('S18', 'parisStreet', setOpts=SNOW, **WINTER, actors=[MECSIT([*sit_keys(look=LOOK18, face=EYES18), k(0.95, toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {**EYES18, 'lid': 1.0}}, toonDur=0.06),
+                                                                     k(1.05, toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': EYES18}, toonDur=0.08),
+                                                                     k(1.6, look=[-0.6, 1.45, 0.6], lookDur=0.3), k(1.6, toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.3)])],
         props=[*KITCHEN(ruins=True, snow=True, sugar=False, carrier={'hatch': [[0.2, 1.0]], 'hatchAt': 0.25}, rsides=[2]), CUP(), *FRONT(snow=True), *RUINS(snow=True, rubble=0.5), SINKRIM('rebord18', snow=True),
                P('robinet18', 'kitchenTap', pos=TAP, opts={'h': 0.42, 'snow': True}),
                P('neige18', 'snowCap', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.42, 0.0]}, opts={'w': 0.32, 'h': 0.22, 't0': -2.0, 't1': -1.0}),
-               P('blanc18', 'truceFlag', pos=[HATCH18[0], r(DECK - 0.42), HATCH18[2]], opts={'w': 0.36, 'h': 0.24, 'pole': 0.42, 'speed': 6},
+               P('mur18', 'wallStub', pos=[-1.3, 0, -3.3], opts={'w': 1.9, 'h': 3.0, 'seed': 5, 'snow': True}),
+               P('blanc18', 'truceFlag', pos=[HATCH18[0], r(DECK - 0.74), HATCH18[2]], opts={'w': 0.7, 'h': 0.46, 'pole': 0.74, 'speed': 6, 'line': 0.1, 'poleColor': '#E2D3B0'},
                  keys=[k(UP18, to=[HATCH18[0], r(DECK - 0.01), HATCH18[2]], dur=1.3, ease='out')])],
-        cams=[cam(0.0, [-0.25, 2.1, 1.7], [-0.27, 2.08, 1.6], [-0.72, 1.2, -1.9], [-0.72, 1.2, -1.9], lens=56),
-              glide([cam(0.9, [-0.55, 1.95, 0.75], [-0.58, 1.93, 0.65], [-1.05, 1.3, -2.2], [-1.05, 1.3, -2.2], lens=52)], 1.1)])   # (review 2) a slow push toward the rising flag
+        cams=[cam(0.0, [0.35, 1.25, 1.3], [0.33, 1.25, 1.18], [-0.78, 1.3, -2.3], [-0.78, 1.3, -2.3], lens=58)])
 st.cue('sfx:squeak', 'S18', 0.25, 0.25); st.cue('sfx:wind', 'S18', 0.0, 0.25)
 
 # 19: the wasp got the sugar bowl. Close on the sugar bowl from the front left, the white fridge behind it: in front, the treaty, lines of text
@@ -463,36 +493,44 @@ st.shot('S20', 'parisStreet', setOpts=SNOW, **WINTER, actors=[
         cams=[cam(0.0, [3.8, 1.55, 3.5], [3.74, 1.55, 3.42], [-3.2, 0.7, -3.5], [-3.2, 0.7, -3.5], lens=44)])
 st.cue('sfx:clink', 'S20', 0.2, 0.2); st.cue('sfx:clink', 'S20', r(TIP20 + 0.4), 0.25); st.cue('sfx:stretch', 'S20', TIP20, 0.2)
 
-# 21: even the wasp. Over a general's shoulder, the treaty with its lines on the table: his big fingers bring a tiny medal to the insect on the sugar bowl's lid (its flag planted in the
-#     knob) and pin it on its flank; it salutes with a front leg (DÉCORÉE)
+# 21: even the wasp. Over a general's shoulder, the treaty with its lines on the table: his big fingers bring a bright gold medal on a tricolour
+#     ribbon, pinched and swinging, to the insect on the sugar bowl's lid (turned three-quarters, its flag planted in the knob), pin it on its near
+#     flank and pull away; the medal stays on its flank, big and bright, and it salutes, a front leg raised above its brow, in silhouette against the
+#     pale fridge (DÉCORÉE)
 D21 = st.dur('S21'); PIN21 = 0.42
-GEN21 = [0.42, 0, -0.62]; FLY21 = [0.045, r(LIDTOP - 0.012), -0.95]
+# (review 3) the medal sat inside the thorax (no medal showed): now out on the flank, bigger, turned outward, on the side facing the camera
+MEDAL = {'medalSide': -1, 'medalX': 0.03, 'medalS': 1.7, 'medalY': 0.052, 'medalZ': -0.005, 'medalRy': 1.15, 'legW': 1.5}
+GEN21 = [0.42, 0, -0.62]; FLY21 = [0.066, r(LIDTOP - 0.026), -0.95]   # (review 3) further out on the lid, clear of the knob
 st.shot('S21', 'parisStreet', setOpts=SNOW, **WINTER, actors=[
         act('gen1', GEN21, -145, 'stand', 'smug', keys=[k(0.0, look=FLY21), k(0.0, toon={'bend': {'spine': [0.55, 0, 0, 1, None]}, 'reach': {'R': [0.2, 1.0, -0.8, 1, 0.03]}, 'hands': {'R': 'pinch'}}, toonDur=0.0),
             k(0.05, toon={'bend': {'spine': [0.6, 0, 0, 1, None]}, 'reach': {'R': [r(FLY21[0] + 0.05), r(FLY21[1] + 0.06), r(FLY21[2] + 0.04), 1, 0.03]}, 'hands': {'R': 'pinch'}}, toonDur=r(PIN21 - 0.05), toonEase='out'),
-            k(r(PIN21 + 0.2), toon={'bend': {'spine': [0.45, 0, 0, 1, None]}, 'reach': {'R': [0.25, 1.1, -0.75, 1, 0.03]}, 'hands': {'R': 'rest'}}, toonDur=0.3)])],
+            k(r(PIN21 + 0.06), toon={'bend': {'spine': [0.45, 0, 0, 1, None]}, 'reach': {'R': [0.3, 1.15, -0.72, 1, 0.03]}, 'hands': {'R': 'rest'}}, toonDur=0.22)])],
         props=[*KITCHEN(ruins=True, snow=True, sugar=False), *RUINS(snow=True), P('sucrier21', 'sugarBowl', pos=SB, opts={'dust': True, 'flag': -1.0}),
                P('traite21', 'treatySheet', pos=[-0.07, r(TH + 0.001), -0.83], ry=-42, opts={'w': 0.26, 'text': True}),
                KEPI('kepi21', 'gen1', color='#2B3A2A', band='#E2B53C'), P('rack21', 'medalRack', on={'actor': 'gen1', 'joint': 'torso', 'offset': [0.0, 0.48, 0.18]}, opts={'rows': 7, 'n': 5, 'seed': 20}),
-               P('petite21', 'medal', pos=[0.2, 0.98, -0.8], scale=0.3, keys=[k(0.05, to=[r(FLY21[0] + 0.03), r(FLY21[1] + 0.05), r(FLY21[2] + 0.03)], dur=r(PIN21 - 0.05), ease='out'), k(PIN21, visible=False)]),
-               FLY('mouche21', FLY21, ry=-10, s=0.8, medal=PIN21, medalSide=-1, medalZ=-0.008, medalY=0.026, salute=r(PIN21 + 0.12))],
+               P('petite21', 'medal', pos=[0.2, 1.04, -0.8], scale=0.34, keys=[k(0.05, to=[r(FLY21[0] - 0.02), r(FLY21[1] + 0.085), r(FLY21[2] + 0.02)], dur=r(PIN21 - 0.05), ease='out'), k(PIN21, visible=False)]),
+               FLY('mouche21', FLY21, ry=25, s=0.8, medal=PIN21, salute=r(PIN21 + 0.16), **MEDAL)],
         cams=[cam(0.0, [-0.36, 1.0, -0.5], [-0.34, 0.995, -0.52], [0.04, 0.93, -0.95], [0.04, 0.93, -0.95], lens=40)])
 st.cue('sfx:clink', 'S21', PIN21, 0.3); st.cue('sfx:fanfare', 'S21', r(PIN21 + 0.1), 0.15)
 
 # 22: it was a fly. In the snowy ruins, framed exactly like the first shot (the sugar bowl centred, him behind at his table); the camera pushes in
-#     slowly over a second and stops on the insect on the rim, at three fifths of the height: plainly a fly, big red eyes, a medal on its flank,
-#     rubbing its front legs hard (the medal on its flank, not under its eyes); above it, snowed on, his face, deadpan, as he sips his cup and lowers
-#     it to his chest
+#     low over 1.2 s until the insect on the rim fills a quarter of the width at three fifths of the height, turned three-quarters: plainly a fly,
+#     big red eyes, clear wings, the gold medal on its near flank, rubbing its front legs hard; above it, snowed on, his eyes deadpan at the top of
+#     the frame as he raises his cup (eased in) to sip and lowers it (eased out) to his chest
 D22 = st.dur('S22')
-# (review 2) after the sip the cup comes down by the same face-relative target (the switch back to a world target slid the cup off and snapped it back)
-SIPDOWN = {'touch': {'R': ['face', -0.08, -0.48, 0.22, 1, 0.03]}, 'hands': {'R': 'grip'}}
+# (review 3) the sip by world reach targets both ways (the switch between a reach and a face-relative touch popped the cup in one frame), up over
+# 0.18 s, down over 0.26 s, both eased
+MOUTH22 = [-0.06, 1.42, -1.6]
 st.shot('S22', 'parisStreet', setOpts=SNOW, **WINTER, actors=[
-        MECSIT([*sit_keys(look='camera'), k(1.3, toon={**SIP, 'face': DEAD}, toonDur=0.3), k(2.05, toon={**SIPDOWN, 'face': DEAD}, toonDur=0.3)])],
+        MECSIT([*sit_keys(look='camera'), k(0.85, toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.06),
+                k(0.95, toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.08),
+                k(1.55, toon={'reach': {'R': [*MOUTH22, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.18, toonEase='inOut'),
+                k(2.0, toon={'reach': {'R': [*CUPR, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.26, toonEase='inOut')])],
         props=[*KITCHEN(ruins=True, snow=True, sugar=False), CUP(), *RUINS(snow=True), P('sucrier22', 'sugarBowl', pos=SB, opts={'dust': True, 'snow': True}),
                P('neige22', 'snowCap', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.42, 0.0]}, opts={'w': 0.32, 'h': 0.22, 't0': -2.0, 't1': -1.0}),
-               FLY('mouche22', RIM, ry=-15, s=0.85, medal=True, medalSide=-1, medalZ=-0.008, medalY=0.026, rub=[[0.3, D22]], rubAmp=2.0)],
+               FLY('mouche22', RIM, ry=50, s=1.2, medal=True, rub=[[0.3, D22]], rubAmp=2.0, **MEDAL)],
         cams=[cam(0.0, [0.0, 1.0, 0.2], [0.0, 1.0, 0.16], [0.0, 1.12, -1.4], [0.0, 1.12, -1.4], lens=56),
-              glide([cam(0.35, [0.0, 1.0, 0.0], [0.0, 1.0, -0.02], [0.0, 0.449, -9.985], [0.0, 0.449, -9.985], lens=55)], 1.2)])
+              glide([cam(0.35, [0.0, 0.9, -0.4], [0.0, 0.9, -0.42], [0.0, 1.0, -1.4], [0.0, 1.0, -1.4], lens=64)], 1.2)])
 st.cue('sfx:static', 'S22', 0.0, 0.04); st.cue('sfx:sting', 'S22', 0.5, 0.25)
 
 MEC = {'preset': 'lemec', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}, 'toon': {'breathe': 1.7, 'holdLife': 1.6}}
