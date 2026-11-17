@@ -57,20 +57,22 @@ export const PLACE_PROPS = {
   // zebra crossing o.zebra [x, z, w]. The bays' outlines are white strips 0.1 m wide
   parkLot(o) {
     const W = o.w ?? 60, D = o.d ?? 46, Y = o.y ?? 0.06, g = grp(), bw = 2.5;
-    g.add(at(box(W, Y, D, o.color || '#6E7178', { pivot: 'bottom' }), 0, 0, 0));
+    // (staging of 85) painted over the field without a depth test, like roadStrip: a 6 cm slab fought the 9 km field and showed the grass through
+    const lay = (c, ro) => { const m = new THREE.MeshLambertMaterial({ color: c, depthTest: false, depthWrite: false }); m.userData.ro = ro; return m; };
+    const top = new THREE.Mesh(new THREE.PlaneGeometry(W, D), lay(o.color || '#6E7178', -1.5)); top.rotation.x = -PI / 2; top.position.y = Y; top.renderOrder = -1.5; top.receiveShadow = true; g.add(top);
     for (const [x, z, w, d] of [[0, -D / 2, W + 0.4, 0.3], [0, D / 2, W + 0.4, 0.3], [-W / 2, 0, 0.3, D], [W / 2, 0, 0.3, D]]) g.add(at(box(w, Y + 0.1, d, '#C9C5BA', { pivot: 'bottom' }), x, 0, z));
-    const lines = [], wm = mat('#F1F0E8', { noGrain: true });
+    const lines = [], wm = lay('#F1F0E8', -1.2);
     for (const [zc, x0, n, dep] of o.rows || []) {
       const dd = dep ?? 5;
       for (let i = 0; i <= n; i++) lines.push([x0 - bw / 2 + i * bw, Y + 0.006, zc, 0, 0, 0, 0.1, 0.012, dd]);
       lines.push([x0 - bw / 2 + n * bw / 2, Y + 0.006, zc - dd / 2, 0, 0, 0, n * bw, 0.012, 0.1]);
     }
-    if (lines.length) g.add(inst(new THREE.BoxGeometry(1, 1, 1), wm, lines));
-    if (o.zebra) { const [x, z, w] = o.zebra; for (let i = 0; i < 7; i++) g.add(at(box(w ?? 4, 0.012, 0.45, '', { material: wm }), x, Y + 0.006, z - 1.6 + i * 0.55)); }
+    if (lines.length) { const li = inst(new THREE.BoxGeometry(1, 1, 1), wm, lines); li.renderOrder = -1.2; li.castShadow = false; g.add(li); }
+    if (o.zebra) { const [x, z, w] = o.zebra; for (let i = 0; i < 7; i++) { const zb = at(box(w ?? 4, 0.012, 0.45, '', { material: wm }), x, Y + 0.006, z - 1.6 + i * 0.55); zb.renderOrder = -1.2; zb.castShadow = false; g.add(zb); } }
     for (const [x, z] of o.lamps || []) g.add(at(cyl(0.08, 0.1, 7, '#9AA0A8', 6, { pivot: 'bottom' }), x, Y, z), at(box(0.9, 0.16, 0.36, '#7A8088'), x + 0.35, Y + 7.0, z), at(box(0.7, 0.04, 0.26, '#FFF6D2', { emissive: '#4A4430', noGrain: true }), x + 0.4, Y + 6.91, z));
     for (const [x, z, ry] of o.arrows || []) {
       const s = new THREE.Shape(); s.moveTo(-0.18, -1.0); s.lineTo(0.18, -1.0); s.lineTo(0.18, 0.2); s.lineTo(0.45, 0.2); s.lineTo(0, 1.0); s.lineTo(-0.45, 0.2); s.lineTo(-0.18, 0.2); s.closePath();
-      const m = new THREE.Mesh(new THREE.ShapeGeometry(s), wm); m.rotation.set(-PI / 2, 0, ry || 0); m.position.set(x, Y + 0.008, z); g.add(m);
+      const m = new THREE.Mesh(new THREE.ShapeGeometry(s), wm); m.rotation.set(-PI / 2, 0, ry || 0); m.position.set(x, Y + 0.008, z); m.renderOrder = -1.2; g.add(m);
     }
     return g;
   },
@@ -134,13 +136,14 @@ export const PLACE_PROPS = {
   // parkLot's, o.skip ['row:i', ...] bays left out (keep them for real props), o.y (0.06) the asphalt's top, o.seed; a pancake is a crumpled slab with
   // a flattened cabin bump and four wheels splayed flat; o.wisps: that many thin smoke wisps rise from random wrecks
   flatRows(o) {
-    const Y = o.y ?? 0.06, r = rng(o.seed || 85), g = grp(), skip = new Set(o.skip || []), cols = o.colors || ['#C9473A', '#5E8FD0', '#F2C94C', '#7FB069', '#E8E4DA', '#3E4A5A', '#D98AA8', '#8C6BB8', '#E8833A', '#9AA0A8'];
-    const slabs = [], bumps = [], wheels = [], slabC = [], bumpC = [], spots = [];
+    const Y = o.y ?? 0.06, r = rng(o.seed || 85), g = grp(), skip = new Set(o.skip || []), cols = o.colors || ['#C9473A', '#F2C94C', '#7FB069', '#E8E4DA', '#3E4A5A', '#D98AA8', '#8C6BB8', '#E8833A', '#9AA0A8', '#B5402F'];
+    const slabs = [], bumps = [], wheels = [], slabC = [], bumpC = [], spots = [], glass = [];
     (o.rows || []).forEach(([zc, x0, n, fc], ri) => { for (let i = 0; i < n; i++) {
       if (skip.has(`${ri}:${i}`)) continue;
       const x = x0 + i * 2.5 + (r() - 0.5) * 0.3, z = zc + (r() - 0.5) * 0.4, ry = (fc ?? 1) < 0 ? PI : 0, tw = (r() - 0.5) * 0.25, c = cols[Math.floor(r() * cols.length)];
       slabs.push([x, Y + 0.07, z, (r() - 0.5) * 0.06, ry + tw, (r() - 0.5) * 0.05, 1.95 + r() * 0.15, 0.14, 4.0 + r() * 0.2]); slabC.push(c);
       bumps.push([x + Math.sin(ry + tw) * -0.3, Y + 0.16, z + Math.cos(ry + tw) * -0.3, 0, ry + tw, (r() - 0.5) * 0.1, 1.5, 0.08, 1.9]); bumpC.push(c);
+      glass.push([x + Math.sin(ry + tw) * 0.55, Y + 0.205, z + Math.cos(ry + tw) * 0.55, 0, ry + tw, 0, 1.25, 0.02, 0.5]);
       for (const [dx, dz] of [[-1.05, -1.25], [1.05, -1.25], [-1.05, 1.25], [1.05, 1.25]]) { const a = ry + tw, wx = x + dx * Math.cos(a) + dz * Math.sin(a), wz = z - dx * Math.sin(a) + dz * Math.cos(a); wheels.push([wx, Y + 0.04, wz, 0, 0, 0, 1, 1, 1]); }
       spots.push([x, z]);
     } });
@@ -148,7 +151,8 @@ export const PLACE_PROPS = {
       const sm = inst(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshLambertMaterial({ flatShading: true }), slabs, slabC);
       const bm = inst(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshLambertMaterial({ flatShading: true }), bumps, bumpC);
       const wm = inst(new THREE.CylinderGeometry(0.36, 0.36, 0.08, 10), new THREE.MeshLambertMaterial({ color: '#1B1B1E', flatShading: true }), wheels);
-      g.add(sm, bm, wm);
+      const gm = inst(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshLambertMaterial({ color: '#CFE6EE', flatShading: true }), glass);
+      g.add(sm, bm, wm, gm);
     }
     const wisps = [];
     for (let i = 0; i < (o.wisps ?? 0) && spots.length; i++) { const [x, z] = spots[Math.floor(hsh(i + 3) * spots.length)]; const w = buildProp('softWisp', { n: 10, rise: 2.6, life: 2.2, s0: 0.25, s1: 0.9, drift: [0.4, 0.1], color: o.smokeColor || '#6E6A66', opacity: 0.55 }); w.position.set(x, Y + 0.25, z); g.add(w); wisps.push(w); }
@@ -200,8 +204,8 @@ export const PLACE_PROPS = {
     signP.add(at(box(sw, 1.8, 0.3, RED, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(label(o.sign || 'SUPERMARCHÉ', sw - 0.5, 1.4, { bg: RED, fg: '#FFFFFF', wrap: false }), 0, 0.9, 0.16));
     signP.add(at(box(0.2, 0.6, 0.2, '#6A6E76', { pivot: 'bottom' }), -sw * 0.35, -0.6, -0.2), at(box(0.2, 0.6, 0.2, '#6A6E76', { pivot: 'bottom' }), sw * 0.35, -0.6, -0.2));
     const signG = grp(signP); signP.position.set(0, 0.9, 0); signG.position.set(0, H, -0.4); g.add(signG);
-    let clk = null; if (o.clock) { clk = buildProp('countdownClock', o.clock); clk.position.set(o.clock.x ?? -8, 0.6, -0.6); signG.add(clk); }
-    const dust = []; if (o.foldAt != null) for (const [x, z, s] of [[-W * 0.3, 1, 3.2], [0, 1.5, 3.6], [W * 0.3, 1, 3.2], [-W / 2 - 1, -D / 2, 2.6], [W / 2 + 1, -D / 2, 2.6]]) { const d = buildProp('softDust', { at: o.foldAt + 0.32, n: 9, size: s, life: 1.6, rise: 2.5, spread: 5, color: '#E2DCCD', opacity: 0.85 }); d.position.set(x, 0.4, z); g.add(d); dust.push(d); }
+    let clk = null; if (o.clock) { clk = buildProp('countdownClock', o.clock); clk.position.set(o.clock.x ?? 0, 2.7, -0.4); signG.add(clk); }
+    const dust = []; if (o.foldAt != null) for (const [x, z, s] of [[-W * 0.3, 1, 3.2], [0, 1.5, 3.6], [W * 0.3, 1, 3.2], [-W / 2 - 1, -D / 2, 2.6], [W / 2 + 1, -D / 2, 2.6]]) { const d = buildProp('softDust', { at: o.foldAt + 0.32, n: 6, size: s * 0.55, life: 1.3, rise: 2.0, spread: 4, color: '#DCD5C6', opacity: 0.55 }); d.position.set(x, 0.4, z); g.add(d); dust.push(d); }
     g.userData.update = t => {
       const f0 = o.folded ? -100 : o.foldAt; let a = 0, b = 0, c = 0, rf = 0, sg = 0;
       if (f0 != null) { a = easeIn((t - f0) / 0.34); b = easeIn((t - f0 - 0.05) / 0.36); c = easeIn((t - f0 - 0.1) / 0.36); rf = easeIn((t - f0) / 0.4); sg = clamp01((t - f0 - 0.38) / 0.3); }
@@ -209,7 +213,7 @@ export const PLACE_PROPS = {
       const bounce = rf >= 1 ? 0.12 * Math.exp(-(t - f0 - 0.4) * 7) * Math.abs(Math.sin((t - f0 - 0.4) * 16)) : 0;
       roof.position.y = H + (0.62 - H) * rf + bounce;
       signG.position.y = roof.position.y + 0.3; signG.position.z = -0.4 - 3.2 * sg; signP.rotation.x = -PI / 2 * outBack(sg) * 0.98;
-      if (clk) clk.userData.update?.(t);
+      if (clk) { clk.position.y = 2.7 + (0.3 - 2.7) * smooth(sg); clk.position.z = -0.4 + 1.2 * smooth(sg); clk.rotation.x = -PI / 2 * 0.85 * smooth(sg); clk.userData.update?.(t); }
       for (const d of dust) d.userData.update?.(t);
     };
     g.userData.update(0); return g;
@@ -311,18 +315,19 @@ export const PLACE_PROPS = {
   // the kerb (months later). o.cars [{color, a0 (deg), r, dark, flag, open}]: cars driving round anticlockwise seen from above at o.speed (deg/s, 18)
   // until o.stopAt
   ringRoad(o) {
-    const Ri = o.ri ?? 6.5, Ro = o.ro ?? 13, Y = o.y ?? 0.06, g = grp(), wm = mat('#F1F0E8', { noGrain: true }), road = '#6E7178';
-    const ring = new THREE.Mesh(new THREE.RingGeometry(Ri, Ro, 64), mat(road)); ring.rotation.x = -PI / 2; ring.position.y = Y + 0.002; ring.receiveShadow = true; g.add(ring, at(cyl(Ro, Ro, Y, road, 64, { open: true, pivot: 'bottom' }), 0, 0, 0));
+    const Ri = o.ri ?? 6.5, Ro = o.ro ?? 13, Y = o.y ?? 0.06, g = grp(), road = '#6E7178';
+    const lay = c => new THREE.MeshLambertMaterial({ color: c, depthTest: false, depthWrite: false }), wm = lay('#F1F0E8'), roadM = lay(road);
+    const ring = new THREE.Mesh(new THREE.RingGeometry(Ri, Ro, 64), roadM); ring.rotation.x = -PI / 2; ring.position.y = Y; ring.receiveShadow = true; ring.renderOrder = -1.5; g.add(ring);
     g.add(at(cyl(Ri, Ri, 0.2, '#C9C5BA', 48, { pivot: 'bottom' }), 0, 0, 0), at(cyl(Ri - 0.25, Ri - 0.25, 0.03, o.island || '#79B85E', 48, { pivot: 'bottom' }), 0, 0.2, 0));
     const ex = o.exits || [0, 90, 180, 270], EL = o.exitLen ?? 24, EW = 7;
     const dashes = []; const rm = (Ri + Ro) / 2; for (let i = 0; i < 40; i++) { const a = i / 40 * TAU; dashes.push([Math.sin(a) * rm, Y + 0.006, Math.cos(a) * rm, 0, a, 0, 0.12, 0.012, 1.0]); }
     for (const b of ex) {
       const a = b * PI / 180, ca = Math.cos(a), sa = Math.sin(a), d0 = Ro - 1.5;
-      const rd = at(box(EW, Y, EL, road, { pivot: 'bottom' }), sa * (d0 + EL / 2), 0, ca * (d0 + EL / 2), 0, a, 0); rd.receiveShadow = true; g.add(rd);
+      const rd = new THREE.Mesh(new THREE.PlaneGeometry(EW, EL), roadM); rd.rotation.set(-PI / 2, 0, a); rd.position.set(sa * (d0 + EL / 2), Y, ca * (d0 + EL / 2)); rd.receiveShadow = true; rd.renderOrder = -1.45; g.add(rd);
       for (let i = 0; i < 12; i++) { const off = -EW / 2 + 0.3 + i * 0.58; dashes.push([sa * (Ro + 0.3) + ca * off, Y + 0.006, ca * (Ro + 0.3) - sa * off, 0, a + PI / 2, 0, 0.14, 0.012, 0.32]); }
       for (let i = 0; i < Math.floor(EL / 3); i++) { const d = Ro + 2 + i * 3; dashes.push([sa * d, Y + 0.006, ca * d, 0, a, 0, 0.12, 0.012, 1.5]); }
     }
-    g.add(inst(new THREE.BoxGeometry(1, 1, 1), wm, dashes));
+    { const di = inst(new THREE.BoxGeometry(1, 1, 1), wm, dashes); di.renderOrder = -1.2; di.castShadow = false; g.add(di); }
     const booms = [];
     if (o.booms !== 'none') for (const b of ex) {
       const a = b * PI / 180, ca = Math.cos(a), sa = Math.sin(a), d = Ro + 1.2, side = -EW / 2 - 0.4;
@@ -458,6 +463,7 @@ export const PLACE_PROPS = {
     const bo = grp(at(box(1.8, 2.4, 1.8, '#F2F2EE', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(box(1.82, 0.3, 1.82, '#2E5E9C'), 0, 1.9, 0), at(box(1.2, 0.8, 0.04, '#9CC9DC', { noGrain: true }), 0, 1.15, 0.92), at(box(2.1, 0.14, 2.1, '#5A6470'), 0, 2.45, 0));
     bo.add(at(box(2.2, 0.55, 0.12, '#2E5E9C', { outline: 0.008 }), 0, 2.85, 0), at(label(o.text || 'FRONTIÈRE', 2.0, 0.42, { bg: '#2E5E9C', fg: '#FFFFFF', wrap: false }), 0, 2.85, 0.065));
     bo.position.set(-1.7, 0, -1.2); g.add(bo);
+    if (o.gantry) { for (const x of [-0.4, L + 0.6]) g.add(at(cyl(0.09, 0.1, 4.2, '#9AA0A8', 8, { pivot: 'bottom', outline: 0.006 }), x, 0, -0.9)); g.add(at(box(L + 1.2, 0.12, 0.12, '#9AA0A8'), L / 2 + 0.1, 4.05, -0.9), at(box(3.8, 0.8, 0.12, '#2E5E9C', { outline: 0.01 }), L / 2 + 0.1, 3.5, -0.9), at(label(o.text || 'FRONTIÈRE', 3.6, 0.62, { bg: '#2E5E9C', fg: '#FFFFFF', wrap: false }), L / 2 + 0.1, 3.5, -0.83)); }
     const fp = buildProp('bayFlag', { h: 4.2, fw: 1.3, colors: o.colors || ['#1E7A8C', '#F4F1E8', '#1E7A8C'], mark: o.mark ?? 'disc', markColor: o.markColor || '#E8504A' }); fp.position.set(-3.2, 0, -2.0); g.add(fp);
     g.userData.update = t => { gate.userData.update?.(t); fp.userData.update?.(t); };
     g.userData.update(0); return g;
