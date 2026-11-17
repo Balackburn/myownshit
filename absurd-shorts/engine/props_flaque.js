@@ -483,9 +483,14 @@ export const FLAQUE_PROPS = {
     // (round 3) o.shaft: a column of sunlight falling through the hole onto his patch once the town is up (o.shaft {r, color, opacity}), and a bright
     // pool on the patch
     let shaft = null, pool = null; if (o.shaft && o.hole) { const sr = o.shaft.r ?? o.hole[2] * 0.8, PC = o.patchAt || [o.hole[0], o.hole[1]];
-      shaft = new THREE.Mesh(new THREE.CylinderGeometry(sr, sr * 1.08, 1, 28, 1, true).translate(0, 0.5, 0), new THREE.MeshBasicMaterial({ color: o.shaft.color || '#FFF4D2', transparent: true, opacity: o.shaft.opacity ?? 0.22, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide }));
+      // soft: the column fades out toward the ground and at its sides (an open cylinder with even alpha read as a glass jar round him)
+      const grad = (() => { const c = document.createElement('canvas'); c.width = 64; c.height = 64; const x = c.getContext('2d'), gy = x.createLinearGradient(0, 0, 0, 64); gy.addColorStop(0, 'rgba(255,255,255,1)'); gy.addColorStop(0.7, 'rgba(255,255,255,0.45)'); gy.addColorStop(1, 'rgba(255,255,255,0)');
+        x.fillStyle = gy; x.fillRect(0, 0, 64, 64); const gx = x.createLinearGradient(0, 0, 64, 0); gx.addColorStop(0, 'rgba(0,0,0,1)'); gx.addColorStop(0.5, 'rgba(0,0,0,0)'); gx.addColorStop(1, 'rgba(0,0,0,1)'); x.globalCompositeOperation = 'destination-out'; x.fillStyle = gx; x.fillRect(0, 0, 64, 64);
+        const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+      shaft = new THREE.Mesh(new THREE.CylinderGeometry(sr * 0.8, sr * 1.1, 1, 28, 1, true).translate(0, 0.5, 0), new THREE.MeshBasicMaterial({ color: o.shaft.color || '#FFF4D2', map: grad, transparent: true, opacity: o.shaft.opacity ?? 0.22, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.FrontSide }));
       shaft.position.set(PC[0], PY + 0.01, PC[1]); shaft.visible = false; shaft.castShadow = false; g.add(shaft);
-      pool = new THREE.Mesh(new THREE.CircleGeometry(sr * 1.05, 32).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: '#FFF0C0', transparent: true, opacity: 0.4, depthWrite: false, blending: THREE.AdditiveBlending })); pool.position.set(PC[0], PY + 0.012, PC[1]); pool.visible = false; g.add(pool); }
+      const rad = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'), gr = x.createRadialGradient(32, 32, 1, 32, 32, 31); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.6, 'rgba(255,255,255,0.6)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = gr; x.fillRect(0, 0, 64, 64); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+      pool = new THREE.Mesh(new THREE.PlaneGeometry(sr * 2.4, sr * 2.4).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: '#FFF0C0', map: rad, transparent: true, opacity: 0.4, depthWrite: false, blending: THREE.AdditiveBlending })); pool.position.set(PC[0], PY + 0.012, PC[1]); pool.visible = false; g.add(pool); }
     const spray = []; for (let i = 0; i < (o.subs ? 0 : 40); i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(0.7, 1), new THREE.MeshLambertMaterial({ color: '#FFFFFF', emissive: new THREE.Color('#DDEFFF'), emissiveIntensity: 0.3, transparent: true, opacity: 0.95 })); m.visible = false; g.add(m); spray.push(m); }
     const per = (i) => { const k = i / 40 * 4, side = Math.floor(k), f = k - side; return side === 0 ? [-W / 2 + W * f, D / 2] : side === 1 ? [W / 2, D / 2 - D * f] : side === 2 ? [W / 2 - W * f, -D / 2] : [-W / 2, -D / 2 + D * f]; };
     g.userData.update = t => {
@@ -522,17 +527,18 @@ export const FLAQUE_PROPS = {
     // out into a broad rounded head that leans toward the sea, a pale rim of wear on the head; o.bollardS scales it
     // (round 3) o.bollardStyle 'mushroom': a short black cast-iron mushroom, no band or rim (the grey dome with a pale rim and the rope's eye round its
     // waist read as a giant kepi or a drum next to the gendarme's kepi): a squat post, then a broad flat round head
-    const bx = o.bx ?? 0, BS = o.bollardS ?? 1.3, MU = o.bollardStyle === 'mushroom', BC = o.bollardColor || (MU ? '#1E2226' : '#5C646C'); const bol = []; for (const x of [bx, bx + 8]) {
-      const b = MU ? grp(at(cyl(0.17, 0.21, 0.3, BC, 16, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0)) : grp(at(box(0.62, 0.06, 0.62, '#474D53', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(cyl(0.18, 0.26, 0.26, BC, 14, { pivot: 'bottom', outline: 0.01 }), 0, 0.06, 0), at(cyl(0.26, 0.18, 0.14, BC, 14, { pivot: 'bottom', outline: 0.01 }), 0, 0.32, 0));
-      const head = sphere(MU ? 0.33 : 0.3, BC, 0); head.scale.set(MU ? 1.0 : 1.12, MU ? 0.42 : 0.5, MU ? 1.0 : 1.12); head.position.set(0, MU ? 0.33 : 0.5, MU ? 0 : -0.04); addOutline(head, 0.02); b.add(head);
+    // (round 3) o.bxs [x, ...]: where the bollards stand (the rope leaves from the first); default [o.bx, o.bx + 8]
+    const bx = o.bxs ? o.bxs[0] : (o.bx ?? 0), BS = o.bollardS ?? 1.3, MU = o.bollardStyle === 'mushroom', BC = o.bollardColor || (MU ? '#1E2226' : '#5C646C'); const bol = []; for (const x of (o.bxs || [bx, bx + 8])) {
+      const b = MU ? grp(at(cyl(0.15, 0.19, 0.5, BC, 16, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0)) : grp(at(box(0.62, 0.06, 0.62, '#474D53', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(cyl(0.18, 0.26, 0.26, BC, 14, { pivot: 'bottom', outline: 0.01 }), 0, 0.06, 0), at(cyl(0.26, 0.18, 0.14, BC, 14, { pivot: 'bottom', outline: 0.01 }), 0, 0.32, 0));
+      const head = sphere(MU ? 0.23 : 0.3, BC, 0); head.scale.set(MU ? 1.0 : 1.12, MU ? 0.62 : 0.5, MU ? 1.0 : 1.12); head.position.set(0, MU ? 0.5 : 0.5, MU ? 0 : -0.04); addOutline(head, 0.02); b.add(head);   // (round 3) mushroom: a taller post, a head only a little wider (a wide flat head read as a hat from above)
       if (!MU) { const rim = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.025, 6, 20).rotateX(PI / 2), mat('#9AA3AB')); rim.position.set(0, 0.5, -0.04); b.add(rim); }
       b.scale.setScalar(BS); b.position.set(x, H, 0.9); g.add(b); bol.push(b); }
     const RC = o.rope?.color || '#B88E55';
-    if (o.rope) { const a = new THREE.Vector3(bx, H + (MU ? 0.2 : 0.33) * BS, 0.9), b = new THREE.Vector3(...o.rope.to), sag = o.rope.sag ?? 1.2, pts = [];
+    if (o.rope) { const a = new THREE.Vector3(bx, H + (MU ? 0.3 : 0.33) * BS, 0.9), b = new THREE.Vector3(...o.rope.to), sag = o.rope.sag ?? 1.2, pts = [];
       for (let k = 0; k <= 16; k++) { const u = k / 16, p = a.clone().lerp(b, u); p.y -= sag * 4 * u * (1 - u); pts.push(p); }
       const curve = new THREE.CatmullRomCurve3(pts), tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 64, o.rope.r ?? 0.09, 8, false), mat(RC)); tube.castShadow = true; g.add(tube);
-      const loop = new THREE.Mesh(new THREE.TorusGeometry(o.rope.loopR ?? 0.9, (o.rope.r ?? 0.09) * 1.05, 8, 24), mat(RC)); loop.position.copy(b); loop.rotation.x = PI / 2; g.add(loop);
-      const loop2 = new THREE.Mesh(new THREE.TorusGeometry((MU ? 0.2 : 0.21) * BS, MU ? 0.045 : 0.07, 6, 14), mat(RC)); loop2.position.set(bx, H + (MU ? 0.2 : 0.33) * BS, 0.9); loop2.rotation.x = PI / 2; g.add(loop2); }
+      const loop = new THREE.Mesh(new THREE.TorusGeometry(o.rope.loopR ?? 0.9, (o.rope.r ?? 0.09) * 1.05, 8, 24), mat(RC)); loop.position.set(...(o.rope.loopAt || [b.x, b.y, b.z])); loop.rotation.x = PI / 2; g.add(loop);   // (round 3) o.rope.loopAt: the loop's centre (round the belfry) when the rope ends on its front
+      const loop2 = new THREE.Mesh(new THREE.TorusGeometry((MU ? 0.175 : 0.21) * BS, MU ? 0.035 : 0.07, 6, 14), mat(RC)); loop2.position.set(bx, H + (MU ? 0.3 : 0.33) * BS, 0.9); loop2.rotation.x = PI / 2; g.add(loop2); }
     g.userData.bollard = [bx, H, 0.9]; return g;
   },
 
