@@ -212,10 +212,10 @@ st.cue('sfx:cuff', 'S06', CLICK6, 0.5); st.cue('sfx:static', 'S06', 0.2, 0.1)
 #    dog-ear springs up
 D7 = st.dur('S07'); RISE7, FLIP7 = 0.05, 0.62
 LINE_Z = -2.55; SHL = {'w': 0.6, 'h': 0.8}
-HERO7 = [-0.85, 0, 2.0]; RYH7 = 180
+HERO7 = [-0.62, 0, 2.0]; RYH7 = 180
 COP7a, COP7b = [1.3, 0, -1.55], [0.45, 0, -1.95]
 C7 = cam(0.0, [-0.25, 2.25, 4.7], [-0.24, 2.24, 4.6], [0.15, 1.1, -2.4], [0.15, 1.1, -2.4], lens=36)
-PT7 = R5([-0.4, 1.95, 1.25], 1, 0.1)
+PT7 = R5([-0.12, 1.95, 1.25], 1, 0.1)
 chk('S07', C7['from'], C7['lookAt'], 36, {'sheet1': [-1.1, 0.4, LINE_Z], 'sheet3': [0.0, 0.4, LINE_Z], 'sheet5': [1.1, 0.4, LINE_Z], 'heroHead': [HERO7[0], 2.0, HERO7[2]], 'hand': PT7[:3], 'copFace': [COP7b[0], 2.0, COP7b[2]], 'glassTop': [0, 2.2, 0.7]})
 st.shot('S07', 'interrogation', actors=[
         act('mec', HERO7, RYH7, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 0.6, LINE_Z]),
@@ -240,9 +240,9 @@ PLAZA = P('parvis', 'parkLot', pos=[0, 0, 4.0], opts={'w': 40, 'd': 24, 'rows': 
 SHC = {'w': 0.6, 'h': 0.8}
 G1 = [-1.15, 0, 0.75]; G2 = [-0.15, 0, 0.75]
 SHEET_C = [-0.65, 1.92, 0.82]
-PROC = [0.75, 0, 1.95]; RYP = -150
-TROL = [0.35, 0, 1.1]
-MICS = [0.95, 0, 2.6]
+PROC = [0.5, 0, 2.0]; RYP = -150
+TROL = [0.25, 0, 1.15]
+MICS = [0.62, 0, 2.75]
 CORNER = lambda s: [r(SHEET_C[0] + s * 0.29), r(SHEET_C[1] + 0.38), r(SHEET_C[2] + 0.02)]
 def GKEYS(face=None):
     f = face or {'lid': 0.5, 'mouth': 'line', 'brow': -0.2}
@@ -253,7 +253,7 @@ COURT = lambda: [P('tribunal', 'courtFront', pos=CT, opts={'w': 13, 'steps': 6, 
 # 8: the prosecutor asked for the shredder. Low on the forecourt: the sheet upright between the two gendarmes; the prosecutor at his microphones
 #    whips the red velvet cover off the price-tagged shredder on its trolley; she curls back, trembling
 D8 = st.dur('S08'); OFF8 = 0.7
-C8 = cam(0.0, [0.15, 1.62, 6.7], [0.12, 1.64, 6.4], [-0.25, 1.7, 0.8], [-0.25, 1.71, 0.8], lens=42)
+C8 = cam(0.0, [0.25, 1.62, 7.0], [0.22, 1.64, 6.7], [-0.15, 1.75, 0.8], [-0.15, 1.76, 0.8], lens=42)
 chk('S08', C8['from'], C8['lookAt'], 42, {'sheetTop': CORNER(-1), 'sheetMid': SHEET_C, 'g1Face': [G1[0], 2.0, G1[2]], 'g2Face': [G2[0], 2.0, G2[2]], 'procFace': [PROC[0], 2.0, PROC[2]], 'trolley': [TROL[0], 1.4, TROL[2]], 'mics': [MICS[0], 1.35, MICS[2]], 'columnTop': [0, 7.5, -3.2]})
 GK8 = GKEYS()
 st.shot('S08', 'grassland', setOpts={'clouds': 26}, actors=[
@@ -406,10 +406,10 @@ st.cue('engine', 'S15', 0.0, 0.3, D15); st.cue('sfx:crunch', 'S15', 0.4, 0.3); s
 # 16: the sheet was released. On the forecourt: one gendarme opens his fingers and the sheet drifts away on a draught, down past the microphones and
 #     out over the steps, rocking
 D16 = st.dur('S16'); REL16 = 0.25
-G16 = [-0.35, 0, 0.75]
-SH16 = [0.25, 1.85, 0.85]
-PATH16 = [[0.45, 1.95, 1.45], [0.6, 1.65, 2.3], [0.85, 1.8, 3.2], [1.4, 1.4, 4.4]]
-C16 = cam(0.0, [-1.0, 1.6, 5.1], [-0.95, 1.61, 4.9], [0.55, 1.65, 1.1], [0.65, 1.66, 1.4], lens=44)
+G16 = [-0.15, 0, 0.75]
+SH16 = [0.45, 1.85, 0.85]
+PATH16 = [[0.6, 1.95, 1.45], [0.7, 1.65, 2.3], [0.85, 1.8, 3.2], [1.3, 1.4, 4.4]]
+C16 = cam(0.0, [-1.0, 1.6, 5.3], [-0.95, 1.61, 5.1], [0.35, 1.7, 1.0], [0.55, 1.66, 1.6], lens=44)
 chk('S16', C16['from'], C16['lookAt'], 44, {'gFace': [G16[0], 2.0, G16[2]], 'sheet0': SH16, 'p1': PATH16[0], 'p2': PATH16[1], 'p3': PATH16[2], 'mics': [MICS[0], 1.35, MICS[2]]})
 st.shot('S16', 'grassland', setOpts={'clouds': 26}, actors=[
         act('gendarme2', G16, 0, 'stand', 'neutral', keys=[k(0.0, look=SH16), k(0.0, toon={'reach': {'L': R5(add(SH16, [-0.18, 0.3, -0.02]), 1, 0.06)}, 'hands': {'L': 'pinch'}, 'face': {'lid': 0.5, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.0),
