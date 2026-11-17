@@ -605,8 +605,10 @@ export const BARBECUE_PROPS = {
   pressCrowd(o) {
     const n = o.heads ? o.heads.length : (o.n ?? 5), nc = o.camsAt ? o.camsAt.length : (o.cams ?? 3), W = o.w ?? 1.8, Y = o.y ?? 1.25, C = o.color || '#1A1E26', g = grp(), flashes = [];
     for (let i = 0; i < n; i++) { const hp = o.heads?.[i], x = hp ? hp[0] : (i / Math.max(1, n - 1) - 0.5) * W, dy = hp ? hp[1] - Y : (hsh(i + 2) - 0.5) * 0.12, z = hp ? hp[2] : (hsh(i + 7) - 0.5) * 0.2;
-      const hd = new THREE.Mesh(new THREE.IcosahedronGeometry(0.13, 1), mat(C)); hd.scale.set(1, 1.15, 1); hd.position.set(x, Y + 0.2 + dy, z);   // (round 2) round heads and shoulders read as people, boxes read as crates
-      const sh = new THREE.Mesh(new THREE.SphereGeometry(0.26, 12, 6, 0, TAU, 0, PI / 2), mat(C)); sh.scale.set(1, 0.6, 0.62); sh.position.set(x, Y - 0.05 + dy, z); g.add(hd, sh); }
+      const hd = new THREE.Mesh(new THREE.SphereGeometry(0.115, 20, 14), mat(C)); hd.scale.set(1, 1.18, 1); hd.position.set(x, Y + 0.2 + dy, z);   // (final) smooth round heads with ears and a neck: people, not boulders
+      for (const sd of [-1, 1]) g.add(at(new THREE.Mesh(new THREE.SphereGeometry(0.03, 8, 6), mat(C)), x + sd * 0.115, Y + 0.2 + dy, z));
+      g.add(at(cyl(0.05, 0.06, 0.12, C, 10), x, Y + 0.06 + dy, z));
+      const sh = new THREE.Mesh(new THREE.SphereGeometry(0.24, 20, 8, 0, TAU, 0, PI / 2), mat(C)); sh.scale.set(1, 0.5, 0.55); sh.position.set(x, Y - 0.05 + dy, z); g.add(hd, sh); }
     for (let j = 0; j < nc; j++) { const cp = o.camsAt?.[j], x = cp ? cp[0] : ((j + 0.5) / nc - 0.5) * W * 0.9, y = cp ? cp[1] : Y + 0.38 + 0.08 * (j % 2), cam = grp();
       cam.add(at(box(0.2, 0.15, 0.16, '#121418', { outline: 0.006 }), 0, 0, 0), at(cyl(0.075, 0.08, 0.3, '#16181C', 12, { outline: 0.006 }), 0, 0, -0.22, PI / 2, 0, 0), at(cyl(0.095, 0.08, 0.06, '#0E1012', 12), 0, 0, -0.39, PI / 2, 0, 0));   // (round 2) dark body, a long lens with a hood: it reads as a press camera in profile
       const lens = new THREE.Mesh(new THREE.CircleGeometry(0.06, 14), basic('#3A5A7A')); lens.position.set(0, 0, -0.421); lens.rotation.y = PI; cam.add(lens);
@@ -629,6 +631,21 @@ export const BARBECUE_PROPS = {
     return g;
   },
 
+
+  // (final) A soft wisp of smoke rising from a point (pivot at the source): a stream of o.n (14) round soft sprites (radial gradient, facing the
+  // camera) born one after another, each rising o.rise (1.2 m) over o.life (1.6 s) while it grows from o.s0 (0.04) to o.s1 (0.18), drifts by o.drift
+  // [x, z] and wobbles, fading in then out; from o.at (default 0); o.color (#7A746E), o.opacity (0.75). A pure function of time (it loops).
+  softWisp(o) {
+    const n = o.n ?? 14, g = grp(), cv = document.createElement('canvas'); cv.width = cv.height = 64; const x = cv.getContext('2d');
+    const gr = x.createRadialGradient(32, 32, 2, 32, 32, 31); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.55, 'rgba(255,255,255,0.55)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = gr; x.fillRect(0, 0, 64, 64);
+    const tex = new THREE.CanvasTexture(cv), sp = [], life = o.life ?? 1.6, rise = o.rise ?? 1.2, s0 = o.s0 ?? 0.04, s1 = o.s1 ?? 0.18, dr = o.drift || [0.15, -0.05], op = o.opacity ?? 0.75;
+    for (let i = 0; i < n; i++) { const m = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, color: o.color || '#7A746E', transparent: true, opacity: 0, depthWrite: false })); g.add(m); sp.push(m); }
+    g.userData.update = t => { const on = t >= (o.at ?? 0); sp.forEach((m, i) => { m.visible = on; if (!on) return; const u = (((t - (o.at ?? 0)) / life) + i / n) % 1;
+      m.position.set(dr[0] * u + 0.04 * Math.sin(u * 7 + i * 1.3), rise * u, dr[1] * u + 0.04 * Math.cos(u * 6 + i)); const sc = s0 + (s1 - s0) * u; m.scale.set(sc, sc, 1);
+      m.material.opacity = op * Math.min(1, u / 0.15) * (1 - smooth((u - 0.55) / 0.45)) * Math.min(1, (t - (o.at ?? 0)) / 0.3); }); };
+    g.userData.update(-1); return g;
+  },
+
   // (final) A thin tapering tendril of smoke drawn along a curve into a target (pivot anywhere: o.pts in the prop's frame, 2 to 4 Bézier points from
   // the source to the end): from o.at it stretches out to the end over o.grow (0.6 s), wobbling (o.wob 0.025), radius o.r0 (0.035) at the source to
   // o.r1 (0.012) at its tip; at o.suck it snaps in: its tail races to the end over o.suckDur (0.16 s) and the tip squashes flat as it goes in
@@ -642,8 +659,9 @@ export const BARBECUE_PROPS = {
     const g = grp(m, tip), V = new THREE.Vector3(), T = new THREE.Vector3(), Nn = new THREE.Vector3(), B = new THREE.Vector3(), UP = new THREE.Vector3(0, 1, 0);
     const pt = (p, t, f) => { const q = bez(P, Math.max(0, Math.min(1, p))), w = wob * f; return [q[0] + w * Math.sin(p * 9 + t * 5.3), q[1] + w * 0.6 * Math.cos(p * 7 + t * 4.1), q[2] + w * Math.cos(p * 8 + t * 4.7)]; };
     g.userData.update = t => {
-      const at0 = o.at ?? 0, gr = o.grow ?? 0.6, sk = o.suck ?? 1e9, sd = o.suckDur ?? 0.16, head = smooth((t - at0) / gr), tail = clamp01((t - sk) / sd);
-      m.visible = t >= at0 && tail < 1; const sq = t >= sk + sd && t < sk + sd + 0.14;
+      const at0 = o.at ?? 0, gr = o.grow ?? 0.6, sk = o.suck ?? 1e9, sd = o.suckDur ?? 0.16, tail = clamp01((t - sk) / sd);
+      let head = gr > 0 ? smooth((t - at0) / gr) : (t >= at0 ? 1 : 0); if (o.off) head = Math.min(head, 1 - smooth((t - o.off[0]) / (o.off[1] ?? 0.5)));   // (final) o.off: the end draws back
+      m.visible = t >= at0 && tail < 1 && head > tail + 0.02; const sq = t >= sk + sd && t < sk + sd + 0.14;
       if (m.visible) {
         for (let i = 0; i <= N; i++) { const f = i / N, p = tail + (head - tail) * f, c = pt(p, t, Math.sin(PI * f)), e = pt(p + 0.01, t, Math.sin(PI * f)), b0 = pt(p - 0.01, t, Math.sin(PI * f));
           T.set(e[0] - b0[0], e[1] - b0[1], e[2] - b0[2]).normalize(); Nn.crossVectors(T, Math.abs(T.y) > 0.95 ? new THREE.Vector3(1, 0, 0) : UP).normalize(); B.crossVectors(T, Nn).normalize();
