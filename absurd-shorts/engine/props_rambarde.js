@@ -11,6 +11,7 @@ import { grp, at, canvasPlane, buildProp, rod } from './props.js';
 const PI = Math.PI;
 const clamp01 = x => Math.max(0, Math.min(1, x));
 const smooth = x => { const u = clamp01(x); return u * u * (3 - 2 * u); };
+const swingUp = u => u < 0.72 ? 1.07 * smooth(u / 0.72) : 1.07 - 0.07 * smooth((u - 0.72) / 0.28);   // (final pass of 84) eased in and out, a 7 % overshoot, settles
 const outBack = x => { const u = clamp01(x), c = 1.70158; return 1 + (c + 1) * Math.pow(u - 1, 3) + c * Math.pow(u - 1, 2); };
 const hsh = i => { const s = Math.sin(i * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
 const basic = (c, o = {}) => new THREE.MeshBasicMaterial({ color: c, transparent: o.opacity != null, opacity: o.opacity ?? 1, depthWrite: o.opacity == null, side: o.side || THREE.FrontSide });
@@ -80,7 +81,8 @@ export const RAMBARDE_PROPS = {
       if (o.steps && o.steps.length) { const n = o.steps.length; k = 0; o.steps.forEach(t1 => { k += outBack(clamp01((t - t1) / 0.2)) / n; }); e = clamp01(k); }
       else if (o.extend) { e = smooth((t - o.extend[0]) / Math.max(0.01, o.extend[1])); k = outBack(clamp01((t - o.extend[0]) / Math.max(0.01, o.extend[1]))); }
       sec[1].position.y = SL * 0.98 * Math.min(1.03, k); sec[2].position.y = 2 * SL * 0.98 * Math.min(1.03, k);
-      const ra = o.raise ? outBack(clamp01((t - o.raise[0]) / Math.max(0.01, o.raise[1]))) : 1, e0 = (o.raise0 ?? 8) * PI / 180, elv = e0 + (el - e0) * ra;
+      const ra = o.raise ? swingUp(clamp01((t - o.raise[0]) / Math.max(0.01, o.raise[1]))) : 1,   // (final pass of 84: outBack put 95 % of the swing in its first third, a jump)
+        e0 = (o.raise0 ?? 8) * PI / 180, elv = e0 + (el - e0) * ra;
       arm.rotation.x = PI / 2 - elv;
       arm.rotation.z = (o.extend || o.steps) ? 0.012 * Math.sin(t * 9) * (1 - e) : 0.004 * Math.sin(t * 1.3);
       if (topArm) topArm.rotation.z = -2.4 + 0.55 * Math.sin(t * 9);
@@ -223,24 +225,27 @@ export const RAMBARDE_PROPS = {
     const phong = (c, sh = 70) => new THREE.MeshPhongMaterial({ color: c, specular: '#FFE2A8', shininess: sh, emissive: '#2A1A08', flatShading: true });
     g.add(at(box(W * 0.5, ph, 0.3, '#C9BFA8', { pivot: 'bottom', outline: 0.01 }), 0, 0, -0.1));
     plate.position.set(0, ph + H / 2, 0.08); plate.rotation.x = -0.12; g.add(plate);
-    const base = new THREE.Mesh(new THREE.BoxGeometry(W, H, 0.06), phong('#B8863F')); addOutline(base, 0.012); plate.add(base);
-    for (const [w_, h_, x, y] of [[W, 0.07, 0, H / 2 - 0.035], [W, 0.07, 0, -H / 2 + 0.035], [0.07, H, -W / 2 + 0.035, 0], [0.07, H, W / 2 - 0.035, 0]]) plate.add(at(new THREE.Mesh(new THREE.BoxGeometry(w_, h_, 0.09), phong('#E0AE62', 90)), x, y, 0.01));
+    const base = new THREE.Mesh(new THREE.BoxGeometry(W, H, 0.06), phong('#6E4A22', 40)); addOutline(base, 0.012); plate.add(base);   // (final pass of 84: mustard read as a road sign) dark bronze
+    for (const [w_, h_, x, y, rx, ry] of [[W, 0.08, 0, H / 2 - 0.04, -0.5, 0], [W, 0.08, 0, -H / 2 + 0.04, 0.5, 0], [0.08, H, -W / 2 + 0.04, 0, 0, -0.5], [0.08, H, W / 2 - 0.04, 0, 0, 0.5]]) plate.add(at(new THREE.Mesh(new THREE.BoxGeometry(w_, h_, 0.07), phong('#A87A3A', 80)), x, y, 0.025, rx, ry, 0));   // a bevelled frame
+    for (const [x, y] of [[-1, 1], [1, 1], [-1, -1], [1, -1]]) plate.add(at(sphere(0.028, '#D9B070', 1), x * (W / 2 - 0.1), y * (H / 2 - 0.1), 0.045));   // four bolts
     const lines = o.text || ['MONUMENT', 'HISTORIQUE'];
     const txt = canvasPlane(W * 0.86, H * 0.36, (x, cw, ch) => {
-      const gr = x.createLinearGradient(0, 0, cw, ch); gr.addColorStop(0, '#C99448'); gr.addColorStop(0.45, '#F0C27A'); gr.addColorStop(0.55, '#D6A35A'); gr.addColorStop(1, '#B07A38');
+      const gr = x.createLinearGradient(0, 0, cw, ch); gr.addColorStop(0, '#5E3E1C'); gr.addColorStop(0.5, '#7A5428'); gr.addColorStop(1, '#4E3216');   // (final pass of 84) dark bronze field, light raised letters
       x.fillStyle = gr; x.fillRect(0, 0, cw, ch); x.textAlign = 'center'; x.textBaseline = 'middle';
       const fs = Math.round(ch * 0.36); x.font = `900 ${fs}px Arial Black, Arial, sans-serif`;
       lines.forEach((l, i) => { const y = ch * (lines.length === 1 ? 0.5 : 0.3 + 0.42 * i);
-        x.fillStyle = '#FFE6B0'; x.fillText(l, cw / 2 + 2, y + 2); x.fillStyle = '#4A2C10'; x.fillText(l, cw / 2, y); });
+        x.fillStyle = '#20140A'; x.fillText(l, cw / 2 + 3, y + 3); x.fillStyle = '#FFE3A6'; x.fillText(l, cw / 2, y); });
     }, { res: 512 });
     txt.position.set(0, H * 0.24, 0.032); plate.add(txt);
     const s = Math.min(W, H) * 0.27, sh = new THREE.Shape([[-1, 0.2], [0.2, 0.2], [0.2, 0.6], [1, 0], [0.2, -0.6], [0.2, -0.2], [-1, -0.2]].map(([x, y]) => new THREE.Vector2(x * s, y * s)));
     const arrow = new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: 0.035, bevelEnabled: false }), phong(dk, 30)); addOutline(arrow, 0.02);
     arrow.rotation.z = (o.dir ?? 0) * PI / 180; arrow.position.set(0, -H * 0.2, 0.03); plate.add(arrow);
-    const shine = new THREE.Mesh(new THREE.PlaneGeometry(W * 0.12, H * 1.1), basic('#FFF2D0', { opacity: 0.22 })); shine.position.set(-W * 0.22, 0, 0.034); shine.rotation.z = -0.5; plate.add(shine);
+    const sw = canvasPlane(W * 0.5, H * 1.3, (c, cw, ch) => { c.clearRect(0, 0, cw, ch); const g2 = c.createLinearGradient(0, 0, cw, 0); g2.addColorStop(0, 'rgba(255,236,190,0)'); g2.addColorStop(0.5, 'rgba(255,236,190,0.34)'); g2.addColorStop(1, 'rgba(255,236,190,0)'); c.fillStyle = g2; c.fillRect(0, 0, cw, ch); }, { res: 128, transparent: true });
+    sw.rotation.z = -0.45; sw.position.set(-W * 0.3, 0, 0.05); plate.add(sw);   // (final pass of 84: a hard white stripe) a soft specular sweep that glides across
     const drape = grp(); drape.add(at(box(W * 1.12, H * 1.15, 0.05, '#9A1E28', { outline: 0.01 }), 0, 0, 0), at(box(W * 1.14, 0.06, 0.07, '#E2B53C'), 0, -H * 0.56, 0.01));
     drape.position.set(0, 0, 0.07); plate.add(drape);
-    g.userData.update = t => { const dr = o.drapeAt; if (!dr) { drape.visible = false; return; } const k = clamp01((t - dr[0]) / (dr[1] ?? 0.45));
+    g.userData.update = t => { sw.position.x = -W * 0.42 + W * 0.84 * (((t - (o.sweepAt ?? 0.3)) * 0.55) % 1 + 1) % 1; sw.visible = Math.abs(sw.position.x) < W * 0.45;
+      const dr = o.drapeAt; if (!dr) { drape.visible = false; return; } const k = clamp01((t - dr[0]) / (dr[1] ?? 0.45));
       drape.visible = k < 1; drape.position.y = -k * k * H * 1.6; drape.rotation.x = 0.6 * k; drape.scale.y = 1 - 0.5 * k; };
     g.userData.update(0); return g;
   },
@@ -341,8 +346,9 @@ export const RAMBARDE_PROPS = {
     const pit = new THREE.Mesh(new THREE.CircleGeometry(R * 0.62, 24), lam('#2C2520')); pit.rotation.x = -PI / 2; pit.position.y = 0.06; g.add(pit);
     const ring = new THREE.Mesh(new THREE.RingGeometry(R * 0.6, R * 0.75, 24), lam('#5E5248')); ring.rotation.x = -PI / 2; ring.position.y = 0.065; g.add(ring);
     const geo = new THREE.DodecahedronGeometry(1, 0), cols = ['#8F857A', '#6E655C', '#A39880', '#5A524A'];
-    for (let i = 0; i < 46; i++) { const a = (i / 46) * 2 * PI + r() * 0.12, d = R * (0.88 + r() * 0.22), s = 0.2 + r() * 0.55, m = new THREE.Mesh(geo, mat(cols[i % 4]));
-      m.scale.set(s * (1 + r()), s * 0.7, s); m.position.set(Math.cos(a) * d, s * 0.35, Math.sin(a) * d); m.rotation.set(r() * 3, r() * 3, r() * 3); m.castShadow = true; g.add(m); }
+    const NR = o.fine ? 110 : 46;   // (final pass of 84: big flat slabs filled the foreground) o.fine: smaller, chunkier faceted pieces
+    for (let i = 0; i < NR; i++) { const a = (i / NR) * 2 * PI + r() * 0.12, d = R * (0.86 + r() * 0.26), s = o.fine ? 0.1 + r() * 0.26 : 0.2 + r() * 0.55, m = new THREE.Mesh(geo, mat(cols[i % 4]));
+      if (o.fine) m.scale.set(s * (0.8 + 0.5 * r()), s * (0.7 + 0.4 * r()), s * (0.8 + 0.4 * r())); else m.scale.set(s * (1 + r()), s * 0.7, s); m.position.set(Math.cos(a) * d, s * 0.35, Math.sin(a) * d); m.rotation.set(r() * 3, r() * 3, r() * 3); m.castShadow = true; g.add(m); }
     for (let i = 0; i < 6; i++) { const a = r() * 2 * PI, d = R * (0.3 + r() * 0.5), L = 1.2 + r() * 1.6; g.add(at(box(0.14, L, 0.14, '#2A2420', { pivot: 'bottom' }), Math.cos(a) * d, 0.02, Math.sin(a) * d, (r() - 0.5) * 1.2, r() * 3, (r() - 0.5) * 1.2)); }
     return g;
   },
@@ -375,9 +381,21 @@ export const RAMBARDE_PROPS = {
 
   // A winch cable from a helicopter down to a hand (pivot at its bottom end: attach to a hand; it rises along +Y o.len (12 m)), a hook at the bottom
   winchCable(o) {
-    const L = o.len ?? 12, g = grp(); g.add(at(cyl(0.012, 0.012, L, '#2A2C30', 5, { pivot: 'bottom' }), 0, 0.06, 0), at(new THREE.Mesh(new THREE.TorusGeometry(0.04, 0.012, 5, 10, PI * 1.4), mat('#8A8E92')), 0, 0.03, 0, 0, 0, PI));
+    const L = o.len ?? 12, g = grp(), cr = o.r ?? 0.012; g.add(at(cyl(cr, cr, L, '#2A2C30', 5, { pivot: 'bottom' }), 0, 0.06, 0), at(new THREE.Mesh(new THREE.TorusGeometry(0.04, 0.012, 5, 10, PI * 1.4), mat('#8A8E92')), 0, 0.03, 0, 0, 0, PI));
     return g;
   },
+  // (final pass of 84: the shared rubberStamp scaled up read as a dark brown block) A giant rubber stamp (pivot at the bottom of the pad, the handle
+  // up +Y, grip near the knob like rubberStamp, so attach it the same way): a light cream rubber pad with a red inked face under it, a red mount
+  // block, a turned light-wood neck and a big round knob; o.s scales it (1: about 0.6 m tall)
+  giantStamp(o) {
+    const g = grp(), s = o.s ?? 1;
+    g.add(at(box(0.48 * s, 0.012 * s, 0.32 * s, o.ink || '#C8202A'), 0, 0.006 * s, 0), at(box(0.5 * s, 0.06 * s, 0.34 * s, '#F0E4D0', { outline: 0.008 }), 0, 0.042 * s, 0));
+    g.add(at(box(0.46 * s, 0.1 * s, 0.3 * s, o.color || '#C23A2E', { outline: 0.008 }), 0, 0.12 * s, 0));
+    g.add(at(cyl(0.055 * s, 0.085 * s, 0.24 * s, '#D9A066', 10, { pivot: 'bottom' }), 0, 0.17 * s, 0), at(cyl(0.1 * s, 0.1 * s, 0.03 * s, '#B5783E', 12), 0, 0.41 * s, 0));
+    const kn = sphere(0.12 * s, '#E8B87A', 1); kn.position.set(0, 0.5 * s, 0); kn.scale.y = 0.85; g.add(kn);
+    g.userData.grip = [0, 0.47 * s, 0]; return g;
+  },
+
   // (round 2 of 84) His cheeks squeezed out round the bars (attach to the head joint; the face toward +Z): two skin-coloured rounded bulges on
   // either side of the face, just outside the bars; o.at [[t, k], ...] (k 0..1.4) swells them, keyed; o.skin; o.x (0.15): their half spacing
   cheekBulge(o) {
