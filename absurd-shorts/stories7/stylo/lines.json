@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a empoché le stylo de la mairie.",
+  "hl": [
+   "empoché",
+   "mairie."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Le seul stylo de l'État.",
+  "hl": [
+   "stylo",
+   "l'État."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Les dossiers se sont empilés jusqu'au plafond.",
+  "hl": [
+   "dossiers",
+   "jusqu'au"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Les mariages ont été suspendus.",
+  "hl": [
+   "mariages",
+   "suspendus."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Les naissances, reportées à lundi.",
+  "hl": [
+   "naissances,",
+   "reportées"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Édition spéciale. Onzième jour sans stylo.",
+  "hl": [
+   "Édition",
+   "spéciale."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Le président a voulu démissionner.",
+  "hl": [
+   "président",
+   "démissionner."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Impossible : il fallait signer.",
+  "hl": [
+   "Impossible",
+   "fallait"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "La douane a fouillé chaque trousse d'écolier.",
+  "hl": [
+   "fouillé",
+   "d'écolier."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Sa mère l'a dénoncé.",
+  "hl": [
+   "mère",
+   "dénoncé."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Les forces spéciales ont sauté sur son balcon.",
+  "hl": [
+   "forces",
+   "spéciales"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le balcon a cédé. Et les trois du dessous.",
+  "hl": [
+   "balcon",
+   "dessous."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le stylo était dans sa poche. Mâchouillé.",
+  "hl": [
+   "stylo",
+   "Mâchouillé."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Il n'avait plus d'encre depuis dix ans.",
+  "hl": [
+   "n'avait",
+   "d'encre"
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Son stylo neuf est enchaîné au guichet.",
+  "hl": [
+   "enchaîné",
+   "guichet."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Ce mec a parloir le jeudi.",
+  "hl": [
+   "parloir",
+   "jeudi."
+  ]
+ }
+]

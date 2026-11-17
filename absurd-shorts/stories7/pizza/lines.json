@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a reçu sa pizza froide.",
+  "hl": [
+   "pizza",
+   "froide."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Le président a parlé de honte nationale.",
+  "hl": [
+   "président",
+   "nationale."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "L'armée l'a relivrée en avion de chasse.",
+  "hl": [
+   "L'armée",
+   "relivrée"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "La pizza est arrivée en flammes.",
+  "hl": [
+   "arrivée",
+   "flammes."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Elle a freiné avec la rue.",
+  "hl": [
+   "freiné",
+   "rue."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Le trottoir est arrivé avant elle.",
+  "hl": [
+   "trottoir",
+   "arrivé"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Ce mec l'a trouvée trop cuite.",
+  "hl": [
+   "trouvée",
+   "cuite."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "L'état-major a conclu : la refroidir en route.",
+  "hl": [
+   "L'état-major",
+   "refroidir"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Un missile l'a montée jusqu'à l'espace.",
+  "hl": [
+   "missile",
+   "l'espace."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Elle a fait un cratère dans son jardin.",
+  "hl": [
+   "cratère",
+   "jardin."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Il reste sa porte d'entrée.",
+  "hl": [
+   "porte",
+   "d'entrée."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Au fond du cratère : soixante degrés.",
+  "hl": [
+   "cratère",
+   "soixante"
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le président a inauguré le cratère.",
+  "hl": [
+   "président",
+   "inauguré"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Les autres pays commandent leurs pizzas froides.",
+  "hl": [
+   "commandent",
+   "froides."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Ce mec a mis trois heures à descendre.",
+  "hl": [
+   "heures",
+   "descendre."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Une étoile. Elle était froide.",
+  "hl": [
+   "étoile.",
+   "froide."
+  ]
+ }
+]
