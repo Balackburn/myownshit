@@ -142,7 +142,7 @@ st.shot('S04', 'parisStreet', setOpts=STREET, actors=[
         *[PULLER(j, w) for j, w in enumerate(POMP)]],
         props=[RAIL(), *TRUCK(), *[FIRE_HAT(f'casque4{j}', w) for j, w in enumerate(POMP)],
                P('tuyau4', 'rope', pos=ANK4, rot=[0, 0, -1.48], opts={'len': r(math.dist(ANK4, ROPE_END)), 'r': 0.045, 'color': '#C8322A', 'sway': 0.0})],
-        cams=[cam(0.0, [9.0, 2.2, -8.5], [8.95, 2.2, -8.3], [7.0, 1.6, 0.0], [7.0, 1.6, 0.0], lens=58)])
+        cams=[cam(0.0, [9.2, 2.2, 3.5], [9.1, 2.22, 3.4], [4.0, 0.8, -1.0], [4.0, 0.8, -1.0], lens=56)])
 st.cue('sfx:grunt', 'S04', 0.55, 0.3); st.cue('sfx:grunt', 'S04', 1.05, 0.3); st.cue('sfx:grunt', 'S04', 1.5, 0.35)
 
 # 5: he grew twenty centimetres. From the side and above: one last heave, his body stretches like elastic while the head stays in the bars, the hose
@@ -212,7 +212,7 @@ st.shot('S07', 'parisStreet', setOpts=STREET, actors=[
             k(YELL7, toon={'reach': {'R': [*add(MEGA7, [-0.06, 0, 0]), 1, 0.04]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.22, 0, 0, 1, None]}, 'sq': [1.05, 0.96, 1.05], 'face': {'lid': 0.0, 'mouth': 'scream', 'brow': -0.9, 'vein': 0.8}}, toonDur=0.06, toonEase='out'),
             k(r(YELL7 + 0.9), toon={'reach': {'R': [*add(MEGA7, [-0.05, 0, 0]), 1, 0.04]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'sq': [1.0, 1.0, 1.0], 'face': {'lid': 0.1, 'mouth': 'scream', 'brow': -0.9, 'vein': 0.6}}, toonDur=0.3),
             k(r(YELL7 + 1.2), toon={'reach': {'R': [*MEGA7, 1, 0.04]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.12, 0, 0, 1, None]}, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.6}}, toonDur=0.2)])],
-        props=[RAIL(tape=True, quiver=[YELL7, 1.3, 0.09]), *TRUCK(), P('megaphone7', 'megaphone', on={'actor': 'president', 'hand': 'R', 'offset': [0.0, 0.02, 0.06]}),
+        props=[RAIL(tape=True, quiver=[YELL7, 1.3, 0.09]), *TRUCK(), P('megaphone7', 'megaphone', on={'actor': 'president', 'hand': 'R', 'offset': [0.0, 0.02, 0.06]}, scale=1.8),
                P('cris7', 'toonPuff', pos=add(HEAD, [0.12, 0.05, 0.0]), opts={'at': YELL7, 'n': 4, 'size': 0.06, 'life': 0.4, 'rise': 0.05, 'spread': 0.3, 'color': '#F4F2EC'})],
         cams=[cam(0.0, [9.3, 2.0, 4.2], [9.3, 2.0, 4.0], [9.3, 2.05, 0.0], [9.3, 2.05, 0.0], lens=34, shake=0.004)])
 st.cue('sfx:siren', 'S07', YELL7, 0.45); st.cue('sfx:ring', 'S07', r(YELL7 + 0.05), 0.35)
@@ -226,7 +226,7 @@ st.shot('S08', 'parisStreet', setOpts=STREET, actors=[
             k(0.0, toon={'reach': {'R': [*add(MEGA7, [-0.05, 0, 0]), 1, 0.04]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.18, 0, 0, 1, None]}, 'face': {'lid': 0.1, 'mouth': 'O', 'brow': -0.6}}, toonDur=0.0),
             k(0.55, toon={'reach': {'R': [*add(MEGA7, [0.05, -0.3, 0.06]), 1, 0.04]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.12, 0, 0, 1, None]}, 'face': {'lid': 0.5, 'mouth': 'line', 'brow': 0.2}}, toonDur=0.9),
             k(1.5, toon={'reach': {'R': [*add(MEGA7, [0.1, -0.62, 0.1]), 1, 0.04]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.06, 0, 0, 1, None]}, 'face': {'lid': 0.6, 'mouth': 'line', 'brow': 0.3}}, toonDur=0.25)])],
-        props=[RAIL(tape=True, quiver=[-0.5, 1.2, 0.05]), *TRUCK(), P('megaphone8', 'megaphone', on={'actor': 'president', 'hand': 'R', 'offset': [0.0, 0.02, 0.06]})],
+        props=[RAIL(tape=True, quiver=[-0.5, 1.2, 0.05]), *TRUCK(), P('megaphone8', 'megaphone', on={'actor': 'president', 'hand': 'R', 'offset': [0.0, 0.02, 0.06]}, scale=1.15)],
         cams=[cam(0.0, [9.85, 2.08, -0.42], [9.8, 2.08, -0.38], [9.0, 2.0, 0.1], [9.0, 2.0, 0.1], lens=42)])
 st.cue('sfx:wind', 'S08', 0.0, 0.15)
 
@@ -246,9 +246,9 @@ for j, ((who, p, kind), hp) in enumerate(zip(RES9, HELI9)):
     else:
         acts9.append(act(who, p, -90 if p[0] > 0 else 90, 'hangBar', 'scared', keys=[k(0.0, look=hp), k(0.0, to=up, dur=D9, ease='linear', face='keep')]))
         props9.append(P(f'cable9{j}', 'winchCable', pos=add(p, [0, 2.55, 0]), opts={'len': r(hp[1] - p[1] - 2.55 - 0.6)}, keys=[k(0.0, to=add(up, [0, 2.55, 0]), dur=D9, ease='linear')]))
-    props9.append(P(f'heli9{j}', 'helicopter', pos=hp, ry=0 if j != 1 else 150, opts={'beam': True, 'tilt': 10}, keys=[k(0.0, to=add(hp, [0, RISE9, 0]), dur=D9, ease='linear')]))
+    props9.append(P(f'heli9{j}', 'helicopter', pos=hp, ry=0 if j != 1 else 150, opts={'beam': j == 0, 'tilt': 10}, keys=[k(0.0, to=add(hp, [0, RISE9, 0]), dur=D9, ease='linear')]))
 st.shot('S09', 'parisStreet', setOpts=STREET, actors=acts9, props=[RAIL(tape=True), *TRUCK(), *props9],
-        cams=[cam(0.0, [0.0, 1.0, -8.0], [0.05, 1.1, -7.7], [6.0, 10.0, 8.0], [6.0, 11.0, 8.0], lens=54)])
+        cams=[cam(0.0, [5.6, 5.4, 3.2], [5.62, 5.5, 3.35], [9.4, 9.2, 10.5], [9.4, 10.6, 10.5], lens=52)])
 st.cue('sfx:rotor', 'S09', 0.0, 0.45)
 
 # 10: except him. Dusk on the empty street, wide from the far pavement: him alone in his railing, the giant ladder still up beside the building,
@@ -335,10 +335,10 @@ st.cue('sfx:step', 'S13', 0.1, 0.4); st.cue('sfx:fanfare', 'S13', 0.2, 0.3)
 #     the rim beside him an official cuts a red ribbon with big scissors, the drape slides off a big bronze plaque, a soldier snaps a salute
 D14 = st.dur('S14'); CUT14 = 0.75; DRAPE14 = 0.95
 C14 = [13.2, 1.9, 5.0]
-PLQ = [10.55, 0, 2.0]; PLQ_RY = yaw(PLQ, C14)
-RIB14 = off(PLQ, PLQ_RY, 0.7, 0.0, 0.0)
-OFF14 = off(PLQ, PLQ_RY, 1.0, 0.95, 0.0); ORY14 = yaw(OFF14, RIB14)
-SOL14 = [11.75, 0, 0.85]
+PLQ = [10.75, 0, 1.1]; PLQ_RY = yaw(PLQ, C14)
+RIB14 = [11.15, 0, 1.7]
+OFF14 = [11.5, 0, 1.45]; ORY14 = yaw(OFF14, add(RIB14, [-0.2, 0, -0.1]))
+SOL14 = [8.45, 0, 0.95]
 st.shot('S14', 'parisStreet', setOpts=CRATER_ST, actors=[
         HERO('grand', [STUCK(0.0, DEAD), k(0.0, look=[11.5, 1.9, 2.2]), k(1.1, look='camera', lookDur=0.2),
              k(1.7, toon={'face': {**DEAD, 'lid': 1.0}}, toonDur=0.06, keepPose=True), k(1.82, toon={'face': DEAD}, toonDur=0.06, keepPose=True), k(2.3, look=[11.5, 1.9, 2.2], lookDur=0.25)]),
@@ -353,7 +353,7 @@ st.shot('S14', 'parisStreet', setOpts=CRATER_ST, actors=[
             k(1.9, toon={'reach': {'R': [*off(SOL14, yaw(SOL14, C14), 0.12, 0.15, 2.2), 1, 0.03]}, 'hands': {'R': 'open'}, 'sq': [0.98, 1.03, 0.98]}, toonDur=0.2),
             k(2.35, toon={'reach': {'R': [*off(SOL14, yaw(SOL14, C14), 0.12, 0.15, 2.18), 1, 0.03]}, 'hands': {'R': 'open'}, 'sq': [1, 1, 1]}, toonDur=0.2)])],
         props=[CRATER, RUIN(), *TRUCK(), *LEFTS, SOOT('suie14'),
-               P('plaque14', 'bronzePlaque', pos=PLQ, ry=PLQ_RY, opts={'w': 1.15, 'h': 0.85, 'post': 1.25, 'dir': 130, 'drapeAt': [DRAPE14, 0.4]}),
+               P('plaque14', 'bronzePlaque', pos=PLQ, ry=PLQ_RY, opts={'w': 1.15, 'h': 0.85, 'post': 1.25, 'dir': 155, 'drapeAt': [DRAPE14, 0.4]}),
                P('ruban14', 'ribbonCut', pos=RIB14, ry=PLQ_RY, opts={'w': 1.5, 'h': 0.95, 'cutAt': CUT14}),
                P('ciseaux14', 'scissors', on={'actor': 'officiel', 'hand': 'R', 'offset': [0.0, 0.0, 0.0], 'rot': [-1.2, 0, 0]}, opts={'cutAt': CUT14}),
                P('casque14', 'armyHelmet', on={'actor': 'soldat1', 'joint': 'head', 'offset': [0.0, 0.46, 0.0]}, opts={'s': 0.95}),
@@ -366,9 +366,9 @@ st.cue('sfx:click', 'S14', CUT14, 0.35); st.cue('sfx:fanfare', 'S14', DRAPE14, 0
 D15 = st.dur('S15')
 st.shot('S15', 'parisStreet', setOpts=CRATER_ST, actors=[HERO('grand', [STUCK(0.0, DEAD), k(0.0, look='camera'), k(0.7, toon={'face': {**DEAD, 'lid': 1.0}}, toonDur=0.06, keepPose=True), k(0.82, toon={'face': DEAD}, toonDur=0.06, keepPose=True)])],
         props=[CRATER, RUIN(), *TRUCK(), *LEFTS, SOOT('suie15'),
-               P('plaque15', 'bronzePlaque', pos=PLQ, ry=PLQ_RY, opts={'w': 1.15, 'h': 0.85, 'post': 1.25, 'dir': 130}),
+               P('plaque15', 'bronzePlaque', pos=PLQ, ry=PLQ_RY, opts={'w': 1.15, 'h': 0.85, 'post': 1.25, 'dir': 155}),
                P('tinte15', 'twinkle', pos=off(PLQ, PLQ_RY, 0.12, -0.1, 1.68), opts={'at': 0.45, 's': 0.14})],
-        cams=[cam(0.0, [11.43, 1.95, 3.6], [11.38, 1.96, 3.52], [10.47, 1.9, 1.91], [10.47, 1.9, 1.91], lens=44)])
+        cams=[cam(0.0, [11.92, 2.2, 4.47], [11.86, 2.2, 4.38], [10.43, 1.8, 1.16], [10.43, 1.8, 1.16], lens=50)])
 st.cue('sfx:sting', 'S15', 0.3, 0.25)
 
 # 16: he tilted his head; it came out. Through the bars from the crater side: he calmly turns his head a quarter turn, and it pops out between the bars
@@ -384,7 +384,7 @@ st.shot('S16', 'parisStreet', setOpts=CRATER_ST, actors=[
              k(r(POP16 + 0.3), toon={'sq': [1, 1, 1], 'face': DEAD}, toonDur=0.12),
              k(1.45, toon={'face': {**DEAD, 'lid': 1.0}}, toonDur=0.06, keepPose=True), k(1.57, toon={'face': DEAD}, toonDur=0.06, keepPose=True),
              k(1.8, toon={'face': {**DEAD, 'lid': 1.0}}, toonDur=0.06, keepPose=True), k(1.92, toon={'face': DEAD}, toonDur=0.06, keepPose=True)])],
-        props=[CRATER, RUIN(), *TRUCK(), *LEFTS, SOOT('suie16'), P('plaque16', 'bronzePlaque', pos=PLQ, ry=PLQ_RY, opts={'w': 1.15, 'h': 0.85, 'post': 1.25, 'dir': 130}),
+        props=[CRATER, RUIN(), *TRUCK(), *LEFTS, SOOT('suie16'), P('plaque16', 'bronzePlaque', pos=PLQ, ry=PLQ_RY, opts={'w': 1.15, 'h': 0.85, 'post': 1.25, 'dir': 155}),
                P('pop16', 'toonPuff', pos=add(HEAD, [-0.05, 0.0, 0.0]), opts={'at': POP16, 'n': 4, 'size': 0.07, 'life': 0.4, 'rise': 0.1, 'spread': 0.25, 'color': '#E8E2D6'})],
         cams=[cam(0.0, [10.6, 2.02, 0.9], [10.5, 2.02, 0.84], [8.8, 2.0, 0.0], [8.8, 2.0, 0.0], lens=44)])
 st.cue('sfx:squeak', 'S16', TILT16, 0.2); st.cue('sfx:pop', 'S16', POP16, 0.45)
@@ -465,8 +465,9 @@ st.shot('S19', 'poste', setOpts={'guichets': False, 'title': 'ADMINISTRATION'}, 
                P('billet19b', 'banknote', pos=add(CUST, [0.12, 1.09, -0.75]), rot=[-PI / 2, 0, 0], opts={'w': 0.26}, keys=[k(0.0, visible=False), k(r(STAMP19 - 0.05), visible=True)]),
                P('tampon19', 'roundStamp', on={'actor': 'guichetier', 'hand': 'R', 'offset': [0.0, 0.0, 0.0], 'rot': [-PI / 2, 0, 0]}),
                P('encre19', 'inkRing', on={'actor': 'grand', 'joint': 'head', 'offset': [0.0, 0.36, 0.155]}, opts={'at': r(STAMP19 + 0.02)}),
-               P('fenetre19', 'skyWindow', pos=[-2.0, 2.0, -3.37], opts={'w': 1.3, 'h': 1.4})],
-        cams=[cam(0.0, [1.8, 1.7, -2.15], [1.7, 1.7, -2.15], [-1.0, 1.5, -2.25], [-1.0, 1.5, -2.25], lens=52)])
+               P('mur19', 'slab', pos=[-1.0, 1.8, 1.45], opts={'w': 7.0, 'h': 3.6, 'd': 0.2, 'color': '#EDE8DC'}),
+               P('fenetre19', 'skyWindow', pos=[-1.55, 1.95, 1.33], ry=180, opts={'w': 1.2, 'h': 1.3})],
+        cams=[cam(0.0, [-0.3, 1.75, -3.28], [-0.32, 1.75, -3.22], [-1.05, 1.72, -1.6], [-1.05, 1.72, -1.6], lens=48)])
 st.cue('sfx:paper', 'S19', NOTE19, 0.25); st.cue('thud', 'S19', STAMP19, 0.45); st.cue('sfx:sting', 'S19', 1.15, 0.25)
 
 MEC = {'preset': 'lemec', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}, 'toon': {'breathe': 1.7, 'holdLife': 1.6}}
