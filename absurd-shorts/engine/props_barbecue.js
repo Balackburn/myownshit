@@ -67,10 +67,13 @@ export const BARBECUE_PROPS = {
     s.position.y = 0.17; g.add(s); g.userData.update = t => s.userData.update?.(t); g.userData.update(0); return g;
   },
 
-  // A long roasting stick with a sausage at its end (pivot at the grip, along +Y, o.L 1.0 m long); o.char
+  // A long roasting stick with a sausage at its end (pivot at the grip, along +Y, o.L 1.0 m long); o.char; (round 2) o.turn: the sausage turns on
+  // the stick at that many radians a second (roasting); o.stickR: the stick's radius (0.009)
   sausageStick(o) {
-    const L = o.L ?? 1.0, g = grp(rod([0, -0.1, 0], [0, L, 0], 0.009, '#8A6A44', 5)), s = buildProp('sausage', { len: o.len ?? 0.18, r: o.r ?? 0.032, char: o.char, color: o.color });
-    s.position.y = L - 0.05; g.add(s); return g;
+    const L = o.L ?? 1.0, g = grp(rod([0, -0.1, 0], [0, L, 0], o.stickR ?? 0.009, '#8A6A44', 5)), s = buildProp('sausage', { len: o.len ?? 0.18, r: o.r ?? 0.032, char: o.char, color: o.color });
+    s.position.y = L - 0.05; g.add(s);
+    if (o.turn) { g.userData.update = t => { s.rotation.y = t * o.turn; }; g.userData.update(0); }
+    return g;
   },
 
   // A round charcoal kettle grill on three legs (pivot at the floor): a red enamel bowl o.r (0.3) wide, its grate at o.h (0.8), glowing coals, o.n
@@ -224,21 +227,67 @@ export const BARBECUE_PROPS = {
 
   // His house after the drop (pivot at the floor, front +Z): a pastel cottage whose roof is buried under a heap of olive canopies sagging into it,
   // lines trailing down the facade, a few roof tiles on the lawn, and a pair of olive legs with black boots sticking up out of the chimney,
-  // kicking (o.kick [t0, t1]); cottage options pass through (w, d, h, color, roof, door)
+  // kicking (o.kick [t0, t1]); cottage options pass through (w, d, h, color, roof, door).
+  // (round 2) the ridge is broken into a V (the cottage's roof slabs, gable and gable window are hidden and rebuilt as two broken slabs per side
+  // over a W-shaped gable); the canopies are cloth domes with gore seams in light khaki (o.canopy colours) collapsed into the notch and draped
+  // over the eaves; the chimney is hollow and the legs come out of its mouth, bigger, scissor-kicking; o.hang [[x, len, phase], ...]: soldiers
+  // hanging by their lines from the front gutter, swinging and kicking; o.hangWin [[x, y, len, phase]]: one hanging from a window lintel
   cavedHouse(o) {
-    const w = o.w ?? 6.4, d = o.d ?? 7, h = o.h ?? 2.9, rh = o.rh ?? 2.3, g = grp(buildProp('cottage', { w, d, h, rh, color: o.color || '#F2D58A', roof: o.roof || '#B5402F', door: o.door || '#2F7F8C', seed: 5 }));
-    const rr = rng(o.seed || 87), heap = grp(), whites = o.canopy || ['#808C56', '#727E4A', '#87925C', '#6E7A46'], roofY = x => h + rh * Math.max(0, 1 - Math.abs(x) / (w / 2 + 0.25));
-    for (let i = 0; i < 34; i++) { const xx = (rr() - 0.5) * w * 0.85, zz = (rr() - 0.5) * d * 0.95, s = 0.8 + rr() * 0.7;
-      const b = new THREE.Mesh(new THREE.IcosahedronGeometry(s, 1), mat(whites[i % 4])); b.scale.set(1.25, 0.5, 1.1); b.position.set(xx, roofY(xx) - 0.55 + 0.25 * rr(), zz); b.rotation.set(rr() * 0.4, rr() * 3, rr() * 0.4); b.castShadow = true; heap.add(b); }
-    for (let i = 0; i < 4; i++) { const cp = new THREE.Mesh(new THREE.SphereGeometry(1.9 + 0.3 * (i % 2), 16, 6, 0, TAU, 0, PI * 0.42), mat(whites[(i + 1) % 4], { doubleSide: true })); const xx = (i - 1.5) * 1.35;
-      cp.scale.set(1, 0.5, 1); cp.position.set(xx, roofY(xx) + 0.05, (i % 2 ? -1 : 1) * 1.1); cp.rotation.set((rr() - 0.5) * 0.7, rr() * 3, (i - 1.5) * 0.25); addOutline(cp, 0.012); heap.add(cp); }
-    for (let i = 0; i < 6; i++) { const x0 = (i - 2.5) * 0.98, L = 1.1 + rr() * 0.9, top = roofY(x0) - 0.1, dr = at(box(1.02, L, 0.04, whites[i % 4], { outline: 0.012 }), x0, top - L / 2, d / 2 + 0.1 + 0.01 * i, 0, 0, (rr() - 0.5) * 0.25); heap.add(dr); }
-    for (let i = 0; i < 7; i++) { const x0 = (rr() - 0.5) * w * 0.8; heap.add(rod([x0, roofY(x0) - 0.6, d / 2 + 0.12], [x0 + (rr() - 0.5) * 0.6, 0.25 + rr() * 1.0, d / 2 + 0.3], 0.014, '#4A4A44', 3)); }
+    const w = o.w ?? 6.4, d = o.d ?? 7, h = o.h ?? 2.9, rh = o.rh ?? 2.3, F = d / 2, roofC = o.roof || '#B5402F', wallC = o.color || '#F2D58A';
+    const house = buildProp('cottage', { w, d, h, rh, color: wallC, roof: roofC, door: o.door || '#2F7F8C', seed: 5, chimney: false }), g = grp(house);
+    const ry0 = h + rh / 2 + 0.04;
+    house.traverse(c => { const p = c.position;
+      if (c.rotation && Math.abs(c.rotation.z) > 0.05 && Math.abs(p.y - ry0) < 0.03 && Math.abs(Math.abs(p.x) - (w / 4 + 0.1)) < 0.03) c.visible = false;     // the two roof slabs
+      if (c.geometry && c.geometry.type === 'ExtrudeGeometry' && Math.abs(p.y - h) < 0.02) c.visible = false;                                                  // the gable
+      if (Math.abs(p.y - (h + rh * 0.38)) < 0.02 && Math.abs(p.x) < 0.01 && p.z > F - 0.1) c.visible = false; });                                              // the gable window
+    const A = s => [s * w * 0.2, h + rh * 0.6], C = [0, h + rh * 0.2], E = s => [s * (w / 2 + 0.25), h - 0.06];
+    const slab = (P, Q, rx, c) => { const dx = Q[0] - P[0], dy = Q[1] - P[1], L = Math.hypot(dx, dy) + 0.12; return at(box(L, 0.18, d + 0.7, c, { outline: 0.004 }), (P[0] + Q[0]) / 2, (P[1] + Q[1]) / 2 + 0.06, 0, rx, 0, Math.atan2(dy, dx)); };
+    for (const s of [-1, 1]) { g.add(slab(E(s), A(s), 0, roofC)); g.add(slab(A(s), C, s * 0.05, roofC)); }
+    const gs = new THREE.Shape(); gs.moveTo(-w / 2, 0); gs.lineTo(-w * 0.2, rh * 0.6); gs.lineTo(0, rh * 0.2); gs.lineTo(w * 0.2, rh * 0.6); gs.lineTo(w / 2, 0); gs.lineTo(-w / 2, 0);
+    const gab = new THREE.Mesh(new THREE.ExtrudeGeometry(gs, { depth: d - 0.02, bevelEnabled: false }), mat(wallC)); gab.position.set(0, h, -F + 0.01); g.add(gab);
+    // the snapped ridge beam sticking out of the notch, and broken tiles
+    g.add(at(box(0.16, 0.16, 1.6, '#6A4632', { outline: 0.01 }), 0.15, C[1] + 0.25, F + 0.2, 0.5, 0.2, 0.2), at(box(0.16, 0.16, 1.3, '#6A4632', { outline: 0.01 }), -0.2, C[1] + 0.2, F - 0.9, -0.4, -0.3, -0.25));
+    // the canopies: cloth domes with gore seams
+    const rr = rng(o.seed || 87), cols = o.canopy || ['#ECE6CC', '#DDD5B2', '#F4F0E0', '#D2CAA2'];
+    const goreTex = (c1, c2) => { const cv = document.createElement('canvas'); cv.width = 256; cv.height = 64; const x = cv.getContext('2d'); for (let i = 0; i < 8; i++) { x.fillStyle = i % 2 ? c2 : c1; x.fillRect(i * 32, 0, 33, 64); } x.fillStyle = 'rgba(90,84,66,0.75)'; for (let i = 0; i <= 8; i++) x.fillRect(i * 32 - 1, 0, 2, 64);
+      const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t; };
+    const dome = (R, c1, c2, sq) => { const m = new THREE.Mesh(new THREE.SphereGeometry(R, 16, 6, 0, TAU, 0, PI * 0.42), new THREE.MeshLambertMaterial({ map: goreTex(c1, c2), side: THREE.DoubleSide })); m.scale.set(1, sq, 1); m.castShadow = true; addOutline(m, 0.012); return m; };
+    const heap = grp();
+    const DOMES = [[0.0, C[1] - 0.05, F - 0.6, 1.5, 0.55, 0.0, 0.1], [-0.6, C[1] + 0.05, -0.8, 1.35, 0.5, 0.15, -0.2], [0.75, C[1] + 0.1, 1.5, 1.2, 0.5, -0.1, 0.25], [0.3, C[1], -2.6, 1.3, 0.48, 0.2, 0.1],
+      [-w * 0.3, h + rh * 0.42, 0.8, 1.05, 0.42, 0.05, 0.42], [w * 0.33, h + rh * 0.4, -1.4, 1.0, 0.42, -0.1, -0.45], [-0.15, C[1] + 0.35, F + 0.15, 0.85, 0.6, 0.55, 0.05]];
+    DOMES.forEach(([x, y, z, R, sq, rx, rz], i) => heap.add(at(dome(R, cols[i % 4], cols[(i + 1) % 4], sq), x, y, z, rx, rr() * 3, rz)));
+    // drapes of canopy cloth hanging over the front eave, with their lines trailing down the facade
+    for (let i = 0; i < 4; i++) { const x0 = [-2.4, -1.1, 0.5, 2.2][i], L = 0.9 + rr() * 0.8, cv = goreTex(cols[i % 4], cols[(i + 2) % 4]);
+      const dr = new THREE.Mesh(new THREE.PlaneGeometry(1.1, L), new THREE.MeshLambertMaterial({ map: cv, side: THREE.DoubleSide })); dr.position.set(x0, h - L / 2 + 0.3, F + 0.14 + 0.01 * i); dr.rotation.z = (rr() - 0.5) * 0.2; dr.castShadow = true; heap.add(dr); }
+    for (let i = 0; i < 7; i++) { const x0 = (rr() - 0.5) * w * 0.8; heap.add(rod([x0, h + 0.1, F + 0.15], [x0 + (rr() - 0.5) * 0.6, 0.25 + rr() * 1.0, F + 0.3], 0.014, '#4A4A44', 3)); }
     g.add(heap);
-    for (let i = 0; i < 7; i++) g.add(at(box(0.5, 0.05, 0.35, o.roof || '#B5402F', { outline: 0.01 }), (rr() - 0.5) * w * 1.2, 0.03 + i * 0.002, d / 2 + 0.8 + rr() * 2.5, rr() * 0.3, rr() * 3, rr() * 0.3));
-    const cx = w * 0.27, cz = d * 0.12, cTop = roofY(cx) + 1.25, chim = at(box(0.6, 2.0, 0.6, '#A4523A', { pivot: 'bottom', outline: 0.01 }), cx, cTop - 2.0, cz); g.add(chim, at(box(0.72, 0.14, 0.72, '#7E3E2C', { outline: 0.01 }), cx, cTop, cz));
-    const legs = []; for (const sd of [-1, 1]) { const leg = grp(at(box(0.18, 0.8, 0.19, '#56633C', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(box(0.21, 0.16, 0.42, '#16171A', { outline: 0.01 }), 0, 0.86, 0.09)); leg.position.set(cx + sd * 0.11, cTop + 0.05, cz); g.add(leg); legs.push(leg); }
-    g.userData.update = t => { const on = !o.kick || (t >= o.kick[0] && t < o.kick[1]); legs.forEach((l, i) => { l.rotation.x = on ? 0.4 * Math.sin(t * 10 + i * PI) : 0.05; l.rotation.z = (i ? -1 : 1) * (0.12 + (on ? 0.1 * Math.sin(t * 7 + i) : 0)); }); };
+    for (let i = 0; i < 7; i++) g.add(at(box(0.5, 0.05, 0.35, roofC, { outline: 0.01 }), (rr() - 0.5) * w * 1.2, 0.03 + i * 0.002, F + 0.8 + rr() * 2.5, rr() * 0.3, rr() * 3, rr() * 0.3));
+    // the hollow chimney on the right slope, the legs kicking out of its mouth
+    const cx = w * 0.3, cz = d * 0.12, roofAt = x => A(1)[1] - (x - A(1)[0]) * (A(1)[1] - E(1)[1]) / (E(1)[0] - A(1)[0]), cTop = roofAt(cx) + 1.15;
+    const CW = 0.66, rim = 0.13;
+    g.add(at(box(CW, cTop - roofAt(cx) + 0.4, CW, '#A4523A', { pivot: 'bottom', outline: 0.01 }), cx, roofAt(cx) - 0.4, cz));
+    for (const [dx, dz, bw, bd] of [[0, (CW + 0.06) / 2 - rim / 2, CW + 0.12, rim], [0, -(CW + 0.06) / 2 + rim / 2, CW + 0.12, rim], [(CW + 0.06) / 2 - rim / 2, 0, rim, CW + 0.12], [-(CW + 0.06) / 2 + rim / 2, 0, rim, CW + 0.12]])
+      g.add(at(box(bw, 0.14, bd, '#7E3E2C', { outline: 0.008 }), cx + dx, cTop + 0.07, cz + dz));
+    g.add(at(box(CW - 0.14, 0.02, CW - 0.14, '#151312'), cx, cTop + 0.1, cz));
+    const legs = []; for (const sd of [-1, 1]) { const leg = grp(at(box(0.2, 1.0, 0.21, '#56633C', { pivot: 'bottom', outline: 0.012 }), 0, 0, 0), at(box(0.25, 0.2, 0.5, '#16171A', { outline: 0.012 }), 0, 1.08, 0.11), at(box(0.25, 0.05, 0.52, '#2E2E2E'), 0, 0.97, 0.11));
+      leg.position.set(cx + sd * 0.12, cTop - 0.25, cz); g.add(leg); legs.push(leg); }
+    // soldiers hanging by their lines from the gutter (and a window lintel), swinging
+    const soldier = () => { const sgr = grp(); sgr.add(at(box(0.36, 0.5, 0.24, '#56633C', { outline: 0.01 }), 0, -0.35, 0), at(box(0.3, 0.06, 0.25, '#3E4628'), 0, -0.6, 0));
+      const lg = [-1, 1].map(sd => { const l = grp(at(box(0.13, 0.48, 0.15, '#4E5730', { pivot: 'top', outline: 0.008 }), 0, 0, 0), at(box(0.15, 0.1, 0.24, '#16171A', { outline: 0.008 }), 0, -0.5, 0.04)); l.position.set(sd * 0.09, -0.62, 0); sgr.add(l); return l; });
+      for (const sd of [-1, 1]) sgr.add(rod([sd * 0.16, -0.14, 0], [sd * 0.2, 0.32, 0.02], 0.045, '#56633C', 5), at(box(0.07, 0.08, 0.07, '#2E3320'), sd * 0.2, 0.34, 0.02));
+      sgr.add(at(box(0.22, 0.25, 0.2, '#D9A57C', { outline: 0.008 }), 0, 0.02, 0), at(new THREE.Mesh(new THREE.SphereGeometry(0.15, 10, 5, 0, TAU, 0, PI / 2), mat('#4E5C32')), 0, 0.12, 0));
+      sgr.userData.legs = lg; return sgr; };
+    const hangers = [];
+    for (const [x, len, ph] of (o.hang || [])) { const piv = grp(), s = soldier(); s.position.y = -len - 0.35; piv.add(s);
+      for (const sd of [-1, 1]) piv.add(rod([sd * 0.18, 0, 0], [sd * 0.2, -len - 0.02, 0.02], 0.01, '#4A4A44', 3));
+      piv.position.set(x, h - 0.02, F + 0.32); g.add(piv); hangers.push([piv, s, ph || 0]);
+      g.add(at(dome(0.55, cols[0], cols[1], 0.5), x, h + 0.15, F + 0.1, 0.9, 0, 0.2)); }
+    for (const [x, y, len, ph] of (o.hangWin || [])) { const piv = grp(), s = soldier(); s.position.y = -len - 0.35; piv.add(s);
+      for (const sd of [-1, 1]) piv.add(rod([sd * 0.18, 0, 0], [sd * 0.2, -len - 0.02, 0.02], 0.01, '#4A4A44', 3));
+      piv.position.set(x, y, F + 0.3); g.add(piv); hangers.push([piv, s, ph || 0]); }
+    g.userData.update = t => { const on = !o.kick || (t >= o.kick[0] && t < o.kick[1]);
+      legs.forEach((l, i) => { l.rotation.x = on ? 0.55 * Math.sin(t * 9 + i * PI) : 0.05; l.rotation.z = (i ? -1 : 1) * (0.1 + (on ? 0.12 * Math.sin(t * 6 + i) : 0)); });
+      hangers.forEach(([piv, s, ph], i) => { piv.rotation.z = 0.13 * Math.sin(t * 2.3 + ph); piv.rotation.x = 0.06 * Math.sin(t * 1.7 + ph); s.userData.legs.forEach((l, j) => { l.rotation.x = 0.45 * Math.sin(t * 8 + j * PI + ph); }); }); };
     g.userData.update(0); return g;
   },
 
@@ -256,7 +305,9 @@ export const BARBECUE_PROPS = {
     for (let x = 0.1; x < DW; x += 0.2) door.add(at(cyl(0.03, 0.03, H - 0.1, barC, 6), x, H / 2, 0));
     for (const y of [0.08, H - 0.08, H * 0.45]) door.add(at(box(DW, 0.08, 0.07, '#2C3036', { outline: 0.01 }), DW / 2, y, 0));
     door.add(at(box(0.08, H, 0.08, '#2C3036'), 0.02, H / 2, 0), at(box(0.08, H, 0.08, '#2C3036'), DW - 0.02, H / 2, 0), at(box(0.16, 0.22, 0.12, '#55595F', { outline: 0.01 }), DW - 0.1, H * 0.45, 0.06));
-    g.userData.update = t => { let a = -(o.open ?? 1.5); if (o.slamAt != null && t >= o.slamAt - 0.12) { const u = (t - (o.slamAt - 0.12)) / 0.12; a = u < 1 ? -(o.open ?? 1.5) * (1 - u * u) : -0.09 * Math.exp(-(t - o.slamAt) * 9) * Math.sin((t - o.slamAt) * 40); } hinge.rotation.y = a; };
+    // (round 2) o.antic [t0, t1, extra]: before the slam the door is pulled open further by extra rad between t0 and t1 (the arm's anticipation)
+    const opAt = t => (o.open ?? 1.5) + (o.antic ? o.antic[2] * smooth((t - o.antic[0]) / Math.max(1e-3, o.antic[1] - o.antic[0])) : 0);
+    g.userData.update = t => { const op = opAt(t); let a = -op; if (o.slamAt != null && t >= o.slamAt - 0.12) { const u = (t - (o.slamAt - 0.12)) / 0.12; a = u < 1 ? -op * (1 - u * u) : -0.09 * Math.exp(-(t - o.slamAt) * 9) * Math.sin((t - o.slamAt) * 40); } hinge.rotation.y = a; };
     g.userData.update(0); return g;
   },
 
@@ -289,6 +340,12 @@ export const BARBECUE_PROPS = {
       g.add(at(box(0.24, 0.06, 0.26, '#F4F2EC', { outline: 0.02 }), 0, 0.06, 0.08)); }
     if (o.load === 'sit') { const sl = o.len ?? 0.46, s = buildProp('sausage', { len: sl, r: o.r ?? 0.06, color: '#C8643A' }); s.position.set(0, 0.012, 0); s.rotation.x = -0.12; g.add(s);
       const bl = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.2, sl * 0.42, 10), mat('#F4F2EC')); bl.position.set(0, 0.012 + sl * 0.21, 0.01); bl.castShadow = true; addOutline(bl, 0.02); g.add(bl); }
+    // (round 2) o.load 'sit2': a big chipolata (o.len 0.62, o.r 0.085) sitting up, leaning back a little, its grill marks showing; a white blanket
+    // that hugs only its lower third (shaped round its body, with a fold) and spreads over the stretcher, so it reads as a sausage, not a cone
+    if (o.load === 'sit2') { const sl = o.len ?? 0.62, sr = o.r ?? 0.085, s = buildProp('sausage', { len: sl, r: sr, color: '#C8643A' }); s.position.set(0, 0.012, -0.04); s.rotation.x = -0.18; g.add(s);
+      const hug = new THREE.Mesh(new THREE.CylinderGeometry(sr * 1.28, sr * 1.7, sl * 0.3, 12), mat('#F4F2EC')); hug.position.set(0, 0.012 + sl * 0.14, -0.02); hug.rotation.x = -0.18; hug.castShadow = true; addOutline(hug, 0.02); g.add(hug);
+      const fold = new THREE.Mesh(new THREE.TorusGeometry(sr * 1.3, 0.016, 5, 14), mat('#E2DED2')); fold.rotation.x = PI / 2 - 0.18; fold.position.set(0, 0.012 + sl * 0.29, -0.005); g.add(fold);
+      g.add(at(box(Wd * 0.86, 0.025, L * 0.5, '#F4F2EC', { outline: 0.012 }), 0, 0.02, 0.18)); }
     return g;
   },
 
@@ -349,7 +406,9 @@ export const BARBECUE_PROPS = {
     g.add(fl);
     const ns = o.sparks ?? 24, sp = new THREE.InstancedMesh(new THREE.BoxGeometry(0.025, 0.025, 0.025), new THREE.MeshBasicMaterial({ color: '#FFB040' }), ns); sp.frustumCulled = false; sp.castShadow = false; g.add(sp);
     const d = new THREE.Object3D(), sx = [], sz = []; for (let i = 0; i < ns; i++) { sx.push((rr() - 0.5) * W); sz.push((rr() - 0.5) * D); }
-    g.userData.update = t => { skin.material.emissiveIntensity = 0.75 + 0.2 * Math.sin(t * 2.3) + 0.08 * Math.sin(t * 7.1);
+    // (round 2) o.light: a warm point light just above the bed (that intensity, o.lightR 4 m reach), flickering: the kneeling people are lit from below
+    const EL = o.light ? new THREE.PointLight(o.lightColor || '#FF8A3A', 0, o.lightR ?? 4, 1.4) : null; if (EL) { EL.position.set(0, o.lightY ?? 0.45, 0); g.add(EL); }
+    g.userData.update = t => { skin.material.emissiveIntensity = 0.75 + 0.2 * Math.sin(t * 2.3) + 0.08 * Math.sin(t * 7.1); if (EL) EL.intensity = o.light * (0.85 + 0.1 * Math.sin(t * 9.3) + 0.06 * Math.sin(t * 23.1));
       fl.children.forEach((f, i) => f.scale.set(1, 0.8 + 0.35 * Math.sin(t * 13 + i * 1.9), 1));
       for (let i = 0; i < ns; i++) { const u = ((i / ns) + t * 0.45) % 1; d.position.set(sx[i] + 0.2 * Math.sin(t * 2 + i), 0.1 + u * 2.2, sz[i]); d.scale.setScalar(1 - u); d.updateMatrix(); sp.setMatrixAt(i, d.matrix); }
       sp.instanceMatrix.needsUpdate = true; };
@@ -373,7 +432,8 @@ export const BARBECUE_PROPS = {
     const R = o.r ?? 0.11, g = grp(at(cyl(R * 0.72, R * 0.7, 0.006, '#F7F5EE', 18), 0, 0, 0)), x0 = o.tiltX ?? 0;
     const rim = new THREE.Mesh(new THREE.CylinderGeometry(R, R * 0.72, 0.022, 18, 1, true), mat('#EDEAE0', { doubleSide: true })); rim.position.y = 0.012; addOutline(rim, 0.02); g.add(rim);
     if (o.tilt) g.rotation.z = o.tilt; if (o.tiltX) g.rotation.x = o.tiltX;
-    if (o.droop) { g.userData.update = t => { const u = clamp01((t - o.droop[0]) / 0.35); g.rotation.x = x0 + o.droop[1] * (smooth(u) + (u >= 1 ? 0.08 * Math.exp(-(t - o.droop[0] - 0.35) * 6) * Math.sin((t - o.droop[0]) * 22) : 0)); }; g.userData.update(0); }
+    // (round 2) o.floppy: the droop overshoots (outBack) and flaps a few times before it settles, like a soggy plate
+    if (o.droop) { const dd = o.droopDur ?? 0.35; g.userData.update = t => { const u = clamp01((t - o.droop[0]) / dd), a = o.floppy ? outBack(u) : smooth(u), w = u >= 1 ? (o.floppy ? 0.22 : 0.08) * Math.exp(-(t - o.droop[0] - dd) * (o.floppy ? 4 : 6)) * Math.sin((t - o.droop[0] - dd) * 20) : 0; g.rotation.x = x0 + o.droop[1] * (a + w); }; g.userData.update(0); }
     return g;
   },
 
@@ -402,9 +462,12 @@ export const BARBECUE_PROPS = {
   bbqFlag(o) {
     const H = o.h ?? 3.2, FW = o.w ?? 1.2, FH = o.fh ?? 0.8, g = grp(at(cyl(0.03, 0.035, H, '#E8E8E4', 6, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(sphere(0.06, '#E2B53C', 1), 0, H + 0.03, 0));
     const c = document.createElement('canvas'); c.width = 384; c.height = 256; const x = c.getContext('2d');
-    x.fillStyle = o.field || '#F2C84B'; x.fillRect(0, 0, 384, 256); x.fillStyle = o.stripe || '#C8322A'; x.fillRect(0, 0, 70, 256);
-    x.save(); x.translate(228, 128); x.rotate(-0.6); x.fillStyle = '#9A9EA4'; x.fillRect(-10, -100, 20, 200); for (const dx of [-16, 0, 16]) x.fillRect(dx - 4, -130, 8, 40); x.restore();
-    x.save(); x.translate(228, 128); x.rotate(0.6); x.fillStyle = '#8A3A1E'; x.beginPath(); x.ellipse(0, 0, 26, 95, 0, 0, TAU); x.fill(); x.strokeStyle = '#5A2210'; x.lineWidth = 6; for (const yy of [-40, 0, 40]) { x.beginPath(); x.moveTo(-20, yy - 8); x.lineTo(20, yy + 8); x.stroke(); } x.restore();
+    // (round 2) no bands at all (a red hoist stripe on mustard read as a real country): a pale field with a thick green border and the emblem filling it
+    x.fillStyle = o.field || '#F4F1E6'; x.fillRect(0, 0, 384, 256); x.strokeStyle = o.border || '#3E8A4A'; x.lineWidth = 28; x.strokeRect(14, 14, 356, 228);
+    x.save(); x.translate(192, 128); x.rotate(-0.62); x.fillStyle = '#8E949C'; x.fillRect(-11, -96, 22, 192); for (const dx of [-18, 0, 18]) x.fillRect(dx - 5, -128, 10, 44); x.fillRect(-23, -90, 46, 10); x.restore();
+    x.save(); x.translate(192, 128); x.rotate(0.62); x.fillStyle = '#9A3E1E'; x.beginPath(); x.ellipse(0, 0, 30, 100, 0, 0, TAU); x.fill(); x.strokeStyle = '#5A2210'; x.lineWidth = 7; for (const yy of [-45, 0, 45]) { x.beginPath(); x.moveTo(-24, yy - 9); x.lineTo(24, yy + 9); x.stroke(); }
+    x.fillStyle = '#C8643A'; x.beginPath(); x.ellipse(-9, -30, 7, 30, 0, 0, TAU); x.fill(); x.restore();
+    x.fillStyle = '#F2A23A'; x.beginPath(); x.moveTo(192, 236); x.quadraticCurveTo(170, 214, 186, 196); x.quadraticCurveTo(192, 210, 198, 196); x.quadraticCurveTo(214, 214, 192, 236); x.fill();
     const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
     const geo = new THREE.PlaneGeometry(FW, FH, 14, 1); geo.translate(FW / 2, 0, 0); const base = geo.attributes.position.array.slice();
     const cloth = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: tex, side: THREE.DoubleSide })); cloth.position.set(0.03, H - FH / 2 - 0.05, 0); cloth.castShadow = true; g.add(cloth);
@@ -476,5 +539,59 @@ export const BARBECUE_PROPS = {
     st.add(...mk('#FFF6C8', 1), ...mk('#FFFFFF', 0.6)); st.children.slice(2).forEach(m => { m.rotation.z = PI / 4; m.position.z = 0.005; }); g.add(st);
     g.userData.update = t => { const u = (t - (o.at ?? 0)) / (o.dur ?? 0.35); st.visible = u >= 0 && u < 1; const k = u < 0.25 ? outBack(u / 0.25) : 1 - smooth((u - 0.25) / 0.75); st.scale.setScalar(Math.max(0.001, k)); st.rotation.z = u * 1.2; };
     g.userData.update(-1); return g;
+  },
+
+  // (round 2) Soft dust (pivot at the source): o.n (10) round soft-edged puffs (sprites, always facing the camera, a radial gradient: no hard balls)
+  // that burst out from o.at, grow from o.size (0.5) to twice that, drift up o.rise (0.8 m) and sideways within o.spread (1.5 m) and fade out over
+  // o.life (1.1 s); o.color (#E6E0D2), o.opacity (0.8)
+  softDust(o) {
+    const n = o.n ?? 10, g = grp(), cv = document.createElement('canvas'); cv.width = cv.height = 128; const x = cv.getContext('2d');
+    const gr = x.createRadialGradient(64, 64, 4, 64, 64, 62); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.5, 'rgba(255,255,255,0.6)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = gr; x.fillRect(0, 0, 128, 128);
+    const tex = new THREE.CanvasTexture(cv), sp = [];
+    for (let i = 0; i < n; i++) { const m = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, color: o.color || '#E6E0D2', transparent: true, opacity: 0, depthWrite: false })); m.visible = false; g.add(m); sp.push(m); }
+    const S0 = o.size ?? 0.5, life = o.life ?? 1.1, sprd = o.spread ?? 1.5, rise = o.rise ?? 0.8, op = o.opacity ?? 0.8;
+    g.userData.update = t => sp.forEach((m, i) => { const u = (t - (o.at ?? 0) - 0.03 * i) / life; m.visible = u >= 0 && u < 1; if (!m.visible) return;
+      const a = hsh(i + 3) * TAU, e = 1 - Math.pow(1 - u, 2), r = sprd * (0.35 + 0.65 * hsh(i + 9)) * e; m.position.set(Math.cos(a) * r, rise * e + 0.15 * hsh(i), Math.sin(a) * r * 0.5);
+      const sc = S0 * (0.7 + 0.6 * hsh(i + 5)) * (1 + u); m.scale.set(sc, sc, 1); m.material.opacity = op * (u < 0.15 ? u / 0.15 : 1 - smooth((u - 0.15) / 0.85)); });
+    g.userData.update(-1); return g;
+  },
+
+  // (round 2) A slim modern phone held at the ear (attach to the head joint on his left side, e.g. offset [0.15, 0.2, 0.02]): a red case o.w (0.08)
+  // × 2.1 o.w × 0.016, its dark screen against the cheek (-X), a small camera square and a white edge line on the back (+X), so the silhouette
+  // reads as a phone along the jaw; o.rx (−0.45): its top leans back to the ear and its bottom forward to the mouth
+  earPhone(o) {
+    const w = o.w ?? 0.08, hh = w * 2.1, dd = 0.016, g = grp(), b = grp();
+    b.add(at(box(dd, hh, w, o.color || '#D8262C', { outline: 0.006 }), 0, 0, 0), at(box(0.002, hh * 0.92, w * 0.86, '#141820'), -dd / 2 - 0.001, 0, 0));
+    b.add(at(box(0.004, w * 0.32, w * 0.32, '#2A2A2E'), dd / 2 + 0.002, hh * 0.33, -w * 0.18), at(box(0.003, hh * 0.9, 0.006, '#FFFFFF'), dd / 2 + 0.002, 0, w * 0.44));
+    b.rotation.x = o.rx ?? -0.45; g.add(b); return g;
+  },
+
+  // (round 2) The press in silhouette (pivot on the floor in the middle of the row, the row along X, facing -Z toward the podium): o.n (5) dark
+  // heads and shoulders and o.cams (3) press cameras held up among them, big lenses pointing at the podium with a glint, a flash unit on each that
+  // fires (turns white) at the times o.flash [[t, camIndex], ...]; o.w (1.8) wide, o.y (1.25) the shoulder height; o.color (#1A1E26)
+  pressCrowd(o) {
+    const n = o.n ?? 5, nc = o.cams ?? 3, W = o.w ?? 1.8, Y = o.y ?? 1.25, C = o.color || '#1A1E26', g = grp(), flashes = [];
+    for (let i = 0; i < n; i++) { const x = (i / Math.max(1, n - 1) - 0.5) * W, dy = (hsh(i + 2) - 0.5) * 0.12, z = (hsh(i + 7) - 0.5) * 0.2;
+      g.add(at(box(0.5, 0.36, 0.3, C), x, Y - 0.18 + dy, z), at(box(0.24, 0.3, 0.24, C), x, Y + 0.17 + dy, z), at(box(0.26, 0.06, 0.26, '#11141A'), x, Y + 0.34 + dy, z)); }
+    for (let j = 0; j < nc; j++) { const x = ((j + 0.5) / nc - 0.5) * W * 0.9, y = Y + 0.38 + 0.08 * (j % 2), cam = grp();
+      cam.add(at(box(0.2, 0.15, 0.16, '#22262E', { outline: 0.006 }), 0, 0, 0), at(cyl(0.055, 0.06, 0.2, '#2C3038', 12, { outline: 0.006 }), 0, 0, -0.17, PI / 2, 0, 0));
+      const lens = new THREE.Mesh(new THREE.CircleGeometry(0.045, 14), basic('#3A5A7A')); lens.position.set(0, 0, -0.271); lens.rotation.y = PI; cam.add(lens);
+      cam.add(at(box(0.012, 0.012, 0.004, '#FFFFFF'), 0.02, 0.02, -0.273));
+      const fl = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.07, 0.06), new THREE.MeshBasicMaterial({ color: '#5A5E66' })); fl.position.set(0, 0.12, -0.02); cam.add(fl); flashes.push(fl);
+      cam.position.set(x, y, 0.05); cam.rotation.y = (x < 0 ? -1 : 1) * 0.12; g.add(cam); }
+    g.userData.update = t => flashes.forEach((f, j) => { const on = (o.flash || []).some(([ft, ci]) => ci % nc === j && t >= ft && t < ft + 0.1); f.material.color.set(on ? '#FFFFFF' : '#5A5E66'); });
+    g.userData.update(-1); return g;
+  },
+
+  // (round 2) A cone of lamp light (pivot anywhere: o.from the bulb, o.to the middle of the lit spot, both in the prop's frame): a translucent warm
+  // cone o.r (0.35) wide at its base, additive, o.opacity (0.16), and a soft bright disc on the lit spot (o.disc, default on)
+  lightCone(o) {
+    const A = new THREE.Vector3(...(o.from || [0, 2, 0])), B = new THREE.Vector3(...(o.to || [0, 0, 0])), L = A.distanceTo(B), R = o.r ?? 0.35, g = grp();
+    const geo = new THREE.ConeGeometry(R, L, 20, 1, true); geo.translate(0, -L / 2, 0);
+    const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: o.color || '#FFE2A0', transparent: true, opacity: o.opacity ?? 0.16, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending }));
+    m.position.copy(A); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, -1, 0), B.clone().sub(A).normalize()); m.castShadow = false; g.add(m);
+    if (o.disc !== false) { const cv = document.createElement('canvas'); cv.width = cv.height = 128; const x = cv.getContext('2d'); const gr = x.createRadialGradient(64, 64, 2, 64, 64, 62); gr.addColorStop(0, 'rgba(255,236,190,0.9)'); gr.addColorStop(1, 'rgba(255,236,190,0)'); x.fillStyle = gr; x.fillRect(0, 0, 128, 128);
+      const d = new THREE.Mesh(new THREE.CircleGeometry(R * 1.1, 24), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending })); d.rotation.x = -PI / 2; d.position.copy(B).add(new THREE.Vector3(0, 0.01, 0)); g.add(d); }
+    return g;
   },
 };
