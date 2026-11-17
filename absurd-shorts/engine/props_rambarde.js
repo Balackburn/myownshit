@@ -58,10 +58,23 @@ export const RAMBARDE_PROPS = {
     // (round 1 of 84) o.top 'fireman': a little fireman at the very top of the ladder, saluting (the running gag varied); o.drift (m/s): the cloud bank
     // drifts sideways (+X); o.raise [t0, dur]: the arm swings up from o.raise0 (8) degrees to o.elev; o.steps [t1, t2, ...]: the extension comes in
     // that many jerks (each 0.2 s with a little overshoot) instead of one slide
-    if (o.top === 'fireman') { const f = grp(), s = o.topScale ?? 1;
-      f.add(at(box(0.28, 0.5, 0.2, '#1F2A44', { pivot: 'bottom', outline: 0.008 }), 0, 0.42, 0), at(box(0.07, 0.42, 0.07, '#1F2A44', { pivot: 'bottom' }), -0.08, 0, 0), at(box(0.07, 0.42, 0.07, '#1F2A44', { pivot: 'bottom' }), 0.08, 0, 0));
-      f.add(at(box(0.3, 0.05, 0.22, '#D8F03C'), 0, 0.7, 0), at(box(0.2, 0.24, 0.2, '#E2A878', { outline: 0.008 }), 0, 1.04, 0), at(sphere(0.13, '#D9DDE2', 1), 0, 1.2, 0));
-      f.add(at(box(0.06, 0.32, 0.06, '#1F2A44'), 0.18, 1.0, 0.04, 0, 0, -0.9)); f.scale.setScalar(s); f.position.set(0, SL * 0.96, 0.15); sec[2].add(f); }
+    // (round 2 of 84: the fireman at the tip sat inside the cloud and was never seen) o.top is placed o.topAt metres below the tip (default: under
+    // the cloud, 0.75 o.cloudR) and scaled by o.topScale; o.top 'fireman' waves his arm, 'cat' a ginger cat sits on a rung with its tail swinging,
+    // 'helmet' a white helmet dangles from a rung on its strap and swings
+    let topArm = null, topSwing = null;
+    if (o.top) { const f = grp(), s = o.topScale ?? 1, ty = Math.max(0.4, SL * 0.98 - (o.topAt ?? 0.75 * (o.cloudR ?? 5)));
+      if (o.top === 'fireman') {
+        f.add(at(box(0.28, 0.5, 0.2, '#1F2A44', { pivot: 'bottom', outline: 0.008 }), 0, 0.42, 0), at(box(0.07, 0.42, 0.07, '#1F2A44', { pivot: 'bottom' }), -0.08, 0, 0), at(box(0.07, 0.42, 0.07, '#1F2A44', { pivot: 'bottom' }), 0.08, 0, 0));
+        f.add(at(box(0.3, 0.05, 0.22, '#D8F03C'), 0, 0.7, 0), at(box(0.2, 0.24, 0.2, '#E2A878', { outline: 0.008 }), 0, 1.04, 0), at(sphere(0.13, '#D9DDE2', 1), 0, 1.2, 0));
+        topArm = grp(); topArm.position.set(0.15, 0.88, 0.04); topArm.add(at(box(0.06, 0.34, 0.06, '#1F2A44', { pivot: 'bottom' }), 0, 0, 0), at(box(0.07, 0.07, 0.07, '#E2A878'), 0, 0.36, 0)); f.add(topArm);
+      } else if (o.top === 'cat') {
+        f.add(at(box(0.3, 0.2, 0.14, '#D9782E', { outline: 0.008 }), 0, 0.12, 0.08), at(box(0.17, 0.15, 0.14, '#D9782E', { outline: 0.008 }), 0.17, 0.27, 0.08));
+        for (const sd of [-1, 1]) f.add(at(box(0.04, 0.06, 0.03, '#B95F22'), 0.17 + sd * 0.05, 0.37, 0.08, 0, 0, sd * 0.3));
+        topSwing = grp(); topSwing.position.set(-0.15, 0.08, 0.08); topSwing.add(at(box(0.04, 0.3, 0.04, '#D9782E', { pivot: 'bottom' }), 0, 0, 0)); f.add(topSwing);
+      } else if (o.top === 'helmet') {
+        topSwing = grp(); topSwing.position.set(0, 0.0, 0.12); topSwing.add(at(box(0.015, 0.5, 0.015, '#2A2C30', { pivot: 'top' }), 0, 0, 0), at(sphere(0.16, '#F4F2EC', 1), 0, -0.55, 0)); f.add(topSwing);
+      }
+      f.scale.setScalar(s); f.position.set(0, ty, 0.15); sec[2].add(f); }
     g.userData.update = t => {
       let k = 1, e = 1;
       if (o.steps && o.steps.length) { const n = o.steps.length; k = 0; o.steps.forEach(t1 => { k += outBack(clamp01((t - t1) / 0.2)) / n; }); e = clamp01(k); }
@@ -70,6 +83,8 @@ export const RAMBARDE_PROPS = {
       const ra = o.raise ? outBack(clamp01((t - o.raise[0]) / Math.max(0.01, o.raise[1]))) : 1, e0 = (o.raise0 ?? 8) * PI / 180, elv = e0 + (el - e0) * ra;
       arm.rotation.x = PI / 2 - elv;
       arm.rotation.z = (o.extend || o.steps) ? 0.012 * Math.sin(t * 9) * (1 - e) : 0.004 * Math.sin(t * 1.3);
+      if (topArm) topArm.rotation.z = -2.4 + 0.55 * Math.sin(t * 9);
+      if (topSwing) topSwing.rotation.z = (o.top === 'cat' ? 0.5 : 0.35) * Math.sin(t * (o.top === 'cat' ? 4 : 3));
       if (o.cloud !== false) { const tip = SL + sec[2].position.y; cloud.position.set((o.drift || 0) * t, 0.9 + Math.sin(elv) * tip * 0.97, Math.cos(elv) * tip * 0.97); cloud.visible = (o.cloudFrom == null || k > o.cloudFrom); }
     };
     g.userData.update(0); return g;
@@ -171,10 +186,14 @@ export const RAMBARDE_PROPS = {
   // A black balaclava over a box head (attach to the head joint, offset [0, 0, 0]): a black shell o.w (0.29) x o.h (0.47) x o.d (0.27) with the eye band
   // left open (o.eye [y0, y1], 0.25-0.33 m up the head) so the painted eyes show
   balaclava(o) {
-    const w = o.w ?? 0.29, h = o.h ?? 0.47, d = o.d ?? 0.27, e = o.eye || [0.25, 0.33], c = '#16171A', g = grp(), s = 1.08;
-    g.add(at(box(w * s, h - e[1] + 0.02, d * s, c), 0, (h + e[1]) / 2 + 0.01, 0), at(box(w * s, e[0] + 0.01, d * s, c), 0, e[0] / 2, 0));
-    for (const sd of [-1, 1]) g.add(at(box(w * 0.14, e[1] - e[0], d * s, c), sd * w * 0.47, (e[0] + e[1]) / 2, 0));
-    g.add(at(box(w * 0.2, e[1] - e[0], d * 0.6, c), 0, (e[0] + e[1]) / 2, -d * 0.25));
+    // (round 2 of 84: the knit stopped short of the head top, so tan lids showed) o.h (0.62) covers the whole box head and a cap closes the top;
+    // charcoal knit with a faint sheen instead of flat black
+    const w = o.w ?? 0.29, h = o.h ?? 0.62, d = o.d ?? 0.27, e = o.eye || [0.25, 0.33], c = o.color || '#2A2C32', g = grp(), s = 1.08;
+    const knit = () => new THREE.MeshPhongMaterial({ color: c, specular: '#5A6070', shininess: 18, flatShading: true });
+    const B = (bw, bh, bd, x, y, z) => { const m = new THREE.Mesh(new THREE.BoxGeometry(bw, bh, bd), knit()); addOutline(m, 0.008); return at(m, x, y, z); };
+    g.add(B(w * s, h - e[1] + 0.02, d * s, 0, (h + e[1]) / 2 + 0.01, 0), B(w * s, e[0] + 0.01, d * s, 0, e[0] / 2, 0));
+    for (const sd of [-1, 1]) g.add(B(w * 0.14, e[1] - e[0], d * s, sd * w * 0.47, (e[0] + e[1]) / 2, 0));
+    g.add(B(w * 0.2, e[1] - e[0], d * 0.6, 0, (e[0] + e[1]) / 2, -d * 0.25), B(w * s * 0.9, 0.04, d * s * 0.9, 0, h + 0.03, 0));
     return g;
   },
 
@@ -197,16 +216,28 @@ export const RAMBARDE_PROPS = {
   // A big bronze plaque on a stone stand (pivot on the ground under its front edge; front +Z): a plate o.w (1.2) x o.h (0.9) with a raised border, a
   // thick engraved arrow pointing o.dir degrees in its plane (0 = toward +X, 90 = up) and a few lines of inscription marks; o.drapeAt [t, dur]: a red
   // velvet drape that covered it slides down and away (unveiled); o.post (1.0 m): the stand's height
+  // (round 2 of 84: a matte mustard board with blank lines read as a road sign) polished bronze: a Phong plate with a warm specular highlight and a
+  // diagonal sheen, a raised bevelled border, the engraved inscription o.text (['MONUMENT', 'HISTORIQUE']) on the upper part and the arrow below
   bronzePlaque(o) {
-    const W = o.w ?? 1.2, H = o.h ?? 0.9, ph = o.post ?? 1.0, g = grp(), plate = grp(), bz = '#B07A3A', dk = '#6E4A22';
+    const W = o.w ?? 1.2, H = o.h ?? 0.9, ph = o.post ?? 1.0, g = grp(), plate = grp(), dk = '#5A3A18';
+    const phong = (c, sh = 70) => new THREE.MeshPhongMaterial({ color: c, specular: '#FFE2A8', shininess: sh, emissive: '#2A1A08', flatShading: true });
     g.add(at(box(W * 0.5, ph, 0.3, '#C9BFA8', { pivot: 'bottom', outline: 0.01 }), 0, 0, -0.1));
     plate.position.set(0, ph + H / 2, 0.08); plate.rotation.x = -0.12; g.add(plate);
-    plate.add(at(box(W, H, 0.06, bz, { outline: 0.012, emissive: '#2A1A08' }), 0, 0, 0));
-    for (const [w_, h_, x, y] of [[W, 0.06, 0, H / 2 - 0.03], [W, 0.06, 0, -H / 2 + 0.03], [0.06, H, -W / 2 + 0.03, 0], [0.06, H, W / 2 - 0.03, 0]]) plate.add(at(box(w_, h_, 0.08, '#D49A52'), x, y, 0.01));
-    const s = Math.min(W, H) * 0.36, sh = new THREE.Shape([[-1, 0.18], [0.25, 0.18], [0.25, 0.55], [1, 0], [0.25, -0.55], [0.25, -0.18], [-1, -0.18]].map(([x, y]) => new THREE.Vector2(x * s, y * s)));
-    const arrow = new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: 0.03, bevelEnabled: false }), mat(dk)); addOutline(arrow, 0.02);
-    arrow.rotation.z = (o.dir ?? 0) * PI / 180; arrow.position.set(0, -H * 0.08, 0.03); plate.add(arrow);
-    for (let i = 0; i < 2; i++) plate.add(at(box(W * (0.7 - i * 0.2), 0.035, 0.02, dk), 0, H * 0.32 - i * 0.09, 0.035));
+    const base = new THREE.Mesh(new THREE.BoxGeometry(W, H, 0.06), phong('#B8863F')); addOutline(base, 0.012); plate.add(base);
+    for (const [w_, h_, x, y] of [[W, 0.07, 0, H / 2 - 0.035], [W, 0.07, 0, -H / 2 + 0.035], [0.07, H, -W / 2 + 0.035, 0], [0.07, H, W / 2 - 0.035, 0]]) plate.add(at(new THREE.Mesh(new THREE.BoxGeometry(w_, h_, 0.09), phong('#E0AE62', 90)), x, y, 0.01));
+    const lines = o.text || ['MONUMENT', 'HISTORIQUE'];
+    const txt = canvasPlane(W * 0.86, H * 0.36, (x, cw, ch) => {
+      const gr = x.createLinearGradient(0, 0, cw, ch); gr.addColorStop(0, '#C99448'); gr.addColorStop(0.45, '#F0C27A'); gr.addColorStop(0.55, '#D6A35A'); gr.addColorStop(1, '#B07A38');
+      x.fillStyle = gr; x.fillRect(0, 0, cw, ch); x.textAlign = 'center'; x.textBaseline = 'middle';
+      const fs = Math.round(ch * 0.36); x.font = `900 ${fs}px Arial Black, Arial, sans-serif`;
+      lines.forEach((l, i) => { const y = ch * (lines.length === 1 ? 0.5 : 0.3 + 0.42 * i);
+        x.fillStyle = '#FFE6B0'; x.fillText(l, cw / 2 + 2, y + 2); x.fillStyle = '#4A2C10'; x.fillText(l, cw / 2, y); });
+    }, { res: 512 });
+    txt.position.set(0, H * 0.24, 0.032); plate.add(txt);
+    const s = Math.min(W, H) * 0.27, sh = new THREE.Shape([[-1, 0.2], [0.2, 0.2], [0.2, 0.6], [1, 0], [0.2, -0.6], [0.2, -0.2], [-1, -0.2]].map(([x, y]) => new THREE.Vector2(x * s, y * s)));
+    const arrow = new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: 0.035, bevelEnabled: false }), phong(dk, 30)); addOutline(arrow, 0.02);
+    arrow.rotation.z = (o.dir ?? 0) * PI / 180; arrow.position.set(0, -H * 0.2, 0.03); plate.add(arrow);
+    const shine = new THREE.Mesh(new THREE.PlaneGeometry(W * 0.12, H * 1.1), basic('#FFF2D0', { opacity: 0.22 })); shine.position.set(-W * 0.22, 0, 0.034); shine.rotation.z = -0.5; plate.add(shine);
     const drape = grp(); drape.add(at(box(W * 1.12, H * 1.15, 0.05, '#9A1E28', { outline: 0.01 }), 0, 0, 0), at(box(W * 1.14, 0.06, 0.07, '#E2B53C'), 0, -H * 0.56, 0.01));
     drape.position.set(0, 0, 0.07); plate.add(drape);
     g.userData.update = t => { const dr = o.drapeAt; if (!dr) { drape.visible = false; return; } const k = clamp01((t - dr[0]) / (dr[1] ?? 0.45));
@@ -319,12 +350,16 @@ export const RAMBARDE_PROPS = {
   // A cloud of dust that hides the scene and clears (pivot at its middle, on the ground): o.n (22) soft beige puffs over o.r (5 m) up to o.h (5 m) that
   // swell from o.at (s) and then thin out and drift off between o.clear [t0, t1]; translucent, unlit
   dustCloud(o) {
-    const n = o.n ?? 22, R = o.r ?? 5, Hh = o.h ?? 5, g = grp(), r = rng(o.seed || 12), puffs = [];
-    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), basic(o.color || '#D8CDB8', { opacity: 0.9 })); const a = r() * 2 * PI, d = R * Math.sqrt(r());
-      m.userData.p = [Math.cos(a) * d, Hh * (0.15 + 0.7 * r()), Math.sin(a) * d, R * (0.25 + 0.25 * r()), a]; m.castShadow = false; g.add(m); puffs.push(m); }
+    // (round 2 of 84: opaque faceted grey puffs read as a rock arch) soft pale sprites, partly transparent, that swell, rise and thin out
+    const n = o.n ?? 22, R = o.r ?? 5, Hh = o.h ?? 5, g = grp(), r = rng(o.seed || 12), puffs = [], OP = o.opacity ?? 0.7;
+    const cv = document.createElement('canvas'); cv.width = cv.height = 128; const x = cv.getContext('2d');
+    const gr = x.createRadialGradient(64, 64, 4, 64, 64, 62); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.55, 'rgba(255,255,255,0.7)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = gr; x.fillRect(0, 0, 128, 128);
+    const tex = new THREE.CanvasTexture(cv);
+    for (let i = 0; i < n; i++) { const m = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, color: o.color || '#F2ECE0', transparent: true, opacity: OP, depthWrite: false })); const a = r() * 2 * PI, d = R * Math.sqrt(r());
+      m.userData.p = [Math.cos(a) * d, Hh * (0.15 + 0.7 * r()), Math.sin(a) * d, R * (0.6 + 0.5 * r()), a]; g.add(m); puffs.push(m); }
     g.userData.update = t => { const u = t - (o.at ?? 0), c = o.clear || [1e9, 1e9], k = clamp01((t - c[0]) / Math.max(0.05, c[1] - c[0]));
-      puffs.forEach((m, i) => { const [x, y, z, s, a] = m.userData.p; m.visible = u >= 0 && k < 0.999; if (!m.visible) return; const sw = Math.min(1, 0.4 + u * 2.5);
-        m.scale.setScalar(s * sw * (1 + 0.5 * k)); m.position.set(x + Math.cos(a) * k * R * 0.8, y + k * 1.5, z + Math.sin(a) * k * R * 0.8); m.material.opacity = 0.9 * (1 - k * k); }); };
+      puffs.forEach(m => { const [x, y, z, s, a] = m.userData.p; m.visible = u >= 0 && k < 0.999; if (!m.visible) return; const sw = Math.min(1, 0.4 + u * 2.5);
+        const sc = s * sw * (1 + 0.6 * k); m.scale.set(sc, sc, 1); m.position.set(x + Math.cos(a) * k * R * 0.8, y + k * 1.5, z + Math.sin(a) * k * R * 0.8); m.material.opacity = OP * (1 - k * k); }); };
     g.userData.update(0); return g;
   },
 
@@ -342,5 +377,53 @@ export const RAMBARDE_PROPS = {
   winchCable(o) {
     const L = o.len ?? 12, g = grp(); g.add(at(cyl(0.012, 0.012, L, '#2A2C30', 5, { pivot: 'bottom' }), 0, 0.06, 0), at(new THREE.Mesh(new THREE.TorusGeometry(0.04, 0.012, 5, 10, PI * 1.4), mat('#8A8E92')), 0, 0.03, 0, 0, 0, PI));
     return g;
+  },
+  // (round 2 of 84) His cheeks squeezed out round the bars (attach to the head joint; the face toward +Z): two skin-coloured rounded bulges on
+  // either side of the face, just outside the bars; o.at [[t, k], ...] (k 0..1.4) swells them, keyed; o.skin; o.x (0.15): their half spacing
+  cheekBulge(o) {
+    const g = grp(), sk = o.skin || '#E9B98C', X = o.x ?? 0.15, b = [];
+    for (const sd of [-1, 1]) { const m = new THREE.Mesh(new THREE.SphereGeometry(0.075, 12, 8), lam(sk)); addOutline(m, 0.006); m.position.set(sd * X, o.y ?? 0.17, o.z ?? 0.08); m.scale.set(0.8, 0.9, 0.7); g.add(m); b.push(m); }
+    const K = o.at || [[0, 1]];
+    g.userData.update = t => { let k = K[0][1]; for (let i = 0; i < K.length; i++) { if (t >= K[i][0]) { const n = K[i + 1]; k = n && t < n[0] ? K[i][1] + (n[1] - K[i][1]) * smooth((t - K[i][0]) / (n[0] - K[i][0])) : K[i][1]; } }
+      b.forEach((m, i) => { m.visible = k > 0.02; m.scale.set(0.55 + 0.45 * k, 0.75 + 0.3 * k, 0.5 + 0.4 * k); m.position.x = (i ? 1 : -1) * (X + 0.03 * k); }); };
+    g.userData.update(0); return g;
+  },
+
+  // (round 2 of 84) A bold comic sign that pops in (pivot at its middle; face it to the camera with rot): a yellow board with a thick red outline,
+  // o.text lines in heavy red capitals, o.w (1.0) x o.h (0.45); at o.at it pops in (overshoot 1.25 then 1) and gives a little shake
+  popSign(o) {
+    const W = o.w ?? 1.0, H = o.h ?? 0.45, lines = o.text || ['CATASTROPHE', 'NATURELLE'], g = grp();
+    const pl = canvasPlane(W, H, (x, cw, ch) => {
+      x.fillStyle = '#B5241E'; x.fillRect(0, 0, cw, ch); x.fillStyle = o.bg || '#FFD23A'; x.fillRect(ch * 0.07, ch * 0.07, cw - ch * 0.14, ch - ch * 0.14);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; const fs = Math.round(ch * (lines.length > 1 ? 0.33 : 0.55)); x.font = `900 ${fs}px Arial Black, Arial, sans-serif`;
+      lines.forEach((l, i) => { const y = ch * (lines.length === 1 ? 0.52 : 0.33 + 0.36 * i); let f = fs; while (f > 8 && x.measureText(l).width > cw * 0.86) { f -= 2; x.font = `900 ${f}px Arial Black, Arial, sans-serif`; }
+        x.lineWidth = f * 0.12; x.strokeStyle = '#FFF6DA'; x.strokeText(l, cw / 2, y); x.fillStyle = '#B5241E'; x.fillText(l, cw / 2, y); x.font = `900 ${fs}px Arial Black, Arial, sans-serif`; });
+    }, { res: 512, emissive: 0.35 });
+    g.add(pl);
+    g.userData.update = t => { const u = t - (o.at ?? 0); if (u < 0) { g.visible = false; return; } g.visible = true;
+      const k = u < 0.09 ? 1.25 * smooth(u / 0.09) : u < 0.2 ? 1.25 - 0.25 * smooth((u - 0.09) / 0.11) : 1; g.scale.setScalar(Math.max(0.001, k)); g.rotation.z = u < 0.45 ? 0.07 * Math.sin(u * 40) * (1 - u / 0.45) : 0; };
+    g.userData.update(-1); return g;
+  },
+
+  // (round 2 of 84) A plump red velvet cushion with gold piping and tassels, a brick sitting on it (pivot at the cushion's middle; carried flat):
+  // o.bob [freq, amp]: the slow-march bob; the brick wobbles on it a little behind the bob; o.s (1): the brick's size
+  cushionBrick(o) {
+    const g = grp(), cu = grp(), br = grp(); g.add(cu);
+    const c = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 10), lam('#A3182A')); c.scale.set(0.52, 0.12, 0.42); addOutline(c, 0.008); cu.add(c);
+    const pipe = new THREE.Mesh(new THREE.TorusGeometry(0.235, 0.012, 6, 28), lam('#E2B53C')); pipe.rotation.x = PI / 2; pipe.scale.set(1.08, 0.86, 1); pipe.position.y = 0.005; cu.add(pipe);
+    for (const [x, z] of [[0.24, 0.19], [-0.24, 0.19], [0.24, -0.19], [-0.24, -0.19]]) cu.add(at(cyl(0.012, 0.025, 0.07, '#E2B53C', 6, { pivot: 'top' }), x, 0.0, z));
+    const bs = o.s ?? 1.4, b = grp(); b.scale.setScalar(bs);
+    b.add(at(box(0.24, 0.075, 0.115, '#B5553A', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(0.13, 0.012, 0.06, '#8E3E28'), 0, 0.071, 0), at(box(0.24, 0.006, 0.117, '#C76A4A'), 0, 0.038, 0));
+    br.add(b); br.position.y = 0.045; cu.add(br);
+    const [fq, amp] = o.bob || [1.8, 0.025];
+    g.userData.update = t => { const ph = t * fq * 2 * PI; cu.position.y = amp * Math.sin(ph); cu.rotation.z = 0.04 * Math.sin(ph * 0.5); br.rotation.z = 0.07 * Math.sin(ph - 0.9); br.rotation.x = 0.05 * Math.sin(ph * 0.5 - 0.6); br.position.x = 0.015 * Math.sin(ph - 0.9); };
+    g.userData.update(0); return g;
+  },
+
+  // (round 2 of 84) A soft searchlight cone (pivot at the lamp; the cone hangs down -Y): o.len (12), o.r (1.6) at its end, o.opacity (0.07)
+  softBeam(o) {
+    const L = o.len ?? 12, R = o.r ?? 1.6, g = grp();
+    const m = new THREE.Mesh(new THREE.ConeGeometry(R, L, 20, 1, true), new THREE.MeshBasicMaterial({ color: '#FFF6C8', transparent: true, opacity: o.opacity ?? 0.07, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending }));
+    m.position.y = -L / 2; g.add(m); return g;
   },
 };
