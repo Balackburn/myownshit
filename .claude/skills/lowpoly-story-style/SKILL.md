@@ -1847,3 +1847,16 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   le même plan.
 - (cycle 44) Tourner un personnage sur place vers la caméra : un déplacement vers sa propre position avec `face` ; `look='camera'` ne
   tourne que la tête. Une main tenue à l'oreille se règle par rapport au visage (`['face', across, up, fwd]`).
+- (cycle 45) `buildProp` remplace un accessoire qui plante par un cube et un simple avertissement : construire chaque accessoire sous
+  Node avec un DOM simulé (`Image`, canvas) et appeler `update` attrape ces erreurs (outil : `$SP/s7/barbecue/fix/prop_smoke.mjs`).
+- (cycle 45) Cadre 9:16 à 4-5 m : à peine 2 m de large. Une action horizontale (soldat et cible, officier et suspect) n'y tient pas :
+  la mettre en profondeur (par-dessus l'épaule, le long de l'axe) ou rapprocher les deux parties en X.
+- (cycle 45) Deux porteurs de dos cachent ce qu'ils portent : caméra en grue à 4 m environ, vue à 45°.
+- (cycle 45) Ruban de fumée près de la caméra : bouffées de rayon 0,11 au plus, au-dessus des têtes, sinon il cache le fond. Pas de
+  bouffées claires sur les genoux d'un acteur assis (elles se lisent comme une anatomie) : derrière lui, plus sombres.
+- (cycle 45) Accessoire attaché au torse : le +Z local du torse est l'avant de l'acteur (une voile qui doit tomber derrière va en −Z).
+- (cycle 45) Arbres ou décor sombre juste hors cadre : leurs branches entrent dans le coin comme des traits noirs ; à 3 m au moins.
+- (cycle 45) `face: 'camera'` garde +Y en haut : une assiette posée à plat reste vue par la tranche, l'incliner autour de X (≈ 0,95).
+- (cycle 45) Salut assis : main droite à 0,12 devant, 0,15 sur le côté, hauteur de l'acteur + 1,6 m (plus bas : main sur la bouche).
+  Clip `sit` : racine décalée de −0,45, mettre l'acteur à `y` = hauteur du siège − 0,45.
+- (cycle 45) `--stills cams` ne rend pas le début du plan : pour vérifier une action, donner des instants explicites.
