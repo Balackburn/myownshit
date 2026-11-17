@@ -302,7 +302,7 @@ FIST9 = lambda t, f, y, sq=(1, 1, 1), face=None, d=0.12, e='inOut', b=0.35: k(t,
                                                                               'bend': {'spine': [b, 0, 0, 1, None]}, 'face': face or {'lid': 0.2, 'mouth': 'line', 'brow': -0.8}}, toonDur=d, toonEase=e)
 st.shot('S09', 'interrogation', actors=[
         act('officier', OFF9, RY9, 'stand', 'angry', keys=[k(0.0, look=add(CHIP9, [0, 0.25, 0])),
-            FIST9(0.0, 0.38, 0.95, d=0.0), FIST9(0.42, 0.32, 1.75, (0.94, 1.09, 0.94), {'lid': 0.1, 'mouth': 'clench', 'brow': -0.9}, 0.25, 'out', 0.02),
+            FIST9(0.0, 0.38, 0.95, d=0.0), FIST9(0.42, 0.34, 1.55, (0.96, 1.05, 0.96), {'lid': 0.1, 'mouth': 'clench', 'brow': -0.9}, 0.25, 'out', 0.12),
             FIST9(r(SLAM9 - 0.07), 0.43, 1.0, (0.92, 1.1, 0.92), d=0.04, e='in', b=0.2),
             FIST9(SLAM9, 0.45, 0.83, (1.16, 0.84, 1.16), {'lid': 0.0, 'mouth': 'O', 'brow': -0.9}, 0.04, 'out', 0.28),
             FIST9(r(SLAM9 + 0.18), 0.45, 0.85, (1, 1, 1), {'lid': 0.15, 'mouth': 'clench', 'brow': -0.8}, 0.15, b=0.22),
@@ -413,7 +413,7 @@ st.shot('S13', 'grassland', setOpts={**GARDEN_SET, 'sky': ['#A88C78', '#E2BC94']
         props=[*GARDEN('fire', grill=False), P('gril13', 'kettleGrill', pos=G11, opts={'char': True, 'smokeN': 6, 'smokeH': 0.7}), HELMET('casque13', 'para'), SOOT('suie13', 'para'),
                P('fumee13a', 'smokeRibbon', pos=[0, 0, 0], opts={'pts': [add(G11, [0.12, 0.86, -0.1]), add(G11, [0.2, 1.6, -0.2]), add(G11, [0.05, 2.6, -0.3])], 'n': 16, 's0': 0.05, 's1': 0.15, 'speed': 0.45, 'shrink': False, 'color': '#6E6964'}),
                P('fumee13b', 'smokeRibbon', pos=[0, 0, 0], opts={'pts': [add(G11, [0.0, 2.25, 0.0]), add(G11, [0.08, 2.8, -0.05]), add(G11, [-0.1, 3.5, -0.1])], 'n': 10, 's0': 0.03, 's1': 0.09, 'speed': 0.5, 'shrink': False, 'color': '#5E5A56'})],
-        cams=[cam(0.0, [r(G11[0] - 0.5), 1.62, r(G11[2] + 3.2)], [r(G11[0] - 0.47), 1.62, r(G11[2] + 3.0)], [r(G11[0] - 0.02), 1.42, G11[2]], [r(G11[0] - 0.02), 1.42, G11[2]], lens=44)])
+        cams=[cam(0.0, [r(G11[0] - 0.5), 1.72, r(G11[2] + 3.2)], [r(G11[0] - 0.47), 1.72, r(G11[2] + 3.0)], [r(G11[0] - 0.02), 1.6, G11[2]], [r(G11[0] - 0.02), 1.6, G11[2]], lens=44)])
 st.cue('sfx:roar', 'S13', 0.0, 0.2); st.cue('sfx:tick', 'S13', 0.9, 0.1)
 
 # 14: to reassure everyone, the minister ate a sausage. The press room: at the podium the minister holds up a sausage on a fork for the cameras,
@@ -524,7 +524,7 @@ for j, (who, p, ry, tip) in enumerate(ROAST):
     ACT17.append(act(who, p, ry, 'kneel', 'happy' if who != 'soldat' else 'neutral', keys=[k(0.0, look=tip), k(0.0, toon={'reach': {'R': [*hand, 1, 0.03]}, 'hands': {'R': 'grip'}}, toonDur=0.0),
                      k(r(0.5 + 0.2 * j), toon={'reach': {'R': [*add(hand, [0, 0.03, 0]), 1, 0.03]}, 'hands': {'R': 'grip'}}, toonDur=0.25), k(r(0.95 + 0.2 * j), toon={'reach': {'R': [*hand, 1, 0.03]}, 'hands': {'R': 'grip'}}, toonDur=0.25)]))
 Y17 = [2.08, 0, -2.3]; YRY17 = yaw(Y17, G17)
-YHAND17 = off(Y17, YRY17, 0.32, -0.2, 1.52); YTIP17 = [r(G17[0] + 0.06), 1.93, r(G17[2] + 0.27)]
+YHAND17 = off(Y17, YRY17, 0.32, -0.2, 1.4); YTIP17 = [r(G17[0] + 0.08), 1.72, r(G17[2] + 0.36)]
 st.shot('S17', 'grassland', setOpts=BURNT_SET, actors=[*ACT17,
         act('invite2', Y17, YRY17, 'stand', 'happy', keys=[k(0.0, look=add(PARA17, [0, 1.6, 0])), k(0.0, toon={'reach': {'L': [*YHAND17, 1, 0.03]}, 'hands': {'L': 'grip'}, 'face': {'mouth': 'smile', 'brow': 0.4}}, toonDur=0.0),
             k(0.45, toon={'reach': {'L': [*add(YHAND17, [-0.08, 0.03, 0.0]), 1, 0.03]}, 'hands': {'L': 'grip'}, 'face': {'mouth': 'smile', 'brow': 0.6}, 'bend': {'spine': [0.1, 0, 0, 1, None]}}, toonDur=0.2),
