@@ -120,6 +120,8 @@ export const FEUILLE_PROPS = {
     const puff = o.flatAt != null ? buildProp('confettiPuff', { at: o.flatAt, n: o.puffN ?? 18, seed: o.seed || 3, r: 0.6 * s }) : null; if (puff) { puff.position.y = 0.2; g.add(puff); }
     g.userData.update = t => {
       let f = o.flat ? 1 : 0; if (o.flatAt != null) f = easeIn((t - o.flatAt) / 0.08);
+      // o.springAt (s): flattened, it pops half back up with a wobble (re-inflates like a biscuit that will not stay down)
+      if (o.springAt != null && t > o.springAt) { const u = t - o.springAt; f = 1 - 0.5 * outBack(u / 0.18) + 0.06 * Math.exp(-u * 8) * Math.sin(u * 40); }
       const b = o.flatAt != null && t > o.flatAt + 0.08 ? 0.08 * Math.exp(-(t - o.flatAt - 0.08) * 9) * Math.abs(Math.sin((t - o.flatAt) * 30)) : 0;
       sh.scale.set(1 + 0.45 * f, Math.max(0.06, 1 - 0.94 * f + b), 1 + 0.35 * f);
       if (tag) tag.visible = f < 0.5 || o.keepTag; puff?.userData.update(t);
@@ -166,7 +168,7 @@ export const FEUILLE_PROPS = {
     g.add(at(box(1.0, 0.7, Wd - 0.04, '#9FC6D4', { noGrain: true }), L / 2 - 0.5, 1.6, 0), at(box(L + 0.02, 0.3, Wd + 0.02, '#1E3A6E'), 0, 0.8, 0), at(box(0.5, 0.14, 1.2, INK), L / 2 - 1.3, 2.72, 0), at(box(0.3, 0.14, 0.45, '#2A4C8A', { emissive: '#1A3A7A', noGrain: true }), L / 2 - 1.3, 2.84, 0.3), at(box(0.3, 0.14, 0.45, '#B5302A', { emissive: '#6A1A14', noGrain: true }), L / 2 - 1.3, 2.84, -0.3));
     for (const s of [-1, 1]) { g.add(at(label('POLICE', 2.2, 0.42, { bg: null, fg: '#1E3A6E' }), -0.8, 1.55, s * (Wd / 2 + 0.01), 0, s > 0 ? 0 : PI, 0)); for (const x of [-1.7, 1.6]) g.add(at(cyl(0.42, 0.42, 0.3, INK, 12), x, 0.42, s * 0.92, PI / 2), at(cyl(0.18, 0.18, 0.02, '#9AA0A8', 8), x, 0.42, s * 1.08, PI / 2)); }
     const bx = -L / 2 - 0.02; g.add(at(box(0.03, 2.1, Wd - 0.24, '#202328'), bx - 0.005, 1.45, 0), at(box(0.03, 0.06, Wd - 0.24, '#5A5F66'), bx - 0.01, 0.42, 0), at(label('POLICE', 1.2, 0.26, { bg: '#F4F4F0', fg: '#1E3A6E' }), bx - 0.03, 2.75, 0, 0, -PI / 2, 0), at(box(0.04, 0.3, 1.3, '#F4F4F0'), bx - 0.01, 2.75, 0));
-    for (const s of [-1, 1]) { const d = grp(at(box(0.05, 2.2, Wd / 2 - 0.05, '#ECECE8', { outline: 0.008 }), 0, 0, -s * (Wd / 4 - 0.02))); d.position.set(bx, 1.45, s * (Wd / 2)); d.rotation.y = s * 1.9; g.add(d); }
+    for (const s of [-1, 1]) { const d = grp(at(box(0.05, 2.2, Wd / 2 - 0.05, '#ECECE8', { outline: 0.008 }), 0, 0, -s * (Wd / 4 - 0.02))); d.position.set(bx, 1.45, s * (Wd / 2)); d.rotation.y = s * (o.doorA ?? 1.9); g.add(d); }   // o.doorA (rad): 3.0 folds the doors flat against the sides (they no longer face a side camera)
     const ang = Math.atan2(0.42, rl), Lr = Math.hypot(rl, 0.42), rp = grp(at(box(Lr, 0.05, 1.3, '#8C939B', { outline: 0.006 }), -Lr / 2, 0, 0)); for (let i = 1; i < 8; i++) rp.add(at(box(0.04, 0.02, 1.3, '#6A7078'), -i * Lr / 8, 0.03, 0)); rp.rotation.z = ang; rp.position.set(bx, 0.42, 0); g.add(rp);
     g.userData.ramp = { top: [bx, 0.45, 0], foot: [bx - rl, 0.02, 0] }; return g;
   },
@@ -206,7 +208,9 @@ export const FEUILLE_PROPS = {
     const pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#F4F1E6'; c.fillRect(0, 0, W, H); c.fillStyle = '#B5201A'; c.textAlign = 'center'; c.textBaseline = 'middle'; let fs = Math.round(H * 0.12); c.font = `900 ${fs}px Arial`; while (c.measureText('RECHERCHÉE').width > W * 0.9) { fs -= 2; c.font = `900 ${fs}px Arial`; } c.fillText('RECHERCHÉE', W / 2, H * 0.12);
       c.strokeStyle = '#8C949A'; c.lineWidth = W * 0.02; c.fillStyle = '#FFFFFF'; c.fillRect(W * 0.2, H * 0.27, W * 0.6, H * 0.58); c.strokeRect(W * 0.2, H * 0.27, W * 0.6, H * 0.58); c.fillStyle = '#2A2A2E'; c.fillRect(W * 0.3, H * 0.9, W * 0.4, H * 0.02); }, { res: 384 });
     const inner = grp(pl, at(box(w, h, 0.004, '#DCD8CC'), 0, 0, -0.004)); g.add(inner);
-    g.userData.update = t => { const u = t - (o.at ?? -1); inner.visible = u >= 0 && !(o.peelAt != null && t >= o.peelAt); if (!inner.visible) return; inner.scale.setScalar(u < 0.08 ? 1.25 - 0.25 * (u / 0.08) : 1); inner.rotation.z = 0.12 * Math.exp(-u * 6) * Math.sin(u * 22); };
+    // (round 1) slapped on with a squash: wide and flat on impact, springing back with a wobble
+    g.userData.update = t => { const u = t - (o.at ?? -1); inner.visible = u >= 0 && !(o.peelAt != null && t >= o.peelAt) && !(o.hideAt != null && t >= o.hideAt); if (!inner.visible) return;
+      const sq = o.at != null && o.at >= 0 ? Math.exp(-u * 14) * Math.cos(u * 34) : 0; inner.scale.set(1 + 0.22 * sq, 1 - 0.22 * sq, 1); inner.rotation.z = 0.12 * Math.exp(-u * 6) * Math.sin(u * 22); };
     g.userData.update(0); return g;
   },
 
@@ -333,7 +337,7 @@ export const FEUILLE_PROPS = {
     g.add(at(box(S + 0.04, 0.03, S + 0.04, '#9AA1A8'), 0, 0.06 + S + 0.015, 0), at(box(0.28, 0.035, 0.03, INK), 0, 0.06 + S + 0.02, 0));
     g.add(at(box(0.36, 0.14, 0.01, '#FFFFFF', { outline: 0.004 }), 0, 0.06 + S * 0.72, S / 2 + 0.008), at(label(o.text || 'NON', 0.32, 0.12, { bg: '#FFFFFF', fg: INK, wrap: false }), 0, 0.06 + S * 0.72, S / 2 + 0.015));
     const r = rng(o.seed || 9), L = []; for (let i = 0; i < 40; i++) L.push([(r() - 0.5) * (S - 0.12), 0.07 + i * 0.012, (r() - 0.5) * (S - 0.12), (r() - 0.5) * 0.4, r() * TAU, (r() - 0.5) * 0.4, 1, 1, 1]);
-    const pile = []; for (let i = 0; i < 40; i++) { const b = at(box(0.2, 0.006, 0.26, PAPER), ...L[i].slice(0, 6)); b.visible = false; g.add(b); pile.push(b); }
+    const pile = []; for (let i = 0; i < 40; i++) { const b = at(box(0.2, 0.006, 0.26, '#FFFFFF', { outline: 0.003, emissive: '#B8B6AE' }), ...L[i].slice(0, 6)); b.visible = false; g.add(b); pile.push(b); }   // (round 1) lit white sheets with an ink edge, not a grey stair-step mass behind the glass
     g.userData.update = t => { const n = Math.round(keyAt(o.fill, t, 0, 0)); pile.forEach((b, i) => { b.visible = i < n; }); };
     g.userData.update(0); return g;
   },
@@ -370,7 +374,7 @@ export const FEUILLE_PROPS = {
   shredderRows(o) {
     const g = grp(), sh = [];
     for (const [z, x0, n, gap] of o.rows || []) for (let i = 0; i < n; i++) { const x = x0 + i * (gap ?? 1.4), tt = o.speed ? (o.at ?? 0) + (x - (o.x0 ?? 0)) / o.speed : null;
-      const s = buildProp('demoShredder', { s: o.s ?? 0.9, flatAt: (z >= (o.rollZ0 ?? -1e9) && z <= (o.rollZ1 ?? 1e9)) ? tt : null, seed: i + 7, puffN: 12, price: o.price }); s.position.set(x, o.y ?? 0, z); s.rotation.y = o.face ?? 0; g.add(s); sh.push(s); }
+      const k_ = sh.length, pre = (o.preFlat || []).includes(z), s = buildProp('demoShredder', { s: o.s ?? 0.9, flat: pre, flatAt: !pre && (z >= (o.rollZ0 ?? -1e9) && z <= (o.rollZ1 ?? 1e9)) ? tt : null, springAt: k_ === o.springIdx && tt != null ? tt + (o.springDelay ?? 0.45) : null, seed: i + 7, puffN: o.puffN ?? 12, price: o.price, keepTag: pre }); s.position.set(x, o.y ?? 0, z); s.rotation.y = o.face ?? 0; g.add(s); sh.push(s); }
     g.userData.update = t => sh.forEach(s => s.userData.update?.(t)); g.userData.update(0); return g;
   },
 
@@ -409,10 +413,16 @@ export const FEUILLE_PROPS = {
 
   // The demo shredder's plinth, the shredder gone (pivot at its foot, front +Z): the low white plinth 0.72 x 0.3 x 0.54, its price tag lying on it
   emptyPlinth(o) {
-    const ph = o.ph ?? 0.3, g = grp(at(box(0.8, ph, 0.6, '#F2F0EA', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(0.5, 0.004, 0.36, '#E4E0D6'), 0, ph + 0.002, 0));
-    const tg = grp(at(box(0.16, 0.006, 0.1, PAPER, { outline: 0.004 }), 0, 0, 0), at(label(o.price || '49 €', 0.14, 0.07, { bg: null, fg: '#C8202A' }), 0, 0.004, 0, -PI / 2, 0, 0)); tg.position.set(0.12, ph + 0.005, 0.1); tg.rotation.y = 0.4; g.add(tg);
+    const ph = o.ph ?? 0.3, g = grp(at(box(0.8, ph, 0.6, o.color || '#F2F0EA', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(0.5, 0.004, 0.36, o.dust || '#E4E0D6'), 0, ph + 0.002, 0));
+    // o.tagS (1): the tag's size; o.tagUp: the tag propped up toward the lens (63 degrees) instead of lying flat
+    const ts = o.tagS ?? 1, tg = grp(at(box(0.16 * ts, 0.006, 0.1 * ts, '#FFFFFF', { outline: 0.004 }), 0, 0, 0), at(label(o.price || '49 €', 0.14 * ts, 0.07 * ts, { bg: '#FFFFFF', fg: '#C8202A' }), 0, 0.004, 0, -PI / 2, 0, 0));
+    tg.position.set(o.tagX ?? 0.12, ph + 0.005 + (o.tagUp ? 0.045 * ts : 0), 0.1); if (o.tagUp) tg.rotation.set(1.1, 0.2, 0); else tg.rotation.y = 0.4; g.add(tg);
     g.add(at(rod([0, 0, 0], [0.18, 0, 0.06], 0.004, INK), 0.0, ph + 0.006, 0.08)); return g;
   },
+
+  // A low dark platform (pivot at the floor under its middle): o.w (4.6) x o.h (0.6) x o.d (0.8), slate grey with a lighter top edge; the suspects
+  // stand on it so the line-up sits at the eye line
+  dais(o) { const W = o.w ?? 4.6, H = o.h ?? 0.6, D = o.d ?? 0.8; return grp(at(box(W, H, D, o.color || '#3E4852', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(W + 0.02, 0.03, D + 0.02, '#5A6672'), 0, H - 0.015, 0)); },
 
   // A line-up wall (pivot at the floor under its middle, front +Z): the mugshot height chart o.w (5) wide and five numbered floor marks with
   // number plates 1 to 5 over them, o.gap (0.9) apart
