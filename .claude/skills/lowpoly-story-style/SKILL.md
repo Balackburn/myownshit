@@ -1869,3 +1869,10 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   Une corde vers une tour en retrait passe derrière la façade : avancer la tour au ras de la façade.
 - (cycle 44) Écume ou poussière près de l'objectif : réduire la taille et la durée, sinon elle masque le décor.
 - (cycle 44) Sol caché sous un décor qu'on soulève : le poser au moins 5 cm au-dessus du terrain, sinon il clignote (flash vert).
+- (cycle 45) Orienter un bâton ou une lance par lacet + tangage : `ry` puis `rot` sur X ne penche que dans le plan YZ ; viser l'axe avec
+  `axes_euler(X, Y, Z)`.
+- (cycle 45) `project()` sous-estime le décalage des acteurs proches de la caméra (≈ 0,1 de largeur) : garder une marge ou vérifier.
+- (cycle 45) Traînée de mouvement couleur manche sur un costume sombre : invisible. Lignes de vitesse claires, traînée plus claire.
+- (cycle 45) Mur de mots derrière un personnage : opacité 0,08 au plus, sinon les mots se lisent dans la bande du carton.
+- (cycle 45) Bras qui claque une porte depuis le hors-champ : saisir la porte près des gonds (rayon 0,4 m) ; au bord libre, le bras
+  s'étire de 2 m et se lit comme un bâton.
