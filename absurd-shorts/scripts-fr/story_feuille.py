@@ -211,24 +211,24 @@ st.cue('sfx:cuff', 'S06', CLICK6, 0.5); st.cue('sfx:static', 'S06', 0.2, 0.1)
 #    height chart; his right arm rises on its own, the plastered index pointing at the third; an officer flips her: the red smear shows, the
 #    dog-ear springs up
 D7 = st.dur('S07'); RISE7, FLIP7 = 0.05, 0.62
-LINE_Z = -2.55; SHL = {'w': 0.6, 'h': 0.8}
+LINE_Z = -2.55; SHL = {'w': 0.5, 'h': 0.72}; GAP7 = 0.62
 HERO7 = [-0.62, 0, 2.0]; RYH7 = 180
-COP7a, COP7b = [1.3, 0, -1.55], [0.45, 0, -1.95]
+COP7a, COP7b = [1.5, 0, -1.9], [0.78, 0, -2.25]
 C7 = cam(0.0, [-0.25, 2.25, 4.7], [-0.24, 2.24, 4.6], [0.15, 1.1, -2.4], [0.15, 1.1, -2.4], lens=36)
 PT7 = R5([-0.12, 1.95, 1.25], 1, 0.1)
 chk('S07', C7['from'], C7['lookAt'], 36, {'sheet1': [-1.1, 0.4, LINE_Z], 'sheet3': [0.0, 0.4, LINE_Z], 'sheet5': [1.1, 0.4, LINE_Z], 'heroHead': [HERO7[0], 2.0, HERO7[2]], 'hand': PT7[:3], 'copFace': [COP7b[0], 2.0, COP7b[2]], 'glassTop': [0, 2.2, 0.7]})
-st.shot('S07', 'whiteVoid', setOpts={'color': '#C9CED3'}, actors=[
+st.shot('S07', 'whiteVoid', setOpts={'color': '#8E979F'}, actors=[
         act('mec', HERO7, RYH7, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 0.6, LINE_Z]),
             k(0.0, toon={'reach': {'R': R5(off(HERO7, RYH7, 0.15, 0.3, 0.9))}, 'hands': {'R': 'rest'}}, toonDur=0.0),
             k(RISE7, toon={'reach': {'R': R5(add(PT7[:3], [0, -0.25, 0.2]), 1, 0.1)}, 'hands': {'R': 'point'}}, toonDur=0.2, toonEase='out'),
             k(r(RISE7 + 0.22), toon={'reach': {'R': PT7}, 'hands': {'R': 'point'}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.12, toonEase='out'),
             k(r(RISE7 + 0.2), look=PT7[:3], lookDur=0.12), k(r(RISE7 + 0.55), look=[0.0, 0.6, LINE_Z], lookDur=0.12)]),
         act('policier', COP7a, -60, 'stand', 'neutral', keys=[k(0.0, to=COP7b, dur=0.45, clip='walk'), k(0.0, look=[0.0, 0.5, LINE_Z]),
-            k(r(FLIP7 - 0.12), toon={'reach': {'R': R5([0.2, 0.75, LINE_Z + 0.1])}, 'hands': {'R': 'grip'}}, toonDur=0.12),
-            k(r(FLIP7 + 0.16), toon={'reach': {'R': R5([-0.15, 0.85, LINE_Z + 0.15])}, 'hands': {'R': 'open'}}, toonDur=0.12)])],
-        props=[P('tapissage7', 'lineupWall', pos=[0, 0, -3.15], opts={'w': 4.4, 'gap': 0.55}), P('vitre7', 'glassPane', pos=[0, 0, 0.75], opts={'w': 3.6, 'h': 1.35, 'y': 0.85}),
-               *[P(f'feuille7{i}', 'feuilleSheet', pos=[r((i - 2) * 0.55), 0.4, LINE_Z], opts={**SHL, 'ear': 0, 'smear': False}) for i in (0, 1, 3, 4)],
-               P('suspecte7', 'feuilleSheet', pos=[0.0, 0.4, LINE_Z], opts={**SHL, 'smearSide': 'back', 'ear0': 0.0, 'earKeys': [[r(FLIP7 + 0.17), 0.72]]}, keys=[k(FLIP7, rotTo=[0, PI, 0], dur=0.16, ease='inOut')]),
+            k(r(FLIP7 - 0.12), toon={'reach': {'R': R5([0.2, 0.7, LINE_Z + 0.1], 1, 0.1)}, 'hands': {'R': 'grip'}}, toonDur=0.12),
+            k(r(FLIP7 + 0.16), toon={'reach': {'R': R5([0.35, 0.95, LINE_Z + 0.2])}, 'hands': {'R': 'open'}}, toonDur=0.12)])],
+        props=[P('tapissage7', 'lineupWall', pos=[0, 0, -3.15], opts={'w': 4.4, 'gap': GAP7}), P('vitre7', 'glassPane', pos=[0, 0, 0.75], opts={'w': 3.6, 'h': 1.35, 'y': 0.85}),
+               *[P(f'feuille7{i}', 'feuilleSheet', pos=[r((i - 2) * GAP7), 0.36, LINE_Z], opts={**SHL, 'ear': 0, 'smear': False}) for i in (0, 1, 3, 4)],
+               P('suspecte7', 'feuilleSheet', pos=[0.0, 0.36, LINE_Z], opts={**SHL, 'smearSide': 'back', 'ear0': 0.0, 'earKeys': [[r(FLIP7 + 0.17), 0.72]]}, keys=[k(FLIP7, rotTo=[0, PI, 0], dur=0.16, ease='inOut')]),
                PLASTER('pansement7')],
         cams=[C7])
 st.cue('whoosh', 'S07', RISE7, 0.2, 0.25, 600, 2400); st.cue('sfx:paper', 'S07', FLIP7, 0.5); st.cue('sfx:spring', 'S07', r(FLIP7 + 0.17), 0.3)
@@ -398,7 +398,6 @@ st.shot('S15', 'grassland', setOpts={'clouds': 30}, actors=[
         props=[P('place15', 'parkLot', pos=[0, 0, -4.0], opts={'w': 70, 'd': 50, 'rows': [], 'color': '#CFC8B8', 'y': 0.03}),
                P('rouleau15', 'steamroller', pos=ROLL0, ry=0, keys=[k(0.0, to=ROLL1, dur=D15, ease='linear')]),
                P('rangees15', 'shredderRows', pos=[0, 0, 0], opts={'rows': [[0.0, -3.0, 8, 1.4], [-2.0, -6.0, 10, 1.5]], 'at': 0.0, 'x0': ROLL0[0] + 2.25, 'speed': SPD15, 'rollZ0': -0.5, 'rollZ1': 0.5, 'y': 0.03, 's': 0.85}),
-               P('aplaties15', 'shredderRows', pos=[0, 0, 0], opts={'rows': [[2.2, -7.0, 10, 1.5]], 'y': 0.03, 's': 0.85, 'speed': 1e9, 'at': -10, 'x0': -1e9}),
                KEPI('kepi15', 'chauffeur'), *[KEPI(f'kepi15{i}', w) for i, (w, p) in enumerate(LINE15)]],
         cams=[C15])
 st.cue('engine', 'S15', 0.0, 0.3, D15); st.cue('sfx:crunch', 'S15', 0.4, 0.3); st.cue('sfx:crunch', 'S15', 0.75, 0.3); st.cue('sfx:crunch', 'S15', 1.1, 0.3); st.cue('sfx:crunch', 'S15', 1.45, 0.3); st.cue('sfx:crunch', 'S15', 1.8, 0.3)
