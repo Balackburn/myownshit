@@ -1929,3 +1929,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 46) Orienter un accessoire libre : pour pointer son +Z selon la direction d, rot = [atan2(−dy, dz), asin(dx), 0].
 - (cycle 46) Fin face caméra après une action de profil : couper dans le plan vers une caméra frontale plus proche et tourner le
   personnage avec une clé `face` ; `look` seul est bridé.
+- (cycle 47) Un atelier d'écriture peut couronner une histoire qui refait un épisode publié avec un autre objet (le paquet de chips
+  impossible à ouvrir refaisait le bocal : même escalade, même rebond, même ouverture facile par un tiers). Avant la production,
+  comparer la structure du gagnant (problème, escalade, retournement, chute) à tous les épisodes publiés, pas seulement les mots ; si
+  elle est identique, passer au second et le réécrire.
