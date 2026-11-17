@@ -1902,3 +1902,15 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 44) Un repère `rain` sans durée faisait échouer tout le mixage, donc la génération finale après 1 h 45 de rendu 3D. `mix.py` prend
   maintenant 1,5 s par défaut, mais donner la durée (`st.cue('rain', sid, t, gain, dur)`). Si seule l'étape HyperFrames échoue, ne pas
   relancer le rendu 3D : relancer `make_project.py` puis le rendu HyperFrames (voir `$SP/s7/hf_flaque.sh`).
+- (cycle 45) `mat()` met en cache un matériau par couleur : un accessoire qui change sa couleur ou son émission (gril qui noircit) doit
+  demander `unique: true`, sinon il change tous les objets de cette couleur dans les plans suivants du même rendu.
+- (cycle 45) Surface émissive à 6 cm du terrain `grassland` : elle clignote image après image. La poser à 20 cm ; vérifier sur quatre
+  images consécutives.
+- (cycle 45) Fumée en sphères alignées = perles ou boules. Filet : tube effilé (`smokeTendril`) ; volute : sprites doux continus
+  (`softWisp`). Pas de fumée sous un personnage assis : elle monte à hauteur de poitrine.
+- (cycle 45) Salut assis, main ouverte : 0,06 devant, 0,2 sur le côté, hauteur + 1,6 (à 0,15 la main couvre un œil).
+- (cycle 45) Une clé toon qui fixe `mouth` écrase le `talk` : pour faire parler, des clés toon alternées sur les mots, en répétant l'état
+  de la main à chaque clé. Tête « politique » baissée : `bend: {'neck': [rx, 0, 0, 1, None]}` (rx positif vers le bas).
+- (cycle 45) Cloche ou bulle de verre : un liseré lumineux de type Fresnel (0,2 de face, + 0,75 au bord), pas une opacité uniforme.
+- (cycle 46) Avant de lancer un rendu final de 1 h 45, tester le mixage seul (`mix.py timeline cues out --bed …`) : il prend quelques
+  secondes et évite de perdre le rendu sur un repère mal écrit.
