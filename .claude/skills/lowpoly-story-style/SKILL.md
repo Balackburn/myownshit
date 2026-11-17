@@ -1797,3 +1797,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 42) Une poignée vue en bout se lit comme un disque : frapper une plaque verticale en biais pour que le côté du tampon se voie au contact.
 - (cycle 42) `fitBack` vise le milieu des points : un cadrage pieds et têtes laisse le tiers bas vide. Pour un sujet bas dans le cadre, placer la
   caméra à la main et vérifier avec `story_kit.project()`.
+- (cycle 43) Disque plein : ne pas compacter tout le dépôt git pour gagner de la place. Les gros objets sont des vidéos déjà compressées
+  (4,25 Go ici), un pack ne les réduit pas, et le pack temporaire remplit le disque. Chercher d'abord les doublons octet pour octet
+  (`cmp -s`) entre `out/` (ignoré par git) et `examples/`, les dossiers `out/work/story_*` et les calques `out/story_*_3d.mp4` des histoires
+  déjà livrées. Un redémarrage du conteneur tue aussi les rendus lancés avec `setsid nohup` : relancer la chaîne entière.
