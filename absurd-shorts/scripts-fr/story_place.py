@@ -148,7 +148,8 @@ st.shot('S02', 'office', setOpts={'door': False, 'printer': False, 'picture': Fa
         props=[P('table2', 'warMap', pos=TAB2, opts={'red': RED2, 'blue': [0.42, 0.02]}),
                P('epingle2a', 'flagPin', on={'actor': 'general', 'hand': 'R', 'offset': [0.0, -0.06, 0.02], 'rot': [3.1416, 0, 0]}, keys=[k(0.0, visible=True), k(r(STAB2 - 0.02), visible=False)]),
                P('epingle2', 'flagPin', pos=add(TOY2, [0, 0.03, 0]), keys=[k(0.0, visible=False), k(r(STAB2 - 0.02), visible=True)], opts={'s': 1.3}),
-               KEPI('kepi2', 'general'), P('epaul2', 'epaulettes', on={'actor': 'general', 'joint': 'torso', 'offset': [0.0, 0.42, 0.0]}, opts={'w': 0.52})],
+               KEPI('kepi2', 'general'), P('epaul2', 'epaulettes', on={'actor': 'general', 'joint': 'torso', 'offset': [0.0, 0.42, 0.0]}, opts={'w': 0.52}),
+               P('trainee2', 'smearArc', pos=[0, 0, 0], opts={'pts': [add(TOY2, [-0.2, 1.05, 0.1]), add(TOY2, [-0.12, 0.72, 0.07]), add(TOY2, [-0.01, 0.32, 0.0])], 'win': [r(STAB2 - 0.08), r(STAB2 + 0.07)], 'color': '#4E5A34', 'r': 0.075, 'opacity': 0.75})],   # (round 2) a smear on the stab
         fx=[{'type': 'shake', 'at': STAB2, 'dur': 0.12, 'amount': 0.01}],
         cams=[C2])
 st.cue('whoosh', 'S02', r(STAB2 - 0.15), 0.18); st.cue('thud', 'S02', STAB2, 0.45)
@@ -164,10 +165,10 @@ def turret_yaw(p):
     """the yaw of the ship's turret (0 ahead, + to its left) that points at p"""
     tp = loc(SHIP, SHIP_RY, 0, 2.4); dx, dz = p[0] - tp[0], p[2] - tp[2]; F = fwd(SHIP_RY); L = [-right(SHIP_RY)[0], 0, -right(SHIP_RY)[2]]
     return r(math.atan2(dx * L[0] + dz * L[2], dx * F[0] + dz * F[2]), 3)
-CARS3 = [{'color': '#F2C94C', 'a0': 200}, {'color': '#E8E4DA', 'a0': 255}, {'color': '#7FB069', 'a0': 320}, {'color': '#D98AA8', 'a0': 40}]
+CARS3 = [{'color': '#F2C94C', 'a0': 200}, {'color': '#E8E4DA', 'a0': 264}, {'color': '#7FB069', 'a0': 320}, {'color': '#D98AA8', 'a0': 40}]   # (round 2) the white car starts further on: its pass in front of the lens is shorter
 SP3 = 30.0
-AIM3 = [[0.0, turret_yaw(ring_pos(255 + SP3 * 0.0))]] + [[r(t), turret_yaw(ring_pos(255 + SP3 * t))] for t in (0.4, 0.8, 1.2)] + [[1.5, turret_yaw(ring_pos(320 + SP3 * 1.6))], [1.9, turret_yaw(ring_pos(320 + SP3 * 2.0))]]
-C3 = cam(0.0, [30.4, 1.1, 36.8], [30.7, 1.12, 36.78], [48.0, 3.9, 36.5], [48.0, 3.95, 36.5], lens=40)   # (round 1) on the ship's axis: bow-on, whole, little sky
+AIM3 = [[0.0, turret_yaw(ring_pos(264 + SP3 * 0.0))]] + [[r(t), turret_yaw(ring_pos(264 + SP3 * t))] for t in (0.4, 0.8, 1.2)] + [[1.5, turret_yaw(ring_pos(320 + SP3 * 1.6))], [1.9, turret_yaw(ring_pos(320 + SP3 * 2.0))]]
+C3 = cam(0.0, [30.4, 1.45, 36.8], [30.7, 1.47, 36.78], [48.0, 2.75, 36.5], [48.0, 2.8, 36.5], lens=40)   # (round 1) on the ship's axis: bow-on, whole, little sky   # (round 2) tilted down: the boom slams at about two thirds of the height, above the captions
 chk('S03', C3['from'], C3['lookAt'], 40, {'mast': loc(SHIP, SHIP_RY, 0, -1.4, 6.4), 'bow': loc(SHIP, SHIP_RY, 0, 5.9, 1.5), 'boom': [35.0, 1.0, 36.5], 'boomR': [35.0, 1.0, 39.5], 'island': [RING[0] - RI, 0.2, RING[2]]})
 st.shot('S03', 'grassland', setOpts=LOT_SET, actors=[],
         props=[P('rondpoint3', 'ringRoad', pos=[RING[0], 0, RING[2]], opts={'ri': RI, 'ro': RO, 'exitLen': 44, 'booms': SLAM3, 'cars': CARS3, 'speed': SP3}),
@@ -220,7 +221,8 @@ st.shot('S05', 'supermarket', setOpts={'fr': True, 'signs': [['FROMAGES', '#2E6F
         act('envahisseur', INV5, RY5, 'stand', 'happy', keys=[k(0.0, look=NOSE5),
             k(0.0, toon={'reach': HOLD5(0.46, 1.62), 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.5, 'mouth': 'smile', 'brow': 0.3}}, toonDur=0.0),
             k(r(SNIFF5 - 0.15), toon={'reach': HOLD5(0.44, 1.64), 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.6, 'mouth': 'O', 'brow': 0.2}, 'sq': [1.03, 0.97, 1.03]}, toonDur=0.12),
-            k(SNIFF5, toon={'reach': HOLD5(0.33, 1.74), 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 1.0, 'mouth': 'smile', 'brow': 0.6, 'cheeks': 0.5}, 'sq': [0.93, 1.09, 0.93], 'bend': {'spine': [0.08, 0, 0, 1, None], 'neck': [0.32, 0, 0, 1, None]}}, toonDur=0.2, toonEase='out'),
+            k(SNIFF5, toon={'reach': HOLD5(0.33, 1.74), 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 1.0, 'mouth': 'smile', 'brow': 0.6, 'cheeks': 0.5, 'puff': 0.4}, 'sq': [0.92, 1.12, 0.92], 'bend': {'spine': [0.02, 0, 0, 1.08, 1.32], 'neck': [0.32, 0, 0, 1, None]}}, toonDur=0.28, toonEase='out'),   # (round 2) a big inhale: the chest swells, he rises
+            k(r(SNIFF5 - 0.05), to=add(INV5, [0, 0.08, 0]), dur=0.3, ease='out'), k(r(SNIFF5 + 0.75), to=INV5, dur=0.25, ease='inOut'),
             k(r(SNIFF5 + 0.5), toon={'reach': HOLD5(0.33, 1.74), 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 1.0, 'mouth': 'bigsmile', 'brow': 0.6, 'cheeks': 0.6}, 'sq': [0.96, 1.05, 0.96], 'bend': {'spine': [0.06, 0, 0, 1, None], 'neck': [0.28, 0, 0, 1, None]}}, toonDur=0.3),
             k(1.45, toon={'reach': HOLD5(0.35, 1.72), 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.9, 'mouth': 'smile', 'brow': 0.4, 'cheeks': 0.4}, 'sq': [0.97, 1.04, 0.97], 'bend': {'spine': [0.08, 0, 0, 1, None], 'neck': [0.3, 0, 0, 1, None]}}, toonDur=0.2)])],
         props=[P('frigo5', 'cheeseShelf', pos=[-0.2, 0, -2.75], opts={'w': 3.2}),
@@ -231,30 +233,34 @@ st.cue('sfx:sniff', 'S05', SNIFF5, 0.3); st.cue('sfx:sniff', 'S05', r(SNIFF5 + 0
 
 # 6: six planes bombed his car. Low on the car park beside the little red car in its bay: six fighter jets in a V roar in over our heads and away
 #    toward the store; six fat bombs drop from them and fall, slow then fast, all on the red car; it bursts and squashes flat
-D6 = st.dur('S06'); REL6 = 0.2; HIT6 = 1.72
-# (round 1) low in the lane on the bay's axis, the red car centred low and clear: the jets are in frame from 0.2 s (looking up), the six bombs hang a
-# moment then drop fast, the camera glides down with them onto the car, which squashes to a pancake with a bounce; stars, no white-out
-JETS6 = [(0.0, 0.0), (-4.0, 5.0), (4.0, 5.0), (-8.0, 10.0), (8.0, 10.0), (0.0, 15.0)]   # (x offset, behind)
-JZ0, JZ1, JY = -3.5, -97.5, 22.0
-def jet_pos(dx, back, t): return [r(KEY[0] + dx), JY, r(JZ0 + back + (JZ1 - JZ0) * t / D6)]
-C6 = cam(0.0, [1.25, 0.55, -3.4], [1.25, 0.57, -3.6], [1.25, 13.0, -15.4], [1.25, 12.8, -15.6], lens=66)
-C6m = cam(0.72, [1.25, 0.6, -3.5], [1.25, 0.62, -3.6], [1.25, 10.5, -10.6], [1.25, 10.3, -10.6], lens=60)   # (round 1) the camera follows the bombs down
-C6n = cam(1.12, [1.25, 0.65, -3.55], [1.25, 0.67, -3.65], [1.25, 5.6, -10.6], [1.25, 5.4, -10.6], lens=58)
-C6b = cam(1.42, [1.25, 0.7, -3.6], [1.25, 0.72, -3.7], [1.25, 1.6, -10.6], [1.25, 1.58, -10.6], lens=56)
-chk('S06', C6['from'], C6['lookAt'], 66, {'jetLead02': jet_pos(0, 0, 0.2), 'jetLast06': jet_pos(0, 15, 0.6), 'jetLeadRel': jet_pos(0, 0, REL6)})
-chk('S06b', C6b['from'], C6b['lookAt'], 56, {'carTop': [1.25, 1.45, -10.6], 'carFoot': [1.25, 0.0, -9.0], 'bomb15': [1.25, 9.0, -10.6], 'bomb16': [1.25, 5.0, -10.6]})
-DROPS6 = [{'from': add(jet_pos(dx, back, REL6 + 0.04 * i), [0, -1.0, 0]), 'to': [r(KEY[0] + 0.12 * (i - 2.5)), 0.9, r(KEY[2] + 0.1 * (i % 3 - 1))], 't0': r(REL6 + 0.04 * i), 'dur': r(HIT6 - REL6 - 0.04 * i)} for i, (dx, back) in enumerate(JETS6)]
+D6 = st.dur('S06'); REL6 = 0.8; HIT6 = 1.72
+# (round 2) the target first: low beside the red car, three quarters front, the jets' six shadows sweep over it and the car park (0-0.4 s); the camera
+# tilts up to a clean V of six separated jets seen from the front and below, plain flame cones (0.4-0.75); they release; the bombs hang, then fall
+# as the camera follows them down onto the car, which squashes to a pancake with a bounce; stars, no white-out
+JETS6 = [(0.0, 0.0), (-4.5, 4.5), (4.5, 4.5), (-9.0, 9.0), (9.0, 9.0), (0.0, 12.0)]   # (x offset, behind)
+JZ0, JY, JV = 32.0, 18.0, 45.4
+def jet_pos(dx, back, t): return [r(KEY[0] + dx), JY, r(JZ0 + back - JV * t)]
+CP6 = [6.6, 1.0, -13.4]
+C6 = cam(0.0, CP6, add(CP6, [-0.02, 0.0, 0.03]), [1.25, 0.55, -10.6], [1.25, 0.56, -10.58], lens=48)
+C6u = cam(0.62, CP6, add(CP6, [-0.02, 0.0, 0.03]), [1.6, 15.5, 1.5], [1.6, 15.6, 1.4], lens=50)
+C6m = cam(1.02, CP6, add(CP6, [-0.02, 0.0, 0.03]), [1.25, 9.0, -9.5], [1.25, 8.8, -9.6], lens=50)   # the camera follows the bombs down
+C6b = cam(1.4, CP6, add(CP6, [-0.02, 0.0, 0.03]), [1.25, 0.9, -10.6], [1.25, 0.88, -10.6], lens=48)
+chk('S06a', C6['from'], C6['lookAt'], 48, {'car': [1.25, 0.8, -10.6], 'shadowAt0.25': [1.25, 0.1, -10.4]})
+chk('S06u', C6u['from'], C6u['lookAt'], 50, {**{f'jet{i}': jet_pos(dx, b, 0.75) for i, (dx, b) in enumerate(JETS6)}})
+chk('S06b', C6b['from'], C6b['lookAt'], 48, {'carTop': [1.25, 1.45, -10.6], 'carFoot': [1.25, 0.0, -9.0]})
+DROPS6 = [{'from': add(jet_pos(dx, back, REL6 + 0.03 * i), [0, -1.0, 0]), 'to': [r(KEY[0] + 0.12 * (i - 2.5)), 0.9, r(KEY[2] + 0.1 * (i % 3 - 1))], 't0': r(REL6 + 0.03 * i), 'dur': r(HIT6 - REL6 - 0.03 * i)} for i, (dx, back) in enumerate(JETS6)]
 st.shot('S06', 'grassland', setOpts=LOT_SET, actors=[],
         props=[LOT(), ROWS_INTACT(skip=['0:10']), STORE(clock={**CLK, 'base': r(CLOCK0 - (st.SH['S06'][0] - st.SH['S04'][0] - FLIP4), 2), 'flipAt': -1}),
                CAR('rouge6', KEY, 180, color='#D8392B', plate='RX-001-ZZ', scale=1.0, flatAt=HIT6),
-               *[P(f'avion6{i}', 'fighterJet', pos=jet_pos(dx, back, 0), ry=180, opts={'burner': 0.8, 'glow': 2.2}, keys=[k(0.0, to=jet_pos(dx, back, D6), dur=D6, ease='linear')]) for i, (dx, back) in enumerate(JETS6)],
+               P('ombres6', 'jetShadows', pos=[0, 0, 0], opts={'jets': [list(j) for j in JETS6], 'x': KEY[0], 'y': 0.09, 'z0': 1.0, 'z1': r(1.0 - JV * 1.2, 2), 't0': 0.0, 't1': 1.2, 's': 1.7, 'opacity': 0.4}),
+               *[P(f'avion6{i}', 'fighterJet', pos=jet_pos(dx, back, 0), ry=180, opts={'burner': 0.45, 'glow': 0}, keys=[k(0.0, to=jet_pos(dx, back, D6), dur=D6, ease='linear')]) for i, (dx, back) in enumerate(JETS6)],
                P('bombes6', 'bombDrop', pos=[0, 0, 0], opts={'drops': DROPS6, 's': 1.3, 'hang': 0.14}),
                P('boum6', 'timedBurst', pos=[KEY[0], 0.8, r(KEY[2] - 1.8)], opts={'at': HIT6, 'size': 1.5, 'seed': 6, 'life': 0.45}),
                P('etoiles6', 'impactStars', pos=[KEY[0], 1.3, r(KEY[2] + 0.4)], opts={'at': HIT6, 'n': 7, 'r': 1.15, 'size': 0.22, 'dur': 0.55, 'r0': 0.3}),
                P('fumee6', 'softDust', pos=[KEY[0], 0.5, r(KEY[2] - 0.6)], opts={'at': r(HIT6 + 0.14), 'n': 8, 'size': 1.0, 'life': 1.2, 'rise': 1.6, 'spread': 2.6, 'color': '#9A958D', 'opacity': 0.55})],
         fx=[{'type': 'shake', 'at': HIT6, 'dur': 0.3, 'amount': 0.03}],
-        cams=[C6, glide([C6m], 0.38), glide([C6n], 0.3), glide([C6b], 0.2)])
-st.cue('sfx:jet', 'S06', 0.0, 0.55); st.cue('whoosh', 'S06', REL6, 0.3, 0.9); st.cue('thunder', 'S06', HIT6, 0.7); st.cue('sfx:crunch', 'S06', r(HIT6 + 0.04), 0.35)
+        cams=[C6, glide([C6u], 0.3), glide([C6m], 0.3), glide([C6b], 0.25)])
+st.cue('sfx:jet', 'S06', 0.15, 0.55); st.cue('whoosh', 'S06', REL6, 0.3, 0.9); st.cue('thunder', 'S06', HIT6, 0.7); st.cue('sfx:crunch', 'S06', r(HIT6 + 0.04), 0.35)
 
 # 7: and the two hundred spaces round it. High over the car park: every car squashed flat in its bay, smoking in neat rows, a lone hubcap rolling
 #    across the lane; his blue car untouched in lane A, indicator blinking; the supermarket and its clock beyond; in the foreground the shoppers,

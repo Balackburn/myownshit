@@ -578,7 +578,7 @@ export const PLACE_PROPS = {
     g.userData.update(-1); return g;
   },
 
-  // (round 2) The shadows of a formation of jets sweeping over the ground (world space): one dark jet-shaped silhouette per [dx, back] of o.jets, on
+  // (round 2) The shadows of a formation of jets sweeping over the ground (world space): one dark jet-shaped silhouette per [dx, back] (m) of o.jets, on
   // the ground at o.y (0.08), along -Z from o.z0 to o.z1 between o.t0 and o.t1, centred on o.x; o.s (1) their size; translucent, no depth write
   jetShadows(o) {
     const g = grp(), m = new THREE.MeshBasicMaterial({ color: '#16181C', transparent: true, opacity: o.opacity ?? 0.42, depthWrite: false }), S = o.s ?? 1;
@@ -587,7 +587,7 @@ export const PLACE_PROPS = {
     const geo = new THREE.ShapeGeometry(sh), list = (o.jets || [[0, 0]]).map(([dx, back]) => { const q = new THREE.Mesh(geo, m); q.rotation.set(-PI / 2, 0, 0); q.scale.setScalar(0.5 * S); q.renderOrder = -1; g.add(q); return [dx, back, q]; });
     g.userData.update = t => {
       const u = (t - (o.t0 ?? 0)) / Math.max(1e-3, (o.t1 ?? 1) - (o.t0 ?? 0)); g.visible = u > -0.2 && u < 1.3;
-      for (const [dx, back, q] of list) q.position.set((o.x ?? 0) + dx * S * 0.5, o.y ?? 0.08, (o.z0 ?? 20) + ((o.z1 ?? -20) - (o.z0 ?? 20)) * u + back * S * 0.5);
+      for (const [dx, back, q] of list) q.position.set((o.x ?? 0) + dx, o.y ?? 0.08, (o.z0 ?? 20) + ((o.z1 ?? -20) - (o.z0 ?? 20)) * u + back);
     };
     g.userData.update(0); return g;
   },
