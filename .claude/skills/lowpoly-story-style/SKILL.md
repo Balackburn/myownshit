@@ -1983,3 +1983,6 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   l'asphalte.
 - (cycle 47) Accessoire 3D partagé qui porte le marquage d'une vraie armée (étoiles) : le masquer avec un accessoire enveloppe qui cache
   les plans de décalque, sans modifier l'accessoire partagé.
+- (cycle 48) Quand un audit de structure fait retirer la colonne vertébrale d'une histoire (procès, prison, blessure finale), la version
+  corrigée perd souvent ce qui faisait rire : la force disproportionnée avec ses dégâts collatéraux dits comme un détail, et une chute
+  qui retombe sur le héros. Après la correction, relancer en trois versions (escalade, chute, images) jugées avec la version corrigée.
