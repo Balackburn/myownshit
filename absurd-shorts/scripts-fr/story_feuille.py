@@ -216,7 +216,7 @@ C6 = cam(0.0, [3.2, 1.45, -7.0], [3.19, 1.45, -6.8], [3.1, 1.15, -2.3], [3.1, 1.
 HEAD6 = [3.42, 1.13, -2.62]
 chk('S06', C6['from'], C6['lookAt'], 48, {'intHead': HEAD6, 'intHips': [2.75, 1.05, -2.6], 'offFace': [OFF6[0], 2.0, OFF6[2]], 'lightbar': [3.6, 1.78, -0.8], 'headlightL': [3.05, 0.72, -3.12], 'wheel': [2.8, 0.36, -2.35], 'wrapper': [3.95, 1.0, -2.4]})
 BACK6 = off(INT6, RYI6, -0.12, 0.0, 1.02)
-BENT = {'reach': {'R': R5(add(BACK6, [0, 0.02, -0.07])), 'L': R5(add(BACK6, [0, 0.02, 0.07]))}, 'hands': {'R': 'rest', 'L': 'rest'}, 'bend': {'spine': [1.45, 0, 0, 1, None], 'neck': [-0.25, 0.95, 0, 1, None]}}
+BENT = {'reach': {'R': R5(add(BACK6, [0, 0.02, -0.07])), 'L': R5(add(BACK6, [0, 0.02, 0.07]))}, 'hands': {'R': 'rest', 'L': 'rest'}, 'bend': {'spine': [1.45, 0, 0, 1, None], 'neck': [-0.25, 1.5, 0, 1, None]}}
 SQZ = {'head': [1.14, 0.84, 1.0]}
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
         act('stagiaire', INT6, RYI6, 'stand', 'neutral', keys=[k(0.0, look='camera'),
@@ -239,28 +239,28 @@ st.cue('sfx:cuff', 'S06', CLICK6, 0.5); st.cue('sfx:static', 'S06', 0.2, 0.1)
 # 7: the finger recognised her. Over his left shoulder from behind, through the tinted glass: five identical white sheets stand against the
 #    height chart; his right arm rises on its own, the plastered index pointing at the third; an officer flips her: the red smear shows, the
 #    dog-ear springs up
-D7 = st.dur('S07'); RISE7, FLIP7 = 0.05, 0.6
+D7 = st.dur('S07'); RISE7, FLIP7 = 0.05, 0.32   # (final) the flip earlier: the smear holds about 0.65 s
 # (round 1) closer: the five sheets bigger and spaced, on a dark dais against the dark height chart behind tinted glass; the suspect (the third)
 #            centred; his arm rises on its own from the left edge; the officer flips her over 0.22 s, the red smear and the dog-ear spring into view
-LINE_Z = -0.3; SHL = {'w': 0.62, 'h': 0.86}; GAP7 = 0.95; DY7 = 0.6
-HERO7 = [-0.55, 0, 1.7]; RYH7 = 180
-COP7a, COP7b = [2.0, 0, -0.95], [1.2, 0, -0.95]   # (round 2) on the floor beside the dais: his head inside the frame   # (round 1) at the right, behind the line, so he no longer stands in front of the suspect
-C7 = cam(0.0, [0.1, 1.85, 4.0], [0.1, 1.85, 3.92], [0.2, 1.45, LINE_Z], [0.2, 1.45, LINE_Z], lens=50)   # (round 2) a little back and up: the officer's head inside the frame
-PT7 = R5([-0.25, 1.42, 0.95], 1, 0.1)   # (round 2) arm stretched forward-down, the index on the third sheet
-chk('S07', C7['from'], C7['lookAt'], 50, {'sheet3top': [0.0, DY7 + 0.86, LINE_Z], 'sheet3bot': [0.0, DY7, LINE_Z], 'sheet2': [-GAP7, DY7 + 0.43, LINE_Z], 'sheet4': [GAP7, DY7 + 0.43, LINE_Z], 'hand': PT7[:3], 'copFace': [COP7b[0], DY7 + 2.0, COP7b[2]], 'chartTop': [0, 2.4, -0.9]})
-st.shot('S07', 'whiteVoid', setOpts={'color': '#7E878F'}, actors=[
+LINE_Z = -0.3; SHL = {'w': 0.46, 'h': 0.64}; GAP7 = 0.62; DY7 = 0.6   # (final) all five in one row in frame
+HERO7 = [-0.5, 0, 2.3]; RYH7 = 180   # (final) his head and arm in the left third
+COP7a, COP7b = [1.3, 0, -0.95], [0.75, 0, -0.95]   # (round 2) on the floor beside the dais: his head inside the frame   # (round 1) at the right, behind the line, so he no longer stands in front of the suspect
+C7 = cam(0.0, [0.05, 1.95, 5.4], [0.05, 1.94, 5.3], [0.05, 1.25, LINE_Z], [0.05, 1.25, LINE_Z], lens=56)   # (final)   # (round 2) a little back and up: the officer's head inside the frame
+PT7 = R5([-0.1, 1.35, 1.2], 1, 0.14)   # (final) the stretched arm aims straight at the third sheet   # (round 2) arm stretched forward-down, the index on the third sheet
+chk('S07', C7['from'], C7['lookAt'], 56, {'sheet3top': [0.0, DY7 + 0.64, LINE_Z], 'sheet3bot': [0.0, DY7, LINE_Z], 'sheet1L': [-2 * GAP7 - 0.23, DY7 + 0.32, LINE_Z], 'sheet5R': [2 * GAP7 + 0.23, DY7 + 0.32, LINE_Z], 'heroHead': [HERO7[0], 2.15, HERO7[2]], 'hand': PT7[:3], 'copFace': [COP7b[0], DY7 + 2.0, COP7b[2]], 'chartTop': [0, 2.4, -0.9]})
+st.shot('S07', 'whiteVoid', setOpts={'color': '#A58C6E'}, actors=[   # (final) a warmer room
         act('mec', HERO7, RYH7, 'stand', 'neutral', keys=[k(0.0, look=[0.0, DY7 + 0.5, LINE_Z]),
             k(0.0, toon={'reach': {'R': R5(off(HERO7, RYH7, 0.15, 0.3, 0.9))}, 'hands': {'R': 'rest'}}, toonDur=0.0),
             k(RISE7, toon={'reach': {'R': R5(add(PT7[:3], [0, -0.3, 0.25]), 1, 0.1)}, 'hands': {'R': 'point'}}, toonDur=0.2, toonEase='out'),
             k(r(RISE7 + 0.22), toon={'reach': {'R': PT7}, 'hands': {'R': 'point'}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.12, toonEase='out'),
             k(r(RISE7 + 0.2), look=PT7[:3], lookDur=0.12), k(r(RISE7 + 0.5), look=[0.0, DY7 + 0.5, LINE_Z], lookDur=0.12)]),
-        act('policier', COP7a, -70, 'stand', 'neutral', keys=[k(0.0, to=COP7b, dur=0.42, clip='walk'), k(0.0, look=[0.0, DY7 + 0.5, LINE_Z]),
-            k(r(FLIP7 - 0.12), toon={'reach': {'R': R5([0.3, DY7 + 0.6, LINE_Z - 0.05], 1, 0.1)}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.2, 0, 0.25, 1, None]}}, toonDur=0.12),
-            k(r(FLIP7 + 0.22), toon={'reach': {'R': R5([0.7, DY7 + 1.0, LINE_Z - 0.1])}, 'hands': {'R': 'open'}, 'bend': {'spine': [0, 0, 0, 1, None]}}, toonDur=0.12), k(r(FLIP7 + 0.35), look='camera', lookDur=0.15)])],
+        act('policier', COP7a, -70, 'stand', 'neutral', keys=[k(0.0, to=COP7b, dur=0.22, clip='walk'), k(0.0, look=[0.0, DY7 + 0.5, LINE_Z]),
+            k(r(FLIP7 - 0.1), toon={'reach': {'R': R5([0.22, DY7 + 0.45, LINE_Z - 0.05], 1, 0.12)}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.2, 0, 0.25, 1, None]}}, toonDur=0.08, toonEase='out'),
+            k(r(FLIP7 + 0.2), toon={'reach': {'R': R5([0.55, DY7 + 0.85, LINE_Z - 0.1])}, 'hands': {'R': 'open'}, 'bend': {'spine': [0, 0, 0, 1, None]}}, toonDur=0.08, toonEase='out'), k(r(FLIP7 + 0.35), look='camera', lookDur=0.15)])],
         props=[P('tapissage7', 'lineupWall', pos=[0, 0, -0.9], opts={'w': 5.2, 'gap': GAP7}), P('estrade7', 'dais', pos=[0, 0, -0.35], opts={'w': 5.2, 'h': DY7, 'd': 0.8}),
                P('vitre7', 'glassPane', pos=[0, 0, 0.9], opts={'w': 3.6, 'h': 1.4, 'y': 0.85, 'opacity': 0.16}),
-               *[P(f'feuille7{i}', 'feuilleSheet', pos=[r((i - 2) * GAP7), r(DY7 + 0.43), LINE_Z], opts={**SHL, 'ear': 0, 'smear': False}) for i in (0, 1, 3, 4)],
-               P('suspecte7', 'feuilleSheet', pos=[0.0, r(DY7 + 0.43), LINE_Z], opts={**SHL, 'smearSide': 'back', 'smearS': 1.8, 'ear0': 0.0, 'earKeys': [[r(FLIP7 + 0.22), 1.0], [r(FLIP7 + 0.3), 0.8]]}, keys=[k(FLIP7, rotTo=[0, PI, 0], dur=0.22, ease='inOut')]),
+               *[P(f'feuille7{i}', 'feuilleSheet', pos=[r((i - 2) * GAP7), r(DY7 + 0.32), LINE_Z], opts={**SHL, 'ear': 0, 'smear': False}) for i in (0, 1, 3, 4)],
+               P('suspecte7', 'feuilleSheet', pos=[0.0, r(DY7 + 0.32), LINE_Z], opts={**SHL, 'smearSide': 'back', 'smearS': 1.8, 'ear0': 0.0, 'earKeys': [[r(FLIP7 + 0.22), 1.0], [r(FLIP7 + 0.3), 0.8]]}, keys=[k(FLIP7, rotTo=[0, PI, 0], dur=0.16, ease='out')]),   # (final) a snap
                PLASTER('pansement7')],
         cams=[C7])
 st.cue('whoosh', 'S07', RISE7, 0.2, 0.25, 600, 2400); st.cue('sfx:paper', 'S07', FLIP7, 0.5); st.cue('sfx:spring', 'S07', r(FLIP7 + 0.17), 0.3)
