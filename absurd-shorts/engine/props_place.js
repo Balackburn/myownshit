@@ -81,7 +81,8 @@ export const PLACE_PROPS = {
   // tail lights, amber indicators at the four corners. o.blink 'L' | 'R' | 'both' (its left is +X): those indicators flash (0.38 s on, 0.32 s off,
   // o.phase); o.flatAt (s): it is squashed flat in 0.1 s with a bounce and stays a pancake; o.flat: already flat; o.brake [t0, dur]: the nose dips
   // and rocks back; o.flag [c1, c2]: a small flag on a rod at the front right wing; o.open 'L' | 'R': that front side window is an open dark hole;
-  // o.plate (text); o.hop [[t, h]]: little jumps; o.dark: an official black car with chrome trim
+  // o.plate (text); o.hop [[t, h]]: little jumps; o.dark: an official black car with chrome trim; (round 1) o.indS (1): the indicators' size,
+  // o.glow (0.42): their glow's size, o.blinkP (0.7 s) the blink period (on for 55 % of it)
   bayCar(o) {
     const C = o.color || (o.dark ? '#1C1E22' : '#C9473A'), L = 3.7, Wd = 1.66, g = grp(), body = grp(); g.add(body);
     const GL = o.glass || (o.dark ? '#2C3440' : '#BFDCE8'), DK = '#2E3138';
@@ -107,10 +108,10 @@ export const PLACE_PROPS = {
     // indicators: an on copy (bright, emissive) and an off copy, swapped
     const onM = mat('#FFB21E', { emissive: '#FF9A00', noGrain: true, unique: true }), offM = mat('#A8661E', { noGrain: true, unique: true }), ind = [];
     for (const sx of [-1, 1]) for (const [z, dz] of [[L / 2 + 0.025, 1], [-L / 2 - 0.025, -1]]) {
-      const pos = [sx * 0.74, 0.76, z];
-      const on = at(box(0.14, 0.1, 0.05, '', { material: onM }), ...pos), off = at(box(0.14, 0.1, 0.05, '', { material: offM }), ...pos);
-      const side = at(box(0.03, 0.06, 0.16, '', { material: onM }), sx * (Wd / 2 + 0.02), 0.8, dz * 1.3), sideOff = at(box(0.03, 0.06, 0.16, '', { material: offM }), sx * (Wd / 2 + 0.02), 0.8, dz * 1.3);
-      const glowS = new THREE.Sprite(new THREE.SpriteMaterial({ color: '#FFB030', transparent: true, opacity: 0.55, depthWrite: false })); glowS.scale.setScalar(0.42); glowS.position.set(pos[0], pos[1], pos[2] + dz * 0.04);
+      const pos = [sx * 0.74, 0.76, z], iS = o.indS ?? 1;
+      const on = at(box(0.14 * iS, 0.1 * iS, 0.05, '', { material: onM }), ...pos), off = at(box(0.14 * iS, 0.1 * iS, 0.05, '', { material: offM }), ...pos);
+      const side = at(box(0.03, 0.06 * iS, 0.16 * iS, '', { material: onM }), sx * (Wd / 2 + 0.02), 0.8, dz * 1.3), sideOff = at(box(0.03, 0.06 * iS, 0.16 * iS, '', { material: offM }), sx * (Wd / 2 + 0.02), 0.8, dz * 1.3);
+      const glowS = new THREE.Sprite(new THREE.SpriteMaterial({ color: '#FFB030', transparent: true, opacity: 0.55, depthWrite: false })); glowS.scale.setScalar(o.glow ?? 0.42); glowS.position.set(pos[0], pos[1], pos[2] + dz * 0.04);
       body.add(on, off, side, sideOff, glowS); ind.push({ sx, on, off, side, sideOff, glowS });
     }
     if (o.flag) {
@@ -119,7 +120,7 @@ export const PLACE_PROPS = {
     }
     const blinkSide = o.blink === 'both' ? 0 : o.blink === 'L' ? 1 : o.blink === 'R' ? -1 : null;
     g.userData.update = t => {
-      const lit = blinkSide !== null && ((t + (o.phase ?? 0)) % 0.7 + 0.7) % 0.7 < 0.38;
+      const bp = o.blinkP ?? 0.7, lit = blinkSide !== null && ((t + (o.phase ?? 0)) % bp + bp) % bp < bp * 0.55;
       for (const d of ind) { const on = lit && (blinkSide === 0 || d.sx === blinkSide); d.on.visible = d.side.visible = d.glowS.visible = on; d.off.visible = d.sideOff.visible = !on; }
       let sy = 1, sxz = 1, pitch = 0, y = 0;
       const fa = o.flat ? -10 : o.flatAt;
@@ -184,7 +185,8 @@ export const PLACE_PROPS = {
   // The supermarket (pivot at the middle of its front wall, on the ground; the front faces +Z): o.w (28) x o.d (14) x o.h (6.5), cream walls, a red
   // band, a glass entrance with a canopy, a red roof sign o.sign ('SUPERMARCHÉ'), o.clock {x, base, flipAt}: a countdownClock on the roof.
   // o.foldAt (s): it folds flat like a cardboard box (the front falls in, the sides fold in, the roof drops, the sign tips over onto the pile, dust
-  // bursts out); o.folded: already flat
+  // bursts out); o.folded: already flat; (round 1) o.staged: the fold reads in stages, front (0-0.22 s), sides (0.2-0.42), back (0.34-0.54), roof
+  // (0.42-0.64, a bounce), then the sign and the clock tip over onto the pile (0.66-0.96)
   superStore(o) {
     const W = o.w ?? 28, D = o.d ?? 14, H = o.h ?? 6.5, g = grp(), CR = o.wall || '#EFE7D4', RED = '#C8322A';
     g.add(at(box(W, 0.06, D, '#B9B2A2', { pivot: 'bottom' }), 0, 0, -D / 2));
@@ -205,12 +207,14 @@ export const PLACE_PROPS = {
     signP.add(at(box(0.2, 0.6, 0.2, '#6A6E76', { pivot: 'bottom' }), -sw * 0.35, -0.6, -0.2), at(box(0.2, 0.6, 0.2, '#6A6E76', { pivot: 'bottom' }), sw * 0.35, -0.6, -0.2));
     const signG = grp(signP); signP.position.set(0, 0.9, 0); signG.position.set(0, H, -0.4); g.add(signG);
     let clk = null; if (o.clock) { clk = buildProp('countdownClock', o.clock); clk.position.set(o.clock.x ?? 0, 2.7, -0.4); signG.add(clk); }
-    const dust = []; if (o.foldAt != null) for (const [x, z, s] of [[-W * 0.3, 1, 3.2], [0, 1.5, 3.6], [W * 0.3, 1, 3.2], [-W / 2 - 1, -D / 2, 2.6], [W / 2 + 1, -D / 2, 2.6]]) { const d = buildProp('softDust', { at: o.foldAt + 0.32, n: 6, size: s * 0.55, life: 1.3, rise: 2.0, spread: 4, color: '#DCD5C6', opacity: 0.55 }); d.position.set(x, 0.4, z); g.add(d); dust.push(d); }
+    const dust = []; if (o.foldAt != null) for (const [x, z, s] of [[-W * 0.3, 1, 3.2], [0, 1.5, 3.6], [W * 0.3, 1, 3.2], [-W / 2 - 1, -D / 2, 2.6], [W / 2 + 1, -D / 2, 2.6]]) { const d = buildProp('softDust', { at: o.foldAt + (o.staged ? 0.6 : 0.32), n: 6, size: s * 0.55, life: 1.3, rise: 2.0, spread: 4, color: '#DCD5C6', opacity: 0.55 }); d.position.set(x, 0.4, z); g.add(d); dust.push(d); }
     g.userData.update = t => {
       const f0 = o.folded ? -100 : o.foldAt; let a = 0, b = 0, c = 0, rf = 0, sg = 0;
-      if (f0 != null) { a = easeIn((t - f0) / 0.34); b = easeIn((t - f0 - 0.05) / 0.36); c = easeIn((t - f0 - 0.1) / 0.36); rf = easeIn((t - f0) / 0.4); sg = clamp01((t - f0 - 0.38) / 0.3); }
+      const ST = o.staged, RL = ST ? 0.64 : 0.4;
+      if (f0 != null && ST) { a = easeIn((t - f0) / 0.22); b = easeIn((t - f0 - 0.2) / 0.22); c = easeIn((t - f0 - 0.34) / 0.2); rf = easeIn((t - f0 - 0.42) / 0.22); sg = clamp01((t - f0 - 0.66) / 0.3); }
+      else if (f0 != null) { a = easeIn((t - f0) / 0.34); b = easeIn((t - f0 - 0.05) / 0.36); c = easeIn((t - f0 - 0.1) / 0.36); rf = easeIn((t - f0) / 0.4); sg = clamp01((t - f0 - 0.38) / 0.3); }
       if (canopy) canopy.visible = a < 0.5; front.rotation.x = -PI / 2 * a; back.rotation.x = PI / 2 * c; left.rotation.z = -PI / 2 * b; right.rotation.z = PI / 2 * b;
-      const bounce = rf >= 1 ? 0.12 * Math.exp(-(t - f0 - 0.4) * 7) * Math.abs(Math.sin((t - f0 - 0.4) * 16)) : 0;
+      const bounce = rf >= 1 ? 0.12 * Math.exp(-(t - f0 - RL) * 7) * Math.abs(Math.sin((t - f0 - RL) * 16)) : 0;
       roof.position.y = H + (0.62 - H) * rf + bounce;
       signG.position.y = roof.position.y + 0.3; signG.position.z = -0.4 - 3.2 * sg; signP.rotation.x = -PI / 2 * outBack(sg) * 0.98;
       if (clk) { clk.position.y = 2.7 + (0.3 - 2.7) * smooth(sg); clk.position.z = -0.4 + 1.2 * smooth(sg); clk.rotation.x = -PI / 2 * 0.85 * smooth(sg); clk.userData.update?.(t); }
@@ -290,6 +294,7 @@ export const PLACE_PROPS = {
     const tur = grp(); tur.position.set(0, 1.8, 2.4); g.add(tur);
     tur.add(at(box(1.2, 0.55, 1.4, G2, { pivot: 'bottom', outline: 0.01, taper: { x: 0.8, z: 0.8 } }), 0, 0, 0));
     const gun = grp(at(cyl(0.09, 0.11, 2.4, G3, 8, { outline: 0.01 }), 0, 0, 1.2, PI / 2, 0, 0)); gun.position.set(0, 0.32, 0.5); tur.add(gun);
+    tur.scale.setScalar(o.gunS ?? 1);   // (round 1) o.gunS: a bigger turret and gun, so their swing reads
     const aft = grp(at(box(0.9, 0.42, 1.0, G2, { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(cyl(0.06, 0.07, 1.4, G3, 6, { outline: 0.008 }), 0, 0.25, -0.75, PI / 2, 0, 0)); aft.position.set(0, 1.8, -4.6); g.add(aft);
     for (const sx of [-1, 1]) g.add(at(box(0.04, 0.32, 8.4, '#D9DDE2'), sx * 1.18, 1.98, 0.0));
     let ctr = null, cvx = null, ctex = null, cv = null, lastN = null;
@@ -395,7 +400,8 @@ export const PLACE_PROPS = {
   },
 
   // Falling bombs (world space): o.drops [{from, to, t0, dur}]: a fat olive bomb with tail fins and a yellow band falls from `from` to `to` (gravity:
-  // slow then fast), nose down along its path, hidden before t0 and after t0 + dur; o.s (1) scales them
+  // slow then fast), nose down along its path, hidden before t0 and after t0 + dur; o.s (1) scales them; (round 1) o.hang (0..0.4): that part of the
+  // fall is a near hang (3 % of the way) before the drop accelerates
   bombDrop(o) {
     const s = o.s ?? 1, g = grp(), bombs = [];
     for (const d of o.drops || []) {
@@ -407,7 +413,7 @@ export const PLACE_PROPS = {
     const up = new THREE.Vector3(0, 1, 0);
     g.userData.update = t => { for (const { b, d, A, B } of bombs) {
       const u = (t - d.t0) / d.dur; b.visible = u >= 0 && u < 1; if (!b.visible) continue;
-      const w = 0.35 * u + 0.65 * u * u; b.position.copy(A).lerp(B, w);
+      const hg = o.hang ?? 0, w = hg > 0 ? (u < hg ? 0.03 * u / hg : 0.03 + 0.97 * Math.pow((u - hg) / (1 - hg), 2.2)) : 0.35 * u + 0.65 * u * u; b.position.copy(A).lerp(B, w);
       const dir = B.clone().sub(A).normalize(); b.quaternion.setFromUnitVectors(up, dir.negate()); b.rotateY(t * 6 + d.t0);
     } };
     g.userData.update(-1); return g;
@@ -423,21 +429,35 @@ export const PLACE_PROPS = {
     g.userData.update(0); return g;
   },
 
+  // (round 1 of 85) battleTank without the white stars on its turret (a real army's marking): the same options
+  plainTank(o) {
+    const tk = buildProp('battleTank', o || {}), hide = [];
+    tk.traverse(m => { const gp = m.geometry && m.geometry.parameters; if (m.isMesh && m.geometry.type === 'PlaneGeometry' && gp && Math.abs(gp.width - 0.5) < 1e-6 && Math.abs(gp.height - 0.5) < 1e-6 && m.material && m.material.map) hide.push(m); });
+    for (const m of hide) m.visible = false;
+    return tk;
+  },
+
   // A tower of tanks (pivot at the floor under its middle): o.n (5) army tanks (battleTank) at o.s (0.62) stacked one on another, turned a little
   // each, every one with its own small invented flag on a rod (o.flags [[c1, c2, (c3)], ...]); the turrets point every which way
   tankTower(o) {
     const n = o.n ?? 5, s = o.s ?? 0.62, g = grp(), fl = [], cols = o.colors || ['#66753E', '#5E6B3A', '#707A48', '#5A6640', '#6B7444'];
-    const flags = o.flags || [['#2E8B57', '#F2C94C'], ['#7A2E8C', '#F4F1E8'], ['#E07A1F', '#1F4E8C'], ['#1E7A8C', '#E8504A', '#F4F1E8'], ['#C8322A', '#F4F1E8']];
-    const marks = ['disc', 'star', 'chevron', null, 'disc'];
+    // (round 1) unusual pairs only: a red over white flag read as Indonesia or Monaco
+    const flags = o.flags || [['#6A3FA0', '#F2C94C'], ['#1E7A8C', '#E88AA8'], ['#E07A1F', '#1F2E5C'], ['#9CC43A', '#7A2333'], ['#7EC8E3', '#7A4A2A']];
+    const marks = o.marks || ['chevron', null, 'disc', null, 'chevron'];
     for (let i = 0; i < n; i++) {
-      const tk = buildProp('battleTank', { color: cols[i % cols.length], turret: [[0, (hsh(i + 2) - 0.5) * 2.4]] }); tk.scale.setScalar(s);
+      const tk = PLACE_PROPS.plainTank({ color: cols[i % cols.length], turret: [[0, (hsh(i + 2) - 0.5) * 2.4]] }); tk.scale.setScalar(s);
       tk.position.set((hsh(i) - 0.5) * 0.3, i * 1.55 * s, (hsh(i + 5) - 0.5) * 0.35); tk.rotation.y = (i % 2 ? 1 : -1) * (0.1 + 0.14 * hsh(i + 7)) + (i === 2 ? PI : 0);
       g.add(tk);
       const f = wavingFlag(0.62, 0.4, flagDraw(flags[i % flags.length], marks[i % marks.length]), 4);
       const pole = grp(at(cyl(0.015, 0.015, 1.1, '#8A8F96', 5, { pivot: 'bottom' }), 0, 0, 0)); f.position.set(0.016, 1.1, 0); pole.add(f);
       pole.scale.setScalar(1 / s); pole.position.set(0.55, 1.58, -0.9); pole.rotation.y = 0.5 * (hsh(i + 9) - 0.5) + PI / 2; tk.add(pole); fl.push(f);
     }
-    g.userData.update = t => { fl.forEach((f, i) => f.userData.wave(t, 0.32, i * 1.7)); for (const c of g.children) c.userData.update?.(t); };
+    // (round 1) o.sway: the tower sways once from that time (a lean that overshoots and settles), pivoting at its foot
+    const tower = grp(); while (g.children.length) tower.add(g.children[0]); g.add(tower);
+    g.userData.update = t => {
+      fl.forEach((f, i) => f.userData.wave(t, 0.32, i * 1.7)); for (const c of tower.children) c.userData.update?.(t);
+      const u = o.sway != null ? t - o.sway : -1; tower.rotation.z = u > 0 ? (o.swayAmp ?? 0.06) * Math.sin(u * 7.5) * Math.exp(-u * 3.2) : 0;
+    };
     g.userData.update(0); return g;
   },
 
@@ -501,6 +521,19 @@ export const PLACE_PROPS = {
     const g = grp(), a = o.open ?? 0.5;
     for (const sx of [-1, 1]) { const leaf = grp(at(box(0.11, 0.09, 0.012, '#6B4226', { outline: 0.004 }), sx * 0.055, 0, 0), at(box(0.09, 0.012, 0.004, '#4E2E1A'), sx * 0.055, 0.015, 0.008), at(box(0.09, 0.012, 0.004, '#4E2E1A'), sx * 0.055, -0.01, 0.008)); leaf.rotation.y = -sx * a; g.add(leaf); }
     return g;
+  },
+
+  // (round 1) A coin that falls (world space): a small gold disc spinning down from o.from to o.to between o.at and o.at + o.dur (0.35 s), with
+  // a little bounce where it lands; hidden before
+  coinDrop(o) {
+    const g = grp(), c = at(cyl(0.035, 0.035, 0.008, '#E2B53C', 14, { outline: 0.004 }), 0, 0, 0, PI / 2, 0, 0); g.add(c); noShadow(g);
+    const A = new THREE.Vector3(...(o.from || [0, 1.5, 0])), B = new THREE.Vector3(...(o.to || [0, 1.2, 0])), D = o.dur ?? 0.35;
+    g.userData.update = t => {
+      const u = (t - (o.at ?? 0)) / D; c.visible = u >= 0; if (!c.visible) return;
+      const w = Math.min(1, u * u), b = u > 1 ? 0.05 * Math.abs(Math.sin((u - 1) * 9)) * Math.exp(-(u - 1) * 5) : 0;
+      c.position.copy(A).lerp(B, w); c.position.y += b; c.rotation.set(PI / 2 + t * 14, t * 9, 0);
+    };
+    g.userData.update(0); return g;
   },
 
   // A line of small soldiers holding out upturned helmets (pivot at the start of the line): o.path [[x, z], ...] every o.gap (1.0 m), facing o.face
