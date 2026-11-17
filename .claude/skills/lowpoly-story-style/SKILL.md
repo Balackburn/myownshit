@@ -1914,3 +1914,18 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 45) Cloche ou bulle de verre : un liseré lumineux de type Fresnel (0,2 de face, + 0,75 au bord), pas une opacité uniforme.
 - (cycle 46) Avant de lancer un rendu final de 1 h 45, tester le mixage seul (`mix.py timeline cues out --bed …`) : il prend quelques
   secondes et évite de perdre le rendu sur un repère mal écrit.
+- (cycle 46) Tête droite sur un corps penché : une tête épinglée sur un dos courbé garde la courbure si le cou ne l'annule pas en entier ;
+  regardée par une caméra hors axe, cette inclinaison devient un roulis visible. Annuler la courbure au cou et garder les gros plans dans
+  l'axe du visage.
+- (cycle 46) Deux têtes-boîtes face à face : de profil, les deux visages peints disparaissent. Mettre la confrontation en V, ou empilée
+  verticalement dans le 9:16, les deux visages vers les trois quarts face caméra.
+- (cycle 46) Plans minces (vitre, rambarde, panneau) : une caméra dans leur plan voit la tranche comme une barre pleine. Rester à au moins
+  vingt degrés de ce plan.
+- (cycle 46) Gag d'arrière-plan lointain (échelle géante, nuage) : le vérifier contre la ligne de toit de la façade la plus proche ; si la
+  façade le cache, planter l'élément devant elle ou relever la caméra vers le ciel.
+- (cycle 46) Action en ligne de douze mètres (tir à la corde, file d'attente) dans le 9:16 : la couper en un angle proche et un angle en
+  bout de ligne ou plongée large. Les arbres de `parisStreet` sont à x ±6,6 m tous les vingt-six mètres : refuser une caméra à moins de
+  sept mètres d'un arbre dans le champ.
+- (cycle 46) Orienter un accessoire libre : pour pointer son +Z selon la direction d, rot = [atan2(−dy, dz), asin(dx), 0].
+- (cycle 46) Fin face caméra après une action de profil : couper dans le plan vers une caméra frontale plus proche et tourner le
+  personnage avec une clé `face` ; `look` seul est bridé.
