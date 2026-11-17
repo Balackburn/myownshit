@@ -1801,3 +1801,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   (4,25 Go ici), un pack ne les réduit pas, et le pack temporaire remplit le disque. Chercher d'abord les doublons octet pour octet
   (`cmp -s`) entre `out/` (ignoré par git) et `examples/`, les dossiers `out/work/story_*` et les calques `out/story_*_3d.mp4` des histoires
   déjà livrées. Un redémarrage du conteneur tue aussi les rendus lancés avec `setsid nohup` : relancer la chaîne entière.
+- (cycle 43) Caméra juste au-dessus d'un grand accessoire (frigo, armoire) : la pièce derrière son bord est cachée et le dessus remplit le cadre.
+  Monter haut derrière lui ; chercher la caméra avec un test d'occultation et un score sur la part du cadre occupée par le dessus.
+- (cycle 43) Casque sur une tête à cheveux : les cheveux traversent le dôme en boîte noire. Mettre `hair: 'bald'` sous le casque.
+- (cycle 43) Trous à côté d'une tête vue de face : des trajectoires droites venues de derrière l'objectif finissent hors champ. Trajectoires
+  courbes (`ctrl`) passant à côté de la cible, trous placés là où ils se projettent près de la tête, `v0` pour le ralenti près du sujet, et
+  `bodyColor` sombre (les missiles pâles disparaissent sur un mur pastel).
+- (cycle 43) `shake` sur une caméra est une amplitude de tremblement (un nombre), pas une houle : utiliser la dérive from/to de la clé ou `roll`.
+- (cycle 43) Neige sur des sacs de sable : un disque par sac se lit comme une assiette ; deux petites plaques bosselées se lisent comme de la neige.
+- (cycle 43) `grade` et `light` par plan fonctionnent avec le rendu naturel : de quoi faire tout un bloc d'hiver gris et froid.
+- (cycle 43) Collision de noms : une nouvelle constante `RIM` a écrasé en silence celle du bord du sucrier. Vérifier les noms avant d'ajouter.
