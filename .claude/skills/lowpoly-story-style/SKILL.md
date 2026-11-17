@@ -1834,3 +1834,16 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 44) Nuage de pluie vu de dessus : il cache sa propre pluie. Caméra à 64 m : nuage entre 8 et 26 m d'altitude.
 - (cycle 44) Feuille qui pend d'un pupitre : faire passer le trajet devant la face avant (+0,25 m du centre), sinon elle pend dans le pupitre.
 - (cycle 44) `node --check` ne voit ni les erreurs d'import ni les erreurs d'exécution d'un accessoire : seule une image fixe rendue le confirme.
+- (cycle 44) `explosionBurst` suit l'horloge du plan et ignore son heure de départ : il est déjà sorti à la première image. L'envelopper
+  (caché avant `at`, horloge `t - at`), comme `timedBurst` dans props_flaque.js.
+- (cycle 44) Les personnages font environ 2,3 m avec la tête en boîte : pour cadrer avec `project()`, prendre le haut de la tête vers
+  2,35 m, sinon la tête tombe dans la bande du carton ou sort du cadre.
+- (cycle 44) Une découpe de `THREE.Shape` plus large que le contour est ignorée (la rue a recouvert le trou) : si le trou déborde,
+  construire la bande en deux morceaux qui s'arrêtent sur le cercle.
+- (cycle 44) Gros objet aspiré par un petit trou : garder toute sa largeur jusqu'au contact, puis rétrécir en 0,2 s environ. Déjà mince
+  au contact, l'effet d'échelle disparaît.
+- (cycle 44) Détail proche et bas (une flaque) puis impact lointain et haut (une façade) : un `glide` rapide qui suit le projectile.
+- (cycle 44) Décor haut (beffroi) et personnage à plus de 25 % ne tiennent pas dans un cadre bas : plan large puis plan serré dans
+  le même plan.
+- (cycle 44) Tourner un personnage sur place vers la caméra : un déplacement vers sa propre position avec `face` ; `look='camera'` ne
+  tourne que la tête. Une main tenue à l'oreille se règle par rapport au visage (`['face', across, up, fwd]`).
