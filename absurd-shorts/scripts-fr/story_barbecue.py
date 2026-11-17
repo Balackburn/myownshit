@@ -42,8 +42,8 @@ def off(p, ry, f=0.0, s=0.0, y=0.0): F, R = fwd(ry), right(ry); return [r(p[0] +
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
 DEAD = {'lid': 0.4, 'mouth': 'line'}
-SOLD = {'outfit': 'suit', 'suit': '#5B6638', 'pants': '#4E5730', 'shirt': '#D9D3B6', 'lapel': '#4E5730', 'tie': '#3B4224', 'cuff': '#5B6638', 'hat': 'none',
-        'gloves': '#2E3320', 'glasses': False, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': {'holdLife': 1.2, 'shift': 0.8, 'breathe': 1.4}}
+SOLD = {'outfit': 'suit', 'suit': '#5B6638', 'pants': '#4E5730', 'shirt': '#D9D3B6', 'lapel': '#4E5730', 'tie': '#3B4224', 'cuff': '#5B6638', 'hat': 'none', 'hair': 'bald',
+        'gloves': '#2E3320', 'glasses': False, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': {'holdLife': 2.2, 'shift': 2.0, 'breathe': 2.0}}   # (round 1) bald: no hair through the helmets
 
 # ---- the gardens (grassland): the low fence along Z at x 0; his lawn at -X, the neighbour's patio, grill and party at +X; their two cottages behind
 GR = [0.9, 0, -1.3]                                    # the neighbour's red kettle grill, by the fence
@@ -55,15 +55,21 @@ HOUSE_H, HOUSE_N = [-6.8, 0, -9.5], [6.8, 0, -9.5]
 BACK = [(-13.0, -22.0, '#EFC7C7', '#6A3A30'), (-1.5, -22.0, '#C9DDF0', '#B5402F'), (10.0, -22.0, '#F2B49A', '#4E5E7E'), (-7.0, -34.0, '#F4F2EC', '#B5402F'), (5.5, -34.0, '#E6CDE6', '#5E83C6'), (3.8, -15.5, '#F2E2A0', '#6A3A30'), (-4.5, -28.0, '#B9DDB0', '#B5402F')]
 GARDEN_SET = {'clouds': 30, 'grass': '#86BE5C'}
 
-def GARDEN(state='party', grill=True, para_char=False):
-    """state: 'party' (summer, the party set), 'fire' (everything burning), 'burnt' (charred shells and embers)"""
+SOOTS = ['#4A4440', '#3E3936', '#55504B', '#46413D']
+def GARDEN(state='party', grill=True, para_char=False, gsmoke=None):
+    """state: 'party' (summer, the party set), 'fire' (everything burning), 'burnt' (charred shells and embers)
+    (round 1) burnt: the shells are soot-dark (the cottage's burnt mode takes its colour as the soot), with charred roof timbers and smoke wisps,
+    and ash patches on the lawn"""
     burnt, fire = state == 'burnt', state == 'fire'
     ps = []
-    for (pid, p, col, roof) in [('maison', HOUSE_H, '#F2D58A', '#B5402F'), ('voisins', HOUSE_N, '#B9DDB0', '#4E5E7E')]:
-        ps.append(P(pid, 'cottage', pos=p, opts={'w': 6.4, 'd': 7.0, 'h': 2.9, 'color': col, 'roof': roof, 'door': '#2F7F8C', 'burnt': burnt, 'seed': 3 if pid == 'maison' else 8}))
+    for j, (pid, p, col, roof) in enumerate([('maison', HOUSE_H, '#F2D58A', '#B5402F'), ('voisins', HOUSE_N, '#B9DDB0', '#4E5E7E')]):
+        ps.append(P(pid, 'cottage', pos=p, opts={'w': 6.4, 'd': 7.0, 'h': 2.9, 'color': SOOTS[j] if burnt else col, 'roof': roof, 'door': '#2F7F8C', 'burnt': burnt, 'seed': 3 if pid == 'maison' else 8}))
+        if burnt: ps.append(P(f'poutres_{pid}', 'charredBeams', pos=p, opts={'w': 6.0, 'd': 6.6, 'h': 2.2, 'seed': 40 + j}))
     for j, (x, z, col, roof) in enumerate(BACK):
-        ps.append(P(f'arriere{j}', 'cottage', pos=[x, 0, z], opts={'w': 6.4, 'd': 7.0, 'h': 2.9, 'color': col, 'roof': roof, 'burnt': burnt, 'seed': 11 + j}))
+        ps.append(P(f'arriere{j}', 'cottage', pos=[x, 0, z], opts={'w': 6.4, 'd': 7.0, 'h': 2.9, 'color': SOOTS[(j + 2) % 4] if burnt else col, 'roof': roof, 'burnt': burnt, 'seed': 11 + j}))
+        if burnt and j in (0, 1, 2, 5): ps.append(P(f'poutres_a{j}', 'charredBeams', pos=[x, 0, z], opts={'w': 6.0, 'd': 6.6, 'h': 2.0, 'n': 6, 'seed': 50 + j, 'smoke': j in (1, 5)}))
     if burnt:
+        ps.append(P('cendres', 'ashPatches', pos=[0.5, 0, -4.0], opts={'w': 14, 'd': 12, 'n': 22, 'seed': 7}))
         ps.append(P('cloture', 'charredFence', pos=[0.0, 0, 0.0], ry=90, opts={'L': 9.0, 'seed': 5}))
         ps += [P(f'arbremort{j}', 'burntTree', pos=[x, 0, z], opts={'h': 4.5 + j * 0.4, 'seed': 30 + j}) for j, (x, z) in enumerate([(-5.2, -4.8), (8.2, -7.6), (-9.5, -15.0), (9.5, -16.5)])]
         ps.append(P('fumees', 'smokeField', pos=[0, 0, 0], opts={'points': [[-6.8, -9.5, 9], [6.8, -9.5, 8], [-1.5, -22, 10], [10, -22, 9]], 'size': 1.4, 'color': '#5A5450'}))
@@ -83,8 +89,9 @@ def GARDEN(state='party', grill=True, para_char=False):
         ps.append(P('flammes', 'flameField', pos=[0, 0, 0], opts={'points': pts, 'seed': 7}))
         ps.append(P('fumees', 'smokeField', pos=[0, 0, 0], opts={'points': [[-6.8, -9.5, 14], [6.8, -9.5, 13], [-13, -22, 12], [-1.5, -22, 15], [10, -22, 12], [-7, -34, 12], [5.5, -34, 12]], 'size': 2.0}))
     if grill:
-        ps.append(P('gril', 'kettleGrill', pos=GR, opts={'char': burnt or fire or para_char, 'smokeH': 0.9, 'smokeN': 8, 'smokeSize': 0.8, 'wind': [-0.3, 0.3]}))
+        ps.append(P('gril', 'kettleGrill', pos=GR, opts={'char': burnt or fire or para_char, 'smokeH': 0.9, 'smokeN': 8 if gsmoke is None else gsmoke, 'smokeSize': 0.8, 'wind': [-0.3, 0.3]}))
     return ps
+BURNT_SET = {'clouds': 12, 'grass': '#76784E', 'sky': ['#9FB0BC', '#DCD8CE']}   # (round 1) scorched lawn, smoky sky
 
 MASK = lambda pid, who: P(pid, 'gasMask', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.0, 0.0]})
 HELMET = lambda pid, who, **o: P(pid, 'armyHelmet', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.46, 0.0]}, opts={'s': 0.95, **o})
@@ -96,46 +103,70 @@ SOOT = lambda pid, who, at=None: P(pid, 'sootPatches', on={'actor': who, 'joint'
 for g_ in [('S03', 0.98, 'president', 'button'), ('S06', 0.72, 'para', 'land'), ('S09', 0.86, 'officier', 'slam'), ('S15', 0.35, 'ministre', 'dome')]:
     st.gag(*g_)
 
-# 1: the hook. Medium shot, him in the foreground on his lawn, facing us; over the low fence behind him the neighbour's garden party laughs and
-#    clinks glasses round the little red kettle grill; a thick grey ribbon of smoke rises from the grill, rolls over the fence and flows straight
-#    into his face; he does not move; a slow blink, then a little cough puff
-D1 = st.dur('S01'); CLINK1 = 0.95; COUGH1 = 1.95
-C1 = cam(0.0, [-1.75, 1.7, 5.4], [-1.67, 1.69, 5.15], [0.85, 1.35, -2.6], [0.82, 1.36, -2.6], lens=44)
-MID12 = [r((G1[0] + G2[0]) / 2), 1.42, r((G1[2] + G2[2]) / 2)]
-def CLINK(t0, who_p, other_p, hand='R'):
-    mid = [r((who_p[0] + other_p[0]) / 2), 1.42, r((who_p[2] + other_p[2]) / 2)]
-    return [k(r(t0 - 0.25), toon={'reach': {hand: [*add(who_p, [0, 1.25, 0.25]), 1, 0.04]}, 'hands': {hand: 'grip'}}, toonDur=0.0),
-            k(r(t0 - 0.2), toon={'reach': {hand: [*mid, 1, 0.04]}, 'hands': {hand: 'grip'}}, toonDur=0.2, toonEase='out'),
-            k(r(t0 + 0.15), toon={'reach': {hand: [*add(who_p, [0, 1.5, 0.25]), 1, 0.04]}, 'hands': {hand: 'grip'}}, toonDur=0.3)]
-SMOKE1 = P('fumee1', 'smokeRibbon', pos=[0, 0, 0], opts={'pts': [add(GR, [0, 1.0, 0]), add(GR, [-0.2, 2.7, 0.7]), [-0.2, 2.45, 2.0], FACE1], 'n': 48, 's0': 0.05, 's1': 0.11, 'speed': 0.42, 'wob': 0.04, 'curl': 0.04})
+# 1: the hook. Medium shot, him in the foreground on his lawn, facing us; over the low fence on the right the neighbour's garden party: three
+#    guests in profile raise their glasses and clink them high, twice, the chef laughs with his fork; a ribbon of grey smoke leaves the little
+#    red kettle grill, flows left in front of the party and straight into his nose; he breathes it, his eyes narrow, he coughs twice
+#    (round 1: the party moved right of the grill so the smoke no longer hides the guests' heads; the ribbon comes in from in front of his face;
+#    the clink is high and in profile; a readable double cough)
+D1 = st.dur('S01'); CLINK1 = 0.85; CLINK1b = 1.75; COUGH1 = 1.9; COUGH1b = 2.22
+C1 = cam(0.0, [-1.75, 1.7, 5.4], [-1.67, 1.69, 5.15], [1.0, 1.35, -2.6], [0.98, 1.36, -2.6], lens=50)
+NOSE1 = off(H1, RY1, 0.15, 0.0, 1.72)                 # just in front of his nose
+GA, GB, GC = [1.75, 0.06, -1.95], [2.4, 0.06, -1.75], [2.1, 0.06, -2.7]
+NB1 = [1.25, 0.06, -1.45]
+TOAST1 = [2.08, 1.98, -2.1]                           # where the three glasses meet, high
+def CLINK(t0, who_p, meet, hand='R', low=1.3):
+    """a raised clink: the glass comes up from chest height to the meeting point, taps, and drops back a little"""
+    rest = [r(who_p[0] + (meet[0] - who_p[0]) * 0.3), low, r(who_p[2] + (meet[2] - who_p[2]) * 0.3)]
+    tap = [r(who_p[0] + (meet[0] - who_p[0]) * 0.86), meet[1], r(who_p[2] + (meet[2] - who_p[2]) * 0.86)]
+    return [k(r(t0 - 0.32), toon={'reach': {hand: [*rest, 1, 0.04]}, 'hands': {hand: 'grip'}}, toonDur=0.15),
+            k(r(t0 - 0.12), toon={'reach': {hand: [*tap, 1, 0.04]}, 'hands': {hand: 'grip'}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.12, toonEase='out'),
+            k(r(t0 + 0.05), toon={'reach': {hand: [*add(tap, [0, 0.06, 0]), 1, 0.04]}, 'hands': {hand: 'grip'}, 'sq': [1, 1, 1]}, toonDur=0.06),
+            k(r(t0 + 0.28), toon={'reach': {hand: [*add(rest, [0, 0.25, 0]), 1, 0.04]}, 'hands': {hand: 'grip'}}, toonDur=0.22)]
+SMOKE1 = P('fumee1', 'smokeRibbon', pos=[0, 0, 0], opts={'pts': [add(GR, [0, 1.0, 0]), [0.35, 1.95, -0.25], off(H1, RY1, 0.75, -0.1, 1.78), NOSE1], 'n': 46, 's0': 0.045, 's1': 0.1,
+                                                         'speed': 0.42, 'wob': 0.035, 'curl': 0.03})
+COUGH = lambda t, s_=1.0: [k(r(t - 0.18), toon={'face': {'lid': 0.75, 'mouth': 'line', 'cheeks': 0.5, 'brow': 0.3}, 'sq': [0.98, 1.03, 0.98], 'bend': {'spine': [-0.06, 0, 0, 1, None]}}, toonDur=0.12),
+                           k(t, toon={'face': {'lid': 0.95, 'mouth': 'O', 'cheeks': 0.1, 'brow': 0.5}, 'sq': [1 + 0.07 * s_, 1 - 0.09 * s_, 1 + 0.07 * s_], 'bend': {'spine': [0.28 * s_, 0, 0, 1, None]}}, toonDur=0.04, toonEase='out'),
+                           k(r(t + 0.14), toon={'face': {'lid': 0.7, 'mouth': 'line', 'brow': 0.2}, 'sq': [0.99, 1.02, 0.99], 'bend': {'spine': [0.06, 0, 0, 1, None]}}, toonDur=0.12)]
 st.shot('S01', 'grassland', setOpts=GARDEN_SET, actors=[
         act('mec', H1, RY1, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0),
-            k(1.3, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.12), k(1.5, toon={'face': DEAD}, toonDur=0.12),
-            k(COUGH1, toon={'face': {'lid': 0.7, 'mouth': 'O', 'cheeks': 0.4}, 'sq': [1.04, 0.95, 1.04]}, toonDur=0.05), k(r(COUGH1 + 0.15), toon={'face': DEAD, 'sq': [1, 1, 1]}, toonDur=0.15)]),
-        act('voisin', NB, yaw(NB, [-1.6, 0, 4.6]), 'laugh', 'happy'),
-        act('invite1', G1, yaw(G1, G2), 'stand', 'happy', keys=[k(0.0, look=add(G2, [0, 1.7, 0])), *CLINK(CLINK1, G1, G2), k(r(CLINK1 + 0.3), clip='laugh')]),
-        act('invite2', G2, yaw(G2, G1), 'stand', 'happy', keys=[k(0.0, look=add(G1, [0, 1.7, 0])), *CLINK(CLINK1, G2, G1), k(r(CLINK1 + 0.35), clip='laugh')]),
-        act('invite3', G3, yaw(G3, [-1.6, 0, 4.6]), 'laugh', 'happy')],
-        props=[*GARDEN('party'), SMOKE1, FORK('fourchette1', 'voisin'), GLASS('verre1a', 'invite1'), GLASS('verre1b', 'invite2', color='#E8B84A'), GLASS('verre1c', 'invite3', hand='L'),
-               P('toux1', 'toonPuff', pos=add(FACE1, [0, -0.08, 0.06]), opts={'at': COUGH1, 'n': 3, 'size': 0.07, 'life': 0.5, 'rise': 0.25, 'spread': 0.12, 'color': '#8E8A84'})],
+            k(0.55, toon={'face': {'lid': 0.6, 'mouth': 'line', 'brow': -0.1}}, toonDur=0.25), k(1.15, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.1),
+            k(1.3, toon={'face': {'lid': 0.65, 'mouth': 'line'}, 'sq': [0.98, 1.035, 0.98]}, toonDur=0.3),
+            *COUGH(COUGH1), *COUGH(COUGH1b, 0.7), k(r(COUGH1b + 0.3), toon={'face': DEAD, 'sq': [1, 1, 1]}, toonDur=0.15)]),
+        act('voisin', NB1, yaw(NB1, [-1.6, 0, 4.6]), 'laugh', 'happy'),
+        act('invite1', GA, yaw(GA, GB), 'stand', 'happy', keys=[k(0.0, look=add(GB, [0, 1.8, 0])), *CLINK(CLINK1, GA, TOAST1), *CLINK(CLINK1b, GA, TOAST1), k(r(CLINK1 + 0.3), clip='laugh')]),
+        act('invite2', GB, yaw(GB, GA), 'stand', 'happy', keys=[k(0.0, look=add(GA, [0, 1.8, 0])), *CLINK(CLINK1, GB, TOAST1), *CLINK(CLINK1b, GB, TOAST1), k(r(CLINK1 + 0.35), clip='laugh')]),
+        act('invite3', GC, yaw(GC, [1.3, 0, 2.6]), 'stand', 'happy', keys=[k(0.0, look=TOAST1), *CLINK(CLINK1, GC, TOAST1, hand='L'), *CLINK(CLINK1b, GC, TOAST1, hand='L'), k(r(CLINK1 + 0.4), clip='laugh')])],
+        props=[*GARDEN('party', gsmoke=5), SMOKE1, FORK('fourchette1', 'voisin'), GLASS('verre1a', 'invite1'), GLASS('verre1b', 'invite2', color='#E8B84A'), GLASS('verre1c', 'invite3', hand='L'),
+               P('tinte1', 'twinkle', pos=TOAST1, opts={'at': CLINK1, 's': 0.12}), P('tinte1b', 'twinkle', pos=TOAST1, opts={'at': CLINK1b, 's': 0.12}),
+               P('toux1', 'toonPuff', pos=add(NOSE1, [0, -0.1, 0.08]), opts={'at': COUGH1, 'n': 5, 'size': 0.1, 'life': 0.55, 'rise': 0.25, 'spread': 0.2, 'color': '#7E7A74'}),
+               P('toux1b', 'toonPuff', pos=add(NOSE1, [0, -0.1, 0.08]), opts={'at': COUGH1b, 'n': 4, 'size': 0.08, 'life': 0.45, 'rise': 0.2, 'spread': 0.16, 'color': '#7E7A74'})],
         cams=[C1])
-st.cue('sfx:clink', 'S01', CLINK1, 0.35); st.cue('sfx:grunt', 'S01', COUGH1, 0.2)
+st.cue('sfx:clink', 'S01', CLINK1, 0.35); st.cue('sfx:clink', 'S01', CLINK1b, 0.3); st.cue('sfx:grunt', 'S01', COUGH1, 0.25); st.cue('sfx:grunt', 'S01', COUGH1b, 0.18)
 
-# 2: he cried chemical attack. Closer, still on his lawn: phone at his right ear, dead serious, he talks; a curl of the smoke slips over the fence
-#    and into the receiver; the party carries on behind
+# 2: he cried chemical attack. Closer, still on his lawn: the phone in his left hand held flat against his left ear, dead serious, he talks
+#    (mouth flapping on « crié »); a curl of the smoke comes in over the fence from the party, stretches and is sucked into the receiver; the
+#    chef and a guest carry on laughing over his shoulder
+#    (round 1: the phone is held at the ear in the frame of his face; the smoke ends in the receiver; the party stays in the frame)
 D2 = st.dur('S02')
-PHONE2 = off(H1, RY1, 0.1, 0.15, 1.66)
+PHONE2 = off(H1, RY1, 0.07, -0.29, 1.8)                # the receiver, at his left ear
+EAR2 = {'touch': {'L': ['face', 0.6, 0.5, -0.03, 1, 0.0]}, 'hands': {'L': 'grip'}}   # a point on the face is a `touch`, not a `reach`
 st.shot('S02', 'grassland', setOpts=GARDEN_SET, actors=[
-        act('mec', H1, RY1, 'phoneEar', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.5}}, toonDur=0.0), *st.talk('L02', 'S02', base='unimpressed')]),
-        act('voisin', NB, yaw(NB, [-1.6, 0, 4.6]), 'laugh', 'happy'), act('invite2', G2, yaw(G2, G1), 'laugh', 'happy')],
-        props=[*GARDEN('party'), P('tel2', 'smartPhone', on={'actor': 'mec', 'hand': 'R'}, opts={'call': True}), FORK('fourchette2', 'voisin'), GLASS('verre2b', 'invite2'),
-               P('fumee2', 'smokeRibbon', pos=[0, 0, 0], opts={'pts': [add(GR, [0, 1.0, 0]), [0.3, 2.4, 0.3], [-0.5, 2.05, 2.1], PHONE2], 'n': 36, 's0': 0.04, 's1': 0.085, 'speed': 0.42, 'curl': 0.04})],
-        cams=[cam(0.0, [-1.55, 1.8, 3.35], [-1.5, 1.79, 3.2], [-0.92, 1.66, 1.5], [-0.92, 1.66, 1.5], lens=40)])
+        act('mec', H1, RY1, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={**EAR2, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.5}}, toonDur=0.0),
+            *st.talk('L02', 'S02', base='unimpressed'),
+            k(0.55, toon={**EAR2, 'face': {'lid': 0.25, 'brow': -0.7}, 'sq': [0.97, 1.04, 0.97], 'bend': {'spine': [-0.08, 0, 0, 1, None]}}, toonDur=0.1),
+            k(0.75, toon={**EAR2, 'face': {'lid': 0.3, 'brow': -0.5}, 'sq': [1, 1, 1]}, toonDur=0.15),
+            k(1.25, toon={**EAR2, 'face': {'lid': 0.3, 'brow': -0.6}, 'bend': {'spine': [0.06, 0, 0, 1, None]}}, toonDur=0.15),
+            k(1.55, toon={**EAR2, 'face': {'lid': 0.35, 'brow': -0.5}}, toonDur=0.15)]),
+        act('voisin', NB1, yaw(NB1, [-1.6, 0, 4.6]), 'laugh', 'happy'), act('invite1', GA, yaw(GA, [-1.0, 0, 3.0]), 'laugh', 'happy')],
+        props=[*GARDEN('party', gsmoke=4), P('tel2', 'smartPhone', on={'actor': 'mec', 'hand': 'L'}, opts={'call': True}), FORK('fourchette2', 'voisin'), GLASS('verre2a', 'invite1'),
+               P('fumee2', 'smokeRibbon', pos=[0, 0, 0], opts={'pts': [add(GR, [0, 1.0, 0]), [0.45, 2.25, 0.1], off(H1, RY1, 0.55, -0.45, 1.95), PHONE2], 'n': 36, 's0': 0.04, 's1': 0.09, 'speed': 0.5, 'curl': 0.03})],
+        cams=[cam(0.0, [-1.95, 1.75, 3.6], [-1.9, 1.75, 3.45], [-0.35, 1.62, 0.6], [-0.35, 1.62, 0.6], lens=42)])
 st.cue('sfx:beep', 'S02', 0.05, 0.12)
 
 # 3: the president set off the nuclear alert. His office: behind the desk, he winds his right fist up over his head (stretching tall) and slams it
 #    down on the big red button: the dome squashes flat, he squashes with it, the desk jumps; two red sirens on the back wall start spinning and the
 #    room turns red; he looks at us, satisfied
+#    (round 1: a smear trail and a stretched body on the downswing; both sirens in the frame; a strong red wash)
 D3 = st.dur('S03'); HIT3 = 0.98
 DESK3 = [0.0, 0, -1.2]; DH = 0.76; BTN3 = [-0.22, DH, -1.0]
 PRES3 = [0.05, 0, -1.85]
@@ -147,7 +178,9 @@ st.shot('S03', 'office', setOpts={'door': False, 'printer': False, 'picture': Fa
         act('president', PRES3, 0, 'stand', 'angry', keys=[k(0.0, look=[BTN3[0], 1.0, BTN3[2]]),
             PK(0.0, [-0.3, 1.1, -1.55], dur=0.0), PK(0.3, [-0.34, 1.3, -1.6], dur=0.15),
             PK(0.5, [-0.34, 2.4, -1.7], (0.93, 1.12, 0.93), {'lid': 0.1, 'mouth': 'clench', 'brow': -0.8}, 0.28, 'out'),
-            PK(r(HIT3 - 0.1), [BTN3[0], 1.08, BTN3[2]], (1.02, 0.98, 1.02), dur=0.1, ease='in', bend=0.25),
+            PK(0.8, [-0.36, 2.48, -1.72], (0.92, 1.14, 0.92), {'lid': 0.05, 'mouth': 'clench', 'brow': -0.9}, 0.1),
+            PK(r(HIT3 - 0.1), [-0.42, 1.78, -1.36], (0.88, 1.16, 0.88), dur=0.06, ease='in', bend=0.18),
+            PK(r(HIT3 - 0.04), [BTN3[0], 1.14, BTN3[2]], (1.0, 1.02, 1.0), dur=0.05, ease='in', bend=0.3),
             PK(HIT3, [BTN3[0], 1.0, BTN3[2]], (1.2, 0.78, 1.2), {'lid': 0.0, 'pop': 0.4, 'mouth': 'clench', 'brow': -0.9}, 0.04, 'out', bend=0.35),
             PK(r(HIT3 + 0.16), [BTN3[0], 1.02, BTN3[2]], (0.95, 1.07, 0.95), {'lid': 0.2, 'mouth': 'line', 'brow': -0.5}, 0.12, bend=0.2),
             PK(r(HIT3 + 0.34), [-0.32, 1.1, -1.5], (1, 1, 1), {'lid': 0.35, 'mouth': 'smile', 'brow': 0.2}, 0.25, hand='rest'),
@@ -155,8 +188,9 @@ st.shot('S03', 'office', setOpts={'door': False, 'printer': False, 'picture': Fa
         props=[P('bureau3', 'table', pos=DESK3, opts={'w': 1.6, 'd': 0.9, 'h': DH, 'color': '#5A3E2B', 'legs': '#3E2A1C'},
                  keys=[k(HIT3, to=[0.0, 0.025, -1.2], dur=0.04), k(r(HIT3 + 0.05), to=DESK3, dur=0.1)]),
                P('bouton3', 'bigRedButton', pos=BTN3, opts={'pressAt': HIT3}),
-               P('sirene3a', 'alarmSiren', pos=[-1.7, 2.65, -3.58], opts={'from': r(HIT3 + 0.04), 's': 1.6, 'power': 6, 'reach': 8}),
-               P('sirene3b', 'alarmSiren', pos=[1.7, 2.65, -3.58], opts={'from': r(HIT3 + 0.04), 's': 1.6, 'power': 6, 'reach': 8}),
+               P('sirene3a', 'alarmSiren', pos=[-1.4, 2.5, -3.58], opts={'from': r(HIT3 + 0.04), 's': 1.6, 'power': 18, 'reach': 10, 'opacity': 0.28}),
+               P('sirene3b', 'alarmSiren', pos=[0.45, 2.5, -3.58], opts={'from': r(HIT3 + 0.04), 's': 1.6, 'power': 18, 'reach': 10, 'opacity': 0.28}),
+               P('trainee3', 'smearArc', pos=[0, 0, 0], opts={'pts': [[-0.36, 2.45, -1.72], [-0.5, 1.95, -1.42], [BTN3[0], 1.12, BTN3[2]]], 'win': [r(HIT3 - 0.13), r(HIT3 + 0.03)], 'r': 0.075, 'color': '#3A3E48', 'opacity': 0.5}),
                P('etoiles3', 'impactStars', pos=[BTN3[0], r(DH + 0.18), BTN3[2]], opts={'at': HIT3, 'n': 5})],
         fx=[{'type': 'shake', 'at': HIT3, 'dur': 0.18, 'amount': 0.014}],
         cams=[cam(0.0, [0.45, 1.3, 1.3], [0.42, 1.3, 1.12], [-0.05, 1.38, -1.6], [-0.05, 1.38, -1.6], lens=50)])
@@ -166,11 +200,14 @@ st.cue('whoosh', 'S03', 0.5, 0.2); st.cue('thud', 'S03', HIT3, 0.55); st.cue('sf
 #    in his suit); a single wisp of smoke drifts across in front of them and every head turns together to follow it
 D4 = st.dur('S04')
 CROWD4 = [('mec', 0.0, 3.6), ('invite1', -0.85, 2.85), ('invite2', 0.9, 2.75), ('invite3', -0.35, 2.0), ('foule3', 0.45, 1.85), ('foule1', -1.25, 1.2), ('foule2', 1.3, 1.1)]
-WISP0, WISP1 = [-3.6, 2.15, 5.0], [3.6, 2.35, 5.0]
+WISP0, WISP1 = [-2.4, 2.15, 5.2], [2.4, 2.35, 5.2]   # (round 1) a narrower path: no head turns to a full profile
 def wisp_at(t): u = max(0.0, min(1.0, t / D4)); return [r(WISP0[i] + (WISP1[i] - WISP0[i]) * u) for i in range(3)]
 LOOKS4 = [k(0.0, look=wisp_at(0.0))] + [k(r(t), look=wisp_at(t + 0.3), lookDur=0.3) for t in [0.15 + 0.3 * j for j in range(7)] if t < D4]
-st.shot('S04', 'cottageStreet', actors=[act(who, [x, 0, z], 0, 'stand', 'neutral', keys=list(LOOKS4)) for (who, x, z) in CROWD4],
+SWAY4 = lambda j, x, z: [k(r(0.25 + 0.31 * j % 0.9 + 0.62 * i), to=[r(x + 0.035 * (1 if (i + j) % 2 else -1)), 0, z], dur=0.5) for i in range(3)]   # (round 1) weight shifts
+st.shot('S04', 'cottageStreet', actors=[act(who, [x, 0, z], 0, 'stand', 'neutral', keys=list(LOOKS4) + SWAY4(j, x, z)) for j, (who, x, z) in enumerate(CROWD4)],
         props=[*[MASK(f'masque4{j}', who) for j, (who, _, _) in enumerate(CROWD4)],
+               *[P(f'souffle4{j}{i}', 'toonPuff', pos=[x, 1.66, r(z + 0.24)], opts={'at': r(0.2 + 0.23 * j + 0.85 * i), 'n': 2, 'size': 0.045, 'life': 0.5, 'rise': 0.12, 'spread': 0.05, 'color': '#E2DED6'})
+                 for j, (_, x, z) in enumerate(CROWD4) for i in range(2)],
                P('volute4', 'smokeRibbon', pos=WISP0, opts={'pts': [[0, 0, 0], [0.25, 0.1, 0], [0.5, 0.0, 0]], 'n': 10, 's0': 0.07, 's1': 0.11, 'speed': 0.9, 'shrink': False, 'wob': 0.03},
                  keys=[k(0.0, to=WISP1, dur=D4, ease='linear')])],
         cams=[cam(0.0, [0.4, 2.55, 10.5], [0.38, 2.5, 10.2], [0.0, 1.55, 2.2], [0.0, 1.55, 2.2], lens=38)])
@@ -182,7 +219,7 @@ D5 = st.dur('S05')
 SKY5 = [1.4, 12.0, -12.0]
 G5 = [('voisin', [1.25, 0.06, -1.15]), ('invite1', [2.35, 0.06, -1.45]), ('invite2', [1.75, 0.06, -2.2]), ('invite3', [3.0, 0.06, -2.4])]
 st.shot('S05', 'grassland', setOpts=GARDEN_SET, actors=[act(who, p, yaw(p, [2.0, 0, 1.6]), 'stand', 'surprised', keys=[k(0.0, look=add(SKY5, [j * 1.5 - 2, 0, 0])), k(r(0.6 + 0.1 * j), look=add(SKY5, [j * 1.5 - 2, -3.0, 2.0]), lookDur=0.8),
-            k(0.0, toon={'reach': {'R': [*off(p, yaw(p, [2.0, 0, 1.6]), 0.3, 0.18, 1.15), 1, 0.04]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.0, 'mouth': 'O', 'brow': 0.6}}, toonDur=0.0),
+            k(0.0, toon={'reach': {'R': [*off(p, yaw(p, [2.0, 0, 1.6]), 0.32, 0.2, 1.58), 1, 0.04]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.0, 'mouth': 'O', 'brow': 0.6}}, toonDur=0.0),   # (round 1) forks raised, out of the caption band
             k(r(1.2 + 0.12 * j), toon={'face': {'lid': 1.0, 'mouth': 'O', 'brow': 0.6}}, toonDur=0.08, keepPose=True), k(r(1.32 + 0.12 * j), toon={'face': {'lid': 0.0, 'mouth': 'O', 'brow': 0.6}}, toonDur=0.08, keepPose=True),
             k(r(1.6 + 0.05 * j), look=add(SKY5, [j * 1.5 - 1.2, -5.0, 4.0]), lookDur=0.35)])
             for j, (who, p) in enumerate(G5)],
@@ -231,115 +268,159 @@ st.shot('S07', 'grassland', setOpts=GARDEN_SET, actors=[act('mec', H7, yaw(H7, [
         cams=[cam(0.0, [-4.0, 1.6, 3.4], [-4.05, 1.62, 3.2], [-6.0, 3.2, -8.0], [-6.0, 3.25, -8.0], lens=50)])
 st.cue('sfx:crunch', 'S07', 0.02, 0.35); st.cue('sfx:stepHeavy', 'S07', 0.4, 0.15)
 
-# 8: six sausages were taken prisoner. The cell: six sausages stand upright in a row on the floor behind the bars; a soldier slams the barred
-#    door on them (CAPTURÉES): they flinch with the clang
+# 8: six sausages were taken prisoner. Low and close on the cell: six fat sausages stand upright in a row on the floor, each one framed in a gap
+#    of the barred door; a long olive arm reaches in from the left edge, grips the open door and slams it on them (CAPTURÉES): they jump with a
+#    stretch, hang, and land with a squash
+#    (round 1: the sausages are three times bigger and lined up with the gaps of the bars; the soldier is only an arm, out of the card band)
 D8 = st.dur('S08'); SLAM8 = 0.95
-SAUS8 = [[r(-0.5 + 0.2 * i), 0.0, 1.35] for i in range(6)]
-SOL8 = [0.72, 0, 3.25]; RY8 = yaw(SOL8, [-0.1, 0, 3.0])
-DOOR_E = lambda a, x=0.8: [r(-0.55 + x * math.cos(a)), 1.15, r(2.65 - x * math.sin(a))]
+CAM8 = [-0.05, 0.5, 5.55]; ZB8, ZS8 = 2.65, 2.38             # the camera, the plane of the closed door's bars, the plane of the sausages
+SAUS8 = [[r(-0.05 + (-0.55 + 0.2 * i + 0.05) * (CAM8[2] - ZS8) / (CAM8[2] - ZB8)), 0.0, ZS8] for i in range(6)]
+SOL8 = [-1.1, 0, 3.35]; RY8 = 90
+EDGE8 = lambda A, y=0.85: [r(-0.75 + 0.4 * math.cos(A)), y, r(ZB8 + 0.4 * math.sin(A))]   # a bar of the door near its hinge, opened A rad (the arm stays at the left edge)
+GRAB8 = lambda t, A, d=0.06, e='inOut', sq=(1, 1, 1): k(t, toon={'reach': {'R': [*EDGE8(A), 1, 0.02]}, 'hands': {'R': 'grip'}, 'hose': 0.1, 'sq': list(sq)}, toonDur=d, toonEase=e)
 st.card('S08', 'CAPTURÉES', at=r(SLAM8 + 0.12))
 st.shot('S08', 'prisonCell', setOpts={'bars': False}, actors=[
-        act('soldat', SOL8, RY8, 'stand', 'angry', keys=[k(0.0, look=[-0.2, 0.3, 1.35]),
-            k(0.0, toon={'reach': {'R': [*DOOR_E(-1.1), 1, 0.04]}, 'hands': {'R': 'grip'}}, toonDur=0.0),
-            k(r(SLAM8 - 0.35), toon={'reach': {'R': [*DOOR_E(-1.15), 1, 0.04]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.15, 0, 0, 1, None]}, 'sq': [1.03, 0.97, 1.03]}, toonDur=0.2),
-            k(r(SLAM8 - 0.12), toon={'reach': {'R': [*DOOR_E(0.0), 1, 0.04]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [-0.2, 0, 0, 1, None]}, 'sq': [0.96, 1.05, 0.96]}, toonDur=0.12, toonEase='in'),
-            k(r(SLAM8 + 0.25), toon={'reach': {'R': [*off(SOL8, RY8, 0.2, 0.25, 0.9), 1, 0.04]}, 'hands': {'R': 'rest'}, 'bend': {'spine': [0.0, 0, 0, 1, None]}, 'sq': [1, 1, 1]}, toonDur=0.3),
-            k(r(SLAM8 + 0.5), look='camera', lookDur=0.2)])],
-        props=[P('grille8', 'cellDoor', pos=[0.0, 0, 2.6], opts={'w': 6.4, 'dx': -0.05, 'dw': 1.0, 'open': 1.1, 'slamAt': SLAM8}), HELMET('casque8', 'soldat'),
-               *[P(f'saucisse8{i}', 'sausage', pos=p_, opts={'len': 0.36, 'r': 0.05, 'hop': [[r(SLAM8 + 0.02 + 0.015 * i), 0.05, 0.25]]}) for i, p_ in enumerate(SAUS8)]],
-        fx=[{'type': 'shake', 'at': SLAM8, 'dur': 0.15, 'amount': 0.012}],
-        cams=[cam(0.0, [0.3, 1.25, 8.4], [0.29, 1.23, 8.1], [0.15, 0.9, 2.0], [0.15, 0.88, 2.0], lens=34)])
-st.cue('whoosh', 'S08', r(SLAM8 - 0.2), 0.2); st.cue('clang', 'S08', SLAM8, 0.6)
+        act('soldat', SOL8, RY8, 'stand', 'angry', keys=[k(0.0, look=[-0.2, 0.3, 2.4]), GRAB8(0.0, 1.1, 0.0),
+            GRAB8(0.55, 1.1, 0.2), GRAB8(r(SLAM8 - 0.12), 1.1, 0.05), GRAB8(r(SLAM8 - 0.06), 0.82, 0.06, 'in'), GRAB8(SLAM8, 0.0, 0.06, 'in'),
+            k(r(SLAM8 + 0.18), toon={'reach': {'R': [*off(SOL8, RY8, 0.25, 0.25, 0.9), 1, 0.04]}, 'hands': {'R': 'rest'}}, toonDur=0.15)])],
+        props=[P('grille8', 'cellDoor', pos=[0.0, 0, 2.6], opts={'w': 6.4, 'dx': -0.05, 'dw': 1.4, 'open': 1.1, 'slamAt': SLAM8}), HELMET('casque8', 'soldat'),
+               *[P(f'saucisse8{i}', 'sausage', pos=p_, opts={'len': 0.5, 'r': 0.064, 'hop': [[r(SLAM8 + 0.02 + 0.02 * i), 0.17, 0.52, 0.3]]}) for i, p_ in enumerate(SAUS8)]],
+        fx=[{'type': 'shake', 'at': SLAM8, 'dur': 0.15, 'amount': 0.014}],
+        cams=[cam(0.0, CAM8, [-0.05, 0.49, 5.4], [-0.05, 0.36, ZS8], [-0.05, 0.36, ZS8], lens=40)])
+st.cue('whoosh', 'S08', r(SLAM8 - 0.15), 0.2); st.cue('clang', 'S08', SLAM8, 0.6)
 
-# 9: a chipolata refused to talk. The interrogation room: a single chipolata stands on the suspect's chair under the hanging lamp; an officer leans
-#    over the table, winds up and slams both fists on it: the chipolata hops and lands back on the chair, silent
+# 9: a chipolata refused to talk. The interrogation room: on the suspect's chair, on a stack of phone books, a single chipolata stands in the
+#    lamp's pool of light; the officer, three-quarter to us, leans over the table, winds both fists up and slams them down: the chipolata jumps,
+#    hangs in the air and lands back on the books, silent; he glares at it, then at us
+#    (round 1: lower and closer, the chipolata twice as big and lit; the officer's face in the frame; both fists; a held hang on the hop)
 D9 = st.dur('S09'); SLAM9 = 0.86
-OFF9 = [0.95, 0, -1.05]; RY9 = -90
-FIST9 = lambda t, pr, pl, sq=(1, 1, 1), face=None, d=0.12, e='inOut', b=0.35: k(t, toon={'reach': {'R': [*pr, 1, 0.03], 'L': [*pl, 1, 0.03]}, 'hands': {'R': 'fist', 'L': 'fist'}, 'sq': list(sq),
-                                                                                      'bend': {'spine': [b, 0, 0, 1, None]}, 'face': face or {'lid': 0.2, 'mouth': 'line', 'brow': -0.8}}, toonDur=d, toonEase=e)
+OFF9 = [0.8, 0, -0.85]; RY9 = -62
+BOOKS9 = [0.0, 0.47, -1.45]; NB9 = 6; TOPB9 = r(BOOKS9[1] + 0.055 * NB9)
+CHIP9 = [0.0, TOPB9, -1.45]
+FL9 = lambda f, sd, y: off(OFF9, RY9, f, sd, y)
+FIST9 = lambda t, f, y, sq=(1, 1, 1), face=None, d=0.12, e='inOut', b=0.35: k(t, toon={'reach': {'R': [*FL9(f, 0.2, y), 1, 0.03], 'L': [*FL9(f, -0.2, y), 1, 0.03]}, 'hands': {'R': 'fist', 'L': 'fist'}, 'sq': list(sq),
+                                                                              'bend': {'spine': [b, 0, 0, 1, None]}, 'face': face or {'lid': 0.2, 'mouth': 'line', 'brow': -0.8}}, toonDur=d, toonEase=e)
 st.shot('S09', 'interrogation', actors=[
-        act('officier', OFF9, RY9, 'stand', 'angry', keys=[k(0.0, look=[0.0, 1.05, -1.45]),
-            FIST9(0.0, [0.7, 1.15, -1.25], [0.7, 1.15, -0.8], d=0.0), FIST9(0.45, [0.78, 1.6, -1.25], [0.78, 1.6, -0.8], (0.95, 1.08, 0.95), {'lid': 0.1, 'mouth': 'clench', 'brow': -0.9}, 0.25, 'out', 0.05),
-            FIST9(r(SLAM9 - 0.08), [0.5, 0.86, -1.2], [0.5, 0.86, -0.85], (1.02, 0.98, 1.02), d=0.08, e='in', b=0.15),
-            FIST9(SLAM9, [0.5, 0.83, -1.2], [0.5, 0.83, -0.85], (1.15, 0.85, 1.15), {'lid': 0.0, 'mouth': 'O', 'brow': -0.9}, 0.04, 'out', 0.18),
-            FIST9(r(SLAM9 + 0.18), [0.52, 0.85, -1.18], [0.52, 0.85, -0.85], (1, 1, 1), {'lid': 0.15, 'mouth': 'clench', 'brow': -0.8}, 0.15, b=0.12),
-            k(r(SLAM9 + 0.6), look='camera', lookDur=0.2)]),],
+        act('officier', OFF9, RY9, 'stand', 'angry', keys=[k(0.0, look=add(CHIP9, [0, 0.25, 0])),
+            FIST9(0.0, 0.38, 0.95, d=0.0), FIST9(0.42, 0.32, 1.75, (0.94, 1.09, 0.94), {'lid': 0.1, 'mouth': 'clench', 'brow': -0.9}, 0.25, 'out', 0.02),
+            FIST9(r(SLAM9 - 0.07), 0.43, 1.0, (0.92, 1.1, 0.92), d=0.04, e='in', b=0.2),
+            FIST9(SLAM9, 0.45, 0.83, (1.16, 0.84, 1.16), {'lid': 0.0, 'mouth': 'O', 'brow': -0.9}, 0.04, 'out', 0.28),
+            FIST9(r(SLAM9 + 0.18), 0.45, 0.85, (1, 1, 1), {'lid': 0.15, 'mouth': 'clench', 'brow': -0.8}, 0.15, b=0.22),
+            FIST9(r(SLAM9 + 0.75), 0.45, 0.85, (1, 1, 1), {'lid': 0.25, 'mouth': 'line', 'brow': -0.9}, 0.2, b=0.22),
+            k(r(SLAM9 + 0.75), look='camera', lookDur=0.15)])],
         props=[KEPI('kepi9', 'officier'),
-               P('chipolata9', 'sausage', pos=[0.0, 0.48, -1.45], opts={'len': 0.3, 'r': 0.034, 'color': '#C46A44', 'hop': [[r(SLAM9 + 0.02), 0.22, 0.45]]})],
+               *[P(f'annuaire9{i}', 'slab', pos=[0.0, r(BOOKS9[1] + 0.0275 + 0.055 * i), -1.45], ry=(i % 3 - 1) * 6, opts={'w': 0.34, 'h': 0.05, 'd': 0.26, 'color': '#E8C43A' if i % 2 == 0 else '#F2EEE0'}) for i in range(NB9)],
+               P('chipolata9', 'sausage', pos=CHIP9, opts={'len': 0.42, 'r': 0.05, 'color': '#C46A44', 'hop': [[r(SLAM9 + 0.02), 0.3, 0.72, 0.45]]})],
         fx=[{'type': 'shake', 'at': SLAM9, 'dur': 0.15, 'amount': 0.012}],
-        cams=[cam(0.0, [-0.2, 1.85, 2.3], [-0.18, 1.84, 2.1], [0.38, 1.0, -1.25], [0.38, 0.98, -1.25], lens=46)])
-st.cue('thud', 'S09', SLAM9, 0.6); st.cue('sfx:tick', 'S09', 1.3, 0.12)
+        cams=[cam(0.0, [-0.42, 1.52, 2.75], [-0.38, 1.51, 2.58], [0.42, 1.42, -1.0], [0.42, 1.41, -1.0], lens=42)])
+st.cue('thud', 'S09', SLAM9, 0.6); st.cue('sfx:tick', 'S09', 1.5, 0.12)
 
-# 10: it was swapped for a spy. A long bridge in the fog, looking along it: two soldiers carry the chipolata away from us on a stretcher, along the
-#     right-hand side; out of the fog a spy in a trench coat, hat and dark glasses walks toward us along the left; as they pass he glances at it
+# 10: it was swapped for a spy. A long bridge in the fog, seen three-quarter from the right side: two soldiers carry the chipolata away from us
+#     on a stretcher, holding its handles; it sits up on it under a white blanket; out of a veil of fog ahead a spy in a trench coat, hat and dark
+#     glasses walks toward us on the other side; as they cross, his head turns and his glance lands on it, and stays on it
+#     (round 1: the chipolata sits up, bigger, and stays in view between the bearers; the bearers hold the handles; the spy walks out of a fog veil)
 D10 = st.dur('S10'); BY = 6.0
-P1A, P1B = [0.75, BY, -2.3], [0.75, BY, -5.6]
-P2A, P2B = [0.75, BY, -0.35], [0.75, BY, -3.65]
-SPYA, SPYB = [-0.75, BY, -9.0], [-0.75, BY, -3.6]
-STR_A, STR_B = [0.75, r(BY + 0.8), -1.32], [0.75, r(BY + 0.8), -4.62]
+SZ0, SV = -3.2, 1.4                                         # the stretcher's middle: z at t 0, speed toward -Z
+STZ = lambda t: r(SZ0 - SV * t)
+SPZ0, SPV = -7.95, 2.0                                       # the spy: z at t 0 (just behind the first veil), speed toward +Z
+P1A, P1B = [0.75, BY, r(SZ0 - 1.25)], [0.75, BY, r(STZ(D10) - 1.25)]
+P2A, P2B = [0.75, BY, r(SZ0 + 1.25)], [0.75, BY, r(STZ(D10) + 1.25)]
+SPYA, SPYB = [-0.75, BY, SPZ0], [-0.75, BY, r(SPZ0 + SPV * D10)]
+STR_A, STR_B = [0.75, r(BY + 0.8), STZ(0)], [0.75, r(BY + 0.8), STZ(D10)]
 WALK = lambda a, b: [k(0.0, to=b, dur=D10, clip='walk', ease='linear')]
-st.shot('S10', 'grassland', setOpts={'clouds': 0, 'sky': ['#AEB8C0', '#D6DBDF'], 'grass': '#55616A'}, fog={'color': '#CDD3D8', 'near': 6, 'far': 32}, actors=[
-        act('porteur1', P1A, 180, 'walk', 'neutral', keys=WALK(P1A, P1B)), act('porteur2', P2A, 180, 'walk', 'neutral', keys=WALK(P2A, P2B)),
-        act('espion', SPYA, 0, 'walk', 'unimpressed', keys=[*WALK(SPYA, SPYB), k(0.0, look=[-0.75, r(BY + 1.6), 0.0]), k(0.95, look=[0.75, r(BY + 0.85), -3.3], lookDur=0.2), k(1.45, look=[2.2, r(BY + 2.2), 1.6], lookDur=0.25)])],
-        props=[P('pont10', 'fogBridge', pos=[0.0, BY, -14.0], ry=90, opts={'L': 44, 'W': 4.2}),
-               P('civiere10', 'stretcher', pos=STR_A, opts={'load': 'chipolata'}, keys=[k(0.0, to=STR_B, dur=D10, ease='linear')]),
+def CARRY(end):
+    """the bearer's two hands on the handles at one end of the stretcher (end -1: the front, +1: the back), keyed along the walk"""
+    ks = []
+    for i in range(int(D10 / 0.2) + 2):
+        t = r(min(D10, i * 0.2)); z = r(STZ(t) + end * 0.95)
+        ks.append(k(t, toon={'reach': {'R': [r(0.75 + 0.275), r(BY + 0.82), z, 1, 0.03], 'L': [r(0.75 - 0.275), r(BY + 0.82), z, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}}, toonDur=0.2 if i else 0.0, toonEase='linear'))
+    return ks
+CROSS10 = 0.95
+st.shot('S10', 'grassland', setOpts={'clouds': 0, 'sky': ['#AEB8C0', '#D6DBDF'], 'grass': '#55616A'}, fog={'color': '#CDD3D8', 'near': 5, 'far': 26}, actors=[
+        act('porteur1', P1A, 180, 'walk', 'neutral', keys=WALK(P1A, P1B) + CARRY(-1)), act('porteur2', P2A, 180, 'walk', 'neutral', keys=WALK(P2A, P2B) + CARRY(1)),
+        act('espion', SPYA, 0, 'walk', 'unimpressed', keys=[*WALK(SPYA, SPYB), k(0.0, look=[-0.75, r(BY + 1.6), 2.0]),
+            k(CROSS10, look=[0.75, r(BY + 1.05), STZ(1.25)], lookDur=0.15), k(1.25, look=[0.75, r(BY + 1.05), STZ(1.6)], lookDur=0.35), k(1.7, look=[0.75, r(BY + 1.05), STZ(1.9)], lookDur=0.2)])],
+        props=[P('pont10', 'fogBridge', pos=[0.0, BY, -14.0], ry=90, opts={'L': 44, 'W': 4.2, 'veils': [-6.1, -3.6], 'veilA': 0.85}),
+               P('civiere10', 'stretcher', pos=STR_A, opts={'load': 'sit', 'len': 0.48, 'r': 0.065}, keys=[k(0.0, to=STR_B, dur=D10, ease='linear')]),
                HELMET('casque10a', 'porteur1'), HELMET('casque10b', 'porteur2'),
                P('chapeau10', 'fedoraHat', on={'actor': 'espion', 'joint': 'head', 'offset': [0.0, 0.47, 0.0]}, opts={'color': '#5A4A36'}),
                P('lunettes10', 'shades', on={'actor': 'espion', 'joint': 'head', 'offset': [0.0, 0.3, 0.095]}, opts={'ear': False})],
-        cams=[cam(0.0, [2.0, r(BY + 4.3), 0.6], [1.95, r(BY + 4.25), 0.35], [0.1, r(BY + 0.6), -4.2], [0.1, r(BY + 0.6), -4.4], lens=48)])
+        cams=[cam(0.0, [2.9, r(BY + 2.1), 0.7], [2.85, r(BY + 2.08), 0.3], [0.05, r(BY + 0.9), -4.5], [0.05, r(BY + 0.9), -5.7], lens=44)])
 st.cue('sfx:stepSoft', 'S10', 0.1, 0.2); st.cue('sfx:wind', 'S10', 0.0, 0.25)
 
-# 11: the army put the barbecue out with a flamethrower. The garden, empty: a soldier in a gas mask, tanks on his back, braces at the fence and
-#     blasts the little grill with a huge roaring jet of flame; the paratrooper is still sitting on it, still saluting; the grill turns black
-D11 = st.dur('S11'); FIRE11 = 0.5; CHAR11 = 1.3
-SOL11 = [-1.15, 0, 0.35]; RY11 = yaw(SOL11, GR)
-GRIP11 = off(SOL11, RY11, 0.3, -0.12, 0.95)
-LRY11 = yaw(GRIP11, GR)
-FRONT11 = [r(GRIP11[0] + 0.48 * math.sin(math.radians(LRY11))), GRIP11[1], r(GRIP11[2] + 0.48 * math.cos(math.radians(LRY11)))]
+# 11: the army put the barbecue out with a flamethrower. Three-quarter from the front, wide: on the left, behind his own fence, a soldier in a gas
+#     mask, tanks on his back, crouches for two frames and fires: a long, narrow jet of flame stretches from the nozzle across the frame onto the
+#     little grill on the right and splashes round it; the paratrooper still sits on it, still saluting; knees and tanks shake with the recoil;
+#     the red grill darkens to black under the flame; the jet cuts and the grill is a smoking black lump, the paratrooper sooted, still saluting
+#     (round 1: a side view of the jet, lance in profile; the grill is in the frame and visibly blackens; the flame stops before the cut)
+D11 = st.dur('S11'); FIRE11 = 0.5; CHAR11 = 0.75; CHARD11 = 0.6; STOP11 = 1.6
+G11 = [1.95, 0, -1.8]                                        # the grill in shots 11 to 13 (the neighbour's patio)
+SOL11 = [-0.3, 0, -1.85]; RY11 = yaw(SOL11, G11)
+PARA11 = [G11[0], 0.39, G11[2]]; PRY11 = 10
+CAM11 = [3.2, 1.6, 4.4]
+GRIP11 = off(SOL11, RY11, 0.3, 0.15, 0.95)
+TGT11 = [r(G11[0] - 0.08), 0.72, G11[2]]
+Z11 = unit3([TGT11[i] - GRIP11[i] for i in range(3)]); X11 = unit3(cross3([0, 1, 0], Z11)); Y11 = cross3(Z11, X11)
+LRX11, LRY11, LRZ11 = axes_euler(X11, Y11, Z11)
+JET11 = r(math.dist(GRIP11, TGT11) - 1.05 + 0.05)
+FRONT11 = [r(GRIP11[i] + Z11[i] * 0.48) for i in range(3)]
 HOLD11 = {'reach': {'R': [*GRIP11, 1, 0.03], 'L': [*FRONT11, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}}
-PARA_SIT = lambda soot_at=None, extra=(): act('para', PARA_P, PARA_RY, 'sit', 'neutral', keys=[k(0.0, look='camera'), SALUTE(0.0, dur=0.0), *extra])
+SALP = lambda p, ry: [*off([p[0], 0, p[2]], ry, 0.12, 0.15, p[1] + 1.6), 1, 0.03]
+def SALUTE2(p, ry, t, sq=(1, 1, 1), dur=0.1, face=None):
+    return k(t, toon={'reach': {'R': SALP(p, ry), 'L': [*off([p[0], 0, p[2]], ry, 0.25, -0.22, p[1] + 0.55), 1, 0.04]}, 'hands': {'R': 'open', 'L': 'rest'},
+                      'sq': list(sq), 'face': face or {'lid': 0.3, 'mouth': 'line', 'brow': -0.2}}, toonDur=dur, toonEase='out')
+PARA_AT = lambda p, ry, extra=(): act('para', p, ry, 'sit', 'neutral', keys=[k(0.0, look='camera'), SALUTE2(p, ry, 0.0, dur=0.0), *extra])
+REC11 = [k(r(FIRE11 + 0.07 * j), toon={**HOLD11, 'sq': [1.03, 0.96, 1.03] if j % 2 else [0.99, 1.01, 0.99], 'bend': {'spine': [0.12 if j % 2 else 0.05, 0, 0, 1, None]}}, toonDur=0.035) for j in range(1, 16)]
 st.shot('S11', 'grassland', setOpts=GARDEN_SET, actors=[
-        act('soldat', SOL11, RY11, 'stand', 'angry', keys=[k(0.0, look=[GR[0], 1.0, GR[2]]), k(0.0, toon={**HOLD11, 'sq': [1, 1, 1]}, toonDur=0.0),
-            k(r(FIRE11 - 0.1), toon={**HOLD11, 'sq': [1.04, 0.96, 1.04], 'bend': {'spine': [0.15, 0, 0, 1, None]}}, toonDur=0.1),
-            k(FIRE11, toon={**HOLD11, 'sq': [0.97, 1.03, 0.97], 'bend': {'spine': [-0.1, 0, 0, 1, None]}}, toonDur=0.06, toonEase='out'),
-            k(r(FIRE11 + 0.12), toon={**HOLD11, 'sq': [1, 1, 1], 'bend': {'spine': [0.05, 0, 0, 1, None]}}, toonDur=0.15),
-            *[k(r(FIRE11 + 0.35 + 0.22 * j), toon={**HOLD11, 'sq': [1.02, 0.98, 1.02] if j % 2 else [0.99, 1.01, 0.99], 'bend': {'spine': [0.08 if j % 2 else 0.0, 0, 0, 1, None]}}, toonDur=0.1) for j in range(7)]]),
-        PARA_SIT(extra=[k(0.65, look=[SOL11[0], 1.6, SOL11[2]], lookDur=0.12), k(r(CHAR11 + 0.05), toon={'reach': {'R': SAL(PARA_P, PARA_RY)}, 'hands': {'R': 'open'}, 'face': {'lid': 0.0, 'pop': 0.2, 'mouth': 'line', 'brow': 0.2}}, toonDur=0.05, keepPose=True)])],
-        props=[*GARDEN('party', grill=False), MASK('masque11', 'soldat'), HELMET('casque11', 'soldat'), HELMET('casque11p', 'para'), SOOT('suie11', 'para', CHAR11),
+        act('soldat', SOL11, RY11, 'stand', 'angry', keys=[k(0.0, look=[G11[0], 1.0, G11[2]]), k(0.0, toon={**HOLD11, 'sq': [1, 1, 1]}, toonDur=0.0),
+            k(r(FIRE11 - 0.13), toon={**HOLD11, 'sq': [1.07, 0.9, 1.07], 'bend': {'spine': [0.22, 0, 0, 1, None]}}, toonDur=0.07), k(r(FIRE11 - 0.13), to=[SOL11[0], -0.1, SOL11[2]], dur=0.07),
+            k(FIRE11, toon={**HOLD11, 'sq': [0.95, 1.05, 0.95], 'bend': {'spine': [-0.12, 0, 0, 1, None]}}, toonDur=0.04, toonEase='out'),
+            *REC11, k(STOP11, toon={**HOLD11, 'sq': [1, 1, 1], 'bend': {'spine': [0.04, 0, 0, 1, None]}}, toonDur=0.2), k(STOP11, to=[SOL11[0], 0, SOL11[2]], dur=0.2),
+            k(r(STOP11 + 0.3), look='camera', lookDur=0.2)]),
+        PARA_AT(PARA11, PRY11, extra=[k(0.6, look=[SOL11[0], 1.6, SOL11[2]], lookDur=0.12), k(r(CHAR11 + CHARD11), toon={'reach': {'R': SALP(PARA11, PRY11)}, 'hands': {'R': 'open'}, 'face': {'lid': 0.0, 'pop': 0.25, 'mouth': 'line', 'brow': 0.2}}, toonDur=0.05, keepPose=True),
+                                      k(r(STOP11 + 0.1), look='camera', lookDur=0.1), k(r(STOP11 + 0.35), toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.06, keepPose=True), k(r(STOP11 + 0.45), toon={'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.06, keepPose=True)])],
+        props=[*[p_ for p_ in GARDEN('party', grill=False) if p_['id'] not in ('assiette0', 'assiette1', 'assiette2')], MASK('masque11', 'soldat'), HELMET('casque11', 'soldat'), HELMET('casque11p', 'para'), SOOT('suie11', 'para', r(CHAR11 + CHARD11)),
                P('reservoirs11', 'fuelTanks', on={'actor': 'soldat', 'joint': 'torso', 'offset': [0.0, 0.3, -0.2]}),
-               P('lance11', 'flameThrower', pos=GRIP11, ry=LRY11, opts={'fire': [[FIRE11, r(D11 - 0.05)]], 'jet': 3.0, 'spread': 0.5}),
-               P('gril', 'kettleGrill', pos=GR, opts={'charAt': CHAR11, 'smoke': False})],
-        cams=[cam(0.0, [-3.25, 1.9, 3.25], [-3.15, 1.88, 3.08], [0.6, 1.15, -1.1], [0.62, 1.13, -1.1], lens=46)])
-st.cue('sfx:roar', 'S11', FIRE11, 0.55); st.cue('whoosh', 'S11', r(FIRE11 - 0.05), 0.35)
+               P('lance11', 'flameThrower', pos=GRIP11, ry=LRY11, rot=[LRX11, 0.0, LRZ11], opts={'fire': [[FIRE11, STOP11]], 'jet': JET11, 'spread': 0.13, 'taper': True, 'splash': 0.24},
+                 keys=[k(r(FIRE11 + 0.07 * j), to=add(GRIP11, [0, 0.012 if j % 2 else -0.008, 0]), dur=0.035) for j in range(1, 16)] + [k(STOP11, to=GRIP11, dur=0.1)]),
+               P('gril', 'kettleGrill', pos=G11, opts={'charAt': CHAR11, 'charDur': CHARD11, 'smokeN': 6, 'smokeH': 0.8}),
+               P('fumee11', 'toonPuff', pos=add(G11, [0, 0.95, 0]), opts={'at': r(STOP11 + 0.02), 'n': 7, 'size': 0.16, 'life': 0.9, 'rise': 0.8, 'spread': 0.35, 'color': '#3E3A37'})],
+        fx=[{'type': 'shake', 'at': FIRE11, 'dur': r(STOP11 - FIRE11), 'amount': 0.006}],
+        cams=[cam(0.0, CAM11, [3.15, 1.58, 4.25], [0.02, 0.2, -4.98], [0.04, 0.22, -4.98], lens=43)])
+st.cue('sfx:roar', 'S11', FIRE11, 0.55); st.cue('whoosh', 'S11', r(FIRE11 - 0.05), 0.35); st.cue('sfx:poof', 'S11', STOP11, 0.3)
 
-# 12: the neighbourhood caught fire. Wide and low from his lawn: every house burning, smoke columns rising, the fence and the party table on fire;
-#     the soldier stands in the middle with his lance; in front, the grill is a black lump with the paratrooper still sitting on it (ÉTEINT)
+# 12: the neighbourhood caught fire. Low behind the grill: in the foreground the charred black grill with the paratrooper still sitting on it,
+#     still saluting, sooted; behind him the whole neighbourhood burns, black smoke columns; the soldier stands in the middle distance with his
+#     lance lowered (ÉTEINT, over a picture that says the opposite)
+#     (round 1: the grill and the paratrooper in the foreground)
 D12 = st.dur('S12')
-SOL12 = [0.3, 0, -3.4]
+SOL12 = [1.1, 0, -5.2]
 st.card('S12', 'ÉTEINT', at=0.35)
 st.shot('S12', 'grassland', setOpts={**GARDEN_SET, 'sky': ['#A88C78', '#E2BC94']}, actors=[
-        act('soldat', SOL12, yaw(SOL12, [-2.6, 0, 4.8]), 'stand', 'neutral', keys=[k(0.0, look=[6.8, 3.0, -9.5]), k(0.5, look=[-3.0, 3.0, -8.0], lookDur=0.35), k(1.0, look='camera', lookDur=0.2)]), PARA_SIT(extra=[k(0.9, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.06, keepPose=True), k(1.0, toon={'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.06, keepPose=True)])],
-        props=[*GARDEN('fire'), MASK('masque12', 'soldat'), HELMET('casque12', 'soldat'), HELMET('casque12p', 'para'), SOOT('suie12', 'para'),
+        act('soldat', SOL12, yaw(SOL12, [3.9, 0, 2.4]), 'stand', 'neutral', keys=[k(0.0, look=[6.8, 3.0, -9.5]), k(0.5, look=[-3.0, 3.0, -8.0], lookDur=0.35), k(1.0, look='camera', lookDur=0.2)]),
+        PARA_AT(PARA11, PRY11 + 15, extra=[k(0.9, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.06, keepPose=True), k(1.0, toon={'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.06, keepPose=True)])],
+        props=[*GARDEN('fire', grill=False), P('gril12', 'kettleGrill', pos=G11, opts={'char': True, 'smokeN': 6, 'smokeH': 0.7}), MASK('masque12', 'soldat'), HELMET('casque12', 'soldat'), HELMET('casque12p', 'para'), SOOT('suie12', 'para'),
                P('reservoirs12', 'fuelTanks', on={'actor': 'soldat', 'joint': 'torso', 'offset': [0.0, 0.3, -0.2]}),
-               P('lance12', 'flameThrower', on={'actor': 'soldat', 'hand': 'R', 'offset': [0.0, -0.05, 0.02], 'rot': [1.2, 0.0, 0.0]}, opts={'fire': []})],
-        cams=[cam(0.0, [-2.6, 1.15, 4.8], [-2.55, 1.17, 4.6], [2.6, 2.5, -9.0], [2.6, 2.6, -9.0], lens=50)])
+               P('lance12', 'flameThrower', on={'actor': 'soldat', 'hand': 'R', 'offset': [0.0, -0.05, 0.02], 'rot': [1.2, 0.0, 0.0]}, opts={'fire': []}),
+               P('fumee12', 'smokeRibbon', pos=[0, 0, 0], opts={'pts': [add(G11, [0.1, 0.86, -0.12]), add(G11, [0.18, 1.6, -0.25]), add(G11, [0.0, 2.7, -0.4])], 'n': 14, 's0': 0.05, 's1': 0.14, 'speed': 0.45, 'shrink': False, 'color': '#5E5A56'})],
+        cams=[cam(0.0, [3.9, 1.1, 2.4], [3.85, 1.12, 2.25], [0.456, 1.003, -6.988], [0.456, 1.05, -6.988], lens=54)])
 st.cue('thunder', 'S12', 0.05, 0.35); st.cue('sfx:roar', 'S12', 0.1, 0.25)
 
 # 13: the paratrooper did not move. Close on him, still sitting on the charred grill, still saluting, his face sooty in grey patches, smoke rising
-#     from his trousers and his helmet; the houses burn behind him
+#     from his trousers and his helmet; the houses burn behind him; one slow blink
 D13 = st.dur('S13')
-st.shot('S13', 'grassland', setOpts={**GARDEN_SET, 'sky': ['#A88C78', '#E2BC94']}, actors=[PARA_SIT(extra=[k(1.25, toon={'face': {'lid': 0.55, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.05, keepPose=True), k(1.33, toon={'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.05, keepPose=True)])],
-        props=[*GARDEN('fire'), HELMET('casque13', 'para'), SOOT('suie13', 'para'),
-               P('fumee13a', 'smokeRibbon', pos=[0, 0, 0], opts={'pts': [add(GR, [0.12, 0.86, -0.1]), add(GR, [0.2, 1.6, -0.2]), add(GR, [0.05, 2.6, -0.3])], 'n': 16, 's0': 0.05, 's1': 0.15, 'speed': 0.45, 'shrink': False, 'color': '#6E6964'}),
-               P('fumee13b', 'smokeRibbon', pos=[0, 0, 0], opts={'pts': [add(GR, [0.0, 1.95, 0.0]), add(GR, [0.08, 2.5, -0.05]), add(GR, [-0.1, 3.2, -0.1])], 'n': 10, 's0': 0.03, 's1': 0.09, 'speed': 0.5, 'shrink': False, 'color': '#5E5A56'})],
-        cams=[cam(0.0, [0.4, 1.65, 1.65], [0.43, 1.65, 1.45], [0.88, 1.5, -1.3], [0.88, 1.5, -1.3], lens=44)])
+st.shot('S13', 'grassland', setOpts={**GARDEN_SET, 'sky': ['#A88C78', '#E2BC94']}, actors=[PARA_AT(PARA11, PRY11, extra=[k(1.25, toon={'face': {'lid': 0.55, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.05, keepPose=True), k(1.33, toon={'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.05, keepPose=True)])],
+        props=[*GARDEN('fire', grill=False), P('gril13', 'kettleGrill', pos=G11, opts={'char': True, 'smokeN': 6, 'smokeH': 0.7}), HELMET('casque13', 'para'), SOOT('suie13', 'para'),
+               P('fumee13a', 'smokeRibbon', pos=[0, 0, 0], opts={'pts': [add(G11, [0.12, 0.86, -0.1]), add(G11, [0.2, 1.6, -0.2]), add(G11, [0.05, 2.6, -0.3])], 'n': 16, 's0': 0.05, 's1': 0.15, 'speed': 0.45, 'shrink': False, 'color': '#6E6964'}),
+               P('fumee13b', 'smokeRibbon', pos=[0, 0, 0], opts={'pts': [add(G11, [0.0, 2.25, 0.0]), add(G11, [0.08, 2.8, -0.05]), add(G11, [-0.1, 3.5, -0.1])], 'n': 10, 's0': 0.03, 's1': 0.09, 'speed': 0.5, 'shrink': False, 'color': '#5E5A56'})],
+        cams=[cam(0.0, [r(G11[0] - 0.5), 1.62, r(G11[2] + 3.2)], [r(G11[0] - 0.47), 1.62, r(G11[2] + 3.0)], [r(G11[0] - 0.02), 1.42, G11[2]], [r(G11[0] - 0.02), 1.42, G11[2]], lens=44)])
 st.cue('sfx:roar', 'S13', 0.0, 0.2); st.cue('sfx:tick', 'S13', 0.9, 0.1)
 
 # 14: to reassure everyone, the minister ate a sausage. The press room: at the podium the minister holds up a sausage on a fork for the cameras,
 #     smiles, then bites into it under a storm of flashes; his cheeks fill
 D14 = st.dur('S14'); BITE14 = 1.55
 MIN = [0.0, 0, -2.45]
-PRESS = {'backdrop': 'SANTÉ|SÉCURITÉ|SANTÉ|SÉCURITÉ', 'chairs': False}
+PRESS = {'backdrop': 'SANTÉ|SÉCURITÉ|SANTÉ|SÉCURITÉ', 'chairs': False, 'fg': 'rgba(255,255,255,0.08)', 'fontScale': 0.8}   # (round 1) dim words: none competes in the card band
 MOUTH = [0.0, 1.8, -2.32]
 FK = lambda t, p, d=0.25, face=None, sq=(1, 1, 1), b=0.0: k(t, toon={'reach': {'R': [*p, 1, 0.03], 'L': [0.22, 1.17, -2.1, 1, 0.04]}, 'hands': {'R': 'grip', 'L': 'open'}, 'sq': list(sq),
                                                                   'bend': {'spine': [b, 0, 0, 1, None]}, 'face': face or {'lid': 0.3, 'mouth': 'smile', 'brow': 0.2}}, toonDur=d, toonEase='inOut')
@@ -357,92 +438,133 @@ st.shot('S14', 'pressRoom', setOpts=PRESS, actors=[
         cams=[cam(0.0, [0.3, 1.72, 0.55], [0.28, 1.72, 0.35], [0.0, 1.62, -2.4], [0.0, 1.62, -2.4], lens=40)])
 st.cue('sfx:shutter', 'S14', 0.2, 0.3); st.cue('sfx:shutter', 'S14', 0.8, 0.3); st.cue('sfx:crunch', 'S14', BITE14, 0.25)
 
-# 15: he was put in quarantine. Same podium, a little wider: mid-chew, cheeks full, the fork at his mouth, a big glass bubble drops over him and
-#     the podium, squashes as it lands and settles (QUARANTAINE); his eyes pop, then roll up to the dome; the flashes keep going
-D15 = st.dur('S15'); DROP15 = 0.35
+# 15: he was put in quarantine. Same podium, a little wider: mid-chew, cheeks full, the fork at his mouth; a big glass bubble falls into the frame
+#     (its shadow growing on the podium and the floor), drops over him and the podium, squashes as it lands and settles (QUARANTAINE); his eyes
+#     pop; he glances up at the dome, back at us, then his head snaps up to it again, eyes out on stalks (a double take); the flashes keep going
+#     (round 1: the fall lasts four draft frames inside the picture, with a shadow; the double take)
+D15 = st.dur('S15'); DROP15 = 0.35; FALL15 = 0.28
+FK15 = {'reach': {'R': [-0.12, 1.38, -2.18, 1, 0.03], 'L': [0.22, 1.17, -2.1, 1, 0.04]}, 'hands': {'R': 'grip', 'L': 'open'}}
 st.card('S15', 'QUARANTAINE', at=r(DROP15 + 0.12))
 st.shot('S15', 'pressRoom', setOpts=PRESS, actors=[
         act('ministre', MIN, 0, 'stand', 'happy', keys=[k(0.0, look='camera'), FK(0.0, [-0.12, 1.38, -2.18], 0.0, {'lid': 0.35, 'mouth': 'line', 'cheeks': 0.9}),
             FK(DROP15, [-0.12, 1.38, -2.18], 0.04, {'lid': 0.0, 'pop': 0.5, 'mouth': 'clench', 'cheeks': 0.9, 'brow': 0.8}, (0.92, 1.1, 0.92)),
-            FK(r(DROP15 + 0.15), [-0.12, 1.38, -2.18], 0.12, {'lid': 0.1, 'pop': 0.3, 'mouth': 'line', 'cheeks': 0.9, 'brow': 0.6}),
-            k(r(DROP15 + 0.4), look=[0.0, 2.8, -2.2], lookDur=0.25), k(r(DROP15 + 1.0), look='camera', lookDur=0.2)])],
+            FK(r(DROP15 + 0.15), [-0.12, 1.38, -2.18], 0.12, {'lid': 0.1, 'pop': 0.2, 'mouth': 'line', 'cheeks': 0.9, 'brow': 0.6}),
+            *doubleTake(0.72, [0.0, 2.9, -2.2], keep={**FK15, 'face': {'cheeks': 0.9}}, back='camera', pop=0.7, blank=0.2, hold=0.32)])],
         props=[FORK('fourchette15', 'ministre', len=0.2, r=0.034, bite=[-1.0, 0.45]),
                P('joueG15', 'cheekPuff', on={'actor': 'ministre', 'joint': 'head', 'offset': [0.1, 0.17, 0.1]}, opts={'r': 0.055}),
                P('joueD15', 'cheekPuff', on={'actor': 'ministre', 'joint': 'head', 'offset': [-0.1, 0.17, 0.1]}, opts={'r': 0.055}),
-               P('bulle15', 'glassDome', pos=[0.0, 4.2, -2.22], opts={'radius': 0.82, 'height': 2.6, 'base': False, 'opacity': 0.22},
-                 keys=[k(r(DROP15 - 0.22), to=[0.0, 0.0, -2.22], dur=0.22, ease='in'), k(DROP15, squash=[1.12, 0.84, 1.12], dur=0.35)]),
+               P('bulle15', 'glassDome', pos=[0.0, 3.3, -2.22], opts={'radius': 0.82, 'height': 2.6, 'base': False, 'opacity': 0.22},
+                 keys=[k(r(DROP15 - FALL15), to=[0.0, 0.0, -2.22], dur=FALL15, ease='in'), k(DROP15, squash=[1.12, 0.84, 1.12], dur=0.35)]),
+               P('ombre15', 'dropShadow', pos=[0.0, 0.0, -2.22], opts={'win': [r(DROP15 - FALL15), DROP15], 'rx': 0.95, 'rz': 0.8, 'opacity': 0.45}),
+               P('ombre15b', 'dropShadow', pos=[0.0, 1.14, -2.05], opts={'win': [r(DROP15 - FALL15), DROP15], 'rx': 0.35, 'rz': 0.25, 'opacity': 0.35, 'y': 0.0}),
                P('flashs15', 'flashBursts', pos=[0.0, 1.0, -0.4], opts={'n': 10, 'w': 1.7, 'h': 0.5, 'from': 0.05, 'rate': 7, 'life': 0.14})],
         fx=[{'type': 'shake', 'at': DROP15, 'dur': 0.15, 'amount': 0.01}],
         cams=[cam(0.0, [0.55, 1.62, 1.55], [0.5, 1.62, 1.35], [0.0, 1.45, -2.3], [0.0, 1.45, -2.3], lens=46)])
-st.cue('whoosh', 'S15', r(DROP15 - 0.2), 0.3); st.cue('clang', 'S15', DROP15, 0.45); st.cue('sfx:shutter', 'S15', 0.5, 0.3)
+st.cue('whoosh', 'S15', r(DROP15 - 0.25), 0.3); st.cue('clang', 'S15', DROP15, 0.45); st.cue('sfx:shutter', 'S15', 0.5, 0.3); st.cue('sfx:boing', 'S15', 1.08, 0.2)
 
-# 16: the president decreed a national barbecue. On the ruins of the neighbourhood: the president raises a sausage on a fork like a toast before a
-#     giant smoking grill; a band of two soldiers plays, invented flags wave, neighbours cheer
-D16 = st.dur('S16'); TOAST16 = 0.4
+# 16: the president decreed a national barbecue. On the ruins of the neighbourhood (soot-black shells, charred roof timbers, ash on a scorched
+#     lawn): the president dips his fork, then whips a sausage up over his head like a toast (a smear on the swing) before a giant smoking grill;
+#     two soldiers of the band play, invented flags wave, four neighbours jump and pump their arms
+#     (round 1: burnt shells instead of pastel houses; the crowd in the frame and alive; a smear on the toast)
+D16 = st.dur('S16'); TOAST16 = 0.42
 PRES16 = [1.35, 0, -2.2]; RY16 = yaw(PRES16, [1.3, 0, 3.4])
 BIG16 = [2.3, 0, -4.9]
-CHEER = [('invite1', [2.45, 0, -1.1]), ('invite3', [2.9, 0, -3.0]), ('foule2', [0.2, 0, -1.0])]
-st.shot('S16', 'grassland', setOpts={**GARDEN_SET, 'sky': ['#9FB4C4', '#DADCD6']}, actors=[
+CHEER = [('invite1', [0.45, 0, -1.25]), ('invite3', [2.35, 0, -1.45]), ('foule2', [0.8, 0, -3.45]), ('foule3', [2.65, 0, -3.65])]
+TH = lambda h, f=0.25, sd=0.3: [*off(PRES16, RY16, f, sd, h), 1, 0.03]
+def CHEERK(p, j):
+    ry = yaw(p, PRES16); ks = [k(0.0, look=add(PRES16, [0, 2.2, 0]))]
+    for i in range(6):
+        t = r(0.08 + 0.42 * i + 0.1 * j)
+        if t > D16 - 0.2: break
+        ks += [k(t, to=[p[0], 0.17, p[2]], dur=0.13, ease='out'), k(r(t + 0.15), to=[p[0], 0, p[2]], dur=0.12, ease='in'),
+               k(t, toon={'reach': {'R': [*off(p, ry, 0.12, 0.28, 2.55), 1, 0.04], 'L': [*off(p, ry, 0.12, -0.28, 2.5), 1, 0.04]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'mouth': 'O', 'brow': 0.6}}, toonDur=0.1, toonEase='out'),
+               k(r(t + 0.24), toon={'reach': {'R': [*off(p, ry, 0.2, 0.3, 1.95), 1, 0.04], 'L': [*off(p, ry, 0.2, -0.3, 1.9), 1, 0.04]}, 'hands': {'R': 'fist', 'L': 'fist'}, 'face': {'mouth': 'smile', 'brow': 0.4}}, toonDur=0.12)]
+    return ks
+st.shot('S16', 'grassland', setOpts=BURNT_SET, actors=[
         act('president', PRES16, RY16, 'stand', 'happy', keys=[k(0.0, look='camera'),
-            k(0.0, toon={'reach': {'R': [*off(PRES16, RY16, 0.3, 0.22, 1.2), 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}}, toonDur=0.0),
-            k(TOAST16, toon={'reach': {'R': [*off(PRES16, RY16, 0.25, 0.3, 2.35), 1, 0.03]}, 'hands': {'R': 'grip'}, 'sq': [0.94, 1.08, 0.94], 'face': {'lid': 0.1, 'mouth': 'smile', 'brow': 0.6}}, toonDur=0.25, toonEase='out'),
-            k(r(TOAST16 + 0.3), toon={'reach': {'R': [*off(PRES16, RY16, 0.25, 0.3, 2.28), 1, 0.03]}, 'hands': {'R': 'grip'}, 'sq': [1, 1, 1], 'face': {'lid': 0.2, 'mouth': 'smile', 'brow': 0.5}}, toonDur=0.2),
-            k(1.5, toon={'reach': {'R': [*off(PRES16, RY16, 0.25, 0.3, 2.38), 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.2, 'mouth': 'smile', 'brow': 0.5}}, toonDur=0.15),
-            k(1.7, toon={'reach': {'R': [*off(PRES16, RY16, 0.25, 0.3, 2.28), 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.2, 'mouth': 'smile', 'brow': 0.5}}, toonDur=0.15)]),
-        act('musi1', [-0.15, 0, -3.3], yaw([-0.15, 0, -3.3], [1.3, 0, 3.4]), 'stand', 'neutral', keys=[k(r(0.2 + 0.5 * j), look=[1.3, 1.9 + 0.12 * (j % 2), 3.4], lookDur=0.12) for j in range(5)]),
-        act('musi2', [0.45, 0, -3.9], yaw([0.45, 0, -3.9], [1.3, 0, 3.4]), 'stand', 'neutral', keys=[k(r(0.2 + 0.25 * j), look=[1.3, 1.5 + 0.15 * (j % 2), 3.4], lookDur=0.1) for j in range(10)]),
-        *[act(who, p, yaw(p, PRES16), 'celebrate', 'happy') for who, p in CHEER]],
+            k(0.0, toon={'reach': {'R': TH(1.2, 0.3, 0.22)}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}}, toonDur=0.0),
+            k(0.24, toon={'reach': {'R': TH(0.98, 0.32, 0.24)}, 'hands': {'R': 'grip'}, 'sq': [1.05, 0.94, 1.05], 'face': {'lid': 0.4, 'mouth': 'smile', 'brow': 0.1}}, toonDur=0.12),
+            k(TOAST16, toon={'reach': {'R': TH(2.55, 0.28, 0.3)}, 'hands': {'R': 'grip'}, 'sq': [0.9, 1.14, 0.9], 'face': {'lid': 0.05, 'mouth': 'smile', 'brow': 0.7}}, toonDur=0.07, toonEase='out'),
+            k(r(TOAST16 + 0.12), toon={'reach': {'R': TH(2.35)}, 'hands': {'R': 'grip'}, 'sq': [1.03, 0.97, 1.03], 'face': {'lid': 0.15, 'mouth': 'smile', 'brow': 0.5}}, toonDur=0.1),
+            k(r(TOAST16 + 0.3), toon={'reach': {'R': TH(2.32)}, 'hands': {'R': 'grip'}, 'sq': [1, 1, 1], 'face': {'lid': 0.2, 'mouth': 'smile', 'brow': 0.5}}, toonDur=0.15),
+            k(1.5, toon={'reach': {'R': TH(2.42)}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.2, 'mouth': 'smile', 'brow': 0.5}}, toonDur=0.15),
+            k(1.7, toon={'reach': {'R': TH(2.3)}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.2, 'mouth': 'smile', 'brow': 0.5}}, toonDur=0.15),
+            k(2.1, toon={'reach': {'R': TH(2.4)}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.25, 'mouth': 'smile', 'brow': 0.5}}, toonDur=0.15)]),
+        act('musi1', [-0.1, 0, -4.6], yaw([-0.1, 0, -4.6], [1.3, 0, 3.4]), 'stand', 'neutral', keys=[k(r(0.2 + 0.5 * j), look=[1.3, 1.9 + 0.12 * (j % 2), 3.4], lookDur=0.12) for j in range(5)]),
+        act('musi2', [0.45, 0, -5.1], yaw([0.45, 0, -5.1], [1.3, 0, 3.4]), 'stand', 'neutral', keys=[k(r(0.2 + 0.25 * j), look=[1.3, 1.5 + 0.15 * (j % 2), 3.4], lookDur=0.1) for j in range(10)]),
+        *[act(who, p, yaw(p, PRES16), 'stand', 'happy', keys=CHEERK(p, j)) for j, (who, p) in enumerate(CHEER)]],
         props=[*GARDEN('burnt', grill=False),
                P('gril16', 'kettleGrill', pos=BIG16, scale=3.4, opts={'smokeH': 2.2, 'smokeN': 18, 'smokeSize': 1.2, 'wind': [-0.2, 0.0]}),
                FORK('fourchette16', 'president'), HELMET('casque16a', 'musi1'), HELMET('casque16b', 'musi2'),
+               P('trainee16', 'smearArc', pos=[0, 0, 0], opts={'pts': [off(PRES16, RY16, 0.32, 0.24, 1.0), off(PRES16, RY16, 0.5, 0.3, 1.8), off(PRES16, RY16, 0.28, 0.3, 2.55)], 'win': [r(TOAST16 - 0.1), r(TOAST16 + 0.05)], 'r': 0.06, 'color': '#3A3E48', 'opacity': 0.5}),
                P('trompette16', 'bandInstr', on={'actor': 'musi1', 'joint': 'head', 'offset': [0.0, 0.13, 0.11], 'rot': [-0.3, -0.85, 0.0]}, opts={'kind': 'trumpet', 'beat': [0.2, 0.7, 1.2, 1.7, 2.2], 's': 1.15}),
                P('tambour16', 'bandInstr', on={'actor': 'musi2', 'joint': 'torso', 'offset': [0.0, 0.12, 0.3]}, opts={'kind': 'drum', 'beat': [0.2, 0.45, 0.7, 0.95, 1.2, 1.45, 1.7, 1.95, 2.2]}),
-               *[P(f'drapeau16{j}', 'bbqFlag', pos=p_, ry=a_, opts={'phase': j * 1.3}) for j, (p_, a_) in enumerate([([-0.6, 0, -4.6], 20), ([3.3, 0, -4.2], -25), ([2.8, 0, -6.9], -10)])]],
+               *[P(f'drapeau16{j}', 'bbqFlag', pos=p_, ry=a_, opts={'phase': j * 1.3}) for j, (p_, a_) in enumerate([([-0.6, 0, -4.0], 20), ([3.4, 0, -4.2], -25), ([2.8, 0, -6.9], -10)])]],
         cams=[cam(0.0, [1.3, 1.05, 3.4], [1.3, 1.08, 3.2], [1.6, 2.15, -3.0], [1.6, 2.2, -3.0], lens=54)])
-st.cue('sfx:fanfare', 'S16', 0.1, 0.45)
+st.cue('sfx:fanfare', 'S16', 0.1, 0.45); st.cue('whoosh', 'S16', r(TOAST16 - 0.08), 0.25)
 
-# 17: on the embers of the neighbourhood. Low over a bed of glowing embers: soldiers and neighbours crouch in a row roasting sausages on long sticks;
-#     in the middle, the paratrooper still sits saluting on the black grill; one of them holds a sausage out to him on her stick
+# 17: on the embers of the neighbourhood. Low over a bed of glowing embers: neighbours and a soldier kneel round it roasting sausages on long
+#     sticks angled into the coals; behind it, in the middle, the paratrooper still sits saluting on the black grill; standing beside him, the
+#     yellow neighbour pushes her sausage on its stick toward his face
+#     (round 1: the roasters crouch round the embers, sticks into the coals; the far, bright part of the bed sits above the caption band and its
+#     near part is dark ash; no cone flames; the offered sausage points at him)
 D17 = st.dur('S17')
-CROUCH = [('soldat', [-0.35, 0, -0.35]), ('invite1', [0.22, 0, -0.45]), ('invite2', [1.58, 0, -0.85]), ('foule2', [2.15, 0, -0.35])]
-def STICK(pid, p, ry, tip):
-    hand = off(p, ry, 0.35, 0.2, 0.55)
-    dx, dy, dz = tip[0] - hand[0], tip[1] - hand[1], tip[2] - hand[2]; L = math.sqrt(dx * dx + dy * dy + dz * dz)
-    rx = math.atan2(math.hypot(dx, dz), dy); ry_ = math.degrees(math.atan2(dx, dz))
-    return P(pid, 'sausageStick', pos=hand, ry=r(ry_, 1), rot=[r(rx), 0.0, 0.0], opts={'L': r(L)}), hand
+G17 = [1.3, 0, -2.25]; PARA17 = [G17[0], 0.39, G17[2]]
+BED17 = [1.02, 0.0, -1.0]
+def STICK(pid, hand, tip, keys=None):
+    """a roasting stick from the hand to the tip: its long axis (+Y) aimed with axes_euler (a yaw and a pitch about X only tilt it in the YZ plane)"""
+    Y = unit3([tip[i] - hand[i] for i in range(3)]); X = unit3(cross3(Y, [0, 0, 1] if abs(Y[2]) < 0.9 else [1, 0, 0])); Z = cross3(X, Y)
+    rx, ry_, rz = axes_euler(X, Y, Z)
+    return P(pid, 'sausageStick', pos=hand, ry=ry_, rot=[rx, 0.0, rz], opts={'L': r(math.dist(hand, tip))}, keys=keys or [])
+ROAST = [('invite1', [0.2, 0, -1.05], 58, [0.66, 0.1, -0.98]), ('foule2', [1.85, 0, -1.15], -58, [1.4, 0.1, -1.08]), ('soldat', [0.5, 0, -2.05], 12, [0.75, 0.1, -1.5])]
 ST17 = []; ACT17 = []
-for j, (who, p) in enumerate(CROUCH):
-    ry = 0 if who != 'invite2' else -100
-    tip = [r(p[0] + (0.08 if j % 2 else -0.08)), 0.32, 0.55] if who != 'invite2' else [r(PARA_P[0] + 0.22), r(PARA_P[1] + 1.2), r(PARA_P[2] + 0.3)]
-    sp, hand = STICK(f'baton17{j}', p, ry, tip); ST17.append(sp)
-    ACT17.append(act(who, p, ry, 'kneel', 'happy' if who != 'soldat' else 'neutral', keys=[k(0.0, look=tip if who != 'invite2' else 'camera'),
-                 k(0.0, toon={'reach': {'R': [*hand, 1, 0.03]}, 'hands': {'R': 'grip'}}, toonDur=0.0)]))
-st.shot('S17', 'grassland', setOpts={**GARDEN_SET, 'sky': ['#9FB4C4', '#DADCD6']}, actors=[*ACT17, PARA_SIT(extra=[k(1.1, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.06, keepPose=True), k(1.2, toon={'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.06, keepPose=True)])],
-        props=[*GARDEN('burnt', grill=False), P('gril', 'kettleGrill', pos=GR, opts={'char': True, 'smokeN': 6, 'smokeH': 0.7}), HELMET('casque17', 'soldat'), HELMET('casque17p', 'para'), SOOT('suie17', 'para'),
-               P('braises17', 'emberBed', pos=[0.9, 0.0, 0.55], opts={'w': 3.8, 'd': 1.0, 'lumps': 30, 'flames': 9, 'sparks': 18}), *ST17],
-        cams=[cam(0.0, [0.9, 2.05, 3.9], [0.9, 2.03, 3.7], [0.9, 0.95, -0.7], [0.9, 0.97, -0.7], lens=46)])
+for j, (who, p, ry, tip) in enumerate(ROAST):
+    hand = off(p, ry, 0.38, 0.18, 0.62)
+    ST17.append(STICK(f'baton17{j}', hand, tip))
+    ACT17.append(act(who, p, ry, 'kneel', 'happy' if who != 'soldat' else 'neutral', keys=[k(0.0, look=tip), k(0.0, toon={'reach': {'R': [*hand, 1, 0.03]}, 'hands': {'R': 'grip'}}, toonDur=0.0),
+                     k(r(0.5 + 0.2 * j), toon={'reach': {'R': [*add(hand, [0, 0.03, 0]), 1, 0.03]}, 'hands': {'R': 'grip'}}, toonDur=0.25), k(r(0.95 + 0.2 * j), toon={'reach': {'R': [*hand, 1, 0.03]}, 'hands': {'R': 'grip'}}, toonDur=0.25)]))
+Y17 = [2.08, 0, -2.3]; YRY17 = yaw(Y17, G17)
+YHAND17 = off(Y17, YRY17, 0.32, -0.2, 1.52); YTIP17 = [r(G17[0] + 0.06), 1.93, r(G17[2] + 0.27)]
+st.shot('S17', 'grassland', setOpts=BURNT_SET, actors=[*ACT17,
+        act('invite2', Y17, YRY17, 'stand', 'happy', keys=[k(0.0, look=add(PARA17, [0, 1.6, 0])), k(0.0, toon={'reach': {'L': [*YHAND17, 1, 0.03]}, 'hands': {'L': 'grip'}, 'face': {'mouth': 'smile', 'brow': 0.4}}, toonDur=0.0),
+            k(0.45, toon={'reach': {'L': [*add(YHAND17, [-0.08, 0.03, 0.0]), 1, 0.03]}, 'hands': {'L': 'grip'}, 'face': {'mouth': 'smile', 'brow': 0.6}, 'bend': {'spine': [0.1, 0, 0, 1, None]}}, toonDur=0.2),
+            k(0.95, toon={'reach': {'L': [*add(YHAND17, [-0.12, 0.04, 0.0]), 1, 0.03]}, 'hands': {'L': 'grip'}, 'face': {'mouth': 'smile', 'brow': 0.7}, 'bend': {'spine': [0.14, 0, 0, 1, None]}}, toonDur=0.2)]),
+        PARA_AT(PARA17, -3, extra=[k(1.1, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.06, keepPose=True), k(1.2, toon={'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.06, keepPose=True)])],
+        props=[*GARDEN('burnt', grill=False), P('gril', 'kettleGrill', pos=G17, opts={'char': True, 'smokeN': 6, 'smokeH': 0.7}), HELMET('casque17', 'soldat'), HELMET('casque17p', 'para'), SOOT('suie17', 'para'),
+               P('braises17', 'emberBed', pos=BED17, opts={'w': 1.25, 'd': 1.45, 'lumps': 22, 'flames': 0, 'sparks': 18, 'nearDark': 0.92}), *ST17,
+               STICK('baton17y', YHAND17, YTIP17, keys=[k(0.45, to=add(YHAND17, [-0.08, 0.03, 0.0]), dur=0.2), k(0.95, to=add(YHAND17, [-0.12, 0.04, 0.0]), dur=0.2)])],
+        cams=[cam(0.0, [1.05, 1.3, 3.0], [1.05, 1.28, 2.85], [1.05, 0.85, -1.3], [1.05, 0.87, -1.3], lens=50)])
 st.cue('sfx:roar', 'S17', 0.0, 0.15); st.cue('sfx:tick', 'S17', 0.6, 0.1)
 
-# 18: oh, and he was not invited. Framed exactly like the first shot: he stands alone on his lawn behind the charred stump of his fence, gas mask on,
-#     an empty paper plate in his hand; a thread of the national barbecue's smoke drifts into his mask; behind him the neighbour clinks glasses with
-#     a general; he looks down at the plate, then back at us
-D18 = st.dur('S18'); CLINK18 = 1.15
-NB18, GEN18 = [1.5, 0, -2.9], [2.15, 0, -2.7]
+# 18: oh, and he was not invited. Framed exactly like the first shot: he stands alone on his scorched lawn behind the charred stump of his fence, gas
+#     mask on, an empty paper plate in his hand; a thread of the national barbecue's smoke drifts into his mask; behind him, apart and in profile,
+#     the neighbour and a general raise their glasses high and clink them (a twinkle); he tilts his head down to the plate, holds it, the plate
+#     sags, and his head snaps back up to us
+#     (round 1: the clink in clear silhouette, arms apart; a held look down at the plate and a snap back; the plate droops)
+D18 = st.dur('S18'); CLINK18 = 1.15; DOWN18 = 0.5; UP18 = 1.55
+NB18, GEN18 = [1.5, 0, -2.45], [2.5, 0, -2.05]
+TOAST18 = [2.0, 2.0, -2.25]
 FILTER18 = off(H1, RY1, 0.24, 0.0, 1.68)
-st.shot('S18', 'grassland', setOpts={**GARDEN_SET, 'sky': ['#9FB4C4', '#DADCD6']}, actors=[
+PLATE18 = off(H1, RY1, 0.34, -0.16, 1.02)
+BIG18 = [3.4, 0, -8.0]
+st.shot('S18', 'grassland', setOpts=BURNT_SET, actors=[
         act('mec', H1, RY1, 'stand', 'unimpressed', keys=[k(0.0, look='camera'),
             k(0.0, toon={'reach': {'L': [*off(H1, RY1, 0.32, -0.16, 1.05), 1, 0.04]}, 'hands': {'L': 'open'}, 'face': DEAD}, toonDur=0.0),
-            k(0.55, look=[*off(H1, RY1, 0.4, -0.16, 1.0)], lookDur=0.25), k(1.6, look='camera', lookDur=0.25),
+            k(DOWN18, look=PLATE18, lookDur=0.1), k(r(DOWN18 + 0.1), toon={'reach': {'L': [*off(H1, RY1, 0.32, -0.16, 1.05), 1, 0.04]}, 'hands': {'L': 'open'}, 'face': {'lid': 0.45, 'mouth': 'line'}, 'bend': {'spine': [0.1, 0, 0, 1, None]}}, toonDur=0.15),
+            k(UP18, look='camera', lookDur=0.05),
+            k(UP18, toon={'reach': {'L': [*off(H1, RY1, 0.32, -0.16, 1.03), 1, 0.04]}, 'hands': {'L': 'open'}, 'face': DEAD, 'sq': [0.96, 1.05, 0.96], 'bend': {'spine': [-0.04, 0, 0, 1, None]}}, toonDur=0.04, toonEase='out'),
+            k(r(UP18 + 0.12), toon={'reach': {'L': [*off(H1, RY1, 0.32, -0.16, 1.03), 1, 0.04]}, 'hands': {'L': 'open'}, 'face': DEAD, 'sq': [1, 1, 1]}, toonDur=0.12),
             k(2.3, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.1, keepPose=True), k(2.45, toon={'face': DEAD}, toonDur=0.1, keepPose=True)]),
-        act('voisin', NB18, yaw(NB18, GEN18), 'stand', 'happy', keys=[k(0.0, look=add(GEN18, [0, 1.7, 0])), *CLINK(CLINK18, NB18, GEN18), k(r(CLINK18 + 0.35), clip='laugh')]),
-        act('general', GEN18, yaw(GEN18, NB18), 'stand', 'happy', keys=[k(0.0, look=add(NB18, [0, 1.7, 0])), *CLINK(CLINK18, GEN18, NB18), k(r(CLINK18 + 0.3), clip='laugh')])],
+        act('voisin', NB18, yaw(NB18, GEN18), 'stand', 'happy', keys=[k(0.0, look=add(GEN18, [0, 1.85, 0])), *CLINK(CLINK18, NB18, TOAST18), *CLINK(2.35, NB18, TOAST18), k(r(CLINK18 + 0.35), clip='laugh')]),
+        act('general', GEN18, yaw(GEN18, NB18), 'stand', 'happy', keys=[k(0.0, look=add(NB18, [0, 1.85, 0])), *CLINK(CLINK18, GEN18, TOAST18, hand='L'), *CLINK(2.35, GEN18, TOAST18, hand='L'), k(r(CLINK18 + 0.3), clip='laugh')])],
         props=[*GARDEN('burnt', grill=False), MASK('masque18', 'mec'),
-               P('assiette18', 'paperPlate', on={'actor': 'mec', 'hand': 'L', 'offset': [0.0, -0.06, 0.04], 'face': 'camera'}, opts={'r': 0.13, 'tiltX': 0.95}),
-               P('gril18', 'kettleGrill', pos=[5.2, 0, -6.4], scale=3.4, opts={'smokeH': 2.0, 'smokeN': 16, 'smokeSize': 1.2, 'wind': [-0.6, 0.3]}),
-               P('fumee18', 'smokeRibbon', pos=[0, 0, 0], opts={'pts': [[4.6, 6.8, -6.0], [2.0, 4.0, -1.0], [-0.2, 2.4, 2.2], FILTER18], 'n': 40, 's0': 0.1, 's1': 0.16, 'speed': 0.35, 'curl': 0.04}),
-               GLASS('verre18a', 'voisin'), GLASS('verre18b', 'general', color='#E8B84A'), KEPI('kepi18', 'general')],
+               P('assiette18', 'paperPlate', on={'actor': 'mec', 'hand': 'L', 'offset': [0.0, -0.06, 0.04], 'face': 'camera'}, opts={'r': 0.13, 'tiltX': 0.95, 'droop': [1.15, 0.38]}),
+               P('gril18', 'kettleGrill', pos=BIG18, scale=3.4, opts={'smokeH': 2.0, 'smokeN': 16, 'smokeSize': 1.2, 'wind': [-0.6, 0.3]}),
+               P('fumee18', 'smokeRibbon', pos=[0, 0, 0], opts={'pts': [add(BIG18, [0, 3.4, 0]), [1.4, 3.3, -2.8], off(H1, RY1, 0.8, -0.2, 1.9), FILTER18], 'n': 40, 's0': 0.09, 's1': 0.15, 'speed': 0.35, 'curl': 0.04}),
+               GLASS('verre18a', 'voisin'), GLASS('verre18b', 'general', hand='L', color='#E8B84A'), KEPI('kepi18', 'general'),
+               P('tinte18', 'twinkle', pos=TOAST18, opts={'at': CLINK18, 's': 0.14}), P('tinte18b', 'twinkle', pos=TOAST18, opts={'at': 2.35, 's': 0.12})],
         cams=[{**C1}])
-st.cue('sfx:clink', 'S18', CLINK18, 0.3); st.cue('sfx:sting', 'S18', 2.2, 0.25)
+st.cue('sfx:clink', 'S18', CLINK18, 0.3); st.cue('sfx:clink', 'S18', 2.35, 0.22); st.cue('sfx:sting', 'S18', 2.2, 0.25)
 
 MEC = {'preset': 'lemec', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}, 'toon': {'breathe': 1.7, 'holdLife': 1.6}}
 st.write("Le barbecue", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, extra_cast={
