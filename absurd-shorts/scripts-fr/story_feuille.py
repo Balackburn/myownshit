@@ -216,7 +216,7 @@ C6 = cam(0.0, [3.2, 1.45, -7.0], [3.19, 1.45, -6.8], [3.1, 1.15, -2.3], [3.1, 1.
 HEAD6 = [3.42, 1.13, -2.62]
 chk('S06', C6['from'], C6['lookAt'], 48, {'intHead': HEAD6, 'intHips': [2.75, 1.05, -2.6], 'offFace': [OFF6[0], 2.0, OFF6[2]], 'lightbar': [3.6, 1.78, -0.8], 'headlightL': [3.05, 0.72, -3.12], 'wheel': [2.8, 0.36, -2.35], 'wrapper': [3.95, 1.0, -2.4]})
 BACK6 = off(INT6, RYI6, -0.12, 0.0, 1.02)
-BENT = {'reach': {'R': R5(add(BACK6, [0, 0.02, -0.07])), 'L': R5(add(BACK6, [0, 0.02, 0.07]))}, 'hands': {'R': 'rest', 'L': 'rest'}, 'bend': {'spine': [1.45, 0, 0, 1, None], 'neck': [-0.25, 1.5, 0, 1, None]}}
+BENT = {'reach': {'R': R5(add(BACK6, [0, 0.02, -0.07])), 'L': R5(add(BACK6, [0, 0.02, 0.07]))}, 'hands': {'R': 'rest', 'L': 'rest'}, 'bend': {'spine': [1.45, 0, 0, 1, None], 'neck': [-0.25, 0, 1.5, 1, None]}}   # (final) the neck rolls the head onto its cheek: his painted face (and glasses) toward the lens
 SQZ = {'head': [1.14, 0.84, 1.0]}
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
         act('stagiaire', INT6, RYI6, 'stand', 'neutral', keys=[k(0.0, look='camera'),
@@ -340,18 +340,20 @@ st.cue('sfx:paper', 'S10', 0.15, 0.35); st.cue('sfx:paper', 'S10', 0.6, 0.35); s
 
 # 11: a whole forest. A hillside of fresh stumps to the top; in front, a log truck marked BULLETINS takes the last log; a gendarme with a chainsaw in
 #     his left hand salutes beside it
-D11 = st.dur('S11'); LOAD11 = 0.42   # (round 2) the last log swings on mid-shot, not before the eye lands
+D11 = st.dur('S11'); LOAD11 = -0.18   # (final) the last log lands at about 0.42 s with a bounce   # (round 2) the last log swings on mid-shot, not before the eye lands
 # (round 1) a real hillside of stumps filling the frame to the top (a steeper hill, the camera tilted up); the truck seen in depth (nose up the
 #            hill) so it is whole, BULLETINS on its side toward us; the last log swung on with weight (it rises, hangs, drops with a bounce); the
 #            gendarme fully in frame at the right, saluting with the chainsaw in his left hand, a breath and a blink
-TRUCK11 = [-0.3, 0, -3.5]
+TRUCK11 = [-0.3, 0, -3.5]   # (final) ry 62: its BULLETINS side faces the lens
 GEN11 = [2.2, 0, 4.2]; RYG11 = 15
 C11 = cam(0.0, [2.8, 1.5, 9.5], [2.78, 1.52, 9.3], [-0.3, 4.2, -6.0], [-0.3, 4.35, -6.0], lens=50)
 chk('S11', C11['from'], C11['lookAt'], 50, {'genFace': [GEN11[0], 2.0, GEN11[2]], 'genFeet': GEN11, 'truckRear': [-0.3, 1.5, 0.5], 'truckNose': [-0.3, 2.5, -7.5], 'panel': [0.95, 2.6, -3.5]})
 st.shot('S11', 'grassland', setOpts={'clouds': 30}, actors=[
-        act('gendarme3', GEN11, RYG11, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'reach': {'R': SALUTE(GEN11, RYG11)}, 'hands': {'R': 'open'}, 'face': {'lid': 0.4, 'mouth': 'line', 'brow': -0.3}}, toonDur=0.0),
-            *blink(0.9, {'lid': 0.4, 'mouth': 'line', 'brow': -0.3}), k(r(LOAD11 + 0.62), toon={'sq': [1.02, 0.97, 1.02]}, toonDur=0.06, keepPose=True), k(r(LOAD11 + 0.8), toon={'sq': [1, 1, 1]}, toonDur=0.1, keepPose=True)])],
-        props=[P('colline11', 'stumpField', pos=[0, 0, -4.0], opts={'w': 80, 'd': 46, 'rise': 36}), P('camion11', 'logTruck', pos=TRUCK11, ry=90, opts={'loadAt': LOAD11, 'side': 1}),
+        act('gendarme3', GEN11, RYG11, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'hands': {'R': 'rest'}, 'face': {'lid': 0.4, 'mouth': 'line', 'brow': -0.3}}, toonDur=0.0),
+            k(0.5, toon={'reach': {'R': R5(add(SALUTE(GEN11, RYG11)[:3], [0, 0.08, 0]), 1, 0.03)}, 'hands': {'R': 'open'}, 'sq': [0.97, 1.05, 0.97], 'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.4}}, toonDur=0.08, toonEase='out'),   # (final) the salute snaps on the thud, overshoots and settles
+            k(0.62, toon={'reach': {'R': SALUTE(GEN11, RYG11)}, 'hands': {'R': 'open'}, 'sq': [1, 1, 1], 'face': {'lid': 0.4, 'mouth': 'line', 'brow': -0.3}}, toonDur=0.1),
+            *blink(1.1, {'lid': 0.4, 'mouth': 'line', 'brow': -0.3})])],
+        props=[P('colline11', 'stumpField', pos=[0, 0, -4.0], opts={'w': 80, 'd': 46, 'rise': 36}), P('camion11', 'logTruck', pos=TRUCK11, ry=62, opts={'loadAt': LOAD11, 'side': 1, 'bounce': True}),
                P('tronconneuse11', 'chainsaw', on={'actor': 'gendarme3', 'hand': 'L', 'offset': [0.0, -0.1, 0.05]}), KEPI('kepi11', 'gendarme3')],
         cams=[C11])
 st.cue('sfx:chainsaw', 'S11', 0.0, 0.18); st.cue('thud', 'S11', r(LOAD11 + 0.62), 0.5)
