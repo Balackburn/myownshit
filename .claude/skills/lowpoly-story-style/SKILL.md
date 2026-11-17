@@ -1933,3 +1933,14 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   impossible à ouvrir refaisait le bocal : même escalade, même rebond, même ouverture facile par un tiers). Avant la production,
   comparer la structure du gagnant (problème, escalade, retournement, chute) à tous les épisodes publiés, pas seulement les mots ; si
   elle est identique, passer au second et le réécrire.
+- (cycle 46) Élément lointain répété dans chaque plan (échelle géante, nuage) : ne l'afficher que pendant la caméra qui le montre, sinon
+  deux exemplaires apparaissent d'un plan à l'autre ; borner sa longueur pour que le haut reste au-dessus des toits, planter son pied dans
+  la rue devant la façade la plus proche, l'épaissir avec la distance.
+- (cycle 46) Corps ou ligne horizontale de trois mètres ou plus dans le 9:16 : caméra à la verticale pour qu'il descende le cadre, ou grue
+  haute de trois quarts. Une vue de profil ne le tient pas.
+- (cycle 46) Un accessoire attaché à une articulation mise à l'échelle n'hérite pas de son échelle : animer ses décalages pour suivre la
+  largeur de la tête.
+- (cycle 46) Un petit personnage à côté d'un grand paraît de même taille s'il est un peu plus près de l'objectif : aligner leur profondeur
+  sur l'axe de la caméra, pas seulement leur position au sol.
+- (cycle 46) Un renflement sans éclairage sur un visage peint (joues pincées) prend une couleur choisie à la main, proche du visage rendu :
+  la valeur de la texture sort beaucoup plus pâle.
