@@ -1,0 +1,161 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec était enfumé par le barbecue du voisin.",
+  "hl": [
+   "barbecue",
+   "voisin."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il a crié à l'attaque chimique.",
+  "hl": [
+   "l'attaque",
+   "chimique."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Le président a déclenché l'alerte nucléaire.",
+  "hl": [
+   "président",
+   "nucléaire."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Tout le pays a mis un masque à gaz.",
+  "hl": [
+   "pays",
+   "masque"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "L'armée a parachuté tout un régiment.",
+  "hl": [
+   "parachuté",
+   "régiment."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Un seul a atterri sur le gril.",
+  "hl": [
+   "gril."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Les autres, chez ce mec.",
+  "hl": [
+   "chez",
+   "mec."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Six saucisses ont été faites prisonnières.",
+  "hl": [
+   "Six",
+   "saucisses",
+   "prisonnières."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Une chipolata a refusé de parler.",
+  "hl": [
+   "chipolata",
+   "parler."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Elle a été échangée contre un espion.",
+  "hl": [
+   "échangée",
+   "espion."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "L'armée a éteint le barbecue au lance-flammes.",
+  "hl": [
+   "lance-flammes."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le quartier a pris feu.",
+  "hl": [
+   "quartier",
+   "feu."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le parachutiste n'a pas bougé.",
+  "hl": [
+   "parachutiste",
+   "bougé."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Pour rassurer, le ministre a mangé une saucisse.",
+  "hl": [
+   "ministre",
+   "saucisse."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Il a été placé en quarantaine.",
+  "hl": [
+   "quarantaine."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Le président a décrété un barbecue national.",
+  "hl": [
+   "barbecue",
+   "national."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Sur les braises du quartier.",
+  "hl": [
+   "braises",
+   "quartier."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Ah, et il n'était pas invité.",
+  "hl": [
+   "invité."
+  ]
+ }
+]
