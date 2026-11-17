@@ -2018,3 +2018,10 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   3,0 rad).
 - (cycle 48) Rangées aplaties derrière des objets debout : caméra à au moins 2,4 m qui regarde vers le bas ; à 1,1 m la rangée debout
   les cache. Pour un gag de « crêpe », un objet aplati se regonfle à moitié après les autres.
+- (cycle 48) Objet important fin (feuille, lettre) : ni `transparent` ni alphaTest. L'occlusion ambiante de look.js ignore ces objets et
+  on voit l'ombrage de ce qui est derrière. Découper la forme dans la géométrie (coin corné) et garder un matériau opaque.
+- (cycle 48) Montrer le visage d'un personnage penché (joue sur un capot) : faire rouler le cou (rz) pour poser la joue vers la caméra ;
+  tourner la tête ne suffit pas.
+- (cycle 48) Machine qui écrase une rangée : la caméra précède la machine ; si elle la suit, la machine cache la rangée.
+- (cycle 48) Dans une liste Python, un commentaire placé après un élément avale la virgule qui suit sur la même ligne : mettre le
+  commentaire sur sa propre ligne.
