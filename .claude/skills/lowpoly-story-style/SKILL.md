@@ -1811,3 +1811,16 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 43) Neige sur des sacs de sable : un disque par sac se lit comme une assiette ; deux petites plaques bosselées se lisent comme de la neige.
 - (cycle 43) `grade` et `light` par plan fonctionnent avec le rendu naturel : de quoi faire tout un bloc d'hiver gris et froid.
 - (cycle 43) Collision de noms : une nouvelle constante `RIM` a écrasé en silence celle du bord du sucrier. Vérifier les noms avant d'ajouter.
+- (cycle 43) Tour Eiffel lointaine dans `parisStreet` : à 175 m sa moitié haute disparaissait (seul le contour encré restait, comme un fil de
+  fer dans le ciel). La rapprocher et la réduire par plan (`eiffelZ`/`eiffelH`/`eiffelX`).
+- (cycle 43) Accessoire sur le flanc d'un petit personnage (médaille sur la mouche) : hors de la sphère du corps (x ≥ 0,03 unité mouche) et du
+  côté de la caméra. Avec `ry` > 0, le −X local tourne vers une caméra en +Z. Sinon la médaille est dans le thorax et ne se voit jamais.
+- (cycle 43) Les clés toon remplacent tout l'état : une clé sans `reach` lâche ce que la main tient. Répéter `reach` et `hands` dans chaque clé.
+- (cycle 43) Passer d'un `reach` monde à un `touch` relatif au visage fait sauter la main en une image : `reach` monde dans les deux sens avec
+  `toonEase` `inOut` (la tasse qui monte et descend sans saut).
+- (cycle 43) Tenir le passage d'un missile au ralenti : deux étapes `missileSalvo` (approche lente linéaire, puis rapide) ; une troisième entrée
+  `body: false, head: false, hide: false` garde la traînée de la première.
+- (cycle 43) Tissu blanc sur la neige : il lui faut un fond sombre derrière (pan de mur), un contour épais et un bâton clair (un bâton sombre
+  disparaît sur le fond sombre).
+- (cycle 43) Le moteur ramène dans le cadre un acteur placé près du bord : il se rend plus à l'intérieur que `project()` ne le prédit.
+  Vérifier sur une image fixe.
