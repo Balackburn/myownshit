@@ -233,9 +233,9 @@ chk('S04b', C4B, L4B, 70, {'head': HEADC, 'ankles': ANK4, 'p1': add(pull_pos(0)[
 chk('S04', C4, L4, 70, {'head': HEADC, 'ankles': ANK4, 'pomp1': pull_pos(0)[1], 'pomp12': add(pull_pos(11)[1], [0, 2.1, 0]), 'cloud': [6.42, 19.8, 4.2]})
 for j_, t_ in enumerate((0.5, 1.0, 1.45)): st.cue('sfx:grunt', 'S04', t_, 0.3)
 
-# 5: he grew twenty centimetres. From the side and above: they heave, his body stretches like elastic and holds stretched while the head stays in the
-#    bars; the hose snaps, the twelve fall flat on their backs one after the other like dominoes; he hangs a beat in the air, drops onto his feet with
-#    a squash and settles, visibly taller
+# 5: he grew twenty centimetres. From above: they heave, his body stretches like elastic and holds stretched while the head stays in the bars; the
+#    hose snaps, the twelve fall flat on their backs one after the other like dominoes; then high over the terrace, past the top rail: he hangs a beat
+#    in the air, eyes popping, drops onto his feet with a squash, overshoots up and settles, visibly taller, a fireman kneeling beside him looking up
 D5 = st.dur('S05'); STR5 = 0.42; SNAP5 = 0.75; HANG5 = 0.86; DROP5 = 1.12; LAND5 = 1.24
 CUT5C = 0.98                                           # (final pass: the landing played as a lump behind the bars) the cut to the landing view
 KNEEL5 = [7.6, 0, 1.0]
@@ -289,8 +289,9 @@ chk('S05b', C5B, L5B, 68, {'head': HEADC, 'feet': MAN, 'ankles': ANK4, 'p1': add
 chk('S05', C5, L5, 50, {'head': HEADC, 'ankles': ANK4, 'stretched': [5.6, 1.4, 0], 'pomp1': pull_pos(0)[1], 'pomp12': pull_pos(11)[1]})
 st.cue('sfx:stretch', 'S05', 0.25, 0.35); st.cue('sfx:boing', 'S05', SNAP5, 0.35); st.cue('thud', 'S05', r(SNAP5 + 0.3), 0.4); st.cue('thud', 'S05', LAND5, 0.35)
 
-# 6: the railing was declared a natural disaster. From the terrace, past his face poking through the taped bars: behind him on the pavement a minister in
-#    a white hard hat at a podium raises a giant rubber stamp and slams it onto the top rail beside his head: stars; he flinches, his eyes dart to it
+# 6: the railing was declared a natural disaster. From the terrace, low, past his face poking through the taped bars (left): on the pavement in the right
+#    third a minister in a white hard hat, up on a stone step, raises a giant rubber stamp (light pad, red mount, wooden knob) and slams it onto the
+#    top rail beside his head: stars, the sign pops in at the top; he flinches, his eyes dart to it; the minister lifts the stamp aside and smiles
 D6 = st.dur('S06'); HIT6 = 1.25
 STEP6 = 0.34                                           # (final pass: hidden behind his own stamp and the head) he stands on a stone step, so his face and hat clear the top rail
 MIN6 = [8.25, STEP6, -1.3]; MRY6 = yaw(MIN6, [9.1, 0, -0.62])
@@ -474,8 +475,9 @@ chk('S11h', C11H, L11H, 50, {'det': DET11, 'hands': add(DET11, [0.0, 0.8, 0.0]),
 chk('S11', C11, L11, 62, {'house': [10.2, 8.0, 1.0], 'houseTop': [10.2, 17.0, 1.0], 'dem1': add(DEM1, [0, 2.0, 0]), 'rail': [RAILX, 1.0, 0.0]})
 st.cue('sfx:click', 'S11', PUSH11, 0.3); st.cue('thunder', 'S11', BOOM11, 0.7)
 
-# 12: around the railing. Square across the street at the gap: the dust white-out clears on the stub of terrace and the blackened railing standing
-#     alone between the two untouched neighbours, the crater behind, him still in it, his head sooty and smoking; RÉUSSI once the dust has settled
+# 12: around the railing. Close from the crater on his sooty face as the dust white-out clears; then a wide square-on from across the street: the gap
+#     between the two untouched neighbours, the blackened railing standing alone with him in it, the crater and soft smoke behind, empty sky above
+#     where the building stood; RÉUSSI in that sky
 D12 = st.dur('S12')
 C12 = [11.4, 1.0, 0.8]; L12 = [9.2, 1.7, 0.0]                     # (round 2: from the street, a man before a cage on a pallet) from the crater, low, on his sooty face
 C12B = [-6.0, 2.6, 1.0]; L12B = [10.2, 3.9, 1.0]; CUT12 = 0.55   # (final pass: no frame showed the building gone) the dust clears and we cut across the street, square on the gap
@@ -518,12 +520,13 @@ st.shot('S13', 'parisStreet', setOpts=CRATER_ST, actors=acts13, props=[CRATER, R
 chk('S13', C13, L13, 56, {'cushion0': CUSH0, 'brick0': add(CUSH0, [0, 0.12, 0]), 'porteurHead': [-0.6, 2.1, 7.6], 'musi': [-1.45, 2.0, 5.25]})
 st.cue('sfx:step', 'S13', 0.1, 0.4); st.cue('sfx:fanfare', 'S13', 0.2, 0.3)
 
-# 14: the railing was listed as a historic monument. From the crater side, three-quarter: his face in the bars (still stuck), left of frame; right of the
-#     bars on the rim an official cuts a red ribbon with big scissors, the drape slides off a big bronze plaque, a soldier snaps a salute at the left
+# 14: the railing was listed as a historic monument. From the crater side, three-quarter, closer: his face in the bars (still stuck), left of frame; right
+#     of the bars on the rim an official cuts a red ribbon with big scissors (snap), the drape slides off a dark bronze plaque, and he steps aside to
+#     the right of it, arm up, so « MONUMENT HISTORIQUE » stays clear
 D14 = st.dur('S14'); CUT14 = 0.75; DRAPE14 = 0.95
 C14 = [12.8, 1.6, 0.2]                                 # (final pass: his face small, boxed in by the soldier and the plaque) closer and lower; the soldier is gone
 PLQ = [9.85, 0, -0.75]; PLQ_RY = yaw(PLQ, C14)
-OFF14B = [10.5, 0, -1.25]; STEP14 = 1.02                # (final pass: his arm and head covered the text when the card landed) after the drape he steps aside, right of the plaque
+OFF14B = [10.5, 0, -1.25]; STEP14 = 0.95                # (final pass: his arm and head covered the text when the card landed) after the drape he steps aside, right of the plaque
 RIB14 = [10.25, 0, -0.5]
 OFF14 = [10.5, 0, -0.85]; ORY14 = yaw(OFF14, add(RIB14, [0.0, 0, 0.1]))
 SOL14 = [9.6, 0, 0.6]
@@ -535,6 +538,7 @@ st.shot('S14', 'parisStreet', setOpts=CRATER_ST, light=SUNX, actors=[
             k(r(CUT14 - 0.1), toon={'reach': {'R': [*off(OFF14, ORY14, 0.62, 0.05, 1.0), 1, 0.04]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.15, 0, 0, 1, None]}, 'face': {'lid': 0.2, 'mouth': 'smile', 'brow': 0.4}}, toonDur=0.12),
             k(r(CUT14 + 0.12), toon={'reach': {'R': [*off(OFF14, ORY14, 0.4, 0.2, 1.3), 1, 0.04]}, 'hands': {'R': 'grip'}, 'sq': [0.97, 1.03, 0.97], 'face': {'lid': 0.1, 'mouth': 'smile', 'brow': 0.6}}, toonDur=0.1, toonEase='out'),
             k(STEP14, to=OFF14B, dur=0.24, ease='inOut', face=[C14[0], C14[2]]), k(STEP14, look='camera', lookDur=0.2),
+            k(STEP14, toon={'reach': {'R': [*off(OFF14B, yaw(OFF14B, C14), 0.3, 0.3, 1.15), 1, 0.04]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.1, 'mouth': 'smile', 'brow': 0.6}}, toonDur=0.2),   # the arm comes along
             k(r(STEP14 + 0.3), toon={'reach': {'R': [*off(OFF14B, yaw(OFF14B, C14), 0.12, 0.32, 1.85), 1, 0.04]}, 'hands': {'R': 'grip'}, 'sq': [0.95, 1.06, 0.95], 'face': {'lid': 0.0, 'mouth': 'smile', 'brow': 0.7}}, toonDur=0.14, toonEase='out'),
             k(r(STEP14 + 0.6), toon={'reach': {'R': [*off(OFF14B, yaw(OFF14B, C14), 0.12, 0.32, 1.95), 1, 0.04]}, 'hands': {'R': 'grip'}, 'sq': [1, 1, 1], 'face': {'lid': 0.2, 'mouth': 'smile', 'brow': 0.5}}, toonDur=0.2)])],
         props=[CRATER, RUIN(), *LEFTS, *NEIGHS, SOOT('suie14'),
