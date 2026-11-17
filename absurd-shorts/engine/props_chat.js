@@ -102,18 +102,20 @@ export const CHAT_PROPS = {
   // clip time counts from its key), o.expr [[t, expression]] (sleepy, closed, neutral, smug, surprised...), o.blinks [t, ...], o.duck [[t, 0..1]]
   // (head and chest pressed flat on the branch), o.lick [[t0, t1]] (a front paw up to the mouth, the head bobbing over it), o.yawn [[t0, t1]] (head
   // back, jaw wide, eyes shut), o.ear [t, ...] (one ear flicks), o.tail 'dangle' (the tail hangs straight down, swinging; o.tailS lengthens it),
-  // o.head [[t, yaw]] (head turn, rad), o.crunch [[t0, t1]] (head down in the bowl, chewing)
+  // o.head [[t, yaw]] (head turn, rad), o.crunch [[t0, t1]] (head down in the bowl, chewing); o.flat (0..1): ducking also squashes it flat
+  // (o.duckBlend: how fast it ducks, 0.12 s)
   treeCat(o) {
     const s = o.s ?? 1.6, g = grp(), cat = buildCreature('cat', { seed: 6, ol: o.ol ?? 0.007 }); cat.scale.setScalar(s); g.add(cat);
     const J = cat.userData.joints, anim = cat.userData.animate;
-    if (o.tailS && J.tail) { J.tail.scale.y = o.tailS; if (J.tail2) J.tail2.scale.y = 1; }
+    // (review 1) the creature's two whiskers per side cross at their middle and read as an "x" (a KO eye) on the white muzzle: spread them apart
+    cat.traverse(m => { const p = m.geometry && m.geometry.parameters; if (m.isMesh && m.geometry.type === 'BoxGeometry' && p && Math.abs(p.width - 0.09) < 1e-6 && Math.abs(p.height - 0.005) < 1e-6) { const up = Math.sign(m.rotation.z * Math.sign(m.position.x || 1)) || 1; m.position.y += 0.014 * up; m.position.x *= 1.15; m.rotation.z *= 0.5; } });
     const in_ = (ivs, t) => { for (const [a, b] of ivs || []) if (t >= a && t < b) return [a, b]; return null; };
     g.userData.update = t => {
       let t0 = -1e6; for (const [kt] of o.clips || []) { if (t >= kt) t0 = kt; else break; }
       const clip = stepAt(o.clips, t, 'sit'), ct = Math.max(0, t - (t0 < -1e5 ? -10 : t0));
       const ex = stepAt(o.expr, t, null), yw = in_(o.yawn, t);
       anim(clip, ct, { blinks: o.blinks || [], ...(yw ? { expression: 'closed' } : ex ? { expression: ex } : {}) });
-      const d = keyAt(o.duck, t, 0, 0.12);
+      const d = keyAt(o.duck, t, 0, o.duckBlend ?? 0.12), fl = (o.flat ?? 0) * d; cat.scale.set(s * (1 + 0.3 * fl), s * (1 - 0.55 * fl), s * (1 + 0.2 * fl));
       if (d > 0.001) { if (J.neck) J.neck.rotation.x += 0.9 * d; if (J.head) J.head.rotation.x += 0.5 * d; if (J.body) J.body.rotation.x += 0.12 * d; cat.userData.mover.position.y -= 0.05 * d; }
       const hy = keyAt(o.head, t, 0, 0.15); if (J.head && hy) J.head.rotation.y += hy;
       const lk = in_(o.lick, t);
@@ -121,10 +123,11 @@ export const CHAT_PROPS = {
         if (J.legFL) J.legFL.rotation.x -= 1.9 * u; if (J.kneeFL) J.kneeFL.rotation.x -= 1.2 * u;
         if (J.neck) J.neck.rotation.x += (0.35 + 0.12 * bob) * u; if (J.head) { J.head.rotation.x += 0.25 * u; J.head.rotation.y += 0.35 * u; } if (J.jaw) J.jaw.rotation.x += 0.18 * u * (0.5 + 0.5 * bob); }
       if (yw) { const u = Math.sin(clamp01((t - yw[0]) / (yw[1] - yw[0])) * PI);
-        if (J.neck) J.neck.rotation.x -= 0.35 * u; if (J.head) J.head.rotation.x -= 0.45 * u; if (J.jaw) J.jaw.rotation.x += 0.95 * u; }
+        if (J.neck) J.neck.rotation.x -= 0.4 * u; if (J.head) { J.head.rotation.x -= 0.55 * u; J.head.scale.y *= 1 + 0.25 * u; } if (J.jaw) { J.jaw.rotation.x += 1.25 * u; J.jaw.scale.y *= 1 + 0.6 * u; } }
       const cr = in_(o.crunch, t);
       if (cr) { const u = clamp01((t - cr[0]) / 0.12); if (J.neck) J.neck.rotation.x += 0.75 * u; if (J.head) J.head.rotation.x += 0.35 * u; if (J.jaw) J.jaw.rotation.x += 0.3 * u * Math.abs(Math.sin((t - cr[0]) * 11)); }
       const ef = wob(o.ear, t, 0.7, 30, 7); if (J.earL) J.earL.rotation.z += ef; if (J.earR) J.earR.rotation.x -= 0.3 * Math.abs(ef);
+      if (o.tailS && J.tail) J.tail.scale.y *= o.tailS;   // (review 1) after animate(), which puts every joint back to its rest scale
       if (o.tail === 'dangle' && J.tail) { J.tail.rotation.set(0.05 + 0.08 * Math.sin(t * 2.1), 0, 0.1 * Math.sin(t * 1.6)); if (J.tail2) J.tail2.rotation.set(0.05 * Math.sin(t * 2.6 + 1), 0, 0.12 * Math.sin(t * 1.9)); }
     };
     g.userData.update(0); return g;
@@ -181,7 +184,7 @@ export const CHAT_PROPS = {
   // The street opposite (pivot at the foot of the row's middle, the row along X, the fronts toward +Z): o.n (5) blocks of flats (holedBlock, whole)
   // o.w (5.2) wide and o.h (11) high side by side. o.foldAt (s): from then each block, one after another (o.stagger 0.12 s), folds down onto itself
   // in 0.32 s, from block o.from (default the middle) outward (it squashes to a slab and tips a little), dust bursts at its foot, then a heap of rubble and a column of smoke stay; o.ruined: already
-  // down and smoking from the start
+  // down and smoking from the start; o.noSmoke: no smoke columns
   foldRow(o) {
     const n = o.n ?? 5, w = o.w ?? 5.2, h = o.h ?? 11, g = grp(), cols = o.colors || ['#EADFC8', '#E8C9B4', '#D9DDE0', '#EBD9A8', '#DCC8C0', '#E4E0D2'], B = [];
     for (let i = 0; i < n; i++) {
@@ -201,7 +204,7 @@ export const CHAT_PROPS = {
         const du = (t - b.t0 - 0.12) / 1.2;
         b.dust.forEach((m, j) => { const v = du - j * 0.03; m.visible = v > 0 && v < 1; if (!m.visible) return; const a = (j / 7) * PI + 0.2, rr = 3.5 * Math.sqrt(v); m.position.set(b.x + Math.cos(a) * rr * (w / 4), 1 + 4 * v * (0.5 + hsh(j)), 1 + Math.sin(a) * 0.5); m.scale.setScalar((1.2 + 1.6 * hsh(j + 3)) * Math.sin(Math.min(1, v * 1.4) * PI * 0.5 + 0.2) * (1 - 0.5 * v)); });
         if (u > 0.2) any = true; }
-      smoke.visible = any; if (any) smoke.userData.update?.(t);
+      smoke.visible = any && !o.noSmoke; if (smoke.visible) smoke.userData.update?.(t);
     };
     g.userData.update(0); return g;
   },
@@ -216,7 +219,7 @@ export const CHAT_PROPS = {
     const n = o.segs ?? 8, maxE = Math.max(0.1, ...(o.ext || [[0, 0]]).map(e => e[1])), Ls = maxE / n + 0.25, sl = [], C = o.color || '#66753E';
     if (gun) {
       for (let i = 0; i < n; i++) { const r0 = 0.1 - i * 0.004, m = cyl(r0, r0, Ls, i % 2 ? C : '#5C6A38', 10, { pivot: 'top' }); m.rotation.x = -PI / 2; addOutline(m, 0.04); const ring = at(cyl(r0 + 0.02, r0 + 0.02, 0.08, '#2B2E22', 10), 0, 0, Ls, PI / 2, 0, 0); const sg = grp(m, ring); gun.add(sg); sl.push(sg); }
-      var brake = grp(at(cyl(0.16, 0.16, 0.36, '#2B2E22', 10), 0, 0, 0.18, PI / 2, 0, 0), at(cyl(0.1, 0.1, 0.37, '#0E0F0C', 10), 0, 0, 0.19, PI / 2, 0, 0)); gun.add(brake);
+      var brake = grp(at(cyl(0.16, 0.16, 0.36, '#3A3E30', 12), 0, 0, 0.18, PI / 2, 0, 0), at(cyl(0.1, 0.1, 0.37, '#050505', 12), 0, 0, 0.19, PI / 2, 0, 0), at(new THREE.Mesh(new THREE.TorusGeometry(0.13, 0.03, 6, 16), mat('#9AA08A')), 0, 0, 0.37), at(box(0.06, 0.2, 0.2, '#2B2E22'), 0.17, 0, 0.2), at(box(0.06, 0.2, 0.2, '#2B2E22'), -0.17, 0, 0.2)); gun.add(brake);
       var flash = new THREE.Mesh(new THREE.IcosahedronGeometry(0.5, 1), new THREE.MeshBasicMaterial({ color: '#FFF4C8' })); flash.visible = false; gun.add(flash);
       var puff = new THREE.Mesh(new THREE.IcosahedronGeometry(0.45, 2), new THREE.MeshLambertMaterial({ color: '#FFFFFF', emissive: new THREE.Color('#888888') })); addOutline(puff, 0.05); puff.visible = false; gun.add(puff);
     }
@@ -235,10 +238,10 @@ export const CHAT_PROPS = {
   },
 
   // A tank shell in flight (pivot anywhere: it draws in world space from o.from to o.to): a bright yellow-white slug with a fading white streak behind
-  // it, from o.t0 over o.dur (0.18 s), gone after; o.r (0.09)
+  // it, from o.t0 over o.dur (0.18 s), gone after; o.r (0.09), o.len (0.5) its body
   shellStreak(o) {
     const g = grp(), A = new THREE.Vector3(...(o.from || [0, 0, 0])), Bv = new THREE.Vector3(...(o.to || [0, 0, -10])), dir = Bv.clone().sub(A), L = dir.length(); dir.normalize();
-    const slug = new THREE.Mesh(new THREE.CapsuleGeometry(o.r ?? 0.09, 0.5, 4, 8), new THREE.MeshBasicMaterial({ color: '#FFF2A8' })); addOutline(slug, 0.3);
+    const slug = new THREE.Mesh(new THREE.CapsuleGeometry(o.r ?? 0.09, o.len ?? 0.5, 4, 8), new THREE.MeshBasicMaterial({ color: '#FFF2A8' })); addOutline(slug, 0.3);
     const trail = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.07, 1, 8, 1, true), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.85, side: THREE.DoubleSide, depthWrite: false }));
     const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir); slug.quaternion.copy(q); trail.quaternion.copy(q); g.add(slug, trail);
     g.userData.update = t => {
@@ -261,7 +264,7 @@ export const CHAT_PROPS = {
   // (o.twigUp: its tilt up from flat, rad, 1.25; o.twigS: its size, 1.3)
   twigStretcher(o) {
     const L = o.L ?? 1.9, g = grp(buildProp('stretcher', { L, w: o.w ?? 0.55 }));
-    const foil = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 2), new THREE.MeshLambertMaterial({ color: '#D8DEE6', emissive: new THREE.Color('#5A6270'), flatShading: true }));
+    const foil = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 2), new THREE.MeshLambertMaterial({ color: '#E8EEF6', emissive: new THREE.Color('#8A94A6'), flatShading: true }));
     const p = foil.geometry.attributes.position; for (let i = 0; i < p.count; i++) { const k = 1 + (hsh(Math.round(p.getX(i) * 91 + p.getY(i) * 37 + p.getZ(i) * 53)) - 0.5) * 0.3; p.setXYZ(i, p.getX(i) * k, p.getY(i) * k, p.getZ(i) * k); } foil.geometry.computeVertexNormals();
     foil.scale.set(0.25, 0.11, L * 0.3); foil.position.set(0, 0.06, -0.05); addOutline(foil, 0.05); g.add(foil);
     g.add(at(box(0.3, 0.07, 0.2, '#F4F4F0', { outline: 0.01 }), 0, 0.05, L * 0.3));
@@ -318,5 +321,20 @@ export const CHAT_PROPS = {
     j.traverse(m => { const p = m.geometry && m.geometry.parameters; if (m.isMesh && m.geometry.type === 'PlaneGeometry' && p && Math.abs(p.width - 1.7) < 1e-6 && Math.abs(p.height - 1.7) < 1e-6) hide.push(m); });
     for (const m of hide) m.visible = false;
     return j;
+  },
+
+  // A page that turns on a lectern (pivot at its spine, the left edge; the sheet lies along +X, its face up +Y): o.w (0.3) x o.h (0.4), ruled lines;
+  // o.flipAt (s): it turns over the spine to the left in 0.25 s
+  flipPage(o) {
+    const w = o.w ?? 0.3, h = o.h ?? 0.4, g = grp(), pg = grp(); g.add(pg);
+    const sh = canvasPlane(w, h, sheetDraw(o.text || 'BILAN', false), { res: 256 }); sh.rotation.x = -PI / 2; sh.position.x = w / 2; pg.add(sh);
+    g.userData.update = t => { const u = o.flipAt == null ? 0 : clamp01((t - o.flipAt) / 0.25); pg.rotation.z = PI * smooth(u); pg.position.y = 0.002 + 0.05 * Math.sin(PI * u); };
+    g.userData.update(0); return g;
+  },
+
+  // A coloured stripe across a medic's chest and back (attach to the torso joint, offset about [0, 0.3, 0]): a band o.w (0.56) wide, o.h (0.09) high,
+  // o.d (0.36) deep, o.color (green): an invented service mark, no cross
+  medicStripe(o) {
+    const g = grp(at(box(o.w ?? 0.56, o.h ?? 0.09, o.d ?? 0.36, o.color || '#2E9A58', { outline: 0.004 }), 0, 0, 0)); return g;
   },
 };
