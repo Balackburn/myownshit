@@ -121,8 +121,12 @@ export const FLAQUE_PROPS = {
     sub.position.set(0, -Hh / 2, -L / 2); S.add(sub); A.add(S); g.add(A);
     const th = o.tilt ?? 1.15, dir = new THREE.Vector3(0, -Math.sin(th), Math.cos(th)); A.rotation.set(th, 0, 0); g.rotation.y = o.ry ?? 0;
     const t1 = o.touch ?? 0.5, t2 = o.gone ?? 1.1, v = L * 1.15 / Math.max(0.05, t2 - t1), squeeze = Math.min(1, 2 * (o.r ?? 0.36) / Hh);
+    // (round 2) o.collar: a fat ring of hull bunched up at the rim while it is sucked through (a neck at the surface: the hull is fat above it and
+    // thin below), flattened, shrinking away as the stern goes in
+    const CR = o.r ?? 0.36; let col = null; if (o.collar) { col = new THREE.Mesh(new THREE.TorusGeometry(CR * 1.05, CR * 0.42, 10, 24).rotateX(PI / 2), mat(o.collarColor || '#7C8996')); col.position.y = 0.06; col.visible = false; col.castShadow = true; addOutline(col, 0.02); g.add(col); }
     g.userData.update = t => {
       sub.userData.update?.(t);
+      if (col) { const u = (t - t1) / Math.max(0.05, t2 - t1); col.visible = u > 0.02 && u < 0.98; if (col.visible) { const k = Math.sin(clamp01(u) * PI); col.scale.set(0.8 + 0.5 * k, 0.5 + 0.7 * k, 0.8 + 0.5 * k); col.position.y = 0.06 + 0.1 * k; } }
       const on = t >= (o.at ?? 0) && t <= t2 + 0.05; A.visible = on; if (!on) return;
       const s = t - t1; A.position.copy(dir).multiplyScalar(v * s);
       // (round 1) the hull stays fat down to the surface and is sucked thin as it goes in (it was already thin when it reached the puddle)
@@ -154,7 +158,7 @@ export const FLAQUE_PROPS = {
       const tip = (o.tip ?? 0.32) * smooth((t - ts) / 0.35); slab.rotation.z = tip;
       // (round 1) each car slides down the tipped slab, teeters 0.12 s on the low lip (front wheels over the edge, nose dipping), then drops off,
       // turning, lands on the road (worked out in the slab's frame: the road plane is tilted there) and bounces once
-      const sT = Math.sin(Math.max(0.05, tip)), cT = Math.cos(tip), lip = -sw / 2 + 0.35, acc = 9.8 * sT * 0.9, hang = o.hang ?? 0.12;
+      const sT = Math.sin(Math.max(0.05, tip)), cT = Math.cos(tip), lip = -sw / 2 + 0.35, acc = 9.8 * sT * 0.9 * (o.accK ?? 1), hang = o.hang ?? 0.12;   // (round 2) o.accK: a slicker slide
       cars.forEach((car, i) => { const s = Math.max(0, t - tl - i * 0.14), x0 = cx0[i], dl = Math.max(0, x0 - lip), sl = Math.sqrt(2 * dl / acc), vl = acc * sl;
         if (s <= sl) { car.position.set(x0 - 0.5 * acc * s * s, 0, car.position.z); car.rotation.set(0, PI / 2, 0); return; }
         const h = s - sl; if (h <= hang) { const w = Math.sin(h / hang * PI * 1.5) * 0.12 + 0.25 * (h / hang); car.position.set(lip - 0.15 * (h / hang), 0, car.position.z); car.rotation.set(0, PI / 2, w); return; }
@@ -286,12 +290,21 @@ export const FLAQUE_PROPS = {
     for (let i = 0; i < nx; i++) for (let j = 0; j < nz; j++) { const x = (i - (nx - 1) / 2) * gx, z = (j - (nz - 1) / 2) * gz; if (o.home && Math.hypot(x - o.home[0], z - o.home[1]) < gx * 0.6) continue;
       const c = craterSkin(R, 11 + i * 13 + j); c.position.set(x, 0.0 + 0.001 * j, z); g.add(c);
       const p = FLAQUE_PROPS.puddle({ w: R * 1.75, d: R * 1.75, seed: 21 + i * 7 + j }); p.position.set(x, 0.02, z); g.add(p);
+      if (o.fill && o.ripples) { const tf0 = o.fill[0] + (o.fill[1] - o.fill[0]) * ((i - 0) / Math.max(1, nx - 1)); p.userData.rip = [0.38, 0.95, 1.5, 2.05].map(d => tf0 + d + 0.12 * hsh(i * 3 + j)); }
       // (round 1) o.pop [t0, t1]: the craters are not there before the bombs land: they pop in row after row (along Z), each with a dust puff
       const dust = []; if (o.pop) for (let k = 0; k < 4; k++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(R * 0.55, 1), new THREE.MeshLambertMaterial({ color: k % 2 ? '#D9CDB4' : '#C4B79C', transparent: true, opacity: 0.9 })); m.castShadow = false; m.visible = false; g.add(m); dust.push(m); }
       cr.push({ p, c, x, z, dust, i, j }); }
     // (round 1) o.blocks: roofed blocks of houses between the craters (the same town as the street shots, seen from the air): cream walls with
     // windows, zinc-grey roofs, o.blockH [min, max] metres
-    if (o.blocks) { const pts = []; for (let i = 0; i < nx - 1; i++) for (let j = 0; j < nz - 1; j++) { const x = (i - (nx - 2) / 2) * gx, z = (j - (nz - 2) / 2) * gz; if (o.home && Math.hypot(x - o.home[0], z - o.home[1]) < gx * 0.75) continue; if (Math.abs(x) < RW / 2 + 0.2) continue; pts.push([x, z, (o.blockH?.[0] ?? 4) + r() * ((o.blockH?.[1] ?? 8) - (o.blockH?.[0] ?? 4))]); }
+    // (round 2) o.paris: the blocks are the street's own Haussmann buildings (cream stone, the grey-blue mansard roofs with dormers and chimney pots)
+    // scaled down to o.blockS, with a round tree on every other corner (from the air the cream boxes with blue pyramids read as another town)
+    if (o.blocks && o.paris) { const bs = o.blockS ?? Math.min(gx, gz) * 0.5, sc = bs / 12, WC = ['#EFE6D2', '#F2DCCB', '#F3E9C9', '#E8E1EE', '#F0D9D9'], AW = ['#B5302A', '#2F7F5C', '#2F5E8C', '#C9822E']; let k = 0;
+      for (let i = 0; i < nx - 1; i++) for (let j = 0; j < nz - 1; j++) { const x = (i - (nx - 2) / 2) * gx, z = (j - (nz - 2) / 2) * gz; if (o.home && Math.hypot(x - o.home[0], z - o.home[1]) < gx * 0.75) continue; if (Math.abs(x) < RW / 2 + 0.2) continue;
+        if (o.clear && Math.hypot(x - o.clear[0], z - o.clear[1]) < o.clear[2]) continue;   // (round 2) o.clear [x, z, r]: no block there (the Eiffel tower stands there)
+        const b = buildProp('haussmann', { w: 12, d: 12, h: 15 + 5 * r(), floors: 6, cols: 5, color: WC[k % 5], awning: AW[k % 4], seed: k }); b.scale.setScalar(sc); b.position.set(x, 0, z + bs / 2); b.rotation.y = (k % 2) * PI; if (b.rotation.y) b.position.z = z - bs / 2; g.add(b);
+        if (o.trees && k % 2 === 0) { const tr = buildProp('tree', { seed: k + 7 }); tr.scale.setScalar(o.treeS ?? 0.45); tr.position.set(x + (x > 0 ? -1 : 1) * (bs / 2 + 0.7), 0, z + gz * 0.42); g.add(tr); }
+        k++; } }
+    if (o.blocks && !o.paris) { const pts = []; for (let i = 0; i < nx - 1; i++) for (let j = 0; j < nz - 1; j++) { const x = (i - (nx - 2) / 2) * gx, z = (j - (nz - 2) / 2) * gz; if (o.home && Math.hypot(x - o.home[0], z - o.home[1]) < gx * 0.75) continue; if (Math.abs(x) < RW / 2 + 0.2) continue; pts.push([x, z, (o.blockH?.[0] ?? 4) + r() * ((o.blockH?.[1] ?? 8) - (o.blockH?.[0] ?? 4))]); }
       const bs = o.blockS ?? Math.min(gx, gz) * 0.5, wall = new THREE.InstancedMesh(new THREE.BoxGeometry(bs, 1, bs).translate(0, 0.5, 0), new THREE.MeshLambertMaterial({ map: facadeTex() }), pts.length), roof = new THREE.InstancedMesh(new THREE.ConeGeometry(bs * 0.74, bs * 0.38, 4).rotateY(PI / 4), mat('#66788A'), pts.length);
       const o3 = new THREE.Object3D(), col = new THREE.Color(), WC = ['#EFE6D2', '#F2DCCB', '#F3E9C9', '#E8E1EE'];
       pts.forEach(([x, z, h], k) => { o3.position.set(x, 0, z); o3.rotation.set(0, 0, 0); o3.scale.set(1, h, 1); o3.updateMatrix(); wall.setMatrixAt(k, o3.matrix); wall.setColorAt(k, col.set(WC[k % 4])); o3.position.set(x, h + bs * 0.19, z); o3.scale.set(1, 1, 1); o3.updateMatrix(); roof.setMatrixAt(k, o3.matrix); });
@@ -306,10 +319,12 @@ export const FLAQUE_PROPS = {
         if (o.pop) { const tp = o.pop[0] + (o.pop[1] - o.pop[0]) * (zmax > zmin ? (z - zmin) / (zmax - zmin) : 0) + 0.06 * hsh(i * 5 + j), u = t - tp; c.visible = u >= 0; if (u >= 0) c.scale.setScalar(Math.max(0.01, outBack(u / 0.16)));
           dust.forEach((m, k) => { const v = (u - 0.02 * k) / 1.3; m.visible = v > 0 && v < 1; if (!m.visible) return; const a = k * TAU / dust.length + hsh(i + j) * 2; m.position.set(x + Math.cos(a) * R * 0.9 * Math.sqrt(v), 0.6 + 3.5 * v, z + Math.sin(a) * R * 0.9 * Math.sqrt(v)); m.scale.setScalar(0.5 + 1.4 * Math.sqrt(v)); m.material.opacity = 0.9 * (1 - v) * (1 - v); }); }
         if (!o.fill) { p.visible = !!o.wet; return; } const tf = o.fill[0] + (o.fill[1] - o.fill[0]) * (xmax > xmin ? (x - xmin) / (xmax - xmin) : 0) + hsh(x * 3) * 0.1;
-        const s = smooth((t - tf) / 0.35); p.visible = s > 0.01; p.scale.set(Math.max(0.01, s), 1, Math.max(0.01, s)); });
+        const s = smooth((t - tf) / 0.35); p.visible = s > 0.01; p.scale.set(Math.max(0.01, s), 1, Math.max(0.01, s));
+        if (p.userData.rip) { const pr = p.children.filter(c => c.isMesh && c.geometry?.type === 'RingGeometry'); const live = p.userData.rip.filter(a => t >= a && t < a + 0.9);
+          pr.forEach((rg, q) => { const a = live[q]; rg.visible = s > 0.9 && a != null; if (!rg.visible) return; const u = (t - a) / 0.9; rg.scale.set(0.1 + u * 0.8, 1, 0.1 + u * 0.8); rg.material.opacity = 0.9 * (1 - u); }); } });
       home?.userData.update(t); if (halo) { const k = 1 + 0.08 * Math.sin(t * 6); halo.scale.set((o.homeW ?? 1) * 1.05 * k, 1, (o.homeW ?? 1) * 0.8 * k); }
       tw.forEach(({ q, c }, k) => { if (!c || !c.p.visible || c.p.scale.x < 0.9) { q.visible = false; return; } const ph = (t * 1.3 + hsh(k + 7)) % 1, f = Math.max(0, Math.sin(ph * PI * 2.2)) ** 6; q.visible = f > 0.05; if (!q.visible) return;
-        q.position.set(c.x + (hsh(k + 3) - 0.5) * R, 0.06, c.z + (hsh(k + 5) - 0.5) * R); q.scale.setScalar(0.3 + 1.1 * f); q.rotation.y = 0.4 + ph; }); };
+        q.position.set(c.x + (hsh(k + 3) - 0.5) * R, 0.06, c.z + (hsh(k + 5) - 0.5) * R); q.scale.setScalar((0.3 + 1.1 * f) * (o.twinkleS ?? 1)); q.rotation.y = 0.4 + ph; }); };
     g.userData.update(0); return g;
   },
 
@@ -349,9 +364,13 @@ export const FLAQUE_PROPS = {
     // (round 1) a periscope that reads as one: a lighter grey pipe with a collar, a bent elbow, a head reaching forward with a bright glass window
     // and a white glint (the dark box heads read as bollards or cameras)
     const n = keep.length, H = o.h ?? 0.9, S = o.s ?? 1, PC = o.color || '#6F7B86', pipe = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.05 * S, 0.055 * S, 1, 8).translate(0, 0.5, 0), mat(PC), n);
-    const headGeo = new THREE.BoxGeometry(0.15 * S, 0.17 * S, 0.34 * S).translate(0, 0.02 * S, 0.11 * S), head = new THREE.InstancedMesh(headGeo, mat(PC), n);
-    const lens = new THREE.InstancedMesh(new THREE.PlaneGeometry(0.11 * S, 0.1 * S).translate(0, 0.025 * S, 0.282 * S), basic('#BFE8FF'), n);
-    const ring = new THREE.InstancedMesh(new THREE.PlaneGeometry(0.03 * S, 0.03 * S).translate(0.025 * S, 0.05 * S, 0.284 * S), basic('#FFFFFF'), n); g.add(ring);
+    // (round 2) the head is a round tube lying forward with an angled hood over its mouth and a dark round lens with a white glint (the square head with
+    // a flat pale window read as a parking meter or a speed camera, and had no direction): when the heads turn, the dark lenses swing round to him
+    const HS = o.headS ?? 1, hr = 0.085 * S * HS, hl = 0.36 * S * HS;
+    const headGeo = new THREE.CylinderGeometry(hr, hr, hl, 14).rotateX(PI / 2).translate(0, 0.03 * S, hl * 0.32), head = new THREE.InstancedMesh(headGeo, mat(PC), n);
+    const hood = new THREE.InstancedMesh(new THREE.BoxGeometry(hr * 2.3, hr * 0.5, hl * 0.42).translate(0, 0.03 * S + hr * 0.95, hl * 0.62).rotateX(0), mat('#4E5862'), n); g.add(hood);
+    const lens = new THREE.InstancedMesh(new THREE.CircleGeometry(hr * 0.86, 16).translate(0, 0.03 * S, hl * 0.82 + 0.004), basic('#141B24'), n);
+    const ring = new THREE.InstancedMesh(new THREE.CircleGeometry(hr * 0.26, 8).translate(hr * 0.3, 0.03 * S + hr * 0.32, hl * 0.82 + 0.008), basic('#FFFFFF'), n); g.add(ring);
     const elbow = new THREE.InstancedMesh(new THREE.SphereGeometry(0.075 * S, 8, 6), mat(PC), n), collar = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.075 * S, 0.075 * S, 0.06 * S, 8), mat('#4E5862'), n); g.add(elbow, collar);
     const pud = new THREE.InstancedMesh(new THREE.CircleGeometry(0.55, 14).rotateX(-PI / 2), new THREE.MeshLambertMaterial({ color: '#7FC2EE', emissive: new THREE.Color('#5AA8DE'), emissiveIntensity: 0.4 }), n);
     pipe.castShadow = head.castShadow = true; g.add(pipe, head, lens, pud);
@@ -359,9 +378,9 @@ export const FLAQUE_PROPS = {
     g.userData.update = t => { keep.forEach(([x, z], i) => { const s = t - (o.at ?? 0) - 0.04 * hsh(i + 5), h = s <= 0 ? 0.001 : H * outBack(s / 0.22);
       let yaw = (hsh(i + 9) - 0.5) * 1.2; if (o.turnAt && t > o.turnAt[0]) { const want = Math.atan2(o.turnAt[1] - x, o.turnAt[2] - z), w = outBack((t - o.turnAt[0] - 0.02 * hsh(i + 2)) / (o.turnDur ?? 0.16)); yaw = yaw + (want - yaw) * w; }
       o3.position.set(x, -0.05, z); o3.rotation.set(0, 0, 0); o3.scale.set(1, Math.max(0.001, h + 0.05), 1); o3.updateMatrix(); pipe.setMatrixAt(i, o3.matrix);
-      o3.position.set(x, -0.05 + h + 0.05, z); o3.rotation.set(0, yaw, 0); o3.scale.set(1, h > 0.01 ? 1 : 0.001, 1); o3.updateMatrix(); head.setMatrixAt(i, o3.matrix); lens.setMatrixAt(i, o3.matrix); ring.setMatrixAt(i, o3.matrix); elbow.setMatrixAt(i, o3.matrix);
+      o3.position.set(x, -0.05 + h + 0.05, z); o3.rotation.set(0, yaw, 0); o3.scale.set(1, h > 0.01 ? 1 : 0.001, 1); o3.updateMatrix(); head.setMatrixAt(i, o3.matrix); lens.setMatrixAt(i, o3.matrix); ring.setMatrixAt(i, o3.matrix); elbow.setMatrixAt(i, o3.matrix); hood.setMatrixAt(i, o3.matrix);
       o3.position.set(x, 0.02, z); o3.rotation.set(0, 0, 0); o3.scale.set(1, h > 0.01 ? 1 : 0.001, 1); o3.updateMatrix(); collar.setMatrixAt(i, o3.matrix); });
-      pipe.instanceMatrix.needsUpdate = head.instanceMatrix.needsUpdate = lens.instanceMatrix.needsUpdate = ring.instanceMatrix.needsUpdate = elbow.instanceMatrix.needsUpdate = collar.instanceMatrix.needsUpdate = true; };
+      pipe.instanceMatrix.needsUpdate = head.instanceMatrix.needsUpdate = lens.instanceMatrix.needsUpdate = ring.instanceMatrix.needsUpdate = elbow.instanceMatrix.needsUpdate = collar.instanceMatrix.needsUpdate = hood.instanceMatrix.needsUpdate = true; };
     g.userData.update(0); return g;
   },
 
@@ -375,11 +394,14 @@ export const FLAQUE_PROPS = {
     const sh = new THREE.Shape(); sh.moveTo(-W / 2, -D / 2); sh.lineTo(W / 2, -D / 2); sh.lineTo(W / 2, D / 2); sh.lineTo(-W / 2, D / 2); sh.lineTo(-W / 2, -D / 2);
     if (o.hole) { const hp = new THREE.Path(); hp.absarc(o.hole[0], -o.hole[1], o.hole[2], 0, TAU, true); sh.holes.push(hp); }
     const slabGeo = new THREE.ExtrudeGeometry(sh, { depth: T, bevelEnabled: false, curveSegments: 28 }); slabGeo.rotateX(-PI / 2); slabGeo.translate(0, -T, 0);
-    const slab = new THREE.Mesh(slabGeo, [mat('#6E6E72'), mat(o.side || '#8A847A')]); slab.castShadow = slab.receiveShadow = true; R.add(slab);
+    const slab = new THREE.Mesh(slabGeo, [mat(o.cap || '#6E6E72'), mat(o.side || '#8A847A')]); slab.castShadow = slab.receiveShadow = true; R.add(slab);   // (round 2) o.cap: the underside (earth) when it is seen from below
     const pave = new THREE.Mesh(new THREE.ShapeGeometry(sh, 28).rotateX(-PI / 2), mat('#E4D6BE')); pave.position.y = 0.006; pave.receiveShadow = true; R.add(pave);
-    if (o.under) { const un = new THREE.Mesh(new THREE.PlaneGeometry(W, D).rotateX(-PI / 2), mat(o.under === true ? '#3E362F' : o.under)); un.position.y = 0.004; un.receiveShadow = true; g.add(un); }
-    if (o.hole && o.patch !== false) { const PR = o.patchR ?? o.hole[2] * 0.985, PC = o.patchAt || [o.hole[0], o.hole[1]]; const pt = new THREE.Mesh(new THREE.CircleGeometry(PR, 32).rotateX(-PI / 2), mat(o.patchColor || '#6E6E72')); pt.position.set(PC[0], 0.008, PC[1]); pt.receiveShadow = true; g.add(pt);
-      const kerb = new THREE.Mesh(new THREE.RingGeometry(PR * 0.93, PR, 32).rotateX(-PI / 2), mat('#D9CDB4')); kerb.position.set(PC[0], 0.012, PC[1]); g.add(kerb); }
+    // (round 2) the floor under the town and his patch stand 5-7 cm proud of the set's ground: at 4-12 mm the grassland showed through them for a frame
+    // (a bright green flash of the pit's floor); o.underY / o.patchY move them
+    const UY = o.underY ?? 0.05, PY = o.patchY ?? 0.065;
+    let un = null; if (o.under) { un = new THREE.Mesh(new THREE.PlaneGeometry(W, D).rotateX(-PI / 2), mat(o.under === true ? '#3E362F' : o.under)); un.position.y = UY; un.receiveShadow = true; g.add(un); }
+    if (o.hole && o.patch !== false) { const PR = o.patchR ?? o.hole[2] * 0.985, PC = o.patchAt || [o.hole[0], o.hole[1]]; const pt = new THREE.Mesh(new THREE.CircleGeometry(PR, 32).rotateX(-PI / 2), mat(o.patchColor || '#6E6E72')); pt.position.set(PC[0], PY, PC[1]); pt.receiveShadow = true; g.add(pt);
+      const kerb = new THREE.Mesh(new THREE.RingGeometry(PR * 0.93, PR, 32).rotateX(-PI / 2), mat('#D9CDB4')); kerb.position.set(PC[0], PY + 0.004, PC[1]); g.add(kerb); }
     const rx = o.roadX ?? 0, RH = (o.roadW ?? 9) / 2, rs = new THREE.Shape(); rs.moveTo(rx - RH, -D / 2); rs.lineTo(rx + RH, -D / 2); rs.lineTo(rx + RH, D / 2); rs.lineTo(rx - RH, D / 2); rs.lineTo(rx - RH, -D / 2);
     // (round 1) a hole wider than the road cuts it in two: a hole path that pokes out of the strip's outline is ignored by the triangulation (the
     // road then covered the hole), so the strip is built as two pieces that stop on the circle
@@ -398,11 +420,23 @@ export const FLAQUE_PROPS = {
     else for (let x = -W / 2 + B / 2 + 0.5; x <= W / 2 - B / 2; x += B + 1.5) xsB.push(x);
     for (const x of xsB) for (let z = -D / 2 + B / 2 + 0.5; z <= D / 2 - B / 2; z += B + 1.5) {
       if (Math.abs(x - (o.roadX ?? 0)) < RH + B / 2) continue; if (o.hole && Math.hypot(x - o.hole[0], z - o.hole[1]) < o.hole[2] + (o.holeGap ?? B * 0.75)) continue; if (o.thPos && Math.hypot(x - o.thPos[0], z - o.thPos[1]) < 9) continue; if (o.tower && Math.hypot(x - o.tower[0], z - o.tower[1]) < B * 0.75 + (o.tower[3] ?? 1.6)) continue; blocks.push([x, z, (o.hMin ?? 10) + r() * ((o.hMax ?? 17) - (o.hMin ?? 10))]); }
-    const tex = facadeTex(); const bw = new THREE.InstancedMesh(new THREE.BoxGeometry(B, 1, B).translate(0, 0.5, 0), new THREE.MeshLambertMaterial({ map: tex }), Math.max(1, blocks.length)), br = new THREE.InstancedMesh(o.pitched ? new THREE.ConeGeometry(B * 0.72, B * 0.4, 4).rotateY(PI / 4) : new THREE.BoxGeometry(B * 0.96, 2.2, B * 0.96), mat(o.roof || '#7C8A99'), Math.max(1, blocks.length));
-    const o3 = new THREE.Object3D(), col = new THREE.Color(), WC = ['#EFE6D2', '#F2DCCB', '#F3E9C9', '#E8E1EE', '#F0D9D9'];
-    blocks.forEach(([x, z, h], i) => { o3.position.set(x, 0, z); o3.scale.set(1, h, 1); o3.updateMatrix(); bw.setMatrixAt(i, o3.matrix); bw.setColorAt(i, col.set(WC[i % WC.length])); o3.position.set(x, h + (o.pitched ? B * 0.2 : 1.1), z); o3.scale.set(1, 1, 1); o3.updateMatrix(); br.setMatrixAt(i, o3.matrix); });
-    if (bw.instanceColor) bw.instanceColor.needsUpdate = true; bw.count = br.count = blocks.length; bw.castShadow = br.castShadow = bw.receiveShadow = true; R.add(bw, br);
-    if (o.townHall) { const th = buildProp('townHall', { w: 8, h: 5.5, d: 4.5, gable: 'v2' }); th.position.set(o.thPos[0], 0, o.thPos[1]); R.add(th); }
+    const WC = ['#EFE6D2', '#F2DCCB', '#F3E9C9', '#E8E1EE', '#F0D9D9'];
+    // (round 2) o.paris: the blocks are the street's own Haussmann buildings (scaled to the block, facades toward +Z, the grey-blue mansard roofs,
+    // dormers, chimney pots): the cream boxes with pyramid roofs read as a modern town, not the Paris street of the first shots
+    if (o.paris) { const AW = ['#B5302A', '#2F7F5C', '#2F5E8C', '#C9822E'], sc = B / 12;
+      blocks.forEach(([x, z, h], i) => { const b = buildProp('haussmann', { w: 12, d: 12, h: Math.max(10, h / sc), floors: 6, cols: 5, color: WC[i % WC.length], awning: AW[i % 4], seed: i + (o.seed || 0) }); b.scale.setScalar(sc); b.position.set(x, 0, z + B / 2); b.traverse(c => { if (c.isMesh) { c.castShadow = true; c.receiveShadow = true; } }); R.add(b); }); }
+    else { const tex = facadeTex(); const bw = new THREE.InstancedMesh(new THREE.BoxGeometry(B, 1, B).translate(0, 0.5, 0), new THREE.MeshLambertMaterial({ map: tex }), Math.max(1, blocks.length)), br = new THREE.InstancedMesh(o.pitched ? new THREE.ConeGeometry(B * 0.72, B * 0.4, 4).rotateY(PI / 4) : new THREE.BoxGeometry(B * 0.96, 2.2, B * 0.96), mat(o.roof || '#7C8A99'), Math.max(1, blocks.length));
+      const o3 = new THREE.Object3D(), col = new THREE.Color();
+      blocks.forEach(([x, z, h], i) => { o3.position.set(x, 0, z); o3.scale.set(1, h, 1); o3.updateMatrix(); bw.setMatrixAt(i, o3.matrix); bw.setColorAt(i, col.set(WC[i % WC.length])); o3.position.set(x, h + (o.pitched ? B * 0.2 : 1.1), z); o3.scale.set(1, 1, 1); o3.updateMatrix(); br.setMatrixAt(i, o3.matrix); });
+      if (bw.instanceColor) bw.instanceColor.needsUpdate = true; bw.count = br.count = blocks.length; bw.castShadow = br.castShadow = bw.receiveShadow = true; R.add(bw, br); }
+    // (round 2) o.thW / o.thH / o.thD: the town hall's size; o.thDoor: a dark double door between its two middle columns with a lit gap under it
+    // (a parking ticket goes under it); userData.thDoor: the foot of that door (lid frame)
+    const thW = o.thW ?? 8, thH = o.thH ?? 5.5, thD = o.thD ?? 4.5;
+    if (o.townHall) { const th = buildProp('townHall', { w: thW, h: thH, d: thD, gable: 'v2' }); th.position.set(o.thPos[0], 0, o.thPos[1]); R.add(th);
+      if (o.thDoor) { const dw = o.thDoor.w ?? 0.95, dh = o.thDoor.h ?? 2.0, dz = o.thPos[1] + thD / 2 + 0.012;
+        R.add(at(box(dw + 0.16, dh + 0.1, 0.05, '#E2D8C4', { pivot: 'bottom', outline: 0.006 }), o.thPos[0], 0.25, dz - 0.02), at(box(dw, dh, 0.06, o.thDoor.color || '#2F4A3A', { pivot: 'bottom', outline: 0.006 }), o.thPos[0], 0.29, dz),
+          at(box(0.02, dh * 0.92, 0.065, '#1E2E26'), o.thPos[0], 0.29 + dh * 0.5, dz + 0.004), at(box(dw, 0.04, 0.07, '#141814'), o.thPos[0], 0.27, dz + 0.004));
+        for (const sx of [-1, 1]) { const kn = sphere(0.035, '#D8B64A', 0); kn.position.set(o.thPos[0] + sx * 0.08, 0.29 + dh * 0.48, dz + 0.05); R.add(kn); } } }
     let tower = null; if (o.tower) { tower = clockTower(o.tower[3] ?? 1.6, o.tower[2] ?? 8); tower.position.set(o.tower[0], o.towerY ?? 0, o.tower[1]); R.add(tower); }
     const hulls = []; const HL = o.hullL ?? 9, Hh = HL * 0.26, NO = o.noseOut ?? 0, zA = -D / 2 + HL / 2 - NO, zB = D / 2 - HL / 2 + NO, nzH = Math.max(1, Math.round((zB - zA) / (HL + 1)) + 1), zs = Array.from({ length: nzH }, (_, k) => nzH === 1 ? 0 : zA + (zB - zA) * k / (nzH - 1));
     for (let x = -W / 2 + 3; x <= W / 2 - 3; x += o.hullGap ?? 6) for (const z of zs) {
@@ -414,11 +448,12 @@ export const FLAQUE_PROPS = {
     const per = (i) => { const k = i / 40 * 4, side = Math.floor(k), f = k - side; return side === 0 ? [-W / 2 + W * f, D / 2] : side === 1 ? [W / 2, D / 2 - D * f] : side === 2 ? [W / 2 - W * f, -D / 2] : [-W / 2, -D / 2 + D * f]; };
     g.userData.update = t => {
       if (o.float) { R.position.y = (o.floatY ?? 0.9) + (o.bob ?? 0.08) * Math.sin(t * 1.6); R.rotation.z = 0.01 * Math.sin(t * 1.1); R.rotation.x = 0.008 * Math.sin(t * 1.3 + 1); }
-      else { const u = (t - (o.liftAt ?? 99)) / (o.dur ?? 0.45), L = o.lift ?? 3; R.position.y = u <= 0 ? 0 : u < 1 ? L * outBack(u) : L + 0.12 * Math.sin((u - 1) * 9) * Math.exp(-(u - 1) * 2); }
-      const su = t - (o.liftAt ?? 99); spray.forEach((m, i) => { const v = (su - 0.01 * (i % 7)) / 1.1; m.visible = !o.float && v > 0 && v < 1; if (!m.visible) return; const [x, z] = per(i);
-        m.position.set(x * (1 + 0.05 * v), 0.4 + 4 * Math.sin(v * PI * 0.8), z * (1 + 0.05 * v)); m.scale.setScalar(0.5 + 1.6 * Math.sqrt(v)); m.material.opacity = 0.95 * (1 - v); });
+      else { const u = (t - (o.liftAt ?? 99)) / (o.dur ?? 0.45), L = o.lift ?? 3, B0 = o.baseY ?? 0; R.position.y = B0 + (u <= 0 ? 0 : u < 1 ? L * outBack(u) : L + 0.12 * Math.sin((u - 1) * 9) * Math.exp(-(u - 1) * 2)); }   // (round 2) o.baseY: the town stands that much proud of the set's ground at rest (on grassland its street flickered)
+      if (un) un.visible = R.position.y > (o.baseY ?? 0) + 0.08;   // (round 2) the dark floor under the town shows only once it has lifted (at rest it lay over the street)
+      const su = t - (o.liftAt ?? 99), SS = o.sprayS ?? 1; spray.forEach((m, i) => { const v = (su - 0.01 * (i % 7)) / (o.sprayLife ?? 1.1); m.visible = !o.float && v > 0 && v < 1; if (!m.visible) return; const [x, z] = per(i);   // (round 2) o.sprayS, o.sprayLife: smaller, shorter spray (near the lens the puffs hid the whole town)
+        m.position.set(x * (1 + 0.05 * v), 0.4 + 4 * SS * Math.sin(v * PI * 0.8), z * (1 + 0.05 * v)); m.scale.setScalar((0.5 + 1.6 * Math.sqrt(v)) * SS); m.material.opacity = 0.95 * (1 - v); });
     };
-    g.userData.update(0); g.userData.thDoor = o.thPos ? [o.thPos[0], 0, o.thPos[1] + 2.4] : null; g.userData.ropeY = tower?.userData.ropeY; return g;
+    g.userData.update(0); g.userData.thDoor = o.thPos ? [o.thPos[0], 0.29, o.thPos[1] + thD / 2 + 0.05] : null; g.userData.ropeY = tower?.userData.ropeY; return g;
   },
 
   // A harbour quay (pivot at the middle of its sea edge, the sea toward -Z): a stone quay o.len (30) long, o.h (1.4) above the water, o.dep (6) deep
@@ -432,14 +467,19 @@ export const FLAQUE_PROPS = {
     const top = new THREE.Mesh(new THREE.PlaneGeometry(Lq, Dp).rotateX(-PI / 2), mat('#CFC5AE')); top.position.set(0, H + 0.005, Dp / 2); top.receiveShadow = true; g.add(top);
     // (round 1) a mooring bollard that reads as one: a squat cast-iron post that flares into a rounded cap (the straight post with a flat disc read
     // as a top hat), and a hemp rope (no black outline: it read as a rigid black-and-gold beam) that sags in a real curve
-    const bx = o.bx ?? 0; const bol = []; for (const x of [bx, bx + 8]) { const b = grp(at(cyl(0.2, 0.27, 0.42, '#23272D', 12, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(cyl(0.16, 0.2, 0.12, '#23272D', 12, { pivot: 'bottom' }), 0, 0.42, 0));
-      const cap = sphere(0.3, '#23272D', 0); cap.scale.set(1, 0.55, 1); cap.position.y = 0.6; b.add(cap); b.position.set(x, H, 0.9); g.add(b); bol.push(b); }
+    // (round 2) a squat metal-grey bollard (it still read as a black top hat): a wide square foot plate, a fat body that narrows to a waist, then flares
+    // out into a broad rounded head that leans toward the sea, a pale rim of wear on the head; o.bollardS scales it
+    const bx = o.bx ?? 0, BS = o.bollardS ?? 1.3, BC = o.bollardColor || '#5C646C'; const bol = []; for (const x of [bx, bx + 8]) {
+      const b = grp(at(box(0.62, 0.06, 0.62, '#474D53', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(cyl(0.18, 0.26, 0.26, BC, 14, { pivot: 'bottom', outline: 0.01 }), 0, 0.06, 0), at(cyl(0.26, 0.18, 0.14, BC, 14, { pivot: 'bottom', outline: 0.01 }), 0, 0.32, 0));
+      const head = sphere(0.3, BC, 0); head.scale.set(1.12, 0.5, 1.12); head.position.set(0, 0.5, -0.04); addOutline(head, 0.02); b.add(head);
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.025, 6, 20).rotateX(PI / 2), mat('#9AA3AB')); rim.position.set(0, 0.5, -0.04); b.add(rim);
+      b.scale.setScalar(BS); b.position.set(x, H, 0.9); g.add(b); bol.push(b); }
     const RC = o.rope?.color || '#B88E55';
-    if (o.rope) { const a = new THREE.Vector3(bx, H + 0.5, 0.9), b = new THREE.Vector3(...o.rope.to), sag = o.rope.sag ?? 1.2, pts = [];
+    if (o.rope) { const a = new THREE.Vector3(bx, H + 0.33 * BS, 0.9), b = new THREE.Vector3(...o.rope.to), sag = o.rope.sag ?? 1.2, pts = [];
       for (let k = 0; k <= 16; k++) { const u = k / 16, p = a.clone().lerp(b, u); p.y -= sag * 4 * u * (1 - u); pts.push(p); }
       const curve = new THREE.CatmullRomCurve3(pts), tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 64, o.rope.r ?? 0.09, 8, false), mat(RC)); tube.castShadow = true; g.add(tube);
       const loop = new THREE.Mesh(new THREE.TorusGeometry(o.rope.loopR ?? 0.9, (o.rope.r ?? 0.09) * 1.05, 8, 24), mat(RC)); loop.position.copy(b); loop.rotation.x = PI / 2; g.add(loop);
-      const loop2 = new THREE.Mesh(new THREE.TorusGeometry(0.2, 0.08, 6, 14), mat(RC)); loop2.position.set(bx, H + 0.5, 0.9); loop2.rotation.x = PI / 2; g.add(loop2); }
+      const loop2 = new THREE.Mesh(new THREE.TorusGeometry(0.21 * BS, 0.07, 6, 14), mat(RC)); loop2.position.set(bx, H + 0.33 * BS, 0.9); loop2.rotation.x = PI / 2; g.add(loop2); }
     g.userData.bollard = [bx, H, 0.9]; return g;
   },
 
@@ -476,7 +516,9 @@ export const FLAQUE_PROPS = {
     g.add(at(box(0.22, 0.12, pr * 1.6, '#D9CDB4', { outline: 0.006 }), -pr * 0.36, 0.2, 0));
     const pits = []; for (let x = -R * 0.6; x <= R * 0.6; x += o.pitGap ?? 7) for (let z = -R * 0.7; z <= -6; z += 11) { if (Math.abs(x) < 6 && z > -12) continue; pits.push([x + (r() - 0.5) * 1.5, z]); }
     const pit = new THREE.InstancedMesh(new THREE.CircleGeometry(1, 16).rotateX(-PI / 2), mat('#6E5843'), pits.length), o3 = new THREE.Object3D();
-    pits.forEach(([x, z], i) => { o3.position.set(x, 0.01, z); o3.scale.set(1.3, 1, 4.2); o3.updateMatrix(); pit.setMatrixAt(i, o3.matrix); }); pit.receiveShadow = true; g.add(pit);
+    // (round 2) the pits 4 cm over the disc and never culled (at 8 mm they and the disc's colour vanished for a single frame, twice, in a slow push)
+    pits.forEach(([x, z], i) => { o3.position.set(x, 0.042, z); o3.scale.set(1.3, 1, 4.2); o3.updateMatrix(); pit.setMatrixAt(i, o3.matrix); }); pit.receiveShadow = true; pit.frustumCulled = false; g.add(pit);
+    gnd.frustumCulled = false;
     return g;
   },
 
@@ -493,8 +535,9 @@ export const FLAQUE_PROPS = {
   // it springs back (untwists past zero, overshoots and wobbles, a burst of drops); o.colors [body, stripe, toe]
   wrungSock(o) {
     const [cb, cs, ct] = o.colors || ['#E9E4D6', '#C8322A', '#2E4563'], n = o.n ?? 9, L = o.len ?? 0.42, seg = L / n, g = grp(), S = [];
-    for (let i = 0; i < n; i++) { const m = box(0.075, seg * 1.02, 0.075, i % 3 === 1 ? cs : (i === n - 1 ? ct : cb), { pivot: 'top', outline: 0.004 }); g.add(m); S.push(m); }
-    const toe = box(0.075, 0.1, 0.08, ct, { pivot: 'top', outline: 0.004 }); g.add(toe);
+    const TW = o.w ?? 0.075;   // (round 2) o.w: the sock's thickness (a bigger sock reads at phone size)
+    for (let i = 0; i < n; i++) { const m = box(TW, seg * 1.02, TW, i % 3 === 1 ? cs : (i === n - 1 ? ct : cb), { pivot: 'top', outline: 0.004 }); g.add(m); S.push(m); }
+    const toe = box(TW, TW * 1.35, TW * 1.07, ct, { pivot: 'top', outline: 0.004 }); g.add(toe);
     const drops = []; for (let i = 0; i < 10; i++) { const d = new THREE.Mesh(new THREE.SphereGeometry(0.012, 6, 4), basic('#9FD8FF')); d.visible = false; g.add(d); drops.push(d); }
     g.userData.update = t => {
       let w = keyAt(o.wring, t, 0); const sp = o.spring != null ? t - o.spring : -1; if (sp >= 0) w = w * Math.exp(-sp * 5) * Math.cos(sp * 22);
@@ -517,5 +560,30 @@ export const FLAQUE_PROPS = {
     g.userData.update = t => { drops.forEach((d, i) => { const a = (i / n) * TAU, ph = (t * (1.6 + 0.5 * hsh(i)) + hsh(i + 3)) % 1, y = ph < 0.4 ? 0 : -(ph - 0.4) * (ph - 0.4) * 4 * (o.fall ?? 0.12) * 2.8;
       d.position.set(Math.cos(a) * (o.r ?? 0.08), (o.y0 ?? 0.08) + y, Math.sin(a) * (o.r ?? 0.08)); d.scale.setScalar(ph < 0.4 ? 0.5 + ph * 1.2 : 1); d.scale.y = 1.4; }); };
     g.userData.update(0); return g;
+  },
+
+  // (round 2) A soaked trouser leg (attach to a knee joint: on={'actor': ..., 'joint': 'kneeL'}): a darker, glossy skin drawn ON the shin itself, not a
+  // separate sleeve (the black cylinder read as a bin, then as a wellington boot). On its first update it finds the shin mesh beside it on the knee
+  // joint and lays a translucent dark copy over it that shares its geometry (so it bends and stretches with the cartoon leg), cut off above o.h (the
+  // wet part's share of the shin from the hem, 0.55) by a shader test on the shin's own height; o.color, o.opacity (0.5)
+  wetShin(o) {
+    const g = grp(); let over = null, shin = null, tries = 0;
+    const mk = () => {
+      if (!g.parent) return; tries++; const isLeg = c => c.isMesh && c.name !== 'outline' && c !== over && c.geometry?.attributes?.position;
+      // buildProp wraps the prop in a group of its own: the knee joint is the first ancestor that holds a leg mesh
+      for (let a = g.parent, n = 0; a && n < 4 && !shin; a = a.parent, n++) shin = a.children.find(isLeg) || null; if (!shin) return;
+      shin.geometry.computeBoundingBox(); const bb = shin.geometry.boundingBox, cut = bb.min.y + (bb.max.y - bb.min.y) * (o.h ?? 0.55);
+      const m = new THREE.MeshPhongMaterial({ color: o.color || '#03060C', transparent: true, opacity: o.opacity ?? 0.5, shininess: 90, specular: new THREE.Color('#8FA4C0'), depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+      m.onBeforeCompile = sh => { sh.uniforms.uCut = { value: cut };
+        sh.vertexShader = 'varying float vLY;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\nvLY = position.y;');
+        sh.fragmentShader = 'uniform float uCut;\nvarying float vLY;\n' + sh.fragmentShader.replace('void main() {', 'void main() {\nif (vLY > uCut) discard;'); };
+      over = new THREE.Mesh(shin.geometry, m); over.castShadow = false; over.receiveShadow = false; over.renderOrder = 2; g.add(over);
+    };
+    // the overlay is placed from the shin's world matrix (the engine scales an attached prop by 1 / the actor's scale: a copy of the shin's local
+    // transform under this group came out smaller than the shin, inside it, and never showed)
+    const Mi = new THREE.Matrix4(), Ms = new THREE.Matrix4().makeScale(1.04, 1.0, 1.04);
+    g.userData.update = () => { if (!over && tries < 5) mk(); if (!over || !shin) return; g.updateWorldMatrix(true, false); shin.updateWorldMatrix(true, false);
+      over.matrixAutoUpdate = false; over.matrix.copy(Mi.copy(g.matrixWorld).invert()).multiply(shin.matrixWorld).multiply(Ms); over.matrixWorldNeedsUpdate = true; };
+    return g;
   },
 };

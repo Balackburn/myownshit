@@ -60,11 +60,15 @@ st.card('S17', 'DÉMÉNAGÉE', at=1.25)
 #    into it; his left foot lands in the middle and water splashes up that trouser leg; he stops, looks down at it, then at us, face unchanged
 #    (round 1: a brisker walk from closer, so the look to camera lands by 1.5 s, before the cut; the camera aims lower, the puddle sits higher)
 D1 = st.dur('S01'); STEP1 = 0.95
-def walk_in(t0, dur, start, stop, step, look_at, lk=(0.18, 0.42)):
+#    (round 2) the take in three poses: he settles on the step (a squash), looks down at the puddle for eight frames (the head bowed), then looks at us;
+#    it was a one- or two-frame dip of the head
+def walk_in(t0, dur, start, stop, step, look_at, lk=(0.06, 0.36)):
     return [k(0.0, look=look_at), k(t0, to=stop, dur=dur, clip='walk', ease='linear'),
-            k(r(step + lk[0]), look=[stop[0] + 0.1, 0.0, stop[2] + 0.25], lookDur=0.12),
-            k(r(step + lk[0]), toon={'sq': [1.0, 1.0, 1.0], 'face': DEAD}, toonDur=0.1),
-            k(r(step + lk[1]), look='camera', lookDur=0.12)]
+            k(step, toon={'sq': [1.05, 0.94, 1.05], 'face': DEAD}, toonDur=0.05),
+            k(r(step + lk[0]), look=[stop[0] + 0.1, 0.0, stop[2] + 0.3], lookDur=0.1),
+            k(r(step + lk[0]), toon={'sq': [1.0, 1.0, 1.0], 'face': {'lid': 0.5, 'mouth': 'line', 'brow': -0.1}, 'bend': {'neck': [0.3, 0, 0, 1, None]}}, toonDur=0.1),
+            k(r(step + lk[1]), look='camera', lookDur=0.12),
+            k(r(step + lk[1]), toon={'sq': [1.0, 1.0, 1.0], 'face': DEAD, 'bend': {'neck': [0.0, 0, 0, 1, None]}}, toonDur=0.12)]
 st.shot('S01', 'parisStreet', setOpts=STREET, actors=[STAND(walk_in(0.05, 0.9, MAN0, MANP, STEP1, [7.0, 1.4, 2.0]), MAN0)],
         props=[CASE(), PUDDLE(splash=[STEP1], splashDir=[0.1, 0.2], ripple=[STEP1, r(STEP1 + 0.25)])],
         cams=[C1])
@@ -74,15 +78,22 @@ st.cue('sfx:stepRun', 'S01', 0.1, 0.12); st.cue('sfx:splash', 'S01', STEP1, 0.45
 #    at his right ear, he points his left index finger straight down at the puddle, talking, deadpan
 #    (round 1: the phone hand is held at the ear in the frame of his face, so it stays there when he turns his head; the pointing arm stretches all
 #    the way down and the fingertip dips into the puddle; the wet trouser band is darker and glossy)
-D2 = st.dur('S02')
-POINT2 = {'reach': {'L': [7.47, 0.03, 0.16, 1, 0.06], 'R': ['face', -0.52, 0.5, -0.04, 1, 0.0]}, 'hands': {'L': 'point', 'R': 'grip'}, 'bend': {'spine': [0.22, 0, 0, 1, None]},
-          'face': {'lid': 0.35, 'mouth': 'line', 'brow': -0.2}}
-WET = lambda pid='gouttes': P(pid, 'legDrips', on={'actor': 'mec', 'joint': 'footL', 'offset': [0.0, 0.0, 0.0]}, opts={'n': 7, 'sleeve': [0.098, 0.44], 'opacity': 0.82, 'r': 0.07, 'y0': 0.07, 'fall': 0.1})
+#    (round 2) he stands beside the puddle, at its back left, so his arm goes forward and down to it, clear of his legs (it hung beside them like a
+#    third leg): the index finger dips into the water three times as he talks, a ring on each dip, the body bobbing; the phone in his right hand is
+#    held against the side of his head (a `touch` on his face: `reach` takes no face point, so the hand had stayed at his collarbone); the soaked
+#    trouser leg is a dark gloss on the trouser itself (wetShin) with drips off the hem, not a separate black sleeve
+D2 = st.dur('S02'); MAN2 = [6.95, 0, -0.45]; DIP2 = [0.3, 0.66, 1.05]
+PT2 = lambda t_, y_, sq=(1, 1, 1), d_=0.12: k(t_, toon={'reach': {'L': [7.42, y_, 0.02, 1, 0.07]}, 'touch': {'R': ['face', -0.62, 0.5, -0.1, 1, 0.0]}, 'hands': {'L': 'point', 'R': 'grip'},
+                                                       'bend': {'spine': [0.3, 0, 0, 1, None]}, 'sq': list(sq), 'face': {'lid': 0.35, 'mouth': 'line', 'brow': -0.2}}, toonDur=d_, toonEase='inOut')
+WET = lambda pid='gouttes': P(pid, 'legDrips', on={'actor': 'mec', 'joint': 'footL', 'offset': [0.0, 0.0, 0.0]}, opts={'n': 7, 'r': 0.07, 'y0': 0.07, 'fall': 0.1})
+WETSHIN = lambda pid='mouille': P(pid, 'wetShin', on={'actor': 'mec', 'joint': 'kneeL'}, opts={'h': 0.55, 'opacity': 0.55})
 st.shot('S02', 'parisStreet', setOpts=STREET, actors=[
-        STAND([k(0.0, look='camera'), k(0.0, toon=POINT2, toonDur=0.0), *st.talk('L02', 'S02', base='unimpressed'),
-               k(0.9, look=[7.45, 0.0, 0.1], lookDur=0.15), k(1.35, look='camera', lookDur=0.15)], MANP, 0, clip='phoneEar')],
-        props=[PUDDLE(ripple=[0.1, 0.55, 1.0]), P('tel', 'smartPhone', on={'actor': 'mec', 'hand': 'R'}, opts={'call': True}), WET()],
-        cams=[cam(0.0, [6.25, 1.8, 3.3], [6.28, 1.79, 3.2], [7.35, 0.7, -0.2], [7.35, 0.7, -0.2], lens=52)])
+        STAND([k(0.0, look='camera'), PT2(0.0, 0.16, d_=0.0), *[PT2(t_, 0.015 if j % 2 == 0 else 0.17, (1.02, 0.98, 1.02) if j % 2 == 0 else (0.99, 1.02, 0.99))
+                                                              for j, t_ in enumerate([DIP2[0], 0.48, DIP2[1], 0.86, DIP2[2], 1.28])],
+               *st.talk('L02', 'S02', base='unimpressed'),
+               k(0.75, look=[7.42, 0.0, 0.05], lookDur=0.12), k(1.12, look='camera', lookDur=0.12)], MAN2, 25, clip='phoneEar')],
+        props=[PUDDLE(ripple=[r(d + 0.04) for d in DIP2]), P('tel', 'smartPhone', on={'actor': 'mec', 'hand': 'R'}, opts={'call': True}), WET(), WETSHIN()],
+        cams=[cam(0.0, [6.0, 2.1, 3.9], [6.04, 2.08, 3.8], [7.15, 0.85, -0.2], [7.15, 0.85, -0.2], lens=54)])
 st.cue('sfx:beep', 'S02', 0.05, 0.12)
 
 # 3: the navy declared it enemy waters. In a navy office, from above the desk: an officer in a white anchor cap stands behind it over the street plan
@@ -129,7 +140,7 @@ st.shot('S04', 'parisStreet', setOpts=STREET, actors=[
                T4(1.1, {'pop': 0.0, 'lid': 0.1, 'brow': 0.3, 'mouth': 'line'}, (1.04, 0.96, 1.04), 0.08),
                k(1.16, look='camera', lookDur=0.1), T4(1.3, DEAD, (1, 1, 1), 0.12)], MAN4, -20)],
         props=[CASE(), PUDDLE(ripple=[GONE4, r(GONE4 + 0.22)], splash=[TOUCH4], splashDir=[0.0, 0.0]),
-               P('sousmarin4', 'divingSub', pos=[PUD[0], 0, PUD[2]], opts={'L': 8.0, 'tilt': 1.3, 'at': 0.05, 'touch': TOUCH4, 'gone': GONE4, 'r': 0.24, 'ry': r(PI / 2)})],
+               P('sousmarin4', 'divingSub', pos=[PUD[0], 0, PUD[2]], opts={'L': 8.0, 'tilt': 1.3, 'at': 0.05, 'touch': TOUCH4, 'gone': GONE4, 'r': 0.24, 'ry': r(PI / 2), 'collar': True})],   # (round 2) a collar of hull bunched at the rim
         cams=[cam(0.0, [7.0, 1.4, 5.4], [7.0, 1.38, 5.25], [7.6, 0.9, -0.6], [7.6, 0.9, -0.6], lens=48)])
 st.cue('whoosh', 'S04', 0.2, 0.35); st.cue('sfx:splash', 'S04', TOUCH4, 0.3); st.cue('sfx:pop', 'S04', GONE4, 0.3); st.cue('sfx:boing', 'S04', 0.88, 0.2)
 
@@ -137,15 +148,18 @@ st.cue('whoosh', 'S04', 0.2, 0.35); st.cue('sfx:splash', 'S04', TOUCH4, 0.3); st
 #    slab of street, two parked cars and a lamp; the slab tips, each car slides to the low lip, teeters there, drops off and bounces on the road; the
 #    lamp topples; in the right foreground, back to us, he watches, then glances at us (round 1: the cars now get off; he is in the shot)
 D5 = st.dur('S05'); SUB5 = [0.0, 0, -16.0]
-st.shot('S05', 'parisStreet', setOpts=STREET, actors=[STAND([k(0.0, look=[0.0, 2.0, -16.0]), k(0.38, toon={'sq': [1.05, 0.94, 1.05]}, toonDur=0.06), k(0.5, toon={'sq': [1, 1, 1]}, toonDur=0.15),
-                                                       k(1.0, look=[-1.5, 1.0, -16.0], lookDur=0.3), k(1.55, look='camera', lookDur=0.15)], [4.4, 0, -4.5], -170)],
+#    (round 2) the low lip of the slab is framed inside the picture (the payoff was half off the left edge); the tip starts at 0.45 s, the first car
+#    slides the length of the slab, hangs five frames on the lip, drops and bounces by about 1.5 s; for the last 0.3 s he turns round to us
+MAN5 = [3.7, 0, -3.8]
+st.shot('S05', 'parisStreet', setOpts=STREET, actors=[STAND([k(0.0, look=[0.0, 2.0, -16.0]), k(0.32, toon={'sq': [1.05, 0.94, 1.05]}, toonDur=0.06), k(0.44, toon={'sq': [1, 1, 1]}, toonDur=0.15),
+                                                       k(0.8, look=[-3.5, 1.0, -16.0], lookDur=0.25), k(1.62, to=MAN5, dur=0.16, face=-60, ease='out'), k(1.64, look='camera', lookDur=0.12)], MAN5, -170)],
         props=[CASE(), PUDDLE(),
-               P('sousmarin5', 'surfacingSub', pos=SUB5, opts={'L': 8.0, 'at': 0.2, 'dur': 0.5, 'y1': -0.9, 'tip': 0.45, 'tipAt': 0.6, 'slideAt': 0.7, 'carX0': [-2.75, -1.65], 'hang': 0.12}),
+               P('sousmarin5', 'surfacingSub', pos=SUB5, opts={'L': 8.0, 'at': 0.15, 'dur': 0.42, 'y1': -1.2, 'tip': 0.5, 'tipAt': 0.45, 'slideAt': 0.5, 'carX0': [-2.5, -1.5], 'hang': 0.16, 'accK': 2.0}),
                *[P(f'poussiere5{j}', 'toonPuff', pos=[x_, 0.3, z_], opts={'at': r(0.3 + 0.05 * j), 'n': 6, 'size': 0.8, 'rise': 1.6, 'spread': 2.0, 'life': 1.0, 'color': '#D9D2C4'})
                  for j, (x_, z_) in enumerate([(-3.5, -12.0), (3.5, -12.0), (-3.5, -20.0), (3.5, -20.0)])]],
         fx=[{'type': 'shake', 'at': 0.35, 'dur': 0.4, 'amount': 0.015}],
-        cams=[cam(0.0, [5.2, 1.7, 5.2], [5.15, 1.72, 5.0], [0.0, 2.2, -16.0], [0.0, 2.3, -16.0], lens=42)])
-st.cue('thunder', 'S05', 0.35, 0.45); st.cue('sfx:crunch', 'S05', 0.35, 0.4); st.cue('sfx:splash', 'S05', 0.45, 0.25); st.cue('sfx:crunch', 'S05', 1.75, 0.35)
+        cams=[cam(0.0, [5.6, 1.8, 5.6], [5.55, 1.82, 5.4], [-1.2, 2.0, -16.0], [-1.2, 2.1, -16.0], lens=44)])
+st.cue('thunder', 'S05', 0.35, 0.45); st.cue('sfx:crunch', 'S05', 0.35, 0.4); st.cue('sfx:splash', 'S05', 0.45, 0.25); st.cue('sfx:crunch', 'S05', 1.48, 0.35)
 
 # 6: its torpedo went through the bakery. Low behind the puddle on the pavement, the puddle mid-frame: a torpedo rushes past the lens, skims low over
 #    the puddle (its wake splashes and ripples the reflection) and the camera whips after it to the bakery: the starburst, the hole and the
@@ -154,15 +168,15 @@ st.cue('thunder', 'S05', 0.35, 0.45); st.cue('sfx:crunch', 'S05', 0.35, 0.4); st
 D6 = st.dur('S06'); HIT6 = 0.95; PASS6 = 0.72
 BAK = [10.0, 0, 4.0]; HITP6 = [9.95, 1.6, 4.0]
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[],
-        props=[PUDDLE(ripple=[PASS6, r(PASS6 + 0.18)], splash=[PASS6], splashDir=[-0.2, 1.4]),
+        props=[PUDDLE(ripple=[0.08, 0.38, PASS6, r(PASS6 + 0.18)], splash=[PASS6], splashDir=[-0.2, 1.4]),   # (round 2) the water trembles before the torpedo
                P('boulangerie', 'bakeryFront', pos=BAK, ry=-90, opts={'w': 8.0, 'h': 10.0, 'hitAt': HIT6, 'hit': [0.0, 1.6], 'n': 2}),
                P('torpille6', 'missileSalvo', pos=[0, 0, 0], opts={'shots': [{'from': [5.9, 1.0, -7.0], 'ctrl': [6.875, -0.7, 1.5], 'to': HITP6, 't0': r(HIT6 - 0.46), 'dur': 0.46, 'lin': True}],
                  'size': 0.55, 'trail': 0.45, 'trailWidth': 0.12, 'trailOpacity': 0.55, 'flame': 0.6, 'glow': 0.3, 'bodyColor': '#5E6B7A'}),
                P('boum6', 'timedBurst', pos=[9.4, 0.0, 3.7], ry=-154, opts={'at': HIT6, 'size': 1.65}),
                P('fumee6', 'toonPuff', pos=[9.4, 1.4, 4.0], opts={'at': r(HIT6 + 0.05), 'n': 8, 'size': 0.7, 'rise': 1.5, 'spread': 1.4, 'life': 1.0, 'color': '#E6DCC8'})],
         fx=[{'type': 'shake', 'at': HIT6, 'dur': 0.12, 'amount': 0.022}],
-        cams=[cam(0.0, [6.3, 1.6, -2.6], [6.3, 1.6, -2.6], [7.5, 0.35, 1.2], [7.5, 0.35, 1.2], lens=58),
-              glide([cam(0.72, [6.3, 1.6, -2.6], [6.3, 1.62, -2.5], [9.3, 1.75, 4.0], [9.3, 1.8, 4.0], lens=58)], 0.2)])
+        cams=[cam(0.0, [6.3, 1.6, -2.6], [6.42, 1.45, -1.95], [7.5, 0.35, 1.2], [7.5, 0.35, 1.2], lens=58, ease='inOut'),   # (round 2) a slow push in (it was a still plate for 0.6 s)
+              glide([cam(0.72, [6.38, 1.5, -2.15], [6.38, 1.52, -2.05], [9.3, 1.75, 4.0], [9.3, 1.8, 4.0], lens=58)], 0.2)])
 st.cue('whoosh', 'S06', 0.55, 0.45); st.cue('sfx:splash', 'S06', PASS6, 0.25); st.cue('thunder', 'S06', HIT6, 0.5); st.cue('sfx:glass', 'S06', r(HIT6 + 0.05), 0.35)
 
 # 7: and the fire station. Further down the street: the torpedo bursts out through the fire station's doors and the red fire engine somersaults out
@@ -186,13 +200,13 @@ st.cue('thunder', 'S07', BURST7, 0.5); st.cue('sfx:siren', 'S07', r(BURST7 + 0.2
 #    the baguettes are fat golden loaves)
 D8 = st.dur('S08')
 MAN8 = [7.75, 0, 1.55]
-WRING = lambda t_, up: k(t_, toon={'reach': {'R': [7.68, r(1.12 + 0.05 * up), 1.32, 1, 0.03], 'L': [7.86, r(1.12 - 0.05 * up), 1.32, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': DEAD}, toonDur=0.12, toonEase='inOut')
+WRING = lambda t_, up: k(t_, toon={'reach': {'R': [7.62, r(1.42 + 0.06 * up), 1.3, 1, 0.03], 'L': [7.9, r(1.1 - 0.06 * up), 1.3, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': DEAD}, toonDur=0.12, toonEase='inOut')   # (round 2) higher, the hands further apart
 st.shot('S08', 'parisStreet', setOpts=STREET, actors=[STAND([k(0.0, look=[7.6, 1.1, 1.0]), WRING(0.0, 1), WRING(0.2, -1), WRING(0.4, 1), WRING(0.6, -1),
                                                              k(0.8, toon={'sq': [0.96, 1.05, 0.96], 'face': {'lid': 0.1, 'brow': 0.4, 'mouth': 'line'}}, toonDur=0.06),
                                                              k(0.95, look='camera', lookDur=0.12), k(0.98, toon={'sq': [1, 1, 1], 'face': DEAD}, toonDur=0.1), WRING(1.05, 1)], MAN8, 195)],
         props=[PUDDLE(),
-               P('chaussette', 'wrungSock', on={'actor': 'mec', 'hand': 'R'}, opts={'wring': [[0.0, 0.2], [0.35, 0.7], [0.7, 1.0]], 'spring': 0.8}),
-               WET('gouttes8'),
+               P('chaussette', 'wrungSock', on={'actor': 'mec', 'hand': 'R'}, opts={'wring': [[0.0, 0.3], [0.35, 0.8], [0.7, 1.0]], 'spring': 0.8, 'len': 0.6, 'w': 0.11, 'n': 10}),   # (round 2) a bigger sock
+               WET('gouttes8'), WETSHIN('mouille8'),
                P('tas8a', 'rubbleHeap', pos=[9.4, 0, 3.6], opts={'r': 1.6, 'h': 1.1, 'dust': True, 'seed': 4}),
                P('tas8b', 'rubbleHeap', pos=[5.4, 0, 3.0], opts={'r': 1.2, 'h': 0.8, 'seed': 9}),
                P('tas8c', 'rubbleHeap', pos=[9.3, 0, -1.4], opts={'r': 0.9, 'h': 0.6, 'seed': 13}),
@@ -241,13 +255,17 @@ st.cue('sfx:jet', 'S10', 0.0, 0.5); st.cue('whoosh', 'S10', 0.5, 0.3)
 #     one small grey cloud drifts in over them and rains; one after another every crater fills with water; the frame holds on the three hundred
 #     glittering puddles, glints flashing on them (round 1: the craters were there from the first frame and the frame froze twice)
 D11 = st.dur('S11'); RAIN11 = st.at('S11', 'L12', 0); FULL11 = st.at('S11', 'L13', 0)
-HOME11 = [-6.8, 6.67]
-st.shot('S11', 'grassland', setOpts={'clouds': 0}, actors=[],
-        props=[P('crateres', 'craterField', pos=[0.0, 0.03, 0.0], opts={'w': 34, 'd': 60, 'nx': 5, 'nz': 9, 'r': 1.7, 'home': HOME11, 'homeW': 2.2, 'fill': [r(RAIN11 + 0.25), r(FULL11 + 0.05)],
-                 'pop': [0.02, 0.8], 'blocks': True, 'blockH': [4, 9], 'blockS': 2.6, 'roadW': 3.2, 'twinkle': 16}),
+#     (round 2) the same Paris as the street: the blocks are the street's Haussmann buildings (cream stone, grey-blue mansard roofs), round trees,
+#     and the Eiffel tower stands in the frame; the camera is still locked but tipped to about 59 degrees so the tower and the rain read; his puddle
+#     sits at a third of the width, 60 % of the height; at the end every filled puddle gets travelling rings and bigger glints (it froze there)
+HOME11 = [-6.8, 0.0]; EIF11 = [-10.2, 0.03, -10.0]
+st.shot('S11', 'grassland', setOpts={'clouds': 0, 'grass': '#C9BFA9'}, actors=[],
+        props=[P('crateres', 'craterField', pos=[0.0, 0.06, 0.0], opts={'w': 34, 'd': 60, 'nx': 5, 'nz': 9, 'r': 1.7, 'home': HOME11, 'homeW': 2.2, 'fill': [r(RAIN11 + 0.25), r(FULL11 + 0.05)],
+                 'pop': [0.02, 0.8], 'blocks': True, 'paris': True, 'trees': True, 'treeS': 0.42, 'clear': [EIF11[0], EIF11[2], 2.0], 'blockS': 2.6, 'roadW': 3.2, 'twinkle': 30, 'twinkleS': 2.2, 'ripples': True}),
+               P('tour11', 'eiffelTower', pos=EIF11, opts={'h': 24, 'style': 'v2'}),
                P('nuage11', 'rainCloud', pos=[-26.0, 0.0, 3.0], opts={'h': 26.0, 'size': 8.0, 'w': 9.0, 'n': 240, 'rain': [[r(RAIN11 - 0.1), True]], 'mood': 'happy'},
-                 keys=[k(r(RAIN11 - 0.4), to=[26.0, 0.0, 1.0], dur=r(FULL11 - RAIN11 + 1.2), ease='linear')])],
-        cams=[cam(0.0, [0.0, 64.0, 20.0], [0.0, 64.0, 20.0], [0.0, 0.0, -3.0], [0.0, 0.0, -3.0], lens=48)])
+                 keys=[k(r(RAIN11 - 0.4), to=[30.0, 0.0, 1.0], dur=r(FULL11 - RAIN11 + 1.2), ease='linear')])],
+        cams=[cam(0.0, [0.0, 56.0, 26.0], [0.0, 56.0, 26.0], [0.0, 0.0, -8.0], [0.0, 0.0, -8.0], lens=50)])
 st.cue('thunder', 'S11', 0.05, 0.3); st.cue('sfx:crunch', 'S11', 0.3, 0.25); st.cue('rain', 'S11', RAIN11, 0.4); st.cue('sfx:ding', 'S11', r(FULL11 + 0.1), 0.2)
 
 # 12: the minister ordered... Close on the minister at the podium: he signs the order form, an open sheet flat on the podium, pen on paper: three
@@ -281,54 +299,66 @@ st.cue('sfx:paper', 'S13', 0.05, 0.4); st.cue('whoosh', 'S13', 0.3, 0.3); st.cue
 #     one beat all their heads snap round to him (overshoot, settle); he stands three-quarter in the foreground beside his own puddle, the only one
 #     without, and looks at us (round 1: the heads read as bollards and never turned; he was back-on; the puddle sat on the caption band)
 D14 = st.dur('S14'); POP14 = 0.12; TURN14 = 0.5
+#     (round 2) round periscope heads with a hood and a dark round lens with a glint, bigger, so the snap toward him reads (the square heads read as
+#     parking meters); he stands three-quarter to us from the start, glances at them on the snap, then back to us
 MAN14 = [7.95, 0, -1.0]
-st.shot('S14', 'parisStreet', setOpts=STREET, actors=[STAND([k(0.0, look=[5.0, 0.8, -3.0]), k(0.62, look='camera', lookDur=0.12)], MAN14, -30)],
+st.shot('S14', 'parisStreet', setOpts=STREET, actors=[STAND([k(0.0, look='camera'), k(r(TURN14 + 0.04), look=[5.0, 1.4, -4.0], lookDur=0.08), k(0.8, look='camera', lookDur=0.1)], MAN14, -5)],
         props=[CASE(), PUDDLE(),
-               P('periscopes', 'periscopeField', pos=[0.0, 0, 0.0], opts={'w': 18, 'd': 46, 'gap': 2.9, 'at': POP14, 'h': 1.35, 's': 2.1, 'turnAt': [TURN14, MAN14[0], MAN14[2]], 'turnDur': 0.16, 'skip': [PUD[0], PUD[2], 1.8]})],
+               P('periscopes', 'periscopeField', pos=[0.0, 0, 0.0], opts={'w': 18, 'd': 46, 'gap': 2.9, 'at': POP14, 'h': 1.35, 's': 2.1, 'headS': 1.35, 'color': '#A9B4BD', 'turnAt': [TURN14, MAN14[0], MAN14[2]], 'turnDur': 0.16, 'skip': [PUD[0], PUD[2], 1.8]})],
         cams=[cam(0.0, [9.4, 2.2, 6.5], [9.35, 2.2, 6.4], [3.8, -0.6, -12.0], [3.8, -0.6, -12.0], lens=46)])
 st.cue('sfx:pop', 'S14', POP14, 0.4); st.cue('sfx:click', 'S14', TURN14, 0.3)
 
-# 15: with the town on their backs. From high and three-quarter, pulling back: every hull surfaces at once and the whole town (roofs, streets, a
-#     clock tower) rises on their backs like a lid, a thick slab of earth under it, hull bows and a ring of spray along its far rim; he stays at the
-#     bottom of the round hole on his small patch of street, beside his puddle, looking up (round 1: was a blank grey plane with a pit)
-D15 = st.dur('S15'); LIFT15 = 0.3
-MAN15 = [0.3, 0.06, -2.4]; PUD15 = [-0.55, 0.065, -1.8]
-st.shot('S15', 'grassland', setOpts={'clouds': 20}, actors=[STAND([k(0.0, look=[0.0, 6.0, -6.0]), k(0.95, look='camera', lookDur=0.2)], MAN15, 15)],
+# 15: with the town on their backs. (round 2) Low and three-quarter at the town's edge (the top-down shot read as a man at the bottom of a well): for
+#     0.3 s the street stands as it was, him on his patch in it; then every hull surfaces at once and the whole town (its Haussmann fronts, a clock
+#     tower, the Eiffel tower far behind) lifts like a lid on a thick slab of earth, a row of grey hull bows and conning towers under its edge, a white
+#     line of spray along it, daylight under the far edge; under it, in the light that falls through his hole, he stands small on his round of
+#     asphalt beside his puddle and looks up (the floor under the town stands 5 cm proud: at 4 mm the grass flashed through it for a frame)
+D15 = st.dur('S15'); LIFT15 = 0.3; BASE15 = 0.1
+HOLE15 = [0.0, 6.0, 4.0]; PATCHY15 = 0.13
+MAN15 = [0.45, r(PATCHY15 + 0.005), 6.4]; PUD15 = [-0.75, r(PATCHY15 + 0.012), 6.9]
+st.shot('S15', 'grassland', setOpts={'clouds': 20}, actors=[STAND([k(0.0, look='camera'), k(0.55, look=[0.3, 6.0, 6.0], lookDur=0.15),
+                                                                  k(0.6, toon={'sq': [0.96, 1.05, 0.96], 'face': {'lid': 0.1, 'brow': 0.5, 'mouth': 'line'}}, toonDur=0.08),
+                                                                  k(1.12, look='camera', lookDur=0.15), k(1.12, toon={'sq': [1, 1, 1], 'face': DEAD}, toonDur=0.12)], MAN15, 0)],
         props=[CASE(), PUDDLE('flaque15', PUD15),
-               P('ville15', 'townLid', pos=[0.0, 0.05, 0.0], opts={'w': 28, 'd': 26, 't': 1.4, 'side': '#7A6450', 'hole': [0.0, -0.8, 4.5], 'patchR': 2.4, 'patchAt': [0.0, -2.0],
-                 'liftAt': LIFT15, 'lift': 2.6, 'dur': 0.5, 'roadX': 0.0, 'roadW': 3.5, 'blockAlign': 'road', 'under': True, 'block': 4.0, 'holeGap': 2.6, 'hMin': 4.5, 'hMax': 8.0, 'pitched': True, 'roof': '#5F6E7E',
-                 'noseOut': 1.6, 'hullL': 7, 'hullGap': 5, 'tower': [-3.2, -9.0, 10, 1.7]})],
+               P('ville15', 'townLid', pos=[0.0, 0.0, 0.0], opts={'w': 28, 'd': 26, 't': 1.4, 'side': '#7A6450', 'cap': '#6B5642', 'hole': HOLE15, 'patchR': 2.2, 'patchAt': [HOLE15[0], HOLE15[1]], 'patchY': PATCHY15,
+                 'underY': 0.05, 'baseY': BASE15, 'liftAt': LIFT15, 'lift': 4.5, 'dur': 0.5, 'roadX': 0.0, 'roadW': 3.5, 'blockAlign': 'road', 'under': True, 'block': 4.0, 'holeGap': 2.6,
+                 'hMin': 5.0, 'hMax': 8.0, 'paris': True, 'noseOut': 1.6, 'hullL': 7, 'hullGap': 5, 'tower': [-3.2, -9.0, 10, 1.7], 'sprayS': 0.45, 'sprayLife': 0.75}),
+               P('tour15', 'eiffelTower', pos=[-30.0, 0.0, -95.0], opts={'h': 60, 'style': 'v2'})],
         fx=[{'type': 'shake', 'at': LIFT15, 'dur': 0.4, 'amount': 0.015}],
-        cams=[cam(0.0, [0.8, 9.5, 8.0], [0.0, 20.0, 22.0], [0.3, 0.9, -2.4], [0.0, 1.0, -2.0], lens=46, ease='inOut')])
+        cams=[cam(0.0, [3.5, 1.2, 24.0], [3.1, 1.05, 22.6], [0.6, 3.6, 4.0], [0.6, 3.7, 4.0], lens=50, ease='inOut')])
 st.cue('thunder', 'S15', LIFT15, 0.4); st.cue('sfx:splash', 'S15', r(LIFT15 + 0.05), 0.45)
 
-# 16: they parked it in the harbour. Low on the quay: the town floats on its hulls against the quay (several buildings, a row of hull bows under its
-#     edge), a thick sagging hemp rope from the bollard looped round the clock tower; in front of us a gendarme in a kepi leans across from the quay,
-#     slips a parking ticket under the town hall door, pops back up, turns and taps his kepi (round 1: the gendarme was tiny, the rope a rigid beam,
-#     the bollard a top hat, no clock)
-D16 = st.dur('S16'); TICK16 = 0.45; CUT16 = 0.6
-QUAY = [0.0, 0, 1.0]; TOWN16 = [0.0, 0, -13.0]; THP = [0.0, 10.7]; TOWER16 = [0.0, 10.4, 3.5, 1.8]; TOWERY16 = 5.5
-DOOR16 = [0.3, 1.62, -0.08]
-GEND = [0.9, 0.8, 1.2]
-ROPE_TO = [r(TOWER16[0] - QUAY[0]), r(1.6 + TOWERY16 + TOWER16[2] - TOWER16[3] * 1.35), r(TOWN16[2] + TOWER16[1] - QUAY[2])]
-TK = lambda t_, p_, sp=0.0, sq=(1, 1, 1), face=None, d_=0.15: k(t_, toon={'reach': {'R': [*p_, 1, 0.03]}, 'hands': {'R': 'pinch'}, 'bend': {'spine': [sp, 0, 0, 1, None]}, 'sq': list(sq), 'face': face or DEAD}, toonDur=d_, toonEase='inOut')
+# 16: they parked it in the harbour. (round 2) One shot from the quay, a little above it: in front of us at the quay's edge a gendarme in a kepi,
+#     big in the frame, kneels with his arm stretched across a band of open water to the town hall's door, which floats low at the edge of the town
+#     (grey hull bows at the waterline under it); the white ticket slides under the door and stays there; he pops back up, turns to us and taps his
+#     kepi; a sagging hemp rope runs from the squat bollard beside us up to the town hall's clock belfry (round 1: a wide then a close shot, the
+#     ticket only in the wide one, the bollard a black top hat, no water under the door)
+D16 = st.dur('S16'); TICK16 = 0.4; UP16 = 0.5
+FY16 = 0.6; TOWN16 = [2.6, 0, -13.85]; THP = [-2.0, 10.7]; THD = 4.5; BH16, BW16 = 2.2, 1.4; TOWER16 = [THP[0], r(THP[1] + THD / 2 - BW16 / 2), BH16, BW16]; TOWERY16 = 3.2   # (round 2) the belfry flush with the front: set back, the rope ran behind the facade
+QUAY = [0.0, 0, 1.0]; BX16 = 3.0; QH16 = 0.6
+DOORX = r(TOWN16[0] + THP[0]); DOORZ = r(TOWN16[2] + THP[1] + THD / 2 + 0.06); DOORY = r(FY16 + 0.3)
+GEND = [1.0, QH16, 1.3]
+ROPE_TO = [r(TOWN16[0] + TOWER16[0] - QUAY[0]), r(FY16 + TOWERY16 + BH16 - BW16 * 1.35), r(TOWN16[2] + TOWER16[1] - QUAY[2])]
+TK = lambda t_, p_, sp=0.0, sq=(1, 1, 1), face=None, d_=0.15, hand='pinch': k(t_, toon={'reach': {'R': [*p_, 1, 0.03]}, 'hands': {'R': hand}, 'bend': {'spine': [sp, 0, 0, 1, None]}, 'sq': list(sq), 'face': face or DEAD}, toonDur=d_, toonEase='inOut')
 st.shot('S16', 'seaSurface', setOpts={'parasols': False, 'shore': 40}, actors=[
-        act('gendarme', GEND, 180, 'stand', 'unimpressed', keys=[k(0.0, look=[0.3, 1.6, -0.1]),
-            TK(0.0, [0.75, 2.2, 0.95], d_=0.0), TK(0.18, [0.4, 1.75, 0.0], 0.55, d_=0.2),
-            TK(TICK16, [0.3, 1.64, -0.1], 0.6, d_=0.12),
-            TK(0.68, [0.75, 2.75, 1.0], 0.0, (0.94, 1.1, 0.94), {'lid': 0.3, 'mouth': 'smile', 'brow': 0.2}, 0.1),
-            k(0.62, to=GEND, dur=0.12, glide=True, ease='out', face=15), k(0.7, look='camera', lookDur=0.1),
-            k(0.86, toon={'reach': {'R': ['face', -0.15, 0.98, 0.1, 1, 0.0]}, 'hands': {'R': 'open'}, 'bend': {'spine': [0, 0, 0, 1, None]}, 'sq': [1, 1, 1], 'face': {'lid': 0.35, 'mouth': 'smile', 'brow': 0.1}}, toonDur=0.08),
-            k(0.98, toon={'reach': {'R': ['face', -0.15, 1.04, 0.12, 1, 0.0]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.4, 'mouth': 'smile', 'brow': 0.2}}, toonDur=0.06),
-            k(1.06, toon={'reach': {'R': ['face', -0.15, 0.98, 0.1, 1, 0.0]}, 'hands': {'R': 'open'}}, toonDur=0.06)])],
-        props=[P('quai', 'harbourQuay', pos=QUAY, opts={'len': 40, 'h': 0.8, 'dep': 16, 'bx': 3.2, 'rope': {'to': ROPE_TO, 'sag': 1.4, 'r': 0.11, 'loopR': 1.35}}),
-               P('ville16', 'townLid', pos=TOWN16, opts={'w': 40, 'd': 26, 'float': True, 'floatY': 1.6, 'bob': 0.015, 'townHall': True, 'thPos': THP, 'roadX': 12.0, 'hullL': 7, 'hullGap': 5,
-                 'noseOut': 0.6, 'tower': TOWER16, 'towerY': TOWERY16, 'hMin': 8, 'hMax': 13, 'pitched': True, 'roof': '#5F6E7E'}),
-               P('pv', 'fineTicket', on={'actor': 'gendarme', 'hand': 'R'}, opts={'w': 0.2}),
+        act('gendarme', GEND, 180, 'kneel', 'unimpressed', keys=[k(0.0, look=[DOORX, DOORY, DOORZ]),
+            TK(0.0, [r(DOORX + 0.25), r(DOORY + 0.12), r(DOORZ + 0.35)], 0.55, d_=0.0),
+            TK(0.16, [r(DOORX + 0.1), r(DOORY + 0.03), r(DOORZ + 0.12)], 0.6, d_=0.14),
+            TK(TICK16, [DOORX, r(DOORY + 0.01), r(DOORZ - 0.02)], 0.62, d_=0.12),
+            TK(r(UP16 + 0.02), [1.3, r(QH16 + 1.4), 1.0], 0.0, (0.92, 1.12, 0.92), {'lid': 0.3, 'mouth': 'smile', 'brow': 0.2}, 0.1, 'open'),
+            k(UP16, clip='stand', blend=0.1),
+            k(r(UP16 + 0.12), to=GEND, dur=0.14, glide=True, ease='out', face=30), k(r(UP16 + 0.16), look='camera', lookDur=0.1),
+            k(0.86, toon={'touch': {'R': ['face', -0.15, 0.98, 0.1, 1, 0.0]}, 'hands': {'R': 'open'}, 'bend': {'spine': [0, 0, 0, 1, None]}, 'sq': [1, 1, 1], 'face': {'lid': 0.35, 'mouth': 'smile', 'brow': 0.1}}, toonDur=0.08),
+            k(0.98, toon={'touch': {'R': ['face', -0.15, 1.04, 0.12, 1, 0.0]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.4, 'mouth': 'smile', 'brow': 0.2}}, toonDur=0.06),
+            k(1.08, toon={'touch': {'R': ['face', -0.15, 0.98, 0.1, 1, 0.0]}, 'hands': {'R': 'open'}}, toonDur=0.06)])],
+        props=[P('quai', 'harbourQuay', pos=QUAY, opts={'len': 40, 'h': QH16, 'dep': 16, 'bx': BX16, 'bollardS': 1.35, 'rope': {'to': ROPE_TO, 'sag': 1.4, 'r': 0.07, 'loopR': r(BW16 * 0.82)}}),
+               P('ville16', 'townLid', pos=TOWN16, opts={'w': 40, 'd': 26, 'float': True, 'floatY': FY16, 'bob': 0.012, 'townHall': True, 'thPos': THP, 'thW': 9, 'thH': TOWERY16, 'thD': THD, 'thDoor': {'w': 0.95, 'h': 1.9},
+                 'roadX': 12.0, 'hullL': 7, 'hullGap': 5, 'noseOut': 0.9, 'tower': TOWER16, 'towerY': TOWERY16, 'hMin': 8, 'hMax': 13, 'paris': True, 'block': 9}),
+               P('pv', 'fineTicket', on={'actor': 'gendarme', 'hand': 'R'}, opts={'w': 0.42},   # (round 2) bigger: at 0.24 m it did not show in his hand
+                 keys=[k(r(TICK16 + 0.02), detach=True), k(r(TICK16 + 0.03), to=[DOORX, r(DOORY + 0.012), r(DOORZ - 0.16)], dur=0.12, ease='out')]),
                P('kepi16', 'kepi', on={'actor': 'gendarme', 'joint': 'head', 'offset': [0.0, 0.5, 0.0]}, opts={'w': 0.222, 'd': 0.17})],
-        cams=[cam(0.0, [7.0, 2.6, 14.0], [6.8, 2.6, 13.6], [0.5, 4.8, -4.0], [0.5, 4.8, -4.0], lens=54),
-              cam(CUT16, [3.0, 1.7, 6.2], [2.95, 1.7, 6.1], [1.0, 2.05, 0.6], [1.0, 2.05, 0.6], lens=54)])
-st.cue('sfx:wind', 'S16', 0.0, 0.2); st.cue('sfx:paper', 'S16', TICK16, 0.25); st.cue('sfx:honkLong', 'S16', 0.1, 0.2)
+        cams=[cam(0.0, [3.8, 3.2, 5.2], [3.7, 3.15, 5.0], [0.6, 1.9, -1.2], [0.6, 1.95, -1.2], lens=66)])
+st.cue('sfx:wind', 'S16', 0.0, 0.2); st.cue('sfx:paper', 'S16', TICK16, 0.3); st.cue('sfx:honkLong', 'S16', 0.1, 0.2); st.cue('sfx:boing', 'S16', UP16, 0.15)
 
 # 17: officially, the town moved. Press room, at the wall map, three-quarter front: standing beside the map, the minister stretches one arm across it,
 #     puts a finger on the town's icon and slides it from inland to the coast, leaving a dotted trail (DÉMÉNAGÉE), then turns to us, chin up, his
@@ -342,18 +372,18 @@ st.shot('S17', 'pressRoom', setOpts={**PRESS, 'podium': False}, actors=[
             SLIDE(SL17[0], ICON0, 0.05), SLIDE(SL17[1], ICON1, r(SL17[1] - SL17[0])), k(0.4, look=[0.3, 1.7, -2.9], lookDur=0.6),
             k(1.35, look=[2.4, 2.3, 1.4], lookDur=0.12), SLIDE(1.35, ICON1, 0.1, {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}, (0.97, 1.05, 0.97))])],
         props=[P('carte17', 'townMapWall', pos=MAPC, opts={'w': MW, 'h': MH, 'from': [0.72, 0.42], 'to': [0.2, 0.55], 'slide': SL17})],
-        cams=[cam(0.0, [2.4, 1.7, 1.4], [2.35, 1.7, 1.25], [1.0, 1.5, -2.6], [1.0, 1.5, -2.6], lens=48)])
+        cams=[cam(0.0, [2.6, 1.7, 1.5], [2.55, 1.7, 1.35], [1.25, 1.55, -2.6], [1.25, 1.55, -2.6], lens=48)])   # (round 2) aimed further right: his face was half cut by the edge
 st.cue('sfx:squeak', 'S17', SL17[0], 0.15); st.cue('thud', 'S17', 1.25, 0.3)
 
 # 18: not him. High and wide: where the town stood, a bare brown plain with rows of empty pits; in the middle, alone on his little round patch of
 #     pavement, he stands with his briefcase beside his puddle; a slow push in; dust drifts across; he breathes, blinks, and slowly tilts his head up
 #     to us (round 1: it was a still)
-D18 = st.dur('S18'); PY = 0.22
+D18 = st.dur('S18'); PLY = 0.3; PY = r(PLY + 0.14)   # (round 2) the plain 30 cm up (at 8 cm the grassland showed through it for a frame, twice in S19)
 PUD18 = [0.1, PY, 0.6]
 BL = lambda t_: [k(t_, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.05), k(r(t_ + 0.09), toon={'face': DEAD}, toonDur=0.07)]
 st.shot('S18', 'grassland', setOpts={'clouds': 30, 'grass': '#B39A78'}, actors=[STAND([k(0.0, look=[0.2, 0.3, 0.8]), *BL(0.3), k(0.45, look='camera', lookDur=0.7),
                                                                                       k(0.7, toon={'sq': [1.02, 0.98, 1.02]}, toonDur=0.3), k(1.0, toon={'sq': [0.99, 1.02, 0.99]}, toonDur=0.3), *BL(1.05)], [0.0, PY, -0.25], 10)],
-        props=[CASE(), PUDDLE('flaque18', PUD18), P('plaine', 'barePlain', pos=[0.0, 0.08, 0.0], opts={'r': 95, 'patch': 2.6}),
+        props=[CASE(), PUDDLE('flaque18', PUD18), P('plaine', 'barePlain', pos=[0.0, PLY, 0.0], opts={'r': 95, 'patch': 2.6}),
                *[P(f'vent18{j}', 'toonPuff', pos=[x_, 0.3, z_], opts={'at': r(0.05 + 0.3 * j), 'n': 4, 'size': 0.5, 'rise': 0.4, 'spread': 3.0, 'life': 1.3, 'color': '#CDB894'},
                    keys=[k(0.0, to=[r(x_ + 4.0), 0.3, z_], dur=D18, ease='linear')]) for j, (x_, z_) in enumerate([(-6.0, 3.0), (-8.0, -2.0), (-5.0, 6.0), (-9.0, 1.0)])]],
         cams=[cam(0.0, [6.5, 9.5, 13.0], [5.6, 8.4, 11.4], [0.0, 0.4, 0.0], [0.0, 0.5, 0.0], lens=40)])
@@ -364,9 +394,9 @@ st.cue('sfx:wind', 'S18', 0.0, 0.35)
 D19 = st.dur('S19'); STEP19 = 0.8
 MAN19_0 = add(PUD18, [-0.1, 0.0, -1.55]); MAN19_P = add(PUD18, [-0.1, 0.0, -0.2])
 C19 = cam(0.0, add(PUD18, OFF1), add(PUD18, [OFF1[0] + 0.02, OFF1[1] - 0.01, OFF1[2] - 0.07]), add(PUD18, OFFL1), add(PUD18, OFFL1), lens=54)
-st.shot('S19', 'grassland', setOpts={'clouds': 30, 'grass': '#B39A78'}, actors=[STAND(walk_in(0.05, 0.75, MAN19_0, MAN19_P, STEP19, add(PUD18, [-0.4, 1.4, 2.0]), lk=(0.25, 0.55)), MAN19_0)],
-        props=[CASE(), PUDDLE('flaque19', PUD18, splash=[STEP19], splashDir=[0.1, 0.2], ripple=[STEP19, r(STEP19 + 0.25)]), WET('gouttes19'),
-               P('plaine', 'barePlain', pos=[0.0, 0.08, 0.0], opts={'r': 95, 'patch': 2.6})],
+st.shot('S19', 'grassland', setOpts={'clouds': 30, 'grass': '#B39A78'}, actors=[STAND(walk_in(0.05, 0.75, MAN19_0, MAN19_P, STEP19, add(PUD18, [-0.4, 1.4, 2.0]), lk=(0.1, 0.5)), MAN19_0)],
+        props=[CASE(), PUDDLE('flaque19', PUD18, splash=[STEP19], splashDir=[0.1, 0.2], ripple=[STEP19, r(STEP19 + 0.25)]), WET('gouttes19'), WETSHIN('mouille19'),
+               P('plaine', 'barePlain', pos=[0.0, PLY, 0.0], opts={'r': 95, 'patch': 2.6})],
         cams=[C19])
 st.cue('sfx:stepRun', 'S19', 0.1, 0.12); st.cue('sfx:splash', 'S19', STEP19, 0.45); st.cue('sfx:sting', 'S19', r(STEP19 + 0.4), 0.25)
 
