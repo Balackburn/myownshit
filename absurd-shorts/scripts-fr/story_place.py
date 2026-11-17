@@ -75,7 +75,7 @@ def CAR(pid, pos, ry, **o):
     keys = o.pop('keys', None); d = P(pid, 'bayCar', pos=pos, ry=ry, scale=o.pop('scale', CS), opts=o)
     if keys: d['keys'] = keys
     return d
-HEROCAR = lambda pid='voiture', pos=None, ry=-90, **o: CAR(pid, pos or HERO_CAR, ry, **{'color': BLUE, 'plate': BLUE_PLATE, 'blink': 'R', 'indS': 1.6, 'glow': 0.75, 'blinkP': 0.55, **o})   # (round 1) bigger lamps, 1.8 Hz
+HEROCAR = lambda pid='voiture', pos=None, ry=-90, **o: CAR(pid, pos or HERO_CAR, ry, **{'color': BLUE, 'plate': BLUE_PLATE, 'blink': 'R', 'indS': 1.6, 'glow': 0.75, 'blinkP': 0.55, **o})   # (round 1) bigger lamps, 1.8 Hz   # (round 2) only the RIGHT indicator everywhere (both read as hazards), round lenses with a soft glow
 LOT_SET = {'clouds': 34, 'grass': '#86BE5C'}
 CLOCK0 = 600.0                                         # ten minutes, from the flip in S04
 SOLD = {'outfit': 'suit', 'suit': '#5B6638', 'pants': '#4E5730', 'shirt': '#D9D3B6', 'lapel': '#4E5730', 'tie': '#3B4224', 'cuff': '#5B6638', 'hat': 'none', 'hair': 'bald',
@@ -96,11 +96,13 @@ for g_ in [('S01', 1.9, 'mec', 'glare'), ('S02', 1.05, 'general', 'stab'), ('S05
 #    eyes wide, his head turns to the bay, then back to us, a deadpan glare; the indicator still blinking at the corner of the frame
 D1 = st.dur('S01'); CUT1 = 1.12; STOP1 = 1.0; BRAKE1 = 0.82
 START1 = [12.0, GY, LANE_A]
-RED_PATH = [[-3.0, GY, -4.6], [-0.4, GY, -5.2], [0.9, GY, -7.4], [1.25, GY, -9.6], KEY]
+# (round 2) the red car (full size) overtakes him on the open lane at his left, right under the camera, then cuts across his nose into the bay
+RED0 = [17.5, GY, -2.9]
+RED_PATH = [[11.0, GY, -3.0], [6.6, GY, -3.35], [4.0, GY, -5.0], [2.3, GY, -7.3], [1.4, GY, -9.4], KEY]
 SEAT = lambda p, ry: loc(p, ry, 0.36 * CS, 0.06, 0.0)   # the driver's seat (the car's left, +X local), at the floor
 HERO_SIT1 = SEAT(HERO_CAR, -90)
-CA1 = cam(0.0, [13.2, 4.0, -3.3], [12.95, 3.9, -3.4], [1.6, 0.4, -9.6], [1.6, 0.35, -9.6], lens=50)
-CB1 = cam(CUT1, [1.9, 2.55, -6.5], [2.05, 2.53, -6.35], [HERO_SIT1[0], 1.6, HERO_SIT1[2]], [HERO_SIT1[0], 1.6, HERO_SIT1[2]], lens=40)   # (round 1) a wider lens made his face tiny: the dashboard arrow blinks instead
+CA1 = cam(0.0, [14.2, 5.3, -2.6], [13.95, 5.2, -2.7], [2.2, 0.2, -8.6], [2.2, 0.15, -8.6], lens=50)   # (round 2) higher: the roof of his car no longer hides the bay
+CB1 = cam(CUT1, [2.65, 2.08, -4.85], [2.68, 2.07, -4.86], [HERO_SIT1[0], 1.62, HERO_SIT1[2]], [HERO_SIT1[0], 1.62, HERO_SIT1[2]], lens=34)   # (round 1) a wider lens made his face tiny: the dashboard arrow blinks instead   # (round 2) closer and higher, over the bonnet: his whole face clears the dashboard, the wheel in front of him
 chk('S01a', CA1['from'], CA1['lookAt'], 40, {'heroCarRear': loc(START1, -90, 0, -2.3, 0.8), 'heroCarStop': loc(HERO_CAR, -90, -0.9, -2.3, 0.8), 'bay': [1.25, 0.6, -10.6], 'redStart': [-14, 0.8, -4.7]})
 chk('S01b', CB1['from'], CB1['lookAt'], 40, {'face': [HERO_SIT1[0], 1.75, HERO_SIT1[2]], 'blinkFR': loc(HERO_CAR, -90, -0.74 * CS, 1.85 * CS, 0.76 * CS), 'blinkFL': loc(HERO_CAR, -90, 0.74 * CS, 1.85 * CS, 0.76 * CS), 'sideL': loc(HERO_CAR, -90, 0.85 * CS, 1.3 * CS, 0.8 * CS)})
 st.shot('S01', 'grassland', setOpts=LOT_SET, actors=[
@@ -108,13 +110,13 @@ st.shot('S01', 'grassland', setOpts=LOT_SET, actors=[
             k(0.0, toon={'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.0),
             k(r(CUT1 + 0.05), toon={'face': {'lid': 0.0, 'pop': 0.45, 'mouth': 'O', 'brow': 0.7}, 'sq': [1.06, 0.95, 1.06]}, toonDur=0.05),   # (round 1) a squash, not a stretch: the stretch put his hair through the roof
             k(r(CUT1 + 0.3), look=[1.0, 1.2, -9.5], lookDur=0.12), k(r(CUT1 + 0.3), toon={'face': {'lid': 0.15, 'pop': 0.1, 'mouth': 'O', 'brow': 0.4}, 'sq': [1, 1, 1]}, toonDur=0.12),
-            k(r(CUT1 + 0.72), look='camera', lookDur=0.1), k(r(CUT1 + 0.72), toon={'face': {'lid': 0.45, 'mouth': 'line', 'brow': -0.35}}, toonDur=0.1),
-            *stand_blink(r(CUT1 + 1.0), {'lid': 0.45, 'mouth': 'line', 'brow': -0.35})]),
-        act('voleur', add(RED_PATH[0], [-12.0, 0, 0]), 90, 'drive', 'smug', visible=False)],
+            k(r(CUT1 + 0.62), look='camera', lookDur=0.1), k(r(CUT1 + 0.62), toon={'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.45}}, toonDur=0.1),
+            *stand_blink(r(CUT1 + 0.82), {'lid': 0.3, 'mouth': 'line', 'brow': -0.45})]),   # (round 2) the glare ends eyes open on us (the blink came last and the shot ended on shut eyes)
+        act('voleur', add(RED0, [-12.0, 0, 0]), 90, 'drive', 'smug', visible=False)],
         props=[LOT(), ROWS_INTACT(skip=['0:10']), STORE(clock=None),
-               HEROCAR('voiture', START1, clear=True, blink='both', dash='R', brake=[BRAKE1, 0.45], keys=[k(0.0, to=HERO_CAR, dur=STOP1, ease='out')]),
-               CAR('rouge', [-9.0, GY, -4.6], 90, color='#D8392B', plate='RX-001-ZZ', scale=1.0, hop=[[1.0, 0.07]],
-                   keys=[k(0.0, path=RED_PATH, dur=1.0, ease='inOut', faceMove=True)])],
+               HEROCAR('voiture', START1, clear=True, dash='R', dashX=0.2, roofUp=0.14, wheel=True, brake=[BRAKE1, 0.45], brakeAmp=0.17, keys=[k(0.0, to=HERO_CAR, dur=STOP1, ease='out')]),
+               CAR('rouge', RED0, -90, color='#D8392B', plate='RX-001-ZZ', hop=[[1.0, 0.07]],
+                   keys=[k(0.0, path=RED_PATH, dur=1.0, ease='out', faceMove=True)])],
         cams=[CA1, CB1])
 st.cue('engine', 'S01', 0.0, 0.25, 1.0); st.cue('sfx:brake', 'S01', BRAKE1, 0.5); st.cue('sfx:tick', 'S01', 0.1, 0.15); st.cue('sfx:tick', 'S01', 0.8, 0.15); st.cue('sfx:tick', 'S01', 1.5, 0.15); st.cue('sfx:gasp', 'S01', r(CUT1 + 0.05), 0.2)
 

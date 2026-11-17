@@ -6,7 +6,7 @@
 // Conventions as in props.js (metres, front +Z, pivot at the floor unless said); every animated prop is a pure function of the shot time.
 import * as THREE from 'three';
 import { box, cyl, sphere, addOutline, mat, rng } from './style.js';
-import { grp, at, canvasPlane, buildProp, rod, label, inst } from './props.js';
+import { grp, at, canvasPlane, buildProp, rod, label, inst, glowSprite } from './props.js';
 
 const PI = Math.PI, TAU = 2 * PI;
 const clamp01 = x => Math.max(0, Math.min(1, x));
@@ -84,6 +84,11 @@ export const PLACE_PROPS = {
   // o.plate (text); o.hop [[t, h]]: little jumps; o.dark: an official black car with chrome trim; (round 1) o.indS (1): the indicators' size,
   // o.glow (0.42): their glow's size, o.blinkP (0.7 s) the blink period (on for 55 % of it); o.dash: an amber arrow on the dashboard that blinks
   // with them (seen through a clear windscreen)
+  // (round 2) the indicators are round amber lenses in a dark bezel with a soft round glow (they were square cards: the critics read hazards);
+  // o.glowY: the glow lifted that far (m, so it peeks over the body from far); o.roofUp (m): the clear car's roof and pillars raised (his hair
+  // poked through it); o.wheel: a steering wheel in front of the driver's seat (clear cars); o.skirt: dark panels from the body down to the road
+  // between the wheels (legs of someone standing in the car do not show under it); o.brakeAmp (0.09 rad): the brake's pitch, about the front axle
+  // so the tail lifts
   bayCar(o) {
     const C = o.color || (o.dark ? '#1C1E22' : '#C9473A'), L = 3.7, Wd = 1.66, g = grp(), body = grp(); g.add(body);
     const GL = o.glass || (o.dark ? '#2C3440' : '#BFDCE8'), DK = '#2E3138';
@@ -91,7 +96,12 @@ export const PLACE_PROPS = {
     const clearM = o.clear ? new THREE.MeshLambertMaterial({ color: '#DCEFF5', transparent: true, opacity: 0.18, depthWrite: false }) : null;
     const pane = (w, h, d, open) => box(w, h, d, open ? '#141518' : GL, clearM && !open ? { material: clearM } : { noGrain: true });
     body.add(at(box(Wd, 0.56, L, C, { outline: 0.012 }), 0, 0.63, 0), at(box(Wd + 0.04, 0.14, L + 0.06, DK), 0, 0.4, 0));
-    if (o.clear) { body.add(at(box(1.26, 0.06, 1.5, C, { outline: 0.008 }), 0, 1.42, -0.42)); for (const sx of [-1, 1]) for (const z of [0.42, -0.32, -1.08]) body.add(at(box(0.07, 0.5, 0.07, C), sx * 0.66, 1.16, z, z > 0 ? -sl * 0.8 : z < -1 ? sl * 0.8 : 0, 0, sx * 0.25)); body.add(at(box(1.3, 0.18, 0.4, '#3A3D44'), 0, 0.98, 0.42)); }
+    const RU = o.roofUp ?? 0;
+    if (o.clear) {
+      body.add(at(box(1.26, 0.06, 1.5, C, { outline: 0.008 }), 0, 1.42 + RU, -0.42)); for (const sx of [-1, 1]) for (const z of [0.42, -0.32, -1.08]) body.add(at(box(0.07, 0.5 + RU, 0.07, C), sx * 0.66, 1.16 + RU / 2, z, z > 0 ? -sl * 0.8 : z < -1 ? sl * 0.8 : 0, 0, sx * 0.25));
+      body.add(at(box(1.3, 0.18, 0.4, '#3A3D44'), 0, 0.98, 0.42));
+      if (o.wheel) { const sw = new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.022, 6, 18), mat('#1E1F23')); sw.position.set(0.36, 0.99, 0.24); sw.rotation.set(-1.0, 0, 0); body.add(sw, at(box(0.03, 0.03, 0.2, '#1E1F23'), 0.36, 0.97, 0.32, -1.0, 0, 0)); }
+    }
     else body.add(at(box(1.5, 0.5, 2.0, C, { outline: 0.01, taper: { x: 0.82, z: 0.74 } }), 0, 1.16, -0.32));
     body.add(at(pane(1.18, 0.4, 0.02), 0, 1.15, 0.555, -sl, 0, 0), at(box(1.14, 0.36, 0.02, GL, { noGrain: true }), 0, 1.15, -1.19, sl, 0, 0));
     for (const sx of [-1, 1]) {
@@ -109,12 +119,15 @@ export const PLACE_PROPS = {
     // indicators: an on copy (bright, emissive) and an off copy, swapped
     const onM = mat('#FFB21E', { emissive: '#FF9A00', noGrain: true, unique: true }), offM = mat('#A8661E', { noGrain: true, unique: true }), ind = [];
     for (const sx of [-1, 1]) for (const [z, dz] of [[L / 2 + 0.025, 1], [-L / 2 - 0.025, -1]]) {
-      const pos = [sx * 0.74, 0.76, z], iS = o.indS ?? 1;
-      const on = at(box(0.14 * iS, 0.1 * iS, 0.05, '', { material: onM }), ...pos), off = at(box(0.14 * iS, 0.1 * iS, 0.05, '', { material: offM }), ...pos);
+      const pos = [sx * 0.74, 0.76, z], iS = o.indS ?? 1, rr = 0.062 * iS;
+      const lens = mm => at(cyl(rr, rr, 0.05, '', 14, { material: mm }), ...pos, PI / 2, 0, 0);
+      const bez = at(cyl(rr * 1.28, rr * 1.28, 0.03, '#26272B', 14), pos[0], pos[1], pos[2] - dz * 0.012, PI / 2, 0, 0);
+      const on = lens(onM), off = lens(offM);
       const side = at(box(0.03, 0.06 * iS, 0.16 * iS, '', { material: onM }), sx * (Wd / 2 + 0.02), 0.8, dz * 1.3), sideOff = at(box(0.03, 0.06 * iS, 0.16 * iS, '', { material: offM }), sx * (Wd / 2 + 0.02), 0.8, dz * 1.3);
-      const glowS = new THREE.Sprite(new THREE.SpriteMaterial({ color: '#FFB030', transparent: true, opacity: 0.55, depthWrite: false })); glowS.scale.setScalar(o.glow ?? 0.42); glowS.position.set(pos[0], pos[1], pos[2] + dz * 0.04);
-      body.add(on, off, side, sideOff, glowS); ind.push({ sx, on, off, side, sideOff, glowS });
+      const glowS = glowSprite('#FFA81E', o.glow ?? 0.42, 0.9); glowS.position.set(pos[0], pos[1] + (o.glowY ?? 0), pos[2] + dz * 0.06);
+      body.add(bez, on, off, side, sideOff, glowS); ind.push({ sx, on, off, side, sideOff, glowS });
     }
+    if (o.skirt) for (const sx of [-1, 1]) for (const [z, d] of [[0, 1.7], [1.67, 0.34], [-1.67, 0.34]]) body.add(at(box(0.04, 0.4, d, DK, { pivot: 'bottom' }), sx * (Wd / 2 - 0.02), 0.02, z));
     if (o.flag) {
       const fl = wavingFlag(0.3, 0.2, flagDraw(o.flag, o.flagMark || null, o.flagMarkColor), 4); fl.position.set(-0.7, 1.27, L / 2 - 0.25); fl.rotation.y = PI / 2;
       body.add(at(cyl(0.008, 0.008, 0.4, '#C9CED6', 5, { pivot: 'bottom' }), -0.7, 0.9, L / 2 - 0.25), fl); g.userData.flag = fl;
@@ -124,7 +137,7 @@ export const PLACE_PROPS = {
     if (o.dash) {
       const sh = new THREE.Shape(); sh.moveTo(-0.07, -0.035); sh.lineTo(0.0, -0.035); sh.lineTo(0.0, -0.07); sh.lineTo(0.08, 0.0); sh.lineTo(0.0, 0.07); sh.lineTo(0.0, 0.035); sh.lineTo(-0.07, 0.035); sh.closePath();
       dash = new THREE.Mesh(new THREE.ShapeGeometry(sh), new THREE.MeshBasicMaterial({ color: '#FFB21E', side: THREE.DoubleSide })); dash.scale.setScalar(1.3);
-      dash.position.set(o.dash === 'L' ? 0.28 : -0.28, 1.1, 0.56); dash.rotation.set(-0.25, 0, o.dash === 'L' ? 0 : PI); body.add(dash);
+      dash.position.set(o.dashX ?? (o.dash === 'L' ? 0.28 : -0.28), 1.12, 0.56); dash.rotation.set(-0.25, 0, o.dash === 'L' ? 0 : PI); body.add(dash);   // (round 2) o.dashX: where on the dashboard (it was out of the close windscreen frame)
     }
     g.userData.update = t => {
       const bp = o.blinkP ?? 0.7, lit = blinkSide !== null && ((t + (o.phase ?? 0)) % bp + bp) % bp < bp * 0.55;
@@ -133,9 +146,10 @@ export const PLACE_PROPS = {
       let sy = 1, sxz = 1, pitch = 0, y = 0;
       const fa = o.flat ? -10 : o.flatAt;
       if (fa != null && t >= fa) { const u = (t - fa) / 0.1; sy = u >= 1 ? 0.2 + 0.05 * Math.exp(-(t - fa - 0.1) * 9) * Math.cos((t - fa - 0.1) * 40) : 1 - 0.8 * easeIn(u); sxz = 1 + 0.14 * clamp01(u); }
-      if (o.brake) { const [b0, bd] = o.brake, u = (t - b0) / (bd ?? 0.5); if (u >= 0 && u < 1.6) pitch = 0.09 * Math.sin(Math.min(u, 1) * PI) * (u < 1 ? 1 : Math.exp(-(u - 1) * 6)) + (u >= 1 ? -0.025 * Math.sin((u - 1) * 14) * Math.exp(-(u - 1) * 4) : 0); }
+      if (o.brake) { const [b0, bd] = o.brake, u = (t - b0) / (bd ?? 0.5), A = o.brakeAmp ?? 0.09; if (u >= 0 && u < 1.6) pitch = A * Math.sin(Math.min(u, 1) * PI) * (u < 1 ? 1 : Math.exp(-(u - 1) * 6)) + (u >= 1 ? -A * 0.28 * Math.sin((u - 1) * 14) * Math.exp(-(u - 1) * 4) : 0); }
       for (const [ht, hh] of o.hop || []) { const u = (t - ht) / 0.32; if (u >= 0 && u < 1) y = Math.max(y, hh * 4 * u * (1 - u)); }
-      body.scale.set(sxz, sy, sxz); body.rotation.x = pitch; body.position.y = y;
+      body.scale.set(sxz, sy, sxz); body.rotation.x = pitch; body.position.y = y; body.position.z = 0;
+      if (pitch && o.brakeAmp) { const pz = 1.18, py = 0.3, c = Math.cos(pitch), s_ = Math.sin(pitch); body.position.y = y + py - (py * c - pz * s_); body.position.z = pz - (py * s_ + pz * c); }   // (round 2) about the front axle: the tail lifts
       if (g.userData.flag) g.userData.flag.userData.wave(t, 0.4, (o.phase ?? 0) * 3);
     };
     g.userData.update(0); g.userData.seat = [0.36, 0.45, 0.05]; return g;
@@ -298,8 +312,18 @@ export const PLACE_PROPS = {
     g.add(at(box(2.5, 0.08, 9.8, G2, { taper: { x: 0.12, z: 1 }, taperAxis: 'z' }), 0, 1.76, 0.2));
     const br = grp(); br.position.set(0, 1.8, -1.2); g.add(br);
     br.add(at(box(2.1, 1.3, 2.6, G2, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(box(1.7, 0.9, 1.8, G2, { pivot: 'bottom', outline: 0.01 }), 0, 1.3, 0.1), at(box(1.72, 0.32, 0.02, '#1E2630', { noGrain: true }), 0, 1.85, 1.01));
-    br.add(at(cyl(0.07, 0.09, 2.6, G3, 6, { pivot: 'bottom' }), 0, 2.2, -0.2), at(box(1.2, 0.08, 0.08, G3), 0, 3.8, -0.2), at(box(0.06, 0.6, 0.06, G3), 0, 4.4, -0.2));
-    const radar = grp(at(box(0.9, 0.22, 0.08, '#C9CED6', { outline: 0.006 }), 0, 0, 0)); radar.position.set(0, 4.8, -0.2); br.add(radar);
+    // (round 2) a tapered lattice tower with a platform, a turning radar dish and a white radome on top, a short yardarm low on the tower and strings
+    // of signal flags from it to the bow and to the funnel (a thin mast with a crossbar read as a church cross)
+    br.add(at(box(0.95, 2.1, 0.95, G3, { pivot: 'bottom', outline: 0.008, taper: { x: 0.38, z: 0.38 } }), 0, 2.2, -0.2));
+    for (const y of [2.75, 3.35, 3.9]) br.add(at(box(0.95 - (y - 2.2) * 0.29, 0.05, 0.95 - (y - 2.2) * 0.29, '#596066'), 0, y, -0.2));
+    br.add(at(box(1.15, 0.1, 1.0, G2, { outline: 0.006 }), 0, 4.35, -0.2), at(sphere(0.26, '#EEF0F2', 1, { outline: 0.006 }), 0, 4.95, -0.35));
+    br.add(at(box(1.0, 0.06, 0.06, G3), 0, 3.05, -0.2));
+    const radar = grp(at(new THREE.Mesh(new THREE.SphereGeometry(0.55, 14, 6, 0, TAU, 0, PI * 0.32), mat('#D6DADF', { side: THREE.DoubleSide })), 0, 0, 0, -PI / 2, 0, 0), at(box(0.06, 0.4, 0.06, G3), 0, -0.3, -0.25));
+    radar.position.set(0, 4.75, 0.15); br.add(radar);
+    const FC = ['#D8392B', '#F2C94C', '#2E6FB5', '#F4F4F0', '#3E9A4A', '#E07A1F'];
+    const string = (a, b, n) => { br.add(rod(a, b, 0.012, '#3A3D42', 4)); for (let i = 1; i < n; i++) { const u = i / n, p = [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u - 0.1, a[2] + (b[2] - a[2]) * u]; br.add(at(box(0.03, 0.17, 0.22, FC[i % FC.length], { noGrain: true }), ...p)); } };
+    br.add(at(cyl(0.025, 0.03, 1.1, G3, 5, { pivot: 'bottom' }), 0, -0.05, 6.9));
+    for (const sx of [-1, 1]) { string([sx * 0.5, 3.05, -0.2], [0, 1.0, 6.9], 11); string([sx * 0.5, 3.05, -0.2], [sx * 0.2, 1.3, -2.2], 4); }
     g.add(at(box(1.0, 1.4, 1.3, G1, { pivot: 'bottom', outline: 0.01, taper: { x: 0.85, z: 0.8 } }), 0, 1.8, -3.4), at(box(1.02, 0.25, 1.32, '#2E3236'), 0, 3.05, -3.4));
     const tur = grp(); tur.position.set(0, 1.8, 2.4); g.add(tur);
     tur.add(at(box(1.2, 0.55, 1.4, G2, { pivot: 'bottom', outline: 0.01, taper: { x: 0.8, z: 0.8 } }), 0, 0, 0));
@@ -314,7 +338,7 @@ export const PLACE_PROPS = {
       ctr.position.set(0, 2.72, 0.55); br.add(ctr, at(box(0.3, 0.1, 0.3, '#6F777E'), 0, 2.22, 0.55));
     }
     g.userData.update = t => {
-      tur.rotation.y = keyAt(o.aim, t, 0, o.aimBlend ?? 0.3); radar.rotation.y = t * 2.4;
+      tur.rotation.y = keyAt(o.aim, t, 0, o.aimBlend ?? 0.3); radar.rotation.y = Math.sin(t * 1.6) * 0.9;
       if (ctr) {
         const n = Math.round(keyAt(o.laps, t, 0, 0));
         if (n !== lastN) { cvx.fillStyle = '#121212'; cvx.fillRect(0, 0, 256, 160); cvx.fillStyle = '#FFD23C'; cvx.font = 'bold 128px "Courier New", monospace'; cvx.textAlign = 'center'; cvx.textBaseline = 'middle'; cvx.fillText(String(n), 128, 86); ctex.needsUpdate = true; lastN = n; }
@@ -527,10 +551,45 @@ export const PLACE_PROPS = {
 
   // An open, empty wallet (pivot at its spine; it opens along X, the inside facing +Z): two brown leather leaves at o.open (0.5 rad) with empty card
   // slots
+  // (round 2) o.s (1): its size; o.slots: the empty card slots and the bill pocket drawn pale on the inside so it reads open and empty
   emptyWallet(o) {
-    const g = grp(), a = o.open ?? 0.5;
-    for (const sx of [-1, 1]) { const leaf = grp(at(box(0.11, 0.09, 0.012, '#6B4226', { outline: 0.004 }), sx * 0.055, 0, 0), at(box(0.09, 0.012, 0.004, '#4E2E1A'), sx * 0.055, 0.015, 0.008), at(box(0.09, 0.012, 0.004, '#4E2E1A'), sx * 0.055, -0.01, 0.008)); leaf.rotation.y = -sx * a; g.add(leaf); }
-    return g;
+    const g = grp(), a = o.open ?? 0.5, S = o.s ?? 1;
+    for (const sx of [-1, 1]) {
+      const leaf = grp(at(box(0.11, 0.09, 0.012, '#6B4226', { outline: 0.004 }), sx * 0.055, 0, 0), at(box(0.09, 0.012, 0.004, '#4E2E1A'), sx * 0.055, 0.015, 0.008), at(box(0.09, 0.012, 0.004, '#4E2E1A'), sx * 0.055, -0.01, 0.008));
+      if (o.slots) leaf.add(at(box(0.096, 0.07, 0.003, '#D9C7A8', { noGrain: true }), sx * 0.055, 0.0, 0.0075), at(box(0.09, 0.008, 0.004, '#5A3620'), sx * 0.055, 0.02, 0.0095), at(box(0.09, 0.008, 0.004, '#5A3620'), sx * 0.055, -0.005, 0.0095));
+      leaf.rotation.y = -sx * a; g.add(leaf);
+    }
+    g.scale.setScalar(S); return g;
+  },
+
+  // (round 2) A moth flying out (world space): a small grey-white moth whose wings flap fast, rising from o.from in a lazy zigzag to o.to between
+  // o.at and o.at + o.dur (1.2 s); hidden before; o.s (1) its size
+  moth(o) {
+    const g = grp(), body = grp(), S = o.s ?? 1; g.add(body); noShadow(g);
+    body.add(at(box(0.012, 0.012, 0.05, '#7A7268'), 0, 0, 0));
+    const wings = [-1, 1].map(sx => { const w = grp(at(box(0.055, 0.004, 0.045, '#D9D3C7', { noGrain: true, outline: 0.002 }), sx * 0.03, 0, 0)); body.add(w); return [sx, w]; });
+    body.scale.setScalar(S);
+    const A = new THREE.Vector3(...(o.from || [0, 1.4, 0])), B = new THREE.Vector3(...(o.to || [0, 2.4, 0])), D = o.dur ?? 1.2;
+    g.userData.update = t => {
+      const u = (t - (o.at ?? 0)) / D; g.visible = u >= 0 && u <= 1.15; if (!g.visible) return;
+      const w = clamp01(u); body.position.copy(A).lerp(B, w); body.position.x += 0.12 * Math.sin(w * 9) * w; body.position.z += 0.06 * Math.cos(w * 7) * w;
+      body.rotation.set(0.3, Math.sin(w * 9) * 0.6, 0); for (const [sx, wg] of wings) wg.rotation.z = sx * (0.9 * Math.sin(t * 60));
+    };
+    g.userData.update(-1); return g;
+  },
+
+  // (round 2) The shadows of a formation of jets sweeping over the ground (world space): one dark jet-shaped silhouette per [dx, back] of o.jets, on
+  // the ground at o.y (0.08), along -Z from o.z0 to o.z1 between o.t0 and o.t1, centred on o.x; o.s (1) their size; translucent, no depth write
+  jetShadows(o) {
+    const g = grp(), m = new THREE.MeshBasicMaterial({ color: '#16181C', transparent: true, opacity: o.opacity ?? 0.42, depthWrite: false }), S = o.s ?? 1;
+    const sh = new THREE.Shape(); sh.moveTo(0, 9); sh.lineTo(1.2, 3); sh.lineTo(7.5, -1.5); sh.lineTo(7.5, -3.2); sh.lineTo(1.4, -2.4); sh.lineTo(1.2, -6); sh.lineTo(3.2, -8.2); sh.lineTo(3.2, -9); sh.lineTo(0, -8.2);
+    sh.lineTo(-3.2, -9); sh.lineTo(-3.2, -8.2); sh.lineTo(-1.2, -6); sh.lineTo(-1.4, -2.4); sh.lineTo(-7.5, -3.2); sh.lineTo(-7.5, -1.5); sh.lineTo(-1.2, 3); sh.closePath();
+    const geo = new THREE.ShapeGeometry(sh), list = (o.jets || [[0, 0]]).map(([dx, back]) => { const q = new THREE.Mesh(geo, m); q.rotation.set(-PI / 2, 0, 0); q.scale.setScalar(0.5 * S); q.renderOrder = -1; g.add(q); return [dx, back, q]; });
+    g.userData.update = t => {
+      const u = (t - (o.t0 ?? 0)) / Math.max(1e-3, (o.t1 ?? 1) - (o.t0 ?? 0)); g.visible = u > -0.2 && u < 1.3;
+      for (const [dx, back, q] of list) q.position.set((o.x ?? 0) + dx * S * 0.5, o.y ?? 0.08, (o.z0 ?? 20) + ((o.z1 ?? -20) - (o.z0 ?? 20)) * u + back * S * 0.5);
+    };
+    g.userData.update(0); return g;
   },
 
   // (round 1) A coin that falls (world space): a small gold disc spinning down from o.from to o.to between o.at and o.at + o.dur (0.35 s), with
