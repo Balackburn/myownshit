@@ -1,0 +1,172 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec s'est coincé la tête dans la rambarde.",
+  "hl": [
+   "tête",
+   "rambarde."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Les pompiers ont sorti la grande échelle.",
+  "hl": [
+   "pompiers",
+   "échelle."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il habite au rez-de-chaussée.",
+  "hl": [
+   "rez-de-chaussée."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Douze pompiers ont tiré sur ses jambes.",
+  "hl": [
+   "Douze",
+   "jambes."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Il a pris vingt centimètres.",
+  "hl": [
+   "vingt",
+   "centimètres."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "La rambarde a été déclarée catastrophe naturelle.",
+  "hl": [
+   "catastrophe",
+   "naturelle."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Le président a ordonné à la tête de sortir.",
+  "hl": [
+   "président",
+   "sortir."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "La tête est restée sur ses positions.",
+  "hl": [
+   "tête",
+   "positions."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Le quartier a été évacué par hélicoptère.",
+  "hl": [
+   "évacué",
+   "hélicoptère."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Sauf lui.",
+  "hl": [
+   "Sauf",
+   "lui."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Les démineurs ont fait sauter l'immeuble.",
+  "hl": [
+   "démineurs",
+   "sauter"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Autour de la rambarde.",
+  "hl": [
+   "Autour",
+   "rambarde."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "L'immeuble a eu des funérailles nationales.",
+  "hl": [
+   "funérailles",
+   "nationales."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "La rambarde a été classée monument historique.",
+  "hl": [
+   "monument",
+   "historique."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Tête comprise.",
+  "hl": [
+   "Tête",
+   "comprise."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Il a penché la tête. Elle est sortie.",
+  "hl": [
+   "penché",
+   "sortie."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Il a été arrêté pour vol.",
+  "hl": [
+   "arrêté",
+   "vol."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Sa tête a été saisie.",
+  "hl": [
+   "tête",
+   "saisie."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Il loue sa tête à l'État.",
+  "hl": [
+   "loue",
+   "l'État."
+  ]
+ }
+]
