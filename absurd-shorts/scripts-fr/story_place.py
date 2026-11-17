@@ -96,10 +96,10 @@ for g_ in [('S01', 1.9, 'mec', 'glare'), ('S02', 1.05, 'general', 'stab'), ('S05
 #    eyes wide, his head turns to the bay, then back to us, a deadpan glare; the indicator still blinking at the corner of the frame
 D1 = st.dur('S01'); CUT1 = 1.12; STOP1 = 1.0; BRAKE1 = 0.82
 START1 = [12.0, GY, LANE_A]
-RED_PATH = [[-2.0, GY, -4.7], [0.2, GY, -5.9], [1.1, GY, -8.2], [1.25, GY, -10.0], KEY]
+RED_PATH = [[-3.0, GY, -4.6], [-0.4, GY, -5.2], [0.9, GY, -7.4], [1.25, GY, -9.6], KEY]
 SEAT = lambda p, ry: loc(p, ry, 0.36 * CS, 0.06, 0.0)   # the driver's seat (the car's left, +X local), at the floor
 HERO_SIT1 = SEAT(HERO_CAR, -90)
-CA1 = cam(0.0, [17.6, 1.0, -6.4], [17.3, 0.98, -6.45], [7.6, 0.8, -7.3], [7.6, 0.78, -7.2], lens=56)
+CA1 = cam(0.0, [15.5, 1.35, -2.6], [15.25, 1.33, -2.7], [3.0, 0.9, -6.9], [3.0, 0.88, -6.95], lens=58)
 CB1 = cam(CUT1, [1.7, 2.05, -6.6], [1.85, 2.03, -6.45], [HERO_SIT1[0], 1.62, HERO_SIT1[2]], [HERO_SIT1[0], 1.62, HERO_SIT1[2]], lens=40)
 chk('S01a', CA1['from'], CA1['lookAt'], 40, {'heroCarRear': loc(START1, -90, 0, -2.3, 0.8), 'heroCarStop': loc(HERO_CAR, -90, -0.9, -2.3, 0.8), 'bay': [1.25, 0.6, -10.6], 'redStart': [-14, 0.8, -4.7]})
 chk('S01b', CB1['from'], CB1['lookAt'], 40, {'face': [HERO_SIT1[0], 1.75, HERO_SIT1[2]], 'blinkFR': loc(HERO_CAR, -90, -0.74 * CS, 1.85 * CS, 0.76 * CS)})
@@ -113,8 +113,8 @@ st.shot('S01', 'grassland', setOpts=LOT_SET, actors=[
         act('voleur', add(RED_PATH[0], [-12.0, 0, 0]), 90, 'drive', 'smug', visible=False)],
         props=[LOT(), ROWS_INTACT(skip=['0:10']), STORE(clock=None),
                HEROCAR('voiture', START1, clear=True, brake=[BRAKE1, 0.45], keys=[k(0.0, to=HERO_CAR, dur=STOP1, ease='out')]),
-               CAR('rouge', add(RED_PATH[0], [-12.0, 0, 0]), 90, color='#D8392B', plate='RX-001-ZZ', scale=1.0, hop=[[1.0, 0.07]],
-                   keys=[k(0.0, path=RED_PATH, dur=1.0, ease='out', faceMove=True)])],
+               CAR('rouge', [-9.0, GY, -4.6], 90, color='#D8392B', plate='RX-001-ZZ', scale=1.0, hop=[[1.0, 0.07]],
+                   keys=[k(0.0, path=RED_PATH, dur=1.0, ease='inOut', faceMove=True)])],
         cams=[CA1, CB1])
 st.cue('engine', 'S01', 0.0, 0.25, 1.0); st.cue('sfx:brake', 'S01', BRAKE1, 0.5); st.cue('sfx:tick', 'S01', 0.1, 0.15); st.cue('sfx:tick', 'S01', 0.8, 0.15); st.cue('sfx:tick', 'S01', 1.5, 0.15); st.cue('sfx:gasp', 'S01', r(CUT1 + 0.05), 0.2)
 
@@ -284,7 +284,7 @@ D9 = st.dur('S09')
 INV9a, INV9b = [0.6, GY, -13.4], [-2.0, GY, -12.9]
 BLACK9 = [-3.4, GY, -13.9]
 HERO9 = [4.2, GY, -10.4]; RYH9 = -12
-C9 = cam(0.0, [7.5, 2.0, -3.0], [7.4, 1.99, -3.15], [1.934, 0.62, -11.175], [1.9, 0.64, -11.175], lens=44)
+C9 = cam(0.0, [7.5, 2.0, -3.0], [7.4, 1.99, -3.15], [2.6, 0.62, -11.175], [2.55, 0.64, -11.175], lens=44)
 chk('S09', C9['from'], C9['lookAt'], 44, {'heroFace': [HERO9[0], 1.98, HERO9[2]], 'invStart': [INV9a[0], 2.0, INV9a[2]], 'invEnd': [INV9b[0], 2.0, INV9b[2]], 'blackCar': BLACK9, 'heroCarFR': loc([7.0, GY, -9.4], -90, -0.74 * CS, 1.85 * CS, 0.76 * CS)})
 FORCE9 = [('forces1', -0.62), ('forces2', 0.62)]
 def PT9(d, h):
@@ -369,8 +369,8 @@ QUEUE = [[30.7, GY, 38.3], [27.4, GY, 34.7], [23.9, GY, 38.3], [20.4, GY, 34.7]]
 FLAGS = [['#6A3FA0', '#F2C94C'], ['#1E7A8C', '#E88AA8'], ['#E07A1F', '#1F2E5C'], ['#9CC43A', '#7A2333']]
 AIM12 = [[0.0, turret_yaw(QUEUE[3])], [0.45, turret_yaw(QUEUE[2])], [0.95, turret_yaw(QUEUE[1])], [1.45, turret_yaw(QUEUE[0])]]
 AIM12 = [[t, r(v * 1.6, 3)] for t, v in AIM12]           # a little more swing than the true bearing, so it reads
-FRM12 = [36.4, 1.3, 37.6]
-LK12, LN12 = [27.0, 1.25, 37.2], 46
+FRM12 = [39.0, 1.6, 37.6]
+LK12, LN12 = [27.0, 1.3, 38.2], 40
 C12 = cam(0.0, FRM12, add(FRM12, [-0.25, 0.0, 0.0]), LK12, LK12, lens=LN12)
 print('S12 lens', LN12)
 chk('S12', C12['from'], C12['lookAt'], C12['lens'], {'car0': QUEUE[0], 'car3': QUEUE[3], 'boom': [33.8, 1.0, 36.0], 'ship': loc(SHIP, SHIP_RY, 0, 0, 4.0), 'turret': loc(SHIP, SHIP_RY, 0, 2.4, 2.2)})
@@ -475,7 +475,7 @@ st.cue('sfx:rattleShort', 'S16', 0.2, 0.2); st.cue('sfx:rattleShort', 'S16', 0.7
 #     behind his blue car waiting at the give-way line, its indicator blinking; the ship's gun swings round and stops on him
 D17 = st.dur('S17'); AIMED17 = 1.05
 CAR17 = [30.9, GY, 38.3]
-C17 = cam(0.0, [24.4, 1.95, 40.2], [24.55, 1.96, 40.15], [33.983, 1.479, 37.383], [33.983, 1.5, 37.383], lens=37)
+C17 = cam(0.0, [20.5, 2.4, 41.0], [20.7, 2.4, 40.95], [37.0, 2.0, 37.0], [37.0, 2.05, 37.0], lens=34)
 chk('S17', C17['from'], C17['lookAt'], 40, {'carRear': loc(CAR17, 90, 0, -2.3, 0.8), 'turret': loc(SHIP, SHIP_RY, 0, 2.4, 2.2), 'mast': loc(SHIP, SHIP_RY, 0, -1.4, 6.4), 'boom': [33.8, 1.0, 37.0]})
 st.shot('S17', 'grassland', setOpts={**LOT_SET, 'sky': ['#9FC4D8', '#DCE6E4']}, actors=[],
         props=[P('rondpoint17', 'ringRoad', pos=[RING[0], 0, RING[2]], opts={'ri': RI, 'ro': RO, 'exitLen': 44, 'booms': 'down', 'grass': True}),
