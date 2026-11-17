@@ -46,7 +46,7 @@ const softSprite = (color, opacity = 1) => { const s = new THREE.Sprite(new THRE
 
 // the thunder's face expressions: [brow angle, brow lift, lid, mouth width, mouth open, mouth curve, cheeks]
 const TFACE = {
-  neutral: [0.05, 0, 0.1, 0.28, 0, 0, 0], angry: [0.48, -0.03, 0.18, 0.24, 0, -0.4, 0], shut: [0.52, -0.04, 0.22, 0.13, 0, -0.15, 1],
+  neutral: [0.05, 0, 0.1, 0.28, 0, 0, 0], angry: [0.48, -0.03, 0.18, 0.24, 0, -0.4, 0], shut: [0.55, -0.05, 0.22, 0.42, 0, -0.08, 1],
   shout: [0.55, 0.03, 0.0, 0.36, 1, 0, 0], calm: [0.0, 0.0, 0.38, 0.2, 0, 0.12, 0], smug: [-0.12, 0.03, 0.32, 0.24, 0, 0.4, 0],
   surprised: [-0.28, 0.07, 0.0, 0.16, 0.45, 0, 0], sad: [-0.35, 0.0, 0.3, 0.2, 0, -0.35, 0], blank: [0.0, 0.02, 0.05, 0.2, 0, 0, 0]
 };
@@ -59,28 +59,30 @@ export const TONNERRE_PROPS = {
   // glowing yellow inside), two small yellow zigzag bolt arms. It never rains.
   // o.expr [[t, name]] (TFACE), o.mouth [[t, 0..1]] (extra opening), o.look [[t, gx, gy]] (pupils, -1..1), o.blinks [t, ...] (else every 3.3 s),
   // o.arms [[t, poseL, poseR]] (TARMS names), o.sq [[t, sx, sy, sz]] (squeeze of the body), o.flash [[t, dur]] (the body lights up),
-  // o.flashK (1), o.glow (0: a cold moonlit lift for night shots), o.cuffs (oversized handcuffs on the bolt arms; o.cuffsAt: they snap shut then), o.tag (an electronic tag on the right arm), o.bundle (a tiny
+  // o.flashK (1), o.glow (0: a cold moonlit lift for night shots), o.cuffs (oversized handcuffs on the bolt arms; o.cuffsAt: they snap shut then), o.tag (an electronic tag on the right arm; o.tagSide -1: the left), o.bundle (a tiny
   // bundle hanging from the left arm), o.bob (0.04), o.lean [[t, rz]]
   thunderCloud(o) {
     const g = grp(), root = grp(), body = grp(); g.add(root); root.add(body); root.scale.setScalar(o.s ?? 1);
     const r = rng(o.seed || 89), geo = new THREE.IcosahedronGeometry(1, 1), lit = [];
     const M = c => { const m = mat(c, { unique: true }); lit.push(m); return m; };
-    const C = [o.color || '#2B2D34', o.color2 || '#363941', o.under || '#1F2126'], TOP = o.top || '#454852';
+    const C = [o.color || '#252526', o.color2 || '#2E2E30', o.under || '#1C1C1D'], TOP = o.top || '#3A3A3D';
     const puff = (x, y, z, s, c, sy = 0.82) => { const m = new THREE.Mesh(geo, M(c)); m.scale.set(s, s * sy, s * 0.9); m.position.set(x, y, z); m.rotation.set(r() * 3, r() * 3, r() * 3); m.castShadow = true; body.add(m); return m; };
     // the base: flattened puffs; the body: a column that narrows a little; the anvil: a flat wide top that overhangs on the right
     [[-0.85, 0.28, 0.0, 0.44], [-0.3, 0.24, 0.12, 0.46], [0.3, 0.25, 0.1, 0.46], [0.85, 0.28, -0.02, 0.44], [0, 0.3, -0.25, 0.5]].forEach(([x, y, z, s]) => puff(x, y, z, s, C[2], 0.62));
-    [[-0.62, 0.72, 0.0, 0.56], [0.6, 0.7, 0.02, 0.56], [0.0, 0.78, 0.12, 0.62], [-0.3, 1.12, -0.05, 0.5], [0.32, 1.14, -0.08, 0.52], [0.0, 1.05, -0.3, 0.55], [-0.95, 0.55, -0.05, 0.36], [0.98, 0.52, -0.05, 0.38]]
+    [[-0.62, 0.72, 0.0, 0.56], [0.6, 0.7, 0.02, 0.56], [0.0, 0.8, -0.12, 0.6], [-0.3, 1.12, -0.05, 0.5], [0.32, 1.14, -0.08, 0.52], [0.0, 1.05, -0.3, 0.55], [-0.95, 0.55, -0.05, 0.36], [0.98, 0.52, -0.05, 0.38]]
       .forEach(([x, y, z, s], i) => puff(x, y, z, s, C[i % 2]));
-    const anvil = new THREE.Mesh(new THREE.CylinderGeometry(1.35, 0.78, 0.34, 9), M(C[0])); anvil.scale.set(1.22, 1, 0.82); anvil.position.set(0.12, 1.5, -0.08); anvil.castShadow = true; body.add(anvil);
-    const cap = new THREE.Mesh(new THREE.CylinderGeometry(1.32, 1.36, 0.06, 9), M(TOP)); cap.scale.set(1.22, 1, 0.82); cap.position.set(0.12, 1.69, -0.08); body.add(cap);
+    const anvil = new THREE.Mesh(new THREE.CylinderGeometry(1.3, 0.78, 0.26, 11), M(C[0])); anvil.scale.set(1.22, 1, 0.82); anvil.position.set(0.12, 1.46, -0.08); anvil.castShadow = true; body.add(anvil);
+    // (pass 1) a soft dome on the anvil (the flat cap read as a tabletop), with three low bumps
+    const cap = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 2), M(TOP)); cap.scale.set(1.62, 0.3, 1.08); cap.position.set(0.12, 1.57, -0.08); cap.castShadow = true; body.add(cap);
+    [[-0.6, 1.7, 0.0, 0.42], [0.5, 1.72, -0.15, 0.48], [1.15, 1.64, 0.05, 0.34]].forEach(([x, y, z, s]) => puff(x, y, z, s, TOP, 0.42));
     for (let i = 0; i < 9; i++) { const a = i / 9 * TAU; puff(0.12 + Math.cos(a) * 1.2, 1.42, -0.08 + Math.sin(a) * 0.8, 0.3, C[1], 0.55); }
     // the face: a box plate on the front, a little lighter than the body
-    const face = grp(); face.position.set(0, 0.82, 0.6); body.add(face);
-    const plate = box(1.0, 0.66, 0.14, o.plate || '#4D515C', { outline: 0.012, unique: true }); lit.push(plate.material); face.add(plate);
+    const face = grp(); face.position.set(0, 0.82, 0.68); body.add(face);
+    const plate = box(1.0, 0.66, 0.14, o.plate || '#4A4C52', { outline: 0.012, unique: true }); lit.push(plate.material); face.add(plate);
     const eyeW = mat('#FBFBF6'), ink = mat('#0D0E12'), plateM = plate.material;
     const eyes = [-1, 1].map(s => { const e = grp(); e.position.set(0.21 * s, 0.07, 0.075); face.add(e);
       const white = box(0.22, 0.22, 0.03, '#FBFBF6', { material: eyeW }), pup = box(0.09, 0.1, 0.02, '#0D0E12', { material: ink }); pup.position.z = 0.018; e.add(white, pup);
-      const lid = box(0.24, 0.23, 0.035, '#4D515C', { material: plateM }); lid.geometry.translate(0, -0.115, 0); lid.position.set(0, 0.115, 0.022); e.add(lid);
+      const lid = box(0.24, 0.23, 0.035, '#4A4C52', { material: plateM }); lid.geometry.translate(0, -0.115, 0); lid.position.set(0, 0.115, 0.022); e.add(lid);
       return { e, pup, lid }; });
     const brows = [-1, 1].map(s => { const b = box(0.3, 0.075, 0.05, '#0D0E12', { material: ink }); b.position.set(0.21 * s, 0.25, 0.08); face.add(b); return b; });
     const mouth = grp(); mouth.position.set(0, -0.18, 0.075); face.add(mouth);
@@ -89,7 +91,7 @@ export const TONNERRE_PROPS = {
     const glowM = new THREE.MeshBasicMaterial({ color: '#FFE97A', toneMapped: false });
     const inner = new THREE.Mesh(new THREE.PlaneGeometry(1, 1).translate(0, -0.5, 0), glowM); inner.position.z = 0.012; mouth.add(inner);
     const teeth = box(1, 1, 0.025, '#F4F2EA'); teeth.geometry.translate(0, -0.5, 0); teeth.position.z = 0.016; mouth.add(teeth);
-    const cheeks = [-1, 1].map(s => { const c = sphere(0.1, '#5A5E6A', 1); c.scale.set(1, 0.8, 0.5); c.position.set(0.33 * s, -0.16, 0.06); face.add(c); return c; });
+    const cheeks = [-1, 1].map(s => { const c = sphere(0.13, '#5A5D66', 1); c.scale.set(1, 0.8, 0.5); c.position.set(0.36 * s, -0.17, 0.06); face.add(c); return c; });
     // the bolt arms: yellow zigzags pointing along -Y from the shoulder, aimed by direction
     const BOLT = poly([[-0.06, 0], [0.1, 0], [0.035, -0.26], [0.15, -0.26], [-0.07, -0.74], [0.0, -0.37], [-0.12, -0.37]]);
     const boltM = mat('#F6C518', { emissive: '#6E5200' }), steel = mat('#C9CED6'), arms = [], AL = o.armLen ?? 1.3;
@@ -106,7 +108,7 @@ export const TONNERRE_PROPS = {
     }
     // the electronic tag: a black box with a green lamp, strapped round the right arm
     let lamp = null;
-    if (o.tag) { const a = arms[1]; const t = grp(at(torus(0.075, 0.025, '#1C1D21', 5, 14), 0, 0, 0, PI / 2, 0, 0), at(box(0.2, 0.13, 0.11, '#1E1F24', { outline: 0.01 }), 0.0, 0, 0.1));
+    if (o.tag) { const a = arms[(o.tagSide ?? 1) < 0 ? 0 : 1]; const t = grp(at(torus(0.075, 0.025, '#1C1D21', 5, 14), 0, 0, 0, PI / 2, 0, 0), at(box(0.2, 0.13, 0.11, '#1E1F24', { outline: 0.01 }), 0.0, 0, 0.1));
       lamp = sphere(0.032, '#3CE06A', 1, { emissive: '#2AD05A', unique: true }); lamp.position.set(0.05, 0.02, 0.16); t.add(lamp); t.position.set(0, -0.38 * AL, 0); t.scale.setScalar(o.tagS ?? 1.3); a.sh.add(t); }
     // the bundle: a red cloth with white dots, knotted, hanging from the left arm's tip
     if (o.bundle) { const cv = canvasPlane(0.2, 0.2, (c, W, H) => { c.fillStyle = '#C8322A'; c.fillRect(0, 0, W, H); c.fillStyle = '#F4F1E8'; for (let i = 0; i < 5; i++) for (let j = 0; j < 5; j++) if ((i + j) % 2 === 0) { c.beginPath(); c.arc((i + 0.5) * W / 5, (j + 0.5) * H / 5, W * 0.045, 0, TAU); c.fill(); } }, { res: 128 });
@@ -119,8 +121,8 @@ export const TONNERRE_PROPS = {
       body.position.y = (o.bob ?? 0.04) * Math.sin(t * 1.7 + (o.seed || 0));
       body.rotation.z = keyAt(o.lean, t, 0, 0.25) + 0.02 * Math.sin(t * 1.1); body.rotation.x = 0.015 * Math.sin(t * 0.9);
       // the face
-      let name = 'angry'; for (const [kt, kv] of o.expr || []) if (t >= kt) name = kv;
-      const prevName = (() => { let p = 'angry', q = 'angry'; for (const [kt, kv] of o.expr || []) if (t >= kt) { p = q; q = kv; } return p; })();
+      const e0 = (o.expr && o.expr.length) ? o.expr[0][1] : 'angry'; let name = e0; for (const [kt, kv] of o.expr || []) if (t >= kt) name = kv;
+      const prevName = (() => { let p = e0, q = e0; for (const [kt, kv] of o.expr || []) if (t >= kt) { p = q; q = kv; } return p; })();
       const kt0 = (() => { let a = -1e9; for (const [kt] of o.expr || []) if (t >= kt) a = kt; return a; })();
       const A = TFACE[prevName] || TFACE.angry, B = TFACE[name] || TFACE.angry, w = smooth((t - kt0) / 0.1), F = A.map((x, i) => x + (B[i] - x) * w);
       const open = clamp01(F[4] + keyAt(o.mouth, t, 0, 0.06));
@@ -137,7 +139,7 @@ export const TONNERRE_PROPS = {
       inner.scale.set(ow * 0.84, oh * 0.8, 1); inner.position.y = 0.02 - oh * 0.12; teeth.scale.set(ow * 0.9, Math.min(0.05, oh * 0.25), 1); teeth.position.y = 0.02;
       cheeks.forEach(c => { c.visible = F[6] > 0.05; c.scale.set(F[6], 0.8 * F[6], 0.5 * F[6] + 0.01); });
       // the arms
-      const P = (() => { let p = ['rest', 'rest'], q = ['rest', 'rest'], k0 = -1e9; for (const k of o.arms || []) if (t >= k[0]) { p = q; q = [k[1], k[2] ?? k[1]]; k0 = k[0]; } return [p, q, k0]; })();
+      const P = (() => { const a0 = (o.arms && o.arms.length) ? [o.arms[0][1], o.arms[0][2] ?? o.arms[0][1]] : ['rest', 'rest']; let p = a0, q = a0, k0 = -1e9; for (const k of o.arms || []) if (t >= k[0]) { p = q; q = [k[1], k[2] ?? k[1]]; k0 = k[0]; } return [p, q, k0]; })();
       const aw = smooth((t - P[2]) / 0.16);
       arms.forEach((a, i) => { const pick = n => { const d = TARMS[n] || TARMS.rest; return new V3(i ? -d[0] : d[0], d[1], d[2]); };
         const d = pick(P[0][i]).lerp(pick(P[1][i]), aw).normalize(); const wob = 0.12 * Math.sin(t * 5 + i * 2); d.x += wob * 0.2; d.normalize();
@@ -218,10 +220,13 @@ export const TONNERRE_PROPS = {
     g.add(at(box(BW, 0.22, L - 0.04, '#F1EEE6', { pivot: 'bottom' }), bx, 0.4, (bz0 + bz1) / 2 + 0.02));
     g.add(at(box(BW + 0.16, 1.15, 0.1, o.headboard || '#5A3A26', { pivot: 'bottom', outline: 0.008 }), bx, 0.2, bz0 + 0.05), at(box(BW + 0.24, 0.08, 0.14, wood), bx, 1.37, bz0 + 0.05));
     if (o.pillows !== false) [-1, 1].forEach(s => { const p = at(box(0.66, 0.16, 0.42, '#FAF8F2', { outline: 0.008, taper: { x: 0.92, z: 0.85 } }), bx + s * 0.45, 0.72, bz0 + 0.33, -0.3, 0, 0); g.add(p); });
+    const chests = [];
     if (o.duvet !== false) {
       const dz0 = o.duvetZ ?? -2.2, top = o.duvetTop ?? 0.88, dl = bz1 + 0.06 - dz0, dc = o.duvet || '#E2C277';
       g.add(at(box(BW + 0.14, top - 0.34, dl, dc, { pivot: 'bottom', outline: 0.008 }), bx, 0.34, dz0 + dl / 2));
       g.add(at(box(BW + 0.16, 0.07, 0.3, '#F7F4EC', { outline: 0.006 }), bx, top + 0.005, dz0 + 0.15));
+      // (pass 1) o.chest [[x, z, r]]: a hump over a sleeper's chest that rises and falls (a slow breath, o.breath 3.2 s)
+      for (const [cx, cz, cr] of o.chest || []) { const c = sphere(cr ?? 0.3, dc, 1); c.scale.set(1.2, 0.5, 1.5); c.position.set(bx + cx, top - 0.06, cz); g.add(c); chests.push(c); }
       for (const [fx, fz, fr] of o.feet || []) { const f = sphere(fr ?? 0.13, dc, 1); f.scale.set(1.1, 0.75, 1.3); f.position.set(bx + fx, top, fz); g.add(f); }
       const st = mat(new THREE.Color(dc).multiplyScalar(0.86).getStyle()); for (let i = 1; i < 4; i++) g.add(at(box(BW + 0.15, 0.012, 0.03, '', { material: st }), bx, top + 0.003, dz0 + dl * i / 4));
     }
@@ -232,7 +237,7 @@ export const TONNERRE_PROPS = {
     if (on && o.lampLight !== false) { const l = new THREE.PointLight('#FFC97A', o.lampPower ?? 3, 5, 1.4); l.position.set(lx, 1.0, bz0 + 0.4); g.add(l); }
     if (o.door !== false) { const dx = o.doorX ?? 2.15; g.add(at(box(0.95, 2.15, 0.06, '#EDEBE4'), dx, 1.075, bz + 0.02), at(box(0.83, 2.05, 0.05, o.doorColor || '#9A6B45', { outline: 0.006 }), dx, 1.03, bz + 0.05),
       at(box(0.62, 0.7, 0.012, '#87593A'), dx, 1.55, bz + 0.08), at(box(0.62, 0.7, 0.012, '#87593A'), dx, 0.6, bz + 0.08), at(sphere(0.04, '#D8B54A', 0), dx - 0.32, 1.0, bz + 0.1)); }
-    g.userData.update = t => { const f = pulseAt(o.flash, t); flashM.opacity = 0.95 * f; flashP.visible = f > 0.001; sb.visible = (o.flash || []).some(([a, d]) => t >= a && t < a + Math.min(0.2, d)); };
+    g.userData.update = t => { chests.forEach(c => { c.scale.y = 0.5 + 0.12 * Math.sin(t * TAU / (o.breath ?? 3.2)); }); const f = pulseAt(o.flash, t); flashM.opacity = 0.95 * f; flashP.visible = f > 0.001; sb.visible = (o.flash || []).some(([a, d]) => t >= a && t < a + Math.min(0.2, d)); };
     g.userData.update(0); return g;
   },
 
@@ -378,7 +383,7 @@ export const TONNERRE_PROPS = {
     const page = (txt) => canvasPlane(w, h, (c, W, Hh) => { c.fillStyle = '#F8F5EA'; c.fillRect(0, 0, W, Hh); c.fillStyle = '#2A3A6A'; c.fillRect(W * 0.06, Hh * 0.1, W * 0.88, Hh * 0.008); if (txt) { c.font = `bold ${Hh * 0.07}px Arial`; c.textAlign = 'center'; c.fillText(txt, W / 2, Hh * 0.08); }
       c.strokeStyle = '#9DB2D0'; c.lineWidth = Hh * 0.004; for (let i = 0; i < 12; i++) { c.beginPath(); c.moveTo(W * 0.06, Hh * (0.18 + i * 0.065)); c.lineTo(W * 0.94, Hh * (0.18 + i * 0.065)); c.stroke(); }
       c.strokeStyle = '#D98A8A'; c.beginPath(); c.moveTo(W * 0.22, Hh * 0.12); c.lineTo(W * 0.22, Hh * 0.95); c.stroke(); }, { res: 256 });
-    const L = page(o.left || 'ADRESSE'), R = page(o.right || ''); L.position.set(-w / 2, 0, 0.002); L.rotation.y = 0.1; R.position.set(w / 2, 0, 0.002); R.rotation.y = -0.1; g.add(L, R);
+    const L = page(o.left || 'ADRESSE'), R = page(o.right || ''); L.position.set(-w / 2, 0, 0.03); L.rotation.y = 0.06; R.position.set(w / 2, 0, 0.03); R.rotation.y = -0.06; g.add(L, R);
     return g;
   },
 

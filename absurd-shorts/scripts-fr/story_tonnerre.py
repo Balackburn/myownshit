@@ -106,7 +106,7 @@ st.shot('S01', 'whiteVoid', look=NIGHT, actors=[
             k(r(JOLT1 + 0.3), toon={'face': {'lid': 0, 'eye': 0.5, 'mouth': 'O', 'brow': 0.6}, 'hairUp': 1.0, 'sq': [1, 1, 1], 'auto': 0}, toonDur=0.22),
             k(r(JOLT1 + 0.45), look=[WINC[0] + 0.5, 1.7, -2.4], lookDur=0.12)])],
         props=[P('chambre1', 'tonBedroom', pos=[0, 0, 0], opts={'winX': WINC[0], 'flash': [[FL1, 0.35]], 'skyZ': -12.5, 'feet': [[0.45, -0.8, 0.24]]}),
-               CLOUD('nuage1', CL1, RY1, S1, expr=[[0.0, 'angry'], [r(FL1 - 0.04), 'shout'], [r(FL1 + 0.32), 'angry']], flash=[[FL1, 0.35]], glow=0.6, look=[[0.0, 0.0, 0.0], [1.0, 0.7, 0.3]], arms=[[0.0, 'up', 'up']]),
+               CLOUD('nuage1', CL1, RY1, S1, keys=[k(CUT1, to=[r(CL1[i] + (CB1P[i] - CL1[i]) * 0.18) for i in range(3)], dur=0.6, ease='inOut')], mouth=[[r(CUT1 + 0.2), 0.0], [r(CUT1 + 0.3), 0.35], [r(CUT1 + 0.6), 0.12]], sq=[[0.0, 1, 1, 1], [r(CUT1 + 0.25), 1.06, 0.95, 1.0], [r(CUT1 + 0.5), 1, 1, 1]], expr=[[0.0, 'angry'], [r(FL1 - 0.04), 'shout'], [r(FL1 + 0.32), 'angry']], flash=[[FL1, 0.35]], glow=0.6, look=[[0.0, 0.0, 0.0], [1.0, 0.7, 0.3]], arms=[[0.0, 'up', 'up']]),
                P('bonnet1', 'nightCap', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.5, 0.0]}, opts={'side': -1}, keys=[k(0.0, visible=True), k(r(JOLT1 + 0.06), visible=False)]),
                P('bonnet1v', 'nightCap', pos=[0.45, 2.3, -1.68], opts={'side': -1}, keys=CAPFLY1)],
         fx=[{'type': 'flash', 'at': FL1, 'dur': 0.28}, {'type': 'shake', 'at': FL1, 'dur': 0.25, 'amount': 0.012}],
@@ -126,16 +126,18 @@ def PT2(dy):
     v = [WIN2[0] - SH2[0], WIN2[1] + 0.9 + dy - SH2[1], WIN2[2] - SH2[2]]; n = math.sqrt(sum(x * x for x in v)); return [r(SH2[i] + v[i] / n * 0.62) for i in range(3)]
 C2 = cam(0.0, [0.25, 1.7, 2.8], [0.15, 1.7, 2.55], [-0.25, 1.72, -1.6], [-0.25, 1.72, -1.6], lens=50)
 chk('S02', C2, {'heroFace': [HERO2[0], 2.05, HERO2[2]], 'copFace': [COP2[0], 2.05, COP2[2]], 'win': WIN2, 'tw': TW2, 'hand': PT2(0)})
-def TYPE2(t, down):
-    hp = add(TW2, [0.05, 0.22 if not down else 0.13, 0.12])
-    return k(t, toon={'reach': {'R': [*hp, 1, 0.15]}, 'hands': {'R': 'point'}, 'bend': {'spine': [0.18, 0, 0, 1, None], 'neck': [0.35, 0, 0, 1, None]}, 'face': {'lid': 0.7, 'mouth': 'line', 'brow': -0.1}}, toonDur=0.07)
+def TYPE2(t, down, x=0.0):
+    hp = add(TW2, [0.05 + x, 0.36 if not down else 0.14, 0.14])
+    return k(t, toon={'reach': {'R': [*hp, 1, 0.15]}, 'hands': {'R': 'point'}, 'bend': {'spine': [0.18, 0, 0, 1, None], 'neck': [0.35, 0, 0, 1, None]}, 'face': {'lid': 0.7, 'mouth': 'line', 'brow': -0.1}}, toonDur=0.06 if down else 0.08, toonEase='in' if down else 'out')
 def JAB2(t, dy, face):
-    return k(t, toon={'reach': {'R': [*PT2(dy), 1, 0.15]}, 'hands': {'R': 'point'}, 'face': face, 'sq': [0.98, 1.03, 0.98]}, toonDur=0.08, toonEase='out')
+    # (pass 1) each jab overshoots (the arm shoots past, 0.1 further) and settles back: a stab, not a drift
+    return [k(t, toon={'reach': {'R': [*PT2(dy + 0.12), 1, 0.15]}, 'hands': {'R': 'point'}, 'face': face, 'sq': [0.96, 1.05, 0.96]}, toonDur=0.06, toonEase='out'),
+            k(r(t + 0.08), toon={'reach': {'R': [*PT2(dy - 0.06), 1, 0.15]}, 'hands': {'R': 'point'}, 'face': face, 'sq': [1.0, 1.0, 1.0]}, toonDur=0.1, toonEase='inOut')]
 st.shot('S02', 'office', setOpts={'door': False, 'printer': False, 'carpet': False, 'picture': False, 'wall': '#B9C4CE', 'band': '#5E6E80', 'trim': '#2E3A46'}, look={'exposure': 1.15, 'fill': 0.9},
         actors=[act('mec', HERO2, RYH2, 'stand', 'angry', keys=[k(0.0, look=[WIN2[0] + 0.6, 2.2, WIN2[2] + 1.0]),
-                    JAB2(0.0, 0.0, {'lid': 0.1, 'mouth': 'open', 'brow': -0.8}), JAB2(0.32, 0.18, {'lid': 0.1, 'mouth': 'O', 'brow': -0.9}), JAB2(0.62, 0.0, {'lid': 0.1, 'mouth': 'open', 'brow': -0.8}),
-                    JAB2(0.92, 0.2, {'lid': 0.1, 'mouth': 'O', 'brow': -0.9}), k(1.15, look='camera', lookDur=0.15), JAB2(1.25, 0.05, {'lid': 0.2, 'mouth': 'open', 'brow': -0.9}), JAB2(1.6, 0.22, {'lid': 0.2, 'mouth': 'O', 'brow': -1.0})]),
-                act('flic', COP2, 0, 'stand', 'unimpressed', keys=[k(0.0, look=add(TW2, [0, 0.1, 0.1])), *[TYPE2(r(0.1 + 0.18 * i), i % 2 == 0) for i in range(12)]])],
+                    *JAB2(0.0, 0.0, {'lid': 0.1, 'mouth': 'open', 'brow': -0.8}), *JAB2(0.32, 0.18, {'lid': 0.1, 'mouth': 'O', 'brow': -0.9}), *JAB2(0.62, 0.0, {'lid': 0.1, 'mouth': 'open', 'brow': -0.8}),
+                    *JAB2(0.92, 0.2, {'lid': 0.1, 'mouth': 'O', 'brow': -0.9}), k(1.15, look='camera', lookDur=0.15), *JAB2(1.25, 0.05, {'lid': 0.2, 'mouth': 'open', 'brow': -0.9}), *JAB2(1.6, 0.22, {'lid': 0.2, 'mouth': 'O', 'brow': -1.0})]),
+                act('flic', COP2, 0, 'stand', 'unimpressed', keys=[k(0.0, look=add(TW2, [0, 0.1, 0.1])), *[TYPE2(r(0.1 + 0.15 * i), i % 2 == 1, 0.04 * ((i // 2) % 3 - 1)) for i in range(14)]])],
         props=[P('comptoir2', 'frontCounter', pos=CNT2, opts={'sign': 'ACCUEIL', 'signY': 2.65}), P('fenetre2', 'nightWindow', pos=WIN2, opts={'w': 1.3, 'h': 1.3}),
                P('machine2', 'typewriter', pos=TW2, opts={'hitFrom': 0.15, 'hitTo': 2.2}), CAP('bonnet2')],
         cams=[C2])
@@ -177,34 +179,34 @@ st.cue('sfx:rotor', 'S03', 0.0, 0.35); st.cue('sfx:slideDown', 'S03', 0.05, 0.15
 #    front of them, hair on end, saluting; nobody hurt
 D4 = st.dur('S04'); HIT4 = 0.28; CUT4 = 0.95
 CL4 = [0.0, 60.0, 0.0]; S4 = 3.4
-HE4 = [(-4.8, 65.0, 4.0, 70), (5.0, 65.5, 3.0, -105)]
-CA4 = cam(0.0, [2.0, 62.5, 30.0], [1.9, 62.3, 29.2], [0.3, 62.3, 2.0], [0.3, 62.0, 2.0], lens=50)
+HE4 = [(-4.6, 60.3, 3.0, 70), (4.8, 60.8, 2.4, -105)]
+CA4 = cam(0.0, [2.0, 61.5, 30.0], [1.9, 61.4, 29.4], [0.2, 61.6, 2.0], [0.2, 61.2, 2.0], lens=50)
 def heli_fall(j, x_, y_, z_, a_):
     """the struck helicopter, black: hidden until the hit, then it sinks slowly while it turns"""
     return P(f'helinoir4{j}', 'helicopter', pos=[x_, y_, z_], ry=a_, scale=0.6, opts={'spin': 1.5, 'color': '#26272B'},
-             keys=[k(0.0, visible=False), k(HIT4, visible=True), k(HIT4, to=[x_ * 1.05, y_ - 3.0, z_ + 0.4], dur=r(CUT4 - HIT4), ease='in'), k(HIT4, rotTo=[0.15 * (1 - 2 * j), math.radians(a_) + 2.2 * (1 - 2 * j), 0.12], dur=r(CUT4 - HIT4), ease='in')])
-FIELD4 = [(-2.3, -3.6, 100, 0.12), (2.5, -4.6, -75, -0.1)]   # x, z, ry, tilt of the landed helicopters
-CREW4 = [('pilote1', [-1.45, 0, 0.35], 14), ('pilote2', [0.25, 0, 0.6], -4), ('pilote3', [1.7, 0, 0.1], -18)]
-CB4P = [0.3, 3.0, 9.5]
-CB4 = cam(CUT4, CB4P, add(CB4P, [0, -0.1, -0.5]), [0.1, 1.1, -2.0], [0.1, 1.1, -2.0], lens=46)
+             keys=[k(0.0, visible=False), k(HIT4, visible=True), k(r(HIT4 + 0.05), to=[x_ * 1.08, y_ - 3.6, z_ + 0.5], dur=r(CUT4 - HIT4), ease='inOut'), k(r(HIT4 + 0.05), rotTo=[0.25 * (1 - 2 * j), math.radians(a_) + 3.6 * (1 - 2 * j), 0.3 * (1 - 2 * j)], dur=r(CUT4 - HIT4), ease='inOut')])
+FIELD4 = [(-2.0, -3.2, 100, 0.12), (2.1, -3.8, -75, -0.1)]   # x, z, ry, tilt of the landed helicopters
+CREW4 = [('pilote1', [-0.85, 0, 0.35], 12), ('pilote2', [0.1, 0, 0.6], -3), ('pilote3', [1.0, 0, 0.3], -14)]
+CB4P = [0.15, 1.6, 7.0]
+CB4 = cam(CUT4, CB4P, add(CB4P, [0, -0.05, -0.4]), [0.1, 1.5, -1.5], [0.1, 1.5, -1.5], lens=46)
 chk('S04a', CA4, {'face': CFACE(CL4, 0, S4), 'h1': HE4[0][:3], 'h2': HE4[1][:3], 'h1low': [HE4[0][0], HE4[0][1] - 3, HE4[0][2]]})
 chk('S04b', CB4, {**{w: [p[0], 2.05, p[2]] for w, p, _ in CREW4}, 'feet1': CREW4[0][1], 'heli1': [-2.6, 1.5, -2.2], 'heli2': [2.9, 1.5, -3.4]})
-SAL = lambda p, ry: [*off(p, ry, 0.08, 0.2, 2.02), 1, 0.03]
+SAL = lambda p, ry: [*off(p, ry, 0.12, 0.26, 2.06), 1, 0.03]
 st.shot('S04', 'grassland', setOpts={'clouds': 26, 'grass': '#86BE5C'}, actors=[
         *[act(w, p, a_, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, visible=False), k(CUT4, visible=True),
             k(CUT4, toon={'reach': {'R': SAL(p, a_)}, 'hands': {'R': 'open'}, 'hairUp': 1.3, 'face': {'lid': 0.15, 'eye': 0.3, 'mouth': 'line', 'brow': 0.3}}, toonDur=0.0),
             k(r(CUT4 + 0.35 + 0.08 * j), toon={'reach': {'R': SAL(p, a_)}, 'hands': {'R': 'open'}, 'hairUp': 1.3, 'face': {'lid': 1.0, 'mouth': 'line', 'brow': 0.3}}, toonDur=0.04),
             k(r(CUT4 + 0.45 + 0.08 * j), toon={'reach': {'R': SAL(p, a_)}, 'hands': {'R': 'open'}, 'hairUp': 1.3, 'sq': [1.02, 0.98, 1.02], 'face': {'lid': 0.15, 'eye': 0.3, 'mouth': 'line', 'brow': 0.3}}, toonDur=0.06)])
           for j, (w, p, a_) in enumerate(CREW4)]],
-        props=[CLOUD('nuage4', CL4, 0, S4, expr=[[0.0, 'angry'], [r(HIT4 - 0.05), 'shout'], [r(HIT4 + 0.3), 'smug']], arms=[[0.0, 'cuff', 'cuff']], cuffs=True, flash=[[HIT4, 0.3]], flashK=0.45, seed=3),
+        props=[CLOUD('nuage4', CL4, 0, S4, expr=[[0.0, 'angry'], [r(HIT4 - 0.05), 'shout'], [r(HIT4 + 0.3), 'smug']], arms=[[0.0, 'cuff', 'cuff']], cuffs=True, flash=[[HIT4, 0.3]], flashK=0.0, seed=3),
                *[P(f'heli4{j}', 'helicopter', pos=[x_, y_, z_], ry=a_, scale=0.6, opts={'spin': 5, 'color': '#3E4A5C', 'bladeOpacity': 0.55}, keys=[k(0.0, visible=True), k(HIT4, visible=False)]) for j, (x_, y_, z_, a_) in enumerate(HE4)],
                *[heli_fall(j, *h) for j, h in enumerate(HE4)],
-               *[P(f'eclair4{j}', 'boltStrike', pos=[0, 0, 0], opts={'from': add(CL4, [0.3 * (2 * j - 1), 0.4, 0.8]), 'to': [x_, y_ - 0.2, z_], 'at': HIT4, 'dur': 0.3, 'w': 0.12, 'jag': 0.9, 'seed': 4 + j}) for j, (x_, y_, z_, _) in enumerate(HE4)],
-               *[P(f'fumee4{j}', 'sootSmoke', pos=[x_, y_ + 0.6, z_], opts={'at': HIT4, 'rise': 4.5, 's0': 1.0, 's1': 3.0, 'speed': 0.9}, keys=[k(HIT4, to=[x_ * 1.05, y_ - 2.4, z_ + 0.4], dur=r(CUT4 - HIT4), ease='in')]) for j, (x_, y_, z_, _) in enumerate(HE4)],
-               *[P(f'helisol4{j}', 'helicopter', pos=[x_, 0.95 * 0.6, z_], ry=a_, rot=[0, 0, tl], scale=0.6, opts={'spin': 0.6, 'color': '#26272B'}) for j, (x_, z_, a_, tl) in enumerate(FIELD4)],
+               *[P(f'eclair4{j}', 'boltStrike', pos=[0, 0, 0], opts={'from': add(CL4, [1.3 * (2 * j - 1), 0.5, 1.4]), 'to': [x_, y_ - 0.2, z_], 'at': HIT4, 'dur': 0.36, 'w': 0.18, 'jag': 0.6, 'span': 0.6, 'n': 7, 'seed': 4 + j}) for j, (x_, y_, z_, _) in enumerate(HE4)],
+               *[P(f'fumee4{j}', 'sootSmoke', pos=[x_, y_ + 0.6, z_], opts={'at': HIT4, 'rise': 4.5, 's0': 1.0, 's1': 3.0, 'speed': 0.9}, keys=[k(r(HIT4 + 0.05), to=[x_ * 1.08, y_ - 3.0, z_ + 0.5], dur=r(CUT4 - HIT4), ease='inOut')]) for j, (x_, y_, z_, _) in enumerate(HE4)],
+               *[P(f'helisol4{j}', 'helicopter', pos=[x_, 0.82, z_], ry=a_, rot=[0, 0, tl], scale=0.6, opts={'spin': 0.3, 'color': '#232428', 'discOpacity': 0.0}) for j, (x_, z_, a_, tl) in enumerate(FIELD4)],
                *[P(f'fumees4{j}', 'sootSmoke', pos=[x_, 1.6, z_], opts={'rise': 3.0, 's0': 0.5, 's1': 1.8, 'speed': 0.5}) for j, (x_, z_, a_, tl) in enumerate(FIELD4)],
                *[SOOT(f'suie4{j}', w) for j, (w, _, _) in enumerate(CREW4)]],
-        fx=[{'type': 'flash', 'at': HIT4, 'dur': 0.25}, {'type': 'shake', 'at': HIT4, 'dur': 0.3, 'amount': 0.015}],
+        fx=[{'type': 'flash', 'at': HIT4, 'dur': 0.14}, {'type': 'shake', 'at': HIT4, 'dur': 0.3, 'amount': 0.015}],
         cams=[CA4, CB4])
 st.cue('thunder', 'S04', HIT4, 0.85); st.cue('sfx:rotor', 'S04', 0.0, 0.3); st.cue('sfx:slideDownSlow', 'S04', r(HIT4 + 0.1), 0.25); st.cue('sfx:poof', 'S04', CUT4, 0.25)
 
@@ -213,8 +215,8 @@ st.cue('thunder', 'S04', HIT4, 0.85); st.cue('sfx:rotor', 'S04', 0.0, 0.3); st.c
 DOCK = [-1.5, 0, 1.3]; SD = 1.2; CLD = [-1.5, 0.1, 1.25]; RYD = 180
 SQD = [0.84, 1.1, 0.92]
 FACED = CFACE(CLD, RYD, SD)
-GEND = [('gend1', [-2.75, 0, 1.15], 160), ('gend2', [-0.22, 0, 1.15], 200)]
-PUB = [0.35, 0, 3.0]                                  # the public bench (the man sleeps on it), facing the judge
+GEND = [('gend1', [-2.45, 0, 0.5], 170), ('gend2', [-0.55, 0, 0.5], 190)]
+PUB = [0.9, 0, 3.0]                                  # the public bench (the man sleeps on it), facing the judge
 JUDGE = [0.0, 0.3, -4.35]
 COURT = {'sign': 'TRIBUNAL'}
 def DOCKBOX(pid): return P(pid, 'dockBox', pos=DOCK, ry=180, opts={'w': 1.7, 'd': 1.05, 'h': 0.95})
@@ -229,14 +231,14 @@ def SLEEPER(keys=None, sid=''):
 #    gendarmes; its mouth pressed tight shut, cheeks puffed, eyes sliding from side to side; the handcuffs still on; the public bench behind it
 #    (b) closer on the pressed mouth: the cheeks puff once more, the brows knit
 D5 = st.dur('S05'); CUT5 = 1.35
-CA5 = FIT(0.0, [-0.3, 1.7, -2.4], {'cloudTop': add(CLD, [0, 1.72 * SD * SQD[1], 0]), 'g1': [-2.75, 2.2, 1.15], 'g2': [-0.22, 2.2, 1.15], 'dockL': [-2.4, 0.4, 0.8], 'dockR': [-0.6, 0.4, 0.8], 'pub': [PUB[0] + 0.3, 1.9, PUB[2]]}, top=0.1, bottom=0.78, drift=(-0.15, 0, 0.25), lenses=range(30, 67), most=1.0)
+CA5 = cam(0.0, [-1.45, 2.0, -3.3], [-1.35, 2.0, -3.05], [-1.45, 1.35, 1.0], [-1.45, 1.35, 1.0], lens=64)
 CB5P = add(FACED, [0.55, 0.15, -2.3])
 CB5 = cam(CUT5, CB5P, add(CB5P, [0.05, 0.0, 0.25]), FACED, add(FACED, [0, 0.02, 0]), lens=40)
 chk('S05a', CA5, {'face': FACED, 'g1': [-2.75, 2.0, 1.15], 'g2': [-0.22, 2.0, 1.15], 'pubHead': [PUB[0], 1.65, PUB[2]]})
 chk('S05b', CB5, {'face': FACED, 'faceTop': add(FACED, [0, 0.45, 0]), 'mouth': add(FACED, [0, -0.2 * SD, 0]), 'g2': [-0.22, 2.0, 1.15]})
 st.shot('S05', 'courtroom', setOpts=COURT, actors=[*gend_actors({'gend2': [k(0.6, look=FACED, lookDur=0.2), k(1.1, look='camera', lookDur=0.15)]}), SLEEPER()],
         props=[DOCKBOX('box5'), PUBBENCH('banc5'), *GKEPIS('5'), CAP('bonnet5'),
-               CLOUD('nuage5', CLD, RYD, SD, expr=[[0.0, 'shut']], sq=[[0.0, *SQD], [0.5, 0.88, 1.06, 0.95], [0.75, *SQD], [1.7, 0.9, 1.05, 0.96], [1.95, *SQD]], arms=[[0.0, 'cuff', 'cuff']], cuffs=True,
+               CLOUD('nuage5', CLD, RYD, SD, expr=[[0.0, 'shut']], sq=[[0.0, *SQD], [0.45, 0.97, 0.97, 1.0], [0.62, 0.95, 0.99, 1.0], [0.85, *SQD], [1.65, 1.0, 0.95, 1.02], [1.85, 0.97, 0.98, 1.0], [2.1, *SQD]], arms=[[0.0, 'cuff', 'cuff']], cuffs=True,
                      look=[[0.0, -0.8, 0.0], [0.55, 0.8, 0.0], [1.1, -0.8, 0.1], [1.7, 0.0, -0.3]], seed=5)],
         cams=[CA5, CB5])
 st.cue('sfx:crickets', 'S05', 0.0, 0.08); st.cue('sfx:squeak', 'S05', 0.55, 0.12)
@@ -244,56 +246,66 @@ st.cue('sfx:crickets', 'S05', 0.0, 0.08); st.cue('sfx:squeak', 'S05', 0.55, 0.12
 # 6: it was its right. The lawyer (black robe, box head) beside the dock lays a hand on the cloud and nods gravely toward the judge; the cloud's
 #    eyes go to the hand, then to us
 D6 = st.dur('S06')
-LAW6 = [-0.25, 0, 0.85]; RYL6 = 205
-HAND6 = loc(CLD, RYD, -0.95 * SD * SQD[0], 0.2, 0.95 * SD)
-C6 = FIT(0.0, [1.1, 1.65, -1.9], {'law': [LAW6[0], 2.35, LAW6[2]], 'lawFeet': [LAW6[0], 0.4, LAW6[2]], 'face': FACED, 'cloudL': add(CLD, [-1.0, 1.9, 0])}, top=0.1, bottom=0.76, drift=(-0.1, 0, 0.2))
+LAW6 = [-0.35, 0, 0.35]; RYL6 = 215
+HAND6 = [-0.75, 1.25, 0.7]
+C6 = cam(0.0, [-0.3, 1.8, -2.5], [-0.32, 1.8, -2.3], [-1.0, 1.45, 0.9], [-1.0, 1.45, 0.9], lens=50)
 chk('S06', C6, {'lawFace': [LAW6[0], 2.05, LAW6[2]], 'face': FACED, 'hand': HAND6})
-def NOD6(t, a): return k(t, toon={'reach': {'L': [*HAND6, 1, 0.1]}, 'hands': {'L': 'open'}, 'bend': {'neck': [a, 0, 0, 1, None], 'spine': [0.06 + a * 0.2, 0, 0, 1, None]}, 'face': {'lid': 0.5, 'mouth': 'line', 'brow': 0.4}}, toonDur=0.12)
-st.shot('S06', 'courtroom', setOpts=COURT, actors=[act('avocat', LAW6, RYL6, 'stand', 'neutral', keys=[k(0.0, look=[0.4, 2.0, -3.5]), NOD6(0.0, 0.0), NOD6(0.3, 0.35), NOD6(0.48, 0.05), NOD6(0.66, 0.38), NOD6(0.86, 0.08)]), *gend_actors()],
-        props=[DOCKBOX('box6'), *GKEPIS('6'), CLOUD('nuage6', CLD, RYD, SD, expr=[[0.0, 'shut'], [0.5, 'smug']], sq=[[0.0, *SQD]], arms=[[0.0, 'cuff', 'cuff']], cuffs=True, look=[[0.0, 0.9, 0.3], [0.55, 0.0, 0.0]], seed=5)],
+def NOD6(t, a, hp=None): return k(t, toon={'reach': {'L': [*(hp or HAND6), 1, 0.1]}, 'hands': {'L': 'open'}, 'bend': {'neck': [a, 0, 0, 1, None], 'spine': [0.06 + a * 0.2, 0, 0, 1, None]}, 'face': {'lid': 0.5, 'mouth': 'line', 'brow': 0.4}}, toonDur=0.12)
+st.shot('S06', 'courtroom', setOpts=COURT, actors=[act('avocat', LAW6, RYL6, 'stand', 'neutral', keys=[k(0.0, look=[0.4, 2.0, -3.5]), NOD6(0.0, 0.0, off(LAW6, RYL6, 0.25, -0.3, 1.0)), NOD6(0.1, 0.0, add(HAND6, [0.05, 0.12, -0.05])), NOD6(0.24, 0.0), NOD6(0.42, 0.38), NOD6(0.6, 0.05), NOD6(0.76, 0.4), NOD6(0.95, 0.1)]), *gend_actors()[:1]],
+        props=[DOCKBOX('box6'), *GKEPIS('6')[:1], CLOUD('nuage6', CLD, RYD, SD, expr=[[0.0, 'shut'], [0.6, 'smug']], sq=[[0.0, *SQD]], arms=[[0.0, 'cuff', 'cuff']], cuffs=True, look=[[0.0, 0.0, 0.0], [0.22, -0.9, 0.5], [0.7, 0.0, 0.0]], seed=5)],
         cams=[C6])
 st.cue('sfx:paper', 'S06', 0.1, 0.12)
 
 # 7: this man asked for nothing more. On the public bench, the man in pyjamas and nightcap sleeps peacefully, head on his shoulder, smiling; the
 #    pompom of his cap sways as his head nods lower
 D7 = st.dur('S07')
-C7P = [0.0, 1.55, 0.75]
+C7P = [PUB[0] - 0.35, 1.55, 0.75]
 C7 = cam(0.0, C7P, add(C7P, [0.05, -0.02, 0.3]), [PUB[0] - 0.12, 1.45, PUB[2]], [PUB[0] - 0.12, 1.45, PUB[2]], lens=50)
 chk('S07', C7, {'face': [PUB[0], 1.65, PUB[2]], 'cap': [PUB[0], 2.05, PUB[2]], 'knees': [PUB[0], 0.5, PUB[2] - 0.5]})
 st.shot('S07', 'courtroom', setOpts=COURT, actors=[SLEEPER([k(0.0, look=None), k(0.0, toon={'face': {'lid': 1, 'mouth': 'smile'}, 'bend': {'neck': [0.15, 0.2, 0, 1, None]}}, toonDur=0.0),
-            k(0.5, toon={'face': {'lid': 1, 'mouth': 'bigsmile', 'cheeks': 0.4}, 'bend': {'neck': [0.3, 0.38, 0, 1, None]}}, toonDur=0.6, toonEase='inOut'),
-            k(1.25, toon={'face': {'lid': 1, 'mouth': 'smile', 'cheeks': 0.3}, 'bend': {'neck': [0.22, 0.3, 0, 1, None]}}, toonDur=0.3)])],
-        props=[PUBBENCH('banc7'), CAP('bonnet7')],
+            k(0.45, toon={'face': {'lid': 1, 'mouth': 'bigsmile', 'cheeks': 0.4}, 'sq': [1.03, 0.98, 1.05], 'bend': {'neck': [0.3, 0.32, 0, 1, None]}}, toonDur=0.45, toonEase='inOut'),
+            k(0.95, toon={'face': {'lid': 1, 'mouth': 'smile', 'cheeks': 0.3}, 'sq': [0.99, 1.01, 0.98], 'bend': {'neck': [0.42, 0.4, 0, 1, None]}}, toonDur=0.45, toonEase='inOut'),
+            k(1.4, toon={'face': {'lid': 1, 'mouth': 'bigsmile', 'cheeks': 0.4}, 'sq': [1.03, 0.98, 1.05], 'bend': {'neck': [0.55, 0.46, 0, 1, None]}}, toonDur=0.32, toonEase='inOut')])],
+        props=[PUBBENCH('banc7'), P('bonnet7', 'nightCap', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.5, 0.0]}, opts={'side': 1})],
         cams=[C7])
 st.cue('sfx:crickets', 'S07', 0.0, 0.1)
 
 # 8: the judge insisted. From the dock side: the judge leans far over his bench, raises the gavel beside his wig and bangs it, then points at
 #    the cloud (at us)
-D8 = st.dur('S08'); HIT8 = 0.42
-GAV8 = [0.32, 1.53, -3.25]
-C8 = cam(0.0, [-0.45, 2.3, -1.2], [-0.4, 2.3, -1.45], [0.0, 1.95, -4.2], [0.0, 1.95, -4.2], lens=46)
-chk('S08', C8, {'face': [0.0, 2.25, -4.1], 'gavel': GAV8, 'wig': [0.0, 2.75, -4.1]})
-def J8(t, lh, rh=None, lean=0.5, face=None, d=0.1, e='inOut'):
-    tn = {'reach': {'L': [*lh, 1, 0.03], **({'R': [*rh, 1, 0.15]} if rh else {})}, 'hands': {'L': 'grip', **({'R': 'point'} if rh else {})}, 'bend': {'spine': [lean, 0, 0, 1, None], 'neck': [-0.25, 0, 0, 1, None]}, 'face': face or {'lid': 0.2, 'mouth': 'clench', 'brow': -0.8}}
+D8 = st.dur('S08'); HIT8 = 0.46
+BLOCK8 = [0.33, 1.53, -3.0]
+GAV8 = BLOCK8
+C8 = cam(0.0, [-0.6, 2.25, -0.5], [-0.55, 2.25, -0.75], [0.15, 2.05, -3.8], [0.15, 2.05, -3.8], lens=50)
+chk('S08', C8, {'face': [0.0, 2.25, -4.1], 'block': BLOCK8, 'gavelUp': [0.45, 3.2, -3.7], 'wig': [0.0, 2.75, -4.1]})
+# (pass 1) the gavel is a free prop moved with his left hand (attached to the hand it vanished): rest, a slow anticipation lift beside the wig, a hold,
+# a two-frame drop to a contact frame on the block (his body squashes, the bench shakes), then he points at the cloud with the other hand
+G8 = [(0.0, [0.38, 1.85, -3.45], 1.7, 0.0, 'linear'), (0.06, [0.44, 2.72, -3.72], 0.45, 0.24, 'out'), (0.3, [0.46, 2.82, -3.76], 0.35, 0.08, 'inOut'),
+      (r(HIT8 - 0.07), [0.33, 1.95, -3.35], 2.356, 0.07, 'in')]
+def J8(t, lh, rh=None, lean=0.5, face=None, d=0.1, e='inOut', sq=(1, 1, 1)):
+    tn = {'reach': {'L': [*lh, 1, 0.03], **({'R': [*rh, 1, 0.15]} if rh else {})}, 'hands': {'L': 'grip', **({'R': 'point'} if rh else {})}, 'bend': {'spine': [lean, 0, 0, 1, None], 'neck': [-0.25, 0, 0, 1, None]}, 'sq': list(sq), 'face': face or {'lid': 0.2, 'mouth': 'clench', 'brow': -0.8}}
     return k(t, toon=tn, toonDur=d, toonEase=e)
+HIT_F8 = {'lid': 0.1, 'mouth': 'open', 'brow': -1.0}
 st.shot('S08', 'courtroom', setOpts=COURT, actors=[act('juge', JUDGE, 0, 'stand', 'angry', keys=[k(0.0, look=[-0.9, 1.9, 0.6]),
-            J8(0.0, [0.35, 1.6, -3.55], lean=0.3, d=0.0), J8(0.2, [0.42, 2.75, -3.75], lean=0.45, d=0.18, e='out'), J8(r(HIT8 - 0.05), [0.36, 1.75, -3.3], lean=0.55, d=0.05, e='in'),
-            J8(HIT8, [0.33, 1.62, -3.25], lean=0.6, face={'lid': 0.1, 'mouth': 'open', 'brow': -1.0}, d=0.03),
-            J8(0.72, [0.33, 1.62, -3.25], [-0.5, 2.15, -2.9], lean=0.62, face={'lid': 0.1, 'mouth': 'open', 'brow': -1.0}, d=0.14, e='out'),
-            J8(1.0, [0.33, 1.62, -3.25], [-0.55, 2.2, -2.85], lean=0.6, face={'lid': 0.25, 'mouth': 'clench', 'brow': -0.9}, d=0.2)])],
-        props=[P('marteau8', 'gavel', on={'actor': 'juge', 'hand': 'L', 'offset': [0.0, -0.04, 0.0], 'rot': [3.1416, 0, 0]}), P('socle8', 'soundBlock', pos=[0.32, 1.53, -3.25])],
-        fx=[{'type': 'shake', 'at': HIT8, 'dur': 0.15, 'amount': 0.015}],
+            J8(0.0, G8[0][1], lean=0.3, d=0.0), J8(G8[1][0], G8[1][1], lean=0.4, d=G8[1][3], e='out', sq=(0.97, 1.04, 0.97)), J8(G8[2][0], G8[2][1], lean=0.38, d=G8[2][3], sq=(0.96, 1.05, 0.96)),
+            J8(G8[3][0], G8[3][1], lean=0.62, d=0.07, e='in'), J8(HIT8, G8[3][1], lean=0.66, face=HIT_F8, d=0.03, sq=(1.08, 0.9, 1.08)),
+            J8(r(HIT8 + 0.12), G8[3][1], lean=0.6, face=HIT_F8, d=0.1),
+            J8(0.78, G8[3][1], [-0.5, 2.15, -2.9], lean=0.62, face=HIT_F8, d=0.14, e='out'),
+            J8(1.05, G8[3][1], [-0.55, 2.2, -2.85], lean=0.6, face={'lid': 0.25, 'mouth': 'clench', 'brow': -0.9}, d=0.2)])],
+        props=[P('marteau8', 'gavel', pos=G8[0][1], rot=[G8[0][2], 0, 0], keys=[*[k(t_, to=p_, dur=max(0.01, d_), ease=e_) for t_, p_, _, d_, e_ in G8[1:]], *[k(t_, rotTo=[a_, 0, 0], dur=max(0.01, d_), ease=e_) for t_, _, a_, d_, e_ in G8[1:]]]),
+               P('socle8', 'soundBlock', pos=BLOCK8, keys=[k(HIT8, scale=0.8, dur=0.03), k(r(HIT8 + 0.05), scale=1.0, dur=0.12)]),
+               P('choc8', 'impactStars', pos=add(BLOCK8, [0, 0.12, 0.05]), opts={'at': HIT8}) ],
+        fx=[{'type': 'shake', 'at': HIT8, 'dur': 0.18, 'amount': 0.022}],
         cams=[C8])
 st.cue('sfx:gavel', 'S08', HIT8, 0.6)
 
 # 9: it answered. (a) On the cloud in the dock: its mouth opens on a glowing yellow inside, a white flash, shockwave rings blast out toward us;
 #    behind it on the public bench the man jolts awake, nightcap flying; (b) the judge's bench: his wig flies off, papers whirl up, the rings pass
 D9 = st.dur('S09'); BL9 = 0.12; CUT9 = 0.48
-CA9P = [-0.4, 1.6, -2.3]
-CA9 = FIT(0.0, CA9P, {'cloudTop': add(CLD, [0, 1.72 * SD * SQD[1] + 0.1, 0]), 'cloudL': add(CLD, [-1.3, 0.6, 0]), 'pub': [PUB[0] + 0.5, 2.6, PUB[2]], 'pubL': [PUB[0] - 0.4, 1.2, PUB[2]]}, top=0.1, bottom=0.76, drift=(0, 0, -0.2), lenses=range(30, 67), most=1.0)
+CA9P = [-1.0, 1.75, -2.6]
+CA9 = cam(0.0, CA9P, add(CA9P, [0.0, 0.0, 0.2]), [-0.66, 1.35, 1.34], [-0.66, 1.35, 1.34], lens=66)
 CB9P = [1.1, 2.1, -1.5]
 CB9 = cam(CUT9, CB9P, add(CB9P, [-0.05, 0.02, -0.15]), [0.0, 2.3, -4.2], [0.0, 2.35, -4.2], lens=50)
-chk('S09a', CA9, {'face': FACED, 'hero': [PUB[0], 1.65, PUB[2]], 'heroUp': [PUB[0], 2.3, PUB[2]]})
+chk('S09a', CA9, {'g2': [-0.4, 2.05, 1.15], 'g1': [-2.6, 2.05, 1.15], 'face': FACED, 'hero': [PUB[0], 1.65, PUB[2]], 'heroUp': [PUB[0], 2.3, PUB[2]]})
 chk('S09b', CB9, {'judgeFace': [0.0, 2.05, -4.25], 'wig': [0.0, 3.3, -4.2]})
 RING9 = loc(FACED, RYD, 0, 0.1, -0.2 * SD)
 st.shot('S09', 'courtroom', setOpts=COURT, actors=[*gend_actors({w: [k(r(BL9 + 0.02), toon={'sq': [1.08, 0.88, 1.08], 'face': {'lid': 1.0, 'mouth': 'clench'}, 'hairUp': 1.0}, toonDur=0.04)] for w, _, _ in GEND}),
@@ -302,15 +314,17 @@ st.shot('S09', 'courtroom', setOpts=COURT, actors=[*gend_actors({w: [k(r(BL9 + 0
                  k(r(BL9 + 0.4), toon={'face': {'lid': 0, 'eye': 0.5, 'mouth': 'O', 'brow': 0.7}, 'hairUp': 1.0, 'sq': [1, 1, 1], 'auto': 0}, toonDur=0.15)]),
         act('juge', JUDGE, 0, 'stand', 'angry', keys=[k(0.0, look=[-1.2, 1.8, 1.0]),
             k(0.0, toon={'bend': {'spine': [0.5, 0, 0, 1, None]}, 'face': {'lid': 0.2, 'mouth': 'clench', 'brow': -0.8}}, toonDur=0.0),
-            k(r(CUT9 + 0.02), toon={'bend': {'spine': [-0.15, 0, 0, 1, None]}, 'hat': [0.35, 0.5, 2.0], 'hairUp': 1.2, 'sq': [0.92, 1.1, 0.92], 'face': {'lid': 0, 'eye': 0.6, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.08, toonEase='out'),
-            k(r(CUT9 + 0.3), toon={'bend': {'spine': [-0.05, 0, 0, 1, None]}, 'hat': [0.62, 0.9, 4.5], 'hairUp': 1.0, 'face': {'lid': 0, 'eye': 0.5, 'mouth': 'O', 'brow': 0.9}}, toonDur=0.25)])],
+            k(r(CUT9 - 0.06), toon={'bend': {'spine': [-0.15, 0, 0, 1, None]}, 'hat': [0.3, 0.4, 1.5], 'hairUp': 1.2, 'sq': [0.92, 1.1, 0.92], 'face': {'lid': 0, 'eye': 0.6, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.06, toonEase='out'),
+            k(r(CUT9 + 0.04), toon={'bend': {'spine': [-0.15, 0, 0, 1, None]}, 'hat': [0.55, 0.7, 3.0], 'hairUp': 1.3, 'sq': [0.92, 1.1, 0.92], 'face': {'lid': 0, 'eye': 0.65, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.06, toonEase='out'),
+            k(r(CUT9 + 0.12), toon={'bend': {'spine': [-0.12, 0, 0, 1, None]}, 'hat': [0.6, 0.8, 3.3], 'hairUp': 1.3, 'sq': [0.95, 1.06, 0.95], 'face': {'lid': 0, 'eye': 0.65, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.2),
+            k(r(CUT9 + 0.36), toon={'bend': {'spine': [-0.05, 0, 0, 1, None]}, 'hat': [0.8, 1.0, 5.0], 'hairUp': 1.1, 'face': {'lid': 0, 'eye': 0.5, 'mouth': 'O', 'brow': 0.9}}, toonDur=0.16)])],
         props=[DOCKBOX('box9'), PUBBENCH('banc9'), *GKEPIS('9'),
                CLOUD('nuage9', CLD, RYD, SD, expr=[[0.0, 'angry'], [0.06, 'shout']], sq=[[0.0, *SQD], [0.06, 0.96, 1.18, 1.0]], arms=[[0.0, 'cuff', 'cuff']], cuffs=True, flash=[[BL9, 0.3]], flashK=0.35, seed=5),
                P('onde9', 'shockRing', pos=RING9, ry=RYD, opts={'at': BL9, 'dur': 0.6, 'r': 6.5, 'travel': 4.5, 'n': 3, 'core': 0.6}),
                P('onde9b', 'shockRing', pos=[0.0, 2.0, -1.0], ry=RYD, opts={'at': r(CUT9 - 0.05), 'dur': 0.5, 'r': 5.0, 'travel': 3.0, 'n': 2, 'core': 0.01}),
                P('bonnet9', 'nightCap', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.5, 0.0]}, opts={'side': -1}, keys=[k(0.0, visible=True), k(r(BL9 + 0.12), visible=False)]),
                P('bonnet9v', 'nightCap', pos=[PUB[0], 2.3, PUB[2]], opts={'side': -1}, keys=[k(0.0, visible=False), k(r(BL9 + 0.12), visible=True), k(r(BL9 + 0.12), to=[PUB[0] + 0.3, 3.1, PUB[2] + 0.6], dur=0.3, ease='out'), k(r(BL9 + 0.12), rotTo=[0.8, 0.0, 2.2], dur=0.4)]),
-               *[P(f'papier9{j}', 'flyingPaper', pos=[-0.7 + 0.35 * j, 1.58, -3.6], scale=0.8, keys=[k(r(CUT9 + 0.02 * j), to=[[-0.95, -0.7, 0.75, 1.0, -0.2][j], r(2.0 + 0.35 * (j % 3)), -3.7], dur=0.45, ease='out')]) for j in range(5)]],
+               *[P(f'papier9{j}', 'flyingPaper', pos=[-0.5 + 0.33 * j, 1.58, -3.6], scale=0.8, keys=[k(r(CUT9 - 0.04 + 0.02 * j), to=[[-1.5, -1.05, 1.05, 1.5][j], [1.75, 2.3, 2.5, 1.85][j], -4.05], dur=0.4, ease='out')]) for j in range(4)]],
         fx=[{'type': 'flash', 'at': BL9, 'dur': 0.25}, {'type': 'shake', 'at': BL9, 'dur': 0.4, 'amount': 0.03}, {'type': 'wind', 'at': CUT9, 'dur': 0.4, 'v': [0, 0, -10]}],
         cams=[CA9, CB9])
 st.cue('thunder', 'S09', BL9, 0.95); st.cue('sfx:paper', 'S09', r(CUT9 + 0.05), 0.3); st.cue('whoosh', 'S09', CUT9, 0.3, 0.4, 300, 2000)
@@ -336,29 +350,32 @@ st.cue('sfx:glass', 'S10', POP10, 0.6); st.cue('sfx:glass', 'S10', 0.95, 0.5); s
 #     hair blown straight back; they sit perfectly still and dignified, hands folded, eyes calm on the dock; on the middle tier one of them turns
 #     a page of her booklet
 D11 = st.dur('S11'); FLIP11 = 0.55
-JB = [4.6, 0, -2.4]; RYJ = -90
+JB = [4.4, 0, -2.4]; RYJ = -90; JST = 0.62; JDP = 0.85
 JURORS = []
 for i in range(3):
     for j in range(4):
-        JURORS.append((f'jure{i * 4 + j + 1}', loc(JB, RYJ, -1.2 + 0.8 * j + 0.06 * (i % 2), -(i + 0.5) * 0.85 + 0.05, i * 0.42), i, j))
+        JURORS.append((f'jure{i * 4 + j + 1}', loc(JB, RYJ, -1.08 + 0.72 * j, -(i + 0.5) * JDP - 0.17, i * JST), i, j))
 PAGE_J = JURORS[5]
-BOOK11 = off(PAGE_J[1], RYJ, 0.42, 0.0, 1.12)
-C11P = [1.2, 2.3, 0.1]
-C11 = FIT(0.0, C11P, {'tl': add(JURORS[8][1], [0, 1.95, 0]), 'tr': add(JURORS[11][1], [0, 1.95, 0]), 'bl': add(JURORS[0][1], [0, 0.6, 0]), 'br': add(JURORS[3][1], [0, 0.6, 0])}, top=0.1, bottom=0.76, margin=0.05, drift=(0.15, 0, -0.15))
+BOOK11 = off(PAGE_J[1], RYJ, 0.4, 0.0, 1.08)
+C11P = [0.2, 2.45, -2.4]
+C11 = FIT(0.0, C11P, {'tl': add(JURORS[8][1], [0, 2.0, 0]), 'tr': add(JURORS[11][1], [0, 2.0, 0]), 'bl': add(JURORS[0][1], [0, 0.55, -0.35]), 'br': add(JURORS[3][1], [0, 0.55, 0.35]), 'hl': add(JURORS[0][1], [0, 2.0, -0.35]), 'hr': add(JURORS[3][1], [0, 2.0, 0.35])}, top=0.1, bottom=0.76, margin=0.05, drift=(0.15, 0, 0.0))
 chk('S11', C11, {**{w: add(p, [0, 1.65, 0]) for w, p, i, j in JURORS}, 'book': BOOK11})
+# (pass 1) three clear tiers (0.62 m apart) of four, seen square-on; no spikes (hair blown back by the wind only); the jurors sit back on their benches
+# (their knees stay behind the front panels); slow blinks one after another; the middle juror of the middle tier turns a page of a big white booklet
+def SLOWBLINK(t, face): return [k(t, toon={'face': {**face, 'lid': 1.0}}, toonDur=0.12, keepPose=True), k(r(t + 0.22), toon={'face': face}, toonDur=0.14, keepPose=True)]
 def juror(w, p, i, j):
-    base = {'face': {'lid': 0.35, 'mouth': 'line', 'brow': 0.1}, 'hairUp': 0.5, 'wind': [0, 0.5, -6], 'reach': {'L': [*off(p, RYJ, 0.36, -0.08, 0.92), 1, 0.05], 'R': [*off(p, RYJ, 0.36, 0.08, 0.92), 1, 0.05]}, 'hands': {'L': 'rest', 'R': 'rest'}}
-    ks = [k(0.0, look=[-1.5, 1.6, 1.0]), k(0.0, toon=base, toonDur=0.0)]
+    base = {'face': {'lid': 0.35, 'mouth': 'line', 'brow': 0.1}, 'wind': [0, 0.6, -7], 'reach': {'L': [*off(p, RYJ, 0.34, -0.08, 0.9), 1, 0.05], 'R': [*off(p, RYJ, 0.34, 0.08, 0.9), 1, 0.05]}, 'hands': {'L': 'rest', 'R': 'rest'}}
+    ks = [k(0.0, look=[-1.5, 1.6 + i * 0.3, -1.0]), k(0.0, toon=base, toonDur=0.0)]
     if w == PAGE_J[0]:
-        b2 = {**base, 'reach': {'L': [*off(p, RYJ, 0.42, -0.2, 1.12), 1, 0.05], 'R': [*off(p, RYJ, 0.42, 0.2, 1.12), 1, 0.05]}, 'hands': {'L': 'pinch', 'R': 'pinch'}}
-        b3 = {**b2, 'reach': {'L': [*off(p, RYJ, 0.42, -0.2, 1.12), 1, 0.05], 'R': [*off(p, RYJ, 0.45, -0.12, 1.18), 1, 0.05]}}
-        ks = [k(0.0, look=BOOK11), k(0.0, toon=b2, toonDur=0.0), k(r(FLIP11 - 0.05), toon=b3, toonDur=0.25), k(r(FLIP11 + 0.4), toon=b2, toonDur=0.2), *blink(1.2, base['face'])]
+        b2 = {**base, 'reach': {'L': [*off(p, RYJ, 0.4, -0.3, 1.04), 1, 0.05], 'R': [*off(p, RYJ, 0.4, 0.3, 1.04), 1, 0.05]}, 'hands': {'L': 'pinch', 'R': 'pinch'}}
+        b3 = {**b2, 'reach': {'L': [*off(p, RYJ, 0.4, -0.3, 1.04), 1, 0.05], 'R': [*off(p, RYJ, 0.46, -0.15, 1.12), 1, 0.05]}}
+        ks = [k(0.0, look=BOOK11), k(0.0, toon=b2, toonDur=0.0), k(r(FLIP11 - 0.08), toon=b3, toonDur=0.3), k(r(FLIP11 + 0.42), toon=b2, toonDur=0.25), *SLOWBLINK(1.15, base['face'])]
     else:
-        ks += blink(r(0.4 + 0.27 * ((i * 4 + j) % 5)), base['face'])
-    return act(w, add(p, [0, 0, 0]), RYJ, 'sit', 'neutral', keys=ks)
+        ks += SLOWBLINK(r(0.15 + 0.11 * ((i * 4 + j) * 5 % 12)), base['face'])
+    return act(w, p, RYJ, 'sit', 'neutral', keys=ks)
 st.shot('S11', 'courtroom', setOpts=COURT, actors=[juror(*x) for x in JURORS],
-        props=[P('jury11', 'juryTiers', pos=JB, ry=RYJ, opts={'w': 3.5}), P('livret11', 'pageBook', pos=BOOK11, ry=r(RYJ + 180 + 25), rot=[-0.35, 0, 0], scale=1.3, opts={'flipAt': FLIP11}),
-               P('poussiere11', 'plasterFall', pos=[JB[0] - 1.0, 0.0, JB[2]], opts={'w': 3.0, 'd': 4.0, 'top': 4.2, 'n': 70, 'size': 0.06, 'haze': 8})],
+        props=[P('jury11', 'juryTiers', pos=JB, ry=RYJ, opts={'w': 3.5, 'step': JST, 'deep': JDP}), P('livret11', 'pageBook', pos=BOOK11, ry=RYJ, rot=[-0.3, 0, 0], scale=1.7, opts={'flipAt': FLIP11, 'flipDur': 0.4, 'cover': '#8E2E3A'}),
+               P('poussiere11', 'plasterFall', pos=[JB[0] - 1.6, 0.0, JB[2]], opts={'w': 2.4, 'd': 3.8, 'top': 4.4, 'n': 80, 'size': 0.06, 'haze': 8})],
         fx=[{'type': 'wind', 'at': 0.0, 'dur': D11, 'v': [7, 0, 0]}],
         cams=[C11])
 st.cue('sfx:paper', 'S11', FLIP11, 0.3); st.cue('sfx:crickets', 'S11', 0.0, 0.08)
@@ -372,7 +389,7 @@ MET12 = [0.0, 1.05, -0.8]
 CA12P = [0.25, 1.65, 2.4]
 CA12 = cam(0.0, [0.2, 1.7, 2.9], [0.2, 1.7, 2.6], [0.0, 1.62, -1.5], [0.0, 1.62, -1.5], lens=46)
 CB12P = add(MET12, [0.35, 0.55, 1.25])
-CB12 = cam(CUT12, CB12P, add(CB12P, [-0.03, 0, -0.15]), add(MET12, [0.05, 0.25, 0]), add(MET12, [0.05, 0.25, 0]), lens=42)
+CB12 = cam(CUT12, CB12P, add(CB12P, [-0.03, 0, -0.15]), add(MET12, [0.05, 0.17, 0]), add(MET12, [0.05, 0.17, 0]), lens=54)
 chk('S12a', CA12, {**{w: [p[0], 2.05, p[2]] for w, p, _ in EXP}, 'met': MET12})
 chk('S12b', CB12, {'met': MET12, 'needle': add(MET12, [0.25, 0.6, 0.1]), 'face2': [0.0, 2.05, -1.4]})
 def nods(t0, face, hold=None):
@@ -400,11 +417,11 @@ D13 = st.dur('S13'); POP13 = 1.05
 S13 = 0.72; CL13A = [0.0, 0.05, 3.3]; CL13B = [0.0, 0.05, 0.6]
 G13 = [('gardien1', [-0.4, 0, 3.6], 180), ('gardien2', [0.4, 0, 3.7], 180)]
 C13P = [1.0, 2.0, -1.9]
-C13 = FIT(0.0, C13P, {'doorT': [0.0, 2.6, FZ], 'doorBL': [-0.6, 0.1, FZ], 'doorBR': [0.6, 0.1, FZ], 'in': [0.0, 1.4, 0.6], 'inL': [-1.2, 0.4, 0.6]}, top=0.24, bottom=0.76, drift=(-0.05, 0, 0.15), lenses=range(30, 67), inside=(-1.95, 1.95, 0.3, 3.2, -1.95, 1.95))
+C13 = FIT(0.0, C13P, {'doorT': [0.0, 2.6, FZ], 'doorBL': [-0.6, 0.1, FZ], 'doorBR': [0.6, 0.1, FZ], 'in': [0.0, 1.4, 0.6], 'inL': [-1.2, 0.4, 0.6]}, top=0.22, bottom=0.68, drift=(-0.05, 0, 0.15), lenses=range(30, 67), inside=(-1.95, 1.95, 0.3, 3.2, -1.95, 1.95))
 chk('S13', C13, {'g1': [-0.45, 2.1, 3.0], 'g2': [0.45, 2.1, 3.1], 'face': CFACE(CL13B, 180, S13), 'doorTop': [0, 2.15, FZ]})
 st.shot('S13', 'whiteVoid', setOpts={'color': '#C9CED4'}, actors=[act(w, p, a_, 'stand', 'determined', keys=[k(0.0, look=[0, 1.6, 0.0]), k(0.0, to=[p[0] * 0.6, 0, FZ + 0.45], dur=POP13, ease='inOut', glide=True, face='keep'),
             k(0.0, toon={'reach': {'L': [p[0] - 0.15, 1.2, FZ + 0.6, 1, 0.05], 'R': [p[0] + 0.15, 1.2, FZ + 0.6, 1, 0.05]}, 'hands': {'L': 'open', 'R': 'open'}, 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'face': {'lid': 0.3, 'mouth': 'clench', 'brow': -0.5}}, toonDur=0.0)]) for w, p, a_ in G13],
-        props=[P('cellule13', 'paddedCell', pos=[0, 0, 0], opts={**CELL, 'open': [[0.0, 1.0]]}),
+        props=[P('cellule13', 'paddedCell', pos=[0, 0, 0], opts={**CELL, 'open': [[-1.0, 1.0]]}),
                CLOUD('nuage13', CL13A, 180, S13, keys=[k(0.0, to=CL13B, dur=POP13, ease='inOut')], expr=[[0.0, 'surprised'], [r(POP13 + 0.05), 'angry']],
                      sq=[[0.0, 0.42, 1.18, 0.9], [r(POP13 - 0.05), 0.42, 1.18, 0.9], [POP13, 1.18, 0.85, 1.0], [r(POP13 + 0.15), 0.94, 1.05, 1.0], [r(POP13 + 0.3), 1, 1, 1]], arms=[[0.0, 'up', 'up'], [r(POP13 + 0.1), 'rest', 'rest']], seed=13)],
         cams=[C13])
@@ -414,87 +431,109 @@ st.cue('sfx:stretch', 'S13', 0.2, 0.3); st.cue('pop', 'S13', POP13, 0.5); st.cue
 # 14: in the cell there already was a mime. Inside, the far corner: a box-headed mime (white face, striped shirt, black beret) presses both
 #     palms on an invisible wall, slides them along it, then gives a small wave to the cloud; the cloud, in the foreground on the right, stares
 D14 = st.dur('S14'); WAVE14 = 1.45
-MIME = [-1.2, 0, -1.3]; RYM = 30
+MIME = [-1.0, 0, -1.3]
 C14P = [1.1, 1.75, 1.85]
+RYM = r(yaw(MIME, C14P) - 8)
 CL14 = [0.6, 0.55, -1.3]
 C14 = cam(0.0, C14P, add(C14P, [-0.05, 0, -0.2]), [-0.3, 1.35, -1.2], [-0.3, 1.35, -1.2], lens=56)
 chk('S14', C14, {'mimeFace': [MIME[0], 2.05, MIME[2]], 'cloudFace': CFACE(CL14, -20, 0.6)})
-def WALL14(t, a, b, face, d=0.16):
-    return k(t, toon={'reach': {'L': [*off(MIME, RYM, 0.45, -0.22 + a, 1.65 + b), 1, 0.05], 'R': [*off(MIME, RYM, 0.45, 0.22 + a, 1.75 - b), 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'face': face}, toonDur=d)
+# (pass 1) the invisible wall: the mime square to us, both palms flat on one plane 0.42 m in front of him at face height, sliding together along it
+# (left, up, right), elbows out, forearms quiet; each stop a tiny press (the palms flatten on the glass); then a small wave to the cloud
+def WALL14(t, a, b, face, d=0.18, press=0.0):
+    f = 0.42 - press
+    return k(t, toon={'reach': {'L': [*off(MIME, RYM, f, -0.36 + a, 1.72 + b), 1, 0.05], 'R': [*off(MIME, RYM, f, 0.36 + a, 1.72 + b), 1, 0.05]}, 'hands': {'L': 'open', 'R': 'open'}, 'hose': 0.25, 'face': face}, toonDur=d, toonEase='inOut')
 FM14 = {'lid': 0.3, 'mouth': 'line', 'brow': 0.6}
 st.shot('S14', 'whiteVoid', setOpts={'color': '#C9CED4'}, actors=[act('mime', MIME, RYM, 'stand', 'neutral', keys=[k(0.0, look='camera'),
-            WALL14(0.0, 0.0, 0.0, FM14, 0.0), WALL14(0.35, 0.18, 0.05, FM14), WALL14(0.7, 0.0, 0.2, FM14), WALL14(1.05, -0.18, 0.05, FM14),
+            WALL14(0.0, 0.0, 0.0, FM14, 0.0), WALL14(0.12, 0.0, 0.0, FM14, 0.06, press=0.03), WALL14(0.32, -0.2, 0.0, FM14), WALL14(0.5, -0.2, 0.0, FM14, 0.06, press=0.03),
+            WALL14(0.68, -0.2, 0.18, FM14), WALL14(0.88, 0.2, 0.18, FM14, 0.22), WALL14(1.1, 0.2, 0.18, FM14, 0.06, press=0.03),
             k(WAVE14, toon={'reach': {'R': [*off(MIME, RYM, 0.25, 0.32, 2.0), 1, 0.05]}, 'hands': {'R': 'spread'}, 'face': {'lid': 0.2, 'mouth': 'smile', 'brow': 0.7}}, toonDur=0.15),
             k(r(WAVE14 + 0.18), toon={'reach': {'R': [*off(MIME, RYM, 0.25, 0.42, 2.02), 1, 0.05]}, 'hands': {'R': 'spread'}, 'face': {'lid': 0.2, 'mouth': 'smile', 'brow': 0.7}}, toonDur=0.12),
             k(r(WAVE14 + 0.34), toon={'reach': {'R': [*off(MIME, RYM, 0.25, 0.3, 2.0), 1, 0.05]}, 'hands': {'R': 'spread'}, 'face': {'lid': 0.2, 'mouth': 'smile', 'brow': 0.7}}, toonDur=0.12)])],
         props=[P('cellule14', 'paddedCell', pos=[0, 0, 0], opts=CELL), *MIMEKIT('14'),
                CLOUD('nuage14', CL14, -20, 0.6, expr=[[0.0, 'angry'], [r(WAVE14 + 0.1), 'blank']], look=[[0.0, -0.8, 0.0], [r(WAVE14 + 0.2), 0.3, 0.0]], seed=14)],
         cams=[C14])
-st.cue('sfx:squeak', 'S14', 0.35, 0.1); st.cue('sfx:squeak', 'S14', 1.05, 0.1)
+st.cue('sfx:squeak', 'S14', 0.12, 0.1); st.cue('sfx:squeak', 'S14', 0.5, 0.1); st.cue('sfx:squeak', 'S14', 1.1, 0.1)
 
-# 15: the mime asked for a transfer. Inside, by the door: the guard's face blank in the open hatch; the mime, three quarters to us, points at the
-#     cloud (off to the right), then mimes folding clothes into a suitcase and walking away on the spot
-D15 = st.dur('S15'); PACK15 = 0.75; WALK15 = 1.35
+# 15: the mime asked for a transfer. Inside, by the door: the guard's face blank in the open hatch; the mime, three quarters to us, points straight
+#     across at the cloud (in the right foreground), then mimes a suitcase: folds a shirt into it, snaps it shut, lifts it by the handle, and walks
+#     away on the spot
+D15 = st.dur('S15'); PACK15 = 0.62; SNAP15 = 1.0; LIFT15 = 1.15; WALK15 = 1.38
 MIME15 = [-0.4, 0, FZ - 0.6]; RYM15 = 155
 GARD15 = [0.0, 0, FZ + 0.32]
+CL15 = [0.95, 0.95, 1.0]; S15C = 0.5
 C15P = [1.0, 1.75, -0.3]
 C15 = FIT(0.0, C15P, {'mime': [MIME15[0], 2.4, MIME15[2]], 'mimeFeet': [MIME15[0], 0.3, MIME15[2]], 'hatch': [0.0, 2.25, FZ], 'hatchB': [0.0, 1.8, FZ]}, top=0.1, bottom=0.76, drift=(0.0, 0, 0.15), lenses=range(30, 67), inside=(-1.95, 1.95, 0.3, 3.2, -1.95, 1.95))
-chk('S15', C15, {'mimeFace': [MIME15[0], 2.05, MIME15[2]], 'guardFace': [0.0, 2.08, GARD15[2]], 'hatch': [0.0, 2.02, FZ]})
+chk('S15', C15, {'mimeFace': [MIME15[0], 2.05, MIME15[2]], 'guardFace': [0.0, 2.08, GARD15[2]], 'hatch': [0.0, 2.02, FZ], 'cloudFace': CFACE(CL15, -120, S15C)})
 FM15 = {'lid': 0.2, 'mouth': 'line', 'brow': 0.7}
-def M15(t, L, R, hands=('spread', 'spread'), face=None, d=0.14):
-    return k(t, toon={'reach': {'L': [*off(MIME15, RYM15, *L), 1, 0.08], 'R': [*off(MIME15, RYM15, *R), 1, 0.08]}, 'hands': {'L': hands[0], 'R': hands[1]}, 'face': face or FM15}, toonDur=d)
+SH15 = off(MIME15, RYM15, 0.0, 0.24, 1.66)
+_v = [CFACE(CL15, -120, S15C)[i] - SH15[i] for i in range(3)]; _n = math.sqrt(sum(x * x for x in _v)); PT15 = [r(SH15[i] + _v[i] / _n * 0.66) for i in range(3)]
+def M15(t, L, R, hands=('spread', 'spread'), face=None, d=0.14, sq=(1, 1, 1)):
+    rr = R if len(R) == 3 and isinstance(R, list) and R is PT15 else off(MIME15, RYM15, *R)
+    return k(t, toon={'reach': {'L': [*off(MIME15, RYM15, *L), 1, 0.08], 'R': [*rr, 1, 0.12]}, 'hands': {'L': hands[0], 'R': hands[1]}, 'face': face or FM15, 'sq': list(sq)}, toonDur=d)
 st.shot('S15', 'whiteVoid', setOpts={'color': '#C9CED4'}, actors=[
-        act('mime', MIME15, RYM15, 'stand', 'neutral', keys=[k(0.0, look=[1.2, 1.4, -0.8]),
-            M15(0.0, (0.3, -0.25, 1.0), (0.55, 0.45, 1.75), ('rest', 'point'), d=0.0), M15(0.3, (0.3, -0.25, 1.0), (0.6, 0.5, 1.8), ('rest', 'point')),
-            k(r(PACK15 - 0.1), look='camera', lookDur=0.15),
-            M15(PACK15, (0.4, -0.2, 1.2), (0.4, 0.2, 1.2), ('open', 'open')), M15(r(PACK15 + 0.2), (0.45, -0.1, 1.05), (0.45, 0.1, 1.05), ('open', 'open')), M15(r(PACK15 + 0.4), (0.35, -0.22, 1.2), (0.35, 0.22, 1.2), ('open', 'open')),
-            M15(WALK15, (0.1, -0.3, 1.0), (0.2, 0.3, 0.95), ('grip', 'grip')),
+        act('mime', MIME15, RYM15, 'stand', 'neutral', keys=[k(0.0, look=CFACE(CL15, -120, S15C)),
+            M15(0.0, (0.3, -0.25, 1.0), PT15, ('rest', 'point'), d=0.0), M15(0.18, (0.3, -0.25, 1.0), PT15, ('rest', 'point'), face={'lid': 0.1, 'mouth': 'O', 'brow': 0.9}, sq=(0.97, 1.04, 0.97)),
+            M15(0.4, (0.3, -0.25, 1.0), PT15, ('rest', 'point'), face={'lid': 0.1, 'mouth': 'O', 'brow': 0.9}),
+            k(r(PACK15 - 0.08), look='camera', lookDur=0.15),
+            M15(PACK15, (0.42, -0.25, 1.3), (0.42, 0.25, 1.3), ('open', 'open')), M15(r(PACK15 + 0.16), (0.48, -0.05, 1.05), (0.48, 0.05, 1.05), ('open', 'open'), sq=(1.03, 0.97, 1.03)),
+            M15(r(PACK15 + 0.3), (0.42, -0.28, 1.22), (0.42, 0.28, 1.22), ('open', 'open')),
+            M15(SNAP15, (0.45, -0.06, 1.1), (0.45, 0.06, 1.1), ('fist', 'fist'), face={'lid': 0.3, 'mouth': 'smile', 'brow': 0.6}, d=0.05),
+            M15(LIFT15, (0.15, -0.3, 1.0), (0.05, 0.36, 0.78), ('rest', 'grip'), d=0.12, sq=(0.98, 1.03, 0.98)),
+            M15(WALK15, (0.15, -0.3, 1.0), (0.05, 0.36, 0.82), ('rest', 'grip')),
             k(WALK15, clip='walk', params={'speed': 1.0}), k(WALK15, to=MIME15, dur=0.6, glide=False, face=RYM15)]),
         act('gardien1', GARD15, 180, 'stand', 'unimpressed', keys=[k(0.0, look=[MIME15[0], 1.9, MIME15[2]]), *blink(1.1)])],
-        props=[P('cellule15', 'paddedCell', pos=[0, 0, 0], opts={**CELL, 'hatch': [[0.0, 1.0]], 'hatchW': 0.6, 'hatchH': 0.56, 'hatchY': 2.08}), *MIMEKIT('15')],
+        props=[P('cellule15', 'paddedCell', pos=[0, 0, 0], opts={**CELL, 'hatch': [[0.0, 1.0]], 'hatchW': 0.6, 'hatchH': 0.56, 'hatchY': 2.08}), *MIMEKIT('15'),
+               CLOUD('nuage15', CL15, -120, S15C, expr=[[0.0, 'blank'], [0.5, 'angry']], look=[[0.0, -0.6, 0.0]], seed=15)],
         cams=[C15])
+st.cue('clack', 'S15', SNAP15, 0.3)
 st.cue('sfx:stepSoft', 'S15', r(WALK15 + 0.1), 0.12); st.cue('sfx:stepSoft', 'S15', r(WALK15 + 0.4), 0.12)
 
-# 16: out loud. Close on the hatch from the corridor: the mime's face fills the hatch, mouth enormous; the guard beside the door, three quarters to
-#     us, does not move; his cap flies straight up off his head, his hair blown back
-D16 = st.dur('S16'); SH16 = 0.2
-MIME16 = [-0.28, 0, FZ - 0.13]
-GARD16 = [-0.5, 0, FZ + 0.45]; RYG16 = 25
-C16P = [0.0, 2.05, FZ + 2.5]
-C16 = cam(0.0, C16P, add(C16P, [-0.05, 0, -0.15]), [-0.3, 1.95, FZ + 0.2], [-0.3, 1.95, FZ + 0.2], lens=52)
-chk('S16', C16, {'mimeFace': [0.0, 2.02, MIME16[2]], 'guardFace': [GARD16[0], 2.05, GARD16[2]]})
+# 16: out loud. Close on the hatch from the corridor: the mime's face fills the hatch; a squash of anticipation, then the shout, mouth stretched to
+#     most of the hatch; the guard beside the door, three quarters to us, does not move a muscle: his cap launches straight up on the shout, hangs
+#     four frames, and goes; his hair streams back
+D16 = st.dur('S16'); SH16 = 0.3
+MIME16 = [-0.02, 0.14, FZ - 0.12]
+GARD16 = [-0.42, 0, FZ + 0.32]; RYG16 = 30
+C16P = [0.1, 2.15, FZ + 2.2]
+C16 = cam(0.0, C16P, add(C16P, [-0.03, 0, -0.12]), [-0.25, 2.15, FZ + 0.2], [-0.25, 2.15, FZ + 0.2], lens=60)
+chk('S16', C16, {'mimeFace': [MIME16[0], 2.2, MIME16[2]], 'mouthLow': [MIME16[0], 1.8, MIME16[2]], 'guardFace': [GARD16[0], 2.05, GARD16[2]], 'capHang': [GARD16[0], 2.75, GARD16[2]], 'hatchT': [0, 2.45, FZ], 'hatchB': [0, 1.75, FZ]})
+FG16 = {'lid': 0.5, 'mouth': 'line', 'gx': -0.8}
 st.shot('S16', 'whiteVoid', setOpts={'color': '#C9CED4'}, actors=[
         act('mime', MIME16, 0, 'stand', 'angry', keys=[k(0.0, look=C16P),
-            k(0.0, toon={'face': {'lid': 0.0, 'mouth': 'O', 'brow': 0.8}, 'sq': [0.97, 1.03, 0.97]}, toonDur=0.0),
-            k(SH16, toon={'face': {'lid': 0.0, 'jaw': 1.0, 'jawLen': 0.45, 'mouth': 'scream', 'brow': 1.0}, 'sq': [1.05, 1.08, 1.05], 'scl': {'head': [1.1, 1.12, 1.0]}}, toonDur=0.06, toonEase='out')]),
-        act('gardien1', GARD16, RYG16, 'stand', 'unimpressed', keys=[k(0.0, look=C16P), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'line', 'gx': -0.8}}, toonDur=0.0),
-            k(r(SH16 + 0.04), toon={'face': {'lid': 0.5, 'mouth': 'line', 'gx': -0.8}, 'hat': [0.9, 0.4, 3.0], 'hairUp': 1.2, 'wind': [0, 0, -8]}, toonDur=0.12, toonEase='out'),
-            k(r(SH16 + 0.3), toon={'face': {'lid': 0.5, 'mouth': 'line', 'gx': -0.8}, 'hat': [2.4, 0.9, 6.0], 'hairUp': 1.3, 'wind': [0, 0, -8]}, toonDur=0.35)])],
-        props=[P('cellule16', 'paddedCell', pos=[0, 0, 0], opts={**CELL, 'hatch': [[0.0, 1.0]], 'hatchW': 0.6, 'hatchH': 0.56, 'hatchY': 2.08}), *MIMEKIT('16')],
-        fx=[{'type': 'shake', 'at': SH16, 'dur': 0.4, 'amount': 0.02}],
+            k(0.0, toon={'face': {'lid': 0.0, 'mouth': 'O', 'brow': 0.8}, 'sq': [0.97, 1.03, 0.97], 'scl': {'head': [1.25, 1.25, 1.0]}}, toonDur=0.0),
+            k(0.12, toon={'face': {'lid': 0.6, 'mouth': 'clench', 'brow': -0.6, 'puff': 0.8}, 'sq': [1.08, 0.9, 1.08], 'scl': {'head': [1.32, 1.12, 1.0]}}, toonDur=0.12),
+            k(SH16, toon={'face': {'lid': 0.0, 'jaw': 1.0, 'jawLen': 0.8, 'mouth': 'scream', 'brow': 1.0, 'eye': 0.5}, 'sq': [0.96, 1.08, 0.96], 'scl': {'head': [1.38, 1.42, 1.0]}}, toonDur=0.05, toonEase='out')]),
+        act('gardien1', GARD16, RYG16, 'stand', 'unimpressed', keys=[k(0.0, look=C16P), k(0.0, toon={'face': FG16}, toonDur=0.0),
+            k(r(SH16 + 0.03), toon={'face': FG16, 'hat': [0.32, 0.25, 1.0]}, toonDur=0.04, toonEase='out'),
+            k(r(SH16 + 0.07), toon={'face': FG16, 'hat': [0.4, 0.3, 1.4]}, toonDur=0.13),
+            k(r(SH16 + 0.22), toon={'face': FG16, 'hat': [2.2, 0.8, 5.0]}, toonDur=0.25, toonEase='in')])],
+        props=[P('cellule16', 'paddedCell', pos=[0, 0, 0], opts={**CELL, 'hatch': [[0.0, 1.0]], 'hatchW': 0.62, 'hatchH': 0.72, 'hatchY': 2.1}), *MIMEKIT('16')],
+        fx=[{'type': 'shake', 'at': SH16, 'dur': 0.4, 'amount': 0.02}, {'type': 'wind', 'at': SH16, 'dur': 0.6, 'v': [-14, 1, 2]}],
         cams=[C16])
 st.cue('sfx:roar', 'S16', SH16, 0.6); st.cue('whoosh', 'S16', r(SH16 + 0.05), 0.25, 0.3, 400, 2500)
 
 # 17: on release, the thunder had no address. Prison gate by day: the cloud floats outside holding a tiny red bundle, looking lost; the clerk at
 #     the gate holds up an open register, blank under ADRESSE, and shrugs; (b) closer: the empty pages, the shrug
-D17 = st.dur('S17'); SHRUG17 = 1.55; CUT17 = 1.25
+D17 = st.dur('S17'); SHRUG17 = 1.5; CUT17 = 1.2
 GATE = [0.0, 0, -3.0]
-CL17 = [-0.55, 0.35, -0.4]; RY17 = 35; S17 = 0.8
-CLERK = [1.0, 0, -0.95]; RYC17 = -50
+CL17 = [-0.65, 0.6, -0.4]; RY17 = 35; S17 = 0.8
+CLERK = [0.55, 0, -1.0]; RYC17 = -25
 REG17 = off(CLERK, RYC17, 0.5, 0.0, 1.45)
 CA17P = [0.4, 1.65, 4.8]
-CA17 = FIT(0.0, CA17P, {'cloudTop': add(CL17, [0, 1.75 * S17, 0]), 'cloudL': add(CL17, [-1.1, 0.3, 0]), 'clerk': [CLERK[0], 2.35, CLERK[2]], 'clerkFeet': [CLERK[0] + 0.3, 0.2, CLERK[2]], 'sign': [0, 4.4, -2.6]}, top=0.08, bottom=0.76, drift=(-0.1, 0, -0.3))
-CB17P = [0.2, 1.8, 3.0]
-CB17 = cam(CUT17, CB17P, add(CB17P, [0, 0, -0.2]), [0.25, 1.55, -0.7], [0.25, 1.55, -0.7], lens=48)
-chk('S17a', CA17, {'cloudFace': CFACE(CL17, RY17, S17), 'clerkFace': [CLERK[0], 2.05, CLERK[2]], 'reg': REG17})
-chk('S17b', CB17, {'cloudFace': CFACE(CL17, RY17, S17), 'clerkFace': [CLERK[0], 2.05, CLERK[2]], 'reg': REG17})
-REGH = {'reach': {'L': [*off(REG17, RYC17, -0.02, 0.38, -0.05), 1, 0.05], 'R': [*off(REG17, RYC17, -0.02, -0.38, -0.05), 1, 0.05]}, 'hands': {'L': 'grip', 'R': 'grip'}}
+CA17 = cam(0.0, CA17P, add(CA17P, [-0.05, 0, -0.25]), [0.0, 1.9, -1.0], [0.0, 1.9, -1.0], lens=58)
+CB17P = [0.1, 1.85, 3.0]
+CB17 = cam(CUT17, CB17P, add(CB17P, [0, 0, -0.2]), [0.12, 1.78, -0.7], [0.12, 1.78, -0.7], lens=52)
+chk('S17a', CA17, {'cloudFace': CFACE(CL17, RY17, S17), 'clerkFace': [CLERK[0], 2.05, CLERK[2]], 'reg': REG17, 'sign': [0, 4.4, -2.6]})
+chk('S17b', CB17, {'cloudFace': CFACE(CL17, RY17, S17), 'clerkFace': [CLERK[0], 2.05, CLERK[2]], 'clerkTop': [CLERK[0], 2.4, CLERK[2]], 'reg': REG17})
+RYR17 = yaw(REG17, CB17P)
+REGH = {'reach': {'L': [*loc(REG17, RYR17, 0.44, -0.04, -0.05), 1, 0.05], 'R': [*loc(REG17, RYR17, -0.44, -0.04, -0.05), 1, 0.05]}, 'hands': {'L': 'grip', 'R': 'grip'}}
+# (pass 1) the register turned square to the lens (ADRESSE over a blank ruled page); a two-beat shrug: the shoulders go up and drop twice, the head tilts
+def SHR(t, up, tilt, face, d=0.12): return k(t, toon={**REGH, 'face': face, 'sq': [1 + 0.06 * up, 1 - 0.09 * up, 1 + 0.06 * up], 'bend': {'neck': [0, tilt, 0, 1, None], 'spine': [-0.05 * up, 0, 0, 1, None]}}, toonDur=d, toonEase='out')
+F17 = {'lid': 0.4, 'mouth': 'line', 'brow': 0.2}; F17b = {'lid': 0.3, 'mouth': 'line_m6', 'brow': 0.9}
 st.shot('S17', 'grassland', setOpts={'clouds': 20, 'grass': '#8CC260'}, actors=[act('greffier', CLERK, RYC17, 'stand', 'neutral', keys=[k(0.0, look=CFACE(CL17, RY17, S17)),
-            k(0.0, toon={**REGH, 'face': {'lid': 0.4, 'mouth': 'line', 'brow': 0.2}}, toonDur=0.0),
-            k(SHRUG17, toon={**REGH, 'face': {'lid': 0.3, 'mouth': 'line_m6', 'brow': 0.8}, 'sq': [1.04, 0.94, 1.04], 'bend': {'neck': [0, 0.22, 0, 1, None]}}, toonDur=0.15, toonEase='out'),
-            k(r(SHRUG17 + 0.12), look='camera', lookDur=0.15),
-            k(r(SHRUG17 + 0.45), toon={**REGH, 'face': {'lid': 0.4, 'mouth': 'line', 'brow': 0.6}, 'sq': [1, 1, 1], 'bend': {'neck': [0, 0.12, 0, 1, None]}}, toonDur=0.2)])],
-        props=[P('portail17', 'prisonGate', pos=GATE), P('registre17', 'emptyRegister', pos=REG17, ry=r(RYC17 + 12), rot=[-0.15, 0, 0], scale=1.15),
+            SHR(0.0, 0, 0.0, F17, 0.0), SHR(SHRUG17, 1, 0.22, F17b), SHR(r(SHRUG17 + 0.2), 0, 0.12, F17b, 0.1), SHR(r(SHRUG17 + 0.38), 1.2, -0.2, F17b), SHR(r(SHRUG17 + 0.62), 0, -0.1, F17, 0.16),
+            k(r(SHRUG17 - 0.15), look='camera', lookDur=0.15)])],
+        props=[P('portail17', 'prisonGate', pos=GATE), P('registre17', 'emptyRegister', pos=REG17, ry=RYR17, rot=[-0.12, 0, 0], scale=1.15),
                CLOUD('nuage17', CL17, RY17, S17, expr=[[0.0, 'sad'], [r(SHRUG17 + 0.2), 'blank']], arms=[[0.0, 'hold', 'rest']], bundle=True, tag=False, look=[[0.0, 0.7, 0.4], [r(SHRUG17 + 0.25), 0.0, 0.0]], seed=17, bob=0.08)],
         cams=[CA17, CB17])
 st.cue('sfx:wind', 'S17', 0.0, 0.15); st.cue('sfx:paper', 'S17', 0.3, 0.2)
@@ -503,17 +542,17 @@ st.cue('sfx:wind', 'S17', 0.0, 0.15); st.cue('sfx:paper', 'S17', 0.3, 0.2)
 #     its bolt arm; the door opens: the man in pyjamas and nightcap, deadpan (ASSIGNÉ)
 D18 = st.dur('S18'); OPEN18 = 0.35; STOP18 = 1.0
 DOOR18 = [0.97, 0, -4.08]
-HERO18 = [0.97, 0, -3.92]
-CL18A = [0.15, 0.35, -0.7]; CL18B = [0.3, 0.35, -2.2]; RY18 = 180; S18 = 0.8
-GD18 = [('gend1', [-0.1, 0, -0.4], [0.05, 0, -2.0]), ('gend2', [-0.6, 0, -1.6], [-0.3, 0, -3.2])]
-C18P = [3.8, 1.9, 0.8]
-C18 = cam(0.0, C18P, add(C18P, [-0.1, 0, -0.2]), [0.6, 1.4, -3.0], [0.6, 1.4, -3.0], lens=56)
-chk('S18', C18, {'heroFace': [HERO18[0], 2.05, HERO18[2]], 'cloudFace': CFACE(CL18B, RY18, S18), 'g1': [0.05, 2.05, -2.0], 'g2': [-0.3, 2.05, -3.2], 'tag': add(CL18B, [-0.75, 0.45, 0.2])})
+HERO18 = [0.97, 0, -3.92]; HERO18IN = [0.97, 0, -4.5]
+CL18A = [1.6, 0.35, -0.9]; CL18B = [1.9, 0.35, -2.6]; RY18 = -60; S18 = 0.8
+GD18 = [('gend1', [2.3, 0, -1.8], [2.25, 0, -3.4]), ('gend2', [1.0, 0, -1.4], [1.15, 0, -3.15])]
+C18P = [-1.2, 1.9, 1.8]
+C18 = cam(0.0, C18P, add(C18P, [0.1, 0, -0.25]), [1.0, 1.45, -3.0], [1.0, 1.45, -3.0], lens=56)
+chk('S18', C18, {'heroFace': [HERO18[0], 2.05, HERO18[2]], 'cloudFace': CFACE(CL18B, RY18, S18), 'g1': [2.25, 2.05, -3.4], 'g2': [1.15, 2.05, -3.15], 'tag': loc(CL18B, RY18, -1.0, 0.2, 0.5)})
 st.shot('S18', 'pavillon', setOpts={'fence': False, 'mailbox': False}, actors=[
-        *[act(w, a, 180, 'stand', 'determined', scale=0.92, keys=[k(0.0, to=b, dur=STOP18, clip='walk'), k(0.0, look=[0.97, 2.0, -4.3]), k(r(STOP18 + 0.2), look='camera', lookDur=0.2)]) for w, a, b in GD18],
-        act('mec', HERO18, 0, 'stand', 'unimpressed', keys=[k(0.0, look=CFACE(CL18B, RY18, S18)), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.0), *blink(1.5, {'lid': 0.5, 'mouth': 'line', 'brow': -0.2})])],
+        *[act(w, a, 180, 'stand', 'determined', scale=0.92, keys=[k(0.0, to=b, dur=STOP18, clip='walk', then='stand', face=200), k(0.0, look=[0.97, 2.0, -4.3]), k(r(STOP18 + 0.2), look='camera', lookDur=0.2)]) for w, a, b in GD18],
+        act('mec', HERO18IN, 0, 'stand', 'unimpressed', keys=[k(0.0, look=CFACE(CL18B, RY18, S18)), k(r(OPEN18 + 0.12), to=HERO18, dur=0.28, ease='out', glide=True, face=15), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.0), *blink(1.5, {'lid': 0.5, 'mouth': 'line', 'brow': -0.2})])],
         props=[P('porte18', 'door', pos=DOOR18, opts={'color': '#2F5E58', 'openAt': OPEN18}), CAP('bonnet18'), *GKEPIS('18'),
-               CLOUD('nuage18', CL18A, RY18, S18, keys=[k(0.0, to=CL18B, dur=STOP18, ease='out')], expr=[[0.0, 'blank'], [r(STOP18 + 0.1), 'smug']], arms=[[0.0, 'rest', 'out']], tag=True, tagS=1.5, seed=18)],
+               CLOUD('nuage18', CL18A, RY18, S18, keys=[k(0.0, to=CL18B, dur=STOP18, ease='out')], expr=[[0.0, 'blank'], [r(STOP18 + 0.1), 'smug']], arms=[[0.0, 'out', 'rest']], tag=True, tagSide=-1, tagS=1.6, seed=18)],
         cams=[C18])
 st.card('S18', 'ASSIGNÉ', at=r(STOP18 + 0.1))
 st.cue('sfx:stepSoft', 'S18', 0.2, 0.15); st.cue('sfx:stepSoft', 'S18', 0.55, 0.15); st.cue('sfx:carDoor', 'S18', OPEN18, 0.25); st.cue('sfx:beep', 'S18', r(STOP18 + 0.3), 0.15)
@@ -521,18 +560,21 @@ st.cue('sfx:stepSoft', 'S18', 0.2, 0.15); st.cue('sfx:stepSoft', 'S18', 0.55, 0.
 # 19: it took the window side. Night, the double bed seen from over its foot: the cloud tucked under the duvet up to its chin on the window side,
 #     eyes open and calm, one slow blink; the man on the door side, flat on his back, wide awake, staring at the ceiling; a slow push-in; no sound
 #     from the cloud
-D19 = st.dur('S19')
-S19C = 0.5; CL19 = [-0.52, 0.62, -2.6]
-HERO19 = [0.45, BEDTOP, -1.68]
-C19P = [0.0, 3.3, 0.5]
-C19X = FIT(0.0, C19P, {'cloudTop': add(CL19, [0.3, 1.75 * S19C, 0]), 'cloudL': add(CL19, [-0.9, 0.5, 0]), 'hero': [0.45, 0.85, -2.6], 'chest': [0.45, 0.88, -1.9], 'win': [-1.45, 2.3, -3.0], 'door': [1.3, 1.4, -3.0]}, top=0.1, bottom=0.74, drift=(0.0, -0.25, -0.35))
-C19 = cam(0.0, [0.0, 2.95, 0.3], [0.0, 2.85, 0.0], [-0.1, 0.95, -2.6], [-0.1, 0.95, -2.6], lens=54)
-chk('S19', C19, {'cloudFace': CFACE(CL19, 0, S19C), 'heroFace': [0.45, 0.92, -2.62], 'win': WINC})
-st.shot('S19', 'whiteVoid', look=NIGHT, actors=[act('mec', HERO19, 0, 'lieBack', 'neutral', blink=0, keys=[k(0.0, look=None),
-            k(0.0, toon={'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'line', 'brow': 0.3, 'pupilSize': -0.3, 'gy': -0.9}, 'bend': {'neck': [0.6, 0, 0, 1, None]}}, toonDur=0.0),
-            k(1.8, toon={'face': {'lid': 0.25, 'eye': 0.5, 'mouth': 'line', 'brow': 0.3, 'pupilSize': -0.3, 'gy': -0.9}, 'bend': {'neck': [0.6, 0, 0, 1, None]}}, toonDur=0.04), k(1.9, toon={'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'line', 'brow': 0.3, 'pupilSize': -0.3, 'gy': -0.9}, 'bend': {'neck': [0.6, 0, 0, 1, None]}}, toonDur=0.05)])],
-        props=[P('chambre19', 'tonBedroom', pos=[0, 0, 0], opts={'winX': WINC[0], 'feet': [[0.45, -0.8, 0.24]]}), CAP('bonnet19'),
-               CLOUD('nuage19', CL19, 0, S19C, expr=[[0.0, 'calm']], arms=[[0.0, 'tuck', 'tuck']], blinks=[1.2], look=[[0.0, 0.0, 0.0]], bob=0.015, glow=0.35, seed=19)],
+D19 = st.dur('S19'); DART19 = 1.05
+S19C = 0.37; CL19 = [-0.4, 0.62, -2.66]
+HERO19 = [0.3, BEDTOP, -1.66]
+C19P = [0.0, 2.95, -0.85]
+C19 = cam(0.0, C19P, add(C19P, [0.0, -0.05, -0.15]), [-0.08, 1.12, -2.6], [-0.08, 1.1, -2.6], lens=44)
+chk('S19', C19, {'cloudFace': CFACE(CL19, 0, S19C), 'heroFace': [0.3, 0.95, -2.6], 'chest': [0.3, 0.92, -2.0], 'cloudTop': add(CL19, [0, 1.85 * S19C, 0])})
+# (pass 1) his body truly under the duvet (it runs up to his chin, a breathing hump over his chest), the face lifted a little on the pillow, the
+# eyes rolled up to the ceiling; one dart of the eyes to the cloud, then the stare is held; the cloud tilted back on its pillow, calm, one slow blink
+def FACE19(gx=0.0, gy=-1.0, lid=0.0, d=0.12, t=0.0):
+    return k(t, toon={'face': {'lid': lid, 'eye': 0.55, 'mouth': 'line', 'brow': 0.35, 'pupilSize': -0.25, 'gx': gx, 'gy': gy}, 'bend': {'neck': [0.32, 0, 0, 1, None]}}, toonDur=d)
+st.shot('S19', 'whiteVoid', look=NIGHT, actors=[act('mec', HERO19, 0, 'lieBack', 'neutral', blink=0, keys=[k(0.0, look=None), FACE19(d=0.0),
+            FACE19(gx=-0.9, gy=-0.2, t=DART19, d=0.06), FACE19(gx=-0.9, gy=-0.2, t=r(DART19 + 0.3), d=0.0), FACE19(t=r(DART19 + 0.36), d=0.08),
+            FACE19(lid=0.3, t=2.0, d=0.04), FACE19(t=2.08, d=0.05)])],
+        props=[P('chambre19', 'tonBedroom', pos=[0, 0, 0], opts={'winX': WINC[0], 'duvetZ': -2.44, 'duvetTop': 0.93, 'feet': [[0.3, -0.8, 0.22]], 'chest': [[0.3, -2.0, 0.22]], 'breath': 3.0}), CAP('bonnet19'),
+               P('nuage19', 'thunderCloud', pos=CL19, ry=0, rot=[-0.3, 0, 0], opts={'s': S19C, 'expr': [[0.0, 'calm']], 'arms': [[0.0, 'tuck', 'tuck']], 'blinks': [1.6], 'look': [[0.0, 0.0, 0.1], [r(DART19 + 0.1), 0.25, 0.1], [1.9, 0.0, 0.1]], 'bob': 0.015, 'glow': 0.3, 'seed': 19})],
         cams=[C19])
 st.cue('sfx:crickets', 'S19', 0.0, 0.12); st.cue('sfx:tick', 'S19', 0.6, 0.08); st.cue('sfx:tick', 'S19', 1.6, 0.08); st.cue('sfx:tick', 'S19', 2.6, 0.08)
 
