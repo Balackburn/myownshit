@@ -1876,3 +1876,11 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 45) Mur de mots derrière un personnage : opacité 0,08 au plus, sinon les mots se lisent dans la bande du carton.
 - (cycle 45) Bras qui claque une porte depuis le hors-champ : saisir la porte près des gonds (rayon 0,4 m) ; au bord libre, le bras
   s'étire de 2 m et se lit comme un bâton.
+- (cycle 44) Corde raide entre un quai et une tour : sa courbure tombe dans l'axe de la vue et elle se lit comme un bâton. La faire
+  traverser l'image de côté, pente faible.
+- (cycle 44) Objet tenu à l'oreille : le fixer à la tête (`joint: 'head'`), à côté, et y poser la main ; gros et contrasté (combiné
+  rouge), sinon il disparaît.
+- (cycle 44) Cylindre de lumière additif d'alpha uniforme : il se lit comme un bocal. Le dégrader en hauteur et sur les bords, halo au sol.
+- (cycle 44) Approche lente puis rapide en Hermite : distance de départ > vitesse × durée / 3, sinon l'objet recule d'abord.
+- (cycle 44) `worldRot` sur la clé de lâcher pose à plat un objet relâché (PV glissé sous une porte).
+- (cycle 44) Bitte d'amarrage vue d'en haut : tête large = chapeau. Fût haut, tête à peine plus large, fonte noire.
