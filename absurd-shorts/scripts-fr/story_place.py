@@ -99,7 +99,7 @@ START1 = [12.0, GY, LANE_A]
 RED_PATH = [[-3.0, GY, -4.6], [-0.4, GY, -5.2], [0.9, GY, -7.4], [1.25, GY, -9.6], KEY]
 SEAT = lambda p, ry: loc(p, ry, 0.36 * CS, 0.06, 0.0)   # the driver's seat (the car's left, +X local), at the floor
 HERO_SIT1 = SEAT(HERO_CAR, -90)
-CA1 = cam(0.0, [15.5, 1.35, -2.6], [15.25, 1.33, -2.7], [3.0, 0.9, -6.9], [3.0, 0.88, -6.95], lens=58)
+CA1 = cam(0.0, [13.2, 4.0, -3.3], [12.95, 3.9, -3.4], [1.6, 0.4, -9.6], [1.6, 0.35, -9.6], lens=50)
 CB1 = cam(CUT1, [1.7, 2.05, -6.6], [1.85, 2.03, -6.45], [HERO_SIT1[0], 1.62, HERO_SIT1[2]], [HERO_SIT1[0], 1.62, HERO_SIT1[2]], lens=40)
 chk('S01a', CA1['from'], CA1['lookAt'], 40, {'heroCarRear': loc(START1, -90, 0, -2.3, 0.8), 'heroCarStop': loc(HERO_CAR, -90, -0.9, -2.3, 0.8), 'bay': [1.25, 0.6, -10.6], 'redStart': [-14, 0.8, -4.7]})
 chk('S01b', CB1['from'], CB1['lookAt'], 40, {'face': [HERO_SIT1[0], 1.75, HERO_SIT1[2]], 'blinkFR': loc(HERO_CAR, -90, -0.74 * CS, 1.85 * CS, 0.76 * CS)})
@@ -256,7 +256,7 @@ st.cue('sfx:wind', 'S07', 0.0, 0.25); st.cue('sfx:rattle', 'S07', 0.3, 0.12)
 
 # 8: the supermarket too; it was badly parked. Low in front of the store: the invader stands outside the doors, cheese wheel under his arm, facing
 #    us, untouched; behind him the empty supermarket folds flat like a cardboard box, front in, sides in, roof down, the sign and the clock tipping
-#    onto the pile; a wall of dust rolls over him and leaves him grey (PLIÉ)
+#    onto the pile; a wall of dust rolls over him and leaves him grey (PLIÉ); (staging) the dust round him kept light: at 0.95 it hid him for a second
 D8 = st.dur('S08'); FOLD8 = 0.55; GREY8 = r(FOLD8 + 0.5)
 INV8 = [0.6, GY, -12.2]; RY8 = 18
 CLK8 = {**CLK, 'base': r(CLOCK0 - (st.SH['S08'][0] - st.SH['S04'][0] - FLIP4), 2), 'flipAt': -1}
@@ -272,7 +272,7 @@ st.shot('S08', 'grassland', setOpts=LOT_SET, actors=[
         act('envahisseur', INV8, RY8, 'stand', 'happy', keys=INVK8(False) + [k(0.0, visible=True), k(GREY8, visible=False)]),
         act('gris', INV8, RY8, 'stand', 'neutral', keys=INVK8(True) + [k(0.0, visible=False), k(GREY8, visible=True)])],
         props=[LOT(), ROWS_FLAT(skip=['0:10'], wisps=6), STORE(clock=CLK8, foldAt=FOLD8), CHEESE_ARM('fromage8a', 'envahisseur'), CHEESE_ARM('fromage8b', 'gris'),
-               P('nuage8', 'softDust', pos=add(INV8, [0, 1.0, -0.6]), opts={'at': r(FOLD8 + 0.36), 'n': 12, 'size': 1.6, 'life': 1.3, 'rise': 1.6, 'spread': 2.4, 'color': '#D8D2C4', 'opacity': 0.95})],
+               P('nuage8', 'softDust', pos=add(INV8, [0, 0.8, -0.9]), opts={'at': r(FOLD8 + 0.36), 'n': 9, 'size': 1.1, 'life': 1.0, 'rise': 1.2, 'spread': 2.0, 'color': '#D8D2C4', 'opacity': 0.7})],
         fx=[{'type': 'shake', 'at': r(FOLD8 + 0.38), 'dur': 0.3, 'amount': 0.025}],
         cams=[C8])
 st.cue('sfx:crunch', 'S08', r(FOLD8 + 0.1), 0.35); st.cue('thud', 'S08', r(FOLD8 + 0.38), 0.7); st.cue('sfx:poof', 'S08', r(FOLD8 + 0.4), 0.4)
