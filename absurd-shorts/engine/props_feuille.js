@@ -31,8 +31,7 @@ function sheetCanvas(w, h, o, back) {
   const W = cv.width, H = cv.height, E = Math.round(W * (o.ear ?? 0.22));
   let shown = -1;
   const draw = n => {
-    c.clearRect(0, 0, W, H); c.fillStyle = back ? PAPER_BACK : PAPER;
-    c.beginPath(); c.moveTo(0, 0); c.lineTo(W - (o.ear === 0 ? 0 : E), 0); c.lineTo(W, o.ear === 0 ? 0 : E); c.lineTo(W, H); c.lineTo(0, H); c.closePath(); c.fill();
+    c.fillStyle = back ? PAPER_BACK : PAPER; c.fillRect(0, 0, W, H);   // (final) fully painted: the dog-ear corner is cut in the geometry, not by alpha
     if (!back && o.lines !== false) { c.fillStyle = 'rgba(40,60,90,0.10)'; for (let y = H * 0.62; y < H * 0.93; y += H * 0.06) c.fillRect(W * 0.1, y, W * 0.8, Math.max(1, H * 0.006)); }
     const sd = o.smearSide || 'both'; if (o.smear !== false && (sd === 'both' || (sd === 'back') === !!back)) { const ss = o.smearS ?? 1; c.fillStyle = SMEAR; c.beginPath(); c.ellipse(W * 0.035 * ss, H * 0.78, W * 0.05 * ss, H * 0.035 * ss, 0.4, 0, TAU); c.fill(); c.beginPath(); c.ellipse(W * 0.075 * ss, H * 0.8, W * 0.03 * ss, H * 0.016 * ss, 0.2, 0, TAU); c.fill(); }
     if (!back && o.text && n > 0) {
@@ -58,9 +57,14 @@ export const FEUILLE_PROPS = {
       const fh = h / 3, s = grp(at(box(w, fh, 0.012, PAPER, { outline: 0.004 }), 0, 0, 0), at(box(w * 0.98, 0.004, 0.014, '#D8D3C6'), 0, fh * 0.18, 0.001), at(box(w * 0.98, 0.004, 0.014, '#D8D3C6'), 0, -fh * 0.18, 0.001));
       s.add(at(box(0.03, 0.02, 0.014, SMEAR), -w / 2 + 0.03, -fh * 0.3, 0.002)); body.add(s); return g;
     }
-    const geo = new THREE.PlaneGeometry(w, h, 8, 10), pa = geo.attributes.position, base = pa.array.slice();
+    const geo = new THREE.PlaneGeometry(w, h, 8, 10), pa = geo.attributes.position;
+    // (final) the dog-ear corner is cut geometrically (vertices past the diagonal slide onto it, UVs follow): no alphaTest, because the AO pass
+    // leaves every cut-out (alphaTest > 0) out of its G-buffer and the objects behind her then shaded through the paper
+    if (o.ear !== 0) { const Ec = w * (o.ear ?? 0.22), cx = w / 2 - Ec, cy = h / 2 - Ec, uv = geo.attributes.uv;
+      for (let i = 0; i < pa.count; i++) { let x = pa.getX(i), y = pa.getY(i); const d = (x - cx) + (y - cy) - Ec; if (d > 0) { x -= d / 2; y -= d / 2; pa.setXY(i, x, y); uv.setXY(i, (x + w / 2) / w, (y + h / 2) / h); } } }
+    const base = pa.array.slice();
     const F = sheetCanvas(w, h, o, false), B = sheetCanvas(w, h, o, true);
-    const M = (tex, side) => o.bright ? new THREE.MeshBasicMaterial({ map: tex, side, alphaTest: 0.5 }) : new THREE.MeshLambertMaterial({ map: tex, side, alphaTest: 0.5 });
+    const M = (tex, side) => o.bright ? new THREE.MeshBasicMaterial({ map: tex, side }) : new THREE.MeshLambertMaterial({ map: tex, side });
     const front = new THREE.Mesh(geo, M(F.tex, THREE.FrontSide)), backM = new THREE.Mesh(geo, M(B.tex, THREE.BackSide)); front.castShadow = backM.castShadow = true; front.receiveShadow = backM.receiveShadow = true;
     body.add(front, backM);
     const E = w * (o.ear ?? 0.22), triG = new THREE.BufferGeometry();
