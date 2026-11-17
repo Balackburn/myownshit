@@ -103,7 +103,7 @@ export const CHAT_PROPS = {
   // (head and chest pressed flat on the branch), o.lick [[t0, t1]] (a front paw up to the mouth, the head bobbing over it), o.yawn [[t0, t1]] (head
   // back, jaw wide, eyes shut), o.ear [t, ...] (one ear flicks), o.tail 'dangle' (the tail hangs straight down, swinging; o.tailS lengthens it),
   // o.swing / o.swingF: the dangling tail's pendulum (amplitude factor, rad/s); o.tailFur, o.tailW: see below;
-  // o.head [[t, yaw]] (head turn, rad), o.crunch [[t0, t1]] (head down in the bowl, chewing); o.flat (0..1): ducking also squashes it flat
+  // o.popAt [t0, t1] (clip time): the eyes shoot out on stalks and come back (o.popLen); o.head [[t, yaw]] (head turn, rad), o.crunch [[t0, t1]] (head down in the bowl, chewing); o.flat (0..1): ducking also squashes it flat
   // (o.duckBlend: how fast it ducks, 0.12 s)
   treeCat(o) {
     const s = o.s ?? 1.6, g = grp(), cat = buildCreature('cat', { seed: 6, ol: o.ol ?? 0.007 }); cat.scale.setScalar(s); g.add(cat);
@@ -119,7 +119,7 @@ export const CHAT_PROPS = {
       let t0 = -1e6; for (const [kt] of o.clips || []) { if (t >= kt) t0 = kt; else break; }
       const clip = stepAt(o.clips, t, 'sit'), ct = Math.max(0, t - (t0 < -1e5 ? -10 : t0));
       const ex = stepAt(o.expr, t, null), yw = in_(o.yawn, t);
-      anim(clip, ct, { blinks: o.blinks || [], ...(yw ? { expression: 'closed' } : ex ? { expression: ex } : {}) });
+      anim(clip, ct, { blinks: o.blinks || [], ...(o.popAt ? { popAt: o.popAt, popLen: o.popLen ?? 0.1 } : {}), ...(yw ? { expression: 'closed' } : ex ? { expression: ex } : {}) });
       const d = keyAt(o.duck, t, 0, o.duckBlend ?? 0.12), fl = (o.flat ?? 0) * d; cat.scale.set(s * (1 + 0.3 * fl), s * (1 - 0.55 * fl), s * (1 + 0.2 * fl));
       if (d > 0.001) { if (J.neck) J.neck.rotation.x += 0.9 * d; if (J.head) J.head.rotation.x += 0.5 * d; if (J.body) J.body.rotation.x += 0.12 * d; cat.userData.mover.position.y -= 0.05 * d; }
       const hy = keyAt(o.head, t, 0, 0.15); if (J.head && hy) J.head.rotation.y += hy;
@@ -267,16 +267,18 @@ export const CHAT_PROPS = {
 
   // A stretcher carrying one twig (pivot at its middle at the poles' height, the poles along Z): the stretcher of props_barbecue (o.L 1.9) with a
   // crinkled survival blanket in shining silver over a small lump, a twig with three bright leaves poking up out of its head end (+Z) on the pillow
-  // (o.twigUp: its tilt up from flat, rad, 1.25; o.twigS: its size, 1.3)
+  // (o.twigUp: its tilt up from flat, rad, 1.25; o.twigS: its size, 1.3); a specular glint flashes on the foil (o.glintF rad/s)
   twigStretcher(o) {
     const L = o.L ?? 1.9, g = grp(buildProp('stretcher', { L, w: o.w ?? 0.55 }));
     const foil = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 2), new THREE.MeshLambertMaterial({ color: '#E8EEF6', emissive: new THREE.Color('#8A94A6'), flatShading: true }));
     const p = foil.geometry.attributes.position; for (let i = 0; i < p.count; i++) { const k = 1 + (hsh(Math.round(p.getX(i) * 91 + p.getY(i) * 37 + p.getZ(i) * 53)) - 0.5) * 0.3; p.setXYZ(i, p.getX(i) * k, p.getY(i) * k, p.getZ(i) * k); } foil.geometry.computeVertexNormals();
     foil.scale.set(0.25, 0.11, L * 0.3); foil.position.set(0, 0.06, -0.05); addOutline(foil, 0.05); g.add(foil);
+    const glint = new THREE.Mesh(new THREE.CircleGeometry(0.09, 8), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, depthWrite: false })); glint.position.set(0.05, 0.19, 0.0); glint.rotation.x = -1.1; g.add(glint);
     g.add(at(box(0.3, 0.07, 0.2, '#F4F4F0', { outline: 0.01 }), 0, 0.05, L * 0.3));
     const tw = grp(limb([0, 0, 0], [0, 0, 0.62], 0.035, 0.018, '#6A4529')); for (const [z, rx, ry] of [[0.36, 0.4, 0.6], [0.5, -0.5, -0.5], [0.63, 0.2, 0.1]]) tw.add(at(box(0.18, 0.02, 0.11, '#5FB043', { outline: 0.015 }), 0.04, 0.02, z, rx, ry, 0));
     tw.position.set(0, 0.14, L * 0.12); tw.rotation.x = -(o.twigUp ?? 1.25); tw.scale.setScalar(o.twigS ?? 1.3); g.add(tw);
-    return g;
+    g.userData.update = t => { const k = Math.max(0, Math.sin(t * (o.glintF ?? 3.1) + 0.6)); glint.visible = k > 0.15; glint.scale.setScalar(0.4 + 1.8 * k * k); glint.material.opacity = Math.min(1, k * 1.3); };
+    g.userData.update(0); return g;
   },
 
   // A judge's bench set up outdoors (pivot at the floor under its middle, the front +Z): a wooden box o.w (2.0) x o.h (1.15) x 0.8 with a raised front
@@ -345,13 +347,29 @@ export const CHAT_PROPS = {
   },
 
   // A riot helmet that reads on a box head (attach to the head joint, offset [0, 0, 0]): a light grey shell over the top half of the head (o.w 0.36,
-  // from y o.y0 0.36 up to 0.62 of the head frame), a rim, and a dark clear visor raised above the eyes (o.visor: its tilt, 1.0 rad), a chin strap
+  // from y o.y0 0.36 up to 0.62 of the head frame), a rim, and a dark visor band across the brow above the eyes (o.visorH, o.visor tilt), chin straps
   visorHelmet(o) {
-    const w = o.w ?? 0.36, y0 = o.y0 ?? 0.36, h = 0.62 - y0, c = o.color || '#A7AFB8', g = grp();
+    const w = o.w ?? 0.36, y0 = o.y0 ?? 0.36, h = 0.62 - y0, c = o.color || '#C5CBD2', g = grp();
     g.add(at(box(w, h, w * 0.95, c, { pivot: 'bottom', outline: 0.01, taper: { x: 0.82, z: 0.82 } }), 0, y0, 0), at(box(w * 1.06, 0.03, w * 1.02, '#6E767F', { outline: 0.004 }), 0, y0, 0));
-    const vis = grp(at(new THREE.Mesh(new THREE.BoxGeometry(w * 0.98, 0.15, 0.012), new THREE.MeshLambertMaterial({ color: '#33475A', transparent: true, opacity: 0.6 })), 0, 0.075, 0));
-    vis.position.set(0, y0 + 0.02, w * 0.5); vis.rotation.x = -(o.visor ?? 1.0); g.add(vis);
+    const vis = grp(at(box(w * 1.0, o.visorH ?? 0.085, 0.02, o.visorColor || '#1C2836', { outline: 0.006 }), 0, (o.visorH ?? 0.085) / 2, 0));
+    vis.position.set(0, y0 - 0.005, w * 0.5 + 0.012); vis.rotation.x = -(o.visor ?? 0.0); g.add(vis);
     for (const sd of [-1, 1]) g.add(at(box(0.012, y0 - 0.06, 0.02, '#2A2D33'), sd * w * 0.5, (y0 + 0.06) / 2, 0.04));
     return g;
+  },
+
+  // A long dangling cat's tail (pivot at its root, hanging down -Y): o.n (12) tapered ginger segments with dark rings, o.len (2.7 m) in all, radius
+  // o.r0 (0.07) to o.r1 (0.035), a fluffy pale tip; it sways as a travelling wave (an S-arc that flicks at the tip): o.amp (0.11 rad per segment),
+  // o.f (2.2 rad/s), o.k (0.5 rad of phase per segment)
+  dangleTail(o) {
+    const n = o.n ?? 12, L = o.len ?? 2.7, sl = L / n, g = grp(), segs = []; let par = g;
+    for (let i = 0; i < n; i++) {
+      const r0 = (o.r0 ?? 0.07) + ((o.r1 ?? 0.035) - (o.r0 ?? 0.07)) * i / n, r1 = (o.r0 ?? 0.07) + ((o.r1 ?? 0.035) - (o.r0 ?? 0.07)) * (i + 1) / n;
+      const s = grp(); const c = cyl(r1, r0, sl, i % 2 ? '#D9863F' : '#A85A22', 7, { pivot: 'top' }); addOutline(c, 0.06); s.add(c);
+      if (i > 0) s.position.y = -sl; par.add(s); segs.push(s); par = s;
+    }
+    const tip = grp(); tip.position.y = -sl; par.add(tip);
+    for (const [x, y, z, rr] of [[0, -0.08, 0, 0.1], [0.05, -0.03, 0.02, 0.07], [-0.05, -0.04, -0.02, 0.07], [0, -0.16, 0.0, 0.065]]) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(rr, 1), mat('#F2E2C8')); m.position.set(x, y, z); addOutline(m, 0.05); tip.add(m); }
+    g.userData.update = t => { segs.forEach((s, i) => { const a = (o.amp ?? 0.11) * Math.sin(t * (o.f ?? 2.2) - i * (o.k ?? 0.5)) * (0.4 + 0.6 * i / n); s.rotation.z = a; s.rotation.x = 0.35 * a; }); };
+    g.userData.update(0); return g;
   },
 };

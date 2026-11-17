@@ -211,8 +211,8 @@ acts5, props5 = commandos('S05')
 chk('S05', C5['from'], C5['lookAt'], 42, {'cat': HEADC, 'cdo1': add(CDO1, [0, 1.6, 0]), **{w: add(hang_root(a, b), [0, 2.05, 0]) for w, (a, b, _) in HANG.items()}, 'heli': HELI5, 'heliOut': add(HELI5, [7.5, 3.0, -2.0]), 'base': tw(0, 0, 0)})
 st.shot('S05', SET, setOpts=SETO, actors=acts5,
         props=[TREE('S05', sag=[[0, 0.1]]), ROW('S05'), CAT('S05', ry=-15, clips=[[0, 'sit']], expr=[[0, 'sleepy']], blinks=[0.9]), *props5,
-               P('heli5', 'helicopter', pos=HELI5, ry=90, scale=0.85, opts={'spin': 6}, keys=[k(0.15, to=add(HELI5, [9.0, 4.5, -2.0]), dur=0.7, ease='in'), k(0.15, rotTo=[0, PI / 2, 0.25], dur=0.3)]),
-               *[P(f'corde5{j}', 'reelRope', pos=add(HELI5, [0.42 + 0.3 * j, -0.9, 0.0]), opts={'len': [[0, 3.3], [0.05, 0.3]], 'seed': j}, keys=[k(0.15, to=add(HELI5, [9.42 + 0.3 * j, 3.6, -2.0]), dur=0.7, ease='in')]) for j in range(2)]],
+               P('heli5', 'helicopter', pos=HELI5, ry=90, scale=0.85, opts={'spin': 6}, keys=[k(0.1, to=add(HELI5, [10.0, -2.2, -1.0]), dur=0.7, ease='in'), k(0.1, rotTo=[0, PI / 2, 0.25], dur=0.3)]),   # (review 3) it leaves down and to the right, below the card band
+               *[P(f'corde5{j}', 'reelRope', pos=add(HELI5, [0.42 + 0.3 * j, -0.9, 0.0]), opts={'len': [[0, 3.3], [0.05, 0.3]], 'seed': j}, keys=[k(0.1, to=add(HELI5, [10.42 + 0.3 * j, -3.1, -1.0]), dur=0.7, ease='in')]) for j in range(2)]],
         cams=[C5])
 st.card('S05', 'COINCÉS', at=0.9)   # (review 1) after the helicopter and its ropes have left the card band
 st.cue('sfx:rotor', 'S05', 0.0, 0.4); st.cue('whoosh', 'S05', 0.55, 0.3, 0.9, 300, 1500)
@@ -224,18 +224,18 @@ TANK = [SEAT[0], 0, 34.0]
 GUNP = [TANK[0], 1.34, r(TANK[2] - 0.65)]            # the gun's pivot (tank turned 180: its front toward -Z)
 dy, dz = NOSE[1] - GUNP[1], GUNP[2] - NOSE[2]
 PITCH = -r(math.atan2(dy, dz), 4); DIST = math.hypot(dy, dz)
-GAP = 0.24
+GAP = 0.5   # (review 3) a clear hand's width: the muzzle never touches the cat
 EXT = r(DIST - 2.95 - 0.31 - GAP, 2)                # the brake's mouth a hand's width from the nose (a big cartoon hand)
 UNIT = [0.0, dy / DIST, -dz / DIST]
 MUZ = [r(GUNP[i] + UNIT[i] * (DIST - GAP)) for i in range(3)]
 C6a = cam(0.0, [2.6, 4.0, 46.0], [2.5, 4.05, 45.6], [0.5, 3.5, 20.0], [0.5, 3.7, 20.0], lens=26)   # (review 1) the barrel crosses the frame diagonally to a bigger treetop
-C6b = cam(CUT6, add(HEADC, [2.0, 0.2, 2.35]), add(HEADC, [1.9, 0.19, 2.25]), add(HEADC, [-0.05, -0.15, 0.2]), add(HEADC, [-0.05, -0.15, 0.2]), lens=40)   # (review 1) the cat's face 3/4 to the lens, the street behind
+C6b = cam(CUT6, add(HEADC, [2.35, 0.2, 1.8]), add(HEADC, [2.25, 0.19, 1.72]), add(HEADC, [-0.05, -0.15, 0.2]), add(HEADC, [-0.05, -0.15, 0.2]), lens=40)   # (review 1) the cat's face 3/4 to the lens, the street behind
 chk('S06a', C6a['from'], C6a['lookAt'], 26, {'tankTop': [TANK[0], 2.4, TANK[2]], 'tankFoot': [TANK[0] + 1.6, 0, TANK[2] - 2.4], 'cat': HEADC, 'mid': [GUNP[i] + UNIT[i] * DIST * 0.5 for i in range(3)]})
 chk('S06b', C6b['from'], C6b['lookAt'], 40, {'catHead': HEADC, 'nose': NOSE, 'muzzle': MUZ, 'barrelBack': [GUNP[i] + UNIT[i] * (DIST - 2.2) for i in range(3)], 'seat': SEAT})
 EXTK6 = [[0.0, 0.0], [0.45, 2.0], [0.7, 6.0], [0.95, 10.5], [1.2, 14.5], [r(CUT6 + 0.15), r(EXT + 0.25)], [r(CUT6 + 0.4), EXT]]
 TANKP = lambda sid, ext, gun, **o: P(f'char{sid}', 'extendTank', pos=TANK, ry=180, opts={'ext': ext, 'gun': gun, 'segs': 9, **o})
 st.shot('S06', SET, setOpts=SETO, actors=commandos('S06', skip=('cdo1',), extra={w: [k(CUT6, visible=False)] for w in ('cdo2', 'cdo3', 'cdo4')})[0],   # (review 1) no commando clutter in the close-up
-        props=[TREE('S06', sag=[[0, 0.1]], tip=False), ROW('S06'), CAT('S06', ry=0, clips=[[0, 'sit']], expr=[[0, 'neutral'], [r(CUT6 + 0.5), 'sleepy']], blinks=[r(CUT6 + 0.75), r(CUT6 + 1.05)]),
+        props=[TREE('S06', sag=[[0, 0.1]], tip=False), ROW('S06'), CAT('S06', ry=0, clips=[[0, 'sit']], expr=[[0, 'sleepy'], [r(CUT6 + 0.38), 'surprised'], [r(CUT6 + 0.85), 'sleepy']], popAt=[r(CUT6 + 0.4), r(CUT6 + 0.72)], popLen=0.12, blinks=[r(CUT6 + 0.9), r(CUT6 + 1.15)]),   # (review 3) a take when the muzzle stops: eyes out, back, then a slow blink
                TANKP('S06', EXTK6, [[0.0, 0.0], [0.1, PITCH]], rumble=[[0.0, 1.3, 0.015]]), *commandos('S06', skip=('cdo1',))[1]],
         cams=[C6a, C6b])
 st.cue('engine', 'S06', 0.0, 0.3, 1.3); st.cue('sfx:stretch', 'S06', 0.4, 0.35); st.cue('clang', 'S06', r(CUT6 + 0.15), 0.3); st.cue('sfx:gulp', 'S06', r(CUT6 + 0.75), 0.0)
@@ -249,9 +249,10 @@ C7 = cam(0.0, add(MUZ, [-1.1, 0.7, 2.6]), add(MUZ, [-1.08, 0.69, 2.5]), [1.2, 6.
 chk('S07', C7['from'], C7['lookAt'], 60, {'catHead': HEADC, 'muzzle': MUZ, 'hit': HIT, 'blockFoot': [0, 0.5, ROWZ], 'blockTopL': [-8, 11, ROWZ], 'blockTopR': [8, 11, ROWZ]})
 st.shot('S07', SET, setOpts=SETO, actors=[],
         props=[TREE('S07', sag=[[0, 0.1]]), ROW('S07', foldAt=FOLD7, stagger=0.1, h=13.5), TANKP('S07', [[0, EXT]], [[0, PITCH]], fireAt=FIRE7, flashS=0.35, puffS=0.01),
-               CAT('S07', ry=0, clips=[[0, 'sit']], expr=[[0, 'sleepy']], duck=[[0, 0], [DUCK7, 1.0], [1.05, 0.0]], flat=1.0, duckBlend=0.1, blinks=[1.9], head=[[1.3, 0.0], [1.5, 0.35]]),
+               CAT('S07', ry=0, clips=[[0, 'sit']], expr=[[0, 'sleepy']], duck=[[0, 0], [DUCK7, 1.0], [1.05, -0.35], [1.17, 0.12], [1.28, 0.0]], flat=1.0, duckBlend=0.1,   # (review 3) pancake-flat while the shell passes, then it pops up with an overshoot
+                   blinks=[1.9], head=[[1.3, 0.0], [1.5, 0.35]]),
                P('obus7', 'shellStreak', pos=[0, 0, 0], opts={'from': MUZ, 'to': HIT, 't0': FIRE7, 'dur': SHELL7, 'r': 0.055, 'len': 0.3}),
-               P('boum7', 'timedBurst', pos=add(HIT, [0, -0.8, 0.5]), opts={'at': r(FIRE7 + SHELL7), 'size': 2.2, 'life': 0.45})],
+               P('boum7', 'timedBurst', pos=add(HIT, [0, -2.5, 0.5]), opts={'at': r(FIRE7 + SHELL7), 'size': 2.2, 'life': 0.25})],   # (review 3) on the facade, gone before the blocks are down
         cams=[C7])
 st.cue('thud', 'S07', FIRE7, 0.6); st.cue('whoosh', 'S07', FIRE7, 0.35, 0.2, 800, 4000); st.cue('thunder', 'S07', r(FIRE7 + SHELL7), 0.4); st.cue('thud', 'S07', FOLD7, 0.4); st.cue('thud', 'S07', r(FOLD7 + 0.2), 0.4); st.cue('thud', 'S07', r(FOLD7 + 0.4), 0.4)
 
@@ -274,16 +275,20 @@ for (_, _, t) in BURSTS: st.cue('thud', 'S08', t, 0.45)
 #    white helmets carry the stretcher toward us with one twig under a shining foil blanket; the tree behind with the cat grooming at the top; the
 #    ruins smoking across the road
 D9 = st.dur('S09')
-C9 = cam(0.0, [-0.9, 2.2, 27.0], [-0.85, 2.2, 26.7], [-0.5, 2.6, 16.0], [-0.5, 2.6, 16.0], lens=48)
-PORTE = tw(-0.2, 0, 8.2); RYP = -12
-MED_DIR = [0.6, 0, 0.8]; MED1a = tw(-2.0, 0, 2.3); WALK9 = 1.5   # (review 2) they end beside the podium, not behind the spokesman   # (review 1) diagonally toward us in a clear lane left of the podium
+C9 = cam(0.0, [-0.6, 2.4, 27.5], [-0.57, 2.4, 27.3], [-0.1, 2.5, 16.0], [-0.1, 2.5, 16.0], lens=56)   # (review 3) the stretcher across the lower third, the spokesman small at the back right
+PORTE = tw(2.0, 0, 3.2); RYP = -15
+MED_DIR = [0.85, 0, 0.53]; MED1a = tw(-0.965, 0, 7.58); WALK9 = 1.53   # (review 2) they end beside the podium, not behind the spokesman   # (review 1) diagonally toward us in a clear lane left of the podium
 MED1b = [r(MED1a[0] + MED_DIR[0] * WALK9), 0, r(MED1a[2] + MED_DIR[2] * WALK9)]
 GAP9 = 2.2
 def back9(p): return [r(p[0] - MED_DIR[0] * GAP9), 0, r(p[2] - MED_DIR[2] * GAP9)]
 MRY = yaw([0, 0, 0], MED_DIR)
 STR9a = [r((MED1a[0] + back9(MED1a)[0]) / 2), 0.98, r((MED1a[2] + back9(MED1a)[2]) / 2)]; STR9b = [r((MED1b[0] + back9(MED1b)[0]) / 2), 0.98, r((MED1b[2] + back9(MED1b)[2]) / 2)]
 def handles(c, sgn): return [[r(c[0] + sgn * MED_DIR[0] * 1.02 + MED_DIR[2] * sd * 0.27), 0.98, r(c[2] + sgn * MED_DIR[2] * 1.02 - MED_DIR[0] * sd * 0.27)] for sd in (1, -1)]
-chk('S09', C9['from'], C9['lookAt'], 48, {'porteFace': add(PORTE, [0, 2.05, 0]), 'cat': HEADC, 'med1aFace': add(MED1a, [0, 2.05, 0]), 'med1bFace': add(MED1b, [0, 2.05, 0]), 'med2bFace': add(back9(MED1b), [0, 2.05, 0]), 'twigA': STR9a, 'twigB': STR9b, 'ruins': [3, 4, ROWZ]})
+CUT9 = 1.6
+def STR9(t): return [r(STR9a[i] + (STR9b[i] - STR9a[i]) * t / D9) for i in range(3)]
+C9b = cam(CUT9, add(STR9(CUT9), [0.75, 1.15, 2.5]), add(STR9(D9), [0.75, 1.15, 2.5]), add(STR9(CUT9), [0.2, 0.75, 0.12]), add(STR9(D9), [0.2, 0.75, 0.12]), lens=44)   # (review 3) it ends on the twig
+chk('S09b', C9b['from'], C9b['lookAt'], 46, {'twigTop': add(STR9(CUT9), [0, 1.0, 0.15]), 'foil': add(STR9(CUT9), [0, 0.1, 0])})
+chk('S09', C9['from'], C9['lookAt'], 56, {'porteFace': add(PORTE, [0, 2.05, 0]), 'cat': HEADC, 'med1aFace': add(MED1a, [0, 2.05, 0]), 'med1bFace': add(MED1b, [0, 2.05, 0]), 'med2bFace': add(back9(MED1b), [0, 2.05, 0]), 'twigA': STR9a, 'twigB': STR9b, 'ruins': [3, 4, ROWZ]})
 MEDK = lambda sgn: [k(0.0, toon={'reach': {'R': R5(handles(STR9a, sgn)[0], 1, 0.03), 'L': R5(handles(STR9a, sgn)[1], 1, 0.03)}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.3}}, toonDur=0.0),
                     k(D9, toon={'reach': {'R': R5(handles(STR9b, sgn)[0], 1, 0.03), 'L': R5(handles(STR9b, sgn)[1], 1, 0.03)}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.3}}, toonDur=D9, toonEase='linear')]
 SPK = {'lid': 0.35, 'mouth': 'line', 'brow': 0.2}
@@ -305,27 +310,27 @@ st.shot('S09', SET, setOpts=SETO, actors=[
                P('casqueM1', 'tacHelmet', on={'actor': 'medic1', 'joint': 'head', 'offset': [0.0, 0.47, 0.0]}, opts={'color': '#F2F2EE'}),
                P('casqueM2', 'tacHelmet', on={'actor': 'medic2', 'joint': 'head', 'offset': [0.0, 0.47, 0.0]}, opts={'color': '#F2F2EE'}),
                *[P(f'gravats9{i}', 'rubbleHeap', pos=tw(x, 0, z), ry=a, opts={'r': 1.3, 'h': 0.6}) for i, (x, z, a) in enumerate([(-3.4, -1.0, 20), (3.6, -1.6, 70)])]],
-        cams=[C9])
+        cams=[C9, C9b])
 for j in range(6): st.cue('sfx:stepSoft', 'S09', r(0.1 + 0.4 * j), 0.18)
 
 # 10: this man was arrested for feeding the enemy. Low on the lawn at the foot of the tree: he sneaks in crouching with his bowl; at the edges two
 #     riot police in light helmets crouch (four frames) and pounce from both sides; they lift him clear of the ground by the arms, legs kicking over
 #     the grass, his face annoyed (nobody hurt); the bowl drops; at the right the officer picks it up and raises it over his head with both hands,
 #     against the sky, to three press flashes (SAISI)
-D10 = st.dur('S10'); PILE10 = 0.7; LIFT10 = 1.05; UPH = 0.62
+D10 = st.dur('S10'); PILE10 = 0.7; LIFT10 = 0.92; UPH = 0.7   # (review 3) the bowl overhead from 1.12 s, held before SAISI at 1.29 s
 C10 = cam(0.0, [0.3, 1.0, 25.6], [0.29, 1.01, 25.4], [0.2, 2.05, 18.5], [0.2, 2.1, 18.5], lens=46)
 RY10 = 0
 HERO10a, HERO10b = tw(-0.3, 0, 3.4), tw(-0.3, 0, 4.2)
 HERO10c = add(HERO10b, [0, UPH, 0])
 BOWL10 = tw(0.55, 0, 4.6)
-OFFC = tw(1.3, 0, 4.0); RYO = -18
+OFFC = tw(1.3, 0, 3.5); RYO = -18
 UP10 = add(OFFC, [-0.05, 2.62, 0.18])
-CR1, CR2 = add(HERO10b, [-0.68, 0, -0.05]), add(HERO10b, [0.68, 0, -0.05])
-CR1a, CR2a = add(CR1, [-0.45, 0, 0.3]), add(CR2, [0.4, 0, 0.45])
+CR1, CR2 = add(HERO10b, [-0.72, 0, 0.3]), add(HERO10b, [0.72, 0, -0.35])   # (review 3) in depth: one in front, one behind
+CR1a, CR2a = add(CR1, [-0.35, 0, 0.2]), add(CR2, [0.4, 0, 0.3])
 chk('S10', C10['from'], C10['lookAt'], 46, {'heroFace': add(HERO10c, [0, 2.05, 0]), 'heroFeet': HERO10c, 'bowlGround': BOWL10, 'offFace': add(OFFC, [0, 2.05, 0]), 'bowlUp': UP10, 'crs1Face': add(CR1, [0, 2.05, 0]), 'crs2Face': add(CR2, [0, 2.05, 0]), 'crs1a': add(CR1a, [0, 1.6, 0]), 'crs2a': add(CR2a, [0, 1.6, 0])})
 ANNOY = {'lid': 0.55, 'mouth': 'flat', 'brow': -0.5}
 HOLDA = {'R': R5(add(HERO10c, [-0.42, 1.45, 0.05]), 1, 0.05), 'L': R5(add(HERO10c, [0.42, 1.45, 0.05]), 1, 0.05)}
-def KICK(i): return {'legL': [0.35 * (-1) ** i, 0.1, 0, 1, None], 'legR': [-0.35 * (-1) ** i, -0.1, 0, 1, None], 'shinL': [0.5 + 0.3 * (i % 2), 0, 0, 1, None], 'shinR': [0.8 - 0.3 * (i % 2), 0, 0, 1, None]}
+def KICK(i): return {'legL': [0.45 * (-1) ** i, 0.42, 0, 1, None], 'legR': [-0.45 * (-1) ** i, -0.42, 0, 1, None], 'shinL': [0.4 + 0.5 * (i % 2), 0, 0, 1, None], 'shinR': [0.9 - 0.5 * (i % 2), 0, 0, 1, None]}   # splayed and kicking
 st.shot('S10', SET, setOpts=SETO, actors=[
         act('mec', HERO10a, RY10, 'sneak', 'determined', keys=[k(0.0, to=HERO10b, dur=PILE10, clip='sneak', face='keep'), k(0.0, look=add(HERO10b, [0, 0, 1.5])),
             k(0.0, toon={'reach': {'R': R5(add(HERO10a, [-0.15, 1.15, 0.4]), 1, 0.05), 'L': R5(add(HERO10a, [0.15, 1.15, 0.4]), 1, 0.05)}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.2, 'mouth': 'line', 'brow': 0.4}}, toonDur=0.0),
@@ -338,8 +343,8 @@ st.shot('S10', SET, setOpts=SETO, actors=[
             k(0.0, toon={'reach': {'R': R5(add(pa, [-0.25, 1.0, 0.3])), 'L': R5(add(pa, [0.25, 1.0, 0.3]))}, 'hands': {'R': 'fist', 'L': 'fist'}, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.6}}, toonDur=0.0),
             k(r(PILE10 - 0.14), toon={'reach': {'R': R5(add(pa, [-0.25, 0.85, 0.35])), 'L': R5(add(pa, [0.25, 0.85, 0.35]))}, 'hands': {'R': 'fist', 'L': 'fist'}, 'sq': [1.12, 0.84, 1.12], 'face': {'lid': 0.2, 'mouth': 'clench', 'brow': -0.8}}, toonDur=0.06),   # (review 2) a crouch before the pounce
             k(r(PILE10 - 0.02), to=p, dur=0.12, ease='out', glide=True, face='keep'),
-            k(r(PILE10 - 0.02), toon={'reach': {('L' if sd > 0 else 'R'): R5(add(HERO10c, [-sd * 0.3, 1.5, 0.08]), 1, 0.05), ('R' if sd > 0 else 'L'): R5(add(HERO10c, [-sd * 0.28, 1.2, 0.14]), 1, 0.05)}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': [0.94, 1.08, 0.94], 'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.6}}, toonDur=0.12, toonEase='out'),
-            k(r(PILE10 + 0.2), toon={'reach': {('L' if sd > 0 else 'R'): R5(add(HERO10c, [-sd * 0.3, 1.5, 0.08]), 1, 0.05), ('R' if sd > 0 else 'L'): R5(add(HERO10c, [-sd * 0.28, 1.2, 0.14]), 1, 0.05)}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': [1, 1, 1], 'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.6}}, toonDur=0.12),
+            k(r(PILE10 - 0.02), toon={'reach': {('R' if sd > 0 else 'L'): R5(add(HERO10c, [sd * 0.3, 1.5, 0.08]), 1, 0.05), ('L' if sd > 0 else 'R'): R5(add(HERO10c, [sd * 0.34, 1.2, 0.14]), 1, 0.05)}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': [0.94, 1.08, 0.94], 'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.6}}, toonDur=0.12, toonEase='out'),
+            k(r(PILE10 + 0.2), toon={'reach': {('R' if sd > 0 else 'L'): R5(add(HERO10c, [sd * 0.3, 1.5, 0.08]), 1, 0.05), ('L' if sd > 0 else 'R'): R5(add(HERO10c, [sd * 0.34, 1.2, 0.14]), 1, 0.05)}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': [1, 1, 1], 'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.6}}, toonDur=0.12),
             k(r(PILE10 + 0.35), look='camera', lookDur=0.15), *blink(r(1.6 + 0.2 * sd), {'lid': 0.3, 'mouth': 'line', 'brow': -0.6})])
           for w, pa, p, ry, sd in (('crs1', CR1a, CR1, 25, -1), ('crs2', CR2a, CR2, -25, 1))],
         act('officier', OFFC, RYO, 'stand', 'smug', keys=[k(0.0, look=BOWL10),
@@ -352,13 +357,13 @@ st.shot('S10', SET, setOpts=SETO, actors=[
                P('bol10m', 'kibbleBowl', on={'actor': 'mec', 'hand': 'L', 'offset': [0.0, -0.06, 0.08], 'face': 'camera', 'faceFlat': True}, keys=[k(PILE10, visible=False)]),
                P('bol10', 'kibbleBowl', pos=add(BOWL10, [-0.4, 1.0, -0.3]), ry=0, keys=[k(0.0, visible=False), k(PILE10, visible=True), k(PILE10, to=BOWL10, dur=0.22, ease='in'),
                    k(r(LIFT10 - 0.1), to=add(UP10, [0, -0.1, 0]), dur=0.3, ease='out'), k(r(LIFT10 - 0.1), rotTo=[0.5, 0, 0], dur=0.3)]),
-               P('flashs10', 'flashBursts', pos=add(UP10, [0.0, 0.1, 0.4]), opts={'n': 3, 'w': 0.8, 'h': 0.5, 'at': [r(LIFT10 + 0.22), r(LIFT10 + 0.57), r(LIFT10 + 0.92)]}),   # the flashes pop on the held-up bowl
+               *[P(f'flash10{j}', 'camFlash', pos=add(UP10, [dx, dy, 0.45]), ry=yaw(UP10, C10['from']), opts={'w': 0.75, 'at': [r(LIFT10 + 0.2 + 0.35 * j)]}) for j, (dx, dy) in enumerate([(-0.35, 0.15), (0.3, 0.3), (-0.1, -0.15)])],   # (review 3) big starbursts on the bowl, under three a second   # the flashes pop on the held-up bowl
                *[P(f'casqueC{j}', 'visorHelmet', on={'actor': f'crs{j}', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}) for j in (1, 2)],
                *[P(f'gravats10{i}', 'rubbleHeap', pos=tw(x, 0, z), ry=a, opts={'r': 1.2, 'h': 0.5}) for i, (x, z, a) in enumerate([(-2.6, 2.2, 15), (3.1, 1.8, 80)])]],
         cams=[C10])
-st.card('S10', 'SAISI', at=r(LIFT10 + 0.24))
+st.card('S10', 'SAISI', at=1.29)
 st.cue('sfx:stepSoft', 'S10', 0.1, 0.2); st.cue('sfx:stepSoft', 'S10', 0.4, 0.2); st.cue('whoosh', 'S10', r(PILE10 - 0.02), 0.3, 0.15, 600, 2500); st.cue('sfx:grunt', 'S10', PILE10, 0.3); st.cue('clang', 'S10', r(PILE10 + 0.22), 0.25)
-for j in range(3): st.cue('sfx:shutter', 'S10', r(LIFT10 + 0.22 + 0.35 * j), 0.35)
+for j in range(3): st.cue('sfx:shutter', 'S10', r(LIFT10 + 0.2 + 0.35 * j), 0.35)
 
 # 11: the cat was charged with the damage. At the trunk: the bailiff in black staples the summons to the bark with a staple gun (two clacks); then
 #     close on the cat sitting on the branch: one ear flicks, then the other
@@ -398,16 +403,18 @@ chk('S12', C12['from'], C12['lookAt'], 46, {'jugeFace': add(JUGE12, [0, 2.05, 0]
 JF = {'lid': 0.45, 'mouth': 'line', 'brow': -0.3}
 st.shot('S12', SET, setOpts=SETO, actors=[
         act('juge', JUGE12, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'reach': {'R': R5(add(BENCH, [-0.3, BH + 0.08, -0.15])), 'L': R5(add(BENCH, [0.3, BH + 0.08, -0.15]))}, 'hands': {'R': 'rest', 'L': 'rest'}, 'face': JF}, toonDur=0.0), *blink(0.6, JF),
-            k(0.75, look=add(JUGE12, [0.0, 3.3, 0.6]), lookDur=0.08), k(1.0, look='camera', lookDur=0.1), k(1.55, look=add(JUGE12, [0.0, 3.3, 0.6]), lookDur=0.08), k(1.85, look='camera', lookDur=0.1), *blink(2.15, JF)]),   # (review 2) his eyes flick up to the tail
+            k(0.75, look=add(JUGE12, [0.0, 3.3, 0.6]), lookDur=0.08), k(0.75, toon={'face': {'lid': 0.0, 'pop': 0.35, 'mouth': 'O', 'brow': 0.8, 'gy': -1.0}, 'sq': [0.96, 1.06, 0.96]}, toonDur=0.05, keepPose=True), k(1.05, toon={'face': JF, 'sq': [1, 1, 1]}, toonDur=0.12, keepPose=True), k(1.05, look='camera', lookDur=0.1),
+            k(1.6, look=add(JUGE12, [0.0, 3.3, 0.6]), lookDur=0.08), k(1.6, toon={'face': {'lid': 0.2, 'mouth': 'line', 'brow': 0.6, 'gy': -1.0}}, toonDur=0.06, keepPose=True), k(1.9, toon={'face': JF}, toonDur=0.1, keepPose=True), k(1.9, look='camera', lookDur=0.1), *blink(2.15, JF)]),   # (review 2) his eyes flick up to the tail
         act('huissier', HUIS12, RYH12, 'stand', 'neutral', keys=[k(0.0, look=off(HUIS12, RYH12, 0.45, 0.0, 1.55)),
             *[k(r(0.4 * i), toon={'reach': {'R': R5(off(HUIS12, RYH12, 0.45, 0.17, 1.55 - 0.03 * (i % 2)), 1, 0.05), 'L': R5(off(HUIS12, RYH12, 0.45, -0.17, 1.55 - 0.03 * (i % 2)), 1, 0.05)}, 'hands': {'R': 'pinch', 'L': 'pinch'}, 'bend': {'neck': [0.25 + 0.08 * (i % 2), 0, 0, 1, None]}, 'face': {'lid': 0.45, 'mouth': 'line', 'brow': 0.3}}, toonDur=0.0 if i == 0 else 0.35) for i in range(7)],
             *st.talk('L12', 'S12', 'neutral'), k(1.95, look='camera', lookDur=0.15)]),   # (review 1) he reads the sheet, head bobbing
         *commandos('S12', orders=False, skip=('cdo2', 'cdo3', 'cdo4'))[0]],   # (review 2) only the top one: clear space round the bailiff and the judge
         props=[TREE('S12', twig=False, sag=[[0, 0.1]], summons={'text': 'CONVOCATION'}), ROW('S12', ruined=True), *commandos('S12', skip=('cdo2', 'cdo3', 'cdo4'))[1],
-               CAT('S12', ry=90, clips=[[0, 'sleep']], tail='dangle', tailS=10.5, tailW=2.4, tailFur=True, swing=0.55, swingF=1.7),
+               CAT('S12', ry=90, clips=[[0, 'sleep']], tailS=0.05),
+               P('queue12', 'dangleTail', pos=tw(0.45, 5.78, 0.06), opts={'len': 2.78, 'n': 13, 'amp': 0.1, 'f': 2.0, 'k': 0.55}),   # (review 3) a tapering tail that sways in an S-arc, its fluffy tip flicking over the wig
                P('estrade12', 'dais', pos=add(JUGE, [0, 0, -0.05]), opts={'w': 1.1, 'h': 0.4, 'd': 0.7}),
                P('banc12', 'fieldBench', pos=BENCH, opts={'w': 2.2, 'h': BH}), P('bol12', 'kibbleBowl', pos=add(BOWL12, [0.15, 0, 0]), ry=-5, opts={'tag': True, 'tagS': 1.35}),
-               P('feuille12', 'stapledSheet', on={'actor': 'huissier', 'hand': 'R', 'offset': [-0.12, 0.12, 0.06], 'face': 'camera'}, opts={'text': 'ACTE', 'w': 0.42, 'h': 0.56}),
+               P('feuille12', 'stapledSheet', on={'actor': 'huissier', 'hand': 'L', 'offset': [0.1, 0.12, 0.06], 'face': 'camera'}, opts={'text': 'ACTE', 'w': 0.4, 'h': 0.52}),
                P('marteau12', 'gavel', pos=add(BENCH, [-0.6, BH + 0.04, 0.1]), rot=[0, 0, PI / 2]), P('socle12', 'soundBlock', pos=add(BENCH, [-0.35, BH + 0.04, 0.15])),
                *[P(f'gravats12{i}', 'rubbleHeap', pos=tw(x, 0, z), ry=a, opts={'r': 1.3, 'h': 0.55}) for i, (x, z, a) in enumerate([(-2.6, 1.0, 20), (3.4, 1.4, 70), (2.6, 4.6, 35)])]],
         cams=[C12])
@@ -435,7 +442,7 @@ C14a = cam(0.0, [2.0, 1.0, 19.4], [1.98, 1.01, 19.3], [1.35, 2.0, 14.8], [1.35, 
 C14b = cam(CUT14, add(HEADC, [-0.15, 0.3, 1.3]), add(HEADC, [-0.14, 0.29, 1.22]), add(HEADC, [0.05, -0.08, 0.0]), add(HEADC, [0.05, -0.08, 0.0]), lens=54)
 BLOCK14 = add(BENCH, [0.72, BH + 0.04, 0.12])
 GUP14 = add(JUGE14, [-0.32, 2.75, -0.05])
-POINT14 = add(JUGE14, [0.62, 1.15, 0.2])   # (review 2) the arm out from the robe, the finger against the lawn
+POINT14 = [r(JUGE14[0] + 0.05), 1.2, r(BENCH[2] + 0.55)]   # (review 3) leaning over the bench, the arm straight down in front of it, the finger to the ground
 chk('S14a', C14a['from'], C14a['lookAt'], 50, {'jugeFace': add(JUGE14, [0, 2.05, 0]), 'wig': add(JUGE14, [0, 2.45, 0]), 'gavelUp': GUP14, 'block': BLOCK14, 'point': POINT14, 'pointTip': add(POINT14, [0, -0.25, 0]), 'tag': add(BOWL12S, [0.05, 0.2, 0.25]), 'benchEnd': add(BENCH, [1.1, BH, 0.4])})
 chk('S14b', C14b['from'], C14b['lookAt'], 54, {'catHead': HEADC, 'seat': SEAT, 'ear': add(HEADC, [0.1, 0.25, 0])})
 JA = {'lid': 0.15, 'mouth': 'clench', 'brow': -0.8}
@@ -445,9 +452,9 @@ st.shot('S14', SET, setOpts=SETO, actors=[
             k(0.0, toon={'reach': {'R': R5(add(BLOCK14, [0.0, 0.5, -0.05]), 1, 0.06), 'L': R5(add(JUGE14, [0.3, 1.0, 0.2]))}, 'hands': {'R': 'grip', 'L': 'rest'}, 'face': JA}, toonDur=0.0),
             k(0.02, toon={'reach': {'R': R5(GUP14, 1, 0.08), 'L': R5(add(JUGE14, [0.3, 1.0, 0.2]))}, 'hands': {'R': 'grip', 'L': 'rest'}, 'sq': [0.88, 1.16, 0.88], 'bend': {'spine': [-0.15, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'mouth': 'O', 'brow': -0.9}, 'auto': 0}, toonDur=0.15, toonEase='out'),
             k(r(HIT14 - 0.05), toon={'reach': {'R': R5(add(BLOCK14, [0.0, 0.12, 0.0]), 1, 0.08), 'L': R5(add(JUGE14, [0.3, 1.0, 0.2]))}, 'hands': {'R': 'grip', 'L': 'rest'}, 'sq': [1.16, 0.85, 1.16], 'bend': {'spine': [0.25, 0, 0, 1, None]}, 'face': {'lid': 0.3, 'mouth': 'clench', 'brow': -0.9}, 'auto': 0}, toonDur=0.05, toonEase='in'),
-            k(r(PT14 - 0.04), toon={'reach': {'R': R5(add(BLOCK14, [0.0, 0.14, 0.0]), 1, 0.08), 'L': R5(POINT14, 1, 0.08)}, 'hands': {'R': 'grip', 'L': 'point'}, 'sq': [0.97, 1.05, 0.97], 'face': JP, 'auto': 0}, toonDur=0.08, toonEase='out'),   # (review 2) a vertical arm, finger down beside the bench end
-            k(r(PT14 + 0.1), toon={'reach': {'R': R5(add(BLOCK14, [0.0, 0.14, 0.0]), 1, 0.08), 'L': R5(add(POINT14, [0.0, -0.04, 0.0]), 1, 0.08)}, 'hands': {'R': 'grip', 'L': 'point'}, 'sq': [1, 1, 1], 'face': JP}, toonDur=0.1),
-            k(r(PT14 - 0.02), look=add(JUGE14, [0.0, 4.0, 0.9]), lookDur=0.1)]),
+            k(r(PT14 - 0.04), toon={'reach': {'R': R5(add(BLOCK14, [0.0, 0.14, 0.0]), 1, 0.08), 'L': R5(POINT14, 1, 0.12)}, 'hands': {'R': 'grip', 'L': 'point'}, 'sq': [0.97, 1.05, 0.97], 'bend': {'spine': [0.5, 0, 0, 1, None]}, 'face': {**JP, 'gy': -1.0}, 'auto': 0}, toonDur=0.08, toonEase='out'),   # (review 2) a vertical arm, finger down beside the bench end
+            k(r(PT14 + 0.1), toon={'reach': {'R': R5(add(BLOCK14, [0.0, 0.14, 0.0]), 1, 0.08), 'L': R5(add(POINT14, [0.0, -0.05, 0.0]), 1, 0.12)}, 'hands': {'R': 'grip', 'L': 'point'}, 'sq': [1, 1, 1], 'bend': {'spine': [0.5, 0, 0, 1, None]}, 'face': {**JP, 'gy': -1.0}}, toonDur=0.1),
+            k(r(PT14 - 0.02), look=add(JUGE14, [0.0, 2.6, 1.4]), lookDur=0.1)]),
         *commandos('S14', skip=('cdo4',))[0]],
         props=[TREE('S14', twig=False, sag=[[0, 0.1]], curl=[[0, 1.0]], summons={'text': 'CONVOCATION'}), ROW('S14', ruined=True), *commandos('S14', skip=('cdo4',))[1],
                CAT('S14', ry=-12, clips=[[0, 'sit']], expr=[[0, 'sleepy']], yawn=[[r(CUT14 + 0.06), r(D14 - 0.04)]]),
@@ -517,17 +524,19 @@ D17 = st.dur('S17'); UP17 = 1.2
 UPR = axes_euler([-1, 0, 0], [0, 0, 1], [0, 1, 0])
 CATU0, CATU1 = tw(0.0, 2.2, TRUNKF + 0.06), tw(0.0, 5.0, TRUNKF)
 C17 = cam(0.0, [1.25, 1.45, 23.5], [1.2, 1.45, 23.2], [0.65, 2.75, 14.0], [0.65, 2.8, 14.0], lens=54)   # (review 2) at bowl height: the bowl at 65 %, the shoot near the top   # (review 1) closer: the climb, the flop into the shoot, a saluting commando, the empty bowl
+C17b = cam(1.5, [1.3, 6.4, 19.2], [1.28, 6.4, 19.0], [1.1, 6.4, 14.0], [1.1, 6.4, 14.0], lens=50)   # (review 3) the end hold: a real cut, close on the cat curled in the shoot and the saluting commando
+chk('S17b', C17b['from'], C17b['lookAt'], 50, {'seat': add(SEAT, [0, 0.25, 0]), 'curlTop': tw(0.75, 6.65), 'curlTip': tw(1.3, 5.9), 'cdo1face': add(CDO1, [0, 1.65, 0]), 'cdo1salute': add(CDO1, [0.1, 1.62, 0.15]), 'branchL': tw(0.0, 5.45)})
 chk('S17', C17['from'], C17['lookAt'], 54, {'catLow': CATU0, 'catHigh': CATU1, 'seat': add(SEAT, [0, 0.3, 0]), 'bowl': BOWL16, 'cdo3': add(r3, [0, 2.0, 0]), 'treeTop': tw(-1.0, 7.6, -0.5), 'bench': add(BENCH, [0, 1.2, 0])})
 WOB17 = [k(r(0.3 + 0.35 * i), toon={'sq': [1 + 0.04 * (-1) ** i, 1 - 0.05 * (-1) ** i, 1], 'bend': {'spine': [0, 0.12 * (-1) ** i, 0, 1, None]}}, toonDur=0.3, keepPose=True) for i in range(7)]   # the saluting one wobbles
 acts17, props17 = commandos('S17', orders=True, salute=('cdo3', -1.0), look=CATU1, extra={'cdo3': WOB17}, salute1=True)
 DAWNSET = {**SETO, 'sky': ['#C98AA8', '#FFC48A']}   # (review 2) a warm dawn: pink-violet high, orange low, a low sun from the side, long shadows
-DAWNLOOK = {'sunColor': '#FFAA70', 'sunDir': [0.95, 0.18, 0.3], 'elevation': 12, 'warm': 0.5, 'hazeColor': '#F2B892', 'exposure': 1.04}
+DAWNLOOK = {'sunColor': '#FFAA70', 'sunDir': [0.95, 0.18, 0.3], 'elevation': 12, 'warm': 0.5, 'hazeColor': '#F2B892', 'exposure': 1.08, 'fill': 1.5}   # (review 3) more fill: the commandos' eyes read
 st.shot('S17', SET, setOpts=DAWNSET, look=DAWNLOOK, actors=acts17,
         props=[TREE('S17', twig=False, sag=[[0, 0.1]], curl=[[0, 1.0]], summons={'text': 'CONVOCATION'}), ROW('S17', ruined=True), *props17,
                P('banc17', 'fieldBench', pos=BENCH, opts={'w': 2.2, 'h': BH}), P('bol17', 'kibbleBowl', pos=BOWL16, ry=90, rot=[0.6, PI / 2, 0], opts={'tag': True, 'tagS': 1.35, 'empty': True}),   # (review 2) tilted to the lens, the empty inside showing, the tag beside it
                CAT('S17', pos=CATU0, ry=UPR[1], rot=[UPR[0], 0, UPR[2]], keys=[k(0.0, to=CATU1, dur=UP17, ease='linear'), k(UP17, to=SEAT, dur=0.25, ease='out'), k(UP17, rotTo=[0, math.radians(200), 0], dur=0.3), k(r(UP17 + 0.35), rotTo=[0, math.radians(-25), 0], dur=0.25)],
                    clips=[[0, 'walk'], [UP17, 'walk'], [r(UP17 + 0.62), 'sleep']], duck=[[r(UP17 + 0.6), 0.0], [r(UP17 + 0.66), 1.0], [r(UP17 + 0.8), 0.25]], flat=0.4, duckBlend=0.08)],   # (review 1) it turns round on the branch and flops asleep in the shoot
-        cams=[C17])
+        cams=[C17, C17b])
 st.cue('sfx:scratch', 'S17', 0.1, 0.15); st.cue('sfx:scratch', 'S17', 0.7, 0.15); st.cue('sfx:bell', 'S17', r(UP17 + 0.5), 0.0)
 
 print('\n'.join(CHECKS))
