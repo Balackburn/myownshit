@@ -285,7 +285,10 @@ export const FEUILLE_PROPS = {
       c.strokeStyle = INK; c.lineWidth = 3; c.beginPath(); c.moveTo(Wc * 0.72, Hc * 0.2); c.lineTo(Wc * 0.8, Hc * 0.3); c.stroke(); c.fillStyle = '#FFFFFF'; c.fillRect(Wc * 0.76, Hc * 0.29, Wc * 0.14, Hc * 0.07); c.strokeRect(Wc * 0.76, Hc * 0.29, Wc * 0.14, Hc * 0.07); c.fillStyle = '#C8202A'; c.font = `bold ${Math.round(Hc * 0.04)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('49 €', Wc * 0.83, Hc * 0.326);
       c.lineWidth = 6; c.strokeStyle = INK; c.fillStyle = INK; c.font = `900 ${Math.round(Hc * 0.08)}px Arial`; c.textAlign = 'left';
       for (const [x, txt] of [[0.12, 'OUI'], [0.56, 'NON']]) { c.strokeRect(Wc * x, Hc * 0.7, Wc * 0.12, Wc * 0.12); c.fillText(txt, Wc * (x + 0.15), Hc * 0.7 + Wc * 0.06); } }, { res: 512 });
-    g.add(at(box(W + 0.06, H + 0.06, 0.04, '#E2DBCB', { outline: 0.006 }), 0, 0.85 + H / 2, 0.08), at(pl, 0, 0.85 + H / 2, 0.105)); return g;
+    // o.wobble [t, ...] (s): a tap on the board at each t, it rocks on the easel and settles
+    const bd = grp(at(box(W + 0.06, H + 0.06, 0.04, '#E2DBCB', { outline: 0.006 }), 0, H / 2, 0.08), at(pl, 0, H / 2, 0.105)); bd.position.y = 0.85; g.add(bd);
+    if (o.wobble) g.userData.update = tt => { let z = 0, x = 0; for (const w of o.wobble) { const u = tt - w; if (u > 0) { const e = Math.exp(-u * 7); z += 0.07 * e * Math.sin(u * 26); x += -0.05 * e * Math.cos(u * 22); } } bd.rotation.set(x, 0, z); };
+    return g;
   },
 
   // A pointing stick (pivot at the grip, along +Y up to o.len (1.0)): thin wood with a black tip
@@ -329,7 +332,9 @@ export const FEUILLE_PROPS = {
     g.add(inst(new THREE.CylinderGeometry(0.22, 0.22, 5.6, 8), mat('#8A6A4A'), logs.map(p => [p[0], p[1], p[2], 0, 0, PI / 2, 1, 1, 1])), inst(new THREE.CylinderGeometry(0.2, 0.2, 5.62, 8), mat('#E8D2A0'), logs.map(p => [p[0], p[1], p[2], 0, 0, PI / 2, 1, 1, 1])));
     for (const s of [-1, 1]) g.add(at(box(3.2, 0.7, 0.05, '#F4F1E8', { outline: 0.006 }), -0.9, 2.6, s * 1.24), at(label('BULLETINS', 3.0, 0.6, { bg: '#F4F1E8', fg: '#1E3A6E', wrap: false }), -0.9, 2.6, s * 1.27, 0, s > 0 ? 0 : PI, 0));
     const last = at(grp(at(cyl(0.22, 0.22, 4.8, '#8A6A4A', 8, { outline: 0.006 }), 0, 0, 0, 0, 0, PI / 2), at(cyl(0.205, 0.205, 4.82, '#E8D2A0', 8), 0, 0, 0, 0, 0, PI / 2)), -0.9, 0.25, side * 2.0); g.add(last);
-    g.userData.update = t => { const u = o.loadAt != null ? smooth((t - o.loadAt) / 0.6) : 0; last.position.set(-0.9, 0.25 + (2.55 - 0.25) * u + Math.sin(u * PI) * 0.6, side * (2.0 - 2.0 * u)); };
+    // o.bounce: the last log hops twice on the load after landing
+    g.userData.update = t => { const u = o.loadAt != null ? smooth((t - o.loadAt) / 0.6) : 0, w = o.bounce && o.loadAt != null ? t - o.loadAt - 0.6 : -1;
+      const b = w > 0 ? 0.22 * Math.exp(-w * 7) * Math.abs(Math.sin(w * 14)) : 0; last.position.set(-0.9, 0.25 + (2.55 - 0.25) * u + Math.sin(u * PI) * 0.6 + b, side * (2.0 - 2.0 * u)); };
     g.userData.update(0); return g;
   },
 
