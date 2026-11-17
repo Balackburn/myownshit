@@ -49,7 +49,7 @@ FX = {'thunder': thunder, 'thud': thud, 'clack': clack, 'clang': clang, 'pop': p
 for c in json.load(open(A.cues)):
     name, t, g = c[0], c[1], c[2]
     if name.startswith('sfx:'): x = A3.sfx(name[4:], int(t * 10))
-    elif name == 'rain': x = rain(c[3])
+    elif name == 'rain': x = rain(c[3] if len(c) > 3 else 1.5)   # (cycle 44) a rain cue without its duration used to fail the whole mix
     elif name == 'whoosh': x = whoosh(*c[3:6]) if len(c) > 3 else whoosh()
     elif name == 'gust': x = gust(c[3]) if len(c) > 3 else gust()
     elif name == 'engine': x = engine(c[3] if len(c) > 3 else 1.5)

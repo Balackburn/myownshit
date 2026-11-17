@@ -1899,3 +1899,6 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   « La guêpe » (81) ; l'hélicoptère de base portait aussi « SWAT ». Remplacés par « POLICE », comme MILK → LAIT, GLUE → COLLE,
   ATM → RETRAIT, SOLD → SOLDES, WANTED → RECHERCHÉ, NO PAIN NO GAIN → TOUJOURS PLUS FORT. Avant chaque rendu final, chercher tout texte
   visible sur les tenues et accessoires utilisés (`grep -n "label(\|textLabel(" engine/*.js`) et vérifier qu'il est en français.
+- (cycle 44) Un repère `rain` sans durée faisait échouer tout le mixage, donc la génération finale après 1 h 45 de rendu 3D. `mix.py` prend
+  maintenant 1,5 s par défaut, mais donner la durée (`st.cue('rain', sid, t, gain, dur)`). Si seule l'étape HyperFrames échoue, ne pas
+  relancer le rendu 3D : relancer `make_project.py` puis le rendu HyperFrames (voir `$SP/s7/hf_flaque.sh`).

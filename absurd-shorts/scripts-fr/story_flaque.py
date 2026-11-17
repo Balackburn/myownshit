@@ -272,7 +272,7 @@ st.shot('S11', 'grassland', setOpts={'clouds': 0, 'grass': '#C9BFA9'}, actors=[]
                P('nuage11', 'rainCloud', pos=[-26.0, 0.0, 3.0], opts={'h': 26.0, 'size': 8.0, 'w': 9.0, 'n': 240, 'rain': [[r(RAIN11 - 0.1), True]], 'mood': 'happy'},
                  keys=[k(r(RAIN11 - 0.4), to=[30.0, 0.0, 1.0], dur=r(FULL11 - RAIN11 + 1.2), ease='linear')])],
         cams=[cam(0.0, [0.0, 56.0, 26.0], [0.0, 56.0, 26.0], [0.0, 0.0, -8.0], [0.0, 0.0, -8.0], lens=50)])
-st.cue('thunder', 'S11', 0.05, 0.3); st.cue('sfx:crunch', 'S11', 0.3, 0.25); st.cue('rain', 'S11', RAIN11, 0.4); st.cue('sfx:ding', 'S11', r(FULL11 + 0.1), 0.2)
+st.cue('thunder', 'S11', 0.05, 0.3); st.cue('sfx:crunch', 'S11', 0.3, 0.25); st.cue('rain', 'S11', RAIN11, 0.4, round(FULL11 - RAIN11 + 0.6, 2))   # (final) rain needs its duration, mix.py failed without it; st.cue('sfx:ding', 'S11', r(FULL11 + 0.1), 0.2)
 
 # 12: the minister ordered... Close on the minister at the podium: he signs the order form, an open sheet flat on the podium, pen on paper: three
 #     quick strokes, then a big flourish (round 1: his head is whole in the frame; no microphones in front of the sheet; a thin roll at the edge)
