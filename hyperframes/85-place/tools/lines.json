@@ -1,0 +1,162 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec s'est fait piquer sa place au supermarché.",
+  "hl": [
+   "piquer",
+   "place"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "L'armée a confirmé l'invasion.",
+  "hl": [
+   "L'armée",
+   "l'invasion."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "La marine a imposé un blocus au rond-point.",
+  "hl": [
+   "marine",
+   "rond-point."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Ultimatum : dix minutes pour se rendre.",
+  "hl": [
+   "Ultimatum",
+   "dix"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "L'envahisseur était au rayon fromage.",
+  "hl": [
+   "L'envahisseur",
+   "fromage."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Six avions ont bombardé sa voiture.",
+  "hl": [
+   "Six",
+   "voiture."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Et les deux cents places autour.",
+  "hl": [
+   "deux",
+   "cents"
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Le supermarché aussi. Il était mal garé.",
+  "hl": [
+   "supermarché",
+   "garé."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "L'envahisseur a été placé sous protection des témoins.",
+  "hl": [
+   "protection",
+   "témoins."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "La place a été reprise.",
+  "hl": [
+   "reprise."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Trois mille soldats ont défilé dessus.",
+  "hl": [
+   "Trois",
+   "mille",
+   "défilé"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Les autres pays ont convoqué un sommet.",
+  "hl": [
+   "pays",
+   "sommet."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le sommet a duré quarante tours.",
+  "hl": [
+   "quarante",
+   "tours."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Le traité a déclaré la place zone neutre.",
+  "hl": [
+   "traité",
+   "neutre."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Chaque pays y a garé un char.",
+  "hl": [
+   "char."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Ce mec paie les réparations de guerre.",
+  "hl": [
+   "paie",
+   "guerre."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Le blocus n'a jamais été levé.",
+  "hl": [
+   "jamais"
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Il se gare dans le pays voisin.",
+  "hl": [
+   "pays",
+   "voisin."
+  ]
+ }
+]

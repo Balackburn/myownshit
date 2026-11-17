@@ -1,0 +1,863 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec s'est fait piquer sa place au supermarché.",
+   "hl": [
+    "piquer",
+    "place"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.322,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.47
+    },
+    {
+     "w": "s'est",
+     "s": 0.507,
+     "e": 0.619
+    },
+    {
+     "w": "fait",
+     "s": 0.693,
+     "e": 0.767
+    },
+    {
+     "w": "piquer",
+     "s": 0.804,
+     "e": 0.989
+    },
+    {
+     "w": "sa",
+     "s": 1.063,
+     "e": 1.137
+    },
+    {
+     "w": "place",
+     "s": 1.211,
+     "e": 1.359
+    },
+    {
+     "w": "au",
+     "s": 1.433,
+     "e": 1.507
+    },
+    {
+     "w": "supermarché.",
+     "s": 1.656,
+     "e": 2.322
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "L'armée a confirmé l'invasion.",
+   "hl": [
+    "L'armée",
+    "l'invasion."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L02.k.wav",
+   "file_start": 2.422,
+   "speech_start": 2.422,
+   "speech_end": 4.126,
+   "words": [
+    {
+     "w": "L'armée",
+     "s": 2.422,
+     "e": 2.793
+    },
+    {
+     "w": "a",
+     "s": 2.867,
+     "e": 2.941
+    },
+    {
+     "w": "confirmé",
+     "s": 3.126,
+     "e": 3.348
+    },
+    {
+     "w": "l'invasion.",
+     "s": 3.385,
+     "e": 4.126
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "La marine a imposé un blocus au rond-point.",
+   "hl": [
+    "marine",
+    "rond-point."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L03.k.wav",
+   "file_start": 4.226,
+   "speech_start": 4.226,
+   "speech_end": 6.3,
+   "words": [
+    {
+     "w": "La",
+     "s": 4.226,
+     "e": 4.3
+    },
+    {
+     "w": "marine",
+     "s": 4.374,
+     "e": 4.67
+    },
+    {
+     "w": "a",
+     "s": 4.707,
+     "e": 4.744
+    },
+    {
+     "w": "imposé",
+     "s": 4.819,
+     "e": 5.115
+    },
+    {
+     "w": "un",
+     "s": 5.152,
+     "e": 5.189
+    },
+    {
+     "w": "blocus",
+     "s": 5.226,
+     "e": 5.559
+    },
+    {
+     "w": "au",
+     "s": 5.596,
+     "e": 5.633
+    },
+    {
+     "w": "rond-point.",
+     "s": 5.682,
+     "e": 6.3
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Ultimatum : dix minutes pour se rendre.",
+   "hl": [
+    "Ultimatum",
+    "dix"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L04.k.wav",
+   "file_start": 6.4,
+   "speech_start": 6.4,
+   "speech_end": 8.622,
+   "words": [
+    {
+     "w": "Ultimatum:",
+     "s": 6.4,
+     "e": 7.314
+    },
+    {
+     "w": "dix",
+     "s": 7.338,
+     "e": 7.437
+    },
+    {
+     "w": "minutes",
+     "s": 7.585,
+     "e": 7.733
+    },
+    {
+     "w": "pour",
+     "s": 7.807,
+     "e": 7.881
+    },
+    {
+     "w": "se",
+     "s": 7.956,
+     "e": 8.03
+    },
+    {
+     "w": "rendre.",
+     "s": 8.141,
+     "e": 8.622
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "L'envahisseur était au rayon fromage.",
+   "hl": [
+    "L'envahisseur",
+    "fromage."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L05.k.wav",
+   "file_start": 8.722,
+   "speech_start": 8.722,
+   "speech_end": 10.65,
+   "words": [
+    {
+     "w": "L'envahisseur",
+     "s": 8.722,
+     "e": 9.315
+    },
+    {
+     "w": "était",
+     "s": 9.426,
+     "e": 9.537
+    },
+    {
+     "w": "au",
+     "s": 9.574,
+     "e": 9.611
+    },
+    {
+     "w": "rayon",
+     "s": 9.685,
+     "e": 9.833
+    },
+    {
+     "w": "fromage.",
+     "s": 9.907,
+     "e": 10.648
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Six avions ont bombardé sa voiture.",
+   "hl": [
+    "Six",
+    "voiture."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L06.k.wav",
+   "file_start": 10.75,
+   "speech_start": 10.75,
+   "speech_end": 12.75,
+   "words": [
+    {
+     "w": "Six",
+     "s": 10.75,
+     "e": 10.972
+    },
+    {
+     "w": "avions",
+     "s": 11.083,
+     "e": 11.342
+    },
+    {
+     "w": "ont",
+     "s": 11.416,
+     "e": 11.49
+    },
+    {
+     "w": "bombardé",
+     "s": 11.564,
+     "e": 11.935
+    },
+    {
+     "w": "sa",
+     "s": 11.972,
+     "e": 12.009
+    },
+    {
+     "w": "voiture.",
+     "s": 12.046,
+     "e": 12.75
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Et les deux cents places autour.",
+   "hl": [
+    "deux",
+    "cents"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L07.k.wav",
+   "file_start": 12.85,
+   "speech_start": 12.85,
+   "speech_end": 14.335,
+   "words": [
+    {
+     "w": "Et",
+     "s": 12.85,
+     "e": 12.924
+    },
+    {
+     "w": "les",
+     "s": 12.998,
+     "e": 13.072
+    },
+    {
+     "w": "deux",
+     "s": 13.146,
+     "e": 13.22
+    },
+    {
+     "w": "cents",
+     "s": 13.294,
+     "e": 13.442
+    },
+    {
+     "w": "places",
+     "s": 13.553,
+     "e": 13.664
+    },
+    {
+     "w": "autour.",
+     "s": 13.738,
+     "e": 14.331
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Le supermarché aussi. Il était mal garé.",
+   "hl": [
+    "supermarché",
+    "garé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L08.k.wav",
+   "file_start": 14.435,
+   "speech_start": 14.435,
+   "speech_end": 16.88,
+   "words": [
+    {
+     "w": "Le",
+     "s": 14.435,
+     "e": 14.509
+    },
+    {
+     "w": "supermarché",
+     "s": 14.584,
+     "e": 15.176
+    },
+    {
+     "w": "aussi.",
+     "s": 15.287,
+     "e": 15.794
+    },
+    {
+     "w": "Il",
+     "s": 15.818,
+     "e": 15.843
+    },
+    {
+     "w": "était",
+     "s": 15.917,
+     "e": 16.065
+    },
+    {
+     "w": "mal",
+     "s": 16.139,
+     "e": 16.213
+    },
+    {
+     "w": "garé.",
+     "s": 16.324,
+     "e": 16.88
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "L'envahisseur a été placé sous protection des témoins.",
+   "hl": [
+    "protection",
+    "témoins."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L09.k.wav",
+   "file_start": 16.98,
+   "speech_start": 16.98,
+   "speech_end": 19.424,
+   "words": [
+    {
+     "w": "L'envahisseur",
+     "s": 16.98,
+     "e": 17.572
+    },
+    {
+     "w": "a",
+     "s": 17.609,
+     "e": 17.646
+    },
+    {
+     "w": "été",
+     "s": 17.758,
+     "e": 17.869
+    },
+    {
+     "w": "placé",
+     "s": 17.918,
+     "e": 18.165
+    },
+    {
+     "w": "sous",
+     "s": 18.19,
+     "e": 18.239
+    },
+    {
+     "w": "protection",
+     "s": 18.313,
+     "e": 18.684
+    },
+    {
+     "w": "des",
+     "s": 18.758,
+     "e": 18.832
+    },
+    {
+     "w": "témoins.",
+     "s": 18.906,
+     "e": 19.424
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "La place a été reprise.",
+   "hl": [
+    "reprise."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L10.k.wav",
+   "file_start": 19.524,
+   "speech_start": 19.524,
+   "speech_end": 20.874,
+   "words": [
+    {
+     "w": "La",
+     "s": 19.524,
+     "e": 19.598
+    },
+    {
+     "w": "place",
+     "s": 19.672,
+     "e": 19.895
+    },
+    {
+     "w": "a",
+     "s": 19.932,
+     "e": 19.969
+    },
+    {
+     "w": "été",
+     "s": 20.043,
+     "e": 20.117
+    },
+    {
+     "w": "reprise.",
+     "s": 20.191,
+     "e": 20.858
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Trois mille soldats ont défilé dessus.",
+   "hl": [
+    "Trois",
+    "mille",
+    "défilé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L11.k.wav",
+   "file_start": 20.974,
+   "speech_start": 20.974,
+   "speech_end": 22.826,
+   "words": [
+    {
+     "w": "Trois",
+     "s": 20.974,
+     "e": 21.122
+    },
+    {
+     "w": "mille",
+     "s": 21.196,
+     "e": 21.344
+    },
+    {
+     "w": "soldats",
+     "s": 21.418,
+     "e": 21.714
+    },
+    {
+     "w": "ont",
+     "s": 21.788,
+     "e": 21.863
+    },
+    {
+     "w": "défilé",
+     "s": 21.937,
+     "e": 22.196
+    },
+    {
+     "w": "dessus.",
+     "s": 22.233,
+     "e": 22.826
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Les autres pays ont convoqué un sommet.",
+   "hl": [
+    "pays",
+    "sommet."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L12.k.wav",
+   "file_start": 22.926,
+   "speech_start": 22.926,
+   "speech_end": 24.777,
+   "words": [
+    {
+     "w": "Les",
+     "s": 22.926,
+     "e": 23.074
+    },
+    {
+     "w": "autres",
+     "s": 23.148,
+     "e": 23.296
+    },
+    {
+     "w": "pays",
+     "s": 23.37,
+     "e": 23.592
+    },
+    {
+     "w": "ont",
+     "s": 23.666,
+     "e": 23.74
+    },
+    {
+     "w": "convoqué",
+     "s": 23.814,
+     "e": 24.111
+    },
+    {
+     "w": "un",
+     "s": 24.148,
+     "e": 24.185
+    },
+    {
+     "w": "sommet.",
+     "s": 24.259,
+     "e": 24.777
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Le sommet a duré quarante tours.",
+   "hl": [
+    "quarante",
+    "tours."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L13.k.wav",
+   "file_start": 24.877,
+   "speech_start": 24.877,
+   "speech_end": 26.655,
+   "words": [
+    {
+     "w": "Le",
+     "s": 24.877,
+     "e": 24.951
+    },
+    {
+     "w": "sommet",
+     "s": 25.026,
+     "e": 25.322
+    },
+    {
+     "w": "a",
+     "s": 25.359,
+     "e": 25.396
+    },
+    {
+     "w": "duré",
+     "s": 25.47,
+     "e": 25.766
+    },
+    {
+     "w": "quarante",
+     "s": 25.803,
+     "e": 26.137
+    },
+    {
+     "w": "tours.",
+     "s": 26.174,
+     "e": 26.655
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Le traité a déclaré la place zone neutre.",
+   "hl": [
+    "traité",
+    "neutre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L14.k.wav",
+   "file_start": 26.755,
+   "speech_start": 26.755,
+   "speech_end": 29.2,
+   "words": [
+    {
+     "w": "Le",
+     "s": 26.755,
+     "e": 26.829
+    },
+    {
+     "w": "traité",
+     "s": 26.903,
+     "e": 27.2
+    },
+    {
+     "w": "a",
+     "s": 27.237,
+     "e": 27.274
+    },
+    {
+     "w": "déclaré",
+     "s": 27.348,
+     "e": 27.681
+    },
+    {
+     "w": "la",
+     "s": 27.718,
+     "e": 27.792
+    },
+    {
+     "w": "place",
+     "s": 27.866,
+     "e": 28.237
+    },
+    {
+     "w": "zone",
+     "s": 28.311,
+     "e": 28.533
+    },
+    {
+     "w": "neutre.",
+     "s": 28.607,
+     "e": 29.2
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Chaque pays y a garé un char.",
+   "hl": [
+    "char."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L15.k.wav",
+   "file_start": 29.3,
+   "speech_start": 29.3,
+   "speech_end": 31.151,
+   "words": [
+    {
+     "w": "Chaque",
+     "s": 29.3,
+     "e": 29.522
+    },
+    {
+     "w": "pays",
+     "s": 29.596,
+     "e": 29.892
+    },
+    {
+     "w": "y",
+     "s": 29.966,
+     "e": 30.04
+    },
+    {
+     "w": "a",
+     "s": 30.077,
+     "e": 30.114
+    },
+    {
+     "w": "garé",
+     "s": 30.226,
+     "e": 30.411
+    },
+    {
+     "w": "un",
+     "s": 30.485,
+     "e": 30.559
+    },
+    {
+     "w": "char.",
+     "s": 30.707,
+     "e": 31.151
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Ce mec paie les réparations de guerre.",
+   "hl": [
+    "paie",
+    "guerre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L16.k.wav",
+   "file_start": 31.251,
+   "speech_start": 31.251,
+   "speech_end": 33.029,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 31.251,
+     "e": 31.326
+    },
+    {
+     "w": "mec",
+     "s": 31.4,
+     "e": 31.622
+    },
+    {
+     "w": "paie",
+     "s": 31.696,
+     "e": 31.819
+    },
+    {
+     "w": "les",
+     "s": 31.869,
+     "e": 31.918
+    },
+    {
+     "w": "réparations",
+     "s": 31.992,
+     "e": 32.363
+    },
+    {
+     "w": "de",
+     "s": 32.437,
+     "e": 32.474
+    },
+    {
+     "w": "guerre.",
+     "s": 32.511,
+     "e": 33.029
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Le blocus n'a jamais été levé.",
+   "hl": [
+    "jamais"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L17.k.wav",
+   "file_start": 33.129,
+   "speech_start": 33.129,
+   "speech_end": 34.837,
+   "words": [
+    {
+     "w": "Le",
+     "s": 33.129,
+     "e": 33.203
+    },
+    {
+     "w": "blocus",
+     "s": 33.24,
+     "e": 33.648
+    },
+    {
+     "w": "n'a",
+     "s": 33.685,
+     "e": 33.87
+    },
+    {
+     "w": "jamais",
+     "s": 33.944,
+     "e": 34.092
+    },
+    {
+     "w": "été",
+     "s": 34.203,
+     "e": 34.314
+    },
+    {
+     "w": "levé.",
+     "s": 34.388,
+     "e": 34.833
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Il se gare dans le pays voisin.",
+   "hl": [
+    "pays",
+    "voisin."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/place/tts/L18.k.wav",
+   "file_start": 34.937,
+   "speech_start": 34.937,
+   "speech_end": 36.493,
+   "words": [
+    {
+     "w": "Il",
+     "s": 34.937,
+     "e": 35.011
+    },
+    {
+     "w": "se",
+     "s": 35.085,
+     "e": 35.16
+    },
+    {
+     "w": "gare",
+     "s": 35.234,
+     "e": 35.456
+    },
+    {
+     "w": "dans",
+     "s": 35.481,
+     "e": 35.53
+    },
+    {
+     "w": "le",
+     "s": 35.604,
+     "e": 35.678
+    },
+    {
+     "w": "pays",
+     "s": 35.715,
+     "e": 35.9
+    },
+    {
+     "w": "voisin.",
+     "s": 35.937,
+     "e": 36.493
+    }
+   ]
+  }
+ ],
+ "total": 37.79
+}
