@@ -55,10 +55,22 @@ export const RAMBARDE_PROPS = {
         b.position.set(Math.cos(a) * d, (r() - 0.4) * R * 0.5, Math.sin(a) * d); b.scale.y = 0.62; b.castShadow = false; cloud.add(b); }
       cloud.position.set(0, 0.9 + Math.sin(el) * L * 0.97, Math.cos(el) * L * 0.97); g.add(cloud);
     }
+    // (round 1 of 84) o.top 'fireman': a little fireman at the very top of the ladder, saluting (the running gag varied); o.drift (m/s): the cloud bank
+    // drifts sideways (+X); o.raise [t0, dur]: the arm swings up from o.raise0 (8) degrees to o.elev; o.steps [t1, t2, ...]: the extension comes in
+    // that many jerks (each 0.2 s with a little overshoot) instead of one slide
+    if (o.top === 'fireman') { const f = grp(), s = o.topScale ?? 1;
+      f.add(at(box(0.28, 0.5, 0.2, '#1F2A44', { pivot: 'bottom', outline: 0.008 }), 0, 0.42, 0), at(box(0.07, 0.42, 0.07, '#1F2A44', { pivot: 'bottom' }), -0.08, 0, 0), at(box(0.07, 0.42, 0.07, '#1F2A44', { pivot: 'bottom' }), 0.08, 0, 0));
+      f.add(at(box(0.3, 0.05, 0.22, '#D8F03C'), 0, 0.7, 0), at(box(0.2, 0.24, 0.2, '#E2A878', { outline: 0.008 }), 0, 1.04, 0), at(sphere(0.13, '#D9DDE2', 1), 0, 1.2, 0));
+      f.add(at(box(0.06, 0.32, 0.06, '#1F2A44'), 0.18, 1.0, 0.04, 0, 0, -0.9)); f.scale.setScalar(s); f.position.set(0, SL * 0.96, 0.15); sec[2].add(f); }
     g.userData.update = t => {
-      const e = o.extend ? smooth((t - o.extend[0]) / Math.max(0.01, o.extend[1])) : 1, k = o.extend ? outBack(clamp01((t - o.extend[0]) / Math.max(0.01, o.extend[1]))) : 1;
+      let k = 1, e = 1;
+      if (o.steps && o.steps.length) { const n = o.steps.length; k = 0; o.steps.forEach(t1 => { k += outBack(clamp01((t - t1) / 0.2)) / n; }); e = clamp01(k); }
+      else if (o.extend) { e = smooth((t - o.extend[0]) / Math.max(0.01, o.extend[1])); k = outBack(clamp01((t - o.extend[0]) / Math.max(0.01, o.extend[1]))); }
       sec[1].position.y = SL * 0.98 * Math.min(1.03, k); sec[2].position.y = 2 * SL * 0.98 * Math.min(1.03, k);
-      arm.rotation.z = o.extend ? 0.01 * Math.sin(t * 9) * (1 - e) : 0.004 * Math.sin(t * 1.3);
+      const ra = o.raise ? outBack(clamp01((t - o.raise[0]) / Math.max(0.01, o.raise[1]))) : 1, e0 = (o.raise0 ?? 8) * PI / 180, elv = e0 + (el - e0) * ra;
+      arm.rotation.x = PI / 2 - elv;
+      arm.rotation.z = (o.extend || o.steps) ? 0.012 * Math.sin(t * 9) * (1 - e) : 0.004 * Math.sin(t * 1.3);
+      if (o.cloud !== false) { const tip = SL + sec[2].position.y; cloud.position.set((o.drift || 0) * t, 0.9 + Math.sin(elv) * tip * 0.97, Math.cos(elv) * tip * 0.97); cloud.visible = (o.cloudFrom == null || k > o.cloudFrom); }
     };
     g.userData.update(0); return g;
   },
@@ -92,13 +104,17 @@ export const RAMBARDE_PROPS = {
     const zr = d - 0.04, y0 = fy + 0.07, y1 = fy + rh, bars = grp(); g.add(bars);
     g.add(at(box(w, 0.06, 0.07, iron, { outline: 0.01 }), 0, y1, zr), at(box(w, 0.04, 0.05, iron), 0, y0 + 0.06, zr));
     for (const sd of [-1, 1]) g.add(at(box(0.06, rh, 0.06, iron), sd * w / 2, fy + rh / 2, zr));
-    const nb = Math.floor(w / gap) - 1;
-    for (let i = 1; i <= nb; i++) {
-      const x = -w / 2 + i * gap, near = Math.abs(x - hx) < gap * 0.75, piv = grp();
-      piv.position.set(x, y0, zr); piv.userData.ph = hsh(i) * 6;
-      if (near) { const sd = Math.sign(x - hx) || 1, mid = [sd * (o.bow ?? 0.05), (y1 - y0) * (o.bowY ?? 0.62), 0];
-        piv.add(rod([0, 0, 0], mid, 0.013, iron), rod(mid, [0, y1 - y0, 0], 0.013, iron)); }
-      else piv.add(at(cyl(0.012, 0.012, y1 - y0, iron, 6, { pivot: 'bottom' }), 0, 0, 0));
+    // (round 1 of 84) the bars sit symmetrically round a gap at o.hx, so the head goes between the two middle ones; those two bow apart by o.bow on a
+    // smooth curve that peaks at o.bowY of their height and comes back to the rails at both ends; their neighbours bend o.bowFall of that ([0.42, 0.14])
+    const L = y1 - y0, by = clamp01(o.bowY ?? 0.62) * L, B = o.bow ?? 0.05, fall = [1, ...(o.bowFall || [0.42, 0.14])], half = Math.ceil(w / gap);
+    const bump = y => y <= by ? Math.pow(Math.sin((y / Math.max(0.01, by)) * PI / 2), 2) : Math.pow(Math.sin(((L - y) / Math.max(0.01, L - by)) * PI / 2), 2);
+    for (let j = -half; j < half; j++) {
+      const x = hx + (j + 0.5) * gap; if (Math.abs(x) > w / 2 - 0.04) continue;
+      const rank = j >= 0 ? j : -j - 1, sd = j >= 0 ? 1 : -1, amp = B * (fall[rank] ?? 0), piv = grp();
+      piv.position.set(x, y0, zr); piv.userData.ph = (j & 1) ? PI : 0;
+      if (amp > 0.003) { const N = 10, pts = []; for (let s = 0; s <= N; s++) { const y = L * s / N; pts.push([sd * amp * bump(y), y, 0]); }
+        for (let s = 0; s < N; s++) piv.add(rod(pts[s], pts[s + 1], 0.013, iron)); }
+      else piv.add(at(cyl(0.012, 0.012, L, iron, 6, { pivot: 'bottom' }), 0, 0, 0));
       bars.add(piv);
     }
     if (o.tape) {
@@ -109,7 +125,7 @@ export const RAMBARDE_PROPS = {
     g.userData.update = t => {
       const q = o.quiver; let a = 0;
       if (q && t >= q[0]) { const u = t - q[0]; a = (q[2] ?? 0.12) * Math.exp(-u * 3.2 / Math.max(0.2, q[1] ?? 1.2)) * (u < (q[1] ?? 1.2) * 1.6 ? 1 : 0); }
-      bars.children.forEach(p => { p.rotation.z = a ? a * Math.sin((t - q[0]) * 62 + p.userData.ph) : 0; });
+      bars.children.forEach(p => { p.rotation.z = a ? a * Math.sin((t - q[0]) * (q[3] ?? 47) + p.userData.ph) : 0; });   // (round 1 of 84) neighbours in opposite phase: q[3] rad/s (47: about one swing a drawing at 15 fps)
     };
     g.userData.update(0); return g;
   },
@@ -163,9 +179,12 @@ export const RAMBARDE_PROPS = {
   },
 
   // A brick (pivot at its bottom middle): terracotta, 0.24 x 0.075 x 0.115, chipped edges; o.char: sooty
+  // (round 1 of 84: it read as a red book) o.s (1): its size; a sunken frog on top, crumbs of grey mortar on the edges, a chipped corner, two-tone faces
   brick(o) {
-    const c = o.char ? '#5A3A2E' : (o.color || '#B5553A'), g = grp(); g.add(at(box(0.24, 0.075, 0.115, c, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0));
-    g.add(at(box(0.04, 0.02, 0.02, '#D8C9AA'), -0.1, 0.075, 0.05), at(box(0.25, 0.012, 0.118, '#D8CDB4'), 0, 0.0, 0));
+    const s = o.s ?? 1, c = o.char ? '#5A3A2E' : (o.color || '#B5553A'), dk = o.char ? '#3E2A22' : '#8E3E28', g = grp(), b = grp(); g.add(b); b.scale.setScalar(s);
+    b.add(at(box(0.24, 0.075, 0.115, c, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(0.13, 0.012, 0.06, dk), 0, 0.071, 0));
+    b.add(at(box(0.245, 0.014, 0.12, '#C9C2B4'), 0, 0.0, 0), at(box(0.03, 0.03, 0.03, '#C9C2B4'), -0.105, 0.05, 0.05), at(box(0.04, 0.02, 0.02, '#C9C2B4'), 0.09, 0.07, -0.05));
+    b.add(at(box(0.05, 0.035, 0.12, dk), 0.1, 0.06, 0, 0, 0, 0.5), at(box(0.24, 0.006, 0.117, '#C76A4A'), 0, 0.038, 0));
     return g;
   },
 
@@ -224,7 +243,10 @@ export const RAMBARDE_PROPS = {
     const band = (y, tilt) => { const b = grp(), tw = 0.07; for (const [x, z, len, ry] of [[0, d / 2, w, 0], [0, -d / 2, w, PI], [w / 2, 0, d, PI / 2], [-w / 2, 0, d, -PI / 2]]) b.add(at(tapeStrip([-len / 2, 0, 0], [len / 2, 0, 0], tw), x, 0, z, 0, ry, 0));
       b.position.y = y; b.rotation.z = tilt; return b; };
     for (const [y, tl] of [[h * 0.84, 0.0], [h * 0.12, 0.0], [h * 0.5, 0.42]]) { const b = band(y, tl); g.add(b); bands.push(b); }
-    g.userData.update = t => bands.forEach((b, i) => { const u = t - (o.at ?? 0) - i * (o.every ?? 0.22); b.visible = u >= 0; const s = u < 0 ? 0.01 : Math.min(1, 0.6 + u * 6); b.scale.set(s, 1, s); });
+    // (round 1 of 84: it was already wound at the first frame) each band winds on round the head: its four strips appear one after another (front,
+    // side, back, side) over o.wind (0.24 s), the bands o.every (0.3 s) apart from o.at
+    g.userData.update = t => bands.forEach((b, i) => { const u = t - (o.at ?? 0) - i * (o.every ?? 0.3), wd = o.wind ?? 0.24; b.visible = u >= 0;
+      const order = [0, 2, 1, 3]; b.children.forEach((sp, j) => { const v = u - order.indexOf(j) * wd / 4; sp.visible = v >= 0; sp.scale.x = v < 0 ? 0.01 : Math.min(1, 0.3 + v * 12); }); });
     g.userData.update(0); return g;
   },
 
@@ -265,9 +287,14 @@ export const RAMBARDE_PROPS = {
     const view = canvasPlane(W, H, (c, X, Y) => {
       const gr = c.createLinearGradient(0, 0, 0, Y); gr.addColorStop(0, '#5FA9DE'); gr.addColorStop(1, '#B5DBF0'); c.fillStyle = gr; c.fillRect(0, 0, X, Y);
       c.fillStyle = '#EDE3CF'; c.fillRect(0, Y * 0.78, X, Y * 0.22); c.fillStyle = '#5D6B80'; for (let i = 0; i < 4; i++) c.fillRect(X * (0.04 + i * 0.26), Y * 0.72, X * 0.2, Y * 0.06);
-      c.strokeStyle = '#C8322A'; c.lineWidth = X * 0.045; c.beginPath(); c.moveTo(X * 0.12, Y * 1.0); c.lineTo(X * 0.78, Y * 0.12); c.stroke();
-      c.strokeStyle = '#E8ECEE'; c.lineWidth = X * 0.012; for (let i = 0; i < 14; i++) { const u = i / 14, x = X * (0.12 + 0.66 * u), y = Y * (1.0 - 0.88 * u); c.beginPath(); c.moveTo(x - X * 0.03, y - Y * 0.012); c.lineTo(x + X * 0.03, y + Y * 0.012); c.stroke(); }
-      c.fillStyle = '#FFFFFF'; for (const [x, y, rr] of [[0.72, 0.13, 0.17], [0.88, 0.17, 0.13], [0.6, 0.18, 0.12], [0.8, 0.06, 0.12], [0.2, 0.24, 0.08], [0.3, 0.22, 0.07]]) { c.beginPath(); c.arc(X * x, Y * y, X * rr, 0, 2 * PI); c.fill(); }
+      // (round 1 of 84: a red-and-white pole read as nothing like the street's ladder) the same silver-beige ladder as skyLadder: two rails and rungs
+      // from a red turntable at the bottom left, rising across into a big white cloud at the top right
+      const A = [X * 0.16, Y * 0.97], Bp = [X * 0.7, Y * 0.16], dx = Bp[0] - A[0], dy = Bp[1] - A[1], Ln = Math.hypot(dx, dy), nx = -dy / Ln, ny = dx / Ln, hw = X * 0.035;
+      c.fillStyle = '#C8322A'; c.fillRect(A[0] - X * 0.08, Y * 0.93, X * 0.16, Y * 0.07);
+      c.strokeStyle = '#7A7E82'; c.lineWidth = X * 0.026; for (const sd of [-1, 1]) { c.beginPath(); c.moveTo(A[0] + nx * hw * sd, A[1] + ny * hw * sd); c.lineTo(Bp[0] + nx * hw * sd, Bp[1] + ny * hw * sd); c.stroke(); }
+      c.strokeStyle = '#D9CDB0'; c.lineWidth = X * 0.017; for (const sd of [-1, 1]) { c.beginPath(); c.moveTo(A[0] + nx * hw * sd, A[1] + ny * hw * sd); c.lineTo(Bp[0] + nx * hw * sd, Bp[1] + ny * hw * sd); c.stroke(); }
+      c.strokeStyle = '#E8E2D2'; c.lineWidth = X * 0.01; for (let i = 1; i < 16; i++) { const u = i / 16, x = A[0] + dx * u, y = A[1] + dy * u; c.beginPath(); c.moveTo(x - nx * hw, y - ny * hw); c.lineTo(x + nx * hw, y + ny * hw); c.stroke(); }
+      c.fillStyle = '#FFFFFF'; for (const [x, y, rr] of [[0.7, 0.13, 0.19], [0.88, 0.16, 0.14], [0.55, 0.18, 0.13], [0.8, 0.05, 0.13], [0.62, 0.06, 0.12], [0.2, 0.24, 0.07], [0.3, 0.22, 0.06]]) { c.beginPath(); c.arc(X * x, Y * y, X * rr, 0, 2 * PI); c.fill(); }
     }, { res: 512, emissive: 0.3 });
     view.position.z = 0.01; g.add(view);
     for (const [w_, h_, x, y] of [[W + 0.14, 0.08, 0, H / 2 + 0.03], [W + 0.14, 0.1, 0, -H / 2 - 0.04], [0.08, H + 0.1, -W / 2 - 0.03, 0], [0.08, H + 0.1, W / 2 + 0.03, 0], [0.05, H, 0, 0], [W, 0.05, 0, H * 0.12]]) g.add(at(box(w_, h_, 0.06, '#F4F2EC', { outline: 0.006 }), x, y, 0.03));
@@ -299,6 +326,16 @@ export const RAMBARDE_PROPS = {
       puffs.forEach((m, i) => { const [x, y, z, s, a] = m.userData.p; m.visible = u >= 0 && k < 0.999; if (!m.visible) return; const sw = Math.min(1, 0.4 + u * 2.5);
         m.scale.setScalar(s * sw * (1 + 0.5 * k)); m.position.set(x + Math.cos(a) * k * R * 0.8, y + k * 1.5, z + Math.sin(a) * k * R * 0.8); m.material.opacity = 0.9 * (1 - k * k); }); };
     g.userData.update(0); return g;
+  },
+
+  // (round 1 of 84) The slot at the foot of a counter window (pivot at the middle of its bottom edge, on the counter top; front +Z): a dark arch
+  // o.w (0.34) x o.h (0.1) with a steel rim, to sit on the glass where the banknote and the clerk's arm go through
+  slotArch(o) {
+    const w = o.w ?? 0.34, h = o.h ?? 0.1, g = grp(), s = new THREE.Shape();
+    s.moveTo(-w / 2, 0); s.lineTo(-w / 2, h * 0.45); s.absarc(0, h * 0.45, w / 2, PI, 0, true); s.lineTo(w / 2, 0); s.lineTo(-w / 2, 0);
+    const m = new THREE.Mesh(new THREE.ShapeGeometry(s, 12), basic('#1A1E24')); m.scale.y = h / (h * 0.45 + w / 2); g.add(m);
+    const rim = new THREE.Mesh(new THREE.ShapeGeometry(s, 12), basic('#9AA0A6')); rim.scale.set(1.12, (h / (h * 0.45 + w / 2)) * 1.12, 1); rim.position.z = -0.002; g.add(rim);
+    return g;
   },
 
   // A winch cable from a helicopter down to a hand (pivot at its bottom end: attach to a hand; it rises along +Y o.len (12 m)), a hook at the bottom
