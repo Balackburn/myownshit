@@ -1986,3 +1986,15 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 48) Quand un audit de structure fait retirer la colonne vertébrale d'une histoire (procès, prison, blessure finale), la version
   corrigée perd souvent ce qui faisait rire : la force disproportionnée avec ses dégâts collatéraux dits comme un détail, et une chute
   qui retombe sur le héros. Après la correction, relancer en trois versions (escalade, chute, images) jugées avec la version corrigée.
+- (cycle 48) Index de la main à doigts : dans le repère de `handR`, l'index est à x −0,031 et sa pointe vers y −0,136 ; un pansement ou
+  une entaille se fixe sur `joint: 'handR'` avec un décalage d'environ [−0,031, −0,105, 0,017].
+- (cycle 48) Feuille blanche comme accessoire clé : elle disparaît sur la pierre pâle ou un sol clair. La placer devant un fond sombre
+  (porte, toise sombre, sol gris moyen), au besoin avec une caméra basse ; posée à plat, elle se lit d'environ 25 à 30° au-dessus.
+- (cycle 48) Objets fins alignés (feuilles dans une rangée de suspects) : l'écart doit dépasser leur largeur, sinon ils se fondent en une
+  bande.
+- (cycle 48) Accessoire plan recto verso avec texture canvas : deux matériaux FrontSide et BackSide sur la même géométrie ; ne pas
+  retourner la texture du dos, dessiner le dos sans texte avec la même découpe et la tache du même côté géométrique.
+- (cycle 48) Décor `interrogation` : sa table centrale cache tout ce qui est sous 0,8 m derrière elle ; pour une rangée de suspects,
+  prendre `whiteVoid` avec une toise à soi.
+- (cycle 48) Rouleau compresseur (ou tout ce qui écrase une rangée) : le filmer de face pendant qu'il avance vers la caméra ; de côté,
+  l'engin masque la rangée. Camion à l'arrière ouvert : ajouter un panneau sombre juste à l'extérieur de la face arrière.
