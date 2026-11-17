@@ -62,6 +62,33 @@ EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
 DEAD = {'lid': 0.4, 'mouth': 'line'}
 def blink(t, face=None): return [k(t, toon={'face': {**(face or DEAD), 'lid': 1.0}}, toonDur=0.05, keepPose=True), k(r(t + 0.1), toon={'face': face or DEAD}, toonDur=0.06, keepPose=True)]
 def R5(p, w=1, s=0.04): return [*p, w, s]
+def face_at(keys, t, dflt=None):
+    f = dflt or DEAD
+    for x in sorted((x for x in keys if 'toon' in x), key=lambda x: x['at']):
+        if x['at'] <= t and 'face' in x['toon']: f = x['toon']['face']
+    return f
+def alive(keys, D, gap=0.8, t0=0.2, breath=True, blinks=True, amp=1.0, dflt=None):
+    """(round 1) life in every hold (review 1: frozen holds, blinks in two shots only): blinks every ~gap s and breaths (a keyed squash with
+    keepPose, the face carried) in the quiet windows, never inside a keyed move or another key's tween; returns the keys to add"""
+    busy = [(x['at'] - 0.1, x['at'] + (x.get('toonDur') or 0.0) + 0.06) for x in keys if 'toon' in x]
+    free = lambda a, b: all(b < u0 or a > u1 for u0, u1 in busy)
+    out = []
+    if blinks:
+        t, i = t0, 0
+        while t < D - 0.2:
+            if free(t - 0.02, t + 0.2): f = face_at(keys, t, dflt); out += blink(r(t), {**f, 'lid': f.get('lid', 0.4)} if f.get('lid', 0) < 0.9 else f); busy.append((t - 0.02, t + 0.22)); t += gap + 0.11 * (i % 3); i += 1
+            else: t += 0.05
+    if breath:
+        t, j = 0.08, 0
+        while t < D - 0.3:
+            if free(t, t + 0.42):
+                f = face_at(keys, t, dflt); q = [r(1 - 0.012 * amp), r(1 + 0.024 * amp), r(1 - 0.012 * amp)] if j % 2 == 0 else [r(1 + 0.006 * amp), r(1 - 0.01 * amp), r(1 + 0.006 * amp)]
+                out.append(k(r(t), toon={'sq': q, 'face': f}, toonDur=0.4, toonEase='inOut', keepPose=True)); busy.append((t, t + 0.42)); t += 0.45; j += 1
+            else: t += 0.05
+    return out
+def LIFE(a, D, **kw):
+    """adds alive() keys to an act() dict (a static actor) and returns it"""
+    a['keys'] = a['keys'] + alive(a['keys'], D, **kw); return a
 def aim_rot(src, dst):
     """rot for a prop whose -Y must point from src to dst (the beam): (rx, ry deg, rz)"""
     Y = unit3([src[i] - dst[i] for i in range(3)]); X = unit3(cross3(Y, [0, 0, 1])) if abs(Y[2]) < 0.95 else unit3(cross3(Y, [1, 0, 0])); Z = cross3(X, Y)
@@ -70,52 +97,83 @@ def BALD(pid, who, s=1.0, tw=(), tw0=0.35): return P(pid, 'chvShine', on={'actor
 
 # ============================== the bistro at night: a dark void outside, the room (back wall z -1.5, the window above his head), the table
 NIGHT = {'color': '#1A2442'}
-WIN = [0.75, 2.3, 1.4, 1.1]
+WIN = [0.6, 2.18, 1.75, 1.35]                          # (round 1) a bigger, lower window: the helicopter whole in it, the beam through it
 TBL = [0.0, 0, 0.0]; TH = 0.76
 BOWL = [0.0, TH, -0.2]; SOUP_Y = r(TH + 0.2 * 0.55 * 0.82 + 0.005)
 HAIR1 = [0.0, SOUP_Y, -0.19]
 HERO = [0.0, 0.03, -0.8]                               # seated (clip sit) behind the table, facing +Z
 HEAD_S = [0.0, 1.72, -0.78]                            # his eyes, seated
-ROOM = lambda: [P('salle', 'chvRoom', pos=[0, 0, 0], opts={'win': WIN, 'boardX': -1.55, 'picX': 2.6, 'sconces': [-0.55, 2.0]}),
+ROOM = lambda lit=None: [P('salle', 'chvRoom', pos=[0, 0, 0], opts={'win': WIN, 'boardX': -1.55, 'picX': 2.6, 'sconces': [-0.55, 2.0]}),
                 P('table', 'chvTable', pos=TBL, opts={'r': 0.5, 'h': TH, 'drop': 0.15}), P('chaise', 'chair', pos=[0.0, 0, -0.95], opts={'color': '#7A4A2A'}),
-                P('bol', 'chvBowl', pos=BOWL, opts={'steam': True})]
+                P('bol', 'chvBowl', pos=BOWL, opts={'steam': True, **({'lit': lit, 'star': True} if lit else {})})]
 HAIRF = {'L': 0.3, 'r': 0.0095, 'wig': 0.07}           # the floating hair
 SIT = lambda face, reach=None, hands=None: {'face': face, **({'reach': reach} if reach else {}), **({'hands': hands} if hands else {})}
 
-# 1: the hook. Low over the bowl: the thick black hair floating and waving on the pale soup in the foreground, he behind it, seated; he points
-#    at it, eyes down on it, then looks up at us, deadpan
+# 1: the hook. Low over the bowl, three-quarter from his right: the thick black hair floating and waving on the pale soup in the foreground, he
+#    behind it, seated; (round 1) his finger draws a clear arc: up beside his head (an "aha"), then down onto the hair with an overshoot and
+#    two little jabs; his eyes are on the hair; then the pupils come up to us first and the head follows, one brow up, deadpan
 D1 = st.dur('S01')
-PT1 = R5([0.06, 1.05, -0.32], 1, 0.12)
-C1 = FC('S01', 0.0, [0.1, 1.08, 0.9], {'headTop': [0, 1.98, -0.8], 'hairL': add(HAIR1, [-0.16, 0, 0.05]), 'hairR': add(HAIR1, [0.16, 0, 0.05]), 'bowlFront': [0, TH + 0.05, 0.0], 'finger': PT1[:3]}, top=0.06, bottom=0.76, drift=(0, 0, -0.08))
-st.shot('S01', 'whiteVoid', setOpts=NIGHT, actors=[
-        act('mec', HERO, 0, 'sit', 'neutral', keys=[k(0.0, look=add(HAIR1, [0, 0.05, 0])),
-            k(0.0, toon=SIT({'lid': 0.3, 'mouth': 'line', 'gy': 0.6}), toonDur=0.0),
-            k(0.35, toon=SIT({'lid': 0.15, 'mouth': 'O', 'gy': 0.8, 'brow': 0.4}, {'R': PT1}, {'R': 'point'}), toonDur=0.2, toonEase='out'),
-            *[k(r(0.6 + 0.14 * i), toon=SIT({'lid': 0.15, 'mouth': 'O', 'gy': 0.8, 'brow': 0.4}, {'R': R5(add(PT1[:3], [0.015 * (i % 2), 0.01 * (i % 2), 0]), 1, 0.12)}, {'R': 'point'}), toonDur=0.12) for i in range(4)],
-            k(1.25, look='camera', lookDur=0.12), k(1.25, toon=SIT({'lid': 0.45, 'mouth': 'line', 'brow': -0.1}, {'R': PT1}, {'R': 'point'}), toonDur=0.12),
-            *blink(1.75, {'lid': 0.45, 'mouth': 'line', 'brow': -0.1})])],
+PT1 = R5([-0.05, 1.0, -0.36], 1, 0.12); PT1hi = R5([-0.44, 1.86, -0.6], 1, 0.12); PT1over = R5([-0.02, 0.95, -0.3], 1, 0.12)
+C1 = FC('S01', 0.0, [-0.42, 1.1, 0.88], {'headTop': [0, 1.98, -0.8], 'hairL': add(HAIR1, [-0.16, 0, 0.05]), 'hairR': add(HAIR1, [0.16, 0, 0.05]), 'bowlFront': [0, TH + 0.05, 0.0], 'handHi': PT1hi[:3], 'elbowR': [-0.5, 1.3, -0.7]}, top=0.06, bottom=0.76, drift=(0.02, 0, -0.08))
+F1a = {'lid': 0.2, 'mouth': 'o', 'gy': 0.7, 'brow': 0.5}
+F1b = {'lid': 0.05, 'mouth': 'O', 'gy': 0.8, 'brow': 0.9, 'eye': 0.2}
+F1c = {'lid': 0.45, 'mouth': 'line', 'browL': 0.55, 'browR': -0.15, 'gy': 0.0}
+KEYS1 = [k(0.0, look=add(HAIR1, [0, 0.05, 0])),
+         k(0.0, toon=SIT({'lid': 0.3, 'mouth': 'line', 'gy': 0.6}), toonDur=0.0),
+         k(0.18, toon=SIT(F1a, {'R': PT1hi}, {'R': 'point'}), toonDur=0.2, toonEase='out'),
+         k(0.46, toon=SIT(F1b, {'R': PT1over}, {'R': 'point'}), toonDur=0.1, toonEase='in'),
+         k(0.58, toon=SIT(F1b, {'R': PT1}, {'R': 'point'}), toonDur=0.12, toonEase='out'),
+         *[k(r(0.78 + 0.14 * i), toon=SIT(F1b, {'R': R5(add(PT1[:3], [0.02 * ((i + 1) % 2), -0.03 * ((i + 1) % 2), 0.02 * ((i + 1) % 2)]), 1, 0.12)}, {'R': 'point'}), toonDur=0.07) for i in range(3)],
+         k(1.2, toon=SIT({**F1b, 'gy': -0.35, 'brow': 0.4, 'mouth': 'line'}, {'R': PT1}, {'R': 'point'}), toonDur=0.08),
+         k(1.36, look='camera', lookDur=0.14), k(1.36, toon=SIT(F1c, {'R': PT1}, {'R': 'point'}), toonDur=0.14)]
+st.shot('S01', 'whiteVoid', setOpts=NIGHT, actors=[LIFE(act('mec', HERO, 0, 'sit', 'neutral', keys=KEYS1), D1, t0=1.7, gap=0.9)],
         props=[*ROOM(), P('cheveu1', 'chvHair', pos=HAIR1, ry=12, opts=HAIRF)],
         cams=[C1])
 st.cue('sfx:clink', 'S01', 0.1, 0.2); st.cue('sfx:tense', 'S01', 0.45, 0.15)
 
-# ============================== the helicopter outside the window: its searchlight runs from its nose through the window onto the bowl
-HELI = [1.8, 4.0, -4.3]; HRY = yaw(HELI, BOWL)
-LAMP = add(HELI, [r(0.5 * math.sin(math.radians(HRY)) * 1.6), -0.45, r(0.5 * math.cos(math.radians(HRY)) * 1.6)])
-BR = aim_rot(LAMP, add(BOWL, [0, 0.09, 0])); BLEN = r(math.dist(LAMP, BOWL) + 0.2)
-HELIP = lambda pid, on=None: [P(pid, 'helicopter', pos=HELI, ry=HRY, rot=[0.12, 0, 0], scale=0.5, opts={'color': '#DCE2EA', 'spin': 6, 'beam': False, 'bladeOpacity': 0.55}),
-                              P(pid + 'b', 'chvBeam', pos=LAMP, ry=BR[1], rot=[BR[0], 0, BR[2]], opts={'len': BLEN, 'r': 0.42, 'on': on or [[0, 1]]})]
+# ============================== the helicopter outside the window (round 1: a navy chvHeli with a pale halo, whole in the window, nose to the
+# left; its searchlight runs from the lamp under its nose through the window opening onto the bowl, drawn behind the man)
+def ray_at(c, p, z): u = (z - c[2]) / (p[2] - c[2]); return [r(c[i] + (p[i] - c[i]) * u) for i in range(3)]
+def rot_y(v, ry): a = math.radians(ry); return [v[0] * math.cos(a) + v[2] * math.sin(a), v[1], -v[0] * math.sin(a) + v[2] * math.cos(a)]
+HS, HRY = 0.62, -90
+HOT = add(BOWL, [0, 0.11, 0])
+def HELI_AT(cam_from, win_pt, zh, dy=0.0):
+    """the helicopter centred on the camera's ray through win_pt (a point of the window opening) at depth zh: (pos, lamp world point)"""
+    h = add(ray_at(cam_from, win_pt, zh), [0, dy, 0]); return h, add(h, [r(v * HS) for v in rot_y([0, -0.5, 0.62], HRY)])
+def BEAM_THROUGH(lamp, sid):
+    """where the beam crosses the window plane (it must be inside the opening)"""
+    d = [HOT[i] - lamp[i] for i in range(3)]; u = (-1.5 - lamp[2]) / d[2]; x, y = lamp[0] + d[0] * u, lamp[1] + d[1] * u
+    CHECKS.append(f"{sid} beam crosses the window at x {x:.2f} y {y:.2f} (opening x {WIN[0] - WIN[2] / 2:.2f}..{WIN[0] + WIN[2] / 2:.2f}, y {WIN[1] - WIN[3] / 2:.2f}..{WIN[1] + WIN[3] / 2:.2f})")
+def HELIP(pid, heli, lamp, on=None, r1=0.3):
+    BR = aim_rot(lamp, HOT); BL = r(math.dist(lamp, HOT) + 0.05)
+    return [P(pid, 'chvHeli', pos=heli, ry=HRY, scale=HS, opts={'rim': '#A9C2E6', 'rimW': 0.05, 'spin': 1.15}),
+            P(pid + 'b', 'chvBeam', pos=lamp, ry=BR[1], rot=[BR[0], 0, BR[2]], opts={'len': BL, 'r': r1, 'r0': 0.08, 'op': 0.12, 'fade': 0.75, 'lampR': 0.06, 'flare': 0.7, 'on': on or [[0, 1]]})]
 
 # 2: a police helicopter lit the soup. Low from the table, looking up: his face, and above his head through the window the navy helicopter
-#    hovering, its searchlight sweeping down through the window and locking on the bowl, which flares in a pool of light; he squints up
-D2 = st.dur('S02'); LOCK2 = 1.0
-C2 = FC('S02', 0.0, [0.12, 0.85, 1.55], {'bowl': add(BOWL, [-0.1, 0.1, 0.1]), 'headTop': [0, 1.98, -0.8], 'heliTop': add(HELI, [0, 0.9, 0]), 'heliTail': add(HELI, [1.2, 0.3, -1.6]), 'eyesL': [-0.15, 1.72, -0.8]}, top=0.04, bottom=0.75, lenses=range(30, 70), drift=(0, 0, -0.1))
-st.shot('S02', 'whiteVoid', setOpts=NIGHT, look={'sun': 0.35, 'fill': 0.6, 'exposure': 1.05}, actors=[
-        act('mec', HERO, 0, 'sit', 'neutral', keys=[k(0.0, look='camera'),
-            k(0.0, toon=SIT({'lid': 0.4, 'mouth': 'line', 'gy': -0.6}), toonDur=0.0),
-            k(LOCK2, toon=SIT({'lid': 0.65, 'mouth': 'clench', 'gy': -0.9, 'brow': -0.5}, {'L': R5(off(HERO, 0, 0.25, -0.05, 1.86), 1, 0.06)}, {'L': 'open'}), toonDur=0.14, toonEase='out'),
-            k(r(LOCK2 + 0.6), toon=SIT({'lid': 0.7, 'mouth': 'clench', 'gy': -0.9, 'brow': -0.5}, {'L': R5(off(HERO, 0, 0.27, -0.03, 1.88), 1, 0.06)}, {'L': 'open'}), toonDur=0.3)])],
-        props=[*ROOM(), P('cheveu2', 'chvHair', pos=HAIR1, ry=12, opts={**HAIRF, 'waveF': 3.2}), *HELIP('heli2', [[0, 1]]),
-               P('pool2', 'chvPool', pos=add(BOWL, [0, 0.01, 0]), opts={'r': 0.5, 'h': 0.7, 'power': 4, 'on': [[0, 0.25], [LOCK2, 1]]})],
+#    hovering whole in the window, its searchlight dropping through the window onto the bowl, which flares white-hot; (round 1) the light
+#    passes behind him; he gets a squash-and-stretch double take up at it, then shades his eyes with his hand and squints, still moving
+D2 = st.dur('S02'); LOCK2 = 0.25
+C2F = [0.3, 0.8, 1.5]
+HELI2, LAMP2 = HELI_AT(C2F, [0.72, 2.42, -1.5], -3.4); BEAM_THROUGH(LAMP2, 'S02')
+C2 = FC('S02', 0.0, C2F, {'bowl': add(BOWL, [-0.1, 0.1, 0.1]), 'headTop': [0, 2.02, -0.8], 'heliTop': add(HELI2, [0, 0.62, 0]), 'heliNose': add(HELI2, [-1.0, 0, 0]), 'heliTail': add(HELI2, [1.5, 0.3, 0]), 'eyesL': [-0.2, 1.72, -0.8]}, top=0.05, bottom=0.75, lenses=range(28, 70), drift=(0, 0, -0.1))
+UP2 = [0.45, 3.4, -0.55]
+F2 = {'lid': 0.4, 'mouth': 'line'}
+SQ2 = {'lid': 0.5, 'low': 0.45, 'mouth': 'grimace', 'brow': -0.6, 'gy': -0.9}
+def SHADE(i): return {'face': {**SQ2, 'low': 0.45 if i % 2 == 0 else 0.3, 'mouth': 'grimace' if i % 2 == 0 else 'clench', 'browL': -0.7 if i % 2 else -0.4},
+                      'touch': {'L': ['face', 0.06 if i % 2 == 0 else -0.04, 0.88 if i % 2 == 0 else 0.92, 0.07, 1, 0.05]}, 'hands': {'L': 'open'}}
+KEYS2 = [k(0.0, look='camera'), k(0.0, toon=SIT(F2), toonDur=0.0),
+         k(LOCK2, toon={**SIT({**F2, 'lid': 0.15, 'brow': 0.3}), 'sq': [1.04, 0.95, 1.04]}, toonDur=0.04),
+         k(0.36, look=UP2, lookDur=0.1), k(0.36, toon=SIT({'lid': 0.2, 'mouth': 'line', 'gy': -0.6, 'brow': 0.3}), toonDur=0.08),
+         k(0.52, look='camera', lookDur=0.1), k(0.52, toon=SIT({'lid': 0.3, 'mouth': 'line', 'brow': 0.1}), toonDur=0.08),
+         k(0.69, toon={**SIT({'lid': 0.6, 'mouth': 'line', 'brow': -0.3}), 'sq': [1.14, 0.82, 1.14]}, toonDur=0.05),
+         k(0.76, look=UP2, lookDur=0.06), k(0.76, toon={**SIT({'pop': 0.5, 'popLen': 0.22, 'brow': 1, 'jaw': 0.35, 'mouth': 'O', 'gy': -0.8}), 'sq': [0.86, 1.2, 0.86], 'hairUp': 0.0}, toonDur=0.05, toonEase='outBack'),
+         k(0.9, toon={**SIT({'pop': 0.5, 'popLen': 0.22, 'brow': 1, 'jaw': 0.3, 'mouth': 'O', 'gy': -0.8}), 'sq': [0.9, 1.15, 0.9]}, toonDur=0.06),
+         k(1.04, toon={**SIT({'brow': 0.4, 'mouth': 'o', 'gy': -0.8}), 'sq': [1.05, 0.95, 1.05]}, toonDur=0.08, toonEase='in'),
+         *[k(r(1.16 + 0.22 * i), toon=SHADE(i), toonDur=0.12 if i else 0.14, toonEase='inOut') for i in range(6)],
+         *[k(r(1.2 + 0.3 * i), look=[UP2[0] + (0.5 if i % 2 else -0.3), UP2[1], UP2[2]], lookDur=0.25) for i in range(4)]]
+st.shot('S02', 'whiteVoid', setOpts=NIGHT, look={'sun': 0.35, 'fill': 0.6, 'exposure': 1.05}, actors=[act('mec', HERO, 0, 'sit', 'neutral', keys=KEYS2)],
+        props=[*ROOM([[0, 0.15], [LOCK2, 1]]), P('cheveu2', 'chvHair', pos=HAIR1, ry=12, opts={**HAIRF, 'waveF': 3.2}), *HELIP('heli2', HELI2, LAMP2, [[0, 0.35], [LOCK2, 1]]),
+               P('pool2', 'chvPool', pos=add(BOWL, [0, 0.01, 0]), opts={'r': 0.42, 'h': 0.7, 'power': 4, 'on': [[0, 0.2], [LOCK2, 1]]})],
         cams=[C2])
 st.cue('engine', 'S02', 0.0, 0.3, D2); st.cue('sfx:rotor', 'S02', 0.0, 0.35); st.cue('clack', 'S02', LOCK2, 0.3)
 
