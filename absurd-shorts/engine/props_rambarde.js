@@ -40,12 +40,12 @@ export const RAMBARDE_PROPS = {
     const L = o.len ?? 54, el = (o.elev ?? 72) * PI / 180, g = grp(), arm = grp(), sec = [], SL = L / 3;
     g.add(at(cyl(0.7, 0.8, 0.35, '#B7281F', 12, { pivot: 'bottom' }), 0, 0, 0), at(box(0.9, 0.7, 1.1, '#C8322A', { outline: 0.012 }), 0, 0.6, 0));
     arm.position.set(0, 0.9, 0); arm.rotation.x = PI / 2 - el; g.add(arm);
-    const W = [0.62, 0.52, 0.42], RC = ['#B9BDBF', '#C9CDCF', '#D9DCDE'];
+    const TK = o.thick ?? 1, W = [0.62 * TK, 0.52 * TK, 0.42 * TK], RC = ['#B9BDBF', '#C9CDCF', '#D9DCDE'];   // (round 2 of 84) o.thick: a far ladder stays readable, not a hairline
     for (let s = 0; s < 3; s++) {
       const sg = grp(), w = W[s], rails = [], n = Math.floor(SL / 0.42);
-      for (const sd of [-1, 1]) { const r_ = at(box(o.rail ?? 0.12, SL, 0.12, RC[s], { pivot: 'bottom', outline: 0.012 }), sd * w / 2, 0, 0.02 * s); sg.add(r_); rails.push(r_); }
-      const rungs = new THREE.InstancedMesh(new THREE.BoxGeometry(w, 0.07, 0.07), mat('#E2E5E7'), n), M = new THREE.Matrix4();
-      for (let i = 0; i < n; i++) { M.makeTranslation(0, 0.2 + i * 0.42, 0.02 * s); rungs.setMatrixAt(i, M); }
+      for (const sd of [-1, 1]) { const r_ = at(box((o.rail ?? 0.12) * TK, SL, 0.12 * TK, RC[s], { pivot: 'bottom', outline: 0.012 * TK }), sd * w / 2, 0, 0.02 * s * TK); sg.add(r_); rails.push(r_); }
+      const rungs = new THREE.InstancedMesh(new THREE.BoxGeometry(w, 0.07 * TK, 0.07 * TK), mat('#E2E5E7'), n), M = new THREE.Matrix4();
+      for (let i = 0; i < n; i++) { M.makeTranslation(0, 0.2 + i * 0.42, 0.02 * s * TK); rungs.setMatrixAt(i, M); }
       sg.add(rungs); arm.add(sg); sec.push(sg);
     }
     const cloud = grp();
@@ -105,7 +105,7 @@ export const RAMBARDE_PROPS = {
       g.add(at(box(ww, wh, 0.3, stone), 0, wh / 2, -0.15), at(box(ww + 0.02, fy - 0.05, 0.32, plinth), 0, (fy - 0.05) / 2, -0.15));
       for (const y of [0.45, 1.6, 2.15]) g.add(at(box(ww + 0.03, 0.025, 0.31, ch ? '#3A3430' : '#D8CCB2'), 0, y, -0.14));
       const wx = 1.1, wy = fy + 0.08, wht = Math.min(wh - fy - 0.15, 1.75);
-      g.add(at(box(wx + 0.12, wht + 0.1, 0.06, '#2E3640'), 0, wy + wht / 2, 0.01), at(box(wx, wht, 0.04, ch ? '#141210' : '#5D7891', { emissive: ch ? '#000000' : '#1A2A38' }), 0, wy + wht / 2, 0.03));
+      g.add(at(box(wx + 0.12, wht + 0.1, 0.06, '#2E3640'), 0, wy + wht / 2, 0.01), at(box(wx, wht, 0.04, ch ? '#141210' : (o.winColor || '#5D7891'), { emissive: ch ? '#000000' : (o.winColor ? '#3A4650' : '#1A2A38') }), 0, wy + wht / 2, 0.03));   // (round 2 of 84) o.winColor: a pale window so his dark suit stands out from the street
       g.add(at(box(0.05, wht, 0.06, '#2E3640'), 0, wy + wht / 2, 0.05), at(box(wx, 0.05, 0.06, '#2E3640'), 0, wy + wht * 0.62, 0.05));
       if (!ch) g.add(at(box(0.3, wht * 0.7, 0.01, '#9FC0D8', { emissive: '#3A5870' }), -0.27, wy + wht * 0.55, 0.055, 0, 0, 0.12));
     }
@@ -381,11 +381,12 @@ export const RAMBARDE_PROPS = {
   // (round 2 of 84) His cheeks squeezed out round the bars (attach to the head joint; the face toward +Z): two skin-coloured rounded bulges on
   // either side of the face, just outside the bars; o.at [[t, k], ...] (k 0..1.4) swells them, keyed; o.skin; o.x (0.15): their half spacing
   cheekBulge(o) {
-    const g = grp(), sk = o.skin || '#E9B98C', X = o.x ?? 0.15, b = [];
-    for (const sd of [-1, 1]) { const m = new THREE.Mesh(new THREE.SphereGeometry(0.075, 12, 8), lam(sk)); addOutline(m, 0.006); m.position.set(sd * X, o.y ?? 0.17, o.z ?? 0.08); m.scale.set(0.8, 0.9, 0.7); g.add(m); b.push(m); }
-    const K = o.at || [[0, 1]];
-    g.userData.update = t => { let k = K[0][1]; for (let i = 0; i < K.length; i++) { if (t >= K[i][0]) { const n = K[i + 1]; k = n && t < n[0] ? K[i][1] + (n[1] - K[i][1]) * smooth((t - K[i][0]) / (n[0] - K[i][0])) : K[i][1]; } }
-      b.forEach((m, i) => { m.visible = k > 0.02; m.scale.set(0.55 + 0.45 * k, 0.75 + 0.3 * k, 0.5 + 0.4 * k); m.position.x = (i ? 1 : -1) * (X + 0.03 * k); }); };
+    const g = grp(), sk = o.skin || '#EBC6A2', X = o.x ?? 0.15, b = [];
+    for (const sd of [-1, 1]) { const m = new THREE.Mesh(new THREE.SphereGeometry(o.r ?? 0.05, 12, 8), basic(sk)); addOutline(m, 0.005); m.position.set(sd * X, o.y ?? 0.17, o.z ?? 0.08); g.add(m); b.push(m); }   // unlit like the painted face panel
+    // o.at entries [t, k, x]: x (optional) keys their half spacing too, so they stay on the head's sides when the head narrows
+    const K = o.at || [[0, 1]], kv = (t, j, d) => { let v = K[0][j] ?? d; for (let i = 0; i < K.length; i++) { if (t >= K[i][0]) { const n = K[i + 1], a = K[i][j] ?? d; v = n && t < n[0] ? a + ((n[j] ?? d) - a) * smooth((t - K[i][0]) / (n[0] - K[i][0])) : a; } } return v; };
+    g.userData.update = t => { const k = kv(t, 1, 1), x = kv(t, 2, X);
+      b.forEach((m, i) => { m.visible = k > 0.02; m.scale.set(0.6 + 0.45 * k, 0.8 + 0.25 * k, 0.6 + 0.3 * k); m.position.x = (i ? 1 : -1) * x; }); };
     g.userData.update(0); return g;
   },
 
