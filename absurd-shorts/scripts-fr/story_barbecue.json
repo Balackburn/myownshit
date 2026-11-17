@@ -1,0 +1,11957 @@
+{
+ "version": 3,
+ "title": "Le barbecue",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   },
+   "toon": {
+    "breathe": 1.7,
+    "holdLife": 1.6
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "voisin": {
+   "preset": "chef",
+   "seed": 831,
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2,
+    "belly": 0.14
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "invite1": {
+   "preset": "madame",
+   "seed": 832,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "invite2": {
+   "preset": "tourist",
+   "seed": 833,
+   "hat": "none",
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "invite3": {
+   "preset": "femme",
+   "seed": 834,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "foule1": {
+   "preset": "mamie",
+   "seed": 835,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "foule2": {
+   "preset": "worker",
+   "seed": 836,
+   "hat": "none",
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "foule3": {
+   "preset": "boss",
+   "seed": 837,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "president": {
+   "preset": "politique",
+   "seed": 838,
+   "suit": "#2A2D33",
+   "lapel": "#2A2D33",
+   "tie": "#7A2333",
+   "hairColor": "#BDBDBD",
+   "sash": [
+    "#2F62B5",
+    "#F4F4F0",
+    "#E0413A"
+   ],
+   "sashW": 0.12,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "para": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 1.2,
+    "shift": 0.8,
+    "breathe": 1.4
+   },
+   "preset": "cop",
+   "seed": 839
+  },
+  "soldat": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 1.2,
+    "shift": 0.8,
+    "breathe": 1.4
+   },
+   "preset": "cop2",
+   "seed": 840
+  },
+  "officier": {
+   "outfit": "suit",
+   "suit": "#4E5A32",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 1.2,
+    "shift": 0.8,
+    "breathe": 1.4
+   },
+   "preset": "cop",
+   "seed": 841,
+   "facial": "mustache"
+  },
+  "porteur1": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 1.2,
+    "shift": 0.8,
+    "breathe": 1.4
+   },
+   "preset": "cop",
+   "seed": 842
+  },
+  "porteur2": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 1.2,
+    "shift": 0.8,
+    "breathe": 1.4
+   },
+   "preset": "cop2",
+   "seed": 843
+  },
+  "espion": {
+   "preset": "commissaire",
+   "seed": 844,
+   "hat": "none",
+   "suit": "#B79E72",
+   "lapel": "#A08A60",
+   "tie": "#3A3D44",
+   "facial": "none",
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "ministre": {
+   "preset": "politique",
+   "seed": 845,
+   "suit": "#3A4F6E",
+   "lapel": "#3A4F6E",
+   "tie": "#C8A030",
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "musi1": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 1.2,
+    "shift": 0.8,
+    "breathe": 1.4
+   },
+   "preset": "cop",
+   "seed": 846
+  },
+  "musi2": {
+   "outfit": "suit",
+   "suit": "#5B6638",
+   "pants": "#4E5730",
+   "shirt": "#D9D3B6",
+   "lapel": "#4E5730",
+   "tie": "#3B4224",
+   "cuff": "#5B6638",
+   "hat": "none",
+   "gloves": "#2E3320",
+   "glasses": false,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 1.2,
+    "shift": 0.8,
+    "breathe": 1.4
+   },
+   "preset": "cop2",
+   "seed": 847
+  },
+  "general": {
+   "preset": "politique",
+   "seed": 848,
+   "suit": "#4A5530",
+   "lapel": "#4A5530",
+   "tie": "#2E351E",
+   "glasses": false,
+   "facial": "mustache",
+   "hairColor": "#9A9A96",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2,
+    "belly": 0.12
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.9,
+      0,
+      1.6
+     ],
+     "ry": -13,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 1.5,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 1.95,
+       "toon": {
+        "face": {
+         "lid": 0.7,
+         "mouth": "O",
+         "cheeks": 0.4
+        },
+        "sq": [
+         1.04,
+         0.95,
+         1.04
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 2.1,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "voisin",
+     "pos": [
+      1.55,
+      0.06,
+      -1.95
+     ],
+     "ry": -25.7,
+     "clip": "laugh",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "invite1",
+     "pos": [
+      1.35,
+      0.06,
+      -3.4
+     ],
+     "ry": 42.7,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.95,
+        1.76,
+        -2.75
+       ]
+      },
+      {
+       "at": 0.7,
+       "toon": {
+        "reach": {
+         "R": [
+          1.35,
+          1.31,
+          -3.15,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.75,
+       "toon": {
+        "reach": {
+         "R": [
+          1.65,
+          1.42,
+          -3.075,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "reach": {
+         "R": [
+          1.35,
+          1.56,
+          -3.15,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.3
+      },
+      {
+       "at": 1.25,
+       "clip": "laugh"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "invite2",
+     "pos": [
+      1.95,
+      0.06,
+      -2.75
+     ],
+     "ry": -137.3,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.35,
+        1.76,
+        -3.4
+       ]
+      },
+      {
+       "at": 0.7,
+       "toon": {
+        "reach": {
+         "R": [
+          1.95,
+          1.31,
+          -2.5,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.75,
+       "toon": {
+        "reach": {
+         "R": [
+          1.65,
+          1.42,
+          -3.075,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "reach": {
+         "R": [
+          1.95,
+          1.56,
+          -2.5,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.3
+      },
+      {
+       "at": 1.3,
+       "clip": "laugh"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "invite3",
+     "pos": [
+      2.3,
+      0.06,
+      -4.4
+     ],
+     "ry": -23.4,
+     "clip": "laugh",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "maison",
+     "name": "cottage",
+     "pos": [
+      -6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2D58A",
+      "roof": "#B5402F",
+      "door": "#2F7F8C",
+      "burnt": false,
+      "seed": 3
+     }
+    },
+    {
+     "id": "voisins",
+     "name": "cottage",
+     "pos": [
+      6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#4E5E7E",
+      "door": "#2F7F8C",
+      "burnt": false,
+      "seed": 8
+     }
+    },
+    {
+     "id": "arriere0",
+     "name": "cottage",
+     "pos": [
+      -13.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#EFC7C7",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 11
+     }
+    },
+    {
+     "id": "arriere1",
+     "name": "cottage",
+     "pos": [
+      -1.5,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#C9DDF0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 12
+     }
+    },
+    {
+     "id": "arriere2",
+     "name": "cottage",
+     "pos": [
+      10.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2B49A",
+      "roof": "#4E5E7E",
+      "burnt": false,
+      "seed": 13
+     }
+    },
+    {
+     "id": "arriere3",
+     "name": "cottage",
+     "pos": [
+      -7.0,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F4F2EC",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 14
+     }
+    },
+    {
+     "id": "arriere4",
+     "name": "cottage",
+     "pos": [
+      5.5,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#E6CDE6",
+      "roof": "#5E83C6",
+      "burnt": false,
+      "seed": 15
+     }
+    },
+    {
+     "id": "arriere5",
+     "name": "cottage",
+     "pos": [
+      3.8,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2E2A0",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 16
+     }
+    },
+    {
+     "id": "arriere6",
+     "name": "cottage",
+     "pos": [
+      -4.5,
+      0,
+      -28.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 17
+     }
+    },
+    {
+     "id": "cloture",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 9.0,
+      "height": 0.85,
+      "color": "#F6F4EE",
+      "rail": "#F6F4EE"
+     }
+    },
+    {
+     "id": "patio",
+     "name": "slab",
+     "pos": [
+      2.5,
+      0.03,
+      -2.9
+     ],
+     "opts": {
+      "w": 4.6,
+      "h": 0.06,
+      "d": 4.6,
+      "color": "#D8C9AA"
+     }
+    },
+    {
+     "id": "nappe",
+     "name": "table",
+     "pos": [
+      3.4,
+      0.06,
+      -3.9
+     ],
+     "ry": -20,
+     "opts": {
+      "w": 1.4,
+      "d": 0.8,
+      "h": 0.76,
+      "color": "#F2EEE4",
+      "legs": "#8A6A44"
+     }
+    },
+    {
+     "id": "assiette0",
+     "name": "paperPlate",
+     "pos": [
+      2.95,
+      0.83,
+      -3.8
+     ]
+    },
+    {
+     "id": "assiette1",
+     "name": "paperPlate",
+     "pos": [
+      3.4,
+      0.83,
+      -3.72
+     ]
+    },
+    {
+     "id": "assiette2",
+     "name": "paperPlate",
+     "pos": [
+      3.82,
+      0.83,
+      -3.85
+     ]
+    },
+    {
+     "id": "mat1",
+     "name": "slab",
+     "pos": [
+      0.55,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "mat2",
+     "name": "slab",
+     "pos": [
+      4.3,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "guirlande",
+     "name": "gardenBunting",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "a": [
+       0.55,
+       2.35,
+       -5.0
+      ],
+      "b": [
+       4.3,
+       2.35,
+       -5.0
+      ],
+      "n": 14,
+      "sag": 0.35
+     }
+    },
+    {
+     "id": "gril",
+     "name": "kettleGrill",
+     "pos": [
+      0.9,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "char": false,
+      "smokeH": 0.9,
+      "smokeN": 8,
+      "smokeSize": 0.8,
+      "wind": [
+       -0.3,
+       0.3
+      ]
+     }
+    },
+    {
+     "id": "fumee1",
+     "name": "smokeRibbon",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "pts": [
+       [
+        0.9,
+        1.0,
+        -1.3
+       ],
+       [
+        0.7,
+        2.7,
+        -0.6
+       ],
+       [
+        -0.2,
+        2.45,
+        2.0
+       ],
+       [
+        -0.927,
+        1.76,
+        1.717
+       ]
+      ],
+      "n": 48,
+      "s0": 0.05,
+      "s1": 0.11,
+      "speed": 0.42,
+      "wob": 0.04,
+      "curl": 0.04
+     }
+    },
+    {
+     "id": "fourchette1",
+     "name": "forkSausage",
+     "on": {
+      "actor": "voisin",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.04,
+       0.03
+      ],
+      "face": "camera",
+      "faceRoll": 0.0
+     },
+     "opts": {}
+    },
+    {
+     "id": "verre1a",
+     "name": "partyGlass",
+     "on": {
+      "actor": "invite1",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.05,
+       0.03
+      ],
+      "face": "camera"
+     },
+     "opts": {}
+    },
+    {
+     "id": "verre1b",
+     "name": "partyGlass",
+     "on": {
+      "actor": "invite2",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.05,
+       0.03
+      ],
+      "face": "camera"
+     },
+     "opts": {
+      "color": "#E8B84A"
+     }
+    },
+    {
+     "id": "verre1c",
+     "name": "partyGlass",
+     "on": {
+      "actor": "invite3",
+      "hand": "L",
+      "offset": [
+       0.0,
+       -0.05,
+       0.03
+      ],
+      "face": "camera"
+     },
+     "opts": {}
+    },
+    {
+     "id": "toux1",
+     "name": "toonPuff",
+     "pos": [
+      -0.927,
+      1.68,
+      1.777
+     ],
+     "opts": {
+      "at": 1.95,
+      "n": 3,
+      "size": 0.07,
+      "life": 0.5,
+      "rise": 0.25,
+      "spread": 0.12,
+      "color": "#8E8A84"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.75,
+      1.7,
+      5.4
+     ],
+     "to": [
+      -1.67,
+      1.69,
+      5.15
+     ],
+     "lookAt": [
+      0.85,
+      1.35,
+      -2.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.82,
+      1.36,
+      -2.6
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 2.6,
+   "setOpts": {
+    "clouds": 30,
+    "grass": "#86BE5C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.9,
+      0,
+      1.6
+     ],
+     "ry": -13,
+     "clip": "phoneEar",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.044,
+       "expr": "talk"
+      },
+      {
+       "at": 0.089,
+       "expr": "unimpressed"
+      },
+      {
+       "at": 0.156,
+       "expr": "talk"
+      },
+      {
+       "at": 0.163,
+       "expr": "unimpressed"
+      },
+      {
+       "at": 0.267,
+       "expr": "talk"
+      },
+      {
+       "at": 0.533,
+       "expr": "unimpressed"
+      },
+      {
+       "at": 0.637,
+       "expr": "talk"
+      },
+      {
+       "at": 0.626,
+       "expr": "unimpressed"
+      },
+      {
+       "at": 0.674,
+       "expr": "talk"
+      },
+      {
+       "at": 0.903,
+       "expr": "unimpressed"
+      },
+      {
+       "at": 1.007,
+       "expr": "talk"
+      },
+      {
+       "at": 1.718,
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "voisin",
+     "pos": [
+      1.55,
+      0.06,
+      -1.95
+     ],
+     "ry": -25.7,
+     "clip": "laugh",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "invite2",
+     "pos": [
+      1.95,
+      0.06,
+      -2.75
+     ],
+     "ry": -137.3,
+     "clip": "laugh",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "maison",
+     "name": "cottage",
+     "pos": [
+      -6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2D58A",
+      "roof": "#B5402F",
+      "door": "#2F7F8C",
+      "burnt": false,
+      "seed": 3
+     }
+    },
+    {
+     "id": "voisins",
+     "name": "cottage",
+     "pos": [
+      6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#4E5E7E",
+      "door": "#2F7F8C",
+      "burnt": false,
+      "seed": 8
+     }
+    },
+    {
+     "id": "arriere0",
+     "name": "cottage",
+     "pos": [
+      -13.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#EFC7C7",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 11
+     }
+    },
+    {
+     "id": "arriere1",
+     "name": "cottage",
+     "pos": [
+      -1.5,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#C9DDF0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 12
+     }
+    },
+    {
+     "id": "arriere2",
+     "name": "cottage",
+     "pos": [
+      10.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2B49A",
+      "roof": "#4E5E7E",
+      "burnt": false,
+      "seed": 13
+     }
+    },
+    {
+     "id": "arriere3",
+     "name": "cottage",
+     "pos": [
+      -7.0,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F4F2EC",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 14
+     }
+    },
+    {
+     "id": "arriere4",
+     "name": "cottage",
+     "pos": [
+      5.5,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#E6CDE6",
+      "roof": "#5E83C6",
+      "burnt": false,
+      "seed": 15
+     }
+    },
+    {
+     "id": "arriere5",
+     "name": "cottage",
+     "pos": [
+      3.8,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2E2A0",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 16
+     }
+    },
+    {
+     "id": "arriere6",
+     "name": "cottage",
+     "pos": [
+      -4.5,
+      0,
+      -28.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 17
+     }
+    },
+    {
+     "id": "cloture",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 9.0,
+      "height": 0.85,
+      "color": "#F6F4EE",
+      "rail": "#F6F4EE"
+     }
+    },
+    {
+     "id": "patio",
+     "name": "slab",
+     "pos": [
+      2.5,
+      0.03,
+      -2.9
+     ],
+     "opts": {
+      "w": 4.6,
+      "h": 0.06,
+      "d": 4.6,
+      "color": "#D8C9AA"
+     }
+    },
+    {
+     "id": "nappe",
+     "name": "table",
+     "pos": [
+      3.4,
+      0.06,
+      -3.9
+     ],
+     "ry": -20,
+     "opts": {
+      "w": 1.4,
+      "d": 0.8,
+      "h": 0.76,
+      "color": "#F2EEE4",
+      "legs": "#8A6A44"
+     }
+    },
+    {
+     "id": "assiette0",
+     "name": "paperPlate",
+     "pos": [
+      2.95,
+      0.83,
+      -3.8
+     ]
+    },
+    {
+     "id": "assiette1",
+     "name": "paperPlate",
+     "pos": [
+      3.4,
+      0.83,
+      -3.72
+     ]
+    },
+    {
+     "id": "assiette2",
+     "name": "paperPlate",
+     "pos": [
+      3.82,
+      0.83,
+      -3.85
+     ]
+    },
+    {
+     "id": "mat1",
+     "name": "slab",
+     "pos": [
+      0.55,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "mat2",
+     "name": "slab",
+     "pos": [
+      4.3,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "guirlande",
+     "name": "gardenBunting",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "a": [
+       0.55,
+       2.35,
+       -5.0
+      ],
+      "b": [
+       4.3,
+       2.35,
+       -5.0
+      ],
+      "n": 14,
+      "sag": 0.35
+     }
+    },
+    {
+     "id": "gril",
+     "name": "kettleGrill",
+     "pos": [
+      0.9,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "char": false,
+      "smokeH": 0.9,
+      "smokeN": 8,
+      "smokeSize": 0.8,
+      "wind": [
+       -0.3,
+       0.3
+      ]
+     }
+    },
+    {
+     "id": "tel2",
+     "name": "smartPhone",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "opts": {
+      "call": true
+     }
+    },
+    {
+     "id": "fourchette2",
+     "name": "forkSausage",
+     "on": {
+      "actor": "voisin",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.04,
+       0.03
+      ],
+      "face": "camera",
+      "faceRoll": 0.0
+     },
+     "opts": {}
+    },
+    {
+     "id": "verre2b",
+     "name": "partyGlass",
+     "on": {
+      "actor": "invite2",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.05,
+       0.03
+      ],
+      "face": "camera"
+     },
+     "opts": {}
+    },
+    {
+     "id": "fumee2",
+     "name": "smokeRibbon",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "pts": [
+       [
+        0.9,
+        1.0,
+        -1.3
+       ],
+       [
+        0.3,
+        2.4,
+        0.3
+       ],
+       [
+        -0.5,
+        2.05,
+        2.1
+       ],
+       [
+        -1.069,
+        1.66,
+        1.664
+       ]
+      ],
+      "n": 36,
+      "s0": 0.04,
+      "s1": 0.085,
+      "speed": 0.42,
+      "curl": 0.04
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.55,
+      1.8,
+      3.35
+     ],
+     "to": [
+      -1.5,
+      1.79,
+      3.2
+     ],
+     "lookAt": [
+      -0.92,
+      1.66,
+      1.5
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      -0.92,
+      1.66,
+      1.5
+     ]
+    }
+   ],
+   "start": 2.6,
+   "duration": 1.8,
+   "setOpts": {
+    "clouds": 30,
+    "grass": "#86BE5C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "president",
+     "pos": [
+      0.05,
+      0,
+      -1.85
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.22,
+        1.0,
+        -1.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.3,
+          1.1,
+          -1.55,
+          1,
+          0.03
+         ],
+         "L": [
+          0.35,
+          0.8,
+          -1.25,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "open"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.25,
+         "mouth": "line",
+         "brow": -0.6
+        }
+       },
+       "toonDur": 0.0,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.34,
+          1.3,
+          -1.6,
+          1,
+          0.03
+         ],
+         "L": [
+          0.35,
+          0.8,
+          -1.25,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "open"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.25,
+         "mouth": "line",
+         "brow": -0.6
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.34,
+          2.4,
+          -1.7,
+          1,
+          0.03
+         ],
+         "L": [
+          0.35,
+          0.8,
+          -1.25,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "open"
+        },
+        "sq": [
+         0.93,
+         1.12,
+         0.93
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.1,
+         "mouth": "clench",
+         "brow": -0.8
+        }
+       },
+       "toonDur": 0.28,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.88,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.22,
+          1.08,
+          -1.0,
+          1,
+          0.03
+         ],
+         "L": [
+          0.35,
+          0.8,
+          -1.25,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "open"
+        },
+        "sq": [
+         1.02,
+         0.98,
+         1.02
+        ],
+        "bend": {
+         "spine": [
+          0.25,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.25,
+         "mouth": "line",
+         "brow": -0.6
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.98,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.22,
+          1.0,
+          -1.0,
+          1,
+          0.03
+         ],
+         "L": [
+          0.35,
+          0.8,
+          -1.25,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "open"
+        },
+        "sq": [
+         1.2,
+         0.78,
+         1.2
+        ],
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "pop": 0.4,
+         "mouth": "clench",
+         "brow": -0.9
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.14,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.22,
+          1.02,
+          -1.0,
+          1,
+          0.03
+         ],
+         "L": [
+          0.35,
+          0.8,
+          -1.25,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "open"
+        },
+        "sq": [
+         0.95,
+         1.07,
+         0.95
+        ],
+        "bend": {
+         "spine": [
+          0.2,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.2,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.32,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.32,
+          1.1,
+          -1.5,
+          1,
+          0.03
+         ],
+         "L": [
+          0.35,
+          0.8,
+          -1.25,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "open"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.35,
+         "mouth": "smile",
+         "brow": 0.2
+        }
+       },
+       "toonDur": 0.25,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.43,
+       "look": "camera",
+       "lookDur": 0.15
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "bureau3",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "w": 1.6,
+      "d": 0.9,
+      "h": 0.76,
+      "color": "#5A3E2B",
+      "legs": "#3E2A1C"
+     },
+     "keys": [
+      {
+       "at": 0.98,
+       "to": [
+        0.0,
+        0.025,
+        -1.2
+       ],
+       "dur": 0.04
+      },
+      {
+       "at": 1.03,
+       "to": [
+        0.0,
+        0,
+        -1.2
+       ],
+       "dur": 0.1
+      }
+     ]
+    },
+    {
+     "id": "bouton3",
+     "name": "bigRedButton",
+     "pos": [
+      -0.22,
+      0.76,
+      -1.0
+     ],
+     "opts": {
+      "pressAt": 0.98
+     }
+    },
+    {
+     "id": "sirene3a",
+     "name": "alarmSiren",
+     "pos": [
+      -1.7,
+      2.65,
+      -3.58
+     ],
+     "opts": {
+      "from": 1.02,
+      "s": 1.6,
+      "power": 6,
+      "reach": 8
+     }
+    },
+    {
+     "id": "sirene3b",
+     "name": "alarmSiren",
+     "pos": [
+      1.7,
+      2.65,
+      -3.58
+     ],
+     "opts": {
+      "from": 1.02,
+      "s": 1.6,
+      "power": 6,
+      "reach": 8
+     }
+    },
+    {
+     "id": "etoiles3",
+     "name": "impactStars",
+     "pos": [
+      -0.22,
+      0.94,
+      -1.0
+     ],
+     "opts": {
+      "at": 0.98,
+      "n": 5
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.45,
+      1.3,
+      1.3
+     ],
+     "to": [
+      0.42,
+      1.3,
+      1.12
+     ],
+     "lookAt": [
+      -0.05,
+      1.38,
+      -1.6
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      -0.05,
+      1.38,
+      -1.6
+     ]
+    }
+   ],
+   "start": 4.4,
+   "duration": 2.3333,
+   "setOpts": {
+    "door": false,
+    "printer": false,
+    "picture": false,
+    "carpet": false,
+    "wall": "#E9E1CF",
+    "band": "#2E4563",
+    "trim": "#1E2E44"
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.98,
+     "dur": 0.18,
+     "amount": 0.014
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "cottageStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      3.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -3.6,
+        2.15,
+        5.0
+       ]
+      },
+      {
+       "at": 0.15,
+       "look": [
+        -2.006,
+        2.194,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 0.45,
+       "look": [
+        -0.944,
+        2.224,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 0.75,
+       "look": [
+        0.119,
+        2.253,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.05,
+       "look": [
+        1.181,
+        2.283,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.35,
+       "look": [
+        2.244,
+        2.312,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.65,
+       "look": [
+        3.306,
+        2.342,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.95,
+       "look": [
+        3.6,
+        2.35,
+        5.0
+       ],
+       "lookDur": 0.3
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "invite1",
+     "pos": [
+      -0.85,
+      0,
+      2.85
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -3.6,
+        2.15,
+        5.0
+       ]
+      },
+      {
+       "at": 0.15,
+       "look": [
+        -2.006,
+        2.194,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 0.45,
+       "look": [
+        -0.944,
+        2.224,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 0.75,
+       "look": [
+        0.119,
+        2.253,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.05,
+       "look": [
+        1.181,
+        2.283,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.35,
+       "look": [
+        2.244,
+        2.312,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.65,
+       "look": [
+        3.306,
+        2.342,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.95,
+       "look": [
+        3.6,
+        2.35,
+        5.0
+       ],
+       "lookDur": 0.3
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "invite2",
+     "pos": [
+      0.9,
+      0,
+      2.75
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -3.6,
+        2.15,
+        5.0
+       ]
+      },
+      {
+       "at": 0.15,
+       "look": [
+        -2.006,
+        2.194,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 0.45,
+       "look": [
+        -0.944,
+        2.224,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 0.75,
+       "look": [
+        0.119,
+        2.253,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.05,
+       "look": [
+        1.181,
+        2.283,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.35,
+       "look": [
+        2.244,
+        2.312,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.65,
+       "look": [
+        3.306,
+        2.342,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.95,
+       "look": [
+        3.6,
+        2.35,
+        5.0
+       ],
+       "lookDur": 0.3
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "invite3",
+     "pos": [
+      -0.35,
+      0,
+      2.0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -3.6,
+        2.15,
+        5.0
+       ]
+      },
+      {
+       "at": 0.15,
+       "look": [
+        -2.006,
+        2.194,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 0.45,
+       "look": [
+        -0.944,
+        2.224,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 0.75,
+       "look": [
+        0.119,
+        2.253,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.05,
+       "look": [
+        1.181,
+        2.283,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.35,
+       "look": [
+        2.244,
+        2.312,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.65,
+       "look": [
+        3.306,
+        2.342,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.95,
+       "look": [
+        3.6,
+        2.35,
+        5.0
+       ],
+       "lookDur": 0.3
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "foule3",
+     "pos": [
+      0.45,
+      0,
+      1.85
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -3.6,
+        2.15,
+        5.0
+       ]
+      },
+      {
+       "at": 0.15,
+       "look": [
+        -2.006,
+        2.194,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 0.45,
+       "look": [
+        -0.944,
+        2.224,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 0.75,
+       "look": [
+        0.119,
+        2.253,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.05,
+       "look": [
+        1.181,
+        2.283,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.35,
+       "look": [
+        2.244,
+        2.312,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.65,
+       "look": [
+        3.306,
+        2.342,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.95,
+       "look": [
+        3.6,
+        2.35,
+        5.0
+       ],
+       "lookDur": 0.3
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "foule1",
+     "pos": [
+      -1.25,
+      0,
+      1.2
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -3.6,
+        2.15,
+        5.0
+       ]
+      },
+      {
+       "at": 0.15,
+       "look": [
+        -2.006,
+        2.194,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 0.45,
+       "look": [
+        -0.944,
+        2.224,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 0.75,
+       "look": [
+        0.119,
+        2.253,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.05,
+       "look": [
+        1.181,
+        2.283,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.35,
+       "look": [
+        2.244,
+        2.312,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.65,
+       "look": [
+        3.306,
+        2.342,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.95,
+       "look": [
+        3.6,
+        2.35,
+        5.0
+       ],
+       "lookDur": 0.3
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "foule2",
+     "pos": [
+      1.3,
+      0,
+      1.1
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -3.6,
+        2.15,
+        5.0
+       ]
+      },
+      {
+       "at": 0.15,
+       "look": [
+        -2.006,
+        2.194,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 0.45,
+       "look": [
+        -0.944,
+        2.224,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 0.75,
+       "look": [
+        0.119,
+        2.253,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.05,
+       "look": [
+        1.181,
+        2.283,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.35,
+       "look": [
+        2.244,
+        2.312,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.65,
+       "look": [
+        3.306,
+        2.342,
+        5.0
+       ],
+       "lookDur": 0.3
+      },
+      {
+       "at": 1.95,
+       "look": [
+        3.6,
+        2.35,
+        5.0
+       ],
+       "lookDur": 0.3
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "masque40",
+     "name": "gasMask",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "masque41",
+     "name": "gasMask",
+     "on": {
+      "actor": "invite1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "masque42",
+     "name": "gasMask",
+     "on": {
+      "actor": "invite2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "masque43",
+     "name": "gasMask",
+     "on": {
+      "actor": "invite3",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "masque44",
+     "name": "gasMask",
+     "on": {
+      "actor": "foule3",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "masque45",
+     "name": "gasMask",
+     "on": {
+      "actor": "foule1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "masque46",
+     "name": "gasMask",
+     "on": {
+      "actor": "foule2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "volute4",
+     "name": "smokeRibbon",
+     "pos": [
+      -3.6,
+      2.15,
+      5.0
+     ],
+     "opts": {
+      "pts": [
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0.25,
+        0.1,
+        0
+       ],
+       [
+        0.5,
+        0.0,
+        0
+       ]
+      ],
+      "n": 10,
+      "s0": 0.07,
+      "s1": 0.11,
+      "speed": 0.9,
+      "shrink": false,
+      "wob": 0.03
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        3.6,
+        2.35,
+        5.0
+       ],
+       "dur": 2.033,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      2.55,
+      10.5
+     ],
+     "to": [
+      0.38,
+      2.5,
+      10.2
+     ],
+     "lookAt": [
+      0.0,
+      1.55,
+      2.2
+     ],
+     "lens": 38,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.55,
+      2.2
+     ]
+    }
+   ],
+   "start": 6.7333,
+   "duration": 2.0334,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "voisin",
+     "pos": [
+      1.25,
+      0.06,
+      -1.15
+     ],
+     "ry": 15.3,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.6,
+        12.0,
+        -12.0
+       ]
+      },
+      {
+       "at": 0.6,
+       "look": [
+        -0.6,
+        9.0,
+        -10.0
+       ],
+       "lookDur": 0.8
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.156,
+          1.21,
+          -0.813,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "O",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.2,
+       "toon": {
+        "reach": {
+         "R": [
+          1.156,
+          1.21,
+          -0.813,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "O",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.32,
+       "toon": {
+        "reach": {
+         "R": [
+          1.156,
+          1.21,
+          -0.813,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "O",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.6,
+       "look": [
+        0.2,
+        7.0,
+        -8.0
+       ],
+       "lookDur": 0.35
+      }
+     ],
+     "expr": "surprised"
+    },
+    {
+     "id": "invite1",
+     "pos": [
+      2.35,
+      0.06,
+      -1.45
+     ],
+     "ry": -6.5,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.9,
+        12.0,
+        -12.0
+       ]
+      },
+      {
+       "at": 0.7,
+       "look": [
+        0.9,
+        9.0,
+        -10.0
+       ],
+       "lookDur": 0.8
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          2.137,
+          1.21,
+          -1.172,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "O",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.32,
+       "toon": {
+        "reach": {
+         "R": [
+          2.137,
+          1.21,
+          -1.172,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "O",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.44,
+       "toon": {
+        "reach": {
+         "R": [
+          2.137,
+          1.21,
+          -1.172,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "O",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.65,
+       "look": [
+        1.7,
+        7.0,
+        -8.0
+       ],
+       "lookDur": 0.35
+      }
+     ],
+     "expr": "surprised"
+    },
+    {
+     "id": "invite2",
+     "pos": [
+      1.75,
+      0.06,
+      -2.2
+     ],
+     "ry": 3.8,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        2.4,
+        12.0,
+        -12.0
+       ]
+      },
+      {
+       "at": 0.8,
+       "look": [
+        2.4,
+        9.0,
+        -10.0
+       ],
+       "lookDur": 0.8
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.59,
+          1.21,
+          -1.889,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "O",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.44,
+       "toon": {
+        "reach": {
+         "R": [
+          1.59,
+          1.21,
+          -1.889,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "O",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.56,
+       "toon": {
+        "reach": {
+         "R": [
+          1.59,
+          1.21,
+          -1.889,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "O",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.7,
+       "look": [
+        3.2,
+        7.0,
+        -8.0
+       ],
+       "lookDur": 0.35
+      }
+     ],
+     "expr": "surprised"
+    },
+    {
+     "id": "invite3",
+     "pos": [
+      3.0,
+      0.06,
+      -2.4
+     ],
+     "ry": -14.0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        3.9,
+        12.0,
+        -12.0
+       ]
+      },
+      {
+       "at": 0.9,
+       "look": [
+        3.9,
+        9.0,
+        -10.0
+       ],
+       "lookDur": 0.8
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          2.753,
+          1.21,
+          -2.152,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "O",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.56,
+       "toon": {
+        "reach": {
+         "R": [
+          2.753,
+          1.21,
+          -2.152,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "O",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.68,
+       "toon": {
+        "reach": {
+         "R": [
+          2.753,
+          1.21,
+          -2.152,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "O",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.75,
+       "look": [
+        4.7,
+        7.0,
+        -8.0
+       ],
+       "lookDur": 0.35
+      }
+     ],
+     "expr": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "id": "maison",
+     "name": "cottage",
+     "pos": [
+      -6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2D58A",
+      "roof": "#B5402F",
+      "door": "#2F7F8C",
+      "burnt": false,
+      "seed": 3
+     }
+    },
+    {
+     "id": "voisins",
+     "name": "cottage",
+     "pos": [
+      6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#4E5E7E",
+      "door": "#2F7F8C",
+      "burnt": false,
+      "seed": 8
+     }
+    },
+    {
+     "id": "arriere0",
+     "name": "cottage",
+     "pos": [
+      -13.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#EFC7C7",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 11
+     }
+    },
+    {
+     "id": "arriere1",
+     "name": "cottage",
+     "pos": [
+      -1.5,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#C9DDF0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 12
+     }
+    },
+    {
+     "id": "arriere2",
+     "name": "cottage",
+     "pos": [
+      10.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2B49A",
+      "roof": "#4E5E7E",
+      "burnt": false,
+      "seed": 13
+     }
+    },
+    {
+     "id": "arriere3",
+     "name": "cottage",
+     "pos": [
+      -7.0,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F4F2EC",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 14
+     }
+    },
+    {
+     "id": "arriere4",
+     "name": "cottage",
+     "pos": [
+      5.5,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#E6CDE6",
+      "roof": "#5E83C6",
+      "burnt": false,
+      "seed": 15
+     }
+    },
+    {
+     "id": "arriere5",
+     "name": "cottage",
+     "pos": [
+      3.8,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2E2A0",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 16
+     }
+    },
+    {
+     "id": "arriere6",
+     "name": "cottage",
+     "pos": [
+      -4.5,
+      0,
+      -28.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 17
+     }
+    },
+    {
+     "id": "cloture",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 9.0,
+      "height": 0.85,
+      "color": "#F6F4EE",
+      "rail": "#F6F4EE"
+     }
+    },
+    {
+     "id": "patio",
+     "name": "slab",
+     "pos": [
+      2.5,
+      0.03,
+      -2.9
+     ],
+     "opts": {
+      "w": 4.6,
+      "h": 0.06,
+      "d": 4.6,
+      "color": "#D8C9AA"
+     }
+    },
+    {
+     "id": "nappe",
+     "name": "table",
+     "pos": [
+      3.4,
+      0.06,
+      -3.9
+     ],
+     "ry": -20,
+     "opts": {
+      "w": 1.4,
+      "d": 0.8,
+      "h": 0.76,
+      "color": "#F2EEE4",
+      "legs": "#8A6A44"
+     }
+    },
+    {
+     "id": "assiette0",
+     "name": "paperPlate",
+     "pos": [
+      2.95,
+      0.83,
+      -3.8
+     ]
+    },
+    {
+     "id": "assiette1",
+     "name": "paperPlate",
+     "pos": [
+      3.4,
+      0.83,
+      -3.72
+     ]
+    },
+    {
+     "id": "assiette2",
+     "name": "paperPlate",
+     "pos": [
+      3.82,
+      0.83,
+      -3.85
+     ]
+    },
+    {
+     "id": "mat1",
+     "name": "slab",
+     "pos": [
+      0.55,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "mat2",
+     "name": "slab",
+     "pos": [
+      4.3,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "guirlande",
+     "name": "gardenBunting",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "a": [
+       0.55,
+       2.35,
+       -5.0
+      ],
+      "b": [
+       4.3,
+       2.35,
+       -5.0
+      ],
+      "n": 14,
+      "sag": 0.35
+     }
+    },
+    {
+     "id": "gril",
+     "name": "kettleGrill",
+     "pos": [
+      0.9,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "char": false,
+      "smokeH": 0.9,
+      "smokeN": 8,
+      "smokeSize": 0.8,
+      "wind": [
+       -0.3,
+       0.3
+      ]
+     }
+    },
+    {
+     "id": "fourchette50",
+     "name": "forkSausage",
+     "on": {
+      "actor": "voisin",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.04,
+       0.03
+      ],
+      "face": "camera",
+      "faceRoll": 0.0
+     },
+     "opts": {}
+    },
+    {
+     "id": "fourchette51",
+     "name": "forkSausage",
+     "on": {
+      "actor": "invite1",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.04,
+       0.03
+      ],
+      "face": "camera",
+      "faceRoll": 0.0
+     },
+     "opts": {}
+    },
+    {
+     "id": "fourchette52",
+     "name": "forkSausage",
+     "on": {
+      "actor": "invite2",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.04,
+       0.03
+      ],
+      "face": "camera",
+      "faceRoll": 0.0
+     },
+     "opts": {}
+    },
+    {
+     "id": "fourchette53",
+     "name": "forkSausage",
+     "on": {
+      "actor": "invite3",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.04,
+       0.03
+      ],
+      "face": "camera",
+      "faceRoll": 0.0
+     },
+     "opts": {}
+    },
+    {
+     "id": "ciel5",
+     "name": "parachuteSky",
+     "pos": [
+      1.5,
+      0,
+      -13.0
+     ],
+     "opts": {
+      "n": 34,
+      "w": 24,
+      "d": 22,
+      "y0": 7,
+      "y1": 30,
+      "v": 2.6
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.05,
+      0.6,
+      1.55
+     ],
+     "to": [
+      2.05,
+      0.62,
+      1.45
+     ],
+     "lookAt": [
+      1.4,
+      8.5,
+      -9.0
+     ],
+     "lens": 62,
+     "ease": "linear",
+     "lookAt2": [
+      1.4,
+      9.2,
+      -9.0
+     ]
+    }
+   ],
+   "start": 8.7667,
+   "duration": 2.1,
+   "setOpts": {
+    "clouds": 30,
+    "grass": "#86BE5C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "para",
+     "pos": [
+      0.9,
+      2.5,
+      -1.3
+     ],
+     "ry": -8,
+     "clip": "armsUp",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "to": [
+        0.9,
+        0.39,
+        -1.3
+       ],
+       "dur": 0.72,
+       "ease": "in"
+      },
+      {
+       "at": 0.62,
+       "clip": "sit"
+      },
+      {
+       "at": 0.72,
+       "toon": {
+        "sq": [
+         1.22,
+         0.74,
+         1.22
+        ],
+        "face": {
+         "lid": 0.0,
+         "pop": 0.5,
+         "mouth": "O",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.82,
+       "toon": {
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ],
+        "face": {
+         "lid": 0.1,
+         "pop": 0.3,
+         "mouth": "line",
+         "brow": 0.3
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.97,
+       "toon": {
+        "reach": {
+         "R": [
+          0.735,
+          1.99,
+          -1.202,
+          1,
+          0.03
+         ],
+         "L": [
+          1.083,
+          0.94,
+          -1.022,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "sq": [
+         1.0,
+         1.02,
+         1.0
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.12,
+       "toon": {
+        "reach": {
+         "R": [
+          0.735,
+          1.99,
+          -1.202,
+          1,
+          0.03
+         ],
+         "L": [
+          1.083,
+          0.94,
+          -1.022,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "voisin",
+     "pos": [
+      1.75,
+      0.06,
+      -1.75
+     ],
+     "ry": -18.0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.9,
+        2.4,
+        -1.3
+       ]
+      },
+      {
+       "at": 0.4,
+       "look": [
+        0.9,
+        1.4,
+        -1.3
+       ],
+       "lookDur": 0.25
+      },
+      {
+       "at": 0.72,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "pop": 0.6,
+         "mouth": "O",
+         "brow": 0.8
+        },
+        "sq": [
+         0.94,
+         1.08,
+         0.94
+        ],
+        "reach": {
+         "R": [
+          1.467,
+          1.2,
+          -1.526,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.84,
+       "toon": {
+        "face": {
+         "lid": 0.1,
+         "pop": 0.3,
+         "mouth": "O",
+         "brow": 0.6
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "reach": {
+         "R": [
+          1.467,
+          1.2,
+          -1.526,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "maison",
+     "name": "cottage",
+     "pos": [
+      -6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2D58A",
+      "roof": "#B5402F",
+      "door": "#2F7F8C",
+      "burnt": false,
+      "seed": 3
+     }
+    },
+    {
+     "id": "voisins",
+     "name": "cottage",
+     "pos": [
+      6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#4E5E7E",
+      "door": "#2F7F8C",
+      "burnt": false,
+      "seed": 8
+     }
+    },
+    {
+     "id": "arriere0",
+     "name": "cottage",
+     "pos": [
+      -13.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#EFC7C7",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 11
+     }
+    },
+    {
+     "id": "arriere1",
+     "name": "cottage",
+     "pos": [
+      -1.5,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#C9DDF0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 12
+     }
+    },
+    {
+     "id": "arriere2",
+     "name": "cottage",
+     "pos": [
+      10.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2B49A",
+      "roof": "#4E5E7E",
+      "burnt": false,
+      "seed": 13
+     }
+    },
+    {
+     "id": "arriere3",
+     "name": "cottage",
+     "pos": [
+      -7.0,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F4F2EC",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 14
+     }
+    },
+    {
+     "id": "arriere4",
+     "name": "cottage",
+     "pos": [
+      5.5,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#E6CDE6",
+      "roof": "#5E83C6",
+      "burnt": false,
+      "seed": 15
+     }
+    },
+    {
+     "id": "arriere5",
+     "name": "cottage",
+     "pos": [
+      3.8,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2E2A0",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 16
+     }
+    },
+    {
+     "id": "arriere6",
+     "name": "cottage",
+     "pos": [
+      -4.5,
+      0,
+      -28.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 17
+     }
+    },
+    {
+     "id": "cloture",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 9.0,
+      "height": 0.85,
+      "color": "#F6F4EE",
+      "rail": "#F6F4EE"
+     }
+    },
+    {
+     "id": "patio",
+     "name": "slab",
+     "pos": [
+      2.5,
+      0.03,
+      -2.9
+     ],
+     "opts": {
+      "w": 4.6,
+      "h": 0.06,
+      "d": 4.6,
+      "color": "#D8C9AA"
+     }
+    },
+    {
+     "id": "nappe",
+     "name": "table",
+     "pos": [
+      3.4,
+      0.06,
+      -3.9
+     ],
+     "ry": -20,
+     "opts": {
+      "w": 1.4,
+      "d": 0.8,
+      "h": 0.76,
+      "color": "#F2EEE4",
+      "legs": "#8A6A44"
+     }
+    },
+    {
+     "id": "assiette0",
+     "name": "paperPlate",
+     "pos": [
+      2.95,
+      0.83,
+      -3.8
+     ]
+    },
+    {
+     "id": "assiette1",
+     "name": "paperPlate",
+     "pos": [
+      3.4,
+      0.83,
+      -3.72
+     ]
+    },
+    {
+     "id": "assiette2",
+     "name": "paperPlate",
+     "pos": [
+      3.82,
+      0.83,
+      -3.85
+     ]
+    },
+    {
+     "id": "mat1",
+     "name": "slab",
+     "pos": [
+      0.55,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "mat2",
+     "name": "slab",
+     "pos": [
+      4.3,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "guirlande",
+     "name": "gardenBunting",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "a": [
+       0.55,
+       2.35,
+       -5.0
+      ],
+      "b": [
+       4.3,
+       2.35,
+       -5.0
+      ],
+      "n": 14,
+      "sag": 0.35
+     }
+    },
+    {
+     "id": "gril",
+     "name": "kettleGrill",
+     "pos": [
+      0.9,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "smokeH": 0.9,
+      "smokeN": 8,
+      "smokeSize": 0.8
+     },
+     "keys": [
+      {
+       "at": 0.72,
+       "squash": [
+        1.18,
+        0.78,
+        1.18
+       ],
+       "dur": 0.3
+      }
+     ]
+    },
+    {
+     "id": "voile6",
+     "name": "parachute",
+     "on": {
+      "actor": "para",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "opts": {
+      "collapseAt": 0.8,
+      "backSign": -1
+     }
+    },
+    {
+     "id": "casque6",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "para",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "fourchette6",
+     "name": "forkSausage",
+     "on": {
+      "actor": "voisin",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.04,
+       0.03
+      ],
+      "face": "camera",
+      "faceRoll": 0.0
+     },
+     "opts": {}
+    },
+    {
+     "id": "fumee6",
+     "name": "toonPuff",
+     "pos": [
+      0.95,
+      0.8,
+      -1.62
+     ],
+     "opts": {
+      "at": 0.74,
+      "n": 6,
+      "size": 0.09,
+      "life": 0.9,
+      "rise": 0.9,
+      "spread": 0.35,
+      "color": "#7A766F"
+     }
+    },
+    {
+     "id": "fumee6b",
+     "name": "smokeRibbon",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.87,
+       "visible": true
+      }
+     ],
+     "opts": {
+      "pts": [
+       [
+        0.95,
+        0.85,
+        -1.48
+       ],
+       [
+        1.0,
+        1.5,
+        -1.55
+       ],
+       [
+        0.85,
+        2.3,
+        -1.5
+       ]
+      ],
+      "n": 14,
+      "s0": 0.05,
+      "s1": 0.13,
+      "speed": 0.5,
+      "shrink": false,
+      "color": "#A7A29A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.5,
+      2.45
+     ],
+     "to": [
+      0.36,
+      1.5,
+      2.3
+     ],
+     "lookAt": [
+      0.95,
+      1.75,
+      -1.3
+     ],
+     "lens": 44,
+     "ease": "out",
+     "lookAt2": [
+      0.95,
+      1.3,
+      -1.3
+     ]
+    }
+   ],
+   "start": 10.8667,
+   "duration": 1.9333,
+   "setOpts": {
+    "clouds": 30,
+    "grass": "#86BE5C"
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.72,
+     "dur": 0.15,
+     "amount": 0.012
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -5.3,
+      0,
+      -2.2
+     ],
+     "ry": 11.8,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.08,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "voisins",
+     "name": "cottage",
+     "pos": [
+      6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#4E5E7E",
+      "door": "#2F7F8C",
+      "burnt": false,
+      "seed": 8
+     }
+    },
+    {
+     "id": "arriere0",
+     "name": "cottage",
+     "pos": [
+      -13.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#EFC7C7",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 11
+     }
+    },
+    {
+     "id": "arriere1",
+     "name": "cottage",
+     "pos": [
+      -1.5,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#C9DDF0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 12
+     }
+    },
+    {
+     "id": "arriere2",
+     "name": "cottage",
+     "pos": [
+      10.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2B49A",
+      "roof": "#4E5E7E",
+      "burnt": false,
+      "seed": 13
+     }
+    },
+    {
+     "id": "arriere3",
+     "name": "cottage",
+     "pos": [
+      -7.0,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F4F2EC",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 14
+     }
+    },
+    {
+     "id": "arriere4",
+     "name": "cottage",
+     "pos": [
+      5.5,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#E6CDE6",
+      "roof": "#5E83C6",
+      "burnt": false,
+      "seed": 15
+     }
+    },
+    {
+     "id": "arriere5",
+     "name": "cottage",
+     "pos": [
+      3.8,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2E2A0",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 16
+     }
+    },
+    {
+     "id": "arriere6",
+     "name": "cottage",
+     "pos": [
+      -4.5,
+      0,
+      -28.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 17
+     }
+    },
+    {
+     "id": "cloture",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 9.0,
+      "height": 0.85,
+      "color": "#F6F4EE",
+      "rail": "#F6F4EE"
+     }
+    },
+    {
+     "id": "patio",
+     "name": "slab",
+     "pos": [
+      2.5,
+      0.03,
+      -2.9
+     ],
+     "opts": {
+      "w": 4.6,
+      "h": 0.06,
+      "d": 4.6,
+      "color": "#D8C9AA"
+     }
+    },
+    {
+     "id": "nappe",
+     "name": "table",
+     "pos": [
+      3.4,
+      0.06,
+      -3.9
+     ],
+     "ry": -20,
+     "opts": {
+      "w": 1.4,
+      "d": 0.8,
+      "h": 0.76,
+      "color": "#F2EEE4",
+      "legs": "#8A6A44"
+     }
+    },
+    {
+     "id": "assiette0",
+     "name": "paperPlate",
+     "pos": [
+      2.95,
+      0.83,
+      -3.8
+     ]
+    },
+    {
+     "id": "assiette1",
+     "name": "paperPlate",
+     "pos": [
+      3.4,
+      0.83,
+      -3.72
+     ]
+    },
+    {
+     "id": "assiette2",
+     "name": "paperPlate",
+     "pos": [
+      3.82,
+      0.83,
+      -3.85
+     ]
+    },
+    {
+     "id": "mat1",
+     "name": "slab",
+     "pos": [
+      0.55,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "mat2",
+     "name": "slab",
+     "pos": [
+      4.3,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "guirlande",
+     "name": "gardenBunting",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "a": [
+       0.55,
+       2.35,
+       -5.0
+      ],
+      "b": [
+       4.3,
+       2.35,
+       -5.0
+      ],
+      "n": 14,
+      "sag": 0.35
+     }
+    },
+    {
+     "id": "masque7",
+     "name": "gasMask",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "maison7",
+     "name": "cavedHouse",
+     "pos": [
+      -6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "color": "#F2D58A",
+      "roof": "#B5402F",
+      "kick": [
+       0.0,
+       9.0
+      ]
+     }
+    },
+    {
+     "id": "poussiere7",
+     "name": "toonPuff",
+     "pos": [
+      -6.8,
+      3.6,
+      -6.5
+     ],
+     "opts": {
+      "at": 0.02,
+      "n": 8,
+      "size": 0.6,
+      "life": 0.9,
+      "rise": 1.0,
+      "spread": 2.4,
+      "color": "#E2DCCF"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -4.0,
+      1.6,
+      3.4
+     ],
+     "to": [
+      -4.05,
+      1.62,
+      3.2
+     ],
+     "lookAt": [
+      -6.0,
+      3.2,
+      -8.0
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      -6.0,
+      3.25,
+      -8.0
+     ]
+    }
+   ],
+   "start": 12.8,
+   "duration": 1.6,
+   "setOpts": {
+    "clouds": 30,
+    "grass": "#86BE5C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "prisonCell",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soldat",
+     "pos": [
+      0.72,
+      0,
+      3.25
+     ],
+     "ry": -107.0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.2,
+        0.3,
+        1.35
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.187,
+          1.15,
+          3.363,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.223,
+          1.15,
+          3.38,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.03,
+         0.97,
+         1.03
+        ]
+       },
+       "toonDur": 0.2
+      },
+      {
+       "at": 0.83,
+       "toon": {
+        "reach": {
+         "R": [
+          0.25,
+          1.15,
+          2.65,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          -0.2,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         0.96,
+         1.05,
+         0.96
+        ]
+       },
+       "toonDur": 0.12,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.2,
+       "toon": {
+        "reach": {
+         "R": [
+          0.602,
+          0.9,
+          2.952,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "rest"
+        },
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.3
+      },
+      {
+       "at": 1.45,
+       "look": "camera",
+       "lookDur": 0.2
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "grille8",
+     "name": "cellDoor",
+     "pos": [
+      0.0,
+      0,
+      2.6
+     ],
+     "opts": {
+      "w": 6.4,
+      "dx": -0.05,
+      "dw": 1.0,
+      "open": 1.1,
+      "slamAt": 0.95
+     }
+    },
+    {
+     "id": "casque8",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "soldat",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "saucisse80",
+     "name": "sausage",
+     "pos": [
+      -0.5,
+      0.0,
+      1.35
+     ],
+     "opts": {
+      "len": 0.36,
+      "r": 0.05,
+      "hop": [
+       [
+        0.97,
+        0.05,
+        0.25
+       ]
+      ]
+     }
+    },
+    {
+     "id": "saucisse81",
+     "name": "sausage",
+     "pos": [
+      -0.3,
+      0.0,
+      1.35
+     ],
+     "opts": {
+      "len": 0.36,
+      "r": 0.05,
+      "hop": [
+       [
+        0.985,
+        0.05,
+        0.25
+       ]
+      ]
+     }
+    },
+    {
+     "id": "saucisse82",
+     "name": "sausage",
+     "pos": [
+      -0.1,
+      0.0,
+      1.35
+     ],
+     "opts": {
+      "len": 0.36,
+      "r": 0.05,
+      "hop": [
+       [
+        1.0,
+        0.05,
+        0.25
+       ]
+      ]
+     }
+    },
+    {
+     "id": "saucisse83",
+     "name": "sausage",
+     "pos": [
+      0.1,
+      0.0,
+      1.35
+     ],
+     "opts": {
+      "len": 0.36,
+      "r": 0.05,
+      "hop": [
+       [
+        1.015,
+        0.05,
+        0.25
+       ]
+      ]
+     }
+    },
+    {
+     "id": "saucisse84",
+     "name": "sausage",
+     "pos": [
+      0.3,
+      0.0,
+      1.35
+     ],
+     "opts": {
+      "len": 0.36,
+      "r": 0.05,
+      "hop": [
+       [
+        1.03,
+        0.05,
+        0.25
+       ]
+      ]
+     }
+    },
+    {
+     "id": "saucisse85",
+     "name": "sausage",
+     "pos": [
+      0.5,
+      0.0,
+      1.35
+     ],
+     "opts": {
+      "len": 0.36,
+      "r": 0.05,
+      "hop": [
+       [
+        1.045,
+        0.05,
+        0.25
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.25,
+      8.4
+     ],
+     "to": [
+      0.29,
+      1.23,
+      8.1
+     ],
+     "lookAt": [
+      0.15,
+      0.9,
+      2.0
+     ],
+     "lens": 34,
+     "ease": "linear",
+     "lookAt2": [
+      0.15,
+      0.88,
+      2.0
+     ]
+    }
+   ],
+   "start": 14.4,
+   "duration": 2.1667,
+   "setOpts": {
+    "bars": false
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.95,
+     "dur": 0.15,
+     "amount": 0.012
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "interrogation",
+   "lines": [],
+   "actors": [
+    {
+     "id": "officier",
+     "pos": [
+      0.95,
+      0,
+      -1.05
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.05,
+        -1.45
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.7,
+          1.15,
+          -1.25,
+          1,
+          0.03
+         ],
+         "L": [
+          0.7,
+          1.15,
+          -0.8,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.2,
+         "mouth": "line",
+         "brow": -0.8
+        }
+       },
+       "toonDur": 0.0,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.45,
+       "toon": {
+        "reach": {
+         "R": [
+          0.78,
+          1.6,
+          -1.25,
+          1,
+          0.03
+         ],
+         "L": [
+          0.78,
+          1.6,
+          -0.8,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "bend": {
+         "spine": [
+          0.05,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.1,
+         "mouth": "clench",
+         "brow": -0.9
+        }
+       },
+       "toonDur": 0.25,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.78,
+       "toon": {
+        "reach": {
+         "R": [
+          0.5,
+          0.86,
+          -1.2,
+          1,
+          0.03
+         ],
+         "L": [
+          0.5,
+          0.86,
+          -0.85,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "sq": [
+         1.02,
+         0.98,
+         1.02
+        ],
+        "bend": {
+         "spine": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.2,
+         "mouth": "line",
+         "brow": -0.8
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.86,
+       "toon": {
+        "reach": {
+         "R": [
+          0.5,
+          0.83,
+          -1.2,
+          1,
+          0.03
+         ],
+         "L": [
+          0.5,
+          0.83,
+          -0.85,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "sq": [
+         1.15,
+         0.85,
+         1.15
+        ],
+        "bend": {
+         "spine": [
+          0.18,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "O",
+         "brow": -0.9
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.04,
+       "toon": {
+        "reach": {
+         "R": [
+          0.52,
+          0.85,
+          -1.18,
+          1,
+          0.03
+         ],
+         "L": [
+          0.52,
+          0.85,
+          -0.85,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.12,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.15,
+         "mouth": "clench",
+         "brow": -0.8
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.46,
+       "look": "camera",
+       "lookDur": 0.2
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "kepi9",
+     "name": "kepi",
+     "on": {
+      "actor": "officier",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.222,
+      "d": 0.17,
+      "color": "#4E5730",
+      "band": "#2E3320"
+     }
+    },
+    {
+     "id": "chipolata9",
+     "name": "sausage",
+     "pos": [
+      0.0,
+      0.48,
+      -1.45
+     ],
+     "opts": {
+      "len": 0.24,
+      "r": 0.028,
+      "color": "#C46A44",
+      "hop": [
+       [
+        0.88,
+        0.2,
+        0.45
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.2,
+      1.4,
+      2.35
+     ],
+     "to": [
+      -0.18,
+      1.39,
+      2.15
+     ],
+     "lookAt": [
+      0.4,
+      1.12,
+      -1.2
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0.4,
+      1.1,
+      -1.2
+     ]
+    }
+   ],
+   "start": 16.5667,
+   "duration": 2.0333,
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.86,
+     "dur": 0.15,
+     "amount": 0.012
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "porteur1",
+     "pos": [
+      0.75,
+      6.0,
+      -2.3
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.75,
+        6.0,
+        -5.6
+       ],
+       "dur": 1.933,
+       "clip": "walk",
+       "ease": "linear"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "porteur2",
+     "pos": [
+      0.75,
+      6.0,
+      -0.35
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.75,
+        6.0,
+        -3.65
+       ],
+       "dur": 1.933,
+       "clip": "walk",
+       "ease": "linear"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "espion",
+     "pos": [
+      -0.75,
+      6.0,
+      -9.0
+     ],
+     "ry": 0,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -0.75,
+        6.0,
+        -3.6
+       ],
+       "dur": 1.933,
+       "clip": "walk",
+       "ease": "linear"
+      },
+      {
+       "at": 0.0,
+       "look": [
+        -0.75,
+        7.6,
+        0.0
+       ]
+      },
+      {
+       "at": 0.95,
+       "look": [
+        0.75,
+        6.85,
+        -3.3
+       ],
+       "lookDur": 0.2
+      },
+      {
+       "at": 1.45,
+       "look": [
+        2.2,
+        8.2,
+        1.6
+       ],
+       "lookDur": 0.25
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "pont10",
+     "name": "fogBridge",
+     "pos": [
+      0.0,
+      6.0,
+      -14.0
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 44,
+      "W": 4.2
+     }
+    },
+    {
+     "id": "civiere10",
+     "name": "stretcher",
+     "pos": [
+      0.75,
+      6.8,
+      -1.32
+     ],
+     "opts": {
+      "load": "chipolata"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.75,
+        6.8,
+        -4.62
+       ],
+       "dur": 1.933,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "casque10a",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "porteur1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque10b",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "porteur2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "chapeau10",
+     "name": "fedoraHat",
+     "on": {
+      "actor": "espion",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.47,
+       0.0
+      ]
+     },
+     "opts": {
+      "color": "#5A4A36"
+     }
+    },
+    {
+     "id": "lunettes10",
+     "name": "shades",
+     "on": {
+      "actor": "espion",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.3,
+       0.095
+      ]
+     },
+     "opts": {
+      "ear": false
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.0,
+      10.3,
+      0.6
+     ],
+     "to": [
+      1.95,
+      10.25,
+      0.35
+     ],
+     "lookAt": [
+      0.1,
+      6.6,
+      -4.2
+     ],
+     "lens": 48,
+     "ease": "linear",
+     "lookAt2": [
+      0.1,
+      6.6,
+      -4.4
+     ]
+    }
+   ],
+   "start": 18.6,
+   "duration": 1.9333,
+   "setOpts": {
+    "clouds": 0,
+    "sky": [
+     "#AEB8C0",
+     "#D6DBDF"
+    ],
+    "grass": "#55616A"
+   },
+   "fog": {
+    "color": "#CDD3D8",
+    "near": 6,
+    "far": 32
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soldat",
+     "pos": [
+      -1.15,
+      0,
+      0.35
+     ],
+     "ry": 128.8,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.9,
+        1.0,
+        -1.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.991,
+          0.95,
+          0.068,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.602,
+          0.95,
+          -0.213,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.4,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.991,
+          0.95,
+          0.068,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.602,
+          0.95,
+          -0.213,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "bend": {
+         "spine": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.991,
+          0.95,
+          0.068,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.602,
+          0.95,
+          -0.213,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         0.97,
+         1.03,
+         0.97
+        ],
+        "bend": {
+         "spine": [
+          -0.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.991,
+          0.95,
+          0.068,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.602,
+          0.95,
+          -0.213,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.05,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 0.85,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.991,
+          0.95,
+          0.068,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.602,
+          0.95,
+          -0.213,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         0.99,
+         1.01,
+         0.99
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.07,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.991,
+          0.95,
+          0.068,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.602,
+          0.95,
+          -0.213,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         1.02,
+         0.98,
+         1.02
+        ],
+        "bend": {
+         "spine": [
+          0.08,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.29,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.991,
+          0.95,
+          0.068,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.602,
+          0.95,
+          -0.213,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         0.99,
+         1.01,
+         0.99
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.51,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.991,
+          0.95,
+          0.068,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.602,
+          0.95,
+          -0.213,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         1.02,
+         0.98,
+         1.02
+        ],
+        "bend": {
+         "spine": [
+          0.08,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.73,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.991,
+          0.95,
+          0.068,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.602,
+          0.95,
+          -0.213,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         0.99,
+         1.01,
+         0.99
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.95,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.991,
+          0.95,
+          0.068,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.602,
+          0.95,
+          -0.213,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         1.02,
+         0.98,
+         1.02
+        ],
+        "bend": {
+         "spine": [
+          0.08,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 2.17,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.991,
+          0.95,
+          0.068,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.602,
+          0.95,
+          -0.213,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         0.99,
+         1.01,
+         0.99
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "para",
+     "pos": [
+      0.9,
+      0.39,
+      -1.3
+     ],
+     "ry": -8,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.735,
+          1.99,
+          -1.202,
+          1,
+          0.03
+         ],
+         "L": [
+          1.083,
+          0.94,
+          -1.022,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.0,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.65,
+       "look": [
+        -1.15,
+        1.6,
+        0.35
+       ],
+       "lookDur": 0.12
+      },
+      {
+       "at": 1.35,
+       "toon": {
+        "reach": {
+         "R": [
+          0.735,
+          1.99,
+          -1.202,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 0.0,
+         "pop": 0.2,
+         "mouth": "line",
+         "brow": 0.2
+        }
+       },
+       "toonDur": 0.05
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "maison",
+     "name": "cottage",
+     "pos": [
+      -6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2D58A",
+      "roof": "#B5402F",
+      "door": "#2F7F8C",
+      "burnt": false,
+      "seed": 3
+     }
+    },
+    {
+     "id": "voisins",
+     "name": "cottage",
+     "pos": [
+      6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#4E5E7E",
+      "door": "#2F7F8C",
+      "burnt": false,
+      "seed": 8
+     }
+    },
+    {
+     "id": "arriere0",
+     "name": "cottage",
+     "pos": [
+      -13.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#EFC7C7",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 11
+     }
+    },
+    {
+     "id": "arriere1",
+     "name": "cottage",
+     "pos": [
+      -1.5,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#C9DDF0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 12
+     }
+    },
+    {
+     "id": "arriere2",
+     "name": "cottage",
+     "pos": [
+      10.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2B49A",
+      "roof": "#4E5E7E",
+      "burnt": false,
+      "seed": 13
+     }
+    },
+    {
+     "id": "arriere3",
+     "name": "cottage",
+     "pos": [
+      -7.0,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F4F2EC",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 14
+     }
+    },
+    {
+     "id": "arriere4",
+     "name": "cottage",
+     "pos": [
+      5.5,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#E6CDE6",
+      "roof": "#5E83C6",
+      "burnt": false,
+      "seed": 15
+     }
+    },
+    {
+     "id": "arriere5",
+     "name": "cottage",
+     "pos": [
+      3.8,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2E2A0",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 16
+     }
+    },
+    {
+     "id": "arriere6",
+     "name": "cottage",
+     "pos": [
+      -4.5,
+      0,
+      -28.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 17
+     }
+    },
+    {
+     "id": "cloture",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 9.0,
+      "height": 0.85,
+      "color": "#F6F4EE",
+      "rail": "#F6F4EE"
+     }
+    },
+    {
+     "id": "patio",
+     "name": "slab",
+     "pos": [
+      2.5,
+      0.03,
+      -2.9
+     ],
+     "opts": {
+      "w": 4.6,
+      "h": 0.06,
+      "d": 4.6,
+      "color": "#D8C9AA"
+     }
+    },
+    {
+     "id": "nappe",
+     "name": "table",
+     "pos": [
+      3.4,
+      0.06,
+      -3.9
+     ],
+     "ry": -20,
+     "opts": {
+      "w": 1.4,
+      "d": 0.8,
+      "h": 0.76,
+      "color": "#F2EEE4",
+      "legs": "#8A6A44"
+     }
+    },
+    {
+     "id": "assiette0",
+     "name": "paperPlate",
+     "pos": [
+      2.95,
+      0.83,
+      -3.8
+     ]
+    },
+    {
+     "id": "assiette1",
+     "name": "paperPlate",
+     "pos": [
+      3.4,
+      0.83,
+      -3.72
+     ]
+    },
+    {
+     "id": "assiette2",
+     "name": "paperPlate",
+     "pos": [
+      3.82,
+      0.83,
+      -3.85
+     ]
+    },
+    {
+     "id": "mat1",
+     "name": "slab",
+     "pos": [
+      0.55,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "mat2",
+     "name": "slab",
+     "pos": [
+      4.3,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "guirlande",
+     "name": "gardenBunting",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "a": [
+       0.55,
+       2.35,
+       -5.0
+      ],
+      "b": [
+       4.3,
+       2.35,
+       -5.0
+      ],
+      "n": 14,
+      "sag": 0.35
+     }
+    },
+    {
+     "id": "masque11",
+     "name": "gasMask",
+     "on": {
+      "actor": "soldat",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "casque11",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "soldat",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque11p",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "para",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "suie11",
+     "name": "sootPatches",
+     "on": {
+      "actor": "para",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 1.3,
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "reservoirs11",
+     "name": "fuelTanks",
+     "on": {
+      "actor": "soldat",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.3,
+       -0.2
+      ]
+     }
+    },
+    {
+     "id": "lance11",
+     "name": "flameThrower",
+     "pos": [
+      -0.991,
+      0.95,
+      0.068
+     ],
+     "ry": 125.9,
+     "opts": {
+      "fire": [
+       [
+        0.5,
+        2.35
+       ]
+      ],
+      "jet": 3.0,
+      "spread": 0.5
+     }
+    },
+    {
+     "id": "gril",
+     "name": "kettleGrill",
+     "pos": [
+      0.9,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "charAt": 1.3,
+      "smoke": false
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -3.25,
+      1.9,
+      3.25
+     ],
+     "to": [
+      -3.15,
+      1.88,
+      3.08
+     ],
+     "lookAt": [
+      0.6,
+      1.15,
+      -1.1
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0.62,
+      1.13,
+      -1.1
+     ]
+    }
+   ],
+   "start": 20.5333,
+   "duration": 2.4,
+   "setOpts": {
+    "clouds": 30,
+    "grass": "#86BE5C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soldat",
+     "pos": [
+      0.3,
+      0,
+      -3.4
+     ],
+     "ry": -19.5,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        6.8,
+        3.0,
+        -9.5
+       ]
+      },
+      {
+       "at": 0.5,
+       "look": [
+        -3.0,
+        3.0,
+        -8.0
+       ],
+       "lookDur": 0.35
+      },
+      {
+       "at": 1.0,
+       "look": "camera",
+       "lookDur": 0.2
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "para",
+     "pos": [
+      0.9,
+      0.39,
+      -1.3
+     ],
+     "ry": -8,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.735,
+          1.99,
+          -1.202,
+          1,
+          0.03
+         ],
+         "L": [
+          1.083,
+          0.94,
+          -1.022,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.0,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "reach": {
+         "R": [
+          0.735,
+          1.99,
+          -1.202,
+          1,
+          0.03
+         ],
+         "L": [
+          1.083,
+          0.94,
+          -1.022,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.735,
+          1.99,
+          -1.202,
+          1,
+          0.03
+         ],
+         "L": [
+          1.083,
+          0.94,
+          -1.022,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "maison",
+     "name": "cottage",
+     "pos": [
+      -6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2D58A",
+      "roof": "#B5402F",
+      "door": "#2F7F8C",
+      "burnt": false,
+      "seed": 3
+     }
+    },
+    {
+     "id": "voisins",
+     "name": "cottage",
+     "pos": [
+      6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#4E5E7E",
+      "door": "#2F7F8C",
+      "burnt": false,
+      "seed": 8
+     }
+    },
+    {
+     "id": "arriere0",
+     "name": "cottage",
+     "pos": [
+      -13.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#EFC7C7",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 11
+     }
+    },
+    {
+     "id": "arriere1",
+     "name": "cottage",
+     "pos": [
+      -1.5,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#C9DDF0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 12
+     }
+    },
+    {
+     "id": "arriere2",
+     "name": "cottage",
+     "pos": [
+      10.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2B49A",
+      "roof": "#4E5E7E",
+      "burnt": false,
+      "seed": 13
+     }
+    },
+    {
+     "id": "arriere3",
+     "name": "cottage",
+     "pos": [
+      -7.0,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F4F2EC",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 14
+     }
+    },
+    {
+     "id": "arriere4",
+     "name": "cottage",
+     "pos": [
+      5.5,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#E6CDE6",
+      "roof": "#5E83C6",
+      "burnt": false,
+      "seed": 15
+     }
+    },
+    {
+     "id": "arriere5",
+     "name": "cottage",
+     "pos": [
+      3.8,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2E2A0",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 16
+     }
+    },
+    {
+     "id": "arriere6",
+     "name": "cottage",
+     "pos": [
+      -4.5,
+      0,
+      -28.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 17
+     }
+    },
+    {
+     "id": "cloture",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 9.0,
+      "height": 0.85,
+      "color": "#F6F4EE",
+      "rail": "#F6F4EE"
+     }
+    },
+    {
+     "id": "patio",
+     "name": "slab",
+     "pos": [
+      2.5,
+      0.03,
+      -2.9
+     ],
+     "opts": {
+      "w": 4.6,
+      "h": 0.06,
+      "d": 4.6,
+      "color": "#D8C9AA"
+     }
+    },
+    {
+     "id": "nappe",
+     "name": "table",
+     "pos": [
+      3.4,
+      0.06,
+      -3.9
+     ],
+     "ry": -20,
+     "opts": {
+      "w": 1.4,
+      "d": 0.8,
+      "h": 0.76,
+      "color": "#F2EEE4",
+      "legs": "#8A6A44"
+     }
+    },
+    {
+     "id": "assiette0",
+     "name": "paperPlate",
+     "pos": [
+      2.95,
+      0.83,
+      -3.8
+     ]
+    },
+    {
+     "id": "assiette1",
+     "name": "paperPlate",
+     "pos": [
+      3.4,
+      0.83,
+      -3.72
+     ]
+    },
+    {
+     "id": "assiette2",
+     "name": "paperPlate",
+     "pos": [
+      3.82,
+      0.83,
+      -3.85
+     ]
+    },
+    {
+     "id": "mat1",
+     "name": "slab",
+     "pos": [
+      0.55,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "mat2",
+     "name": "slab",
+     "pos": [
+      4.3,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "guirlande",
+     "name": "gardenBunting",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "a": [
+       0.55,
+       2.35,
+       -5.0
+      ],
+      "b": [
+       4.3,
+       2.35,
+       -5.0
+      ],
+      "n": 14,
+      "sag": 0.35
+     }
+    },
+    {
+     "id": "flammes",
+     "name": "flameField",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "points": [
+       [
+        -8.4,
+        3.6,
+        -9.0,
+        2.2
+       ],
+       [
+        -5.4,
+        3.9,
+        -9.9,
+        2.4
+       ],
+       [
+        -6.8,
+        4.8,
+        -9.5,
+        2.6
+       ],
+       [
+        -9.2,
+        1.0,
+        -5.9,
+        1.4
+       ],
+       [
+        -4.6,
+        1.2,
+        -5.9,
+        1.3
+       ],
+       [
+        5.199999999999999,
+        3.6,
+        -9.0,
+        2.2
+       ],
+       [
+        8.2,
+        3.9,
+        -9.9,
+        2.4
+       ],
+       [
+        6.8,
+        4.8,
+        -9.5,
+        2.6
+       ],
+       [
+        4.4,
+        1.0,
+        -5.9,
+        1.4
+       ],
+       [
+        9.0,
+        1.2,
+        -5.9,
+        1.3
+       ],
+       [
+        -14.6,
+        3.6,
+        -21.5,
+        2.2
+       ],
+       [
+        -11.6,
+        3.9,
+        -22.4,
+        2.4
+       ],
+       [
+        -13.0,
+        4.8,
+        -22.0,
+        2.6
+       ],
+       [
+        -15.4,
+        1.0,
+        -18.4,
+        1.4
+       ],
+       [
+        -10.8,
+        1.2,
+        -18.4,
+        1.3
+       ],
+       [
+        -3.1,
+        3.6,
+        -21.5,
+        2.2
+       ],
+       [
+        -0.10000000000000009,
+        3.9,
+        -22.4,
+        2.4
+       ],
+       [
+        -1.5,
+        4.8,
+        -22.0,
+        2.6
+       ],
+       [
+        -3.9,
+        1.0,
+        -18.4,
+        1.4
+       ],
+       [
+        0.7000000000000002,
+        1.2,
+        -18.4,
+        1.3
+       ],
+       [
+        8.4,
+        3.6,
+        -21.5,
+        2.2
+       ],
+       [
+        11.4,
+        3.9,
+        -22.4,
+        2.4
+       ],
+       [
+        10.0,
+        4.8,
+        -22.0,
+        2.6
+       ],
+       [
+        7.6,
+        1.0,
+        -18.4,
+        1.4
+       ],
+       [
+        12.2,
+        1.2,
+        -18.4,
+        1.3
+       ],
+       [
+        -8.6,
+        3.6,
+        -33.5,
+        2.2
+       ],
+       [
+        -5.6,
+        3.9,
+        -34.4,
+        2.4
+       ],
+       [
+        -7.0,
+        4.8,
+        -34.0,
+        2.6
+       ],
+       [
+        -9.4,
+        1.0,
+        -30.4,
+        1.4
+       ],
+       [
+        -4.8,
+        1.2,
+        -30.4,
+        1.3
+       ],
+       [
+        3.9,
+        3.6,
+        -33.5,
+        2.2
+       ],
+       [
+        6.9,
+        3.9,
+        -34.4,
+        2.4
+       ],
+       [
+        5.5,
+        4.8,
+        -34.0,
+        2.6
+       ],
+       [
+        3.1,
+        1.0,
+        -30.4,
+        1.4
+       ],
+       [
+        7.7,
+        1.2,
+        -30.4,
+        1.3
+       ],
+       [
+        2.1999999999999997,
+        3.6,
+        -15.0,
+        2.2
+       ],
+       [
+        5.199999999999999,
+        3.9,
+        -15.9,
+        2.4
+       ],
+       [
+        3.8,
+        4.8,
+        -15.5,
+        2.6
+       ],
+       [
+        1.4,
+        1.0,
+        -11.9,
+        1.4
+       ],
+       [
+        6.0,
+        1.2,
+        -11.9,
+        1.3
+       ],
+       [
+        -6.1,
+        3.6,
+        -27.5,
+        2.2
+       ],
+       [
+        -3.1,
+        3.9,
+        -28.4,
+        2.4
+       ],
+       [
+        -4.5,
+        4.8,
+        -28.0,
+        2.6
+       ],
+       [
+        -6.9,
+        1.0,
+        -24.4,
+        1.4
+       ],
+       [
+        -2.3,
+        1.2,
+        -24.4,
+        1.3
+       ],
+       [
+        0.0,
+        0.3,
+        -3.8,
+        0.55
+       ],
+       [
+        0.0,
+        0.3,
+        -2.4,
+        0.55
+       ],
+       [
+        0.0,
+        0.3,
+        -0.4,
+        0.55
+       ],
+       [
+        0.0,
+        0.3,
+        1.0,
+        0.55
+       ],
+       [
+        0.0,
+        0.3,
+        2.6,
+        0.55
+       ],
+       [
+        3.4,
+        0.9,
+        -3.9,
+        0.7
+       ],
+       [
+        2.4,
+        0.4,
+        -5.0,
+        0.5
+       ]
+      ],
+      "seed": 7
+     }
+    },
+    {
+     "id": "fumees",
+     "name": "smokeField",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "points": [
+       [
+        -6.8,
+        -9.5,
+        14
+       ],
+       [
+        6.8,
+        -9.5,
+        13
+       ],
+       [
+        -13,
+        -22,
+        12
+       ],
+       [
+        -1.5,
+        -22,
+        15
+       ],
+       [
+        10,
+        -22,
+        12
+       ],
+       [
+        -7,
+        -34,
+        12
+       ],
+       [
+        5.5,
+        -34,
+        12
+       ]
+      ],
+      "size": 2.0
+     }
+    },
+    {
+     "id": "gril",
+     "name": "kettleGrill",
+     "pos": [
+      0.9,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "char": true,
+      "smokeH": 0.9,
+      "smokeN": 8,
+      "smokeSize": 0.8,
+      "wind": [
+       -0.3,
+       0.3
+      ]
+     }
+    },
+    {
+     "id": "masque12",
+     "name": "gasMask",
+     "on": {
+      "actor": "soldat",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "casque12",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "soldat",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque12p",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "para",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "suie12",
+     "name": "sootPatches",
+     "on": {
+      "actor": "para",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "keys": []
+    },
+    {
+     "id": "reservoirs12",
+     "name": "fuelTanks",
+     "on": {
+      "actor": "soldat",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.3,
+       -0.2
+      ]
+     }
+    },
+    {
+     "id": "lance12",
+     "name": "flameThrower",
+     "on": {
+      "actor": "soldat",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.05,
+       0.02
+      ],
+      "rot": [
+       1.2,
+       0.0,
+       0.0
+      ]
+     },
+     "opts": {
+      "fire": []
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.6,
+      1.15,
+      4.8
+     ],
+     "to": [
+      -2.55,
+      1.17,
+      4.6
+     ],
+     "lookAt": [
+      2.6,
+      2.5,
+      -9.0
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      2.6,
+      2.6,
+      -9.0
+     ]
+    }
+   ],
+   "start": 22.9333,
+   "duration": 1.3667,
+   "setOpts": {
+    "clouds": 30,
+    "grass": "#86BE5C",
+    "sky": [
+     "#A88C78",
+     "#E2BC94"
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "para",
+     "pos": [
+      0.9,
+      0.39,
+      -1.3
+     ],
+     "ry": -8,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.735,
+          1.99,
+          -1.202,
+          1,
+          0.03
+         ],
+         "L": [
+          1.083,
+          0.94,
+          -1.022,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.0,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.25,
+       "toon": {
+        "reach": {
+         "R": [
+          0.735,
+          1.99,
+          -1.202,
+          1,
+          0.03
+         ],
+         "L": [
+          1.083,
+          0.94,
+          -1.022,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 0.55,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.33,
+       "toon": {
+        "reach": {
+         "R": [
+          0.735,
+          1.99,
+          -1.202,
+          1,
+          0.03
+         ],
+         "L": [
+          1.083,
+          0.94,
+          -1.022,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.05
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "maison",
+     "name": "cottage",
+     "pos": [
+      -6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2D58A",
+      "roof": "#B5402F",
+      "door": "#2F7F8C",
+      "burnt": false,
+      "seed": 3
+     }
+    },
+    {
+     "id": "voisins",
+     "name": "cottage",
+     "pos": [
+      6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#4E5E7E",
+      "door": "#2F7F8C",
+      "burnt": false,
+      "seed": 8
+     }
+    },
+    {
+     "id": "arriere0",
+     "name": "cottage",
+     "pos": [
+      -13.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#EFC7C7",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 11
+     }
+    },
+    {
+     "id": "arriere1",
+     "name": "cottage",
+     "pos": [
+      -1.5,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#C9DDF0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 12
+     }
+    },
+    {
+     "id": "arriere2",
+     "name": "cottage",
+     "pos": [
+      10.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2B49A",
+      "roof": "#4E5E7E",
+      "burnt": false,
+      "seed": 13
+     }
+    },
+    {
+     "id": "arriere3",
+     "name": "cottage",
+     "pos": [
+      -7.0,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F4F2EC",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 14
+     }
+    },
+    {
+     "id": "arriere4",
+     "name": "cottage",
+     "pos": [
+      5.5,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#E6CDE6",
+      "roof": "#5E83C6",
+      "burnt": false,
+      "seed": 15
+     }
+    },
+    {
+     "id": "arriere5",
+     "name": "cottage",
+     "pos": [
+      3.8,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2E2A0",
+      "roof": "#6A3A30",
+      "burnt": false,
+      "seed": 16
+     }
+    },
+    {
+     "id": "arriere6",
+     "name": "cottage",
+     "pos": [
+      -4.5,
+      0,
+      -28.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#B5402F",
+      "burnt": false,
+      "seed": 17
+     }
+    },
+    {
+     "id": "cloture",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 9.0,
+      "height": 0.85,
+      "color": "#F6F4EE",
+      "rail": "#F6F4EE"
+     }
+    },
+    {
+     "id": "patio",
+     "name": "slab",
+     "pos": [
+      2.5,
+      0.03,
+      -2.9
+     ],
+     "opts": {
+      "w": 4.6,
+      "h": 0.06,
+      "d": 4.6,
+      "color": "#D8C9AA"
+     }
+    },
+    {
+     "id": "nappe",
+     "name": "table",
+     "pos": [
+      3.4,
+      0.06,
+      -3.9
+     ],
+     "ry": -20,
+     "opts": {
+      "w": 1.4,
+      "d": 0.8,
+      "h": 0.76,
+      "color": "#F2EEE4",
+      "legs": "#8A6A44"
+     }
+    },
+    {
+     "id": "assiette0",
+     "name": "paperPlate",
+     "pos": [
+      2.95,
+      0.83,
+      -3.8
+     ]
+    },
+    {
+     "id": "assiette1",
+     "name": "paperPlate",
+     "pos": [
+      3.4,
+      0.83,
+      -3.72
+     ]
+    },
+    {
+     "id": "assiette2",
+     "name": "paperPlate",
+     "pos": [
+      3.82,
+      0.83,
+      -3.85
+     ]
+    },
+    {
+     "id": "mat1",
+     "name": "slab",
+     "pos": [
+      0.55,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "mat2",
+     "name": "slab",
+     "pos": [
+      4.3,
+      1.2,
+      -5.0
+     ],
+     "opts": {
+      "w": 0.06,
+      "h": 2.4,
+      "d": 0.06,
+      "color": "#8A6A44"
+     }
+    },
+    {
+     "id": "guirlande",
+     "name": "gardenBunting",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "a": [
+       0.55,
+       2.35,
+       -5.0
+      ],
+      "b": [
+       4.3,
+       2.35,
+       -5.0
+      ],
+      "n": 14,
+      "sag": 0.35
+     }
+    },
+    {
+     "id": "flammes",
+     "name": "flameField",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "points": [
+       [
+        -8.4,
+        3.6,
+        -9.0,
+        2.2
+       ],
+       [
+        -5.4,
+        3.9,
+        -9.9,
+        2.4
+       ],
+       [
+        -6.8,
+        4.8,
+        -9.5,
+        2.6
+       ],
+       [
+        -9.2,
+        1.0,
+        -5.9,
+        1.4
+       ],
+       [
+        -4.6,
+        1.2,
+        -5.9,
+        1.3
+       ],
+       [
+        5.199999999999999,
+        3.6,
+        -9.0,
+        2.2
+       ],
+       [
+        8.2,
+        3.9,
+        -9.9,
+        2.4
+       ],
+       [
+        6.8,
+        4.8,
+        -9.5,
+        2.6
+       ],
+       [
+        4.4,
+        1.0,
+        -5.9,
+        1.4
+       ],
+       [
+        9.0,
+        1.2,
+        -5.9,
+        1.3
+       ],
+       [
+        -14.6,
+        3.6,
+        -21.5,
+        2.2
+       ],
+       [
+        -11.6,
+        3.9,
+        -22.4,
+        2.4
+       ],
+       [
+        -13.0,
+        4.8,
+        -22.0,
+        2.6
+       ],
+       [
+        -15.4,
+        1.0,
+        -18.4,
+        1.4
+       ],
+       [
+        -10.8,
+        1.2,
+        -18.4,
+        1.3
+       ],
+       [
+        -3.1,
+        3.6,
+        -21.5,
+        2.2
+       ],
+       [
+        -0.10000000000000009,
+        3.9,
+        -22.4,
+        2.4
+       ],
+       [
+        -1.5,
+        4.8,
+        -22.0,
+        2.6
+       ],
+       [
+        -3.9,
+        1.0,
+        -18.4,
+        1.4
+       ],
+       [
+        0.7000000000000002,
+        1.2,
+        -18.4,
+        1.3
+       ],
+       [
+        8.4,
+        3.6,
+        -21.5,
+        2.2
+       ],
+       [
+        11.4,
+        3.9,
+        -22.4,
+        2.4
+       ],
+       [
+        10.0,
+        4.8,
+        -22.0,
+        2.6
+       ],
+       [
+        7.6,
+        1.0,
+        -18.4,
+        1.4
+       ],
+       [
+        12.2,
+        1.2,
+        -18.4,
+        1.3
+       ],
+       [
+        -8.6,
+        3.6,
+        -33.5,
+        2.2
+       ],
+       [
+        -5.6,
+        3.9,
+        -34.4,
+        2.4
+       ],
+       [
+        -7.0,
+        4.8,
+        -34.0,
+        2.6
+       ],
+       [
+        -9.4,
+        1.0,
+        -30.4,
+        1.4
+       ],
+       [
+        -4.8,
+        1.2,
+        -30.4,
+        1.3
+       ],
+       [
+        3.9,
+        3.6,
+        -33.5,
+        2.2
+       ],
+       [
+        6.9,
+        3.9,
+        -34.4,
+        2.4
+       ],
+       [
+        5.5,
+        4.8,
+        -34.0,
+        2.6
+       ],
+       [
+        3.1,
+        1.0,
+        -30.4,
+        1.4
+       ],
+       [
+        7.7,
+        1.2,
+        -30.4,
+        1.3
+       ],
+       [
+        2.1999999999999997,
+        3.6,
+        -15.0,
+        2.2
+       ],
+       [
+        5.199999999999999,
+        3.9,
+        -15.9,
+        2.4
+       ],
+       [
+        3.8,
+        4.8,
+        -15.5,
+        2.6
+       ],
+       [
+        1.4,
+        1.0,
+        -11.9,
+        1.4
+       ],
+       [
+        6.0,
+        1.2,
+        -11.9,
+        1.3
+       ],
+       [
+        -6.1,
+        3.6,
+        -27.5,
+        2.2
+       ],
+       [
+        -3.1,
+        3.9,
+        -28.4,
+        2.4
+       ],
+       [
+        -4.5,
+        4.8,
+        -28.0,
+        2.6
+       ],
+       [
+        -6.9,
+        1.0,
+        -24.4,
+        1.4
+       ],
+       [
+        -2.3,
+        1.2,
+        -24.4,
+        1.3
+       ],
+       [
+        0.0,
+        0.3,
+        -3.8,
+        0.55
+       ],
+       [
+        0.0,
+        0.3,
+        -2.4,
+        0.55
+       ],
+       [
+        0.0,
+        0.3,
+        -0.4,
+        0.55
+       ],
+       [
+        0.0,
+        0.3,
+        1.0,
+        0.55
+       ],
+       [
+        0.0,
+        0.3,
+        2.6,
+        0.55
+       ],
+       [
+        3.4,
+        0.9,
+        -3.9,
+        0.7
+       ],
+       [
+        2.4,
+        0.4,
+        -5.0,
+        0.5
+       ]
+      ],
+      "seed": 7
+     }
+    },
+    {
+     "id": "fumees",
+     "name": "smokeField",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "points": [
+       [
+        -6.8,
+        -9.5,
+        14
+       ],
+       [
+        6.8,
+        -9.5,
+        13
+       ],
+       [
+        -13,
+        -22,
+        12
+       ],
+       [
+        -1.5,
+        -22,
+        15
+       ],
+       [
+        10,
+        -22,
+        12
+       ],
+       [
+        -7,
+        -34,
+        12
+       ],
+       [
+        5.5,
+        -34,
+        12
+       ]
+      ],
+      "size": 2.0
+     }
+    },
+    {
+     "id": "gril",
+     "name": "kettleGrill",
+     "pos": [
+      0.9,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "char": true,
+      "smokeH": 0.9,
+      "smokeN": 8,
+      "smokeSize": 0.8,
+      "wind": [
+       -0.3,
+       0.3
+      ]
+     }
+    },
+    {
+     "id": "casque13",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "para",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "suie13",
+     "name": "sootPatches",
+     "on": {
+      "actor": "para",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "keys": []
+    },
+    {
+     "id": "fumee13a",
+     "name": "smokeRibbon",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "pts": [
+       [
+        1.02,
+        0.86,
+        -1.4
+       ],
+       [
+        1.1,
+        1.6,
+        -1.5
+       ],
+       [
+        0.95,
+        2.6,
+        -1.6
+       ]
+      ],
+      "n": 16,
+      "s0": 0.05,
+      "s1": 0.15,
+      "speed": 0.45,
+      "shrink": false,
+      "color": "#6E6964"
+     }
+    },
+    {
+     "id": "fumee13b",
+     "name": "smokeRibbon",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "pts": [
+       [
+        0.9,
+        1.95,
+        -1.3
+       ],
+       [
+        0.98,
+        2.5,
+        -1.35
+       ],
+       [
+        0.8,
+        3.2,
+        -1.4
+       ]
+      ],
+      "n": 10,
+      "s0": 0.03,
+      "s1": 0.09,
+      "speed": 0.5,
+      "shrink": false,
+      "color": "#5E5A56"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      1.65,
+      1.65
+     ],
+     "to": [
+      0.43,
+      1.65,
+      1.45
+     ],
+     "lookAt": [
+      0.88,
+      1.5,
+      -1.3
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.88,
+      1.5,
+      -1.3
+     ]
+    }
+   ],
+   "start": 24.3,
+   "duration": 1.8,
+   "setOpts": {
+    "clouds": 30,
+    "grass": "#86BE5C",
+    "sky": [
+     "#A88C78",
+     "#E2BC94"
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S14",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "ministre",
+     "pos": [
+      0.0,
+      0,
+      -2.45
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.24,
+          1.25,
+          -2.1,
+          1,
+          0.03
+         ],
+         "L": [
+          0.22,
+          1.17,
+          -2.1,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "open"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "smile",
+         "brow": 0.2
+        }
+       },
+       "toonDur": 0.0,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.2,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.3,
+          1.62,
+          -2.08,
+          1,
+          0.03
+         ],
+         "L": [
+          0.22,
+          1.17,
+          -2.1,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "open"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.2,
+         "mouth": "smile",
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.3,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.15,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.06,
+          1.42,
+          -2.2,
+          1,
+          0.03
+         ],
+         "L": [
+          0.22,
+          1.17,
+          -2.1,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "open"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.05,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "O",
+         "brow": 0.2
+        }
+       },
+       "toonDur": 0.3,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.55,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.05,
+          1.4,
+          -2.2,
+          1,
+          0.03
+         ],
+         "L": [
+          0.22,
+          1.17,
+          -2.1,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "open"
+        },
+        "sq": [
+         1.03,
+         0.97,
+         1.03
+        ],
+        "bend": {
+         "spine": [
+          0.12,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "clench",
+         "brow": 0.1,
+         "cheeks": 0.8
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.8,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.22,
+          1.35,
+          -2.1,
+          1,
+          0.03
+         ],
+         "L": [
+          0.22,
+          1.17,
+          -2.1,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "open"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": 0.3,
+         "cheeks": 0.9
+        }
+       },
+       "toonDur": 0.3,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 2.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.22,
+          1.35,
+          -2.1,
+          1,
+          0.03
+         ],
+         "L": [
+          0.22,
+          1.17,
+          -2.1,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "open"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "O",
+         "cheeks": 0.9
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 2.15,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.22,
+          1.35,
+          -2.1,
+          1,
+          0.03
+         ],
+         "L": [
+          0.22,
+          1.17,
+          -2.1,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "open"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "cheeks": 0.9
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 2.3,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.22,
+          1.35,
+          -2.1,
+          1,
+          0.03
+         ],
+         "L": [
+          0.22,
+          1.17,
+          -2.1,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "open"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "O",
+         "cheeks": 0.9
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "fourchette14",
+     "name": "forkSausage",
+     "on": {
+      "actor": "ministre",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.04,
+       0.03
+      ],
+      "face": "camera",
+      "faceRoll": 0.0
+     },
+     "opts": {
+      "len": 0.2,
+      "r": 0.034,
+      "bite": [
+       1.55,
+       0.45
+      ]
+     }
+    },
+    {
+     "id": "joueG14",
+     "name": "cheekPuff",
+     "on": {
+      "actor": "ministre",
+      "joint": "head",
+      "offset": [
+       0.1,
+       0.17,
+       0.1
+      ]
+     },
+     "opts": {
+      "growAt": 1.55,
+      "dur": 0.25,
+      "r": 0.055
+     }
+    },
+    {
+     "id": "joueD14",
+     "name": "cheekPuff",
+     "on": {
+      "actor": "ministre",
+      "joint": "head",
+      "offset": [
+       -0.1,
+       0.17,
+       0.1
+      ]
+     },
+     "opts": {
+      "growAt": 1.55,
+      "dur": 0.25,
+      "r": 0.055
+     }
+    },
+    {
+     "id": "flashs14",
+     "name": "flashBursts",
+     "pos": [
+      0.0,
+      1.05,
+      -0.5
+     ],
+     "opts": {
+      "n": 8,
+      "w": 1.5,
+      "h": 0.5,
+      "from": 0.15,
+      "rate": 5,
+      "life": 0.14
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.72,
+      0.55
+     ],
+     "to": [
+      0.28,
+      1.72,
+      0.35
+     ],
+     "lookAt": [
+      0.0,
+      1.62,
+      -2.4
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.62,
+      -2.4
+     ]
+    }
+   ],
+   "start": 26.1,
+   "duration": 2.4667,
+   "setOpts": {
+    "backdrop": "SANTÉ|SÉCURITÉ|SANTÉ|SÉCURITÉ",
+    "chairs": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S15",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "ministre",
+     "pos": [
+      0.0,
+      0,
+      -2.45
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.12,
+          1.38,
+          -2.18,
+          1,
+          0.03
+         ],
+         "L": [
+          0.22,
+          1.17,
+          -2.1,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "open"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "cheeks": 0.9
+        }
+       },
+       "toonDur": 0.0,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.35,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.12,
+          1.38,
+          -2.18,
+          1,
+          0.03
+         ],
+         "L": [
+          0.22,
+          1.17,
+          -2.1,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "open"
+        },
+        "sq": [
+         0.92,
+         1.1,
+         0.92
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "pop": 0.5,
+         "mouth": "clench",
+         "cheeks": 0.9,
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.12,
+          1.38,
+          -2.18,
+          1,
+          0.03
+         ],
+         "L": [
+          0.22,
+          1.17,
+          -2.1,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "open"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.1,
+         "pop": 0.3,
+         "mouth": "line",
+         "cheeks": 0.9,
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.75,
+       "look": [
+        0.0,
+        2.8,
+        -2.2
+       ],
+       "lookDur": 0.25
+      },
+      {
+       "at": 1.35,
+       "look": "camera",
+       "lookDur": 0.2
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "fourchette15",
+     "name": "forkSausage",
+     "on": {
+      "actor": "ministre",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.04,
+       0.03
+      ],
+      "face": "camera",
+      "faceRoll": 0.0
+     },
+     "opts": {
+      "len": 0.2,
+      "r": 0.034,
+      "bite": [
+       -1.0,
+       0.45
+      ]
+     }
+    },
+    {
+     "id": "joueG15",
+     "name": "cheekPuff",
+     "on": {
+      "actor": "ministre",
+      "joint": "head",
+      "offset": [
+       0.1,
+       0.17,
+       0.1
+      ]
+     },
+     "opts": {
+      "r": 0.055
+     }
+    },
+    {
+     "id": "joueD15",
+     "name": "cheekPuff",
+     "on": {
+      "actor": "ministre",
+      "joint": "head",
+      "offset": [
+       -0.1,
+       0.17,
+       0.1
+      ]
+     },
+     "opts": {
+      "r": 0.055
+     }
+    },
+    {
+     "id": "bulle15",
+     "name": "glassDome",
+     "pos": [
+      0.0,
+      4.2,
+      -2.22
+     ],
+     "opts": {
+      "radius": 0.82,
+      "height": 2.6,
+      "base": false,
+      "opacity": 0.22
+     },
+     "keys": [
+      {
+       "at": 0.13,
+       "to": [
+        0.0,
+        0.0,
+        -2.22
+       ],
+       "dur": 0.22,
+       "ease": "in"
+      },
+      {
+       "at": 0.35,
+       "squash": [
+        1.12,
+        0.84,
+        1.12
+       ],
+       "dur": 0.35
+      }
+     ]
+    },
+    {
+     "id": "flashs15",
+     "name": "flashBursts",
+     "pos": [
+      0.0,
+      1.0,
+      -0.4
+     ],
+     "opts": {
+      "n": 10,
+      "w": 1.7,
+      "h": 0.5,
+      "from": 0.05,
+      "rate": 7,
+      "life": 0.14
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.55,
+      1.62,
+      1.55
+     ],
+     "to": [
+      0.5,
+      1.62,
+      1.35
+     ],
+     "lookAt": [
+      0.0,
+      1.45,
+      -2.3
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.45,
+      -2.3
+     ]
+    }
+   ],
+   "start": 28.5667,
+   "duration": 1.7333,
+   "setOpts": {
+    "backdrop": "SANTÉ|SÉCURITÉ|SANTÉ|SÉCURITÉ",
+    "chairs": false
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.35,
+     "dur": 0.15,
+     "amount": 0.01
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S16",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "president",
+     "pos": [
+      1.35,
+      0,
+      -2.2
+     ],
+     "ry": -0.5,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.127,
+          1.2,
+          -1.902,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "smile",
+         "brow": 0.3
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.4,
+       "toon": {
+        "reach": {
+         "R": [
+          1.048,
+          2.35,
+          -1.953,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "sq": [
+         0.94,
+         1.08,
+         0.94
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.25,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.7,
+       "toon": {
+        "reach": {
+         "R": [
+          1.048,
+          2.28,
+          -1.953,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 0.2,
+         "mouth": "smile",
+         "brow": 0.5
+        }
+       },
+       "toonDur": 0.2
+      },
+      {
+       "at": 1.5,
+       "toon": {
+        "reach": {
+         "R": [
+          1.048,
+          2.38,
+          -1.953,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.2,
+         "mouth": "smile",
+         "brow": 0.5
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 1.7,
+       "toon": {
+        "reach": {
+         "R": [
+          1.048,
+          2.28,
+          -1.953,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.2,
+         "mouth": "smile",
+         "brow": 0.5
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "musi1",
+     "pos": [
+      -0.15,
+      0,
+      -3.3
+     ],
+     "ry": 12.2,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.2,
+       "look": [
+        1.3,
+        1.9,
+        3.4
+       ],
+       "lookDur": 0.12
+      },
+      {
+       "at": 0.7,
+       "look": [
+        1.3,
+        2.02,
+        3.4
+       ],
+       "lookDur": 0.12
+      },
+      {
+       "at": 1.2,
+       "look": [
+        1.3,
+        1.9,
+        3.4
+       ],
+       "lookDur": 0.12
+      },
+      {
+       "at": 1.7,
+       "look": [
+        1.3,
+        2.02,
+        3.4
+       ],
+       "lookDur": 0.12
+      },
+      {
+       "at": 2.2,
+       "look": [
+        1.3,
+        1.9,
+        3.4
+       ],
+       "lookDur": 0.12
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "musi2",
+     "pos": [
+      0.45,
+      0,
+      -3.9
+     ],
+     "ry": 6.6,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.2,
+       "look": [
+        1.3,
+        1.5,
+        3.4
+       ],
+       "lookDur": 0.1
+      },
+      {
+       "at": 0.45,
+       "look": [
+        1.3,
+        1.65,
+        3.4
+       ],
+       "lookDur": 0.1
+      },
+      {
+       "at": 0.7,
+       "look": [
+        1.3,
+        1.5,
+        3.4
+       ],
+       "lookDur": 0.1
+      },
+      {
+       "at": 0.95,
+       "look": [
+        1.3,
+        1.65,
+        3.4
+       ],
+       "lookDur": 0.1
+      },
+      {
+       "at": 1.2,
+       "look": [
+        1.3,
+        1.5,
+        3.4
+       ],
+       "lookDur": 0.1
+      },
+      {
+       "at": 1.45,
+       "look": [
+        1.3,
+        1.65,
+        3.4
+       ],
+       "lookDur": 0.1
+      },
+      {
+       "at": 1.7,
+       "look": [
+        1.3,
+        1.5,
+        3.4
+       ],
+       "lookDur": 0.1
+      },
+      {
+       "at": 1.95,
+       "look": [
+        1.3,
+        1.65,
+        3.4
+       ],
+       "lookDur": 0.1
+      },
+      {
+       "at": 2.2,
+       "look": [
+        1.3,
+        1.5,
+        3.4
+       ],
+       "lookDur": 0.1
+      },
+      {
+       "at": 2.45,
+       "look": [
+        1.3,
+        1.65,
+        3.4
+       ],
+       "lookDur": 0.1
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "invite1",
+     "pos": [
+      2.45,
+      0,
+      -1.1
+     ],
+     "ry": -135.0,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "invite3",
+     "pos": [
+      2.9,
+      0,
+      -3.0
+     ],
+     "ry": -62.7,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "foule2",
+     "pos": [
+      0.2,
+      0,
+      -1.0
+     ],
+     "ry": 136.2,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "maison",
+     "name": "cottage",
+     "pos": [
+      -6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2D58A",
+      "roof": "#B5402F",
+      "door": "#2F7F8C",
+      "burnt": true,
+      "seed": 3
+     }
+    },
+    {
+     "id": "voisins",
+     "name": "cottage",
+     "pos": [
+      6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#4E5E7E",
+      "door": "#2F7F8C",
+      "burnt": true,
+      "seed": 8
+     }
+    },
+    {
+     "id": "arriere0",
+     "name": "cottage",
+     "pos": [
+      -13.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#EFC7C7",
+      "roof": "#6A3A30",
+      "burnt": true,
+      "seed": 11
+     }
+    },
+    {
+     "id": "arriere1",
+     "name": "cottage",
+     "pos": [
+      -1.5,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#C9DDF0",
+      "roof": "#B5402F",
+      "burnt": true,
+      "seed": 12
+     }
+    },
+    {
+     "id": "arriere2",
+     "name": "cottage",
+     "pos": [
+      10.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2B49A",
+      "roof": "#4E5E7E",
+      "burnt": true,
+      "seed": 13
+     }
+    },
+    {
+     "id": "arriere3",
+     "name": "cottage",
+     "pos": [
+      -7.0,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F4F2EC",
+      "roof": "#B5402F",
+      "burnt": true,
+      "seed": 14
+     }
+    },
+    {
+     "id": "arriere4",
+     "name": "cottage",
+     "pos": [
+      5.5,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#E6CDE6",
+      "roof": "#5E83C6",
+      "burnt": true,
+      "seed": 15
+     }
+    },
+    {
+     "id": "arriere5",
+     "name": "cottage",
+     "pos": [
+      3.8,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2E2A0",
+      "roof": "#6A3A30",
+      "burnt": true,
+      "seed": 16
+     }
+    },
+    {
+     "id": "arriere6",
+     "name": "cottage",
+     "pos": [
+      -4.5,
+      0,
+      -28.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#B5402F",
+      "burnt": true,
+      "seed": 17
+     }
+    },
+    {
+     "id": "cloture",
+     "name": "charredFence",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 9.0,
+      "seed": 5
+     }
+    },
+    {
+     "id": "arbremort0",
+     "name": "burntTree",
+     "pos": [
+      -5.2,
+      0,
+      -4.8
+     ],
+     "opts": {
+      "h": 4.5,
+      "seed": 30
+     }
+    },
+    {
+     "id": "arbremort1",
+     "name": "burntTree",
+     "pos": [
+      8.2,
+      0,
+      -7.6
+     ],
+     "opts": {
+      "h": 4.9,
+      "seed": 31
+     }
+    },
+    {
+     "id": "arbremort2",
+     "name": "burntTree",
+     "pos": [
+      -9.5,
+      0,
+      -15.0
+     ],
+     "opts": {
+      "h": 5.3,
+      "seed": 32
+     }
+    },
+    {
+     "id": "arbremort3",
+     "name": "burntTree",
+     "pos": [
+      9.5,
+      0,
+      -16.5
+     ],
+     "opts": {
+      "h": 5.7,
+      "seed": 33
+     }
+    },
+    {
+     "id": "fumees",
+     "name": "smokeField",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "points": [
+       [
+        -6.8,
+        -9.5,
+        9
+       ],
+       [
+        6.8,
+        -9.5,
+        8
+       ],
+       [
+        -1.5,
+        -22,
+        10
+       ],
+       [
+        10,
+        -22,
+        9
+       ]
+      ],
+      "size": 1.4,
+      "color": "#5A5450"
+     }
+    },
+    {
+     "id": "gril16",
+     "name": "kettleGrill",
+     "pos": [
+      2.3,
+      0,
+      -4.9
+     ],
+     "scale": 3.4,
+     "opts": {
+      "smokeH": 2.2,
+      "smokeN": 18,
+      "smokeSize": 1.2,
+      "wind": [
+       -0.2,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "fourchette16",
+     "name": "forkSausage",
+     "on": {
+      "actor": "president",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.04,
+       0.03
+      ],
+      "face": "camera",
+      "faceRoll": 0.0
+     },
+     "opts": {}
+    },
+    {
+     "id": "casque16a",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "musi1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque16b",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "musi2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "trompette16",
+     "name": "bandInstr",
+     "on": {
+      "actor": "musi1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.13,
+       0.11
+      ],
+      "rot": [
+       -0.3,
+       -0.85,
+       0.0
+      ]
+     },
+     "opts": {
+      "kind": "trumpet",
+      "beat": [
+       0.2,
+       0.7,
+       1.2,
+       1.7,
+       2.2
+      ],
+      "s": 1.15
+     }
+    },
+    {
+     "id": "tambour16",
+     "name": "bandInstr",
+     "on": {
+      "actor": "musi2",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.12,
+       0.3
+      ]
+     },
+     "opts": {
+      "kind": "drum",
+      "beat": [
+       0.2,
+       0.45,
+       0.7,
+       0.95,
+       1.2,
+       1.45,
+       1.7,
+       1.95,
+       2.2
+      ]
+     }
+    },
+    {
+     "id": "drapeau160",
+     "name": "bbqFlag",
+     "pos": [
+      -0.6,
+      0,
+      -4.6
+     ],
+     "ry": 20,
+     "opts": {
+      "phase": 0.0
+     }
+    },
+    {
+     "id": "drapeau161",
+     "name": "bbqFlag",
+     "pos": [
+      3.3,
+      0,
+      -4.2
+     ],
+     "ry": -25,
+     "opts": {
+      "phase": 1.3
+     }
+    },
+    {
+     "id": "drapeau162",
+     "name": "bbqFlag",
+     "pos": [
+      2.8,
+      0,
+      -6.9
+     ],
+     "ry": -10,
+     "opts": {
+      "phase": 2.6
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.3,
+      1.05,
+      3.4
+     ],
+     "to": [
+      1.3,
+      1.08,
+      3.2
+     ],
+     "lookAt": [
+      1.6,
+      2.15,
+      -3.0
+     ],
+     "lens": 54,
+     "ease": "linear",
+     "lookAt2": [
+      1.6,
+      2.2,
+      -3.0
+     ]
+    }
+   ],
+   "start": 30.3,
+   "duration": 2.5667,
+   "setOpts": {
+    "clouds": 30,
+    "grass": "#86BE5C",
+    "sky": [
+     "#9FB4C4",
+     "#DADCD6"
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S17",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soldat",
+     "pos": [
+      -0.35,
+      0,
+      -0.35
+     ],
+     "ry": 0,
+     "clip": "kneel",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.43,
+        0.32,
+        0.55
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.55,
+          0.55,
+          0.0,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "invite1",
+     "pos": [
+      0.22,
+      0,
+      -0.45
+     ],
+     "ry": 0,
+     "clip": "kneel",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.3,
+        0.32,
+        0.55
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.02,
+          0.55,
+          -0.1,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "invite2",
+     "pos": [
+      1.58,
+      0,
+      -0.85
+     ],
+     "ry": -100,
+     "clip": "kneel",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.27,
+          0.55,
+          -1.108,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "foule2",
+     "pos": [
+      2.15,
+      0,
+      -0.35
+     ],
+     "ry": 0,
+     "clip": "kneel",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        2.23,
+        0.32,
+        0.55
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.95,
+          0.55,
+          0.0,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "para",
+     "pos": [
+      0.9,
+      0.39,
+      -1.3
+     ],
+     "ry": -8,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.735,
+          1.99,
+          -1.202,
+          1,
+          0.03
+         ],
+         "L": [
+          1.083,
+          0.94,
+          -1.022,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.0,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "reach": {
+         "R": [
+          0.735,
+          1.99,
+          -1.202,
+          1,
+          0.03
+         ],
+         "L": [
+          1.083,
+          0.94,
+          -1.022,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.2,
+       "toon": {
+        "reach": {
+         "R": [
+          0.735,
+          1.99,
+          -1.202,
+          1,
+          0.03
+         ],
+         "L": [
+          1.083,
+          0.94,
+          -1.022,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "sq": [
+         1,
+         1,
+         1
+        ],
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "maison",
+     "name": "cottage",
+     "pos": [
+      -6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2D58A",
+      "roof": "#B5402F",
+      "door": "#2F7F8C",
+      "burnt": true,
+      "seed": 3
+     }
+    },
+    {
+     "id": "voisins",
+     "name": "cottage",
+     "pos": [
+      6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#4E5E7E",
+      "door": "#2F7F8C",
+      "burnt": true,
+      "seed": 8
+     }
+    },
+    {
+     "id": "arriere0",
+     "name": "cottage",
+     "pos": [
+      -13.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#EFC7C7",
+      "roof": "#6A3A30",
+      "burnt": true,
+      "seed": 11
+     }
+    },
+    {
+     "id": "arriere1",
+     "name": "cottage",
+     "pos": [
+      -1.5,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#C9DDF0",
+      "roof": "#B5402F",
+      "burnt": true,
+      "seed": 12
+     }
+    },
+    {
+     "id": "arriere2",
+     "name": "cottage",
+     "pos": [
+      10.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2B49A",
+      "roof": "#4E5E7E",
+      "burnt": true,
+      "seed": 13
+     }
+    },
+    {
+     "id": "arriere3",
+     "name": "cottage",
+     "pos": [
+      -7.0,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F4F2EC",
+      "roof": "#B5402F",
+      "burnt": true,
+      "seed": 14
+     }
+    },
+    {
+     "id": "arriere4",
+     "name": "cottage",
+     "pos": [
+      5.5,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#E6CDE6",
+      "roof": "#5E83C6",
+      "burnt": true,
+      "seed": 15
+     }
+    },
+    {
+     "id": "arriere5",
+     "name": "cottage",
+     "pos": [
+      3.8,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2E2A0",
+      "roof": "#6A3A30",
+      "burnt": true,
+      "seed": 16
+     }
+    },
+    {
+     "id": "arriere6",
+     "name": "cottage",
+     "pos": [
+      -4.5,
+      0,
+      -28.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#B5402F",
+      "burnt": true,
+      "seed": 17
+     }
+    },
+    {
+     "id": "cloture",
+     "name": "charredFence",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 9.0,
+      "seed": 5
+     }
+    },
+    {
+     "id": "arbremort0",
+     "name": "burntTree",
+     "pos": [
+      -5.2,
+      0,
+      -4.8
+     ],
+     "opts": {
+      "h": 4.5,
+      "seed": 30
+     }
+    },
+    {
+     "id": "arbremort1",
+     "name": "burntTree",
+     "pos": [
+      8.2,
+      0,
+      -7.6
+     ],
+     "opts": {
+      "h": 4.9,
+      "seed": 31
+     }
+    },
+    {
+     "id": "arbremort2",
+     "name": "burntTree",
+     "pos": [
+      -9.5,
+      0,
+      -15.0
+     ],
+     "opts": {
+      "h": 5.3,
+      "seed": 32
+     }
+    },
+    {
+     "id": "arbremort3",
+     "name": "burntTree",
+     "pos": [
+      9.5,
+      0,
+      -16.5
+     ],
+     "opts": {
+      "h": 5.7,
+      "seed": 33
+     }
+    },
+    {
+     "id": "fumees",
+     "name": "smokeField",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "points": [
+       [
+        -6.8,
+        -9.5,
+        9
+       ],
+       [
+        6.8,
+        -9.5,
+        8
+       ],
+       [
+        -1.5,
+        -22,
+        10
+       ],
+       [
+        10,
+        -22,
+        9
+       ]
+      ],
+      "size": 1.4,
+      "color": "#5A5450"
+     }
+    },
+    {
+     "id": "gril",
+     "name": "kettleGrill",
+     "pos": [
+      0.9,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "char": true,
+      "smokeN": 6,
+      "smokeH": 0.7
+     }
+    },
+    {
+     "id": "casque17",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "soldat",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "casque17p",
+     "name": "armyHelmet",
+     "on": {
+      "actor": "para",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.46,
+       0.0
+      ]
+     },
+     "opts": {
+      "s": 0.95
+     }
+    },
+    {
+     "id": "suie17",
+     "name": "sootPatches",
+     "on": {
+      "actor": "para",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "keys": []
+    },
+    {
+     "id": "braises17",
+     "name": "emberBed",
+     "pos": [
+      0.9,
+      0.0,
+      0.55
+     ],
+     "opts": {
+      "w": 3.8,
+      "d": 1.0,
+      "lumps": 30,
+      "flames": 9,
+      "sparks": 18
+     }
+    },
+    {
+     "id": "baton170",
+     "name": "sausageStick",
+     "pos": [
+      -0.55,
+      0.55,
+      0.0
+     ],
+     "ry": 12.3,
+     "rot": [
+      1.959,
+      0.0,
+      0.0
+     ],
+     "opts": {
+      "L": 0.608
+     }
+    },
+    {
+     "id": "baton171",
+     "name": "sausageStick",
+     "pos": [
+      0.02,
+      0.55,
+      -0.1
+     ],
+     "ry": 23.3,
+     "rot": [
+      1.885,
+      0.0,
+      0.0
+     ],
+     "opts": {
+      "L": 0.744
+     }
+    },
+    {
+     "id": "baton172",
+     "name": "sausageStick",
+     "pos": [
+      1.27,
+      0.55,
+      -1.108
+     ],
+     "ry": -54.2,
+     "rot": [
+      0.176,
+      0.0,
+      0.0
+     ],
+     "opts": {
+      "L": 1.056
+     }
+    },
+    {
+     "id": "baton173",
+     "name": "sausageStick",
+     "pos": [
+      1.95,
+      0.55,
+      0.0
+     ],
+     "ry": 27.0,
+     "rot": [
+      1.928,
+      0.0,
+      0.0
+     ],
+     "opts": {
+      "L": 0.659
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.9,
+      2.05,
+      3.9
+     ],
+     "to": [
+      0.9,
+      2.03,
+      3.7
+     ],
+     "lookAt": [
+      0.9,
+      0.95,
+      -0.7
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0.9,
+      0.97,
+      -0.7
+     ]
+    }
+   ],
+   "start": 32.8667,
+   "duration": 1.5,
+   "setOpts": {
+    "clouds": 30,
+    "grass": "#86BE5C",
+    "sky": [
+     "#9FB4C4",
+     "#DADCD6"
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S18",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.9,
+      0,
+      1.6
+     ],
+     "ry": -13,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.816,
+          1.05,
+          1.948,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "L": "open"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.55,
+       "look": [
+        -0.834,
+        1.0,
+        2.026
+       ],
+       "lookDur": 0.25
+      },
+      {
+       "at": 1.6,
+       "look": "camera",
+       "lookDur": 0.25
+      },
+      {
+       "at": 2.3,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.816,
+          1.05,
+          1.948,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "L": "open"
+        },
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 2.45,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.816,
+          1.05,
+          1.948,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "L": "open"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "voisin",
+     "pos": [
+      1.5,
+      0,
+      -2.9
+     ],
+     "ry": 72.9,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        2.15,
+        1.7,
+        -2.7
+       ]
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "reach": {
+         "R": [
+          1.5,
+          1.25,
+          -2.65,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "reach": {
+         "R": [
+          1.825,
+          1.42,
+          -2.8,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "reach": {
+         "R": [
+          1.5,
+          1.5,
+          -2.65,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.3
+      },
+      {
+       "at": 1.5,
+       "clip": "laugh"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "general",
+     "pos": [
+      2.15,
+      0,
+      -2.7
+     ],
+     "ry": -107.1,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.5,
+        1.7,
+        -2.9
+       ]
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "reach": {
+         "R": [
+          2.15,
+          1.25,
+          -2.45,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "reach": {
+         "R": [
+          1.825,
+          1.42,
+          -2.8,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "reach": {
+         "R": [
+          2.15,
+          1.5,
+          -2.45,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.3
+      },
+      {
+       "at": 1.45,
+       "clip": "laugh"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "maison",
+     "name": "cottage",
+     "pos": [
+      -6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2D58A",
+      "roof": "#B5402F",
+      "door": "#2F7F8C",
+      "burnt": true,
+      "seed": 3
+     }
+    },
+    {
+     "id": "voisins",
+     "name": "cottage",
+     "pos": [
+      6.8,
+      0,
+      -9.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#4E5E7E",
+      "door": "#2F7F8C",
+      "burnt": true,
+      "seed": 8
+     }
+    },
+    {
+     "id": "arriere0",
+     "name": "cottage",
+     "pos": [
+      -13.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#EFC7C7",
+      "roof": "#6A3A30",
+      "burnt": true,
+      "seed": 11
+     }
+    },
+    {
+     "id": "arriere1",
+     "name": "cottage",
+     "pos": [
+      -1.5,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#C9DDF0",
+      "roof": "#B5402F",
+      "burnt": true,
+      "seed": 12
+     }
+    },
+    {
+     "id": "arriere2",
+     "name": "cottage",
+     "pos": [
+      10.0,
+      0,
+      -22.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2B49A",
+      "roof": "#4E5E7E",
+      "burnt": true,
+      "seed": 13
+     }
+    },
+    {
+     "id": "arriere3",
+     "name": "cottage",
+     "pos": [
+      -7.0,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F4F2EC",
+      "roof": "#B5402F",
+      "burnt": true,
+      "seed": 14
+     }
+    },
+    {
+     "id": "arriere4",
+     "name": "cottage",
+     "pos": [
+      5.5,
+      0,
+      -34.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#E6CDE6",
+      "roof": "#5E83C6",
+      "burnt": true,
+      "seed": 15
+     }
+    },
+    {
+     "id": "arriere5",
+     "name": "cottage",
+     "pos": [
+      3.8,
+      0,
+      -15.5
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#F2E2A0",
+      "roof": "#6A3A30",
+      "burnt": true,
+      "seed": 16
+     }
+    },
+    {
+     "id": "arriere6",
+     "name": "cottage",
+     "pos": [
+      -4.5,
+      0,
+      -28.0
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 7.0,
+      "h": 2.9,
+      "color": "#B9DDB0",
+      "roof": "#B5402F",
+      "burnt": true,
+      "seed": 17
+     }
+    },
+    {
+     "id": "cloture",
+     "name": "charredFence",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "L": 9.0,
+      "seed": 5
+     }
+    },
+    {
+     "id": "arbremort0",
+     "name": "burntTree",
+     "pos": [
+      -5.2,
+      0,
+      -4.8
+     ],
+     "opts": {
+      "h": 4.5,
+      "seed": 30
+     }
+    },
+    {
+     "id": "arbremort1",
+     "name": "burntTree",
+     "pos": [
+      8.2,
+      0,
+      -7.6
+     ],
+     "opts": {
+      "h": 4.9,
+      "seed": 31
+     }
+    },
+    {
+     "id": "arbremort2",
+     "name": "burntTree",
+     "pos": [
+      -9.5,
+      0,
+      -15.0
+     ],
+     "opts": {
+      "h": 5.3,
+      "seed": 32
+     }
+    },
+    {
+     "id": "arbremort3",
+     "name": "burntTree",
+     "pos": [
+      9.5,
+      0,
+      -16.5
+     ],
+     "opts": {
+      "h": 5.7,
+      "seed": 33
+     }
+    },
+    {
+     "id": "fumees",
+     "name": "smokeField",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "points": [
+       [
+        -6.8,
+        -9.5,
+        9
+       ],
+       [
+        6.8,
+        -9.5,
+        8
+       ],
+       [
+        -1.5,
+        -22,
+        10
+       ],
+       [
+        10,
+        -22,
+        9
+       ]
+      ],
+      "size": 1.4,
+      "color": "#5A5450"
+     }
+    },
+    {
+     "id": "masque18",
+     "name": "gasMask",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "assiette18",
+     "name": "paperPlate",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0.0,
+       -0.06,
+       0.04
+      ],
+      "face": "camera"
+     },
+     "opts": {
+      "r": 0.13,
+      "tiltX": 0.95
+     }
+    },
+    {
+     "id": "gril18",
+     "name": "kettleGrill",
+     "pos": [
+      5.2,
+      0,
+      -6.4
+     ],
+     "scale": 3.4,
+     "opts": {
+      "smokeH": 2.0,
+      "smokeN": 16,
+      "smokeSize": 1.2,
+      "wind": [
+       -0.6,
+       0.3
+      ]
+     }
+    },
+    {
+     "id": "fumee18",
+     "name": "smokeRibbon",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "pts": [
+       [
+        4.6,
+        6.8,
+        -6.0
+       ],
+       [
+        2.0,
+        4.0,
+        -1.0
+       ],
+       [
+        -0.2,
+        2.4,
+        2.2
+       ],
+       [
+        -0.954,
+        1.68,
+        1.834
+       ]
+      ],
+      "n": 40,
+      "s0": 0.1,
+      "s1": 0.16,
+      "speed": 0.35,
+      "curl": 0.04
+     }
+    },
+    {
+     "id": "verre18a",
+     "name": "partyGlass",
+     "on": {
+      "actor": "voisin",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.05,
+       0.03
+      ],
+      "face": "camera"
+     },
+     "opts": {}
+    },
+    {
+     "id": "verre18b",
+     "name": "partyGlass",
+     "on": {
+      "actor": "general",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.05,
+       0.03
+      ],
+      "face": "camera"
+     },
+     "opts": {
+      "color": "#E8B84A"
+     }
+    },
+    {
+     "id": "kepi18",
+     "name": "kepi",
+     "on": {
+      "actor": "general",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.222,
+      "d": 0.17,
+      "color": "#4E5730",
+      "band": "#2E3320"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.75,
+      1.7,
+      5.4
+     ],
+     "to": [
+      -1.67,
+      1.69,
+      5.15
+     ],
+     "lookAt": [
+      0.85,
+      1.35,
+      -2.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.82,
+      1.36,
+      -2.6
+     ]
+    }
+   ],
+   "start": 34.3667,
+   "duration": 3.1733,
+   "setOpts": {
+    "clouds": 30,
+    "grass": "#86BE5C",
+    "sky": [
+     "#9FB4C4",
+     "#DADCD6"
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 37.54,
+ "look": "natural",
+ "gags": [
+  {
+   "t": 5.38,
+   "who": "president",
+   "name": "button",
+   "sid": "S03"
+  },
+  {
+   "t": 11.587,
+   "who": "para",
+   "name": "land",
+   "sid": "S06"
+  },
+  {
+   "t": 17.427,
+   "who": "officier",
+   "name": "slam",
+   "sid": "S09"
+  },
+  {
+   "t": 28.917,
+   "who": "ministre",
+   "name": "dome",
+   "sid": "S15"
+  }
+ ],
+ "cardTimes": [
+  15.47,
+  23.283,
+  29.037
+ ],
+ "rig": "toon",
+ "fingers": true,
+ "cloth": true,
+ "idleShift": 1.6,
+ "holdLife": 1,
+ "limbSmear": 1,
+ "follow": 1,
+ "pupil": 0.5,
+ "hairRest": 0.07
+}
