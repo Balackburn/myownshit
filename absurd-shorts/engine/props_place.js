@@ -100,7 +100,7 @@ export const PLACE_PROPS = {
     if (o.clear) {
       body.add(at(box(1.26, 0.06, 1.5, C, { outline: 0.008 }), 0, 1.42 + RU, -0.42)); for (const sx of [-1, 1]) for (const z of [0.42, -0.32, -1.08]) body.add(at(box(0.07, 0.5 + RU, 0.07, C), sx * 0.66, 1.16 + RU / 2, z, z > 0 ? -sl * 0.8 : z < -1 ? sl * 0.8 : 0, 0, sx * 0.25));
       body.add(at(box(1.3, 0.18, 0.4, '#3A3D44'), 0, 0.98, 0.42));
-      if (o.wheel) { const sw = new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.022, 6, 18), mat('#1E1F23')); sw.position.set(0.36, 0.99, 0.24); sw.rotation.set(-1.0, 0, 0); body.add(sw, at(box(0.03, 0.03, 0.2, '#1E1F23'), 0.36, 0.97, 0.32, -1.0, 0, 0)); }
+      if (o.wheel) { const sw = new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.022, 6, 18), mat('#1E1F23')); sw.position.set(0.36, 1.06, 0.24); sw.rotation.set(-0.9, 0, 0); body.add(sw, at(box(0.03, 0.03, 0.2, '#1E1F23'), 0.36, 1.03, 0.32, -0.9, 0, 0)); }
     }
     else body.add(at(box(1.5, 0.5, 2.0, C, { outline: 0.01, taper: { x: 0.82, z: 0.74 } }), 0, 1.16, -0.32));
     body.add(at(pane(1.18, 0.4, 0.02), 0, 1.15, 0.555, -sl, 0, 0), at(box(1.14, 0.36, 0.02, GL, { noGrain: true }), 0, 1.15, -1.19, sl, 0, 0));
