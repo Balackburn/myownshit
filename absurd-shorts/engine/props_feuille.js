@@ -34,7 +34,7 @@ function sheetCanvas(w, h, o, back) {
     c.clearRect(0, 0, W, H); c.fillStyle = back ? PAPER_BACK : PAPER;
     c.beginPath(); c.moveTo(0, 0); c.lineTo(W - (o.ear === 0 ? 0 : E), 0); c.lineTo(W, o.ear === 0 ? 0 : E); c.lineTo(W, H); c.lineTo(0, H); c.closePath(); c.fill();
     if (!back && o.lines !== false) { c.fillStyle = 'rgba(40,60,90,0.10)'; for (let y = H * 0.62; y < H * 0.93; y += H * 0.06) c.fillRect(W * 0.1, y, W * 0.8, Math.max(1, H * 0.006)); }
-    const sd = o.smearSide || 'both'; if (o.smear !== false && (sd === 'both' || (sd === 'back') === !!back)) { c.fillStyle = SMEAR; c.beginPath(); c.ellipse(W * 0.035, H * 0.78, W * 0.05, H * 0.035, 0.4, 0, TAU); c.fill(); c.beginPath(); c.ellipse(W * 0.075, H * 0.8, W * 0.03, H * 0.016, 0.2, 0, TAU); c.fill(); }
+    const sd = o.smearSide || 'both'; if (o.smear !== false && (sd === 'both' || (sd === 'back') === !!back)) { const ss = o.smearS ?? 1; c.fillStyle = SMEAR; c.beginPath(); c.ellipse(W * 0.035 * ss, H * 0.78, W * 0.05 * ss, H * 0.035 * ss, 0.4, 0, TAU); c.fill(); c.beginPath(); c.ellipse(W * 0.075 * ss, H * 0.8, W * 0.03 * ss, H * 0.016 * ss, 0.2, 0, TAU); c.fill(); }
     if (!back && o.text && n > 0) {
       const s = o.text.slice(0, n); c.fillStyle = INK; c.textAlign = 'left'; c.textBaseline = 'middle';
       let fs = Math.round(H * 0.11); c.font = `bold ${fs}px "Courier New", monospace`; while (c.measureText(o.text).width > W * 0.86 && fs > 8) { fs -= 2; c.font = `bold ${fs}px "Courier New", monospace`; }
@@ -98,7 +98,9 @@ export const FEUILLE_PROPS = {
     for (const [x, ry] of [[w / 2 + 0.002, PI / 2], [-w / 2 - 0.002, -PI / 2]]) { const p = cv.clone(); g.add(at(p, x, 0.02 + H / 2, 0, 0, ry, 0)); }
     const p2 = canvasPlane(w, H, (c, W, Hh) => { c.fillStyle = '#F4F2EA'; c.fillRect(0, 0, W, Hh); c.fillStyle = 'rgba(120,120,110,0.35)'; for (let y = 0; y < Hh; y += 3) c.fillRect(0, y, W, 1); }, { res: 256 });
     g.add(at(p2, 0, 0.02 + H / 2, d / 2 + 0.002), at(p2.clone(), 0, 0.02 + H / 2, -d / 2 - 0.002, 0, PI, 0));
-    const r = rng(o.seed || 5); for (let i = 0; i < 5; i++) g.add(at(box(w, 0.003, d, PAPER), (r() - 0.5) * 0.02, 0.02 + H + i * 0.004, (r() - 0.5) * 0.02, 0, (r() - 0.5) * 0.05, 0));
+    const r = rng(o.seed || 5), tops = []; for (let i = 0; i < 5; i++) { const b = at(box(w, 0.003, d, PAPER), (r() - 0.5) * 0.02, 0.02 + H + i * 0.004, (r() - 0.5) * 0.02, 0, (r() - 0.5) * 0.05, 0); g.add(b); tops.push([b, b.position.y]); }
+    // o.riffleAt (s): the top sheets lift in a quick wave and settle, the stack swallowing one more sheet
+    if (o.riffleAt != null) g.userData.update = t => { const u = t - o.riffleAt; tops.forEach(([b, y0], i) => { const v = u - i * 0.03; b.position.y = y0 + (v > 0 && v < 0.3 ? 0.035 * Math.sin(v / 0.3 * PI) : 0); b.rotation.z = v > 0 && v < 0.3 ? 0.12 * Math.sin(v / 0.3 * PI) : 0; }); };
     g.userData.top = 0.02 + H + 0.02; return g;
   },
 
@@ -184,14 +186,15 @@ export const FEUILLE_PROPS = {
       else if (k === 'map') it.add(at(cyl(0.07, 0.07, 0.6, '#E8D9A8', 10, { outline: 0.006 }), 0, 0.3, 0), at(cyl(0.072, 0.072, 0.06, '#B5302A', 10), 0, 0.42, 0));
       else if (k === 'poster') it.add(at(box(0.36, 0.5, 0.01, PAPER, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(0.3, 0.08, 0.006, '#C8202A'), 0, 0.42, 0.007), at(box(0.24, 0.26, 0.006, '#FFFFFF', { outline: 0.004 }), 0, 0.18, 0.008));
       else if (k === 'notes') { for (let j = 0; j < 4; j++) it.add(at(box(0.4, 0.06, 0.2, j % 2 ? '#8FB58A' : '#A8C79C', { pivot: 'bottom', outline: 0.004 }), (hsh(j) - 0.5) * 0.02, j * 0.06, 0)); it.add(at(box(0.41, 0.25, 0.03, '#E2D9A8'), 0, 0.12, 0)); }
-      const pl = buildProp('placard', { text: o.board ?? `${String(100 + items.length * 7)}` }); pl.scale.setScalar(0.45); pl.position.set(0, 0.25, 0.18); it.add(pl);
+      const pl = buildProp('placard', { text: o.board ?? `N° ${String(12 + items.length * 7)}` }); pl.scale.setScalar(o.boardS ?? 0.45); pl.position.set(0, 0.25 + 0.2 * ((o.boardS ?? 0.45) - 0.45), 0.18); it.add(pl);
       it.scale.setScalar(s); return it; };
     for (let i = 0; i < n; i++) { const it = mk(kinds[i % kinds.length]); g.add(it); items.push(it); }
     const P0 = new THREE.Vector3();
     const posAt = d => { if (d <= 0) return [path[0].clone(), segs[0]]; for (const sg of segs) if (d <= sg.L0 + sg.l) return [sg.a.clone().lerp(sg.b, (d - sg.L0) / sg.l), sg]; return [path[path.length - 1].clone(), segs[segs.length - 1]]; };
     g.userData.update = t => { const u = Math.max(0, t - (o.at ?? 0)), head = (o.lead ?? 0) + u * (o.speed ?? 1.1);
       items.forEach((it, i) => { const d = head - i * (o.gap ?? 0.9); it.visible = d > -0.01 && d < L - 0.05 && !(o.hideBefore != null && d < o.hideBefore); if (!it.visible) return;
-        const [p, sg] = posAt(d); P0.copy(p); P0.y += Math.abs(Math.sin(d * 5.5)) * 0.08 * s; it.position.copy(P0);
+        const [p, sg] = posAt(d), ph = Math.abs(Math.sin(d * (o.hopF ?? 5.5))); P0.copy(p); P0.y += ph * (o.hop ?? 0.08) * s; it.position.copy(P0);
+        const sq = o.squash ? Math.pow(1 - ph, 6) * o.squash : 0; it.scale.set(s * (1 + 0.6 * sq), s * (1 - sq), s * (1 + 0.6 * sq));
         const dir = sg.b.clone().sub(sg.a); it.rotation.set(0, Math.atan2(dir.x, dir.z) + (o.yaw ?? 0), Math.sin(d * 5.5) * 0.12); }); };
     g.userData.update(0); return g;
   },
