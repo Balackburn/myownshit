@@ -50,11 +50,25 @@ export const BARBECUE_PROPS = {
     inner.add(low); if (top) inner.add(top);
     const cut = o.bite ? at(cyl(r * 0.92, r * 0.92, 0.006, '#E89A8A', 10), 0, len * (1 - bf) + 0.003, 0) : null; if (cut) { cut.visible = false; inner.add(cut); }
     if (o.lying) { inner.rotation.z = -PI / 2; inner.position.set(-len / 2, r, 0); }
+    // (final) o.face {ry, y, look}: tiny eyes (white, black pupils) and pressed lips at y × len (0.7) up the sausage, facing ry rad; look: the pupils
+    // turned that many rad sideways
+    if (o.face && !o.lying) { const f = o.face, yy = len * (f.y ?? 0.7), fg = grp();
+      for (const sd of [-1, 1]) { const a = sd * 0.42, lk = a + (f.look ?? 0);
+        fg.add(at(new THREE.Mesh(new THREE.SphereGeometry(r * 0.3, 10, 6), mat('#F7F5EE')), Math.sin(a) * r * 0.93, yy, Math.cos(a) * r * 0.93),
+          at(new THREE.Mesh(new THREE.SphereGeometry(r * 0.17, 8, 5), mat('#14161A')), Math.sin(lk) * r * 1.13, yy, Math.cos(lk) * r * 1.13)); }
+      fg.add(at(box(r * 0.75, r * 0.12, r * 0.12, '#5A2418'), 0, yy - r * 0.95, r * 0.98));
+      fg.rotation.y = f.ry ?? 0; inner.add(fg); }
     g.add(inner);
     g.userData.update = t => {
       if (top) { const b = t >= o.bite[0]; top.visible = !b; cut.visible = b; }
       let y = 0, sy = 1;
-      for (const [t0, h, d = 0.42, hang = 0] of o.hop || []) { const u = (t - t0) / d; if (u >= 0 && u < 1) { const a = (1 - hang) / 2, yy = hang ? (u < a ? 1 - Math.pow(1 - u / a, 2) : u > 1 - a ? 1 - Math.pow((u - 1 + a) / a, 2) : 1) * h : 4 * h * u * (1 - u); y = Math.max(y, yy); sy = u < 0.12 ? 1.18 - u : u > 0.88 ? 1 - (1 - u) * 1.6 : 1.06; } else if (u >= 1 && u < 1.35) sy = Math.min(sy, 0.72 + 0.28 * smooth((u - 1) / 0.35)); }
+      // (final) a stronger hop: a stretch on take-off, stretched in the air, round in the hang (which floats with a slight ease), a deep squash on
+      // landing that springs back past its height and settles (it ends at full height, not squashed)
+      for (const [t0, h, d = 0.42, hang = 0] of o.hop || []) { const u = (t - t0) / d;
+        if (u >= 0 && u < 1) { const a = (1 - hang) / 2, inHang = hang && u >= a && u <= 1 - a;
+          const yy = hang ? (u < a ? 1 - Math.pow(1 - u / a, 2) : u > 1 - a ? 1 - Math.pow((u - 1 + a) / a, 2) : 1 - 0.05 * Math.sin(PI * (u - a) / Math.max(1e-3, hang))) * h : 4 * h * u * (1 - u);
+          y = Math.max(y, yy); sy = u < 0.14 ? 1.32 - 1.4 * u : inHang ? 1.0 : 1.13; }
+        else if (u >= 1 && u < 1.6) { const v = (u - 1) / 0.6; sy = 1 - 0.4 * Math.exp(-3.5 * v) * Math.cos(PI * 1.7 * v); } }
       inner.position.y = (o.lying ? r : 0) + y; g.scale.set(1 / Math.sqrt(sy), sy, 1 / Math.sqrt(sy));
     };
     g.userData.update(0); return g;
@@ -84,15 +98,18 @@ export const BARBECUE_PROPS = {
   kettleGrill(o) {
     const R = o.r ?? 0.3, H = o.h ?? 0.8, g = grp(), mk = (charred) => {
       const k = grp(), bowlC = charred ? '#1E1B19' : (o.color || '#B8322A'), legC = charred ? '#141210' : '#2B2E33';
-      const bowl = new THREE.Mesh(new THREE.SphereGeometry(R, 16, 8, 0, TAU, PI / 2, PI / 2), mat(bowlC, { doubleSide: true })); bowl.position.y = H - 0.02; bowl.castShadow = true; addOutline(bowl, 0.03); k.add(bowl);
-      const rim = new THREE.Mesh(new THREE.TorusGeometry(R, 0.014, 5, 20), mat(charred ? '#2A2622' : '#8E2A22')); rim.rotation.x = PI / 2; rim.position.y = H - 0.02; k.add(rim);
+      // (final) the bowl's material is its own when the grill chars (charAt) or glows (o.lit): mat() shares one cached material per colour, and darkening
+      // the shared red one in shot 11 left every red grill of the later shots black (the giant grill of shot 16)
+      const own = !charred && (o.charAt != null || o.lit), lit = o.lit && !charred;
+      const bowl = new THREE.Mesh(new THREE.SphereGeometry(R, 16, 8, 0, TAU, PI / 2, PI / 2), mat(bowlC, own ? { doubleSide: true, unique: true, ...(lit ? { emissive: o.litColor || '#4A1408' } : {}) } : { doubleSide: true })); bowl.position.y = H - 0.02; bowl.castShadow = true; addOutline(bowl, 0.03); k.add(bowl);
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(R, 0.014, 5, 20), mat(charred ? '#2A2622' : '#8E2A22', lit ? { emissive: '#C0401A' } : {})); rim.rotation.x = PI / 2; rim.position.y = H - 0.02; k.add(rim);
       for (let i = 0; i < 3; i++) { const a = i / 3 * TAU + 0.4, bend = charred ? 0.12 * (i - 1) : 0; k.add(rod([Math.cos(a) * R * 0.55, H - R * 0.8, Math.sin(a) * R * 0.55], [Math.cos(a + bend) * R * 1.1, 0, Math.sin(a + bend) * R * 1.1], 0.014, legC, 5)); }
       if (!charred) { k.add(rod([-R * 0.45, H - R * 0.85, 0], [R * 0.45, H - R * 0.85, 0], 0.01, legC, 4)); k.add(at(cyl(0.06, 0.06, 0.02, '#1A1C20', 10), 0, H - R * 1.0, 0)); }
       const coals = grp(), rr = rng(o.seed || 83);
       for (let i = 0; i < 11; i++) { const a = rr() * TAU, d = Math.sqrt(rr()) * R * 0.75; coals.add(at(new THREE.Mesh(new THREE.DodecahedronGeometry(0.035 + rr() * 0.02, 0), lam(charred ? '#2A2220' : '#3A2A22', { emissive: charred ? '#5A1A0A' : '#FF5A1A', ei: 0.8 })), Math.cos(a) * d, H - 0.07, Math.sin(a) * d, rr() * 3, rr() * 3, 0)); }
       k.add(coals); k.userData.coals = coals; k.userData.bowl = bowl;
-      if (!charred) { const ring = new THREE.Mesh(new THREE.TorusGeometry(R * 0.96, 0.006, 4, 20), mat('#9AA0A6')); ring.rotation.x = PI / 2; ring.position.y = H; k.add(ring);
-        for (let i = 0; i < 7; i++) { const z = -R * 0.8 + i * R * 1.6 / 6, hw = Math.sqrt(Math.max(0, R * R * 0.92 - z * z)); k.add(at(box(hw * 2, 0.006, 0.006, '#9AA0A6'), 0, H, z)); } }
+      if (!charred) { const gc = lit ? '#FFC27A' : '#9AA0A6', go = lit ? { emissive: '#D86A20' } : {}; const ring = new THREE.Mesh(new THREE.TorusGeometry(R * 0.96, 0.006, 4, 20), mat(gc, go)); ring.rotation.x = PI / 2; ring.position.y = H; k.add(ring);
+        for (let i = 0; i < 7; i++) { const z = -R * 0.8 + i * R * 1.6 / 6, hw = Math.sqrt(Math.max(0, R * R * 0.92 - z * z)); k.add(at(box(hw * 2, 0.006, 0.006, gc, go), 0, H, z)); } }
       if (o.sausages !== false) { const n = o.n ?? 5; for (let i = 0; i < n; i++) { const z = (i - (n - 1) / 2) * R * 0.32, L = charred ? 0.13 : 0.26, s = sausageMesh(L, charred ? 0.03 : 0.036, charred ? '#1A1614' : '#B5532E', { marks: !charred }); s.rotation.z = -PI / 2; s.position.set(-L / 2 + (charred ? (hsh(i) - 0.5) * 0.1 : 0), H + 0.035, z); if (charred) s.rotation.y = (hsh(i + 5) - 0.5) * 1.2; k.add(s); } }
       if (charred) { for (let i = 0; i < 7; i++) { const a = hsh(i + 20) * TAU, d = hsh(i + 30) * R * 0.7; k.add(at(new THREE.Mesh(new THREE.DodecahedronGeometry(0.05 + 0.04 * hsh(i + 40), 0), mat('#151312')), Math.cos(a) * d, H + 0.02, Math.sin(a) * d, i, i * 2, 0)); }
         bowl.scale.set(1.05, 0.82, 0.97); }
@@ -128,7 +145,8 @@ export const BARBECUE_PROPS = {
     const m = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1, 1), lam(o.color || '#A9A49C', { opacity: o.opacity ?? 0.94 }), n); m.castShadow = false; m.frustumCulled = false;
     const g = grp(m), d = new THREE.Object3D();
     g.userData.update = t => {
-      const reach = o.at == null ? 1 : clamp01((t - o.at) / (o.grow ?? 0.6));
+      let reach = o.at == null ? 1 : clamp01((t - o.at) / (o.grow ?? 0.6));
+      if (o.off) reach = Math.min(reach, 1 - smooth((t - o.off[0]) / (o.off[1] ?? 0.5)));   // (final) o.off [t, dur]: from t its far end draws back to the source
       for (let i = 0; i < n; i++) {
         const u = ((i / n) + t * sp) % 1; let p = bez(P, u);
         const w = wob * (0.3 + u) * Math.sin(i * 2.7 + t * 3.1), w2 = wob * (0.3 + u) * Math.cos(i * 1.9 + t * 2.3);
@@ -270,12 +288,14 @@ export const BARBECUE_PROPS = {
     // the hollow chimney on the right slope, the legs kicking out of its mouth
     const cx = w * 0.3, cz = d * 0.12, roofAt = x => A(1)[1] - (x - A(1)[0]) * (A(1)[1] - E(1)[1]) / (E(1)[0] - A(1)[0]), cTop = roofAt(cx) + 1.15;
     const CW = 0.66, rim = 0.13;
-    g.add(at(box(CW, cTop - roofAt(cx) + 0.4, CW, '#A4523A', { pivot: 'bottom', outline: 0.01 }), cx, roofAt(cx) - 0.4, cz));
+    const chC = o.chimney || '#D08A66', chR = o.chimneyRim || '#A9634A';   // (final) a light brick so the dark legs read against it
+    g.add(at(box(CW, cTop - roofAt(cx) + 0.4, CW, chC, { pivot: 'bottom', outline: 0.01 }), cx, roofAt(cx) - 0.4, cz));
     for (const [dx, dz, bw, bd] of [[0, (CW + 0.06) / 2 - rim / 2, CW + 0.12, rim], [0, -(CW + 0.06) / 2 + rim / 2, CW + 0.12, rim], [(CW + 0.06) / 2 - rim / 2, 0, rim, CW + 0.12], [-(CW + 0.06) / 2 + rim / 2, 0, rim, CW + 0.12]])
-      g.add(at(box(bw, 0.14, bd, '#7E3E2C', { outline: 0.008 }), cx + dx, cTop + 0.07, cz + dz));
+      g.add(at(box(bw, 0.14, bd, chR, { outline: 0.008 }), cx + dx, cTop + 0.07, cz + dz));
     g.add(at(box(CW - 0.14, 0.02, CW - 0.14, '#151312'), cx, cTop + 0.1, cz));
-    const legs = []; for (const sd of [-1, 1]) { const leg = grp(at(box(0.2, 1.0, 0.21, '#56633C', { pivot: 'bottom', outline: 0.012 }), 0, 0, 0), at(box(0.25, 0.2, 0.5, '#16171A', { outline: 0.012 }), 0, 1.08, 0.11), at(box(0.25, 0.05, 0.52, '#2E2E2E'), 0, 0.97, 0.11));
-      leg.position.set(cx + sd * 0.12, cTop - 0.25, cz); g.add(leg); legs.push(leg); }
+    // (final) dark olive trousers, black boots with pale soles (beige-olive legs on the brick read as chimney pots), a little bigger
+    const legs = []; for (const sd of [-1, 1]) { const leg = grp(at(box(0.2, 1.0, 0.21, o.legColor || '#33401F', { pivot: 'bottom', outline: 0.014 }), 0, 0, 0), at(box(0.25, 0.2, 0.5, '#0C0D0E', { outline: 0.014 }), 0, 1.08, 0.11), at(box(0.26, 0.045, 0.53, '#E2DED2'), 0, 1.2, 0.11));
+      leg.scale.setScalar(o.legScale ?? 1.25); leg.position.set(cx + sd * 0.14, cTop - 0.3, cz); g.add(leg); legs.push(leg); }
     // soldiers hanging by their lines from the gutter (and a window lintel), swinging
     const soldier = () => { const sgr = grp(); sgr.add(at(box(0.36, 0.5, 0.24, '#56633C', { outline: 0.01 }), 0, -0.35, 0), at(box(0.3, 0.06, 0.25, '#3E4628'), 0, -0.6, 0));
       const lg = [-1, 1].map(sd => { const l = grp(at(box(0.13, 0.48, 0.15, '#4E5730', { pivot: 'top', outline: 0.008 }), 0, 0, 0), at(box(0.15, 0.1, 0.24, '#16171A', { outline: 0.008 }), 0, -0.5, 0.04)); l.position.set(sd * 0.09, -0.62, 0); sgr.add(l); return l; });
@@ -329,7 +349,8 @@ export const BARBECUE_PROPS = {
       g.add(at(box(0.22, 0.3, 0.22, '#2E3338', { outline: 0.01 }), x, 3.4, -W / 2 + 0.6), at(box(0.16, 0.2, 0.16, '#FFE9B0', { emissive: '#FFD27A' }), x, 3.38, -W / 2 + 0.6)); }
     if (o.banks !== false) for (let i = 0; i < 4; i++) { const fb = canvasPlane(L * 1.6, 9, (c, w, h) => { const gr = c.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, 'rgba(232,236,240,0)'); gr.addColorStop(0.45, 'rgba(232,236,240,0.75)'); gr.addColorStop(1, 'rgba(232,236,240,0.9)'); c.fillStyle = gr; c.fillRect(0, 0, w, h); }, { res: 128, transparent: true });
       fb.material.depthWrite = false; fb.position.set(0, 1.0 - i * 0.6, -W / 2 - 3 - i * 4); g.add(fb); }
-    for (const [i, x] of (o.veils || []).entries()) { const v = canvasPlane(W + 5, 4.2, (c, w, h) => { const gr = c.createRadialGradient(w / 2, h * 0.62, h * 0.05, w / 2, h * 0.62, w * 0.55); gr.addColorStop(0, `rgba(232,236,240,${o.veilA ?? 0.8})`); gr.addColorStop(0.6, `rgba(232,236,240,${(o.veilA ?? 0.8) * 0.55})`); gr.addColorStop(1, 'rgba(232,236,240,0)'); c.fillStyle = gr; c.fillRect(0, 0, w, h); }, { res: 128, transparent: true });
+    // (final) o.veilAs [a, ...]: each veil's own density (thin near the camera, thick behind)
+    for (const [i, x] of (o.veils || []).entries()) { const VA = o.veilAs ? o.veilAs[i] : (o.veilA ?? 0.8); const v = canvasPlane(W + 5, 4.2, (c, w, h) => { const gr = c.createRadialGradient(w / 2, h * 0.62, h * 0.05, w / 2, h * 0.62, w * 0.55); gr.addColorStop(0, `rgba(232,236,240,${VA})`); gr.addColorStop(0.6, `rgba(232,236,240,${VA * 0.55})`); gr.addColorStop(1, 'rgba(232,236,240,0)'); c.fillStyle = gr; c.fillRect(0, 0, w, h); }, { res: 128, transparent: true });
       v.material.depthWrite = false; v.rotation.y = PI / 2; v.position.set(x, 1.6, 0); v.renderOrder = 2 + i; g.add(v); }
     return g;
   },
@@ -401,21 +422,26 @@ export const BARBECUE_PROPS = {
   // black lumps, a few small flames and sparks rising (o.sparks 24); (round 1) o.nearDark 0..1: its near half (+Z) fades to dark ash, so the
   // glow stays away from the caption band
   emberBed(o) {
-    const W = o.w ?? 8, D = o.d ?? 3, rr = rng(o.seed || 91), g = grp();
+    const W = o.w ?? 8, D = o.d ?? 3, rr = rng(o.seed || 91), g = grp(), LIFT = o.lift ?? 0.06, NT = o.nearTint || '26,22,20';   // (final) o.lift: the coals' height above the ground (6 cm let the terrain show through them on some frames: a strobe)
     const skin = canvasPlane(W, D, (c, w, h) => { c.fillStyle = '#1E1A18'; c.fillRect(0, 0, w, h); for (let i = 0; i < 90; i++) { const x = rr() * w, y = rr() * h, r = (0.02 + rr() * 0.05) * w; const gr = c.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, 'rgba(255,170,60,0.95)'); gr.addColorStop(0.4, 'rgba(240,80,20,0.7)'); gr.addColorStop(1, 'rgba(60,20,10,0)'); c.fillStyle = gr; c.beginPath(); c.arc(x, y, r, 0, TAU); c.fill(); }
       c.strokeStyle = 'rgba(255,140,40,0.9)'; c.lineWidth = w * 0.004; for (let i = 0; i < 40; i++) { let x = rr() * w, y = rr() * h; c.beginPath(); c.moveTo(x, y); for (let k = 0; k < 4; k++) { x += (rr() - 0.5) * w * 0.06; y += (rr() - 0.5) * h * 0.1; c.lineTo(x, y); } c.stroke(); }
-      if (o.nearDark) { const gd = c.createLinearGradient(0, h * 0.45, 0, h); gd.addColorStop(0, 'rgba(26,22,20,0)'); gd.addColorStop(1, `rgba(26,22,20,${o.nearDark})`); c.fillStyle = gd; c.fillRect(0, 0, w, h); } }, { res: 1024, emissive: 0.9 });
-    skin.rotation.x = -PI / 2; skin.position.y = 0.06; skin.receiveShadow = true; g.add(skin);
-    for (let i = 0; i < (o.lumps ?? 40); i++) g.add(at(new THREE.Mesh(new THREE.DodecahedronGeometry(0.04 + rr() * 0.06, 0), mat(rr() < 0.3 ? '#3A2E28' : '#151312')), (rr() - 0.5) * W, 0.07, (rr() - 0.5) * D, rr() * 3, rr() * 3, 0));
-    const fl = grp(); for (let i = 0; i < (o.flames ?? 10); i++) { const f = grp(); [0, 1].forEach(j => { const cn = noShadow(new THREE.Mesh(new THREE.ConeGeometry(0.07 - j * 0.03, 0.26 - j * 0.08, 6), basic(['#FF7A1A', '#FFD04A'][j]))); cn.position.y = 0.14; f.add(cn); }); f.position.set((rr() - 0.5) * W * 0.9, 0.06, (rr() - 0.5) * D * 0.9); fl.add(f); }
+      if (o.nearDark) { const gd = c.createLinearGradient(0, h * 0.45, 0, h); gd.addColorStop(0, `rgba(${NT},0)`); gd.addColorStop(1, `rgba(${NT},${o.nearDark})`); c.fillStyle = gd; c.fillRect(0, 0, w, h); } }, { res: 1024, emissive: 0.9 });
+    skin.rotation.x = -PI / 2; skin.position.y = LIFT; skin.receiveShadow = true; g.add(skin);
+    for (let i = 0; i < (o.lumps ?? 40); i++) { const glow = rr() < (o.glowLumps ?? 0); g.add(at(new THREE.Mesh(new THREE.DodecahedronGeometry(0.04 + rr() * 0.06, 0), glow ? mat('#3A1A10', { emissive: '#B8400F' }) : mat(rr() < 0.3 ? '#3A2E28' : '#151312')), (rr() - 0.5) * W, LIFT + 0.01, (rr() - 0.5) * D, rr() * 3, rr() * 3, 0)); }
+    // (final) o.timbers [[x, z, len, ry], ...]: charred roof beams lying in the coals, black, with glowing orange cracks along their tops
+    for (const [x, z, L, ryy] of (o.timbers || [])) { const b = grp(at(box(L, 0.12, 0.14, '#1A1512', { outline: 0.006 }), 0, 0, 0));
+      for (let k = 0; k < 5; k++) b.add(at(box(L * (0.1 + 0.1 * rr()), 0.012, 0.025, '#FF8A3A', { emissive: '#FF5A14' }), (rr() - 0.5) * L * 0.8, 0.066, (rr() - 0.5) * 0.08, 0, (rr() - 0.5) * 0.4, 0));
+      b.position.set(x, LIFT + 0.05, z); b.rotation.set(0, ryy, (rr() - 0.5) * 0.08); g.add(b); }
+    const fl = grp(); for (let i = 0; i < (o.flames ?? 10); i++) { const f = grp(); [0, 1].forEach(j => { const cn = noShadow(new THREE.Mesh(new THREE.ConeGeometry(0.07 - j * 0.03, 0.26 - j * 0.08, 6), basic(['#FF7A1A', '#FFD04A'][j]))); cn.position.y = 0.14; f.add(cn); }); f.position.set((rr() - 0.5) * W * 0.9, LIFT, (rr() - 0.5) * D * 0.9); fl.add(f); }
     g.add(fl);
     const ns = o.sparks ?? 24, sp = new THREE.InstancedMesh(new THREE.BoxGeometry(0.025, 0.025, 0.025), new THREE.MeshBasicMaterial({ color: '#FFB040' }), ns); sp.frustumCulled = false; sp.castShadow = false; g.add(sp);
     const d = new THREE.Object3D(), sx = [], sz = []; for (let i = 0; i < ns; i++) { sx.push((rr() - 0.5) * W); sz.push((rr() - 0.5) * D); }
     // (round 2) o.light: a warm point light just above the bed (that intensity, o.lightR 4 m reach), flickering: the kneeling people are lit from below
-    const EL = o.light ? new THREE.PointLight(o.lightColor || '#FF8A3A', 0, o.lightR ?? 4, 1.4) : null; if (EL) { EL.position.set(0, o.lightY ?? 0.45, 0); g.add(EL); }
-    g.userData.update = t => { skin.material.emissiveIntensity = 0.75 + 0.2 * Math.sin(t * 2.3) + 0.08 * Math.sin(t * 7.1); if (EL) EL.intensity = o.light * (0.85 + 0.1 * Math.sin(t * 9.3) + 0.06 * Math.sin(t * 23.1));
+    const EL = o.light ? new THREE.PointLight(o.lightColor || '#FF8A3A', 0, o.lightR ?? 4, 1.4) : null; if (EL) { EL.position.set(0, LIFT + (o.lightY ?? 0.4), 0); g.add(EL); }
+    // (final) only the glow flickers, by about ±10 % (the geometry never changes)
+    g.userData.update = t => { skin.material.emissiveIntensity = 0.85 * (1 + 0.07 * Math.sin(t * 2.3) + 0.035 * Math.sin(t * 7.1)); if (EL) EL.intensity = o.light * (1 + 0.07 * Math.sin(t * 9.3) + 0.04 * Math.sin(t * 23.1));
       fl.children.forEach((f, i) => f.scale.set(1, 0.8 + 0.35 * Math.sin(t * 13 + i * 1.9), 1));
-      for (let i = 0; i < ns; i++) { const u = ((i / ns) + t * 0.45) % 1; d.position.set(sx[i] + 0.2 * Math.sin(t * 2 + i), 0.1 + u * 2.2, sz[i]); d.scale.setScalar(1 - u); d.updateMatrix(); sp.setMatrixAt(i, d.matrix); }
+      for (let i = 0; i < ns; i++) { const u = ((i / ns) + t * 0.45) % 1; d.position.set(sx[i] + 0.2 * Math.sin(t * 2 + i), LIFT + 0.04 + u * 2.2, sz[i]); d.scale.setScalar(1 - u); d.updateMatrix(); sp.setMatrixAt(i, d.matrix); }
       sp.instanceMatrix.needsUpdate = true; };
     g.userData.update(0); return g;
   },
@@ -531,7 +557,7 @@ export const BARBECUE_PROPS = {
   // (round 1) The shadow of something dropping onto the floor (pivot on the floor): a dark ellipse o.rx × o.rz (0.9 × 0.7) that grows from
   // o.from (0.15) of its size and darkens from o.win[0] to o.win[1] (the landing), then stays
   dropShadow(o) {
-    const m = new THREE.Mesh(new THREE.CircleGeometry(1, 24), new THREE.MeshBasicMaterial({ color: '#14161A', transparent: true, opacity: 0, depthWrite: false })), g = grp(m);
+    const m = new THREE.Mesh(o.ring ? new THREE.RingGeometry(o.ring, 1, 40) : new THREE.CircleGeometry(1, 24), new THREE.MeshBasicMaterial({ color: '#14161A', transparent: true, opacity: 0, depthWrite: false })), g = grp(m);   // (final) o.ring f: a ring from f to 1 (a contact shadow round a bell jar)
     m.rotation.x = -PI / 2; m.position.y = o.y ?? 0.012; const win = o.win || [0, 0.3], rx = o.rx ?? 0.9, rz = o.rz ?? 0.7, f0 = o.from ?? 0.15;
     g.userData.update = t => { const u = smooth((t - win[0]) / Math.max(1e-3, win[1] - win[0])), s = f0 + (1 - f0) * u; m.scale.set(rx * s, rz * s, 1); m.material.opacity = (t < win[0] ? 0 : (o.opacity ?? 0.5) * (0.3 + 0.7 * u)); m.visible = t >= win[0]; };
     g.userData.update(-1); return g;
@@ -600,6 +626,53 @@ export const BARBECUE_PROPS = {
     m.position.copy(A); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, -1, 0), B.clone().sub(A).normalize()); m.castShadow = false; g.add(m);
     if (o.disc !== false) { const cv = document.createElement('canvas'); cv.width = cv.height = 128; const x = cv.getContext('2d'); const gr = x.createRadialGradient(64, 64, 2, 64, 64, 62); gr.addColorStop(0, 'rgba(255,236,190,0.9)'); gr.addColorStop(1, 'rgba(255,236,190,0)'); x.fillStyle = gr; x.fillRect(0, 0, 128, 128);
       const d = new THREE.Mesh(new THREE.CircleGeometry(R * 1.1, 24), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending })); d.rotation.x = -PI / 2; d.position.copy(B).add(new THREE.Vector3(0, 0.01, 0)); g.add(d); }
+    return g;
+  },
+
+  // (final) A thin tapering tendril of smoke drawn along a curve into a target (pivot anywhere: o.pts in the prop's frame, 2 to 4 Bézier points from
+  // the source to the end): from o.at it stretches out to the end over o.grow (0.6 s), wobbling (o.wob 0.025), radius o.r0 (0.035) at the source to
+  // o.r1 (0.012) at its tip; at o.suck it snaps in: its tail races to the end over o.suckDur (0.16 s) and the tip squashes flat as it goes in
+  smokeTendril(o) {
+    const P = o.pts || [[0, 0, 0], [0, 1, 0]], N = 40, RS = 8, r0 = o.r0 ?? 0.035, r1 = o.r1 ?? 0.012, wob = o.wob ?? 0.025, col = o.color || '#A9A49C', op = o.opacity ?? 0.92;
+    const geo = new THREE.BufferGeometry(), pos = new Float32Array((N + 1) * RS * 3), idx = [];
+    for (let i = 0; i < N; i++) for (let j = 0; j < RS; j++) { const a = i * RS + j, b = i * RS + (j + 1) % RS, c = (i + 1) * RS + j, d = (i + 1) * RS + (j + 1) % RS; idx.push(a, c, b, b, c, d); }
+    geo.setIndex(idx); geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    const m = new THREE.Mesh(geo, lam(col, { opacity: op })); m.castShadow = false; m.frustumCulled = false;
+    const tip = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), lam(col, { opacity: op })); tip.castShadow = false;
+    const g = grp(m, tip), V = new THREE.Vector3(), T = new THREE.Vector3(), Nn = new THREE.Vector3(), B = new THREE.Vector3(), UP = new THREE.Vector3(0, 1, 0);
+    const pt = (p, t, f) => { const q = bez(P, Math.max(0, Math.min(1, p))), w = wob * f; return [q[0] + w * Math.sin(p * 9 + t * 5.3), q[1] + w * 0.6 * Math.cos(p * 7 + t * 4.1), q[2] + w * Math.cos(p * 8 + t * 4.7)]; };
+    g.userData.update = t => {
+      const at0 = o.at ?? 0, gr = o.grow ?? 0.6, sk = o.suck ?? 1e9, sd = o.suckDur ?? 0.16, head = smooth((t - at0) / gr), tail = clamp01((t - sk) / sd);
+      m.visible = t >= at0 && tail < 1; const sq = t >= sk + sd && t < sk + sd + 0.14;
+      if (m.visible) {
+        for (let i = 0; i <= N; i++) { const f = i / N, p = tail + (head - tail) * f, c = pt(p, t, Math.sin(PI * f)), e = pt(p + 0.01, t, Math.sin(PI * f)), b0 = pt(p - 0.01, t, Math.sin(PI * f));
+          T.set(e[0] - b0[0], e[1] - b0[1], e[2] - b0[2]).normalize(); Nn.crossVectors(T, Math.abs(T.y) > 0.95 ? new THREE.Vector3(1, 0, 0) : UP).normalize(); B.crossVectors(T, Nn).normalize();
+          const rad = (r0 + (r1 - r0) * f) * (1 + 0.15 * Math.sin(f * 11 + t * 6));
+          for (let j = 0; j < RS; j++) { const a = j / RS * TAU; V.set(c[0], c[1], c[2]).addScaledVector(Nn, Math.cos(a) * rad).addScaledVector(B, Math.sin(a) * rad); pos.set([V.x, V.y, V.z], (i * RS + j) * 3); } }
+        geo.attributes.position.needsUpdate = true; geo.computeVertexNormals();
+        const hp = pt(head, t, 0); tip.position.set(hp[0], hp[1], hp[2]); tip.scale.setScalar(r1 * 1.5); tip.visible = true;
+      } else if (sq) { const e = P[P.length - 1], u = (t - sk - sd) / 0.14; tip.position.set(e[0], e[1], e[2]); tip.scale.set(r1 * (2.4 - u), r1 * (0.7 + 0.3 * u), r1 * (2.4 - u)); tip.visible = true; }
+      else tip.visible = false;
+    };
+    g.userData.update(-1); return g;
+  },
+
+  // (final) A glass bell jar (pivot at the floor in its middle): a cylinder o.r (0.85) wide up to o.wall (1.6), a hemispherical cap and a small knob;
+  // a cool tint (o.tint) that brightens to a white rim along its whole silhouette (a fresnel shader: o.base 0.2 of opacity face-on, + o.rim 0.75 at
+  // the edges), one curved white highlight following the dome on its upper left, a pale ring at its foot; drop it with prop keys like any prop
+  glassBell(o) {
+    const R = o.r ?? 0.85, WH = o.wall ?? 1.6, g = grp();
+    const sm = new THREE.ShaderMaterial({ uniforms: { tint: { value: new THREE.Color(o.tint || '#BFE6F2') }, base: { value: o.base ?? 0.2 }, rim: { value: o.rim ?? 0.75 } }, transparent: true, depthWrite: false, side: THREE.DoubleSide,
+      vertexShader: 'varying vec3 vN; varying vec3 vV; void main() { vec4 mv = modelViewMatrix * vec4(position, 1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }',
+      fragmentShader: 'uniform vec3 tint; uniform float base; uniform float rim; varying vec3 vN; varying vec3 vV; void main() { float f = pow(1.0 - abs(dot(normalize(vN), normalize(vV))), 2.2); gl_FragColor = vec4(mix(tint, vec3(1.0), f), min(1.0, base + rim * f)); }' });
+    const wall = new THREE.Mesh(new THREE.CylinderGeometry(R, R, WH, 40, 1, true).translate(0, WH / 2, 0), sm), cap = new THREE.Mesh(new THREE.SphereGeometry(R, 40, 14, 0, TAU, 0, PI / 2), sm);
+    cap.position.y = WH; const knob = new THREE.Mesh(new THREE.SphereGeometry(0.07, 12, 8), sm); knob.position.y = WH + R + 0.04;
+    for (const mm of [wall, cap, knob]) { mm.castShadow = false; mm.renderOrder = 5; g.add(mm); }
+    const hl = new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: o.hiOpacity ?? 0.8, depthWrite: false }), az = o.hiAz ?? 0.62, pts = [];
+    for (let i = 0; i <= 14; i++) { const u = i / 14; if (u < 0.45) { const y = WH * (0.3 + 0.7 * u / 0.45); pts.push(new THREE.Vector3(-Math.sin(az) * R * 1.004, y, Math.cos(az) * R * 1.004)); }
+      else { const el = (u - 0.45) / 0.55 * 1.0; pts.push(new THREE.Vector3(-Math.sin(az) * Math.cos(el) * R * 1.004, WH + Math.sin(el) * R * 1.004, Math.cos(az) * Math.cos(el) * R * 1.004)); } }
+    const arc = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 40, o.hiR ?? 0.014, 5, false), hl); arc.castShadow = false; arc.renderOrder = 6; g.add(arc);
+    const foot = new THREE.Mesh(new THREE.TorusGeometry(R, 0.012, 4, 48), new THREE.MeshBasicMaterial({ color: '#EAF6FA', transparent: true, opacity: 0.6, depthWrite: false })); foot.rotation.x = PI / 2; foot.position.y = 0.012; foot.renderOrder = 6; g.add(foot);
     return g;
   },
 };
