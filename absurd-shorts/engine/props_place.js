@@ -82,7 +82,8 @@ export const PLACE_PROPS = {
   // o.phase); o.flatAt (s): it is squashed flat in 0.1 s with a bounce and stays a pancake; o.flat: already flat; o.brake [t0, dur]: the nose dips
   // and rocks back; o.flag [c1, c2]: a small flag on a rod at the front right wing; o.open 'L' | 'R': that front side window is an open dark hole;
   // o.plate (text); o.hop [[t, h]]: little jumps; o.dark: an official black car with chrome trim; (round 1) o.indS (1): the indicators' size,
-  // o.glow (0.42): their glow's size, o.blinkP (0.7 s) the blink period (on for 55 % of it)
+  // o.glow (0.42): their glow's size, o.blinkP (0.7 s) the blink period (on for 55 % of it); o.dash: an amber arrow on the dashboard that blinks
+  // with them (seen through a clear windscreen)
   bayCar(o) {
     const C = o.color || (o.dark ? '#1C1E22' : '#C9473A'), L = 3.7, Wd = 1.66, g = grp(), body = grp(); g.add(body);
     const GL = o.glass || (o.dark ? '#2C3440' : '#BFDCE8'), DK = '#2E3138';
@@ -119,9 +120,16 @@ export const PLACE_PROPS = {
       body.add(at(cyl(0.008, 0.008, 0.4, '#C9CED6', 5, { pivot: 'bottom' }), -0.7, 0.9, L / 2 - 0.25), fl); g.userData.flag = fl;
     }
     const blinkSide = o.blink === 'both' ? 0 : o.blink === 'L' ? 1 : o.blink === 'R' ? -1 : null;
+    let dash = null;
+    if (o.dash) {
+      const sh = new THREE.Shape(); sh.moveTo(-0.07, -0.035); sh.lineTo(0.0, -0.035); sh.lineTo(0.0, -0.07); sh.lineTo(0.08, 0.0); sh.lineTo(0.0, 0.07); sh.lineTo(0.0, 0.035); sh.lineTo(-0.07, 0.035); sh.closePath();
+      dash = new THREE.Mesh(new THREE.ShapeGeometry(sh), new THREE.MeshBasicMaterial({ color: '#FFB21E', side: THREE.DoubleSide })); dash.scale.setScalar(1.3);
+      dash.position.set(o.dash === 'L' ? 0.28 : -0.28, 1.1, 0.56); dash.rotation.set(-0.25, 0, o.dash === 'L' ? 0 : PI); body.add(dash);
+    }
     g.userData.update = t => {
       const bp = o.blinkP ?? 0.7, lit = blinkSide !== null && ((t + (o.phase ?? 0)) % bp + bp) % bp < bp * 0.55;
       for (const d of ind) { const on = lit && (blinkSide === 0 || d.sx === blinkSide); d.on.visible = d.side.visible = d.glowS.visible = on; d.off.visible = d.sideOff.visible = !on; }
+      if (dash) dash.visible = lit;
       let sy = 1, sxz = 1, pitch = 0, y = 0;
       const fa = o.flat ? -10 : o.flatAt;
       if (fa != null && t >= fa) { const u = (t - fa) / 0.1; sy = u >= 1 ? 0.2 + 0.05 * Math.exp(-(t - fa - 0.1) * 9) * Math.cos((t - fa - 0.1) * 40) : 1 - 0.8 * easeIn(u); sxz = 1 + 0.14 * clamp01(u); }
@@ -201,7 +209,9 @@ export const PLACE_PROPS = {
     const left = side(), right = side(); left.position.set(-W / 2, 0, 0); right.position.set(W / 2, 0, 0);
     const back = grp(panel(W, H, CR)); back.position.set(0, 0, -D);
     g.add(left, right, back);
-    const roof = grp(at(box(W + 0.3, 0.3, D + 0.3, '#A8A39A', { pivot: 'bottom', outline: 0.006 }), 0, 0, -D / 2)); roof.position.y = H; g.add(roof);
+    const roof = grp(at(box(W + 0.3, 0.3, D + 0.3, o.staged ? CR : '#A8A39A', { pivot: 'bottom', outline: 0.006 }), 0, 0, -D / 2)); roof.position.y = H; g.add(roof);
+    // (round 1) staged: a cream roof with the walls' red band round its edge, so the flattened store reads as the store's box from above
+    if (o.staged) for (const [x, z, w, d] of [[0, 0.05, W + 0.4, 0.9], [0, -D - 0.05, W + 0.4, 0.9], [-W / 2 - 0.05, -D / 2, 0.9, D + 0.4], [W / 2 + 0.05, -D / 2, 0.9, D + 0.4]]) roof.add(at(box(w, 0.06, d, RED), x, 0.3, z));
     const signP = grp(), sw = o.signW ?? 10.5;
     signP.add(at(box(sw, 1.8, 0.3, RED, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(label(o.sign || 'SUPERMARCHÉ', sw - 0.5, 1.4, { bg: RED, fg: '#FFFFFF', wrap: false }), 0, 0.9, 0.16));
     signP.add(at(box(0.2, 0.6, 0.2, '#6A6E76', { pivot: 'bottom' }), -sw * 0.35, -0.6, -0.2), at(box(0.2, 0.6, 0.2, '#6A6E76', { pivot: 'bottom' }), sw * 0.35, -0.6, -0.2));
@@ -217,7 +227,7 @@ export const PLACE_PROPS = {
       const bounce = rf >= 1 ? 0.12 * Math.exp(-(t - f0 - RL) * 7) * Math.abs(Math.sin((t - f0 - RL) * 16)) : 0;
       roof.position.y = H + (0.62 - H) * rf + bounce;
       signG.position.y = roof.position.y + 0.3; signG.position.z = -0.4 - 3.2 * sg; signP.rotation.x = -PI / 2 * outBack(sg) * 0.98;
-      if (clk) { clk.position.y = 2.7 + (0.3 - 2.7) * smooth(sg); clk.position.z = -0.4 + 1.2 * smooth(sg); clk.rotation.x = -PI / 2 * 0.85 * smooth(sg); clk.userData.update?.(t); }
+      if (clk) { const cz = ST ? 2.2 : 1.2, cr = ST ? 0.62 : 0.85; clk.position.y = 2.7 + (0.3 - 2.7) * smooth(sg); clk.position.z = -0.4 + cz * smooth(sg); clk.rotation.x = -PI / 2 * cr * smooth(sg); clk.userData.update?.(t); }
       for (const d of dust) d.userData.update?.(t);
     };
     g.userData.update(0); return g;

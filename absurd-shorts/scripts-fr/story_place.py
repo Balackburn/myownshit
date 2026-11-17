@@ -100,9 +100,9 @@ RED_PATH = [[-3.0, GY, -4.6], [-0.4, GY, -5.2], [0.9, GY, -7.4], [1.25, GY, -9.6
 SEAT = lambda p, ry: loc(p, ry, 0.36 * CS, 0.06, 0.0)   # the driver's seat (the car's left, +X local), at the floor
 HERO_SIT1 = SEAT(HERO_CAR, -90)
 CA1 = cam(0.0, [13.2, 4.0, -3.3], [12.95, 3.9, -3.4], [1.6, 0.4, -9.6], [1.6, 0.35, -9.6], lens=50)
-CB1 = cam(CUT1, [0.6, 1.85, -4.9], [0.75, 1.84, -4.85], [HERO_SIT1[0], 1.55, HERO_SIT1[2]], [HERO_SIT1[0], 1.55, HERO_SIT1[2]], lens=58)   # (round 1) wider: his near front indicator blinks at the lower right
+CB1 = cam(CUT1, [1.9, 2.55, -6.5], [2.05, 2.53, -6.35], [HERO_SIT1[0], 1.6, HERO_SIT1[2]], [HERO_SIT1[0], 1.6, HERO_SIT1[2]], lens=40)   # (round 1) a wider lens made his face tiny: the dashboard arrow blinks instead
 chk('S01a', CA1['from'], CA1['lookAt'], 40, {'heroCarRear': loc(START1, -90, 0, -2.3, 0.8), 'heroCarStop': loc(HERO_CAR, -90, -0.9, -2.3, 0.8), 'bay': [1.25, 0.6, -10.6], 'redStart': [-14, 0.8, -4.7]})
-chk('S01b', CB1['from'], CB1['lookAt'], 58, {'face': [HERO_SIT1[0], 1.75, HERO_SIT1[2]], 'blinkFR': loc(HERO_CAR, -90, -0.74 * CS, 1.85 * CS, 0.76 * CS), 'blinkFL': loc(HERO_CAR, -90, 0.74 * CS, 1.85 * CS, 0.76 * CS), 'sideL': loc(HERO_CAR, -90, 0.85 * CS, 1.3 * CS, 0.8 * CS)})
+chk('S01b', CB1['from'], CB1['lookAt'], 40, {'face': [HERO_SIT1[0], 1.75, HERO_SIT1[2]], 'blinkFR': loc(HERO_CAR, -90, -0.74 * CS, 1.85 * CS, 0.76 * CS), 'blinkFL': loc(HERO_CAR, -90, 0.74 * CS, 1.85 * CS, 0.76 * CS), 'sideL': loc(HERO_CAR, -90, 0.85 * CS, 1.3 * CS, 0.8 * CS)})
 st.shot('S01', 'grassland', setOpts=LOT_SET, actors=[
         act('mec', SEAT(START1, -90), -90, 'drive', 'neutral', keys=[k(0.0, to=HERO_SIT1, dur=STOP1, ease='out', glide=True, face='keep', clip='drive'), k(0.0, look=[1.25, 1.0, -10.6]),
             k(0.0, toon={'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.0),
@@ -112,7 +112,7 @@ st.shot('S01', 'grassland', setOpts=LOT_SET, actors=[
             *stand_blink(r(CUT1 + 1.0), {'lid': 0.45, 'mouth': 'line', 'brow': -0.35})]),
         act('voleur', add(RED_PATH[0], [-12.0, 0, 0]), 90, 'drive', 'smug', visible=False)],
         props=[LOT(), ROWS_INTACT(skip=['0:10']), STORE(clock=None),
-               HEROCAR('voiture', START1, clear=True, blink='both', brake=[BRAKE1, 0.45], keys=[k(0.0, to=HERO_CAR, dur=STOP1, ease='out')]),
+               HEROCAR('voiture', START1, clear=True, blink='both', dash='R', brake=[BRAKE1, 0.45], keys=[k(0.0, to=HERO_CAR, dur=STOP1, ease='out')]),
                CAR('rouge', [-9.0, GY, -4.6], 90, color='#D8392B', plate='RX-001-ZZ', scale=1.0, hop=[[1.0, 0.07]],
                    keys=[k(0.0, path=RED_PATH, dur=1.0, ease='inOut', faceMove=True)])],
         cams=[CA1, CB1])
@@ -182,7 +182,7 @@ D4 = st.dur('S04'); FLIP4 = 0.25
 CLK = {'x': 0.0, 'base': CLOCK0, 'flipAt': FLIP4}
 SHOP4 = [('client1', [-1.8, GY, -13.6], [-3.0, GY, -9.8]), ('client2', [-0.6, GY, -14.6], [-1.7, GY, -11.0]), ('client3', [-3.1, GY, -14.9], [-4.2, GY, -11.3])]
 SOL4 = [('soldat1', [-0.2, GY, -15.3], [-0.9, GY, -12.4]), ('soldat2', [-4.4, GY, -15.4], [-5.3, GY, -12.6])]
-C4 = cam(0.0, [-2.4, 1.6, -4.9], [-2.38, 1.62, -5.15], [-0.6, 3.8, -15.5], [-0.6, 3.85, -15.5], lens=58)   # (round 1) a little less tilt: the tank's gun above the captions
+C4 = cam(0.0, [-2.6, 1.6, -3.3], [-2.58, 1.62, -3.55], [-0.6, 3.9, -15.5], [-0.6, 3.95, -15.5], lens=58)   # (round 1) a little less tilt: the tank's gun above the captions
 TANK4 = [0.6, GY, -12.0]; TANK4_RY = yaw(TANK4, [0.0, 0, -15.5])
 chk('S04', C4['from'], C4['lookAt'], 58, {'clock': [0.0, 10.4, STORE_Z - 1.0], 'sign': [0, 8.0, STORE_Z - 0.4], 'door': [0, 1.5, STORE_Z], 'shopNear': [-3.0, 2.3, -9.8], 'shopNearFeet': [-3.0, 0.0, -9.8], 'tank': [0.6, 1.2, -12.0], 'gunTip': [0.3, 1.2, -13.8], 'redcar': [1.25, 1.3, -10.6]})
 def TROLLEY(pid, a, b, dur):
@@ -236,7 +236,9 @@ JETS6 = [(0.0, 0.0), (-4.0, 5.0), (4.0, 5.0), (-8.0, 10.0), (8.0, 10.0), (0.0, 1
 JZ0, JZ1, JY = -3.5, -97.5, 22.0
 def jet_pos(dx, back, t): return [r(KEY[0] + dx), JY, r(JZ0 + back + (JZ1 - JZ0) * t / D6)]
 C6 = cam(0.0, [1.25, 0.55, -3.4], [1.25, 0.57, -3.6], [1.25, 13.0, -15.4], [1.25, 12.8, -15.6], lens=66)
-C6b = cam(1.02, [1.25, 0.7, -3.6], [1.25, 0.72, -3.7], [1.25, 1.6, -10.6], [1.25, 1.58, -10.6], lens=56)
+C6m = cam(0.72, [1.25, 0.6, -3.5], [1.25, 0.62, -3.6], [1.25, 10.5, -10.6], [1.25, 10.3, -10.6], lens=60)   # (round 1) the camera follows the bombs down
+C6n = cam(1.12, [1.25, 0.65, -3.55], [1.25, 0.67, -3.65], [1.25, 5.6, -10.6], [1.25, 5.4, -10.6], lens=58)
+C6b = cam(1.42, [1.25, 0.7, -3.6], [1.25, 0.72, -3.7], [1.25, 1.6, -10.6], [1.25, 1.58, -10.6], lens=56)
 chk('S06', C6['from'], C6['lookAt'], 66, {'jetLead02': jet_pos(0, 0, 0.2), 'jetLast06': jet_pos(0, 15, 0.6), 'jetLeadRel': jet_pos(0, 0, REL6)})
 chk('S06b', C6b['from'], C6b['lookAt'], 56, {'carTop': [1.25, 1.45, -10.6], 'carFoot': [1.25, 0.0, -9.0], 'bomb15': [1.25, 9.0, -10.6], 'bomb16': [1.25, 5.0, -10.6]})
 DROPS6 = [{'from': add(jet_pos(dx, back, REL6 + 0.04 * i), [0, -1.0, 0]), 'to': [r(KEY[0] + 0.12 * (i - 2.5)), 0.9, r(KEY[2] + 0.1 * (i % 3 - 1))], 't0': r(REL6 + 0.04 * i), 'dur': r(HIT6 - REL6 - 0.04 * i)} for i, (dx, back) in enumerate(JETS6)]
@@ -244,12 +246,12 @@ st.shot('S06', 'grassland', setOpts=LOT_SET, actors=[],
         props=[LOT(), ROWS_INTACT(skip=['0:10']), STORE(clock={**CLK, 'base': r(CLOCK0 - (st.SH['S06'][0] - st.SH['S04'][0] - FLIP4), 2), 'flipAt': -1}),
                CAR('rouge6', KEY, 180, color='#D8392B', plate='RX-001-ZZ', scale=1.0, flatAt=HIT6),
                *[P(f'avion6{i}', 'fighterJet', pos=jet_pos(dx, back, 0), ry=180, opts={'burner': 0.8, 'glow': 2.2}, keys=[k(0.0, to=jet_pos(dx, back, D6), dur=D6, ease='linear')]) for i, (dx, back) in enumerate(JETS6)],
-               P('bombes6', 'bombDrop', pos=[0, 0, 0], opts={'drops': DROPS6, 's': 1.2, 'hang': 0.18}),
+               P('bombes6', 'bombDrop', pos=[0, 0, 0], opts={'drops': DROPS6, 's': 1.3, 'hang': 0.14}),
                P('boum6', 'timedBurst', pos=[KEY[0], 0.8, r(KEY[2] - 1.8)], opts={'at': HIT6, 'size': 1.5, 'seed': 6, 'life': 0.45}),
                P('etoiles6', 'impactStars', pos=[KEY[0], 1.3, r(KEY[2] + 0.4)], opts={'at': HIT6, 'n': 7, 'r': 1.15, 'size': 0.22, 'dur': 0.55, 'r0': 0.3}),
                P('fumee6', 'softDust', pos=[KEY[0], 0.5, r(KEY[2] - 0.6)], opts={'at': r(HIT6 + 0.14), 'n': 8, 'size': 1.0, 'life': 1.2, 'rise': 1.6, 'spread': 2.6, 'color': '#9A958D', 'opacity': 0.55})],
         fx=[{'type': 'shake', 'at': HIT6, 'dur': 0.3, 'amount': 0.03}],
-        cams=[C6, glide([C6b], 0.42)])
+        cams=[C6, glide([C6m], 0.38), glide([C6n], 0.3), glide([C6b], 0.2)])
 st.cue('sfx:jet', 'S06', 0.0, 0.55); st.cue('whoosh', 'S06', REL6, 0.3, 0.9); st.cue('thunder', 'S06', HIT6, 0.7); st.cue('sfx:crunch', 'S06', r(HIT6 + 0.04), 0.35)
 
 # 7: and the two hundred spaces round it. High over the car park: every car squashed flat in its bay, smoking in neat rows, a lone hubcap rolling
@@ -282,7 +284,7 @@ st.cue('sfx:wind', 'S07', 0.0, 0.25); st.cue('sfx:rattle', 'S07', 0.3, 0.12)
 D8 = st.dur('S08'); FOLD8 = 0.3; GREY8 = r(FOLD8 + 0.72)
 # (round 1) the fold in stages (front, sides, back, roof, then the sign and the clock tipping onto the pile) seen from higher up, so the flattened box
 #           lies in the middle of the frame behind him with its sign and clock readable on top; he stands to the right, the wheel face-on
-INV8 = [3.4, GY, -11.6]; RY8 = -8
+INV8 = [3.6, GY, -14.0]; RY8 = -12   # on the walkway in front of the doors (in row A he stood on a flattened red car)
 CLK8 = {**CLK, 'base': r(CLOCK0 - (st.SH['S08'][0] - st.SH['S04'][0] - FLIP4), 2), 'flipAt': -1}
 C8 = cam(0.0, [4.4, 3.3, -3.6], [4.38, 3.32, -3.75], [0.6, 3.6, -16.0], [0.6, 3.55, -16.0], lens=52)
 C8b = cam(r(FOLD8 + 0.3), [4.6, 4.5, -3.9], [4.58, 4.52, -4.05], [0.2, 0.2, -20.5], [0.2, 0.25, -20.5], lens=50)
@@ -317,8 +319,12 @@ chk('S09', C9['from'], C9['lookAt'], 46, {'heroFace': [HERO9[0], 1.98, HERO9[2]]
 FORCE9 = [('forces1', -0.62), ('forces2', 0.62)]
 def PT9(d, h, tgt=None):
     """a point d metres from his right shoulder toward the invader (where he is at that moment), at height h"""
-    tg = tgt or INV9a; sh = off(HERO9, RYH9, 0.0, -0.25, 0.0); dx, dz = tg[0] - sh[0], tg[2] - sh[2]; n = math.hypot(dx, dz); return [r(sh[0] + dx / n * d), h, r(sh[2] + dz / n * d)]
+    tg = tgt or INV9a; sh = off(HERO9, RYH9, 0.0, 0.25, 0.0); dx, dz = tg[0] - sh[0], tg[2] - sh[2]; n = math.hypot(dx, dz); return [r(sh[0] + dx / n * d), h, r(sh[2] + dz / n * d)]
 INVM9 = [r((INV9a[0] + INV9b[0]) / 2), GY, r((INV9a[2] + INV9b[2]) / 2)]
+def PS9(d, h):
+    """(round 1) a point d metres out from his right shoulder, to his right and a little back (the frame's left, toward the invader), at height h"""
+    sh = off(HERO9, RYH9, 0.0, 0.25, 0.0); R_ = right(RYH9); F_ = fwd(RYH9); v = [R_[0] * 0.94 - F_[0] * 0.34, R_[2] * 0.94 - F_[2] * 0.34]; n = math.hypot(*v)
+    return [r(sh[0] + v[0] / n * d), h, r(sh[2] + v[1] / n * d)]
 OUT9 = {'lid': 0.0, 'pop': 0.5, 'mouth': 'scream', 'brow': 0.8}
 st.shot('S09', 'grassland', setOpts=LOT_SET, actors=[
         act('gris', INV9a, yaw(INV9a, INV9b), 'stand', 'neutral', keys=[k(0.0, to=INV9b, dur=D9, clip='walk'), k(0.0, toon={'reach': {'R': [*off(INV9b, yaw(INV9a, INV9b), 0.12, 0.42, 1.3), 1, 0.04]}, 'hands': {'R': 'grip'}}, toonDur=0.0)]),
@@ -328,10 +334,10 @@ st.shot('S09', 'grassland', setOpts=LOT_SET, actors=[
             k(0.22, look=[INV9a[0], 2.0, INV9a[2]], lookDur=0.06), k(0.42, look='camera', lookDur=0.06),
             k(0.42, toon={'face': {'lid': 0.1, 'pop': 0.2, 'mouth': 'line', 'brow': 0.4}}, toonDur=0.06),
             k(0.62, look=[INVM9[0], 2.0, INVM9[2]], lookDur=0.06),
-            k(0.56, toon={'reach': {'L': [*PT9(0.3, 1.5), 1, 0.04]}, 'hands': {'L': 'fist'}, 'face': {'lid': 0.2, 'mouth': 'clench', 'brow': -0.6}, 'sq': [1.05, 0.95, 1.05]}, toonDur=0.06),
-            k(0.66, toon={'reach': {'L': [*PT9(1.2, 1.95, INVM9), 1, 0.1]}, 'hands': {'L': 'point'}, 'face': OUT9, 'sq': [0.94, 1.08, 0.94]}, toonDur=0.07, toonEase='out'),
-            k(0.85, toon={'reach': {'L': [*PT9(1.12, 1.9, INVM9), 1, 0.1]}, 'hands': {'L': 'point'}, 'face': OUT9, 'sq': [1, 1, 1]}, toonDur=0.12),
-            *[k(r(1.0 + 0.24 * i), toon={'reach': {'L': [*PT9(1.12 + 0.05 * (i % 2), 1.9 + 0.06 * (i % 2), INVM9 if i < 3 else INV9b), 1, 0.1]}, 'hands': {'L': 'point'}, 'face': {**OUT9, 'mouth': 'scream' if i % 2 == 0 else 'O'}}, toonDur=0.07) for i in range(6)],
+            k(0.56, toon={'reach': {'R': [*PS9(0.35, 1.5), 1, 0.04]}, 'hands': {'R': 'fist'}, 'face': {'lid': 0.2, 'mouth': 'clench', 'brow': -0.6}, 'sq': [1.05, 0.95, 1.05]}, toonDur=0.06),
+            k(0.66, toon={'reach': {'R': [*PS9(1.2, 1.95), 1, 0.1]}, 'hands': {'R': 'point'}, 'face': OUT9, 'sq': [0.94, 1.08, 0.94]}, toonDur=0.07, toonEase='out'),
+            k(0.85, toon={'reach': {'R': [*PS9(1.12, 1.9), 1, 0.1]}, 'hands': {'R': 'point'}, 'face': OUT9, 'sq': [1, 1, 1]}, toonDur=0.12),
+            *[k(r(1.0 + 0.24 * i), toon={'reach': {'R': [*PS9(1.12 + 0.05 * (i % 2), 1.9 + 0.06 * (i % 2)), 1, 0.1]}, 'hands': {'R': 'point'}, 'face': {**OUT9, 'mouth': 'scream' if i % 2 == 0 else 'O'}}, toonDur=0.07) for i in range(6)],
             k(1.4, look=[INV9b[0], 2.0, INV9b[2]], lookDur=0.5)])],
         props=[LOT(), ROWS_FLAT(skip=['0:10', '0:11', '0:12', '0:13'], wisps=6), STORE(folded=True, clock=CLK8), HEROCAR('voiture9', HCAR9, blink='both'), CAR('noire9', BLACK9, -90, dark=True, plate='AA-000-AA'),
                CHEESE_ARM('fromage9', 'gris'),
@@ -556,7 +562,8 @@ D17 = st.dur('S17'); AIMED17 = 1.12
 CAR17 = [30.9, GY, 38.3]
 # (round 1) three quarters from the side, the car on the left and the ship on the right, so the barrel's swing across to him and its stop read (a
 #           little past, back, then a 0.6 s hold on him)
-C17 = cam(0.0, [22.0, 3.3, 51.0], [22.1, 3.3, 50.8], [35.6, 2.3, 36.4], [35.62, 2.32, 36.4], lens=62)
+C17 = cam(0.0, [22.0, 3.3, 51.0], [22.1, 3.3, 50.8], [37.0, 2.3, 36.6], [37.02, 2.32, 36.6], lens=62)
+C17b = cam(0.95, [29.4, 2.6, 38.48], [29.45, 2.6, 38.47], [45.6, 2.45, 36.5], [45.6, 2.47, 36.5], lens=20)   # on the gun's line to his car, over his roof   # (round 1) then over his roof, tele on the muzzle swinging onto him
 AIMC17 = turret_yaw(CAR17)
 chk('S17', C17['from'], C17['lookAt'], 62, {'carRear': loc(CAR17, 90, 0, -2.3, 0.8), 'turret': loc(SHIP, SHIP_RY, 0, 2.4, 2.2), 'mast': loc(SHIP, SHIP_RY, 0, -1.4, 6.4), 'boom': [33.8, 1.0, 37.0]})
 st.shot('S17', 'grassland', setOpts={**LOT_SET, 'sky': ['#9FC4D8', '#DCE6E4']}, actors=[],
@@ -565,7 +572,7 @@ st.shot('S17', 'grassland', setOpts={**LOT_SET, 'sky': ['#9FC4D8', '#DCE6E4']}, 
                P('route17', 'parkLot', pos=[-22.0, 0, 36.5], opts={'w': 59, 'd': 7, 'rows': []}),
                HEROCAR('voiture17', CAR17, 90, blink='both'),
                P('herbe17', 'tallGrass', pos=[29.0, 0, 41.6], opts={'w': 8, 'd': 1.6, 'h': 1.0, 'count': 260, 'seed': 77, 'thin': 0.03})],
-        cams=[C17])
+        cams=[C17, C17b])
 st.cue('sfx:wind', 'S17', 0.0, 0.3); st.cue('sfx:tick', 'S17', 0.2, 0.12); st.cue('sfx:tick', 'S17', 0.9, 0.12); st.cue('sfx:squeak', 'S17', 0.45, 0.25); st.cue('clack', 'S17', AIMED17, 0.4)
 
 # 18: he parks in the neighbouring country. A border post on a country road: he ducks under the striped barrier toward us, a shopping bag in each
