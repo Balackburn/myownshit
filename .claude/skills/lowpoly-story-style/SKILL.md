@@ -1969,3 +1969,17 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 46) Une courbe d'accélération qui dépasse sa cible charge le mouvement au début : un balancement de 0,3 s se lit comme un saut.
   Pour un balancement visible, accélérer et ralentir, puis un petit dépassement à la fin.
 - (cycle 46) Accessoire levé puis abattu (tampon géant) : le personnage l'écarte ensuite pour qu'il ne cache pas son visage.
+- (cycle 47) Vérifier le sol sous chaque acteur : dans un parking plein d'épaves aplaties, une place choisie à l'image peut tomber sur
+  une épave. Garder les acteurs sur les allées.
+- (cycle 47) Objet qui tombe : une caméra finale tournée vers le bas ne montre que les derniers mètres. Faire suivre la visée de la
+  caméra en deux ou trois glissés.
+- (cycle 47) Canon « braqué sur lui » : de côté, il ne se lit qu'en profil. Pour l'arrêt, placer la caméra sur la ligne canon-cible pour
+  que la bouche devienne un cercle face à l'objectif.
+- (cycle 47) Tête-boîte qui montre quelque chose derrière elle : le bras se cache derrière le corps. Montrer vers le côté du cadre où
+  est la cible, avec le bras de ce côté, tendu et un peu en arrière.
+- (cycle 47) Clignotant vu à travers un pare-brise : une flèche qui clignote sur le tableau de bord se lit mieux qu'un feu extérieur,
+  qui sort du cadre.
+- (cycle 47) Bâtiment aplati vu d'en haut : le toit doit reprendre les couleurs et la bande des murs, sinon la dalle se confond avec
+  l'asphalte.
+- (cycle 47) Accessoire 3D partagé qui porte le marquage d'une vraie armée (étoiles) : le masquer avec un accessoire enveloppe qui cache
+  les plans de décalque, sans modifier l'accessoire partagé.
