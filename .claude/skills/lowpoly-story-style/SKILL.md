@@ -1958,3 +1958,14 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 47) Boucle de défilé dans une petite surface (une place de parking) : elle se lit de six mètres de haut en trois quarts, pas à
   hauteur d'œil.
 - (cycle 47) Tout objet monté sur une enseigne qui tombe (une horloge) doit basculer et se poser avec elle, sinon il flotte au-dessus du tas.
+- (cycle 46) Caméra posée sur un balcon ou une terrasse : la placer devant le cadre de la porte-fenêtre ; une traverse à quelques
+  centimètres au-dessus de l'objectif remplit le haut de l'image d'un coin noir.
+- (cycle 46) Montrer « l'immeuble a disparu » dans une rue : reculer la rangée voisine pour ce plan, sinon un plan large depuis le trottoir
+  d'en face montre le bloc suivant dans le trou.
+- (cycle 46) Caméra au milieu d'un accessoire de gravats : lui donner des zones interdites, sinon des débris (surtout les poutres) tombent
+  juste devant l'objectif.
+- (cycle 46) Une tête passée entre des barreaux regarde de l'autre côté de la rambarde : aucune caméra ne voit à la fois ce visage et le
+  corps dégagé des barreaux ; choisir ce que le plan raconte.
+- (cycle 46) Une courbe d'accélération qui dépasse sa cible charge le mouvement au début : un balancement de 0,3 s se lit comme un saut.
+  Pour un balancement visible, accélérer et ralentir, puis un petit dépassement à la fin.
+- (cycle 46) Accessoire levé puis abattu (tampon géant) : le personnage l'écarte ensuite pour qu'il ne cache pas son visage.
