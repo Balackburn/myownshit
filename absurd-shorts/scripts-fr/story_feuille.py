@@ -152,12 +152,12 @@ st.cue('sfx:splat', 'S03', SLAP3, 0.45); st.cue('sfx:step', 'S03', 0.3, 0.2); st
 D4 = st.dur('S04')
 VAN = [3.0, 0, -4.6]; VAN_RY = 90                      # nose -Z, its back (and the ramp) toward +Z
 RAMP_TOP = [3.0, 0.47, r(VAN[2] + 2.72)]; RAMP_FOOT = [3.0, 0.02, r(VAN[2] + 2.72 + 2.6)]
-PATH4 = [[7.8, 0.02, 3.4], [5.0, 0.02, 1.6], RAMP_FOOT, RAMP_TOP, [3.0, 0.5, r(VAN[2] + 1.0)]]
+PATH4 = [[5.9, 0.02, 3.2], [4.3, 0.02, 1.9], RAMP_FOOT, RAMP_TOP, [3.0, 0.5, r(VAN[2] + 1.0)]]
 C4 = cam(0.0, [5.0, 1.15, 6.4], [4.92, 1.16, 6.2], [3.3, 0.95, -1.6], [3.3, 0.96, -1.6], lens=42)
 chk('S04', C4['from'], C4['lookAt'], 42, {'rampFoot': RAMP_FOOT, 'rampTop': RAMP_TOP, 'vanTop': [3.0, 3.0, VAN[2] + 2.5], 'path0': PATH4[0], 'path1': PATH4[1], 'vanLabel': [4.12, 1.55, VAN[2]]})
 st.shot('S04', 'parisStreet', setOpts=STREET, actors=[],
         props=[P('fourgon4', 'paddyWagon', pos=VAN, ry=VAN_RY, opts={}),
-               P('defile4', 'paperParade', pos=[0, 0, 0], opts={'path': PATH4, 'at': 0.0, 'lead': 2.6, 'speed': 1.5, 'gap': 0.85, 'n': 11, 's': 1.35, 'kinds': ['ream', 'news', 'book', 'map', 'ream', 'news', 'book', 'ream', 'news', 'poster', 'poster']})],
+               P('defile4', 'paperParade', pos=[0, 0, 0], opts={'path': PATH4, 'at': 0.0, 'lead': 3.4, 'speed': 1.35, 'gap': 0.72, 'n': 12, 's': 1.35, 'kinds': ['ream', 'news', 'book', 'map', 'ream', 'news', 'book', 'ream', 'news', 'map', 'poster', 'poster']})],
         cams=[C4])
 st.card('S04', 'EMBARQUÉ', at=0.9)
 st.cue('sfx:stepSoft', 'S04', 0.2, 0.25); st.cue('sfx:stepSoft', 'S04', 0.55, 0.25); st.cue('sfx:stepSoft', 'S04', 0.9, 0.25); st.cue('sfx:stepSoft', 'S04', 1.25, 0.25); st.cue('sfx:stepSoft', 'S04', 1.6, 0.25); st.cue('clang', 'S04', 0.9, 0.15)
@@ -217,7 +217,7 @@ COP7a, COP7b = [1.3, 0, -1.55], [0.45, 0, -1.95]
 C7 = cam(0.0, [-0.25, 2.25, 4.7], [-0.24, 2.24, 4.6], [0.15, 1.1, -2.4], [0.15, 1.1, -2.4], lens=36)
 PT7 = R5([-0.12, 1.95, 1.25], 1, 0.1)
 chk('S07', C7['from'], C7['lookAt'], 36, {'sheet1': [-1.1, 0.4, LINE_Z], 'sheet3': [0.0, 0.4, LINE_Z], 'sheet5': [1.1, 0.4, LINE_Z], 'heroHead': [HERO7[0], 2.0, HERO7[2]], 'hand': PT7[:3], 'copFace': [COP7b[0], 2.0, COP7b[2]], 'glassTop': [0, 2.2, 0.7]})
-st.shot('S07', 'interrogation', actors=[
+st.shot('S07', 'whiteVoid', setOpts={'color': '#C9CED3'}, actors=[
         act('mec', HERO7, RYH7, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 0.6, LINE_Z]),
             k(0.0, toon={'reach': {'R': R5(off(HERO7, RYH7, 0.15, 0.3, 0.9))}, 'hands': {'R': 'rest'}}, toonDur=0.0),
             k(RISE7, toon={'reach': {'R': R5(add(PT7[:3], [0, -0.25, 0.2]), 1, 0.1)}, 'hands': {'R': 'point'}}, toonDur=0.2, toonEase='out'),
@@ -240,9 +240,9 @@ PLAZA = P('parvis', 'parkLot', pos=[0, 0, 4.0], opts={'w': 40, 'd': 24, 'rows': 
 SHC = {'w': 0.6, 'h': 0.8}
 G1 = [-1.15, 0, 0.75]; G2 = [-0.15, 0, 0.75]
 SHEET_C = [-0.65, 1.92, 0.82]
-PROC = [0.5, 0, 2.0]; RYP = -150
-TROL = [0.25, 0, 1.15]
-MICS = [0.62, 0, 2.75]
+PROC = [1.05, 0, 1.9]; RYP = -115
+TROL = [0.5, 0, 1.05]
+MICS = [0.95, 0, 2.75]
 CORNER = lambda s: [r(SHEET_C[0] + s * 0.29), r(SHEET_C[1] + 0.38), r(SHEET_C[2] + 0.02)]
 def GKEYS(face=None):
     f = face or {'lid': 0.5, 'mouth': 'line', 'brow': -0.2}
@@ -253,7 +253,7 @@ COURT = lambda: [P('tribunal', 'courtFront', pos=CT, opts={'w': 13, 'steps': 6, 
 # 8: the prosecutor asked for the shredder. Low on the forecourt: the sheet upright between the two gendarmes; the prosecutor at his microphones
 #    whips the red velvet cover off the price-tagged shredder on its trolley; she curls back, trembling
 D8 = st.dur('S08'); OFF8 = 0.7
-C8 = cam(0.0, [0.25, 1.62, 7.0], [0.22, 1.64, 6.7], [-0.15, 1.75, 0.8], [-0.15, 1.76, 0.8], lens=42)
+C8 = cam(0.0, [0.1, 1.05, 7.2], [0.08, 1.07, 6.9], [0.0, 1.95, 0.8], [0.0, 1.96, 0.8], lens=44)
 chk('S08', C8['from'], C8['lookAt'], 42, {'sheetTop': CORNER(-1), 'sheetMid': SHEET_C, 'g1Face': [G1[0], 2.0, G1[2]], 'g2Face': [G2[0], 2.0, G2[2]], 'procFace': [PROC[0], 2.0, PROC[2]], 'trolley': [TROL[0], 1.4, TROL[2]], 'mics': [MICS[0], 1.35, MICS[2]], 'columnTop': [0, 7.5, -3.2]})
 GK8 = GKEYS()
 st.shot('S08', 'grassland', setOpts={'clouds': 26}, actors=[
@@ -264,7 +264,7 @@ st.shot('S08', 'grassland', setOpts={'clouds': 26}, actors=[
             k(OFF8, toon={'reach': {'R': R5(add(TROL, [1.0, 2.45, 0.35]), 1, 0.1)}, 'hands': {'R': 'grip'}, 'sq': [0.95, 1.07, 0.95], 'face': {'lid': 0.2, 'mouth': 'bigsmile', 'brow': 0.3}}, toonDur=0.12, toonEase='out'),
             k(r(OFF8 + 0.3), look='camera', lookDur=0.2), k(r(OFF8 + 0.5), toon={'reach': {'R': R5(add(TROL, [0.75, 2.1, 0.3]))}, 'hands': {'R': 'open'}, 'sq': [1, 1, 1]}, toonDur=0.3)])],
         props=[*COURT(), P('chariot8', 'shredderTrolley', pos=TROL, ry=-20, opts={'offAt': OFF8}), P('micros8', 'micCluster', pos=MICS, ry=180, opts={}),
-               P('feuille8', 'feuilleSheet', pos=SHEET_C, opts={**SHC, 'curl': [[r(OFF8 + 0.15), 0.5]], 'tremble': [[r(OFF8 + 0.15), 1.0]]}),
+               P('feuille8', 'feuilleSheet', pos=SHEET_C, opts={**SHC, 'curl': [[r(OFF8 + 0.15), 0.32]], 'tremble': [[r(OFF8 + 0.15), 1.0]]}),
                KEPI('kepi8a', 'gendarme1'), KEPI('kepi8b', 'gendarme2')],
         cams=[C8])
 st.cue('whoosh', 'S08', OFF8, 0.35, 0.3, 500, 2600); st.cue('sfx:gasp', 'S08', r(OFF8 + 0.2), 0.15)
@@ -302,10 +302,10 @@ st.cue('sfx:paper', 'S10', 0.15, 0.35); st.cue('sfx:paper', 'S10', 0.6, 0.35); s
 # 11: a whole forest. A hillside of fresh stumps to the top; in front, a log truck marked BULLETINS takes the last log; a gendarme with a chainsaw in
 #     his left hand salutes beside it
 D11 = st.dur('S11'); LOAD11 = 0.15
-TRUCK11 = [0.0, 0, -1.5]
-GEN11 = [1.9, 0, 1.4]; RYG11 = -12
-C11 = cam(0.0, [1.0, 1.7, 8.8], [0.95, 1.72, 8.5], [0.3, 2.1, -4.0], [0.3, 2.15, -4.0], lens=44)
-chk('S11', C11['from'], C11['lookAt'], 44, {'genFace': [GEN11[0], 2.0, GEN11[2]], 'label': [-0.9, 2.6, TRUCK11[2] + 1.27], 'hillTop': [0, 9.0, -44.0], 'cab': [3.1, 2.2, TRUCK11[2]], 'logTop': [-0.9, 2.6, TRUCK11[2]]})
+TRUCK11 = [1.0, 0, -1.6]
+GEN11 = [2.3, 0, 1.5]; RYG11 = -12
+C11 = cam(0.0, [1.3, 1.5, 9.2], [1.25, 1.52, 8.9], [0.6, 2.6, -6.0], [0.6, 2.65, -6.0], lens=44)
+chk('S11', C11['from'], C11['lookAt'], 44, {'genFace': [GEN11[0], 2.0, GEN11[2]], 'label': [TRUCK11[0] - 0.9, 2.6, TRUCK11[2] + 1.27], 'hillTop': [0, 9.0, -44.0], 'cab': [3.1, 2.2, TRUCK11[2]], 'logTop': [-0.9, 2.6, TRUCK11[2]]})
 st.shot('S11', 'grassland', setOpts={'clouds': 30}, actors=[
         act('gendarme3', GEN11, RYG11, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'reach': {'R': SALUTE(GEN11, RYG11)}, 'hands': {'R': 'open'}, 'face': {'lid': 0.4, 'mouth': 'line', 'brow': -0.3}}, toonDur=0.0),
             *blink(1.0, {'lid': 0.4, 'mouth': 'line', 'brow': -0.3})])],
@@ -363,9 +363,9 @@ st.cue('whoosh', 'S13', r(T13 + 0.3), 0.18, 0.3, 900, 3500); st.cue('sfx:paper',
 # 14: the shredder was abolished. Back on the forecourt: two ushers throw the velvet cover back over the shredder and wheel the trolley away; between
 #     the gendarmes the sheet stops trembling and uncurls (ABOLIE)
 D14 = st.dur('S14'); ON14 = 0.12; GO14 = 0.42
-HUI = [('huissier1', [-0.25, 0, 1.35], -60), ('huissier2', [0.75, 0, 0.55], -110)]
-TROL14b = [2.4, 0, 0.2]
-C14 = cam(0.0, [1.3, 1.2, 6.4], [1.25, 1.21, 6.1], [-0.4, 1.75, 0.6], [-0.35, 1.76, 0.6], lens=40)
+HUI = [('huissier1', [0.35, 0, 1.55], 120), ('huissier2', [1.15, 0, 0.6], -110)]
+TROL14b = [2.6, 0, 0.4]
+C14 = cam(0.0, [1.4, 1.1, 6.6], [1.35, 1.11, 6.3], [-0.05, 1.9, 0.6], [0.1, 1.91, 0.6], lens=42)
 chk('S14', C14['from'], C14['lookAt'], 42, {'sheetTop': CORNER(-1), 'g1Face': [G1[0], 2.0, G1[2]], 'g2Face': [G2[0], 2.0, G2[2]], 'h1Face': [HUI[0][1][0], 2.0, HUI[0][1][2]], 'trolEnd': [TROL14b[0], 1.4, TROL14b[2]]})
 GK14 = GKEYS({'lid': 0.5, 'mouth': 'line', 'brow': -0.2})
 st.shot('S14', 'grassland', setOpts={'clouds': 26}, actors=[
@@ -377,7 +377,7 @@ st.shot('S14', 'grassland', setOpts={'clouds': 26}, actors=[
             k(GO14, toon={'reach': {'R': R5(off(p, ry, 0.45, 0.2, 0.95)), 'L': R5(off(p, ry, 0.45, -0.2, 0.95))}, 'hands': {'R': 'grip', 'L': 'grip'}}, toonDur=0.15)]) for w, p, ry in HUI]],
         props=[*COURT(), P('chariot14', 'shredderTrolley', pos=TROL, ry=-20, opts={'covered': False, 'onAt': ON14}, keys=[k(GO14, to=TROL14b, dur=1.2, ease='inOut')]),
                P('micros14', 'micCluster', pos=MICS, ry=180, opts={}),
-               P('feuille14', 'feuilleSheet', pos=SHEET_C, opts={**SHC, 'curl': [[0.0, 0.5], [0.85, 0.0]], 'tremble': [[0.0, 1.0], [0.85, 0.0]]}),
+               P('feuille14', 'feuilleSheet', pos=SHEET_C, opts={**SHC, 'curl': [[0.0, 0.32], [0.85, 0.0]], 'tremble': [[0.0, 1.0], [0.85, 0.0]]}),
                KEPI('kepi14a', 'gendarme1'), KEPI('kepi14b', 'gendarme2')],
         cams=[C14])
 st.card('S14', 'ABOLIE', at=0.95)
@@ -388,8 +388,8 @@ st.cue('whoosh', 'S14', ON14, 0.3, 0.25, 400, 2000); st.cue('sfx:rattle', 'S14',
 D15 = st.dur('S15')
 ROLL0, ROLL1 = [-5.5, 0.03, 0.0], [2.0, 0.03, 0.0]
 SPD15 = r((ROLL1[0] - ROLL0[0]) / D15, 3)
-C15 = cam(0.0, [-3.0, 1.4, 7.8], [-0.5, 1.4, 7.8], [-4.5, 1.2, -1.0], [1.6, 1.2, -1.0], lens=40)
-LINE15 = [(f'garde{i}', [r(-3.6 + 1.8 * i), 0.03, -4.2]) for i in range(5)]
+C15 = cam(0.0, [8.2, 1.25, 2.9], [8.0, 1.27, 2.85], [-1.5, 1.5, -0.4], [-0.5, 1.55, -0.4], lens=44)
+LINE15 = [(f'garde{i}', [r(-6.0 + 1.5 * i), 0.03, -1.8]) for i in range(5)]
 chk('S15', C15['from'], C15['lookAt'], 40, {'rollerStart': [ROLL0[0] + 2.0, 1.5, 0], 'rollerEnd': [ROLL1[0] + 2.0, 1.5, 0], 'driverEnd': [ROLL1[0] - 0.7, 3.4, 0], 'row0': [-4.0, 0.6, 0.0], 'row6': [5.0, 0.6, 0.0], **{w: [p[0], 2.0, p[2]] for w, p in LINE15[1:4]}})
 st.shot('S15', 'grassland', setOpts={'clouds': 30}, actors=[
         act('chauffeur', [ROLL0[0] - 0.7, 1.45, 0.0], 90, 'drive', 'neutral', keys=[k(0.0, to=[ROLL1[0] - 0.7, 1.45, 0.0], dur=D15, ease='linear', face='keep', clip='drive'), k(0.0, look='camera'),

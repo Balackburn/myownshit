@@ -414,7 +414,10 @@ export const FEUILLE_PROPS = {
   // A line-up wall (pivot at the floor under its middle, front +Z): the mugshot height chart o.w (5) wide and five numbered floor marks with
   // number plates 1 to 5 over them, o.gap (0.9) apart
   lineupWall(o) {
-    const g = grp(), W = o.w ?? 5, gap = o.gap ?? 0.9; g.add(buildProp('mugshotBoard', { w: W, h: 2.4 }));
+    const g = grp(), W = o.w ?? 5, gap = o.gap ?? 0.9, Hc = 2.4;
+    const ch = canvasPlane(W, Hc, (c, Wc, H) => { c.fillStyle = '#3A4652'; c.fillRect(0, 0, Wc, H); c.fillStyle = '#E8ECEF'; c.textAlign = 'left'; c.textBaseline = 'middle'; c.font = `bold ${Math.round(H * 0.03)}px Arial`;
+      for (let cm = 50; cm <= 230; cm += 10) { const y = H * (1 - cm / 100 / Hc); c.fillRect(0, y - H * 0.002, Wc, H * (cm % 50 === 0 ? 0.007 : 0.003)); if (cm % 50 === 0) c.fillText(`${Math.floor(cm / 100)},${String(cm % 100).padStart(2, '0')} m`, Wc * 0.015, y - H * 0.02); } }, { res: 768 });
+    g.add(at(box(W + 0.08, Hc + 0.08, 0.04, '#2A333C'), 0, Hc / 2, -0.02), at(ch, 0, Hc / 2, 0.002));
     for (let i = 0; i < 5; i++) { const x = (i - 2) * gap; g.add(at(box(0.3, 0.005, 0.3, '#F2C94C', { noGrain: true }), x, 0.004, 0.45), at(box(0.22, 0.2, 0.01, INK), x, 2.55, 0.02), at(label(String(i + 1), 0.18, 0.16, { bg: INK, fg: '#F4F1E8', wrap: false }), x, 2.55, 0.03)); }
     return g;
   },
