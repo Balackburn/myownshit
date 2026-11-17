@@ -252,12 +252,17 @@ export const BARBECUE_PROPS = {
     const goreTex = (c1, c2) => { const cv = document.createElement('canvas'); cv.width = 256; cv.height = 64; const x = cv.getContext('2d'); for (let i = 0; i < 8; i++) { x.fillStyle = i % 2 ? c2 : c1; x.fillRect(i * 32, 0, 33, 64); } x.fillStyle = 'rgba(90,84,66,0.75)'; for (let i = 0; i <= 8; i++) x.fillRect(i * 32 - 1, 0, 2, 64);
       const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t; };
     const dome = (R, c1, c2, sq) => { const m = new THREE.Mesh(new THREE.SphereGeometry(R, 16, 6, 0, TAU, 0, PI * 0.42), new THREE.MeshLambertMaterial({ map: goreTex(c1, c2), side: THREE.DoubleSide })); m.scale.set(1, sq, 1); m.castShadow = true; addOutline(m, 0.012); return m; };
+    // crumpled cloth: a jittered ball of striped canopy, flattened (a collapsed parachute, not a round umbrella)
+    const crumple = (R, c1, c2, seed) => { const geo = new THREE.IcosahedronGeometry(R, 2), pa = geo.attributes.position, q = rng(seed); for (let i = 0; i < pa.count; i++) { const k = 0.78 + 0.4 * q(); pa.setXYZ(i, pa.getX(i) * k, pa.getY(i) * k * 0.42, pa.getZ(i) * k); } geo.computeVertexNormals();
+      const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: goreTex(c1, c2), flatShading: true })); m.castShadow = true; addOutline(m, 0.01); return m; };
     const heap = grp();
-    const DOMES = [[0.0, C[1] - 0.05, F - 0.6, 1.5, 0.55, 0.0, 0.1], [-0.6, C[1] + 0.05, -0.8, 1.35, 0.5, 0.15, -0.2], [0.75, C[1] + 0.1, 1.5, 1.2, 0.5, -0.1, 0.25], [0.3, C[1], -2.6, 1.3, 0.48, 0.2, 0.1],
-      [-w * 0.3, h + rh * 0.42, 0.8, 1.05, 0.42, 0.05, 0.42], [w * 0.33, h + rh * 0.4, -1.4, 1.0, 0.42, -0.1, -0.45], [-0.15, C[1] + 0.35, F + 0.15, 0.85, 0.6, 0.55, 0.05]];
-    DOMES.forEach(([x, y, z, R, sq, rx, rz], i) => heap.add(at(dome(R, cols[i % 4], cols[(i + 1) % 4], sq), x, y, z, rx, rr() * 3, rz)));
+    const HEAPS = [[0.0, C[1] + 0.05, F - 0.7, 1.35], [-0.5, C[1] + 0.1, -1.0, 1.25], [0.6, C[1] + 0.12, 1.2, 1.1], [0.2, C[1] + 0.05, -2.7, 1.2], [-w * 0.3, h + rh * 0.4, 0.9, 0.9], [w * 0.31, h + rh * 0.38, -1.5, 0.85]];
+    HEAPS.forEach(([x, y, z, R], i) => heap.add(at(crumple(R, cols[i % 4], cols[(i + 1) % 4], 300 + i), x, y, z, (rr() - 0.5) * 0.3, rr() * 3, (rr() - 0.5) * 0.3)));
+    // two canopies still half-inflated, tipped over on the slopes, their suspension lines spilling down over the front
+    for (const [x, y, z, R, rz] of [[-1.3, h + rh * 0.55, F - 1.1, 1.05, 0.95], [0.5, h + rh * 0.45, F - 2.8, 0.95, -1.05]]) { const d0 = dome(R, cols[0], cols[1], 0.62); heap.add(at(d0, x, y, z, 0.25, 0.3, rz));
+      for (let i = 0; i < 5; i++) { const a = i / 5 * PI - PI / 2; heap.add(rod([x - Math.sign(rz) * R * 0.5 * Math.cos(a) * 0.3, y - 0.1 + R * 0.4 * Math.sin(a), z + R * 0.5], [x - Math.sign(rz) * 0.6 + (i - 2) * 0.15, h - 0.4 - 0.15 * i, F + 0.2], 0.01, '#4A4A44', 3)); } }
     // drapes of canopy cloth hanging over the front eave, with their lines trailing down the facade
-    for (let i = 0; i < 4; i++) { const x0 = [-2.4, -1.1, 0.5, 2.2][i], L = 0.9 + rr() * 0.8, cv = goreTex(cols[i % 4], cols[(i + 2) % 4]);
+    for (let i = 0; i < 2; i++) { const x0 = [-0.95, 2.95][i], L = 0.9 + rr() * 0.6, cv = goreTex(cols[i % 4], cols[(i + 2) % 4]);
       const dr = new THREE.Mesh(new THREE.PlaneGeometry(1.1, L), new THREE.MeshLambertMaterial({ map: cv, side: THREE.DoubleSide })); dr.position.set(x0, h - L / 2 + 0.3, F + 0.14 + 0.01 * i); dr.rotation.z = (rr() - 0.5) * 0.2; dr.castShadow = true; heap.add(dr); }
     for (let i = 0; i < 7; i++) { const x0 = (rr() - 0.5) * w * 0.8; heap.add(rod([x0, h + 0.1, F + 0.15], [x0 + (rr() - 0.5) * 0.6, 0.25 + rr() * 1.0, F + 0.3], 0.014, '#4A4A44', 3)); }
     g.add(heap);
@@ -279,9 +284,9 @@ export const BARBECUE_PROPS = {
       sgr.userData.legs = lg; return sgr; };
     const hangers = [];
     for (const [x, len, ph] of (o.hang || [])) { const piv = grp(), s = soldier(); s.position.y = -len - 0.35; piv.add(s);
-      for (const sd of [-1, 1]) piv.add(rod([sd * 0.18, 0, 0], [sd * 0.2, -len - 0.02, 0.02], 0.01, '#4A4A44', 3));
-      piv.position.set(x, h - 0.02, F + 0.32); g.add(piv); hangers.push([piv, s, ph || 0]);
-      g.add(at(dome(0.55, cols[0], cols[1], 0.5), x, h + 0.15, F + 0.1, 0.9, 0, 0.2)); }
+      for (const sd of [-1, 1]) for (const dz of [-0.06, 0.06]) piv.add(rod([sd * 0.42, 0.05, dz], [sd * 0.2, -len - 0.02, 0.02], 0.01, '#4A4A44', 3));   // the lines fan out to the snagged canopy's rim
+      piv.position.set(x, h + 0.02, F + 0.36); g.add(piv); hangers.push([piv, s, ph || 0]);
+      g.add(at(crumple(0.6, cols[1], cols[2], 400 + hangers.length), x, h + 0.16, F + 0.05, 0.5, 0, 0.15)); }
     for (const [x, y, len, ph] of (o.hangWin || [])) { const piv = grp(), s = soldier(); s.position.y = -len - 0.35; piv.add(s);
       for (const sd of [-1, 1]) piv.add(rod([sd * 0.18, 0, 0], [sd * 0.2, -len - 0.02, 0.02], 0.01, '#4A4A44', 3));
       piv.position.set(x, y, F + 0.3); g.add(piv); hangers.push([piv, s, ph || 0]); }
@@ -569,16 +574,19 @@ export const BARBECUE_PROPS = {
   // (round 2) The press in silhouette (pivot on the floor in the middle of the row, the row along X, facing -Z toward the podium): o.n (5) dark
   // heads and shoulders and o.cams (3) press cameras held up among them, big lenses pointing at the podium with a glint, a flash unit on each that
   // fires (turns white) at the times o.flash [[t, camIndex], ...]; o.w (1.8) wide, o.y (1.25) the shoulder height; o.color (#1A1E26)
+  // (round 2) o.heads [[x, y, z], ...] (y: the shoulders) and o.camsAt [[x, y, z, ry], ...] place them one by one (ry turns a camera so its lens
+  // shows in profile); otherwise the row above
   pressCrowd(o) {
-    const n = o.n ?? 5, nc = o.cams ?? 3, W = o.w ?? 1.8, Y = o.y ?? 1.25, C = o.color || '#1A1E26', g = grp(), flashes = [];
-    for (let i = 0; i < n; i++) { const x = (i / Math.max(1, n - 1) - 0.5) * W, dy = (hsh(i + 2) - 0.5) * 0.12, z = (hsh(i + 7) - 0.5) * 0.2;
-      g.add(at(box(0.5, 0.36, 0.3, C), x, Y - 0.18 + dy, z), at(box(0.24, 0.3, 0.24, C), x, Y + 0.17 + dy, z), at(box(0.26, 0.06, 0.26, '#11141A'), x, Y + 0.34 + dy, z)); }
-    for (let j = 0; j < nc; j++) { const x = ((j + 0.5) / nc - 0.5) * W * 0.9, y = Y + 0.38 + 0.08 * (j % 2), cam = grp();
-      cam.add(at(box(0.2, 0.15, 0.16, '#22262E', { outline: 0.006 }), 0, 0, 0), at(cyl(0.055, 0.06, 0.2, '#2C3038', 12, { outline: 0.006 }), 0, 0, -0.17, PI / 2, 0, 0));
-      const lens = new THREE.Mesh(new THREE.CircleGeometry(0.045, 14), basic('#3A5A7A')); lens.position.set(0, 0, -0.271); lens.rotation.y = PI; cam.add(lens);
-      cam.add(at(box(0.012, 0.012, 0.004, '#FFFFFF'), 0.02, 0.02, -0.273));
+    const n = o.heads ? o.heads.length : (o.n ?? 5), nc = o.camsAt ? o.camsAt.length : (o.cams ?? 3), W = o.w ?? 1.8, Y = o.y ?? 1.25, C = o.color || '#1A1E26', g = grp(), flashes = [];
+    for (let i = 0; i < n; i++) { const hp = o.heads?.[i], x = hp ? hp[0] : (i / Math.max(1, n - 1) - 0.5) * W, dy = hp ? hp[1] - Y : (hsh(i + 2) - 0.5) * 0.12, z = hp ? hp[2] : (hsh(i + 7) - 0.5) * 0.2;
+      const hd = new THREE.Mesh(new THREE.IcosahedronGeometry(0.13, 1), mat(C)); hd.scale.set(1, 1.15, 1); hd.position.set(x, Y + 0.2 + dy, z);   // (round 2) round heads and shoulders read as people, boxes read as crates
+      const sh = new THREE.Mesh(new THREE.SphereGeometry(0.26, 12, 6, 0, TAU, 0, PI / 2), mat(C)); sh.scale.set(1, 0.6, 0.62); sh.position.set(x, Y - 0.05 + dy, z); g.add(hd, sh); }
+    for (let j = 0; j < nc; j++) { const cp = o.camsAt?.[j], x = cp ? cp[0] : ((j + 0.5) / nc - 0.5) * W * 0.9, y = cp ? cp[1] : Y + 0.38 + 0.08 * (j % 2), cam = grp();
+      cam.add(at(box(0.2, 0.15, 0.16, '#121418', { outline: 0.006 }), 0, 0, 0), at(cyl(0.075, 0.08, 0.3, '#16181C', 12, { outline: 0.006 }), 0, 0, -0.22, PI / 2, 0, 0), at(cyl(0.095, 0.08, 0.06, '#0E1012', 12), 0, 0, -0.39, PI / 2, 0, 0));   // (round 2) dark body, a long lens with a hood: it reads as a press camera in profile
+      const lens = new THREE.Mesh(new THREE.CircleGeometry(0.06, 14), basic('#3A5A7A')); lens.position.set(0, 0, -0.421); lens.rotation.y = PI; cam.add(lens);
+      cam.add(at(box(0.016, 0.016, 0.004, '#FFFFFF'), 0.025, 0.025, -0.423));
       const fl = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.07, 0.06), new THREE.MeshBasicMaterial({ color: '#5A5E66' })); fl.position.set(0, 0.12, -0.02); cam.add(fl); flashes.push(fl);
-      cam.position.set(x, y, 0.05); cam.rotation.y = (x < 0 ? -1 : 1) * 0.12; g.add(cam); }
+      cam.position.set(x, y, cp ? cp[2] : 0.05); cam.rotation.y = cp ? (cp[3] ?? 0) : (x < 0 ? -1 : 1) * 0.12; g.add(cam); }
     g.userData.update = t => flashes.forEach((f, j) => { const on = (o.flash || []).some(([ft, ci]) => ci % nc === j && t >= ft && t < ft + 0.1); f.material.color.set(on ? '#FFFFFF' : '#5A5E66'); });
     g.userData.update(-1); return g;
   },
