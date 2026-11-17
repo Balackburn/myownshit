@@ -577,13 +577,13 @@ D16 = st.dur('S16')
 # (final) the camera looks down lane B so it reads as the car park: wrecks in the bays on both sides, a receding line of soldiers holding out their
 #         helmets down the lane behind the general; the two men in a V, three quarters to us
 HERO16 = [0.95, GY, 9.95]; GEN16 = [0.0, GY, 11.25]
-CAM16 = [8.4, 2.15, 11.0]
+CAM16 = [8.4, 3.6, 11.0]   # (final) raised: the queue behind them rises toward the horizon instead of hiding behind the first soldier
 RYH16 = r((yaw(HERO16, GEN16) + yaw(HERO16, CAM16)) / 2, 1); RYG16 = r((yaw(GEN16, HERO16) + yaw(GEN16, CAM16)) / 2, 1)
 # (round 1) the helmet held up at chest height and the wallet upside down right over it (one silhouette); three hard shakes, a single coin drops into
 #           the helmet; the line of helmets starts behind his right shoulder (no blank head between the two men); all above the captions
 BOWL16 = [0.5, 1.46, 10.62]
-C16 = cam(0.0, CAM16, add(CAM16, [-0.1, 0.0, -0.003]), [-6.0, 1.3, 10.6], [-6.0, 1.31, 10.6], lens=36)
-chk('S16', C16['from'], C16['lookAt'], 30, {'heroFace': [HERO16[0], 1.98, HERO16[2]], 'genFace': [GEN16[0], 1.98, GEN16[2]], 'bowl': BOWL16, 'wallet': add(BOWL16, [0, 0.3, 0]), 'lineStart': [-2.0, 1.8, 10.6], 'lineFar': [-14.0, 1.8, 10.6]})
+C16 = cam(0.0, CAM16, add(CAM16, [-0.1, 0.0, -0.003]), [-3.0, 0.95, 10.7], [-3.0, 0.96, 10.7], lens=38)
+chk('S16', C16['from'], C16['lookAt'], 30, {'heroFace': [HERO16[0], 1.98, HERO16[2]], 'genFace': [GEN16[0], 1.98, GEN16[2]], 'bowl': BOWL16, 'wallet': add(BOWL16, [0, 0.3, 0]), 'lineStart': [-1.8, 1.8, 11.5], 'lineFar': [-14.0, 1.8, 11.3]})
 WAL16 = lambda dy, dx=0.0: [*add(BOWL16, [r(-0.02 + dx), r(0.3 + dy), -0.02]), 1, 0.03]
 SH16 = [(0.3, 0.0, 0.0), (0.42, 0.14, 0.03), (0.52, -0.04, -0.03), (0.62, 0.15, 0.03), (0.72, -0.04, -0.03), (0.82, 0.15, 0.03), (0.93, -0.03, 0.0)]
 COIN16 = 0.95; MOTH16 = 0.78   # (round 2) a moth flies out of the open wallet instead of a coin
@@ -596,11 +596,11 @@ st.shot('S16', 'grassland', setOpts=LOT_SET, actors=[
             k(0.0, toon={'reach': {'R': [*add(BOWL16, [0.18, -0.03, 0.0]), 1, 0.03], 'L': [*add(BOWL16, [-0.16, -0.04, 0.0]), 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.0),
             k(r(MOTH16 + 0.15), look=add(BOWL16, [0.1, 0.7, 0]), lookDur=0.12), k(r(MOTH16 + 0.15), toon={'reach': {'R': [*add(BOWL16, [0.18, -0.03, 0.0]), 1, 0.03], 'L': [*add(BOWL16, [-0.16, -0.04, 0.0]), 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.2, 'mouth': 'line', 'brow': 0.6}}, toonDur=0.08),
             k(r(MOTH16 + 0.55), look=add(BOWL16, [0.25, 1.3, 0]), lookDur=0.25), *stand_blink(1.55, {'lid': 0.3, 'mouth': 'line', 'brow': 0.4})])],
-        props=[LOT(), ROWS_FLAT(skip=['0:10', '2:11', '2:12', '2:13', '3:11', '3:12', '3:13'], wisps=4), STORE(folded=True, clock=CLK8), KEPI('kepi16', 'general'),
+        props=[LOT(), ROWS_FLAT(skip=['0:10', '2:12', '2:13', '3:12', '3:13'], wisps=4), STORE(folded=True, clock=CLK8), KEPI('kepi16', 'general'),
                P('bol16', 'armyHelmet', pos=add(BOWL16, [0, -0.06, 0]), rot=[3.1416, 0, 0], opts={'s': 0.95}),
                P('portefeuille16', 'emptyWallet', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.1, 0.04], 'face': 'camera'}, rot=[0, 0.61, 3.1416], opts={'open': 1.0, 's': 2.0, 'slots': True, 'cards': True}),   # (round 2) upside down in the picture with its empty inside toward us, turned so it opens as a V   # (final) a real open V with leather leaves, a spine and card slots
                P('mite16', 'moth', pos=[0, 0, 0], opts={'from': add(BOWL16, [-0.02, 0.36, -0.05]), 'to': add(BOWL16, [0.45, 1.5, -0.3]), 'at': MOTH16, 'dur': 1.1, 's': 2.4}),
-               P('file16', 'helmetLine', pos=[0, 0, 0], opts={'path': [[-2.0, 10.6], [-31.0, 10.6]], 'gap': 1.25, 'y': GY})],   # (final) down lane B, receding, each one facing back up the line toward us
+               P('file16', 'helmetLine', pos=[0, 0, 0], opts={'path': [[-1.8, 11.5], [-31.0, 11.0]], 'gap': 1.25, 'y': GY})],   # (final) down lane B, receding, each one facing back up the line toward us
         cams=[C16])
 st.cue('sfx:rattleShort', 'S16', 0.42, 0.2); st.cue('sfx:rattleShort', 'S16', 0.62, 0.2); st.cue('sfx:rattleShort', 'S16', 0.82, 0.2); st.cue('sfx:paper', 'S16', MOTH16, 0.18)
 
