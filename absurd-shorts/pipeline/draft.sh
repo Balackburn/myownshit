@@ -7,7 +7,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/env.sh"
 S=$1; N=$2; [ -z "$S" ] || [ -z "$N" ] && { echo "usage: draft.sh STORY N"; exit 1; }
 O=$PIPE/s7/$S; mkdir -p $O
 cd $ROOT || exit 1
-python3 scripts-fr/story_$S.py > $O/script_d$N.log 2>&1 || { echo "story_$S.py FAILED (see $O/script_d$N.log)"; exit 1; }
+[ -z "$DRYRUN" ] && { python3 scripts-fr/story_$S.py > $O/script_d$N.log 2>&1 || { echo "story_$S.py FAILED (see $O/script_d$N.log)"; exit 1; }; }
 bash $PIPELINE_DIR/runq.sh "node render/render3.mjs scripts-fr/story_$S.json --timed --w 480 --h 854 --fps 15 --workers 1 --out $O/draft$N.mp4 > $O/draft$N.log 2>&1"
 if [ -z "$DRYRUN" ]; then
   python3 tools/freeze_check.py $O/draft$N.mp4 scripts-fr/story_$S.json 2>&1 | tail -6
