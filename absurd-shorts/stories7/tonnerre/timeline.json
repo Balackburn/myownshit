@@ -1,0 +1,874 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a été réveillé par le tonnerre.",
+   "hl": [
+    "réveillé",
+    "tonnerre."
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.174,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.322
+    },
+    {
+     "w": "mec",
+     "s": 0.359,
+     "e": 0.544
+    },
+    {
+     "w": "a",
+     "s": 0.581,
+     "e": 0.619
+    },
+    {
+     "w": "été",
+     "s": 0.73,
+     "e": 0.841
+    },
+    {
+     "w": "réveillé",
+     "s": 0.878,
+     "e": 1.211
+    },
+    {
+     "w": "par",
+     "s": 1.248,
+     "e": 1.285
+    },
+    {
+     "w": "le",
+     "s": 1.322,
+     "e": 1.359
+    },
+    {
+     "w": "tonnerre.",
+     "s": 1.507,
+     "e": 2.174
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il a porté plainte pour nuisances sonores.",
+   "hl": [
+    "plainte",
+    "nuisances"
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L02.k.wav",
+   "file_start": 2.274,
+   "speech_start": 2.274,
+   "speech_end": 4.422,
+   "words": [
+    {
+     "w": "Il",
+     "s": 2.274,
+     "e": 2.348
+    },
+    {
+     "w": "a",
+     "s": 2.385,
+     "e": 2.422
+    },
+    {
+     "w": "porté",
+     "s": 2.496,
+     "e": 2.719
+    },
+    {
+     "w": "plainte",
+     "s": 2.793,
+     "e": 3.089
+    },
+    {
+     "w": "pour",
+     "s": 3.163,
+     "e": 3.237
+    },
+    {
+     "w": "nuisances",
+     "s": 3.311,
+     "e": 3.681
+    },
+    {
+     "w": "sonores.",
+     "s": 3.793,
+     "e": 4.422
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Le tonnerre a été interpellé à trois mille mètres.",
+   "hl": [
+    "tonnerre",
+    "interpellé"
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L03.k.wav",
+   "file_start": 4.522,
+   "speech_start": 4.522,
+   "speech_end": 6.974,
+   "words": [
+    {
+     "w": "Le",
+     "s": 4.522,
+     "e": 4.596
+    },
+    {
+     "w": "tonnerre",
+     "s": 4.67,
+     "e": 5.115
+    },
+    {
+     "w": "a",
+     "s": 5.152,
+     "e": 5.189
+    },
+    {
+     "w": "été",
+     "s": 5.3,
+     "e": 5.411
+    },
+    {
+     "w": "interpellé",
+     "s": 5.559,
+     "e": 5.93
+    },
+    {
+     "w": "à",
+     "s": 5.967,
+     "e": 6.004
+    },
+    {
+     "w": "trois",
+     "s": 6.078,
+     "e": 6.189
+    },
+    {
+     "w": "mille",
+     "s": 6.226,
+     "e": 6.374
+    },
+    {
+     "w": "mètres.",
+     "s": 6.411,
+     "e": 6.967
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Deux hélicoptères ont pris la foudre.",
+   "hl": [
+    "hélicoptères",
+    "foudre."
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L04.k.wav",
+   "file_start": 7.074,
+   "speech_start": 7.074,
+   "speech_end": 8.926,
+   "words": [
+    {
+     "w": "Deux",
+     "s": 7.074,
+     "e": 7.296
+    },
+    {
+     "w": "hélicoptères",
+     "s": 7.333,
+     "e": 7.815
+    },
+    {
+     "w": "ont",
+     "s": 7.889,
+     "e": 7.963
+    },
+    {
+     "w": "pris",
+     "s": 8.0,
+     "e": 8.111
+    },
+    {
+     "w": "la",
+     "s": 8.185,
+     "e": 8.259
+    },
+    {
+     "w": "foudre.",
+     "s": 8.296,
+     "e": 8.926
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Au tribunal, le tonnerre a gardé le silence.",
+   "hl": [
+    "tribunal,",
+    "tonnerre"
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L05.k.wav",
+   "file_start": 9.026,
+   "speech_start": 9.026,
+   "speech_end": 11.545,
+   "words": [
+    {
+     "w": "Au",
+     "s": 9.026,
+     "e": 9.1
+    },
+    {
+     "w": "tribunal,",
+     "s": 9.211,
+     "e": 9.89
+    },
+    {
+     "w": "le",
+     "s": 9.94,
+     "e": 9.989
+    },
+    {
+     "w": "tonnerre",
+     "s": 10.063,
+     "e": 10.285
+    },
+    {
+     "w": "a",
+     "s": 10.359,
+     "e": 10.396
+    },
+    {
+     "w": "gardé",
+     "s": 10.433,
+     "e": 10.705
+    },
+    {
+     "w": "le",
+     "s": 10.755,
+     "e": 10.804
+    },
+    {
+     "w": "silence.",
+     "s": 10.878,
+     "e": 11.545
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "C'était son droit.",
+   "hl": [
+    "C'était",
+    "droit."
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L06.k.wav",
+   "file_start": 11.645,
+   "speech_start": 11.645,
+   "speech_end": 12.608,
+   "words": [
+    {
+     "w": "C'était",
+     "s": 11.645,
+     "e": 11.941
+    },
+    {
+     "w": "son",
+     "s": 12.015,
+     "e": 12.089
+    },
+    {
+     "w": "droit.",
+     "s": 12.163,
+     "e": 12.608
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Ce mec n'en demandait pas plus.",
+   "hl": [
+    "n'en",
+    "demandait"
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L07.k.wav",
+   "file_start": 12.708,
+   "speech_start": 12.708,
+   "speech_end": 14.337,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 12.708,
+     "e": 12.782
+    },
+    {
+     "w": "mec",
+     "s": 12.856,
+     "e": 13.078
+    },
+    {
+     "w": "n'en",
+     "s": 13.127,
+     "e": 13.226
+    },
+    {
+     "w": "demandait",
+     "s": 13.337,
+     "e": 13.522
+    },
+    {
+     "w": "pas",
+     "s": 13.596,
+     "e": 13.67
+    },
+    {
+     "w": "plus.",
+     "s": 13.856,
+     "e": 14.337
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Le juge a insisté.",
+   "hl": [
+    "juge",
+    "insisté."
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L08.k.wav",
+   "file_start": 14.437,
+   "speech_start": 14.437,
+   "speech_end": 15.696,
+   "words": [
+    {
+     "w": "Le",
+     "s": 14.437,
+     "e": 14.511
+    },
+    {
+     "w": "juge",
+     "s": 14.585,
+     "e": 14.808
+    },
+    {
+     "w": "a",
+     "s": 14.845,
+     "e": 14.882
+    },
+    {
+     "w": "insisté.",
+     "s": 14.993,
+     "e": 15.696
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Il a répondu.",
+   "hl": [
+    "répondu."
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L09.k.wav",
+   "file_start": 15.796,
+   "speech_start": 15.796,
+   "speech_end": 16.685,
+   "words": [
+    {
+     "w": "Il",
+     "s": 15.796,
+     "e": 15.87
+    },
+    {
+     "w": "a",
+     "s": 15.908,
+     "e": 15.945
+    },
+    {
+     "w": "répondu.",
+     "s": 16.019,
+     "e": 16.685
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Le quartier a perdu toutes ses vitres.",
+   "hl": [
+    "quartier",
+    "vitres."
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L10.k.wav",
+   "file_start": 16.785,
+   "speech_start": 16.785,
+   "speech_end": 18.785,
+   "words": [
+    {
+     "w": "Le",
+     "s": 16.785,
+     "e": 16.933
+    },
+    {
+     "w": "quartier",
+     "s": 16.97,
+     "e": 17.23
+    },
+    {
+     "w": "a",
+     "s": 17.304,
+     "e": 17.378
+    },
+    {
+     "w": "perdu",
+     "s": 17.452,
+     "e": 17.748
+    },
+    {
+     "w": "toutes",
+     "s": 17.822,
+     "e": 17.97
+    },
+    {
+     "w": "ses",
+     "s": 18.045,
+     "e": 18.119
+    },
+    {
+     "w": "vitres.",
+     "s": 18.23,
+     "e": 18.785
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Les douze jurés sont sourds.",
+   "hl": [
+    "douze",
+    "sourds."
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L11.k.wav",
+   "file_start": 18.885,
+   "speech_start": 18.885,
+   "speech_end": 20.367,
+   "words": [
+    {
+     "w": "Les",
+     "s": 18.885,
+     "e": 18.959
+    },
+    {
+     "w": "douze",
+     "s": 19.108,
+     "e": 19.256
+    },
+    {
+     "w": "jurés",
+     "s": 19.33,
+     "e": 19.552
+    },
+    {
+     "w": "sont",
+     "s": 19.626,
+     "e": 19.774
+    },
+    {
+     "w": "sourds.",
+     "s": 19.848,
+     "e": 20.367
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Trois experts ont confirmé : c'était fort.",
+   "hl": [
+    "experts",
+    "confirmé"
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L12.k.wav",
+   "file_start": 20.467,
+   "speech_start": 20.467,
+   "speech_end": 22.837,
+   "words": [
+    {
+     "w": "Trois",
+     "s": 20.467,
+     "e": 20.689
+    },
+    {
+     "w": "experts",
+     "s": 20.763,
+     "e": 21.059
+    },
+    {
+     "w": "ont",
+     "s": 21.133,
+     "e": 21.208
+    },
+    {
+     "w": "confirmé:",
+     "s": 21.393,
+     "e": 21.973
+    },
+    {
+     "w": "c'était",
+     "s": 21.997,
+     "e": 22.245
+    },
+    {
+     "w": "fort.",
+     "s": 22.43,
+     "e": 22.837
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Il a été placé en cellule capitonnée.",
+   "hl": [
+    "cellule",
+    "capitonnée."
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L13.k.wav",
+   "file_start": 22.937,
+   "speech_start": 22.937,
+   "speech_end": 24.938,
+   "words": [
+    {
+     "w": "Il",
+     "s": 22.937,
+     "e": 23.011
+    },
+    {
+     "w": "a",
+     "s": 23.048,
+     "e": 23.085
+    },
+    {
+     "w": "été",
+     "s": 23.196,
+     "e": 23.308
+    },
+    {
+     "w": "placé",
+     "s": 23.345,
+     "e": 23.604
+    },
+    {
+     "w": "en",
+     "s": 23.678,
+     "e": 23.752
+    },
+    {
+     "w": "cellule",
+     "s": 23.826,
+     "e": 24.048
+    },
+    {
+     "w": "capitonnée.",
+     "s": 24.122,
+     "e": 24.937
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Dans la cellule, il y avait déjà un mime.",
+   "hl": [
+    "cellule,",
+    "déjà"
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L14.k.wav",
+   "file_start": 25.038,
+   "speech_start": 25.038,
+   "speech_end": 27.112,
+   "words": [
+    {
+     "w": "Dans",
+     "s": 25.038,
+     "e": 25.112
+    },
+    {
+     "w": "la",
+     "s": 25.186,
+     "e": 25.26
+    },
+    {
+     "w": "cellule,",
+     "s": 25.371,
+     "e": 25.804
+    },
+    {
+     "w": "il",
+     "s": 25.828,
+     "e": 25.853
+    },
+    {
+     "w": "y",
+     "s": 25.927,
+     "e": 25.952
+    },
+    {
+     "w": "avait",
+     "s": 25.976,
+     "e": 26.075
+    },
+    {
+     "w": "déjà",
+     "s": 26.149,
+     "e": 26.371
+    },
+    {
+     "w": "un",
+     "s": 26.408,
+     "e": 26.445
+    },
+    {
+     "w": "mime.",
+     "s": 26.519,
+     "e": 27.112
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Le mime a demandé son transfert.",
+   "hl": [
+    "demandé",
+    "transfert."
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L15.k.wav",
+   "file_start": 27.212,
+   "speech_start": 27.212,
+   "speech_end": 29.064,
+   "words": [
+    {
+     "w": "Le",
+     "s": 27.212,
+     "e": 27.286
+    },
+    {
+     "w": "mime",
+     "s": 27.36,
+     "e": 27.582
+    },
+    {
+     "w": "a",
+     "s": 27.656,
+     "e": 27.73
+    },
+    {
+     "w": "demandé",
+     "s": 27.879,
+     "e": 28.064
+    },
+    {
+     "w": "son",
+     "s": 28.101,
+     "e": 28.175
+    },
+    {
+     "w": "transfert.",
+     "s": 28.249,
+     "e": 29.064
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "À voix haute.",
+   "hl": [
+    "voix",
+    "haute."
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L16.k.wav",
+   "file_start": 29.164,
+   "speech_start": 29.164,
+   "speech_end": 30.053,
+   "words": [
+    {
+     "w": "À",
+     "s": 29.164,
+     "e": 29.238
+    },
+    {
+     "w": "voix",
+     "s": 29.312,
+     "e": 29.46
+    },
+    {
+     "w": "haute.",
+     "s": 29.497,
+     "e": 30.053
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "À sa sortie, le tonnerre n'avait pas d'adresse.",
+   "hl": [
+    "tonnerre",
+    "d'adresse."
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L17.k.wav",
+   "file_start": 30.153,
+   "speech_start": 30.153,
+   "speech_end": 32.597,
+   "words": [
+    {
+     "w": "À",
+     "s": 30.153,
+     "e": 30.227
+    },
+    {
+     "w": "sa",
+     "s": 30.301,
+     "e": 30.375
+    },
+    {
+     "w": "sortie,",
+     "s": 30.523,
+     "e": 31.004
+    },
+    {
+     "w": "le",
+     "s": 31.042,
+     "e": 31.116
+    },
+    {
+     "w": "tonnerre",
+     "s": 31.19,
+     "e": 31.449
+    },
+    {
+     "w": "n'avait",
+     "s": 31.486,
+     "e": 31.708
+    },
+    {
+     "w": "pas",
+     "s": 31.745,
+     "e": 31.782
+    },
+    {
+     "w": "d'adresse.",
+     "s": 31.807,
+     "e": 32.597
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Assigné à résidence chez la victime.",
+   "hl": [
+    "Assigné",
+    "résidence"
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L18.k.wav",
+   "file_start": 32.697,
+   "speech_start": 32.697,
+   "speech_end": 34.553,
+   "words": [
+    {
+     "w": "Assigné",
+     "s": 32.697,
+     "e": 33.067
+    },
+    {
+     "w": "à",
+     "s": 33.104,
+     "e": 33.142
+    },
+    {
+     "w": "résidence",
+     "s": 33.216,
+     "e": 33.66
+    },
+    {
+     "w": "chez",
+     "s": 33.697,
+     "e": 33.734
+    },
+    {
+     "w": "la",
+     "s": 33.771,
+     "e": 33.808
+    },
+    {
+     "w": "victime.",
+     "s": 33.882,
+     "e": 34.549
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Il a pris le côté fenêtre.",
+   "hl": [
+    "pris",
+    "fenêtre."
+   ],
+   "file": "/tmp/pipe/s7/tonnerre/tts/L19.k.wav",
+   "file_start": 34.653,
+   "speech_start": 34.653,
+   "speech_end": 36.134,
+   "words": [
+    {
+     "w": "Il",
+     "s": 34.653,
+     "e": 34.727
+    },
+    {
+     "w": "a",
+     "s": 34.764,
+     "e": 34.801
+    },
+    {
+     "w": "pris",
+     "s": 34.875,
+     "e": 34.949
+    },
+    {
+     "w": "le",
+     "s": 35.023,
+     "e": 35.097
+    },
+    {
+     "w": "côté",
+     "s": 35.134,
+     "e": 35.319
+    },
+    {
+     "w": "fenêtre.",
+     "s": 35.393,
+     "e": 36.134
+    }
+   ]
+  }
+ ],
+ "total": 37.43
+}
