@@ -1,0 +1,798 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec s'est coupé avec une feuille.",
+   "hl": [
+    "coupé",
+    "feuille."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.1,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.322
+    },
+    {
+     "w": "mec",
+     "s": 0.359,
+     "e": 0.544
+    },
+    {
+     "w": "s'est",
+     "s": 0.581,
+     "e": 0.767
+    },
+    {
+     "w": "coupé",
+     "s": 0.816,
+     "e": 1.063
+    },
+    {
+     "w": "avec",
+     "s": 1.174,
+     "e": 1.285
+    },
+    {
+     "w": "une",
+     "s": 1.359,
+     "e": 1.433
+    },
+    {
+     "w": "feuille.",
+     "s": 1.507,
+     "e": 2.1
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Elle s'est fondue dans la foule.",
+   "hl": [
+    "fondue",
+    "foule."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L02.k.wav",
+   "file_start": 2.2,
+   "speech_start": 2.2,
+   "speech_end": 3.681,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 2.2,
+     "e": 2.348
+    },
+    {
+     "w": "s'est",
+     "s": 2.397,
+     "e": 2.496
+    },
+    {
+     "w": "fondue",
+     "s": 2.57,
+     "e": 2.793
+    },
+    {
+     "w": "dans",
+     "s": 2.83,
+     "e": 2.904
+    },
+    {
+     "w": "la",
+     "s": 2.941,
+     "e": 3.015
+    },
+    {
+     "w": "foule.",
+     "s": 3.089,
+     "e": 3.681
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Signalement : blanche, rectangulaire.",
+   "hl": [
+    "blanche,",
+    "rectangulaire."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L03.k.wav",
+   "file_start": 3.781,
+   "speech_start": 3.781,
+   "speech_end": 6.078,
+   "words": [
+    {
+     "w": "Signalement:",
+     "s": 3.781,
+     "e": 4.621
+    },
+    {
+     "w": "blanche,",
+     "s": 4.645,
+     "e": 5.189
+    },
+    {
+     "w": "rectangulaire.",
+     "s": 5.3,
+     "e": 6.078
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "La police a embarqué tout le papier du pays.",
+   "hl": [
+    "tout",
+    "papier"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L04.k.wav",
+   "file_start": 6.178,
+   "speech_start": 6.178,
+   "speech_end": 8.474,
+   "words": [
+    {
+     "w": "La",
+     "s": 6.178,
+     "e": 6.252
+    },
+    {
+     "w": "police",
+     "s": 6.326,
+     "e": 6.622
+    },
+    {
+     "w": "a",
+     "s": 6.659,
+     "e": 6.696
+    },
+    {
+     "w": "embarqué",
+     "s": 6.77,
+     "e": 7.141
+    },
+    {
+     "w": "tout",
+     "s": 7.215,
+     "e": 7.289
+    },
+    {
+     "w": "le",
+     "s": 7.326,
+     "e": 7.363
+    },
+    {
+     "w": "papier",
+     "s": 7.437,
+     "e": 7.659
+    },
+    {
+     "w": "du",
+     "s": 7.733,
+     "e": 7.807
+    },
+    {
+     "w": "pays.",
+     "s": 7.881,
+     "e": 8.474
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Et tous les billets de banque.",
+   "hl": [
+    "billets"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L05.k.wav",
+   "file_start": 8.574,
+   "speech_start": 8.574,
+   "speech_end": 9.907,
+   "words": [
+    {
+     "w": "Et",
+     "s": 8.574,
+     "e": 8.722
+    },
+    {
+     "w": "tous",
+     "s": 8.796,
+     "e": 8.87
+    },
+    {
+     "w": "les",
+     "s": 8.944,
+     "e": 9.019
+    },
+    {
+     "w": "billets",
+     "s": 9.056,
+     "e": 9.167
+    },
+    {
+     "w": "de",
+     "s": 9.241,
+     "e": 9.278
+    },
+    {
+     "w": "banque.",
+     "s": 9.315,
+     "e": 9.907
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Et le stagiaire, pour recel de malfaiteur.",
+   "hl": [
+    "stagiaire,",
+    "malfaiteur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L06.k.wav",
+   "file_start": 10.007,
+   "speech_start": 10.007,
+   "speech_end": 12.452,
+   "words": [
+    {
+     "w": "Et",
+     "s": 10.007,
+     "e": 10.081
+    },
+    {
+     "w": "le",
+     "s": 10.119,
+     "e": 10.156
+    },
+    {
+     "w": "stagiaire,",
+     "s": 10.23,
+     "e": 10.933
+    },
+    {
+     "w": "pour",
+     "s": 10.97,
+     "e": 11.119
+    },
+    {
+     "w": "recel",
+     "s": 11.23,
+     "e": 11.415
+    },
+    {
+     "w": "de",
+     "s": 11.489,
+     "e": 11.563
+    },
+    {
+     "w": "malfaiteur.",
+     "s": 11.637,
+     "e": 12.452
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Le doigt l'a reconnue.",
+   "hl": [
+    "doigt",
+    "reconnue."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L07.k.wav",
+   "file_start": 12.552,
+   "speech_start": 12.552,
+   "speech_end": 13.663,
+   "words": [
+    {
+     "w": "Le",
+     "s": 12.552,
+     "e": 12.626
+    },
+    {
+     "w": "doigt",
+     "s": 12.7,
+     "e": 12.848
+    },
+    {
+     "w": "l'a",
+     "s": 12.873,
+     "e": 12.922
+    },
+    {
+     "w": "reconnue.",
+     "s": 12.996,
+     "e": 13.663
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Le procureur a requis la broyeuse.",
+   "hl": [
+    "procureur",
+    "broyeuse."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L08.k.wav",
+   "file_start": 13.763,
+   "speech_start": 13.763,
+   "speech_end": 15.689,
+   "words": [
+    {
+     "w": "Le",
+     "s": 13.763,
+     "e": 13.911
+    },
+    {
+     "w": "procureur",
+     "s": 14.022,
+     "e": 14.43
+    },
+    {
+     "w": "a",
+     "s": 14.504,
+     "e": 14.578
+    },
+    {
+     "w": "requis",
+     "s": 14.652,
+     "e": 14.8
+    },
+    {
+     "w": "la",
+     "s": 14.874,
+     "e": 14.948
+    },
+    {
+     "w": "broyeuse.",
+     "s": 15.022,
+     "e": 15.689
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Le président a soumis la broyeuse à référendum.",
+   "hl": [
+    "président",
+    "référendum."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L09.k.wav",
+   "file_start": 15.789,
+   "speech_start": 15.789,
+   "speech_end": 18.24,
+   "words": [
+    {
+     "w": "Le",
+     "s": 15.789,
+     "e": 15.863
+    },
+    {
+     "w": "président",
+     "s": 15.937,
+     "e": 16.381
+    },
+    {
+     "w": "a",
+     "s": 16.456,
+     "e": 16.53
+    },
+    {
+     "w": "soumis",
+     "s": 16.567,
+     "e": 16.752
+    },
+    {
+     "w": "la",
+     "s": 16.789,
+     "e": 16.826
+    },
+    {
+     "w": "broyeuse",
+     "s": 16.9,
+     "e": 17.27
+    },
+    {
+     "w": "à",
+     "s": 17.307,
+     "e": 17.344
+    },
+    {
+     "w": "référendum.",
+     "s": 17.419,
+     "e": 18.233
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Cinquante millions de bulletins.",
+   "hl": [
+    "Cinquante",
+    "millions"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L10.k.wav",
+   "file_start": 18.34,
+   "speech_start": 18.34,
+   "speech_end": 19.97,
+   "words": [
+    {
+     "w": "Cinquante",
+     "s": 18.34,
+     "e": 18.785
+    },
+    {
+     "w": "millions",
+     "s": 18.859,
+     "e": 19.155
+    },
+    {
+     "w": "de",
+     "s": 19.192,
+     "e": 19.229
+    },
+    {
+     "w": "bulletins.",
+     "s": 19.303,
+     "e": 19.97
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Une forêt entière.",
+   "hl": [
+    "forêt"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L11.k.wav",
+   "file_start": 20.07,
+   "speech_start": 20.07,
+   "speech_end": 21.551,
+   "words": [
+    {
+     "w": "Une",
+     "s": 20.07,
+     "e": 20.218
+    },
+    {
+     "w": "forêt",
+     "s": 20.292,
+     "e": 20.662
+    },
+    {
+     "w": "entière.",
+     "s": 20.811,
+     "e": 21.551
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Les bulletins ont tous voté non.",
+   "hl": [
+    "voté",
+    "non."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L12.k.wav",
+   "file_start": 21.651,
+   "speech_start": 21.651,
+   "speech_end": 23.503,
+   "words": [
+    {
+     "w": "Les",
+     "s": 21.651,
+     "e": 21.799
+    },
+    {
+     "w": "bulletins",
+     "s": 21.948,
+     "e": 22.244
+    },
+    {
+     "w": "ont",
+     "s": 22.355,
+     "e": 22.466
+    },
+    {
+     "w": "tous",
+     "s": 22.54,
+     "e": 22.688
+    },
+    {
+     "w": "voté",
+     "s": 22.725,
+     "e": 22.985
+    },
+    {
+     "w": "non.",
+     "s": 23.059,
+     "e": 23.503
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Le sien en premier.",
+   "hl": [
+    "premier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L13.k.wav",
+   "file_start": 23.603,
+   "speech_start": 23.603,
+   "speech_end": 24.714,
+   "words": [
+    {
+     "w": "Le",
+     "s": 23.603,
+     "e": 23.677
+    },
+    {
+     "w": "sien",
+     "s": 23.751,
+     "e": 23.973
+    },
+    {
+     "w": "en",
+     "s": 24.048,
+     "e": 24.122
+    },
+    {
+     "w": "premier.",
+     "s": 24.196,
+     "e": 24.714
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "La broyeuse a été abolie.",
+   "hl": [
+    "abolie."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L14.k.wav",
+   "file_start": 24.814,
+   "speech_start": 24.814,
+   "speech_end": 26.444,
+   "words": [
+    {
+     "w": "La",
+     "s": 24.814,
+     "e": 24.888
+    },
+    {
+     "w": "broyeuse",
+     "s": 24.962,
+     "e": 25.407
+    },
+    {
+     "w": "a",
+     "s": 25.481,
+     "e": 25.555
+    },
+    {
+     "w": "été",
+     "s": 25.666,
+     "e": 25.777
+    },
+    {
+     "w": "abolie.",
+     "s": 25.888,
+     "e": 26.444
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Les gendarmes ont aplati toutes les broyeuses.",
+   "hl": [
+    "aplati",
+    "broyeuses."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L15.k.wav",
+   "file_start": 26.544,
+   "speech_start": 26.544,
+   "speech_end": 28.914,
+   "words": [
+    {
+     "w": "Les",
+     "s": 26.544,
+     "e": 26.618
+    },
+    {
+     "w": "gendarmes",
+     "s": 26.692,
+     "e": 27.136
+    },
+    {
+     "w": "ont",
+     "s": 27.211,
+     "e": 27.285
+    },
+    {
+     "w": "aplati",
+     "s": 27.359,
+     "e": 27.803
+    },
+    {
+     "w": "toutes",
+     "s": 27.84,
+     "e": 27.951
+    },
+    {
+     "w": "les",
+     "s": 28.025,
+     "e": 28.099
+    },
+    {
+     "w": "broyeuses.",
+     "s": 28.136,
+     "e": 28.914
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "La feuille a été relâchée.",
+   "hl": [
+    "relâchée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L16.k.wav",
+   "file_start": 29.014,
+   "speech_start": 29.014,
+   "speech_end": 30.422,
+   "words": [
+    {
+     "w": "La",
+     "s": 29.014,
+     "e": 29.088
+    },
+    {
+     "w": "feuille",
+     "s": 29.236,
+     "e": 29.459
+    },
+    {
+     "w": "a",
+     "s": 29.496,
+     "e": 29.533
+    },
+    {
+     "w": "été",
+     "s": 29.644,
+     "e": 29.755
+    },
+    {
+     "w": "relâchée.",
+     "s": 29.829,
+     "e": 30.422
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Reconvertie en lettre de licenciement.",
+   "hl": [
+    "licenciement."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L17.k.wav",
+   "file_start": 30.522,
+   "speech_start": 30.522,
+   "speech_end": 32.382,
+   "words": [
+    {
+     "w": "Reconvertie",
+     "s": 30.522,
+     "e": 31.114
+    },
+    {
+     "w": "en",
+     "s": 31.151,
+     "e": 31.188
+    },
+    {
+     "w": "lettre",
+     "s": 31.262,
+     "e": 31.485
+    },
+    {
+     "w": "de",
+     "s": 31.522,
+     "e": 31.559
+    },
+    {
+     "w": "licenciement.",
+     "s": 31.633,
+     "e": 32.373
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Adressée à ce mec.",
+   "hl": [
+    "mec."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L18.k.wav",
+   "file_start": 32.482,
+   "speech_start": 32.482,
+   "speech_end": 33.667,
+   "words": [
+    {
+     "w": "Adressée",
+     "s": 32.482,
+     "e": 32.852
+    },
+    {
+     "w": "à",
+     "s": 32.926,
+     "e": 32.963
+    },
+    {
+     "w": "ce",
+     "s": 33.0,
+     "e": 33.074
+    },
+    {
+     "w": "mec.",
+     "s": 33.148,
+     "e": 33.667
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Il vendait des broyeuses.",
+   "hl": [
+    "vendait",
+    "broyeuses."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feuille/tts/L19.k.wav",
+   "file_start": 33.767,
+   "speech_start": 33.767,
+   "speech_end": 35.026,
+   "words": [
+    {
+     "w": "Il",
+     "s": 33.767,
+     "e": 33.841
+    },
+    {
+     "w": "vendait",
+     "s": 33.915,
+     "e": 34.137
+    },
+    {
+     "w": "des",
+     "s": 34.211,
+     "e": 34.286
+    },
+    {
+     "w": "broyeuses.",
+     "s": 34.36,
+     "e": 35.026
+    }
+   ]
+  }
+ ],
+ "total": 36.33
+}
