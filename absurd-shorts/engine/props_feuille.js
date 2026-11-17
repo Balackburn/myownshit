@@ -60,7 +60,7 @@ export const FEUILLE_PROPS = {
     }
     const geo = new THREE.PlaneGeometry(w, h, 8, 10), pa = geo.attributes.position, base = pa.array.slice();
     const F = sheetCanvas(w, h, o, false), B = sheetCanvas(w, h, o, true);
-    const M = (tex, side) => o.bright ? new THREE.MeshBasicMaterial({ map: tex, side, transparent: true, alphaTest: 0.5 }) : new THREE.MeshLambertMaterial({ map: tex, side, transparent: true, alphaTest: 0.5 });
+    const M = (tex, side) => o.bright ? new THREE.MeshBasicMaterial({ map: tex, side, alphaTest: 0.5 }) : new THREE.MeshLambertMaterial({ map: tex, side, alphaTest: 0.5 });
     const front = new THREE.Mesh(geo, M(F.tex, THREE.FrontSide)), backM = new THREE.Mesh(geo, M(B.tex, THREE.BackSide)); front.castShadow = backM.castShadow = true; front.receiveShadow = backM.receiveShadow = true;
     body.add(front, backM);
     const E = w * (o.ear ?? 0.22), triG = new THREE.BufferGeometry();
@@ -74,13 +74,13 @@ export const FEUILLE_PROPS = {
       const cu = keyAt(o.curl, t, 0, 0.18), tr = keyAt(o.tremble, t, 0, 0.12), wg = keyAt(o.wiggle, t, 0, 0.1);
       for (let i = 0; i < pa.count; i++) {
         const x = base[3 * i], y = base[3 * i + 1], v = (y + h / 2) / h, u = (x + w / 2) / w;
-        const z = -cu * h * 0.55 * v * v + tr * 0.012 * Math.sin(t * 47 + v * 9 + u * 3) + wg * 0.05 * Math.sin(t * 22 + v * 6) * v;
+        const z = -cu * h * (o.curlK ?? 0.55) * v * v + tr * 0.012 * Math.sin(t * 47 + v * 9 + u * 3) + wg * 0.05 * Math.sin(t * 22 + v * 6) * v;
         pa.setXYZ(i, x + wg * 0.02 * Math.sin(t * 22 + v * 4) * v, y * (1 - 0.25 * cu * v), z);
       }
       pa.needsUpdate = true; geo.computeVertexNormals();
       body.rotation.z = tr * 0.04 * Math.sin(t * 39) + wg * 0.25 * Math.sin(t * 17);
       const ef = keyAt(o.earKeys, t, o.ear0 ?? 0.9, 0.08); hinge.quaternion.setFromAxisAngle(axis, PI * ef * 0.97);
-      hinge.position.z = 0.002 - cu * h * 0.55;
+      hinge.position.z = 0.002 - cu * h * (o.curlK ?? 0.55);
       let n = nT; if (o.typeAt != null) n = Math.max(0, Math.min(nT, Math.floor((t - o.typeAt) / ((o.typeDur ?? 0.8) / Math.max(1, nT)))));
       F.set(n); B.set(0);
     };
@@ -117,13 +117,14 @@ export const FEUILLE_PROPS = {
     if (o.plinth) { const ph = o.ph ?? 0.3; g.add(at(box(0.8 * s, ph, 0.6 * s, '#F2F0EA', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0)); sh.position.y = ph; }
     let tag = null;
     if (o.tag !== false) { tag = grp(rod([0, 0, 0], [0.02, -0.22 * s, 0.02], 0.004, INK)); const tg = grp(at(box(0.16 * s, 0.1 * s, 0.006, PAPER, { outline: 0.004 }), 0, 0, 0), at(label(o.price || '49 €', 0.14 * s, 0.07 * s, { bg: null, fg: '#C8202A' }), 0, 0, 0.004)); tg.position.set(0.02, -0.27 * s, 0.02); tag.add(tg); tag.position.set(0.3 * s, 0.86 * s, 0.22 * s); sh.add(tag); }
-    const puff = o.flatAt != null ? buildProp('confettiPuff', { at: o.flatAt, n: o.puffN ?? 18, seed: o.seed || 3, r: 0.6 * s }) : null; if (puff) { puff.position.y = 0.2; g.add(puff); }
+    const puff = o.flatAt != null ? buildProp('confettiPuff', { at: o.flatAt, n: o.puffN ?? 18, seed: o.seed || 3, r: (o.puffR ?? 0.6) * s, bit: o.puffBit }) : null; if (puff) { puff.position.y = 0.2; g.add(puff); }
     g.userData.update = t => {
       let f = o.flat ? 1 : 0; if (o.flatAt != null) f = easeIn((t - o.flatAt) / 0.08);
       // o.springAt (s): flattened, it pops half back up with a wobble (re-inflates like a biscuit that will not stay down)
       if (o.springAt != null && t > o.springAt) { const u = t - o.springAt; f = 1 - 0.5 * outBack(u / 0.18) + 0.06 * Math.exp(-u * 8) * Math.sin(u * 40); }
       const b = o.flatAt != null && t > o.flatAt + 0.08 ? 0.08 * Math.exp(-(t - o.flatAt - 0.08) * 9) * Math.abs(Math.sin((t - o.flatAt) * 30)) : 0;
-      sh.scale.set(1 + 0.45 * f, Math.max(0.06, 1 - 0.94 * f + b), 1 + 0.35 * f);
+      const an = o.flatAt != null && t < o.flatAt && t > o.flatAt - 0.14 ? Math.sin((t - o.flatAt + 0.14) / 0.14 * PI / 2) : 0;   // (round 2) a squash-up just before the hit
+      sh.scale.set((1 + 0.45 * f) * (1 - 0.07 * an), Math.max(0.06, 1 - 0.94 * f + b) * (1 + 0.16 * an), (1 + 0.35 * f) * (1 - 0.07 * an));
       if (tag) tag.visible = f < 0.5 || o.keepTag; puff?.userData.update(t);
     };
     g.userData.update(0); return g;
@@ -133,7 +134,7 @@ export const FEUILLE_PROPS = {
   // over 0.9 s; hidden before and after
   confettiPuff(o) {
     const g = grp(), n = o.n ?? 18, R = o.r ?? 0.6, cols = ['#E8504A', '#F2C94C', '#5E8FD0', '#7FB069', '#D98AA8', '#F4F1E8'], bits = [];
-    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.PlaneGeometry(0.06, 0.06), new THREE.MeshBasicMaterial({ color: cols[i % cols.length], side: THREE.DoubleSide })); m.castShadow = false; g.add(m); const a = hsh(i + (o.seed || 0) * 13) * TAU, e = 0.4 + hsh(i * 3 + 1) * 0.9; bits.push({ m, vx: Math.cos(a) * R * (0.6 + hsh(i * 7) * 0.8), vz: Math.sin(a) * R * (0.6 + hsh(i * 5) * 0.8), vy: e * 2.4, sp: 5 + hsh(i) * 9 }); }
+    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.PlaneGeometry(o.bit ?? 0.06, o.bit ?? 0.06), new THREE.MeshBasicMaterial({ color: cols[i % cols.length], side: THREE.DoubleSide })); m.castShadow = false; g.add(m); const a = hsh(i + (o.seed || 0) * 13) * TAU, e = 0.4 + hsh(i * 3 + 1) * 0.9; bits.push({ m, vx: Math.cos(a) * R * (0.6 + hsh(i * 7) * 0.8), vz: Math.sin(a) * R * (0.6 + hsh(i * 5) * 0.8), vy: e * 2.4, sp: 5 + hsh(i) * 9 }); }
     g.userData.update = t => { const u = t - (o.at ?? 0), on = u >= 0 && u < 0.95; for (const b of bits) { b.m.visible = on; if (!on) continue; const k = Math.min(u, 0.95); b.m.position.set(b.vx * (1 - Math.exp(-k * 4)) / 1.1, b.vy * k - 2.4 * k * k, b.vz * (1 - Math.exp(-k * 4)) / 1.1); b.m.rotation.set(t * b.sp, t * b.sp * 0.7, 0); } };
     g.userData.update(-1); return g;
   },
@@ -258,11 +259,11 @@ export const FEUILLE_PROPS = {
     g.add(at(box(0.9, 0.04, 0.6, '#B8BEC6', { outline: 0.006 }), 0, 0.8, 0), at(box(0.86, 0.03, 0.56, '#9AA1A8'), 0, 0.25, 0));
     for (const [x, z] of [[-0.42, -0.27], [0.42, -0.27], [-0.42, 0.27], [0.42, 0.27]]) g.add(at(box(0.03, 0.78, 0.03, '#9AA1A8', { pivot: 'bottom' }), x, 0.04, z), at(sphere(0.04, INK, 0), x, 0.04, z));
     const sh = buildProp('demoShredder', { s: 0.8, price: o.price }); sh.position.y = 0.82; g.add(sh);
-    const cov = grp(at(box(0.7, 0.98, 0.56, '#7A1420', { pivot: 'bottom', outline: 0.006, taper: { x: 0.86, z: 0.86 } }), 0, 0, 0), at(box(0.74, 0.06, 0.6, '#D4A93C'), 0, 0.03, 0));
+    const cov = grp(at(box(0.7, 0.98, 0.56, o.coverColor || '#7A1420', { pivot: 'bottom', outline: 0.006, taper: { x: 0.86, z: 0.86 } }), 0, 0, 0), at(box(0.74, 0.06, 0.6, '#D4A93C'), 0, 0.03, 0));
     cov.position.y = 0.82; g.add(cov);
     g.userData.update = t => {
       let up = o.covered === false ? 1 : 0;
-      if (o.offAt != null && t >= o.offAt) up = smooth((t - o.offAt) / 0.25);
+      if (o.offAt != null && t >= o.offAt) up = smooth((t - o.offAt) / (o.offDur ?? 0.25));
       if (o.onAt != null && t >= o.onAt) up = 1 - smooth((t - o.onAt) / 0.2);
       cov.visible = up < 0.98; cov.position.set(0.9 * up, 0.82 + 1.6 * up - 1.2 * up * up, 0.2 * up); cov.rotation.set(0.4 * up, 0, -1.4 * up); cov.scale.setScalar(1 - 0.3 * up);
       sh.userData.update?.(t);
@@ -374,7 +375,7 @@ export const FEUILLE_PROPS = {
   shredderRows(o) {
     const g = grp(), sh = [];
     for (const [z, x0, n, gap] of o.rows || []) for (let i = 0; i < n; i++) { const x = x0 + i * (gap ?? 1.4), tt = o.speed ? (o.at ?? 0) + (x - (o.x0 ?? 0)) / o.speed : null;
-      const k_ = sh.length, pre = (o.preFlat || []).includes(z), s = buildProp('demoShredder', { s: o.s ?? 0.9, flat: pre, flatAt: !pre && (z >= (o.rollZ0 ?? -1e9) && z <= (o.rollZ1 ?? 1e9)) ? tt : null, springAt: k_ === o.springIdx && tt != null ? tt + (o.springDelay ?? 0.45) : null, seed: i + 7, puffN: o.puffN ?? 12, price: o.price, keepTag: pre }); s.position.set(x, o.y ?? 0, z); s.rotation.y = o.face ?? 0; g.add(s); sh.push(s); }
+      const k_ = sh.length, pre = (o.preFlat || []).includes(z), s = buildProp('demoShredder', { s: o.s ?? 0.9, flat: pre, flatAt: !pre && (z >= (o.rollZ0 ?? -1e9) && z <= (o.rollZ1 ?? 1e9)) ? tt : null, springAt: k_ === o.springIdx && tt != null ? tt + (o.springDelay ?? 0.45) : null, seed: i + 7, puffN: o.puffN ?? 12, puffBit: o.puffBit, puffR: o.puffR, price: o.price, keepTag: pre }); s.position.set(x, o.y ?? 0, z); s.rotation.y = o.face ?? 0; g.add(s); sh.push(s); }
     g.userData.update = t => sh.forEach(s => s.userData.update?.(t)); g.userData.update(0); return g;
   },
 

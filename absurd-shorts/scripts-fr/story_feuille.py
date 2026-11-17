@@ -60,7 +60,7 @@ FINGER = [-0.031, -0.105, 0.017]
 def PLASTER(pid, who='mec'): return P(pid, 'fingerBandage', on={'actor': who, 'joint': 'handR', 'offset': FINGER})
 def CUT(pid, who='mec'): return P(pid, 'cutLine', on={'actor': who, 'joint': 'handR', 'offset': [FINGER[0], FINGER[1], FINGER[2] + 0.001]})
 SHEET = {'w': 0.42, 'h': 0.56}
-GEND = {'outfit': 'suit', 'suit': '#1E2A44', 'pants': '#1A2438', 'shirt': '#D9DEE8', 'lapel': '#141C30', 'tie': '#141C30', 'cuff': '#1E2A44', 'hat': 'none', 'hair': 'crew', 'facial': 'none',
+GEND = {'preset': 'cop', 'outfit': 'suit', 'suit': '#1E2A44', 'pants': '#1A2438', 'shirt': '#D9DEE8', 'lapel': '#141C30', 'tie': '#141C30', 'cuff': '#1E2A44', 'hat': 'none', 'hair': 'crew', 'facial': 'none',
         'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX}
 def KEPI(pid, who): return P(pid, 'kepi', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.5, 0.0]}, opts={'w': 0.222, 'd': 0.17, 'color': '#1A2438', 'band': '#C9CDD3'})
 SALUTE = lambda p, ry: R5(off(p, ry, 0.08, 0.2, 2.02), 1, 0.03)
@@ -136,7 +136,7 @@ st.cue('whoosh', 'S02', TILT2, 0.15, 0.25, 900, 3000); st.cue('sfx:paper', 'S02'
 # 3: description: white, rectangular. Low on the pavement: a policeman slaps a RECHERCHÉE poster (a blank white rectangle where the face should be)
 #    on the nearest lamppost, the same poster already on every lamppost down the street; he walks beside him holding up his plastered finger
 D3 = st.dur('S03'); SLAP3 = 0.55
-LAMPS = [[5.7, z] for z in (1.6, -5.0, -11.6, -18.2, -24.8)]
+LAMPS = [[5.7, z] for z in (1.6, -3.0, -7.6, -12.2, -16.8, -21.4)]   # (round 2) closer spacing: a poster on every lamppost reads down the street
 COP3 = [6.25, 0, 1.25]; RYC3 = -90
 HERO3a, HERO3b = [7.1, 0, -2.4], [7.1, 0, 0.6]
 C3 = cam(0.0, [6.4, 1.8, 7.6], [6.4, 1.8, 7.3], [6.4, 1.3, -2.0], [6.4, 1.31, -2.0], lens=44)   # (round 1) closer, centred between the poster and the hero
@@ -154,7 +154,7 @@ st.shot('S03', 'parisStreet', setOpts=STREET, actors=[
             k(0.0, toon={'reach': {'R': FING3(HERO3a)}, 'hands': {'R': 'point'}, 'face': {'lid': 0.35, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.0),
             k(1.75, toon={'reach': {'R': FING3(HERO3b)}, 'hands': {'R': 'point'}, 'face': {'lid': 0.35, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.2), *blink(2.0, {'lid': 0.35, 'mouth': 'line', 'brow': -0.2})])],
         props=[*[P(f'lampe3{i}', 'streetLamp', pos=[x, 0, z]) for i, (x, z) in enumerate(LAMPS)],
-               *[P(f'affiche3{i}', 'wantedPoster', pos=POST(z), opts={'at': SLAP3 if i == 0 else -1}) for i, (x, z) in enumerate(LAMPS)], PLASTER('pansement3'),
+               *[P(f'affiche3{i}', 'wantedPoster', pos=POST(z), ry=0 if i == 0 else 18, opts={'at': SLAP3 if i == 0 else -1, **({} if i == 0 else {'w': 0.85, 'h': 1.18})}) for i, (x, z) in enumerate(LAMPS)], PLASTER('pansement3'),
                P('affiche3main', 'wantedPoster', on={'actor': 'policier', 'hand': 'L', 'offset': [0.0, 0.0, 0.06], 'rot': [0, PI / 2, 0]}, opts={'at': 0.0, 'hideAt': SLAP3, 'w': 0.5, 'h': 0.7})],   # (round 1) the poster in his hand until the slap
         cams=[C3])
 st.cue('sfx:splat', 'S03', SLAP3, 0.45); st.cue('sfx:step', 'S03', 0.3, 0.2); st.cue('sfx:step', 'S03', 0.75, 0.2); st.cue('sfx:step', 'S03', 1.2, 0.2); st.cue('sfx:step', 'S03', 1.65, 0.2)
@@ -166,11 +166,11 @@ D4 = st.dur('S04')
 VAN = [3.0, 0, -4.6]; VAN_RY = 90                      # nose -Z, its back (and the ramp) toward +Z
 RAMP_TOP = [3.0, 0.47, r(VAN[2] + 2.72)]; RAMP_FOOT = [3.0, 0.02, r(VAN[2] + 2.72 + 2.6)]
 PATH4 = [[3.0, 0.02, 4.6], RAMP_FOOT, RAMP_TOP, [3.0, 0.5, r(VAN[2] + 1.0)]]
-C4 = cam(0.0, [7.6, 1.35, 0.2], [7.45, 1.36, 0.15], [3.0, 0.9, -0.9], [3.0, 0.91, -0.95], lens=50)   # (round 1) side-on: the file climbs the ramp across the frame into the van
+C4 = cam(0.0, [7.6, 1.55, 1.2], [7.45, 1.56, 1.15], [3.0, 0.55, 0.1], [3.0, 0.56, 0.05], lens=50)   # (round 2) panned toward the road: a full file from frame 1, the van only a ramp and a door edge   # (round 1) side-on: the file climbs the ramp across the frame into the van
 chk('S04', C4['from'], C4['lookAt'], 42, {'rampFoot': RAMP_FOOT, 'rampTop': RAMP_TOP, 'vanTop': [3.0, 3.0, VAN[2] + 2.5], 'path0': PATH4[0], 'path1': PATH4[1], 'vanLabel': [4.12, 1.55, VAN[2]]})
 st.shot('S04', 'parisStreet', setOpts=STREET, actors=[],
         props=[P('fourgon4', 'paddyWagon', pos=VAN, ry=VAN_RY, opts={'doorA': 3.0}),
-               P('defile4', 'paperParade', pos=[0, 0, 0], opts={'path': PATH4, 'at': 0.0, 'lead': 3.0, 'speed': 1.45, 'gap': 1.15, 'n': 9, 's': 1.45, 'hop': 0.16, 'hopF': 4.2, 'squash': 0.3, 'boardS': 0.85, 'yaw': -PI / 2, 'kinds': ['ream', 'news', 'book', 'map', 'ream', 'news', 'book', 'poster', 'poster']})],
+               P('defile4', 'paperParade', pos=[0, 0, 0], opts={'path': PATH4, 'at': 0.0, 'lead': 7.6, 'speed': 1.45, 'gap': 0.78, 'n': 15, 's': 1.45, 'hop': 0.16, 'hopF': 4.2, 'squash': 0.3, 'boardS': 0.85, 'yaw': -PI / 2, 'kinds': ['ream', 'news', 'book', 'map', 'notes', 'ream', 'news', 'book', 'map', 'notes', 'ream', 'news', 'poster', 'poster', 'poster']})],
         cams=[C4])
 st.card('S04', 'EMBARQUÉ', at=0.9)
 st.cue('sfx:stepSoft', 'S04', 0.2, 0.25); st.cue('sfx:stepSoft', 'S04', 0.55, 0.25); st.cue('sfx:stepSoft', 'S04', 0.9, 0.25); st.cue('sfx:stepSoft', 'S04', 1.25, 0.25); st.cue('sfx:stepSoft', 'S04', 1.6, 0.25); st.cue('clang', 'S04', 0.9, 0.15)
@@ -216,7 +216,7 @@ C6 = cam(0.0, [3.2, 1.45, -7.0], [3.19, 1.45, -6.8], [3.1, 1.15, -2.3], [3.1, 1.
 HEAD6 = [3.42, 1.13, -2.62]
 chk('S06', C6['from'], C6['lookAt'], 48, {'intHead': HEAD6, 'intHips': [2.75, 1.05, -2.6], 'offFace': [OFF6[0], 2.0, OFF6[2]], 'lightbar': [3.6, 1.78, -0.8], 'headlightL': [3.05, 0.72, -3.12], 'wheel': [2.8, 0.36, -2.35], 'wrapper': [3.95, 1.0, -2.4]})
 BACK6 = off(INT6, RYI6, -0.12, 0.0, 1.02)
-BENT = {'reach': {'R': R5(add(BACK6, [0, 0.02, -0.07])), 'L': R5(add(BACK6, [0, 0.02, 0.07]))}, 'hands': {'R': 'rest', 'L': 'rest'}, 'bend': {'spine': [1.45, 0, 0, 1, None], 'neck': [-0.25, -0.9, 0, 1, None]}}
+BENT = {'reach': {'R': R5(add(BACK6, [0, 0.02, -0.07])), 'L': R5(add(BACK6, [0, 0.02, 0.07]))}, 'hands': {'R': 'rest', 'L': 'rest'}, 'bend': {'spine': [1.45, 0, 0, 1, None], 'neck': [-0.25, 0.95, 0, 1, None]}}
 SQZ = {'head': [1.14, 0.84, 1.0]}
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
         act('stagiaire', INT6, RYI6, 'stand', 'neutral', keys=[k(0.0, look='camera'),
@@ -244,9 +244,9 @@ D7 = st.dur('S07'); RISE7, FLIP7 = 0.05, 0.6
 #            centred; his arm rises on its own from the left edge; the officer flips her over 0.22 s, the red smear and the dog-ear spring into view
 LINE_Z = -0.3; SHL = {'w': 0.62, 'h': 0.86}; GAP7 = 0.95; DY7 = 0.6
 HERO7 = [-0.55, 0, 1.7]; RYH7 = 180
-COP7a, COP7b = [2.0, DY7, -0.75], [1.15, DY7, -0.72]   # (round 1) at the right, behind the line, so he no longer stands in front of the suspect
-C7 = cam(0.0, [0.1, 1.6, 3.3], [0.1, 1.6, 3.22], [0.15, 1.2, LINE_Z], [0.15, 1.2, LINE_Z], lens=50)
-PT7 = R5([-0.18, 1.72, 1.1], 1, 0.1)
+COP7a, COP7b = [2.0, 0, -0.95], [1.2, 0, -0.95]   # (round 2) on the floor beside the dais: his head inside the frame   # (round 1) at the right, behind the line, so he no longer stands in front of the suspect
+C7 = cam(0.0, [0.1, 1.85, 4.0], [0.1, 1.85, 3.92], [0.2, 1.45, LINE_Z], [0.2, 1.45, LINE_Z], lens=50)   # (round 2) a little back and up: the officer's head inside the frame
+PT7 = R5([-0.25, 1.42, 0.95], 1, 0.1)   # (round 2) arm stretched forward-down, the index on the third sheet
 chk('S07', C7['from'], C7['lookAt'], 50, {'sheet3top': [0.0, DY7 + 0.86, LINE_Z], 'sheet3bot': [0.0, DY7, LINE_Z], 'sheet2': [-GAP7, DY7 + 0.43, LINE_Z], 'sheet4': [GAP7, DY7 + 0.43, LINE_Z], 'hand': PT7[:3], 'copFace': [COP7b[0], DY7 + 2.0, COP7b[2]], 'chartTop': [0, 2.4, -0.9]})
 st.shot('S07', 'whiteVoid', setOpts={'color': '#7E878F'}, actors=[
         act('mec', HERO7, RYH7, 'stand', 'neutral', keys=[k(0.0, look=[0.0, DY7 + 0.5, LINE_Z]),
@@ -258,7 +258,7 @@ st.shot('S07', 'whiteVoid', setOpts={'color': '#7E878F'}, actors=[
             k(r(FLIP7 - 0.12), toon={'reach': {'R': R5([0.3, DY7 + 0.6, LINE_Z - 0.05], 1, 0.1)}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.2, 0, 0.25, 1, None]}}, toonDur=0.12),
             k(r(FLIP7 + 0.22), toon={'reach': {'R': R5([0.7, DY7 + 1.0, LINE_Z - 0.1])}, 'hands': {'R': 'open'}, 'bend': {'spine': [0, 0, 0, 1, None]}}, toonDur=0.12), k(r(FLIP7 + 0.35), look='camera', lookDur=0.15)])],
         props=[P('tapissage7', 'lineupWall', pos=[0, 0, -0.9], opts={'w': 5.2, 'gap': GAP7}), P('estrade7', 'dais', pos=[0, 0, -0.35], opts={'w': 5.2, 'h': DY7, 'd': 0.8}),
-               P('vitre7', 'glassPane', pos=[0, 0, 0.9], opts={'w': 3.6, 'h': 1.4, 'y': 0.85, 'opacity': 0.3}),
+               P('vitre7', 'glassPane', pos=[0, 0, 0.9], opts={'w': 3.6, 'h': 1.4, 'y': 0.85, 'opacity': 0.16}),
                *[P(f'feuille7{i}', 'feuilleSheet', pos=[r((i - 2) * GAP7), r(DY7 + 0.43), LINE_Z], opts={**SHL, 'ear': 0, 'smear': False}) for i in (0, 1, 3, 4)],
                P('suspecte7', 'feuilleSheet', pos=[0.0, r(DY7 + 0.43), LINE_Z], opts={**SHL, 'smearSide': 'back', 'smearS': 1.8, 'ear0': 0.0, 'earKeys': [[r(FLIP7 + 0.22), 1.0], [r(FLIP7 + 0.3), 0.8]]}, keys=[k(FLIP7, rotTo=[0, PI, 0], dur=0.22, ease='inOut')]),
                PLASTER('pansement7')],
@@ -288,15 +288,15 @@ D8 = st.dur('S08'); OFF8 = 0.72
 chk('S08', CC['from'], CC['lookAt'], 60, {'sheetTop': [SHEET_C[0], LAND + 0.82, SHEET_C[2]], 'sheetBot': [SHEET_C[0], LAND, SHEET_C[2]], 'procFace': [PROC[0], LAND + 2.0, PROC[2]], 'procFeet': PROC, 'trolley': [TROL[0], LAND + 1.65, TROL[2]], 'trolStart': [TROLa[0], LAND + 1.2, TROLa[2]]})
 TT = lambda dx, dy, dz: [r(TROL[0] + dx), r(TROL[1] + dy), r(TROL[2] + dz)]
 st.shot('S08', 'grassland', setOpts={'clouds': 26}, actors=[
-        act('procureur', PROC, RYP, 'stand', 'angry', keys=[k(0.0, look=[TROL[0], LAND + 1.5, TROL[2]]),
+        act('procureur', PROC, RYP, 'stand', 'angry', keys=[k(0.0, look='camera'), k(0.28, look=[TROL[0], LAND + 1.5, TROL[2]], lookDur=0.1), k(r(OFF8 - 0.04), look='camera', lookDur=0.08), 
             k(0.0, toon={'reach': {'R': R5(TT(0.3, 1.0, 0.0)), 'L': R5(off(PROC, RYP, 0.15, -0.25, 1.1))}, 'hands': {'R': 'open', 'L': 'rest'}, 'face': {'lid': 0.3, 'mouth': 'smile', 'brow': -0.4}}, toonDur=0.0),
             k(0.42, toon={'reach': {'R': R5(TT(0.22, 1.72, 0.1)), 'L': R5(off(PROC, RYP, 0.15, -0.25, 1.1))}, 'hands': {'R': 'grip', 'L': 'rest'}}, toonDur=0.1),
             k(r(OFF8 - 0.2), toon={'reach': {'R': R5(TT(0.12, 1.45, 0.05))}, 'hands': {'R': 'grip'}, 'sq': [1.06, 0.93, 1.06], 'bend': {'spine': [0.25, 0, 0, 1, None]}, 'face': {'lid': 0.5, 'mouth': 'clench', 'brow': -0.6}}, toonDur=0.16, toonEase='inOut'),
             k(OFF8, toon={'reach': {'R': R5(TT(1.1, 2.6, 0.4), 1, 0.1)}, 'hands': {'R': 'grip'}, 'sq': [0.94, 1.08, 0.94], 'bend': {'spine': [-0.15, 0, 0, 1, None]}, 'face': {'lid': 0.2, 'mouth': 'bigsmile', 'brow': 0.3}}, toonDur=0.08, toonEase='out'),
-            k(r(OFF8 + 0.25), look='camera', lookDur=0.15), k(r(OFF8 + 0.45), toon={'reach': {'R': R5(TT(0.8, 2.2, 0.3))}, 'hands': {'R': 'open'}, 'sq': [1, 1, 1], 'bend': {'spine': [0, 0, 0, 1, None]}}, toonDur=0.3),
+            k(r(OFF8 + 0.45), toon={'reach': {'R': R5(TT(0.8, 2.2, 0.3))}, 'hands': {'R': 'open'}, 'sq': [1, 1, 1], 'bend': {'spine': [0, 0, 0, 1, None]}}, toonDur=0.3),
             *blink(1.6, {'lid': 0.2, 'mouth': 'bigsmile', 'brow': 0.3})])],
-        props=[*COURT(), P('chariot8', 'shredderTrolley', pos=TROLa, ry=-20, opts={'offAt': OFF8}, keys=[k(0.0, to=TROL, dur=0.42, ease='out')]),
-               P('feuille8', 'feuilleSheet', pos=SHEET_C, opts={**SHC, 'ear0': 0.95, 'curl': [[r(OFF8 + 0.12), 0.18], [r(OFF8 + 0.3), 0.5]], 'tremble': [[r(OFF8 + 0.25), 1.0]], 'earKeys': EARFLAP(r(OFF8 + 0.25), D8)},
+        props=[*COURT(), P('chariot8', 'shredderTrolley', pos=TROLa, ry=-20, opts={'offAt': OFF8, 'offDur': 0.36, 'coverColor': '#1F5A3A'}, keys=[k(0.0, to=TROL, dur=0.42, ease='out')]),
+               P('feuille8', 'feuilleSheet', pos=SHEET_C, opts={**SHC, 'curlK': 1.25, 'ear0': 0.95, 'curl': [[r(OFF8 + 0.08), 0.0], [r(OFF8 + 0.2), 0.45], [r(OFF8 + 0.36), 1.05], [r(OFF8 + 0.46), 0.95]], 'tremble': [[r(OFF8 + 0.3), 1.6]],  'earKeys': EARFLAP(r(OFF8 + 0.25), D8)},
                  keys=[k(r(OFF8 + 0.02), rotTo=[-0.32, 0.08, 0], dur=0.12, ease='out'), k(r(OFF8 + 0.2), rotTo=[-0.12, 0.05, 0], dur=0.2, ease='inOut')])],
         cams=[CC])
 st.cue('sfx:rattle', 'S08', 0.0, 0.25); st.cue('whoosh', 'S08', OFF8, 0.35, 0.3, 500, 2600); st.cue('sfx:gasp', 'S08', r(OFF8 + 0.18), 0.15)
@@ -314,7 +314,8 @@ chk('S09', C9['from'], C9['lookAt'], 48, {'presFace': [PRES9[0], 2.05, PRES9[2]]
 FACE9 = {'lid': 0.35, 'mouth': 'smile', 'brow': 0.3}
 st.shot('S09', 'pressRoom', setOpts={'backdrop': 'RÉFÉRENDUM', 'fontScale': 0.62, 'flags': False, 'chairs': False}, actors=[
         act('president', PRES9, RYP9, 'stand', 'neutral', keys=[k(0.0, look='camera'),
-            *[k(r(0.15 + 0.3 * i), toon={'reach': {'L': R5(add(HAND9, [0.0, 0.07 * (i % 2), 0.0]), 1, 0.06)}, 'hands': {'L': 'grip'}, 'bend': {'spine': [0.04 * (1 - i % 2), 0, -0.12 * (1 - i % 2), 1, None]},
+            k(0.0, toon={'reach': {'L': R5(add(HAND9, [0.0, 0.2, 0.06]), 1, 0.06)}, 'hands': {'L': 'grip'}, 'bend': {'spine': [-0.1, 0, 0.1, 1, None]}, 'face': {**FACE9, 'mouth': 'smile'}}, toonDur=0.0),
+            *[k(r(0.15 + 0.3 * i), toon={'reach': {'L': R5(add(HAND9, [0.0, 0.16 * (i % 2), 0.0]), 1, 0.06)}, 'hands': {'L': 'grip'}, 'bend': {'spine': [0.12 * (1 - i % 2), 0, -0.22 * (1 - i % 2), 1, None]},
                          'sq': [1.02, 0.98, 1.02] if i % 2 == 0 else [1, 1, 1], 'face': {**FACE9, 'mouth': 'open' if i % 2 == 0 else 'smile'}}, toonDur=0.06 if i % 2 == 0 else 0.16) for i in range(8)],
             k(0.75, look=[POSTER9[0], 1.9, POSTER9[2]], lookDur=0.12), k(1.15, look='camera', lookDur=0.12), *blink(1.5, FACE9), k(1.95, look=[POSTER9[0], 1.9, POSTER9[2]], lookDur=0.12), k(2.3, look='camera', lookDur=0.12)])],
         props=[P('affiche9', 'refPoster', pos=POSTER9, ry=-22, opts={}), P('baguette9', 'pointerStick', on={'actor': 'president', 'hand': 'L', 'offset': [0.0, -0.04, 0.02], 'rot': [PI * 0.5, 0, -0.55]}, opts={'len': 0.95})],
@@ -339,7 +340,7 @@ st.cue('sfx:paper', 'S10', 0.15, 0.35); st.cue('sfx:paper', 'S10', 0.6, 0.35); s
 
 # 11: a whole forest. A hillside of fresh stumps to the top; in front, a log truck marked BULLETINS takes the last log; a gendarme with a chainsaw in
 #     his left hand salutes beside it
-D11 = st.dur('S11'); LOAD11 = 0.15
+D11 = st.dur('S11'); LOAD11 = 0.42   # (round 2) the last log swings on mid-shot, not before the eye lands
 # (round 1) a real hillside of stumps filling the frame to the top (a steeper hill, the camera tilted up); the truck seen in depth (nose up the
 #            hill) so it is whole, BULLETINS on its side toward us; the last log swung on with weight (it rises, hangs, drops with a bounce); the
 #            gendarme fully in frame at the right, saluting with the chainsaw in his left hand, a breath and a blink
@@ -360,7 +361,7 @@ st.cue('sfx:chainsaw', 'S11', 0.0, 0.18); st.cue('thud', 'S11', r(LOAD11 + 0.62)
 TAB = [0.0, 0, -0.9]; BOXY = 0.95   # (round 1) a taller table: the box interiors (NON filling up) above the caption band
 OUI = [-0.36, BOXY, -0.9]; NON = [0.36, BOXY, -0.9]
 SLOT = lambda b: [b[0], r(b[1] + 0.72), b[2]]
-VOTE = {'title': 'BUREAU DE VOTE', 'desk': False, 'map': False, 'clockX': 4.6}   # (round 1) the room's running clock moved out of shot (S13 has its own, stopped at eight)
+VOTE = {'title': 'BUREAU DE VOTE', 'desk': False, 'map': False, 'clockX': 4.6, 'bannerY': 2.72}   # (round 1) the room's running clock moved out of shot (S13 has its own, stopped at eight)
 def POLL_PROPS(fill_non, fill_oui=None):
     return [P('table', 'table', pos=TAB, opts={'w': 1.6, 'd': 0.7, 'h': BOXY, 'color': '#8A6A45', 'legs': '#5A3A28'}),
             P('urneOui', 'ballotBox', pos=OUI, opts={'text': 'OUI', 'fill': fill_oui or []}), P('urneNon', 'ballotBox', pos=NON, opts={'text': 'NON', 'fill': fill_non})]
@@ -403,7 +404,7 @@ st.shot('S13', 'mairie', setOpts=VOTE, actors=[
             k(0.0, toon={'reach': {'L': R5(HOLD13, 1, 0.06), 'R': R5(off(HERO13, 0, 0.3, 0.35, 1.85))}, 'hands': {'L': 'pinch', 'R': 'point'}, 'face': {'lid': 0.35, 'mouth': 'line', 'brow': -0.1}}, toonDur=0.0),
             k(r(T13 + 0.3), toon={'reach': {'L': R5(add(HOLD13, [0, 0.03, 0]), 1, 0.06), 'R': R5(off(HERO13, 0, 0.3, 0.35, 1.85))}, 'hands': {'L': 'open', 'R': 'point'}, 'face': {'lid': 0.3, 'jaw': 0.6, 'mouth': 'O', 'brow': 0.6}, 'sq': [0.98, 1.03, 0.98]}, toonDur=0.07),   # (round 1) a jaw drop, not another eye-pop
             k(r(T13 + 0.45), look=SLOT(NON), lookDur=0.12), k(r(T13 + 0.85), look='camera', lookDur=0.15)])],
-        props=[*POLL_PROPS([[r(T13 + 0.78), 1]]), P('horloge13', 'wallClock', pos=[0.6, 2.55, -2.55], opts={'rate': 0, 'hours': 8}), PLASTER('pansement13'),
+        props=[*POLL_PROPS([[r(T13 + 0.78), 1]]), P('horloge13', 'wallClock', pos=[1.05, 2.6, -2.55], opts={'rate': 0, 'hours': 8}), PLASTER('pansement13'),
                P('bulletin13', 'divingBallots', pos=[0, 0, 0], opts={'drops': [{'from': HOLD13, 'to': SLOT(NON), 't0': T13, 'dur': 0.42, 'hold': 0.3, 'arc': 0.35, 'spin': 1}]})],
         cams=[C13])
 st.cue('whoosh', 'S13', r(T13 + 0.3), 0.18, 0.3, 900, 3500); st.cue('sfx:paper', 'S13', r(T13 + 0.72), 0.35)
@@ -411,15 +412,15 @@ st.cue('whoosh', 'S13', r(T13 + 0.3), 0.18, 0.3, 900, 3500); st.cue('sfx:paper',
 # 14: the shredder was abolished. The same shot as line 8: an usher steps in from the right, throws the velvet cover back over the shredder and
 #     pulls the trolley out of frame; the sheet unrolls with an overshoot and settles, her shiver dying away (ABOLIE stamps once they are gone)
 D14 = st.dur('S14'); ON14 = 0.2; GO14 = 0.38
-HUI14a, HUI14b, HUI14c = [0.95, LAND, -6.45], [0.12, LAND, -6.45], [1.6, LAND, -6.45]   # (round 1) inside the doorway gap, whole
+HUI14a, HUI14b, HUI14c = [0.95, LAND, -6.45], [0.12, LAND, -6.45], [3.6, LAND, -6.45]   # (round 2) he walks right out of frame   # (round 1) inside the doorway gap, whole
 chk('S14', CC['from'], CC['lookAt'], 60, {'sheetTop': [SHEET_C[0], LAND + 0.82, SHEET_C[2]], 'h1Face': [HUI14b[0], LAND + 2.0, HUI14b[2]], 'trolEnd': [2.0, LAND + 1.4, TROL[2]]})
 st.shot('S14', 'grassland', setOpts={'clouds': 26}, actors=[
         act('huissier1', HUI14a, -90, 'stand', 'neutral', keys=[k(0.0, to=HUI14b, dur=0.18, clip='walk'), k(0.0, look=[TROL[0], LAND + 1.5, TROL[2]]),
             k(0.1, toon={'reach': {'R': R5(TT(0.15, 2.05, 0.1)), 'L': R5(TT(0.15, 2.05, -0.1))}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.5, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.1),
             k(ON14, toon={'reach': {'R': R5(TT(0.2, 1.55, 0.12)), 'L': R5(TT(0.2, 1.55, -0.12))}, 'hands': {'R': 'open', 'L': 'open'}, 'sq': [1.04, 0.96, 1.04]}, toonDur=0.08),
-            k(GO14, to=HUI14c, dur=0.55, clip='walk', ease='in'), k(GO14, toon={'reach': {'L': R5(off(HUI14b, 90, -0.45, -0.2, 0.95))}, 'hands': {'L': 'grip'}, 'sq': [1, 1, 1]}, toonDur=0.1)])],
-        props=[*COURT(), P('chariot14', 'shredderTrolley', pos=TROL, ry=-20, opts={'covered': False, 'onAt': ON14}, keys=[k(GO14, to=[1.1, LAND, TROL[2]], dur=0.55, ease='in')]),
-               P('feuille14', 'feuilleSheet', pos=SHEET_C, rot=[-0.12, 0.05, 0], opts={**SHC, 'ear0': 0.95, 'curl': [[0.0, 0.5], [0.42, 0.5], [0.66, -0.14], [0.82, 0.06], [0.95, 0.0]], 'tremble': [[0.0, 1.0], [0.5, 0.35], [0.9, 0.0]], 'earKeys': EARFLAP(0.0, 0.5) + [[0.7, 1.0], [0.85, 0.9]]},
+            k(GO14, to=HUI14c, dur=0.55, clip='walk', ease='in'), k(GO14, toon={'reach': {'L': R5(off(HUI14b, 90, -0.45, -0.2, 0.95), 0), 'R': R5(off(HUI14b, 90, 0.2, 0.2, 0.95), 0)}, 'hands': {'L': 'rest', 'R': 'rest'}, 'sq': [1, 1, 1]}, toonDur=0.1)])],   # (round 2) both hands let go: no arm left behind
+        props=[*COURT(), P('chariot14', 'shredderTrolley', pos=TROL, ry=-20, opts={'covered': False, 'onAt': ON14, 'coverColor': '#1F5A3A'}, keys=[k(GO14, to=[3.0, LAND, TROL[2]], dur=0.55, ease='in')]),
+               P('feuille14', 'feuilleSheet', pos=SHEET_C, rot=[-0.12, 0.05, 0], opts={**SHC, 'curlK': 1.25, 'ear0': 0.95, 'curl': [[0.0, 1.0], [0.42, 1.0], [0.62, -0.2], [0.74, 0.08], [0.86, 0.0]], 'tremble': [[0.0, 1.2], [0.45, 0.4], [0.8, 0.0]],  'earKeys': EARFLAP(0.0, 0.5) + [[0.7, 1.0], [0.85, 0.9]]},
                  keys=[k(0.5, rotTo=[0.06, 0.0, 0], dur=0.2, ease='out'), k(0.75, rotTo=[0, 0, 0], dur=0.15, ease='inOut')])],
         cams=[CC])
 st.card('S14', 'ABOLIE', at=0.95)
@@ -432,7 +433,7 @@ D15 = st.dur('S15')
 #            frames with a confetti pop; rows already flat behind it; one flattened shredder pops half back up; the saluting line far back left
 ROLL0, ROLL1 = [-5.5, 0.03, 0.0], [2.0, 0.03, 0.0]
 SPD15 = r((ROLL1[0] - ROLL0[0]) / D15, 3)
-C15 = cam(0.0, [5.6, 2.4, 4.2], [5.55, 2.4, 4.15], [-0.8, 0.6, -1.2], [-0.5, 0.6, -1.2], lens=56)   # (round 1) higher: the flattened rows read behind the standing ones
+C15 = cam(0.0, [-3.0, 3.6, 11.5], [2.6, 3.6, 11.5], [-3.0, 0.6, -1.5], [2.6, 0.6, -1.5], lens=52)   # (round 2) side-on, panning with the drum across the front row   # (round 1) higher: the flattened rows read behind the standing ones
 LINE15 = [(f'garde{i}', [r(-6.6 + 1.1 * i), 0.03, -6.5]) for i in range(5)]
 chk('S15', C15['from'], C15['lookAt'], 56, {'rollerStart': [ROLL0[0] + 2.0, 1.2, 0], 'rollerEnd': [ROLL1[0] + 1.5, 1.2, 0], 'driverEnd': [ROLL1[0] - 0.7, 3.4, 0], 'row0a': [-3.0, 0.5, 0.0], 'row0e': [2.4, 0.5, 0.0], 'flatBehind': [-1.0, 0.1, -2.0], **{w: [p[0], 2.0, p[2]] for w, p in LINE15[1:4]}})
 st.shot('S15', 'grassland', setOpts={'clouds': 30}, actors=[
@@ -441,8 +442,8 @@ st.shot('S15', 'grassland', setOpts={'clouds': 30}, actors=[
         *[act(w, p, 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'reach': {'R': SALUTE(p, 0)}, 'hands': {'R': 'open'}, 'face': {'lid': 0.4, 'mouth': 'line', 'brow': -0.3}}, toonDur=0.0), *blink(r(0.5 + 0.37 * i), {'lid': 0.4, 'mouth': 'line', 'brow': -0.3}), k(r(1.0 + 0.2 * i), look=[ROLL1[0], 1.8, 0.0], lookDur=0.3)]) for i, (w, p) in enumerate(LINE15)]],
         props=[P('place15', 'parkLot', pos=[0, 0, -4.0], opts={'w': 70, 'd': 50, 'rows': [], 'color': '#CFC8B8', 'y': 0.03}),
                P('rouleau15', 'steamroller', pos=ROLL0, ry=0, keys=[k(0.0, to=ROLL1, dur=D15, ease='linear')]),
-               P('rangees15', 'shredderRows', pos=[0, 0, 0], opts={'rows': [[0.0, -3.0, 5, 1.35], [-2.0, -4.5, 7, 1.4], [-4.0, -6.0, 9, 1.4]], 'preFlat': [-2.0, -4.0], 'springIdx': 1, 'springDelay': 0.5, 'puffN': 22,
-                                                                  'at': 0.0, 'x0': ROLL0[0] + 2.25, 'speed': SPD15, 'rollZ0': -0.5, 'rollZ1': 0.5, 'y': 0.03, 's': 0.85}),
+               P('rangees15', 'shredderRows', pos=[0, 0, 0], opts={'rows': [[0.0, -3.0, 5, 1.35], [-2.0, -4.5, 7, 1.4], [-4.0, -6.0, 9, 1.4]], 'preFlat': [-2.0, -4.0], 'springIdx': 0, 'springDelay': 1.0, 'puffN': 30, 'puffBit': 0.2, 'puffR': 1.6,
+                                                                  'at': 0.0, 'x0': ROLL0[0] + 2.25, 'speed': SPD15, 'rollZ0': -0.5, 'rollZ1': 0.5, 'y': 0.03, 's': 1.1}),
                KEPI('kepi15', 'chauffeur'), *[KEPI(f'kepi15{i}', w) for i, (w, p) in enumerate(LINE15)]],
         cams=[C15])
 st.cue('engine', 'S15', 0.0, 0.3, D15)
@@ -469,10 +470,10 @@ st.cue('gust', 'S16', REL16, 0.35, 1.2)
 # 17: turned into a dismissal letter. The shop's back office, by a bare paper shelf: the manager's typewriter hammers LICENCIEMENT across her, the
 #     dog-ear and the tiny red smear beside the word
 D17 = st.dur('S17'); TYPE17 = 0.2
-DESK17 = [2.6, 0, -1.7]; TW17 = [2.6, 0.76, -1.62]
-SHT17 = [2.6, 1.32, -1.86]
-MAN17 = [2.6, 0, -2.55]
-C17 = cam(0.0, [2.45, 1.35, 0.8], [2.46, 1.35, 0.7], [2.62, 1.45, -1.9], [2.62, 1.45, -1.9], lens=48)   # (round 1) lower and further: his head in frame, his dark suit behind the white sheet, the typing hands above the captions
+DESK17 = [4.1, 0, -1.7]; TW17 = [4.1, 0.76, -1.62]   # (round 2) the whole desk group moved 1.5 m right: the wall clock no longer haloes his head
+SHT17 = [4.1, 1.32, -1.86]
+MAN17 = [4.1, 0, -2.55]
+C17 = cam(0.0, [3.95, 1.35, 0.8], [3.96, 1.35, 0.7], [4.12, 1.45, -1.9], [4.12, 1.45, -1.9], lens=48)   # (round 1) lower and further: his head in frame, his dark suit behind the white sheet, the typing hands above the captions
 chk('S17', C17['from'], C17['lookAt'], 48, {'sheetTop': [SHT17[0], 1.6, SHT17[2]], 'sheetMid': SHT17, 'keys': [TW17[0], 0.98, TW17[2] + 0.12], 'manFace': [MAN17[0], 2.0, MAN17[2]], 'shelf': [3.7, 1.2, -2.45]})
 st.shot('S17', 'office', setOpts=SHOP, actors=[
         act('gerant', MAN17, 0, 'stand', 'neutral', keys=[k(0.0, look=[TW17[0], 1.0, TW17[2]])] + [k(r(TYPE17 + 0.09 * j), toon={'reach': {'R': R5([TW17[0] - 0.12 + 0.06 * (j % 3), 1.0 + 0.04 * (j % 2), TW17[2] + 0.1]), 'L': R5([TW17[0] + 0.12 - 0.05 * (j % 2), 1.0 + 0.04 * ((j + 1) % 2), TW17[2] + 0.1])},
@@ -481,7 +482,7 @@ st.shot('S17', 'office', setOpts=SHOP, actors=[
         props=[P('bureau17', 'table', pos=DESK17, opts={'w': 1.3, 'd': 0.75, 'h': 0.76, 'color': '#7A5A3C', 'legs': '#4A3424'}),
                P('machine17', 'typewriter', pos=TW17, opts={'hitFrom': TYPE17, 'hitTo': r(TYPE17 + 1.25)}),
                P('lettre17', 'feuilleSheet', pos=SHT17, rot=[-0.22, 0, 0], opts={**SHEET, 'text': 'LICENCIEMENT', 'typeAt': TYPE17, 'typeDur': 1.2}),
-               P('etagere17', 'bareShelf', pos=[3.75, 0, -2.5], ry=-15)],
+               P('etagere17', 'bareShelf', pos=[5.25, 0, -2.5], ry=-15)],
         cams=[C17])
 for j in range(12): st.cue('clack', 'S17', r(TYPE17 + 0.1 * j), 0.12)
 st.cue('sfx:bell', 'S17', r(TYPE17 + 1.28), 0.25)
@@ -517,7 +518,9 @@ chk('S19', C1['from'], C1['lookAt'], 42, {'face': [HERO[0], 2.0, HERO[2]], 'lett
 st.shot('S19', 'office', setOpts=SHOP, actors=[
         act('mec', HERO, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'),
             k(0.0, toon={'reach': {'L': R5([LET19[0] + 0.19, 1.66, LET19[2] + 0.04], 1, 0.06), 'R': R5(off(HERO, 0, 0.32, 0.28, 1.95))}, 'hands': {'L': 'pinch', 'R': 'point'}, 'face': {'lid': 0.45, 'mouth': 'line', 'brow': -0.15}}, toonDur=0.0),
-            *blink(1.2, {'lid': 0.45, 'mouth': 'line', 'brow': -0.15}), k(1.7, toon={'face': {'lid': 0.5, 'mouth': 'flat', 'brow': -0.25}}, toonDur=0.3, keepPose=True)])],
+            k(0.75, toon={'sq': [1.015, 1.02, 1.015]}, toonDur=0.35, toonEase='inOut', keepPose=True), k(1.1, toon={'sq': [1, 1, 1]}, toonDur=0.3, keepPose=True),   # (round 2) a breath
+            k(1.3, toon={'face': {'lid': 1.0, 'mouth': 'line', 'brow': -0.15}}, toonDur=0.14, keepPose=True), k(1.52, toon={'face': {'lid': 0.45, 'mouth': 'line', 'brow': -0.15}}, toonDur=0.14, keepPose=True),
+            k(1.62, look=[DEMO[0], 1.1, DEMO[2]], lookDur=0.08), k(1.86, look='camera', lookDur=0.08), k(1.95, toon={'face': {'lid': 0.5, 'mouth': 'flat', 'brow': -0.25}}, toonDur=0.25, keepPose=True)])],
         props=[*SHOP_PROPS(empty=True, demo=False), PLASTER('pansement19'),   # (round 1) the plinth darker, its price tag propped up and three times bigger
                P('lettre19', 'feuilleSheet', pos=LET19, rot=[0, -0.08, 0.04], opts={**SHEET, 'text': 'LICENCIEMENT', 'smearS': 1.4})],
         cams=[C1])
@@ -547,5 +550,5 @@ st.write("La feuille", rig='toon', fingers=True, cloth=True, idleShift=1.6, hold
     'electeur3': {'preset': 'mamie', 'seed': 982, 'suit': '#7A2E4E', 'lapel': '#5A1E38', 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': EX},
     'huissier1': {'outfit': 'suit', 'suit': '#1B1B1E', 'pants': '#1B1B1E', 'tie': '#C9CDD3', 'lapel': '#1B1B1E', 'hair': 'receding', 'facial': 'none', 'seed': 983, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'huissier2': {'outfit': 'suit', 'suit': '#1B1B1E', 'pants': '#1B1B1E', 'tie': '#C9CDD3', 'lapel': '#1B1B1E', 'hair': 'slick', 'facial': 'mustache', 'seed': 984, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
-    'gerant': {'preset': 'boss', 'seed': 985, 'suit': '#3A3D44', 'tie': '#7A2333', 'facial': 'mustache', 'glasses': True, 'build': {'width': 1.0, 'headWidth': 1.2, 'belly': 0.1}, 'toon': EX},
+    'gerant': {'preset': 'boss', 'seed': 985, 'suit': '#5A606B', 'lapel': '#4A4F58', 'tie': '#7A2333', 'facial': 'mustache', 'glasses': True, 'build': {'width': 1.0, 'headWidth': 1.2, 'belly': 0.1}, 'toon': EX},
 })
