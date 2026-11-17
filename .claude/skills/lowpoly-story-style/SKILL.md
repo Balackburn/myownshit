@@ -1824,3 +1824,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   disparaît sur le fond sombre).
 - (cycle 43) Le moteur ramène dans le cadre un acteur placé près du bord : il se rend plus à l'intérieur que `project()` ne le prédit.
   Vérifier sur une image fixe.
+- (cycle 44) Sol plat sur le terrain `grassland` : à 1 cm ou moins il disparaît (le terrain s'affiche), à 2-3 cm il tient vu de haut mais
+  clignote en vue rasante. Le surélever d'au moins 5 cm, ou colorer l'herbe du décor (`grass`) comme le sol voulu.
+- (cycle 44) Gros objet qui entre dans un petit trou (sous-marin dans une flaque) : réduire son épaisseur à la largeur du trou au moment du
+  passage ; le sol cache le reste, pas besoin de plan de découpe.
+- (cycle 44) Dalle percée qu'on soulève : chaque surface posée dessus (route, trottoir) doit être percée du même trou ; aucune coque sous le
+  trou ; sol sous la dalle sombre, sinon la paroi du puits montre de l'herbe.
+- (cycle 44) Puits vu d'en haut : caméra à environ 60° vers le bas, acteur du côté opposé à la caméra, sinon le bord proche le cache.
+- (cycle 44) Nuage de pluie vu de dessus : il cache sa propre pluie. Caméra à 64 m : nuage entre 8 et 26 m d'altitude.
+- (cycle 44) Feuille qui pend d'un pupitre : faire passer le trajet devant la face avant (+0,25 m du centre), sinon elle pend dans le pupitre.
+- (cycle 44) `node --check` ne voit ni les erreurs d'import ni les erreurs d'exécution d'un accessoire : seule une image fixe rendue le confirme.
