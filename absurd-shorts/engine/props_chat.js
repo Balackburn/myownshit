@@ -102,6 +102,7 @@ export const CHAT_PROPS = {
   // clip time counts from its key), o.expr [[t, expression]] (sleepy, closed, neutral, smug, surprised...), o.blinks [t, ...], o.duck [[t, 0..1]]
   // (head and chest pressed flat on the branch), o.lick [[t0, t1]] (a front paw up to the mouth, the head bobbing over it), o.yawn [[t0, t1]] (head
   // back, jaw wide, eyes shut), o.ear [t, ...] (one ear flicks), o.tail 'dangle' (the tail hangs straight down, swinging; o.tailS lengthens it),
+  // o.swing / o.swingF: the dangling tail's pendulum (amplitude factor, rad/s); o.tailFur, o.tailW: see below;
   // o.head [[t, yaw]] (head turn, rad), o.crunch [[t0, t1]] (head down in the bowl, chewing); o.flat (0..1): ducking also squashes it flat
   // (o.duckBlend: how fast it ducks, 0.12 s)
   treeCat(o) {
@@ -109,6 +110,10 @@ export const CHAT_PROPS = {
     const J = cat.userData.joints, anim = cat.userData.animate;
     // (review 1) the creature's two whiskers per side cross at their middle and read as an "x" (a KO eye) on the white muzzle: spread them apart
     cat.traverse(m => { const p = m.geometry && m.geometry.parameters; if (m.isMesh && m.geometry.type === 'BoxGeometry' && p && Math.abs(p.width - 0.09) < 1e-6 && Math.abs(p.height - 0.005) < 1e-6) { const up = Math.sign(m.rotation.z * Math.sign(m.position.x || 1)) || 1; m.position.y += 0.014 * up; m.position.x *= 1.15; m.rotation.z *= 0.5; } });
+    // (review 2) o.tailFur: a thick ringed tail with a pale furry tip (dark stripes on both segments, a tuft at the end); o.tailW its thickness factor
+    if (o.tailFur && J.tail) { const W = 0.035 * 1.2, dk = '#A85A22';
+      for (const y of [-0.03, -0.075, -0.12, -0.165]) J.tail.add(at(box(W, 0.016, W, dk), 0, y, 0));
+      if (J.tail2) { for (const y of [-0.04, -0.095]) J.tail2.add(at(box(W * 0.9, 0.016, W * 0.9, dk), 0, y, 0)); const tuft = new THREE.Mesh(new THREE.IcosahedronGeometry(0.034, 1), mat('#F2E2C8')); tuft.position.y = -0.17; tuft.scale.set(1, 1.4, 1); addOutline(tuft, 0.06); J.tail2.add(tuft); } }
     const in_ = (ivs, t) => { for (const [a, b] of ivs || []) if (t >= a && t < b) return [a, b]; return null; };
     g.userData.update = t => {
       let t0 = -1e6; for (const [kt] of o.clips || []) { if (t >= kt) t0 = kt; else break; }
@@ -127,8 +132,9 @@ export const CHAT_PROPS = {
       const cr = in_(o.crunch, t);
       if (cr) { const u = clamp01((t - cr[0]) / 0.12); if (J.neck) J.neck.rotation.x += 0.75 * u; if (J.head) J.head.rotation.x += 0.35 * u; if (J.jaw) J.jaw.rotation.x += 0.3 * u * Math.abs(Math.sin((t - cr[0]) * 11)); }
       const ef = wob(o.ear, t, 0.7, 30, 7); if (J.earL) J.earL.rotation.z += ef; if (J.earR) J.earR.rotation.x -= 0.3 * Math.abs(ef);
-      if (o.tailS && J.tail) J.tail.scale.y *= o.tailS;   // (review 1) after animate(), which puts every joint back to its rest scale
-      if (o.tail === 'dangle' && J.tail) { J.tail.rotation.set(0.05 + 0.08 * Math.sin(t * 2.1), 0, 0.1 * Math.sin(t * 1.6)); if (J.tail2) J.tail2.rotation.set(0.05 * Math.sin(t * 2.6 + 1), 0, 0.12 * Math.sin(t * 1.9)); }
+      if (o.tailS && J.tail) J.tail.scale.y *= o.tailS;
+      if (o.tailW && J.tail) { J.tail.scale.x *= o.tailW; J.tail.scale.z *= o.tailW; }   // (review 1) after animate(), which puts every joint back to its rest scale
+      if (o.tail === 'dangle' && J.tail) { const sw = o.swing ?? 1; J.tail.rotation.set(0.05 + 0.08 * sw * Math.sin(t * 2.1), 0, 0.1 * sw * Math.sin(t * (o.swingF ?? 1.6))); if (J.tail2) J.tail2.rotation.set(0.05 * Math.sin(t * 2.6 + 1), 0, 0.12 * Math.sin(t * 1.9)); }
     };
     g.userData.update(0); return g;
   },
@@ -336,5 +342,16 @@ export const CHAT_PROPS = {
   // o.d (0.36) deep, o.color (green): an invented service mark, no cross
   medicStripe(o) {
     const g = grp(at(box(o.w ?? 0.56, o.h ?? 0.09, o.d ?? 0.36, o.color || '#2E9A58', { outline: 0.004 }), 0, 0, 0)); return g;
+  },
+
+  // A riot helmet that reads on a box head (attach to the head joint, offset [0, 0, 0]): a light grey shell over the top half of the head (o.w 0.36,
+  // from y o.y0 0.36 up to 0.62 of the head frame), a rim, and a dark clear visor raised above the eyes (o.visor: its tilt, 1.0 rad), a chin strap
+  visorHelmet(o) {
+    const w = o.w ?? 0.36, y0 = o.y0 ?? 0.36, h = 0.62 - y0, c = o.color || '#A7AFB8', g = grp();
+    g.add(at(box(w, h, w * 0.95, c, { pivot: 'bottom', outline: 0.01, taper: { x: 0.82, z: 0.82 } }), 0, y0, 0), at(box(w * 1.06, 0.03, w * 1.02, '#6E767F', { outline: 0.004 }), 0, y0, 0));
+    const vis = grp(at(new THREE.Mesh(new THREE.BoxGeometry(w * 0.98, 0.15, 0.012), new THREE.MeshLambertMaterial({ color: '#33475A', transparent: true, opacity: 0.6 })), 0, 0.075, 0));
+    vis.position.set(0, y0 + 0.02, w * 0.5); vis.rotation.x = -(o.visor ?? 1.0); g.add(vis);
+    for (const sd of [-1, 1]) g.add(at(box(0.012, y0 - 0.06, 0.02, '#2A2D33'), sd * w * 0.5, (y0 + 0.06) / 2, 0.04));
+    return g;
   },
 };
