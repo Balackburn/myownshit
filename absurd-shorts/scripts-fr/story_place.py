@@ -238,15 +238,15 @@ D6 = st.dur('S06'); REL6 = 0.8; HIT6 = 1.72
 # tilts up to a clean V of six separated jets seen from the front and below, plain flame cones (0.4-0.75); they release; the bombs hang, then fall
 # as the camera follows them down onto the car, which squashes to a pancake with a bounce; stars, no white-out
 JETS6 = [(0.0, 0.0), (-2.8, 3.6), (2.8, 3.6), (-5.6, 7.2), (5.6, 7.2), (0.0, 10.0)]   # (x offset, behind)
-JZ0, JY, JV = 50.0, 17.0, 45.4
+JZ0, JY, JV = 40.0, 17.0, 30.0
 def jet_pos(dx, back, t): return [r(KEY[0] + dx), JY, r(JZ0 + back - JV * t)]
 CP6 = [4.6, 1.05, -5.9]   # in lane A behind the red car (at -13.4 it stood among the parked cars)
 C6 = cam(0.0, CP6, add(CP6, [-0.02, 0.0, -0.03]), [1.25, 0.55, -10.6], [1.25, 0.56, -10.62], lens=48)
-C6u = cam(0.62, CP6, add(CP6, [-0.02, 0.0, 0.03]), [1.6, 13.0, 18.0], [1.6, 13.1, 17.9], lens=58)
-C6m = cam(1.02, CP6, add(CP6, [-0.02, 0.0, -0.03]), [1.25, 9.0, -9.0], [1.25, 8.8, -9.1], lens=52)   # the camera follows the bombs down
+C6u = cam(0.42, CP6, add(CP6, [-0.02, 0.0, 0.03]), [1.6, 13.5, 16.0], [1.6, 13.6, 15.9], lens=58)
+C6m = cam(1.05, CP6, add(CP6, [-0.02, 0.0, 0.03]), [1.25, 8.0, 1.5], [1.25, 7.8, 1.4], lens=56)   # the camera follows the bombs down
 C6b = cam(1.4, CP6, add(CP6, [-0.02, 0.0, -0.03]), [1.25, 0.9, -10.6], [1.25, 0.88, -10.62], lens=48)
 chk('S06a', C6['from'], C6['lookAt'], 48, {'car': [1.25, 0.8, -10.6], 'shadowAt0.25': [1.25, 0.1, -10.4]})
-chk('S06u', C6u['from'], C6u['lookAt'], 50, {**{f'jet{i}': jet_pos(dx, b, 0.75) for i, (dx, b) in enumerate(JETS6)}})
+chk('S06u', C6u['from'], C6u['lookAt'], 58, {**{f'jet{i}@{tt}': jet_pos(dx, b, tt) for tt in (0.7, 1.0) for i, (dx, b) in enumerate(JETS6) if i in (0, 3, 4, 5)}})
 chk('S06b', C6b['from'], C6b['lookAt'], 48, {'carTop': [1.25, 1.45, -10.6], 'carFoot': [1.25, 0.0, -9.0]})
 DROPS6 = [{'from': add(jet_pos(dx, back, REL6 + 0.03 * i), [0, -1.0, 0]), 'to': [r(KEY[0] + 0.12 * (i - 2.5)), 0.9, r(KEY[2] + 0.1 * (i % 3 - 1))], 't0': r(REL6 + 0.03 * i), 'dur': r(HIT6 - REL6 - 0.03 * i)} for i, (dx, back) in enumerate(JETS6)]
 st.shot('S06', 'grassland', setOpts=LOT_SET, actors=[],
@@ -259,7 +259,7 @@ st.shot('S06', 'grassland', setOpts=LOT_SET, actors=[],
                P('etoiles6', 'impactStars', pos=[KEY[0], 1.3, r(KEY[2] + 0.4)], opts={'at': HIT6, 'n': 7, 'r': 1.15, 'size': 0.22, 'dur': 0.55, 'r0': 0.3}),
                P('fumee6', 'softDust', pos=[KEY[0], 0.5, r(KEY[2] - 0.6)], opts={'at': r(HIT6 + 0.14), 'n': 8, 'size': 1.0, 'life': 1.2, 'rise': 1.6, 'spread': 2.6, 'color': '#9A958D', 'opacity': 0.55})],
         fx=[{'type': 'shake', 'at': HIT6, 'dur': 0.3, 'amount': 0.03}],
-        cams=[C6, glide([C6u], 0.3), glide([C6m], 0.3), glide([C6b], 0.25)])
+        cams=[C6, glide([C6u], 0.25), glide([C6m], 0.3), glide([C6b], 0.25)])
 st.cue('sfx:jet', 'S06', 0.15, 0.55); st.cue('whoosh', 'S06', REL6, 0.3, 0.9); st.cue('thunder', 'S06', HIT6, 0.7); st.cue('sfx:crunch', 'S06', r(HIT6 + 0.04), 0.35)
 
 # 7: and the two hundred spaces round it. High over the car park: every car squashed flat in its bay, smoking in neat rows, a lone hubcap rolling
