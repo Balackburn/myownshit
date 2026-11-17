@@ -440,7 +440,7 @@ D15 = st.dur('S15')
 #            frames with a confetti pop; rows already flat behind it; one flattened shredder pops half back up; the saluting line far back left
 ROLL0, ROLL1 = [-5.5, 0.03, 0.0], [2.0, 0.03, 0.0]
 SPD15 = r((ROLL1[0] - ROLL0[0]) / D15, 3)
-C15 = cam(0.0, [-4.0, 1.05, 4.8], [3.2, 1.05, 4.8], [-4.0, 1.5, -1.0], [3.2, 1.5, -1.0], lens=52)   # (final) at drum height and close (the front shredder about a quarter of the frame wide), panning with the drum; the roller in the lower half   # (round 2) side-on, panning with the drum across the front row   # (round 1) higher: the flattened rows read behind the standing ones
+C15 = cam(0.0, [-2.9, 1.25, 6.2], [4.6, 1.25, 6.2], [-2.6, 1.45, -1.0], [4.9, 1.45, -1.0], lens=52)   # (final) low and closer, leading the drum: each shredder squashes and flattens in view, flat carpet in front, flat rows behind   # (final) at drum height and close (the front shredder about a quarter of the frame wide), panning with the drum; the roller in the lower half   # (round 2) side-on, panning with the drum across the front row   # (round 1) higher: the flattened rows read behind the standing ones
 LINE15 = [(f'garde{i}', [r(-4.2 + 1.6 * i), 0.03, -9.0]) for i in range(5)]   # (final) behind the flattened rows
 chk('S15', C15['from'], C15['lookAt'], 56, {'rollerStart': [ROLL0[0] + 2.0, 1.2, 0], 'rollerEnd': [ROLL1[0] + 1.5, 1.2, 0], 'driverEnd': [ROLL1[0] - 0.7, 3.4, 0], 'row0a': [-3.0, 0.5, 0.0], 'row0e': [2.4, 0.5, 0.0], 'flatBehind': [-1.0, 0.1, -2.0], **{w: [p[0], 2.0, p[2]] for w, p in LINE15[1:4]}})
 st.shot('S15', 'grassland', setOpts={'clouds': 30}, actors=[
@@ -449,7 +449,7 @@ st.shot('S15', 'grassland', setOpts={'clouds': 30}, actors=[
         *[act(w, p, 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'reach': {'R': SALUTE(p, 0)}, 'hands': {'R': 'open'}, 'face': {'lid': 0.4, 'mouth': 'line', 'brow': -0.3}}, toonDur=0.0), *blink(r(0.5 + 0.37 * i), {'lid': 0.4, 'mouth': 'line', 'brow': -0.3}), k(r(1.0 + 0.2 * i), look=[ROLL1[0], 1.8, 0.0], lookDur=0.3)]) for i, (w, p) in enumerate(LINE15)]],
         props=[P('place15', 'parkLot', pos=[0, 0, -4.0], opts={'w': 70, 'd': 50, 'rows': [], 'color': '#CFC8B8', 'y': 0.03}),
                P('rouleau15', 'steamroller', pos=ROLL0, ry=0, keys=[k(0.0, to=ROLL1, dur=D15, ease='linear')]),
-               P('rangees15', 'shredderRows', pos=[0, 0, 0], opts={'rows': [[0.0, -3.0, 5, 1.35], [2.2, -5.6, 8, 1.4], [-2.0, -5.0, 8, 1.4], [-4.0, -6.0, 9, 1.4], [-6.0, -7.0, 11, 1.4], [-11.0, -9.0, 14, 1.4]], 'preFlat': [2.2, -2.0, -4.0, -6.0, -11.0], 'springIdx': 3, 'springDelay': 0.6, 'puffN': 34, 'puffBit': 0.55, 'puffR': 2.0,
+               P('rangees15', 'shredderRows', pos=[0, 0, 0], opts={'rows': [[0.0, -3.0, 5, 1.35], [2.2, -5.6, 8, 1.4], [-2.0, -5.0, 8, 1.4], [-4.0, -6.0, 9, 1.4], [-6.0, -7.0, 11, 1.4], [-11.0, -9.0, 14, 1.4]], 'preFlat': [2.2, -2.0, -4.0, -6.0, -11.0], 'springIdx': 3, 'springDelay': 0.6, 'puffN': 30, 'puffBit': 0.32, 'puffR': 1.8,
                                                                   'at': 0.0, 'x0': ROLL0[0] + 2.25, 'speed': SPD15, 'rollZ0': -0.5, 'rollZ1': 0.5, 'y': 0.03, 's': 1.1}),
                KEPI('kepi15', 'chauffeur'), *[KEPI(f'kepi15{i}', w) for i, (w, p) in enumerate(LINE15)]],
         cams=[C15])
