@@ -76,6 +76,19 @@ function bread(len = 0.7, rad = 0.06) {
   return g;
 }
 
+// (round 3) a town plan that reads as streets: paper, blocks of buildings with darker outlines, white streets with grey kerb lines between them, a
+// wide boulevard across on the diagonal, a little park and a blue river along one side (nx × nz blocks)
+function streetPlan(c, Wc, Hc, nx, nz) {
+  c.fillStyle = '#ECEAE0'; c.fillRect(0, 0, Wc, Hc);
+  c.fillStyle = '#8FC3E6'; c.beginPath(); c.moveTo(0, Hc * 0.86); c.bezierCurveTo(Wc * 0.3, Hc * 0.8, Wc * 0.6, Hc * 0.97, Wc, Hc * 0.9); c.lineTo(Wc, Hc); c.lineTo(0, Hc); c.closePath(); c.fill();
+  const bw = Wc / nx, bh = Hc * 0.84 / nz, gap = Math.min(bw, bh) * 0.2;
+  for (let i = 0; i < nx; i++) for (let k = 0; k < nz; k++) { const x = i * bw + gap / 2, y = k * bh + gap / 2, w = bw - gap, h = bh - gap;
+    c.fillStyle = (i * 7 + k * 3) % 11 === 4 ? '#A9D3A0' : '#D9CFB4'; c.fillRect(x, y, w, h); c.strokeStyle = '#9A8F78'; c.lineWidth = Math.max(1, Wc * 0.004); c.strokeRect(x, y, w, h);
+    c.strokeStyle = 'rgba(120,108,88,0.45)'; c.beginPath(); c.moveTo(x + w / 2, y); c.lineTo(x + w / 2, y + h); c.moveTo(x, y + h / 2); c.lineTo(x + w, y + h / 2); c.stroke(); }
+  c.strokeStyle = '#FFFFFF'; c.lineWidth = gap * 1.6; c.beginPath(); c.moveTo(0, Hc * 0.12); c.lineTo(Wc, Hc * 0.7); c.stroke();
+  c.strokeStyle = '#B9AF98'; c.lineWidth = Math.max(1, Wc * 0.004); c.beginPath(); c.moveTo(0, Hc * 0.12 - gap * 0.8); c.lineTo(Wc, Hc * 0.7 - gap * 0.8); c.moveTo(0, Hc * 0.12 + gap * 0.8); c.lineTo(Wc, Hc * 0.7 + gap * 0.8); c.stroke();
+}
+
 export const FLAQUE_PROPS = {
   // (round 1) A starburst that is not there before o.at (explosionBurst runs on the shot clock and is fully out from its first frame): built from
   // explosionBurst (o.size, o.seed), run on t - o.at, gone after o.life (s, default: stays)
@@ -97,7 +110,13 @@ export const FLAQUE_PROPS = {
     const ring = new THREE.Mesh(new THREE.RingGeometry(0.9, 1.0, 40).rotateX(-PI / 2), basic('#FFFFFF', { opacity: 0.8 })); ring.position.y = 0.016; ring.visible = false; g.add(ring);
     const ring2 = ring.clone(); ring2.material = ring.material.clone(); g.add(ring2);
     const drops = []; for (let i = 0; i < 16; i++) { const d = new THREE.Mesh(new THREE.SphereGeometry(0.022 + 0.014 * hsh(i), 6, 4), basic('#BFE6FF')); d.visible = false; g.add(d); drops.push(d); }
-    const sheet = new THREE.Mesh(new THREE.ConeGeometry(0.22, 0.4, 14, 1, true), basic('#D7F0FF', { opacity: 0.75, side: THREE.DoubleSide })); sheet.rotation.x = PI; sheet.visible = false; g.add(sheet);
+    // (round 3) the splash is a crown: a thin see-through wall of water that flares out from the foot, its rim pulled up into eight points, a fat
+    // drop on each point (the inverted cone with balls read as a plastic cup)
+    const crownGeo = new THREE.CylinderGeometry(0.2, 0.12, 0.2, 24, 1, true), cp = crownGeo.attributes.position;
+    for (let i = 0; i < cp.count; i++) { if (cp.getY(i) > 0) { const a = Math.atan2(cp.getZ(i), cp.getX(i)); cp.setY(i, 0.1 + 0.07 * Math.pow(Math.max(0, Math.cos(a * 4)), 3) - 0.03); } }
+    crownGeo.translate(0, 0.1, 0); crownGeo.computeVertexNormals();
+    const sheet = new THREE.Mesh(crownGeo, basic('#CFEBFF', { opacity: 0.55, side: THREE.DoubleSide })); sheet.visible = false; g.add(sheet);
+    const tips = []; for (let i = 0; i < 8; i++) { const d = new THREE.Mesh(new THREE.SphereGeometry(0.024, 7, 5), basic('#E8F7FF')); d.visible = false; g.add(d); tips.push(d); }
     let star = null; if (o.shine) { star = glowSprite('#FFFFFF', o.shine, 0.95); star.position.y = 0.2; g.add(star); }
     g.userData.update = t => {
       if (o.grow) { const s = smooth((t - o.grow[0]) / Math.max(0.01, o.grow[1] - o.grow[0])); skin.visible = s > 0.01; skin.scale.set(Math.max(0.01, s), Math.max(0.01, s), 1); }
@@ -106,7 +125,8 @@ export const FLAQUE_PROPS = {
       const sp = (o.splash || []).filter(a => t >= a && t < a + 0.75).pop(); const dir = o.splashDir || [0, 0];
       drops.forEach((d, i) => { d.visible = sp != null; if (sp == null) return; const u = t - sp, a = i / drops.length * TAU, v = 1.2 + 1.1 * hsh(i + 3), vy = 2.1 + 1.6 * hsh(i + 7);
         const y = vy * u - 4.9 * u * u; if (y < -0.01) { d.visible = false; return; } d.position.set(Math.cos(a) * v * u * 0.45 + dir[0] * u, 0.02 + y, Math.sin(a) * v * u * 0.45 + dir[1] * u); });
-      sheet.visible = sp != null && t - sp < 0.25; if (sheet.visible) { const u = (t - sp) / 0.25; sheet.scale.set(0.6 + u, 0.3 + 1.2 * Math.sin(u * PI), 0.6 + u); sheet.position.set(dir[0] * 0.1, 0.12 * Math.sin(u * PI), dir[1] * 0.1); }
+      sheet.visible = sp != null && t - sp < 0.32; if (sheet.visible) { const u = (t - sp) / 0.32, hh = Math.sin(Math.min(1, u * 1.6) * PI * 0.5) * (1 - u * u); sheet.scale.set(0.7 + 1.1 * u, Math.max(0.02, 1.5 * hh), 0.7 + 1.1 * u); sheet.position.set(dir[0] * 0.06, 0.0, dir[1] * 0.06); sheet.material.opacity = 0.6 * (1 - u * 0.7); }
+      tips.forEach((d, i) => { d.visible = sp != null && t - sp < 0.42; if (!d.visible) return; const u = t - sp, a = i / 8 * TAU + PI / 8 * 0, rr = 0.14 + 0.55 * u, y = 0.06 + 1.5 * u - 4.9 * u * u; if (y < 0.01) { d.visible = false; return; } d.position.set(Math.cos(a) * rr + dir[0] * 0.12 * u, y, Math.sin(a) * rr + dir[1] * 0.12 * u); d.scale.set(1, 1.4, 1); });
       if (star) { const k = 0.75 + 0.25 * Math.sin(t * 9); star.scale.setScalar(o.shine * k); }
     };
     g.userData.update(0); return g;
@@ -117,18 +137,23 @@ export const FLAQUE_PROPS = {
   // the same speed (visible from o.at); as it goes through, its girth squeezes to o.r (0.36 m: the puddle's half width) and it stretches (a cartoon
   // squeeze through a hole). The ground hides what is under it. o.ry: its heading (rad).
   divingSub(o) {
-    const L = o.L ?? 6, Hh = L * 0.26, g = grp(), A = grp(), S = grp(), sub = buildProp('submarine', { len: L, color: o.color || '#5E6B7A' });
+    const L = o.L ?? 6, Hh = L * 0.26, g = grp(), A = grp(), S = grp(), sub = buildProp('submarine', { len: L, color: o.color || '#5E6B7A', peri: o.peri });   // (round 3) o.peri: the periscope up ([[0, 1]])
     sub.position.set(0, -Hh / 2, -L / 2); S.add(sub); A.add(S); g.add(A);
     const th = o.tilt ?? 1.15, dir = new THREE.Vector3(0, -Math.sin(th), Math.cos(th)); A.rotation.set(th, 0, 0); g.rotation.y = o.ry ?? 0;
     const t1 = o.touch ?? 0.5, t2 = o.gone ?? 1.1, v = L * 1.15 / Math.max(0.05, t2 - t1), squeeze = Math.min(1, 2 * (o.r ?? 0.36) / Hh);
     // (round 2) o.collar: a fat ring of hull bunched up at the rim while it is sucked through (a neck at the surface: the hull is fat above it and
     // thin below), flattened, shrinking away as the stern goes in
-    const CR = o.r ?? 0.36; let col = null; if (o.collar) { col = new THREE.Mesh(new THREE.TorusGeometry(CR * 1.05, CR * 0.42, 10, 24).rotateX(PI / 2), mat(o.collarColor || '#7C8996')); col.position.y = 0.06; col.visible = false; col.castShadow = true; addOutline(col, 0.02); g.add(col); }
+    // (round 3) o.collarWater: the collar is water bulging up round the hull (pale blue, see-through, thinner), not a grey tyre that hid the rim
+    const CR = o.r ?? 0.36, CW = !!o.collarWater; let col = null; if (o.collar) { col = new THREE.Mesh(new THREE.TorusGeometry(CR * (CW ? 1.0 : 1.05), CR * (CW ? 0.26 : 0.42), 10, 24).rotateX(PI / 2), CW ? basic('#A8DCFA', { opacity: 0.72 }) : mat(o.collarColor || '#7C8996')); col.position.y = 0.06; col.visible = false; col.castShadow = !CW; if (!CW) addOutline(col, 0.02); g.add(col); }
+    // (round 3) o.approach [t0, d0]: from t0 the bow is d0 metres up its axis from the puddle and it comes down slowly, speeding up to the dive speed at
+    // o.touch (it fell at the full dive speed all the way, so the whole hull was never in the picture)
+    const ap = o.approach, apS = (t) => { const [a0, d0] = ap, T = Math.max(0.05, t1 - a0), u = clamp01((t - a0) / T);
+      const h00 = 2 * u ** 3 - 3 * u ** 2 + 1, h11 = u ** 3 - u ** 2; return -d0 * h00 + v * T * h11; };
     g.userData.update = t => {
       sub.userData.update?.(t);
       if (col) { const u = (t - t1) / Math.max(0.05, t2 - t1); col.visible = u > 0.02 && u < 0.98; if (col.visible) { const k = Math.sin(clamp01(u) * PI); col.scale.set(0.8 + 0.5 * k, 0.5 + 0.7 * k, 0.8 + 0.5 * k); col.position.y = 0.06 + 0.1 * k; } }
       const on = t >= (o.at ?? 0) && t <= t2 + 0.05; A.visible = on; if (!on) return;
-      const s = t - t1; A.position.copy(dir).multiplyScalar(v * s);
+      const s = (ap && t < t1) ? apS(t) / v : t - t1; A.position.copy(dir).multiplyScalar(v * s);
       // (round 1) the hull stays fat down to the surface and is sucked thin as it goes in (it was already thin when it reached the puddle)
       const w = smooth((t - (t1 - (o.lead ?? 0.03))) / (o.suck ?? 0.22)), gs = 1 + (squeeze - 1) * w; S.scale.set(gs, gs, 1 + 0.5 * w);
     };
@@ -142,9 +167,14 @@ export const FLAQUE_PROPS = {
   // leans and topples; chunks of asphalt fly up when it breaks through
   surfacingSub(o) {
     const L = o.L ?? 7, Hh = L * 0.26, g = grp(), R = grp(); g.add(R);
-    const sub = buildProp('submarine', { len: L, color: o.color || '#5E6B7A' }); sub.rotation.y = 0; R.add(sub);
-    const [sw, sd] = o.slab || [7, 9], slab = grp(); const top = box(sw, 0.35, sd, '#6E6E72', { outline: 0.02 }); top.position.y = -0.175; slab.add(top);
-    slab.add(at(box(0.16, 0.012, 1.8, '#F4F1E8'), 0, 0.006, -2.2), at(box(0.16, 0.012, 1.8, '#F4F1E8'), 0, 0.006, 1.8), at(box(1.3, 0.05, sd, '#E4D6BE'), sw / 2 - 0.65, 0.025, 0));
+    // (round 3) o.subRy: the hull's heading under the slab (PI / 2: lying along X, side-on to a camera down the street, so its conning tower and
+    // periscope read; bow-on it read as a grey mound); o.peri: the periscope up
+    const sub = buildProp('submarine', { len: L, color: o.color || '#5E6B7A', peri: o.peri }); sub.rotation.y = o.subRy ?? 0; R.add(sub);
+    // (round 3) the slab reads as a piece of road: dark asphalt sides with a pale cut line of gravel under the black top, a white lane line along it
+    // and a grey stone kerb (the cream kerb strip and the even grey made it read as a wooden plank)
+    const [sw, sd] = o.slab || [7, 9], slab = grp(); const top = box(sw, 0.35, sd, '#3F4044', { outline: 0.02 }); top.position.y = -0.175; slab.add(top);
+    slab.add(at(box(sw + 0.01, 0.08, sd + 0.01, '#9A948A'), 0, -0.3, 0), at(box(sw - 0.02, 0.02, sd - 0.02, '#55565B'), 0, 0.006, 0));
+    slab.add(at(box(0.18, 0.014, 1.8, '#F4F1E8'), 0, 0.02, -2.2), at(box(0.18, 0.014, 1.8, '#F4F1E8'), 0, 0.02, 1.8), at(box(sw - 0.4, 0.014, 0.16, '#F4F1E8'), 0, 0.02, sd / 2 - 0.45), at(box(1.3, 0.06, sd, '#B9B4AA', { outline: 0.008 }), sw / 2 - 0.65, 0.03, 0));
     const deckY = Hh * 0.9 + Hh * 0.62 + 0.18; slab.position.y = deckY; R.add(slab);
     const cx0 = o.carX0 || [-sw / 2 + 1.2, -sw / 2 + 2.9];
     const cars = (o.cars || ['#C9452E', '#3D7FC4']).map((c, i) => { const car = buildProp('car', { color: c }); car.rotation.y = PI / 2; car.position.set(cx0[i], 0, -1.5 + i * 3.0); slab.add(car); return car; });
@@ -237,11 +267,10 @@ export const FLAQUE_PROPS = {
   // white streets and a tiny blue puddle circled in fat red (o.circle [u, v]); o.markAt (s): a red stamp « EAUX ENNEMIES » lands across it, popping
   deskMap(o) {
     const W = o.w ?? 0.9, D = o.d ?? 0.62, g = grp(), [cu, cv] = o.circle || [0.56, 0.5];
-    const sheet = canvasPlane(W, D, (c, Wc, Hc) => { c.fillStyle = '#F3F1E6'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#DCD3BC'; for (let i = 0; i < 6; i++) for (let k = 0; k < 4; k++) c.fillRect(Wc * (0.03 + i * 0.163), Hc * (0.05 + k * 0.24), Wc * 0.13, Hc * 0.19);
-      c.fillStyle = '#9CC9A0'; c.fillRect(Wc * 0.2, Hc * 0.53, Wc * 0.13, Hc * 0.19); c.fillStyle = '#2E86D9'; c.beginPath(); c.ellipse(Wc * cu, Hc * cv, Wc * 0.012, Hc * 0.012, 0, 0, TAU); c.fill();
+    const sheet = canvasPlane(W, D, (c, Wc, Hc) => { streetPlan(c, Wc, Hc, 6, 4); c.fillStyle = '#2E86D9'; c.beginPath(); c.ellipse(Wc * cu, Hc * cv, Wc * 0.012, Hc * 0.012, 0, 0, TAU); c.fill();
       c.strokeStyle = '#D8262C'; c.lineWidth = Wc * 0.012; c.beginPath(); c.ellipse(Wc * cu, Hc * cv, Wc * 0.06, Hc * 0.08, 0.3, 0, TAU); c.stroke(); c.strokeStyle = '#3A3F45'; c.lineWidth = Wc * 0.008; c.strokeRect(2, 2, Wc - 4, Hc - 4); }, { res: 512 });
     sheet.rotation.x = -PI / 2; sheet.position.y = 0.002; sheet.receiveShadow = true; g.add(sheet);
-    const mark = canvasPlane(W * 0.62, W * 0.2, (c, Wc, Hc) => { c.clearRect(0, 0, Wc, Hc); c.strokeStyle = '#D8262C'; c.lineWidth = Hc * 0.08; c.strokeRect(Hc * 0.06, Hc * 0.06, Wc - Hc * 0.12, Hc - Hc * 0.12); c.fillStyle = '#D8262C'; c.font = `900 ${Hc * 0.5}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || 'EAUX ENNEMIES', Wc / 2, Hc * 0.54); }, { res: 512, transparent: true });
+    const mark = canvasPlane(W * 0.62, W * 0.2, (c, Wc, Hc) => { c.clearRect(0, 0, Wc, Hc); c.strokeStyle = '#D8262C'; c.lineWidth = Hc * 0.08; c.strokeRect(Hc * 0.06, Hc * 0.06, Wc - Hc * 0.12, Hc - Hc * 0.12); c.fillStyle = '#D8262C'; let fs = Hc * 0.5; c.font = `900 ${fs}px Arial`; const tw = c.measureText(o.text || 'EAUX ENNEMIES').width; if (tw > Wc * 0.84) { fs *= Wc * 0.84 / tw; c.font = `900 ${fs}px Arial`; } c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || 'EAUX ENNEMIES', Wc / 2, Hc * 0.54); }, { res: 512, transparent: true });   // (round 3) the text is fitted inside the frame (it was clipped to « UX ENNEMI »)
     mark.rotation.set(-PI / 2, 0, 0.22); mark.position.set((cu - 0.5) * W - 0.05, 0.006, (cv - 0.5) * D + 0.03); g.add(mark);
     g.userData.update = t => { const u = t - (o.markAt ?? 99); mark.visible = u >= 0; if (u >= 0) mark.scale.setScalar(u < 0.06 ? 1.4 - 2 * u : 1); };
     g.userData.update(0); return g;
@@ -253,8 +282,7 @@ export const FLAQUE_PROPS = {
     const W = o.w ?? 1.0, H = W * 1.25, g = grp(), wood = '#8A5A34';
     for (const [x, z, rz, rx] of [[-0.42, 0.12, 0.12, -0.1], [0.42, 0.12, -0.12, -0.1], [0, -0.3, 0, 0.3]]) g.add(at(cyl(0.02, 0.025, 2.0, wood, 5, { pivot: 'bottom' }), x * W, 0, z, rx, 0, rz));
     g.add(at(box(W * 1.05, 0.04, 0.08, wood), 0, 0.92, 0.2));
-    const sheet = canvasPlane(W, H, (c, Wc, Hc) => { c.fillStyle = '#EEF0E8'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#D9D2BE'; for (let i = 0; i < 5; i++) for (let k = 0; k < 6; k++) c.fillRect(Wc * (0.04 + i * 0.195), Hc * (0.04 + k * 0.16), Wc * 0.15, Hc * 0.12);
-      c.fillStyle = '#9CC9A0'; c.fillRect(Wc * 0.43, Hc * 0.68, Wc * 0.15, Hc * 0.12); c.strokeStyle = '#3A3F45'; c.lineWidth = Wc * 0.012; c.strokeRect(Wc * 0.01, Hc * 0.01, Wc * 0.98, Hc * 0.98);
+    const sheet = canvasPlane(W, H, (c, Wc, Hc) => { streetPlan(c, Wc, Hc, 5, 6); c.strokeStyle = '#3A3F45'; c.lineWidth = Wc * 0.012; c.strokeRect(Wc * 0.01, Hc * 0.01, Wc * 0.98, Hc * 0.98);
       c.fillStyle = '#2E86D9'; c.beginPath(); c.ellipse(Wc * 0.52, Hc * 0.47, Wc * 0.012, Hc * 0.007, 0, 0, TAU); c.fill(); }, { res: 512 });
     sheet.position.set(0, 0.95 + H / 2, 0.24); sheet.rotation.x = -0.12; g.add(sheet);
     const ch = canvasPlane(0.12, 0.12, (c, Wc, Hc) => { c.clearRect(0, 0, Wc, Hc); c.strokeStyle = '#E0302A'; c.lineWidth = Wc * 0.07; c.beginPath(); c.arc(Wc / 2, Hc / 2, Wc * 0.3, 0, TAU); c.stroke();
@@ -439,17 +467,40 @@ export const FLAQUE_PROPS = {
         for (const sx of [-1, 1]) { const kn = sphere(0.035, '#D8B64A', 0); kn.position.set(o.thPos[0] + sx * 0.08, 0.29 + dh * 0.48, dz + 0.05); R.add(kn); } } }
     let tower = null; if (o.tower) { tower = clockTower(o.tower[3] ?? 1.6, o.tower[2] ?? 8); tower.position.set(o.tower[0], o.towerY ?? 0, o.tower[1]); R.add(tower); }
     const hulls = []; const HL = o.hullL ?? 9, Hh = HL * 0.26, NO = o.noseOut ?? 0, zA = -D / 2 + HL / 2 - NO, zB = D / 2 - HL / 2 + NO, nzH = Math.max(1, Math.round((zB - zA) / (HL + 1)) + 1), zs = Array.from({ length: nzH }, (_, k) => nzH === 1 ? 0 : zA + (zB - zA) * k / (nzH - 1));
-    for (let x = -W / 2 + 3; x <= W / 2 - 3; x += o.hullGap ?? 6) for (const z of zs) {
+    if (!o.subs) for (let x = -W / 2 + 3; x <= W / 2 - 3; x += o.hullGap ?? 6) for (const z of zs) {
       if (o.hole && Math.abs(x - o.hole[0]) < o.hole[2] + Hh && Math.abs(z - o.hole[1]) < o.hole[2] + HL / 2 + 0.5) continue;
       const h = new THREE.Mesh(new THREE.CapsuleGeometry(Hh / 2, HL - Hh, 5, 12), mat('#5E6B7A')); h.rotation.x = PI / 2; h.position.set(x, -T - Hh / 2 + 0.15, z); h.castShadow = true; R.add(h); hulls.push(h);
       const tw = box(Hh * 0.4, Hh * 0.5, HL * 0.18, '#5E6B7A', { outline: 0.01 }); tw.position.set(x, -T - Hh * 0.27, z); R.add(tw);
       if (NO > 0) { const bandM = new THREE.Mesh(new THREE.CylinderGeometry(Hh * 0.51, Hh * 0.51, HL * 0.05, 18, 1, true), mat('#C8322A')); bandM.rotation.x = PI / 2; bandM.position.set(x, -T - Hh / 2 + 0.15, z + (z >= 0 ? 1 : -1) * HL * 0.3); R.add(bandM); } }
-    const spray = []; for (let i = 0; i < 40; i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(0.7, 1), new THREE.MeshLambertMaterial({ color: '#FFFFFF', emissive: new THREE.Color('#DDEFFF'), emissiveIntensity: 0.3, transparent: true, opacity: 0.95 })); m.visible = false; g.add(m); spray.push(m); }
+    // (round 3) o.subs [[x, z, ry], ...]: real submarines (the S04 / S05 model: conning tower, red band, fins, propeller) carry the slab on the tops of
+    // their conning towers, lying where they are put (ry PI / 2: along X, side-on to a camera on Z), instead of the grid of plain capsules (o.hullL
+    // etc. then unused); o.subLen (6 m); each one rose out of its own puddle on the ground, and throws white spray off its sides as it comes up
+    const subs = []; if (o.subs) { const SL = o.subLen ?? 6, SH = SL * 0.26, top = SH * 1.52;
+      o.subs.forEach(([x, z, ry]) => { const s = buildProp('submarine', { len: SL, color: o.subColor || '#5E6B7A' }); s.rotation.y = ry ?? PI / 2; s.position.set(x, -T - top + 0.02, z); s.traverse(c => { if (c.isMesh) c.castShadow = true; }); R.add(s);
+        const pd = FLAQUE_PROPS.puddle({ w: SL * 0.95, d: SH * 1.6, seed: 31 + subs.length }); pd.rotation.y = (ry ?? PI / 2) - PI / 2; pd.position.set(x, UY + 0.012, z); pd.visible = false; g.add(pd);
+        const puffs = []; for (let k = 0; k < 7; k++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(0.45, 1), basic('#FFFFFF', { opacity: 0.9 })); m.visible = false; g.add(m); puffs.push(m); }
+        subs.push({ s, x, z, ry: ry ?? PI / 2, pd, puffs, SL }); }); }
+    // (round 3) o.shaft: a column of sunlight falling through the hole onto his patch once the town is up (o.shaft {r, color, opacity}), and a bright
+    // pool on the patch
+    let shaft = null, pool = null; if (o.shaft && o.hole) { const sr = o.shaft.r ?? o.hole[2] * 0.8, PC = o.patchAt || [o.hole[0], o.hole[1]];
+      shaft = new THREE.Mesh(new THREE.CylinderGeometry(sr, sr * 1.08, 1, 28, 1, true).translate(0, 0.5, 0), new THREE.MeshBasicMaterial({ color: o.shaft.color || '#FFF4D2', transparent: true, opacity: o.shaft.opacity ?? 0.22, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide }));
+      shaft.position.set(PC[0], PY + 0.01, PC[1]); shaft.visible = false; shaft.castShadow = false; g.add(shaft);
+      pool = new THREE.Mesh(new THREE.CircleGeometry(sr * 1.05, 32).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: '#FFF0C0', transparent: true, opacity: 0.4, depthWrite: false, blending: THREE.AdditiveBlending })); pool.position.set(PC[0], PY + 0.012, PC[1]); pool.visible = false; g.add(pool); }
+    const spray = []; for (let i = 0; i < (o.subs ? 0 : 40); i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(0.7, 1), new THREE.MeshLambertMaterial({ color: '#FFFFFF', emissive: new THREE.Color('#DDEFFF'), emissiveIntensity: 0.3, transparent: true, opacity: 0.95 })); m.visible = false; g.add(m); spray.push(m); }
     const per = (i) => { const k = i / 40 * 4, side = Math.floor(k), f = k - side; return side === 0 ? [-W / 2 + W * f, D / 2] : side === 1 ? [W / 2, D / 2 - D * f] : side === 2 ? [W / 2 - W * f, -D / 2] : [-W / 2, -D / 2 + D * f]; };
     g.userData.update = t => {
       if (o.float) { R.position.y = (o.floatY ?? 0.9) + (o.bob ?? 0.08) * Math.sin(t * 1.6); R.rotation.z = 0.01 * Math.sin(t * 1.1); R.rotation.x = 0.008 * Math.sin(t * 1.3 + 1); }
-      else { const u = (t - (o.liftAt ?? 99)) / (o.dur ?? 0.45), L = o.lift ?? 3, B0 = o.baseY ?? 0; R.position.y = B0 + (u <= 0 ? 0 : u < 1 ? L * outBack(u) : L + 0.12 * Math.sin((u - 1) * 9) * Math.exp(-(u - 1) * 2)); }   // (round 2) o.baseY: the town stands that much proud of the set's ground at rest (on grassland its street flickered)
+      else { const u = (t - (o.liftAt ?? 99)) / (o.dur ?? 0.45), L = o.lift ?? 3, B0 = o.baseY ?? 0;   // (round 2) o.baseY: the town stands that much proud of the set's ground at rest (on grassland its street flickered)
+        // (round 3) o.sink [dur, depth, shake]: for dur s before o.liftAt the town shudders and sinks by depth (anticipation), then rises from there
+        const [sd0, sdp, ssh] = o.sink || [0, 0, 0], us = sd0 > 0 ? (t - (o.liftAt ?? 99) + sd0) / sd0 : -1, dn = u > 0 ? sdp : sdp * smooth(us);
+        R.position.y = (u <= 0 ? B0 - dn : u < 1 ? B0 - sdp + (L + sdp) * outBack(u) : B0 + L + 0.12 * Math.sin((u - 1) * 9) * Math.exp(-(u - 1) * 2));
+        const sh = (us > 0 && u < 0.35) ? (ssh || 0) : 0; R.position.x = sh * Math.sin(t * 97); R.position.z = sh * 0.6 * Math.sin(t * 71 + 1); }
       if (un) un.visible = R.position.y > (o.baseY ?? 0) + 0.08;   // (round 2) the dark floor under the town shows only once it has lifted (at rest it lay over the street)
+      const up = R.position.y - (o.baseY ?? 0);
+      if (shaft) { shaft.visible = pool.visible = up > 0.6; if (shaft.visible) { shaft.scale.y = Math.max(0.1, R.position.y - T - PY); const k = clamp01((up - 0.6) / 1.2); shaft.material.opacity = (o.shaft.opacity ?? 0.22) * k; pool.material.opacity = 0.4 * k; } }
+      subs.forEach(({ pd, puffs, x, z, ry, SL }, j) => { pd.visible = up > 0.3; const su = t - (o.liftAt ?? 99) - 0.03 * j;
+        puffs.forEach((m, k) => { const v = (su - 0.02 * k) / 0.8; m.visible = !o.float && v > 0 && v < 1; if (!m.visible) return; const along = (k / 6 - 0.5) * SL * 0.9, side = (k % 2 ? 1 : -1) * (SL * 0.16 + 0.9 * v);
+          const lx = Math.abs(Math.sin(ry)) > 0.5 ? along : side, lz = Math.abs(Math.sin(ry)) > 0.5 ? side : along; m.position.set(x + lx, 0.3 + 2.2 * Math.sin(v * PI * 0.7), z + lz); m.scale.setScalar(0.6 + 1.3 * Math.sqrt(v)); m.material.opacity = 0.92 * (1 - v); }); });
       const su = t - (o.liftAt ?? 99), SS = o.sprayS ?? 1; spray.forEach((m, i) => { const v = (su - 0.01 * (i % 7)) / (o.sprayLife ?? 1.1); m.visible = !o.float && v > 0 && v < 1; if (!m.visible) return; const [x, z] = per(i);   // (round 2) o.sprayS, o.sprayLife: smaller, shorter spray (near the lens the puffs hid the whole town)
         m.position.set(x * (1 + 0.05 * v), 0.4 + 4 * SS * Math.sin(v * PI * 0.8), z * (1 + 0.05 * v)); m.scale.setScalar((0.5 + 1.6 * Math.sqrt(v)) * SS); m.material.opacity = 0.95 * (1 - v); });
     };
@@ -469,17 +520,19 @@ export const FLAQUE_PROPS = {
     // as a top hat), and a hemp rope (no black outline: it read as a rigid black-and-gold beam) that sags in a real curve
     // (round 2) a squat metal-grey bollard (it still read as a black top hat): a wide square foot plate, a fat body that narrows to a waist, then flares
     // out into a broad rounded head that leans toward the sea, a pale rim of wear on the head; o.bollardS scales it
-    const bx = o.bx ?? 0, BS = o.bollardS ?? 1.3, BC = o.bollardColor || '#5C646C'; const bol = []; for (const x of [bx, bx + 8]) {
-      const b = grp(at(box(0.62, 0.06, 0.62, '#474D53', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(cyl(0.18, 0.26, 0.26, BC, 14, { pivot: 'bottom', outline: 0.01 }), 0, 0.06, 0), at(cyl(0.26, 0.18, 0.14, BC, 14, { pivot: 'bottom', outline: 0.01 }), 0, 0.32, 0));
-      const head = sphere(0.3, BC, 0); head.scale.set(1.12, 0.5, 1.12); head.position.set(0, 0.5, -0.04); addOutline(head, 0.02); b.add(head);
-      const rim = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.025, 6, 20).rotateX(PI / 2), mat('#9AA3AB')); rim.position.set(0, 0.5, -0.04); b.add(rim);
+    // (round 3) o.bollardStyle 'mushroom': a short black cast-iron mushroom, no band or rim (the grey dome with a pale rim and the rope's eye round its
+    // waist read as a giant kepi or a drum next to the gendarme's kepi): a squat post, then a broad flat round head
+    const bx = o.bx ?? 0, BS = o.bollardS ?? 1.3, MU = o.bollardStyle === 'mushroom', BC = o.bollardColor || (MU ? '#1E2226' : '#5C646C'); const bol = []; for (const x of [bx, bx + 8]) {
+      const b = MU ? grp(at(cyl(0.17, 0.21, 0.3, BC, 16, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0)) : grp(at(box(0.62, 0.06, 0.62, '#474D53', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(cyl(0.18, 0.26, 0.26, BC, 14, { pivot: 'bottom', outline: 0.01 }), 0, 0.06, 0), at(cyl(0.26, 0.18, 0.14, BC, 14, { pivot: 'bottom', outline: 0.01 }), 0, 0.32, 0));
+      const head = sphere(MU ? 0.33 : 0.3, BC, 0); head.scale.set(MU ? 1.0 : 1.12, MU ? 0.42 : 0.5, MU ? 1.0 : 1.12); head.position.set(0, MU ? 0.33 : 0.5, MU ? 0 : -0.04); addOutline(head, 0.02); b.add(head);
+      if (!MU) { const rim = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.025, 6, 20).rotateX(PI / 2), mat('#9AA3AB')); rim.position.set(0, 0.5, -0.04); b.add(rim); }
       b.scale.setScalar(BS); b.position.set(x, H, 0.9); g.add(b); bol.push(b); }
     const RC = o.rope?.color || '#B88E55';
-    if (o.rope) { const a = new THREE.Vector3(bx, H + 0.33 * BS, 0.9), b = new THREE.Vector3(...o.rope.to), sag = o.rope.sag ?? 1.2, pts = [];
+    if (o.rope) { const a = new THREE.Vector3(bx, H + (MU ? 0.2 : 0.33) * BS, 0.9), b = new THREE.Vector3(...o.rope.to), sag = o.rope.sag ?? 1.2, pts = [];
       for (let k = 0; k <= 16; k++) { const u = k / 16, p = a.clone().lerp(b, u); p.y -= sag * 4 * u * (1 - u); pts.push(p); }
       const curve = new THREE.CatmullRomCurve3(pts), tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 64, o.rope.r ?? 0.09, 8, false), mat(RC)); tube.castShadow = true; g.add(tube);
       const loop = new THREE.Mesh(new THREE.TorusGeometry(o.rope.loopR ?? 0.9, (o.rope.r ?? 0.09) * 1.05, 8, 24), mat(RC)); loop.position.copy(b); loop.rotation.x = PI / 2; g.add(loop);
-      const loop2 = new THREE.Mesh(new THREE.TorusGeometry(0.21 * BS, 0.07, 6, 14), mat(RC)); loop2.position.set(bx, H + 0.33 * BS, 0.9); loop2.rotation.x = PI / 2; g.add(loop2); }
+      const loop2 = new THREE.Mesh(new THREE.TorusGeometry((MU ? 0.2 : 0.21) * BS, MU ? 0.045 : 0.07, 6, 14), mat(RC)); loop2.position.set(bx, H + (MU ? 0.2 : 0.33) * BS, 0.9); loop2.rotation.x = PI / 2; g.add(loop2); }
     g.userData.bollard = [bx, H, 0.9]; return g;
   },
 
@@ -585,5 +638,52 @@ export const FLAQUE_PROPS = {
     g.userData.update = () => { if (!over && tries < 5) mk(); if (!over || !shin) return; g.updateWorldMatrix(true, false); shin.updateWorldMatrix(true, false);
       over.matrixAutoUpdate = false; over.matrix.copy(Mi.copy(g.matrixWorld).invert()).multiply(shin.matrixWorld).multiply(Ms); over.matrixWorldNeedsUpdate = true; };
     return g;
+  },
+
+  // (round 3) A big old telephone handset (attach to a hand, held like the smartphone: long axis Y, the cups toward +Z, the face): a bright red bar
+  // o.len (0.3 m) bowed in the middle, an earpiece cup at the top and a mouthpiece cup at the bottom, white highlights (the small black smartphone
+  // did not show: the pose read as scratching his head); o.color; o.rot [x, y, z] turns it in the hand
+  handset(o) {
+    const Lh = o.len ?? 0.3, C = o.color || '#D8262C', g = grp(), H = grp(); g.add(H);
+    H.add(at(box(0.055, Lh * 0.62, 0.045, C, { outline: 0.006 }), 0, 0, -0.02));
+    for (const sd of [-1, 1]) { const cup = cyl(0.058, 0.05, 0.06, C, 16, { outline: 0.006 }); cup.rotation.x = PI / 2; cup.position.set(0, sd * Lh * 0.38, 0.012); H.add(cup);
+      const face = new THREE.Mesh(new THREE.CircleGeometry(0.044, 16), basic('#2A1416')); face.position.set(0, sd * Lh * 0.38, 0.043); H.add(face);
+      for (let k = 0; k < 4; k++) { const hole = new THREE.Mesh(new THREE.CircleGeometry(0.006, 6), basic('#F2E8E0')); hole.position.set(Math.cos(k * PI / 2) * 0.018, sd * Lh * 0.38 + Math.sin(k * PI / 2) * 0.018, 0.045); H.add(hole); } }
+    H.add(at(box(0.012, Lh * 0.5, 0.004, '#FFB3AE'), -0.018, 0, 0.003));
+    const rt = o.rot || [0, 0, 0]; H.rotation.set(rt[0], rt[1], rt[2]); g.userData.grip = [0, 0, 0]; return g;
+  },
+
+  // (round 3) A big lit parking ticket (pivot at its middle, front +Z): a white card o.w (0.6) × 1.3 o.w with a red band, AVIS DE CONTRAVENTION and a
+  // barcode, slightly emissive so it reads in the shade of a door; o.flat true: lying flat (front up)
+  bigTicket(o) {
+    const w = o.w ?? 0.6, h = w * 1.3, g = grp();
+    const card = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); c.fillStyle = '#C8202A'; c.fillRect(0, 0, W, H * 0.18); c.fillStyle = '#FFFFFF'; c.textAlign = 'center'; c.textBaseline = 'middle';
+      c.font = `900 ${Math.round(H * 0.09)}px Arial`; c.fillText('AMENDE', W / 2, H * 0.095); c.fillStyle = '#1E2126'; c.font = `900 ${Math.round(H * 0.055)}px Arial`; c.fillText('AVIS DE', W / 2, H * 0.3); c.fillText('CONTRAVENTION', W / 2, H * 0.38);
+      c.fillStyle = '#9AA0A6'; for (let i = 0; i < 4; i++) c.fillRect(W * 0.12, H * (0.5 + i * 0.07), W * (0.76 - (i % 2) * 0.2), H * 0.025);
+      c.fillStyle = '#1E2126'; for (let i = 0; i < 26; i++) if (i % 3 !== 1) c.fillRect(W * (0.14 + i * 0.028), H * 0.82, W * (i % 4 ? 0.012 : 0.02), H * 0.1); }, { res: 256, emissive: 0.75 });
+    card.material.side = THREE.DoubleSide; if (o.flat) card.rotation.x = -PI / 2; g.add(card); g.userData.grip = [0, -h * 0.4, 0]; return g;
+  },
+
+  // (round 3) A small harbour boat bobbing on the water (pivot at the waterline, bow +X): a white hull with a red stripe, a little blue wheelhouse,
+  // a mast with a pennant; o.s scale
+  harbourBoat(o) {
+    const g = grp(), B = grp(); g.add(B);
+    B.add(at(box(3.2, 0.7, 1.2, '#F4F1EA', { taper: { x: 0.8, z: 0.75 }, outline: 0.01 }), 0, 0.1, 0), at(box(3.25, 0.12, 1.22, '#C8322A'), 0, 0.38, 0), at(box(1.1, 0.75, 0.9, '#2F5E8C', { pivot: 'bottom', outline: 0.01 }), -0.4, 0.45, 0),
+      at(box(0.9, 0.3, 0.92, '#BFE3F5'), -0.4, 0.95, 0), at(cyl(0.04, 0.04, 2.2, '#3A3F45', 6, { pivot: 'bottom' }), 0.6, 0.45, 0), at(box(0.5, 0.25, 0.02, '#E9C46A'), 0.85, 2.45, 0));
+    B.scale.setScalar(o.s ?? 1);
+    g.userData.update = t => { B.position.y = 0.06 * Math.sin(t * 2.1); B.rotation.z = 0.04 * Math.sin(t * 1.7); B.rotation.x = 0.03 * Math.sin(t * 1.3 + 1); };
+    g.userData.update(0); return g;
+  },
+
+  // (round 3) Soft see-through dust drifting across the ground (pivot where it starts): o.n (5) round sprites with a soft edge (the toon puffs read as
+  // beige eggs), o.size (1.2 m), o.color, o.opacity (0.35), o.life (s per puff, they loop), o.drift [x, z] (m/s), o.spread (m)
+  softDust(o) {
+    const g = grp(), n = o.n ?? 5, tex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'), gr = x.createRadialGradient(32, 32, 2, 32, 32, 31);
+      gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.5, 'rgba(255,255,255,0.55)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = gr; x.fillRect(0, 0, 64, 64); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+    const sp = []; for (let i = 0; i < n; i++) { const m = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, color: o.color || '#E2D2B4', transparent: true, opacity: 0, depthWrite: false })); g.add(m); sp.push(m); }
+    const L = o.life ?? 2.2, [dx, dz] = o.drift || [1.5, 0], S = o.size ?? 1.2, SP = o.spread ?? 2.5;
+    g.userData.update = t => { sp.forEach((m, i) => { const ph = ((t + hsh(i) * L) % L) / L; m.position.set(dx * ph * L + (hsh(i + 2) - 0.5) * SP, 0.25 + 0.5 * ph + 0.3 * hsh(i + 4), dz * ph * L + (hsh(i + 6) - 0.5) * SP);
+      m.scale.setScalar(S * (0.6 + 0.8 * ph)); m.material.opacity = (o.opacity ?? 0.35) * Math.sin(ph * PI); }); };
+    g.userData.update(0); return g;
   },
 };
