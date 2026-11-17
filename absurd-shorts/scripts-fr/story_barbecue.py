@@ -265,9 +265,9 @@ st.shot('S09', 'interrogation', actors=[
             FIST9(r(SLAM9 + 0.18), [0.52, 0.85, -1.18], [0.52, 0.85, -0.85], (1, 1, 1), {'lid': 0.15, 'mouth': 'clench', 'brow': -0.8}, 0.15, b=0.12),
             k(r(SLAM9 + 0.6), look='camera', lookDur=0.2)]),],
         props=[KEPI('kepi9', 'officier'),
-               P('chipolata9', 'sausage', pos=[0.0, 0.48, -1.45], opts={'len': 0.24, 'r': 0.028, 'color': '#C46A44', 'hop': [[r(SLAM9 + 0.02), 0.2, 0.45]]})],
+               P('chipolata9', 'sausage', pos=[0.0, 0.48, -1.45], opts={'len': 0.3, 'r': 0.034, 'color': '#C46A44', 'hop': [[r(SLAM9 + 0.02), 0.22, 0.45]]})],
         fx=[{'type': 'shake', 'at': SLAM9, 'dur': 0.15, 'amount': 0.012}],
-        cams=[cam(0.0, [-0.2, 1.4, 2.35], [-0.18, 1.39, 2.15], [0.4, 1.12, -1.2], [0.4, 1.1, -1.2], lens=46)])
+        cams=[cam(0.0, [-0.2, 1.85, 2.3], [-0.18, 1.84, 2.1], [0.38, 1.0, -1.25], [0.38, 0.98, -1.25], lens=46)])
 st.cue('thud', 'S09', SLAM9, 0.6); st.cue('sfx:tick', 'S09', 1.3, 0.12)
 
 # 10: it was swapped for a spy. A long bridge in the fog, looking along it: two soldiers carry the chipolata away from us on a stretcher, along the
