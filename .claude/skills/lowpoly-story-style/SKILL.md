@@ -1860,3 +1860,12 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 45) Salut assis : main droite à 0,12 devant, 0,15 sur le côté, hauteur de l'acteur + 1,6 m (plus bas : main sur la bouche).
   Clip `sit` : racine décalée de −0,45, mettre l'acteur à `y` = hauteur du siège − 0,45.
 - (cycle 45) `--stills cams` ne rend pas le début du plan : pour vérifier une action, donner des instants explicites.
+- (cycle 44) Accessoire attaché à un acteur : il est mis à l'échelle 1 / échelle de l'acteur, et `buildProp` l'emballe dans son propre
+  groupe. Une copie de maillage posée en coordonnées locales finit trop petite, dans le maillage : la placer depuis la matrice monde.
+- (cycle 44) Un moteur de test fait de liens symboliques teste `engine/` (Node suit les liens) : copier les fichiers, lier seulement
+  `node_modules`.
+- (cycle 44) `reach` n'accepte pas les points du visage (`['face', …]`), seul `touch` le fait (téléphone à la tempe).
+- (cycle 44) Eau d'un chenal derrière un quai : la caméra doit plonger plus que hauteur du quai / distance, ou élargir le chenal à 1,5 m.
+  Une corde vers une tour en retrait passe derrière la façade : avancer la tour au ras de la façade.
+- (cycle 44) Écume ou poussière près de l'objectif : réduire la taille et la durée, sinon elle masque le décor.
+- (cycle 44) Sol caché sous un décor qu'on soulève : le poser au moins 5 cm au-dessus du terrain, sinon il clignote (flash vert).
