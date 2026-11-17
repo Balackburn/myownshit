@@ -47,6 +47,9 @@ export const GUEPE_PROPS = {
   // (review 1 of 81) o.rear (rad): during o.plant it rears up on its hind legs by that angle (pivot at the hind feet); o.grip [[t, dy], ...]: the
   // front feet (the flag's pole in them) raised by dy (fly units) at t, eased between keys; o.dips [t, ...]: three big dives into the sugar, each
   // a lunge forward, the head down, then a rock back, and two sugar crumbs flying off; o.rubAmp (1): how far the front feet travel as they rub
+  // (review 2 of 81) each dive now rears back for 0.1 s first (the head up, the body drawn back), squashes as it hits the sugar and kicks out four
+  // crumbs; o.flick [[t0, t1], ...]: the wings buzz without taking off (a shiver of life on a hold); o.medalZ / o.medalY: where the medal hangs
+  // on the flank (front to back, fly units; 0.033 / 0.03: on the chest, where in a front view it read as a tongue); o.rubHz (3.2): rubs a second
   houseFly(o) {
     const g = grp(), rp = grp(), bd = grp(); g.add(rp); rp.add(bd); rp.position.z = -0.03;
     const dark = '#3A3E44', belly = '#2C353A';
@@ -81,32 +84,36 @@ export const GUEPE_PROPS = {
       const ms = o.medalSide ?? 1; medal = grp();
       ['#2F62B5', '#F4F4F0', '#E0413A'].forEach((c, i) => medal.add(at(box(0.0055, 0.016, 0.0012, c), -0.0055 + i * 0.0055, 0.0, 0)));
       const disc = at(cyl(0.011, 0.011, 0.0025, '#E6B84A', 14, { emissive: '#5A3E0A' }), 0, -0.016, 0.0008, PI / 2, 0, 0); addOutline(disc, 0.12); medal.add(disc);
-      medal.position.set(ms * 0.012, 0.03, 0.033); medal.rotation.y = ms * 0.35; bd.add(medal);
+      medal.position.set(ms * 0.012, o.medalY ?? 0.03, o.medalZ ?? 0.033); medal.rotation.y = ms * 0.35; bd.add(medal);
     }
     if (o.halo) { const hs = glowSprite('#FFF4D6', 0.22, o.halo); hs.position.set(0, 0.03, -0.01); g.add(hs); }
     const keyAt = (L, t) => { if (!L || !L.length) return 0; if (t <= L[0][0]) return L[0][1]; for (let i = 1; i < L.length; i++) if (t <= L[i][0]) { const u = smooth((t - L[i - 1][0]) / Math.max(1e-6, L[i][0] - L[i - 1][0])); return L[i - 1][1] + (L[i][1] - L[i - 1][1]) * u; } return L[L.length - 1][1]; };
     // the dives: forward weight f (0..1) and rock back b (0..1) of the dive under way at t
-    const dive = (t) => { let f = 0, b = 0; for (const t0 of (o.dips || [])) { const u = t - t0; if (u < 0 || u > 0.5) continue;
-      f = Math.max(f, u < 0.1 ? smooth(u / 0.1) : u < 0.2 ? 1 : 1 - smooth((u - 0.2) / 0.1)); if (u > 0.22 && u < 0.5) b = Math.max(b, Math.sin(PI * (u - 0.22) / 0.28)); } return [f, b]; };
-    const crumbs = []; for (const t0 of (o.dips || [])) for (const s of [-1, 1]) { const c = at(box(0.012, 0.01, 0.012, '#FFFFFF', { outline: 0.1 }), 0, 0, 0); c.visible = false; g.add(c); crumbs.push({ c, t0: t0 + 0.12, s }); }
+    // (review 2) a: the rear-back before the lunge (0.1 s, then released in 0.06 s); q: the squash as it hits the sugar
+    const dive = (t) => { let f = 0, b = 0, a = 0, q = 0; for (const t0 of (o.dips || [])) { const u = t - t0; if (u < -0.1 || u > 0.5) continue;
+      if (u < 0) { a = Math.max(a, smooth((u + 0.1) / 0.1)); continue; } if (u < 0.06) a = Math.max(a, 1 - smooth(u / 0.06));
+      f = Math.max(f, u < 0.1 ? smooth(u / 0.1) : u < 0.2 ? 1 : 1 - smooth((u - 0.2) / 0.1)); if (u > 0.22 && u < 0.5) b = Math.max(b, Math.sin(PI * (u - 0.22) / 0.28));
+      if (u > 0.08 && u < 0.22) q = Math.max(q, Math.sin(PI * (u - 0.08) / 0.14)); } return [f, b, a, q]; };
+    const crumbs = []; for (const t0 of (o.dips || [])) for (const [s, v] of [[-1, 1], [1, 1], [-1, 0.6], [1, 0.75]]) { const c = at(box(0.015, 0.012, 0.015, '#FFFFFF', { outline: 0.1 }), 0, 0, 0); c.visible = false; g.add(c); crumbs.push({ c, t0: t0 + 0.11, s, v }); }
     const lookAt_ = (t) => { const L = o.look; if (!L || !L.length) return 0; if (t <= L[0][0]) return L[0][1]; for (let i = 1; i < L.length; i++) if (t <= L[i][0]) { const u = smooth((t - L[i - 1][0]) / Math.max(1e-6, L[i][0] - L[i - 1][0])); return L[i - 1][1] + (L[i][1] - L[i - 1][1]) * u; } return L[L.length - 1][1]; };
     g.userData.update = t => {
-      const wB = winW(o.buzz, t, 0.05), wR = winW(o.rub, t, 0.1), wE = winW(o.eat, t, 0.1);
+      const wB = winW(o.buzz, t, 0.05), wR = winW(o.rub, t, 0.1), wE = winW(o.eat, t, 0.1), wF = winW(o.flick, t, 0.03);
       const wS = o.salute == null ? 0 : smooth((t - o.salute) / 0.12);
       const wP = o.plant ? winW([[o.plant[0], o.plant[1] + 0.25]], t, 0.12) : 0, push = o.plant ? smooth((t - o.plant[1]) / 0.1) : 0;
       bd.position.y = wB * ((o.bob ?? 0.01) * (0.6 + 0.4 * Math.sin(t * 6.3)) + 0.006);
-      bd.position.x = wB * 0.004 * Math.sin(t * 4.1); bd.position.z = 0.03;
-      const dab = wE * 0.12 * Math.max(0, Math.sin(t * TAU * 4)), [dF, dB] = dive(t);
-      bd.rotation.x = 0.12 * wE - 0.12 * wP + 0.55 * dF - 0.38 * dB; head.rotation.x = 0.45 * wE + dab + 0.75 * dF - 0.2 * dB; head.rotation.y = lookAt_(t); prob.scale.set(1, 0.2 + 0.8 * Math.max(wE, dF), 1);
+      bd.position.x = wB * 0.004 * Math.sin(t * 4.1);
+      const dab = wE * 0.12 * Math.max(0, Math.sin(t * TAU * 4)), [dF, dB, dA, dQ] = dive(t);
+      bd.rotation.x = 0.12 * wE - 0.12 * wP + 0.55 * dF - 0.38 * dB - 0.42 * dA; head.rotation.x = 0.45 * wE + dab + 0.75 * dF - 0.2 * dB - 0.3 * dA; head.rotation.y = lookAt_(t); prob.scale.set(1, 0.2 + 0.8 * Math.max(wE, dF), 1);
+      bd.position.z = 0.03 - 0.014 * dA + 0.01 * dF; bd.scale.set(1 + 0.22 * dQ, 1 - 0.3 * dQ, 1 + 0.12 * dQ);
       rp.rotation.x = -(o.rear ?? 0) * wP;
       for (const C of crumbs) { const u = t - C.t0; C.c.visible = u >= 0 && u < 0.45; if (!C.c.visible) continue;
-        C.c.position.set(C.s * 0.25 * u, 0.03 + 0.9 * u - 6.5 * u * u, 0.075 + 0.2 * u); C.c.rotation.set(u * 14, u * 9, 0); }
+        C.c.position.set(C.s * 0.3 * C.v * u, 0.03 + 1.05 * C.v * u - 6.5 * u * u, 0.075 + 0.25 * u); C.c.rotation.set(u * 14, u * 9, 0); }
       for (const W of wings) {
-        if (wB > 0.5) { const ph = t * TAU * 11.3 + (W.s > 0 ? 0 : 0.5); W.h.rotation.set(0, -W.s * (0.95 + 0.55 * Math.sin(ph)), W.s * (0.6 + 0.45 * Math.sin(ph + 1.2)));
+        if (wB > 0.5 || wF > 0.5) { const ph = t * TAU * 11.3 + (W.s > 0 ? 0 : 0.5); W.h.rotation.set(0, -W.s * (0.95 + 0.55 * Math.sin(ph)), W.s * (0.6 + 0.45 * Math.sin(ph + 1.2)));
           W.fh.visible = true; W.fan.material.opacity = 0.24 + 0.08 * Math.sin(t * 37); }
         else { W.h.rotation.set(0, -W.s * (0.3 + 0.04 * wR), W.s * 0.05); W.fh.visible = false; }
       }
-      const wv = t * TAU * 3.2;
+      const wv = t * TAU * (o.rubHz ?? 3.2);
       for (const L of legs) {
         const { s, i, z } = L, R = [s * 0.011, 0.02, z];
         let K = [s * 0.04, 0.034, z + (i === 0 ? 0.012 : i === 2 ? -0.01 : 0)], F = [s * 0.05, 0.0, z + (i === 0 ? 0.03 : i === 2 ? -0.03 : 0)];
@@ -181,6 +188,7 @@ export const GUEPE_PROPS = {
   // rises); o.snow: snow on the deck and the island; o.waterline (true): a dark band at y 0 and a red hull below it (seen in the sink).
   // userData.deck: the deck's height; userData.cat0 / cat1: the catapult's two ends (prop space)
   // (review 1 of 81) o.spray: white spray bursting up round the bow at the waterline, churning for ever (with o.wake: charging at sea)
+  // (review 2 of 81) o.hatchAt (-0.2): where the hatch sits along the deck (fraction of L from the middle, + toward the bow)
   carrier(o) {
     const L = o.L ?? 1.8, B = 0.22 * L, Hh = 0.13 * L, dr = 0.05 * L, g = grp(), gry = '#8E969E', dk = '#50565D';
     const hullShape = new THREE.Shape(); hullShape.moveTo(-B / 2, L / 2); hullShape.lineTo(B / 2, L / 2); hullShape.lineTo(B / 2, -0.22 * L); hullShape.lineTo(0.05 * B, -L / 2); hullShape.lineTo(-0.05 * B, -L / 2); hullShape.lineTo(-B / 2, -0.22 * L); hullShape.closePath();
@@ -210,10 +218,14 @@ export const GUEPE_PROPS = {
     const sideR = rnd.clone(); sideR.rotation.set(0, -PI / 2, 0); sideR.scale.setScalar(0.45); sideR.position.set(0.031 * L, 0.04 * L, 0.03 * L); sideR.rotation.y = PI / 2; isl.add(sideR);
     const radar = grp(at(box(0.05 * L, 0.012 * L, 0.006 * L, '#D9DDE1', { outline: 0.02 }), 0, 0, 0)); radar.position.set(0, 0.2 * L, -0.03 * L); isl.add(radar);
     // the hatch, aft on the left of the deck
-    const hatchP = [-0.08 * L, dt, -0.2 * L], hl = grp(at(box(0.05 * L, 0.006 * L, 0.05 * L, '#6A7078', { outline: 0.02 }), 0, 0, 0.025 * L)); hl.position.set(hatchP[0], dt + 0.003 * L, hatchP[2] - 0.025 * L);
+    const hatchP = [-0.08 * L, dt, (o.hatchAt ?? -0.2) * L], hl = grp(at(box(0.05 * L, 0.006 * L, 0.05 * L, '#6A7078', { outline: 0.02 }), 0, 0, 0.025 * L)); hl.position.set(hatchP[0], dt + 0.003 * L, hatchP[2] - 0.025 * L);
     g.add(at(box(0.05 * L, 0.002, 0.05 * L, '#141619'), hatchP[0], dt, hatchP[2]), hl);
-    if (o.snow) { const rr = rng(9); for (let i = 0; i < 14; i++) g.add(at(box((0.04 + rr() * 0.08) * L, 0.006 * L, (0.04 + rr() * 0.1) * L, '#F6F8FA'), (rr() - 0.5) * 0.25 * L, dt + 0.002, (rr() - 0.5) * 0.85 * L, 0, rr(), 0));
-      isl.add(at(box(0.064 * L, 0.01 * L, 0.205 * L, '#F6F8FA'), 0, 0.077 * L, 0), at(box(0.054 * L, 0.01 * L, 0.115 * L, '#F6F8FA'), 0, 0.117 * L, -0.02 * L)); }
+    // (review 2 of 81) snow as soft rounded drifts banked against the island and along the deck's edges (flat slabs read as sheets of paper)
+    if (o.snow) { const rr = rng(9), sm = mat('#EEF2F6'), dr = (x, z, sx, sy, sz, par = g, y = dt) => { const m = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 7), sm); m.scale.set(sx, sy, sz); m.position.set(x, y, z); m.castShadow = m.receiveShadow = true; addOutline(m, 0.02); par.add(m); };
+      for (let i = 0; i < 9; i++) { const z = (-0.42 + i * 0.1) * L, s = i % 2 ? 1 : -1; dr(s * (0.1 + rr() * 0.04) * L, z, (0.05 + rr() * 0.03) * L, (0.012 + rr() * 0.008) * L, (0.06 + rr() * 0.04) * L); }
+      for (let i = 0; i < 5; i++) dr((rr() - 0.5) * 0.12 * L, (-0.35 + i * 0.17) * L, (0.04 + rr() * 0.03) * L, (0.008 + rr() * 0.006) * L, (0.05 + rr() * 0.03) * L);
+      dr(0.09 * L, 0.0, 0.035 * L, 0.02 * L, 0.12 * L); dr(-0.03 * L, -0.38 * L, 0.06 * L, 0.014 * L, 0.05 * L);
+      dr(0, 0.0, 0.034 * L, 0.012 * L, 0.105 * L, isl, 0.075 * L); dr(0, -0.02 * L, 0.029 * L, 0.012 * L, 0.06 * L, isl, 0.115 * L); }
     let wake = null, bowW = null;
     if (o.wake) { const wm = basic('#FFFFFF', { opacity: 0.8, side: THREE.DoubleSide });
       wake = new THREE.Mesh(new THREE.PlaneGeometry(B * 1.6, L * 2.2, 4, 20), wm); wake.rotation.x = -PI / 2; wake.position.set(0, 0.006 * L, -L * 1.55); g.add(noShadow(wake));
@@ -236,7 +248,7 @@ export const GUEPE_PROPS = {
   // o.grow (1.6 s) from o.at (0); o.calm: a still pool (no sheet; the flood has stopped)
   // (review 1 of 81) o.bright: a bright white-blue sheet with white foam streaks running down it, a foam lip, bigger splashes and a foam ring on the pool
   waterSpill(o) {
-    const Wd = o.w ?? 0.5, Ht = o.h ?? 0.9, g = grp(), wm = new THREE.MeshLambertMaterial({ color: o.bright ? '#A8DEF5' : '#7CC6E6', transparent: true, opacity: o.bright ? 0.9 : 0.72, side: THREE.DoubleSide, emissive: new THREE.Color(o.bright ? '#4FA6CC' : '#2E6E8A'), emissiveIntensity: o.bright ? 0.55 : 0.4, depthWrite: false });
+    const Wd = o.w ?? 0.5, Ht = o.h ?? 0.9, g = grp(), wm = new THREE.MeshLambertMaterial({ color: o.bright ? '#C4ECFB' : '#7CC6E6', transparent: true, opacity: o.bright ? 0.95 : 0.72, side: THREE.DoubleSide, emissive: new THREE.Color(o.bright ? '#79C6E6' : '#2E6E8A'), emissiveIntensity: o.bright ? 0.7 : 0.4, depthWrite: false });
     let sheet = null, base = null;
     if (!o.calm) { const geo = new THREE.PlaneGeometry(Wd, 1, 6, 16); base = geo.attributes.position.array.slice(); sheet = new THREE.Mesh(geo, wm); g.add(noShadow(sheet)); }
     const pool = new THREE.Mesh(new THREE.CircleGeometry(1, 28), new THREE.MeshLambertMaterial({ color: '#8FD2EC', transparent: true, opacity: 0.6, emissive: new THREE.Color('#3C7E98'), emissiveIntensity: 0.35, depthWrite: false }));
@@ -304,12 +316,17 @@ export const GUEPE_PROPS = {
 
   // A riot helmet to wear on a head (hang it on the head joint at the top of the head: origin there, the face toward +Z): a dark navy dome, a raised clear
   // visor, a chin strap; o.dent: the dome caved in on one side and tilted (a baton blow); o.s (1)
+  // (review 2 of 81) o.guard: a rim round the dome's foot and a neck guard over the back and the sides instead of the flat slab (on a box head the
+  // slab and the dome read as a peaked cap with a black box on top); hang it lower and bigger so the dome swallows the head's top
   riotHelmet(o) {
     const s = o.s ?? 1, g = grp(), h = grp(); g.add(h);
     const dome = new THREE.Mesh(new THREE.SphereGeometry(0.16, 14, 8, 0, TAU, 0, PI / 2), mat('#1F2838')); dome.scale.set(1.0, 0.95, 1.12); dome.castShadow = true; addOutline(dome, 0.03); h.add(dome);
-    h.add(at(box(0.33, 0.03, 0.36, '#1F2838', { outline: 0.006 }), 0, 0.01, 0));
+    if (o.guard) { h.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.165, 0.014, 5, 20), mat('#151B26')), 0, 0.004, 0, PI / 2, 0, 0));
+      const ng = new THREE.Mesh(new THREE.CylinderGeometry(0.165, 0.176, 0.16, 16, 1, true, PI / 2 - 0.25, PI + 0.5), new THREE.MeshLambertMaterial({ color: '#1A2230', side: THREE.DoubleSide })); ng.scale.set(1.0, 1, 1.12); ng.position.y = -0.074; ng.castShadow = true; h.add(ng);
+      h.add(at(sphere(0.02, '#C9D0D6', 1), 0, 0.15, 0.02)); }
+    else h.add(at(box(0.33, 0.03, 0.36, '#1F2838', { outline: 0.006 }), 0, 0.01, 0));
     const vis = new THREE.Mesh(new THREE.CylinderGeometry(0.175, 0.175, 0.13, 14, 1, true, -PI / 2.6, PI / 1.3), new THREE.MeshLambertMaterial({ color: '#CFE3EE', transparent: true, opacity: 0.5, side: THREE.DoubleSide, depthWrite: false }));
-    vis.position.set(0, 0.11, 0.02); vis.rotation.x = -0.9; h.add(vis);
+    vis.position.set(0, 0.11, 0.02); vis.rotation.x = -0.9; if (!o.guard) h.add(vis);
     if (o.dent) { const d = at(sphere(0.07, '#151B26', 1), 0.07, 0.12, 0.02); d.scale.set(0.6, 0.35, 1.0); h.add(d); dome.scale.set(1.0, 0.82, 1.12); h.rotation.z = 0.22; h.rotation.x = 0.08;
       for (let i = 0; i < 3; i++) h.add(at(box(0.004, 0.06, 0.004, '#0A0C10'), 0.08 + i * 0.012, 0.12 - i * 0.01, 0.06 + i * 0.01, 0, 0, 0.6 - i * 0.4)); }
     g.scale.setScalar(s); return g;
@@ -317,11 +334,17 @@ export const GUEPE_PROPS = {
 
   // An army helmet to wear on a head (hang it on the head joint at the top of the head): a rounded olive steel helmet with a rim and a strap; o.snow: a
   // cap of snow on it; o.s (1)
+  // (review 2 of 81) o.skirt (0.24 m): the steel comes down over the back and the sides of the head (seen from behind, a bare dome on a box head
+  // read as a fringe and a cap brim); the snow is a thin layer, no longer a meringue
   armyHelmet(o) {
     const s = o.s ?? 1, g = grp();
     const dome = new THREE.Mesh(new THREE.SphereGeometry(0.155, 14, 8, 0, TAU, 0, PI / 2), mat('#5C6B3C')); dome.scale.set(1.05, 0.9, 1.12); dome.castShadow = true; addOutline(dome, 0.03); g.add(dome);
     g.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.018, 5, 18), mat('#4E5C32')), 0, 0.005, 0, PI / 2, 0, 0));
-    if (o.snow) { const sn = new THREE.Mesh(new THREE.SphereGeometry(0.15, 12, 6, 0, TAU, 0, PI / 2), mat('#F7F9FB')); sn.scale.set(0.95, 0.5, 1.0); sn.position.y = 0.1; g.add(sn); }
+    const sk = o.skirt ?? 0.24;
+    if (sk > 0) { const m = new THREE.Mesh(new THREE.CylinderGeometry(0.168, 0.178, sk, 16, 1, true, PI / 2 - 0.35, PI + 0.7), new THREE.MeshLambertMaterial({ color: '#56653A', side: THREE.DoubleSide }));
+      m.scale.set(1.05, 1, 1.12); m.position.y = 0.012 - sk / 2; m.castShadow = true; g.add(m);
+      const lip = new THREE.Mesh(new THREE.TorusGeometry(0.178, 0.012, 4, 16, PI + 0.7), mat('#4A5730')); lip.rotation.set(PI / 2, 0, PI / 2 - 0.35 + 0.0); lip.scale.set(1.05, 1.12, 1); lip.position.y = 0.012 - sk; g.add(lip); }
+    if (o.snow) { const sn = new THREE.Mesh(new THREE.SphereGeometry(0.15, 12, 6, 0, TAU, 0, PI / 2), mat('#EEF2F6')); sn.scale.set(0.98, 0.3, 1.04); sn.position.y = 0.1; g.add(sn); }
     g.scale.setScalar(s); return g;
   },
 
@@ -425,7 +448,8 @@ export const GUEPE_PROPS = {
 
   // The ruins of the kitchen at ground level (pivot at the middle of the floor; front +Z): the peach and cream tiles o.w (5.2) x o.d (3.6) with a few
   // missing, the stumps of two walls (back and left) with jagged tops and the kitchen's peach paint and mint band inside, heaps of concrete and brick
-  // round the edges, a fallen beam; o.smoke: thin grey wisps rising from the heaps (for ever); o.snow: snow on everything, white patches on the tiles
+  // round the edges, a fallen beam; o.smoke: thin grey wisps rising from the heaps (for ever); o.snow: snow on everything, white patches on the tiles;
+  // (review 2 of 81) o.sides [0, 1, 2]: which heaps to keep (0 behind, 1 at the left, 2 at the right): a heap in a reverse shot's sightline goes
   ruinFloor(o) {
     const Wd = o.w ?? 5.2, Dp = o.d ?? 3.6, g = grp(), rr = rng(o.seed || 31), geo = new THREE.DodecahedronGeometry(1, 0), cols = ['#C9C0AE', '#B5AC9A', '#D8CFBD', '#A79F8F', '#B9664E'];
     const tl = grp(); for (let i = 0; i < Math.round(Wd / 0.4); i++) for (let j = 0; j < Math.round(Dp / 0.4); j++) { if (rr() < 0.05) continue;
@@ -436,6 +460,7 @@ export const GUEPE_PROPS = {
     stump(Wd * 0.9, 0, -Dp / 2 - 0.15, 0); stump(Dp * 0.8, -Wd / 2 - 0.15, -0.2, PI / 2);
     for (let i = 0; i < 70; i++) { const side = i % 3, s = 0.12 + rr() * 0.32; let x, z;
       if (side === 0) { x = -Wd / 2 - 0.4 + rr() * Wd * 1.1; z = -Dp / 2 - 0.5 - rr() * 1.2; } else if (side === 1) { x = -Wd / 2 - 0.5 - rr() * 1.2; z = -Dp / 2 + rr() * Dp; } else { x = Wd / 2 + 0.3 + rr() * 1.4; z = -Dp / 2 + rr() * Dp * 1.1; }
+      if (o.sides && !o.sides.includes(side)) continue;
       const m = new THREE.Mesh(i % 6 === 0 ? new THREE.BoxGeometry(1, 0.25, 0.6) : geo, mat(cols[i % cols.length])); m.position.set(x, s * 0.5, z); m.scale.setScalar(s * (i % 6 === 0 ? 2 : 1)); m.rotation.set(rr() * 3, rr() * 3, rr() * 3); m.castShadow = m.receiveShadow = true; g.add(m); }
     g.add(at(box(2.4, 0.16, 0.2, '#8A6A4E', { outline: 0.01 }), Wd / 2 + 0.6, 0.3, -Dp / 2 + 0.4, 0.1, 0.5, 0.35));
     for (let i = 0; i < 12; i++) g.add(at(box(0.08 + rr() * 0.1, 0.05, 0.06 + rr() * 0.1, cols[i % cols.length]), (rr() - 0.5) * Wd * 0.9, 0.04, (rr() - 0.5) * Dp * 0.9, 0, rr() * 3, 0));
@@ -520,7 +545,9 @@ export const GUEPE_PROPS = {
   // (review 1 of 81) The street's blown-out facades (pivot at the foot of the middle of the row, the row along X, the faces toward +Z): o.len (60 m)
   // of broken building fronts o.h (16-24 m) high with jagged tops, their stone pale and scorched, rows of windows (many blown out, black), big blast
   // holes, soot streaks, balconies hanging, a heap of rubble spilling forward along the foot; o.gap [x0, x1]: no facade there (keep a vista), only
-  // rubble; o.smoke [[x, z], ...]: a column of grey smoke rising from there, for ever; o.snow: snow on the ledges, on the tops and on the rubble.
+  // rubble; o.smoke [[x, z], ...]: a column of grey smoke rising from there, for ever; o.snow: snow on the ledges, on the tops and on the rubble;
+  // (review 2 of 81) o.holes (3): how many big blast holes per facade (0 where one would sit as a black blot at the top of a frame); o.rubble (1):
+  // the size of the rubble chunks along the foot (smaller where they loom over a high shot's far edge).
   // Stand it right in front of a row of intact facades: they vanish behind it
   ruinsBackdrop(o) {
     const len = o.len ?? 60, g = grp(), rr = rng(o.seed || 41), bw = o.bw ?? 12, n = Math.max(1, Math.round(len / bw)), stones = ['#E9DFCD', '#DDD0BA', '#EFE6D6', '#D6C7AE'];
@@ -537,7 +564,7 @@ export const GUEPE_PROPS = {
         for (let f = 0; f < fl; f++) for (let k = 0; k < cols; k++) { const wx = (k + 0.25) * W / cols, wy = H * (0.12 + f * 0.135), ww = W / cols * 0.5, wh = H * 0.075, blown = r2() < 0.45;
           c.fillStyle = blown ? '#1E1B19' : '#5E6E7C'; c.fillRect(wx, wy, ww, wh); if (!blown) { c.fillStyle = '#EDE6DA'; c.fillRect(wx - ww * 0.08, wy + wh, ww * 1.16, H * 0.008); }
           if (blown && r2() < 0.6) { const gr = c.createLinearGradient(0, wy, 0, wy - H * 0.09); gr.addColorStop(0, 'rgba(30,26,24,0.75)'); gr.addColorStop(1, 'rgba(30,26,24,0)'); c.fillStyle = gr; c.fillRect(wx - ww * 0.15, wy - H * 0.09, ww * 1.3, H * 0.09); } }
-        for (let b = 0; b < 3; b++) { const bx = W * (0.15 + r2() * 0.7), by = H * (0.3 + r2() * 0.5), br = W * (0.06 + r2() * 0.07); c.fillStyle = '#191615'; c.beginPath();
+        for (let b = 0; b < (o.holes ?? 3); b++) { const bx = W * (0.15 + r2() * 0.7), by = H * (0.3 + r2() * 0.5), br = W * (0.06 + r2() * 0.07); c.fillStyle = '#191615'; c.beginPath();
           for (let a = 0; a < 14; a++) { const rad = br * (0.65 + r2() * 0.5); c.lineTo(bx + Math.cos(a / 14 * TAU) * rad, by + Math.sin(a / 14 * TAU) * rad * 1.2); } c.closePath(); c.fill();
           c.strokeStyle = 'rgba(40,34,30,0.55)'; c.lineWidth = br * 0.35; c.stroke(); }
         c.fillStyle = 'rgba(70,62,56,0.18)'; c.fillRect(0, H * 0.93, W, H * 0.07);
@@ -549,11 +576,63 @@ export const GUEPE_PROPS = {
       if (o.snow) for (let f = 0; f < 6; f++) g.add(at(box(w * 0.96, 0.08, 0.35, '#F6F8FA'), xc, Hh * (0.12 + f * 0.135) * 1.0 + 0.0, 0.18));
     }
     const geo = new THREE.DodecahedronGeometry(1, 0), rc = ['#C9C0AE', '#B5AC9A', '#D8CFBD', '#A79F8F', '#B9664E'];
-    for (let i = 0; i < Math.round(len * 1.6); i++) { const s = 0.3 + rr() * 1.1, m = new THREE.Mesh(i % 9 === 0 ? new THREE.BoxGeometry(1, 0.25, 0.6) : geo, mat(o.snow && i % 3 === 0 ? '#F2F4F6' : rc[i % rc.length]));
+    for (let i = 0; i < Math.round(len * 1.6); i++) { const s = (0.3 + rr() * 1.1) * (o.rubble ?? 1), m = new THREE.Mesh(i % 9 === 0 ? new THREE.BoxGeometry(1, 0.25, 0.6) : geo, mat(o.snow && i % 3 === 0 ? '#F2F4F6' : rc[i % rc.length]));
       m.position.set(-len / 2 + rr() * len, s * 0.4, 0.4 + rr() * 2.8); m.scale.setScalar(s * (i % 9 === 0 ? 2.4 : 1)); m.rotation.set(rr() * 3, rr() * 3, rr() * 3); m.castShadow = m.receiveShadow = true; g.add(m); }
     const puffs = []; for (const [sx, sz] of (o.smoke || [])) for (let i = 0; i < 12; i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 2), new THREE.MeshLambertMaterial({ color: '#BDB7AF', emissive: new THREE.Color('#77726B'), emissiveIntensity: 0.6, transparent: true, opacity: 0.7, depthWrite: false }));
       m.castShadow = false; m.userData.x = sx; m.userData.z = sz; m.userData.ph = i / 12; g.add(m); puffs.push(m); }
     g.userData.update = t => { puffs.forEach(m => { const f = (t * 0.12 + m.userData.ph) % 1; m.position.set(m.userData.x + 2.5 * f + 0.6 * Math.sin(t * 0.7 + m.userData.ph * 9), 3 + 26 * f, m.userData.z - 1.5 * f); m.scale.setScalar(1.0 + 3.0 * f); m.material.opacity = 0.7 * (1 - f * f); }); };
     g.userData.update(0); return g;
+  },
+
+  // (review 2 of 81) The white flag of the ceasefire (pivot at the foot of its stick): a dark stick o.pole (0.3 m) tall and a white cloth o.w x o.h
+  // (0.2 x 0.13 m) with a thin dark outline, a fold line and a second, smaller flap overlapping it, both rippling; it reads on any ground, even snow
+  truceFlag(o) {
+    const P = o.pole ?? 0.3, W = o.w ?? 0.2, H = o.h ?? 0.13, g = grp(), sp = o.speed ?? 6;
+    g.add(at(cyl(0.006, 0.007, P, '#3A2C22', 6, { pivot: 'bottom' }), 0, 0, 0));
+    g.add(at(sphere(0.012, '#3A2C22', 1), 0, P, 0));
+    const tex = (c, Wc, Hc, shade) => { c.clearRect(0, 0, Wc, Hc); c.fillStyle = shade; c.fillRect(Wc * 0.03, Hc * 0.04, Wc * 0.94, Hc * 0.92);
+      c.strokeStyle = '#2A2E34'; c.lineWidth = Hc * 0.05; c.strokeRect(Wc * 0.03, Hc * 0.04, Wc * 0.94, Hc * 0.92);
+      c.strokeStyle = 'rgba(60,70,84,0.45)'; c.lineWidth = Hc * 0.03; for (const f of [0.38, 0.7]) { c.beginPath(); c.moveTo(Wc * f, Hc * 0.08); c.quadraticCurveTo(Wc * (f + 0.05), Hc * 0.5, Wc * (f - 0.02), Hc * 0.92); c.stroke(); } };
+    const cloth = (w, h, shade, seg) => { const geo = new THREE.PlaneGeometry(w, h, seg, 2); geo.translate(w / 2, 0, 0);
+      const cv = document.createElement('canvas'); cv.width = 256; cv.height = Math.round(256 * h / w); tex(cv.getContext('2d'), cv.width, cv.height, shade);
+      const tx = new THREE.CanvasTexture(cv); tx.colorSpace = THREE.SRGBColorSpace;
+      const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: tx, side: THREE.DoubleSide, transparent: true, alphaTest: 0.3, emissive: new THREE.Color('#9AA4AE'), emissiveIntensity: 0.25 }));
+      m.castShadow = true; m.userData.base = geo.attributes.position.array.slice(); return m; };
+    const a = cloth(W, H, '#FBFBF8', 10), b = cloth(W * 0.62, H * 0.62, '#E9ECEF', 8);
+    a.position.set(0.004, P - H / 2 - 0.006, 0); b.position.set(0.006, P - H * 0.72, 0.012); g.add(a, b);
+    const wave = (m, t, amp, ph) => { const p = m.geometry.attributes.position, B = m.userData.base;
+      for (let i = 0; i < p.count; i++) { const x = B[i * 3], y = B[i * 3 + 1]; p.setZ(i, amp * x * Math.sin(t * sp - x * 38 + ph) + 0.15 * amp * Math.sin(t * sp * 1.7 + y * 40)); p.setY(i, y - 0.25 * amp * x * (1 + Math.sin(t * sp * 0.8 + ph))); }
+      p.needsUpdate = true; m.geometry.computeVertexNormals(); };
+    g.userData.update = t => { wave(a, t, 0.35, 0); wave(b, t, 0.42, 1.3); };
+    g.userData.update(0); return g;
+  },
+
+  // (review 2 of 81) The sink's stainless rim (pivot at the middle of the opening, at the counter's top): a bright steel frame round an opening o.w x
+  // o.d (1.3 x 0.52 m), o.r (0.06) wide, and the basin's inner walls going down o.deep (0.1) — the carrier jammed in it reads as « in the sink »
+  sinkRim(o) {
+    const W = o.w ?? 1.3, D = o.d ?? 0.52, R = o.r ?? 0.085, h = o.h ?? 0.035, dp = o.deep ?? 0.1, g = grp(), st = '#E6EBEF', inn = '#7E878F';
+    for (const [x, z, w, d] of [[0, D / 2 + R / 2, W + 2 * R, R], [0, -D / 2 - R / 2, W + 2 * R, R], [W / 2 + R / 2, 0, R, D], [-W / 2 - R / 2, 0, R, D]])
+      g.add(at(box(w, h, d, st, { outline: 0.01, pivot: 'bottom' }), x, 0, z));
+    for (const [x, z, w, d] of [[0, D / 2, W, 0.008], [0, -D / 2, W, 0.008], [W / 2, 0, 0.008, D], [-W / 2, 0, 0.008, D]])
+      g.add(at(box(w, dp, d, inn), x, -dp / 2, z));
+    if (o.snow) for (const [x, z, w, d] of [[0, D / 2 + R / 2, W + 2 * R, R], [0, -D / 2 - R / 2, W + 2 * R, R]]) { const m = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 6), mat('#EEF2F6')); m.scale.set(w / 2, 0.02, d * 0.7); m.position.set(x, h, z); g.add(m); }
+    return g;
+  },
+
+  // (review 2 of 81) A low wall of army sandbags (o.n per course, o.rows courses, along X, origin at the middle of its foot): dark burlap sacks, flat-
+  // topped and tied off at both ends with a cord, staggered; o.snow: a thin layer of snow settled along the top course (the pale round sacks of the
+  // shared sandbags read as loaves of bread)
+  burlapBags(o) {
+    const n = o.n ?? 5, rows = o.rows ?? 3, r = rng(o.seed ?? 4), g = grp(), cols = ['#7E6845', '#8A7350', '#74603F'];
+    for (let j = 0; j < rows; j++) for (let i = 0; i < n - (j % 2); i++) { const c = cols[Math.floor(r() * 3)], k = grp();
+      const body = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1, 3, 1, 2), mat(c)); body.scale.set(0.5, 0.15, 0.3); body.castShadow = body.receiveShadow = true; addOutline(body, 0.015);
+      const P_ = body.geometry.attributes.position; for (let v = 0; v < P_.count; v++) { const x = P_.getX(v), y = P_.getY(v), z = P_.getZ(v); P_.setY(v, y * (1 - 0.35 * (2 * Math.abs(x)) ** 2)); P_.setZ(v, z * (1 - 0.3 * (2 * Math.abs(x)) ** 2)); }
+      body.geometry.computeVertexNormals(); k.add(body);
+      for (const s of [-1, 1]) k.add(at(box(0.018, 0.1, 0.2, '#3E3020'), s * 0.21, 0, 0), at(box(0.05, 0.05, 0.08, c, { outline: 0.01 }), s * 0.27, 0.0, 0, 0, 0, s * 0.4));
+      k.add(at(box(0.36, 0.006, 0.01, '#4A3A26'), 0, 0.074, 0.02));
+      k.position.set((i - (n - 1 - (j % 2)) / 2) * 0.52 + (r() - 0.5) * 0.03, 0.075 + j * 0.15, (r() - 0.5) * 0.05); k.rotation.set(0, (r() - 0.5) * 0.15, (r() - 0.5) * 0.06); g.add(k);
+      if (o.snow && j === rows - 1) for (const [dx, dz, sx, sz] of [[-0.09, 0.02, 0.11, 0.075], [0.08, -0.03, 0.1, 0.07]]) {   // two thin lumpy patches per sack (one disc read as a plate)
+        const m = new THREE.Mesh(new THREE.SphereGeometry(1, 10, 5), mat('#E6EBF0')); m.scale.set(sx * (0.8 + 0.4 * r()), 0.012, sz * (0.8 + 0.4 * r())); m.position.set(k.position.x + dx, k.position.y + 0.07, k.position.z + dz); m.receiveShadow = true; g.add(m); } }
+    return g;
   },
 };
