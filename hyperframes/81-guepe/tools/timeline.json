@@ -1,0 +1,792 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a porté plainte contre une guêpe.",
+   "hl": [
+    "plainte",
+    "guêpe."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.322,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.544
+    },
+    {
+     "w": "a",
+     "s": 0.619,
+     "e": 0.693
+    },
+    {
+     "w": "porté",
+     "s": 0.804,
+     "e": 1.063
+    },
+    {
+     "w": "plainte",
+     "s": 1.174,
+     "e": 1.322
+    },
+    {
+     "w": "contre",
+     "s": 1.359,
+     "e": 1.581
+    },
+    {
+     "w": "une",
+     "s": 1.656,
+     "e": 1.73
+    },
+    {
+     "w": "guêpe.",
+     "s": 1.804,
+     "e": 2.322
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "La police a chargé.",
+   "hl": [
+    "police",
+    "chargé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L02.k.wav",
+   "file_start": 2.422,
+   "speech_start": 2.422,
+   "speech_end": 3.607,
+   "words": [
+    {
+     "w": "La",
+     "s": 2.422,
+     "e": 2.496
+    },
+    {
+     "w": "police",
+     "s": 2.57,
+     "e": 2.793
+    },
+    {
+     "w": "a",
+     "s": 2.867,
+     "e": 2.904
+    },
+    {
+     "w": "chargé.",
+     "s": 2.941,
+     "e": 3.607
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il a exigé une frappe aérienne.",
+   "hl": [
+    "frappe",
+    "aérienne."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L03.k.wav",
+   "file_start": 3.707,
+   "speech_start": 3.707,
+   "speech_end": 5.559,
+   "words": [
+    {
+     "w": "Il",
+     "s": 3.707,
+     "e": 3.781
+    },
+    {
+     "w": "a",
+     "s": 3.819,
+     "e": 3.856
+    },
+    {
+     "w": "exigé",
+     "s": 3.93,
+     "e": 4.3
+    },
+    {
+     "w": "une",
+     "s": 4.411,
+     "e": 4.522
+    },
+    {
+     "w": "frappe",
+     "s": 4.559,
+     "e": 4.744
+    },
+    {
+     "w": "aérienne.",
+     "s": 4.819,
+     "e": 5.559
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Un satellite a repéré la guêpe.",
+   "hl": [
+    "satellite"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L04.k.wav",
+   "file_start": 5.659,
+   "speech_start": 5.659,
+   "speech_end": 7.585,
+   "words": [
+    {
+     "w": "Un",
+     "s": 5.659,
+     "e": 5.807
+    },
+    {
+     "w": "satellite",
+     "s": 5.919,
+     "e": 6.326
+    },
+    {
+     "w": "a",
+     "s": 6.4,
+     "e": 6.474
+    },
+    {
+     "w": "repéré",
+     "s": 6.585,
+     "e": 6.844
+    },
+    {
+     "w": "la",
+     "s": 6.881,
+     "e": 6.919
+    },
+    {
+     "w": "guêpe.",
+     "s": 6.993,
+     "e": 7.585
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Près du sucrier.",
+   "hl": [
+    "sucrier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L05.k.wav",
+   "file_start": 7.685,
+   "speech_start": 7.685,
+   "speech_end": 8.796,
+   "words": [
+    {
+     "w": "Près",
+     "s": 7.685,
+     "e": 7.833
+    },
+    {
+     "w": "du",
+     "s": 7.907,
+     "e": 7.981
+    },
+    {
+     "w": "sucrier.",
+     "s": 8.056,
+     "e": 8.796
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Un porte-avions a pris la mer.",
+   "hl": [
+    "porte-avions"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L06.k.wav",
+   "file_start": 8.896,
+   "speech_start": 8.896,
+   "speech_end": 10.6,
+   "words": [
+    {
+     "w": "Un",
+     "s": 8.896,
+     "e": 8.97
+    },
+    {
+     "w": "porte-avions",
+     "s": 9.044,
+     "e": 9.563
+    },
+    {
+     "w": "a",
+     "s": 9.637,
+     "e": 9.711
+    },
+    {
+     "w": "pris",
+     "s": 9.748,
+     "e": 9.859
+    },
+    {
+     "w": "la",
+     "s": 9.933,
+     "e": 10.007
+    },
+    {
+     "w": "mer.",
+     "s": 10.156,
+     "e": 10.6
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Dans l'évier.",
+   "hl": [
+    "l'évier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L07.k.wav",
+   "file_start": 10.7,
+   "speech_start": 10.7,
+   "speech_end": 11.589,
+   "words": [
+    {
+     "w": "Dans",
+     "s": 10.7,
+     "e": 10.848
+    },
+    {
+     "w": "l'évier.",
+     "s": 10.885,
+     "e": 11.589
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Un avion de chasse a décollé de l'évier.",
+   "hl": [
+    "avion",
+    "chasse",
+    "décollé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L08.k.wav",
+   "file_start": 11.689,
+   "speech_start": 11.689,
+   "speech_end": 13.689,
+   "words": [
+    {
+     "w": "Un",
+     "s": 11.689,
+     "e": 11.837
+    },
+    {
+     "w": "avion",
+     "s": 11.874,
+     "e": 12.059
+    },
+    {
+     "w": "de",
+     "s": 12.096,
+     "e": 12.133
+    },
+    {
+     "w": "chasse",
+     "s": 12.207,
+     "e": 12.504
+    },
+    {
+     "w": "a",
+     "s": 12.578,
+     "e": 12.652
+    },
+    {
+     "w": "décollé",
+     "s": 12.726,
+     "e": 13.022
+    },
+    {
+     "w": "de",
+     "s": 13.059,
+     "e": 13.096
+    },
+    {
+     "w": "l'évier.",
+     "s": 13.133,
+     "e": 13.689
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Il a raté la guêpe.",
+   "hl": [
+    "raté"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L09.k.wav",
+   "file_start": 13.789,
+   "speech_start": 13.789,
+   "speech_end": 14.974,
+   "words": [
+    {
+     "w": "Il",
+     "s": 13.789,
+     "e": 13.863
+    },
+    {
+     "w": "a",
+     "s": 13.937,
+     "e": 13.974
+    },
+    {
+     "w": "raté",
+     "s": 14.011,
+     "e": 14.233
+    },
+    {
+     "w": "la",
+     "s": 14.27,
+     "e": 14.307
+    },
+    {
+     "w": "guêpe.",
+     "s": 14.381,
+     "e": 14.974
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Il a rasé l'immeuble.",
+   "hl": [
+    "rasé",
+    "l'immeuble."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L10.k.wav",
+   "file_start": 15.074,
+   "speech_start": 15.074,
+   "speech_end": 16.333,
+   "words": [
+    {
+     "w": "Il",
+     "s": 15.074,
+     "e": 15.148
+    },
+    {
+     "w": "a",
+     "s": 15.222,
+     "e": 15.296
+    },
+    {
+     "w": "rasé",
+     "s": 15.407,
+     "e": 15.593
+    },
+    {
+     "w": "l'immeuble.",
+     "s": 15.642,
+     "e": 16.333
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Et la mairie, par précaution.",
+   "hl": [
+    "mairie,",
+    "précaution."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L11.k.wav",
+   "file_start": 16.433,
+   "speech_start": 16.433,
+   "speech_end": 18.063,
+   "words": [
+    {
+     "w": "Et",
+     "s": 16.433,
+     "e": 16.507
+    },
+    {
+     "w": "la",
+     "s": 16.581,
+     "e": 16.656
+    },
+    {
+     "w": "mairie,",
+     "s": 16.755,
+     "e": 17.1
+    },
+    {
+     "w": "par",
+     "s": 17.174,
+     "e": 17.248
+    },
+    {
+     "w": "précaution.",
+     "s": 17.322,
+     "e": 18.063
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "La guêpe a fini son sucre.",
+   "hl": [
+    "fini",
+    "sucre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L12.k.wav",
+   "file_start": 18.163,
+   "speech_start": 18.163,
+   "speech_end": 19.793,
+   "words": [
+    {
+     "w": "La",
+     "s": 18.163,
+     "e": 18.311
+    },
+    {
+     "w": "guêpe",
+     "s": 18.385,
+     "e": 18.533
+    },
+    {
+     "w": "a",
+     "s": 18.607,
+     "e": 18.681
+    },
+    {
+     "w": "fini",
+     "s": 18.756,
+     "e": 18.904
+    },
+    {
+     "w": "son",
+     "s": 19.015,
+     "e": 19.126
+    },
+    {
+     "w": "sucre.",
+     "s": 19.2,
+     "e": 19.793
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Le front s'est figé entre le frigo et l'évier.",
+   "hl": [
+    "front",
+    "figé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L13.k.wav",
+   "file_start": 19.893,
+   "speech_start": 19.893,
+   "speech_end": 22.189,
+   "words": [
+    {
+     "w": "Le",
+     "s": 19.893,
+     "e": 19.967
+    },
+    {
+     "w": "front",
+     "s": 20.041,
+     "e": 20.263
+    },
+    {
+     "w": "s'est",
+     "s": 20.312,
+     "e": 20.411
+    },
+    {
+     "w": "figé",
+     "s": 20.522,
+     "e": 20.781
+    },
+    {
+     "w": "entre",
+     "s": 20.893,
+     "e": 21.004
+    },
+    {
+     "w": "le",
+     "s": 21.041,
+     "e": 21.078
+    },
+    {
+     "w": "frigo",
+     "s": 21.152,
+     "e": 21.448
+    },
+    {
+     "w": "et",
+     "s": 21.485,
+     "e": 21.522
+    },
+    {
+     "w": "l'évier.",
+     "s": 21.559,
+     "e": 22.189
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Tout l'hiver, le sucre a été rationné.",
+   "hl": [
+    "l'hiver,",
+    "rationné."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L14.k.wav",
+   "file_start": 22.289,
+   "speech_start": 22.289,
+   "speech_end": 24.437,
+   "words": [
+    {
+     "w": "Tout",
+     "s": 22.289,
+     "e": 22.437
+    },
+    {
+     "w": "l'hiver,",
+     "s": 22.462,
+     "e": 23.03
+    },
+    {
+     "w": "le",
+     "s": 23.104,
+     "e": 23.178
+    },
+    {
+     "w": "sucre",
+     "s": 23.252,
+     "e": 23.474
+    },
+    {
+     "w": "a",
+     "s": 23.511,
+     "e": 23.548
+    },
+    {
+     "w": "été",
+     "s": 23.659,
+     "e": 23.77
+    },
+    {
+     "w": "rationné.",
+     "s": 23.919,
+     "e": 24.437
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "L'État a demandé un cessez-le-feu.",
+   "hl": [
+    "cessez-le-feu."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L15.k.wav",
+   "file_start": 24.537,
+   "speech_start": 24.537,
+   "speech_end": 26.463,
+   "words": [
+    {
+     "w": "L'État",
+     "s": 24.537,
+     "e": 24.907
+    },
+    {
+     "w": "a",
+     "s": 24.981,
+     "e": 25.056
+    },
+    {
+     "w": "demandé",
+     "s": 25.204,
+     "e": 25.426
+    },
+    {
+     "w": "un",
+     "s": 25.5,
+     "e": 25.574
+    },
+    {
+     "w": "cessez-le-feu.",
+     "s": 25.648,
+     "e": 26.463
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "La guêpe a obtenu le sucrier.",
+   "hl": [
+    "obtenu",
+    "sucrier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L16.k.wav",
+   "file_start": 26.563,
+   "speech_start": 26.563,
+   "speech_end": 28.489,
+   "words": [
+    {
+     "w": "La",
+     "s": 26.563,
+     "e": 26.711
+    },
+    {
+     "w": "guêpe",
+     "s": 26.785,
+     "e": 27.081
+    },
+    {
+     "w": "a",
+     "s": 27.119,
+     "e": 27.156
+    },
+    {
+     "w": "obtenu",
+     "s": 27.23,
+     "e": 27.526
+    },
+    {
+     "w": "le",
+     "s": 27.6,
+     "e": 27.674
+    },
+    {
+     "w": "sucrier.",
+     "s": 27.748,
+     "e": 28.489
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "L'état-major s'est distribué des médailles.",
+   "hl": [
+    "médailles."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L17.k.wav",
+   "file_start": 28.589,
+   "speech_start": 28.589,
+   "speech_end": 30.663,
+   "words": [
+    {
+     "w": "L'état-major",
+     "s": 28.589,
+     "e": 29.256
+    },
+    {
+     "w": "s'est",
+     "s": 29.293,
+     "e": 29.404
+    },
+    {
+     "w": "distribué",
+     "s": 29.441,
+     "e": 29.848
+    },
+    {
+     "w": "des",
+     "s": 29.922,
+     "e": 29.996
+    },
+    {
+     "w": "médailles.",
+     "s": 30.107,
+     "e": 30.663
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Même à la guêpe.",
+   "hl": [
+    "guêpe."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L18.k.wav",
+   "file_start": 30.763,
+   "speech_start": 30.763,
+   "speech_end": 31.804,
+   "words": [
+    {
+     "w": "Même",
+     "s": 30.763,
+     "e": 30.985
+    },
+    {
+     "w": "à",
+     "s": 31.01,
+     "e": 31.034
+    },
+    {
+     "w": "la",
+     "s": 31.059,
+     "e": 31.133
+    },
+    {
+     "w": "guêpe.",
+     "s": 31.207,
+     "e": 31.8
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "C'était une mouche.",
+   "hl": [
+    "mouche."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/guepe/tts/L19.k.wav",
+   "file_start": 31.904,
+   "speech_start": 31.904,
+   "speech_end": 33.089,
+   "words": [
+    {
+     "w": "C'était",
+     "s": 31.904,
+     "e": 32.2
+    },
+    {
+     "w": "une",
+     "s": 32.274,
+     "e": 32.348
+    },
+    {
+     "w": "mouche.",
+     "s": 32.423,
+     "e": 33.089
+    }
+   ]
+  }
+ ],
+ "total": 34.39
+}
