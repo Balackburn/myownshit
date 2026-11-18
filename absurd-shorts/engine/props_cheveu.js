@@ -95,6 +95,8 @@ export const CHEVEU_PROPS = {
   // pivot, dying out (o.pendF rad/s, o.pendK decay); o.eyeU: where the eyes sit along the strand (1: its top); o.boing t: the curl's spring, a
   // wind-up stretch over 0.22 s before t, the coil swinging on an arc, then two or three overshoot bounces; o.flick [t, ...]: four big sweat drops
   // fly off the top in arcs; o.sweatS: the size of the running drop
+  // (final pass) o.eyesFace: the eyes stay turned to the front when the hair turns (o.yaw: the profile mugshot keeps its face); o.sway [amp rad,
+  // rad/s]: a slow sway of the whole strand
   chvHair(o) {
     const L = o.L ?? 0.3, R = o.r ?? 0.009, g = grp(), sw = grp(), body = grp(); g.add(sw); sw.add(body);
     const hm = new THREE.MeshLambertMaterial({ color: o.color || HAIR, emissive: '#000000' });
@@ -149,6 +151,7 @@ export const CHEVEU_PROPS = {
       if (rimM) setTube(rimM, pts, R * (o.rimW ?? 1.7), 60);
       const gp = pts.map(p => p.clone().add(new THREE.Vector3(-R * 0.35, R * 0.45, R * 0.55))); setTube(gl, gp, R * 0.22, 60);
       body.rotation.y = keyAt(o.yaw, t, 0, o.yawDur ?? 0.15) * PI / 180;
+      if (o.sway) body.rotation.z += o.sway[0] * Math.sin(t * (o.sway[1] ?? 3));
       const top = pts[Math.round((o.eyeU ?? 1) * (N - 1))];
       if (ey) {
         const on = keyAt(o.eyesOn, t, 1, 0.08) * (o.eyesFloat ? 1 : smooth((s - 0.5) / 0.4));
@@ -157,6 +160,7 @@ export const CHEVEU_PROPS = {
         const gz = (o.gaze || []).filter(k => t >= k[0]).pop() || [0, 0, 0];
         let lid = 0; for (const b of o.blinks || []) { const u = t - b; if (u >= 0 && u < 0.12) lid = Math.max(lid, 1 - Math.abs(u - 0.06) / 0.06); }
         ey.set(gz[1], gz[2], lid, keyAt(o.brow, t, 0, 0.1));
+        ey.g.rotation.y = o.eyesFace ? -body.rotation.y : 0;
       }
       if (board) {
         const k = Math.round((o.boardU ?? 0.55) * (N - 1)), p = pts[k];
@@ -253,9 +257,9 @@ export const CHEVEU_PROPS = {
   // swinging (o.swing), its pair of eyes (o.eyes, o.eyeS, o.blinks, o.brow [[t, v]]) right under the tips where it is pinched; o.rim: a pale
   // halo round the strand (a black hair over a dark uniform), o.rimW its width
   chvTweezers(o) {
-    const Lt = o.len ?? 0.5, BW = o.bw ?? 0.06, g = grp(), bl = [], ST = o.steel || '#D3DAE2';
+    const Lt = o.len ?? 0.5, BW = o.bw ?? 0.06, g = grp(), bl = [], ST = o.steel || '#D3DAE2', TP = o.tip || '#E8ECF0';
     for (const s of [-1, 1]) { const b = grp(at(box(BW, Lt, 0.022, ST, { outline: 0.008, pivot: 'top', taper: { x: 0.55, z: 1 } }), 0, 0, 0), at(box(BW * 1.04, Lt * 0.3, 0.028, '#22262E', { outline: 0.004 }), 0, -Lt * 0.36, 0),
-      at(box(BW * 0.6, 0.06, 0.02, '#E8ECF0', { outline: 0.004 }), -s * 0.01, -Lt + 0.02, 0, 0, 0, s * 0.3)); g.add(b); bl.push([b, s]); }
+      at(box(BW * 0.6, 0.06, 0.02, TP, { outline: 0.004 }), -s * 0.01, -Lt + 0.02, 0, 0, 0, s * 0.3)); g.add(b); bl.push([b, s]); }
     g.add(at(box(BW * 1.4, 0.06, 0.04, '#9AA2AC', { outline: 0.005 }), 0, 0.015, 0), at(sphere(0.02, '#5A626C', 1), 0, 0.015, 0.022));
     const hr = grp(); g.add(hr); const hm = new THREE.MeshLambertMaterial({ color: HAIR }), tb = new THREE.Mesh(new THREE.BufferGeometry(), hm); hr.add(tb);
     const rimM = o.rim ? new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshBasicMaterial({ color: o.rim, side: THREE.BackSide })) : null; if (rimM) hr.add(rimM);
@@ -340,10 +344,10 @@ export const CHEVEU_PROPS = {
   // A battering ram (pivot at its middle, the striking end toward +Z): a dark steel cylinder o.len (1.1) long with a flat head, two yellow
   // carrying handles on top (userData.grips: local points for the hands, left and right)
   chvRam(o) {
-    const L = o.len ?? 1.1, g = grp(), R = o.r ?? 0.09, C = o.color || '#2B2F36';
+    const L = o.len ?? 1.1, g = grp(), R = o.r ?? 0.09, C = o.color || '#2B2F36', Y = o.trim || '#E8B931';
     g.add(at(cyl(R, R, L, C, 12, { outline: 0.006 }), 0, 0, 0, PI / 2, 0, 0), at(box(R * 2.6, R * 2.6, 0.06, '#1A1C20', { outline: 0.006 }), 0, 0, L / 2 + 0.03), at(cyl(R * 1.1, R * 1.1, 0.05, '#1A1C20', 12), 0, 0, -L / 2, PI / 2, 0, 0));
-    for (const z of [-0.28, 0.22]) { g.add(at(box(0.03, 0.12, 0.03, '#E8B931', { outline: 0.004 }), 0, R + 0.06, z - 0.08), at(box(0.03, 0.12, 0.03, '#E8B931', { outline: 0.004 }), 0, R + 0.06, z + 0.08), at(box(0.035, 0.035, 0.2, '#E8B931', { outline: 0.004 }), 0, R + 0.12, z)); }
-    for (const z of [-0.45, 0.45]) g.add(at(cyl(R * 1.08, R * 1.08, 0.04, '#E8B931', 12), 0, 0, z, PI / 2, 0, 0));
+    for (const z of [-0.28, 0.22]) { g.add(at(box(0.03, 0.12, 0.03, Y, { outline: 0.004 }), 0, R + 0.06, z - 0.08), at(box(0.03, 0.12, 0.03, Y, { outline: 0.004 }), 0, R + 0.06, z + 0.08), at(box(0.035, 0.035, 0.2, Y, { outline: 0.004 }), 0, R + 0.12, z)); }
+    for (const z of [-0.45, 0.45]) g.add(at(cyl(R * 1.08, R * 1.08, 0.04, Y, 12), 0, 0, z, PI / 2, 0, 0));
     g.userData.grips = [[0, R + 0.12, -0.28], [0, R + 0.12, 0.22]]; return g;
   },
 
@@ -363,7 +367,7 @@ export const CHEVEU_PROPS = {
       for (const sx of [-1, 1]) { const wx = sx * W * 0.25; for (const wy of [3.3, 4.9]) g.add(at(box(0.7, 1.0, T + 0.04, tr, { outline: 0.006 }), wx, wy, 0), at(box(0.56, 0.86, T + 0.06, '#34485E'), wx, wy, 0)); }
       g.add(at(box(W + 0.1, 0.18, T + 0.25, tr, { outline: 0.006 }), 0, H, 0), at(box(W, 0.1, T + 0.12, tr), 0, 2.75, 0));
     }
-    if (o.dark) g.add(at(box(dw + 0.2, dh + 0.1, 1.6, '#17181C'), 0, (dh + 0.1) / 2, dir * 0.9));
+    if (o.dark) g.add(at(box(dw + 0.2, dh + 0.1, 1.6, '#17181C'), 0, (dh + 0.1) / 2, (o.darkDir ?? dir) * 0.9));
     const piv = grp(); piv.position.set(0, 0.0, dir * (T / 2)); g.add(piv);
     const leaf = grp(at(box(dw - 0.04, dh - 0.03, 0.06, o.door || '#2F5D8A', { outline: 0.008, pivot: 'bottom' }), 0, 0, 0)); piv.add(leaf);
     for (const [py, ph] of [[0.25, 0.75], [1.15, 0.75]]) for (const sx of [-1, 1]) leaf.add(at(box(dw * 0.36, ph, 0.02, '#244A70', { outline: 0.003 }), sx * dw * 0.22, py + ph / 2, -dir * 0.035));
@@ -400,11 +404,13 @@ export const CHEVEU_PROPS = {
   // Electric hair clippers (pivot at the middle of the body, the blade toward +Y, the switch toward +Z): a dark grey body, a steel blade with a
   // black comb, a red switch, a short coiled cord at the bottom; o.buzz [[t0, t1], ...]: it vibrates and buzz arcs flicker either side;
   // o.bits [[t0, t1, colour], ...]: cut hair falls from the blade; o.s scales it; (round 1) o.sq [[t, [sx, sy, sz]], ...]: keyed squash and
-  // stretch (eased over 0.05 s): it stretches into a pass and squashes as it recoils off the scalp
+  // stretch (eased over 0.05 s): it stretches into a pass and squashes as it recoils off the scalp; (final pass) o.rim: a bright edge (a
+  // back-face shell o.rimW 0.008 wide round body and blade: it reads against a dark doorway)
   chvClippers(o) {
     const S = o.s ?? 1, g = grp(), b = grp(); b.scale.setScalar(S); g.add(b);
     b.add(at(box(0.065, 0.17, 0.048, o.color || '#3A3F4A', { outline: 0.005, taper: { x: 0.85, z: 0.85 } }), 0, 0, 0), at(box(0.068, 0.04, 0.05, '#2A2E36', { outline: 0.004 }), 0, -0.07, 0));
     b.add(at(box(0.075, 0.025, 0.046, '#D2D8DE', { outline: 0.004 }), 0, 0.098, 0));
+    if (o.rim) b.add(new THREE.Mesh(new THREE.BoxGeometry(0.065 + 2 * (o.rimW ?? 0.008), 0.25 + 2 * (o.rimW ?? 0.008), 0.048 + 2 * (o.rimW ?? 0.008)).translate(0, 0.015, 0), new THREE.MeshBasicMaterial({ color: o.rim, side: THREE.BackSide })));
     for (let i = 0; i < 9; i++) b.add(at(box(0.005, 0.02, 0.02, '#16171B'), -0.034 + i * 0.0085, 0.118, 0.006));
     b.add(at(box(0.02, 0.03, 0.01, '#D23A2E', { outline: 0.002 }), 0, 0.02, 0.028), at(box(0.04, 0.005, 0.002, '#7E8696'), 0, -0.02, 0.025), at(box(0.04, 0.005, 0.002, '#7E8696'), 0, -0.035, 0.025));
     const cord = []; for (let i = 0; i < 14; i++) { const a = i * 1.4; cord.push(new THREE.Vector3(Math.cos(a) * 0.012, -0.09 - i * 0.008, Math.sin(a) * 0.012)); }
@@ -600,9 +606,10 @@ export const CHEVEU_PROPS = {
   },
 
   // (round 1) A tall pleated chef's toque (pivot at the bottom of its band): a white band, a pleated column widening upward (o.h 0.34 high),
-  // a puffed crown; o.s scales it. Attach it to the head (offset about [0, 0.5, 0]) or to a hand
+  // a puffed crown; o.s scales it. Attach it to the head (offset about [0, 0.5, 0]) or to a hand; (final pass) o.wob [[t, rad], ...]: it wobbles
   chvToque(o) {
     const S = o.s ?? 1, g = grp(), b = grp(); b.scale.setScalar(S); g.add(b); const W = '#FAFAF6', Hc = o.h ?? 0.34;
+    if (o.wob) g.userData.update = t => { let a = 0; for (const [t0, amp] of o.wob) { const u = t - t0; if (u >= 0) a += amp * Math.exp(-5 * u) * Math.sin(u * 24); } b.rotation.z = a; b.rotation.x = 0.5 * a; };
     b.add(at(cyl(0.165, 0.165, 0.08, '#F0F0EA', 16, { outline: 0.008, pivot: 'bottom' }), 0, 0, 0), at(cyl(0.2, 0.17, Hc, W, 16, { outline: 0.008, pivot: 'bottom' }), 0, 0.08, 0));
     for (let i = 0; i < 12; i++) { const a = i / 12 * TAU; b.add(at(box(0.012, Hc * 0.96, 0.02, '#DADAD2'), Math.sin(a) * 0.18, 0.08 + Hc / 2, Math.cos(a) * 0.18, 0.11 * Math.cos(a), a, -0.11 * Math.sin(a) * 0)); }
     const cr = new THREE.Mesh(new THREE.SphereGeometry(0.24, 16, 10), mat(W)); cr.scale.set(1, 0.5, 1); cr.position.y = 0.08 + Hc + 0.02; b.add(cr);
@@ -672,7 +679,7 @@ export const CHEVEU_PROPS = {
     let tail = null; const tl = inner.children[5];
     if (tl) { inner.remove(tl); tail = grp(); tail.position.set(0, 0.54, -0.26); tl.position.set(0, 0.11, -0.05); tail.add(tl); inner.add(tail); }
     const H0 = head.position.clone(), R0 = head.rotation.x;
-    g.userData.update = t => { if (base) base(t);
+    g.userData.update = t => { if (base) base(o.walkUntil == null ? t : (t < o.walkUntil ? t * (o.scrabble ?? 1) : Math.round(o.walkUntil * (o.scrabble ?? 1) * 4.4) / 4.4));   // (final pass) o.walkUntil: the legs scrabble (o.scrabble times faster) then stop straight
       const pr = keyAt(o.proud, t, 0, 0.18), sn = inWin(o.sniff, t);
       head.rotation.x = (base ? head.rotation.x : R0) + (sn ? 0.42 + 0.16 * Math.sin(t * 19) : 0) - 0.3 * pr;
       head.position.y = (base ? head.position.y : H0.y) - (sn ? 0.08 : 0) + 0.05 * pr; head.position.z = H0.z + 0.03 * pr;

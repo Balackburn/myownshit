@@ -46,7 +46,17 @@ a torch cone visible against the taller dark doorway (chvDoorWall under); S06 on
 file jumps (chvFile bounceAt), the coil winds up, springs on an arc and bounces (boing) and flicks big drops (flick); S12 level down the row,
 curly piles in saturated colours (chvHairPile curly); S13/S17 a new slim shaved dog (chvDogShaved); S03 tweezers tipped toward the lens in the
 left hand; S07 three-quarter dolly, the third handler whole; S09 tighter, four doors falling in the frame; S17 the crane ends closer, the eyes
-lift on a beat; S04 aimed higher (brows under the card band); the steam is three thin squiggles low over the soup."""
+lift on a beat; S04 aimed higher (brows under the card band); the steam is three thin squiggles low over the soup.
+Final pass (safe fixes after round 3): S01/S19 the payoff hair outlined white and a bit bigger (HAIRFO); S19 it drops on the camera ray through
+his shirt and tie, lands turned end for end (yaw 180, eyesFace) so its eyes sit on the soup, the end hold pushes in and rises a little; S01 the
+fingertip lands on the hair (jab, lift, jab) with the eyes locked on it, the pupils reach us before the head. S11 the cook's idle weight shift
+off (hip 0, auto low: his head slid), the officer's elbow up and out (reach pole), bigger chrome clippers with a white edge (chvClippers rim),
+a longer pass and a higher recoil. S04 the eyes stay to the front in profile (chvHair eyesFace). S05 blinks, glances, two sweat drops, a sway.
+S08 a bold yellow ram (chvRam color/trim); the grey mist over the officers' legs was the door's dust puffs (2.4 m planes between the lens and
+them): now small and low. S09 the doors fall on a steady beat inside the shot (none black at the start), the camera lower and further up the
+street. S16 the minister 0.22 m further from the stand: a gap above the ring. S17 the near red figure behind the ring, the dog in its place,
+stronger glints. S07 handlers tipped back (lay) on straight leads, dogs scrabble and skid to a stop (chvDog walkUntil), the toque wobbles
+(chvToque wob). S10 bigger shine. S02/S18 helicopter lower (S02 smaller), whole in the glass. S03 darker tweezers whose two tips open, closer to the lens."""
 from story_kit import *
 import math
 
@@ -121,27 +131,28 @@ ROOM = lambda lit=None: [P('salle', 'chvRoom', pos=[0, 0, 0], opts={'win': WIN, 
                 P('table', 'chvTable', pos=TBL, opts={'r': 0.5, 'h': TH, 'drop': 0.15}), P('chaise', 'chair', pos=[0.0, 0, -0.95], opts={'color': '#7A4A2A'}),
                 P('bol', 'chvBowl', pos=BOWL, opts={'steam': True, **({'lit': lit, 'glareS': 1.1} if lit else {})})]
 HAIRF = {'L': 0.3, 'r': 0.0095, 'wig': 0.07}           # the floating hair
+HAIRFO = {'L': 0.32, 'r': 0.0118, 'wig': 0.07, 'rim': '#FFFFFF', 'rimW': 1.9}   # (final pass) the payoff hair (S01, S19): a bit bigger, outlined white as in S03/S05/S06/S18
 SIT = lambda face, reach=None, hands=None: {'face': face, **({'reach': reach} if reach else {}), **({'hands': hands} if hands else {})}
 
 # 1: the hook. Low over the bowl, three-quarter from his right: the thick black hair floating and waving on the pale soup in the foreground, he
 #    behind it, seated; (round 1) his finger draws a clear arc: up beside his head (an "aha"), then down onto the hair with an overshoot and
 #    two little jabs; his eyes are on the hair; then the pupils come up to us first and the head follows, one brow up, deadpan
 D1 = st.dur('S01')
-PT1 = R5([-0.17, 0.97, -0.33], 1, 0.2); PT1hi = R5([-0.44, 1.86, -0.6], 1, 0.12); PT1over = R5([-0.13, 0.92, -0.29], 1, 0.2)
+PT1 = R5([-0.03, 0.9, -0.2], 1, 0.1); PT1hi = R5([-0.44, 1.86, -0.6], 1, 0.12); PT1over = R5([0.0, 0.87, -0.17], 1, 0.1)   # (final pass) the fingertip lands on the hair
 C1 = FC('S01', 0.0, [-0.45, 1.12, 1.12], {'headTop': [0, 1.98, -0.8], 'hairL': add(HAIR1, [-0.16, 0, 0.05]), 'hairR': add(HAIR1, [0.16, 0, 0.05]), 'bowlFront': [0, TH + 0.05, 0.0], 'handHi': PT1hi[:3], 'elbowR': [-0.5, 1.3, -0.7]}, top=0.06, bottom=0.76, lenses=range(18, 67), drift=(0.02, 0, -0.08))
 F1a = {'lid': 0.2, 'mouth': 'o', 'gy': 1.0, 'brow': 0.5}
-F1b = {'lid': 0.05, 'mouth': 'O', 'gy': 1.0, 'gx': 0.3, 'brow': 0.9, 'eye': 0.2}
+F1b = {'lid': 0.05, 'mouth': 'O', 'gy': 1.0, 'gx': 0.0, 'brow': 0.9, 'eye': 0.2}   # (final pass) the eyes locked on the hair
 F1c = {'lid': 0.45, 'mouth': 'line', 'browL': 0.55, 'browR': -0.15, 'gy': 0.0}
 KEYS1 = [k(0.0, look=add(HAIR1, [0, 0.05, 0])),
          k(0.0, toon=SIT({'lid': 0.3, 'mouth': 'line', 'gy': 0.6}), toonDur=0.0),
          k(0.18, toon=SIT(F1a, {'R': PT1hi}, {'R': 'point'}), toonDur=0.2, toonEase='out'),
          k(0.46, toon=SIT(F1b, {'R': PT1over}, {'R': 'point'}), toonDur=0.1, toonEase='in'),
          k(0.58, toon=SIT(F1b, {'R': PT1}, {'R': 'point'}), toonDur=0.12, toonEase='out'),
-         *[k(r(0.78 + 0.14 * i), toon=SIT(F1b, {'R': R5(add(PT1[:3], [0.02 * ((i + 1) % 2), -0.03 * ((i + 1) % 2), 0.02 * ((i + 1) % 2)]), 1, 0.12)}, {'R': 'point'}), toonDur=0.07) for i in range(3)],
-         k(1.2, toon=SIT({**F1b, 'gy': -0.35, 'brow': 0.4, 'mouth': 'line'}, {'R': PT1}, {'R': 'point'}), toonDur=0.08),
-         k(1.36, look='camera', lookDur=0.14), k(1.36, toon=SIT(F1c, {'R': PT1}, {'R': 'point'}), toonDur=0.14)]
+         *[k(r(0.76 + 0.13 * i), toon=SIT(F1b, {'R': R5(add(PT1[:3], [-0.03 * ((i + 1) % 2), 0.06 * ((i + 1) % 2), -0.03 * ((i + 1) % 2)]), 1, 0.16)}, {'R': 'point'}), toonDur=0.06) for i in range(3)],   # (final pass) jab, lift, jab
+         k(1.18, toon=SIT({**F1b, 'gy': 0.1, 'gx': -0.7, 'brow': 0.4, 'mouth': 'line'}, {'R': PT1}, {'R': 'point'}), toonDur=0.07),   # the pupils come to us first
+         k(1.4, look='camera', lookDur=0.14), k(1.4, toon=SIT(F1c, {'R': PT1}, {'R': 'point'}), toonDur=0.14)]
 st.shot('S01', 'whiteVoid', setOpts=NIGHT, actors=[LIFE(act('mec', HERO, 0, 'sit', 'neutral', keys=KEYS1), D1, t0=1.7, gap=0.9)],
-        props=[*ROOM(), P('cheveu1', 'chvHair', pos=HAIR1, ry=12, opts=HAIRF)],
+        props=[*ROOM(), P('cheveu1', 'chvHair', pos=HAIR1, ry=12, opts=HAIRFO)],
         cams=[C1])
 st.cue('sfx:clink', 'S01', 0.1, 0.2); st.cue('sfx:tense', 'S01', 0.45, 0.15)
 
@@ -151,16 +162,16 @@ def ray_at(c, p, z): u = (z - c[2]) / (p[2] - c[2]); return [r(c[i] + (p[i] - c[
 def rot_y(v, ry): a = math.radians(ry); return [v[0] * math.cos(a) + v[2] * math.sin(a), v[1], -v[0] * math.sin(a) + v[2] * math.cos(a)]
 HS, HRY = 0.5, 90
 HOT = add(BOWL, [0, 0.11, 0])
-def HELI_AT(cam_from, win_pt, zh, dy=0.0):
+def HELI_AT(cam_from, win_pt, zh, dy=0.0, hs=HS):
     """the helicopter centred on the camera's ray through win_pt (a point of the window opening) at depth zh: (pos, lamp world point)"""
-    h = add(ray_at(cam_from, win_pt, zh), [0, dy, 0]); return h, add(h, [r(v * HS) for v in rot_y([0, -0.5, 0.62], HRY)])
+    h = add(ray_at(cam_from, win_pt, zh), [0, dy, 0]); return h, add(h, [r(v * hs) for v in rot_y([0, -0.5, 0.62], HRY)])
 def BEAM_THROUGH(lamp, sid):
     """where the beam crosses the window plane (it must be inside the opening)"""
     d = [HOT[i] - lamp[i] for i in range(3)]; u = (-1.5 - lamp[2]) / d[2]; x, y = lamp[0] + d[0] * u, lamp[1] + d[1] * u
     CHECKS.append(f"{sid} beam crosses the window at x {x:.2f} y {y:.2f} (opening x {WIN[0] - WIN[2] / 2:.2f}..{WIN[0] + WIN[2] / 2:.2f}, y {WIN[1] - WIN[3] / 2:.2f}..{WIN[1] + WIN[3] / 2:.2f})")
-def HELIP(pid, heli, lamp, on=None, r1=0.3):
+def HELIP(pid, heli, lamp, on=None, r1=0.3, hs=HS):
     BR = aim_rot(lamp, HOT); BL = r(math.dist(lamp, HOT) + 0.05)
-    return [P(pid, 'chvHeli', pos=heli, ry=HRY, scale=HS, opts={'rim': '#A9C2E6', 'rimW': 0.05, 'spin': 1.15}),
+    return [P(pid, 'chvHeli', pos=heli, ry=HRY, scale=hs, opts={'rim': '#A9C2E6', 'rimW': 0.05, 'spin': 1.15}),
             P(pid + 'b', 'chvBeam', pos=lamp, ry=BR[1], rot=[BR[0], 0, BR[2]], opts={'len': BL, 'r': r1, 'r0': 0.08, 'op': 0.12, 'fade': 0.75, 'lampR': 0.06, 'flare': 0.7, 'on': on or [[0, 1]]})]
 
 # 2: a police helicopter lit the soup. Low from the table, looking up: his face, and above his head through the window the navy helicopter
@@ -168,7 +179,8 @@ def HELIP(pid, heli, lamp, on=None, r1=0.3):
 #    passes behind him; he gets a squash-and-stretch double take up at it, then shades his eyes with his hand and squints, still moving
 D2 = st.dur('S02'); LOCK2 = 0.25
 C2F = [-0.05, 0.8, 1.75]
-HELI2, LAMP2 = HELI_AT(C2F, [0.38, 2.28, -1.5], -3.4); BEAM_THROUGH(LAMP2, 'S02')
+HS2 = 0.43   # (final pass) a little smaller and lower: the helicopter whole inside the glass (its rotor was cut by the window's top)
+HELI2, LAMP2 = HELI_AT(C2F, [0.38, 2.2, -1.5], -3.4, hs=HS2); BEAM_THROUGH(LAMP2, 'S02')
 C2 = FC('S02', 0.0, C2F, {'bowl': add(BOWL, [-0.1, 0.1, 0.1]), 'headTop': [0, 2.02, -0.8], 'heliTop': add(HELI2, [0, 0.75, 0]), 'heliNose': add(HELI2, [0.8, 0, 0]), 'heliTail': add(HELI2, [-1.25, 0.3, 0]), 'eyesL': [-0.2, 1.72, -0.8]}, top=0.05, bottom=0.75, lenses=range(18, 70), margin=0.03, drift=(0, 0, -0.1))
 UP2 = [0.4, 2.25, 1.2]
 F2 = {'lid': 0.4, 'mouth': 'line'}
@@ -186,7 +198,7 @@ KEYS2 = [k(0.0, look='camera'), k(0.0, toon=SIT(F2), toonDur=0.0),
          *[k(r(1.16 + 0.22 * i), toon=SHADE(i), toonDur=0.12 if i else 0.14, toonEase='inOut') for i in range(6)],
          *[k(r(1.2 + 0.3 * i), look=[UP2[0] + (0.5 if i % 2 else -0.3), UP2[1], UP2[2]], lookDur=0.25) for i in range(4)]]
 st.shot('S02', 'whiteVoid', setOpts=NIGHT, look={'sun': 0.35, 'fill': 0.6, 'exposure': 1.05}, actors=[act('mec', HERO, 0, 'sit', 'neutral', keys=KEYS2)],
-        props=[*ROOM([[0, 0.15], [LOCK2, 1]]), P('cheveu2', 'chvHair', pos=HAIR1, ry=12, opts={**HAIRF, 'waveF': 3.2}), *HELIP('heli2', HELI2, LAMP2, [[0, 0.35], [LOCK2, 1]]),
+        props=[*ROOM([[0, 0.15], [LOCK2, 1]]), P('cheveu2', 'chvHair', pos=HAIR1, ry=12, opts={**HAIRF, 'waveF': 3.2}), *HELIP('heli2', HELI2, LAMP2, [[0, 0.35], [LOCK2, 1]], hs=HS2),
                P('pool2', 'chvPool', pos=add(BOWL, [0, 0.01, 0]), opts={'r': 0.42, 'h': 0.35, 'power': 0.8, 'range': 0.6, 'on': [[0, 0.2], [LOCK2, 1]]})],
         cams=[C2])
 st.cue('engine', 'S02', 0.0, 0.3, D2); st.cue('sfx:rotor', 'S02', 0.0, 0.35); st.cue('clack', 'S02', LOCK2, 0.3)
@@ -198,10 +210,10 @@ D3 = st.dur('S03'); PICK3 = 0.5
 COP3 = [-0.82, 0, 0.32]; RYC3 = 32; COP3b = [0.78, 0, -0.5]; RYB3 = -38
 TWL = 0.6
 TW0 = [r(HAIR1[0]), r(SOUP_Y + TWL * 1.3 - 0.01), HAIR1[2]]            # the tweezers' hinge with the tips at the hair
-TW1 = [-0.3, 2.0, 0.3]; TW2 = [-0.1, 1.9, 1.1]; TWRX = -0.6   # (round 2) held out toward the lens, the tips tipped at us (foreshortened)
+TW1 = [-0.3, 2.0, 0.3]; TW2f = [-0.1, 1.9, 1.1]; TW2 = [-0.02, 1.86, 1.42]; TWRX = -0.7   # (final pass) TW2f: the framing point; the tweezers come closer to the lens   # (round 2) held out toward the lens, the tips tipped at us (foreshortened)
 BAG3 = [0.42, 1.42, 0.02]
 C3 = FC('S03', 0.0, [0.25, 1.45, 3.15], {'copTop': [COP3[0], 2.45, COP3[2]], 'copL': [COP3[0] - 0.2, 2.1, COP3[2]], 'cop2Top': [COP3b[0], 2.45, COP3b[2]],
-        'tw2top': add(TW2, [0, 0.06, 0]), 'tips': add(TW2, [0, -0.64, 0.44]), 'hairBot': add(TW2, [0, -1.0, 0.62]), 'bowl': add(BOWL, [0, 0.0, 0.35]), 'hero': [0, 1.95, -0.8]}, top=0.06, bottom=0.76, lenses=range(24, 66), margin=0.04, drift=(0, 0, -0.1))
+        'tw2top': add(TW2f, [0, 0.06, 0]), 'tips': add(TW2f, [0, -0.64, 0.44]), 'hairBot': add(TW2f, [0, -1.0, 0.62]), 'bowl': add(BOWL, [0, 0.0, 0.35]), 'hero': [0, 1.95, -0.8]}, top=0.06, bottom=0.76, lenses=range(24, 66), margin=0.04, drift=(0, 0, -0.1))
 GRIP = lambda p: R5(add(p, [0.0, -0.2, 0.0]), 1, 0.06)
 FC3 = {'lid': 0.35, 'lowR': 0.4, 'mouth': 'grimace', 'brow': -0.3, 'browTiltL': 12}
 KEYS3a = [k(0.0, look=add(TW0, [0, -0.5, 0])),
@@ -220,8 +232,8 @@ KEYS3c = [k(0.0, look=add(HAIR1, [0, 0.1, 0])), k(0.0, toon=SIT({'lid': 0.4, 'mo
 st.shot('S03', 'whiteVoid', setOpts=NIGHT, actors=[LIFE(act('flic1', COP3, RYC3, 'stand', 'neutral', keys=KEYS3a), D3, breath=False, t0=1.5), LIFE(act('flic2', COP3b, RYB3, 'stand', 'neutral', keys=KEYS3b), D3, t0=0.6),
         LIFE(act('mec', HERO, 0, 'sit', 'neutral', keys=KEYS3c), D3, t0=1.7)],
         props=[*ROOM(), P('cheveu3', 'chvHair', pos=HAIR1, ry=12, opts=HAIRF, keys=[k(PICK3 - 0.02, visible=False)]),
-               P('pince3', 'chvTweezers', pos=TW0, ry=10, scale=1.3, opts={'len': TWL, 'bw': 0.07, 'hairAt': PICK3 - 0.02, 'hairL': 0.34, 'r': 0.011, 'rim': '#FFFFFF', 'rimW': 2.0, 'eyes': True, 'eyeS': 1.6, 'blinks': [1.25, 1.9],
-                                                             'gaze': [[0, 0, 0], [1.4, -0.6, -0.3], [1.8, 0, 0]], 'open': [[0, 0.22], [r(PICK3 - 0.1), 0.02]], 'swing': 0.5},
+               P('pince3', 'chvTweezers', pos=TW0, ry=10, scale=1.3, opts={'len': TWL, 'bw': 0.08, 'steel': '#9AA6B4', 'tip': '#F4F6F8', 'hairAt': PICK3 - 0.02, 'hairL': 0.34, 'r': 0.011, 'rim': '#FFFFFF', 'rimW': 2.0, 'eyes': True, 'eyeS': 1.6, 'blinks': [1.25, 1.9],
+                                                             'gaze': [[0, 0, 0], [1.4, -0.6, -0.3], [1.8, 0, 0]], 'open': [[0, 0.22], [r(PICK3 - 0.1), 0.02], [1.15, 0.16]], 'swing': 0.5},
                  keys=[k(PICK3, to=TW1, dur=0.4, ease='inOut'), k(1.0, to=TW2, dur=0.35, ease='inOut'), k(1.0, rotTo=[TWRX, math.radians(10), 0], dur=0.35, ease='inOut')]),
                P('sachet3', 'chvBag', pos=BAG3, ry=-14, opts={'w': 0.3, 'h': 0.4})],
         cams=[C3])
@@ -236,7 +248,7 @@ chk('S04', C4['from'], C4['lookAt'], 36, {'hairTop': [0, 0.36, 0], 'eyes': [0, 0
 st.shot('S04', 'whiteVoid', setOpts={'color': '#B9C2CC'}, actors=[],
         props=[P('toise4', 'chvMugWall', pos=[0, 0, -0.03]),
                P('cheveu4', 'chvHair', pos=HAIR4, opts={'L': 0.3, 'r': 0.0105, 'wig': 0.04, 'waveF': 1.4, 'stand': [[0, 1]], 'stand0': 1, 'eyes': True, 'brows': True, 'board': ['N° 0088', '17.11'], 'boardU': 0.62,
-                                                     'yaw': [[TURN4, 90]], 'boardYaw': [[TURN4, -70]], 'blinks': [r(FL4a + 0.12), r(FL4b + 0.12)], 'gaze': [[0, 0, 0], [0.9, 0.6, 0], [1.05, 0, 0]], 'brow': [[0, 0.0], [r(FL4a + 0.1), -0.5]]})],
+                                                     'yaw': [[TURN4, 90]], 'eyesFace': True, 'boardYaw': [[TURN4, -70]], 'blinks': [r(FL4a + 0.12), r(FL4b + 0.12)], 'gaze': [[0, 0, 0], [0.9, 0.6, 0], [1.05, 0, 0]], 'brow': [[0, 0.0], [r(FL4a + 0.1), -0.5]]})],
         cams=[C4], fx=[{'type': 'flash', 'at': FL4a, 'dur': 0.12}, {'type': 'flash', 'at': FL4b, 'dur': 0.12}])
 st.card('S04', 'FICHÉ', at=r(FL4a + 0.25))
 st.cue('sfx:shutter', 'S04', FL4a, 0.5); st.cue('sfx:squeak', 'S04', TURN4, 0.15); st.cue('sfx:shutter', 'S04', FL4b, 0.5)
@@ -268,7 +280,7 @@ KEYS5 = [k(0.0, look=add(HAIR5, [0, 0.3, 0])),
          k(0.55, toon={'reach': PALMS(0.08), 'hands': {'R': 'open', 'L': 'open'}, 'bend': {'spine': [0.62, 0, 0, 1, None], 'neck': [0.15, 0, 0, 1, None]}, 'face': {'lid': 0.7, 'lowL': 0.35, 'mouth': 'clench', 'brow': -0.9}}, toonDur=0.35, toonEase='inOut'),
          k(1.15, toon={'reach': PALMS(0.08), 'hands': {'R': 'fist', 'L': 'open'}, 'bend': {'spine': [0.58, 0, 0, 1, None]}, 'face': {'lid': 0.45, 'mouth': 'teeth', 'brow': -1.0, 'vein': 1}}, toonDur=0.2)]
 st.shot('S05', 'interrogation', actors=[LIFE(act('inspecteur', INSP, RYI, 'stand', 'suspicious', keys=KEYS5), D5, t0=0.3)],
-        props=[*INTERRO([[0, 0.15]]), P('cheveu5', 'chvHair', pos=HAIR5, ry=-25, opts={**HAIR5O, 'blinks': [0.45, 1.05, 1.6], 'gaze': [[0, -0.6, 0], [0.7, 0.0, -0.7], [1.2, -0.7, 0.2]], 'brow': [[0, -0.6], [1.2, -1]], 'sweat': [1.0]})],
+        props=[*INTERRO([[0, 0.15]]), P('cheveu5', 'chvHair', pos=HAIR5, ry=-25, opts={**HAIR5O, 'blinks': [0.3, 0.85, 1.25, 1.7], 'gaze': [[0, -0.2, 0.3], [0.45, -1.0, -0.2], [0.95, 0.0, -0.7], [1.4, -1.0, 0.0]], 'brow': [[0, -0.6], [1.2, -1]], 'sweat': [0.55, 1.2], 'sweatS': 1.6, 'sway': [0.05, 3.2]})],   # (final pass) blinks, glances at the inspector, sweat, a sway
         cams=[C5])
 st.cue('sfx:ticks', 'S05', 0.0, 0.25); st.cue('sfx:static', 'S05', 0.2, 0.08)
 
@@ -310,15 +322,15 @@ DOGF = {'color': '#3A3530', 'muzzle': '#1E1A18', 'walk': True, 'tongue': True}
 D7 = st.dur('S07'); CUT7 = 1.25
 DA0, DA1 = [6.6, 0, -4.6], [6.6, 0, -1.0]; DB0, DB1 = [7.4, 0, -4.1], [7.4, 0, -0.5]
 H7a0, H7a1 = [6.45, 0, -5.9], [6.45, 0, -2.3]; H7b0, H7b1 = [7.55, 0, -5.4], [7.55, 0, -1.8]
-C7a = cam(0.0, [3.5, 1.2, -0.4], [3.5, 1.2, 3.2], [7.25, 1.0, -5.1], [7.25, 1.0, -1.5], lens=50)   # (round 2) three-quarter from the road side: the handlers' lean and the taut leads read
+C7a = cam(0.0, [3.5, 1.2, -0.4], [3.5, 1.2, 3.2], [7.25, 1.0, -5.1], [7.25, 1.0, -1.5], lens=50)   # (round 2) three-quarter from the road side: the handlers' lean and the taut leads read   # (round 2) three-quarter from the road side: the handlers' lean and the taut leads read
 COOK = [7.95, 0, -12.0]; RYK = -90                     # on his doorstep, facing the street (-X)
 DOGc1, DOGc2 = [7.25, 0, -11.55], [7.3, 0, -12.5]
 chk('S07a', C7a['from'], C7a['lookAt'], 50, {'dogA1': add(DA1, [0, 0.6, 0]), 'dogB0': add(DB0, [0, 0.6, 0]), 'handA1': [H7a1[0], 2.0, H7a1[2]], 'handB0': [H7b0[0], 2.0, H7b0[2]]})
 M3 = [6.6, 0, -13.0]; M3P = [6.95, 1.0, -12.75]   # (round 2) the third handler beside the dogs, whole in the frame (he was a cropped figure filling a third)
 C7b = FC('S07b', CUT7, [3.1, 1.45, -11.7], {'cookTop': [COOK[0], 2.98, COOK[2]], 'dog1': add(DOGc1, [-0.3, 0.75, 0.2]), 'dog2': add(DOGc2, [-0.3, 0.75, -0.2]), 'dogFeet': add(DOGc2, [0, 0.05, 0]), 'm3top': [M3[0], 2.5, M3[2]], 'm3L': [M3[0], 1.6, M3[2] - 0.3]}, top=0.06, bottom=0.76, lenses=range(30, 66), drift=(0.08, 0, -0.05))
-LEAN = lambda p, i=0: {'reach': {'R': R5(off(p, 0, 0.95, 0.12, 0.95 + 0.04 * (i % 2))), 'L': R5(off(p, 0, 0.88, -0.1, 0.92 + 0.04 * ((i + 1) % 2)))}, 'hands': {'R': 'grip', 'L': 'grip'}, 'bend': {'spine': [0.72 + 0.05 * (i % 2), 0, 0, 1.05, None], 'neck': [-0.5, 0, 0, 1, None]}, 'hose': 0.15}   # (round 1) dragged: pitched forward, arms out to the leash
+LEAN = lambda p, i=0: {'reach': {'R': R5(off(p, 0, -0.3, 0.14, 1.12 + 0.04 * (i % 2))), 'L': R5(off(p, 0, -0.36, -0.08, 1.08 + 0.04 * ((i + 1) % 2)))}, 'hands': {'R': 'grip', 'L': 'grip'}, 'lay': [-0.64 - 0.04 * (i % 2), 0], 'bend': {'spine': [0.12, 0, 0, 1.0, None], 'neck': [0.3, 0, 0, 1, None]}, 'hose': 0.05}   # (final pass) the whole body tipped back ~37-39 deg about the heels against the pull, arms straight out to the taut lead
 def LEASH(hid, dog, frm=None, until=None):
-    d = {'a': {'actor': hid, 'hand': 'R'}, 'b': {'prop': dog, 'offset': [0, 0.53, 0.3]}, 'color': '#C0392B', 'sag': 0.04, 'radius': 0.014, 'minPx': 4}
+    d = {'a': {'actor': hid, 'hand': 'R'}, 'b': {'prop': dog, 'offset': [0, 0.53, 0.3]}, 'color': '#C0392B', 'sag': 0.0, 'radius': 0.014, 'minPx': 4}
     if frm is not None: d['from'] = frm
     if until is not None: d['until'] = until
     return d
@@ -335,10 +347,10 @@ st.shot('S07', 'parisStreet', setOpts=STREET, actors=[
         LIFE(act('maitre3', M3, 45, 'stand', 'neutral', keys=[k(0.0, look=add(DOGc1, [0, 0.5, 0])), k(0.0, toon={'reach': {'R': R5(M3P)}, 'hands': {'R': 'grip'}, 'bend': {'spine': [-0.2, 0, 0, 1, None]}, 'face': {'lid': 0.2, 'mouth': 'O', 'brow': 0.5}}, toonDur=0.0)]), D7, t0=1.5)],
         props=[P('chien7a', 'chvDog', pos=DA0, opts={**DOGF, 'sniff': [[0.1, 0.4], [0.62, 0.92]], 'wag': 3}, keys=[k(0.0, to=DA1, dur=CUT7, ease='linear'), k(CUT7, visible=False)]),
                P('chien7b', 'chvDog', pos=DB0, opts={**DOGF, 'sniff': [[0.3, 0.6], [0.85, 1.2]], 'wag': 3.4}, keys=[k(0.0, to=DB1, dur=CUT7, ease='linear'), k(CUT7, visible=False)]),
-               P('chien7c', 'chvDog', pos=DOGc1, ry=60, opts={**DOGF, 'walk': False, 'proud': [[0, 0.6]], 'sniff': [[1.6, 1.85], [2.15, 2.4]], 'wag': 3}, keys=[k(0.0, visible=False), k(CUT7, visible=True), k(r(CUT7 + 0.2), rotTo=[0.25, 1.05, 0], dur=0.1), k(r(CUT7 + 0.45), rotTo=[-0.05, 1.05, 0], dur=0.1), k(r(CUT7 + 0.7), rotTo=[0.25, 1.05, 0], dur=0.1)]),
-               P('chien7d', 'chvDog', pos=DOGc2, ry=80, opts={**DOGF, 'walk': False, 'proud': [[0, 0.8]], 'sniff': [[1.4, 1.7], [1.95, 2.25]], 'wag': 2.6}, keys=[k(0.0, visible=False), k(CUT7, visible=True), k(r(CUT7 + 0.3), rotTo=[0.3, 1.4, 0], dur=0.1), k(r(CUT7 + 0.6), rotTo=[0.0, 1.4, 0], dur=0.1)]),
+               P('chien7c', 'chvDog', pos=add(DOGc1, [-0.75, 0, 0]), ry=60, opts={**DOGF, 'walk': True, 'walkUntil': r(CUT7 + 0.14), 'scrabble': 2.6, 'proud': [[0, 0.6]], 'sniff': [[1.6, 1.85], [2.15, 2.4]], 'wag': 3}, keys=[k(0.0, visible=False), k(CUT7, visible=True), k(CUT7, to=add(DOGc1, [0.08, 0, 0]), dur=0.14, ease='out'), k(r(CUT7 + 0.14), to=DOGc1, dur=0.1), k(r(CUT7 + 0.14), squash=[1.1, 0.88, 1.1], dur=0.3), k(r(CUT7 + 0.2), rotTo=[0.25, 1.05, 0], dur=0.1), k(r(CUT7 + 0.45), rotTo=[-0.05, 1.05, 0], dur=0.1), k(r(CUT7 + 0.7), rotTo=[0.25, 1.05, 0], dur=0.1)]),
+               P('chien7d', 'chvDog', pos=add(DOGc2, [-0.85, 0, 0]), ry=80, opts={**DOGF, 'walk': True, 'walkUntil': r(CUT7 + 0.18), 'scrabble': 2.6, 'proud': [[0, 0.8]], 'sniff': [[1.4, 1.7], [1.95, 2.25]], 'wag': 2.6}, keys=[k(0.0, visible=False), k(CUT7, visible=True), k(r(CUT7 + 0.04), to=add(DOGc2, [0.08, 0, 0]), dur=0.14, ease='out'), k(r(CUT7 + 0.18), to=DOGc2, dur=0.1), k(r(CUT7 + 0.18), squash=[1.1, 0.88, 1.1], dur=0.3), k(r(CUT7 + 0.3), rotTo=[0.3, 1.4, 0], dur=0.1), k(r(CUT7 + 0.6), rotTo=[0.0, 1.4, 0], dur=0.1)]),
                P('maison7', 'chvDoorWall', pos=[8.6, 0, -12.0], ry=-90, opts={'facade': True, 'w': 3.4, 'dw': 1.2, 'dh': 2.55, 'num': 12, 'color': '#E7D2B0', 'door': '#2F5D8A'}),
-               P('cle7', 'bigKey', on={'actor': 'cuisinier', 'hand': 'R', 'face': 'camera'}, opts=KEYOPT), CHEF('veste7', 'cuisinier'), TOQUE_ON('toque7', 'cuisinier')],
+               P('cle7', 'bigKey', on={'actor': 'cuisinier', 'hand': 'R', 'face': 'camera'}, opts=KEYOPT), CHEF('veste7', 'cuisinier'), TOQUE_ON('toque7', 'cuisinier') | {'opts': {'wob': [[r(CUT7 + 0.16), 0.16]]}}],
         cams=[C7a, C7b],
         tethers=[LEASH('maitre1', 'chien7a', until=CUT7), LEASH('maitre2', 'chien7b', until=CUT7), {**LEASH('maitre3', 'chien7d', frm=CUT7), 'a': {'point': M3P}}])
 st.cue('sfx:stepRun', 'S07', 0.1, 0.25); st.cue('sfx:sniff', 'S07', 0.4, 0.3); st.cue('sfx:sniff', 'S07', 0.8, 0.3); st.cue('sfx:sniff', 'S07', r(CUT7 + 0.2), 0.35); st.cue('sfx:sniff', 'S07', r(CUT7 + 0.5), 0.3)
@@ -346,12 +358,13 @@ st.cue('sfx:stepRun', 'S07', 0.1, 0.25); st.cue('sfx:sniff', 'S07', 0.4, 0.3); s
 # 8: they broke down his door. Inside his hallway, at floor level: the front door falls flat toward us in a puff of dust; in the bright doorway
 #    two masked officers hold the ram, a third behind
 D8 = st.dur('S08'); HIT8 = 0.32
-RAM8a, RAM8b = [0.0, 1.05, -1.05], [0.0, 1.05, -0.62]
+RAM8a, RAM8b = [0.0, 1.0, -1.05], [0.0, 1.0, -0.62]
+RAMO = {'color': '#F2C230', 'trim': '#2B2F36', 'r': 0.12, 'len': 1.25}   # (final pass) a bold light ram (it was a dark lump against the dark uniforms)
 SW1, SW2 = [-0.32, 0, -0.95], [0.32, 0, -1.35]
 C8 = cam(0.0, [0.28, 0.28, 3.7], [0.26, 0.28, 3.55], [0.0, 1.15, -0.6], [0.0, 1.15, -0.6], lens=46)
 chk('S08', C8['from'], C8['lookAt'], 46, {'doorTop': [0, 2.15, 0.05], 'doorFlat': [0, 0.06, 2.1], 'sw1Face': [SW1[0], 2.05, SW1[2]], 'sw2Face': [SW2[0], 2.05, SW2[2]], 'ram': RAM8b, 'ceil': [0, 2.9, 2.0]})
 def RAMHANDS(ram, side):
-    g = [[0, 0.21, -0.28], [0, 0.21, 0.22]]
+    g = [[0, 0.24, -0.28], [0, 0.24, 0.22]]
     return {'R': R5(add(ram, [side * 0.06, g[0][1], g[0][2]])), 'L': R5(add(ram, [side * 0.06, g[1][1], g[1][2]]))}
 MASKED = lambda who: [P(f'cagoule_{who}', 'balaclava', on={'actor': who, 'joint': 'head', 'offset': [0, 0, 0]}), P(f'casque_{who}', 'tacHelmet', on={'actor': who, 'joint': 'head', 'offset': [0, 0.47, 0]})]
 st.shot('S08', 'whiteVoid', setOpts={'color': '#E4ECF2'}, actors=[
@@ -360,8 +373,8 @@ st.shot('S08', 'whiteVoid', setOpts={'color': '#E4ECF2'}, actors=[
         act('swat2', SW2, 0, 'stand', 'angry', keys=[k(0.0, look=[0, 1.2, 1.5]), k(0.0, toon={'reach': RAMHANDS(RAM8a, -1), 'hands': {'R': 'grip', 'L': 'grip'}, 'bend': {'spine': [0.2, 0, 0, 1, None]}}, toonDur=0.0),
             k(r(HIT8 - 0.12), toon={'reach': RAMHANDS(RAM8b, -1), 'hands': {'R': 'grip', 'L': 'grip'}, 'bend': {'spine': [0.35, 0, 0, 1, None]}}, toonDur=0.12, toonEase='in'), *blink(1.1, {'lid': 0.3, 'mouth': 'line'})]),
         LIFE(act('swat3', [0.75, 0, -2.4], -20, 'stand', 'neutral', keys=[k(0.0, look=[0, 1.2, 1.5]), k(0.0, toon={'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.0), k(r(HIT8 + 0.05), toon={'sq': [1.06, 0.94, 1.06], 'face': {'lid': 0.0, 'mouth': 'O', 'brow': 0.6}}, toonDur=0.04), k(r(HIT8 + 0.25), toon={'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.15)]), D8, t0=0.9)],
-        props=[P('couloir8', 'chvHall', pos=[0, 0, 0]), P('porte8', 'chvDoorWall', pos=[0, 0, 0], opts={'w': 1.9, 'h': 2.95, 'dir': 1, 'fallAt': HIT8, 'num': 12, 'color': '#D6C3A0', 'trim': '#F2EEE4', 'bounce': 0.38, 'bounceF': 13, 'bounceDecay': 4.5, 'slamSq': True}),
-               P('belier8', 'chvRam', pos=RAM8a, keys=[k(r(HIT8 - 0.12), to=RAM8b, dur=0.12, ease='in')]), *MASKED('swat1'), *MASKED('swat2'), *MASKED('swat3')],
+        props=[P('couloir8', 'chvHall', pos=[0, 0, 0]), P('porte8', 'chvDoorWall', pos=[0, 0, 0], opts={'w': 1.9, 'h': 2.95, 'dir': 1, 'fallAt': HIT8, 'num': 12, 'color': '#D6C3A0', 'trim': '#F2EEE4', 'bounce': 0.38, 'bounceF': 13, 'bounceDecay': 4.5, 'slamSq': True, 'puffS': 0.32, 'puffUp': 0.1}),   # (final pass) the dust stays low on the floor: it no longer fogs the officers' legs
+               P('belier8', 'chvRam', pos=RAM8a, ry=32, opts=RAMO, keys=[k(r(HIT8 - 0.12), to=RAM8b, dur=0.12, ease='in')]), *MASKED('swat1'), *MASKED('swat2'), *MASKED('swat3')],
         cams=[C8], fx=[{'type': 'shake', 'at': HIT8, 'dur': 0.2, 'amount': 0.02}])
 st.cue('thud', 'S08', HIT8, 0.7); st.cue('sfx:crunch', 'S08', HIT8, 0.35); st.cue('thud', 'S08', r(HIT8 + 0.24), 0.6); st.cue('sfx:poof', 'S08', r(HIT8 + 0.26), 0.3)
 
@@ -370,16 +383,16 @@ st.cue('thud', 'S08', HIT8, 0.7); st.cue('sfx:crunch', 'S08', HIT8, 0.35); st.cu
 D9 = st.dur('S09')
 HZ = [-3.3, -5.5, -7.7, -9.9, -12.1, -14.3, -16.5]
 RUN0, RUN1 = -14.0, -5.6; SPD9 = (RUN1 - RUN0) / D9
-FALL9 = lambda z: r((z - 0.7 - RUN0) / SPD9)   # (round 2) each door drops just ahead of the team: four doors fall during the shot, in the frame
-C9 = FC('S09', 0.0, [5.6, 1.7, -2.9], {'door2top': [8.5, 2.7, HZ[2]], 'door2foot': [8.45, 0.3, HZ[2]], 'door5top': [8.5, 2.6, HZ[5]], 'run1top': [6.5, 2.5, RUN1 + 0.2], 'run1L': [6.0, 1.3, RUN1], 'run0top': [6.5, 2.5, RUN0]},
-        top=0.1, bottom=0.74, lenses=range(24, 66), margin=0.04, drift=(0.05, 0.0, 0.25))
+FALL9 = lambda z: r(0.05 + 0.155 * (len(HZ) - 1 - HZ.index(z)))   # (final pass) a steady beat (one door every ~5 frames, far to near) inside the shot: no doorway already black at the start
+C9 = FC('S09', 0.0, [5.2, 1.1, -3.0], {'door2top': [8.5, 2.7, HZ[2]], 'door2foot': [8.45, 0.2, HZ[2]], 'door5top': [8.5, 2.6, HZ[5]], 'run1top': [6.5, 2.5, RUN1 + 0.2], 'run1L': [6.0, 1.2, RUN1], 'run0top': [6.5, 2.5, RUN0]},   # (final pass) lower and further up the street: less empty pavement, the nearest doors big
+        top=0.06, bottom=0.8, lenses=range(24, 66), margin=0.04, drift=(0.05, 0.0, 0.25))
 RUNNERS = [('swat1', 6.15, 0.0), ('swat2', 6.85, -0.9), ('swat3', 6.5, -2.0)]
 def RAMAT(t): return [6.5, 1.05, r(RUN0 + SPD9 * t + 0.45)]
 st.shot('S09', 'parisStreet', setOpts=STREET, actors=[
         *[act(w, [x, 0, r(RUN0 + dz)], 0, 'run', 'angry', keys=[k(0.0, to=[x, 0, r(RUN1 + dz)], dur=D9, clip='run', ease='linear', cruise=True), k(0.0, look=[x, 1.8, 10]),
             *([k(r(0.15 * i), toon={'reach': {'R' if w == 'swat1' else 'L': R5(add(RAMAT(0.15 * i), [(-0.18 if w == 'swat1' else 0.18), 0.12, -0.05 if w == 'swat1' else 0.35]))}, 'hands': {'R': 'grip', 'L': 'grip'}, 'autoSq': 0.3}, toonDur=0.15, toonEase='linear') for i in range(int(D9 / 0.15) + 1)] if w != 'swat3' else [])]) for w, x, dz in RUNNERS]],
         props=[*[P(f'maison9{i}', 'chvDoorWall', pos=[8.6, 0, z], ry=-90, opts={'facade': True, 'w': 2.2, 'dir': -1, 'dark': True, 'fallAt': FALL9(z), 'fallDur': 0.2, 'bounce': 0.3, 'bounceF': 15, 'bounceDecay': 5, 'puffOut': True, 'puffS': 1.6, 'puffUp': 0.9, 'num': 2 + 2 * i, 'color': ['#E7D2B0', '#D9B8A0', '#CFD8C6', '#E4C9A8', '#C9D2DE', '#E8D9B8', '#DCC7A4'][i], 'door': ['#2F5D8A', '#8A2E2E', '#2E6B4A', '#5A3E8A', '#B06A2A', '#2F5D8A', '#8A2E2E'][i]}) for i, z in enumerate(HZ)],
-               P('belier9', 'chvRam', pos=RAMAT(0), keys=[k(0.0, to=RAMAT(D9), dur=D9, ease='linear')]), *MASKED('swat1'), *MASKED('swat2'), *MASKED('swat3')],
+               P('belier9', 'chvRam', pos=RAMAT(0), opts=RAMO, keys=[k(0.0, to=RAMAT(D9), dur=D9, ease='linear')]), *MASKED('swat1'), *MASKED('swat2'), *MASKED('swat3')],
         cams=[C9])
 for z in HZ:
     if 0 <= FALL9(z) < D9: st.cue('thud', 'S09', r(FALL9(z) + 0.22), 0.4)
@@ -423,7 +436,7 @@ st.shot('S10', 'parisStreet', setOpts=STREET, actors=[
             k(r(LIFT10 + 0.15), toon={'reach': {'R': R5(add(TORCH10, [0, 0.06, 0]), 1, 0.0)}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.1, 'mouth': 'O', 'brow': 0.7}}, toonDur=0.1)]), D10, t0=0.9)],
         props=[*DOORSTEP(), CHEF('veste10', 'cuisinier'),
                TOQUE_ON('toque10', 'cuisinier', keys=[k(LIFT10, detach=True, worldRot=[0, 0, 0]), k(LIFT10, to=[None, TQUP[1], None], dur=0.15, ease='out'), k(0.45, to=[None, TQHANG[1], None], dur=0.27), k(0.72, to=TQSIDE, dur=0.22, ease='inOut')]),   # on his head, then released straight up (null x, z keep where it left the head)
-               BALD('brille10', 'cuisinier', 1.3, [r(LIFT10 + 0.18), 1.05], 0.6) | {'opts': {'s': 1.3, 'twinkle': [r(LIFT10 + 0.18), 1.05], 'tw0': 0.6, 'flare': [[r(LIFT10 + 0.1), 1.9]]}},
+               BALD('brille10', 'cuisinier', 1.3, [r(LIFT10 + 0.18), 1.05], 0.6) | {'opts': {'s': 2.0, 'twinkle': [r(LIFT10 + 0.18), 1.05], 'tw0': 0.75, 'flare': [[r(LIFT10 + 0.1), 2.8]]}},   # (final pass) a bigger shine
                P('lampe10', 'chvTorch', pos=TORCH10, ry=r(TR10[1]), rot=[r(TR10[0]), 0, r(TR10[2])], opts={'len': r(math.dist(TORCH10, HEADTOP) - 0.05), 'r': 0.26, 'op': 0.65})],
         cams=C10)
 st.card('S10', 'CHAUVE', at=0.82)
@@ -438,22 +451,23 @@ COOK11 = [7.5, 0, -12.0]
 OFF11 = [8.2, 0, -12.25]; RYO11 = yaw(OFF11, COOK11)
 CTH = PI - 0.5; CDIR = [r(-math.sin(CTH)), r(math.cos(CTH))]                       # the blade points down and toward the front
 CEN = lambda z, lift=0.0: [r(7.47 - CDIR[0] * 0.183), r(2.345 - CDIR[1] * 0.183 + lift), z]   # the clippers' middle with the blade on the crown at z
-CLIPA = CEN(-12.17, 0.1); CLIP0 = CEN(-12.17); CLIP1 = CEN(-11.84); CLIPUP = add(CEN(-11.8), [0.06, 0.24, 0.04])
+CLIPA = CEN(-12.2, 0.12); CLIP0 = CEN(-12.2); CLIP1 = CEN(-11.8); CLIPUP = add(CEN(-11.76), [0.06, 0.36, 0.04])   # (final pass) a longer pass, a higher recoil hop
 C11F, C11L, LENS11 = [5.45, 3.75, -11.75], [7.6, 1.96, -12.03], 40
 C11 = cam(0.0, C11F, add(C11F, [0.12, -0.03, 0.0]), C11L, C11L, lens=LENS11)
 chk('S11', C11F, C11L, LENS11, {'crown': [7.48, 2.34, -12.0], 'chin': [7.3, 1.76, -12.0], 'earL': [7.5, 2.0, -11.76], 'earR': [7.5, 2.0, -12.24], 'offHead': [OFF11[0], 2.3, OFF11[2]], 'clipUp': CLIPUP, 'clipA': CLIPA})
 CLIPROT = [0.0, 0, CTH]
 FS = {'lid': 0.4, 'mouth': 'line', 'gy': -0.9}
 TQ = R5(off(COOK11, RYK, 0.4, -0.3, 1.4), 1, 0.06)
-K11 = lambda f, sc=None: {'reach': {'L': TQ}, 'hands': {'L': 'grip'}, 'face': f, **({'scl': {'head': sc}} if sc else {})}
-HND = lambda p: {'reach': {'R': R5(add(p, [0.04, 0.06, 0.0]), 1, 0.06)}, 'hands': {'R': 'grip'}}
+K11 = lambda f, sc=None: {'reach': {'L': TQ}, 'hands': {'L': 'grip'}, 'face': f, 'hip': 0, 'auto': 0.25, **({'scl': {'head': sc}} if sc else {})}   # (final pass) hip 0: no idle weight shift (his head slid a third of the frame), auto low: no sway
+HND = lambda p: {'reach': {'R': [*R5(add(p, [0.04, 0.06, 0.0]), 1, 0.06), [-0.55, 0.75, -0.35]]}, 'hands': {'R': 'grip'}, 'hose': 0.0}   # (final pass) the elbow up and out: one clean arc from behind
 st.shot('S11', 'parisStreet', setOpts=STREET, actors=[
         LIFE(act('cuisinier', COOK11, RYK, 'stand', 'neutral', keys=[k(0.0, look=[5.6, 1.55, -11.85]),   # (round 2) head level, chin a little down: the crown faces the camera, the eyes roll up
             k(0.0, toon=K11({**FS, 'gy': -0.6}), toonDur=0.0),
             k(0.12, toon=K11({**FS, 'gy': -1.0, 'lid': 0.3}), toonDur=0.08),
-            k(PASS11[0], toon=K11({**FS, 'gx': -0.5, 'low': 0.2}, [1.06, 0.92, 1.06]), toonDur=0.06),
-            k(0.55, toon=K11({**FS, 'gx': 0.0, 'low': 0.25}, [1.06, 0.92, 1.06]), toonDur=0.2),
-            k(PASS11[1], toon=K11({**FS, 'gx': 0.5, 'lid': 0.5}, [0.95, 1.07, 0.95]), toonDur=0.05),
+            k(PASS11[0], toon=K11({**FS, 'gx': -0.5, 'low': 0.2}, [1.05, 0.94, 1.05]), toonDur=0.06),
+            k(0.55, toon=K11({**FS, 'gx': 0.0, 'low': 0.25}, [1.04, 0.96, 1.04]), toonDur=0.2),
+            k(PASS11[1], toon=K11({**FS, 'gx': 0.5, 'lid': 0.5}, [0.98, 1.03, 0.98]), toonDur=0.05),
+            k(r(PASS11[1] + 0.12), toon=K11({**FS, 'gx': 0.3, 'lid': 0.5}), toonDur=0.1),
             k(1.0, toon=K11({'lid': 0.45, 'mouth': 'wavy', 'gy': -0.3}), toonDur=0.12), *blink(1.2, {'lid': 0.45, 'mouth': 'wavy', 'gy': -0.3})]), D11, blinks=False, t0=0.3),
         LIFE(act('flic1', OFF11, RYO11, 'stand', 'neutral', keys=[k(0.0, look=[7.47, 2.3, -12.0]), k(0.0, toon={**HND(CLIPA), 'bend': {'spine': [0.25, 0, 0, 1, None]}, 'face': {'lid': 0.45, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.0),
             k(0.12, toon={**HND(CLIP0), 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'face': {'lid': 0.5, 'mouth': 'clench', 'brow': -0.4}}, toonDur=0.12, toonEase='in'),
@@ -461,7 +475,7 @@ st.shot('S11', 'parisStreet', setOpts=STREET, actors=[
             k(PASS11[1], toon={**HND(CLIPUP), 'bend': {'spine': [0.15, 0, 0, 1, None]}, 'face': {'lid': 0.2, 'mouth': 'o', 'brow': 0.5}}, toonDur=0.1, toonEase='out'),
             k(1.15, toon={**HND(add(CLIPUP, [0.05, -0.06, 0.0])), 'bend': {'spine': [0.15, 0, 0, 1, None]}, 'face': {'lid': 0.4, 'mouth': 'line', 'brow': 0.2}}, toonDur=0.25)]), D11, t0=0.5)],
         props=[*DOORSTEP(), CHEF('veste11', 'cuisinier'), TOQ('toque11', 'cuisinier'), BALD('brille11', 'cuisinier', 1.0, [r(PASS11[1] + 0.05)], 0.4),
-               P('tondeuse11', 'chvClippers', pos=CLIPA, rot=CLIPROT, opts={'buzz': [[0.0, 1.05]], 's': 1.55, 'sq': [[0.0, [1, 1, 1]], [0.12, [1.15, 0.8, 1.1]], [PASS11[0], [0.82, 1.3, 0.9]], [0.75, [0.9, 1.15, 0.95]], [PASS11[1], [1.3, 0.72, 1.2]], [0.95, [0.85, 1.25, 0.9]], [1.05, [1, 1, 1]]]},
+               P('tondeuse11', 'chvClippers', pos=CLIPA, rot=CLIPROT, opts={'buzz': [[0.0, 1.05]], 's': 1.85, 'color': '#6E7A8A', 'rim': '#F4F8FF', 'rimW': 0.004, 'sq': [[0.0, [1, 1, 1]], [0.12, [1.15, 0.8, 1.1]], [PASS11[0], [0.82, 1.3, 0.9]], [0.75, [0.9, 1.15, 0.95]], [PASS11[1], [1.3, 0.72, 1.2]], [0.95, [0.85, 1.25, 0.9]], [1.05, [1, 1, 1]]]},
                  keys=[k(0.12, to=CLIP0, dur=0.12, ease='in'), k(PASS11[0], to=CLIP1, dur=PASS11[1] - PASS11[0], ease='inOut'), k(PASS11[1], to=CLIPUP, dur=0.1, ease='out'), k(1.15, to=add(CLIPUP, [0.05, -0.06, 0.0]), dur=0.25)])],
         cams=[C11])
 st.cue('engine', 'S11', 0.0, 0.18, 1.05); st.cue('sfx:ding', 'S11', r(PASS11[1] + 0.05), 0.3)
@@ -580,7 +594,7 @@ st.cue('sfx:beep', 'S15', 0.65, 0.2); st.cue('sfx:beep', 'S15', 1.0, 0.2); st.cu
 # 16: the minister apologised to the hair. From the press seats: the minister at the podium turns and bows deeply to the hair standing on its
 #     little red-cushioned stand beside the podium; flashes pop in the foreground
 D16 = st.dur('S16'); BOW16 = 0.45
-MIN = [-0.1, 0, -2.35]; RYM = 62
+MIN = [-0.3, 0, -2.46]; RYM = 62   # (final pass) 0.22 m further from the stand: his bowed head stops with a gap beside the hair's ring
 STAND = [0.62, 0, -2.0]; SH16 = 1.12
 C16 = FC('S16', 0.0, [1.75, 1.6, 1.55], {'minTop': [MIN[0], 2.55, MIN[2]], 'minL': [MIN[0] - 0.25, 1.5, MIN[2]], 'hairTop': [STAND[0], SH16 + 0.6, STAND[2]], 'standFoot': [STAND[0], 0.7, STAND[2]]}, top=0.06, bottom=0.74, drift=(-0.05, 0, -0.12))
 BOWED = {'reach': {'R': R5(off(MIN, RYM, 0.18, 0.12, 1.0)), 'L': R5(off(MIN, RYM, 0.15, -0.14, 1.05))}, 'hands': {'R': 'open', 'L': 'open'}}
@@ -588,10 +602,10 @@ st.shot('S16', 'pressRoom', setOpts={'backdrop': 'EXCUSES', 'bg': '#E4E8EE', 'fg
         LIFE(act('ministre', MIN, RYM, 'stand', 'neutral', keys=[k(0.0, look=[STAND[0], 1.5, STAND[2]]),
             k(0.0, toon={**BOWED, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.3}}, toonDur=0.0),
             k(0.28, toon={**BOWED, 'bend': {'spine': [-0.18, 0, 0, 1.03, None]}, 'face': {'lid': 0.2, 'mouth': 'line', 'brow': 0.6}}, toonDur=0.15, toonEase='out'),
-            k(BOW16, toon={**BOWED, 'bend': {'spine': [1.3, 0, 0, 1.18, None], 'neck': [0.45, 0, 0, 1, None]}, 'face': {'lid': 0.9, 'mouth': 'line', 'brow': 0.5}}, toonDur=0.12, toonEase='in'),
-            k(r(BOW16 + 0.12), toon={**BOWED, 'bend': {'spine': [0.85, 0, 0, 0.96, None], 'neck': [0.25, 0, 0, 1, None]}, 'face': {'lid': 0.85, 'mouth': 'line', 'brow': 0.5}}, toonDur=0.1, toonEase='out'),
-            k(r(BOW16 + 0.24), toon={**BOWED, 'bend': {'spine': [0.98, 0, 0, 1.02, None], 'neck': [0.3, 0, 0, 1, None]}, 'face': {'lid': 0.8, 'mouth': 'line', 'brow': 0.5}}, toonDur=0.1),
-            k(r(BOW16 + 0.6), toon={**BOWED, 'bend': {'spine': [0.95, 0, 0, 1, None], 'neck': [0.25, 0, 0, 1, None]}, 'face': {'lid': 0.8, 'mouth': 'line', 'brow': 0.5}}, toonDur=0.3),
+            k(BOW16, toon={**BOWED, 'bend': {'spine': [1.05, 0, 0, 1.12, None], 'neck': [0.4, 0, 0, 1, None]}, 'face': {'lid': 0.9, 'mouth': 'line', 'brow': 0.5}}, toonDur=0.12, toonEase='in'),
+            k(r(BOW16 + 0.12), toon={**BOWED, 'bend': {'spine': [0.62, 0, 0, 0.96, None], 'neck': [0.25, 0, 0, 1, None]}, 'face': {'lid': 0.85, 'mouth': 'line', 'brow': 0.5}}, toonDur=0.1, toonEase='out'),
+            k(r(BOW16 + 0.24), toon={**BOWED, 'bend': {'spine': [0.74, 0, 0, 1.0, None], 'neck': [0.3, 0, 0, 1, None]}, 'face': {'lid': 0.8, 'mouth': 'line', 'brow': 0.5}}, toonDur=0.1),
+            k(r(BOW16 + 0.6), toon={**BOWED, 'bend': {'spine': [0.72, 0, 0, 1, None], 'neck': [0.25, 0, 0, 1, None]}, 'face': {'lid': 0.8, 'mouth': 'line', 'brow': 0.5}}, toonDur=0.3),
             k(r(BOW16 + 1.1), toon={**BOWED, 'bend': {'spine': [-0.22, 0, 0, 1.04, None]}, 'face': {'lid': 0.3, 'mouth': 'smile', 'brow': 0.4}}, toonDur=0.16, toonEase='out'),
             k(r(BOW16 + 1.3), toon={**BOWED, 'bend': {'spine': [0.06, 0, 0, 1, None]}, 'face': {'lid': 0.35, 'mouth': 'smile', 'brow': 0.3}}, toonDur=0.12), k(r(BOW16 + 1.25), look='camera', lookDur=0.2)]), D16, breath=False, t0=1.9)],
         props=[P('socle16', 'chvStand', pos=STAND, opts={'h': SH16, 'panel': True}),
@@ -608,6 +622,7 @@ CROWD = [('foule0', 'madame'), ('foule1', 'worker'), ('foule2', 'mamie'), ('foul
          ('foule8', 'cop'), ('foule9', 'pyjama'), ('foule10', 'doctor'), ('foule11', 'fermier'), ('foule12', 'cuisinier'), ('foule13', 'client2')]
 def ring_pos(i):
     n0 = 6; rr, a0 = (1.25, 0.0) if i < n0 else (2.1, 0.3); n = n0 if i < n0 else len(CROWD) - n0; j = i if i < n0 else i - n0
+    if i == 0: return [0.0, SQ[1], r(SQ[2] - 2.4)]   # (final pass) the figure nearest the lens (a red bald head over the lower third) goes behind the ring
     a = a0 + j / n * 2 * PI; return [r(SQ[0] + rr * math.sin(a)), SQ[1], r(SQ[2] + rr * math.cos(a))]
 C17 = [cam(0.0, [0.6, 10.5, -1.2], [0.3, 4.0, -3.7], [0.0, 0.0, -6.0], [0.0, 1.2, -6.0], lens=48, ease='out')]   # (round 2) the crane ends closer on the stand
 chk('S17s', C17[0]['from'], C17[0]['lookAt'], 48, {'stand': add(SQ, [0, 1.2, 0]), 'ringN': add(ring_pos(0), [0, 2.2, 0]), 'ringFar': add(ring_pos(9), [0, 2.2, 0])})
@@ -618,8 +633,9 @@ st.shot('S17', 'parisStreet', setOpts=STREET, actors=[
             k(r(1.1 + 0.05 * i), look='camera' if i % 3 == 0 else add(SQ, [0, 1.3, 0]), lookDur=0.3)]), D17, t0=r(0.3 + 0.09 * i), gap=0.7, amp=1.4) for i, (w, _) in enumerate(CROWD)]],   # (round 1) the crowd breathes, glances, blinks
         props=[P('socle17', 'chvStand', pos=SQ, opts={'h': 1.12, 'panel': False}),
                P('cheveu17', 'chvHair', pos=add(SQ, [0, 1.185, 0]), ry=20, opts={'L': 0.62, 'r': 0.02, 'wig': 0.04, 'waveF': 1.3, 'stand': [[0, 1]], 'stand0': 1, 'eyes': True, 'eyeS': 2.6, 'brows': True, 'rim': '#F4F1E8', 'blinks': [0.55, 1.12], 'gaze': [[0, 0.5, 0.3], [0.7, -0.5, 0.3], [1.2, 0, -1.0]], 'brow': [[0, -0.3], [1.2, 0.6]]}),
-               *[BALD(f'brille17_{w}', w, 1.1, [r(0.2 + 0.09 * i)], 0.5) for i, (w, _) in enumerate(CROWD)],
-               P('chien17', 'chvDogShaved', pos=add(SQ, [1.55, 0.0, 1.2]), ry=-130, opts={'tongue': True, 'proud': [[0, 1]], 'wag': 3.5})],
+               *[BALD(f'brille17_{w}', w, 1.7, [r(0.2 + 0.09 * i)], 0.75) for i, (w, _) in enumerate(CROWD)],   # (final pass) stronger scalp glints
+               P('chien17', 'chvDogShaved', pos=add(SQ, [0.45, 0.0, 1.3]), ry=-150,   # (final pass) where the near figure stood: in the final frame
+                  opts={'tongue': True, 'proud': [[0, 1]], 'wag': 3.5})],
         cams=C17)
 st.cue('sfx:wind', 'S17', 0.0, 0.2); st.cue('sfx:choir', 'S17', 0.2, 0.15)
 
@@ -639,7 +655,7 @@ WIN18 = [0.75, 2.75, 2.2, 2.5]
 C18F, C18L, LENS18 = [0.95, 0.9, 2.05], [0.15, 1.57, -1.0], 60
 C18 = cam(0.0, C18F, add(C18F, [-0.04, 0.0, -0.1]), C18L, C18L, lens=LENS18)
 HRY18 = -90
-HELI18 = unproject(C18F, C18L, LENS18, 0.6, 0.115, -3.4)
+HELI18 = unproject(C18F, C18L, LENS18, 0.6, 0.17, -3.4)   # (final pass) lower: the rotor inside the glass
 LAMP18 = add(HELI18, [r(v * HS) for v in rot_y([0, -0.5, 0.62], HRY18)])
 WINCH = add(HELI18, [0.08, -0.4, 0.0])
 HL18 = 0.46
@@ -679,6 +695,12 @@ st.cue('engine', 'S18', 0.0, 0.3, D18); st.cue('sfx:rotor', 'S18', 0.0, 0.3); st
 # 19: in this man's soup. The framing of shot 1: he, bald, before the same bowl; the hair drops in from above onto the soup, a ripple, it floats
 #     and opens two little eyes at him; he looks at it, then at us
 D19 = st.dur('S19'); LAND19 = 0.3
+DROP19 = [-0.11, 1.2, -0.19]   # (final pass) on the camera's ray through his shirt and tie: it falls in front of the white shirt, not the navy suit
+HAIR19 = add(HAIR1, [0.03, 0, 0.01])   # (final pass) turned end for end (yaw 180, eyes kept to the front): its eyes on the soup toward the bowl's middle, not at the right rim
+C19A, C19DY, C19TY = 0.05, 0.08, -0.2
+C19F2 = [r(C1['from'][i] + C19A * (HAIR19[i] - C1['from'][i]) + (C19DY if i == 1 else 0)) for i in range(3)]; C19L2 = [r(C1['lookAt'][i] + C19A * (HAIR19[i] - C1['from'][i]) + (C19DY + C19TY if i == 1 else 0)) for i in range(3)]
+C19 = [C1, glide([cam(1.55, C19F2, add(C19F2, [0.01, 0, -0.03]), C19L2, C19L2, lens=C1['lens'])], 0.45)]   # the end hold: a slight push-in and rise, the hair's eyes clear of the rim
+chk('S19e', C19F2, C19L2, C1['lens'], {'headTop': [0, 1.95, -0.8], 'chin': [0, 1.42, -0.72], 'hairEyes': add(HAIR19, [-0.157, 0.03, 0.03]), 'hairTail': add(HAIR19, [0.157, 0, -0.03]), 'rimFront': [0, TH + 0.11, 0.0]})
 # (round 1) a bug-eyed take at the hair (not the shot-1 pose): a squash as it lands, the eyes out on stalks down at it, both hands flying up open
 # beside his face, held; then the hands come down to the table edge and he turns to us, lids heavy, mouth wavy; a slow blink
 HUP = {'R': R5([-0.42, 1.62, -0.55], 1, 0.05), 'L': R5([0.42, 1.62, -0.55], 1, 0.05)}; HDN = {'R': R5([-0.3, 0.82, -0.42], 1, 0.05), 'L': R5([0.3, 0.82, -0.42], 1, 0.05)}
@@ -693,9 +715,9 @@ KEYS19 = [k(0.0, look=add(HAIR1, [0, 0.35, 0])), k(0.0, toon=SIT({'lid': 0.45, '
           k(1.95, toon=SIT({'lid': 1.0, 'mouth': 'wavy', 'brow': -0.25}, HDN, {'R': 'grip', 'L': 'grip'}), toonDur=0.15), k(2.25, toon=SIT({'lid': 0.62, 'mouth': 'wavy', 'brow': -0.25, 'browR': 0.3}, HDN, {'R': 'grip', 'L': 'grip'}), toonDur=0.15)]
 st.shot('S19', 'whiteVoid', setOpts=NIGHT, actors=[LIFE(act('mecChauve', HERO, 0, 'sit', 'neutral', keys=KEYS19), D19, blinks=False, t0=1.6)],
         props=[*[p for p in ROOM() if p['id'] != 'bol'], P('bol', 'chvBowl', pos=BOWL, opts={'steam': True, 'ripple': [LAND19]}), BALD('brille19', 'mecChauve', 1.0, [1.6], 0.35),
-               P('cheveu19', 'chvHair', pos=add(HAIR1, [0, 0.45, 0]), ry=12, opts={**HAIRF, 'eyes': True, 'eyesFloat': True, 'eyesOn': [[0, 0], [0.85, 1]], 'blinks': [1.3], 'gaze': [[0, 0, -0.8], [1.5, 0, 0]], 'eyeS': 0.9},
-                 keys=[k(0.0, to=HAIR1, dur=LAND19, ease='in')])],
-        cams=[C1])
+               P('cheveu19', 'chvHair', pos=DROP19, ry=12, opts={**HAIRFO, 'yaw': [[-1, 180]], 'eyesFace': True, 'eyes': True, 'eyesFloat': True, 'eyesOn': [[0, 0], [0.85, 1]], 'blinks': [1.3, 2.1], 'gaze': [[0, 0, -0.8], [1.5, 0, 0]], 'eyeS': 1.35, 'onTop': True},
+                 keys=[k(0.0, to=HAIR19, dur=LAND19, ease='in')])],
+        cams=C19)
 st.cue('sfx:splash', 'S19', LAND19, 0.3); st.cue('sfx:pop', 'S19', 0.85, 0.2)
 
 print('\n'.join(CHECKS))
