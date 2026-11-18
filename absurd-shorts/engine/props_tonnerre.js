@@ -55,7 +55,9 @@ const TFACE = {
 };
 const THICK = { shut: 1.8, tight: 1.7, clench: 2.2 };
 // the bolt arms' directions (the left arm; the right one is mirrored), in the cloud's frame
-const TARMS = { rest: [-0.55, -0.83, 0.12], up: [-0.45, 0.88, 0.15], out: [-1, 0.05, 0.15], cuff: [0.62, -0.33, 0.71], hold: [-0.55, 0.15, 0.82], tuck: [0.2, -0.9, 0.35], shrug: [-0.85, 0.45, 0.3], point: [-0.3, 0.1, 0.95], cradle: [-0.35, -0.2, 0.92] };
+const TARMS = { rest: [-0.55, -0.83, 0.12], up: [-0.45, 0.88, 0.15], out: [-1, 0.05, 0.15], cuff: [0.62, -0.33, 0.71], hold: [-0.55, 0.15, 0.82], tuck: [0.2, -0.9, 0.35], shrug: [-0.85, 0.45, 0.3], point: [-0.3, 0.1, 0.95], cradle: [-0.35, -0.2, 0.92],
+  // (final pass) cuffLow: the cuffed arms lower and further forward, clear of the plate's sides (the puffed cheeks show)
+  cuffLow: [0.5, -0.66, 0.56] };
 
 export const TONNERRE_PROPS = {
   // The thunder: one black anvil cumulonimbus (pivot at the middle of its flat base, front +Z; about 3.3 o.s wide at the anvil, 2.1 o.s tall): a
@@ -102,7 +104,8 @@ export const TONNERRE_PROPS = {
     const teeth = box(1, 1, 0.025, '#F4F2EA'); teeth.geometry.translate(0, -0.5, 0); teeth.position.z = 0.016; mouth.add(teeth);
     // (pass 2) the puffed cheeks are the plate itself swelling: two blocks of the plate's own material at its sides, at the mouth's height, that
     // push out past its edges (separate balls read as earmuffs)
-    const cheeks = [-1, 1].map(s => { const c = box(0.22, 0.36, 0.13, '', { material: plateM, outline: 0.012, taper: { x: 0.8, z: 0.9 } }); c.rotation.z = s * 0.12; c.position.set(0.4 * s, -0.13, 0.0); face.add(c); return c; });
+    const cheekM = mat(new THREE.Color(tc(o.plate || '#4A4C52')).multiplyScalar(o.cheekK ?? 0.85).getStyle(), { unique: true }); lit.push(cheekM);
+    const cheeks = [-1, 1].map(s => { const c = box(0.22, 0.36, 0.13, '', { material: cheekM, outline: 0.012, taper: { x: 0.8, z: 0.9 } }); c.rotation.z = s * 0.12; c.position.set(0.4 * s, -0.13, 0.0); face.add(c); return c; });
     // the bolt arms: yellow zigzags pointing along -Y from the shoulder, aimed by direction
     const BOLT = poly([[-0.06, 0], [0.1, 0], [0.035, -0.26], [0.15, -0.26], [-0.07, -0.74], [0.0, -0.37], [-0.12, -0.37]]);
     const boltM = mat('#F6C518', { emissive: '#6E5200' }), steel = mat('#C9CED6'), arms = [], AL = o.armLen ?? 1.3;
@@ -127,7 +130,10 @@ export const TONNERRE_PROPS = {
     if (o.bundle) { const cv = canvasPlane(0.2, 0.2, (c, W, H) => { c.fillStyle = '#C8322A'; c.fillRect(0, 0, W, H); c.fillStyle = '#F4F1E8'; for (let i = 0; i < 5; i++) for (let j = 0; j < 5; j++) if ((i + j) % 2 === 0) { c.beginPath(); c.arc((i + 0.5) * W / 5, (j + 0.5) * H / 5, W * 0.045, 0, TAU); c.fill(); } }, { res: 128 });
       const bm = new THREE.MeshLambertMaterial({ map: cv.material.map }); const bun = new THREE.Mesh(new THREE.IcosahedronGeometry(0.16, 1), bm); bun.scale.set(1, 0.85, 1); bun.position.set(0, -0.98 * AL, 0); bun.castShadow = true;
       const knot = new THREE.Mesh(new THREE.IcosahedronGeometry(0.07, 0), bm); knot.position.set(0, -0.1 * AL, 0); bun.position.set(0, -0.28 * AL, 0);
-      const bg = grp(bun, knot, segment([0, 0, 0], [0, -0.12 * AL, 0], 0.012, mat('#3A2A1A'))); bg.position.set(0, -0.7 * AL, 0); bg.scale.setScalar(o.bundleS ?? 1); arms[0].sh.add(bg); }
+      const bg = grp(bun, knot, segment([0, 0, 0], [0, -0.12 * AL, 0], 0.012, mat('#3A2A1A')));
+      // (final pass) o.bundleStick: the knot tied in two ears on top of the bundle, a wooden stick through it (a bindle, not a ball)
+      if (o.bundleStick) { knot.position.set(0, -0.28 * AL + 0.13, 0); [-1, 1].forEach(e => { const ear = new THREE.Mesh(new THREE.IcosahedronGeometry(0.05, 0), bm); ear.scale.set(0.7, 1.6, 0.7); ear.rotation.z = -e * 0.7; ear.position.set(e * 0.06, -0.28 * AL + 0.19, 0); bg.add(ear); });
+        bg.children[2].visible = false; bg.add(segment([-0.05, 0.12, 0.02], [0.05, -0.28 * AL + 0.16, 0.02], 0.02, mat('#7A5230'))); } bg.position.set(0, -0.7 * AL, 0); bg.scale.setScalar(o.bundleS ?? 1); arms[0].sh.add(bg); }
     const V3 = THREE.Vector3, down = new V3(0, -1, 0), tips = [new V3(), new V3()];
     g.userData.update = t => {
       const sq = keyVec(o.sq, t, [1, 1, 1], 0.15), br = 1 + 0.02 * Math.sin(t * 2.1 + (o.seed || 0));
@@ -149,6 +155,8 @@ export const TONNERRE_PROPS = {
       const mw = F[3] * (1 - 0.45 * F[6]), cu = F[5], th = THICK[name] || 1;
       mseg[1].scale.set(mw * 0.5 / 0.1, th, 1); mseg[1].position.set(0, 0, 0);
       [0, 2].forEach((i, j) => { const s = j ? 1 : -1, m = mseg[i]; m.scale.set(mw * 0.3 / 0.1, th, 1); m.position.set(s * (mw * 0.25 + mw * 0.13 * Math.cos(cu)), mw * 0.13 * Math.sin(cu) * 0.9, 0); m.rotation.z = s * cu; });
+      // (final pass) shut: a tight wavy pressed line (the three segments zigzag)
+      if (name === 'shut') { mseg[0].rotation.z = 0.42; mseg[1].rotation.z = -0.42; mseg[2].rotation.z = 0.42; mseg.forEach((m, i) => { m.position.y = 0; m.scale.y = 1.3; }); }
       mseg.forEach(m => { m.visible = open < 0.08; });
       const oh = 0.04 + 0.3 * open, ow = Math.max(mw, 0.2 + 0.12 * open);
       cav.visible = inner.visible = teeth.visible = open >= 0.08; cav.scale.set(ow, oh, 1); cav.position.y = 0.02;
@@ -342,12 +350,14 @@ export const TONNERRE_PROPS = {
   // left from inside); outside, a grey corridor (o.corr 2.6 deep) with a steel-grey outer face
   paddedCell(o) {
     const W = o.w ?? 3.6, D = o.d ?? 3.6, H = o.h ?? 3.2, g = grp(), dx = o.doorX ?? 0, dW = o.doorW ?? 0.85, dH = o.doorH ?? 2.15, hy = o.hatchY ?? 2.02, hw = o.hatchW ?? 0.46, hh = o.hatchH ?? 0.36, fz = D / 2;
+    // (final pass) puffy square cushions: each tile a pillow (bright middle, soft grey falling to its seams), a dark button at every seam crossing;
+    // slightly self-lit (o.glowK 0.22) so the cell reads near-white
     const quilt = (w, h, base) => { const cv = document.createElement('canvas'); const res = 512; cv.width = res; cv.height = Math.max(8, Math.round(res * h / w)); const c = cv.getContext('2d'), Wp = cv.width, Hp = cv.height;
-      c.fillStyle = base; c.fillRect(0, 0, Wp, Hp); const cell = Wp / Math.max(2, Math.round(w / 0.42)); const rows = Math.ceil(Hp / cell) + 1, cols = Math.ceil(Wp / cell) + 1;
-      for (let j = -1; j < rows; j++) for (let i = -1; i < cols; i++) { const x = i * cell + (j % 2 ? cell / 2 : 0), y = j * cell * 0.62; const gr = c.createRadialGradient(x, y, cell * 0.05, x, y, cell * 0.55); gr.addColorStop(0, 'rgba(255,255,255,0.0)'); gr.addColorStop(1, 'rgba(120,128,140,0.28)'); c.fillStyle = gr; c.fillRect(x - cell, y - cell, cell * 2, cell * 2); }
-      c.strokeStyle = 'rgba(118,126,138,0.75)'; c.lineWidth = Wp * 0.004; for (let k = -rows; k < cols + rows; k++) { c.beginPath(); c.moveTo(k * cell, 0); c.lineTo(k * cell + Hp / 0.62 * 0.5, Hp); c.stroke(); c.beginPath(); c.moveTo(k * cell, 0); c.lineTo(k * cell - Hp / 0.62 * 0.5, Hp); c.stroke(); }
-      c.fillStyle = '#7A808A'; for (let j = 0; j < rows; j++) for (let i = -1; i < cols; i++) { const x = i * cell + (j % 2 ? cell / 2 : 0), y = j * cell * 0.62; c.beginPath(); c.arc(x, y, Wp * 0.006, 0, TAU); c.fill(); }
-      const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; return new THREE.MeshLambertMaterial({ map: tex }); };
+      c.fillStyle = '#C4C8CE'; c.fillRect(0, 0, Wp, Hp); const cell = Wp / Math.max(2, Math.round(w / 0.5)); const rows = Math.ceil(Hp / cell) + 1, cols = Math.ceil(Wp / cell) + 1;
+      for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) { const x = (i + 0.5) * cell, y = (j + 0.5) * cell; const gr = c.createRadialGradient(x - cell * 0.12, y - cell * 0.14, cell * 0.04, x, y, cell * 0.62);
+        gr.addColorStop(0, '#FFFFFF'); gr.addColorStop(0.45, base); gr.addColorStop(0.8, '#D3D6DB'); gr.addColorStop(1, '#AEB3BA'); c.fillStyle = gr; c.beginPath(); c.ellipse(x, y, cell * 0.5, cell * 0.5, 0, 0, TAU); c.fill(); c.fillRect(x - cell * 0.42, y - cell * 0.42, cell * 0.84, cell * 0.84); }
+      for (let j = 0; j <= rows; j++) for (let i = 0; i <= cols; i++) { const x = i * cell, y = j * cell; c.fillStyle = 'rgba(150,156,166,0.55)'; c.beginPath(); c.arc(x, y, cell * 0.11, 0, TAU); c.fill(); c.fillStyle = '#5E646E'; c.beginPath(); c.arc(x, y, cell * 0.05, 0, TAU); c.fill(); }
+      const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; return new THREE.MeshLambertMaterial({ map: tex, emissive: '#FFFFFF', emissiveMap: tex, emissiveIntensity: o.glowK ?? 0.22 }); };
     const panel = (w, h, base, x, y, z, ry = 0, rx = 0) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.12), [mat(base), mat(base), mat(base), mat(base), quilt(w, h, base), mat(base)]); m.position.set(x, y, z); m.rotation.set(rx, ry, 0); m.receiveShadow = true; m.castShadow = true; g.add(m); return m; };
     const WC = o.wallColor || '#F1EFEA';
     panel(W, H, WC, 0, H / 2, -D / 2 - 0.06); panel(D, H, WC, -W / 2 - 0.06, H / 2, 0, PI / 2); panel(D, H, WC, W / 2 + 0.06, H / 2, 0, -PI / 2);
@@ -391,7 +401,9 @@ export const TONNERRE_PROPS = {
     g.add(at(box(gw - 0.1, 0.12, 0.06, '#353C44'), 0, gh * 0.33, 0.47), at(box(gw - 0.1, 0.12, 0.06, '#353C44'), 0, gh * 0.72, 0.47), at(box(0.04, gh - 0.1, 0.02, '#2A3036'), 0, gh / 2, 0.43));
     const bx = gw / 2 + 1.5; g.add(at(box(1.6, 2.6, 1.3, '#E8E2D4', { pivot: 'bottom', outline: 0.008 }), bx, 0, 0.95), at(box(1.75, 0.12, 1.45, '#8A6A4A'), bx, 2.66, 0.95));
     g.add(at(box(1.0, 0.7, 0.03, '#2E3A46'), bx, 1.55, 1.61), at(box(1.1, 0.06, 0.25, '#8A6A4A'), bx, 1.17, 1.68));
-    g.add(at(box(W + 40, 0.05, 14, '#BDB6A8'), 0, -0.02, 7), at(box(W + 40, 0.03, 3.2, '#D9D2C2'), 0, 0.0, 2.2));
+    // (final pass) the ground slabs drawn with a depth offset: at 5-15 mm over the grassland's 9 km field it flashed green for single frames
+    const slab = c => { const m = mat(c, { unique: true }); m.polygonOffset = true; m.polygonOffsetFactor = -4; m.polygonOffsetUnits = -16; return m; };
+    g.add(at(box(W + 40, 0.05, 14, '', { material: slab('#BDB6A8') }), 0, -0.02, 7), at(box(W + 40, 0.03, 3.2, '', { material: slab('#D9D2C2') }), 0, 0.0, 2.2));
     return g;
   },
 
