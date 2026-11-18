@@ -90,8 +90,13 @@ export const CHEVEU_PROPS = {
   // board hung on its front with white lines (o.board ['N° 0088', ...], o.boardY, o.boardYaw [[t, deg]]); o.rim: a pale halo colour round the
   // strand (dark backgrounds); o.sweat [t, ...]: a drop that runs down beside the eyes; o.hop [[t, h]]: a little jump (it straightens up);
   // (round 1) o.onTop: drawn after the beams (crisp inside a searchlight); o.rimW: the halo's width (1.7 times the strand)
+  // (round 2) o.hang: the pivot is the top of the hair, which hangs below it (on a winch cable); o.cable [x, y, z]: a world point the hang point
+  // is tied to by a bright unlit cable with a dark hull (o.cableR 0.009, o.cableC, o.cableRim); o.pend [[t, rad], ...]: a pendulum swing about the
+  // pivot, dying out (o.pendF rad/s, o.pendK decay); o.eyeU: where the eyes sit along the strand (1: its top); o.boing t: the curl's spring, a
+  // wind-up stretch over 0.22 s before t, the coil swinging on an arc, then two or three overshoot bounces; o.flick [t, ...]: four big sweat drops
+  // fly off the top in arcs; o.sweatS: the size of the running drop
   chvHair(o) {
-    const L = o.L ?? 0.3, R = o.r ?? 0.009, g = grp(), body = grp(); g.add(body);
+    const L = o.L ?? 0.3, R = o.r ?? 0.009, g = grp(), sw = grp(), body = grp(); g.add(sw); sw.add(body);
     const hm = new THREE.MeshLambertMaterial({ color: o.color || HAIR, emissive: '#000000' });
     const tube = new THREE.Mesh(new THREE.BufferGeometry(), hm); tube.castShadow = true; body.add(tube);
     const capA = new THREE.Mesh(new THREE.SphereGeometry(R, 8, 6), hm), capB = new THREE.Mesh(new THREE.SphereGeometry(R * 1.15, 8, 6), hm); body.add(capA, capB);
@@ -109,7 +114,12 @@ export const CHEVEU_PROPS = {
       board.add(rod([-bw * 0.4, bh / 2, 0], [0, bh / 2 + 0.035, -0.004], 0.0015, '#D8D8D0'), rod([bw * 0.4, bh / 2, 0], [0, bh / 2 + 0.035, -0.004], 0.0015, '#D8D8D0'));
       body.add(board);
     }
-    let drop = null; if (o.sweat) { drop = new THREE.Mesh(new THREE.SphereGeometry(0.008, 8, 6), new THREE.MeshBasicMaterial({ color: '#9FD6F2' })); drop.scale.set(0.8, 1.3, 0.6); body.add(drop); }
+    let drop = null; if (o.sweat) { drop = new THREE.Mesh(new THREE.SphereGeometry(0.008 * (o.sweatS ?? 1), 8, 6), new THREE.MeshBasicMaterial({ color: '#9FD6F2' })); drop.scale.set(0.8, 1.3, 0.6); body.add(drop); }
+    let cab = null, cabR = null;
+    if (o.cable) { cab = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshBasicMaterial({ color: o.cableC || '#F4F6FA' })); cabR = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshBasicMaterial({ color: o.cableRim || '#0E1428', side: THREE.BackSide })); cab.frustumCulled = cabR.frustumCulled = false; g.add(cab, cabR); }
+    const flk = []; for (const t0 of o.flick || []) for (let i = 0; i < 4; i++) { const dm = grp(new THREE.Mesh(new THREE.SphereGeometry(0.016, 10, 8), new THREE.MeshBasicMaterial({ color: '#8ED2F4' })), new THREE.Mesh(new THREE.SphereGeometry(0.021, 10, 8), new THREE.MeshBasicMaterial({ color: '#16324A', side: THREE.BackSide })));
+      dm.children.forEach(c => c.scale.set(0.8, 1.25, 0.8)); dm.visible = false; body.add(dm); flk.push([dm, t0, (i % 2 ? 1 : -1) * (0.45 + 0.25 * hsh(i + t0 * 7)), 0.55 + 0.3 * hsh(i * 3 + 1)]); }
+    const _v = new THREE.Vector3(), _o = new THREE.Vector3();
     const N = 44, pts = Array.from({ length: N }, () => new THREE.Vector3()), A = o.wig ?? 0.06, wf = o.waveF ?? 2.2;
     const P0 = new THREE.Vector3(), P1 = new THREE.Vector3(), P2 = new THREE.Vector3();
     g.userData.update = t => {
@@ -124,12 +134,22 @@ export const CHEVEU_PROPS = {
         const wi = smooth((c - (1 - u) * 0.35) / 0.65);
         pts[i].copy(P0).lerp(P1, s).lerp(P2, wi);
       }
-      body.position.y = hop * 0.12;
+      let sy = 1, arc = 0;
+      if (o.boing != null) { const u = t - o.boing;
+        if (u < 0) sy = 1 + 0.38 * smooth((u + 0.22) / 0.22);
+        else { sy = 1 + 0.38 * Math.exp(-4.2 * u) * Math.cos(TAU * 3.1 * u); arc = 0.5 * Math.sin(PI * Math.min(1, u / 0.36)) * Math.exp(-2 * u); } }
+      body.scale.set(1 / Math.sqrt(sy), sy, 1 / Math.sqrt(sy)); body.rotation.z = arc;
+      body.position.y = hop * 0.12 - (o.hang ? L : 0);
+      let pa = 0; for (const [t0, a] of o.pend || []) { const u = t - t0; if (u >= 0) pa += a * Math.exp(-(o.pendK ?? 2.4) * u) * Math.sin((o.pendF ?? 7) * u); }
+      sw.rotation.z = pa;
+      if (cab) { g.updateWorldMatrix(true, false); _v.set(...o.cable); g.worldToLocal(_v); _o.set(0, 0, 0); const cr = o.cableR ?? 0.009;
+        const oc = cab.geometry, orr = cabR.geometry; cab.geometry = new THREE.TubeGeometry(new THREE.LineCurve3(_o.clone(), _v.clone()), 1, cr, 8, false); cabR.geometry = new THREE.TubeGeometry(new THREE.LineCurve3(_o.clone(), _v.clone()), 1, cr * 1.9, 8, false); oc.dispose(); orr.dispose(); }
+      for (const [dm, t0, vx, vy] of flk) { const u = t - t0; dm.visible = u >= 0 && u < 0.55; if (!dm.visible) continue; const tp = pts[N - 1]; dm.position.set(tp.x + vx * u, tp.y + vy * u - 2.2 * u * u, tp.z + 0.02); dm.scale.setScalar(Math.max(0.01, 1 - 0.5 * u)); }
       setTube(tube, pts, R, 60); capA.position.copy(pts[0]); capB.position.copy(pts[N - 1]);
       if (rimM) setTube(rimM, pts, R * (o.rimW ?? 1.7), 60);
       const gp = pts.map(p => p.clone().add(new THREE.Vector3(-R * 0.35, R * 0.45, R * 0.55))); setTube(gl, gp, R * 0.22, 60);
       body.rotation.y = keyAt(o.yaw, t, 0, o.yawDur ?? 0.15) * PI / 180;
-      const top = pts[N - 1];
+      const top = pts[Math.round((o.eyeU ?? 1) * (N - 1))];
       if (ey) {
         const on = keyAt(o.eyesOn, t, 1, 0.08) * (o.eyesFloat ? 1 : smooth((s - 0.5) / 0.4));
         ey.g.visible = on > 0.02; ey.g.scale.setScalar(Math.max(0.01, on));
@@ -161,7 +181,9 @@ export const CHEVEU_PROPS = {
     for (let i = 0; i < 5; i++) { const a = i * 2.2 + 0.4, d = Rb * (0.3 + 0.45 * hsh(i)); g.add(at(box(0.022, 0.012, 0.022, '#D9A24A'), Math.cos(a) * d, H * 0.82 + 0.004, Math.sin(a) * d, 0, a, 0)); }   // croutons
     if (o.spoon !== false) { const sp = grp(at(box(0.024, 0.008, 0.26, '#C9CFD6', { outline: 0.002 }), 0, 0, 0.13), at(new THREE.Mesh(new THREE.SphereGeometry(0.035, 10, 6), mat('#C9CFD6')), 0, 0, 0.28)); sp.children[1].scale.set(0.8, 0.25, 1.1);
       sp.position.set(Rb * 0.95, H + 0.01, -0.02); sp.rotation.set(0.12, 1.75, 0); g.add(sp); }
-    const wisps = []; if (o.steam) for (let i = 0; i < 3; i++) { const m = new THREE.Mesh(new THREE.PlaneGeometry(0.12, 0.12), softMat('#FFFFFF', 0.45)); m.userData.ph = i / 3; g.add(m); wisps.push(m); }
+    // (round 2) steam as three thin white squiggles low over the soup (soft discs read as grey smudges on a navy jacket)
+    const wisps = []; if (o.steam) for (let i = 0; i < 3; i++) { const q = []; for (let j = 0; j < 12; j++) { const u = j / 11; q.push(new THREE.Vector3(0.014 * Math.sin(u * TAU * 1.4 + i * 2), u * 0.09, 0)); }
+      const m = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(q), 18, 0.0032, 4), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0, depthWrite: false })); m.userData.ph = i / 3; g.add(noShadow(m)); wisps.push(m); }
     const ring = new THREE.Mesh(new THREE.TorusGeometry(1, 0.06, 4, 28), new THREE.MeshBasicMaterial({ color: '#FFF6D8', transparent: true, opacity: 0.8 })); ring.rotation.x = PI / 2; ring.position.y = H * 0.82 + 0.003; g.add(ring);
     g.userData.surface = H * 0.82;
     // (round 1) the hot spot of the searchlight: a white-hot disc on the soup, a glare above it and a four-point star (o.lit keys dose them)
@@ -175,7 +197,7 @@ export const CHEVEU_PROPS = {
       sm.emissiveIntensity = (o.litK ?? 0.9) * lv; hot.visible = lv > 0.01; hot.material.opacity = 0.85 * lv;
       glare.visible = lv > 0.01; glare.material.opacity = 0.9 * lv; glare.scale.setScalar(Rb * (o.glareS ?? 3.2) * (0.92 + 0.08 * Math.sin(t * 13)));
       star.visible = lv > 0.3 && !!o.star; star.scale.setScalar(Math.max(0.01, lv * (0.8 + 0.25 * Math.sin(t * 9)))); star.rotation.z = t * 0.8;
-      wisps.forEach((m, i) => { const u = (t * 0.45 + m.userData.ph) % 1; m.position.set(Math.sin(u * 6 + i) * 0.03 + (i - 1) * 0.05, H + 0.05 + u * 0.35, 0); m.scale.setScalar((0.4 + u * 0.8) * (o.steamS ?? 1)); m.material.opacity = (o.steamOp ?? 0.22) * Math.sin(u * PI); });
+      wisps.forEach((m, i) => { const u = (t * 0.55 + m.userData.ph) % 1; m.position.set((i - 1) * 0.065 + 0.008 * Math.sin(t * 3 + i), H + 0.025 + u * 0.06, 0.03 * (1 - i)); m.scale.setScalar((0.7 + 0.4 * u) * (o.steamS ?? 1)); m.material.opacity = (o.steamOp ?? 0.9) * Math.sin(u * PI); });
       let rr = -1; for (const r0 of o.ripple || []) if (t >= r0 && t < r0 + 0.7) rr = (t - r0) / 0.7; ring.visible = rr >= 0;
       if (rr >= 0) { const s = 0.03 + rr * Rb * 0.8; ring.scale.set(s, s, 0.12); ring.material.opacity = 0.8 * (1 - rr); }
     };
@@ -308,7 +330,10 @@ export const CHEVEU_PROPS = {
     sheet.rotation.x = -PI / 2; sheet.position.y = 0.014; g.add(sheet);
     const st = canvasPlane(0.42 * S, 0.14 * S, (c, w, h) => { c.clearRect(0, 0, w, h); c.strokeStyle = '#C8202A'; c.lineWidth = h * 0.1; c.strokeRect(h * 0.08, h * 0.08, w - h * 0.16, h * 0.84); c.fillStyle = '#C8202A'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${h * 0.62}px Arial`; c.fillText(o.stamp || 'RETENU', w / 2, h * 0.54); }, { res: 512, transparent: true });
     st.rotation.set(-PI / 2, 0, 0.18); st.position.set(0.04 * S, 0.018, 0.02 * S); g.add(st);
-    g.userData.update = t => { const u = o.stampAt == null ? 1 : t - o.stampAt; st.visible = u >= 0; if (u >= 0) st.scale.setScalar(u < 0.1 ? 1.25 - 0.25 * (u / 0.1) : 1); };
+    // (round 2) o.bounceAt: the file jumps off the table under the slam and settles
+    const inner = grp(); while (g.children.length) inner.add(g.children[0]); g.add(inner);
+    g.userData.update = t => { const u = o.stampAt == null ? 1 : t - o.stampAt; st.visible = u >= 0; if (u >= 0) st.scale.setScalar(u < 0.1 ? 1.25 - 0.25 * (u / 0.1) : 1);
+      const v = o.bounceAt == null ? -1 : t - o.bounceAt; inner.position.y = v > 0.03 && v < 0.8 ? 0.04 * Math.exp(-6 * v) * Math.abs(Math.sin((v - 0.03) * 16)) : 0; inner.rotation.x = v > 0.03 && v < 0.8 ? -0.05 * Math.exp(-6 * v) * Math.sin((v - 0.03) * 16) : 0; };
     g.userData.update(0); return g;
   },
 
@@ -353,6 +378,7 @@ export const CHEVEU_PROPS = {
       const pu = u - D; puffs.forEach((m, i) => { m.visible = pu >= 0 && pu < 0.9; if (!m.visible) return; const k = pu / 0.9, rx = (i / 9 - 0.5) * dw * 1.3; m.position.set(rx + Math.cos(m.userData.a) * k * 0.4, 0.12 + k * (o.puffUp ?? 0.5) * (0.5 + hsh(i + 3)), o.puffOut ? -dir * (0.2 + k * (0.4 + 0.6 * hsh(i + 9))) : dir * (dh * (0.2 + 0.8 * hsh(i + 9)) + 0.1));
         m.scale.setScalar((0.6 + k * 1.8) * (o.puffS ?? 1)); m.material.opacity = 0.7 * (1 - k); m.lookAt(m.position.x, m.position.y, m.position.z + (o.puffOut ? -dir : dir) * 10); });
     };
+    if (o.under) g.userData.chvUnder = true;   // (round 2) drawn before the beams: a torch beam stays visible in front of it
     g.userData.update(0); return g;
   },
 
@@ -402,8 +428,13 @@ export const CHEVEU_PROPS = {
   // facing +Z (turn the prop to the camera); (round 1) o.tufts [t, ...]: a fist-sized tuft (o.tuftS 0.11) pops onto the pile at each time
   chvHairPile(o) {
     const R = o.r ?? 0.18, C = o.color || '#3A2A20', g = grp(), pile = grp(); g.add(pile);
-    for (let i = 0; i < 7; i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), mat(C)); const a = i * 0.9, d = i ? R * 0.5 * hsh(i) : 0; m.position.set(Math.cos(a) * d, 0, Math.sin(a) * d); m.scale.set(R * (0.7 - 0.06 * i), R * (0.45 - 0.04 * i), R * (0.7 - 0.06 * i)); pile.add(m); }
     const dark = new THREE.Color(C).multiplyScalar(0.6).getStyle();
+    // (round 2) o.curly: the pile is a heap of loose curls and strands (lumps read as potatoes), a low dark core under them
+    const curl = (col, sz, sd) => { const q = [], n = 2 + hsh(sd) * 1.5, rr = sz * (0.35 + 0.25 * hsh(sd + 1)); for (let j = 0; j <= 18; j++) { const u = j / 18, th = u * n * TAU; q.push(new THREE.Vector3(rr * Math.cos(th), (u - 0.5) * sz * 0.9, rr * Math.sin(th))); }
+      const m = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(q), 30, sz * 0.09, 5), mat(col)); m.rotation.set(hsh(sd + 2) * PI, hsh(sd + 3) * PI, hsh(sd + 4) * PI); return m; };
+    if (o.curly) { const core = new THREE.Mesh(new THREE.SphereGeometry(1, 10, 6, 0, TAU, 0, PI / 2), mat(dark)); core.scale.set(R * 0.62, R * 0.3, R * 0.62); pile.add(core);
+      for (let i = 0; i < 26; i++) { const a = hsh(i + 11) * TAU, d = R * 0.7 * Math.sqrt(hsh(i + 23)), m = curl(i % 3 ? C : dark, R * (0.42 + 0.2 * hsh(i + 5)), i * 7 + 1); m.position.set(Math.cos(a) * d, R * 0.12 + R * 0.38 * (1 - d / (R * 0.7)) * hsh(i + 31), Math.sin(a) * d); pile.add(m); } }
+    else for (let i = 0; i < 7; i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), mat(C)); const a = i * 0.9, d = i ? R * 0.5 * hsh(i) : 0; m.position.set(Math.cos(a) * d, 0, Math.sin(a) * d); m.scale.set(R * (0.7 - 0.06 * i), R * (0.45 - 0.04 * i), R * (0.7 - 0.06 * i)); pile.add(m); }
     for (let i = 0; i < 12; i++) { const a = hsh(i) * TAU, pts = []; for (let j = 0; j < 6; j++) pts.push(new THREE.Vector3(Math.cos(a) * R * (0.3 + j * 0.13), R * 0.35 - j * 0.05 + 0.05 * Math.sin(j * 2 + i), Math.sin(a) * R * (0.3 + j * 0.13) + 0.02 * Math.cos(j * 3)));
       pile.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 12, 0.006, 4), mat(i % 2 ? dark : C))); }
     const S = o.tagS ?? 1, tag = grp(); tag.position.set(R * 0.9, 0, R * 0.4); g.add(tag);
@@ -411,7 +442,8 @@ export const CHEVEU_PROPS = {
     tag.add(at(canvasPlane(0.14 * S, 0.09 * S, (c, w, h) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, w, h); c.strokeStyle = '#C8202A'; c.lineWidth = h * 0.08; c.strokeRect(0, 0, w, h); c.fillStyle = '#16171B'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${h * 0.6}px Arial`; c.fillText(String(o.num ?? 1), w / 2, h * 0.56); }, { res: 128 }), 0, 0.3 * S + 0.045 * S, 0.004));
     tag.add(at(box(0.144 * S, 0.094 * S, 0.004, '#C8202A'), 0, 0.3 * S + 0.045 * S, 0));
     const tufts = (o.tufts || []).map((t0, i) => { const tg = grp(), a = i * 2.4 + hsh(i + 2) * 0.8, d = R * (0.25 + 0.5 * hsh(i + 4)), ts = o.tuftS ?? 0.11;
-      const m = new THREE.Mesh(new THREE.IcosahedronGeometry(ts, 1), mat(i % 2 ? dark : C)); m.scale.set(1, 0.7, 1); tg.add(m);
+      if (o.curly) { for (let j = 0; j < 3; j++) { const m = curl(j % 2 ? dark : C, ts * 1.3, i * 13 + j * 5 + 3); m.position.set((hsh(i + j) - 0.5) * ts, 0, (hsh(i + j + 9) - 0.5) * ts); tg.add(m); } }
+      else { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(ts, 1), mat(i % 2 ? dark : C)); m.scale.set(1, 0.7, 1); tg.add(m); }
       for (let j = 0; j < 5; j++) { const b = hsh(i * 7 + j) * TAU, q = []; for (let k = 0; k < 5; k++) q.push(new THREE.Vector3(Math.cos(b) * ts * (0.4 + k * 0.28), ts * (0.3 + 0.25 * Math.sin(k * 1.7 + j)), Math.sin(b) * ts * (0.4 + k * 0.28)));
         tg.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(q), 8, 0.005, 4), mat(j % 2 ? dark : C))); }
       tg.position.set(Math.cos(a) * d, R * 0.25 + ts * 0.5 * (i % 3), Math.sin(a) * d); g.add(tg); return [tg, t0]; });
@@ -597,6 +629,32 @@ export const CHEVEU_PROPS = {
     g.add(at(box(W + 0.1, H + 0.1, 0.05, o.frame || '#2A2E34', { outline: 0.004 }), 0, H / 2, 0), at(box(W, H, 0.06, o.color || '#141A20'), 0, H / 2, 0.005));
     if (o.sheen !== false) for (const [x, w] of [[-0.15, 0.18], [0.12, 0.07]]) g.add(at(box(w * W, H * 1.05, 0.002, '#3A4654'), x * W, H / 2, 0.037, 0, 0, 0.5));
     return g;
+  },
+
+  // (round 2) The SHAVED police dog (pivot at the floor between its feet, front +Z), built so it cannot read as a pig: a slim body on long legs,
+  // a narrow head with a long muzzle and a black nose at its tip, tall upright pointed ears, a long thin tail held up, a blue collar with a
+  // round gold badge (plain, no writing, no insignia); skin o.color (pale greyish pink), o.muzzle; o.proud [[t, v]]: chin up, chest out (0..1);
+  // o.wag: tail beats per second (side to side); o.tongue: a pink tongue out; o.eyes: eye size
+  chvDogShaved(o) {
+    const C = o.color || '#E6C2C2', M = o.muzzle || '#D8A9AE', K = '#141416', g = grp(), body = grp(); g.add(body);
+    body.add(at(box(0.25, 0.24, 0.66, C, { outline: 0.01 }), 0, 0.56, 0));
+    body.add(at(box(0.27, 0.27, 0.22, C, { outline: 0.01 }), 0, 0.6, 0.2));
+    for (const [x, z] of [[-0.085, 0.24], [0.085, 0.24], [-0.085, -0.25], [0.085, -0.25]]) body.add(at(box(0.075, 0.46, 0.08, C, { outline: 0.008, pivot: 'bottom' }), x, 0.0, z), at(box(0.08, 0.04, 0.1, M), x, 0.02, z + 0.01));
+    const neck = at(box(0.15, 0.3, 0.15, C, { outline: 0.008 }), 0, 0.8, 0.31, 0.45, 0, 0); body.add(neck);
+    const col = at(box(0.19, 0.06, 0.19, '#2F5D8A', { outline: 0.006 }), 0, 0.76, 0.3, 0.45, 0, 0); body.add(col);
+    const badge = grp(at(cyl(0.05, 0.05, 0.015, '#E2B53C', 14, { outline: 0.005 }), 0, 0, 0, PI / 2, 0, 0), at(cyl(0.03, 0.03, 0.018, '#C9952A', 12), 0, 0, 0.002, PI / 2, 0, 0)); badge.position.set(0, 0.69, 0.41); body.add(badge);
+    const head = grp(); head.position.set(0, 0.96, 0.4); body.add(head);
+    head.add(at(box(0.2, 0.2, 0.22, C, { outline: 0.01 }), 0, 0, 0));
+    head.add(at(box(0.13, 0.11, 0.24, M, { outline: 0.008 }), 0, -0.05, 0.21), at(box(0.07, 0.05, 0.04, K), 0, -0.02, 0.34));
+    const es = o.eyes ?? 1;
+    for (const sx of [-1, 1]) { head.add(at(box(0.065 * es, 0.065 * es, 0.02, '#FFFFFF'), sx * 0.06, 0.04, 0.112), at(box(0.03 * es, 0.035 * es, 0.02, K), sx * 0.055, 0.04, 0.122));
+      const e = new THREE.Mesh(new THREE.ConeGeometry(0.055, 0.24, 4), mat(C)); e.position.set(sx * 0.068, 0.2, -0.04); e.rotation.set(-0.08, PI / 4, -sx * 0.12); head.add(e);
+      const ei = new THREE.Mesh(new THREE.ConeGeometry(0.03, 0.15, 4), mat(o.ear || '#C98E96')); ei.position.set(sx * 0.068, 0.18, -0.005); ei.rotation.set(-0.08, PI / 4, -sx * 0.12); head.add(ei); }
+    if (o.tongue) head.add(at(box(0.06, 0.1, 0.025, '#E86A84', { outline: 0.005 }), 0.025, -0.14, 0.26, 0.15, 0, 0.1));
+    const tail = grp(); tail.position.set(0, 0.66, -0.32); body.add(tail); tail.add(at(box(0.045, 0.34, 0.045, C, { outline: 0.008, pivot: 'bottom' }), 0, 0, 0, -0.55, 0, 0));
+    g.userData.update = t => { const pr = keyAt(o.proud, t, 0, 0.18); head.rotation.x = -0.35 * pr; head.position.y = 0.96 + 0.04 * pr; body.position.y = 0.0; neck.rotation.x = 0.45 - 0.25 * pr;
+      tail.rotation.z = 0.55 * Math.sin(t * TAU * (o.wag ?? 3)); tail.rotation.x = -0.15 * pr; };
+    g.userData.head = head; g.userData.update(0); return g;
   },
 
   // (round 1) A dog built on the voxel dog with a longer muzzle and pointed ears (so it reads as a dog, not a pig), a wagging tail and two
