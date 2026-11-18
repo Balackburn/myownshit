@@ -1,0 +1,166 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec s'est coupé avec une feuille.",
+  "hl": [
+   "coupé",
+   "feuille."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Elle s'est fondue dans la foule.",
+  "hl": [
+   "fondue",
+   "foule."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Signalement : blanche, rectangulaire.",
+  "hl": [
+   "blanche,",
+   "rectangulaire."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "La police a embarqué tout le papier du pays.",
+  "hl": [
+   "tout",
+   "papier"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Et tous les billets de banque.",
+  "hl": [
+   "billets"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Et le stagiaire, pour recel de malfaiteur.",
+  "hl": [
+   "stagiaire,",
+   "malfaiteur."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Le doigt l'a reconnue.",
+  "hl": [
+   "doigt",
+   "reconnue."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Le procureur a requis la broyeuse.",
+  "hl": [
+   "procureur",
+   "broyeuse."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Le président a soumis la broyeuse à référendum.",
+  "hl": [
+   "président",
+   "référendum."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Cinquante millions de bulletins.",
+  "hl": [
+   "Cinquante",
+   "millions"
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Une forêt entière.",
+  "hl": [
+   "forêt"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Les bulletins ont tous voté non.",
+  "hl": [
+   "voté",
+   "non."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le sien en premier.",
+  "hl": [
+   "premier."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "La broyeuse a été abolie.",
+  "hl": [
+   "abolie."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Les gendarmes ont aplati toutes les broyeuses.",
+  "hl": [
+   "aplati",
+   "broyeuses."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "La feuille a été relâchée.",
+  "hl": [
+   "relâchée."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Reconvertie en lettre de licenciement.",
+  "hl": [
+   "licenciement."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Adressée à ce mec.",
+  "hl": [
+   "mec."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Il vendait des broyeuses.",
+  "hl": [
+   "vendait",
+   "broyeuses."
+  ]
+ }
+]
