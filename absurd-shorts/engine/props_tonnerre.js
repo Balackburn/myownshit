@@ -48,10 +48,14 @@ const softSprite = (color, opacity = 1) => { const s = new THREE.Sprite(new THRE
 const TFACE = {
   neutral: [0.05, 0, 0.1, 0.28, 0, 0, 0], angry: [0.48, -0.03, 0.18, 0.24, 0, -0.4, 0], shut: [0.55, -0.05, 0.22, 0.42, 0, -0.08, 1],
   shout: [0.55, 0.03, 0.0, 0.36, 1, 0, 0], calm: [0.0, 0.0, 0.38, 0.2, 0, 0.12, 0], smug: [-0.12, 0.03, 0.32, 0.24, 0, 0.4, 0],
-  surprised: [-0.28, 0.07, 0.0, 0.16, 0.45, 0, 0], sad: [-0.35, 0.0, 0.3, 0.2, 0, -0.35, 0], blank: [0.0, 0.02, 0.05, 0.2, 0, 0, 0]
+  surprised: [-0.28, 0.07, 0.0, 0.16, 0.45, 0, 0], sad: [-0.35, 0.0, 0.3, 0.2, 0, -0.35, 0], blank: [0.0, 0.02, 0.05, 0.2, 0, 0, 0],
+  // (pass 2) flat: calm, heavy lids, a level mouth (no smile); tight: the shut mouth without the swelling; clench: furious, a thick clenched line
+  flat: [0.0, 0.0, 0.3, 0.22, 0, 0, 0], tight: [0.5, -0.04, 0.2, 0.3, 0, -0.05, 0], clench: [0.62, -0.06, 0.12, 0.4, 0, -0.12, 0],
+  droopy: [-0.4, -0.02, 0.42, 0.18, 0, -0.3, 0]
 };
+const THICK = { shut: 1.8, tight: 1.7, clench: 2.2 };
 // the bolt arms' directions (the left arm; the right one is mirrored), in the cloud's frame
-const TARMS = { rest: [-0.55, -0.83, 0.12], up: [-0.45, 0.88, 0.15], out: [-1, 0.05, 0.15], cuff: [0.62, -0.33, 0.71], hold: [-0.55, 0.15, 0.82], tuck: [0.2, -0.9, 0.35], shrug: [-0.85, 0.45, 0.3], point: [-0.3, 0.1, 0.95] };
+const TARMS = { rest: [-0.55, -0.83, 0.12], up: [-0.45, 0.88, 0.15], out: [-1, 0.05, 0.15], cuff: [0.62, -0.33, 0.71], hold: [-0.55, 0.15, 0.82], tuck: [0.2, -0.9, 0.35], shrug: [-0.85, 0.45, 0.3], point: [-0.3, 0.1, 0.95], cradle: [-0.35, -0.2, 0.92] };
 
 export const TONNERRE_PROPS = {
   // The thunder: one black anvil cumulonimbus (pivot at the middle of its flat base, front +Z; about 3.3 o.s wide at the anvil, 2.1 o.s tall): a
@@ -59,12 +63,16 @@ export const TONNERRE_PROPS = {
   // glowing yellow inside), two small yellow zigzag bolt arms. It never rains.
   // o.expr [[t, name]] (TFACE), o.mouth [[t, 0..1]] (extra opening), o.look [[t, gx, gy]] (pupils, -1..1), o.blinks [t, ...] (else every 3.3 s),
   // o.arms [[t, poseL, poseR]] (TARMS names), o.sq [[t, sx, sy, sz]] (squeeze of the body), o.flash [[t, dur]] (the body lights up),
-  // o.flashK (1), o.glow (0: a cold moonlit lift for night shots), o.cuffs (oversized handcuffs on the bolt arms; o.cuffsAt: they snap shut then), o.tag (an electronic tag on the right arm; o.tagSide -1: the left), o.bundle (a tiny
+  // o.flashK (1), o.glow (0: a moonlit lift for night shots, neutral grey since pass 2), o.cuffs (oversized handcuffs on the bolt arms; o.cuffsAt: they snap shut then), o.tag (an electronic tag on the right arm; o.tagSide -1: the left), o.bundle (a tiny
   // bundle hanging from the left arm), o.bob (0.04), o.lean [[t, rz]]
+  // (pass 2) o.tint (a colour multiplied into the body and plate, to bring the charcoal back to neutral under a warm or a blue light), o.emis (a
+  // constant emissive colour), o.strain [[t, amp]] (a fast trembling of the body: holding it in), o.blinkDur (0.1), o.shadows false (no shadows:
+  // the aerial shots), o.lampS / o.tagYaw (the tag's lamp size, the tag turned round the arm), o.bundleS (the bundle's size)
   thunderCloud(o) {
     const g = grp(), root = grp(), body = grp(); g.add(root); root.add(body); root.scale.setScalar(o.s ?? 1);
     const r = rng(o.seed || 89), geo = new THREE.IcosahedronGeometry(1, 1), lit = [];
-    const M = c => { const m = mat(c, { unique: true }); lit.push(m); return m; };
+    const TN = new THREE.Color(o.tint || '#FFFFFF'), tc = c => new THREE.Color(c).multiply(TN).getStyle(), EM = new THREE.Color(o.emis || '#000000');
+    const M = c => { const m = mat(tc(c), { unique: true }); lit.push(m); return m; };
     const C = [o.color || '#252526', o.color2 || '#2E2E30', o.under || '#1C1C1D'], TOP = o.top || '#3A3A3D';
     const puff = (x, y, z, s, c, sy = 0.82) => { const m = new THREE.Mesh(geo, M(c)); m.scale.set(s, s * sy, s * 0.9); m.position.set(x, y, z); m.rotation.set(r() * 3, r() * 3, r() * 3); m.castShadow = true; body.add(m); return m; };
     // the base: flattened puffs; the body: a column that narrows a little; the anvil: a flat wide top that overhangs on the right
@@ -74,11 +82,12 @@ export const TONNERRE_PROPS = {
     const anvil = new THREE.Mesh(new THREE.CylinderGeometry(1.3, 0.78, 0.26, 11), M(C[0])); anvil.scale.set(1.22, 1, 0.82); anvil.position.set(0.12, 1.46, -0.08); anvil.castShadow = true; body.add(anvil);
     // (pass 1) a soft dome on the anvil (the flat cap read as a tabletop), with three low bumps
     const cap = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 2), M(TOP)); cap.scale.set(1.62, 0.3, 1.08); cap.position.set(0.12, 1.57, -0.08); cap.castShadow = true; body.add(cap);
-    [[-0.6, 1.7, 0.0, 0.42], [0.5, 1.72, -0.15, 0.48], [1.15, 1.64, 0.05, 0.34]].forEach(([x, y, z, s]) => puff(x, y, z, s, TOP, 0.42));
+    // (pass 2) the bumps smooth and unrotated (a flat-shaded tilted facet read as a crater from above), plus a low crown filling the middle
+    [[-0.6, 1.74, 0.0, 0.46], [0.5, 1.76, -0.15, 0.5], [1.15, 1.67, 0.05, 0.36], [-0.05, 1.72, -0.1, 0.62]].forEach(([x, y, z, s]) => { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 2), M(TOP)); m.scale.set(s, s * 0.4, s * 0.85); m.position.set(x, y, z); m.castShadow = true; body.add(m); });
     for (let i = 0; i < 9; i++) { const a = i / 9 * TAU; puff(0.12 + Math.cos(a) * 1.2, 1.42, -0.08 + Math.sin(a) * 0.8, 0.3, C[1], 0.55); }
     // the face: a box plate on the front, a little lighter than the body
     const face = grp(); face.position.set(0, 0.82, 0.68); body.add(face);
-    const plate = box(1.0, 0.66, 0.14, o.plate || '#4A4C52', { outline: 0.012, unique: true }); lit.push(plate.material); face.add(plate);
+    const plate = box(1.0, 0.66, 0.14, tc(o.plate || '#4A4C52'), { outline: 0.012, unique: true }); lit.push(plate.material); face.add(plate);
     const eyeW = mat('#FBFBF6'), ink = mat('#0D0E12'), plateM = plate.material;
     const eyes = [-1, 1].map(s => { const e = grp(); e.position.set(0.21 * s, 0.07, 0.075); face.add(e);
       const white = box(0.22, 0.22, 0.03, '#FBFBF6', { material: eyeW }), pup = box(0.09, 0.1, 0.02, '#0D0E12', { material: ink }); pup.position.z = 0.018; e.add(white, pup);
@@ -91,7 +100,9 @@ export const TONNERRE_PROPS = {
     const glowM = new THREE.MeshBasicMaterial({ color: '#FFE97A', toneMapped: false });
     const inner = new THREE.Mesh(new THREE.PlaneGeometry(1, 1).translate(0, -0.5, 0), glowM); inner.position.z = 0.012; mouth.add(inner);
     const teeth = box(1, 1, 0.025, '#F4F2EA'); teeth.geometry.translate(0, -0.5, 0); teeth.position.z = 0.016; mouth.add(teeth);
-    const cheeks = [-1, 1].map(s => { const c = sphere(0.13, '#5A5D66', 1); c.scale.set(1, 0.8, 0.5); c.position.set(0.36 * s, -0.17, 0.06); face.add(c); return c; });
+    // (pass 2) the puffed cheeks are the plate itself swelling: two blocks of the plate's own material at its sides, at the mouth's height, that
+    // push out past its edges (separate balls read as earmuffs)
+    const cheeks = [-1, 1].map(s => { const c = box(0.22, 0.36, 0.13, '', { material: plateM, outline: 0.012, taper: { x: 0.8, z: 0.9 } }); c.rotation.z = s * 0.12; c.position.set(0.4 * s, -0.13, 0.0); face.add(c); return c; });
     // the bolt arms: yellow zigzags pointing along -Y from the shoulder, aimed by direction
     const BOLT = poly([[-0.06, 0], [0.1, 0], [0.035, -0.26], [0.15, -0.26], [-0.07, -0.74], [0.0, -0.37], [-0.12, -0.37]]);
     const boltM = mat('#F6C518', { emissive: '#6E5200' }), steel = mat('#C9CED6'), arms = [], AL = o.armLen ?? 1.3;
@@ -107,19 +118,24 @@ export const TONNERRE_PROPS = {
       for (let i = 0; i < 5; i++) { const l = torus(0.06, 0.02, '#6E747C', 4, 10); body.add(l); chain.push(l); }
     }
     // the electronic tag: a black box with a green lamp, strapped round the right arm
-    let lamp = null;
+    let lamp = null, lampGlow = null;
     if (o.tag) { const a = arms[(o.tagSide ?? 1) < 0 ? 0 : 1]; const t = grp(at(torus(0.075, 0.025, '#1C1D21', 5, 14), 0, 0, 0, PI / 2, 0, 0), at(box(0.2, 0.13, 0.11, '#1E1F24', { outline: 0.01 }), 0.0, 0, 0.1));
-      lamp = sphere(0.032, '#3CE06A', 1, { emissive: '#2AD05A', unique: true }); lamp.position.set(0.05, 0.02, 0.16); t.add(lamp); t.position.set(0, -0.38 * AL, 0); t.scale.setScalar(o.tagS ?? 1.3); a.sh.add(t); }
+      const ls = o.lampS ?? 1; lamp = sphere(0.032 * ls, '#3CE06A', 1, { emissive: '#2AD05A', unique: true }); lamp.position.set(0.04, 0.02, 0.16); t.add(lamp);
+      lampGlow = softSprite('#6BFF94', 0.85); lampGlow.scale.set(0.16 * ls, 0.16 * ls, 1); lampGlow.position.set(0.04, 0.02, 0.2); t.add(lampGlow);
+      t.position.set(0, -0.38 * AL, 0); t.rotation.y = o.tagYaw ?? 0; t.scale.setScalar(o.tagS ?? 1.3); a.sh.add(t); }
     // the bundle: a red cloth with white dots, knotted, hanging from the left arm's tip
     if (o.bundle) { const cv = canvasPlane(0.2, 0.2, (c, W, H) => { c.fillStyle = '#C8322A'; c.fillRect(0, 0, W, H); c.fillStyle = '#F4F1E8'; for (let i = 0; i < 5; i++) for (let j = 0; j < 5; j++) if ((i + j) % 2 === 0) { c.beginPath(); c.arc((i + 0.5) * W / 5, (j + 0.5) * H / 5, W * 0.045, 0, TAU); c.fill(); } }, { res: 128 });
       const bm = new THREE.MeshLambertMaterial({ map: cv.material.map }); const bun = new THREE.Mesh(new THREE.IcosahedronGeometry(0.16, 1), bm); bun.scale.set(1, 0.85, 1); bun.position.set(0, -0.98 * AL, 0); bun.castShadow = true;
-      const knot = new THREE.Mesh(new THREE.IcosahedronGeometry(0.07, 0), bm); knot.position.set(0, -0.8 * AL, 0); arms[0].sh.add(bun, knot, segment([0, -0.7 * AL, 0], [0, -0.82 * AL, 0], 0.012, mat('#3A2A1A'))); }
+      const knot = new THREE.Mesh(new THREE.IcosahedronGeometry(0.07, 0), bm); knot.position.set(0, -0.1 * AL, 0); bun.position.set(0, -0.28 * AL, 0);
+      const bg = grp(bun, knot, segment([0, 0, 0], [0, -0.12 * AL, 0], 0.012, mat('#3A2A1A'))); bg.position.set(0, -0.7 * AL, 0); bg.scale.setScalar(o.bundleS ?? 1); arms[0].sh.add(bg); }
     const V3 = THREE.Vector3, down = new V3(0, -1, 0), tips = [new V3(), new V3()];
     g.userData.update = t => {
       const sq = keyVec(o.sq, t, [1, 1, 1], 0.15), br = 1 + 0.02 * Math.sin(t * 2.1 + (o.seed || 0));
       body.scale.set(sq[0] * br, sq[1] * (2 - br), sq[2] * br);
       body.position.y = (o.bob ?? 0.04) * Math.sin(t * 1.7 + (o.seed || 0));
-      body.rotation.z = keyAt(o.lean, t, 0, 0.25) + 0.02 * Math.sin(t * 1.1); body.rotation.x = 0.015 * Math.sin(t * 0.9);
+      const stn = keyAt(o.strain, t, 0, 0.12);
+      body.rotation.z = keyAt(o.lean, t, 0, 0.25) + 0.02 * Math.sin(t * 1.1) + stn * 0.03 * Math.sin(t * 47); body.rotation.x = 0.015 * Math.sin(t * 0.9) + stn * 0.012 * Math.sin(t * 39);
+      if (stn) { body.scale.x *= 1 + stn * 0.02 * Math.sin(t * 61); body.position.x = stn * 0.012 * Math.sin(t * 53); }
       // the face
       const e0 = (o.expr && o.expr.length) ? o.expr[0][1] : 'angry'; let name = e0; for (const [kt, kv] of o.expr || []) if (t >= kt) name = kv;
       const prevName = (() => { let p = e0, q = e0; for (const [kt, kv] of o.expr || []) if (t >= kt) { p = q; q = kv; } return p; })();
@@ -128,16 +144,17 @@ export const TONNERRE_PROPS = {
       const open = clamp01(F[4] + keyAt(o.mouth, t, 0, 0.06));
       brows.forEach((b, i) => { const s = i ? 1 : -1; b.rotation.z = s * F[0]; b.position.y = 0.25 + F[1]; });
       const gl = keyVec(o.look, t, [0, 0], 0.1);
-      let blink = false; if (o.blinks) blink = o.blinks.some(b => t >= b && t < b + 0.1); else blink = ((t + (o.seed || 0) * 0.41) % 3.3) < 0.09;
+      let blink = false; if (o.blinks) blink = o.blinks.some(b => t >= b && t < b + (o.blinkDur ?? 0.1)); else blink = ((t + (o.seed || 0) * 0.41) % 3.3) < 0.09;
       eyes.forEach(e => { e.pup.position.x = 0.055 * gl[0]; e.pup.position.y = -0.055 * gl[1] - 0.01; e.lid.scale.y = blink ? 1 : Math.max(0.02, F[2]); });
-      const mw = F[3], cu = F[5];
-      mseg[1].scale.set(mw * 0.5 / 0.1, 1, 1); mseg[1].position.set(0, 0, 0);
-      [0, 2].forEach((i, j) => { const s = j ? 1 : -1, m = mseg[i]; m.scale.set(mw * 0.3 / 0.1, 1, 1); m.position.set(s * (mw * 0.25 + mw * 0.13 * Math.cos(cu)), mw * 0.13 * Math.sin(cu) * 0.9, 0); m.rotation.z = s * cu; });
+      const mw = F[3] * (1 - 0.45 * F[6]), cu = F[5], th = THICK[name] || 1;
+      mseg[1].scale.set(mw * 0.5 / 0.1, th, 1); mseg[1].position.set(0, 0, 0);
+      [0, 2].forEach((i, j) => { const s = j ? 1 : -1, m = mseg[i]; m.scale.set(mw * 0.3 / 0.1, th, 1); m.position.set(s * (mw * 0.25 + mw * 0.13 * Math.cos(cu)), mw * 0.13 * Math.sin(cu) * 0.9, 0); m.rotation.z = s * cu; });
       mseg.forEach(m => { m.visible = open < 0.08; });
       const oh = 0.04 + 0.3 * open, ow = Math.max(mw, 0.2 + 0.12 * open);
       cav.visible = inner.visible = teeth.visible = open >= 0.08; cav.scale.set(ow, oh, 1); cav.position.y = 0.02;
       inner.scale.set(ow * 0.84, oh * 0.8, 1); inner.position.y = 0.02 - oh * 0.12; teeth.scale.set(ow * 0.9, Math.min(0.05, oh * 0.25), 1); teeth.position.y = 0.02;
-      cheeks.forEach(c => { c.visible = F[6] > 0.05; c.scale.set(F[6], 0.8 * F[6], 0.5 * F[6] + 0.01); });
+      const ck = F[6] * (1 + 0.08 * Math.sin(t * 9) * (stn ? 1 : 0)); plate.scale.set(1 + 0.08 * ck, 1 - 0.04 * ck, 1);
+      cheeks.forEach((c, i) => { const s = i ? 1 : -1; c.visible = ck > 0.05; c.scale.set(0.4 + 0.6 * ck, 0.5 + 0.5 * ck, 1); c.position.x = s * (0.42 + 0.1 * ck); });
       // the arms
       const P = (() => { const a0 = (o.arms && o.arms.length) ? [o.arms[0][1], o.arms[0][2] ?? o.arms[0][1]] : ['rest', 'rest']; let p = a0, q = a0, k0 = -1e9; for (const k of o.arms || []) if (t >= k[0]) { p = q; q = [k[1], k[2] ?? k[1]]; k0 = k[0]; } return [p, q, k0]; })();
       const aw = smooth((t - P[2]) / 0.16);
@@ -146,9 +163,11 @@ export const TONNERRE_PROPS = {
         a.sh.quaternion.setFromUnitVectors(down, d); tips[i].copy(a.sh.position).addScaledVector(d, 0.6 * AL); });
       if (cuffs.length) { const ca = o.cuffsAt ?? -1, u = clamp01((t - ca) / 0.18), s = t < ca ? 0.001 : outBack(u); cuffs.forEach(c => c.scale.setScalar(Math.max(0.001, s)));
         chain.forEach((l, j) => { const f = (j + 1) / (chain.length + 1); l.position.lerpVectors(tips[0], tips[1], f); l.position.y -= 0.12 * Math.sin(f * PI); l.position.z += 0.02; l.rotation.set(j % 2 ? PI / 2 : 0, 0, 0); l.visible = t >= ca; }); }
-      if (lamp) lamp.visible = (t % 0.8) < 0.4;
-      const fl = pulseAt(o.flash, t) * (o.flashK ?? 1), gw = o.glow ?? 0; lit.forEach(m => m.emissive.setRGB(0.9 * fl + 0.16 * gw, 0.85 * fl + 0.18 * gw, 0.55 * fl + 0.26 * gw));
+      if (lamp) { lamp.visible = (t % 0.6) < 0.3; lampGlow.visible = lamp.visible; }
+      const fl = pulseAt(o.flash, t) * (o.flashK ?? 1), gw = o.glow ?? 0; lit.forEach(m => m.emissive.setRGB(0.9 * fl + 0.17 * gw + EM.r, 0.85 * fl + 0.17 * gw + EM.g, 0.55 * fl + 0.18 * gw + EM.b));
     };
+    if (o.shadows === false) g.traverse(c => { c.castShadow = false; c.receiveShadow = false; });
+    if (cuffs.length) { cuffs.forEach(noShadow); chain.forEach(noShadow); }
     g.userData.update(0); return g;
   },
 
@@ -244,11 +263,11 @@ export const TONNERRE_PROPS = {
   // A block's facade whose windows pop out (pivot at the foot of the facade, the middle; it faces +Z): o.w (12) x o.h (13), o.floors (4) x o.cols (4)
   // tall windows with white frames and pale blue glass, a cornice, a darker ground floor; at o.popAt (+ up to 0.05 s at random) every pane flies out
   // (o.kick 0.6 m/s forward) and falls (o.grav 12) to the pavement at y = 0 (o.walk: it lands about that far in front) and breaks into glinting
-  // shards; the openings stay dark. o.color, o.glass
+  // shards; the openings stay dark. o.color, o.glass, o.winW (m), o.winH (fraction of a floor)
   popFacade(o) {
     const W = o.w ?? 12, H = o.h ?? 13, F = o.floors ?? 4, Cn = o.cols ?? 4, g = grp(), q = rng(o.seed || 17), col = o.color || '#EADFC8';
     g.add(at(box(W, H, 0.6, col, { outline: 0.01 }), 0, H / 2, -0.3), at(box(W + 0.3, 0.35, 0.8, '#D8CBB0', { outline: 0.008 }), 0, H - 0.2, -0.3), at(box(W, 2.6, 0.04, o.ground || '#B9AA8E'), 0, 1.3, 0.01));
-    const fh = (H - 3.0) / F, cw = W / Cn, wW = Math.min(1.2, cw * 0.48), wH = fh * 0.62, panes = [];
+    const fh = (H - 3.0) / F, cw = W / Cn, wW = o.winW ?? Math.min(1.2, cw * 0.48), wH = fh * (o.winH ?? 0.62), panes = [];   // (pass 2) o.winW / o.winH: bigger windows
     const glassM = mat(o.glass || '#8FB9D8', { emissive: '#203040' }), frameM = mat('#F6F3EC'), holeM = mat('#262B33'), shardM = basic('#CDE6F5', 0.9);
     for (let f = 0; f < F; f++) for (let c = 0; c < Cn; c++) {
       const x = -W / 2 + (c + 0.5) * cw, y = 3.0 + f * fh + fh * 0.2 + wH / 2;
@@ -377,14 +396,52 @@ export const TONNERRE_PROPS = {
   },
 
   // An open register held up (pivot at the middle of its spine; open toward +Z): two blank ruled pages with a heading row, o.w (0.42) per page x o.h (0.55)
+  // (pass 2) o.big: the heading in big bold ink on a pale band over a thick rule (readable at phone size); o.stand: on a wooden lectern (its foot
+  // o.standH (1.2) below the spine, the book tilted back)
   emptyRegister(o) {
     const w = o.w ?? 0.42, h = o.h ?? 0.55, g = grp();
     g.add(at(box(2 * w + 0.05, h + 0.05, 0.03, o.cover || '#3E5A3A', { outline: 0.008 }), 0, 0, -0.016));
-    const page = (txt) => canvasPlane(w, h, (c, W, Hh) => { c.fillStyle = '#F8F5EA'; c.fillRect(0, 0, W, Hh); c.fillStyle = '#2A3A6A'; c.fillRect(W * 0.06, Hh * 0.1, W * 0.88, Hh * 0.008); if (txt) { c.font = `bold ${Hh * 0.07}px Arial`; c.textAlign = 'center'; c.fillText(txt, W / 2, Hh * 0.08); }
-      c.strokeStyle = '#9DB2D0'; c.lineWidth = Hh * 0.004; for (let i = 0; i < 12; i++) { c.beginPath(); c.moveTo(W * 0.06, Hh * (0.18 + i * 0.065)); c.lineTo(W * 0.94, Hh * (0.18 + i * 0.065)); c.stroke(); }
+    if (o.stand) { const sh = o.standH ?? 1.2; g.add(at(box(2 * w + 0.1, 0.05, 0.12, '#6E4A30', { outline: 0.006 }), 0, -h / 2 - 0.03, 0.03), at(box(0.1, sh - h / 2, 0.1, '#6E4A30', { pivot: 'top', outline: 0.006 }), 0, -h / 2 - 0.03, -0.08), at(box(0.6, 0.06, 0.45, '#5A3A26', { outline: 0.006 }), 0, -sh, -0.08)); }
+    const page = (txt) => canvasPlane(w, h, (c, W, Hh) => { c.fillStyle = '#F8F5EA'; c.fillRect(0, 0, W, Hh);
+      if (o.big && txt) { c.fillStyle = '#E9DFC2'; c.fillRect(0, 0, W, Hh * 0.17); c.fillStyle = '#1E2A55'; c.fillRect(W * 0.04, Hh * 0.17, W * 0.92, Hh * 0.02); c.fillStyle = '#B0262A'; c.font = `900 ${Hh * 0.13}px Arial`; c.textAlign = 'center'; c.fillText(txt, W / 2, Hh * 0.135, W * 0.94); }
+      else { c.fillStyle = '#2A3A6A'; c.fillRect(W * 0.06, Hh * 0.1, W * 0.88, Hh * 0.008); if (txt) { c.font = `bold ${Hh * 0.07}px Arial`; c.textAlign = 'center'; c.fillText(txt, W / 2, Hh * 0.08); } }
+      c.strokeStyle = '#9DB2D0'; c.lineWidth = Hh * 0.004; for (let i = 0; i < 12; i++) { const y = Hh * ((o.big ? 0.26 : 0.18) + i * (o.big ? 0.06 : 0.065)); if (y > Hh * 0.97) break; c.beginPath(); c.moveTo(W * 0.06, y); c.lineTo(W * 0.94, y); c.stroke(); }
       c.strokeStyle = '#D98A8A'; c.beginPath(); c.moveTo(W * 0.22, Hh * 0.12); c.lineTo(W * 0.22, Hh * 0.95); c.stroke(); }, { res: 256 });
-    const L = page(o.left || 'ADRESSE'), R = page(o.right || ''); L.position.set(-w / 2, 0, 0.03); L.rotation.y = 0.06; R.position.set(w / 2, 0, 0.03); R.rotation.y = -0.06; g.add(L, R);
+    const L = page(o.big ? ' ' : (o.left || 'ADRESSE')), R = page(o.big ? ' ' : (o.right || '')); L.position.set(-w / 2, 0, 0.03); L.rotation.y = 0.06; R.position.set(w / 2, 0, 0.03); R.rotation.y = -0.06; g.add(L, R);
+    // (pass 2) o.big: one heading band across the whole spread, the word as big as the band allows
+    if (o.big) { const bh = h * 0.2, band = canvasPlane(2 * w, bh, (c, W, Hh) => { c.fillStyle = '#EFE6CC'; c.fillRect(0, 0, W, Hh); c.fillStyle = '#1E2A55'; c.fillRect(0, Hh * 0.9, W, Hh * 0.1);
+      c.fillStyle = '#B0262A'; c.font = `900 ${Hh * 0.78}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.left || 'ADRESSE', W / 2, Hh * 0.47, W * 0.92); }, { res: 512 });
+      band.position.set(0, h / 2 - bh / 2, 0.045); g.add(band); }
     return g;
+  },
+
+  // (pass 2) A smear frame for a fast swing: a translucent ribbon along o.pts (local points, in order) with speed lines on it, o.w (0.25) wide at
+  // the end (tapering to the start), in the plane facing o.normal ([0, 0, 1]); shown during [o.at, o.at + o.dur (0.07)]; o.color
+  smearTrail(o) {
+    const g = grp(), pts = (o.pts || [[0, 1, 0], [0, 0, 0]]).map(p => new THREE.Vector3(...p)), n = new THREE.Vector3(...(o.normal || [0, 0, 1])).normalize(), W = o.w ?? 0.25;
+    const pos = [], idx = [];
+    pts.forEach((p, i) => { const f = i / (pts.length - 1), d = (pts[Math.min(i + 1, pts.length - 1)].clone().sub(pts[Math.max(i - 1, 0)])).normalize(), side = d.clone().cross(n).normalize().multiplyScalar(W * (0.25 + 0.75 * f) / 2);
+      pos.push(...p.clone().add(side).toArray(), ...p.clone().sub(side).toArray()); if (i) { const a = 2 * (i - 1); idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); } });
+    const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setIndex(idx);
+    const rib = new THREE.Mesh(geo, basic(o.color || '#8A5A30', o.opacity ?? 0.55)); rib.renderOrder = 4; g.add(rib);
+    const lm = basic(o.lines || '#FFF6DC', 0.85);
+    [-0.3, 0, 0.3].forEach(k => { for (let i = 1; i < pts.length; i++) { const f = i / (pts.length - 1), d = pts[i].clone().sub(pts[i - 1]), side = d.clone().normalize().cross(n).normalize().multiplyScalar(W * k * (0.25 + 0.75 * f));
+      const a = pts[i - 1].clone().add(side).addScaledVector(n, 0.01), b = pts[i].clone().add(side).addScaledVector(n, 0.01); g.add(segment(a.toArray(), b.toArray(), 0.006, lm, 4)); } });
+    noShadow(g);
+    g.userData.update = t => { g.visible = t >= (o.at ?? 0) && t < (o.at ?? 0) + (o.dur ?? 0.07); };
+    g.userData.update(-1); return g;
+  },
+
+  // (pass 2) A burst of speed lines out of a hole (pivot at its middle; lines in the XY plane, pushed toward +Z): o.n (14) wedges from o.r0 (0.4)
+  // shooting out to o.r1 (1.6) over o.dur (0.35) from o.at, then fading; o.color, o.edge
+  burstLines(o) {
+    const g = grp(), n = o.n ?? 14, R0 = o.r0 ?? 0.4, R1 = o.r1 ?? 1.6, L = [];
+    for (let i = 0; i < n; i++) { const a = (i + 0.5 * hsh(i)) / n * TAU, sh = new THREE.Shape(); sh.moveTo(0, -0.025); sh.lineTo(1, -0.006); sh.lineTo(1, 0.006); sh.lineTo(0, 0.025);
+      const m = new THREE.Mesh(new THREE.ShapeGeometry(sh), basic(i % 2 ? (o.color || '#FFFFFF') : (o.edge || '#3B88C9'), 0.9)); m.rotation.z = a; m.renderOrder = 6; const hold = grp(m); g.add(hold); L.push({ hold, m, a, k: 0.7 + 0.5 * hsh(i + 5) }); }
+    noShadow(g);
+    g.userData.update = t => { const u = (t - (o.at ?? 0)) / (o.dur ?? 0.35); g.visible = u >= 0 && u < 1.4;
+      L.forEach(l => { const r0 = R0 + (R1 - R0) * 0.6 * easeOut(u) * l.k, len = (R1 - R0) * 0.5 * l.k * (1 - 0.5 * clamp01(u)); l.m.position.set(Math.cos(l.a) * r0, Math.sin(l.a) * r0, 0.05 * u); l.m.scale.set(len, 1.6, 1); l.m.material.opacity = 0.9 * (1 - smooth((u - 0.7) / 0.7)); }); };
+    g.userData.update(-1); return g;
   },
 
   // A black beret for the mime (pivot at its band; sits on a head at offset [0, 0.5, 0]): a flat disc tilted to one side with a stalk
