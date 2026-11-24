@@ -3065,3 +3065,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 21 h 27 — « Le rayon » (90) LIVRÉ et publié sur TikTok (1080x1920, 39,4 s, −16,0 LUFS, sans creux ; post cmwv7g2a00drmqd07qq94xz09).
   Revues 5,5/6,8 → 7,4/7,7 → 7,6/8,1, puis passe finale. Le premier assemblage HyperFrames a refusé de démarrer (0,9 Go libre) : cache npm
   vidé, assemblage relancé seul (2 min).
+- 21 h 56 — « Le stylo » (92) rendu final prêt dans sa session (34,2 s, −16,1 LUFS, sans creux ; revues 5,0/7,2 → 6,3/7,4 → 7,0/7,5, passe
+  finale, brouillon de contrôle) mais NON publié : la permission automatique de la session refuse la publication Postiz et le commit du
+  projet HyperFrames. Pas de contournement ; l'utilisateur doit l'autoriser dans cette session. Leçons ajoutées au skill.

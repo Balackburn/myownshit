@@ -2117,3 +2117,15 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 50) Avant un rendu final, vérifier qu'il reste au moins 1,2 Go libre : HyperFrames refuse de démarrer sous 1 Go (« Low disk
   space ») après l'heure de rendu 3D. Si ça arrive, ne relancer que l'assemblage HyperFrames (le calque 3D est déjà dans assets/), après avoir
   vidé le cache npm (`npm cache clean --force`), jamais les vidéos livrées.
+- (cycle 51, « Le stylo ») Une clé de visibilité sur un accessoire réaffiche tous ses enfants : pour basculer entre deux variantes, passer
+  par l'échelle, pas par la visibilité.
+- (cycle 51) Mains de figurants ciblées en coordonnées monde : pendant une chute du support, elles restent en l'air et les bras s'étirent ;
+  faire suivre les cibles avec le support.
+- (cycle 51) Personnages en tenue sombre la nuit : même gris foncé pour tous plus une lumière d'appoint froide par personnage, sinon ils se
+  fondent en une masse noire ; yeux blancs avec pupilles.
+- (cycle 51) Une même réaction (« yeux sur tiges ») réutilisée trois fois est relevée par les critiques : une seule par film, varier les
+  prises (mâchoire qui tombe, double take, affaissement).
+- (cycle 51) Poussé avant sur le plan final : vérifier la dernière image, il rogne facilement l'accessoire clé au bord du cadre.
+- (cycle 51) Écharpe tricolore inventée : vert émeraude + jaune se lit comme un vrai drapeau ; violet + or ne correspond à aucun.
+- (cycle 51) Projecteur d'hélicoptère : le faisceau descend sur la cible, sinon le plan perd son sens ; hélicoptère plein, pas en contour.
+- (cycle 51) Piles « jusqu'au plafond » : caméra basse et proche du personnage, sinon les piles s'arrêtent au milieu du cadre.
