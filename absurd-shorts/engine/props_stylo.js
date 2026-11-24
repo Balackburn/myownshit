@@ -90,13 +90,17 @@ export const STYLO_PROPS = {
     const flat = new THREE.Shape([[-1.15, -0.5], [1.15, -0.5], [1.25, 0.1], [0.95, 0.5], [0.55, 0.3], [0.2, 0.55], [-0.2, 0.32], [-0.6, 0.55], [-1.0, 0.35], [-1.25, 0.05]].map(([x, y]) => new THREE.Vector2(x * R, y * 0.05)));
     const fgeo = w => { const g2 = new THREE.ExtrudeGeometry(flat, { depth: R * 0.75 + 2 * w, bevelEnabled: false }); g2.translate(0, 0, -(R * 0.75 + 2 * w) / 2); if (w) g2.scale(1 + w / R, 1 + w / 0.03, 1); return g2; };
     teeth.add(rimmed(fgeo, main, rc, rw));
-    for (const sd of [1, -1]) for (let i = 0; i < 5; i++) teeth.add(at(box(R * 0.28, 0.014, 0.003, '#3A2808'), (i - 2) * R * 0.45, 0.006 - 0.005 * (i % 2), sd * (R * 0.375 + 0.0035)));
+    // (round 1) deep V notches bitten into both faces, dented lower rim
+    for (const sd of [1, -1]) for (let i = 0; i < 6; i++) teeth.add(at(box(R * 0.26, 0.016, 0.004, '#2A1C06'), (i - 2.5) * R * 0.42, 0.004 + 0.008 * (i % 2), sd * (R * 0.375 + 0.003), 0, 0, 0.3 * (i % 3 - 1)));
+    for (const sd of [1, -1]) teeth.add(at(box(R * 2.3, 0.004, 0.003, '#2A1C06'), 0, -0.022, sd * (R * 0.375 + 0.003)));
     const clipC = state ? '#F0D78A' : '#E9EDF2';
     const clip = grp(at(box(R * 0.7, capL * 0.82, 0.007, clipC, { outline: 0.06 }), 0, 0, 0), at(sphere(R * 0.32, clipC, 1), 0, -capL * 0.4, 0.004)); clip.position.set(0, -capL * 0.05, R * 1.06 + 0.008); cap.add(clip);
-    if (state) { const ring = rimmed(w => new THREE.TorusGeometry(R * 0.85, R * 0.24 + w, 8, 18), phong(BRASS, 70, '#FFF2C0'), rc, rw); ring.position.y = L / 2 + R * 0.95; ring.rotation.y = PI / 2; b.add(ring); }
+    let ringG = null;
+    if (state) { const ring = rimmed(w => new THREE.TorusGeometry(R * 0.85, R * 0.24 + w, 8, 18), phong(BRASS, 70, '#FFF2C0'), rc, rw); ring.position.y = L / 2 + R * 0.95; ring.rotation.y = PI / 2; b.add(ring); ringG = ring; }
     g.userData.ring = [0, (L / 2 + R * 1.6) * (o.s || 1), 0]; g.userData.tip = [0, -L / 2 * (o.s || 1), 0];
     const chew = t => Array.isArray(o.chew) ? keyAt(o.chew, t, 0, 0.1) : (o.chewed ? (o.chew ?? 1) : 0);
-    g.userData.update = t => { const c = chew(t); top.visible = c < 0.5; teeth.visible = c >= 0.5; capBody.scale.set(1 + 0.2 * c, 1, 1 - 0.15 * c);
+    // (round 1) the chewed parts switch by scale: a visible key on the prop re-shows every child
+    g.userData.update = t => { const c = chew(t), on = c >= 0.5, z = 0.0001; top.scale.setScalar(on ? z : 1); teeth.scale.setScalar(on ? 1 : z); if (ringG) ringG.scale.setScalar(on && !o.keepRing ? z : 1); capBody.scale.set(1 + 0.2 * c, 1, 1 - 0.15 * c);
       if (o.spinY) b.rotation.y = o.spinY * t; };
     g.userData.update(0); return g;
   },
@@ -134,9 +138,10 @@ export const STYLO_PROPS = {
     if (o.tag !== false) { const stub = buildProp('styChain', { len: 0.07, tag: 'ÉTAT', tagS: o.tagS ?? 1.25, swing: o.tagSwing || [], tilt: 0 }); stub.position.set(ax + 0.12, H - 0.005, D / 2 + 0.09); g.add(stub); g.userData.stub = stub;
       g.add(at(cyl(0.012, 0.012, 0.03, BRASS_D, 8), ax + 0.12, H + 0.005, D / 2 + 0.06)); }
     if (o.dust) { const [dx, dz, dry] = o.dust, dw = 0.62, dd = 0.2, s = o.dustS ?? 1;
-      const d = canvasPlane(dw * s, dd * s, (c, cw, ch) => { c.fillStyle = T; c.fillRect(0, 0, cw, ch); for (let i = 0; i < 900; i++) { c.fillStyle = `rgba(214,206,190,${0.25 + 0.5 * hsh(i)})`; const r = 1 + 3 * hsh(i + 7); c.beginPath(); c.arc(hsh(i + 1) * cw, hsh(i + 3) * ch, r, 0, TAU); c.fill(); }
-        c.fillStyle = T; const y = ch / 2, x0 = cw * 0.12, x1 = cw * 0.88, r = ch * 0.17; c.beginPath(); c.moveTo(x0 - r * 1.6, y); c.lineTo(x0, y - r); c.lineTo(x1, y - r * 1.12); c.arc(x1, y, r * 1.12, -PI / 2, PI / 2); c.lineTo(x0, y + r); c.closePath(); c.fill();
-        c.fillStyle = 'rgba(214,206,190,0.9)'; c.beginPath(); c.arc(x1 + r * 1.5, y, r * 0.55, 0, TAU); c.fill(); }, { res: 512 });
+      const d = canvasPlane(dw * s, dd * s, (c, cw, ch) => { c.fillStyle = T; c.fillRect(0, 0, cw, ch); for (let i = 0; i < 900; i++) { c.fillStyle = `rgba(226,220,206,${0.35 + 0.5 * hsh(i)})`; const r = 1 + 3 * hsh(i + 7); c.beginPath(); c.arc(hsh(i + 1) * cw, hsh(i + 3) * ch, r, 0, TAU); c.fill(); }
+        const y = ch / 2, x0 = cw * 0.12, x1 = cw * 0.86, r = ch * 0.17; c.beginPath(); c.moveTo(x0 - r * 1.6, y); c.lineTo(x0, y - r); c.lineTo(x1, y - r * 1.12); c.arc(x1, y, r * 1.12, -PI / 2, PI / 2); c.lineTo(x0, y + r); c.closePath();
+        c.fillStyle = '#3A2616'; c.fill(); c.lineWidth = ch * 0.07; c.strokeStyle = '#FFFBEF'; c.stroke();
+        c.beginPath(); c.arc(x1 + r * 1.75, y, r * 0.55, 0, TAU); c.stroke(); }, { res: 512 });
       d.rotation.set(-PI / 2, 0, dry || 0); d.position.set(dx, H + 0.003, dz); g.add(d); }
     if (o.cutAt != null) { const cut = grp(); g.add(cut); const ez = D / 2 + 0.07, n = Math.max(2, Math.round((ez - az) / 0.045));
       for (let i = 0; i <= n; i++) { const lk = new THREE.Mesh(new THREE.TorusGeometry(0.023, 0.009, 6, 12), phong(STEEL, 60, '#DDE6F0')); lk.scale.set(1.45, 1, 1); lk.position.set(ax + 0.02 * Math.sin(i), H + 0.012, az + (ez - az) * i / n); lk.rotation.set(i % 2 ? 0 : PI / 2, PI / 2, 0); cut.add(lk); }
@@ -298,6 +303,17 @@ export const STYLO_PROPS = {
     return g;
   },
 
+  // (round 1) A striped pyjama top front (attach to the torso joint, offset [0, 0, 0]): a panel o.w (0.38) wide with vertical stripes (o.color, o.stripe),
+  // a round collar band, piped placket with three buttons; hides the suit lapels of the pyjama outfit
+  styPyjTop(o) {
+    const W = o.w ?? 0.38, Hp = o.h ?? 0.52, Z = o.z ?? 0.172, y0 = o.y0 ?? 0.1, g = grp();
+    const p = canvasPlane(W, Hp, (c, cw, ch) => { c.fillStyle = o.color || '#9DB7D9'; c.fillRect(0, 0, cw, ch); c.fillStyle = o.stripe || '#F4F6FA'; const n = 7; for (let i = 0; i < n; i++) c.fillRect(cw * (i + 0.3) / n, 0, cw * 0.32 / n, ch);
+      c.fillStyle = o.pipe || '#2E4A7A'; c.fillRect(cw * 0.48, 0, cw * 0.04, ch); for (let i = 0; i < 3; i++) { c.beginPath(); c.arc(cw * 0.5, ch * (0.25 + i * 0.25), cw * 0.025, 0, TAU); c.fill(); } }, { res: 256 });
+    p.position.set(0, y0 + Hp / 2, Z + 0.012); g.add(p, at(box(W + 0.01, Hp, 0.01, o.color || '#9DB7D9', { outline: 0.01 }), 0, y0 + Hp / 2, Z + 0.004));
+    g.add(at(cyl(0.12, 0.125, 0.05, o.pipe || '#2E4A7A', 12, { outline: 0.004 }), 0, y0 + Hp + 0.01, 0.0));
+    return g;
+  },
+
   // A small school pencil (pivot at its middle, the point down -Y): a yellow hexagonal body o.len (0.16) long, a sharpened wooden tip with a graphite
   // point, a metal ferrule and a pink eraser; a dark hull so it reads against a pale ground
   styPencil(o) {
@@ -378,12 +394,14 @@ export const STYLO_PROPS = {
     for (let i = 0; i < 7; i++) { const a = -0.6 + i * 0.2, L = 0.4 + 0.5 * hsh(i); const c = at(box(L, 0.03, 0.01, '#3A3026'), bx + Math.sin(a) * 0.9, (o.heroFloor ?? 5) * S - 0.1 - Math.cos(a) * 0.3 * hsh(i + 2), 0.02); c.rotation.z = a * 2; crackG.add(c); }
     const dust = [], dm = []; for (let i = 0; i < 9; i++) { const m = new THREE.Sprite(new THREE.SpriteMaterial({ map: softTex(), color: '#A8A49C', transparent: true, opacity: 0, depthWrite: false })); g.add(m); dust.push(m); }
     void dm;
+    const puffs = []; for (const [t0, y0] of o.puffs || []) for (let i = 0; i < 8; i++) { const m = new THREE.Sprite(new THREE.SpriteMaterial({ map: softTex(), color: o.puffColor || '#CFC8BA', transparent: true, opacity: 0, depthWrite: false })); g.add(m); puffs.push({ m, t0, y0, a: i / 8 * TAU + 0.3 * hsh(i + t0 * 10) }); }
     g.userData.slabTop = f => f * S;
     g.userData.update = t => {
       for (const [f, s] of Object.entries(slabs)) { const ks = (o.slabs || {})[f]; const y = ks ? linAt(ks, t, s.y0) : s.y0; let jx = 0;
         if (+f === (o.heroFloor ?? 5) && o.crackAt != null && t >= o.crackAt && t < (o.breakAt ?? o.crackAt + 0.2)) jx = 0.02 * Math.sin(t * 90);
-        s.sb.position.set(bx + jx, y, 0); s.scar.visible = y < s.y0 - 0.3;
-        const tl = (o.land || {})[f]; const crum = tl != null && t >= tl ? Math.min(1, (t - tl) / 0.08) : 0; s.rail.scale.set(1 + 0.03 * crum, 1 - 0.72 * crum, 1); s.rail.rotation.x = -0.12 * crum; }
+        const jt = (o.stackJit || {})[f] || [0, 0, 0], kz = (o.slabZ || {})[f] ?? 0; s.sb.position.set(bx + jx + jt[0], y, kz + jt[1]); s.sb.rotation.y = jt[2]; s.scar.visible = y < s.y0 - 0.3;
+        const tl = (o.land || {})[f]; const crum = tl != null && t >= tl ? Math.min(1, (t - tl) / 0.08) : 0; s.rail.scale.set(1 + 0.06 * crum, 1 - 0.78 * crum, 1); s.rail.rotation.x = -0.35 * crum; s.rail.rotation.z = 0.12 * crum * (+f % 2 ? 1 : -1); }
+      puffs.forEach(({ m, t0, y0, a }) => { const u = t - t0; if (u < 0 || u > 0.9) { m.material.opacity = 0; return; } m.position.set(bx + Math.cos(a) * (1.1 + 1.6 * u), y0 + 0.15 + 0.3 * u, 0.6 + Math.sin(a) * (0.5 + 0.6 * u)); m.scale.setScalar(0.5 + 1.8 * u); m.material.opacity = 0.7 * (1 - u / 0.9); });
       crackG.visible = o.crackAt != null && t >= o.crackAt;
       const da = o.dustAt; dust.forEach((m, i) => { if (da == null || t < da) { m.material.opacity = 0; return; } const u = t - da, a = (i / dust.length) * TAU; m.position.set(bx + Math.cos(a) * (0.6 + 1.6 * u) * 1.3, 0.3 + 0.5 * u + 0.25 * hsh(i), 0.6 + Math.sin(a) * (0.4 + 0.9 * u));
         m.scale.setScalar(0.8 + 2.0 * u); m.material.opacity = (o.dustOp ?? 0.6) * Math.max(0, 1 - u / 1.6); }); };
