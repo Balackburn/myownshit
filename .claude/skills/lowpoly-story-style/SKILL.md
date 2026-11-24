@@ -2035,3 +2035,19 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 50) Foule dans un cadre 9:16 : vérifier chaque personnage avec `project()` ; 5 pique-niqueurs sur 9 étaient hors champ.
 - (cycle 50) Tournesols filmés d'en bas : têtes plus grandes et moins penchées, caméra à hauteur de tête, sinon on ne voit que des
   disques plats.
+- (cycle 49, « Le chat ») Croix rouge = emblème protégé : des secouristes portent une bande verte ou bleue et un casque blanc, jamais de croix.
+  Une combinaison orange se lit comme celle d'un détenu.
+- (cycle 49) Moustaches du chat créature qui se croisent : elles forment un « x » sur le museau, lu comme un œil KO ; écarter les deux de chaque côté.
+- (cycle 49) Le chat créature remet les échelles de ses articulations à zéro à chaque image : pour une queue pendante, un accessoire séparé
+  (effilé, annelé, bout pâle, oscillation en S) ; une colonne droite segmentée se lit comme un tuyau.
+- (cycle 49) riotHelmet sur la tête-boîte se lit comme des cheveux foncés, un casque carré gris comme un seau : casque gris clair à bord, visière
+  sombre opaque.
+- (cycle 49) Le rig toon ignore la rotation de la racine : le clip « crawl » enterre le personnage ; le remplacer (accroupi qui avance).
+- (cycle 49) Une vraie nuit vient des réglages par plan (ciel marine, lune, lumière chaude sur le sujet, appoint froid), pas du cycle jour-nuit
+  (jour gris). Une aube se lit par un ciel bas rose-orangé et des ombres longues.
+- (cycle 49) Obus qui frôle : petit obus allongé avec traînée qui traverse en 2-3 images l'espace que la tête vient de quitter ; l'impact va sur
+  la façade, synchronisé avec l'effondrement ; au moins 0,5 m entre la bouche du canon et le personnage en gros plan.
+- (cycle 49) Explosions au sol loin des personnages, sinon on croit qu'on les bombarde.
+- (cycle 49) Le gag de fin a sa propre caméra : un plan rapproché, pas un plan large où le sujet fait 8 % de la hauteur.
+- (cycle 49) Garder la carte sans action (l'objet sort avant que la carte tombe) ; objets clés entre 60 et 70 % de la hauteur, au-dessus des
+  sous-titres.
