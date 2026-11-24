@@ -2051,3 +2051,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 49) Le gag de fin a sa propre caméra : un plan rapproché, pas un plan large où le sujet fait 8 % de la hauteur.
 - (cycle 49) Garder la carte sans action (l'objet sort avant que la carte tombe) ; objets clés entre 60 et 70 % de la hauteur, au-dessus des
   sous-titres.
+- (cycle 49, « Le cheveu ») Faisceaux additifs : les dessiner entre le décor et les acteurs (onTopActors), sinon les costumes semblent
+  transparents. Un fantôme gris sur un costume sombre peut venir des sprites d'éblouissement ou d'étoiles, pas du cône.
+- (cycle 49) Descente vers la caméra : placer chaque point de la trajectoire sur un rayon de caméra ; un déplacement en profondeur reste minuscule
+  ou passe derrière une tête.
+- (cycle 49) Grands plans de poussière flous devant les acteurs : lus comme des jambes qui s'effacent ; poussière petite et au sol.
+- (cycle 49) Le transfert de poids automatique au repos fait glisser une tête tenue pendant une action rapprochée : le couper par plan.
+- (cycle 49) Un contour blanc garde lisible un accessoire noir et fin sur tous les fonds.
+- (cycle 49) Chien rose rasé au museau carré = cochon : museau long, oreilles pointues, queue, collier.
+- (cycle 49) Photo d'identité de profil : garder les yeux de face pour que « le même » se lise. Vapeur en fins gribouillis blancs, pas en disques
+  flous.

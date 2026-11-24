@@ -3042,3 +3042,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   lu comme un arc (S03). Corrections lancées.
 - 16 h 48 — « Le chat » (87) LIVRÉE et publiée sur TikTok par sa session parallèle (1080x1920, 35,7 s, −16,0 LUFS, sans creux ; post
   cmwuxfhfh08p4qd07sz27sahj). Revues 6,0/6,8 → 7,0/7,0 → 7,0/7,4, puis passe finale. Branche fusionnée, dix leçons ajoutées au skill.
+- 17 h 01 — « Le cheveu » (88) LIVRÉE et publiée sur TikTok par sa session parallèle (1080x1920, 38,0 s, −16,1 LUFS, sans creux ; post
+  cmwuxw5hc08yupj077rw2hwqo). Revues 5,5/6,6 → 6,6/6,9 → 7,0/7,4, puis passe finale. Branche fusionnée, leçons ajoutées au skill. La session
+  reçoit « Le stylo » (92).
