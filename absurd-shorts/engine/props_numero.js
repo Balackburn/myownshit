@@ -141,7 +141,9 @@ export const NUMERO_PROPS = {
     const S = o.s ?? 14, g = grp(), c = grp(); g.add(c);
     const felt = feltCore({ w: 1.6, h: 1.9, step: o.step ?? 0.04, len: o.len ?? 0.07, partW: 0.03, shineW: 0.035, state: o.state ?? 1, sides: o.sides, top: o.top, back: o.back, part: o.part, gel: o.gel, shine: o.shine ?? 1.2 });
     felt.scale.setScalar(S); felt.rotation.x = -PI / 2; felt.position.y = 0.05; c.add(felt);
-    if (o.planet !== false) { const R = o.planetR ?? 400, pl = new THREE.Mesh(new THREE.SphereGeometry(R, 64, 32), mat(o.sea || '#2F7FB8', { noGrain: true })); pl.position.y = -R - 0.4; pl.receiveShadow = true; g.add(pl);
+    if (o.planet !== false) { const R = o.planetR ?? 400, pl = new THREE.Mesh(new THREE.SphereGeometry(R, 96, 48), mat(o.sea || '#2F7FB8', { noGrain: true })); pl.position.y = -R - 0.4; pl.receiveShadow = true; g.add(pl);
+      for (let i = 0; i < (o.clouds ?? 0); i++) { const a = hsh(i + 3) * TAU, d = S * 1.6 + hsh(i + 7) * R * 0.5, th = d / R, cl = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), mat('#F4F8FA', { noGrain: true }));
+        cl.scale.set(3 + 4 * hsh(i), 0.4, 2 + 3 * hsh(i + 1)); cl.position.set(Math.sin(th) * R * Math.cos(a), Math.cos(th) * R - R - 0.2, Math.sin(th) * R * Math.sin(a)); cl.lookAt(0, -R, 0); cl.rotateX(PI / 2); g.add(noShadow(cl)); }
       const sh = new THREE.Mesh(new THREE.CircleGeometry(S * 1.25, 48), mat('#5AA7D2', { noGrain: true })); sh.rotation.x = -PI / 2; sh.position.y = -0.2; g.add(sh); }
     g.userData.update = t => felt.userData.update(t);
     g.userData.update(0); return g;
@@ -253,7 +255,7 @@ export const NUMERO_PROPS = {
   // at the back; nothing written anywhere
   villageSquare(o) {
     const W = o.w ?? 16, D = o.d ?? 12, BK = o.back ?? 7, g = grp(), r = rng(o.seed || 94);
-    const gr = new THREE.Mesh(new THREE.PlaneGeometry(W, D), mat('#D9C9A3')); gr.rotation.x = -PI / 2; gr.position.y = 0.05; gr.receiveShadow = true; g.add(gr);
+    const gr = new THREE.Mesh(new THREE.PlaneGeometry(W, D), mat('#D9C9A3', { unique: true })); gr.renderOrder = -1; gr.rotation.x = -PI / 2; gr.position.y = 0.07; gr.receiveShadow = true; gr.material.polygonOffset = true; gr.material.polygonOffsetFactor = -2; g.add(gr);
     const stones = ['#E6D7B8', '#EBDDC4', '#D9C7A2', '#E9D2B0', '#DCCFB8'], shut = ['#5E8C9A', '#7A9A5A', '#B5523A', '#4E6E9A', '#8A6A9A'];
     const house = (x, z, ry, w, h, i) => { const hg = grp(); hg.position.set(x, 0, z); hg.rotation.y = ry; g.add(hg);
       hg.add(at(box(w, h, 4, stones[i % 5], { outline: 0.01, pivot: 'bottom' }), 0, 0, -2));
@@ -291,10 +293,13 @@ export const NUMERO_PROPS = {
     const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ vertexColors: true, flatShading: true })); m.castShadow = m.receiveShadow = true; g.add(m);
     const cG = new THREE.Color('#6DB04E'), cG2 = new THREE.Color('#5E9E42'), cE = new THREE.Color('#9A6A3E');
     g.userData.update = t => { const p = smooth(lin(o.carve, t, 1));
+      const pc = o.cut != null ? smooth(lin(o.cut, t, 1)) : p;
       for (let v = 0; v < nV; v++) { const i = idx[v], x = base[v * 3], z = base[v * 3 + 2], rr = Math.hypot(x, z) || 1e-6, a = Math.atan2(z, x);
-        const R1 = dome[i][0] + (step[i][0] - dome[i][0]) * p, Y1 = dome[i][1] + (step[i][1] - dome[i][1]) * p;
+        const pv = i < SEG / N ? pc : p, ramp = [dome[i][0], i < SEG / N ? (H / N) * (i / (SEG / N)) : dome[i][1]];
+        const src = o.cut != null && i < SEG / N ? ramp : dome[i];
+        const R1 = src[0] + (step[i][0] - src[0]) * pv, Y1 = src[1] + (step[i][1] - src[1]) * pv;
         posA.array[v * 3] = Math.cos(a) * R1; posA.array[v * 3 + 1] = Y1 + 0.05; posA.array[v * 3 + 2] = Math.sin(a) * R1;
-        const c = kind[i] && p > 0.2 ? cE.clone().lerp(cG, 1 - p) : (Math.floor(i / 16) % 2 ? cG : cG2); cols[v * 3] = c.r; cols[v * 3 + 1] = c.g; cols[v * 3 + 2] = c.b; }
+        const pk = i < SEG / N && o.cut != null ? pc : p; const c = kind[i] && pk > 0.2 ? cE.clone().lerp(cG, 1 - pk) : (Math.floor(i / 16) % 2 ? cG : cG2); cols[v * 3] = c.r; cols[v * 3 + 1] = c.g; cols[v * 3 + 2] = c.b; }
       posA.needsUpdate = true; geo.attributes.color.needsUpdate = true; geo.computeVertexNormals(); geo.computeBoundingSphere(); };
     g.userData.update(0); return g;
   },
@@ -307,11 +312,11 @@ export const NUMERO_PROPS = {
     for (const s of [-1, 1]) b.add(at(box(0.55, 0.55, 3.0, '#2E3226', { outline: 0.01, pivot: 'bottom' }), s * 0.95, 0, 0));
     const up = grp(); up.position.y = 0.6; b.add(up);
     up.add(at(box(2.1, 0.8, 2.4, OL, { outline: 0.01, pivot: 'bottom' }), 0, 0, -0.2), at(box(0.95, 1.05, 1.0, OL, { outline: 0.01, pivot: 'bottom' }), -0.55, 0.8, 0.45), at(box(0.8, 0.6, 0.02, '#BFDCE8'), -0.55, 1.4, 0.96));
-    const boom = grp(); boom.position.set(0.45, 1.0, 0.8); up.add(boom); boom.add(at(box(0.32, 0.32, 2.6, OL, { outline: 0.008 }), 0, 0, 1.3));
-    const stick = grp(); stick.position.set(0, 0, 2.6); boom.add(stick); stick.add(at(box(0.26, 0.26, 1.9, DK, { outline: 0.008 }), 0, 0, 0.95));
-    const bucket = grp(); bucket.position.set(0, 0, 1.9); stick.add(bucket); bucket.add(at(box(0.7, 0.5, 0.45, DK, { outline: 0.008 }), 0, -0.2, 0.15));
-    for (let i = 0; i < 4; i++) bucket.add(at(box(0.08, 0.15, 0.08, '#B0B4B8'), -0.25 + i * 0.17, -0.5, 0.3));
-    const dirt = at(sphere(0.32, '#8A5E36', 1), 0, -0.15, 0.2); dirt.scale.set(1, 0.6, 0.8); bucket.add(dirt);
+    const boom = grp(); boom.position.set(0.45, 1.0, 0.8); up.add(boom); boom.add(at(box(0.42, 0.5, 3.0, '#8A9A4E', { outline: 0.012 }), 0, 0, 1.5), at(box(0.12, 0.12, 2.2, '#C9CED6', { outline: 0.004 }), 0, -0.32, 1.2));
+    const stick = grp(); stick.position.set(0, 0, 3.0); boom.add(stick); stick.add(at(box(0.34, 0.4, 2.2, '#7A8A44', { outline: 0.012 }), 0, 0, 1.1));
+    const bucket = grp(); bucket.position.set(0, 0, 2.2); stick.add(bucket); bucket.add(at(box(0.95, 0.7, 0.6, DK, { outline: 0.012 }), 0, -0.3, 0.2));
+    for (let i = 0; i < 5; i++) bucket.add(at(box(0.1, 0.2, 0.1, '#D0D4D8', { taper: 0.3, pivot: 'top' }), -0.36 + i * 0.18, -0.62, 0.45));
+    const dirt = at(sphere(0.42, '#8A5E36', 1), 0, -0.2, 0.25); dirt.scale.set(1, 0.6, 0.8); bucket.add(dirt);
     g.userData.update = t => { const d = clamp01(lin(o.dig, t, 0)); boom.rotation.x = -0.55 + 0.95 * d; stick.rotation.x = 0.9 + 0.5 * d; bucket.rotation.x = 0.4 + 1.1 * d; dirt.visible = d > 0.6; up.rotation.y = lin(o.swing, t, 0);
       const sh = inWin(o.shake, t); b.position.set(sh ? 0.015 * Math.sin(t * 60) : 0, 0, 0); };
     g.userData.update(0); return g;
@@ -363,16 +368,22 @@ export const NUMERO_PROPS = {
   // (0.4) x 0.18 with lighter bevel edges; on its front, under the frost, a bright yellow envelope with its flap (no sign, no logo, nothing
   // written), frost streaks and a white glint in a corner
   iceBlock(o) {
-    const W = o.w ?? 0.55, H = o.h ?? 0.4, Dd = o.d ?? 0.18, g = grp();
-    g.add(at(box(W, H, Dd, '#BFE6F4', { outline: 0.006 }), 0, 0, 0));
-    const face = canvasPlane(W * 0.96, H * 0.94, (c, w, h) => { const gr = c.createLinearGradient(0, 0, w, h); gr.addColorStop(0, '#E4F6FC'); gr.addColorStop(1, '#A6D8EC'); c.fillStyle = gr; c.fillRect(0, 0, w, h);
-      c.fillStyle = o.env || '#F4C430'; const ex = w * 0.2, ey = h * 0.24, ew = w * 0.6, eh = h * 0.52; c.fillRect(ex, ey, ew, eh); c.strokeStyle = '#C8961A'; c.lineWidth = w * 0.012; c.strokeRect(ex, ey, ew, eh);
+    const W = o.w ?? 0.55, H = o.h ?? 0.4, Dd = o.d ?? 0.26, g = grp();
+    g.add(at(box(W, H, Dd, '#86D8F0', { outline: 0.006 }), 0, 0, 0));
+    const face = canvasPlane(W * 0.96, H * 0.94, (c, w, h) => { const gr = c.createLinearGradient(0, 0, w, h); gr.addColorStop(0, '#C8F2FF'); gr.addColorStop(1, '#6CCDEB'); c.fillStyle = gr; c.fillRect(0, 0, w, h);
+      c.fillStyle = o.env || '#F8C828'; const ex = w * 0.2, ey = h * 0.25, ew = w * 0.6, eh = h * 0.5; c.fillRect(ex, ey, ew, eh); c.strokeStyle = '#C8961A'; c.lineWidth = w * 0.014; c.strokeRect(ex, ey, ew, eh);
       c.beginPath(); c.moveTo(ex, ey); c.lineTo(ex + ew / 2, ey + eh * 0.55); c.lineTo(ex + ew, ey); c.stroke();
-      c.fillStyle = 'rgba(230,246,252,0.45)'; c.fillRect(0, 0, w, h);
-      c.strokeStyle = 'rgba(255,255,255,0.8)'; c.lineWidth = w * 0.01; for (let i = 0; i < 7; i++) { const x = hsh(i + (o.seed || 0)) * w, y = hsh(i + 9 + (o.seed || 0)) * h; c.beginPath(); c.moveTo(x, y); c.lineTo(x + w * 0.12, y + h * 0.06); c.stroke(); }
-      c.fillStyle = '#FFFFFF'; c.beginPath(); c.arc(w * 0.85, h * 0.18, w * 0.04, 0, TAU); c.fill(); }, { res: 256, emissive: 0.25 });
+      c.fillStyle = 'rgba(170,230,250,0.38)'; c.fillRect(0, 0, w, h);
+      c.strokeStyle = 'rgba(255,255,255,0.9)'; c.lineWidth = w * 0.012; for (let i = 0; i < 9; i++) { const x = hsh(i + (o.seed || 0)) * w, y = hsh(i + 9 + (o.seed || 0)) * h; c.beginPath(); c.moveTo(x, y); c.lineTo(x + w * 0.1, y + h * 0.05); c.lineTo(x + w * 0.14, y - h * 0.03); c.stroke(); }
+      c.fillStyle = 'rgba(255,255,255,0.85)'; c.fillRect(0, 0, w, h * 0.05); c.fillRect(0, 0, w * 0.04, h);
+      c.fillStyle = '#FFFFFF'; c.beginPath(); c.arc(w * 0.86, h * 0.17, w * 0.035, 0, TAU); c.fill(); }, { res: 256, emissive: 0.3 });
     face.position.z = Dd / 2 + 0.002; g.add(face);
-    return g;
+    const hi = '#F4FDFF';
+    g.add(at(box(W + 0.01, 0.018, 0.018, hi), 0, H / 2, Dd / 2), at(box(0.018, H + 0.01, 0.018, hi), -W / 2, 0, Dd / 2), at(box(W + 0.01, 0.018, Dd, hi), 0, H / 2, 0));
+    for (let i = 0; i < 4; i++) g.add(at(box(0.025, 0.05 + 0.04 * hsh(i + 3), 0.025, '#BFEFFF', { taper: 0.2, pivot: 'top' }), -W / 2 + 0.08 + i * (W - 0.16) / 3, -H / 2, Dd / 2 - 0.03));
+    const puffs = []; for (let i = 0; i < 4; i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), mat('#F4FBFF', { opacity: 0.6, unique: true })); g.add(noShadow(m)); puffs.push(m); }
+    g.userData.update = t => { puffs.forEach((m, i) => { const u = ((t * 0.5 + i / 4 + (o.seed || 0) * 0.13) % 1); m.position.set((i - 1.5) * W * 0.22, H / 2 + 0.03 + u * 0.3, Dd * 0.2); m.scale.setScalar(0.03 + u * 0.07); m.material.opacity = 0.6 * (1 - u); }); };
+    g.userData.update(0); return g;
   },
 
   // Two plain fighter jets (no roundel, no lettering) flying noses up on either side of a giant oval hand mirror they hold by its rim (pivot at
@@ -461,6 +472,45 @@ export const NUMERO_PROPS = {
     g.add(at(box(0.2, 0.3, 0.08, C, { outline: 0.005 }), 0, 0, 0.04), at(cyl(0.06, 0.06, 0.012, '#F8F6F0', 14, { outline: 0.003 }), 0, -0.04, 0.085, PI / 2, 0, 0));
     for (let i = 0; i < 8; i++) { const a = i * 0.7; g.add(at(cyl(0.008, 0.008, 0.014, '#2A2420', 6), Math.cos(a) * 0.04, -0.04 + Math.sin(a) * 0.04, 0.09, PI / 2, 0, 0)); }
     g.add(at(box(0.04, 0.05, 0.06, '#8A8070'), 0.12, 0.08, 0.06));
+    return g;
+  },
+  // A barber's clipper with a clear silhouette (pivot at the middle of its body, the blade toward +Y, the switch toward +Z): a long narrow
+  // dark body o.len (0.26) tapering to the head, a chrome band, a wide black toothed blade head on top (two rows of teeth), a red switch, a
+  // short straight cord out of the bottom; o.buzz [[t0, t1]]: it vibrates and short white buzz lines flicker either side of the head; o.s
+  barberClippers(o) {
+    const S = o.s ?? 1, L = o.len ?? 0.26, g = grp(), b = grp(); b.scale.setScalar(S); g.add(b);
+    b.add(at(box(0.055, L, 0.042, o.color || '#2C3038', { outline: 0.006, taper: { x: 1.25, z: 1.1 } }), 0, 0, 0));
+    b.add(at(box(0.07, 0.025, 0.048, '#C9CED6', { outline: 0.004 }), 0, L * 0.36, 0));
+    b.add(at(box(0.085, 0.03, 0.03, '#141518', { outline: 0.005 }), 0, L / 2 + 0.012, 0));
+    for (let i = 0; i < 11; i++) { b.add(at(box(0.005, 0.03, 0.012, '#0E0F12'), -0.04 + i * 0.008, L / 2 + 0.04, 0.008)); b.add(at(box(0.005, 0.022, 0.01, '#E8ECF0'), -0.04 + i * 0.008, L / 2 + 0.036, -0.008)); }
+    b.add(at(box(0.018, 0.035, 0.012, '#D23A2E', { outline: 0.003 }), 0, L * 0.12, 0.024));
+    b.add(at(cyl(0.006, 0.006, 0.12, '#1E2026', 5), 0, -L / 2 - 0.06, 0));
+    const lines = []; for (const sd of [-1, 1]) for (let j = 0; j < 3; j++) { const m = new THREE.Mesh(new THREE.BoxGeometry(0.004, 0.035, 0.004), new THREE.MeshBasicMaterial({ color: '#FFFFFF' })); m.position.set(sd * (0.065 + j * 0.018), L / 2 + 0.02 + (j - 1) * 0.025, 0); m.rotation.z = sd * (0.6 - j * 0.3); b.add(m); lines.push([m, j]); }
+    g.userData.update = t => { const on = inWin(o.buzz, t); b.position.set(on ? 0.003 * Math.sin(t * 260) : 0, on ? 0.002 * Math.sin(t * 310) : 0, 0); b.rotation.z = on ? 0.03 * Math.sin(t * 190) : 0;
+      lines.forEach(([m, j]) => { m.visible = on && (Math.floor(t * 30) + j) % 2 === 0; }); };
+    g.userData.update(0); return g;
+  },
+
+  // A bald cap in skin colour over a box head (attach to the head joint, offset [0, 0, 0]: the head's base): it covers the top, the sides and the
+  // back down to o.down (0.22) below the top, a thin band across the top of the forehead; o.w / o.h / o.d the head box (0.24 / 0.5 / 0.17);
+  // o.skin; o.shine: a soft white highlight on the top
+  baldCap(o) {
+    const W = o.w ?? 0.24, H = o.h ?? 0.5, D = o.d ?? 0.17, DN = o.down ?? 0.22, C = o.skin || '#E2B48E', e = 0.006, g = grp();
+    g.add(at(box(W + 2 * e, e * 2, D + 2 * e, C), 0, H + e, 0));
+    for (const s of [-1, 1]) g.add(at(box(e, DN, D + e, C), s * (W / 2 + e / 2), H - DN / 2, -e / 2));
+    g.add(at(box(W + 2 * e, DN, e, C), 0, H - DN / 2, -D / 2 - e / 2));
+    g.add(at(box(W + 2 * e, o.band ?? 0.035, e, C), 0, H - (o.band ?? 0.035) / 2, D / 2 + e / 2));
+    if (o.shine !== false) { const hl = new THREE.Mesh(new THREE.PlaneGeometry(W * 0.6, D * 0.35), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.7, depthWrite: false })); hl.rotation.x = -PI / 2; hl.position.set(-W * 0.1, H + 2.2 * e, D * 0.1); g.add(noShadow(hl)); }
+    return g;
+  },
+
+  // A sun lounger carried overhead (pivot at its middle underside; its length along Z, the head end toward -Z): a flat white frame o.len (1.8)
+  // x 0.62 with a plain o.color (teal) cushion and a raised head rest, short legs
+  sunLounger(o) {
+    const L = o.len ?? 1.8, g = grp(), C = o.color || '#2EA8A0';
+    g.add(at(box(0.64, 0.05, L, '#F4F1E8', { outline: 0.006 }), 0, 0.025, 0), at(box(0.58, 0.06, L * 0.72, C, { outline: 0.004 }), 0, 0.08, L * 0.12));
+    g.add(at(box(0.58, 0.06, L * 0.3, C, { outline: 0.004 }), 0, 0.17, -L * 0.36, -0.45, 0, 0));
+    for (const sx of [-1, 1]) for (const sz of [-1, 1]) g.add(at(box(0.04, 0.12, 0.04, '#F4F1E8'), sx * 0.28, -0.05, sz * (L / 2 - 0.08)));
     return g;
   },
 };
