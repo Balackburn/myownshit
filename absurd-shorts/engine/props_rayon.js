@@ -69,37 +69,48 @@ export const RAYON_PROPS = {
     return g;
   },
   // the whiteboard on its stand: the sun on the left, the Earth (a house and a tiny man) on the right, a red and white parasol between them, a
-  // dotted line of the sun's rays stopping on it; o.title; o.ringAt: a red marker circle around the parasol drawn at that time
+  // dotted line of the sun's rays stopping on it; o.title; o.ringAt: a red marker circle drawn around the parasol from that time (o.ringDur)
+  // (round 1) the parasol drawn upright (a dome of red and white gores on a vertical stick with a crook: it read as a bow or a fan lying on its
+  // side), the header fitted by measure to the middle of the board (a snap zoom on the parasol keeps it whole), PARASOL written under the stick,
+  // the ring a real marker stroke that runs round in 0.3 s (it was already there at the cut)
   diagramBoard(o) {
     const W = o.w ?? 2.4, H = W * 0.58, g = grp();
-    const draw = (c, Wc, Hc, ring) => {
+    const PX = 0.5, PY = 0.5, PR = 0.13;
+    const draw = (c, Wc, Hc) => {
       c.fillStyle = '#FBFBF7'; c.fillRect(0, 0, Wc, Hc); c.lineCap = 'round'; c.lineJoin = 'round';
-      c.fillStyle = '#1F3A78'; c.font = `900 ${Hc * 0.09}px Arial`; c.textAlign = 'center'; c.fillText(o.title || 'SOLUTION RETENUE', Wc / 2, Hc * 0.13);
-      c.fillStyle = '#FFD23A'; c.strokeStyle = '#E09A1A'; c.lineWidth = Hc * 0.012; c.beginPath(); c.arc(Wc * 0.13, Hc * 0.55, Hc * 0.13, 0, TAU); c.fill(); c.stroke();
-      for (let i = 0; i < 12; i++) { const a = i * TAU / 12; c.beginPath(); c.moveTo(Wc * 0.13 + Math.cos(a) * Hc * 0.16, Hc * 0.55 + Math.sin(a) * Hc * 0.16); c.lineTo(Wc * 0.13 + Math.cos(a) * Hc * 0.22, Hc * 0.55 + Math.sin(a) * Hc * 0.22); c.stroke(); }
+      const title = o.title || 'SOLUTION RETENUE'; let fs = Hc * 0.085; c.font = `900 ${fs}px Arial`; const tw = c.measureText(title).width; if (tw > Wc * 0.34) { fs *= Wc * 0.34 / tw; c.font = `900 ${fs}px Arial`; }
+      c.fillStyle = '#1F3A78'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(title, Wc / 2, Hc * 0.12);
+      c.fillStyle = '#FFD23A'; c.strokeStyle = '#E09A1A'; c.lineWidth = Hc * 0.012; c.beginPath(); c.arc(Wc * 0.13, Hc * 0.5, Hc * 0.12, 0, TAU); c.fill(); c.stroke();
+      for (let i = 0; i < 12; i++) { const a = i * TAU / 12; c.beginPath(); c.moveTo(Wc * 0.13 + Math.cos(a) * Hc * 0.15, Hc * 0.5 + Math.sin(a) * Hc * 0.15); c.lineTo(Wc * 0.13 + Math.cos(a) * Hc * 0.2, Hc * 0.5 + Math.sin(a) * Hc * 0.2); c.stroke(); }
       c.strokeStyle = '#E09A1A'; c.setLineDash([Hc * 0.03, Hc * 0.03]); c.lineWidth = Hc * 0.014;
-      for (const dy of [-0.12, 0, 0.12]) { c.beginPath(); c.moveTo(Wc * 0.25, Hc * (0.55 + dy * 0.6)); c.lineTo(Wc * 0.46, Hc * (0.55 + dy)); c.stroke(); }
+      for (const dy of [-0.1, 0, 0.1]) { c.beginPath(); c.moveTo(Wc * 0.23, Hc * (0.5 + dy * 0.6)); c.lineTo(Wc * (PX - 0.075), Hc * (0.4 + dy * 0.5)); c.stroke(); }
       c.setLineDash([]);
-      // the parasol, canopy toward the sun
-      const px = Wc * 0.5, py = Hc * 0.55; c.save(); c.translate(px, py); c.rotate(-PI / 2);
-      for (let i = 0; i < 6; i++) { c.fillStyle = i % 2 ? '#F4F1E8' : RED; c.beginPath(); c.moveTo(0, 0); c.lineTo(-Hc * 0.3 + i * Hc * 0.1, -Hc * 0.13); c.lineTo(-Hc * 0.3 + (i + 1) * Hc * 0.1, -Hc * 0.13); c.closePath(); c.fill(); }
-      c.strokeStyle = INK; c.lineWidth = Hc * 0.012; c.beginPath(); c.moveTo(-Hc * 0.3, -Hc * 0.13); c.quadraticCurveTo(0, -Hc * 0.24, Hc * 0.3, -Hc * 0.13); c.lineTo(0, 0); c.closePath(); c.stroke();
-      c.beginPath(); c.moveTo(0, -Hc * 0.05); c.lineTo(0, Hc * 0.2); c.stroke(); c.restore();
+      // the parasol, upright: a dome of gores, a scalloped hem, a finial, a vertical stick with a crook
+      const cx = Wc * PX, top = Hc * (PY - 0.22), hem = Hc * (PY - 0.06), rx = Hc * PR * 1.25;
+      for (let i = 0; i < 6; i++) { const x0 = cx - rx + i * rx / 3, x1 = x0 + rx / 3; c.fillStyle = i % 2 ? '#F4F1E8' : RED; c.beginPath(); c.moveTo(cx, top); c.lineTo(x0, hem); c.quadraticCurveTo((x0 + x1) / 2, hem + Hc * 0.035, x1, hem); c.closePath(); c.fill(); }
+      c.strokeStyle = INK; c.lineWidth = Hc * 0.012; c.beginPath(); c.moveTo(cx - rx, hem); c.quadraticCurveTo(cx - rx * 0.95, top + Hc * 0.02, cx, top); c.quadraticCurveTo(cx + rx * 0.95, top + Hc * 0.02, cx + rx, hem); c.stroke();
+      for (let i = 0; i < 6; i++) { const x0 = cx - rx + i * rx / 3, x1 = x0 + rx / 3; c.beginPath(); c.moveTo(x0, hem); c.quadraticCurveTo((x0 + x1) / 2, hem + Hc * 0.035, x1, hem); c.stroke(); }
+      c.beginPath(); c.moveTo(cx, top); c.lineTo(cx, top - Hc * 0.03); c.stroke();
+      c.lineWidth = Hc * 0.016; c.beginPath(); c.moveTo(cx, hem); c.lineTo(cx, Hc * (PY + 0.2)); c.arc(cx + Hc * 0.03, Hc * (PY + 0.2), Hc * 0.03, PI, 0, true); c.stroke();
       // the Earth, a house on it and a tiny man with his hand over his eyes
-      c.fillStyle = '#3E8FD0'; c.beginPath(); c.arc(Wc * 0.84, Hc * 0.62, Hc * 0.2, 0, TAU); c.fill(); c.strokeStyle = INK; c.lineWidth = Hc * 0.012; c.stroke();
-      c.fillStyle = '#7DC46A'; c.beginPath(); c.ellipse(Wc * 0.8, Hc * 0.58, Hc * 0.08, Hc * 0.06, 0.4, 0, TAU); c.fill(); c.beginPath(); c.ellipse(Wc * 0.9, Hc * 0.7, Hc * 0.05, Hc * 0.07, -0.3, 0, TAU); c.fill();
-      c.fillStyle = '#F4F1E8'; c.fillRect(Wc * 0.78, Hc * 0.33, Hc * 0.08, Hc * 0.07); c.fillStyle = RED; c.beginPath(); c.moveTo(Wc * 0.775, Hc * 0.335); c.lineTo(Wc * 0.78 + Hc * 0.04, Hc * 0.29); c.lineTo(Wc * 0.785 + Hc * 0.08, Hc * 0.335); c.fill();
-      c.strokeStyle = INK; c.lineWidth = Hc * 0.01; c.beginPath(); c.moveTo(Wc * 0.86, Hc * 0.4); c.lineTo(Wc * 0.86, Hc * 0.35); c.moveTo(Wc * 0.86, Hc * 0.4); c.lineTo(Wc * 0.85, Hc * 0.42); c.moveTo(Wc * 0.86, Hc * 0.4); c.lineTo(Wc * 0.87, Hc * 0.42); c.stroke();
-      c.beginPath(); c.arc(Wc * 0.86, Hc * 0.33, Hc * 0.016, 0, TAU); c.stroke();
-      c.fillStyle = '#1F3A78'; c.font = `900 ${Hc * 0.06}px Arial`; c.fillText('SOLEIL', Wc * 0.13, Hc * 0.86); c.fillText('LUI', Wc * 0.92, Hc * 0.3); c.fillText('PARASOL', Wc * 0.5, Hc * 0.86);
-      c.strokeStyle = '#1F3A78'; c.lineWidth = Hc * 0.01; c.beginPath(); c.moveTo(Wc * 0.905, Hc * 0.31); c.lineTo(Wc * 0.875, Hc * 0.33); c.stroke();
-      if (ring) { c.strokeStyle = '#D2382E'; c.lineWidth = Hc * 0.022; c.beginPath(); c.ellipse(px, py, Hc * 0.2, Hc * 0.36, 0.05, 0, TAU); c.stroke(); }
+      c.fillStyle = '#3E8FD0'; c.beginPath(); c.arc(Wc * 0.84, Hc * 0.58, Hc * 0.2, 0, TAU); c.fill(); c.strokeStyle = INK; c.lineWidth = Hc * 0.012; c.stroke();
+      c.fillStyle = '#7DC46A'; c.beginPath(); c.ellipse(Wc * 0.8, Hc * 0.54, Hc * 0.08, Hc * 0.06, 0.4, 0, TAU); c.fill(); c.beginPath(); c.ellipse(Wc * 0.9, Hc * 0.66, Hc * 0.05, Hc * 0.07, -0.3, 0, TAU); c.fill();
+      c.fillStyle = '#F4F1E8'; c.fillRect(Wc * 0.78, Hc * 0.29, Hc * 0.08, Hc * 0.07); c.fillStyle = RED; c.beginPath(); c.moveTo(Wc * 0.775, Hc * 0.295); c.lineTo(Wc * 0.78 + Hc * 0.04, Hc * 0.25); c.lineTo(Wc * 0.785 + Hc * 0.08, Hc * 0.295); c.fill();
+      c.strokeStyle = INK; c.lineWidth = Hc * 0.01; c.beginPath(); c.moveTo(Wc * 0.86, Hc * 0.36); c.lineTo(Wc * 0.86, Hc * 0.31); c.moveTo(Wc * 0.86, Hc * 0.36); c.lineTo(Wc * 0.85, Hc * 0.38); c.moveTo(Wc * 0.86, Hc * 0.36); c.lineTo(Wc * 0.87, Hc * 0.38); c.stroke();
+      c.beginPath(); c.arc(Wc * 0.86, Hc * 0.29, Hc * 0.016, 0, TAU); c.stroke();
+      c.fillStyle = '#1F3A78'; c.font = `900 ${Hc * 0.06}px Arial`; c.fillText('SOLEIL', Wc * 0.13, Hc * 0.8); c.fillText('LUI', Wc * 0.93, Hc * 0.25);
+      c.fillText('PARASOL', cx, Hc * (PY + 0.29));
     };
-    const a = canvasPlane(W, H, (c, Wc, Hc) => draw(c, Wc, Hc, false), { res: 1024 }), b = canvasPlane(W, H, (c, Wc, Hc) => draw(c, Wc, Hc, true), { res: 1024 });
-    const yb = o.y ?? 1.55; b.visible = false; g.add(at(a, 0, yb, 0.03), at(b, 0, yb, 0.031));
+    const a = canvasPlane(W, H, draw, { res: 1024 });
+    const yb = o.y ?? 1.55; g.add(at(a, 0, yb, 0.03));
+    // the marker ring: a flat red stroke round the parasol drawing (an ellipse), drawn from the top clockwise
+    const ringMat = new THREE.MeshBasicMaterial({ color: '#D2382E', side: THREE.DoubleSide }), ring = new THREE.Mesh(new THREE.BufferGeometry(), ringMat);
+    const rx = W * 0.12, ry = H * 0.255; ring.scale.set(rx, ry, 1); ring.position.set(0, yb + H * 0.015, 0.036); g.add(ring);
+    let lastL = -1; const setRing = f => { const L = Math.round(f * 64) / 64; if (L === lastL) return; lastL = L; ring.geometry.dispose(); ring.geometry = new THREE.RingGeometry(1 - 0.045 / ry * 1.0, 1, 64, 1, PI / 2, -TAU * Math.max(0.001, L)); ring.visible = L > 0.005; };
+    setRing(o.ringAt == null ? 1 : 0);
     g.add(at(box(W + 0.1, H + 0.1, 0.05, '#B9BEC4', { outline: 0.008 }), 0, yb, 0), at(box(W * 0.6, 0.05, 0.12, '#B9BEC4'), 0, yb - H / 2 - 0.05, 0.06));
     for (const s of [-1, 1]) g.add(at(box(0.05, yb + H / 2, 0.05, '#7E858C', { pivot: 'bottom' }), s * (W / 2 - 0.15), 0, -0.04), at(box(0.06, 0.05, 0.7, '#7E858C', { pivot: 'bottom' }), s * (W / 2 - 0.15), 0, -0.04));
-    if (o.ringAt != null) g.userData.update = t => { b.visible = t >= o.ringAt; a.visible = !b.visible; };
+    if (o.ringAt != null) g.userData.update = t => setRing(easeOut((t - o.ringAt) / (o.ringDur ?? 0.3)));
     return g;
   },
   // o.n rockets (props.js rocket, flame on) standing on the lawn at o.spots [[x, z], ...] (a 4 x 3 grid by default), scale o.s; rocket i lifts off at
@@ -142,7 +153,13 @@ export const RAYON_PROPS = {
     const can = grp(at(cyl(0.14, 0.16, 0.26, '#2F8A6A', 10, { outline: 0.01 }), 0, 0, 0), rod([0.12, -0.05, 0], [0.38, 0.14, 0], 0.02, '#2F8A6A'), at(cyl(0.05, 0.03, 0.06, '#2F8A6A', 8), 0.4, 0.16, 0, 0, 0, -0.9));
     can.position.set(1.7, 0.7, 0.4); parts.push({ m: can, w: [0.4, 0.9, -0.3] }); g.add(can);
     const base = parts.map(p => p.m.rotation.clone());
-    g.userData.update = t => { parts.forEach((p, i) => { p.m.rotation.set(base[i].x + p.w[0] * t, base[i].y + p.w[1] * t, base[i].z + p.w[2] * t); }); g.rotation.y = (o.spin ?? 0.12) * t; };
+    // (round 1) o.flow [vx, vy, vz] (m/s): every piece drifts past on its own gentle arc (o.box [w, h, d]: where they start, spread out along the
+    // flow so they cross the frame one after another), spinning o.tumble times faster; without o.flow the patch turns as one clump (o.spin)
+    if (o.flow) { const B = o.box || [4, 1.6, 2.4], r2 = rng((o.seed || 9) + 1); parts.forEach((p, i) => { p.p0 = [(r2() - 0.2) * B[0], (r2() - 0.5) * B[1], (r2() - 0.5) * B[2]]; p.ph = r2() * TAU; p.arc = 0.15 + 0.25 * r2(); p.m.position.set(...p.p0); }); }
+    const tb = o.tumble ?? 1;
+    g.userData.update = t => { parts.forEach((p, i) => { p.m.rotation.set(base[i].x + p.w[0] * t * tb, base[i].y + p.w[1] * t * tb, base[i].z + p.w[2] * t * tb);
+      if (o.flow) p.m.position.set(p.p0[0] + o.flow[0] * t, p.p0[1] + o.flow[1] * t + p.arc * Math.sin(t * 1.6 + p.ph), p.p0[2] + o.flow[2] * t + 0.3 * p.arc * Math.cos(t * 1.6 + p.ph)); });
+      if (!o.flow) g.rotation.y = (o.spin ?? 0.12) * t; };
     return g;
   },
   // the space parasol: a red and white canopy of o.ribs gores (radius o.r), a pole and a hub; axis +Y (the canopy's top toward +Y); furled (a thin
@@ -180,7 +197,8 @@ export const RAYON_PROPS = {
     const angMax = o.shadowAng ?? 0.62;
     const setSh = v => { const a = Math.max(0.001, angMax * v); sh.geometry.dispose(); sh.geometry = new THREE.SphereGeometry(R * 1.016, 40, 6, 0, TAU, 0, a); sh2.geometry.dispose(); sh2.geometry = new THREE.SphereGeometry(R * 1.012, 40, 6, 0, TAU, 0, Math.min(PI / 2, a * 1.12)); sh.visible = sh2.visible = v > 0.01; };
     setSh(o.shadow1 ? 1 : 0); let last = -1;
-    if (o.shadowAt != null) g0.userData.update = t => { const v = smooth((t - o.shadowAt) / (o.shadowDur ?? 0.5)); if (Math.abs(v - last) > 1e-4) { setSh(v); last = v; } };
+    // (round 1) o.shadowOver: the cap swells past its mark and settles back onto the country's outline (outBack), instead of a plain ease
+    if (o.shadowAt != null) g0.userData.update = t => { const u = (t - o.shadowAt) / (o.shadowDur ?? 0.5), v = o.shadowOver ? (u <= 0 ? 0 : u < 1 ? outBack(u) : 1) : smooth(u); if (Math.abs(v - last) > 1e-4) { setSh(v); last = v; } };
     return g0;
   },
   // the parasol's shadow front sweeping over the land, seen from the air: a huge dark disc (o.r) laid o.y above the ground, unlit, see-through
@@ -228,8 +246,16 @@ export const RAYON_PROPS = {
       const L = String(o.sign || 'SANS SOLEIL').split('\n'); c.font = `900 ${H * (L.length > 1 ? 0.3 : 0.38)}px Arial`; L.forEach((l, i) => c.fillText(l, W / 2, H * (L.length > 1 ? 0.32 + i * 0.38 : 0.53))); }, { res: 256 });
     const sg = grp(at(box(0.58, 0.38, 0.02, '#B08A50'), 0, 0, -0.012), sign); sg.position.set(0, 0.8, 0.24); body.add(sg);
     for (const s of [-1, 1]) body.add(rod([s * 0.4, 0.95, 0.05], [s * 0.22, 0.82, 0.24], 0.012, '#7E858C', 4));
-    const ph = o.phase ?? 0;
-    g.userData.update = t => { if (!o.walk) return; const w = (t + ph) * 9; legs[0].rotation.x = 0.45 * Math.sin(w); legs[1].rotation.x = -0.45 * Math.sin(w); body.position.y = 0.03 * Math.abs(Math.cos(w)); body.rotation.z = 0.04 * Math.sin(w); };
+    const ph = o.phase ?? 0, tilt0 = panel.rotation.x;
+    // (round 1) o.steps [[t0, t1], ...]: the legs walk only inside those windows (between them it stands, breathing); o.droopAt: the sign sinks on its
+    // arms and the panel slumps forward (a sigh), with an overshoot
+    g.userData.update = t => {
+      if (!o.walk) return;
+      const on = !o.steps || o.steps.some(([a, b]) => t >= a && t <= b), w = (t + ph) * 9;
+      if (on) { legs[0].rotation.x = 0.45 * Math.sin(w); legs[1].rotation.x = -0.45 * Math.sin(w); body.position.y = 0.03 * Math.abs(Math.cos(w)); body.rotation.z = 0.04 * Math.sin(w); }
+      else { legs[0].rotation.x = legs[1].rotation.x = 0; body.position.y = 0.008 * Math.sin(t * 5 + ph * 7); body.rotation.z = 0.01 * Math.sin(t * 3 + ph * 5); }
+      if (o.droopAt != null) { const u = (t - o.droopAt) / 0.35, d = u <= 0 ? 0 : (u < 1 ? outBack(u) : 1); sg.rotation.x = 0.45 * d; sg.position.y = 0.8 - 0.1 * d; panel.rotation.x = tilt0 - 0.35 * d; }
+    };
     g.userData.update(0); return g;
   },
   // the unemployment office's front: a cream wall (o.w), a glass door, a blue sign (o.text), a closed shutter beside it
@@ -245,13 +271,17 @@ export const RAYON_PROPS = {
   },
   // the underside of the parasol seen from the ground: an unlit dome (o.r) of dull red and cream gores radiating from the zenith, the rim dark at the
   // horizon; o.holeAt / o.hole1: the hole (a blazing sun disc in a ragged ring of torn fabric) at azimuth o.az, elevation o.el (degrees), popping
-  // open at that time with a flash; o.holeR its angular size (radius in degrees)
+  // open at that time with a flash; o.holeR its angular size (radius in degrees); o.lines false: no dark line between the gores
   canopySky(o) {
     const Rr = o.r ?? 90, n = o.ribs ?? 16, g = grp();
     const tex = (() => { const cv = document.createElement('canvas'); cv.width = 1024; cv.height = 256; const c = cv.getContext('2d');
       for (let i = 0; i < n; i++) { c.fillStyle = i % 2 ? (o.c2 || '#8E8576') : (o.c1 || '#7C2F2A'); c.fillRect(i * 1024 / n, 0, 1024 / n + 1, 256); }
       const gr = c.createLinearGradient(0, 0, 0, 256); gr.addColorStop(0, 'rgba(0,0,0,0.0)'); gr.addColorStop(0.75, 'rgba(0,0,0,0.12)'); gr.addColorStop(1, 'rgba(10,10,14,0.55)'); c.fillStyle = gr; c.fillRect(0, 0, 1024, 256);
-      c.strokeStyle = 'rgba(30,20,20,0.5)'; c.lineWidth = 3; for (let i = 0; i < n; i++) { c.beginPath(); c.moveTo(i * 1024 / n, 0); c.lineTo(i * 1024 / n, 256); c.stroke(); }
+      if (o.lines !== false) { c.strokeStyle = 'rgba(30,20,20,0.5)'; c.lineWidth = 3; for (let i = 0; i < n; i++) { c.beginPath(); c.moveTo(i * 1024 / n, 0); c.lineTo(i * 1024 / n, 256); c.stroke(); } }
+      // (round 1) o.overcast (0..1): soft grey cloud banks over the lower dome, so that from the ground it reads as an overcast sky (the bare gores read
+      // as a striped studio wall with a seam); the gores show through only toward the zenith
+      if ((o.overcast ?? 0) > 0) { const rr = rng(o.seed || 41); for (let i = 0; i < 70; i++) { const x = rr() * 1024, y = 70 + rr() * 186, R = 40 + rr() * 90, v = Math.round(80 + rr() * 100);
+        for (const dx of [-1024, 0, 1024]) { const gr = c.createRadialGradient(x + dx, y, 0, x + dx, y, R); gr.addColorStop(0, `rgba(${v},${v},${v + 4},${0.55 * o.overcast})`); gr.addColorStop(1, `rgba(${v},${v},${v + 4},0)`); c.fillStyle = gr; c.fillRect(x + dx - R, y - R, 2 * R, 2 * R); } } }
       // (staging 2) o.haze: a grey murk over the lower part of the dome, so that seen from the ground its foot reads as an overcast horizon, not as a
       // striped wall standing behind the set
       if ((o.haze ?? 0) > 0) { const hz = c.createLinearGradient(0, 120, 0, 256); hz.addColorStop(0, 'rgba(118,116,112,0)'); hz.addColorStop(0.55, 'rgba(118,116,112,' + (o.haze * 0.8) + ')'); hz.addColorStop(1, 'rgba(118,116,112,' + o.haze + ')'); c.fillStyle = hz; c.fillRect(0, 0, 1024, 256); }
@@ -284,13 +314,14 @@ export const RAYON_PROPS = {
     return g;
   },
   // the lit garden from the air: a disc of bright, warm green lawn (o.r) with a glowing rim, laid on a grey country; and a dark see-through ring
-  // around it (o.dark: its opacity) out to o.outer, the shade
+  // around it (o.dark: its opacity) out to o.outer, the shade; (round 1) o.darkColor: a mid cool grey drains the colour under it (a near-black
+  // ring only darkened it: the country stayed saturated green)
   sunPatch(o) {
     const Rr = o.r ?? 8, g = grp();
     const lawn = new THREE.Mesh(new THREE.CircleGeometry(Rr, 48).rotateX(-PI / 2), mat(o.color || '#8FD06A', { emissive: o.emissive || '#3A4A10', noGrain: true })); lawn.receiveShadow = true; lawn.position.y = o.y ?? 0.02;
     if (o.lawn !== false) g.add(lawn);
     const rim = new THREE.Mesh(new THREE.RingGeometry(Rr * 0.96, Rr * 1.12, 64).rotateX(-PI / 2), addMat('#FFE7A0', o.rimOp ?? 0.55, null)); rim.position.y = (o.y ?? 0.02) + 0.02; g.add(rim);
-    if (o.dark) { const ring = new THREE.Mesh(new THREE.RingGeometry(Rr * 1.08, o.outer ?? 400, 64).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: '#141824', transparent: true, opacity: o.dark, depthWrite: false })); ring.position.y = (o.y ?? 0.02) + 0.03; g.add(ring); }
+    if (o.dark) { const ring = new THREE.Mesh(new THREE.RingGeometry(Rr * 1.08, o.outer ?? 400, 64).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: o.darkColor || '#141824', transparent: true, opacity: o.dark, depthWrite: false })); ring.position.y = (o.y ?? 0.02) + 0.03; g.add(ring); }
     return g;
   },
   // a tank whose gun rises to the vertical (o.raiseAt over 0.45 s) and fires at o.fireAt: a muzzle flash, a recoil, a smoke ring, the shell going
@@ -304,16 +335,21 @@ export const RAYON_PROPS = {
     const gun = grp(); gun.position.set(0, 0.3, 0.7); tur.add(gun); const brl = grp(); gun.add(brl);
     brl.add(at(cyl(0.085, 0.11, 2.6, c, 10, { outline: 0.01 }), 0, 0, 1.3, PI / 2, 0, 0), at(cyl(0.15, 0.15, 0.34, d, 10), 0, 0, 2.72, PI / 2, 0, 0), at(box(0.5, 0.36, 0.3, c2, { outline: 0.008 }), 0, 0, 0.1));
     const fl = grp(at(new THREE.Mesh(new THREE.ConeGeometry(0.4, 1.4, 8), new THREE.MeshBasicMaterial({ color: '#FFD86A' })), 0, 0, 3.6, PI / 2, 0, 0), at(glowSprite('#FFC860', 3.5, 1), 0, 0, 3.2)); fl.visible = false; gun.add(fl);
-    const smoke = []; for (let i = 0; i < 8; i++) { const m = sphere(0.35, '#D9D6CE', 0, { unique: true }); m.castShadow = false; m.visible = false; smoke.push(m); g.add(m); }
+    const smoke = []; for (let i = 0; i < 14; i++) { const m = new THREE.Mesh(sphereGeo(2), cloudMat(i < 8 ? '#D9D6CE' : '#CFC3AA', i < 8 ? '#9AA0A8' : '#9C9078')); m.scale.setScalar(0.35); m.castShadow = false; m.visible = false; smoke.push(m); g.add(m); }
     const shell = grp(at(cyl(0.07, 0.07, 0.4, '#C9A040', 8), 0, 0, 0), at(new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.18, 8), mat('#C9A040')), 0, 0.29, 0), at(glowSprite('#FFE0A0', 1.4, 0.9), 0, -0.25, 0)); shell.visible = false; g.add(shell);
     const vmax = o.shellMax ?? 200, V = o.shellV ?? 160, muzzle = new THREE.Vector3(), dir = new THREE.Vector3(), qq = new THREE.Quaternion();
     g.userData.update = t => {
       const e = o.raiseAt == null ? (o.pitch ?? 0) : smooth((t - o.raiseAt) / 0.45) * (o.pitch ?? 1.5);
       gun.rotation.x = -e; const f = o.fireAt ?? 1e9, dt = t - f;
-      brl.position.z = dt > 0 && dt < 0.3 ? -0.35 * (1 - dt / 0.3) : 0; hull.rotation.x = dt > 0 && dt < 0.35 ? 0.03 * Math.sin(dt * 30) * (1 - dt / 0.35) : 0;
+      brl.position.z = dt > 0 && dt < 0.3 ? -0.55 * (1 - dt / 0.3) : 0;
+      // (round 1) the recoil: the hull squashes (2 frames), rocks back on its tracks and settles with two decaying bounces
+      const rk = dt > 0 && dt < 0.9 ? Math.exp(-dt * 6) * Math.sin(dt * 18) : 0, sq = dt > 0 && dt < 0.14 ? Math.sin(dt / 0.14 * PI) : 0;
+      hull.rotation.x = -0.09 * rk; hull.position.z = -0.25 * Math.max(0, rk); hull.scale.set(1 + 0.08 * sq, 1 - 0.14 * sq, 1 + 0.06 * sq);
       fl.visible = dt > 0 && dt < 0.09;
       gun.updateMatrixWorld(true); muzzle.set(0, 0, 3.2); gun.localToWorld(muzzle); g.worldToLocal(muzzle);
-      smoke.forEach((m, i) => { const u = (dt - i * 0.02) / 1.2; m.visible = u > 0 && u < 1; const a = i / 8 * TAU; m.position.set(muzzle.x + Math.cos(a) * (0.3 + 1.2 * easeOut(u)), muzzle.y + 0.5 * u + Math.sin(a) * 0.3, muzzle.z + Math.sin(a) * (0.3 + 1.2 * easeOut(u))); m.scale.setScalar(0.6 + 1.4 * easeOut(u)); });
+      smoke.forEach((m, i) => { const u = (dt - (i % 8) * 0.02) / 1.4; m.visible = u > 0 && u < 1; if (!m.visible) return; const a = i / 8 * TAU, e = easeOut(u);
+        if (i < 8) { m.position.set(muzzle.x + Math.cos(a) * (0.3 + 1.2 * e), muzzle.y + 0.6 * u + Math.sin(a) * 0.3, muzzle.z + Math.sin(a) * (0.3 + 1.2 * e)); m.scale.setScalar((0.35 + 0.7 * e) * (u < 0.7 ? 1 : 1 - (u - 0.7) / 0.3 * 0.7)); }
+        else { const b = (i - 8) / 6 * TAU + 0.4; m.position.set(Math.cos(b) * (1.5 + 1.4 * e), 0.2 + 0.25 * e, Math.sin(b) * (2.3 + 1.2 * e)); m.scale.setScalar((0.3 + 0.6 * e) * (u < 0.7 ? 1 : 1 - (u - 0.7) / 0.3 * 0.7)); } });
       // the shell flies along the barrel as it was at the shot (the gun's +Z in the prop's frame), nose first
       dir.set(0, Math.sin(o.pitch ?? 1.5), Math.cos(o.pitch ?? 1.5)); const h = dt > 0 ? V * dt : -1; shell.visible = h > 0 && h < vmax;
       shell.position.copy(muzzle).addScaledVector(dir, Math.max(0, h)); qq.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir); shell.quaternion.copy(qq); shell.scale.setScalar(1 + Math.min(4, h / 30));
@@ -340,19 +376,39 @@ export const RAYON_PROPS = {
     return g;
   },
   // torches under arrest on a car bonnet: o.n torches lying side by side along x, each with its handcuffs closed on its body, their beams sideways
-  // (+Z); the last one's cuff closes at o.clickAt (a ring that swings shut)
+  // (+Z); the last one's cuff closes at o.clickAt (a ring that swings shut); (round 1) o.cuffR / o.cuffT / o.cuffColor: bigger, brighter cuffs with
+  // a three-link chain between them
   cuffedTorches(o) {
+    if (o.upright) return RAYON_PROPS.cuffedTorchesUp(o);
     const n = o.n ?? 5, gap = o.gap ?? 0.2, g = grp(), last = [];
     for (let i = 0; i < n; i++) {
       const x = (i - (n - 1) / 2) * gap, tg = grp(); tg.position.set(x, 0.055, 0); g.add(tg);
       const tc = RAYON_PROPS.handTorch({ beam: o.beam ?? 1.6, beamR: 0.35, beamOp: 0.5, glowS: 0.35 }); tc.rotation.x = PI / 2; tc.position.z = -0.14; tg.add(tc);
-      const ringA = at(new THREE.Mesh(new THREE.TorusGeometry(0.055, 0.012, 6, 14), mat('#E8E8EC')), 0, 0, 0, 0, PI / 2, 0); addOutline(ringA, 0.08);
-      const ringB = at(new THREE.Mesh(new THREE.TorusGeometry(0.055, 0.012, 6, 14), mat('#E8E8EC')), 0, 0, 0, 0, PI / 2, 0); addOutline(ringB, 0.08);
-      const cuff = grp(at(ringA, 0, 0, -0.02), rod([0, -0.03, -0.02], [gap * 0.5, -0.04, -0.02], 0.006, '#B9BEC4', 4)); tg.add(cuff);
+      const CR = o.cuffR ?? 0.055, CT = o.cuffT ?? 0.012;
+      const ringA = at(new THREE.Mesh(new THREE.TorusGeometry(CR, CT, 6, 14), mat(o.cuffColor || '#E8E8EC')), 0, 0, 0, 0, PI / 2, 0); addOutline(ringA, 0.08);
+      const ringB = at(new THREE.Mesh(new THREE.TorusGeometry(CR, CT, 6, 14), mat(o.cuffColor || '#E8E8EC')), 0, 0, 0, 0, PI / 2, 0); addOutline(ringB, 0.08);
+      const cuff = grp(at(ringA, 0, 0, -0.02)); for (let j = 0; j < 3; j++) cuff.add(at(new THREE.Mesh(new THREE.TorusGeometry(CR * 0.32, CT * 0.6, 4, 10), mat('#C9CDD3')), gap * (0.18 + j * 0.22), -CR * 0.9, -0.02, 0, j % 2 ? PI / 2 : 0, 0)); tg.add(cuff);
       if (i < n - 1) tg.add(at(ringB, gap, 0, -0.02)); else { const sw = grp(ringB); sw.position.set(0, 0, -0.02); tg.add(sw); last.push(sw); }
     }
     if (o.clickAt != null) g.userData.update = t => { const u = smooth((t - o.clickAt) / 0.12); last.forEach(sw => { sw.rotation.y = (1 - u) * 1.4; sw.position.x = (1 - u) * 0.06; }); };
     if (g.userData.update) g.userData.update(-1);
+    return g;
+  },
+  // (round 1) the torches under arrest standing up in a line-up, beams to the canopy: each wears a steel cuff round its body (a flat ring, seen from
+  // above as an ellipse) chained to the next one; the last cuff drops onto its torch at o.clickAt and bounces shut (seen face-on, the lying torches
+  // showed only their glowing lenses and the rings were edge-on)
+  cuffedTorchesUp(o) {
+    const n = o.n ?? 5, gap = o.gap ?? 0.2, g = grp(), CR = o.cuffR ?? 0.06, CT = o.cuffT ?? 0.016, steel = o.cuffColor || '#AEB6C0', H = 0.13;
+    let lastRing = null;
+    for (let i = 0; i < n; i++) {
+      const x = (i - (n - 1) / 2) * gap;
+      const tc = RAYON_PROPS.handTorch({ beam: o.beam ?? 1.0, beamR: 0.22, beamOp: o.beamOp ?? 0.3, glowS: 0.25 }); tc.position.set(x, 0, 0); tc.rotation.z = (hsh(i + 2) - 0.5) * 0.12; g.add(tc);
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(CR, CT, 6, 18).rotateX(PI / 2), mat(steel, { unique: true })); addOutline(ring, 0.1);
+      const rg = grp(ring); rg.position.set(x, H, 0); g.add(rg); if (i === n - 1) lastRing = rg;
+      if (i < n - 1) for (let j = 0; j < 3; j++) g.add(at(new THREE.Mesh(new THREE.TorusGeometry(CR * 0.38, CT * 0.55, 4, 10), mat('#8E969F')), x + CR + (gap - 2 * CR) * (j + 0.5) / 3, H - 0.01, 0, 0, j % 2 ? PI / 2 : 0, 0));
+    }
+    if (o.clickAt != null && lastRing) { g.userData.update = t => { const u = (t - o.clickAt) / 0.1; const d = u <= 0 ? 1 : (u < 1 ? 1 - u * u : -0.25 * Math.exp(-(u - 1) * 3) * Math.sin((u - 1) * 6));
+      lastRing.position.y = H + 0.16 * Math.max(-0.2, d); lastRing.rotation.z = 0.6 * Math.max(0, d); }; g.userData.update(-1); }
     return g;
   },
   // the press room's screen on a stand: the grey country on a grey sea under a green banner MISSION RÉUSSIE with a tick

@@ -2061,3 +2061,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 49) Chien rose rasé au museau carré = cochon : museau long, oreilles pointues, queue, collier.
 - (cycle 49) Photo d'identité de profil : garder les yeux de face pour que « le même » se lise. Vapeur en fins gribouillis blancs, pas en disques
   flous.
+- (cycle 50) Main en visière : le bras du côté opposé à l'objectif, doigts à plat sur le front ; le bras proche traverse le visage et le cache.
+- (cycle 50) `pavillon` ajoute toujours des nuages (dalles beiges flottantes) : un accessoire de l'histoire peut cacher les objets nommés
+  'cloud' de la scène.
+- (cycle 50) Petite toile pastel vue d'en dessous : elle prend le rebond vert de la pelouse ; utiliser un matériau non éclairé.
+- (cycle 50) Contact avec un accessoire qui s'ouvre : calculer où passe le bord à l'instant du choc et ouvrir à vitesse constante, pas en outBack.
+- (cycle 50) Gag en caméra fixe avant un panoramique filé (recul d'un canon) : lui laisser environ 7 images, sinon il ne se lit pas.
+- (cycle 50) Ombre sombre translucide = image seulement assombrie ; un calque gris moyen à 80 % rend le « gris » (couleurs vidées).
+- (cycle 50) Menottes sur des objets couchés face à l'objectif : on ne voit que des lentilles ; les mettre debout pour que les anneaux se lisent.
+- (cycle 50) Les clips à main levée (`podium`) peuvent cacher le visage pendant un étirement : fixer les deux mains avec reach.
+- (cycle 50) Personnage face à +Z : vérifier gauche et droite avec `right(ry)` ; les mains d'un reach dans une porte étaient inversées.

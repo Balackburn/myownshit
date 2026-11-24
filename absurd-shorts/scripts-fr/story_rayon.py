@@ -26,7 +26,14 @@ sunflowers, solarWalker, jobOffice, canopySky, lightShaft, sunPatch, skyTank, pr
 picnicSpread, beachTowel, garageShelf, dustBurst); sun, deckChair, satellite, earthGlobe, parasol, garageShed, camFlash, table, chair, car (reused).
 Lessons applied from the start: `lens` is the vertical field; characters are about 2.3 m tall with the box head; faces and key props above the
 caption band (0.77-0.86) and heads below the card band (0.07-0.18) when a card stamps; every camera checked with project() before stills; the grey
-shots get a per-shot grade and the canopy dome for a sky; no transparent key props; no English, no brands, no real organisation or flag."""
+shots get a per-shot grade and the canopy dome for a sky; no transparent key props; no English, no brands, no real organisation or flag.
+Round 1 corrections (review 5.5 / 6.8): his face reads (the visor is his far hand on his brow, slit eyes under it; S17 an extreme crumple and squash;
+S04 a close insert of a real take); S19 re-staged as a medium close (a child's faded parasol pulled out of the garage behind him, beige dust, a
+double take, a blink, the hold); life in every hold (typing and nodding, the panels' queue, the director's beam, the cuffs, the crowd); S07 three
+satellites batted away 0.4 s apart; S05 the patch drifts past at prop scale; S08 / S16 the shade drains the colour; S03 an upright parasol drawn,
+the ring drawn on the snap; S14 the recoil; S06 the shadow settles on the country; S09 an overcast sky; no set clouds in the garden (noClouds).
+New props: noClouds, kidParasol, hitSpark, cuffedTorchesUp; options added to rocketLawn (clear), orbitParasol (steady, jolts), orbitTomatoes (flow),
+countryGlobe (shadowOver), sunPatch (darkColor), solarWalker (steps, droopAt), skyTank (squash, soft smoke), canopySky (overcast, lines), cuffedTorches."""
 from story_kit import *
 import math
 
@@ -75,7 +82,7 @@ LOUNGE = {'bend': {'spine': [-0.42, 0, 0, 1, None], 'neck': [0.12, 0, 0, 1, None
           'touch': {'L': ['torso', 0.3, 0.1, 0.1, 1, 0.03]}}
 SQUINT = {'lid': 0.38, 'low': 0.26, 'brow': -0.7, 'mouth': 'grimace'}   # (round 1) slits that still read: the eyes show under the hand
 VISOR = R5(off(HEAD, RY, 0.24, 0.05, 0.1), 1, 0.05)           # (kept for the wide shots S16, S18) the right hand over his brow
-VIS_T = ['face', -0.08, 0.84, 0.1, 1, 0.12, [1.0, 0.9, 0.3]]   # (round 1) his LEFT hand (the far side from the lens): fingertips at the brow, elbow out and up                    # (round 1) the visor hand flat on his brow, above the eyes: it follows the head
+VIS_T = ['face', -0.08, 0.84, 0.1, 1, 0.12, [1.0, 0.9, 0.3]]   # (round 1) his LEFT hand (the far side from the lens): fingertips at the brow, elbow out and up
 REST_R = ['torso', -0.3, 0.1, 0.1, 1, 0.03]
 def LOUNGEV(dy=0.0, dx=0.0, w=1): return {**LOUNGE, 'touch': {'R': REST_R, 'L': ['face', r(VIS_T[1] + dx), r(VIS_T[2] + dy), VIS_T[3], w, VIS_T[5], VIS_T[6]]}, 'hands': {'L': 'open', 'R': 'open'}}
 GARDEN = {'clouds': 0}                                         # (round 1) no clouds: they read as floating beige slabs
@@ -114,9 +121,21 @@ D2 = st.dur('S02')
 SAV = [(f'savant{i + 1}', [x, 0, r(z + 0.85)]) for i, (x, z) in enumerate([(x, z) for z in ROWS[1:] for x in COLS] + [(0.0, ROWS[0])])]
 C2 = cam(0.0, [3.0, 2.55, 4.7], [1.3, 2.5, 4.9], [0.7, 1.45, -1.3], [-0.7, 1.45, -1.3], lens=50)
 chk('S02', C2['from'], C2['lookAt'], 50, {'wallTop': [0, 3.4, -3.45], 'wallBot': [0, 0.85, -3.45], 'scr': [1.6, 1.35, 0.1], 'savHead': [1.6, 1.75, 2.75]})
+# (round 1) the room works: each scientist types (hands on the keyboard, tapping in turn) and nods at his screen in a cascade along the rows; one
+#     turns round to us and blinks
+KB = lambda pos, sd, up: R5([r(pos[0] + 0.12 * sd), r(0.8 + 0.035 * up), r(pos[2] - 0.55)], 1, 0.04)
+def TYPE2(pos, i):
+    out = []
+    for j in range(int(D2 / 0.11)):
+        tt = r(0.05 + 0.11 * j + 0.03 * (i % 3)); a_ = (j + i) % 2
+        out.append(k(tt, toon={'reach': {'L': KB(pos, 1, a_), 'R': KB(pos, -1, 1 - a_)}, 'hands': {'L': 'open', 'R': 'open'}, 'face': DEAD}, toonDur=0.06))
+    return out
+def NOD2(pos, i):
+    t0 = r(0.25 + 0.22 * i); scr = [pos[0], 1.35, r(pos[2] - 0.9)]
+    return [k(t0, look=add(scr, [0, -0.35, 0]), lookDur=0.1), k(r(t0 + 0.18), look=scr, lookDur=0.12), k(r(t0 + 0.36), look=add(scr, [0, -0.3, 0]), lookDur=0.1), k(r(t0 + 0.52), look=scr, lookDur=0.12)]
 st.shot('S02', 'office', setOpts=CTRL, actors=[
-        act(sid, pos, 180, 'sitWrite' if i % 3 == 1 else 'sit', 'neutral', keys=[k(0.0, look=[pos[0], 1.3, r(pos[2] - 0.9)]),
-            *([k(0.9, look='camera', lookDur=0.15), *blink(1.4)] if sid == 'savant3' else [])]) for i, (sid, pos) in enumerate(SAV)],
+        act(sid, pos, 180, 'sit', 'neutral', keys=[k(0.0, look=[pos[0], 1.3, r(pos[2] - 0.9)]), *TYPE2(pos, i),
+            *(NOD2(pos, i) if sid != 'savant3' else [k(0.9, look='camera', lookDur=0.15), *blink(1.4), k(1.9, look=[pos[0], 1.3, r(pos[2] - 0.9)], lookDur=0.15)])]) for i, (sid, pos) in enumerate(SAV)],
         props=[P('mur2', 'squintWall', pos=[0, 2.15, -3.45], opts={'w': 4.4}),
                *[P(f'ecran2_{i}', 'squintScreen', pos=[x, 0, z], opts={'desk': True}) for i, (x, z) in enumerate([(x, z) for z in ROWS for x in COLS])],
                *[P(f'chaise2_{i}', 'chair', pos=pos, ry=180, opts={'color': '#2A3240'}) for i, (sid, pos) in enumerate(SAV)]],
@@ -128,21 +147,29 @@ D3 = st.dur('S03'); TAP3 = 1.26
 BOARD = [0.0, 0, -1.2]; PARA = [0.0, 1.55, -1.16]
 DIR3 = [1.0, 0, -0.65]; RYD = -40
 C3A = cam(0.0, [0.55, 1.75, 3.9], [0.5, 1.72, 3.6], [0.25, 1.5, -1.1], [0.22, 1.5, -1.1], lens=50)
-C3B = cam(TAP3, [0.12, 1.62, 0.95], [0.1, 1.6, 0.75], [0.02, 1.55, -1.2], [0.02, 1.55, -1.2], lens=40, shake=0.02)
+C3B = cam(TAP3, [0.02, 1.54, 1.3], [0.02, 1.54, 1.15], [0.0, 1.54, -1.2], [0.0, 1.54, -1.2], lens=40, shake=0.02)   # (round 1) the whole drawing, header to label, above the caption band
 chk('S03', C3A['from'], C3A['lookAt'], 50, {'boardL': [-1.2, 1.55, -1.17], 'boardR': [1.2, 1.55, -1.17], 'dirHead': [DIR3[0], 2.0, DIR3[2]], 'boardTop': [0, 2.25, -1.17]})
-chk('S03b', C3B['from'], C3B['lookAt'], 40, {'para': PARA, 'paraTop': [0, 1.85, -1.16], 'paraBot': [0, 1.25, -1.16]})
-TAPP = lambda dz: R5([0.06, 1.6, r(-1.15 + dz)], 1, 0.05)
+chk('S03b', C3B['from'], C3B['lookAt'], 40, {'header': [0, 2.08, -1.17], 'headerL': [-0.42, 2.08, -1.17], 'paraTop': [0, 1.9, -1.16], 'label': [0, 1.146, -1.16], 'sunEdge': [-0.61, 1.55, -1.17], 'earthEdge': [0.54, 1.44, -1.17]})
+# (round 1) the tap gets a wind-up (the hand drawn back and up, a squash), two sharp taps with a rebound each, then the hand drops away before the
+#     snap zoom; the ring is drawn on the snap
+TAPP = lambda dz, dy=0.0, dx=0.0: R5([r(0.08 + dx), r(1.62 + dy), r(-1.15 + dz)], 1, 0.05)
+T1_3, T2_3 = r(TAP3 - 0.3), r(TAP3 - 0.14)
+SM3 = {'lid': 0.3, 'mouth': 'smirk', 'brow': 0.3}
 st.shot('S03', 'office', setOpts=CTRL, actors=[
         act('directeur', DIR3, RYD, 'stand', 'neutral', keys=[k(0.0, look='camera'),
-            k(0.0, toon={'reach': {'R': TAPP(0.25)}, 'hands': {'R': 'point'}, 'face': {'lid': 0.3, 'mouth': 'smirk', 'brow': 0.3}}, toonDur=0.0),
-            k(0.5, look=PARA, lookDur=0.15), k(r(TAP3 - 0.12), toon={'reach': {'R': TAPP(0.12)}, 'hands': {'R': 'point'}}, toonDur=0.1, keepPose=True),
-            k(TAP3, toon={'reach': {'R': TAPP(0.0)}, 'hands': {'R': 'point'}}, toonDur=0.05, keepPose=True),
-            k(r(TAP3 + 0.14), toon={'reach': {'R': TAPP(0.1)}, 'hands': {'R': 'point'}}, toonDur=0.08, keepPose=True),
-            k(r(TAP3 + 0.28), toon={'reach': {'R': TAPP(0.0)}, 'hands': {'R': 'point'}}, toonDur=0.05, keepPose=True),
-            k(r(TAP3 + 0.6), look='camera', lookDur=0.12), k(r(TAP3 + 0.6), toon={'face': {'lid': 0.3, 'mouth': 'bigsmile', 'brow': 0.4}}, toonDur=0.12, keepPose=True)])],
-        props=[P('tableau3', 'diagramBoard', pos=BOARD, opts={'w': 2.4, 'ringAt': r(TAP3 + 0.05)})],
+            k(0.0, toon={'reach': {'R': R5([0.62, 1.2, -0.5], 0.0, 0.05)}, 'hands': {'R': 'point'}, 'face': SM3}, toonDur=0.0),
+            k(0.45, look=PARA, lookDur=0.15), *blink(0.25, SM3),
+            k(0.55, toon={'reach': {'R': TAPP(0.3, 0.05)}, 'hands': {'R': 'point'}, 'face': SM3}, toonDur=0.2),
+            k(r(T1_3 - 0.22), toon={'reach': {'R': TAPP(0.42, 0.25, 0.25)}, 'hands': {'R': 'point'}, 'face': {**SM3, 'brow': 0.6}, 'sq': [1.05, 0.95, 1.05]}, toonDur=0.12, toonEase='inOut'),
+            k(T1_3, toon={'reach': {'R': TAPP(0.0)}, 'hands': {'R': 'point'}, 'face': {**SM3, 'mouth': 'bigsmile'}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.05, toonEase='in', blend=0.02),
+            k(r(T1_3 + 0.06), toon={'reach': {'R': TAPP(0.12, 0.04)}, 'hands': {'R': 'point'}, 'sq': [1, 1, 1]}, toonDur=0.05, keepPose=True),
+            k(T2_3, toon={'reach': {'R': TAPP(0.0, -0.02)}, 'hands': {'R': 'point'}}, toonDur=0.04, toonEase='in', keepPose=True),
+            k(r(T2_3 + 0.06), toon={'reach': {'R': TAPP(0.2, 0.06, 0.15)}, 'hands': {'R': 'point'}}, toonDur=0.05, keepPose=True),
+            k(r(TAP3 - 0.04), toon={'reach': {'R': R5([0.62, 1.2, -0.5], 0.0, 0.05)}, 'hands': {'R': 'point'}, 'face': {'lid': 0.3, 'mouth': 'bigsmile', 'brow': 0.4}}, toonDur=0.08),
+            k(r(TAP3 + 0.6), look='camera', lookDur=0.12)])],
+        props=[P('tableau3', 'diagramBoard', pos=BOARD, opts={'w': 2.4, 'ringAt': r(TAP3 + 0.04), 'ringDur': 0.3})],
         cams=[C3A, C3B])
-st.cue('sfx:click', 'S03', TAP3, 0.4); st.cue('sfx:click', 'S03', r(TAP3 + 0.28), 0.3); st.cue('sfx:squeak', 'S03', r(TAP3 + 0.06), 0.3)
+st.cue('sfx:click', 'S03', T1_3, 0.4); st.cue('sfx:click', 'S03', T2_3, 0.35); st.cue('sfx:squeak', 'S03', r(TAP3 + 0.06), 0.3)
 
 # 4: twelve rockets from his lawn. Wide from the pavement: the rockets lift off one after another in smoke; he gapes in the doorway, deckchair in hand
 D4 = st.dur('S04')
@@ -161,7 +188,7 @@ CHECKS.append(f"S04b fit lens {LENS4B} {W4B}")
 UP4 = add(F4B, [0.0, 0.3, 0.0])                                # he looks at us (eyes on stalks follow the head's axis), the pupils go up
 HOLD4 = {'reach': {'L': R5([DOOR[0] + 0.28, 0.88, -3.4], 1, 0.04), 'R': R5([DOOR[0] - 0.28, 0.88, -3.4], 1, 0.04)}, 'hands': {'L': 'grip', 'R': 'grip'}}
 TAKE4 = {'sq': [0.86, 1.2, 0.86], 'scl': {'head': [0.84, 1.3, 1.0]}, 'hairUp': 1.0, 'hands': {'L': 'open', 'R': 'open'},
-         'face': {'lid': 0.0, 'pop': 1.0, 'popLen': 0.34, 'eyeScale': 1.3, 'stalkRed': 1, 'eyePitch': -0.5, 'jaw': 0.85, 'jawLen': 0.7, 'mouth': 'O', 'brow': 1.0, 'noBlink': 1}}
+         'face': {'lid': 0.0, 'pop': 1.0, 'popLen': 0.34, 'eyeScale': 1.3, 'stalkRed': 1, 'eyePitch': -0.8, 'jaw': 0.85, 'jawLen': 0.7, 'mouth': 'O', 'brow': 1.0, 'noBlink': 1}}
 GAPE4 = {'lid': 0.0, 'eye': 0.4, 'jaw': 0.45, 'mouth': 'O', 'brow': 0.8, 'gy': -0.6}
 def TK(sq, head, **f): return {**TAKE4, 'sq': sq, 'scl': {'head': head}, 'face': {**TAKE4['face'], **f}}
 HERO4 = [k(0.0, look='camera'), k(0.0, toon={**HOLD4, 'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.0),
@@ -185,15 +212,18 @@ st.cue('sfx:jet', 'S04', 0.28, 0.5); st.cue('sfx:boing', 'S04', TK4, 0.4); st.cu
 D5 = st.dur('S05')
 # (stills 1) a round planet low in the frame: the near limb of a big one read as giant green triangles
 C5 = cam(0.0, [0.0, 0.8, 4.6], [0.15, 0.85, 4.2], [0.0, -0.1, -4.0], [0.1, -0.05, -4.0], lens=48)
-chk('S05', C5['from'], C5['lookAt'], 48, {'limb': [1.2, -0.4, -16.0], 'tomatoes': [0.3, 0.6, -1.5], 'sat0': [3.6, 1.7, -6.0], 'sat1': [-1.8, 1.5, -6.0]})
+# (round 1) the patch drifts past at prop scale, close to the lens (2 to 4 m), each piece on its own arc and tumbling: stakes with their plants,
+#     loose tomatoes, the green watering can; the satellite crosses behind them over the Earth's limb
+chk('S05', C5['from'], C5['lookAt'], 48, {'limb': [1.2, -0.4, -16.0], 'tomatoes': [0.2, 0.8, 1.1], 'sat0': [3.6, 1.7, -6.0], 'sat1': [-1.8, 1.5, -6.0]})
 st.shot('S05', 'spaceDark', actors=[],
         props=[P('terre5', 'earthGlobe', pos=[1.2, -4.6, -16.0], opts={'radius': 4.2, 'seed': 5}),
-               P('tomates5', 'orbitTomatoes', pos=[0.3, 0.6, -1.5], opts={'spin': 0.16}),
-               P('sat5', 'satellite', pos=[3.6, 1.7, -6.0], rot=[0.3, 0.6, 0.1], keys=[k(0.0, to=[-1.8, 1.5, -6.0], dur=D5, ease='linear'), k(0.0, rotTo=[0.3, 1.1, 0.25], dur=D5, ease='linear')]),
+               P('tomates5', 'orbitTomatoes', pos=[0.2, 0.8, 1.1], scale=1.1, opts={'flow': [-1.15, 0.1, 0.15], 'box': [2.6, 1.0, 1.6], 'tumble': 2.2, 'loose': 6}),
+               P('sat5', 'satellite', pos=[3.4, 1.9, -8.0], rot=[0.3, 0.6, 0.1], scale=0.55, keys=[k(0.0, to=[-2.4, 1.6, -8.0], dur=D5, ease='linear'), k(0.0, rotTo=[0.3, 1.1, 0.25], dur=D5, ease='linear')]),
                ],
         cams=[C5])
 st.cue('sfx:tense', 'S05', 0.0, 0.15)
 
+# (round 1) S06: the shadow swells past the country's outline and settles back onto it (outBack), its cap no wider than the country
 # 6: the size of the country. The parasol snaps open in front of the sun and swallows it; cut to the globe: its round shadow swells over the country
 D6 = st.dur('S06'); OPEN6 = 0.2; CUT6 = 0.92
 C6A = cam(0.0, [0.4, 1.4, 34.0], [0.3, 1.5, 31.0], [0.0, 3.4, -28.0], [0.0, 3.5, -28.0], lens=30)   # (stills 1) further: the open parasol filled the width
@@ -203,7 +233,7 @@ chk('S06b', C6B['from'], C6B['lookAt'], 44, {'globeTop': [60, 3, 0], 'globeBot':
 st.shot('S06', 'spaceDark', actors=[],
         props=[P('soleil6', 'sun', pos=[0, 4, -70], opts={'r': 4.5}),
                P('parasol6', 'orbitParasol', pos=[0, 3.2, -28], rot=[-PI / 2, 0, 0], opts={'r': 6.5, 'openAt': OPEN6, 'openDur': 0.5, 'spin': 0.15}),
-               P('globe6', 'countryGlobe', pos=[60, -3, 0], opts={'radius': 3, 'shadowAt': r(CUT6 + 0.12), 'shadowDur': 0.5, 'shadowAng': 0.55})],
+               P('globe6', 'countryGlobe', pos=[60, -3, 0], opts={'radius': 3, 'shadowAt': r(CUT6 + 0.1), 'shadowDur': 0.55, 'shadowAng': 0.44, 'shadowOver': True})],
         cams=[C6A, C6B])
 st.cue('whoosh', 'S06', OPEN6, 0.3, 0.4, 300, 1800); st.cue('sfx:poof', 'S06', r(OPEN6 + 0.35), 0.45)
 
@@ -228,7 +258,7 @@ CHECKS.append(f"S07 hits {HITS7}")
 def SATK(n, p, d, sg, h):
     out = add(p, mul(d, 13.0))
     return [k(0.0, to=add(p, [0.0, -0.25 * sg, 0.3]), dur=h, ease='linear'), k(0.0, rotTo=[0.15, 1.35, 0.1 * sg], dur=h, ease='linear'),
-            k(h, to=add(p, mul(d, 0.6)), dur=0.06, ease='out'), k(r(h + 0.06), to=out, dur=0.55, ease='in'), k(h, rotTo=[4.5 * sg, 6.0, 2.5], dur=0.62, ease='in'),
+            k(h, to=add(p, mul(d, 0.6)), dur=0.06, ease='out'), k(r(h + 0.06), to=out, dur=0.5, ease='linear'), k(h, rotTo=[4.5 * sg, 6.0, 2.5], dur=0.56, ease='out'),
             k(h, scale=0.68, dur=0.0), k(r(h + 0.03), scale=0.58, dur=0.05)]
 st.shot('S07', 'spaceDark', actors=[],
         props=[P('parasol7', 'orbitParasol', pos=[0, 0, PZ7], rot=[-PI / 2, 0, 0], opts={'r': R7, 'openAt': OPEN7, 'openDur': DUR7, 'steady': True, 'spin': 0.35, 'jolts': list(HITS7.values())}),
@@ -242,44 +272,50 @@ for n in HITS7: st.cue('clang', 'S07', HITS7[n], 0.4)
 D8 = st.dur('S08')
 # (stills 1) the disc's y goes in pos: the prop's own y was overwritten and the disc lay under the lawn
 # (staging 2) the slide happens inside the prop (dx0, moveAt): a key move left the disc out of the whole-film render
+# (round 1) « gris »: the shadow is a mid cool grey laid over the land at 80 %, so what it covers loses its colour, not only its light (the near-black
+#     disc kept the red and blue roofs saturated)
 C8 = cam(0.0, [0.0, 140.0, 240.0], [0.0, 134.0, 226.0], [0.0, 0.0, -120.0], [0.0, 0.0, -120.0], lens=46)
 st.shot('S08', 'aerialSuburb', actors=[],
-        props=[P('ombre8', 'shadowFront', pos=[-330, 16, -140], opts={'r': 600, 'op': 0.7, 'dx0': -470, 'moveAt': 0.0, 'moveDur': 1.15})],
+        props=[P('ombre8', 'shadowFront', pos=[-330, 16, -140], opts={'r': 600, 'op': 0.8, 'color': '#5A626E', 'dx0': -470, 'moveAt': 0.0, 'moveDur': 1.15})],
         cams=[C8])
 st.card('S08', 'ÉTEINT', at=1.15)
 st.cue('gust', 'S08', 0.1, 0.3, 1.2); st.cue('thud', 'S08', 1.15, 0.4)
 
 # ============================== under the parasol: the canopy for a sky, the grade grey
-CAN = {'r': 90, 'haze': 0.75}                                  # (staging 2) haze: the dome's foot reads as an overcast horizon
+CAN = {'r': 90, 'haze': 0.75, 'overcast': 0.9, 'lines': False}  # (staging 2) haze: the dome's foot reads as an overcast horizon; (round 1) cloud banks, no gore lines
+CAN0 = {'r': 90, 'haze': 0.75}                                 # S12 keeps the bare striped canopy (the torch beams on the gores)
+OVER = {'sun': 0.4, 'fill': 1.4, 'sunDisc': False}             # (round 1) under the canopy: soft light, no hard cast shadows
 # 9: the sunflowers hung their heads. Low in the field: the heads swing down in a wave from the front row back
 D9 = st.dur('S09')
-C9 = cam(0.0, [0.3, 2.0, 3.4], [0.2, 1.95, 3.0], [0.0, 1.5, -2.4], [0.0, 1.45, -2.4], lens=46)   # (staging 2) at head height: from below, the hung heads showed their flat undersides
+C9 = cam(0.0, [0.3, 1.15, 2.9], [0.2, 1.1, 2.6], [0.0, 2.9, -3.0], [0.0, 2.8, -3.0], lens=52)   # (round 1) low and tilted up: the canopy's gores converge overhead (an overcast sky, not a wall) and the heads hang toward us   # (staging 2) at head height: from below, the hung heads showed their flat undersides
 chk('S09', C9['from'], C9['lookAt'], 46, {'front': [0, 1.75, -1.0], 'back': [0, 1.9, -4.6], 'side': [2.8, 1.8, -1.0]})
-st.shot('S09', 'grassland', setOpts={'clouds': 0}, grade=GREY, actors=[],
-        props=[P('dome9', 'canopySky', pos=[0, 0, 0], opts=CAN), P('tournesols9', 'sunflowers', pos=[0, 0, -1.0], opts={'cols': 7, 'rows': 5, 'gap': 0.9, 'droopAt': 0.62, 'wave': 0.1, 'hs': 1.45, 'up': -0.2, 'down': 1.25})],
+st.shot('S09', 'grassland', setOpts={'clouds': 0}, grade=GREY, look=OVER, actors=[],
+        props=[P('dome9', 'canopySky', pos=[0, 0, 0], opts={**CAN, 'c1': '#857A72', 'c2': '#8E8A82', 'overcast': 1.6, 'haze': 0.5}), P('tournesols9', 'sunflowers', pos=[0, 0, -1.0], opts={'cols': 7, 'rows': 5, 'gap': 0.9, 'droopAt': 0.62, 'wave': 0.1, 'hs': 1.45, 'up': -0.2, 'down': 1.25})],
         cams=[C9])
 st.cue('sfx:slideDownSlow', 'S09', 0.7, 0.35)
 
 # 10: the solar panels were laid off. From the road: panels on little legs queue sideways along the unemployment office with cardboard signs
 D10 = st.dur('S10')
+# (round 1) the queue shuffles: the panels step up one at a time, front first (0.35 s apart), and each one's sign droops with a sigh once it stops
+STEP10 = [0.22, 0.57, 0.92, 1.27]
 SIGNS = ['CHERCHE\nLUMIÈRE', "DIX ANS\nD'EXPÉRIENCE", 'SANS\nSOLEIL', "J'AI DES\nENFANTS"]
 WALK = [[8.9, 0, z] for z in (-4.5, -3.3, -2.1, -0.9)]
 C10 = cam(0.0, [5.0, 1.45, 1.9], [4.9, 1.45, 1.5], [9.0, 1.0, -2.6], [9.0, 1.0, -2.8], lens=52)   # (stills 1) closer: the signs read
 chk('S10', C10['from'], C10['lookAt'], 52, {'sign0': [8.66, 0.8, -4.5], 'sign3': [8.66, 0.8, -0.9], 'office': [10.0, 2.85, -4.0], 'door': [10.0, 1.2, -5.8]})
-st.shot('S10', 'parisStreet', setOpts={'clouds': 0}, grade=GREY, actors=[],
+st.shot('S10', 'parisStreet', setOpts={'clouds': 0}, grade=GREY, look=OVER, actors=[],
         props=[P('dome10', 'canopySky', pos=[6, 0, -3], opts=CAN), P('bureau10', 'jobOffice', pos=[10.0, 0, -4.0], ry=-90, opts={'w': 6.5, 'doorX': -1.8}),
-               *[P(f'panneau10_{i}', 'solarWalker', pos=p, ry=-90, opts={'walk': True, 'phase': i * 0.37, 'sign': SIGNS[i]},
-                   keys=[k(r(0.45 + 0.08 * i), to=add(p, [0, 0, -0.45]), dur=0.5, ease='inOut')]) for i, p in enumerate(WALK)],
-               *[P(f'petit10_{i}', 'solarWalker', pos=[8.7, 0, r(-0.3 + 0.45 * i)], ry=-90, scale=0.5, opts={'walk': True, 'phase': 0.2 + i * 0.5, 'sign': ' '},
-                   keys=[k(0.85, to=[8.7, 0, r(-0.75 + 0.45 * i)], dur=0.5, ease='inOut')]) for i in range(2)]],
+               *[P(f'panneau10_{i}', 'solarWalker', pos=p, ry=-90, opts={'walk': True, 'phase': i * 0.37, 'sign': SIGNS[i], 'steps': [[STEP10[i], r(STEP10[i] + 0.34)]], 'droopAt': r(STEP10[i] + 0.42)},
+                   keys=[k(STEP10[i], to=add(p, [0, 0, -0.6]), dur=0.34, ease='inOut')]) for i, p in enumerate(WALK)],
+               *[P(f'petit10_{i}', 'solarWalker', pos=[8.7, 0, r(-0.3 + 0.45 * i)], ry=-90, scale=0.5, opts={'walk': True, 'phase': 0.2 + i * 0.5, 'sign': ' ', 'steps': [[r(1.55 + 0.12 * i), r(1.9 + 0.12 * i)]]},
+                   keys=[k(r(1.55 + 0.12 * i), to=[8.7, 0, r(-0.85 + 0.45 * i)], dur=0.35, ease='inOut')]) for i in range(2)]],
         cams=[C10])
-st.cue('sfx:stepSoft', 'S10', 0.45, 0.25); st.cue('sfx:stepSoft', 'S10', 0.7, 0.2)
+for t_ in STEP10: st.cue('sfx:stepSoft', 'S10', t_, 0.22)
 
 # 11: the agency declared the mission a success. The director beams at the podium under MISSION RÉUSSIE over the grey map; applause, flashes
 D11 = st.dur('S11'); OK11 = 1.38
 SPK = [0.0, 0, -2.45]
-C11 = cam(0.0, [0.3, 1.8, 3.2], [0.3, 1.78, 2.8], [0.55, 1.6, -2.4], [0.55, 1.6, -2.4], lens=44)   # (stills 1) from the front of the room: the director and the screen (the reporters, off screen, are heard and flash)
-chk('S11', C11['from'], C11['lookAt'], 44, {'head': [0, 2.0, -2.45], 'screen': [1.45, 1.95, -2.7], 'screenTop': [1.45, 2.55, -2.7], 'journoL': [-0.9, 1.9, 0.4], 'journoR': [1.5, 1.9, 0.3]})
+C11 = cam(0.0, [-0.6, 1.9, 1.6], [-0.55, 1.88, 1.35], [0.53, 1.8, -2.5], [0.5, 1.82, -2.5], lens=42)   # (round 1) closer: the director bigger, the screen behind his shoulder   # (stills 1) from the front of the room: the director and the screen (the reporters, off screen, are heard and flash)
+chk('S11', C11['from'], C11['lookAt'], 42, {'head': [0, 2.0, -2.45], 'headTop': [0, 2.75, -2.45], 'scrL': [0.28, 1.95, -2.7], 'scrR': [1.52, 1.95, -2.7], 'flashC': [1.2, 1.7, 0.5]})
 JOUR = [('journaliste1', [-0.9, 0, 0.4], 165), ('journaliste2', [1.5, 0, 0.3], -160)]
 def CLAP(pos, ry, t0, n=5):
     c = off(pos, ry, 0.35, 0.0, 1.35); out = []
@@ -287,12 +323,22 @@ def CLAP(pos, ry, t0, n=5):
         tt = r(t0 + i * 0.16); w = 0.09 if i % 2 == 0 else 0.0
         out.append(k(tt, toon={'reach': {'L': R5(off(c, ry, 0, -0.06 - w, 0.0), 1, 0.04), 'R': R5(off(c, ry, 0, 0.06 + w, 0.0), 1, 0.04)}, 'hands': {'L': 'open', 'R': 'open'}}, toonDur=0.07, keepPose=True))
     return out
+# (round 1) he lives before the word (glances at the reporters left and right, a proud puff of the chest, a blink) and beams on « réussie »: a
+#     squash, a stretch up with the head swollen and the grin wide, held trembling with the flashes, an overshoot, the settle
+SM11 = {'lid': 0.25, 'mouth': 'smile', 'brow': 0.3}
+HANDS11 = {'reach': {'L': R5([0.28, 1.13, -2.08], 1, 0.04), 'R': R5([-0.28, 1.13, -2.08], 1, 0.04)}, 'hands': {'L': 'open', 'R': 'open'}}   # both hands on the lectern: the clip's raised hand covered his face
+BEAM11 = {**HANDS11, 'sq': [0.88, 1.18, 0.88], 'scl': {'head': [1.14, 1.12, 1.0]}, 'face': {'lid': 0.0, 'mouth': 'bigsmile', 'mouthW': 0.6, 'eye': 0.35, 'brow': 1.0, 'cheeks': 1.0}}
 st.shot('S11', 'pressRoom', setOpts={'backdrop': 'AGENCE|ESPACE|MISSION', 'chairs': False, 'flagOpts': {'colors': ['#6A3FA0', '#F2C94C']}}, grade=GREYIN, actors=[
-        act('directeur', SPK, 0, 'podium', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.25, 'mouth': 'smile', 'brow': 0.3}}, toonDur=0.0),
-            k(OK11, toon={'face': {'lid': 0.2, 'mouth': 'bigsmile', 'brow': 0.5}, 'sq': [1.03, 0.97, 1.03]}, toonDur=0.1, keepPose=True), *blink(1.8, {'lid': 0.2, 'mouth': 'bigsmile', 'brow': 0.5})])],
-        props=[P('ecran11', 'pressScreen', pos=[1.45, 0, -2.7], ry=-10, opts={'w': 1.6, 'y': 1.95}),
-               P('flash11a', 'camFlash', pos=[-0.7, 1.95, 0.0], opts={'w': 0.5, 'at': [r(OK11 + 0.05), r(OK11 + 0.45)]}),
-               P('flash11b', 'camFlash', pos=[1.2, 1.85, -0.2], opts={'w': 0.5, 'at': [r(OK11 + 0.25)]})],
+        act('directeur', SPK, 0, 'podium', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={**HANDS11, 'face': SM11}, toonDur=0.0),
+            k(0.2, look=[-1.5, 1.8, 1.0], lookDur=0.15), k(0.55, look=[1.8, 1.8, 1.0], lookDur=0.18), k(0.9, look='camera', lookDur=0.15),
+            k(0.95, toon={**HANDS11, 'face': SM11, 'sq': [1.06, 0.96, 1.06]}, toonDur=0.15), k(1.15, toon={**HANDS11, 'face': SM11, 'sq': [1, 1, 1]}, toonDur=0.12),
+            *[{**x, 'toon': {**HANDS11, **x['toon']}} for x in blink(0.75, SM11)],
+            *[{**x, 'toon': {**HANDS11, **x['toon']}} for x in beat(OK11, BEAM11, hold=0.33, settle={'face': {'lid': 0.15, 'mouth': 'bigsmile', 'brow': 0.6}}, settle_f=6)],
+            *[{**x, 'toon': {**HANDS11, **x['toon']}} for x in blink(r(OK11 + 0.65), {'lid': 0.15, 'mouth': 'bigsmile', 'brow': 0.6})]])],
+        props=[P('ecran11', 'pressScreen', pos=[0.9, 0, -2.7], ry=-10, opts={'w': 1.25, 'y': 1.95}),
+               P('flash11a', 'camFlash', pos=[-0.7, 1.95, 0.4], opts={'w': 0.5, 'at': [r(OK11 + 0.05), r(OK11 + 0.45)]}),
+               P('flash11b', 'camFlash', pos=[1.0, 1.85, 0.2], opts={'w': 0.5, 'at': [r(OK11 + 0.25)]}),
+               P('flash11c', 'camFlash', pos=[1.2, 1.7, 0.5], opts={'w': 0.45, 'at': [0.35]})],
         cams=[C11])
 st.cue('sfx:fanfare', 'S11', OK11, 0.3); st.cue('sfx:shutter', 'S11', r(OK11 + 0.05), 0.35); st.cue('sfx:shutter', 'S11', r(OK11 + 0.25), 0.3)
 
@@ -309,7 +355,7 @@ st.shot('S12', 'parisStreet', setOpts={'clouds': 0}, grade=GREY, actors=[
         act(n, p, ry, 'stand', 'neutral', keys=[k(0.0, look=add(TORCH(p, ry), [0, 3, 0])),
             k(0.0, toon={'reach': {'R': R5(TORCH(p, ry), 1, 0.04), **({'L': R5(off(p, ry, 0.3, 0.3, 1.25), 1, 0.04)} if n in SIGN12 else {})}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'open' if i % 2 else 'line', 'brow': -0.3}}, toonDur=0.0),
             *PUMP(p, ry, r(0.75 + 0.05 * i)), *PUMP(p, ry, r(1.3 + 0.04 * i))]) for i, (n, p, ry) in enumerate(MARCH)],
-        props=[P('dome12', 'canopySky', pos=[0, 0, -2], opts=CAN),
+        props=[P('dome12', 'canopySky', pos=[0, 0, -2], opts=CAN0),
                *[P(f'torche12_{n}', 'handTorch', pos=add(TORCH(p, ry), [0, -0.12, 0]), opts={'beam': 7, 'beamR': 0.7, 'beamOp': 0.6, 'face': math.radians(yaw(TORCH(p, ry), [0.4, 0, 6.4]))}) for n, p, ry in MARCH],
                *[P(f'pancarte12_{n}', 'protestSign', pos=off(p, ry, 0.3, 0.3, 0.75), ry=ry, opts={'text': SIGN12[n], 'stick': 0.95}) for n, p, ry in MARCH if n in SIGN12]],
         cams=[C12])
@@ -319,29 +365,35 @@ st.cue('sfx:street', 'S12', 0.0, 0.3)
 D13 = st.dur('S13'); CLICK13 = 1.3
 TAB = [0.0, 0, -0.5]; TH = 0.75
 GD1 = [0.45, 0, -1.3]; GD2 = [-0.95, 0, -1.4]
-LAST = [0.4, r(TH + 0.06), -0.5]
-C13 = cam(0.0, [0.7, 1.95, 3.1], [0.6, 1.85, 2.7], [0.1, 1.15, -0.9], [0.1, 1.15, -0.9], lens=46)
+LAST = [0.48, r(TH + 0.13), -0.5]
+C13 = cam(0.0, [0.7, 1.95, 3.1], [0.6, 1.85, 2.0], [0.1, 1.15, -0.9], [0.2, 1.1, -0.8], lens=46, ease='inOut')   # (round 1) a push in on the table: the cuffs read
 chk('S13', C13['from'], C13['lookAt'], 46, {'gd1': [GD1[0], 2.0, GD1[2]], 'gd2': [GD2[0], 2.0, GD2[2]], 'torches': [0, TH + 0.06, -0.5], 'last': LAST, 'back': [1.5, 2.0, -3.6]})
 st.shot('S13', 'parisStreet', setOpts={'clouds': 0}, grade=GREY, actors=[
         act('gendarme1', GD1, 0, 'stand', 'neutral', keys=[k(0.0, look=LAST),
             k(0.0, toon={'bend': {'spine': [0.35, 0, 0, 1, None]}, 'reach': {'L': R5(add(LAST, [-0.06, 0.06, -0.05]), 1, 0.04), 'R': R5(add(LAST, [0.07, 0.08, 0.02]), 1, 0.04)}, 'hands': {'L': 'pinch', 'R': 'pinch'}, 'face': {'lid': 0.45, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.0),
             k(r(CLICK13 - 0.1), toon={'reach': {'R': R5(add(LAST, [0.02, 0.04, 0.0]), 1, 0.04)}}, toonDur=0.1, keepPose=True),
             k(r(CLICK13 + 0.35), look='camera', lookDur=0.15), *blink(1.95, {'lid': 0.45, 'mouth': 'line', 'brow': -0.2})]),
-        act('gendarme2', GD2, 25, 'armsCrossed', 'neutral', keys=[k(0.0, look=[0, 1.0, -0.5]), k(0.0, toon={'face': {'lid': 0.4, 'mouth': 'line', 'brow': -0.3}}, toonDur=0.0)]),
-        *[act(n, [x, 0, z], 0, 'surrender', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.3, 'mouth': 'wavy', 'brow': 0.4}}, toonDur=0.0)]) for n, x, z in [('manif1', -0.6, -3.6), ('manif3', 1.6, -3.9), ('manif2', -2.4, -4.2)]]],
+        act('gendarme2', GD2, 25, 'armsCrossed', 'neutral', keys=[k(0.0, look=[0, 1.0, -0.5]), k(0.0, toon={'face': {'lid': 0.4, 'mouth': 'line', 'brow': -0.3}}, toonDur=0.0),
+            k(0.5, look=[0, 0.85, -0.5], lookDur=0.12), k(0.7, look=[0, 1.0, -0.5], lookDur=0.12), *blink(1.0, {'lid': 0.4, 'mouth': 'line', 'brow': -0.3}), k(r(CLICK13 + 0.1), look=LAST, lookDur=0.1),
+            k(r(CLICK13 + 0.12), toon={'face': {'lid': 0.3, 'mouth': 'smirk', 'brow': 0.1}, 'sq': [1.04, 0.96, 1.04]}, toonDur=0.08), k(r(CLICK13 + 0.3), toon={'face': {'lid': 0.35, 'mouth': 'smirk', 'brow': 0.0}, 'sq': [1, 1, 1]}, toonDur=0.12)]),
+        *[act(n, [x, 0, z], 0, 'surrender', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.3, 'mouth': 'wavy', 'brow': 0.4}}, toonDur=0.0),
+            k(r(0.3 + 0.25 * j), look=[0, 0.9, -0.5], lookDur=0.15), *blink(r(0.7 + 0.3 * j), {'lid': 0.3, 'mouth': 'wavy', 'brow': 0.4}), k(r(CLICK13 + 0.05 * j), toon={'face': {'lid': 0.0, 'mouth': 'O', 'brow': 0.8}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.06),
+            k(r(CLICK13 + 0.25), toon={'face': {'lid': 0.3, 'mouth': 'wavy', 'brow': 0.5}, 'sq': [1, 1, 1]}, toonDur=0.12)]) for j, (n, x, z) in enumerate([('manif1', -0.6, -3.6), ('manif3', 1.6, -3.9), ('manif2', -2.4, -4.2)])]],
         props=[P('dome13', 'canopySky', pos=[0, 0, -2], opts=CAN), KEPI('kepi13a', 'gendarme1'), KEPI('kepi13b', 'gendarme2'),
                P('table13', 'table', pos=TAB, opts={'w': 1.6, 'd': 0.7, 'h': TH, 'color': '#8C949A', 'legs': '#5A6066'}),
-               P('torches13', 'cuffedTorches', pos=[0, TH, -0.5], opts={'n': 5, 'gap': 0.2, 'beam': 1.4, 'clickAt': CLICK13})],
+               P('torches13', 'cuffedTorches', pos=[0, TH, -0.5], opts={'n': 5, 'gap': 0.24, 'beam': 0.5, 'clickAt': CLICK13, 'upright': True, 'cuffR': 0.065, 'cuffT': 0.018})],
         cams=[C13])
 st.cue('sfx:cuff', 'S13', CLICK13, 0.5)
 
+# (round 1) S14: the recoil reads before the whip tilt (the cut moved from 0.72 to 0.86 s): the hull squashes, rocks back on its tracks and settles;
+#     soft smoke at the muzzle and a ring of dust at the tracks
 # 14: a tank shot a hole in the parasol. The tank raises its gun and fires; the camera tilts up after the shell; a hole bursts open in the canopy (PERCÉ)
 D14 = st.dur('S14'); FIRE14 = 0.62; PITCH = 1.05; V14 = 170.0
 TANK = [0.0, 0, -4.0]
 HOLE14 = add(TANK, mul([0.0, math.sin(PITCH), math.cos(PITCH)], 90 * 0.97))
 HOLEAT = r(FIRE14 + 88 / V14, 2)
 C14A = cam(0.0, [-6.2, 1.1, 6.2], [-6.0, 1.05, 5.8], [0.0, 1.8, -4.0], [0.0, 1.9, -4.0], lens=44)
-C14B = cam(0.72, [-6.0, 1.0, 5.8], [-6.2, 0.95, 6.2], [0.0, 4.0, -2.0], HOLE14, lens=58, ease='out')
+C14B = cam(0.86, [-6.0, 1.0, 5.8], [-6.2, 0.95, 6.2], [0.0, 4.0, -2.0], HOLE14, lens=58, ease='out')
 chk('S14', C14A['from'], C14A['lookAt'], 44, {'tank': [0, 1.5, -4.0], 'gun': [0, 3.5, -2.8]})
 chk('S14b', C14B['to'], C14B['lookAt2'], 58, {'hole': HOLE14, 'holeEdge': add(HOLE14, [6, 0, 0])})
 st.shot('S14', 'parisStreet', setOpts={'clouds': 0}, grade=GREY, actors=[],
@@ -379,8 +431,15 @@ st.cue('sfx:choir', 'S15', 0.02, 0.35)
 D16 = st.dur('S16')
 C16 = cam(0.0, [G[0] + 0.4, 31.0, G[2] + 5.5], [G[0] + 0.3, 28.5, G[2] + 5.0], G, G, lens=50)
 chk('S16', C16['from'], C16['lookAt'], 50, {'chair': CH, 'patchE': add(G, [6.5, 0, 0]), 'patchW': add(G, [-6.5, 0, 0]), 'patchN': add(G, [0, 0, -6.5]), 'patchS': add(G, [0, 0, 6.5])})
-st.shot('S16', 'pavillon', setOpts=GARDEN, actors=[act('mec', SEAT, RY, 'sit', 'unimpressed', keys=[k(0.0, look=HOLEW), k(0.0, toon={**LOUNGE, 'reach': {'R': VISOR}, 'face': SQUINT}, toonDur=0.0)])],
-        props=[P('nuages16', 'noClouds'), PATCH('disque16', dark=0), P('ombre16', 'sunPatch', pos=[G[0], 6.2, G[2]], opts={'r': 6.5, 'lawn': False, 'dark': 0.78, 'y': 0.0, 'rimOp': 0.0}), CHAIR('chaise16')],
+# (round 1) the tiny man lives: he squirms in the deckchair (a squash, a shift to one side and back) and fans his face with his free hand
+FAN = lambda i: R5(add(VISOR[:3], [0.12 * (1 if i % 2 else -1), -0.12, 0.05]), 1, 0.05)
+HERO16 = [k(0.0, look=HOLEW), k(0.0, toon={**LOUNGE, 'reach': {'R': VISOR}, 'face': SQUINT}, toonDur=0.0),
+          k(0.2, toon={**LOUNGE, 'reach': {'R': VISOR}, 'face': SQUINT, 'sq': [1.12, 0.88, 1.12], 'lay': [0.12, 0]}, toonDur=0.12),
+          k(0.42, toon={**LOUNGE, 'reach': {'R': VISOR}, 'face': SQUINT, 'sq': [0.95, 1.06, 0.95], 'lay': [-0.1, 0]}, toonDur=0.14),
+          *[k(r(0.6 + 0.1 * i), toon={**LOUNGE, 'reach': {'R': FAN(i)}, 'face': SQUINT, 'sq': [1, 1, 1], 'lay': [0.0, 0]}, toonDur=0.08) for i in range(6)],
+          k(1.25, look=add(HOLEW, [6, 0, 0]), lookDur=0.2)]
+st.shot('S16', 'pavillon', setOpts=GARDEN, actors=[act('mec', SEAT, RY, 'sit', 'unimpressed', keys=HERO16)],
+        props=[P('nuages16', 'noClouds'), PATCH('disque16', dark=0), P('ombre16', 'sunPatch', pos=[G[0], 6.2, G[2]], opts={'r': 6.5, 'lawn': False, 'dark': 0.84, 'darkColor': '#4C545E', 'y': 0.0, 'rimOp': 0.0}), CHAIR('chaise16')],
         cams=[C16])
 
 # 17: right in his eyes. The reverse first (the hole and its sun beyond the street, over his shoulder), then his squint: the framing of shot one
@@ -393,7 +452,7 @@ chk('S17', C17A['from'], C17A['lookAt'], LENS1B, {'hole': add(HEAD, mul(SUNDIR, 
 CRUMPLE = {'lid': 0.9, 'low': 0.5, 'brow': -1.0, 'mouth': 'clench', 'mouthW': 0.3, 'tremble': 1, 'cheeks': 0.6}
 LAP = ['face', -0.1, -1.2, 0.35, 1, 0.12, [1.0, -0.3, 0.2]]
 def LV(pt, w=1): return {**LOUNGE, 'touch': {'R': REST_R, 'L': pt[:4] + [w, pt[5], pt[6]]}, 'hands': {'L': 'open', 'R': 'open'}}
-HERO17 = [k(-1.0, look=SUNP), k(0.0, toon={**LV(LAP), 'face': {**SQUINT, 'lid': 0.45}}, toonDur=0.0),
+HERO17 = [k(0.0, look=SUNP), k(0.0, toon={**LV(LAP), 'face': {**SQUINT, 'lid': 0.45}}, toonDur=0.0),
           k(r(T17 - 0.02), look=LOOK1, lookDur=0.04),
           k(r(T17 + 0.02), toon={**LV(LAP), 'face': {**SQUINT, 'lid': 0.3, 'brow': 0.2}, 'sq': [0.97, 1.04, 0.97], 'scl': {'head': [0.95, 1.08, 1]}}, toonDur=0.05),
           k(r(T17 + 0.1), toon={**LOUNGEV(0.06), 'face': CRUMPLE, 'sq': [1.08, 0.9, 1.08], 'scl': {'head': [1.2, 0.76, 1.08]}}, toonDur=0.06, toonEase='out'),
@@ -420,15 +479,25 @@ PIC = [(n, PICPOS[i], ry, clip) for i, (n, ry, clip) in enumerate(PICWHO)] + [('
 BCOL = ['#C23A2E', '#2E6FB5', '#2F8A4A', '#E0A020', '#7A2E4E', '#C23A2E', '#2E6FB5']
 BLANK = [[r(CH[0] + sum(xs) / len(xs)), r(CH[2] + dz + 0.1), 0.0, r(1.15 * len(xs) + 0.4), 1.1, BCOL[i]] for i, (dz, xs) in enumerate(PICROWS)]
 CAR = [1.6, 0, -2.9]
+# (round 1) the crowd lives: heads turn in a ripple (to the hole, to him, to us, to the car roof) and the front row passes a baguette along
+PA18, PB18 = [r(CH[0] - 0.2), 0, r(CH[2] + 3.3)], [r(CH[0] + 0.9), 0, r(CH[2] + 3.3)]
+BA = [r(PA18[0] + 0.32), 0.72, r(PA18[2] + 0.2)]; BB = [r(PB18[0] - 0.3), 0.72, r(PB18[2] + 0.2)]; BM = [r((BA[0] + BB[0]) / 2), 0.82, r(BA[2] + 0.05)]
+PASS18 = {'manif1': [k(0.15, toon={'reach': {'L': R5(BA, 1, 0.08)}, 'hands': {'L': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.15),
+                     k(0.6, toon={'reach': {'L': R5(BM, 1, 0.08)}, 'hands': {'L': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.25), k(1.0, toon={'reach': {'L': R5(BM, 0.0, 0.08)}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.3), k(0.55, look=BB, lookDur=0.12)],
+          'savant2': [k(0.6, toon={'reach': {'R': R5(BM, 1, 0.08)}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.2, 'mouth': 'O'}}, toonDur=0.25), k(0.6, look=BM, lookDur=0.12),
+                      k(1.05, toon={'reach': {'R': R5(add(BB, [0.05, 0.15, 0]), 1, 0.08)}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.3)]}
 C18 = cam(0.0, [-0.5, 3.2, 6.6], [-0.3, 9.2, 9.4], [-0.9, 0.7, -0.9], [-0.8, 0.2, -1.3], lens=56, ease='inOut')
 chk('S18', C18['from'], C18['lookAt'], 56, {'mec': HEAD, **{n: [p[0], 1.2, p[2]] for n, p, ry, c in PIC}})
 chk('S18b', C18['to'], C18['lookAt2'], 56, {'mec': HEAD, 'car': [CAR[0], 2.1, CAR[2]], 'edgeE': add(G, [6.5, 0, 0]), 'edgeW': add(G, [-6.5, 0, 0])})
 st.shot('S18', 'pavillon', setOpts={**GARDEN, 'mailbox': False}, actors=[
         act('mec', SEAT, RY, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={**LOUNGE, 'reach': {'R': VISOR}, 'face': {**SQUINT, 'mouth': 'line'}, 'sq': [0.9, 1.04, 1.0]}, toonDur=0.0), *blink(1.1, {**SQUINT, 'mouth': 'line'})]),
-        *[act(n, p, ry, clip, 'neutral', keys=[k(0.0, look='camera' if i % 3 == 0 else HOLEW), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'smile' if i % 2 else 'line'}}, toonDur=0.0)]) for i, (n, p, ry, clip) in enumerate(PIC)],
+        *[act(n, p, ry, 'sitFloor' if n in ('manif1', 'savant2') else clip, 'neutral', keys=[k(0.0, look='camera' if i % 3 == 0 else HOLEW), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'smile' if i % 2 else 'line'}}, toonDur=0.0),
+            k(r(0.25 + 0.11 * i), look=(HOLEW if i % 3 == 0 else [CH[0], 1.0, CH[2]]), lookDur=0.15), k(r(1.0 + 0.07 * i), look=('camera' if i % 2 else [CAR[0], 2.2, CAR[2]]), lookDur=0.15),
+            *blink(r(0.5 + 0.13 * (i % 7)), {'lid': 0.5, 'mouth': 'smile' if i % 2 else 'line'}), *PASS18.get(n, [])]) for i, (n, p, ry, clip) in enumerate(PIC)],
         act('directeur', [CAR[0] - 0.2, 2.06, CAR[2]], 90, 'lieRelax', 'neutral', keys=[k(0.0, look=HOLEW), k(0.0, toon={'face': {'lid': 0.8, 'mouth': 'smile'}}, toonDur=0.0)])],
         props=[P('nuages18', 'noClouds'), GDOME('dome18'), PATCH('disque18'), CHAIR('chaise18'), KEPI('kepi18', 'gendarme1'), KEPI('kepi18b', 'gendarme2'),
                P('pique18', 'picnicSpread', pos=[0, 0, 0], opts={'blankets': BLANK}),
+               P('baguette18', 'baguette', pos=BA, ry=20, keys=[k(0.6, to=BM, dur=0.25, ease='inOut'), k(1.05, to=add(BB, [0.05, 0.15, 0]), dur=0.3, ease='inOut')]),
                P('voiture18', 'car', pos=CAR, ry=0, opts={'color': '#3E7AB8'}), P('serviette18', 'beachTowel', pos=[CAR[0] - 0.25, 2.06, CAR[2]], ry=90, opts={'w': 0.9, 'd': 1.7, 'hang': 0.3})],
         cams=[C18])
 st.cue('sfx:street', 'S18', 0.0, 0.3)
