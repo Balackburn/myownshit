@@ -2139,3 +2139,14 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 51) Décor blanchi blanc sur blanc : ne se lit que sur ciel bleu ou porte sombre ; garder chaque temps blanchi bas contre le ciel.
 - (cycle 51) Une main qui tient un accessoire devant la poitrine cache un gag de poitrine : l'écarter vers le bas à l'image du choc.
 - (cycle 51) Chemise posée à plat sur une planche : `rotOrder='YXZ'` avec rot `[-π/2, π/2, 0]` la couche face visible le long de +x.
+- (cycle 51) Main de salut ou de visière posée sur le visage (`touch ['face', …]`) : elle suit la tête pendant les petits mouvements ; un
+  reach vers un point fixe du monde s'enfonce dans la tête.
+- (cycle 51) Étirement du cou à 2,6 : la tête-boîte sort du cadre 9:16 ; 1,5-1,6 avec une tête à 1,16 se lit comme une prise, visée devant
+  avec les pupilles en bas pour garder la mâchoire visible.
+- (cycle 51) Étalonnage chaud + soleil chaud = tissu blanc pêche ; base froide (#E2EBF8), émissif froid et sans grain = blanc.
+- (cycle 51) Accessoire blanchi qui garde sa carte de grain = bois beige ; retirer la carte une fois blanchi et ajouter un léger émissif bleu.
+- (cycle 51) `townHall` : `gable: 'v2'` (sinon une dérive dépasse) ; il porte un vrai drapeau à masquer ; son enseigne MAIRIE disparaît
+  une fois blanchie, la couvrir d'une plaque à bord sombre.
+- (cycle 51) Déplacement avec `clip='walk'` : l'acteur se tourne dans le sens de la marche ; `face='keep'` pour reculer face caméra.
+- (cycle 51) Clés de déplacement : chaque mouvement commence à la clé précédente, pas à son heure de fin.
+- (cycle 51) Projectile qui continue après l'impact = deuxième balle : longue clé d'écrasement (2 s) et le cacher 0,05 s après le contact.

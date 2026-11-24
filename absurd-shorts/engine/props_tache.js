@@ -16,9 +16,10 @@ const easeOut = x => { const u = clamp01(x); return 1 - (1 - u) * (1 - u); };
 const outBack = x => { const u = clamp01(x), c = 1.70158; return 1 + (c + 1) * Math.pow(u - 1, 3) + c * Math.pow(u - 1, 2); };
 const hsh = i => { const s = Math.sin(i * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
 const lerp = (a, b, u) => a + (b - a) * u;
-const INK = '#1B1B1E', SHIRT = '#F6F5F1', SEAM = '#8E959E', CHROME = '#C9CED4';
+// (round 1) a cool white: the warm grade turned the old warm white peach
+const INK = '#1B1B1E', SHIRT = '#E2EBF8', SEAM = '#7E8894', CHROME = '#C9CED4';
 const STAIN = '#D8452A', STAIN_D = '#A63221', STAIN_L = '#EE7048', PASTA = '#F1D06E', PASTA_D = '#B98E34';
-const BLEACH = new THREE.Color('#F3F3EF'), WHITE = new THREE.Color('#FFFFFF');
+const BLEACH = new THREE.Color('#F6F8FA'), WHITE = new THREE.Color('#FFFFFF'), COOL = new THREE.Color('#2E4466');
 
 // ---------------------------------------------------------------- the stain: one shape, two states (u 0: the splat, u 1: the country)
 // coordinates in fractions of the shirt's width, canvas axes (y down), origin at the stain's centre; both outlines have NS points so they morph
@@ -55,7 +56,7 @@ function drawStain(c, W, H, s, outlineOnly = false, col = null) {
   const drip = ([x, len, w], ext = 0) => { if (len + ext < 0.004) return; const y0 = bottomY(sh.poly, x) - 0.012, y1 = y0 + 0.012 + len + ext;
     c.beginPath(); c.moveTo(X(x - w / 2), Y(y0)); c.lineTo(X(x - w * 0.42), Y(y1)); c.arc(X(x), Y(y1), w * 0.62 * f, PI, 0, true); c.lineTo(X(x + w / 2), Y(y0)); c.closePath(); };
   if (outlineOnly) {
-    c.strokeStyle = col || '#1F4E8C'; c.lineWidth = Math.max(2, 0.009 * W); c.lineJoin = 'round';
+    c.strokeStyle = col || '#1F4E8C'; c.lineWidth = Math.max(2, (s.lw ?? 0.009) * W); c.lineJoin = 'round';
     path(); c.stroke(); sh.drips.forEach(d => { drip(d); c.stroke(); });
     return;
   }
@@ -87,7 +88,13 @@ function drawShirt(c, W, H, o, st) {
     const sl = smooth(st.slide || 0), pk = o.pocket || [0.6, 0.82, 0.2, 0.42];
     const cx = lerp(o.stainAt[0], (pk[0] + pk[1]) / 2, sl), cy = lerp(o.stainAt[1], V((pk[2] + pk[3]) / 2) / H, sl);
     const u = st.u || 0, cx2 = lerp(cx, o.countryAt ? o.countryAt[0] : cx, u), cy2 = lerp(cy, o.countryAt ? o.countryAt[1] : cy, u);
+    // (round 1) the stain lives: a crouch and a wriggle before it runs (st.wig, st.crouch), stretched into a smear along its way while it slides
+    const dx = ((pk[0] + pk[1]) / 2 - o.stainAt[0]) * W, dy = V((pk[2] + pk[3]) / 2) - o.stainAt[1] * H, ang = Math.atan2(dy, dx);
+    const sm = 1 + 2.4 * Math.sin(PI * clamp01(st.slide || 0)) * (st.slide > 0 && st.slide < 1 ? 1 : 0), cr = st.crouch || 0;
+    c.save(); c.translate(cx2 * W, cy2 * H); c.rotate(ang); c.scale(sm, 1 / Math.sqrt(sm)); c.rotate(-ang); c.rotate(0.22 * (st.wig || 0)); c.scale(1 + 0.22 * cr, 1 - 0.3 * cr); c.translate(-cx2 * W, -cy2 * H);
+    if (sm > 1.05) { c.globalAlpha = 0.35; drawStain(c, W, H, { u, cx: cx2 - 0.05 * Math.cos(ang) * sm, cy: cy2 - 0.05 * Math.sin(ang) * sm * W / H, sc: (o.sc ?? 1) * 0.9, k: st.k }); c.globalAlpha = 1; }
     drawStain(c, W, H, { u, cx: cx2, cy: cy2, sc: (o.sc ?? 1) * lerp(1, o.countrySc ?? 1, u) * (1 - 0.18 * sl), k: st.k, ext: st.ext || 0 });
+    c.restore();
   }
   // the breast pocket (on his left, the right of the picture) with its flap, drawn over the stain
   if (o.pocket !== false) {
@@ -97,8 +104,9 @@ function drawShirt(c, W, H, o, st) {
     c.beginPath(); c.moveTo(u0 * W, V(v0 + 0.065)); c.lineTo((u0 + u1) / 2 * W, V(v0 + 0.09)); c.lineTo(u1 * W, V(v0 + 0.065)); c.stroke();
     c.fillStyle = o.button || '#E4E8EC'; c.beginPath(); c.arc((u0 + u1) / 2 * W, V(v0 + 0.07), W * 0.012, 0, TAU); c.fill(); c.strokeStyle = '#6E757E'; c.lineWidth = W * 0.004; c.stroke();
     // a drip peeking out from under the pocket (the stain has dug in)
-    if (st && st.peek > 0.01) { const x = (u0 + u1) / 2 + 0.03, y = V(v1 - 0.005), L = 0.05 * st.peek * W, w = 0.016 * W;
-      c.fillStyle = STAIN; c.strokeStyle = STAIN_D; c.lineWidth = W * 0.004; c.beginPath(); c.moveTo(x * W - w / 2, y); c.lineTo(x * W - w * 0.4, y + L); c.arc(x * W, y + L, w * 0.6, PI, 0, true); c.lineTo(x * W + w / 2, y); c.closePath(); c.fill(); c.stroke(); }
+    // (round 1) bigger, and it peeks out and ducks back in (st.peek keyed by o.peekKeys)
+    if (st && st.peek > 0.01) { const x = (u0 + u1) / 2 + 0.02, y = V(v1 - 0.012), L = 0.1 * st.peek * W, w = 0.034 * W;
+      c.fillStyle = STAIN; c.strokeStyle = STAIN_D; c.lineWidth = W * 0.006; c.beginPath(); c.moveTo(x * W - w / 2, y); c.lineTo(x * W - w * 0.45, y + L); c.arc(x * W, y + L, w * 0.62, PI, 0, true); c.lineTo(x * W + w / 2, y); c.closePath(); c.fill(); c.stroke(); }
   }
   // the collar: a band and two pointed flaps
   if (o.collar !== false) {
@@ -114,9 +122,10 @@ function shirtFace(w, h, o, wTop) {
   const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
   const geo = new THREE.PlaneGeometry(w, h);
   if (wTop) { const p = geo.attributes.position; for (let i = 0; i < p.count; i++) { const v = (p.getY(i) + h / 2) / h; p.setX(i, p.getX(i) * lerp(1, wTop / w, v)); } p.needsUpdate = true; }
-  const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: tex, side: THREE.FrontSide }));
+  // (round 1) a cool emissive under the cloth: the warm sun and grade turned the white shirt peach
+  const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: tex, side: THREE.FrontSide, emissive: o.bg ? '#000000' : '#33476A', emissiveIntensity: 0.4 }));
   m.receiveShadow = true; let last = '';
-  m.userData.draw = st => { const key = JSON.stringify([st.u, st.k, st.slide, st.peek, st.ext].map(v => Math.round((v || 0) * 40) / 40)); if (key === last) return; last = key; drawShirt(c, cv.width, cv.height, o, st); tex.needsUpdate = true; };
+  m.userData.draw = st => { const key = JSON.stringify([st.u, st.k, st.slide, st.peek, st.ext, st.wig, st.crouch].map(v => Math.round((v || 0) * 40) / 40)); if (key === last) return; last = key; drawShirt(c, cv.width, cv.height, o, st); tex.needsUpdate = true; };
   return m;
 }
 // the stain's state at t from the options: o.stain ('splat' | 'country' | 'none'), o.stainAt (pop in), o.stretchAt/stretchDur (splat -> country),
@@ -127,6 +136,9 @@ function stainState(o, t) {
   if (o.stretchAt != null) { const v = (t - o.stretchAt) / (o.stretchDur ?? 0.35); st.u = clamp01(easeOut(v)); st.slide = st.slide * (1 - clamp01(v * 3)); st.peek = st.peek * (1 - clamp01(v * 3)); }
   if (o.slideAt != null) { const v = (t - o.slideAt) / (o.slideDur ?? 0.5); st.slide = smooth(v); st.peek = clamp01((v - 0.85) * 4) * (o.peek ?? 1); }
   if (o.dripAt != null) { st.ext = 0.035 * smooth((t - o.dripAt) / 0.6); }
+  // (round 1) o.wigAt: a crouch and a wriggle from o.wigAt to the slide; o.peekKeys [[t, v]...]: the drip ducks in and peeks out after it
+  if (o.wigAt != null && o.slideAt != null && t > o.wigAt && t < o.slideAt + 0.05) { const v = (t - o.wigAt) / Math.max(0.05, o.slideAt - o.wigAt); st.wig = Math.sin(v * 5 * PI) * (1 - 0.5 * v); st.crouch = smooth(v * 1.4) * (v < 0.95 ? 1 : 0.3); }
+  if (o.peekKeys && o.slideAt != null && t > o.slideAt) { const P = o.peekKeys; let v = P[0][1]; for (let i = 0; i < P.length; i++) { if (t >= P[i][0]) v = P[i][1]; if (i + 1 < P.length && t >= P[i][0] && t < P[i + 1][0]) { const a = (t - P[i][0]) / (P[i + 1][0] - P[i][0]); v = lerp(P[i][1], P[i + 1][1], P[i + 1][1] > P[i][1] ? outBack(a) : smooth(a)); } } if (t >= P[0][0]) st.peek = Math.max(0, v); else st.peek = 0; }
   return st;
 }
 
@@ -154,7 +166,7 @@ function bleachPrep(root) {
   const L = [];
   root.traverse(m => {
     if (!m.isMesh || m.name === 'outline' || !m.material) return;
-    const one = mm => { const c = mm.clone(); L.push({ m: c, c0: c.color ? c.color.clone() : null, e0: c.emissive ? c.emissive.clone() : null, ei: c.emissiveIntensity ?? 1, pic: !!(c.map && c.map !== _grain) }); return c; };
+    const one = mm => { const c = mm.clone(); L.push({ m: c, c0: c.color ? c.color.clone() : null, e0: c.emissive ? c.emissive.clone() : null, ei: c.emissiveIntensity ?? 1, pic: !!(c.map && c.map !== _grain), map0: c.map, bare: false }); return c; };
     m.material = Array.isArray(m.material) ? m.material.map(one) : one(m.material);
   });
   return L;
@@ -163,6 +175,9 @@ function bleachSet(L, k) {
   for (const it of L) {
     if (it.c0) it.m.color.copy(it.c0).lerp(it.pic ? WHITE : BLEACH, k);
     if (it.e0 && it.pic) { it.m.emissive.copy(it.e0).lerp(WHITE, k * 0.85); it.m.emissiveIntensity = lerp(it.ei, 1, k); }
+    // (round 1) a clean white: no wood grain once bleached, and a cool blue in the shadows (a little blue emissive under the white)
+    if (!it.pic) { const bare = k > 0.5; if (bare !== it.bare) { it.bare = bare; it.m.map = bare ? null : it.map0; it.m.needsUpdate = true; }
+      if (it.e0) { it.m.emissive.copy(it.e0).lerp(COOL, k); it.m.emissiveIntensity = lerp(it.ei, 0.55, k); } }
   }
 }
 // a burst of white foam puffs (scaled spheres, never transparent): o.at, o.r, o.n
@@ -191,19 +206,21 @@ export const TACHE_PROPS = {
   // o.s: size (1: a 0.62 m wide torso); o.hanger (true); o.flat: laid on an ironing board (no hanger, sleeves along the sides); o.sway: the idle
   // sway; o.hitAt: [t...] kicks of the jet; o.mapAt / o.mapDur: the map comes down over it; o.mapPulse: the coast flashes when it matches
   tacheHangShirt(o) {
-    const s = o.s ?? 1, W0 = 0.62 * s, H0 = 0.8 * s, D0 = 0.05 * s, top = -0.13 * s, g = grp(), body = grp(); g.add(body);
+    const s = o.s ?? 1, W0 = 0.62 * s, H0 = 0.8 * s, D0 = (o.flat ? 0.01 : 0.05) * s, top = -0.13 * s, g = grp(), body = grp(); g.add(body);
     const lay = { stainAt: o.at || [0.34, 0.47], sc: o.sc ?? 1.0, pocket: o.pocket || [0.6, 0.82, 0.2, 0.42], bg: o.bg, countryAt: o.countryAt || [0.5, 0.64], countrySc: o.countrySc ?? 1.0, res: 512 };
-    const cloth = o.bg || SHIRT;
-    body.add(at(box(W0 * 0.98, H0, D0, cloth, { outline: 0.004 }), 0, top - H0 / 2, 0));
+    const cloth = o.bg || SHIRT, cm = o.bg ? {} : { noGrain: true, emissive: '#2A3A58' };
+    body.add(at(box(W0 * 0.98, H0, D0, cloth, { outline: 0.004, ...cm }), 0, top - H0 / 2, 0));
     const face = shirtFace(W0, H0, lay, null); face.position.set(0, top - H0 / 2, D0 / 2 + 0.002); body.add(face);
     // collar band (the silhouette) and a back panel
-    body.add(at(box(0.24 * s, 0.05 * s, D0 * 1.6, cloth, { outline: 0.004 }), 0, top + 0.01 * s, 0));
+    if (!o.flat) body.add(at(box(0.24 * s, 0.05 * s, D0 * 1.6, cloth, { outline: 0.004, ...cm }), 0, top + 0.01 * s, 0));
+    else body.add(at(box(0.26 * s, 0.035 * s, 0.03 * s, cloth, { outline: 0.004, ...cm }), 0, top + 0.005 * s, 0.006 * s));
     const sleeves = [];
     for (const sd of [-1, 1]) {
       const sl = grp(); sl.position.set(sd * W0 * 0.47, top - 0.03 * s, 0);
-      sl.add(at(box(0.17 * s, 0.6 * s, 0.075 * s, cloth, { pivot: 'top', outline: 0.004 }), 0, 0, 0), at(box(0.18 * s, 0.07 * s, 0.085 * s, cloth, { pivot: 'top', outline: 0.004 }), 0, -0.58 * s, 0));
-      sl.add(at(box(0.012 * s, 0.07 * s, 0.002, '#E4E8EC'), 0, -0.62 * s, 0.045 * s));
-      const base = o.flat ? sd * 0.04 : sd * 0.3; sl.rotation.z = base; sleeves.push({ sl, base, sd }); body.add(sl);
+      const sd0 = o.flat ? 0.014 : 0.075; sl.add(at(box(0.17 * s, 0.6 * s, sd0 * s, cloth, { pivot: 'top', outline: 0.004, ...cm }), 0, 0, 0), at(box(0.18 * s, 0.07 * s, (sd0 + 0.01) * s, cloth, { pivot: 'top', outline: 0.004, ...cm }), 0, -0.58 * s, 0));
+      sl.add(at(box(0.012 * s, 0.07 * s, 0.002, '#E4E8EC'), 0, -0.62 * s, (sd0 / 2 + 0.008) * s));
+      if (o.flat) sl.add(at(box(0.004 * s, 0.56 * s, 0.002, SEAM), sd * 0.05 * s, -0.02 * s, (sd0 / 2 + 0.002) * s));
+      const base = o.flat ? sd * 0.28 : sd * 0.3; sl.rotation.z = base; sleeves.push({ sl, base, sd }); body.add(sl);
     }
     if (o.hanger !== false && !o.flat) {
       const hc = o.hangerColor || '#9A7650';
@@ -221,6 +238,12 @@ export const TACHE_PROPS = {
       map.renderOrder = 3; map.visible = false; g.add(map);
       const halo = new THREE.Mesh(new THREE.PlaneGeometry(W0 * 1.06, H0 * 1.06), new THREE.MeshBasicMaterial({ map: tx, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, fog: false }));
       halo.renderOrder = 4; halo.position.z = 0.002; map.add(halo); map.userData.halo = halo;
+      // (round 1) the coast alone, thick and bright, flashes twice on the match
+      const cv2 = document.createElement('canvas'); cv2.width = 512; cv2.height = cv.height; const c2 = cv2.getContext('2d'); c2.clearRect(0, 0, 512, cv2.height);
+      c2.shadowColor = '#FFF6B0'; c2.shadowBlur = 18; drawStain(c2, 512, cv2.height, { u: 1, cx: lay.countryAt[0], cy: lay.countryAt[1], sc: (lay.sc ?? 1) * (lay.countrySc ?? 1), lw: 0.026 }, true, '#FFE23A');
+      const tx2 = new THREE.CanvasTexture(cv2); tx2.colorSpace = THREE.SRGBColorSpace;
+      const coast = new THREE.Mesh(new THREE.PlaneGeometry(W0 * 1.06, H0 * 1.06), new THREE.MeshBasicMaterial({ map: tx2, transparent: true, opacity: 0, depthWrite: false, fog: false, toneMapped: false }));
+      coast.renderOrder = 5; coast.position.z = 0.004; map.add(coast); map.userData.coast = coast;
     }
     const kicks = [].concat(o.hitAt ?? []);
     g.userData.update = t => {
@@ -230,7 +253,8 @@ export const TACHE_PROPS = {
       body.rotation.z = o.flat ? 0 : sw * 0.6; body.rotation.x = o.flat ? 0 : -lift * 0.35 - 0.02 * Math.sin(t * 1.7);
       for (const q of sleeves) q.sl.rotation.z = q.base + (o.flat ? 0 : q.sd * (0.04 * Math.sin(t * 3.1 + q.sd) + lift * 0.6));
       if (map) { const u = (t - o.mapAt) / (o.mapDur ?? 0.55); map.visible = u > 0; if (map.visible) { const e = easeOut(u); map.position.set(body.position.x, top - H0 / 2 + (1 - e) * H0 * 1.3, D0 / 2 + 0.02 + (1 - e) * 0.1);
-        map.rotation.set(body.rotation.x, 0, body.rotation.z * 0.5 + (1 - e) * 0.15); const pu = o.mapPulse != null ? (t - o.mapPulse) / 0.5 : -1; map.userData.halo.material.opacity = pu > 0 && pu < 1 ? 0.9 * (1 - pu) : 0; } }
+        map.rotation.set(body.rotation.x, 0, body.rotation.z * 0.5 + (1 - e) * 0.15); const pu = o.mapPulse != null ? (t - o.mapPulse) / 0.5 : -1; map.userData.halo.material.opacity = pu > 0 && pu < 1 ? 0.5 * (1 - pu) : 0;
+        const pc = o.mapPulse != null ? t - o.mapPulse : -1; map.userData.coast.material.opacity = pc > 0 && pc < 0.7 ? (pc < 0.15 || (pc > 0.27 && pc < 0.45) ? 1 : 0.15) : 0; } }
     };
     g.userData.update(-1); return g;
   },
@@ -253,13 +277,22 @@ export const TACHE_PROPS = {
     for (let i = 0; i < 6; i++) { const ix = i % 3, iz = Math.floor(i / 3), cw = W / 3, cd = D / 2, p = grp();
       p.add(at(box(cw * 0.98, Hh * 0.75, cd * 0.98, '#F2CF48', { outline: 0.003 }), 0, -Hh * 0.125, 0), at(box(cw * 0.98, Hh * 0.25, cd * 0.98, '#3E8E4A'), 0, Hh * 0.375, 0));
       p.position.set((ix - 1) * cw, 0, (iz - 0.5) * cd); ch.push({ p, p0: p.position.clone(), v: new THREE.Vector3((ix - 1) * 0.6 + (hsh(i) - 0.5) * 0.5, 0.3 + hsh(i + 4) * 0.5, (iz - 0.5) * 0.8), sp: [(hsh(i + 9) - 0.5) * 14, (hsh(i + 2) - 0.5) * 14] }); g.add(p); }
-    const q = new THREE.Quaternion(), down = new THREE.Vector3();
+    const q = new THREE.Quaternion(), down = new THREE.Vector3(), HANG = o.hang ?? 0.22, BURST = 0.07;
+    // (round 1) o.strokes [[t, d]...]: each scrub squashes the sponge flat (d 1) or stretches it long (d -1), with a quick wobble back; it swells just
+    // before it bursts; the chunks fly out fast, hang in the air (o.hang s, drifting and turning slowly), then drop
+    const strokes = (o.strokes || []).slice().sort((a, b) => a[0] - b[0]);
     g.userData.update = t => {
       const u = o.breakAt == null ? -1 : t - o.breakAt;
-      if (u <= 0) { ch.forEach(c => { c.p.position.copy(c.p0); c.p.rotation.set(0, 0, 0); c.p.visible = true; }); g.scale.setScalar(1); return; }
+      if (u <= 0) { ch.forEach(c => { c.p.position.copy(c.p0); c.p.rotation.set(0, 0, 0); c.p.visible = true; });
+        let sx = 1, sy = 1; for (const [ts, d] of strokes) { if (ts > t) break; const v = t - ts, a = Math.exp(-v * 14) * Math.cos(v * 30); sx = 1 + 0.45 * d * a; sy = 1 - 0.42 * d * a; }
+        if (u > -0.08 && o.breakAt != null) { const b = 1 + 0.35 * smooth((u + 0.08) / 0.08); sx = b; sy = b; }
+        g.scale.set(sx, sy, sx); return; }
+      g.scale.setScalar(1);
       g.updateWorldMatrix(true, false); g.getWorldQuaternion(q); q.invert(); const sc = new THREE.Vector3(); g.getWorldScale(sc);
       down.set(0, -1, 0).applyQuaternion(q).multiplyScalar(1 / Math.max(0.01, sc.x));
-      ch.forEach(c => { c.p.position.copy(c.p0).addScaledVector(c.v, u * 0.9).addScaledVector(down, 4.9 * u * u); c.p.rotation.set(c.sp[0] * u, 0, c.sp[1] * u); c.p.visible = u < 1.6; });
+      const ub = Math.min(u, BURST) / BURST, uh = clamp01((u - BURST) / HANG), uf = Math.max(0, u - BURST - HANG);
+      const fly = 0.22 * easeOut(ub) + 0.03 * uh + 0.6 * uf;
+      ch.forEach(c => { c.p.position.copy(c.p0).addScaledVector(c.v, fly * 1.6).addScaledVector(down, 4.9 * uf * uf + 0.004 * Math.sin(uh * PI)); const sp = 0.12 * ub + 0.05 * uh + uf; c.p.rotation.set(c.sp[0] * sp, 0, c.sp[1] * sp); c.p.visible = u < 1.6; });
     };
     g.userData.update(-1); return g;
   },
@@ -510,17 +543,50 @@ export const TACHE_PROPS = {
   // o.folded: legs against the board, standing on its square end (handed over); o.form: an official form clipped near the top
   tacheBoard(o) {
     const L = o.len ?? 1.4, Wb = o.w ?? 0.42, hb = o.h ?? 0.95, g = grp(), top = grp(); g.add(top);
-    const sh = new THREE.Shape(); sh.moveTo(-L / 2, -Wb / 2); sh.lineTo(L / 2 - 0.3, -Wb / 2); sh.quadraticCurveTo(L / 2, -Wb * 0.3, L / 2, 0); sh.quadraticCurveTo(L / 2, Wb * 0.3, L / 2 - 0.3, Wb / 2); sh.lineTo(-L / 2, Wb / 2); sh.lineTo(-L / 2, -Wb / 2);
+    // (round 1) a long pointed nose (it read as a plain panel), a chrome iron rest at the square end
+    const sh = new THREE.Shape(); sh.moveTo(-L / 2, -Wb / 2); sh.lineTo(L / 2 - 0.55, -Wb / 2); sh.quadraticCurveTo(L / 2 - 0.05, -Wb * 0.42, L / 2, -Wb * 0.06); sh.quadraticCurveTo(L / 2 + 0.01, 0, L / 2, Wb * 0.06); sh.quadraticCurveTo(L / 2 - 0.05, Wb * 0.42, L / 2 - 0.55, Wb / 2); sh.lineTo(-L / 2, Wb / 2); sh.lineTo(-L / 2, -Wb / 2);
     const geo = new THREE.ExtrudeGeometry(sh, { depth: 0.035, bevelEnabled: false }); geo.rotateX(-PI / 2);
     const cover = new THREE.Mesh(geo, mat(o.color || '#9CC6E2')); cover.castShadow = cover.receiveShadow = true; top.add(cover);
     const geo2 = new THREE.ExtrudeGeometry(sh, { depth: 0.012, bevelEnabled: false }); geo2.rotateX(-PI / 2); const trim = new THREE.Mesh(geo2, mat('#5E8FB0')); trim.scale.set(1.01, 1, 1.03); trim.position.y = -0.006; top.add(trim);
     if (o.form) { const f = canvasPlane(0.3, 0.4, (c, W, H) => { c.fillStyle = '#FBF8EE'; c.fillRect(0, 0, W, H); c.fillStyle = INK; c.textAlign = 'center'; c.textBaseline = 'middle'; let fs = W * 0.13; c.font = `900 ${fs}px Arial`; const t1 = 'ENTRETIEN', tw = c.measureText(t1).width; if (tw > W * 0.86) { fs *= W * 0.86 / tw; c.font = `900 ${fs}px Arial`; } c.fillText(t1, W / 2, H * 0.12);
         c.fillStyle = '#9AA3AE'; for (let i = 0; i < 7; i++) { c.fillRect(W * 0.12, H * (0.26 + i * 0.09), W * 0.5, H * 0.014); c.strokeStyle = '#6E757E'; c.lineWidth = W * 0.01; c.strokeRect(W * 0.72, H * (0.24 + i * 0.09), W * 0.06, W * 0.06); } }, { res: 256 });
       f.rotation.x = -PI / 2; f.rotation.z = 0.08; f.position.set(o.formX ?? 0.18, 0.04, 0); top.add(f); }
+    if (o.rest !== false) { const rc = '#B8BEC6'; top.add(rod([-L / 2, 0.02, -Wb * 0.36], [-L / 2 - 0.2, 0.02, -Wb * 0.3], 0.012, rc), rod([-L / 2, 0.02, Wb * 0.36], [-L / 2 - 0.2, 0.02, Wb * 0.3], 0.012, rc), rod([-L / 2 - 0.2, 0.02, -Wb * 0.3], [-L / 2 - 0.2, 0.02, Wb * 0.3], 0.012, rc));
+      top.add(at(box(0.16, 0.012, Wb * 0.5, '#8A9098', { outline: 0.003 }), -L / 2 - 0.1, 0.03, 0)); }
     const legs = grp(); g.add(legs);
-    if (o.folded) { for (const sd of [-1, 1]) legs.add(rod([-L * 0.3, -0.04, sd * 0.12], [L * 0.3, -0.04, sd * 0.12], 0.014, '#8A9098')); top.position.y = 0; }
+    if (o.folded) { for (const sd of [-1, 1]) legs.add(rod([-L * 0.38, -0.05, sd * 0.13], [L * 0.22, -0.05, -sd * 0.13], 0.02, '#6E757E')); legs.add(rod([L * 0.22, -0.05, -0.15], [L * 0.22, -0.05, 0.15], 0.022, '#2A2A2E'), rod([-L * 0.38, -0.05, -0.15], [-L * 0.38, -0.05, 0.15], 0.022, '#2A2A2E')); top.position.y = 0; }
     else { top.position.y = hb; for (const sd of [-1, 1]) { legs.add(rod([-L * 0.3, hb - 0.02, sd * 0.13], [L * 0.2, 0.0, sd * 0.13], 0.014, '#8A9098'), rod([L * 0.2, hb - 0.02, sd * 0.13], [-L * 0.3, 0.0, sd * 0.13], 0.014, '#8A9098')); }
       legs.add(rod([L * 0.2, 0.01, -0.15], [L * 0.2, 0.01, 0.15], 0.016, '#2A2A2E'), rod([-L * 0.3, 0.01, -0.15], [-L * 0.3, 0.01, 0.15], 0.016, '#2A2A2E')); }
+    return g;
+  },
+
+  // ---------------------------------------------------------------- (round 1) life in the white street: foam flakes drifting down through a box
+  // (o.w x o.h x o.d, from y 0 up) and drops of white foam dripping from a gutter line (o.drips: [[x, y, z] ...] in the prop's frame), all looping
+  tacheFoamDrift(o) {
+    const g = grp(), W = o.w ?? 6, Hh = o.h ?? 4, D = o.d ?? 3, n = o.n ?? 26, fl = [], dr = [];
+    for (let i = 0; i < n; i++) { const m = sphere(1, '#FBFCFE', 1, { unique: true }); m.castShadow = false; m.material.emissive = new THREE.Color('#5A6E8A'); m.material.emissiveIntensity = 0.35; g.add(m);
+      fl.push({ m, x: (hsh(i) - 0.5) * W, z: (hsh(i + 31) - 0.5) * D, ph: hsh(i + 7), v: 0.35 + 0.35 * hsh(i + 13), r: (o.size ?? 0.07) * (0.6 + 0.8 * hsh(i + 19)) }); }
+    for (const [j, p] of (o.drips || []).entries()) { const m = sphere(1, '#FBFCFE', 1, { unique: true }); m.castShadow = false; m.material.emissive = new THREE.Color('#5A6E8A'); m.material.emissiveIntensity = 0.35; g.add(m);
+      const b = sphere(1, '#FBFCFE', 1, { unique: true }); b.castShadow = false; g.add(b); dr.push({ m, b, p, ph: hsh(j + 3), per: 0.55 + 0.25 * hsh(j + 5) }); }
+    g.userData.update = t => {
+      for (const f of fl) { const y = Hh - ((f.ph * Hh + f.v * t) % Hh); f.m.position.set(f.x + 0.18 * Math.sin(t * 1.7 + f.ph * 9), y, f.z + 0.12 * Math.cos(t * 1.3 + f.ph * 7)); f.m.scale.set(f.r * 1.3, f.r * 0.8, f.r); f.m.rotation.z = t + f.ph * 6; }
+      for (const d of dr) { const u = ((t / d.per) + d.ph) % 1, fall = u < 0.45 ? 0 : (u - 0.45) / 0.55, sw = u < 0.45 ? smooth(u / 0.45) : 1;
+        d.b.position.set(d.p[0], d.p[1] - 0.03, d.p[2]); d.b.scale.set(0.06, 0.045, 0.06);
+        d.m.position.set(d.p[0], d.p[1] - 0.05 - 0.04 * sw - 5 * fall * fall * d.per * d.per, d.p[2]); const r = 0.025 + 0.025 * sw; d.m.scale.set(r, r * (1 + 1.2 * fall + 0.6 * sw), r); d.m.visible = d.m.position.y > (o.floor ?? -d.p[1]) + 0.02; }
+    };
+    g.userData.update(0); return g;
+  },
+  // ---------------------------------------------------------------- (round 1) the town hall's doorway (front +Z): a deep dark opening in a white stone
+  // frame, the MAIRIE plate above it in dark letters on white with a dark rim, o.w x o.h (the opening)
+  tacheDoorway(o) {
+    const w = o.w ?? 1.5, h = o.h ?? 2.6, g = grp(), st = o.stone || '#F4F6F8';
+    const hole = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: o.dark || '#161A22' })); hole.position.set(0, h / 2, 0.0); g.add(hole);
+    g.add(at(box(w + 0.02, 0.02, 0.5, '#0E1118'), 0, 0.01, -0.25), at(box(w * 0.48, h * 0.96, 0.04, '#232A36', { outline: 0.004 }), -w * 0.26, h * 0.48, -0.42));
+    for (const sd of [-1, 1]) g.add(at(box(0.22, h + 0.22, 0.16, st, { outline: 0.008 }), sd * (w / 2 + 0.11), (h + 0.22) / 2, 0.06));
+    g.add(at(box(w + 0.66, 0.24, 0.2, st, { outline: 0.008 }), 0, h + 0.12, 0.07));
+    const pw = o.plateW ?? w + 0.3, plate = canvasPlane(pw, 0.46, (c, W, H) => { c.fillStyle = '#FBFCFD'; c.fillRect(0, 0, W, H); c.strokeStyle = '#1E2633'; c.lineWidth = H * 0.12; c.strokeRect(H * 0.06, H * 0.06, W - H * 0.12, H - H * 0.12);
+      let fs = H * 0.62; c.font = `900 ${fs}px Arial`; const tw = c.measureText('MAIRIE').width; if (tw > W * 0.82) { fs *= W * 0.82 / tw; c.font = `900 ${fs}px Arial`; } c.fillStyle = '#1E2633'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('MAIRIE', W / 2, H * 0.55); }, { res: 512 });
+    plate.position.set(0, h + 0.5, 0.2); g.add(plate); g.add(at(box(pw + 0.06, 0.52, 0.03, '#1E2633'), 0, h + 0.5, 0.18));
     return g;
   },
 };
