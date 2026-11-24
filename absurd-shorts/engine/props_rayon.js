@@ -116,24 +116,31 @@ export const RAYON_PROPS = {
   // o.n rockets (props.js rocket, flame on) standing on the lawn at o.spots [[x, z], ...] (a 4 x 3 grid by default), scale o.s; rocket i lifts off at
   // o.t0 + o.order[i] * o.gap and climbs with acceleration o.acc; a puff of smoke swells at its foot and a scorch is left on the grass; (round 1)
   // o.clear [x0, x1]: no puff spreads into that strip of x (the garden path, kept clear for a close camera on the doorway)
+  // (round 2) o.times [t, ...]: explicit lift-off times (in place of t0 + order * gap); o.v0 (m/s): the speed at lift-off (a battery hidden behind the
+  // house comes over the roof already fast); o.trail: a white exhaust column from the ground up to each rocket's tail, its foot swelling with age
+  // o.hideAfter (s): the whole battery goes away at that time (the cut to a close camera that stands among its columns)
   rocketLawn(o) {
-    const g = grp(), s = o.s ?? 0.6, n = o.n ?? 12, acc = o.acc ?? 14, t0 = o.t0 ?? 0.3, gap = o.gap ?? 0.07;
+    const g = grp(), s = o.s ?? 0.6, n = o.n ?? 12, acc = o.acc ?? 14, t0 = o.t0 ?? 0.3, gap = o.gap ?? 0.07, v0 = o.v0 ?? 0;
+    const trailGeo = new THREE.CylinderGeometry(0.35, 1, 1, 10, 1, true).translate(0, 0.5, 0);
     const spots = o.spots || Array.from({ length: n }, (_, i) => [((i % 4) - 1.5) * 1.6, -Math.floor(i / 4) * 1.6]);
     const order = o.order || spots.map((_, i) => [3, 7, 0, 10, 5, 1, 9, 4, 11, 2, 8, 6][i % 12]);
     const items = spots.map(([x, z], i) => {
       const rk = buildProp('rocket', { flame: true }); rk.scale.setScalar(s); rk.position.set(x, 0, z); rk.rotation.y = hsh(i + 3) * TAU;
       const sc = at(new THREE.Mesh(new THREE.CircleGeometry(0.75 * s * 1.6, 14).rotateX(-PI / 2), mat('#4A4A3A')), x, 0.012, z); sc.receiveShadow = true; sc.visible = false;
-      const puffs = []; for (let j = 0; j < 6; j++) { const m = new THREE.Mesh(sphereGeo(2), cloudMat('#F2F0EA', '#B9C2CE')); m.scale.setScalar(0.4 * s * 1.6); m.userData.r0 = 0.4 * s * 1.6; m.castShadow = false; const a = j / 6 * TAU + i; puffs.push({ m, dx: Math.cos(a), dz: Math.sin(a) }); g.add(m); }
-      g.add(rk, sc); return { rk, sc, puffs, x, z, tl: t0 + order[i] * gap };
+      const puffs = []; for (let j = 0; j < (o.puffs === false ? 0 : 6); j++) { const m = new THREE.Mesh(sphereGeo(2), cloudMat('#F2F0EA', '#B9C2CE')); m.scale.setScalar(0.4 * s * 1.6); m.userData.r0 = 0.4 * s * 1.6; m.castShadow = false; const a = j / 6 * TAU + i; puffs.push({ m, dx: Math.cos(a), dz: Math.sin(a) }); g.add(m); }
+      let tr = null; if (o.trail) { tr = new THREE.Mesh(trailGeo, cloudMat('#F6F4EE', '#B9C2CE')); tr.castShadow = false; tr.position.set(x, 0, z); tr.visible = false; g.add(tr); }
+      g.add(rk, sc); return { rk, sc, puffs, tr, x, z, tl: o.times ? o.times[i % o.times.length] : t0 + order[i] * gap };
     });
     g.userData.update = t => {
       for (const it of items) {
-        const u = t - it.tl, up = u > 0 ? 0.5 * acc * u * u : 0; it.rk.position.y = up; it.rk.visible = up < (o.ceiling ?? 60);
+        const u = t - it.tl, up = u > 0 ? v0 * u + 0.5 * acc * u * u : 0; it.rk.position.y = up; it.rk.visible = up < (o.ceiling ?? 60);
+        if (it.tr) { const top = Math.min(up, o.ceiling ?? 60) + 0.25 * s, rr = s * (0.32 + 0.5 * easeOut(Math.min(1, u / 1.2))); it.tr.visible = u > 0.02 && top > 0.3; it.tr.scale.set(rr, Math.max(0.01, top), rr); }
         it.rk.rotation.z = u > 0 ? 0.04 * Math.sin(u * 30 + it.x) * Math.min(1, u * 3) : 0;
         it.rk.traverse(c => { if (c.userData.update && c !== it.rk) c.userData.update(t); }); if (it.rk.userData.update) it.rk.userData.update(t);
         it.rk.children.forEach(c => { if (c.isGroup && c.position.y === 0.2) c.visible = u > -0.15; });   // the flame lights just before lift-off
         it.sc.visible = u > 0.05;
-        it.puffs.forEach((p, j) => { const v = clamp01((u + 0.1) / 1.4), r = 0.3 + 1.6 * easeOut(v); p.m.visible = u > -0.1; let px = it.x + p.dx * r * s * 1.4; if (o.clear && px > o.clear[0] && px < o.clear[1]) px = it.x < (o.clear[0] + o.clear[1]) / 2 ? o.clear[0] : o.clear[1]; p.m.position.set(px, 0.25 * s + 0.35 * v * (1 + (j % 2)), it.z + p.dz * r * s * 1.4); p.m.scale.setScalar(p.m.userData.r0 * (0.4 + 1.3 * easeOut(v))); });   // (stills 1) soft cloud puffs: faceted spheres read as white boulders
+        it.puffs.forEach((p, j) => { const v = clamp01((u + 0.1) / 1.4), r = 0.3 + 1.6 * easeOut(v); p.m.visible = u > -0.1 && !(o.hideAfter != null && t >= o.hideAfter); let px = it.x + p.dx * r * s * 1.4; if (o.clear && px > o.clear[0] && px < o.clear[1]) px = it.x < (o.clear[0] + o.clear[1]) / 2 ? o.clear[0] : o.clear[1]; p.m.position.set(px, 0.25 * s + 0.35 * v * (1 + (j % 2)), it.z + p.dz * r * s * 1.4); p.m.scale.setScalar(p.m.userData.r0 * (0.4 + 1.3 * easeOut(v))); });   // (stills 1) soft cloud puffs: faceted spheres read as white boulders
+        if (o.hideAfter != null && t >= o.hideAfter) { it.rk.visible = it.sc.visible = false; if (it.tr) it.tr.visible = false; }
       }
     };
     g.userData.update(-1); return g;
@@ -150,12 +157,19 @@ export const RAYON_PROPS = {
       p.position.set((i - 1) * 1.1, (r() - 0.5) * 0.6, (r() - 0.5) * 0.8); p.rotation.set(r() * 0.8, r() * TAU, (r() - 0.5) * 1.2); parts.push({ m: p, w: [r() - 0.5, r() - 0.5, r() - 0.5].map(v => v * 0.9) }); g.add(p);
     }
     for (let i = 0; i < (o.loose ?? 7); i++) { const tm = tomato(0.08 + r() * 0.04); tm.position.set((r() - 0.5) * 4, (r() - 0.5) * 2, (r() - 0.5) * 2); parts.push({ m: tm, w: [r() - 0.5, r() - 0.5, r() - 0.5].map(v => v * 2) }); g.add(tm); }
-    const can = grp(at(cyl(0.14, 0.16, 0.26, '#2F8A6A', 10, { outline: 0.01 }), 0, 0, 0), rod([0.12, -0.05, 0], [0.38, 0.14, 0], 0.02, '#2F8A6A'), at(cyl(0.05, 0.03, 0.06, '#2F8A6A', 8), 0.4, 0.16, 0, 0, 0, -0.9));
-    can.position.set(1.7, 0.7, 0.4); parts.push({ m: can, w: [0.4, 0.9, -0.3] }); g.add(can);
+    // (round 2) the watering can reads by its silhouette: a body, an arched handle over the top, a long thin spout and a wide pale rose at its end (a
+    // cylinder with a stub read as a green block)
+    const CC = '#3DA37C', can = grp(at(cyl(0.15, 0.17, 0.3, CC, 12, { outline: 0.012 }), 0, 0, 0), at(cyl(0.1, 0.15, 0.03, '#2F8A6A', 12), 0, 0.16, 0));
+    { const hd = new THREE.Mesh(new THREE.TorusGeometry(0.12, 0.022, 6, 14, PI), mat(CC)); hd.position.set(-0.02, 0.15, 0); addOutline(hd, 0.1); can.add(hd);
+      const a = [0.13, -0.09, 0], b = [0.5, 0.24, 0], dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy), ux = dx / L, uy = dy / L;
+      can.add(rod(a, b, 0.024, CC, 6), at(cyl(0.085, 0.028, 0.08, '#C9CDD3', 10, { outline: 0.01 }), b[0] + ux * 0.035, b[1] + uy * 0.035, 0, 0, 0, -Math.atan2(ux, uy)),
+        at(cyl(0.083, 0.083, 0.006, '#7E858C', 10), b[0] + ux * 0.077, b[1] + uy * 0.077, 0, 0, 0, -Math.atan2(ux, uy))); }
+    can.scale.setScalar(o.canScale ?? 1);
+    can.position.set(1.7, 0.7, 0.4); parts.push({ m: can, w: o.canSpin || [0.4, 0.9, -0.3], can: true }); g.add(can);
     const base = parts.map(p => p.m.rotation.clone());
     // (round 1) o.flow [vx, vy, vz] (m/s): every piece drifts past on its own gentle arc (o.box [w, h, d]: where they start, spread out along the
     // flow so they cross the frame one after another), spinning o.tumble times faster; without o.flow the patch turns as one clump (o.spin)
-    if (o.flow) { const B = o.box || [4, 1.6, 2.4], r2 = rng((o.seed || 9) + 1); parts.forEach((p, i) => { p.p0 = [(r2() - 0.2) * B[0], (r2() - 0.5) * B[1], (r2() - 0.5) * B[2]]; p.ph = r2() * TAU; p.arc = 0.15 + 0.25 * r2(); p.m.position.set(...p.p0); }); }
+    if (o.flow) { const B = o.box || [4, 1.6, 2.4], r2 = rng((o.seed || 9) + 1); parts.forEach((p, i) => { p.p0 = [(r2() - 0.2) * B[0], (r2() - 0.5) * B[1], (r2() - 0.5) * B[2]]; if (p.can && o.canAt) p.p0 = o.canAt.slice(); p.ph = r2() * TAU; p.arc = 0.15 + 0.25 * r2(); p.m.position.set(...p.p0); }); }
     const tb = o.tumble ?? 1;
     g.userData.update = t => { parts.forEach((p, i) => { p.m.rotation.set(base[i].x + p.w[0] * t * tb, base[i].y + p.w[1] * t * tb, base[i].z + p.w[2] * t * tb);
       if (o.flow) p.m.position.set(p.p0[0] + o.flow[0] * t, p.p0[1] + o.flow[1] * t + p.arc * Math.sin(t * 1.6 + p.ph), p.p0[2] + o.flow[2] * t + 0.3 * p.arc * Math.cos(t * 1.6 + p.ph)); });
@@ -172,8 +186,12 @@ export const RAYON_PROPS = {
     for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.ConeGeometry(R, H, 1, 1, true, i * TAU / n, TAU / n), mat(cols[i % cols.length], { doubleSide: true })); m.position.y = -H / 2; can.add(m); }
     for (let i = 0; i < n; i++) { const a = i * TAU / n; can.add(rod([0, 0, 0], [Math.sin(a) * R, -H, Math.cos(a) * R], R * 0.006, '#9AA0A6', 4)); }
     can.add(at(new THREE.Mesh(new THREE.TorusGeometry(R, R * 0.008, 4, 48).rotateX(PI / 2), mat('#9AA0A6')), 0, -H, 0));
-    g.add(at(cyl(R * 0.012, R * 0.012, R * 1.2, '#C9CDD3', 8, { pivot: 'top' }), 0, 0, 0), at(sphere(R * 0.04, '#C9CDD3', 1), 0, 0.02 * R, 0));
-    g.add(at(box(R * 0.12, R * 0.08, R * 0.12, '#D9B44A', { outline: 0.01 }), 0, -R * 1.2, 0));   // the service module at the foot of the pole
+    // (round 2) o.pole (in radii, 1.2), o.poleR (0.012), o.handle: a crook handle at the foot of the pole instead of the service module, so that the
+    // parasol, tilted toward the lens, reads as a parasol (face on it read as a peppermint)
+    const PL = R * (o.pole ?? 1.2), PR = R * (o.poleR ?? 0.012);
+    g.add(at(cyl(PR, PR, PL, o.poleColor || '#C9CDD3', 8, { pivot: 'top', outline: o.handle ? 0.01 : 0 }), 0, 0, 0), at(sphere(R * 0.04, '#C9CDD3', 1), 0, 0.02 * R, 0));
+    if (o.handle) { const hr = R * 0.12, hk = new THREE.Mesh(new THREE.TorusGeometry(hr, PR * 1.5, 6, 18, PI), mat(o.handleColor || '#7A4A2A')); hk.position.set(hr - PR * 0.3, -PL, 0); hk.rotation.z = PI; addOutline(hk, 0.06); g.add(hk, at(cyl(PR * 1.6, PR * 1.6, R * 0.25, o.handleColor || '#7A4A2A', 8, { pivot: 'top', outline: 0.01 }), 0, -PL + R * 0.25, 0)); }
+    else g.add(at(box(R * 0.12, R * 0.08, R * 0.12, '#D9B44A', { outline: 0.01 }), 0, -PL, 0));   // the service module at the foot of the pole
     const set = op => { can.scale.set(0.05 + 0.95 * op, 1 + (1 - op) * 3.2, 0.05 + 0.95 * op); };
     set(o.open ?? 0);
     g.userData.update = t => {
@@ -228,10 +246,22 @@ export const RAYON_PROPS = {
       const face = grp(); face.add(at(cyl(0.13, 0.13, 0.05, '#5A3A1E', 12, { outline: 0.008 }), 0, 0, 0, PI / 2, 0, 0));
       for (let p = 0; p < 12; p++) { const a = p * TAU / 12; face.add(at(box(0.07, 0.15, 0.02, '#F2C21E', { taper: { x: 0.4, z: 1 } }), Math.sin(a) * 0.2, Math.cos(a) * 0.2, -0.005, 0, 0, -a)); }
       face.position.set(0, 0.06, 0.05); hd.add(face);
-      heads.push({ hd, d: j * (o.wave ?? 0.12) + r() * 0.08 }); g.add(s);
+      hd.rotation.order = 'YXZ'; heads.push({ hd, d: j * (o.wave ?? 0.12) + r() * 0.08, i, j }); g.add(s);
     }
     const up = o.up ?? -0.45, down = o.down ?? 1.7;
-    g.userData.update = t => { for (const it of heads) { const u = o.droopAt == null ? 0 : clamp01((t - o.droopAt - it.d) / 0.45), e = u < 1 ? smooth(u) * 1.08 : 1; it.hd.rotation.x = up + (down - up) * e - (u >= 1 ? 0 : 0); } };
+    // (round 2) o.fall (s): the swing down, past the rest pose by o.sag, then a damped bob back (follow-through); o.straggler [col, row]: that head
+    // hangs on, turns left and right (from o.lookAt) and drops late at o.dropAt with a bigger sag
+    const fall = o.fall ?? 0.3, sag = o.sag ?? 0.2;
+    const curve = (d, sg) => d <= 0 ? 0 : d < fall ? smooth(d / fall) * (1 + sg) : 1 + sg * Math.exp(-(d - fall) * 6) * (Math.cos((d - fall) * 13) + 6 / 13 * Math.sin((d - fall) * 13));
+    const SG = o.straggler;
+    g.userData.update = t => { for (const it of heads) {
+      if (o.droopAt == null) { it.hd.rotation.x = up; continue; }
+      const late = SG && it.i === SG[0] && it.j === SG[1];
+      if (!late) { it.hd.rotation.x = up + (down - up) * curve(t - o.droopAt - it.d, sag); continue; }
+      const la = o.lookAt ?? 0.8, da = o.dropAt ?? 1.3, w = clamp01((t - la) / Math.max(0.1, da - 0.08 - la));
+      it.hd.rotation.y = t > la && t < da ? 0.62 * Math.sin(w * TAU) * Math.sin(w * PI) ** 0.4 : 0;
+      it.hd.rotation.x = up - 0.12 * smooth((t - la) / 0.2) * (t < da ? 1 : 0) + (down - up + 0.12) * curve(t - da, sag * 1.5) + (t >= da ? -0.12 * Math.max(0, 1 - (t - da) / 0.05) : 0);
+    } };
     g.userData.update(-1); return g;
   },
   // a solar panel laid off: the panel on two little legs with shoes, two thin arms holding a cardboard sign (o.sign); o.walk: the legs step and the
@@ -370,9 +400,13 @@ export const RAYON_PROPS = {
   // (props_interrupteur torchBeam, flat, unlit glow), o.beamR its spread
   handTorch(o) {
     const g = grp(at(cyl(0.035, 0.035, 0.2, '#22252B', 8, { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(cyl(0.055, 0.04, 0.08, o.color || '#E8B830', 10, { pivot: 'bottom', outline: 0.008 }), 0, 0.2, 0),
-      at(cyl(0.05, 0.05, 0.006, '#FFF6D0', 10, { emissive: '#FFF0B0', noGrain: true }), 0, 0.283, 0));
-    if (o.beam) { const b = buildProp('torchBeam', { len: o.beam, r: o.beamR ?? 0.6, flat: true, opacity: o.beamOp ?? 0.7 }); b.position.y = 0.28; g.add(b); if (o.face) b.rotation.y = o.face; }
-    if (o.glow !== false) g.add(at(glowSprite('#FFF0B0', o.glowS ?? 0.5, 0.9), 0, 0.3, 0));
+      at(cyl(0.05, 0.05, 0.006, '#4A4636', 10), 0, 0.281, 0));
+    const lens = at(cyl(0.05, 0.05, 0.006, '#FFF6D0', 10, { emissive: '#FFF0B0', noGrain: true }), 0, 0.284, 0); g.add(lens);
+    let beam = null, glow = null;
+    if (o.beam) { beam = buildProp('torchBeam', { len: o.beam, r: o.beamR ?? 0.6, flat: true, opacity: o.beamOp ?? 0.7 }); beam.position.y = 0.28; g.add(beam); if (o.face) beam.rotation.y = o.face; }
+    if (o.glow !== false) { glow = at(glowSprite('#FFF0B0', o.glowS ?? 0.5, 0.9), 0, 0.3, 0); g.add(glow); }
+    // (round 2) o.sputter [t0, t1]: between those times the torch sputters (the beam, the glow and the lens go out on most frames)
+    if (o.sputter) { const [a0, a1] = o.sputter; g.userData.update = t => { const on = !(t > a0 && t < a1) || hsh(Math.floor(t * 30) + 17) > 0.62; lens.visible = on; if (beam) beam.visible = on; if (glow) glow.visible = on; }; g.userData.update(-1); }
     return g;
   },
   // torches under arrest on a car bonnet: o.n torches lying side by side along x, each with its handcuffs closed on its body, their beams sideways
@@ -415,8 +449,9 @@ export const RAYON_PROPS = {
   pressScreen(o) {
     const W = o.w ?? 2.2, H = W * 0.6, g = grp();
     const scr = canvasPlane(W, H, (c, Wc, Hc) => { c.fillStyle = '#5E6670'; c.fillRect(0, 0, Wc, Hc); drawCountry(c, Wc * 0.5, Hc * 0.6, Hc * 0.3, '#8C9096', '#3E434A');
-      c.fillStyle = '#2E8A4A'; c.fillRect(0, 0, Wc, Hc * 0.22); c.fillStyle = '#F4F1E8'; c.font = `900 ${Hc * 0.13}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || 'MISSION RÉUSSIE', Wc * 0.47, Hc * 0.12);
-      c.strokeStyle = '#F4F1E8'; c.lineWidth = Hc * 0.035; c.lineCap = 'round'; c.beginPath(); c.moveTo(Wc * 0.86, Hc * 0.12); c.lineTo(Wc * 0.89, Hc * 0.16); c.lineTo(Wc * 0.95, Hc * 0.06); c.stroke(); }, { res: 768, emissive: 0.55 });
+      const BH = o.bannerH ?? 0.22, txt = o.text || 'MISSION RÉUSSIE'; let fs = Hc * BH * 0.6; c.font = `900 ${fs}px Arial`; const TW = o.textW ?? 0.74, TX = o.textX ?? 0.44; const tw = c.measureText(txt).width; if (tw > Wc * TW) { fs *= Wc * TW / tw; c.font = `900 ${fs}px Arial`; }
+      c.fillStyle = o.bannerColor || '#2E8A4A'; c.fillRect(0, 0, Wc, Hc * BH); c.fillStyle = '#F4F1E8'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(txt, Wc * TX, Hc * BH * 0.54);
+      const cx = Wc * (o.tickX ?? 0.9), cy = Hc * BH * 0.5, k = Hc * BH * (o.tickK ?? 0.28); if (o.tick === false) return; c.strokeStyle = '#F4F1E8'; c.lineWidth = Hc * BH * 0.14; c.lineCap = 'round'; c.lineJoin = 'round'; c.beginPath(); c.moveTo(cx - k, cy); c.lineTo(cx - k * 0.35, cy + k * 0.65); c.lineTo(cx + k, cy - k * 0.8); c.stroke(); }, { res: 768, emissive: 0.55 });
     g.add(at(box(W + 0.12, H + 0.12, 0.08, '#24272D', { outline: 0.008 }), 0, (o.y ?? 1.9), -0.05), at(scr, 0, (o.y ?? 1.9), 0.0));
     if (o.stand !== false) g.add(at(box(0.1, (o.y ?? 1.9) - H / 2, 0.1, '#24272D', { pivot: 'bottom' }), 0, 0, -0.1), at(box(0.9, 0.05, 0.6, '#24272D', { pivot: 'bottom' }), 0, 0, -0.1));
     return g;
@@ -479,6 +514,38 @@ export const RAYON_PROPS = {
         p.m.scale.setScalar(p.s * (0.4 + 1.6 * e)); p.m.material.opacity = (o.dustOp ?? 0.8) * Math.min(1, v * 8) * (v < 0.55 ? 1 : 1 - (v - 0.55) / 0.45); }
     };
     g.userData.update(-1); return g;
+  },
+  // (round 2) the light of each launch on a wall: a warm soft additive plane (o.w x o.h, facing +Z) that flashes at each time of o.at and dies in
+  // about 0.3 s, with a little flutter; drawn behind whoever stands in front of it (depth tested)
+  wallFlicker(o) {
+    const g = grp(), m = new THREE.Mesh(new THREE.PlaneGeometry(o.w ?? 4, o.h ?? 3), addMat(o.color || '#FFC870', 0, softTex('radial'))); m.renderOrder = 6; g.add(m);
+    const ts = o.at || [];
+    g.userData.update = t => { let v = 0; for (const a of ts) { const d = t - a; if (d >= 0 && d < 0.45) v = Math.max(v, Math.exp(-d * 8) * (0.8 + 0.2 * Math.sin(d * 70))); } m.material.opacity = (o.op ?? 0.45) * v; m.visible = v > 0.01; };
+    g.userData.update(-1); return g;
+  },
+  // (round 2) one clean line of lettering on a wall (o.text, fitted by measure to o.w x o.h), on a plate of o.bg (the press room's backdrop)
+  wallTitle(o) {
+    const W = o.w ?? 1.6, H = o.h ?? 0.3;
+    const p = canvasPlane(W, H, (c, Wc, Hc) => { c.fillStyle = o.bg || '#2E4563'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = o.fg || '#EDEFF2'; c.textAlign = 'center'; c.textBaseline = 'middle';
+      const txt = o.text || 'AGENCE SPATIALE', TW = o.tick ? 0.76 : 0.92, TX = o.tick ? 0.44 : 0.5; let fs = Hc * 0.62; c.font = `900 ${fs}px Arial`; const tw = c.measureText(txt).width; if (tw > Wc * TW) { fs *= Wc * TW / tw; c.font = `900 ${fs}px Arial`; } c.fillText(txt, Wc * TX, Hc * 0.54);
+      if (o.tick) { const cx = Wc * 0.9, cy = Hc * 0.5, k = Hc * 0.26; c.strokeStyle = o.fg || '#EDEFF2'; c.lineWidth = Hc * 0.11; c.lineCap = 'round'; c.lineJoin = 'round'; c.beginPath(); c.moveTo(cx - k, cy); c.lineTo(cx - k * 0.35, cy + k * 0.65); c.lineTo(cx + k, cy - k * 0.8); c.stroke(); }
+      if (o.rule !== false) { c.fillStyle = o.ruleColor || '#E3B33A'; c.fillRect(Wc * 0.2, Hc * 0.9, Wc * 0.6, Hc * 0.05); } }, { res: 768, emissive: o.emit ?? 0.2 });
+    return grp(p);
+  },
+  // (round 2) a picnic cooler to sit on (o.w x o.h x o.d, o.color), a white lid and a handle; pivot on the ground
+  cooler(o) {
+    const W = o.w ?? 0.5, H = o.h ?? 0.34, D = o.d ?? 0.36, c = o.color || '#2E7FC0';
+    return grp(at(box(W, H - 0.06, D, c, { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(box(W + 0.02, 0.06, D + 0.02, '#F4F1E8', { pivot: 'bottom', outline: 0.008 }), 0, H - 0.06, 0),
+      at(box(0.05, 0.05, D * 0.8, '#3A3D44'), -W / 2 - 0.02, H * 0.6, 0), at(box(0.05, 0.05, D * 0.8, '#3A3D44'), W / 2 + 0.02, H * 0.6, 0));
+  },
+  // (round 2) the aerial suburb drawn smooth-shaded: far, sub-pixel flat-shaded triangles of the instanced houses and trees gave scattered white
+  // specks (a zero face normal), which stayed white under the grey shade; an empty prop that, once, gives each instanced mesh of the scene its own
+  // smooth-shaded copy of its material (the shared cached materials are not touched)
+  smoothFar(o) {
+    const g = grp(); let done = false;
+    g.userData.update = () => { if (done) return; let rt = g; while (rt.parent) rt = rt.parent; if (rt === g) return; done = true;
+      rt.traverse(c => { if (c.isInstancedMesh && c.material && !Array.isArray(c.material) && c.material.flatShading) { const m = c.material.clone(); m.flatShading = false; m.needsUpdate = true; c.material = m; } }); };
+    return g;
   },
   // (round 1) a contact spark: at o.at a white-hot star (o.n spikes) and a glow pop out to size o.s, then shrink away in o.dur (0.22 s)
   hitSpark(o) {

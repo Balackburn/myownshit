@@ -2071,3 +2071,20 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 50) Menottes sur des objets couchés face à l'objectif : on ne voit que des lentilles ; les mettre debout pour que les anneaux se lisent.
 - (cycle 50) Les clips à main levée (`podium`) peuvent cacher le visage pendant un étirement : fixer les deux mains avec reach.
 - (cycle 50) Personnage face à +Z : vérifier gauche et droite avec `right(ry)` ; les mains d'un reach dans une porte étaient inversées.
+- (cycle 50) Caméra basse sur une foule d'accessoires hauts identiques : ils s'empilent à l'écran ; décaler les départs (rangs du fond d'abord)
+  pour qu'ils se séparent en montant.
+- (cycle 50) Caméra basse près d'une maison : le toit se voit à peine, ce qui passe derrière apparaît au-dessus de l'avant-toit ; mesurer sur
+  des images fixes plutôt que calculer.
+- (cycle 50) Points blancs isolés sur un décor aérien instancié lointain : ombrage plat de triangles sous-pixel ; donner à ces maillages une
+  copie de matériau lissé.
+- (cycle 50) Le moteur pilote la visibilité de la racine de chaque accessoire : pour en cacher une partie en cours de plan, agir sur ses
+  enfants, jamais sur `g.visible`.
+- (cycle 50) Parasol vu dans l'axe : son mât ne se voit que si L·sin(inclinaison) > R·cos(inclinaison) ; allonger le mât ou incliner au-delà
+  d'environ 25°.
+- (cycle 50) Voisins qui écrasent le héros : à côté et un peu derrière, penchés de 0,3 au plus, sans chapeau, sinon leurs têtes cachent son
+  visage.
+- (cycle 50) Texte ajusté à une bannière d'écran étroite = plus petit ; pour grossir un mot, lui donner sa propre plaque murale.
+- (cycle 50) Tournesol penché vu à hauteur de tête : on voit son dos ; vu d'en dessous : un disque plat ; aucun des deux ne se lit comme un visage.
+- (cycle 50) Secouer ou lever une lampe tenue : animer l'accessoire par clés aux mêmes instants et courbes que le reach de la main.
+- (cycle 50) Une image de traînée d'environ 0,035 s avant une prise ne se voit qu'à 30 i/s : la vérifier sur le rendu final, pas sur le
+  brouillon à 15 i/s.
