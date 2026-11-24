@@ -3068,3 +3068,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 21 h 56 — « Le stylo » (92) rendu final prêt dans sa session (34,2 s, −16,1 LUFS, sans creux ; revues 5,0/7,2 → 6,3/7,4 → 7,0/7,5, passe
   finale, brouillon de contrôle) mais NON publié : la permission automatique de la session refuse la publication Postiz et le commit du
   projet HyperFrames. Pas de contournement ; l'utilisateur doit l'autoriser dans cette session. Leçons ajoutées au skill.
+- 23 h 05 — « La tache » (93), produite ici à la place de la session 89 bloquée : voix calée (35,6 s), mise en scène, brouillon 1 (aucun
+  figement, aucun creux). Revue 1 : animation 5,8, direction artistique 6,8. Points : aucune déformation des personnages, main du salut qui
+  traverse la tête des gardes, carte du pays cachée par les agents (S10), blanc sur blanc trop terne (S08), bras cassé dans la pose finale.
+  Corrections lancées.
