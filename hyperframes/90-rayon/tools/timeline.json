@@ -1,0 +1,909 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec avait le soleil dans les yeux.",
+   "hl": [
+    "soleil",
+    "yeux."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.026,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.544
+    },
+    {
+     "w": "avait",
+     "s": 0.619,
+     "e": 0.767
+    },
+    {
+     "w": "le",
+     "s": 0.841,
+     "e": 0.915
+    },
+    {
+     "w": "soleil",
+     "s": 0.989,
+     "e": 1.285
+    },
+    {
+     "w": "dans",
+     "s": 1.31,
+     "e": 1.359
+    },
+    {
+     "w": "les",
+     "s": 1.433,
+     "e": 1.507
+    },
+    {
+     "w": "yeux.",
+     "s": 1.581,
+     "e": 2.026
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "L'agence spatiale a réuni trois cents savants.",
+   "hl": [
+    "L'agence",
+    "spatiale"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L02.k.wav",
+   "file_start": 2.126,
+   "speech_start": 2.126,
+   "speech_end": 4.496,
+   "words": [
+    {
+     "w": "L'agence",
+     "s": 2.126,
+     "e": 2.422
+    },
+    {
+     "w": "spatiale",
+     "s": 2.496,
+     "e": 2.941
+    },
+    {
+     "w": "a",
+     "s": 3.015,
+     "e": 3.089
+    },
+    {
+     "w": "réuni",
+     "s": 3.163,
+     "e": 3.459
+    },
+    {
+     "w": "trois",
+     "s": 3.533,
+     "e": 3.681
+    },
+    {
+     "w": "cents",
+     "s": 3.756,
+     "e": 3.904
+    },
+    {
+     "w": "savants.",
+     "s": 4.015,
+     "e": 4.496
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Solution retenue : un parasol dans l'espace.",
+   "hl": [
+    "Solution",
+    "l'espace."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L03.k.wav",
+   "file_start": 4.596,
+   "speech_start": 4.596,
+   "speech_end": 7.263,
+   "words": [
+    {
+     "w": "Solution",
+     "s": 4.596,
+     "e": 4.967
+    },
+    {
+     "w": "retenue:",
+     "s": 5.041,
+     "e": 5.732
+    },
+    {
+     "w": "un",
+     "s": 5.756,
+     "e": 5.781
+    },
+    {
+     "w": "parasol",
+     "s": 5.856,
+     "e": 6.3
+    },
+    {
+     "w": "dans",
+     "s": 6.337,
+     "e": 6.411
+    },
+    {
+     "w": "l'espace.",
+     "s": 6.448,
+     "e": 7.263
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Douze fusées ont décollé de son jardin.",
+   "hl": [
+    "fusées",
+    "décollé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L04.k.wav",
+   "file_start": 7.363,
+   "speech_start": 7.363,
+   "speech_end": 9.44,
+   "words": [
+    {
+     "w": "Douze",
+     "s": 7.363,
+     "e": 7.659
+    },
+    {
+     "w": "fusées",
+     "s": 7.696,
+     "e": 8.03
+    },
+    {
+     "w": "ont",
+     "s": 8.104,
+     "e": 8.178
+    },
+    {
+     "w": "décollé",
+     "s": 8.252,
+     "e": 8.474
+    },
+    {
+     "w": "de",
+     "s": 8.548,
+     "e": 8.622
+    },
+    {
+     "w": "son",
+     "s": 8.696,
+     "e": 8.77
+    },
+    {
+     "w": "jardin.",
+     "s": 8.807,
+     "e": 9.437
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Ses tomates tournent autour de la Terre.",
+   "hl": [
+    "tomates",
+    "tournent"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L05.k.wav",
+   "file_start": 9.54,
+   "speech_start": 9.54,
+   "speech_end": 11.54,
+   "words": [
+    {
+     "w": "Ses",
+     "s": 9.54,
+     "e": 9.688
+    },
+    {
+     "w": "tomates",
+     "s": 9.762,
+     "e": 10.207
+    },
+    {
+     "w": "tournent",
+     "s": 10.244,
+     "e": 10.429
+    },
+    {
+     "w": "autour",
+     "s": 10.503,
+     "e": 10.651
+    },
+    {
+     "w": "de",
+     "s": 10.688,
+     "e": 10.725
+    },
+    {
+     "w": "la",
+     "s": 10.799,
+     "e": 10.873
+    },
+    {
+     "w": "Terre.",
+     "s": 10.984,
+     "e": 11.54
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Le parasol fait la taille du pays.",
+   "hl": [
+    "parasol",
+    "taille"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L06.k.wav",
+   "file_start": 11.64,
+   "speech_start": 11.64,
+   "speech_end": 13.418,
+   "words": [
+    {
+     "w": "Le",
+     "s": 11.64,
+     "e": 11.714
+    },
+    {
+     "w": "parasol",
+     "s": 11.788,
+     "e": 12.232
+    },
+    {
+     "w": "fait",
+     "s": 12.307,
+     "e": 12.381
+    },
+    {
+     "w": "la",
+     "s": 12.455,
+     "e": 12.529
+    },
+    {
+     "w": "taille",
+     "s": 12.603,
+     "e": 12.751
+    },
+    {
+     "w": "du",
+     "s": 12.825,
+     "e": 12.899
+    },
+    {
+     "w": "pays.",
+     "s": 12.936,
+     "e": 13.418
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "En s'ouvrant, il a fauché trois satellites.",
+   "hl": [
+    "s'ouvrant,",
+    "satellites."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L07.k.wav",
+   "file_start": 13.518,
+   "speech_start": 13.518,
+   "speech_end": 15.814,
+   "words": [
+    {
+     "w": "En",
+     "s": 13.518,
+     "e": 13.666
+    },
+    {
+     "w": "s'ouvrant,",
+     "s": 13.703,
+     "e": 14.258
+    },
+    {
+     "w": "il",
+     "s": 14.295,
+     "e": 14.332
+    },
+    {
+     "w": "a",
+     "s": 14.37,
+     "e": 14.407
+    },
+    {
+     "w": "fauché",
+     "s": 14.481,
+     "e": 14.777
+    },
+    {
+     "w": "trois",
+     "s": 14.851,
+     "e": 14.999
+    },
+    {
+     "w": "satellites.",
+     "s": 15.073,
+     "e": 15.814
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Tout le pays est devenu gris.",
+   "hl": [
+    "pays",
+    "devenu"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L08.k.wav",
+   "file_start": 15.914,
+   "speech_start": 15.914,
+   "speech_end": 17.618,
+   "words": [
+    {
+     "w": "Tout",
+     "s": 15.914,
+     "e": 16.062
+    },
+    {
+     "w": "le",
+     "s": 16.136,
+     "e": 16.21
+    },
+    {
+     "w": "pays",
+     "s": 16.247,
+     "e": 16.507
+    },
+    {
+     "w": "est",
+     "s": 16.581,
+     "e": 16.655
+    },
+    {
+     "w": "devenu",
+     "s": 16.729,
+     "e": 16.951
+    },
+    {
+     "w": "gris.",
+     "s": 17.025,
+     "e": 17.618
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Les tournesols ont baissé la tête.",
+   "hl": [
+    "tournesols",
+    "baissé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L09.k.wav",
+   "file_start": 17.718,
+   "speech_start": 17.718,
+   "speech_end": 19.495,
+   "words": [
+    {
+     "w": "Les",
+     "s": 17.718,
+     "e": 17.866
+    },
+    {
+     "w": "tournesols",
+     "s": 17.915,
+     "e": 18.31
+    },
+    {
+     "w": "ont",
+     "s": 18.384,
+     "e": 18.458
+    },
+    {
+     "w": "baissé",
+     "s": 18.495,
+     "e": 18.718
+    },
+    {
+     "w": "la",
+     "s": 18.755,
+     "e": 18.829
+    },
+    {
+     "w": "tête.",
+     "s": 18.903,
+     "e": 19.495
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Les panneaux solaires ont été mis au chômage.",
+   "hl": [
+    "panneaux",
+    "solaires"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L10.k.wav",
+   "file_start": 19.595,
+   "speech_start": 19.595,
+   "speech_end": 21.67,
+   "words": [
+    {
+     "w": "Les",
+     "s": 19.595,
+     "e": 19.744
+    },
+    {
+     "w": "panneaux",
+     "s": 19.818,
+     "e": 19.966
+    },
+    {
+     "w": "solaires",
+     "s": 20.04,
+     "e": 20.336
+    },
+    {
+     "w": "ont",
+     "s": 20.41,
+     "e": 20.484
+    },
+    {
+     "w": "été",
+     "s": 20.595,
+     "e": 20.707
+    },
+    {
+     "w": "mis",
+     "s": 20.781,
+     "e": 20.855
+    },
+    {
+     "w": "au",
+     "s": 20.892,
+     "e": 20.929
+    },
+    {
+     "w": "chômage.",
+     "s": 20.966,
+     "e": 21.67
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "L'agence a déclaré la mission réussie.",
+   "hl": [
+    "L'agence",
+    "déclaré"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L11.k.wav",
+   "file_start": 21.77,
+   "speech_start": 21.77,
+   "speech_end": 23.844,
+   "words": [
+    {
+     "w": "L'agence",
+     "s": 21.77,
+     "e": 22.214
+    },
+    {
+     "w": "a",
+     "s": 22.251,
+     "e": 22.288
+    },
+    {
+     "w": "déclaré",
+     "s": 22.362,
+     "e": 22.658
+    },
+    {
+     "w": "la",
+     "s": 22.732,
+     "e": 22.807
+    },
+    {
+     "w": "mission",
+     "s": 22.955,
+     "e": 23.103
+    },
+    {
+     "w": "réussie.",
+     "s": 23.177,
+     "e": 23.844
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le pays a manifesté à la lampe de poche.",
+   "hl": [
+    "manifesté",
+    "lampe"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L12.k.wav",
+   "file_start": 23.944,
+   "speech_start": 23.944,
+   "speech_end": 26.166,
+   "words": [
+    {
+     "w": "Le",
+     "s": 23.944,
+     "e": 24.092
+    },
+    {
+     "w": "pays",
+     "s": 24.166,
+     "e": 24.388
+    },
+    {
+     "w": "a",
+     "s": 24.425,
+     "e": 24.462
+    },
+    {
+     "w": "manifesté",
+     "s": 24.721,
+     "e": 25.055
+    },
+    {
+     "w": "à",
+     "s": 25.092,
+     "e": 25.129
+    },
+    {
+     "w": "la",
+     "s": 25.166,
+     "e": 25.203
+    },
+    {
+     "w": "lampe",
+     "s": 25.277,
+     "e": 25.425
+    },
+    {
+     "w": "de",
+     "s": 25.462,
+     "e": 25.499
+    },
+    {
+     "w": "poche.",
+     "s": 25.573,
+     "e": 26.166
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Les gendarmes ont passé les menottes aux lampes.",
+   "hl": [
+    "gendarmes",
+    "menottes"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L13.k.wav",
+   "file_start": 26.266,
+   "speech_start": 26.266,
+   "speech_end": 28.488,
+   "words": [
+    {
+     "w": "Les",
+     "s": 26.266,
+     "e": 26.34
+    },
+    {
+     "w": "gendarmes",
+     "s": 26.414,
+     "e": 26.932
+    },
+    {
+     "w": "ont",
+     "s": 27.007,
+     "e": 27.081
+    },
+    {
+     "w": "passé",
+     "s": 27.192,
+     "e": 27.34
+    },
+    {
+     "w": "les",
+     "s": 27.377,
+     "e": 27.451
+    },
+    {
+     "w": "menottes",
+     "s": 27.525,
+     "e": 27.747
+    },
+    {
+     "w": "aux",
+     "s": 27.784,
+     "e": 27.821
+    },
+    {
+     "w": "lampes.",
+     "s": 27.97,
+     "e": 28.488
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Un char a percé un trou dans le parasol.",
+   "hl": [
+    "percé",
+    "parasol."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L14.k.wav",
+   "file_start": 28.588,
+   "speech_start": 28.588,
+   "speech_end": 30.884,
+   "words": [
+    {
+     "w": "Un",
+     "s": 28.588,
+     "e": 28.662
+    },
+    {
+     "w": "char",
+     "s": 28.81,
+     "e": 29.032
+    },
+    {
+     "w": "a",
+     "s": 29.107,
+     "e": 29.181
+    },
+    {
+     "w": "percé",
+     "s": 29.255,
+     "e": 29.514
+    },
+    {
+     "w": "un",
+     "s": 29.551,
+     "e": 29.625
+    },
+    {
+     "w": "trou",
+     "s": 29.699,
+     "e": 29.847
+    },
+    {
+     "w": "dans",
+     "s": 29.872,
+     "e": 29.921
+    },
+    {
+     "w": "le",
+     "s": 29.958,
+     "e": 29.995
+    },
+    {
+     "w": "parasol.",
+     "s": 30.07,
+     "e": 30.884
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Un seul.",
+   "hl": [
+    "seul."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L15.k.wav",
+   "file_start": 30.984,
+   "speech_start": 30.984,
+   "speech_end": 31.725,
+   "words": [
+    {
+     "w": "Un",
+     "s": 30.984,
+     "e": 31.058
+    },
+    {
+     "w": "seul.",
+     "s": 31.132,
+     "e": 31.725
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Au-dessus de son jardin.",
+   "hl": [
+    "Au-dessus",
+    "jardin."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L16.k.wav",
+   "file_start": 31.825,
+   "speech_start": 31.825,
+   "speech_end": 33.084,
+   "words": [
+    {
+     "w": "Au-dessus",
+     "s": 31.825,
+     "e": 32.195
+    },
+    {
+     "w": "de",
+     "s": 32.232,
+     "e": 32.27
+    },
+    {
+     "w": "son",
+     "s": 32.344,
+     "e": 32.418
+    },
+    {
+     "w": "jardin.",
+     "s": 32.492,
+     "e": 33.084
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "En plein dans ses yeux.",
+   "hl": [
+    "plein",
+    "yeux."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L17.k.wav",
+   "file_start": 33.184,
+   "speech_start": 33.184,
+   "speech_end": 34.444,
+   "words": [
+    {
+     "w": "En",
+     "s": 33.184,
+     "e": 33.258
+    },
+    {
+     "w": "plein",
+     "s": 33.407,
+     "e": 33.629
+    },
+    {
+     "w": "dans",
+     "s": 33.666,
+     "e": 33.777
+    },
+    {
+     "w": "ses",
+     "s": 33.851,
+     "e": 33.999
+    },
+    {
+     "w": "yeux.",
+     "s": 34.036,
+     "e": 34.444
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Le pays entier pique-nique chez lui.",
+   "hl": [
+    "entier",
+    "pique-nique"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L18.k.wav",
+   "file_start": 34.544,
+   "speech_start": 34.544,
+   "speech_end": 36.395,
+   "words": [
+    {
+     "w": "Le",
+     "s": 34.544,
+     "e": 34.618
+    },
+    {
+     "w": "pays",
+     "s": 34.692,
+     "e": 34.914
+    },
+    {
+     "w": "entier",
+     "s": 34.988,
+     "e": 35.358
+    },
+    {
+     "w": "pique-nique",
+     "s": 35.432,
+     "e": 35.803
+    },
+    {
+     "w": "chez",
+     "s": 35.877,
+     "e": 35.951
+    },
+    {
+     "w": "lui.",
+     "s": 35.988,
+     "e": 36.395
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Il avait un parasol au garage.",
+   "hl": [
+    "parasol",
+    "garage."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rayon/tts/L19.k.wav",
+   "file_start": 36.495,
+   "speech_start": 36.495,
+   "speech_end": 38.051,
+   "words": [
+    {
+     "w": "Il",
+     "s": 36.495,
+     "e": 36.57
+    },
+    {
+     "w": "avait",
+     "s": 36.644,
+     "e": 36.792
+    },
+    {
+     "w": "un",
+     "s": 36.829,
+     "e": 36.866
+    },
+    {
+     "w": "parasol",
+     "s": 36.94,
+     "e": 37.31
+    },
+    {
+     "w": "au",
+     "s": 37.347,
+     "e": 37.384
+    },
+    {
+     "w": "garage.",
+     "s": 37.458,
+     "e": 38.051
+    }
+   ]
+  }
+ ],
+ "total": 39.35
+}

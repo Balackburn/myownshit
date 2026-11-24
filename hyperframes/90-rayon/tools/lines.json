@@ -1,0 +1,172 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec avait le soleil dans les yeux.",
+  "hl": [
+   "soleil",
+   "yeux."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "L'agence spatiale a réuni trois cents savants.",
+  "hl": [
+   "L'agence",
+   "spatiale"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Solution retenue : un parasol dans l'espace.",
+  "hl": [
+   "Solution",
+   "l'espace."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Douze fusées ont décollé de son jardin.",
+  "hl": [
+   "fusées",
+   "décollé"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Ses tomates tournent autour de la Terre.",
+  "hl": [
+   "tomates",
+   "tournent"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Le parasol fait la taille du pays.",
+  "hl": [
+   "parasol",
+   "taille"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "En s'ouvrant, il a fauché trois satellites.",
+  "hl": [
+   "s'ouvrant,",
+   "satellites."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Tout le pays est devenu gris.",
+  "hl": [
+   "pays",
+   "devenu"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Les tournesols ont baissé la tête.",
+  "hl": [
+   "tournesols",
+   "baissé"
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Les panneaux solaires ont été mis au chômage.",
+  "hl": [
+   "panneaux",
+   "solaires"
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "L'agence a déclaré la mission réussie.",
+  "hl": [
+   "L'agence",
+   "déclaré"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le pays a manifesté à la lampe de poche.",
+  "hl": [
+   "manifesté",
+   "lampe"
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Les gendarmes ont passé les menottes aux lampes.",
+  "hl": [
+   "gendarmes",
+   "menottes"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Un char a percé un trou dans le parasol.",
+  "hl": [
+   "percé",
+   "parasol."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Un seul.",
+  "hl": [
+   "seul."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Au-dessus de son jardin.",
+  "hl": [
+   "Au-dessus",
+   "jardin."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "En plein dans ses yeux.",
+  "hl": [
+   "plein",
+   "yeux."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Le pays entier pique-nique chez lui.",
+  "hl": [
+   "entier",
+   "pique-nique"
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Il avait un parasol au garage.",
+  "hl": [
+   "parasol",
+   "garage."
+  ]
+ }
+]
