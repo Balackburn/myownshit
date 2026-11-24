@@ -1,0 +1,155 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a perdu au chifoumi contre sa femme.",
+  "hl": [
+   "perdu",
+   "chifoumi"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il a contesté. La fédération a revu l'action à la vidéo.",
+  "hl": [
+   "contesté.",
+   "vidéo."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Sa femme avait joué un centième trop tard.",
+  "hl": [
+   "centième",
+   "tard."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Match annulé. À rejouer au stade national.",
+  "hl": [
+   "annulé.",
+   "national."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Des savants ont filmé sa main à dix mille images par seconde.",
+  "hl": [
+   "savants",
+   "seconde."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Conclusion : il fait toujours pierre. Depuis trente ans.",
+  "hl": [
+   "toujours",
+   "pierre."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Ce mec a été jugé trop prévisible.",
+  "hl": [
+   "jugé",
+   "prévisible."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Une usine a construit une main robot imbattable.",
+  "hl": [
+   "robot",
+   "imbattable."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Au premier essai, elle a fait pierre. L'usine a perdu deux étages.",
+  "hl": [
+   "pierre.",
+   "étages."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Le comité olympique l'a sélectionnée. Le président l'a décorée d'avance.",
+  "hl": [
+   "olympique",
+   "décorée"
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Quatre-vingt mille spectateurs. Hymne national.",
+  "hl": [
+   "mille",
+   "Hymne"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Chi, fou, mi : le stade s'est fendu en deux.",
+  "hl": [
+   "fendu",
+   "deux."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "La main a fait pierre.",
+  "hl": [
+   "main",
+   "pierre."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Sa femme a fait puits.",
+  "hl": [
+   "femme",
+   "puits."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Elle s'entraîne sur lui depuis trente ans.",
+  "hl": [
+   "s'entraîne",
+   "trente"
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Le perdant devait sortir la poubelle.",
+  "hl": [
+   "perdant",
+   "poubelle."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "La main a contesté : le puits, ça compte pas.",
+  "hl": [
+   "contesté",
+   "compte"
+  ]
+ }
+]

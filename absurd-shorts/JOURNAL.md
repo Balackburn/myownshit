@@ -3048,3 +3048,8 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 18 h 25 — « Le rayon » (90) brouillon 2 et revue 2 : animation 7,4 (5,5), direction artistique 7,7 (6,8). Restent : les douze fusées
   invisibles (S04), le mec introuvable dans le pique-nique (S18) et minuscule vu d'en haut (S16), tournesols sous un mur gris (S09), poses
   fixes S01/S12, mots coupés au mur de la conférence (S11). Corrections de la revue 2 lancées.
+- 19 h 30 — Textes 94-96 prêts pour les sessions parallèles : trois auteurs (science et sport, armée et État, médias et administration),
+  trois juges (comédie, rétention, fabrication). Retenus : « Le faux numéro » (94 ; 8,5/8/7,5), « Le distributeur » (95 ; 8/7,5/8,5 ; pas
+  une resucée du « Bocal » : la machine devient une banque, aucun assaut), « Le chifoumi » (96 ; 7,5/8,5/7 ; la femme fait « puits »).
+  Écartés : « Le centimètre », « Le bonjour » (moteur affront-embargo trop utilisé), « Le coucou ». Enregistrés (stubs, props.js,
+  queue11) ; test d'import du moteur passé.
