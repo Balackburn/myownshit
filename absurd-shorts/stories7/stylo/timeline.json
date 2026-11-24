@@ -1,0 +1,750 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a empoché le stylo de la mairie.",
+   "hl": [
+    "empoché",
+    "mairie."
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.174,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.544
+    },
+    {
+     "w": "a",
+     "s": 0.619,
+     "e": 0.693
+    },
+    {
+     "w": "empoché",
+     "s": 0.804,
+     "e": 1.137
+    },
+    {
+     "w": "le",
+     "s": 1.174,
+     "e": 1.211
+    },
+    {
+     "w": "stylo",
+     "s": 1.285,
+     "e": 1.581
+    },
+    {
+     "w": "de",
+     "s": 1.606,
+     "e": 1.631
+    },
+    {
+     "w": "la",
+     "s": 1.656,
+     "e": 1.693
+    },
+    {
+     "w": "mairie.",
+     "s": 1.73,
+     "e": 2.174
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Le seul stylo de l'État.",
+   "hl": [
+    "stylo",
+    "l'État."
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L02.k.wav",
+   "file_start": 2.274,
+   "speech_start": 2.274,
+   "speech_end": 3.756,
+   "words": [
+    {
+     "w": "Le",
+     "s": 2.274,
+     "e": 2.422
+    },
+    {
+     "w": "seul",
+     "s": 2.57,
+     "e": 2.719
+    },
+    {
+     "w": "stylo",
+     "s": 2.793,
+     "e": 3.089
+    },
+    {
+     "w": "de",
+     "s": 3.126,
+     "e": 3.163
+    },
+    {
+     "w": "l'État.",
+     "s": 3.2,
+     "e": 3.756
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Les dossiers se sont empilés jusqu'au plafond.",
+   "hl": [
+    "dossiers",
+    "jusqu'au"
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L03.k.wav",
+   "file_start": 3.856,
+   "speech_start": 3.856,
+   "speech_end": 6.078,
+   "words": [
+    {
+     "w": "Les",
+     "s": 3.856,
+     "e": 4.004
+    },
+    {
+     "w": "dossiers",
+     "s": 4.041,
+     "e": 4.3
+    },
+    {
+     "w": "se",
+     "s": 4.374,
+     "e": 4.448
+    },
+    {
+     "w": "sont",
+     "s": 4.497,
+     "e": 4.596
+    },
+    {
+     "w": "empilés",
+     "s": 4.67,
+     "e": 5.041
+    },
+    {
+     "w": "jusqu'au",
+     "s": 5.115,
+     "e": 5.411
+    },
+    {
+     "w": "plafond.",
+     "s": 5.448,
+     "e": 6.078
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Les mariages ont été suspendus.",
+   "hl": [
+    "mariages",
+    "suspendus."
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L04.k.wav",
+   "file_start": 6.178,
+   "speech_start": 6.178,
+   "speech_end": 7.956,
+   "words": [
+    {
+     "w": "Les",
+     "s": 6.178,
+     "e": 6.252
+    },
+    {
+     "w": "mariages",
+     "s": 6.326,
+     "e": 6.696
+    },
+    {
+     "w": "ont",
+     "s": 6.77,
+     "e": 6.844
+    },
+    {
+     "w": "été",
+     "s": 6.956,
+     "e": 7.067
+    },
+    {
+     "w": "suspendus.",
+     "s": 7.289,
+     "e": 7.956
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Les naissances, reportées à lundi.",
+   "hl": [
+    "naissances,",
+    "reportées"
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L05.k.wav",
+   "file_start": 8.056,
+   "speech_start": 8.056,
+   "speech_end": 9.981,
+   "words": [
+    {
+     "w": "Les",
+     "s": 8.056,
+     "e": 8.13
+    },
+    {
+     "w": "naissances,",
+     "s": 8.167,
+     "e": 8.87
+    },
+    {
+     "w": "reportées",
+     "s": 9.056,
+     "e": 9.315
+    },
+    {
+     "w": "à",
+     "s": 9.34,
+     "e": 9.364
+    },
+    {
+     "w": "lundi.",
+     "s": 9.389,
+     "e": 9.981
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Édition spéciale. Onzième jour sans stylo.",
+   "hl": [
+    "Édition",
+    "spéciale."
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L06.k.wav",
+   "file_start": 10.081,
+   "speech_start": 10.081,
+   "speech_end": 12.674,
+   "words": [
+    {
+     "w": "Édition",
+     "s": 10.081,
+     "e": 10.452
+    },
+    {
+     "w": "spéciale.",
+     "s": 10.526,
+     "e": 11.267
+    },
+    {
+     "w": "Onzième",
+     "s": 11.341,
+     "e": 11.637
+    },
+    {
+     "w": "jour",
+     "s": 11.711,
+     "e": 11.859
+    },
+    {
+     "w": "sans",
+     "s": 11.933,
+     "e": 12.081
+    },
+    {
+     "w": "stylo.",
+     "s": 12.156,
+     "e": 12.674
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Le président a voulu démissionner.",
+   "hl": [
+    "président",
+    "démissionner."
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L07.k.wav",
+   "file_start": 12.774,
+   "speech_start": 12.774,
+   "speech_end": 14.478,
+   "words": [
+    {
+     "w": "Le",
+     "s": 12.774,
+     "e": 12.922
+    },
+    {
+     "w": "président",
+     "s": 12.996,
+     "e": 13.367
+    },
+    {
+     "w": "a",
+     "s": 13.404,
+     "e": 13.441
+    },
+    {
+     "w": "voulu",
+     "s": 13.515,
+     "e": 13.663
+    },
+    {
+     "w": "démissionner.",
+     "s": 13.737,
+     "e": 14.478
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Impossible : il fallait signer.",
+   "hl": [
+    "Impossible",
+    "fallait"
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L08.k.wav",
+   "file_start": 14.578,
+   "speech_start": 14.578,
+   "speech_end": 16.356,
+   "words": [
+    {
+     "w": "Impossible:",
+     "s": 14.578,
+     "e": 15.368
+    },
+    {
+     "w": "il",
+     "s": 15.418,
+     "e": 15.467
+    },
+    {
+     "w": "fallait",
+     "s": 15.541,
+     "e": 15.689
+    },
+    {
+     "w": "signer.",
+     "s": 15.8,
+     "e": 16.356
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "La douane a fouillé chaque trousse d'écolier.",
+   "hl": [
+    "fouillé",
+    "d'écolier."
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L09.k.wav",
+   "file_start": 16.456,
+   "speech_start": 16.456,
+   "speech_end": 18.604,
+   "words": [
+    {
+     "w": "La",
+     "s": 16.456,
+     "e": 16.53
+    },
+    {
+     "w": "douane",
+     "s": 16.604,
+     "e": 16.826
+    },
+    {
+     "w": "a",
+     "s": 16.863,
+     "e": 16.9
+    },
+    {
+     "w": "fouillé",
+     "s": 16.974,
+     "e": 17.27
+    },
+    {
+     "w": "chaque",
+     "s": 17.344,
+     "e": 17.567
+    },
+    {
+     "w": "trousse",
+     "s": 17.604,
+     "e": 17.789
+    },
+    {
+     "w": "d'écolier.",
+     "s": 17.838,
+     "e": 18.604
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Sa mère l'a dénoncé.",
+   "hl": [
+    "mère",
+    "dénoncé."
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L10.k.wav",
+   "file_start": 18.704,
+   "speech_start": 18.704,
+   "speech_end": 19.963,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 18.704,
+     "e": 18.778
+    },
+    {
+     "w": "mère",
+     "s": 18.852,
+     "e": 19.0
+    },
+    {
+     "w": "l'a",
+     "s": 19.074,
+     "e": 19.148
+    },
+    {
+     "w": "dénoncé.",
+     "s": 19.222,
+     "e": 19.963
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Les forces spéciales ont sauté sur son balcon.",
+   "hl": [
+    "forces",
+    "spéciales"
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L11.k.wav",
+   "file_start": 20.063,
+   "speech_start": 20.063,
+   "speech_end": 22.359,
+   "words": [
+    {
+     "w": "Les",
+     "s": 20.063,
+     "e": 20.137
+    },
+    {
+     "w": "forces",
+     "s": 20.211,
+     "e": 20.433
+    },
+    {
+     "w": "spéciales",
+     "s": 20.507,
+     "e": 20.952
+    },
+    {
+     "w": "ont",
+     "s": 21.026,
+     "e": 21.174
+    },
+    {
+     "w": "sauté",
+     "s": 21.211,
+     "e": 21.47
+    },
+    {
+     "w": "sur",
+     "s": 21.544,
+     "e": 21.619
+    },
+    {
+     "w": "son",
+     "s": 21.693,
+     "e": 21.767
+    },
+    {
+     "w": "balcon.",
+     "s": 21.841,
+     "e": 22.359
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le balcon a cédé. Et les trois du dessous.",
+   "hl": [
+    "balcon",
+    "dessous."
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L12.k.wav",
+   "file_start": 22.459,
+   "speech_start": 22.459,
+   "speech_end": 24.756,
+   "words": [
+    {
+     "w": "Le",
+     "s": 22.459,
+     "e": 22.533
+    },
+    {
+     "w": "balcon",
+     "s": 22.607,
+     "e": 22.904
+    },
+    {
+     "w": "a",
+     "s": 22.941,
+     "e": 22.978
+    },
+    {
+     "w": "cédé.",
+     "s": 23.052,
+     "e": 23.607
+    },
+    {
+     "w": "Et",
+     "s": 23.644,
+     "e": 23.681
+    },
+    {
+     "w": "les",
+     "s": 23.719,
+     "e": 23.793
+    },
+    {
+     "w": "trois",
+     "s": 23.867,
+     "e": 24.015
+    },
+    {
+     "w": "du",
+     "s": 24.052,
+     "e": 24.089
+    },
+    {
+     "w": "dessous.",
+     "s": 24.163,
+     "e": 24.756
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Le stylo était dans sa poche. Mâchouillé.",
+   "hl": [
+    "stylo",
+    "Mâchouillé."
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L13.k.wav",
+   "file_start": 24.856,
+   "speech_start": 24.856,
+   "speech_end": 27.152,
+   "words": [
+    {
+     "w": "Le",
+     "s": 24.856,
+     "e": 24.93
+    },
+    {
+     "w": "stylo",
+     "s": 25.004,
+     "e": 25.3
+    },
+    {
+     "w": "était",
+     "s": 25.411,
+     "e": 25.522
+    },
+    {
+     "w": "dans",
+     "s": 25.547,
+     "e": 25.596
+    },
+    {
+     "w": "sa",
+     "s": 25.67,
+     "e": 25.744
+    },
+    {
+     "w": "poche.",
+     "s": 25.819,
+     "e": 26.411
+    },
+    {
+     "w": "Mâchouillé.",
+     "s": 26.46,
+     "e": 27.152
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Il n'avait plus d'encre depuis dix ans.",
+   "hl": [
+    "n'avait",
+    "d'encre"
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L14.k.wav",
+   "file_start": 27.252,
+   "speech_start": 27.252,
+   "speech_end": 29.03,
+   "words": [
+    {
+     "w": "Il",
+     "s": 27.252,
+     "e": 27.326
+    },
+    {
+     "w": "n'avait",
+     "s": 27.363,
+     "e": 27.622
+    },
+    {
+     "w": "plus",
+     "s": 27.696,
+     "e": 27.77
+    },
+    {
+     "w": "d'encre",
+     "s": 27.819,
+     "e": 28.067
+    },
+    {
+     "w": "depuis",
+     "s": 28.141,
+     "e": 28.363
+    },
+    {
+     "w": "dix",
+     "s": 28.4,
+     "e": 28.585
+    },
+    {
+     "w": "ans.",
+     "s": 28.77,
+     "e": 29.03
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Son stylo neuf est enchaîné au guichet.",
+   "hl": [
+    "enchaîné",
+    "guichet."
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L15.k.wav",
+   "file_start": 29.13,
+   "speech_start": 29.13,
+   "speech_end": 31.204,
+   "words": [
+    {
+     "w": "Son",
+     "s": 29.13,
+     "e": 29.278
+    },
+    {
+     "w": "stylo",
+     "s": 29.352,
+     "e": 29.648
+    },
+    {
+     "w": "neuf",
+     "s": 29.685,
+     "e": 29.944
+    },
+    {
+     "w": "est",
+     "s": 30.019,
+     "e": 30.167
+    },
+    {
+     "w": "enchaîné",
+     "s": 30.241,
+     "e": 30.537
+    },
+    {
+     "w": "au",
+     "s": 30.574,
+     "e": 30.611
+    },
+    {
+     "w": "guichet.",
+     "s": 30.648,
+     "e": 31.204
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Ce mec a parloir le jeudi.",
+   "hl": [
+    "parloir",
+    "jeudi."
+   ],
+   "file": "/tmp/pipe/s7/stylo/tts/L16.k.wav",
+   "file_start": 31.304,
+   "speech_start": 31.304,
+   "speech_end": 32.933,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 31.304,
+     "e": 31.378
+    },
+    {
+     "w": "mec",
+     "s": 31.452,
+     "e": 31.674
+    },
+    {
+     "w": "a",
+     "s": 31.748,
+     "e": 31.822
+    },
+    {
+     "w": "parloir",
+     "s": 31.896,
+     "e": 32.119
+    },
+    {
+     "w": "le",
+     "s": 32.193,
+     "e": 32.267
+    },
+    {
+     "w": "jeudi.",
+     "s": 32.304,
+     "e": 32.933
+    }
+   ]
+  }
+ ],
+ "total": 34.23
+}
