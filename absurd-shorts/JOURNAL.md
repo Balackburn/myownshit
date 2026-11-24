@@ -3062,3 +3062,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 21 h 16 — « La pizza » (91) LIVRÉE et publiée sur TikTok par sa session parallèle (1080x1920, 33,8 s, −16,0 LUFS ; post
   cmwv70fqs0dk6qd07bugw5v69). Revues 6,6/6,8 → 7,4/7,4 → 7,3/7,7, passe finale, brouillon de contrôle (deux défauts corrigés). Branche
   fusionnée, leçons au skill. La session reçoit « Le faux numéro » (94).
+- 21 h 27 — « Le rayon » (90) LIVRÉ et publié sur TikTok (1080x1920, 39,4 s, −16,0 LUFS, sans creux ; post cmwv7g2a00drmqd07qq94xz09).
+  Revues 5,5/6,8 → 7,4/7,7 → 7,6/8,1, puis passe finale. Le premier assemblage HyperFrames a refusé de démarrer (0,9 Go libre) : cache npm
+  vidé, assemblage relancé seul (2 min).
