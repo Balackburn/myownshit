@@ -1,0 +1,872 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a trouvé un cheveu dans sa soupe.",
+   "hl": [
+    "trouvé",
+    "cheveu"
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.248,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.544
+    },
+    {
+     "w": "a",
+     "s": 0.619,
+     "e": 0.693
+    },
+    {
+     "w": "trouvé",
+     "s": 0.73,
+     "e": 0.989
+    },
+    {
+     "w": "un",
+     "s": 1.063,
+     "e": 1.137
+    },
+    {
+     "w": "cheveu",
+     "s": 1.211,
+     "e": 1.433
+    },
+    {
+     "w": "dans",
+     "s": 1.47,
+     "e": 1.581
+    },
+    {
+     "w": "sa",
+     "s": 1.656,
+     "e": 1.73
+    },
+    {
+     "w": "soupe.",
+     "s": 1.767,
+     "e": 2.248
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Un hélicoptère de police a éclairé la soupe.",
+   "hl": [
+    "hélicoptère",
+    "éclairé"
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L02.k.wav",
+   "file_start": 2.348,
+   "speech_start": 2.348,
+   "speech_end": 4.719,
+   "words": [
+    {
+     "w": "Un",
+     "s": 2.348,
+     "e": 2.422
+    },
+    {
+     "w": "hélicoptère",
+     "s": 2.496,
+     "e": 2.941
+    },
+    {
+     "w": "de",
+     "s": 3.015,
+     "e": 3.089
+    },
+    {
+     "w": "police",
+     "s": 3.163,
+     "e": 3.533
+    },
+    {
+     "w": "a",
+     "s": 3.57,
+     "e": 3.607
+    },
+    {
+     "w": "éclairé",
+     "s": 3.681,
+     "e": 4.027
+    },
+    {
+     "w": "la",
+     "s": 4.077,
+     "e": 4.126
+    },
+    {
+     "w": "soupe.",
+     "s": 4.163,
+     "e": 4.719
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Le cheveu a été arrêté à la pince.",
+   "hl": [
+    "cheveu",
+    "arrêté"
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L03.k.wav",
+   "file_start": 4.819,
+   "speech_start": 4.819,
+   "speech_end": 6.967,
+   "words": [
+    {
+     "w": "Le",
+     "s": 4.819,
+     "e": 4.893
+    },
+    {
+     "w": "cheveu",
+     "s": 5.041,
+     "e": 5.411
+    },
+    {
+     "w": "a",
+     "s": 5.448,
+     "e": 5.485
+    },
+    {
+     "w": "été",
+     "s": 5.596,
+     "e": 5.707
+    },
+    {
+     "w": "arrêté",
+     "s": 5.856,
+     "e": 6.041
+    },
+    {
+     "w": "à",
+     "s": 6.078,
+     "e": 6.115
+    },
+    {
+     "w": "la",
+     "s": 6.152,
+     "e": 6.226
+    },
+    {
+     "w": "pince.",
+     "s": 6.3,
+     "e": 6.967
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Photographié de face, puis de profil.",
+   "hl": [
+    "Photographié",
+    "profil."
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L04.k.wav",
+   "file_start": 7.067,
+   "speech_start": 7.067,
+   "speech_end": 9.289,
+   "words": [
+    {
+     "w": "Photographié",
+     "s": 7.067,
+     "e": 7.585
+    },
+    {
+     "w": "de",
+     "s": 7.659,
+     "e": 7.733
+    },
+    {
+     "w": "face,",
+     "s": 7.807,
+     "e": 8.326
+    },
+    {
+     "w": "puis",
+     "s": 8.363,
+     "e": 8.474
+    },
+    {
+     "w": "de",
+     "s": 8.511,
+     "e": 8.548
+    },
+    {
+     "w": "profil.",
+     "s": 8.622,
+     "e": 9.289
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Interrogé douze heures sous la lampe.",
+   "hl": [
+    "Interrogé",
+    "heures"
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L05.k.wav",
+   "file_start": 9.389,
+   "speech_start": 9.389,
+   "speech_end": 11.241,
+   "words": [
+    {
+     "w": "Interrogé",
+     "s": 9.389,
+     "e": 9.907
+    },
+    {
+     "w": "douze",
+     "s": 9.981,
+     "e": 10.13
+    },
+    {
+     "w": "heures",
+     "s": 10.204,
+     "e": 10.426
+    },
+    {
+     "w": "sous",
+     "s": 10.451,
+     "e": 10.5
+    },
+    {
+     "w": "la",
+     "s": 10.574,
+     "e": 10.648
+    },
+    {
+     "w": "lampe.",
+     "s": 10.722,
+     "e": 11.241
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Il a frisé. Ça a été retenu contre lui.",
+   "hl": [
+    "retenu",
+    "contre"
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L06.k.wav",
+   "file_start": 11.341,
+   "speech_start": 11.341,
+   "speech_end": 13.563,
+   "words": [
+    {
+     "w": "Il",
+     "s": 11.341,
+     "e": 11.415
+    },
+    {
+     "w": "a",
+     "s": 11.452,
+     "e": 11.489
+    },
+    {
+     "w": "frisé.",
+     "s": 11.563,
+     "e": 12.193
+    },
+    {
+     "w": "Ça",
+     "s": 12.23,
+     "e": 12.304
+    },
+    {
+     "w": "a",
+     "s": 12.359,
+     "e": 12.415
+    },
+    {
+     "w": "été",
+     "s": 12.47,
+     "e": 12.526
+    },
+    {
+     "w": "retenu",
+     "s": 12.6,
+     "e": 12.822
+    },
+    {
+     "w": "contre",
+     "s": 12.933,
+     "e": 13.044
+    },
+    {
+     "w": "lui.",
+     "s": 13.081,
+     "e": 13.563
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Les chiens ont remonté sa piste jusqu'au cuisinier.",
+   "hl": [
+    "jusqu'au",
+    "cuisinier."
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L07.k.wav",
+   "file_start": 13.663,
+   "speech_start": 13.663,
+   "speech_end": 16.107,
+   "words": [
+    {
+     "w": "Les",
+     "s": 13.663,
+     "e": 13.737
+    },
+    {
+     "w": "chiens",
+     "s": 13.885,
+     "e": 14.033
+    },
+    {
+     "w": "ont",
+     "s": 14.07,
+     "e": 14.107
+    },
+    {
+     "w": "remonté",
+     "s": 14.181,
+     "e": 14.478
+    },
+    {
+     "w": "sa",
+     "s": 14.552,
+     "e": 14.626
+    },
+    {
+     "w": "piste",
+     "s": 14.7,
+     "e": 14.996
+    },
+    {
+     "w": "jusqu'au",
+     "s": 15.07,
+     "e": 15.293
+    },
+    {
+     "w": "cuisinier.",
+     "s": 15.367,
+     "e": 16.107
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Ils ont enfoncé sa porte.",
+   "hl": [
+    "enfoncé",
+    "porte."
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L08.k.wav",
+   "file_start": 16.207,
+   "speech_start": 16.207,
+   "speech_end": 17.69,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 16.207,
+     "e": 16.356
+    },
+    {
+     "w": "ont",
+     "s": 16.43,
+     "e": 16.504
+    },
+    {
+     "w": "enfoncé",
+     "s": 16.578,
+     "e": 16.948
+    },
+    {
+     "w": "sa",
+     "s": 17.022,
+     "e": 17.096
+    },
+    {
+     "w": "porte.",
+     "s": 17.281,
+     "e": 17.689
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Et toutes celles de la rue.",
+   "hl": [
+    "celles",
+    "rue."
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L09.k.wav",
+   "file_start": 17.79,
+   "speech_start": 17.79,
+   "speech_end": 18.975,
+   "words": [
+    {
+     "w": "Et",
+     "s": 17.79,
+     "e": 17.864
+    },
+    {
+     "w": "toutes",
+     "s": 17.938,
+     "e": 18.087
+    },
+    {
+     "w": "celles",
+     "s": 18.161,
+     "e": 18.309
+    },
+    {
+     "w": "de",
+     "s": 18.346,
+     "e": 18.383
+    },
+    {
+     "w": "la",
+     "s": 18.42,
+     "e": 18.457
+    },
+    {
+     "w": "rue.",
+     "s": 18.531,
+     "e": 18.975
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Le cuisinier était chauve.",
+   "hl": [
+    "cuisinier",
+    "chauve."
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L10.k.wav",
+   "file_start": 19.075,
+   "speech_start": 19.075,
+   "speech_end": 20.483,
+   "words": [
+    {
+     "w": "Le",
+     "s": 19.075,
+     "e": 19.15
+    },
+    {
+     "w": "cuisinier",
+     "s": 19.224,
+     "e": 19.594
+    },
+    {
+     "w": "était",
+     "s": 19.742,
+     "e": 19.89
+    },
+    {
+     "w": "chauve.",
+     "s": 19.927,
+     "e": 20.483
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Il a été rasé quand même.",
+   "hl": [
+    "rasé"
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L11.k.wav",
+   "file_start": 20.583,
+   "speech_start": 20.583,
+   "speech_end": 21.916,
+   "words": [
+    {
+     "w": "Il",
+     "s": 20.583,
+     "e": 20.657
+    },
+    {
+     "w": "a",
+     "s": 20.731,
+     "e": 20.768
+    },
+    {
+     "w": "été",
+     "s": 20.805,
+     "e": 20.953
+    },
+    {
+     "w": "rasé",
+     "s": 21.064,
+     "e": 21.25
+    },
+    {
+     "w": "quand",
+     "s": 21.287,
+     "e": 21.398
+    },
+    {
+     "w": "même.",
+     "s": 21.509,
+     "e": 21.916
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Puis les clients et les passants, pour comparaison.",
+   "hl": [
+    "passants,",
+    "comparaison."
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L12.k.wav",
+   "file_start": 22.016,
+   "speech_start": 22.016,
+   "speech_end": 24.312,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 22.016,
+     "e": 22.164
+    },
+    {
+     "w": "les",
+     "s": 22.238,
+     "e": 22.387
+    },
+    {
+     "w": "clients",
+     "s": 22.535,
+     "e": 22.683
+    },
+    {
+     "w": "et",
+     "s": 22.72,
+     "e": 22.757
+    },
+    {
+     "w": "les",
+     "s": 22.831,
+     "e": 22.905
+    },
+    {
+     "w": "passants,",
+     "s": 23.016,
+     "e": 23.424
+    },
+    {
+     "w": "pour",
+     "s": 23.498,
+     "e": 23.572
+    },
+    {
+     "w": "comparaison.",
+     "s": 23.646,
+     "e": 24.312
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Le chien policier aussi.",
+   "hl": [
+    "chien",
+    "policier"
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L13.k.wav",
+   "file_start": 24.412,
+   "speech_start": 24.412,
+   "speech_end": 25.746,
+   "words": [
+    {
+     "w": "Le",
+     "s": 24.412,
+     "e": 24.487
+    },
+    {
+     "w": "chien",
+     "s": 24.561,
+     "e": 24.709
+    },
+    {
+     "w": "policier",
+     "s": 24.783,
+     "e": 25.153
+    },
+    {
+     "w": "aussi.",
+     "s": 25.264,
+     "e": 25.746
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Ce mec, deux fois.",
+   "hl": [
+    "fois."
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L14.k.wav",
+   "file_start": 25.846,
+   "speech_start": 25.846,
+   "speech_end": 27.331,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 25.846,
+     "e": 25.92
+    },
+    {
+     "w": "mec,",
+     "s": 25.994,
+     "e": 26.587
+    },
+    {
+     "w": "deux",
+     "s": 26.624,
+     "e": 26.735
+    },
+    {
+     "w": "fois.",
+     "s": 26.809,
+     "e": 27.327
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Au microscope : aucune correspondance.",
+   "hl": [
+    "microscope",
+    "correspondance."
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L15.k.wav",
+   "file_start": 27.431,
+   "speech_start": 27.431,
+   "speech_end": 29.727,
+   "words": [
+    {
+     "w": "Au",
+     "s": 27.431,
+     "e": 27.505
+    },
+    {
+     "w": "microscope:",
+     "s": 27.653,
+     "e": 28.468
+    },
+    {
+     "w": "aucune",
+     "s": 28.542,
+     "e": 28.69
+    },
+    {
+     "w": "correspondance.",
+     "s": 28.764,
+     "e": 29.727
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Le ministre s'est excusé auprès du cheveu.",
+   "hl": [
+    "ministre",
+    "excusé"
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L16.k.wav",
+   "file_start": 29.827,
+   "speech_start": 29.827,
+   "speech_end": 31.901,
+   "words": [
+    {
+     "w": "Le",
+     "s": 29.827,
+     "e": 29.901
+    },
+    {
+     "w": "ministre",
+     "s": 29.975,
+     "e": 30.345
+    },
+    {
+     "w": "s'est",
+     "s": 30.395,
+     "e": 30.494
+    },
+    {
+     "w": "excusé",
+     "s": 30.568,
+     "e": 30.963
+    },
+    {
+     "w": "auprès",
+     "s": 30.987,
+     "e": 31.16
+    },
+    {
+     "w": "du",
+     "s": 31.234,
+     "e": 31.308
+    },
+    {
+     "w": "cheveu.",
+     "s": 31.383,
+     "e": 31.901
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "C'était le dernier cheveu du quartier.",
+   "hl": [
+    "C'était",
+    "quartier."
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L17.k.wav",
+   "file_start": 32.001,
+   "speech_start": 32.001,
+   "speech_end": 33.779,
+   "words": [
+    {
+     "w": "C'était",
+     "s": 32.001,
+     "e": 32.223
+    },
+    {
+     "w": "le",
+     "s": 32.297,
+     "e": 32.371
+    },
+    {
+     "w": "dernier",
+     "s": 32.445,
+     "e": 32.742
+    },
+    {
+     "w": "cheveu",
+     "s": 32.816,
+     "e": 33.001
+    },
+    {
+     "w": "du",
+     "s": 33.038,
+     "e": 33.112
+    },
+    {
+     "w": "quartier.",
+     "s": 33.149,
+     "e": 33.779
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "L'hélicoptère l'a reposé.",
+   "hl": [
+    "L'hélicoptère",
+    "reposé."
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L18.k.wav",
+   "file_start": 33.879,
+   "speech_start": 33.879,
+   "speech_end": 35.286,
+   "words": [
+    {
+     "w": "L'hélicoptère",
+     "s": 33.879,
+     "e": 34.397
+    },
+    {
+     "w": "l'a",
+     "s": 34.471,
+     "e": 34.545
+    },
+    {
+     "w": "reposé.",
+     "s": 34.731,
+     "e": 35.286
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Dans la soupe de ce mec.",
+   "hl": [
+    "soupe"
+   ],
+   "file": "/tmp/pipe/s7/cheveu/tts/L19.k.wav",
+   "file_start": 35.386,
+   "speech_start": 35.386,
+   "speech_end": 36.72,
+   "words": [
+    {
+     "w": "Dans",
+     "s": 35.386,
+     "e": 35.534
+    },
+    {
+     "w": "la",
+     "s": 35.571,
+     "e": 35.608
+    },
+    {
+     "w": "soupe",
+     "s": 35.757,
+     "e": 35.905
+    },
+    {
+     "w": "de",
+     "s": 35.979,
+     "e": 36.053
+    },
+    {
+     "w": "ce",
+     "s": 36.09,
+     "e": 36.127
+    },
+    {
+     "w": "mec.",
+     "s": 36.201,
+     "e": 36.72
+    }
+   ]
+  }
+ ],
+ "total": 38.02
+}
