@@ -179,7 +179,7 @@ st.shot('S03', 'office', setOpts=CTRL, actors=[
             k(r(T2_3 + 0.06), toon={'reach': {'R': TAPP(0.2, 0.06, 0.15)}, 'hands': {'R': 'point'}}, toonDur=0.05, keepPose=True),
             k(r(TAP3 - 0.04), toon={'reach': {'R': R5([0.62, 1.2, -0.5], 0.0, 0.05)}, 'hands': {'R': 'point'}, 'face': {'lid': 0.3, 'mouth': 'bigsmile', 'brow': 0.4}}, toonDur=0.08),
             k(r(TAP3 + 0.6), look='camera', lookDur=0.12)])],
-        props=[P('tableau3', 'diagramBoard', pos=BOARD, opts={'w': 2.4, 'ringAt': r(TAP3 + 0.04), 'ringDur': 0.3})],
+        props=[P('tableau3', 'diagramBoard', pos=BOARD, opts={'w': 2.4, 'ringAt': r(TAP3 + 0.04), 'ringDur': 0.3, 'ringWobble': True})],
         cams=[C3A, C3B])
 st.cue('sfx:click', 'S03', T1_3, 0.4); st.cue('sfx:click', 'S03', T2_3, 0.35); st.cue('sfx:squeak', 'S03', r(TAP3 + 0.06), 0.3)
 
@@ -267,7 +267,7 @@ D6 = st.dur('S06'); OPEN6 = 0.2; CUT6 = 0.92
 #     canopy in the upper half, the handle in the lower
 C6A = cam(0.0, [0.4, 1.4, 22.0], [0.3, 1.45, 20.5], [0.0, 0.6, -28.0], [0.0, 0.65, -28.0], lens=30)
 TILT6 = [-PI / 2 + 0.5, 0.14, 0.0]
-C6B = cam(CUT6, [60.0, 0.9, 14.5], [60.0, 0.85, 13.8], [60.0, 0.2, 0.0], [60.0, 0.2, 0.0], lens=44)
+C6B = cam(CUT6, [60.0, 0.9, 14.5], [59.0, 1.05, 13.5], [60.0, 0.2, 0.0], [60.0, 0.2, 0.0], lens=44)   # (round 3) a slow drift round the globe in the hold
 chk('S06', C6A['from'], C6A['lookAt'], 30, {'sun': [0, 4, -70], 'paraTop': [0, 9.3, -30], 'paraL': [-6.5, 3.2, -28], 'paraR': [6.5, 3.2, -28], 'handle': [2.0, -3.6, -15.6]})
 chk('S06b', C6B['from'], C6B['lookAt'], 44, {'globeTop': [60, 3, 0], 'globeBot': [60, -3, 0], 'country': [60, 0, 3]})
 st.shot('S06', 'spaceDark', actors=[],
@@ -295,11 +295,16 @@ C7 = cam(0.0, F7, add(F7, [-1.2, 0.1, -0.5]), [0.0, 0.7, -6.6], [0.0, 0.8, -7.0]
 chk('S07', C7['from'], C7['lookAt'], 54, {'rimTop': [0, R7, PZ7 + H7], 'rimBot': [0, -R7, PZ7 + H7], 'apex': [0, 0, PZ7], 'furled': [0, 0, rim7(0)[1]], **{n: p for n, p, d, sg, h in SATS7}})
 HITS7 = {n: h for n, p, d, sg, h in SATS7}
 CHECKS.append(f"S07 hits {HITS7}")
+# (round 3) each satellite stretches as it spins off (a squash key that springs back); the second one first pancakes flat on the rim for 0.1 s and
+#     pops back into shape as it flies (flatten and re-inflate)
 def SATK(n, p, d, sg, h):
-    out = add(p, mul(d, 13.0))
-    return [k(0.0, to=add(p, [0.0, -0.25 * sg, 0.3]), dur=h, ease='linear'), k(0.0, rotTo=[0.15, 1.35, 0.1 * sg], dur=h, ease='linear'),
-            k(h, to=add(p, mul(d, 0.6)), dur=0.06, ease='out'), k(r(h + 0.06), to=out, dur=0.5, ease='linear'), k(h, rotTo=[4.5 * sg, 6.0, 2.5], dur=0.56, ease='out'),
-            k(h, scale=0.68, dur=0.0), k(r(h + 0.03), scale=0.58, dur=0.05)]
+    out = add(p, mul(d, 13.0)); pk = 0.1 if n == 'sat7b' else 0.0
+    ks = [k(0.0, to=add(p, [0.0, -0.25 * sg, 0.3]), dur=h, ease='linear'), k(0.0, rotTo=[0.15, 1.35, 0.1 * sg], dur=h, ease='linear'),
+          k(h, to=add(p, mul(d, 0.15 if pk else 0.6)), dur=0.04 if pk else 0.06, ease='out'), k(r(h + 0.06 + pk), to=out, dur=0.5, ease='linear'), k(r(h + pk), rotTo=[4.5 * sg, 6.0, 2.5], dur=0.56, ease='out'),
+          k(h, scale=0.68, dur=0.0), k(r(h + 0.03), scale=0.58, dur=0.05)]
+    if pk: ks.append(k(h, squash=[1.55, 0.3, 1.55], dur=2.0))   # a long spring: about 0.1 s still flat before the pop
+    ks.append(k(r(h + 0.06 + pk), squash=[0.62, 1.7, 0.62], dur=0.4))
+    return ks
 st.shot('S07', 'spaceDark', actors=[],
         props=[P('parasol7', 'orbitParasol', pos=[0, 0, PZ7], rot=[-PI / 2, 0, 0], opts={'r': R7, 'openAt': OPEN7, 'openDur': DUR7, 'steady': True, 'spin': 0.35, 'jolts': list(HITS7.values())}),
                P('terre7', 'earthGlobe', pos=[-40, -30, -14], opts={'radius': 14, 'seed': 5}),
@@ -346,7 +351,7 @@ CHECKS.append("S08 car stops " + ' '.join(str(c[4]) for c in CARK8))
 # (round 2) the scattered white specks over the grey suburb: far flat-shaded instanced triangles (smoothFar); no light shafts in the aerial view
 st.shot('S08', 'aerialSuburb', look={'shafts': 0}, actors=[],
         props=[P('lisse8', 'smoothFar'), P('autos8', 'stopCars', pos=[0, 0, 0], opts={'cars': CARK8, 's': 2.6}),
-               P('ombre8', 'shadowFront', pos=[CX8, 16, 0], opts={'r': R8, 'op': 0.84, 'color': '#38424F', 'path': PATH8})],
+               P('ombre8', 'shadowFront', pos=[CX8, 16, 0], opts={'r': R8, 'op': 0.84, 'color': '#38424F', 'path': PATH8, 'edge': 16})],
         cams=[C8])
 st.card('S08', 'ÉTEINT', at=CARD8)
 st.cue('gust', 'S08', 0.1, 0.3, 1.2); st.cue('thud', 'S08', 1.15, 0.4)
@@ -386,7 +391,7 @@ C10 = cam(0.0, [5.0, 1.45, 1.9], [4.9, 1.45, 1.5], [9.0, 1.0, -2.6], [9.0, 1.0, 
 chk('S10', C10['from'], C10['lookAt'], 52, {'sign0': [8.66, 0.8, -4.5], 'sign3': [8.66, 0.8, -0.9], 'office': [10.0, 2.85, -4.0], 'door': [10.0, 1.2, -5.8]})
 st.shot('S10', 'parisStreet', setOpts={'clouds': 0}, grade=GREY, look=OVER, actors=[],
         props=[P('dome10', 'canopySky', pos=[6, 0, -3], opts=CAN), P('bureau10', 'jobOffice', pos=[10.0, 0, -4.0], ry=-90, opts={'w': 6.5, 'doorX': -1.8}),
-               *[P(f'panneau10_{i}', 'solarWalker', pos=p, ry=-90, opts={'walk': True, 'phase': i * 0.37, 'sign': SIGNS[i], 'steps': [[STEP10[i], r(STEP10[i] + 0.34)]], 'droopAt': r(STEP10[i] + 0.42)},
+               *[P(f'panneau10_{i}', 'solarWalker', pos=p, ry=-90, opts={'walk': True, 'phase': i * 0.37, 'sign': SIGNS[i], 'steps': [[STEP10[i], r(STEP10[i] + 0.34)]], 'droopAt': r(STEP10[i] + 0.42), 'slump': 1.0, 'side': -1 if i % 2 else 1},
                    keys=[k(STEP10[i], to=add(p, [0, 0, -0.6]), dur=0.34, ease='inOut')]) for i, p in enumerate(WALK)],
                *[P(f'petit10_{i}', 'solarWalker', pos=[8.7, 0, r(-0.3 + 0.45 * i)], ry=-90, scale=0.5, opts={'walk': True, 'phase': 0.2 + i * 0.5, 'sign': ' ', 'steps': [[r(1.55 + 0.12 * i), r(1.9 + 0.12 * i)]]},
                    keys=[k(r(1.55 + 0.12 * i), to=[8.7, 0, r(-0.85 + 0.45 * i)], dur=0.35, ease='inOut')]) for i in range(2)]],
@@ -636,7 +641,7 @@ HERO18 = [k(0.0, look='camera'), k(0.0, toon={**LOUNGE, 'face': {**SQUINT, 'mout
 def NBK(sg, t1):
     lean = lambda a, face=None: {'bend': {'spine': [0.1, a * sg, 0, 1, None], 'neck': [0.0, 0.5 * a * sg, 0, 1, None]}, 'face': face or {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}}
     PRESS = {'lid': 0.75, 'mouth': 'bigsmile', 'brow': 0.6, 'cheeks': 1.0}
-    return [k(0.0, look='camera'), k(0.0, toon=lean(0.06), toonDur=0.0), k(0.55, look=[HEAD18[0], 1.4, HEAD18[2]], lookDur=0.15),
+    return [k(0.0, look='camera'), k(0.0, toon=lean(0.06), toonDur=0.0), k(r(t1 - 0.22), look=[HEAD18[0], 1.4, HEAD18[2]], lookDur=0.12),
             k(r(t1 - 0.08), toon=lean(0.02), toonDur=0.08), k(t1, toon=lean(0.3, PRESS), toonDur=0.06, toonEase='out'), k(r(t1 + 0.1), toon=lean(0.27, PRESS), toonDur=0.08),
             *[k(r(t1 + 0.2 + 0.1 * j), toon=lean(0.27 + 0.025 * (j % 2), PRESS), toonDur=0.05) for j in range(int((D18 - t1 - 0.2) / 0.1))]]
 st.shot('S18', 'pavillon', setOpts={**GARDEN, 'mailbox': False}, actors=[
@@ -673,8 +678,8 @@ F19 = [-1.55, 1.7, 2.3]
 L19, LENS19, W19 = [-1.25, 1.62, -2.0], 46, {}
 C19 = cam(0.0, F19, add(F19, [0.05, 0.0, -0.25]), L19, add(L19, [0.0, 0.03, 0.0]), lens=LENS19)
 CHECKS.append(f"S19 fit lens {LENS19} {W19}")
-chk('S19', C19['from'], C19['lookAt'], LENS19, {'head': [ME19[0], 2.05, ME19[2]], 'grip': UPG, 'crook': add(UPG, [0, -0.2, 0]), 'parTop': add(UPG, [0.28, 1.1, 0]), 'parL': add(UPG, [-0.18, 0.88, 0]), 'inside': IN19, 'shelf': add(SHED, [0, 1.2, -1.6]), 'chairTop': add(CH19, [0.2, 0.95, 0.1]), 'pic1': [-2.3, 1.35, -2.6], 'pic2': [-2.0, 1.35, -3.4]})
-PIC19 = [('manif4', [-2.3, 0, -2.6], 35, 'sitFloorEat'), ('gendarme1', [-2.0, 0, -3.4], 20, 'sitFloorSip')]
+chk('S19', C19['from'], C19['lookAt'], LENS19, {'head': [ME19[0], 2.05, ME19[2]], 'grip': UPG, 'crook': add(UPG, [0, -0.2, 0]), 'parTop': add(UPG, [0.28, 1.1, 0]), 'parL': add(UPG, [-0.18, 0.88, 0]), 'inside': IN19, 'shelf': add(SHED, [0, 1.2, -1.6]), 'chairTop': add(CH19, [0.2, 0.95, 0.1]), 'pic1': [-2.25, 1.0, -3.55], 'pic2': [-1.8, 1.0, -3.95]})
+PIC19 = [('manif4', [-2.25, 0, -3.55], 30, 'sitFloorEat'), ('gendarme1', [-1.8, 0, -3.95], 15, 'sitFloorSip')]
 DEAD19 = {'lid': 0.4, 'mouth': 'line', 'brow': -0.1}
 def G19(p, w=1): return R5(add(p, [0.0, 0.0, 0.0]), w, 0.05)
 PATH19 = [(0.0, IN19), (0.18, add(IN19, [0.08, 0.05, 0.05])), (0.32, add(IN19, [-0.06, -0.03, 0.0])), (0.46, add(IN19, [0.04, 0.04, 0.06])),

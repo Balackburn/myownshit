@@ -110,7 +110,9 @@ export const RAYON_PROPS = {
     setRing(o.ringAt == null ? 1 : 0);
     g.add(at(box(W + 0.1, H + 0.1, 0.05, '#B9BEC4', { outline: 0.008 }), 0, yb, 0), at(box(W * 0.6, 0.05, 0.12, '#B9BEC4'), 0, yb - H / 2 - 0.05, 0.06));
     for (const s of [-1, 1]) g.add(at(box(0.05, yb + H / 2, 0.05, '#7E858C', { pivot: 'bottom' }), s * (W / 2 - 0.15), 0, -0.04), at(box(0.06, 0.05, 0.7, '#7E858C', { pivot: 'bottom' }), s * (W / 2 - 0.15), 0, -0.04));
-    if (o.ringAt != null) g.userData.update = t => setRing(easeOut((t - o.ringAt) / (o.ringDur ?? 0.3)));
+    // (round 3) o.ringWobble: once drawn, the marker ring keeps a slow hand-drawn wobble (the hold after the snap zoom was static)
+    if (o.ringAt != null) g.userData.update = t => { setRing(easeOut((t - o.ringAt) / (o.ringDur ?? 0.3)));
+      if (o.ringWobble) { const w = clamp01((t - o.ringAt - 0.3) / 0.2); ring.scale.set(rx * (1 + 0.035 * w * Math.sin(t * 7)), ry * (1 + 0.035 * w * Math.sin(t * 7 + 1.7)), 1); ring.rotation.z = 0.04 * w * Math.sin(t * 4.5); } };
     return g;
   },
   // o.n rockets (props.js rocket, flame on) standing on the lawn at o.spots [[x, z], ...] (a 4 x 3 grid by default), scale o.s; rocket i lifts off at
@@ -225,7 +227,9 @@ export const RAYON_PROPS = {
     const Rr = o.r ?? 600, g = grp(), op = o.op ?? 0.5;
     const disc = new THREE.Mesh(new THREE.CircleGeometry(Rr, 96).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: o.color || '#121826', transparent: true, opacity: op, depthWrite: false, depthTest: o.depthTest ?? false, fog: false }));
     g.add(disc);
-    [[1.0, 1.03, 0.6], [1.03, 1.07, 0.3]].forEach(([a, b, k]) => g.add(new THREE.Mesh(new THREE.RingGeometry(Rr * a, Rr * b, 96).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: o.color || '#121826', transparent: true, opacity: op * k, depthWrite: false, depthTest: o.depthTest ?? false, fog: false }))));
+    // (round 3) o.edge (m): the soft edge's width whatever the radius (a 3 km disc drew two wide grey steps outside its edge)
+    const ER = o.edge ? [[1.0, 1 + o.edge * 0.45 / Rr, 0.6], [1 + o.edge * 0.45 / Rr, 1 + o.edge / Rr, 0.3]] : [[1.0, 1.03, 0.6], [1.03, 1.07, 0.3]];
+    ER.forEach(([a, b, k]) => g.add(new THREE.Mesh(new THREE.RingGeometry(Rr * a, Rr * b, 96).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: o.color || '#121826', transparent: true, opacity: op * k, depthWrite: false, depthTest: o.depthTest ?? false, fog: false }))));
     // (staging 2) no depth test by default: in the whole film the disc, 16 m over a ground seen from 400 m, lost the depth test to the lawn (the
     // camera's depth range is set for the close shots) and never showed, while the shot rendered alone showed it; it lies above everything anyway
     g.position.y = o.y ?? 14; g.traverse(m => { if (m.isMesh) m.renderOrder = 5; });
@@ -247,13 +251,16 @@ export const RAYON_PROPS = {
     const g = grp(), S = o.s ?? 1.8, cars = (o.cars || []).map(([x, z, ry, v, ts, c]) => {
       const body = grp(at(box(1.9, 0.7, 4.3, c || '#E04A3A', { pivot: 'bottom' }), 0, 0.25, 0), at(box(1.6, 0.6, 2.2, c || '#E04A3A', { pivot: 'bottom' }), 0, 0.95, -0.2),
         at(box(1.5, 0.06, 1.9, '#F4F1E8', { pivot: 'bottom' }), 0, 1.55, -0.2), at(box(1.62, 0.4, 0.1, '#3E5872'), 0, 1.2, 0.92));
-      const car = grp(body); car.scale.setScalar(S); car.rotation.y = ry * PI / 180; g.add(car); noShadow(car); return { car, body, x, z, ry, v, ts };
+      // the brake lights pop on red as it stops, drawn over the shade (renderOrder after it, no depth test) so they glow in the switched-off zone
+      const lights = [-0.65, 0.65].map(lx => { const l = glowSprite('#FF3020', o.glow ?? 2.4, 0); l.material.depthTest = false; l.renderOrder = 8; l.position.set(lx, 0.7, -2.2); body.add(l); return l; });
+      const car = grp(body); car.scale.setScalar(S); car.rotation.y = ry * PI / 180; g.add(car); noShadow(car); return { car, body, lights, x, z, ry, v, ts };
     });
     const br = o.brake ?? 0.16;
     g.userData.update = t => { for (const c of cars) {
       const tt = Math.max(0, t), d = tt < c.ts ? c.v * tt : c.v * c.ts + c.v * br * 0.5 * (1 - Math.pow(1 - clamp01((tt - c.ts) / br), 2)) * 1.0;
       const a = c.ry * PI / 180; c.car.position.set(c.x + Math.sin(a) * d, 0, c.z + Math.cos(a) * d);
       const e = tt - c.ts; c.body.rotation.x = e > 0 && e < 0.6 ? 0.12 * Math.sin(Math.min(1, e / 0.6) * TAU) * Math.exp(-e * 4) : 0;
+      c.lights.forEach(l => { l.material.opacity = e > 0 ? Math.min(1, e / 0.05) * (0.85 + 0.15 * Math.sin(e * 30)) : 0; });
     } };
     g.userData.update(0); return g;
   },
@@ -320,7 +327,12 @@ export const RAYON_PROPS = {
       const on = !o.steps || o.steps.some(([a, b]) => t >= a && t <= b), w = (t + ph) * 9;
       if (on) { legs[0].rotation.x = 0.45 * Math.sin(w); legs[1].rotation.x = -0.45 * Math.sin(w); body.position.y = 0.03 * Math.abs(Math.cos(w)); body.rotation.z = 0.04 * Math.sin(w); }
       else { legs[0].rotation.x = legs[1].rotation.x = 0; body.position.y = 0.008 * Math.sin(t * 5 + ph * 7); body.rotation.z = 0.01 * Math.sin(t * 3 + ph * 5); }
-      if (o.droopAt != null) { const u = (t - o.droopAt) / 0.35, d = u <= 0 ? 0 : (u < 1 ? outBack(u) : 1); sg.rotation.x = 0.45 * d; sg.position.y = 0.8 - 0.1 * d; panel.rotation.x = tilt0 - 0.35 * d; }
+      if (o.droopAt != null) { const u = (t - o.droopAt) / 0.35, d = u <= 0 ? 0 : (u < 1 ? outBack(u) : 1); sg.rotation.x = 0.45 * d; sg.position.y = 0.8 - 0.1 * d; panel.rotation.x = tilt0 - 0.35 * d;
+        // (round 3) o.slump (0..1): a weary slump after the step: the panel sags further forward and sideways, the body sinks between its legs and heaves
+        // a slow sigh (a breath in, a long breath out), the sign hanging lower
+        if (o.slump) { const sl = o.slump, e = Math.max(0, t - o.droopAt), sigh = d * Math.sin(Math.min(1, e / 0.9) * PI) * (e < 0.9 ? 1 : 0);
+          panel.rotation.x -= 0.25 * sl * d - 0.08 * sigh; sg.rotation.x += 0.3 * sl * d; sg.position.y -= 0.06 * sl * d;
+          body.position.y = -0.07 * sl * d + 0.025 * sigh; body.rotation.z = (o.side ?? 1) * 0.1 * sl * d; } }
     };
     g.userData.update(0); return g;
   },
