@@ -2105,3 +2105,12 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   cette clé (environ 2 s) et laisser la clé suivante reprendre.
 - (cycle 50) Mains au premier plan près de l'objectif : elles brûlent sous les flashs proches ; les garder à environ 2 m, poignets à
   0,84-0,88 de la hauteur, et les flashs plus loin.
+- (cycle 51, « La pizza ») Gros plan de téléphone : une cravate entre deux formes de peau se lit comme un entrejambe ; faire sortir le
+  téléphone par le bas du cadre.
+- (cycle 51) Un avion de chasse entier et un gros accessoire ne tiennent pas ensemble en 9:16 : montrer l'avion en partie, ou en deux plans.
+- (cycle 51) L'effet de souffle lumineux délave les visages-boîtes : petites bouffées seulement.
+- (cycle 51) Garnitures posées sur la surface de la part, sinon on lit un cornet de glace. Un trottoir roulé montre son bout en spirale.
+- (cycle 51) Le drapeau par défaut de pressRoom ressemble à un vrai drapeau et fighterJet porte un lettrage anglais : vérifier et masquer
+  les deux dans chaque histoire.
+- (cycle 51) Le grey-scan signale un flash blanc voulu comme un creux : le vérifier image par image, et le garder à 0,12 s ou moins.
+- (cycle 51) Le brouillon de contrôle après la passe finale vaut son coût : il a trouvé deux défauts que la troisième revue n'avait pas vus.

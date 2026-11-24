@@ -3059,3 +3059,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 19 h 57 — « Le rayon » (90) passe finale faite (S18 resserré sur lui avec écrasement en deux temps, S08 bord d'ombre calé sur ÉTEINT avec
   voitures qui pilent, S09 tournesols de trois-quarts avec une fleur héroïne, S04 couloir dégagé et seconde prise, S11 applaudissements et
   flashs, S19 transats et pique-niqueurs visibles, satellites étirés). Pré-test du mixage −16,2 LUFS. Rendu final 1080 lancé.
+- 21 h 16 — « La pizza » (91) LIVRÉE et publiée sur TikTok par sa session parallèle (1080x1920, 33,8 s, −16,0 LUFS ; post
+  cmwv70fqs0dk6qd07bugw5v69). Revues 6,6/6,8 → 7,4/7,4 → 7,3/7,7, passe finale, brouillon de contrôle (deux défauts corrigés). Branche
+  fusionnée, leçons au skill. La session reçoit « Le faux numéro » (94).
