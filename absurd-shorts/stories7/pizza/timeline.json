@@ -1,0 +1,760 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a reçu sa pizza froide.",
+   "hl": [
+    "pizza",
+    "froide."
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.1,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.544
+    },
+    {
+     "w": "a",
+     "s": 0.619,
+     "e": 0.693
+    },
+    {
+     "w": "reçu",
+     "s": 0.767,
+     "e": 0.989
+    },
+    {
+     "w": "sa",
+     "s": 1.063,
+     "e": 1.137
+    },
+    {
+     "w": "pizza",
+     "s": 1.211,
+     "e": 1.433
+    },
+    {
+     "w": "froide.",
+     "s": 1.507,
+     "e": 2.1
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Le président a parlé de honte nationale.",
+   "hl": [
+    "président",
+    "nationale."
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L02.k.wav",
+   "file_start": 2.2,
+   "speech_start": 2.2,
+   "speech_end": 4.57,
+   "words": [
+    {
+     "w": "Le",
+     "s": 2.2,
+     "e": 2.274
+    },
+    {
+     "w": "président",
+     "s": 2.348,
+     "e": 2.793
+    },
+    {
+     "w": "a",
+     "s": 2.867,
+     "e": 2.941
+    },
+    {
+     "w": "parlé",
+     "s": 3.015,
+     "e": 3.237
+    },
+    {
+     "w": "de",
+     "s": 3.311,
+     "e": 3.385
+    },
+    {
+     "w": "honte",
+     "s": 3.459,
+     "e": 3.681
+    },
+    {
+     "w": "nationale.",
+     "s": 3.756,
+     "e": 4.57
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "L'armée l'a relivrée en avion de chasse.",
+   "hl": [
+    "L'armée",
+    "relivrée"
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L03.k.wav",
+   "file_start": 4.67,
+   "speech_start": 4.67,
+   "speech_end": 6.744,
+   "words": [
+    {
+     "w": "L'armée",
+     "s": 4.67,
+     "e": 5.041
+    },
+    {
+     "w": "l'a",
+     "s": 5.09,
+     "e": 5.189
+    },
+    {
+     "w": "relivrée",
+     "s": 5.263,
+     "e": 5.633
+    },
+    {
+     "w": "en",
+     "s": 5.67,
+     "e": 5.707
+    },
+    {
+     "w": "avion",
+     "s": 5.781,
+     "e": 6.004
+    },
+    {
+     "w": "de",
+     "s": 6.041,
+     "e": 6.078
+    },
+    {
+     "w": "chasse.",
+     "s": 6.115,
+     "e": 6.744
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "La pizza est arrivée en flammes.",
+   "hl": [
+    "arrivée",
+    "flammes."
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L04.k.wav",
+   "file_start": 6.844,
+   "speech_start": 6.844,
+   "speech_end": 8.696,
+   "words": [
+    {
+     "w": "La",
+     "s": 6.844,
+     "e": 6.919
+    },
+    {
+     "w": "pizza",
+     "s": 6.993,
+     "e": 7.363
+    },
+    {
+     "w": "est",
+     "s": 7.437,
+     "e": 7.585
+    },
+    {
+     "w": "arrivée",
+     "s": 7.733,
+     "e": 7.881
+    },
+    {
+     "w": "en",
+     "s": 7.956,
+     "e": 8.03
+    },
+    {
+     "w": "flammes.",
+     "s": 8.178,
+     "e": 8.696
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Elle a freiné avec la rue.",
+   "hl": [
+    "freiné",
+    "rue."
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L05.k.wav",
+   "file_start": 8.796,
+   "speech_start": 8.796,
+   "speech_end": 10.204,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 8.796,
+     "e": 8.907
+    },
+    {
+     "w": "a",
+     "s": 8.944,
+     "e": 9.019
+    },
+    {
+     "w": "freiné",
+     "s": 9.093,
+     "e": 9.315
+    },
+    {
+     "w": "avec",
+     "s": 9.426,
+     "e": 9.537
+    },
+    {
+     "w": "la",
+     "s": 9.574,
+     "e": 9.611
+    },
+    {
+     "w": "rue.",
+     "s": 9.685,
+     "e": 10.204
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Le trottoir est arrivé avant elle.",
+   "hl": [
+    "trottoir",
+    "arrivé"
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L06.k.wav",
+   "file_start": 10.304,
+   "speech_start": 10.304,
+   "speech_end": 12.025,
+   "words": [
+    {
+     "w": "Le",
+     "s": 10.304,
+     "e": 10.378
+    },
+    {
+     "w": "trottoir",
+     "s": 10.452,
+     "e": 10.822
+    },
+    {
+     "w": "est",
+     "s": 10.896,
+     "e": 10.97
+    },
+    {
+     "w": "arrivé",
+     "s": 11.081,
+     "e": 11.267
+    },
+    {
+     "w": "avant",
+     "s": 11.341,
+     "e": 11.489
+    },
+    {
+     "w": "elle.",
+     "s": 11.563,
+     "e": 12.007
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Ce mec l'a trouvée trop cuite.",
+   "hl": [
+    "trouvée",
+    "cuite."
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L07.k.wav",
+   "file_start": 12.125,
+   "speech_start": 12.125,
+   "speech_end": 13.607,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 12.125,
+     "e": 12.199
+    },
+    {
+     "w": "mec",
+     "s": 12.273,
+     "e": 12.421
+    },
+    {
+     "w": "l'a",
+     "s": 12.458,
+     "e": 12.532
+    },
+    {
+     "w": "trouvée",
+     "s": 12.569,
+     "e": 12.792
+    },
+    {
+     "w": "trop",
+     "s": 12.829,
+     "e": 13.014
+    },
+    {
+     "w": "cuite.",
+     "s": 13.051,
+     "e": 13.607
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "L'état-major a conclu : la refroidir en route.",
+   "hl": [
+    "L'état-major",
+    "refroidir"
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L08.k.wav",
+   "file_start": 13.707,
+   "speech_start": 13.707,
+   "speech_end": 16.225,
+   "words": [
+    {
+     "w": "L'état-major",
+     "s": 13.707,
+     "e": 14.225
+    },
+    {
+     "w": "a",
+     "s": 14.262,
+     "e": 14.299
+    },
+    {
+     "w": "conclu:",
+     "s": 14.373,
+     "e": 15.015
+    },
+    {
+     "w": "la",
+     "s": 15.065,
+     "e": 15.114
+    },
+    {
+     "w": "refroidir",
+     "s": 15.188,
+     "e": 15.558
+    },
+    {
+     "w": "en",
+     "s": 15.595,
+     "e": 15.632
+    },
+    {
+     "w": "route.",
+     "s": 15.707,
+     "e": 16.225
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Un missile l'a montée jusqu'à l'espace.",
+   "hl": [
+    "missile",
+    "l'espace."
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L09.k.wav",
+   "file_start": 16.325,
+   "speech_start": 16.325,
+   "speech_end": 18.325,
+   "words": [
+    {
+     "w": "Un",
+     "s": 16.325,
+     "e": 16.399
+    },
+    {
+     "w": "missile",
+     "s": 16.547,
+     "e": 16.844
+    },
+    {
+     "w": "l'a",
+     "s": 16.869,
+     "e": 16.918
+    },
+    {
+     "w": "montée",
+     "s": 16.992,
+     "e": 17.214
+    },
+    {
+     "w": "jusqu'à",
+     "s": 17.288,
+     "e": 17.51
+    },
+    {
+     "w": "l'espace.",
+     "s": 17.584,
+     "e": 18.325
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Elle a fait un cratère dans son jardin.",
+   "hl": [
+    "cratère",
+    "jardin."
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L10.k.wav",
+   "file_start": 18.425,
+   "speech_start": 18.425,
+   "speech_end": 20.129,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 18.425,
+     "e": 18.499
+    },
+    {
+     "w": "a",
+     "s": 18.573,
+     "e": 18.61
+    },
+    {
+     "w": "fait",
+     "s": 18.647,
+     "e": 18.721
+    },
+    {
+     "w": "un",
+     "s": 18.795,
+     "e": 18.869
+    },
+    {
+     "w": "cratère",
+     "s": 18.907,
+     "e": 19.24
+    },
+    {
+     "w": "dans",
+     "s": 19.289,
+     "e": 19.388
+    },
+    {
+     "w": "son",
+     "s": 19.462,
+     "e": 19.536
+    },
+    {
+     "w": "jardin.",
+     "s": 19.659,
+     "e": 20.129
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Il reste sa porte d'entrée.",
+   "hl": [
+    "porte",
+    "d'entrée."
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L11.k.wav",
+   "file_start": 20.229,
+   "speech_start": 20.229,
+   "speech_end": 21.636,
+   "words": [
+    {
+     "w": "Il",
+     "s": 20.229,
+     "e": 20.303
+    },
+    {
+     "w": "reste",
+     "s": 20.377,
+     "e": 20.599
+    },
+    {
+     "w": "sa",
+     "s": 20.673,
+     "e": 20.747
+    },
+    {
+     "w": "porte",
+     "s": 20.821,
+     "e": 20.969
+    },
+    {
+     "w": "d'entrée.",
+     "s": 21.044,
+     "e": 21.636
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Au fond du cratère : soixante degrés.",
+   "hl": [
+    "cratère",
+    "soixante"
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L12.k.wav",
+   "file_start": 21.736,
+   "speech_start": 21.736,
+   "speech_end": 24.032,
+   "words": [
+    {
+     "w": "Au",
+     "s": 21.736,
+     "e": 21.81
+    },
+    {
+     "w": "fond",
+     "s": 21.884,
+     "e": 21.958
+    },
+    {
+     "w": "du",
+     "s": 22.032,
+     "e": 22.107
+    },
+    {
+     "w": "cratère:",
+     "s": 22.144,
+     "e": 22.896
+    },
+    {
+     "w": "soixante",
+     "s": 22.921,
+     "e": 23.292
+    },
+    {
+     "w": "degrés.",
+     "s": 23.366,
+     "e": 24.032
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Le président a inauguré le cratère.",
+   "hl": [
+    "président",
+    "inauguré"
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L13.k.wav",
+   "file_start": 24.132,
+   "speech_start": 24.132,
+   "speech_end": 26.132,
+   "words": [
+    {
+     "w": "Le",
+     "s": 24.132,
+     "e": 24.207
+    },
+    {
+     "w": "président",
+     "s": 24.281,
+     "e": 24.725
+    },
+    {
+     "w": "a",
+     "s": 24.799,
+     "e": 24.873
+    },
+    {
+     "w": "inauguré",
+     "s": 24.947,
+     "e": 25.281
+    },
+    {
+     "w": "le",
+     "s": 25.318,
+     "e": 25.392
+    },
+    {
+     "w": "cratère.",
+     "s": 25.429,
+     "e": 26.132
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Les autres pays commandent leurs pizzas froides.",
+   "hl": [
+    "commandent",
+    "froides."
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L14.k.wav",
+   "file_start": 26.232,
+   "speech_start": 26.232,
+   "speech_end": 28.396,
+   "words": [
+    {
+     "w": "Les",
+     "s": 26.232,
+     "e": 26.381
+    },
+    {
+     "w": "autres",
+     "s": 26.455,
+     "e": 26.603
+    },
+    {
+     "w": "pays",
+     "s": 26.677,
+     "e": 26.899
+    },
+    {
+     "w": "commandent",
+     "s": 26.973,
+     "e": 27.269
+    },
+    {
+     "w": "leurs",
+     "s": 27.344,
+     "e": 27.418
+    },
+    {
+     "w": "pizzas",
+     "s": 27.517,
+     "e": 27.714
+    },
+    {
+     "w": "froides.",
+     "s": 27.751,
+     "e": 28.381
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Ce mec a mis trois heures à descendre.",
+   "hl": [
+    "heures",
+    "descendre."
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L15.k.wav",
+   "file_start": 28.496,
+   "speech_start": 28.496,
+   "speech_end": 30.422,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 28.496,
+     "e": 28.644
+    },
+    {
+     "w": "mec",
+     "s": 28.681,
+     "e": 28.866
+    },
+    {
+     "w": "a",
+     "s": 28.903,
+     "e": 28.94
+    },
+    {
+     "w": "mis",
+     "s": 29.015,
+     "e": 29.089
+    },
+    {
+     "w": "trois",
+     "s": 29.163,
+     "e": 29.385
+    },
+    {
+     "w": "heures",
+     "s": 29.459,
+     "e": 29.607
+    },
+    {
+     "w": "à",
+     "s": 29.644,
+     "e": 29.681
+    },
+    {
+     "w": "descendre.",
+     "s": 29.792,
+     "e": 30.422
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Une étoile. Elle était froide.",
+   "hl": [
+    "étoile.",
+    "froide."
+   ],
+   "file": "/tmp/pipe/s7/pizza/tts/L16.k.wav",
+   "file_start": 30.522,
+   "speech_start": 30.522,
+   "speech_end": 32.448,
+   "words": [
+    {
+     "w": "Une",
+     "s": 30.522,
+     "e": 30.67
+    },
+    {
+     "w": "étoile.",
+     "s": 30.707,
+     "e": 31.411
+    },
+    {
+     "w": "Elle",
+     "s": 31.436,
+     "e": 31.485
+    },
+    {
+     "w": "était",
+     "s": 31.559,
+     "e": 31.707
+    },
+    {
+     "w": "froide.",
+     "s": 31.781,
+     "e": 32.448
+    }
+   ]
+  }
+ ],
+ "total": 33.75
+}
