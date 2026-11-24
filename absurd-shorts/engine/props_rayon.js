@@ -165,7 +165,9 @@ export const RAYON_PROPS = {
   // the Earth (earthGlobe, held still) with the made-up country (ochre blobs, a darker border) facing +Z, and the parasol's round shadow, a dark cap
   // that swells over it from o.shadowAt over o.shadowDur up to o.shadowAng radians (0: none); o.shadow1: already there
   countryGlobe(o) {
-    const R = o.radius ?? 3, g = grp(buildProp('earthGlobe', { radius: R, seed: o.seed ?? 5 }));
+    // (staging 2) earthGlobe stands on its south pole (its centre at y = R): the country and the shadow caps go in a group at that centre (at the
+    // origin they made a black disc under the globe)
+    const R = o.radius ?? 3, g0 = grp(buildProp('earthGlobe', { radius: R, seed: o.seed ?? 5 })), g = grp(); g.position.y = R; g0.add(g);
     const cap = (ang, rr, col, rx, ry) => { const m = new THREE.Mesh(new THREE.SphereGeometry(R * rr, 32, 6, 0, TAU, 0, ang), mat(col, { noGrain: true })); m.rotation.set(PI / 2 + rx, 0, ry); m.receiveShadow = true; m.castShadow = false; return m; };
     const blobs = [[0.32, 0, 0], [0.22, 0.18, 0.15], [0.2, -0.16, 0.2], [0.18, 0.1, -0.22], [0.16, -0.2, -0.14]];
     for (const [a, rx, ry] of blobs) { g.add(cap(a + 0.03, 1.004, '#8A5A2A', rx, ry), cap(a, 1.008, o.country || '#E8B44A', rx, ry)); }
@@ -173,8 +175,8 @@ export const RAYON_PROPS = {
     const angMax = o.shadowAng ?? 0.62;
     const setSh = v => { const a = Math.max(0.001, angMax * v); sh.geometry.dispose(); sh.geometry = new THREE.SphereGeometry(R * 1.016, 40, 6, 0, TAU, 0, a); sh2.geometry.dispose(); sh2.geometry = new THREE.SphereGeometry(R * 1.012, 40, 6, 0, TAU, 0, Math.min(PI / 2, a * 1.12)); sh.visible = sh2.visible = v > 0.01; };
     setSh(o.shadow1 ? 1 : 0); let last = -1;
-    if (o.shadowAt != null) g.userData.update = t => { const v = smooth((t - o.shadowAt) / (o.shadowDur ?? 0.5)); if (Math.abs(v - last) > 1e-4) { setSh(v); last = v; } };
-    return g;
+    if (o.shadowAt != null) g0.userData.update = t => { const v = smooth((t - o.shadowAt) / (o.shadowDur ?? 0.5)); if (Math.abs(v - last) > 1e-4) { setSh(v); last = v; } };
+    return g0;
   },
   // the parasol's shadow front sweeping over the land, seen from the air: a huge dark disc (o.r) laid o.y above the ground, unlit, see-through
   // (o.op), with two softer rims; move it with keys
@@ -193,7 +195,7 @@ export const RAYON_PROPS = {
       const x = (i - (C - 1) / 2) * gap + (r() - 0.5) * 0.25, z = -j * gap + (r() - 0.5) * 0.2, h = 1.5 + r() * 0.5, s = grp(); s.position.set(x, 0, z); s.rotation.y = (r() - 0.5) * 0.4;
       s.add(at(cyl(0.025, 0.035, h, '#4E8A3A', 6, { pivot: 'bottom' }), 0, 0, 0));
       for (const k of [0.35, 0.6]) s.add(at(box(0.26, 0.02, 0.12, '#5A9A45', { outline: 0.004 }), 0.12 * (k > 0.5 ? -1 : 1), h * k, 0, 0, 0, (k > 0.5 ? 1 : -1) * 0.5));
-      const hd = grp(); hd.position.set(0, h, 0); s.add(hd);
+      const hd = grp(); hd.position.set(0, h, 0); hd.scale.setScalar(o.hs ?? 1); s.add(hd);
       const face = grp(); face.add(at(cyl(0.13, 0.13, 0.05, '#5A3A1E', 12, { outline: 0.008 }), 0, 0, 0, PI / 2, 0, 0));
       for (let p = 0; p < 12; p++) { const a = p * TAU / 12; face.add(at(box(0.07, 0.15, 0.02, '#F2C21E', { taper: { x: 0.4, z: 1 } }), Math.sin(a) * 0.2, Math.cos(a) * 0.2, -0.005, 0, 0, -a)); }
       face.position.set(0, 0.06, 0.05); hd.add(face);
@@ -239,6 +241,9 @@ export const RAYON_PROPS = {
       for (let i = 0; i < n; i++) { c.fillStyle = i % 2 ? (o.c2 || '#8E8576') : (o.c1 || '#7C2F2A'); c.fillRect(i * 1024 / n, 0, 1024 / n + 1, 256); }
       const gr = c.createLinearGradient(0, 0, 0, 256); gr.addColorStop(0, 'rgba(0,0,0,0.0)'); gr.addColorStop(0.75, 'rgba(0,0,0,0.12)'); gr.addColorStop(1, 'rgba(10,10,14,0.55)'); c.fillStyle = gr; c.fillRect(0, 0, 1024, 256);
       c.strokeStyle = 'rgba(30,20,20,0.5)'; c.lineWidth = 3; for (let i = 0; i < n; i++) { c.beginPath(); c.moveTo(i * 1024 / n, 0); c.lineTo(i * 1024 / n, 256); c.stroke(); }
+      // (staging 2) o.haze: a grey murk over the lower part of the dome, so that seen from the ground its foot reads as an overcast horizon, not as a
+      // striped wall standing behind the set
+      if ((o.haze ?? 0) > 0) { const hz = c.createLinearGradient(0, 120, 0, 256); hz.addColorStop(0, 'rgba(118,116,112,0)'); hz.addColorStop(0.55, 'rgba(118,116,112,' + (o.haze * 0.8) + ')'); hz.addColorStop(1, 'rgba(118,116,112,' + o.haze + ')'); c.fillStyle = hz; c.fillRect(0, 0, 1024, 256); }
       const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t; })();
     const dome = new THREE.Mesh(new THREE.SphereGeometry(Rr, 64, 24, 0, TAU, 0, PI / 2 + 0.06), new THREE.MeshBasicMaterial({ map: tex, side: THREE.BackSide, fog: false, color: o.tint || '#FFFFFF' }));
     g.add(dome);
