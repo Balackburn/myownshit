@@ -3053,3 +3053,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   une resucée du « Bocal » : la machine devient une banque, aucun assaut), « Le chifoumi » (96 ; 7,5/8,5/7 ; la femme fait « puits »).
   Écartés : « Le centimètre », « Le bonjour » (moteur affront-embargo trop utilisé), « Le coucou ». Enregistrés (stubs, props.js,
   queue11) ; test d'import du moteur passé.
+- 20 h 05 — « Le rayon » (90) brouillon 3 et revue 3 : animation 7,6 (7,4), direction artistique 8,1 (7,7). Restent : le mec encore perdu
+  dans le pique-nique (S18), le bord de l'ombre trop rapide sous ÉTEINT (S08), tournesols vus de dos (S09), petites finitions S04, S11,
+  S19. Passe finale lancée (vérifiée sur séquences d'images pour S18 et S08), puis rendu final 1080.
