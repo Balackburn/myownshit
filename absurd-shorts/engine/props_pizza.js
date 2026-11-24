@@ -163,7 +163,7 @@ function pizzaBox(o = {}) {
 // the tip (nothing floats above it)
 function pizzaSlice(o = {}) {
   const R = o.r ?? 0.34, g = grp(), sl = grp(), ch = o.charred, fr = o.frost && !ch, half = PI / 9, W2 = R * Math.sin(half), ZM = R * 0.48;
-  const C = ch ? { dough: '#6A5C52', cheese: '#4A403A', crust: '#7A6656', top: '#3A302A' } : fr ? { dough: '#D6E2EC', cheese: '#EEF6FC', crust: '#C9D8E6', top: '#B88A9A' } : { dough: '#D9A35A', cheese: '#F4CF52', crust: '#C98A42', top: '#B32A22' };
+  const C = ch ? { dough: '#3A302A', cheese: '#2E2622', crust: '#6A5646', top: '#241E1A' } : fr ? { dough: '#C6DAEA', cheese: '#E4F0FA', crust: '#B8CCE0', top: '#8EA4C6' } : { dough: '#D9A35A', cheese: '#F4CF52', crust: '#C98A42', top: '#B32A22' };
   const hw = y => W2 * (1 - y / R);   // half width at distance y from the crust
   const part = (y0, y1, th, col, inset = 0, lift = 0) => { const sh = new THREE.Shape(); sh.moveTo(-hw(y0) + inset, y0 - y0); sh.lineTo(hw(y0) - inset, 0); sh.lineTo(Math.max(0.001, hw(y1) - inset), y1 - y0); sh.lineTo(-Math.max(0.001, hw(y1) - inset), y1 - y0); sh.closePath();
     const geo = new THREE.ExtrudeGeometry(sh, { depth: th, bevelEnabled: false }); geo.rotateX(-PI / 2); const m = new THREE.Mesh(geo, mat(col)); m.position.y = lift; m.castShadow = true; return m; };
@@ -175,7 +175,8 @@ function pizzaSlice(o = {}) {
   if (!ch) { for (const [x, y, host] of [[0.0, 0.1, sl], [0.03, 0.2, sl], [-0.025, 0.06, tip], [0.01, 0.13, tip]]) { const d = cyl(0.03 * R / 0.34, 0.03 * R / 0.34, 0.008, C.top, 10); d.position.set(x * R / 0.34, topY, host === tip ? -(y * R / 0.34 * 0.9) : -(y * R / 0.34) * 0.9); host.add(d); } }
   if (ch) for (let i = 0; i < 4; i++) sl.add(at(sphere(0.011, '#FF8A3A', 0, { emissive: '#FF5A10', noGrain: true }), (hsh(i) - 0.5) * 0.06, topY, -0.04 - hsh(i + 2) * ZM * 0.8));
   if (fr) { for (let i = 0; i < 14; i++) { const host = i % 2 ? tip : sl, yy = hsh(i + 5) * (i % 2 ? (R - ZM) * 0.7 : ZM * 0.8); const f = box(0.018 + 0.015 * hsh(i), 0.003, 0.012, '#FFFFFF', { noGrain: true, emissive: '#B8D8F0' }); f.position.set((hsh(i + 1) - 0.5) * hw(yy + (i % 2 ? ZM : 0)) * 1.2, topY + 0.001, -yy - 0.02); f.rotation.y = hsh(i) * 3; host.add(f); }
-    for (let i = 0; i < 3; i++) { const c = new THREE.Mesh(new THREE.ConeGeometry(0.007, 0.04 + 0.02 * hsh(i), 5), mat('#EAF7FF', { noGrain: true, emissive: '#9CC8E6' })); c.rotation.x = PI; c.position.set((i - 1) * 0.015, -0.015, -(R - ZM) * (0.4 + 0.2 * i)); tip.add(c); } }
+    for (let i = 0; i < 3; i++) { const c = new THREE.Mesh(new THREE.ConeGeometry(0.011, 0.07 + 0.03 * hsh(i), 5), mat('#EAF7FF', { noGrain: true, emissive: '#9CC8E6' })); c.rotation.x = PI; c.position.set((i - 1) * 0.02, -0.03, -(R - ZM) * (0.3 + 0.25 * i)); tip.add(c); }
+    for (let i = 0; i < 3; i++) { const c = new THREE.Mesh(new THREE.ConeGeometry(0.01, 0.06, 5), mat('#EAF7FF', { noGrain: true, emissive: '#9CC8E6' })); c.rotation.x = PI; c.position.set((i - 1) * hw(ZM * 0.5) * 0.7, -0.03, -ZM * 0.6); sl.add(c); } }
   tip.rotation.x = -(o.droop ?? 0);
   g.add(sl);
   const crumbs = [], cg = grp(); g.add(cg);
@@ -233,13 +234,13 @@ function jetBox(o = {}) {
   const bx = pizzaBox({ s: S, pizza: false, glow: o.glow, smoke: o.smoke, seed: 21 }); bx.position.set(X, 1.1 - 0.075 * S, Z); inner.add(bx);
   if (o.upright) { bx.rotation.set(PI / 2, 0, 0); bx.rotation.order = 'YXZ'; bx.rotation.y = o.boxYaw ?? 0; bx.position.set(X, 1.1 - bw / 2 - 0.02, Z); for (const dx of [-0.3, 0.3]) inner.add(at(box(0.08, 0.12, 0.14, '#9AA0A6', { outline: 0.004 }), X + dx * S, 1.07, Z)); }
   else for (const dz of [-0.3, 0.3]) inner.add(at(box(bw + 0.06, 0.035, 0.07, '#9AA0A6', { outline: 0.004 }), X, 1.1 + 0.01, Z + dz * S), at(box(0.035, 0.075 * S + 0.07, 0.07, '#9AA0A6'), X + bw / 2 + 0.03, 1.1 - 0.0375 * S, Z + dz * S), at(box(0.035, 0.075 * S + 0.07, 0.07, '#9AA0A6'), X - bw / 2 - 0.03, 1.1 - 0.0375 * S, Z + dz * S));
-  let jf = null, jg = null; if (o.flames) { jf = buildProp('flameField', { points: [[0, 0, 0, 0.5], [0.25, -0.1, -0.2, 0.35, 0.8], [-0.25, -0.1, -0.25, 0.4, 1.7]], seed: 23 }); jf.position.set(X, 1.1 - bw * 0.3, Z - 0.1); jf.rotation.x = -1.2; inner.add(jf);
-    jg = glowSprite('#FF7A2A', 3.2, 0.9); jg.position.set(X, 1.1 - bw / 2, Z - 0.3); inner.add(jg); }
-  const hg = glowSprite('#FF4A10', 2.6, 0); hg.position.set(X, 1.1 - bw / 2, Z); inner.add(hg);
+  let jf = null, jg = null; if (o.flames) { jf = buildProp('flameField', { points: [[0, 0, 0, 0.3], [0.1, 0.0, -0.35, 0.28, 0.8], [-0.1, 0.0, -0.7, 0.24, 1.7], [0.0, 0.0, -1.05, 0.18, 2.5]], seed: 23 }); jf.position.set(X + 0.05, 1.1 - bw * 0.85, Z - 0.35); jf.rotation.x = -1.35; inner.add(jf);
+    jg = glowSprite('#FF7A2A', 1.1, 0.6); jg.position.set(X, 1.1 - bw / 2, Z - 0.6); inner.add(jg); }
+  const hg = glowSprite('#FF4A10', 1.0, 0); hg.position.set(X, 1.1 - bw / 2, Z); inner.add(hg);
   g.userData.update = t => {
     if (jf) { const on = inWin(o.flames, t); jf.visible = jg.visible = on; if (on) jf.userData.update(t); }
-    hg.material.opacity = 0.9 * keyAt(o.glow ?? 0, t, 0, 0.3);
-    if (o.upright && o.slaps) { const w = wob(o.slaps, t, 0.22, 30, 6); bx.rotation.z = w; bx.position.x = X + 0.04 * w; }
+    hg.material.opacity = 0.55 * keyAt(o.glow ?? 0, t, 0, 0.3);
+    if (o.upright && o.slaps) { const w = wob(o.slaps, t, o.slapA ?? 0.22, 24, 4.5); bx.rotation.z = w; bx.position.x = X + 0.04 * w; }
     const v = lin(o.stretch, t, 0); inner.scale.set(1 - 0.3 * v, 1 - 0.25 * v, 1 + v);
     const sh = inWin(o.shake, t) ? 1 : 0; inner.position.set(0.02 * sh * Math.sin(t * 71), 0.015 * sh * Math.sin(t * 53), 0);
     bx.userData.update(t); j.userData.update?.(t);

@@ -94,7 +94,7 @@ HOME = ['#6A3FA0', '#F2C94C']
 FLAGS = [['#1E7A8C', '#E88AA8'], ['#E07A1F', '#1F2E5C'], ['#8DBE3A', '#6A2E5A']]
 
 for g_ in [('S01', 0.55, 'mec', 'frost'), ('S02', 1.32, 'president', 'pound'), ('S03', 0.55, 'soldat1', 'bolt'), ('S04', 0.45, 'mec', 'jump'), ('S06', 0.9, 'mec', 'peek'),
-           ('S07', 1.15, 'mec', 'crumble'), ('S08', 2.05, 'general1', 'push'), ('S12', 1.45, 'soldat1', 'thumb'), ('S13', 1.15, 'president', 'snip'), ('S16', 2.4, 'mec', 'deadpan')]:
+           ('S07', 1.15, 'mec', 'crumble'), ('S08', 2.05, 'general1', 'push'), ('S12', 1.45, 'soldat3', 'thumb'), ('S13', 1.15, 'president', 'snip'), ('S16', 2.4, 'mec', 'deadpan')]:
     st.gag(*g_)
 
 # 1: the hook. At his front door, facing us, he holds the closed pizza box at chest height; the lid creaks open on its own, a frost cloud bursts
@@ -153,9 +153,9 @@ st.cue('whoosh', 'S02', r(POUND2 - 0.2), 0.2); st.cue('thud', 'S02', POUND2, 0.6
 #    blasts off, speed lines, the box glowing red-hot, then on fire as it climbs into a pastel sky
 D3 = st.dur('S03'); GO3 = 0.95; CUT3 = 0.95
 JS = 1.4                                                               # the jet's scale: its wing at 2.2 m, over the soldiers' heads
-JET0 = [0.0, 0, 0.0]; JET1 = [0.0, 8.0, 140.0]
+JET0 = [0.0, 0, 0.0]; JET1 = [0.0, 7.0, 95.0]   # (review 3) a shorter run: the chase camera no longer flies into the far hills
 BOXJ = [r(3.1 * JS), r((1.1 - 0.403 - 0.02) * JS), r(-1.1 * JS)]       # the middle of the box hanging on its edge under the left wing (world, jet at rest)
-SOL1 = [r(BOXJ[0] - 0.65), 0, r(BOXJ[2] - 0.3)]; SOL2 = [r(BOXJ[0] + 0.2), 0, r(BOXJ[2] - 1.4)]   # (review 1) beside the box as seen from the lens, not behind it
+SOL1 = [r(BOXJ[0] - 0.55), 0, r(BOXJ[2] - 0.6)]; SOL2 = [r(BOXJ[0] + 0.2), 0, r(BOXJ[2] - 1.4)]   # (review 3) soldier 1 beside the box, turned three-quarter to profile
 # (review 1) (a) low, close and three-quarter on the pylon: the box a third of the frame, the soldiers' slap and thumbs up against the sky
 C3a = cam(0.0, add(BOXJ, [2.0, -0.5, 2.8]), add(BOXJ, [1.88, -0.5, 2.62]), add(BOXJ, [-0.1, 0.3, -0.5]), add(BOXJ, [-0.1, 0.31, -0.5]), lens=50)
 # (review 1) (b) side-on, locked beside the box as the jet takes off (same cubic ease as the jet's move): the stretch, the glow and the fire read on the sky
@@ -166,18 +166,17 @@ chk('S03b', C3b, {'box': BOXJ, 'boxTop': add(BOXJ, [0, 0.5, 0]), 'boxBot': add(B
 SAL3 = {'lid': 0.2, 'mouth': 'smile', 'brow': 0.3}
 TOPB = add(BOXJ, [-0.2, 0.2, 0.2]); UPB = add(BOXJ, [-0.4, 0.65, 0.35])
 st.shot('S03', 'runway', setOpts={'sky': ['#F4C6D2', '#C6E6F4']}, look={'sunDir': [0.6, 0.7, 0.6]}, actors=[
-        act('soldat1', SOL1, 40, 'stand', 'determined', keys=[k(0.0, look=TOPB),
-            TK(0.0, {'R': R5(UPB), 'L': R5(add(BOXJ, [-0.35, -0.2, 0.25]))}, {'R': 'open', 'L': 'open'}, {'lid': 0.3, 'mouth': 'line', 'brow': -0.4}, (0.96, 1.05, 0.96), d=0.0),
-            TK(0.3, {'R': R5(TOPB)}, {'R': 'open'}, sq=(1.08, 0.92, 1.08), d=0.06, e='in'),
-            TK(0.42, {'R': R5(UPB)}, {'R': 'open'}, sq=(0.97, 1.04, 0.97), d=0.08),
-            TK(0.53, {'R': R5(TOPB)}, {'R': 'open'}, {'lid': 0.1, 'mouth': 'smile', 'brow': 0.2}, (1.1, 0.9, 1.1), d=0.06, e='in'),
-            TK(0.72, {'R': R5(off(SOL1, 40, 0.12, 0.2, 2.03), 1, 0.03), 'L': R5(off(SOL1, 40, 0.2, -0.3, 1.0))}, {'R': 'open', 'L': 'rest'}, SAL3, (1, 1, 1), d=0.12),
-            k(0.6, look='camera', lookDur=0.12)]),
+        act('soldat1', SOL1, 80, 'stand', 'determined', keys=[k(0.0, look=TOPB),   # (review 3) one clear slap: wind-up high, slap, the box rocks
+            TK(0.0, {'R': R5(add(BOXJ, [-0.3, 0.1, 0.05])), 'L': R5(add(BOXJ, [-0.4, -0.3, 0.3]))}, {'R': 'open', 'L': 'rest'}, {'lid': 0.3, 'mouth': 'line', 'brow': -0.4}, d=0.0),
+            TK(0.25, {'R': R5(add(BOXJ, [-0.55, 0.75, 0.25]))}, {'R': 'open'}, {'lid': 0.2, 'mouth': 'line', 'brow': -0.6}, (0.94, 1.07, 0.94), d=0.15, e='out'),
+            TK(0.42, {'R': R5(add(BOXJ, [-0.22, 0.12, 0.05]))}, {'R': 'open'}, {'lid': 0.1, 'mouth': 'O', 'brow': 0.2}, (1.1, 0.9, 1.1), d=0.05, e='in'),
+            TK(0.6, {'R': R5(add(BOXJ, [-0.4, 0.15, 0.2]))}, {'R': 'open'}, {'lid': 0.1, 'mouth': 'smile', 'brow': 0.3}, (1, 1, 1), d=0.15),
+            k(0.6, look='camera', lookDur=0.12), k(CUT3, visible=False)]),
         act('soldat2', SOL2, -30, 'stand', 'happy', keys=[k(0.0, look='camera'),
             TK(0.0, {'R': R5(off(SOL2, -30, 0.3, 0.3, 1.0)), 'L': R5(off(SOL2, -30, 0.45, -0.3, 1.5))}, {'R': 'rest', 'L': 'thumbUp'}, SAL3, d=0.0),
             TK(0.45, {'L': R5(off(SOL2, -30, 0.5, -0.3, 1.85))}, {'L': 'thumbUp'}, {'lid': 0.1, 'mouth': 'bigsmile', 'brow': 0.5}, (0.93, 1.08, 0.93), d=0.1, e='out'),
-            TK(0.7, {'L': R5(off(SOL2, -30, 0.5, -0.3, 1.75))}, {'L': 'thumbUp'}, SAL3, (1, 1, 1), d=0.15)])],
-        props=[P('jet3', 'jetBox', pos=JET0, scale=JS, opts={'gear': True, 'upright': True, 'boxYaw': 1.45, 'boxS': 1.3, 'slaps': [0.3, 0.53], 'burner': 0.0, 'glow': [[0, 0], [r(GO3 + 0.15), 0], [r(GO3 + 0.55), 1.0]], 'flames': [[r(GO3 + 0.68), 9]], 'smoke': True,
+            TK(0.7, {'L': R5(off(SOL2, -30, 0.5, -0.3, 1.75))}, {'L': 'thumbUp'}, SAL3, (1, 1, 1), d=0.15), k(CUT3, visible=False)])],   # (review 3) the soldiers leave the frame with the cut (one walked through the chase)
+        props=[P('jet3', 'jetBox', pos=JET0, scale=JS, opts={'gear': True, 'upright': True, 'boxYaw': 1.45, 'boxS': 1.3, 'slaps': [0.42], 'slapA': 0.4, 'burner': 0.0, 'glow': [[0, 0], [r(GO3 + 0.15), 0], [r(GO3 + 0.55), 0.55]], 'flames': [[r(GO3 + 0.68), 9]], 'smoke': True,
                  'stretch': [[0, 0], [r(GO3 - 0.08), -0.1], [GO3, 0.0], [r(GO3 + 0.05), 0.7], [r(GO3 + 0.14), 0.12], [r(GO3 + 0.26), 0.0]], 'shake': [[0.0, GO3]]},
                  keys=[k(GO3, to=JET1, dur=r(D3 - GO3), ease='in')]),
                P('vitesse3', 'speedLines', pos=[6.5, 1.2, -3.0], ry=90, scale=2.5, opts={'count': 10, 'length': 5.0, 'dir': -1}, keys=[k(0.0, visible=False), k(r(CUT3 + 0.08), visible=True), k(CUT3, to=[6.5, 9.2, 137.0], dur=r(D3 - CUT3), ease='in')])],
@@ -248,22 +247,22 @@ st.shot('S06', SET, setOpts=SETO, lighting='day', look=SUN, actors=[
             # (review 2) a slow rise, eyes first over the top; a pop up into a stretch held 7 frames; then he settles into the stare
             k(0.12, to=add(HERO6, [0, 0.55, 0]), dur=0.6, ease='inOut', glide=True, face='keep'), k(0.25, look=add(BOX6, [0.0, 0.8, 0.5]), lookDur=0.3),
             TK(0.6, HANDS6, {'R': 'grip', 'L': 'grip'}, {'lid': 0.1, 'pop': 0.15, 'mouth': 'line', 'brow': 0.5}, d=0.2),
-            k(UP6, to=add(HERO6, [0, 0.98, 0]), dur=0.12, ease='out', glide=True, face='keep'),
-            TK(UP6, HANDS6, {'R': 'grip', 'L': 'grip'}, PEEK, (0.86, 1.2, 0.86), d=0.12, e='out'),
+            k(UP6, to=add(HERO6, [0, 0.98, 0]), dur=0.26, ease='inOut', glide=True, face='keep'),   # (review 3) eased over 8 frames
+            TK(UP6, HANDS6, {'R': 'grip', 'L': 'grip'}, PEEK, (0.86, 1.2, 0.86), d=0.26, e='inOut'),
             TK(HOLD6, HANDS6, {'R': 'grip', 'L': 'grip'}, PEEK, (0.87, 1.19, 0.87), d=0.24, e='linear'),
-            k(HOLD6, to=add(HERO6, [0, 0.8, 0]), dur=0.25, ease='inOut', glide=True, face='keep'),
+            k(HOLD6, to=add(HERO6, [0, 0.94, 0]), dur=0.25, ease='inOut', glide=True, face='keep'),   # (review 3) he stays up: the face clear to the end
             TK(r(HOLD6 + 0.25), HANDS6, {'R': 'grip', 'L': 'grip'}, STARE6, (1, 1, 1), d=0.25),
             k(r(UP6 + 0.1), look='camera', lookDur=0.12), *blink(1.62, STARE6)])],
         props=[TOWN('S06', **DONE, roll=True, rollAt=[0.0, -1.15]),
-               P('boite6', 'pizzaBox', pos=BOX6, ry=-35, rot=[0.32, math.radians(-35), 0], opts={'s': 1.25, 'pizza': False, 'scorch': True, 'open': 0.35, 'smoke': True, 'fire': True, 'fireK': [[0, 1.0], [0.18, 1.0], [0.42, 0.0]]})],   # (review 1) the fire dies over 7 frames into smoke   # (review 2) bigger, tilted to the lens, lid ajar: it reads as a box
+               P('boite6', 'pizzaBox', pos=BOX6, ry=-35, rot=[0.5, math.radians(-35), 0], opts={'s': 1.25, 'pizza': False, 'scorch': True, 'open': 0.0, 'smoke': True, 'fire': True, 'fireK': [[0, 1.0], [0.18, 1.0], [0.42, 0.0]]})],   # (review 1) the fire dies over 7 frames into smoke   # (review 2) bigger, tilted to the lens, lid ajar: it reads as a box
         cams=[C6])
 st.cue('sfx:scratch', 'S06', 0.15, 0.2); st.cue('sfx:boing', 'S06', UP6, 0.2)
 
 # 7: this man found it overcooked. Close: standing behind the roll he holds up a charred black slice beside his face; on « cuite » it crumbles to dust
 #    in his fingers (a black puff, crumbs raining); the open charred pizza in its box on the roll in front of him, the dial reading red; a blink
-D7 = st.dur('S07'); CR7 = 1.25   # (review 2) the crumble on « cuite » (13.05-13.6 s)
+D7 = st.dur('S07'); CR7 = 1.1   # (review 3) the crumble at 13.20 s, after a lift-and-sniff
 HERO7 = [-0.2, 0.05, -2.5]
-BOX7 = [-0.38, 1.73, -1.3]
+BOX7 = [-0.5, 1.73, -1.3]   # (review 3) the dial further left and lower: a gap to his face
 SLICE7 = off(HERO7, 0, 0.5, -0.34, 1.92)   # (review 2) in his left hand at shoulder height, against the pale hall wall
 C7 = cam(0.0, [-0.12, 2.05, 0.85], [-0.14, 2.05, 0.6], [-0.22, 1.98, -2.15], [-0.22, 1.98, -2.15], lens=40)
 chk('S07', C7, {'face': add(HERO7, [0, 2.05, 0]), 'hairTop': add(HERO7, [0, 2.4, 0]), 'slice': SLICE7, 'sliceTip': add(SLICE7, [0, 0.33, 0]), 'box': BOX7, 'dial': add(BOX7, [0.02, 0.42, 0.1])})
@@ -271,15 +270,16 @@ SNIFF = {'lid': 0.35, 'mouth': 'flat', 'brow': 0.1}
 st.shot('S07', SET, setOpts=SETO, lighting='day', look=SUN, actors=[
         act('mec', HERO7, 0, 'stand', 'neutral', keys=[k(0.0, look=add(SLICE7, [0, 0.15, 0])),
             TK(0.0, {'L': R5(add(SLICE7, [0, -0.02, 0])), 'R': R5([-0.55, 1.8, -1.9])}, {'L': 'pinch', 'R': 'rest'}, SNIFF, d=0.0),
-            TK(0.7, {'L': R5(add(SLICE7, [0, 0.02, 0]))}, {'L': 'pinch'}, {'lid': 0.3, 'mouth': 'flat', 'brow': 0.3}, (0.98, 1.03, 0.98), d=0.3),
-            TK(r(CR7 - 0.02), {'L': R5(add(SLICE7, [0, -0.02, 0]))}, {'L': 'pinch'}, {'lid': 0.3, 'mouth': 'flat', 'brow': 0.3}, (1, 1, 1), d=0.2),
+            TK(0.72, {'L': R5(add(SLICE7, [-0.04, 0.12, 0.02]), 1, 0.06)}, {'L': 'pinch'}, {'lid': 0.5, 'mouth': 'pout', 'brow': 0.3}, (0.98, 1.03, 0.98), {'neck': SP(0.18)}, d=0.2),   # (review 3) lift and sniff
+            TK(0.92, {'L': R5(add(SLICE7, [-0.04, 0.14, 0.02]), 1, 0.06)}, {'L': 'pinch'}, {'lid': 0.6, 'mouth': 'pout', 'brow': 0.4}, (0.99, 1.02, 0.99), {'neck': SP(0.22)}, d=0.15),
+            TK(r(CR7 - 0.02), {'L': R5(add(SLICE7, [0, 0.06, 0]), 1, 0.06)}, {'L': 'pinch'}, {'lid': 0.3, 'mouth': 'flat', 'brow': 0.3}, (1, 1, 1), {'neck': SP(0.0)}, d=0.12),
             TK(r(CR7 + 0.06), {'L': R5(add(SLICE7, [0, -0.06, 0]))}, {'L': 'open'}, {'lid': 0.0, 'pop': 0.3, 'mouth': 'O', 'brow': 0.6}, (1.06, 0.93, 1.06), d=0.05, e='out'),
             TK(r(CR7 + 0.25), {'L': R5(add(SLICE7, [0, -0.08, 0]))}, {'L': 'open'}, {'lid': 0.05, 'pop': 0.2, 'mouth': 'O', 'brow': 0.5}, (1, 1, 1), d=0.12),
             *blink(0.3, SNIFF),
             k(0.45, look='camera', lookDur=0.15)])],
         props=[TOWN('S07', **DONE, roll=True, rollAt=[0.0, -1.15]),
-               P('part7', 'pizzaSlice', pos=SLICE7, rot=[PI / 2, 0, -0.2], opts={'charred': True, 'crumbleAt': CR7, 'fall': 1.9, 'r': 0.46}),
-               P('boite7', 'pizzaBox', pos=BOX7, ry=-8, rot=[0.25, math.radians(-8), 0], opts={'side': 1, 'open': 1.9, 'charred': True, 'missing': True, 'charredBox': True, 'smoke': True, 'thermo': 1.0, 'tR': 0.14, 'tLen': 0.2, 'tTilt': -0.25, 'tRoll': 0.25, 'tAt': [0.0, 0.1]})],
+               P('part7', 'pizzaSlice', pos=SLICE7, rot=[PI / 2, 0, -0.2], opts={'charred': True, 'crumbleAt': CR7, 'fall': 1.9, 'r': 0.46}, keys=[k(0.72, to=add(SLICE7, [-0.04, 0.12, 0.02]), dur=0.2), k(0.92, to=add(SLICE7, [-0.04, 0.14, 0.02]), dur=0.15), k(r(CR7 - 0.02), to=add(SLICE7, [0, 0.06, 0]), dur=0.12)]),   # the slice rides with the hand
+               P('boite7', 'pizzaBox', pos=BOX7, ry=-8, rot=[0.25, math.radians(-8), 0], opts={'side': 1, 'open': 1.9, 'charred': True, 'missing': True, 'charredBox': True, 'smoke': True, 'thermo': 1.0, 'tR': 0.14, 'tLen': 0.06, 'tTilt': -0.25, 'tRoll': 0.3, 'tAt': [-0.05, 0.1]})],
         cams=[C7])
 st.cue('sfx:crunch', 'S07', CR7, 0.4); st.cue('sfx:poof', 'S07', r(CR7 + 0.05), 0.2)
 
@@ -366,23 +366,24 @@ st.cue('sfx:wind', 'S11', 0.0, 0.2, 1.5); st.cue('sfx:squeak', 'S11', 0.35, 0.3)
 #     swinging down from the red and settling EXACTLY on green (a sparkle, a curl of steam); behind it a kneeling soldier gives a big thumbs up
 #     and grins (LIVRÉE once it has settled)
 D12 = st.dur('S12'); GREEN12 = 1.22
-BOX12 = [0.55, -CD + 0.02, -11.4]
-SOLD12 = [1.35, r(-CD - 0.5), -12.55]   # (review 1) kneeling for real: the root lowered by hand, the legs bent
+ROCK12 = [0.55, -CD, -11.4]; BOX12 = [0.55, r(-CD + 0.37), -11.4]   # (review 3) on a lump of rubble: the pizza above the caption band
+SOLD12 = [1.35, r(-CD - 0.62), -12.55]   # (review 1) kneeling for real: the root lowered by hand, the legs bent
 KNEEL = {'legL': SP(-1.5), 'shinL': SP(1.5), 'legR': SP(0.05), 'shinR': SP(1.55)}
 C12 = cam(0.0, [-0.3, -12.85, -7.9], [-0.25, -12.9, -8.1], [0.7, -13.12, -11.9], [0.7, -13.12, -11.9], lens=48)
 chk('S12', C12, {'box': BOX12, 'dial': add(BOX12, [0.1, 0.62, 0.05]), 'soldFace': add(SOLD12, [0, 2.05, 0]), 'thumb': off(SOLD12, -25, 0.5, -0.28, 1.75), 'wallTop': [0.5, 0, -26.0]})
 st.shot('S12', SET, setOpts=SETO, lighting='day', look={'sunDir': [0.3, 0.9, 0.5], 'fill': 1.3}, actors=[
-        act('soldat1', SOLD12, -25, 'stand', 'neutral', keys=[k(0.0, look=add(BOX12, [0, 0.5, 0])), TK(0.0, {'L': R5(off(SOLD12, -25, 0.35, -0.3, 1.2)), 'R': R5(off(SOLD12, -25, 0.35, 0.3, 1.15))}, {'L': 'rest', 'R': 'rest'}, {'lid': 0.3, 'mouth': 'line', 'brow': 0.4}, bend=KNEEL, d=0.0),
+        act('soldat3', SOLD12, -25, 'stand', 'neutral', keys=[k(0.0, look=add(BOX12, [0, 0.5, 0])), TK(0.0, {'L': R5(off(SOLD12, -25, 0.35, -0.3, 1.2)), 'R': R5(off(SOLD12, -25, 0.35, 0.3, 1.15))}, {'L': 'rest', 'R': 'rest'}, {'lid': 0.3, 'mouth': 'line', 'brow': 0.4}, bend=KNEEL, d=0.0),
             k(r(GREEN12 + 0.05), look='camera', lookDur=0.12),
-            TK(r(GREEN12 + 0.12), {'L': R5(off(SOLD12, -25, 0.55, -0.28, 1.85))}, {'L': 'thumbUp'}, {'lid': 0.1, 'mouth': 'bigsmile', 'brow': 0.7}, (0.92, 1.1, 0.92), KNEEL, d=0.07, e='out'),
-            TK(r(GREEN12 + 0.35), {'L': R5(off(SOLD12, -25, 0.55, -0.28, 1.75))}, {'L': 'thumbUp'}, {'lid': 0.2, 'mouth': 'bigsmile', 'brow': 0.6}, (1, 1, 1), KNEEL, d=0.15),
+            TK(r(GREEN12 + 0.12), {'L': R5(off(SOLD12, -25, 0.55, -0.34, 2.15))}, {'L': 'thumbUp'}, {'lid': 0.1, 'mouth': 'bigsmile', 'brow': 0.7}, (0.92, 1.1, 0.92), KNEEL, d=0.07, e='out'),
+            TK(r(GREEN12 + 0.35), {'L': R5(off(SOLD12, -25, 0.55, -0.34, 2.08))}, {'L': 'thumbUp'}, {'lid': 0.2, 'mouth': 'bigsmile', 'brow': 0.6}, (1, 1, 1), KNEEL, d=0.15),
             *blink(r(GREEN12 + 0.75), {'lid': 0.2, 'mouth': 'bigsmile', 'brow': 0.6})]),
         ],
         props=[TOWN('S12', **DONE, crater=CRATER, ladder=True),
                P('boite12', 'pizzaBox', pos=BOX12, ry=12, rot=[0.18, math.radians(12), 0], opts={'open': 1.85, 'thermo': [[0, 1.0], [0.45, 0.7], [0.85, -0.25], [GREEN12, 0.0]], 'wobA': 0.12, 'tR': 0.17, 'tLen': 0.36, 'tTilt': -0.18, 'tAt': [0.1, 0.07], 'seed': 12}),
                P('vapeur12', 'softWisp', pos=add(BOX12, [-0.1, 0.12, 0.0]), opts={'n': 10, 'rise': 0.9, 'life': 1.4, 's0': 0.06, 's1': 0.25, 'color': '#FFFFFF', 'opacity': 0.55}),
                P('ding12', 'twinkle', pos=add(BOX12, [0.12, 0.78, 0.25]), opts={'at': GREEN12, 's': 0.25, 'dur': 0.45}),
-               P('casque12', 'armyHelmet', on={'actor': 'soldat1', 'joint': 'head', 'offset': [0.0, 0.46, 0.0]}, opts={'s': 0.95})],
+               P('rocher12', 'rubbleRock', pos=ROCK12, ry=10, opts={'h': 0.35, 'w': 1.0}), P('epaul12', 'epaulettes', on={'actor': 'soldat3', 'joint': 'torso', 'offset': [0.0, 0.42, 0.0]}, opts={'w': 0.52}),
+               P('casque12', 'armyHelmet', on={'actor': 'soldat3', 'joint': 'head', 'offset': [0.0, 0.46, 0.0]}, opts={'s': 0.95})],
         cams=[C12])
 st.card('S12', 'LIVRÉE', at=1.5)
 st.cue('sfx:tick', 'S12', 0.45, 0.15); st.cue('sfx:tick', 'S12', 0.85, 0.15); st.cue('sfx:ding', 'S12', GREEN12, 0.4)
@@ -433,7 +434,7 @@ FR14 = [1.5, 8.0, 8.0]
 L14, LENS14, _ = fit(FR14, {**PTS14, **{f'cf{i}': cour(i) for i in range(3)}}, top=0.08, bottom=0.74)
 C14 = cam(0.0, FR14, add(FR14, [-0.05, -0.1, -0.2]), [r(v) for v in L14], [r(v) for v in L14], lens=LENS14)
 chk('S14', C14, {**PTS14, **{f'box{i}': add(offi(i), [0.42, 1.55, 0.2]) for i in range(3)}})
-NODB = lambda t: [TK(t, face={'lid': 0.5, 'mouth': 'bigsmile', 'brow': 0.4}, bend={'neck': SP(0.95), 'spine': SP(0.2)}, sq=(1.1, 0.86, 1.1), d=0.09, keep=True), TK(r(t + 0.15), face={'lid': 0.2, 'mouth': 'bigsmile', 'brow': 0.5}, bend={'neck': SP(-0.15), 'spine': SP(0.0)}, sq=(0.96, 1.05, 0.96), d=0.1, keep=True)]   # (review 2) big nods with a squash, they read from up there
+NODB = lambda t: [TK(t, face={'lid': 0.5, 'mouth': 'bigsmile', 'brow': 0.4}, bend={'neck': SP(1.2), 'spine': SP(0.28)}, sq=(1.14, 0.82, 1.14), d=0.09, keep=True), TK(r(t + 0.15), face={'lid': 0.2, 'mouth': 'bigsmile', 'brow': 0.5}, bend={'neck': SP(-0.15), 'spine': SP(0.0)}, sq=(0.96, 1.05, 0.96), d=0.1, keep=True)]   # (review 2) big nods with a squash, they read from up there
 acts14, props14 = [], []
 for i in range(3):
     O, Cq = offi(i), cour(i)
@@ -484,21 +485,22 @@ SLR = 0.42                                                          # the slice'
 SLhit = add(TAPPOS, [SLR, 0.0, 0.0])                               # (review 2) the crust in his fingers so that the slice's TIP lands on the star
 SLup = add(SLhit, [0.12, 0.1, -0.1]); SLrest = add(SLhit, [0.2, -0.25, 0.05])
 SL16b = off(HERO16, RY16, 0.45, 0.18, 1.38)                          # (review 2) end hold: held by the crust at his right, drooping sideways
-BOX16 = off(HERO16, RY16, 0.6, -0.42, 0.0); BOX16[1] = r(-CD + 0.02)   # (review 2) at his feet, the lid behind it, the pizza below the caption band
+BOX16 = off(HERO16, RY16, 0.55, -0.55, 0.0); BOX16[1] = r(-CD + 0.02)   # (review 3) on the floor in front of his left shoe, clear of his legs, tilted to us
+THERMO16 = add(BOX16, [-0.04, 0.06, -0.05])
 HIP16 = off(HERO16, RY16, 0.22, -0.38, 0.95)
 C16a = cam(0.0, add(PH16, [-0.12, 0.02, -0.82]), add(PH16, [-0.11, 0.0, -0.74]), add(PH16, [0.04, -0.05, 0.0]), add(PH16, [0.04, -0.05, 0.0]), lens=40)
-C16b = cam(CUT16, add(HERO16, [0.0, 1.62, -3.6]), add(HERO16, [0.0, 1.63, -3.45]), add(HERO16, [0.0, 1.38, 0.0]), add(HERO16, [0.0, 1.39, 0.0]), lens=42)   # (review 1) him centred for the end hold
+C16b = cam(CUT16, add(HERO16, [0.0, 1.55, -4.4]), add(HERO16, [0.0, 1.56, -4.25]), add(HERO16, [0.0, 1.25, 0.0]), add(HERO16, [0.0, 1.26, 0.0]), lens=42)   # (review 3) a step back: the box on the floor below the captions   # (review 1) him centred for the end hold
 chk('S16a', C16a, {'phone': PH16, 'star1': TAPPOS, 'crustHit': SLhit, 'crustUp': SLup, 'phoneTop': add(PH16, [0, 0.24, 0])})
-chk('S16b', C16b, {'face': add(HERO16, [0, 2.05, 0]), 'hairTop': add(HERO16, [0, 2.4, 0]), 'sliceCrust': SL16b, 'sliceTip': add(SL16b, [r(SLR * 0.81), -0.15, r(-SLR * 0.58)]), 'box': BOX16, 'dial': add(BOX16, [0, 1.0, -0.08])})
+chk('S16b', C16b, {'face': add(HERO16, [0, 2.05, 0]), 'hairTop': add(HERO16, [0, 2.4, 0]), 'sliceCrust': SL16b, 'sliceTip': add(SL16b, [r(SLR * 0.81), -0.15, r(-SLR * 0.58)]), 'box': BOX16, 'boxLid': add(BOX16, [0, 0.55, 0.3]), 'dial': add(THERMO16, [0, 0.95, 0])})
 DUSKSET = {**SETO, 'sky': ['#E7906A', '#FFD3A0'], 'below': '#FFD3A0'}
 DUSKLOOK = {'sunColor': '#FFA868', 'sunDir': [-0.4, 0.35, -0.85], 'elevation': 18, 'warm': 0.55, 'hazeColor': '#F2B892', 'exposure': 1.12, 'fill': 1.45}
 st.shot('S16', SET, setOpts=DUSKSET, lighting='day', look=DUSKLOOK, actors=[
         act('mec', HERO16, RY16, 'stand', 'neutral', keys=[k(0.0, look=PH16),
-            TK(0.0, {'L': R5(add(PH16, [0.0, -0.1, 0.03])), 'R': R5(add(SLrest, [0.0, -0.02, 0.0]))}, {'L': 'grip', 'R': 'pinch'}, DEAD, d=0.0),
+            TK(0.0, {'L': R5(add(PH16, [-0.13, -0.12, 0.06])), 'R': R5(add(SLrest, [0.0, -0.02, 0.0]))}, {'L': 'grip', 'R': 'pinch'}, DEAD, d=0.0),   # (review 3) the left hand on the phone's edge, behind it (its fingers had poked through the screen)
             TK(r(TAP16 - 0.14), {'R': R5(add(SLup, [0.0, -0.02, 0.0]))}, {'R': 'pinch'}, DEAD, d=0.1),
             TK(r(TAP16 - 0.04), {'R': R5(add(SLhit, [0.0, -0.02, 0.0]))}, {'R': 'pinch'}, DEAD, d=0.05, e='out'),
             TK(r(TAP16 + 0.42), {'R': R5(add(SLup, [0.0, -0.02, 0.0]))}, {'R': 'pinch'}, DEAD, d=0.2),
-            TK(CUT16, {'L': R5(HIP16), 'R': R5(add(SL16b, [0.0, -0.02, 0.0]))}, {'L': 'rest', 'R': 'pinch'}, DEAD, d=0.0),
+            TK(CUT16, {'L': R5(HIP16), 'R': R5(add(SL16b, [0.0, 0.0, 0.0]), 1, 0.05)}, {'L': 'rest', 'R': 'pinch'}, DEAD, d=0.0),   # the fingertips on the crust
             k(CUT16, look='camera', lookDur=0.05), *BREATHE(r(CUT16 + 0.1), D16, 0.6, 0.01), *blink(1.6, DEAD), TK(2.3, face={'lid': 0.55, 'mouth': 'line', 'brow': -0.2}, d=0.3, keep=True), *blink(2.75, {'lid': 0.55, 'mouth': 'line', 'brow': -0.2})])],
         props=[TOWN('S16', **DONE, crater=CRATER, ladder=True, frameDoor=-1.7),
                P('tel16', 'ratingPhone', pos=PH16, ry=r(RY16 - 8), opts={'rateAt': r(TAP16 + 0.02), 'tapAt': TAP16}, keys=[k(CUT16, visible=False)]),
@@ -508,7 +510,8 @@ st.shot('S16', SET, setOpts=DUSKSET, lighting='day', look=DUSKLOOK, actors=[
                  keys=[k(r(TAP16 - 0.14), to=SLup, dur=0.1), k(r(TAP16 - 0.04), to=SLhit, dur=0.05, ease='out'), k(TAP16, squash=[0.94, 1.0, 1.06], dur=0.15), k(r(TAP16 + 0.42), to=SLup, dur=0.2), k(CUT16, visible=False)]),
                # (review 2) the end hold: held by the crust, drooping sideways, frosted blue-white, toppings on it
                P('part16b', 'pizzaSlice', pos=SL16b, rot=[-0.55, -0.95, 0], opts={'frost': 1, 'droop': 0.5, 'r': 0.42}, keys=[k(0.0, visible=False), k(CUT16, visible=True)]),
-               P('boite16', 'pizzaBox', pos=BOX16, ry=r(RY16 + 10), rot=[-0.1, math.radians(RY16 + 10), 0], opts={'open': 2.2, 'missing': True, 'frost': 0.7, 'thermo': [[0, -1.0]], 'tR': 0.19, 'tLen': 0.66, 'tTilt': -0.1, 'tAt': [0.08, 0.12], 'seed': 16})],
+               P('boite16', 'pizzaBox', pos=BOX16, ry=r(RY16 + 20), rot=[-0.35, math.radians(RY16 + 20), 0], opts={'open': 1.65, 'missing': True, 'frost': 0.3, 'seed': 16}),   # (review 3) a kraft box tilted to us, lid up behind it (no pale frosted slab)
+               P('thermo16', 'pizzaThermo', pos=THERMO16, ry=r(RY16 + 10), opts={'temp': -1.0, 'r': 0.17, 'len': 0.78})],   # standing on its own: the blue dial at about two thirds of the height, clear of his legs],
         cams=[C16a, C16b])
 st.cue('clack', 'S16', TAP16, 0.35); st.cue('sfx:ding', 'S16', r(TAP16 + 0.03), 0.2); st.cue('sfx:wind', 'S16', 1.2, 0.15, 1.8)
 
@@ -522,6 +525,7 @@ st.write("La pizza", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLi
     'mec': MEC, 'president': PRES,
     'soldat1': {**SOLD, 'preset': 'cop', 'seed': 912, 'gloves': '#E3A877'},   # (review 2) bare hands: the thumbs up reads instead of a dark blob 'soldat2': {**SOLD, 'preset': 'cop2', 'seed': 913},
     **{f'general{j}': {**SOLD, 'preset': 'commissaire', 'seed': 913 + j, 'suit': '#4E5A34', 'lapel': '#3E4828', 'hair': ['receding', 'bald', 'receding'][j - 1], 'facial': ['mustache', 'none', 'beard'][j - 1], 'build': {'width': 1.05, 'headWidth': 1.2, 'belly': 0.12}} for j in (1, 2, 3)},
+    'soldat3': {**SOLD, 'preset': 'commissaire', 'seed': 922, 'suit': '#4E5A34', 'lapel': '#3E4828', 'tie': '#4E5A34', 'shirt': '#4E5A34', 'gloves': '#E3A877', 'build': {'width': 1.05, 'headWidth': 1.2}},   # (review 3) an army jacket like the generals', bare hands
     'musi1': {**SOLD, 'preset': 'cop', 'seed': 920}, 'musi2': {**SOLD, 'preset': 'cop2', 'seed': 921},
     'officiel1': {'preset': 'politique', 'seed': 931, 'suit': '#4E4470', 'lapel': '#4E4470', 'tie': '#7A2333', 'sash': FLAGS[0], 'sashW': 0.12, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'officiel2': {'preset': 'politique', 'seed': 932, 'suit': '#3A4F6E', 'lapel': '#3A4F6E', 'tie': '#C8A030', 'sash': FLAGS[1], 'sashW': 0.12, 'hairColor': '#BDBDBD', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
