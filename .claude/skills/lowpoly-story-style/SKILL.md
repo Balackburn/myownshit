@@ -2025,3 +2025,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 48) Machine qui écrase une rangée : la caméra précède la machine ; si elle la suit, la machine cache la rangée.
 - (cycle 48) Dans une liste Python, un commentaire placé après un élément avale la virgule qui suit sur la même ligne : mettre le
   commentaire sur sa propre ligne.
+- (cycle 50) Accessoire transparent animé par clés : il peut disparaître dans le film complet tout en s'affichant quand son plan est
+  rendu seul ; couper le test de profondeur ne suffit pas, l'animer dans la mise à jour propre de l'accessoire règle le problème.
+- (cycle 50) `earthGlobe` repose sur son pôle sud (centre à y = rayon) : tout ce qui est collé au globe va dans un groupe placé à ce
+  centre, sinon il est dessiné sous le globe.
+- (cycle 50) Rayon bas incliné (environ 26°) vu de côté : il remplit et délave tout le cadre 9:16 ; filmer depuis derrière la zone
+  éclairée, dans l'axe du rayon, pour qu'il se dresse.
+- (cycle 50) Ciel en dôme vu d'une caméra basse : son pied se lit comme un mur ; le fondre en gris près de l'horizon.
+- (cycle 50) Foule dans un cadre 9:16 : vérifier chaque personnage avec `project()` ; 5 pique-niqueurs sur 9 étaient hors champ.
+- (cycle 50) Tournesols filmés d'en bas : têtes plus grandes et moins penchées, caméra à hauteur de tête, sinon on ne voit que des
+  disques plats.

@@ -206,7 +206,7 @@ D8 = st.dur('S08')
 # (staging 2) the slide happens inside the prop (dx0, moveAt): a key move left the disc out of the whole-film render
 C8 = cam(0.0, [0.0, 140.0, 240.0], [0.0, 134.0, 226.0], [0.0, 0.0, -120.0], [0.0, 0.0, -120.0], lens=46)
 st.shot('S08', 'aerialSuburb', actors=[],
-        props=[P('ombre8', 'shadowFront', pos=[-330, 16, -140], opts={'r': 600, 'op': 0.6, 'dx0': -470, 'moveAt': 0.0, 'moveDur': 1.15})],
+        props=[P('ombre8', 'shadowFront', pos=[-330, 16, -140], opts={'r': 600, 'op': 0.7, 'dx0': -470, 'moveAt': 0.0, 'moveDur': 1.15})],
         cams=[C8])
 st.card('S08', 'ÉTEINT', at=1.15)
 st.cue('gust', 'S08', 0.1, 0.3, 1.2); st.cue('thud', 'S08', 1.15, 0.4)
