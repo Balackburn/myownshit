@@ -230,7 +230,7 @@ export const STYLO_PROPS = {
       c.strokeStyle = '#8D959E'; c.lineWidth = R * 0.35; for (let i = 0; i < 6; i++) { c.beginPath(); c.ellipse(L * 0.55 + i * R * 1.1, 0, R * 0.62, R * 0.38, 0, 0, TAU); c.stroke(); } c.restore();
       c.fillStyle = '#F6F0DC'; c.fillRect(W * 0.8, H * 0.12, W * 0.14, H * 0.13); c.fillStyle = '#1B2A4A'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitText(c, 'ÉTAT', W * 0.87, H * 0.19, W * 0.12, H * 0.09);
       c.fillStyle = 'rgba(255,255,255,0.9)'; fitText(c, 'RECHERCHÉ', W * 0.5, H * 0.9, W * 0.7, H * 0.12); }, { res: 1024, emissive: 0.55 });
-    g.add(at(box(sw + 0.12, shh + 0.12, 0.08, '#101317', { outline: 0.004 }), 0, sy, bz), at(photo, 0, sy, bz + 0.045));
+    const px = o.photoX ?? 0; g.add(at(box(sw + 0.12, shh + 0.12, 0.08, '#101317', { outline: 0.004 }), px, sy, bz), at(photo, px, sy, bz + 0.045));
     if (o.banner !== false) { const bw = o.bannerW ?? 2.9, bh = 0.42, bn = canvasPlane(bw, bh, (c, W, H) => { c.fillStyle = '#D3212B'; c.fillRect(0, 0, W, H); c.fillStyle = '#FFFFFF'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitText(c, o.banner || 'ÉDITION SPÉCIALE', W / 2, H * 0.55, W * 0.9, H * 0.66); }, { res: 1024, emissive: 0.4 });
       g.add(at(box(bw + 0.06, bh + 0.06, 0.04, '#7A0E14'), o.bannerX ?? 0, sy + shh / 2 + 0.36, bz + 0.02), at(bn, o.bannerX ?? 0, sy + shh / 2 + 0.36, bz + 0.05)); }
     const cx = o.countX ?? 1.05, cyy = o.countY ?? (DH + 0.42), cw = 0.62, chh = 0.5, cnt = grp(); cnt.position.set(cx, cyy, o.countZ ?? -0.55); g.add(cnt);
@@ -242,12 +242,12 @@ export const STYLO_PROPS = {
     const flap = num(o.from || 'DIX'); const flapP = grp(flap); flap.position.y = -chh * 0.33 / 2; flap.scale.y = 0.5; flapP.position.set(0, -chh * 0.16 + chh * 0.33 / 2 - chh * 0.33 / 2 + chh * 0.0, 0.006); cnt.add(flapP);
     const stack = grp(), sx = o.stackX ?? -0.7, sz = -0.35, nS = 26; stack.position.set(sx + 0.13, DH, sz); g.add(stack);
     for (let i = 0; i < nS; i++) stack.add(at(box(0.26, 0.017, 0.34, i % 5 === 4 ? '#E8D7A2' : '#FBF8F0', { outline: 0.02 }), -0.13 + (hsh(i) - 0.5) * 0.03, 0.0085 + i * 0.018, (hsh(i + 9) - 0.5) * 0.03, 0, (hsh(i + 4) - 0.5) * 0.2, 0));
-    const fly = []; for (let i = 0; i < 4; i++) { const s = at(box(0.24, 0.004, 0.32, '#FBF8F0', { outline: 0.03 }), 0, 0, 0); s.visible = false; g.add(s); fly.push(s); }
+    const fly = []; for (let i = 0; i < 4; i++) { const s = at(box(0.15, 0.004, 0.2, '#FBF8F0', { outline: 0.03 }), 0, 0, 0); s.visible = false; g.add(s); fly.push(s); }
     g.userData.desk = DH;
     g.userData.update = t => { const f = o.flipAt ?? 0.5, u = (t - f) / 0.16;
       nA.visible = u < 0; nB.visible = u >= 0; flapP.visible = u >= 0 && u < 1; if (flapP.visible) { flapP.rotation.x = -PI * u; }
       const tp = o.toppleAt ?? 99, v = t - tp; let a = 0; if (v > 0) { a = Math.min(1.45, 1.45 * Math.pow(v / 0.3, 2)); if (v > 0.3) a = 1.45 + 0.08 * Math.exp(-8 * (v - 0.3)) * Math.sin((v - 0.3) * 30); } stack.rotation.z = -a;
-      fly.forEach((s, i) => { s.visible = v > 0.18 && v < 2.2; if (!s.visible) return; const w = v - 0.18; s.position.set(sx + 0.4 + w * (0.7 + 0.3 * i), DH + 0.35 + 0.8 * w - 2.4 * w * w + 0.1 * i, sz + 0.1 * i - 0.1); if (s.position.y < 0.06) s.position.y = 0.06; s.rotation.set(w * (2 + i), w * (1 + 0.5 * i), w * 3); }); };
+      fly.forEach((s, i) => { s.visible = v > 0.18 && v < 0.9; if (!s.visible) return; const w = v - 0.18; s.position.set(sx + 0.15 + 0.12 * i + 0.2 * w, DH + 0.3 + 0.4 * w - 3.2 * w * w, sz + 0.35 + 0.5 * w); s.rotation.set(w * (5 + i), w * (2 + i), w * 4); }); };   // (round 2) small sheets that slip off the front of the desk, never across the counter
     g.userData.update(0); return g;
   },
 
@@ -312,6 +312,17 @@ export const STYLO_PROPS = {
     p.position.set(0, y0 + Hp / 2, Z + 0.012); g.add(p, at(box(W + 0.01, Hp, 0.01, o.color || '#9DB7D9', { outline: 0.01 }), 0, y0 + Hp / 2, Z + 0.004));
     g.add(at(cyl(0.12, 0.125, 0.05, o.pipe || '#2E4A7A', 12, { outline: 0.004 }), 0, y0 + Hp + 0.01, 0.0));
     return g;
+  },
+
+  // (round 2) Pencils bursting out of an upturned pencil case (pivot at the case's mouth): o.n (14) small pencils in bright colours fly out at o.at
+  // in a fan (o.spread m/s sideways, o.up m/s up), fall under gravity, tumble, and lie on o.floor (the table top, relative y, -0.3) until the end
+  styPencilBurst(o) {
+    const g = grp(), n = o.n ?? 14, cols = ['#E8463C', '#2E8BC0', '#F2B630', '#4FAE5A', '#9B59B6', '#F07EA8'], P_ = [];
+    for (let i = 0; i < n; i++) { const p = buildProp('styPencil', { color: cols[i % cols.length], s: o.s ?? 1.1 }); p.visible = false; g.add(p);
+      const a = (hsh(i) - 0.5) * 2.4, sp = (o.spread ?? 1.0) * (0.5 + hsh(i + 3)); P_.push({ p, vx: Math.sin(a) * sp, vz: Math.cos(a) * sp * 0.4 + 0.2, vy: (o.up ?? 0.9) * (0.4 + hsh(i + 7)), sp: 6 + 10 * hsh(i + 9), d: 0.03 * i }); }
+    g.userData.update = t => { P_.forEach(q => { const u = t - (o.at ?? 0) - q.d; q.p.visible = u >= 0; if (u < 0) return; const fl = o.floor ?? -0.3; let y = q.vy * u - 4.9 * u * u; const land = y < fl; if (land) y = fl;
+      const uu = land ? Math.min(u, (q.vy + Math.sqrt(q.vy * q.vy - 19.6 * fl)) / 9.8) : u; q.p.position.set(q.vx * uu, y, q.vz * uu); q.p.rotation.set(land ? PI / 2 : q.sp * uu, q.sp * 0.3 * uu, land ? q.sp : q.sp * 0.7 * uu); }); };
+    g.userData.update(-1); return g;
   },
 
   // A small school pencil (pivot at its middle, the point down -Y): a yellow hexagonal body o.len (0.16) long, a sharpened wooden tip with a graphite
