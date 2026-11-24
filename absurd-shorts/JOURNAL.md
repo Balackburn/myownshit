@@ -3026,3 +3026,13 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 00 h 05 — « La feuille » (86) passe finale faite (feuille vraiment opaque : le coin corné est découpé dans la géométrie, sans alphaTest ignoré par l'occlusion ambiante ; rouleau compresseur de près ; visage du stagiaire ; rangée de cinq suspects ; fourgon ; BULLETINS). Rendu final lancé.
 - 00 h 45 — « La feuille » (86) LIVRÉE et publiée sur TikTok (1080x1920, −16,0 LUFS, sans creux). Revues 6,0/6,0 → 6,5/6,5 → 6,8/7,0, puis passe finale.
 - 01 h 05 — ARRÊT demandé par l'utilisateur : les trois sessions parallèles sont interrompues (consigne d'arrêter leurs rendus, de pousser leur état et de ne rien publier), le rappel programmé est supprimé, la mise en scène locale de « Le rayon » (90) est arrêtée. État : 87 chat (passe finale faite, rendu final interrompu), 88 cheveu et 89 tonnerre (corrections de la revue 2 faites) ; textes 91-93 prêts et enregistrés.
+
+## 2026-11-24 — reprise
+
+- 15 h 30 — REPRISE demandée par l'utilisateur (« continue »). Les trois sessions parallèles (87 chat, 88 cheveu, 89 tonnerre) ont reçu la
+  consigne de rendre, publier et commiter. La session 89 refuse de lancer son rendu final : sa permission automatique bloque un ordre venu d'une
+  autre session. Je ne contourne pas ; l'utilisateur doit écrire « continue » dans chaque session ou me demander de faire les rendus ici.
+- 16 h 00 — « Le rayon » (90) mise en scène finie (19 plans lisibles ; globe, ombre du parasol, tournesols, ciel gris, rayon dans l'axe,
+  pique-nique dans le cadre). Leçons ajoutées au skill.
+- 16 h 28 — « Le rayon » (90) brouillon 1 rendu (27 min, 480x854, 15 i/s ; deux micro-figements S07/S08, aucun creux gris). Revue 1 lancée
+  (deux critiques indépendants).
