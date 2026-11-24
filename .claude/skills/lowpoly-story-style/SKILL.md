@@ -2088,3 +2088,20 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 50) Secouer ou lever une lampe tenue : animer l'accessoire par clés aux mêmes instants et courbes que le reach de la main.
 - (cycle 50) Une image de traînée d'environ 0,035 s avant une prise ne se voit qu'à 30 i/s : la vérifier sur le rendu final, pas sur le
   brouillon à 15 i/s.
+- (cycle 50) Bord d'ombre qui doit passer à l'écran au bon moment : calculer image par image où le sol croise la hauteur visée (avec une
+  entrée en douceur) et déplacer le disque sur un chemin à clés, pas un smoothstep en mètres.
+- (cycle 50) Très grand disque d'ombre : bord doux de largeur fixe en mètres ; des anneaux proportionnels au rayon font de larges marches grises.
+- (cycle 50) Réaction sous une ombre vue d'avion : des feux stop dessinés après l'ombre (sans test de profondeur) se lisent là où de petites
+  voitures seules ne se voient pas.
+- (cycle 50) Plan rapproché de chute au bout d'une grue : seconde caméra en glissé (0,3 s de large, environ 0,6 s de glissé), puis tenue ; un
+  seul long mouvement passe tout le plan dans un milieu encombré.
+- (cycle 50) Fond net derrière la tête du héros dans une foule : laisser un trou dans les rangs sur la ligne caméra finale → sa tête.
+- (cycle 50) Écrasement en deux temps : la tête bascule à l'opposé du premier voisin, puis se redresse longue et fine au second ; le second
+  voisin ne le regarde qu'un instant avant son temps.
+- (cycle 50) Fleurs qui se fanent tristes : caméra trois-quarts un peu basse, tige en arc, une fleur héroïne avec un petit visage ; une
+  charnière à la tête seule se lit comme un couvercle.
+- (cycle 50) canvasPlane est opaque sauf transparent : peindre son fond de la couleur de la surface où il est posé.
+- (cycle 50) Clés `squash` d'un accessoire : elles reviennent vite (cos 11u) ; pour un aplatissement tenu 0,1 s, donner une longue durée à
+  cette clé (environ 2 s) et laisser la clé suivante reprendre.
+- (cycle 50) Mains au premier plan près de l'objectif : elles brûlent sous les flashs proches ; les garder à environ 2 m, poignets à
+  0,84-0,88 de la hauteur, et les flashs plus loin.

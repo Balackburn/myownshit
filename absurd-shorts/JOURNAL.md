@@ -3056,3 +3056,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 20 h 05 — « Le rayon » (90) brouillon 3 et revue 3 : animation 7,6 (7,4), direction artistique 8,1 (7,7). Restent : le mec encore perdu
   dans le pique-nique (S18), le bord de l'ombre trop rapide sous ÉTEINT (S08), tournesols vus de dos (S09), petites finitions S04, S11,
   S19. Passe finale lancée (vérifiée sur séquences d'images pour S18 et S08), puis rendu final 1080.
+- 19 h 57 — « Le rayon » (90) passe finale faite (S18 resserré sur lui avec écrasement en deux temps, S08 bord d'ombre calé sur ÉTEINT avec
+  voitures qui pilent, S09 tournesols de trois-quarts avec une fleur héroïne, S04 couloir dégagé et seconde prise, S11 applaudissements et
+  flashs, S19 transats et pique-niqueurs visibles, satellites étirés). Pré-test du mixage −16,2 LUFS. Rendu final 1080 lancé.
