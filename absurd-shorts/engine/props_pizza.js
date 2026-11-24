@@ -109,10 +109,11 @@ function frostCap(w, d, y, seed = 9) {
 // [[t0, t1]]: cartoon flames on the box; o.smoke: a dark wisp; o.frost: 0..1 or keys: icy lid and walls, crystals, icicles under the front edge;
 // o.puffAt: a cold white puff out of the box at that time; o.side (±1): the hinge on the -X / +X side instead of the back (the thermometer stays
 // placed in the prop's own frame); o.glow: 0..1 or keys: the box glows red-hot; o.charredBox: the box itself burnt
-// black; o.s (1) overall size
+// black; o.scorch: the kraft browned by the flames but still a box; o.fireK keys [[t, 0..1]]: the flames' strength (they die down smoothly
+// into the smoke instead of cutting out); o.s (1) overall size
 function pizzaBox(o = {}) {
   const S = o.s ?? 1, W = o.w ?? 0.62, H = o.h ?? 0.075, g = grp(), b = grp(); b.scale.setScalar(S); g.add(b);
-  const K = mat(o.charredBox ? CHAR : KRAFT, { unique: true }), KI = mat(o.charredBox ? '#3A302A' : KRAFT_IN, { unique: true });
+  const K = mat(o.charredBox ? CHAR : (o.scorch ? '#7A5634' : KRAFT), { unique: true }), KI = mat(o.charredBox ? '#3A302A' : KRAFT_IN, { unique: true });
   b.add(at(box(W, 0.012, W, KRAFT, { material: KI }), 0, 0.006, 0));
   b.add(at(box(W, H, 0.012, KRAFT, { material: K, outline: 0.004 }), 0, H / 2, W / 2), at(box(W, H, 0.012, KRAFT, { material: K, outline: 0.004 }), 0, H / 2, -W / 2),
     at(box(0.012, H, W, KRAFT, { material: K, outline: 0.004 }), W / 2, H / 2, 0), at(box(0.012, H, W, KRAFT, { material: K, outline: 0.004 }), -W / 2, H / 2, 0));
@@ -139,7 +140,7 @@ function pizzaBox(o = {}) {
   let smoke = null; if (o.smoke) { smoke = buildProp('softWisp', { n: 14, rise: 1.8, life: 1.7, s0: 0.1, s1: 0.5, color: o.smokeColor || '#4A4440', opacity: 0.7, drift: [0.25, -0.1] }); smoke.position.y = 0.12; b.add(smoke); }
   let puff = null; if (o.puffAt != null) { puff = buildProp('softDust', { at: o.puffAt, n: 10, size: o.puffS ?? 0.2, rise: 0.9, spread: 0.45, life: 0.9, color: '#EEF8FF', opacity: 0.6 }); puff.position.y = 0.1; b.add(puff); }
   const hglow = glowSprite('#FF5A1A', 1.4, 0); hglow.position.y = 0.06; b.add(hglow);
-  const kraft = new THREE.Color(o.charredBox ? CHAR : KRAFT), icy = new THREE.Color(ICE), hot = new THREE.Color('#FF5A10');
+  const kraft = new THREE.Color(o.charredBox ? CHAR : (o.scorch ? '#7A5634' : KRAFT)), icy = new THREE.Color(ICE), hot = new THREE.Color('#FF5A10');
   const openKeys = Array.isArray(o.open) ? o.open : null, okt = openKeys ? openKeys.map(k => k[0]).filter(x => x > 0) : [];
   g.userData.update = t => {
     const ang = keyAt(o.open ?? 0, t, openKeys ? openKeys[0][1] : (o.open ?? 0), o.openBlend ?? 0.12) + wob(okt.map(x => x + (o.openBlend ?? 0.12)), t, 0.14, 26, 6);
@@ -148,7 +149,7 @@ function pizzaBox(o = {}) {
     K.color.copy(kraft).lerp(icy, fr * 0.85); K.emissive.copy(hot).multiplyScalar(gl * 0.75); KI.color.set(o.charredBox ? '#3A302A' : KRAFT_IN).lerp(icy, fr * 0.7);
     fz.userData.set(fr); fzIn.userData.set(ang > 0.3 ? fr : 0); ice.children.forEach((c, i) => { const l = c.userData.l * clamp01(fr * 1.4 - hsh(i + 7) * 0.4); c.visible = l > 0.003; c.scale.set(1, Math.max(0.001, l), 1); c.position.y = -l / 2; });
     hglow.material.opacity = 0.9 * gl; hglow.visible = gl > 0.01;
-    if (fire) { const on = inWin(o.fire, t); fire.visible = on; fglow.visible = on; if (on) { fire.userData.update(t); fglow.material.opacity = 0.7 + 0.2 * Math.sin(t * 23); } }
+    if (fire) { const fk = o.fireK ? lin(o.fireK, t, 1) : (inWin(o.fire, t) ? 1 : 0), on = fk > 0.02; fire.visible = on; fglow.visible = on; if (on) { fire.userData.update(t); fire.scale.set(0.4 + 0.6 * fk, fk, 0.4 + 0.6 * fk); fglow.material.opacity = (0.7 + 0.2 * Math.sin(t * 23)) * fk; } }
     if (smoke) smoke.userData.update(t); if (puff) puff.userData.update(t); if (th) th.userData.update(t);
   };
   g.userData.update(0); g.userData.grip = [0, 0.04 * S, W / 2 * S]; return g;
@@ -161,9 +162,10 @@ function pizzaBox(o = {}) {
 function pizzaSlice(o = {}) {
   const R = o.r ?? 0.34, g = grp(), sl = grp(), tip = grp(), ch = o.charred, half = PI / 9;
   const wedge = (rr, h, c, y, a0 = PI - half, al = 2 * half) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(rr, rr, h, 6, 1, false, a0, al), mat(c, { unique: true })); m.position.set(0, y + h / 2, R); m.castShadow = true; return m; };
-  sl.add(wedge(R, 0.035, ch ? '#2B2420' : '#D9A35A', 0), wedge(R * 0.88, 0.014, ch ? '#191512' : (o.frost ? '#E6D9A0' : '#F4CF52'), 0.035, PI - half * 0.85, 2 * half * 0.85));
-  sl.add(at(box(R * 0.8 * Math.sin(half) * 2.2, 0.05, 0.05, ch ? '#2B2420' : '#C98A42', { outline: 0.004 }), 0, 0.025, 0));
-  if (!ch) for (const [x, z] of [[0, -0.1], [0.025, -0.2], [-0.02, -0.05]]) sl.add(at(cyl(0.028, 0.028, 0.01, '#B32A22', 8), x * R / 0.34, 0.052, z * R / 0.34));
+  const fr = o.frost && !ch;
+  sl.add(wedge(R, 0.035, ch ? '#3A2E26' : (fr ? '#DCE6EE' : '#D9A35A'), 0), wedge(R * 0.88, 0.014, ch ? '#1E1915' : (fr ? '#F2F8FC' : '#F4CF52'), 0.035, PI - half * 0.85, 2 * half * 0.85));
+  sl.add(at(box(R * 0.8 * Math.sin(half) * 2.2, 0.05, 0.05, ch ? '#5A4636' : (fr ? '#C8D6E2' : '#C98A42'), { outline: 0.004 }), 0, 0.025, 0));
+  if (!ch) for (const [x, z] of [[0, -0.1], [0.025, -0.2], [-0.02, -0.05]]) sl.add(at(cyl(0.028, 0.028, 0.01, fr ? '#C98A96' : '#B32A22', 8), x * R / 0.34, 0.052, z * R / 0.34));
   if (ch) for (let i = 0; i < 4; i++) sl.add(at(sphere(0.012, '#FF7A22', 0, { emissive: '#FF5A10', noGrain: true }), (hsh(i) - 0.5) * 0.06, 0.052, -0.05 - hsh(i + 2) * R * 0.6));
   if (o.frost) { for (let i = 0; i < 12; i++) sl.add(at(new THREE.Mesh(new THREE.TetrahedronGeometry(0.012 + hsh(i) * 0.012), mat('#FFFFFF', { noGrain: true, emissive: '#C8E6F8' })), (hsh(i + 1) - 0.5) * 0.08, 0.055, -0.04 - hsh(i + 5) * R * 0.75, i, i * 2, 0));
     for (let i = 0; i < 4; i++) { const c = new THREE.Mesh(new THREE.ConeGeometry(0.008, 0.05 + 0.03 * hsh(i), 5), mat('#EAF7FF', { noGrain: true, emissive: '#9CC8E6' })); c.rotation.x = PI; c.position.set((i - 1.5) * 0.02, -0.02, -R * 0.55 - i * 0.03); sl.add(c); } }
@@ -182,22 +184,22 @@ function pizzaSlice(o = {}) {
 }
 
 // ---------------------------------------------------------------------------------------------------------------- the rating phone
-// The phone with the rating screen (pivot at its middle, screen +Z): a black handset o.w (0.24) wide, twice as tall; on the screen a pizza
+// The phone with the rating screen (pivot at its middle, screen +Z): a black handset o.w (0.24) wide, twice as tall; on a dark screen a pizza
 // slice icon at the top and a row of five grey star shapes (no words); at o.rateAt the first star fills yellow with a pop and a ring; o.tapAt:
 // the first star dips like a pressed key
 function ratingPhone(o = {}) {
   const w = o.w ?? 0.24, h = w * 2.0, g = grp();
   g.add(at(box(w, h, 0.032, '#1C1E24', { outline: 0.006 }), 0, 0, 0));
-  const scr = canvasPlane(w * 0.88, h * 0.9, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#FFF7E6'); gr.addColorStop(1, '#F2E6D0'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
+  const scr = canvasPlane(w * 0.88, h * 0.9, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#1F2B3C'); gr.addColorStop(1, '#141C28'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
     c.fillStyle = '#E8A33A'; c.beginPath(); c.moveTo(W * 0.5, H * 0.36); c.lineTo(W * 0.3, H * 0.1); c.quadraticCurveTo(W * 0.5, H * 0.03, W * 0.7, H * 0.1); c.closePath(); c.fill();
     c.fillStyle = '#F4CF52'; c.beginPath(); c.moveTo(W * 0.5, H * 0.32); c.lineTo(W * 0.34, H * 0.12); c.quadraticCurveTo(W * 0.5, H * 0.07, W * 0.66, H * 0.12); c.closePath(); c.fill();
     c.fillStyle = '#C8402E'; [[0.47, 0.15], [0.56, 0.18], [0.5, 0.24]].forEach(([x, y]) => { c.beginPath(); c.arc(W * x, H * y, W * 0.035, 0, TAU); c.fill(); });
-    c.fillStyle = '#D9CDB6'; c.fillRect(W * 0.12, H * 0.72, W * 0.76, H * 0.012); c.fillRect(W * 0.2, H * 0.78, W * 0.6, H * 0.012); }, { res: 256, emissive: 0.9 });
+    c.fillStyle = '#3A475A'; c.fillRect(W * 0.12, H * 0.72, W * 0.76, H * 0.012); c.fillRect(W * 0.2, H * 0.78, W * 0.6, H * 0.012); }, { res: 256, emissive: 0.55 });
   scr.position.z = 0.0165; g.add(scr);
   const starShape = (ro, ri) => { const s = new THREE.Shape(); for (let i = 0; i < 10; i++) { const a = PI / 2 + i * PI / 5, rr = i % 2 ? ri : ro; const x = Math.cos(a) * rr, y = Math.sin(a) * rr; if (i === 0) s.moveTo(x, y); else s.lineTo(x, y); } s.closePath(); return s; };
   const ro = w * 0.092, sg = new THREE.ExtrudeGeometry(starShape(ro, ro * 0.45), { depth: 0.006, bevelEnabled: false });
   const sy = -h * 0.06, gap = w * 0.168, stars = [];
-  for (let i = 0; i < 5; i++) { const m = new THREE.Mesh(sg, new THREE.MeshBasicMaterial({ color: '#AEB4BC' })); m.position.set((i - 2) * gap, sy, 0.017); g.add(m); stars.push(m); }
+  for (let i = 0; i < 5; i++) { const m = new THREE.Mesh(sg, new THREE.MeshBasicMaterial({ color: '#9AA3AE' })); m.position.set((i - 2) * gap, sy, 0.017); g.add(m); stars.push(m); }
   const gold = new THREE.Mesh(new THREE.ExtrudeGeometry(starShape(ro * 1.08, ro * 0.5), { depth: 0.008, bevelEnabled: false }), new THREE.MeshBasicMaterial({ color: '#FFC21A' })); gold.position.set(-2 * gap, sy, 0.02); g.add(gold);
   const ring = new THREE.Mesh(new THREE.RingGeometry(ro * 1.2, ro * 1.45, 20), new THREE.MeshBasicMaterial({ color: '#FFD84A', transparent: true, opacity: 0, depthWrite: false })); ring.position.set(-2 * gap, sy, 0.024); g.add(ring);
   g.userData.update = t => {
@@ -213,7 +215,8 @@ function ratingPhone(o = {}) {
 // under its left wing (o.side 1: +X) on a pylon with two steel straps, like a missile: o.boxS (1.6) the box's size; o.glow 0..1 or keys: the
 // box glows red-hot; o.flames [[t0, t1]]: it catches fire; o.stretch keys [[t, v]]: a cartoon stretch along +Z (v 0.4: 40 % longer, thinner),
 // with a squash back; o.burner / o.glowS / o.gear as on the fighterJet; o.shake: the jet trembles before take-off; o.upright: the box hangs on
-// its edge under the pylon, its printed lid facing +Z (it reads from the front instead of as a dark slab in the wing's shadow)
+// its edge under the pylon, its printed lid facing +Z (it reads from the front instead of as a dark slab in the wing's shadow); o.boxYaw (rad): that
+// face turned toward +X
 function jetBox(o = {}) {
   const g = grp(), inner = grp(); g.add(inner);
   const j = buildProp('plainJet', { burner: o.burner ?? 0.9, glow: o.glowS ?? 0, gear: o.gear, hotCore: true }); inner.add(j);
@@ -221,7 +224,7 @@ function jetBox(o = {}) {
   const sd = o.side ?? 1, X = sd * 3.1, Z = -1.1, S = o.boxS ?? 1.6, bw = 0.62 * S;
   inner.add(at(box(0.14, 0.42, 1.7, '#4A4F56', { outline: 0.005 }), X, 1.32, Z));
   const bx = pizzaBox({ s: S, pizza: false, glow: o.glow, smoke: o.smoke, seed: 21 }); bx.position.set(X, 1.1 - 0.075 * S, Z); inner.add(bx);
-  if (o.upright) { bx.rotation.x = PI / 2; bx.position.set(X, 1.1 - bw / 2 - 0.02, Z); for (const dx of [-0.3, 0.3]) inner.add(at(box(0.08, 0.12, 0.14, '#9AA0A6', { outline: 0.004 }), X + dx * S, 1.07, Z)); }
+  if (o.upright) { bx.rotation.set(PI / 2, 0, 0); bx.rotation.order = 'YXZ'; bx.rotation.y = o.boxYaw ?? 0; bx.position.set(X, 1.1 - bw / 2 - 0.02, Z); for (const dx of [-0.3, 0.3]) inner.add(at(box(0.08, 0.12, 0.14, '#9AA0A6', { outline: 0.004 }), X + dx * S, 1.07, Z)); }
   else for (const dz of [-0.3, 0.3]) inner.add(at(box(bw + 0.06, 0.035, 0.07, '#9AA0A6', { outline: 0.004 }), X, 1.1 + 0.01, Z + dz * S), at(box(0.035, 0.075 * S + 0.07, 0.07, '#9AA0A6'), X + bw / 2 + 0.03, 1.1 - 0.0375 * S, Z + dz * S), at(box(0.035, 0.075 * S + 0.07, 0.07, '#9AA0A6'), X - bw / 2 - 0.03, 1.1 - 0.0375 * S, Z + dz * S));
   let jf = null, jg = null; if (o.flames) { jf = buildProp('flameField', { points: [[0, 0, 0, 0.5], [0.25, -0.1, -0.2, 0.35, 0.8], [-0.25, -0.1, -0.25, 0.4, 1.7]], seed: 23 }); jf.position.set(X, 1.1 - bw * 0.3, Z - 0.1); jf.rotation.x = -1.2; inner.add(jf);
     jg = glowSprite('#FF7A2A', 3.2, 0.9); jg.position.set(X, 1.1 - bw / 2, Z - 0.3); inner.add(jg); }
@@ -268,7 +271,7 @@ function pizzaMissile(o = {}) {
 // high, with a drawn elevation chart on top: a strip of ground with little houses at the bottom (+Z; his has a red roof), blue sky with a band
 // of white clouds across the middle, dark space with stars at the far side (-Z) and a big pale-blue snowflake there; a white chalk arrow climbs
 // from his house up the left to the snowflake and comes back down the right to his house (arrowhead); a small pizza-box token rides the arrow:
-// o.token keys [[t, u]] (u 0: his house, 1: the snowflake, 2: back home); no words
+// o.token keys [[t, u]] (u 0: his house, 1: the snowflake, 2: back home); o.tokS (0.24) its size, o.tokGlow: a warm halo that size; no words
 const MAP_PATH = [[[-0.05, 0.5], [-1.05, 0.35], [-0.95, -0.62], [-0.08, -0.56]], [[0.08, -0.56], [0.95, -0.62], [1.05, 0.35], [0.1, 0.48]]];
 function bez(p, u) { const a = 1 - u; return [0, 1].map(i => a * a * a * p[0][i] + 3 * a * a * u * p[1][i] + 3 * a * u * u * p[2][i] + u * u * u * p[3][i]); }
 function pizzaWarMap(o = {}) {
@@ -292,7 +295,7 @@ function pizzaWarMap(o = {}) {
     head(MAP_PATH[0][3], bez(MAP_PATH[0], 0.93)); head(MAP_PATH[1][3], bez(MAP_PATH[1], 0.93));
   }, { res: 1024 });
   map.rotation.x = -PI / 2; map.position.set(0, Ht + 0.003, 0); g.add(map);
-  const tok = pizzaBox({ s: 0.24, pizza: false, seed: 5 }); g.add(tok);
+  const tok = pizzaBox({ s: o.tokS ?? 0.24, pizza: false, seed: 5 }); g.add(tok); if (o.tokGlow) { const tg = glowSprite('#FFD27A', o.tokGlow, 0.7); tg.position.y = 0.05; tok.add(tg); }
   g.userData.update = t => { const u = lin(o.token, t, 0), seg = u <= 1 ? 0 : 1, p = bez(MAP_PATH[seg], clamp01(u - seg)); tok.position.set(p[0], Ht + 0.006, p[1]); tok.rotation.y = 0.3 * Math.sin(u * 3); };
   g.userData.update(0); g.userData.at = u => { const seg = u <= 1 ? 0 : 1, p = bez(MAP_PATH[seg], clamp01(u - seg)); return [p[0], Ht, p[1]]; }; return g;
 }
@@ -328,13 +331,15 @@ function heroHouse(o = {}) {
   g.userData.update(0); return g;
 }
 // A lamppost (pivot at its foot): a dark green pole 4.4 m with a curved arm and a lantern toward +Z; o.bend (rad): bent over sideways from 1.3 m
-// (toward +X), o.bendX (rad): toward +Z
+// (toward +X), o.bendX (rad): toward +Z; o.droop keys [[t, rad]]: the top droops further toward +Z, easing in, with a springy overshoot
 function townLamp(o = {}) {
   const g = grp(), top = grp(), c = o.color || '#2E4A3E';
   g.add(cyl(0.12, 0.16, 0.5, c, 8, { pivot: 'bottom' }), cyl(0.06, 0.07, 1.3, c, 7, { pivot: 'bottom' }));
   top.position.y = 1.3; g.add(top);
   top.add(cyl(0.055, 0.06, 3.1, c, 7, { pivot: 'bottom' }), rod([0, 3.0, 0], [0, 3.25, 0.5], 0.04, c), at(box(0.3, 0.36, 0.3, '#F4EAC0', { emissive: '#3A3010' }), 0, 2.98, 0.6), at(box(0.38, 0.08, 0.38, c), 0, 3.2, 0.6));
-  top.rotation.set(o.bendX ?? 0, 0, -(o.bend ?? 0)); return g;
+  top.rotation.set(o.bendX ?? 0, 0, -(o.bend ?? 0));
+  if (o.droop) { const kt = o.droop.map(k => k[0]).filter(x => x > 0); g.userData.update = t => { top.rotation.x = (o.bendX ?? 0) + keyAt(o.droop, t, o.droop[0][1], o.droopBlend ?? 0.28) + wob(kt.map(x => x + (o.droopBlend ?? 0.28)), t, o.droopWob ?? 0.18, 14, 3.5); }; g.userData.update(0); }
+  return g;
 }
 // The pavement rolled up like a carpet (pivot at the floor in its middle, the roll along X): a roll o.len (2.8) long, radius o.r (0.85), of pale
 // paving slabs (joints drawn), its ends showing the spiral of slab and earth; a short flap of slabs still lying flat toward +Z; a kerb stone band
@@ -403,34 +408,37 @@ function pizzaTown(o = {}) {
     const path = o.furrowPath || [[80, 4.2], [30, 4.0], [12, 3.6], [5.5, 2.0], [2.2, -0.6], [0.6, -2.4]];
     for (let i = 1; i < path.length; i++) { const [x0, z0] = path[i - 1], [x1, z1] = path[i], L = Math.hypot(x1 - x0, z1 - z0), a = Math.atan2(-(z1 - z0), x1 - x0), mx = (x0 + x1) / 2, mz = (z0 + z1) / 2, wk = i === path.length - 1 ? 0.8 : 1;
       g.add(at(box(L + 0.6, 0.02, 3.4 * wk, '#3A3632'), mx, 0.075, mz, 0, a, 0), at(box(L + 0.4, 0.03, 1.3 * wk, '#141210'), mx, 0.085, mz, 0, a, 0));
-      for (const s of [-1, 1]) { const ox = -Math.sin(a) * s * 0.95 * wk, oz = -Math.cos(a) * s * 0.95 * wk; g.add(at(box(L + 0.3, 0.32, 0.45, '#6E5A44', { outline: 0.003 }), mx + ox, 0.12, mz + oz, 0, a, 0)); }
-      for (let k = 0; k < L / 2; k++) { const u = (k + 0.5) / Math.ceil(L / 2), x = x0 + (x1 - x0) * u, z = z0 + (z1 - z0) * u; g.add(at(box(0.3 + r() * 0.4, 0.2 + r() * 0.2, 0.3 + r() * 0.4, r() < 0.5 ? '#7A6A5A' : '#5A4A3A'), x + (r() - 0.5) * 0.6, 0.14, z + (r() < 0.5 ? -1 : 1) * (1.2 + r() * 0.5), r(), r() * 3, r())); } }
+      for (const s of [-1, 1]) { const ox = -Math.sin(a) * s * 0.95 * wk, oz = -Math.cos(a) * s * 0.95 * wk; g.add(at(box(L + 0.3, 0.16, 0.5, '#5E4C3A'), mx + ox, 0.1, mz + oz, 0, a, 0)); }
+      for (let k = 0; k < L / 2; k++) { const u = (k + 0.5) / Math.ceil(L / 2), x = x0 + (x1 - x0) * u, z = z0 + (z1 - z0) * u; if (r() < 0.45) g.add(at(box(0.25 + r() * 0.25, 0.12 + r() * 0.1, 0.25 + r() * 0.25, r() < 0.5 ? '#6A5A4A' : '#4E4032'), x + (r() - 0.5) * 0.6, 0.1, z + (r() < 0.5 ? -1 : 1) * (1.2 + r() * 0.5), r(), r() * 3, r())); else { r(); r(); r(); r(); r(); r(); r(); r(); } } }
     pieces.wisps = []; for (const [x, z] of [[40, 4.1], [22, 4.0], [10, 3.4], [3.5, 0.6]]) { const w = buildProp('softWisp', { n: 12, rise: 2.4, life: 2.0, s0: 0.3, s1: 1.1, color: '#5A5450', opacity: 0.55, drift: [0.4, -0.2] }); w.position.set(x, 0.2, z); g.add(w); pieces.wisps.push(w); }
   }
   if (o.roll) { const rp = o.rollAt || [0, -2.0]; const rl = pavementRoll({ len: 2.9, r: o.rollR ?? 0.85 }); rl.position.set(rp[0], 0.05, rp[1]); g.add(rl); pieces.roll = rl; }
   // the crater: striped walls (lathe), a flat floor, a raised lip with a little clean rubble, the ladder
   if (C) {
-    const Rr = C.R, D = C.D, prof = [[Rr * 0.86, -D], [Rr * 0.92, -D * 0.97], [Rr * 0.965, -D * 0.86], [Rr * 0.985, -D * 0.6], [Rr * 0.995, -D * 0.3], [Rr, 0.0]];
+    const Rr = C.R, D = C.D, prof = [[Rr * 0.86, -D], [Rr * 0.92, -D * 0.97], [Rr * 0.95, -D * 0.9]];
+    for (let i = 1; i <= 24; i++) { const u = i / 24, y = -D * 0.9 * (1 - u); prof.push([Rr * (0.95 + 0.05 * Math.sqrt(u)) + (i % 2 ? 0.12 : 0), y]); }
     const lg = new THREE.LatheGeometry(prof.map(([x, y]) => new THREE.Vector2(x, y)), 64).toNonIndexed(), pa = lg.attributes.position, colArr = [], cA = new THREE.Color(), bands = ['#8A6A4A', '#A9845A', '#6E5038', '#B89466', '#7A5A3E', '#5E4632'];
-    for (let i = 0; i < pa.count; i++) { const y = pa.getY(i), k = Math.floor(clamp01(-y / D) * 9 + 0.0001); cA.set(bands[k % bands.length]).multiplyScalar(0.92 + 0.12 * hsh(Math.floor(i / 6))); colArr.push(cA.r, cA.g, cA.b); }
+    const strata = ['#C9A066', '#8E5E3A', '#E2C48E', '#6E4A30', '#B07A48', '#F0DCB0', '#7A5236', '#A87048'];
+    for (let i = 0; i < pa.count; i += 3) { const y = (pa.getY(i) + pa.getY(i + 1) + pa.getY(i + 2)) / 3, k = Math.floor(clamp01(-y / D) * 13); cA.set(strata[k % strata.length]).multiplyScalar(0.94 + 0.08 * hsh(Math.floor(i / 6))); for (let q = 0; q < 3; q++) colArr.push(cA.r, cA.g, cA.b); }
     lg.setAttribute('color', new THREE.Float32BufferAttribute(colArr, 3)); lg.computeVertexNormals();
     const wall = new THREE.Mesh(lg, new THREE.MeshLambertMaterial({ vertexColors: true, flatShading: true, side: THREE.DoubleSide })); wall.position.set(C.c[0], 0, C.c[1]); wall.receiveShadow = true; wall.castShadow = true; g.add(wall);
     const floor = new THREE.Mesh(new THREE.CircleGeometry(Rr * 0.87, 48), lam('#5A4634')); floor.rotation.x = -PI / 2; floor.position.set(C.c[0], -D + 0.01, C.c[1]); floor.receiveShadow = true; g.add(floor);
-    for (let i = 0; i < 26; i++) { const a = r() * TAU, d = Rr * (0.15 + 0.65 * Math.sqrt(r())); g.add(at(new THREE.Mesh(new THREE.DodecahedronGeometry(0.15 + r() * 0.3, 0), mat(i % 2 ? '#6E5A44' : '#8A7258')), C.c[0] + Math.cos(a) * d, -D + 0.1, C.c[1] + Math.sin(a) * d, r() * 3, r() * 3, 0)); }
+    for (let i = 0; i < 10; i++) { const a = r() * TAU, d = Rr * (0.15 + 0.65 * Math.sqrt(r())); g.add(at(new THREE.Mesh(new THREE.DodecahedronGeometry(0.15 + r() * 0.3, 0), mat(i % 2 ? '#6E5A44' : '#8A7258')), C.c[0] + Math.cos(a) * d, -D + 0.1, C.c[1] + Math.sin(a) * d, r() * 3, r() * 3, 0)); }
     const lip = new THREE.Mesh(new THREE.RingGeometry(Rr, Rr + 1.6, 64, 1), lam('#7A6248', { side: THREE.DoubleSide })); lip.rotation.x = -PI / 2; lip.position.set(C.c[0], 0.03, C.c[1]); g.add(lip);
-    for (let i = 0; i < 40; i++) { const a = i / 40 * TAU + r() * 0.1, d = Rr + 0.4 + r() * 1.4, x = C.c[0] + Math.cos(a) * d, z = C.c[1] + Math.sin(a) * d; if (Math.abs(x) < 2.2 && z > C.c[1] + Rr - 2) continue; g.add(at(new THREE.Mesh(new THREE.DodecahedronGeometry(0.12 + r() * 0.22, 0), mat(i % 3 ? '#8A7258' : '#6E5A44')), x, 0.08, z, r() * 3, r() * 3, 0)); }
-    if (o.ladder) { const top = o.ladderTop || [0.0, 0.05, FZ - 0.35], bot = o.ladderBot || [0.0, -D, FZ - 2.6]; pieces.ladder = craterLadder({ top, bot }); g.add(pieces.ladder); }
+    for (let i = 0; i < 14; i++) { const a = i / 14 * TAU + r() * 0.1, d = Rr + 0.4 + r() * 1.4, x = C.c[0] + Math.cos(a) * d, z = C.c[1] + Math.sin(a) * d; if (Math.abs(x) < 2.2 && z > C.c[1] + Rr - 2) continue; g.add(at(new THREE.Mesh(new THREE.DodecahedronGeometry(0.12 + r() * 0.22, 0), mat(i % 3 ? '#8A7258' : '#6E5A44')), x, 0.08, z, r() * 3, r() * 3, 0)); }
+    if (o.ladder) { const top = o.ladderTop || [0.0, 0.05, FZ - 0.35], bot = o.ladderBot || [0.0, -D, FZ - 2.6]; pieces.ladder = craterLadder({ top, bot, thick: o.ladderThick }); g.add(pieces.ladder); }
   }
   g.userData.update = t => { if (pieces.house) pieces.house.userData.update(t); (pieces.wisps || []).forEach(w => w.userData.update(t)); };
   g.userData.update(0); g.userData.crater = C; return g;
 }
-// A rope ladder hung from a point on the rim to a point on the crater floor (world points o.top, o.bot; pivot at the origin): two white ropes,
-// red rungs every 0.4 m
+// A rope ladder hung from a point on the rim to a point on the crater floor (world points o.top, o.bot; pivot at the origin): two pale twisted
+// ropes that sag in a gentle curve away from the wall, small wooden slats tied across every 0.4 m, each a little askew; o.thick (1): fatter
+// ropes and slats so it reads as a line from far away
 function craterLadder(o) {
-  const g = grp(), [tx, ty, tz] = o.top, [bx, by, bz] = o.bot, L = Math.hypot(tx - bx, ty - by, tz - bz), n = Math.floor(L / 0.4);
-  const ax = new THREE.Vector3(bx - tx, by - ty, bz - tz).normalize(), side = new THREE.Vector3(1, 0, 0);
-  for (const s of [-1, 1]) g.add(rod([tx + s * 0.28, ty, tz], [bx + s * 0.28, by, bz], 0.03, '#F4F1E8'));
-  for (let i = 1; i < n; i++) { const p = [tx + ax.x * L * i / n, ty + ax.y * L * i / n, tz + ax.z * L * i / n]; g.add(rod([p[0] - 0.3 * side.x, p[1], p[2]], [p[0] + 0.3 * side.x, p[1], p[2]], 0.035, '#D2322A')); }
+  const g = grp(), T = o.thick ?? 1, [tx, ty, tz] = o.top, [bx, by, bz] = o.bot, L = Math.hypot(tx - bx, ty - by, tz - bz), n = Math.floor(L / 0.4), N = 16;
+  const pt = (u, sx) => { const sag = 0.35 * Math.sin(PI * u), wig = 0.03 * Math.sin(u * 23 + sx * 3); return [tx + (bx - tx) * u + sx + wig, ty + (by - ty) * u, tz + (bz - tz) * u - sag]; };
+  for (const sx of [-0.27, 0.27]) for (let i = 0; i < N; i++) g.add(rod(pt(i / N, sx), pt((i + 1) / N, sx), 0.03 * T, '#F2E8C8'));
+  for (let i = 1; i < n; i++) { const u = i / n, a = pt(u, -0.29), c = pt(u, 0.29), tw = (hsh(i) - 0.5) * 0.12; a[1] += tw; c[1] -= tw; g.add(rod(a, c, 0.028 * T, '#A07A4A')); }
   g.add(at(box(0.9, 0.12, 0.3, '#5A4634'), tx, ty, tz + 0.1));
   return g;
 }
@@ -462,14 +470,16 @@ function exhibitStand(o = {}) {
 }
 // The time-lapse sun (no mesh; pivot anywhere): from o.from (s) it swings the scene's sun round the sky once every o.period (1.1 s) on an arc
 // from east to west (o.az0 rad: its azimuth at noon), never below o.minEl (0.1 rad), so the shadows race round the crater; pair it with the shot's
-// daynight cycle of the same period
+// daynight cycle of the same period; o.disc: a big sun disc on the same arc (o.discEl: its highest elevation, rad) so the sweep shows in the sky
 function sunRacer(o = {}) {
   const g = grp(); let L = null; const v = new THREE.Vector3();
   g.userData.update = t => {
     if (!L) { let root = g; while (root.parent) root = root.parent; if (root === g) return; root.traverse(n => { if (!L && n.isDirectionalLight && n.castShadow) L = n; }); if (!L) root.traverse(n => { if (!L && n.isDirectionalLight) L = n; }); if (!L) return; }
     const p = Math.max(0, t - (o.from ?? 0)) / (o.period ?? 1.1), el = Math.max(o.minEl ?? 0.1, Math.cos(p * TAU) * (o.maxEl ?? 1.1)), az = (o.az0 ?? 0.6) + p * TAU;
     const len = L.position.distanceTo(L.target.position) || 50; v.set(Math.cos(az) * Math.cos(el), Math.sin(el), Math.sin(az) * Math.cos(el)); L.position.copy(L.target.position).addScaledVector(v, len);
+    if (disc) { const day = Math.cos(p * TAU); disc.visible = day > 0.05; const de = Math.max(0.0, day) * (o.discEl ?? 0.25); disc.position.set(Math.cos(az) * Math.cos(de) * 380, Math.sin(de) * 380 + (o.discY ?? 0), Math.sin(az) * Math.cos(de) * 380); }
   };
+  let disc = null; if (o.disc) { disc = grp(glowSprite('#FFE6A0', 120, 0.9), glowSprite('#FFFFFF', 45, 1)); g.add(disc); }
   return g;
 }
 
@@ -491,6 +501,39 @@ function rubbleRock(o = {}) {
   return g;
 }
 
+// Breath steam (attach to the head joint at the mouth, e.g. offset [0, 0.12, 0.2]; pivot at the mouth): at each time of o.times a few small pale
+// grey-blue puffs leave the mouth, drift o.dir ([0.25, -0.12, 0.2] m) sideways and down, swell and fade in o.life (0.8 s); unlit, no glow
+function breathPuffs(o = {}) {
+  const g = grp(), cv = document.createElement('canvas'); cv.width = cv.height = 64; const x = cv.getContext('2d');
+  const gr = x.createRadialGradient(32, 32, 2, 32, 32, 31); gr.addColorStop(0, 'rgba(255,255,255,0.9)'); gr.addColorStop(0.6, 'rgba(255,255,255,0.35)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = gr; x.fillRect(0, 0, 64, 64);
+  const tex = new THREE.CanvasTexture(cv), sp = [], times = o.times || [0], life = o.life ?? 0.8, d = o.dir || [0.25, -0.12, 0.2];
+  for (const t0 of times) for (let i = 0; i < 4; i++) { const m = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, color: o.color || '#C9D6E0', transparent: true, opacity: 0, depthWrite: false, toneMapped: false })); m.userData.p = [t0 + i * 0.07, hsh(i + t0 * 10)]; m.visible = false; g.add(m); sp.push(m); }
+  g.userData.update = t => sp.forEach(m => { const [t0, h] = m.userData.p, u = (t - t0) / life; m.visible = u >= 0 && u < 1; if (!m.visible) return; const e = 1 - (1 - u) * (1 - u);
+    m.position.set(d[0] * e * (0.8 + 0.4 * h), d[1] * e + 0.03 * Math.sin(u * 6 + h * 5), d[2] * e); const sc = (o.s ?? 0.06) * (1 + 2.2 * u); m.scale.set(sc, sc, 1); m.material.opacity = (o.opacity ?? 0.55) * (u < 0.15 ? u / 0.15 : 1 - smooth((u - 0.15) / 0.85)); });
+  g.userData.update(-1); return g;
+}
+// A planet Earth seen from orbit (pivot at its centre): a faceted blue ocean sphere o.r (40) with green and sand continents, white cloud
+// patches floating just above the surface and a thin pale-blue rim of atmosphere; turns slowly (o.spin 0.02 rad/s)
+function planetEarth(o = {}) {
+  const R = o.r ?? 40, g = grp(), r = rng(o.seed || 11), spin = grp(); g.add(spin);
+  const geo = new THREE.IcosahedronGeometry(R, 4), pos = geo.attributes.position, cols = [], c = new THREE.Color();
+  const seeds = Array.from({ length: 11 }, () => [new THREE.Vector3(r() - 0.5, (r() - 0.5) * 0.8, r() - 0.5).normalize(), 0.35 + r() * 0.35]);
+  for (let i = 0; i < pos.count; i += 3) { const v = new THREE.Vector3(); for (let k = 0; k < 3; k++) v.add(new THREE.Vector3(pos.getX(i + k), pos.getY(i + k), pos.getZ(i + k))); v.normalize();
+    let s = 0; seeds.forEach(([q, w]) => { s = Math.max(s, w - v.distanceTo(q)); });
+    c.set(Math.abs(v.y) > 0.95 ? '#F2F6F8' : s > 0.15 ? (s > 0.3 ? '#4E9A40' : '#62AE50') : s > 0.12 ? '#B8A46A' : (s > 0.06 ? '#3A86D0' : '#2A64B8')); for (let k = 0; k < 3; k++) cols.push(c.r, c.g, c.b); }
+  geo.setAttribute('color', new THREE.Float32BufferAttribute(cols, 3)); geo.computeVertexNormals();
+  spin.add(new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ vertexColors: true, flatShading: true })));
+  for (let i = 0; i < 46; i++) { const v = new THREE.Vector3(r() - 0.5, (r() - 0.5) * 1.2, r() - 0.5).normalize(), m = sphere(1, '#FFFFFF', 1, { noGrain: true }); m.scale.set(R * (0.06 + 0.08 * r()), R * 0.012, R * (0.04 + 0.06 * r()));
+    m.position.copy(v.clone().multiplyScalar(R * 1.012)); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), v); m.castShadow = false; spin.add(m); }
+  g.add(new THREE.Mesh(new THREE.SphereGeometry(R * 1.035, 40, 24), new THREE.MeshBasicMaterial({ color: '#8FD0FF', transparent: true, opacity: 0.18, depthWrite: false, side: THREE.BackSide })));
+  spin.rotation.set(o.tilt ?? 0.4, 0, 0.2);
+  g.userData.update = t => { spin.rotation.y = (o.spin ?? 0.02) * t; }; g.userData.update(0); return g;
+}
+
+// A soft pale halo to make a tiny far figure read (attach to the torso joint; pivot at its middle): an additive white glow o.s (1.8 m) at
+// o.opacity (0.35) behind the figure, so a dot on a dark wall gets a bright rim
+function haloGlow(o = {}) { const g = grp(), h = glowSprite(o.color || '#FFF4DA', o.s ?? 1.8, o.opacity ?? 0.35); h.position.z = -0.25; g.add(h); return g; }
+
 export const PIZZA_PROPS = {
   pizzaThermo(o = {}) { return thermo(o); },
   pizzaPie(o = {}) { return pie(o.r ?? 0.27, o); },
@@ -510,4 +553,7 @@ export const PIZZA_PROPS = {
   sunRacer(o = {}) { return sunRacer(o); },
   napkinBib(o = {}) { return napkinBib(o); },
   rubbleRock(o = {}) { return rubbleRock(o); },
+  breathPuffs(o = {}) { return breathPuffs(o); },
+  planetEarth(o = {}) { return planetEarth(o); },
+  haloGlow(o = {}) { return haloGlow(o); },
 };
