@@ -3036,3 +3036,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   pique-nique dans le cadre). Leçons ajoutées au skill.
 - 16 h 28 — « Le rayon » (90) brouillon 1 rendu (27 min, 480x854, 15 i/s ; deux micro-figements S07/S08, aucun creux gris). Revue 1 lancée
   (deux critiques indépendants).
+- 16 h 50 — « Le rayon » (90) revue 1 : animation 5,5, direction artistique 6,8. Points : visage du mec jamais lisible (main sur les yeux,
+  reflet), aucune prise à la Looney Tunes, poses figées (S02, S10, S11, S13, S16, S18), satellites fauchés invisibles (S07), tomates en
+  orbite à l'échelle d'un continent (S05), pays « gris » seulement assombri (S08, S16), parasol du garage illisible (S19), dessin du tableau
+  lu comme un arc (S03). Corrections lancées.
