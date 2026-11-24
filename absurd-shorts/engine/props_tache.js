@@ -309,7 +309,7 @@ export const TACHE_PROPS = {
       const u = o.stampAt == null ? 9 : t - o.stampAt;
       mark.visible = u >= 0; if (u >= 0) { const k = u < 0.08 ? 1.35 - 4.4 * u : 1.0; mark.scale.setScalar(Math.max(1, k)); }
       const zz = u < -0.15 ? 0.9 : u < 0 ? lerp(0.9, 0.035, smooth((u + 0.15) / 0.15)) : u < 0.12 ? 0.035 : lerp(0.035, 1.2, easeOut((u - 0.12) / 0.3));
-      stamp.position.set(0, h * 0.5, zz); stamp.children.forEach(c => { c.visible = u > -0.35 && u < 0.45; });
+      stamp.position.set(0, h * 0.5, zz); stamp.children.forEach(c => { c.visible = u > -0.35 && u < 0.16; });
     };
     g.userData.update(-1); return g;
   },
@@ -354,7 +354,7 @@ export const TACHE_PROPS = {
       const u = o.fireAt == null ? -1 : t - o.fireAt;
       const rk = u > 0 ? Math.exp(-u * 4.5) * Math.sin(u * 16) : 0, bk = u > 0 ? (u < 0.05 ? u / 0.05 : Math.exp(-(u - 0.05) * 5)) : 0;
       hull.rotation.x = -0.05 * rk - 0.03 * bk; hull.position.z = -0.25 * bk; gun.position.z = 1.4 - 0.4 * bk;
-      dust(t, o.fireAt ?? 99, 2.6, 1.0, 0.55); foam(t, o.fireAt ?? 99, 0.9, 0.5, 0.3);
+      dust(t, o.fireAt ?? 99, 3.4, 0.9, 0.3); foam(t, o.fireAt ?? 99, 0.9, 0.5, 0.3);
     };
     g.userData.update(-1); return g;
   },
@@ -504,7 +504,7 @@ export const TACHE_PROPS = {
     g.add(ex(0.02, '#C9CED4', 0, 1.0), ex(0.05, '#3FA7B5', 0.02, 0.9));
     g.add(rod([0, 0.075 * s, -0.08 * s], [0, 0.13 * s, -0.06 * s], 0.012 * s, '#2F7F8B'), rod([0, 0.13 * s, -0.06 * s], [0, 0.13 * s, 0.05 * s], 0.014 * s, '#2F7F8B'), rod([0, 0.13 * s, 0.05 * s], [0, 0.075 * s, 0.08 * s], 0.012 * s, '#2F7F8B'));
     const pf = grp(); pf.position.set(0, 0.03 * s, 0.1 * s); g.add(pf); const steam = foamPuffs(pf, 8, 21);
-    g.userData.update = t => { for (const a of [].concat(o.steamAt ?? [])) steam(t, a, 0.12 * s, 0.6, 0.035 * s); };
+    g.userData.update = t => { for (const a of [].concat(o.steamAt ?? [])) steam(t, a, 0.1 * s, 0.6, 0.016 * s); };
     g.userData.update(-1); return g;
   },
   // o.folded: legs against the board, standing on its square end (handed over); o.form: an official form clipped near the top

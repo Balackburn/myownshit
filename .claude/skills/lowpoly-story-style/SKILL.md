@@ -2129,3 +2129,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 51) Écharpe tricolore inventée : vert émeraude + jaune se lit comme un vrai drapeau ; violet + or ne correspond à aucun.
 - (cycle 51) Projecteur d'hélicoptère : le faisceau descend sur la cible, sinon le plan perd son sens ; hélicoptère plein, pas en contour.
 - (cycle 51) Piles « jusqu'au plafond » : caméra basse et proche du personnage, sinon les piles s'arrêtent au milieu du cadre.
+- (cycle 51, « La tache ») Plastron de chemise fixé au torse : le faire commencer environ 0,1 m sous l'origine du torse, sinon les boutons
+  noirs du costume dépassent.
+- (cycle 51) Planche pliée : le moteur l'a retournée bout pour bout contre le calcul (une rotation z de −π/2 l'a redressée) et une extrusion
+  centrée s'enfonce à moitié dans le sol : la lever de la moitié de sa longueur et vérifier sur une image fixe.
+- (cycle 51) Caméra « derrière l'accusé, face au juge » dans `replicaCourt` : rester devant le banc (z > −13,3), sinon l'image est noire.
+- (cycle 51) Montrer des gens derrière un objet proche : monter la caméra et regarder vers le bas ; d'une caméra basse, l'objet cache leurs têtes.
+- (cycle 51) Boucliers anti-émeute à hauteur de tête = grosses lentilles qui cachent les visages : à hauteur de poitrine, visières visibles.
+- (cycle 51) Décor blanchi blanc sur blanc : ne se lit que sur ciel bleu ou porte sombre ; garder chaque temps blanchi bas contre le ciel.
+- (cycle 51) Une main qui tient un accessoire devant la poitrine cache un gag de poitrine : l'écarter vers le bas à l'image du choc.
+- (cycle 51) Chemise posée à plat sur une planche : `rotOrder='YXZ'` avec rot `[-π/2, π/2, 0]` la couche face visible le long de +x.

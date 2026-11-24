@@ -60,7 +60,7 @@ EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
 DEAD = {'lid': 0.4, 'mouth': 'line'}
 def blink(t, face=None): return [k(t, toon={'face': {**(face or DEAD), 'lid': 1.0}}, toonDur=0.05, keepPose=True), k(r(t + 0.1), toon={'face': face or DEAD}, toonDur=0.06, keepPose=True)]
 def R5(p, w=1, s=0.04): return [*p, w, s]
-def FRONT(pid, who, **o): return P(pid, 'tacheShirtFront', on={'actor': who, 'joint': 'torso', 'offset': [0.0, 0.03, 0.135]}, opts=o)
+def FRONT(pid, who, **o): return P(pid, 'tacheShirtFront', on={'actor': who, 'joint': 'torso', 'offset': [0.0, -0.1, 0.135]}, opts={'h': 0.73, 'w': 0.37, 'at': [0.34, 0.42], 'countryAt': [0.5, 0.52], **o})
 def VISOR(pid, who): return P(pid, 'visorHelmet', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.0, 0.0]})
 def KEPI(pid, who): return P(pid, 'kepi', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.5, 0.0]}, opts={'w': 0.222, 'd': 0.17, 'color': '#4E5A3A', 'band': '#2E3424'})
 def GUARD(pid, who): return P(pid, 'guardHelmet', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.47, 0.0]}, scale=1.1, opts={'gold': True})
@@ -84,15 +84,15 @@ D1 = st.dur('S01'); DROP1 = 0.72; LAND1 = r(st.at('S01', 'L01', 5) - 0.02)
 C1 = cam(0.0, off(ME1, RY1, 2.95, -0.35, 1.74), off(ME1, RY1, 2.45, -0.27, 1.68), off(ME1, RY1, 0.0, 0.0, 1.6), off(ME1, RY1, 0.0, 0.02, 1.53), lens=40, ease='inOut')
 chkc('S01', C1, {'headTop': off(ME1, RY1, 0, 0, 2.3), 'eyes': off(ME1, RY1, 0.17, 0, 2.05), 'stain': STAIN1, 'pocket': off(ME1, RY1, 0.16, -0.06, 1.47), 'plate': off(ME1, RY1, 0.55, 0.05, 1.03)})
 chkc('S01', C1, {'headTop': off(ME1, RY1, 0, 0, 2.3), 'eyes': off(ME1, RY1, 0.17, 0, 2.05), 'stain': STAIN1, 'hem': off(ME1, RY1, 0.16, 0, 1.05)}, end=True)
-FORKUP = R5(off(ME1, RY1, 0.36, 0.13, 1.62), 1, 0.05); FORKDN = R5(off(ME1, RY1, 0.5, 0.12, 1.12), 1, 0.05)
+FORKUP = R5(off(ME1, RY1, 0.36, 0.13, 1.62), 1, 0.05); FORKOUT = R5(off(ME1, RY1, 0.42, 0.36, 1.22), 1, 0.05); FORKDN = R5(off(ME1, RY1, 0.5, 0.12, 1.12), 1, 0.05)
 EAT = {'lid': 0.2, 'mouth': 'O', 'jaw': 0.35, 'brow': 0.3}
 HERO1 = [k(0.0, look=add(FORKUP[:3], [0, 0.1, 0])), k(0.0, toon={'reach': {'R': FORKDN}, 'hands': {'R': 'grip', 'L': 'open'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.0),
          k(0.12, toon={'reach': {'R': FORKUP}, 'hands': {'R': 'grip'}, 'face': EAT, 'sq': [0.97, 1.03, 0.97]}, toonDur=0.32, toonEase='inOut'),
          k(0.5, toon={'reach': {'R': R5(add(FORKUP[:3], [0, 0.03, -0.02]), 1, 0.05)}, 'hands': {'R': 'grip'}, 'face': {**EAT, 'jaw': 0.5}, 'sq': [1, 1, 1]}, toonDur=0.12),
          k(r(DROP1 + 0.02), look=STAIN1, lookDur=0.1),
-         k(LAND1, toon={'reach': {'R': FORKUP}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'o', 'jaw': 0.25, 'brow': 0.9}, 'sq': [1.04, 0.95, 1.04], 'bend': {'neck': [0.35, 0, 0, 1, None]}}, toonDur=0.05, toonEase='out', blend=0.02),
-         k(r(LAND1 + 0.1), toon={'reach': {'R': FORKUP}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.1, 'mouth': 'o', 'jaw': 0.15, 'brow': 0.7}, 'sq': [1, 1, 1], 'bend': {'neck': [0.32, 0, 0, 1, None]}}, toonDur=0.1),
-         k(1.42, look='camera', lookDur=0.12), k(1.42, toon={'reach': {'R': FORKUP}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.45, 'mouth': 'line', 'brow': -0.1}, 'bend': {'neck': [0.0, 0, 0, 1, None]}}, toonDur=0.14),
+         k(LAND1, toon={'reach': {'R': FORKOUT}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'o', 'jaw': 0.25, 'brow': 0.9}, 'sq': [1.04, 0.95, 1.04]}, toonDur=0.1, toonEase='out', blend=0.02),
+         k(r(LAND1 + 0.12), toon={'reach': {'R': FORKOUT}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.1, 'mouth': 'o', 'jaw': 0.15, 'brow': 0.7}, 'sq': [1, 1, 1]}, toonDur=0.1),
+         k(1.42, look='camera', lookDur=0.12), k(1.42, toon={'reach': {'R': FORKOUT}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.45, 'mouth': 'line', 'brow': -0.1}}, toonDur=0.14),
          *blink(1.72, {'lid': 0.45, 'mouth': 'line', 'brow': -0.1})]
 GLOB0 = off(ME1, RY1, 0.36, 0.11, 1.78)
 st.shot('S01', 'kitchenDay', setOpts=KIT, actors=[act('mec', ME1, RY1, 'stand', 'neutral', keys=HERO1)],
@@ -123,14 +123,14 @@ HERO2 += [k(BREAK2, toon={'reach': {'R': R5(off(ME2, RY2, 0.34, 0.12, 1.36), 1, 
           k(r(BREAK2 + 0.04), look=off(ME2, RY2, 0.34, 0.12, 1.36), lookDur=0.08),
           k(r(BREAK2 + 0.42), look='camera', lookDur=0.12), k(r(BREAK2 + 0.42), toon={'face': {'lid': 0.45, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.12, keepPose=True)]
 st.shot('S02', 'salleDeBain', setOpts={'half': 3.4}, actors=[act('mec', ME2, RY2, 'stand', 'neutral', keys=HERO2)],
-        props=[FRONT('chemise2', 'mec'), P('eponge2', 'tacheSponge', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.05, 0.05]}, opts={'s': 1.3, 'breakAt': BREAK2})],
+        props=[FRONT('chemise2', 'mec'), P('eponge2', 'tacheSponge', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.05, 0.05]}, opts={'s': 1.0, 'breakAt': BREAK2})],
         cams=[C2])
 for t_ in [0.05, 0.25, 0.45, HARD2, r(HARD2 + 0.12), r(HARD2 + 0.24)]: st.cue('sfx:scratch', 'S02', t_, 0.18)
 st.cue('sfx:crunch', 'S02', BREAK2, 0.4)
 
 # ============================== the court (replicaCourt: the judge's bench at z -14)
 JG = [-0.35, -0.3, -14.0]; RYJ = 0
-RACK3 = [0.45, 0, -11.6]; RYR3 = 172
+RACK3 = [0.45, 0, -11.6]; RYR3 = 200
 # 3: the judge signed its eviction. Over the shirt's shoulder (it hangs on a rack in the dock, facing the bench): the judge strikes the gavel on
 #    « signé »; reverse on the shirt's front: the eviction order pops up beside it and is stamped EXPULSÉE on « expulsion »
 D3 = st.dur('S03'); HIT3 = r(st.at('S03', 'L03', 3) + 0.04); CUT3 = 0.92; STAMP3 = r(st.at('S03', 'L03', 5) + 0.02)
@@ -138,9 +138,10 @@ F3A = [-0.3, 1.6, -9.5]
 L3A, LENS3A, W3A = fit(F3A, {'judge': add(JG, [0, 2.3, 0]), 'judgeL': add(JG, [-0.45, 1.6, 0]), 'shirtTop': add(RACK3, [0.3, 1.9, 0]), 'shirtHem': add(RACK3, [0.3, 1.05, 0])}, margin=0.05, top=0.12, bottom=0.86, lenses=range(30, 72))
 C3A = cam(0.0, F3A, add(F3A, [0.03, 0.0, -0.2]), L3A, add(L3A, [0, -0.02, 0]), lens=LENS3A)
 CHECKS.append(f'S03a fit lens {LENS3A} {W3A}')
-ORDER3 = [-0.12, 1.0, -12.15]
-F3B = [0.12, 1.5, -14.6]
-L3B, LENS3B, W3B = fit(F3B, {'collarL': add(RACK3, [0.33, 1.88, 0]), 'collarR': add(RACK3, [-0.33, 1.88, 0]), 'hem': add(RACK3, [0, 1.05, 0]), 'orderTop': add(ORDER3, [-0.32, 0.84, 0]), 'orderBot': add(ORDER3, [-0.32, 0.0, 0])}, margin=0.04, top=0.18, bottom=0.8, lenses=range(30, 72))
+ORDER3 = off(RACK3, RYR3, 0.2, -0.58, 1.12)
+OYAW3 = yaw(ORDER3, [-2.05, 1.5, -13.55])
+F3B = [-2.05, 1.5, -13.55]
+L3B, LENS3B, W3B = fit(F3B, {'collarL': add(RACK3, [0.33, 1.88, 0]), 'collarR': add(RACK3, [-0.33, 1.88, 0]), 'hem': add(RACK3, [0, 1.05, 0]), 'orderTL': off(ORDER3, OYAW3, 0, 0.24, 0.62), 'orderBR': off(ORDER3, OYAW3, 0, -0.24, 0.0)}, margin=0.04, top=0.18, bottom=0.8, lenses=range(30, 72))
 C3B = cam(CUT3, F3B, add(F3B, [0.0, 0.0, 0.15]), L3B, L3B, lens=LENS3B)
 CHECKS.append(f'S03b fit lens {LENS3B} {W3B}')
 chkc('S03a', C3A, {'judgeHead': add(JG, [0, 2.0, 0]), 'shirtTop': add(RACK3, [0, 1.9, 0]), 'shirtHem': add(RACK3, [0, 1.05, 0]), 'gavel': [-0.37, 1.41, -13.3]})
@@ -153,7 +154,7 @@ st.shot('S03', 'replicaCourt', setOpts={'handle': 'TRIBUNAL', 'windowX': -1.5, '
                P('block3', 'soundBlock', pos=[0.1, 1.18, -13.3]),
                P('portant3', 'tacheRack', pos=RACK3, ry=RYR3, opts={'w': 0.9, 'shirt': {'stain': 'splat', 'sway': 0.02}}),
                P('barre3', 'table', pos=add(RACK3, [0.0, 0, -0.75]), ry=RYR3, opts={'w': 1.4, 'd': 0.12, 'h': 1.0, 'color': '#8A5A3A'}),
-               P('ordre3', 'tacheEvictOrder', pos=ORDER3, ry=yaw(ORDER3, C3B['from']), scale=0.01, opts={'stampAt': STAMP3}, keys=[k(r(CUT3 + 0.06), scale=1.0, dur=0.14, ease='out')])],
+               P('ordre3', 'tacheEvictOrder', pos=ORDER3, ry=yaw(ORDER3, C3B['from']), scale=0.01, opts={'stampAt': STAMP3}, keys=[k(r(CUT3 + 0.06), scale=0.62, dur=0.14, ease='out')])],
         fx=[{'type': 'shake', 'at': HIT3, 'dur': 0.18, 'amount': 0.018}],
         cams=[C3A, C3B])
 st.card('S03', 'EXPULSÉE', at=r(STAMP3 + 0.04))
@@ -214,16 +215,16 @@ st.cue('sfx:stepRun', 'S04', 0.05, 0.4); st.cue('sfx:stepRun', 'S04', 0.8, 0.4);
 # 5: the stain dug in under the pocket. Macro on the shirt's chest: the splat slides up and under the pocket flap on « retranchée », one drip left
 #    peeking out; behind the collar the riot police stand with their shields raised
 D5 = st.dur('S05'); SLIDE5 = r(st.at('S05', 'L05', 3) - 0.02)
-C5 = cam(0.0, [0.12, 1.36, 1.45], [0.1, 1.38, 1.3], [0.05, 1.56, 0.0], [0.05, 1.58, 0.0], lens=40)
-CRS5 = [('crs1', -0.5, -2.75), ('crs2', 0.12, -2.55), ('crs3', 0.72, -2.85)]
-chkc('S05', C5, {'stain': SHP(0.34, 0.47), 'pocket': SHP(0.71, 0.31), 'collar': SHP(0.5, 0.0), 'stainLow': SHP(0.34, 0.6), **{n: [x, 2.05, z] for n, x, z in CRS5}, **{n + 'sh': [x, 2.35, z + 0.45] for n, x, z in CRS5}})
+C5 = cam(0.0, [0.12, 2.2, 2.6], [0.1, 2.16, 2.25], [0.0, 1.62, 0.0], [0.0, 1.64, 0.0], lens=46)
+CRS5 = [('crs1', -0.78, -2.7), ('crs2', 0.05, -3.1), ('crs3', 0.82, -2.8)]
+chkc('S05', C5, {'stain': SHP(0.34, 0.47), 'pocket': SHP(0.71, 0.31), 'collar': SHP(0.5, 0.0), 'stainLow': SHP(0.34, 0.6), **{n: [x, 2.05, z] for n, x, z in CRS5}, **{n + 'sh': [x, 1.45, z + 0.5] for n, x, z in CRS5}})
 def CRS5K(j, p):
-    UP = {'reach': {'L': R5(off(p, 0, 0.42, -0.14, 1.95), 1, 0.03), 'R': R5(off(p, 0, 0.42, 0.14, 1.9), 1, 0.03)}, 'hands': {'L': 'grip', 'R': 'grip'}, 'face': {'lid': 0.1, 'mouth': 'clench', 'brow': -0.7}}
+    UP = {'reach': {'L': R5(off(p, 0, 0.42, -0.14, 1.5), 1, 0.03), 'R': R5(off(p, 0, 0.42, 0.14, 1.45), 1, 0.03)}, 'hands': {'L': 'grip', 'R': 'grip'}, 'face': {'lid': 0.1, 'mouth': 'clench', 'brow': -0.7}}
     return [k(0.0, look=[0, 1.6, 0]), k(0.0, toon={**UP, 'sq': [1.08, 0.93, 1.08]}, toonDur=0.0), k(0.12, toon={**UP, 'sq': [1, 1, 1]}, toonDur=0.15),
             k(r(SLIDE5 + 0.3 + 0.07 * j), toon={**UP, 'sq': [0.97, 1.04, 0.97], 'face': {'lid': 0.0, 'mouth': 'O', 'brow': 0.6}}, toonDur=0.08), k(r(SLIDE5 + 0.5 + 0.07 * j), toon={**UP, 'sq': [1, 1, 1]}, toonDur=0.12)]
 st.shot('S05', 'grassland', setOpts=TOWNSET, actors=[act(n, [x, 0, z], 0, 'stand', 'determined', keys=CRS5K(j, [x, 0, z])) for j, (n, x, z) in enumerate(CRS5)],
         props=[*TOWN('S05', 'colour', zmin=-30, zmax=0, cars=False), SHIRT_RACK('portant5', stain='splat', slideAt=SLIDE5, slideDur=0.55, peek=1.0, sway=0.012),
-               *[P(f'bouclier5_{j}', 'tacheRoundShield', pos=[x, 2.3, r(z + 0.45)]) for j, (n, x, z) in enumerate(CRS5)], *[VISOR(f'casque5_{j}', n) for j, (n, x, z) in enumerate(CRS5)]],
+               *[P(f'bouclier5_{j}', 'tacheRoundShield', pos=[x, 1.45, r(z + 0.5)]) for j, (n, x, z) in enumerate(CRS5)], *[VISOR(f'casque5_{j}', n) for j, (n, x, z) in enumerate(CRS5)]],
         cams=[C5])
 st.cue('sfx:slideUp', 'S05', SLIDE5, 0.35); st.cue('sfx:squeak', 'S05', r(SLIDE5 + 0.5), 0.25)
 
@@ -237,7 +238,7 @@ C6 = cam(0.0, [-11.6, 1.3, 5.2], [-11.9, 1.32, 4.95], [-22.0, 2.0, 0.2], [-22.0,
 chkc('S06', C6, {'tankBack': [-27.0, 2.2, 0], 'tankFront': [-21.0, 1.0, 1.5], 'muzzle': MUZ, 'turretTop': [-24.4, 2.4, 0], 'trackL': [-24.0, 0.1, 1.8], 'jetOut': [-10.0, 1.8, 0.0]})
 st.shot('S06', 'grassland', setOpts=TOWNSET, actors=[],
         props=[*TOWN('S06', 'colour', zmin=-14, zmax=22), P('char6', 'tacheTank', pos=TANK, ry=90, opts={'fireAt': FIRE6}),
-               P('jet6', 'tacheJet', pos=MUZ, opts={'fireAt': r(FIRE6 + 0.02), 'v': 40, 'r': 0.3, 'hits': [[0, sub(SHIRT_PT, MUZ)]], 'mist': 2.0})],
+               P('jet6', 'tacheJet', pos=MUZ, opts={'fireAt': r(FIRE6 + 0.02), 'v': 40, 'r': 0.42, 'hits': [[0, sub(SHIRT_PT, MUZ)]], 'mist': 2.0})],
         cams=[C6])
 st.cue('thunder', 'S06', FIRE6, 0.5); st.cue('sfx:splash', 'S06', r(FIRE6 + 0.03), 0.5); st.cue('whoosh', 'S06', r(FIRE6 + 0.05), 0.35, 0.5, 300, 2400)
 
@@ -261,8 +262,8 @@ MAIRE = [30.0, 0.4, 43.25]
 # 8: the houses, the cars, the mayor. Three beats: a low look at white cottages and a white tree against the blue sky; the white cars along the
 #    kerb; the mayor on the town hall's steps, white from his hair to his sash, in his dark doorway: he blinks, twice, unhurt
 D8 = st.dur('S08'); CUT8B = r(st.at('S08', 'L08', 2) - 0.03); CUT8C = r(st.at('S08', 'L08', 4) - 0.03)
-C8A = cam(0.0, [1.8, 0.95, 16.0], [2.1, 1.0, 15.4], [10.4, 3.6, 10.0], [10.4, 3.7, 9.6], lens=46)
-C8B = cam(CUT8B, [2.6, 0.85, 12.5], [2.75, 0.85, 12.0], [4.6, 1.0, -2.0], [4.6, 1.0, -2.5], lens=44)
+C8A = cam(0.0, [-1.5, 0.9, 19.5], [-1.2, 0.95, 19.0], [10.4, 3.9, 10.5], [10.4, 4.0, 10.0], lens=46)
+C8B = cam(CUT8B, [1.2, 1.25, 15.5], [1.3, 1.25, 15.0], [4.4, 1.0, 1.5], [4.4, 1.0, 1.0], lens=44)
 C8C = cam(CUT8C, [30.35, 1.6, 46.4], [30.3, 1.62, 46.0], [30.0, 2.15, 43.2], [30.0, 2.15, 43.2], lens=44)
 chkc('S08a', C8A, {'roof': [10.4, 6.0, 12.0], 'door': [7.2, 1.0, 12.0], 'base': [7.2, 0.0, 10.5]})
 chkc('S08b', C8B, {'car0': [4.3, 1.4, 7.5], 'car1': [4.3, 1.4, 1.0], 'car2': [4.3, 1.4, -6.5]})
@@ -289,8 +290,8 @@ st.cue('sfx:tense', 'S09', 0.0, 0.2)
 # 10: stretched, it had the exact shape of the country. Forensic officers in pale suits by the rack; the tape runs out round it; a transparent map of
 #     an invented country comes down over the shirt and matches drip for drip (the coast flashes on « exacte »); the officers step back
 D10 = st.dur('S10'); MAP10 = 0.85; PULSE10 = r(st.at('S10', 'L10', 5) + 0.05); BACK10 = r(PULSE10 + 0.35)
-C10 = cam(0.0, [0.3, 1.6, 4.9], [0.25, 1.57, 4.45], [0.0, 1.38, 0.0], [0.0, 1.4, 0.0], lens=44)
-LEG = [('legiste1', [-0.68, 0, 0.75], 35), ('legiste2', [0.68, 0, 0.75], -35)]
+C10 = cam(0.0, [0.3, 1.6, 5.0], [0.22, 1.56, 4.5], [0.0, 1.42, 0.0], [0.0, 1.45, 0.0], lens=44)
+LEG = [('legiste1', [-0.66, 0, 0.3], 35), ('legiste2', [0.66, 0, 0.3], -35)]
 chkc('S10', C10, {'collar': SHP(0.5, 0.0), 'stain': SHP(0.5, 0.64), 'hem': SHP(0.5, 1.29), **{n: add(p, [0, 2.05, 0]) for n, p, ry in LEG}, 'post': [1.2, 1.0, 0.8], 'post2': [-1.2, 1.0, 0.8]})
 def LEGK(n, p, ry, sd):
     face = {'lid': 0.35, 'mouth': 'line', 'brow': 0.2}
@@ -314,7 +315,7 @@ SIGN0 = [0.42, 0.55, -2.25]; SIGN1 = off(PRES, 0, 0.38, -0.5, 1.48)
 #     crossed-out washing machine on a stick, at his shoulder, elbow bent (never a straight raised arm); flashes
 D11 = st.dur('S11'); UP11 = r(st.at('S11', 'L11', 3) - 0.12)
 C11 = cam(0.0, [-0.55, 1.95, 1.75], [-0.5, 1.93, 1.5], [0.35, 1.9, -2.5], [0.32, 1.92, -2.5], lens=42)
-chkc('S11', C11, {'head': add(PRES, [0, 2.0, 0]), 'headTop': add(PRES, [0, 2.32, 0]), 'signTop': add(SIGN1, [0, 0.3 + 0.74, 0]), 'signC': add(SIGN1, [0, 0.3 + 0.37, 0]), 'decree': [0.0, 1.16, -2.05], 'title': [0.0, 3.1, -2.96]})
+chkc('S11', C11, {'head': add(PRES, [0, 2.0, 0]), 'headTop': add(PRES, [0, 2.32, 0]), 'signTop': add(SIGN1, [0, 0.3 + 0.74, 0]), 'signC': add(SIGN1, [0, 0.3 + 0.37, 0]), 'decree': [0.0, 1.16, -2.05], 'title': [-0.3, 3.05, -2.96], 'titleR': [1.15, 3.05, -2.96]})
 SPF = {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}
 PEN = lambda dx: R5([r(0.02 + dx), 1.2, -2.02], 1, 0.03)
 PRESK = [k(0.0, look=[0.0, 1.15, -2.05]), k(0.0, toon={'reach': {'R': PEN(0.0), 'L': R5([0.3, 1.13, -2.08], 1, 0.04)}, 'hands': {'R': 'pinch', 'L': 'open'}, 'bend': {'neck': [0.3, 0, 0, 1, None]}, 'face': SPF}, toonDur=0.0)]
@@ -328,7 +329,7 @@ st.shot('S11', 'pressRoom', setOpts={'backdrop': ' ', 'fg': 'rgba(0,0,0,0)', 'ch
         props=[P('decret11', 'tacheDecree', pos=[0.02, 1.16, -2.06], opts={'signAt': 0.12, 'signDur': 0.66}),
                P('stylo11', 'marker', on={'actor': 'president', 'hand': 'R', 'offset': [0.0, -0.03, 0.03]}, keys=[k(0.82, visible=False)]),
                P('panneau11', 'tacheNoWashSign', pos=SIGN0, ry=-8, keys=[k(0.0, visible=False), k(r(UP11 - 0.02), visible=True), k(UP11, to=SIGN1, dur=0.18, ease='out'), k(r(UP11 + 0.25), to=add(SIGN1, [0, -0.02, 0]), dur=0.15)]),
-               P('titre11', 'wallTitle', pos=[0.0, 3.1, -2.96], opts={'w': 1.9, 'h': 0.36, 'text': 'DÉCRET PRÉSIDENTIEL', 'bg': '#7A2E3A', 'fg': '#F4F1E8', 'rule': False, 'tick': True, 'emit': 0.3}),
+               P('titre11', 'wallTitle', pos=[0.42, 3.05, -2.96], opts={'w': 1.45, 'h': 0.36, 'text': 'DÉCRET PRÉSIDENTIEL', 'bg': '#7A2E3A', 'fg': '#F4F1E8', 'rule': False, 'tick': True, 'emit': 0.3}),
                P('flash11a', 'camFlash', pos=[-0.9, 1.9, 0.3], opts={'w': 0.5, 'at': [r(UP11 + 0.1), r(UP11 + 0.55)]}),
                P('flash11b', 'camFlash', pos=[1.1, 1.8, 0.2], opts={'w': 0.5, 'at': [r(UP11 + 0.3)]}),
                P('flash11c', 'camFlash', pos=[0.9, 1.6, 0.5], opts={'w': 0.45, 'at': [0.4]})],
@@ -351,9 +352,9 @@ S1_12 = RP(-0.95, -2.4); S2_12 = RP(0.75, -2.55)
 chkc('S12', C12, {'shirtStart': [0, SHY(1.6) - 0.6, -2.87], 'shirtEnd': [0, SHY(5.0) - 0.6, -2.87], 'hookEnd': [0, SHY(5.0), -2.87], 'hemEnd': [0, SHY(5.0) - 1.2, -2.87], 'ball': [0, RY0 + PH + 0.45, -3], 'sold1': add(S1_12, [0, 2.0, 0]), 'sold2': add(S2_12, [0, 2.0, 0])})
 ROPE = lambda y: R5([0.07, RY0 + y, -2.9], 1, 0.03)
 def HAUL():
-    out = [k(0.0, look=[0, RY0 + 4.5, -2.9]), k(0.0, toon={'reach': {'R': ROPE(2.2), 'L': ROPE(1.7)}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'clench', 'brow': -0.4}}, toonDur=0.0)]
+    out = [k(0.0, look=[0, RY0 + 4.5, -2.9]), k(0.0, toon={'reach': {'R': ROPE(1.95), 'L': ROPE(1.5)}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'clench', 'brow': -0.4}}, toonDur=0.0)]
     for i in range(6):
-        t_ = r(0.15 + 0.24 * i); hi, lo = (2.3, 1.5) if i % 2 == 0 else (1.5, 2.3)
+        t_ = r(0.15 + 0.24 * i); hi, lo = (2.0, 1.4) if i % 2 == 0 else (1.4, 2.0)
         out.append(k(t_, toon={'reach': {'R': ROPE(hi), 'L': ROPE(lo)}, 'sq': [1.03, 0.97, 1.03] if i % 2 else [0.98, 1.02, 0.98]}, toonDur=0.2, keepPose=True))
     return out + [k(1.75, look='camera', lookDur=0.15)]
 BUND = off(S1_12, 115, 0.38, 0.0, 1.2)
@@ -435,7 +436,7 @@ st.shot('S15', 'grassland', setOpts={'clouds': 12}, actors=[
         act('mecB', ME15, 0, 'stand', 'unimpressed', keys=HERO15),
         act('soldat1', SB, -60, 'stand', 'neutral', keys=SOLDK(SB, -60, 'board', 1)), act('soldat2', SI, 60, 'stand', 'neutral', keys=SOLDK(SI, 60, 'iron', -1))],
         props=[ROOFP('toit15'), FRONT('chemise15', 'mecB', stain='none', bg='#BFD7EA'), KEPI('kepi15a', 'soldat1'), KEPI('kepi15b', 'soldat2'),
-               P('planche15', 'tacheBoard', pos=BOARD0, rot=[0, PI / 2, PI / 2], opts={'folded': True, 'form': True, 'formX': 0.32}, keys=[k(r(GIVE15 - 0.12), to=BOARD1, dur=0.2, ease='inOut')]),
+               P('planche15', 'tacheBoard', pos=add(BOARD0, [0, 0.72, 0]), rot=[0, PI / 2, -PI / 2], opts={'folded': True, 'form': True, 'formX': 0.32}, keys=[k(r(GIVE15 - 0.12), to=add(BOARD1, [0, 0.72, 0]), dur=0.2, ease='inOut')]),
                P('fer15s', 'tacheIron', on={'actor': 'soldat2', 'hand': 'R', 'offset': [0.0, -0.06, 0.05]}, scale=1.6, keys=[k(GIVE15, visible=False)]),
                P('fer15', 'tacheIron', on={'actor': 'mecB', 'hand': 'R', 'offset': [0.0, -0.06, 0.05]}, scale=1.6, opts={'steamAt': [r(LOOK15 + 0.05)]}, keys=[k(0.0, visible=False), k(GIVE15, visible=True)])],
         cams=[C15])
@@ -449,7 +450,7 @@ SHS = 1.0; SHO = [-0.35, RY0 + BH + 0.045, 0.0]                   # the shirt la
 def ONSH(u, v): return [r(SHO[0] + (0.13 + 0.62 * v) * SHS), r(SHO[1] + 0.03), r((u - 0.5) * 0.62 * SHS)]   # a point on the laid shirt (u across, v in widths from the shoulders)
 SC16 = ONSH(0.5, 0.64)
 LOOP = [ONSH(0.08, 0.2), ONSH(0.15, 0.95), ONSH(0.5, 1.12), ONSH(0.88, 0.95), ONSH(0.92, 0.25), ONSH(0.5, 0.12), ONSH(0.1, 0.25), ONSH(0.15, 0.9)]
-G16 = [('garde1', RP(-1.3, -2.7), 0), ('garde2', RP(0.5, -3.0), 0)]
+G16 = [('garde1', RP(-1.3, -2.7), 0), ('garde2', RP(0.3, -3.1), 0)]
 C16 = cam(0.0, [1.15, RY0 + 2.35, 3.15], [1.12, RY0 + 2.33, 3.05], [0.05, RY0 + 1.25, -0.4], [0.05, RY0 + 1.25, -0.4], lens=48)
 chkc('S16', C16, {'head': add(ME16, [0, 2.0, 0]), 'headTop': add(ME16, [0, 2.32, 0]), 'stain': SC16, 'collar': ONSH(0.5, 0.0), 'hem': ONSH(0.5, 1.29), **{n: add(p, [0, 2.0, 0]) for n, p, ry in G16}, **{n + 'Top': add(p, [0, 2.75, 0]) for n, p, ry in G16}, 'boardEnd': [0.7, RY0 + BH, 0]})
 T16 = [0.15, 0.55, 0.9, 1.25, 1.6, 1.95, 2.25, 2.55]
