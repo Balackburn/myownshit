@@ -212,26 +212,29 @@ D7 = st.dur('S07')
 # (round 1) from the side, nearly along the canopy's plane: the furled spike opens at a steady rate (the rim's radius grows 4.5 m/s), and three big
 #     satellites parked in the rim's plane are batted away one after the other, 0.4 s apart: a contact frame, a spark, the canopy shudders, the
 #     satellite spins off out of the frame; then the open parasol holds, turning slowly, with a last panel tumbling away
-OPEN7, RATE7 = 0.1, 4.5
-R7 = 6.5; PZ7 = -10.0; RIM7 = r(PZ7 + R7 * 0.32)
-DUR7 = r(R7 * 1.03 / RATE7 / 0.85, 3)
-def hit_r(rad): return r(OPEN7 + rad / RATE7, 2)
-SATS7 = [('sat7a', [0.0, 2.05, RIM7], [0.0, 1.0, 0.25], 1.0), ('sat7b', [0.2, -3.85, RIM7], [0.0, -1.0, 0.35], -1.0), ('sat7c', [-0.2, 5.65, RIM7], [0.0, 1.0, 0.2], 1.0)]
-F7 = [17.0, 0.6, -4.2]
-C7 = cam(0.0, F7, add(F7, [-0.4, 0.0, -0.2]), [0.0, 0.7, -8.3], [0.0, 0.8, -8.3], lens=52)
-chk('S07', C7['from'], C7['lookAt'], 52, {'rimTop': [0, R7, RIM7], 'rimBot': [0, -R7, RIM7], 'apex': [0, 0, PZ7], **{n: p for n, p, d, sg in SATS7}})
-HITS7 = {n: hit_r(abs(p[1]) - 0.45) for n, p, d, sg in SATS7}
-CHECKS.append(f"S07 hits {HITS7} openDur {DUR7}")
-def SATK(n, p, d, sg):
-    h = HITS7[n]; out = add(p, mul(d, 13.0))
+OPEN7, DUR7 = 0.15, 1.7
+R7 = 6.5; PZ7 = -10.0; H7 = R7 * 0.32
+def op7(u): return u / 0.85 * 1.03
+def rim7(op): return r(R7 * (0.05 + 0.95 * op)), r(PZ7 + H7 * (1 + (1 - op) * 3.2))   # the rim's radius and its z (the furled cone is longer)
+def at7(op): return r(OPEN7 + op * 0.85 / 1.03 * DUR7, 2)
+SATS7 = []
+for n, op, sg, x in [('sat7a', 0.35, 1.0, 0.0), ('sat7b', 0.62, -1.0, 0.3), ('sat7c', 0.9, 1.0, -0.3)]:
+    rr, zz = rim7(op); SATS7.append((n, [x, r(sg * (rr + 0.5)), r(zz - 0.25)], [0.0, sg, 0.45], sg, at7(op)))
+F7 = [17.0, 0.6, -2.4]
+C7 = cam(0.0, F7, add(F7, [-1.2, 0.1, -0.5]), [0.0, 0.7, -6.6], [0.0, 0.8, -7.0], lens=54)
+chk('S07', C7['from'], C7['lookAt'], 54, {'rimTop': [0, R7, PZ7 + H7], 'rimBot': [0, -R7, PZ7 + H7], 'apex': [0, 0, PZ7], 'furled': [0, 0, rim7(0)[1]], **{n: p for n, p, d, sg, h in SATS7}})
+HITS7 = {n: h for n, p, d, sg, h in SATS7}
+CHECKS.append(f"S07 hits {HITS7}")
+def SATK(n, p, d, sg, h):
+    out = add(p, mul(d, 13.0))
     return [k(0.0, to=add(p, [0.0, -0.25 * sg, 0.3]), dur=h, ease='linear'), k(0.0, rotTo=[0.15, 1.35, 0.1 * sg], dur=h, ease='linear'),
             k(h, to=add(p, mul(d, 0.6)), dur=0.06, ease='out'), k(r(h + 0.06), to=out, dur=0.55, ease='in'), k(h, rotTo=[4.5 * sg, 6.0, 2.5], dur=0.62, ease='in'),
-            k(h, scale=0.5, dur=0.0), k(r(h + 0.03), scale=0.42, dur=0.05)]
+            k(h, scale=0.68, dur=0.0), k(r(h + 0.03), scale=0.58, dur=0.05)]
 st.shot('S07', 'spaceDark', actors=[],
-        props=[P('parasol7', 'orbitParasol', pos=[0, 0, PZ7], rot=[-PI / 2, 0, 0], opts={'r': R7, 'openAt': OPEN7, 'openDur': DUR7, 'steady': True, 'spin': 0.12, 'jolts': list(HITS7.values())}),
+        props=[P('parasol7', 'orbitParasol', pos=[0, 0, PZ7], rot=[-PI / 2, 0, 0], opts={'r': R7, 'openAt': OPEN7, 'openDur': DUR7, 'steady': True, 'spin': 0.35, 'jolts': list(HITS7.values())}),
                P('terre7', 'earthGlobe', pos=[-40, -30, -14], opts={'radius': 14, 'seed': 5}),
-               *[P(n, 'satellite', pos=p, rot=[0.15, 1.35, 0.1 * sg], scale=0.46, keys=SATK(n, p, d, sg)) for n, p, d, sg in SATS7],
-               *[P(f'etincelle7{n[-1]}', 'hitSpark', pos=add(p, [0.6, -0.45 * sg, 0.0]), opts={'at': HITS7[n], 's': 1.3, 'face': F7}) for n, p, d, sg in SATS7]],
+               *[P(n, 'satellite', pos=p, rot=[0.15, 1.35, 0.1 * sg], scale=0.62, keys=SATK(n, p, d, sg, h)) for n, p, d, sg, h in SATS7],
+               *[P(f'etincelle7{n[-1]}', 'hitSpark', pos=add(p, [0.6, -0.4 * sg, 0.2]), opts={'at': h, 's': 1.3, 'face': F7}) for n, p, d, sg, h in SATS7]],
         cams=[C7])
 for n in HITS7: st.cue('clang', 'S07', HITS7[n], 0.4)
 
