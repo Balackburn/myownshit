@@ -443,11 +443,11 @@ export const STYLO_PROPS = {
     for (let i = 0; i < 3; i++) { const a = i / 3 * TAU + 0.3, l = at(cyl(0.018, 0.018, sh, '#3A3D44', 6, { pivot: 'bottom' }), sx + Math.cos(a) * 0.13, 0, sz + Math.sin(a) * 0.13); l.rotation.set(Math.sin(a) * 0.12, 0, -Math.cos(a) * 0.12); g.add(l); }
     if (o.pen !== false) { const rs = sx < 0 ? -1 : 1, yw = (o.penYaw ?? 0.35) + (rs > 0 ? PI : 0), Lp = o.penLen ?? 0.46;
       const pen = buildProp('styPen', { kind: 'red', len: Lp }); pen.position.set(sx, sh + 0.05, sz); pen.rotation.set(0, yw, PI / 2); g.add(pen);
-      const ring = [rs * (W / 2 - 0.01), 1.05, 0.3]; g.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.03, 0.009, 6, 14), phong(STEEL, 60)), ring[0], ring[1], ring[2], 0, PI / 2, 0));
+      const ring = o.ring || [rs * (W / 2 - 0.01), 1.05, 0.3];   // (final) o.ring: where the chain is fixed (the ledge, to keep it in frame) g.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.03, 0.009, 6, 14), phong(STEEL, 60)), ring[0], ring[1], ring[2], 0, PI / 2, 0));
       const pr = [sx - Math.cos(yw) * (Lp / 2 + 0.02), sh + 0.05, sz + Math.sin(yw) * (Lp / 2 + 0.02)];
       const n = 9; for (let i = 0; i <= n; i++) { const u = i / n, x = pr[0] + (ring[0] - pr[0]) * u, z = pr[2] + (ring[2] - pr[2]) * u, y = pr[1] + (ring[1] - pr[1]) * u - 0.22 * Math.sin(PI * u);
         const lk = rimmed(w => new THREE.TorusGeometry(0.022, 0.0075 + w, 6, 12), phong(STEEL, 60, '#DDE6F0'), '#101216', 0.004); lk.position.set(x, y, z); lk.scale.set(1.45, 1, 1); lk.rotation.set(i % 2 ? PI / 2 : 0, Math.atan2(ring[0] - pr[0], ring[2] - pr[2]) + PI / 2, 0); g.add(lk); }
-      g.add(at(etatTag('ÉTAT', 1.1), sx + rs * 0.3, sh + 0.0, sz + 0.06, -0.15, -0.3 * rs, 0)); }
+      g.add(at(etatTag('ÉTAT', 1.1), o.tagAt ? o.tagAt[0] : sx + rs * 0.3, o.tagAt ? o.tagAt[1] : sh, o.tagAt ? o.tagAt[2] : sz + 0.06, -0.15, -0.3 * rs, 0)); }
     return g;
   },
 
