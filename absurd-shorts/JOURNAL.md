@@ -3072,3 +3072,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   figement, aucun creux). Revue 1 : animation 5,8, direction artistique 6,8. Points : aucune déformation des personnages, main du salut qui
   traverse la tête des gardes, carte du pays cachée par les agents (S10), blanc sur blanc trop terne (S08), bras cassé dans la pose finale.
   Corrections lancées.
+- 23 h 55 — « La tache » (93) brouillon 2 et revue 2 : animation 7,4 (5,8), direction artistique 7,3 (6,8). Aucun vrai drapeau à l'image.
+  Restent : la chemise sur la planche du plan final (S16), la tache qui vire au mauve sous la carte (S10), la prise du maire trop courte
+  (S08), le coup de marteau du juge illisible et un fond qui rappelle un drapeau réel (S03), charges sans anticipation (S04, S06), figurants
+  figés. Corrections de la revue 2 lancées, calées sur les vrais temps des mots.
