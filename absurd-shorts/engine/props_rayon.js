@@ -232,21 +232,50 @@ export const RAYON_PROPS = {
     // (staging 2) o.dx0 + o.moveAt/o.moveDur: the front slides by itself from dx0 (m along X) back to the prop's place, eased; a key move of the prop
     // left the disc out of the whole-film render (the shot rendered alone, or with its neighbours, showed it)
     if (o.moveAt != null) { const inner = grp(...g.children); g.add(inner); g.userData.update = t => { const u = smooth((t - o.moveAt) / (o.moveDur ?? 1)); inner.position.x = (o.dx0 ?? 0) * (1 - u); }; g.userData.update(0); }
+    // (round 3) o.path [[t, dx, dz], ...]: the front follows those offsets, linear between the keys (the story times the edge on the screen: an
+    // ease-in that is still crossing the middle of the frame when the card drops, and leaves the frame at the bottom)
+    else if (o.path) { const inner = grp(...g.children); g.add(inner); const P = o.path;
+      g.userData.update = t => { let i = 0; while (i < P.length - 2 && t > P[i + 1][0]) i++; const a = P[i], b = P[i + 1], u = clamp01((t - a[0]) / Math.max(1e-6, b[0] - a[0]));
+        inner.position.set(a[1] + (b[1] - a[1]) * u, 0, a[2] + (b[2] - a[2]) * u); };
+      g.userData.update(0); }
     return g;
+  },
+  // (round 3) little cars seen from the air that stop dead when the shadow's edge reaches them: o.cars [[x, z, ry, speed, tStop, color], ...] (ry 0
+  // drives toward +Z), each a body, a cabin and a white roof; it drives at speed (m/s) until tStop, brakes in o.brake s (0.16) with a nose dip
+  // and a rock back, then stands; o.s scales the cars (exaggerated to read from 150 m)
+  stopCars(o) {
+    const g = grp(), S = o.s ?? 1.8, cars = (o.cars || []).map(([x, z, ry, v, ts, c]) => {
+      const body = grp(at(box(1.9, 0.7, 4.3, c || '#E04A3A', { pivot: 'bottom' }), 0, 0.25, 0), at(box(1.6, 0.6, 2.2, c || '#E04A3A', { pivot: 'bottom' }), 0, 0.95, -0.2),
+        at(box(1.5, 0.06, 1.9, '#F4F1E8', { pivot: 'bottom' }), 0, 1.55, -0.2), at(box(1.62, 0.4, 0.1, '#3E5872'), 0, 1.2, 0.92));
+      const car = grp(body); car.scale.setScalar(S); car.rotation.y = ry * PI / 180; g.add(car); noShadow(car); return { car, body, x, z, ry, v, ts };
+    });
+    const br = o.brake ?? 0.16;
+    g.userData.update = t => { for (const c of cars) {
+      const tt = Math.max(0, t), d = tt < c.ts ? c.v * tt : c.v * c.ts + c.v * br * 0.5 * (1 - Math.pow(1 - clamp01((tt - c.ts) / br), 2)) * 1.0;
+      const a = c.ry * PI / 180; c.car.position.set(c.x + Math.sin(a) * d, 0, c.z + Math.cos(a) * d);
+      const e = tt - c.ts; c.body.rotation.x = e > 0 && e < 0.6 ? 0.12 * Math.sin(Math.min(1, e / 0.6) * TAU) * Math.exp(-e * 4) : 0;
+    } };
+    g.userData.update(0); return g;
   },
   // a field of sunflowers (o.cols x o.rows, o.gap apart) facing +Z and up toward the sun; from o.droopAt each head, in a wave running from the
   // front row back (o.wave s per row), swings down to hang on its stem
   sunflowers(o) {
     const g = grp(), heads = [], C = o.cols ?? 7, Rw = o.rows ?? 5, gap = o.gap ?? 0.9, r = rng(o.seed || 21);
     for (let j = 0; j < Rw; j++) for (let i = 0; i < C; i++) {
-      const x = (i - (C - 1) / 2) * gap + (r() - 0.5) * 0.25, z = -j * gap + (r() - 0.5) * 0.2, h = 1.5 + r() * 0.5, s = grp(); s.position.set(x, 0, z); s.rotation.y = (r() - 0.5) * 0.4;
-      s.add(at(cyl(0.025, 0.035, h, '#4E8A3A', 6, { pivot: 'bottom' }), 0, 0, 0));
-      for (const k of [0.35, 0.6]) s.add(at(box(0.26, 0.02, 0.12, '#5A9A45', { outline: 0.004 }), 0.12 * (k > 0.5 ? -1 : 1), h * k, 0, 0, 0, (k > 0.5 ? 1 : -1) * 0.5));
-      const hd = grp(); hd.position.set(0, h, 0); hd.scale.setScalar(o.hs ?? 1); s.add(hd);
+      const x = (i - (C - 1) / 2) * gap + (r() - 0.5) * 0.25, z = -j * gap + (r() - 0.5) * 0.2, h = (o.h ?? 1.5) + r() * 0.5, s = grp(); s.position.set(x, 0, z); s.rotation.y = (r() - 0.5) * 0.4;
+      // (round 3) o.arc: the stem is four chained pieces that bend in an arc as the head goes down (a hinge at the head alone read as a lid shutting)
+      const NS = o.arc ? 4 : 1, segs = []; let par = s;
+      for (let q = 0; q < NS; q++) { const sg = grp(); sg.position.set(0, q ? h / NS : 0, 0); sg.add(at(cyl(0.025 - 0.003 * q / NS, 0.035 - 0.01 * q / NS, h / NS + 0.01, '#4E8A3A', 6, { pivot: 'bottom' }), 0, 0, 0)); par.add(sg); segs.push(sg); par = sg; }
+      for (const k of [0.35, 0.6]) { const q = Math.min(NS - 1, Math.floor(k * NS)); segs[q].add(at(box(0.26, 0.02, 0.12, '#5A9A45', { outline: 0.004 }), 0.12 * (k > 0.5 ? -1 : 1), h * k - q * h / NS, 0, 0, 0, (k > 0.5 ? 1 : -1) * 0.5)); }
+      const hd = grp(); hd.position.set(0, NS > 1 ? h / NS : h, 0); hd.scale.setScalar(o.hs ?? 1); par.add(hd);
       const face = grp(); face.add(at(cyl(0.13, 0.13, 0.05, '#5A3A1E', 12, { outline: 0.008 }), 0, 0, 0, PI / 2, 0, 0));
       for (let p = 0; p < 12; p++) { const a = p * TAU / 12; face.add(at(box(0.07, 0.15, 0.02, '#F2C21E', { taper: { x: 0.4, z: 1 } }), Math.sin(a) * 0.2, Math.cos(a) * 0.2, -0.005, 0, 0, -a)); }
+      // (round 3) o.face: a sad little face on the disc (closed arcs for eyes, a mouth turned down), for the hero flower at the front
+      if (o.face) face.add(at(canvasPlane(0.18, 0.18, (c, W, H) => { c.fillStyle = '#5A3A1E'; c.fillRect(0, 0, W, H); c.strokeStyle = '#F0CF86'; c.lineWidth = W * 0.06; c.lineCap = 'round';
+        for (const ex of [0.3, 0.7]) { c.beginPath(); c.arc(W * ex, H * 0.38, W * 0.11, PI * 1.1, PI * 1.9, false); c.stroke(); }
+        c.beginPath(); c.arc(W * 0.5, H * 0.86, W * 0.2, PI * 1.2, PI * 1.8, false); c.stroke(); }, { res: 128 }), 0, 0, 0.03));
       face.position.set(0, 0.06, 0.05); hd.add(face);
-      hd.rotation.order = 'YXZ'; heads.push({ hd, d: j * (o.wave ?? 0.12) + r() * 0.08, i, j }); g.add(s);
+      hd.rotation.order = 'YXZ'; heads.push({ hd, segs, d: j * (o.wave ?? 0.12) + r() * 0.08, i, j }); g.add(s);
     }
     const up = o.up ?? -0.45, down = o.down ?? 1.7;
     // (round 2) o.fall (s): the swing down, past the rest pose by o.sag, then a damped bob back (follow-through); o.straggler [col, row]: that head
@@ -254,13 +283,20 @@ export const RAYON_PROPS = {
     const fall = o.fall ?? 0.3, sag = o.sag ?? 0.2;
     const curve = (d, sg) => d <= 0 ? 0 : d < fall ? smooth(d / fall) * (1 + sg) : 1 + sg * Math.exp(-(d - fall) * 6) * (Math.cos((d - fall) * 13) + 6 / 13 * Math.sin((d - fall) * 13));
     const SG = o.straggler;
+    // (round 3) o.arc (0..1): that share of the droop bends the stem (spread over its pieces), the head takes the rest, its tilt unchanged; o.sigh:
+    // the straggler sighs instead of dropping: a small lift (the breath in) for 0.2 s, then a slow eased sag over o.sighDur s with a soft bob
+    const bendTo = (it, rx) => { if (it.segs.length < 2) { it.hd.rotation.x = rx; return; } const b = (o.arc ?? 0) * Math.max(0, rx - up) * 0.85;
+      it.segs.forEach((sg, q) => { sg.rotation.x = q ? b / (it.segs.length - 1) : 0; }); it.hd.rotation.x = rx - b; };
     g.userData.update = t => { for (const it of heads) {
-      if (o.droopAt == null) { it.hd.rotation.x = up; continue; }
+      if (o.droopAt == null) { bendTo(it, up); continue; }
       const late = SG && it.i === SG[0] && it.j === SG[1];
-      if (!late) { it.hd.rotation.x = up + (down - up) * curve(t - o.droopAt - it.d, sag); continue; }
+      if (!late) { bendTo(it, up + (down - up) * curve(t - o.droopAt - it.d, sag)); continue; }
       const la = o.lookAt ?? 0.8, da = o.dropAt ?? 1.3, w = clamp01((t - la) / Math.max(0.1, da - 0.08 - la));
       it.hd.rotation.y = t > la && t < da ? 0.62 * Math.sin(w * TAU) * Math.sin(w * PI) ** 0.4 : 0;
-      it.hd.rotation.x = up - 0.12 * smooth((t - la) / 0.2) * (t < da ? 1 : 0) + (down - up + 0.12) * curve(t - da, sag * 1.5) + (t >= da ? -0.12 * Math.max(0, 1 - (t - da) / 0.05) : 0);
+      if (o.sigh) { const sd = o.sighDur ?? 0.55, inh = clamp01((t - da) / 0.2), e = t - da - 0.2, s1 = e <= 0 ? 0 : e < sd ? smooth(e / sd) : 1 + 0.06 * Math.exp(-(e - sd) * 5) * Math.sin((e - sd) * 11);
+        it.hd.scale.setScalar((o.hs ?? 1) * (1 + 0.06 * Math.sin(inh * PI) * (e <= 0 ? 1 : 0)));
+        bendTo(it, up - 0.12 * smooth((t - la) / 0.2) - 0.14 * Math.sin(inh * PI / 2) * (1 - smooth(e / sd)) + (down - up + 0.12) * s1 * (t >= da ? 1 : 0)); continue; }
+      bendTo(it, up - 0.12 * smooth((t - la) / 0.2) * (t < da ? 1 : 0) + (down - up + 0.12) * curve(t - da, sag * 1.5) + (t >= da ? -0.12 * Math.max(0, 1 - (t - da) / 0.05) : 0));
     } };
     g.userData.update(-1); return g;
   },
@@ -315,6 +351,8 @@ export const RAYON_PROPS = {
       // (staging 2) o.haze: a grey murk over the lower part of the dome, so that seen from the ground its foot reads as an overcast horizon, not as a
       // striped wall standing behind the set
       if ((o.haze ?? 0) > 0) { const hz = c.createLinearGradient(0, 120, 0, 256); hz.addColorStop(0, 'rgba(118,116,112,0)'); hz.addColorStop(0.55, 'rgba(118,116,112,' + (o.haze * 0.8) + ')'); hz.addColorStop(1, 'rgba(118,116,112,' + o.haze + ')'); c.fillStyle = hz; c.fillRect(0, 0, 1024, 256); }
+      // (round 3) o.rim (0..1): a warm light band along the dome's foot, which lifts the horizon and parts the sky from the field
+      if ((o.rim ?? 0) > 0) { const rm = c.createLinearGradient(0, 168, 0, 256); rm.addColorStop(0, 'rgba(255,228,184,0)'); rm.addColorStop(0.6, 'rgba(255,228,184,' + (o.rim * 0.7) + ')'); rm.addColorStop(1, 'rgba(255,236,200,' + o.rim + ')'); c.fillStyle = rm; c.fillRect(0, 0, 1024, 256); }
       const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t; })();
     const dome = new THREE.Mesh(new THREE.SphereGeometry(Rr, 64, 24, 0, TAU, 0, PI / 2 + 0.06), new THREE.MeshBasicMaterial({ map: tex, side: THREE.BackSide, fog: false, color: o.tint || '#FFFFFF' }));
     g.add(dome);
@@ -527,10 +565,33 @@ export const RAYON_PROPS = {
   wallTitle(o) {
     const W = o.w ?? 1.6, H = o.h ?? 0.3;
     const p = canvasPlane(W, H, (c, Wc, Hc) => { c.fillStyle = o.bg || '#2E4563'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = o.fg || '#EDEFF2'; c.textAlign = 'center'; c.textBaseline = 'middle';
-      const txt = o.text || 'AGENCE SPATIALE', TW = o.tick ? 0.76 : 0.92, TX = o.tick ? 0.44 : 0.5; let fs = Hc * 0.62; c.font = `900 ${fs}px Arial`; const tw = c.measureText(txt).width; if (tw > Wc * TW) { fs *= Wc * TW / tw; c.font = `900 ${fs}px Arial`; } c.fillText(txt, Wc * TX, Hc * 0.54);
-      if (o.tick) { const cx = Wc * 0.9, cy = Hc * 0.5, k = Hc * 0.26; c.strokeStyle = o.fg || '#EDEFF2'; c.lineWidth = Hc * 0.11; c.lineCap = 'round'; c.lineJoin = 'round'; c.beginPath(); c.moveTo(cx - k, cy); c.lineTo(cx - k * 0.35, cy + k * 0.65); c.lineTo(cx + k, cy - k * 0.8); c.stroke(); }
+      const txt = o.text || 'AGENCE SPATIALE', TW = o.tick ? 0.68 : 0.92, TX = o.tick ? 0.4 : 0.5; let fs = Hc * 0.62; c.font = `900 ${fs}px Arial`; const tw = c.measureText(txt).width; if (tw > Wc * TW) { fs *= Wc * TW / tw; c.font = `900 ${fs}px Arial`; } c.fillText(txt, Wc * TX, Hc * 0.54);
+      // (round 3) text and tick narrower and apart: the tick overlapped the final E
+      if (o.tick) { const cx = Wc * 0.885, cy = Hc * 0.5, k = Hc * 0.26; c.strokeStyle = o.fg || '#EDEFF2'; c.lineWidth = Hc * 0.11; c.lineCap = 'round'; c.lineJoin = 'round'; c.beginPath(); c.moveTo(cx - k, cy); c.lineTo(cx - k * 0.35, cy + k * 0.65); c.lineTo(cx + k, cy - k * 0.8); c.stroke(); }
       if (o.rule !== false) { c.fillStyle = o.ruleColor || '#E3B33A'; c.fillRect(Wc * 0.2, Hc * 0.9, Wc * 0.6, Hc * 0.05); } }, { res: 768, emissive: o.emit ?? 0.2 });
     return grp(p);
+  },
+  // (round 3) the garage as one clear shape: garageShed with its door (tipped up overhead, it stacked grey, cream and green bands above his head) left
+  // out and its roof edge in the wall colour, so the front reads as one cream frame round a dark opening
+  garageOpen(o) {
+    const g = buildProp('garageShed', { ...o, closeAt: null }), H = o.h ?? 2.3, wall = o.color || '#E9DFC9';
+    g.traverse(c => { if (c.isGroup && c !== g && c.children.length === 1 && Math.abs(c.position.y - (H - 0.25)) < 1e-3 && Math.abs(c.position.z - 0.03) < 1e-3) c.visible = false; });
+    g.traverse(c => { if (c.isMesh && Math.abs(c.position.y - (H + 0.07)) < 1e-3 && c.material && c.material.color) { c.material = c.material.clone(); c.material.color.set(o.roof || wall); } });
+    const up = g.userData.update; g.userData.update = t => { if (up) up(t); };
+    return g;
+  },
+  // (round 3) a reporter's two forearms rising into the frame from below and clapping: sleeves (o.sleeve), hands palm to palm; from o.at they clap
+  // o.rate times a second (phase o.ph), the hands snapping together and bouncing apart; local +Y up the forearms, the hands meet on local X
+  clapHands(o) {
+    const g = grp(), sl = o.sleeve || '#2B3346', sk = o.skin || SKIN, arms = [-1, 1].map(sd => {
+      const a = grp(at(box(0.085, 0.42, 0.085, sl, { pivot: 'top', outline: 0.004 }), 0, 0, 0), at(box(0.095, 0.05, 0.095, '#E8E4DA', { pivot: 'top' }), 0, 0.02, 0),
+        at(box(0.03, 0.12, 0.085, sk, { pivot: 'bottom', outline: 0.004 }), -sd * 0.025, 0.02, 0), at(box(0.03, 0.05, 0.025, sk, { pivot: 'bottom' }), -sd * 0.01, 0.03, 0.05));
+      a.rotation.z = sd * 0.12; g.add(a); noShadow(a); return { a, sd };
+    });
+    g.userData.update = t => { const on = t >= (o.at ?? 0), w = on ? (t - (o.at ?? 0)) * (o.rate ?? 3.4) + (o.ph ?? 0) : 0, f = w - Math.floor(w);
+      const sep = on ? 0.03 + 0.11 * Math.sin(Math.min(1, f / 0.8) * PI) ** 0.7 : 0.12, bob = on ? 0.015 * Math.sin(f * TAU) : 0;
+      for (const { a, sd } of arms) { a.position.set(sd * sep, bob, 0); a.rotation.z = sd * (0.12 - (on ? 0.06 * Math.sin(Math.min(1, f / 0.8) * PI) : 0)); } };
+    g.userData.update(-1); return g;
   },
   // (round 2) a picnic cooler to sit on (o.w x o.h x o.d, o.color), a white lid and a handle; pivot on the ground
   cooler(o) {

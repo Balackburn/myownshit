@@ -189,16 +189,17 @@ D4 = st.dur('S04')
 #     (he stands in the doorway between them); the first lifts off on frame 1 and all twelve go inside the wide (0 to 0.61 s), climbing on white
 #     exhaust columns, the first leaving the top of the frame at the cut
 RS4 = 0.85
-SPOTS = [[-1.3, -3.0], [-0.3, -3.0], [1.95, -3.0], [2.95, -3.0], [-1.0, -1.8], [0.0, -1.8], [1.8, -1.8], [2.75, -1.8], [-0.75, -0.7], [0.25, -0.7], [1.65, -0.7], [2.5, -0.7]]
+# (round 3) a wider gap down the middle (the path to his door): the rockets and their smoke kept clear of it, so the doorway and he read in the wide
+SPOTS = [[-1.65, -3.0], [-0.65, -3.0], [2.3, -3.0], [3.3, -3.0], [-1.35, -1.8], [-0.35, -1.8], [2.15, -1.8], [3.1, -1.8], [-1.1, -0.7], [-0.1, -0.7], [2.0, -0.7], [2.85, -0.7]]
 # a front rocket first (frame 1 shows a clear ignition), then the back rows rise above the front ones, the front row last
 ORDER4 = [1, 4, 7, 2, 8, 3, 6, 10, 0, 11, 5, 9]
 DOOR = [0.97, 0, -3.75]
 C4 = cam(0.0, [0.95, 1.0, 7.4], [0.95, 0.95, 7.0], [0.8, 3.0, -3.0], [0.8, 3.3, -3.0], lens=60, shake=0.06)
-chk('S04', C4['from'], C4['lookAt'], 60, {'head': [DOOR[0], 2.05, DOOR[2]], 'feet': DOOR, **{f'r{i}': [x, 0.0, z] for i, (x, z) in enumerate(SPOTS)}, 'nose0': [-1.3, 4.25 * RS4, -3.0], 'nose3': [2.95, 4.25 * RS4, -3.0], 'roof': [0, 4.6, -6.6]})
+chk('S04', C4['from'], C4['lookAt'], 60, {'head': [DOOR[0], 2.05, DOOR[2]], 'feet': DOOR, **{f'r{i}': [x, 0.0, z] for i, (x, z) in enumerate(SPOTS)}, 'nose0': [-1.65, 4.25 * RS4, -3.0], 'nose3': [3.3, 4.25 * RS4, -3.0], 'roof': [0, 4.6, -6.6]})
 # (round 1) the take gets a close insert: the wide shows the lift-off (he is a speck in it), then a cut to him in the doorway, a dip (anticipation),
 #     the take (body stretched up, head long and thin, the eyes out on red stalks looking up at the rockets, the jaw down to the chest, hands flung
 #     open: the deckchair drops), held trembling, an overshoot squash and the settle into a long gape with a blink
-CUT4 = 0.8; TK4 = 1.02
+CUT4 = 0.8; TK4 = 1.02; TAKE2_4 = 1.78
 # (round 2) the insert is lower and further back: the eave, the roof's ridge and a band of sky over it (19 %) are behind him, and a second battery,
 #     in the back garden, streaks up past the ridge behind his head, one rocket after another on its column of smoke, each launch flickering warm
 #     on the wall behind him; the take comes on the third rocket
@@ -206,8 +207,8 @@ F4B = [0.95, 1.0, 0.2]
 L4B, LENS4B, W4B = fit(F4B, {'headTop': [DOOR[0], 4.4, DOOR[2]], 'hip': [DOOR[0], 0.8, DOOR[2]], 'sky': [DOOR[0], 9.0, -11.0], 'side': [DOOR[0] - 0.55, 2.0, DOOR[2]], 'side2': [DOOR[0] + 0.55, 2.0, DOOR[2]]}, margin=0.06, top=0.04, bottom=0.74, lenses=range(30, 70))
 C4B = cam(CUT4, F4B, add(F4B, [-0.03, 0.0, -0.1]), L4B, add(L4B, [0, 0.05, 0]), lens=LENS4B, shake=0.025)
 CHECKS.append(f"S04b fit lens {LENS4B} {W4B}")
-BACK4 = [[-0.9, -10.3], [2.9, -10.6], [0.15, -10.9], [2.05, -10.2], [-0.45, -10.6], [2.5, -11.0], [3.3, -10.4]]
-APPEAR4 = [0.86, 0.93, 1.0, 1.09, 1.2, 1.34, 1.52]                # when each nose clears the eave line (the third on the take, TK4)
+BACK4 = [[-0.9, -10.3], [2.9, -10.6], [0.15, -10.9], [2.05, -10.2], [-0.45, -10.6], [2.5, -11.0], [3.3, -10.4], [1.3, -10.8]]
+APPEAR4 = [0.86, 0.93, 1.0, 1.09, 1.2, 1.34, 1.52, 1.76]          # when each nose clears the eave line (the third on the take, TK4; (round 3) the eighth, right behind his head, on the second take)
 LIFT4 = [r(a - 0.22) for a in APPEAR4]                         # (v0 14, acc 8, s 0.85: the nose clears the eave line about 0.22 s after lift-off, measured on stills)
 chk('S04b', F4B, L4B, LENS4B, {'headTop': [DOOR[0], 3.4, DOOR[2]], 'ridge': [DOOR[0], 4.6, -6.6], 'eave': [DOOR[0], 2.9, -4.1], **{f'b{i}': [x, 6.7, z] for i, (x, z) in enumerate(BACK4)}, 'chair': [DOOR[0], 0.9, -3.05]})
 UP4 = add(F4B, [0.0, 0.3, 0.0])                                # he looks at us (eyes on stalks follow the head's axis), the pupils go up
@@ -223,12 +224,15 @@ HERO4 = [k(0.0, look='camera'), k(0.0, toon={**HOLD4, 'face': {'lid': 0.4, 'mout
          k(r(TK4 - 0.035), toon={**TAKE4, 'sq': [0.74, 1.42, 0.74], 'scl': {'head': [0.7, 1.55, 1.0]}, 'face': {**TAKE4['face'], 'popLen': 0.5, 'jaw': 1.0}}, toonDur=0.035, toonEase='out', blend=0.02),
          k(TK4, toon=TAKE4, toonDur=0.035, toonEase='inOut'),
          *[k(r(TK4 + 0.07 * (i + 1)), toon=TK([0.86 + 0.015 * (i % 2), 1.2 - 0.025 * (i % 2), 0.86 + 0.015 * (i % 2)], [0.84, 1.3 - 0.03 * (i % 2), 1.0], popLen=0.34 - 0.03 * (i % 2)), toonDur=0.04) for i in range(4)],
-         k(r(TK4 + 0.38), toon={'sq': [1.08, 0.92, 1.08], 'scl': {'head': [1.1, 0.9, 1.0]}, 'hands': {'L': 'open', 'R': 'open'}, 'face': {**GAPE4, 'jaw': 0.6}}, toonDur=0.08, toonEase='in'),
-         k(r(TK4 + 0.52), toon={'sq': [0.98, 1.03, 0.98], 'scl': {'head': [0.97, 1.04, 1.0]}, 'hands': {'L': 'open', 'R': 'open'}, 'face': GAPE4}, toonDur=0.08),
-         k(r(TK4 + 0.64), toon={'sq': [1, 1, 1], 'scl': {'head': [1, 1, 1]}, 'hands': {'L': 'open', 'R': 'open'}, 'face': GAPE4}, toonDur=0.1),
-         k(r(TK4 + 0.75), look=add(UP4, [0.3, 0.5, 0]), lookDur=0.3), *blink(r(TK4 + 0.85), GAPE4)]
+         # (round 3) no neutral hold: the take settles a little, still stretched and trembling, and the last rocket streaking up right behind his
+         #     head brings a second, smaller take, held trembling to the cut
+         *[k(r(TK4 + 0.36 + 0.06 * i), toon=TK([0.9 + 0.015 * (i % 2), 1.14 - 0.02 * (i % 2), 0.9 + 0.015 * (i % 2)], [0.88, 1.2 - 0.03 * (i % 2), 1.0], popLen=0.26 - 0.03 * (i % 2), jaw=0.75), toonDur=0.05) for i in range(6)],
+         k(r(TAKE2_4 - 0.07), toon=TK([1.05, 0.94, 1.05], [1.0, 1.05, 1.0], popLen=0.18, jaw=0.6), toonDur=0.05, toonEase='inOut'),
+         k(TAKE2_4, toon=TK([0.8, 1.3, 0.8], [0.76, 1.42, 1.0], popLen=0.42, jaw=0.95), toonDur=0.035, toonEase='out'),
+         k(r(TAKE2_4 - 0.02), look=add(UP4, [0.0, 0.6, 0]), lookDur=0.05),
+         *[k(r(TAKE2_4 + 0.07 + 0.06 * i), toon=TK([0.82 + 0.02 * (i % 2), 1.27 - 0.03 * (i % 2), 0.82 + 0.02 * (i % 2)], [0.78, 1.38 - 0.04 * (i % 2), 1.0], popLen=0.4 - 0.04 * (i % 2), jaw=0.95), toonDur=0.04) for i in range(int((D4 - TAKE2_4 - 0.07) / 0.06))]]
 st.shot('S04', 'pavillon', setOpts=GARDEN, actors=[act('mec', DOOR, 0, 'stand', 'neutral', keys=HERO4)],
-        props=[P('fusees4', 'rocketLawn', pos=[0, 0, 0], opts={'spots': SPOTS, 's': RS4, 't0': -0.25, 'gap': 0.055, 'order': ORDER4, 'acc': 22, 'v0': 1.0, 'trail': True, 'clear': [0.3, 1.65], 'hideAfter': CUT4}), P('nuages4', 'noClouds'),
+        props=[P('fusees4', 'rocketLawn', pos=[0, 0, 0], opts={'spots': SPOTS, 's': RS4, 't0': -0.25, 'gap': 0.055, 'order': ORDER4, 'acc': 22, 'v0': 1.0, 'trail': True, 'clear': [-0.4, 2.35], 'hideAfter': CUT4}), P('nuages4', 'noClouds'),
                P('fusees4b', 'rocketLawn', pos=[0, 0, 0], opts={'spots': BACK4, 's': RS4, 'times': LIFT4, 'acc': 8, 'v0': 14, 'trail': True, 'puffs': False}),
                P('lueur4', 'wallFlicker', pos=[DOOR[0], 1.75, -4.06], opts={'w': 3.4, 'h': 3.2, 'op': 0.95, 'color': '#FFB050', 'at': APPEAR4}),
                # (round 2) hang time: the flung hands knock the deckchair up, it hangs for five frames, then crashes forward
@@ -311,11 +315,40 @@ D8 = st.dur('S08')
 # (round 1) « gris »: the shadow is a mid cool grey laid over the land at 80 %, so what it covers loses its colour, not only its light (the near-black
 #     disc kept the red and blue roofs saturated)
 C8 = cam(0.0, [0.0, 140.0, 240.0], [0.0, 134.0, 226.0], [0.0, 0.0, -120.0], [0.0, 0.0, -120.0], lens=46)
+# (round 3) the edge is timed on the screen: it comes in from the far land (the top of the frame) and slides toward us with an ease-in over 1.5 s,
+#     so the card band is already dark when ÉTEINT drops (1.15 s), the edge is still crossing the middle of the frame with a lit strip under it, and
+#     it leaves the frame at the bottom before the cut; the shade is darker and cooler (switched off, not fog); little cars on the streets stop dead
+#     as it reaches them
+CARD8 = 1.15; E0_8, E1_8, V0_8, V1_8, EX8 = 0.18, 1.72, 0.05, 1.08, 1.5
+R8, CX8 = 3000.0, -1000.0
+def cam8(t):
+    u = min(1.0, max(0.0, t / D8)); return [0.0, r(140 - 6 * u), r(240 - 14 * u)]
+def v8(t): return V0_8 + (V1_8 - V0_8) * min(1.0, max(0.0, (t - E0_8) / (E1_8 - E0_8))) ** EX8
+def edge_z(t, x=0.0):
+    want, fr = v8(t), cam8(t); lo, hi = -6000.0, fr[2] - 1.0
+    for _ in range(60):
+        m = (lo + hi) / 2; q = project(fr, [0.0, 0.0, -120.0], 46, [x, 16.0, m])
+        if q is None or q[1] < want: lo = m
+        else: hi = m
+    return (lo + hi) / 2
+def cz8(t): return edge_z(t) - math.sqrt(R8 ** 2 - CX8 ** 2)
+PATH8 = [[r(t_, 2), 0.0, r(cz8(t_), 1)] for t_ in [i * 0.05 for i in range(int(D8 / 0.05) + 2)]]
+CHECKS.append(f"S08 edge z at card {r(edge_z(CARD8), 1)} v {r(v8(CARD8))} | v at 0.6 {r(v8(0.6))}")
+def tstop8(x, z, ry, v):
+    for i in range(0, 400):
+        t_ = i * 0.005; a_ = math.radians(ry); px, pz = x + math.sin(a_) * v * t_, z + math.cos(a_) * v * t_
+        if cz8(t_) + math.sqrt(max(0.0, R8 ** 2 - (px - CX8) ** 2)) >= pz + 3: return r(t_, 3)
+    return 9.0
+CARS8 = [(-30.0, 62.5 - 4, 90, 15.0, '#E04A3A'), (20.0, 62.5 + 4, -90, 13.0, '#F2C21E'), (-45.0, 12.5 - 4, 90, 14.0, '#2E8FE0'), (35.0, 12.5 + 4, -90, 16.0, '#F07A2A'),
+         (-20.0, -37.5 - 4, 90, 15.0, '#F4F1EA'), (50.0 + 2, -60.0, 0, 15.0, '#E04A3A'), (-62.0 - 2, -20.0, 0, 13.0, '#F2C21E'), (5.0, -87.5 + 4, -90, 14.0, '#2E8FE0')]
+CARK8 = [[x, z, ry, v, tstop8(x, z, ry, v), c] for x, z, ry, v, c in CARS8]
+CHECKS.append("S08 car stops " + ' '.join(str(c[4]) for c in CARK8))
 # (round 2) the scattered white specks over the grey suburb: far flat-shaded instanced triangles (smoothFar); no light shafts in the aerial view
 st.shot('S08', 'aerialSuburb', look={'shafts': 0}, actors=[],
-        props=[P('lisse8', 'smoothFar'), P('ombre8', 'shadowFront', pos=[-330, 16, -140], opts={'r': 600, 'op': 0.8, 'color': '#5A626E', 'dx0': -470, 'moveAt': 0.0, 'moveDur': 1.15})],
+        props=[P('lisse8', 'smoothFar'), P('autos8', 'stopCars', pos=[0, 0, 0], opts={'cars': CARK8, 's': 2.6}),
+               P('ombre8', 'shadowFront', pos=[CX8, 16, 0], opts={'r': R8, 'op': 0.84, 'color': '#38424F', 'path': PATH8})],
         cams=[C8])
-st.card('S08', 'ÉTEINT', at=1.15)
+st.card('S08', 'ÉTEINT', at=CARD8)
 st.cue('gust', 'S08', 0.1, 0.3, 1.2); st.cue('thud', 'S08', 1.15, 0.4)
 
 # ============================== under the parasol: the canopy for a sky, the grade grey
@@ -328,11 +361,18 @@ D9 = st.dur('S09')
 # (round 2) lower and closer: the big heads fill the upper half, stems below, the field dense enough to hide the ground's end; the heads hang in a
 #     wave from the front row back over about a second, each one sagging past its rest and bobbing back; one in the second row (behind the middle
 #     of the front row, shown when the front row drops) hangs on, looks left and right, and drops late
-C9 = cam(0.0, [0.12, 1.95, 1.7], [0.08, 1.93, 1.5], [0.0, 0.7, -4.0], [0.0, 0.66, -4.0], lens=56)
-chk('S09', C9['from'], C9['lookAt'], 56, {'front': [0, 1.75, -1.0], 'row1': [0, 1.75, -1.7], 'back': [0, 1.9, -5.9], 'ground': [0, 0, -1.0], 'horizon': [0, 1.2, -80]})
+# (round 3) three-quarter front and a little under the heads (1.05 m), so the hung heads show their faces and bent necks; the stems bend in an arc;
+#     one big hero flower at the front left droops first, with a sad little face; the canopy is lighter, with a warm light band at its foot that
+#     parts it from the field; the straggler ends with a slow sigh (a breath in, then a long sag)
+F9 = [0.8, 1.05, 1.9]; L9 = [-0.2, 1.45, -2.2]
+C9 = cam(0.0, F9, add(F9, [-0.08, 0.0, -0.18]), L9, add(L9, [0.0, -0.03, 0.0]), lens=56)
+HERO9 = [0.1, 0, -0.35]
+chk('S09', C9['from'], C9['lookAt'], 56, {'front': [0, 1.75, -1.0], 'row1': [0, 1.75, -1.7], 'back': [0, 1.9, -5.9], 'ground': [0, 0, -1.0], 'hero': add(HERO9, [0, 1.85, 0]), 'heroLow': add(HERO9, [0, 1.3, 0.4])})
 st.shot('S09', 'grassland', setOpts={'clouds': 0}, grade=GREY, look=OVER, actors=[],
-        props=[P('dome9', 'canopySky', pos=[0, 0, 0], opts={**CAN, 'c1': '#7E5248', 'c2': '#A29C92', 'overcast': 0.5, 'haze': 0.15, 'ribs': 40}),
-               P('tournesols9', 'sunflowers', pos=[0, 0, -1.0], opts={'cols': 13, 'rows': 12, 'gap': 0.7, 'droopAt': 0.3, 'wave': 0.11, 'hs': 1.45, 'up': -0.2, 'down': 1.45, 'fall': 0.3, 'sag': 0.22, 'straggler': [6, 1], 'lookAt': 0.72, 'dropAt': 1.3})],
+        props=[P('dome9', 'canopySky', pos=[0, 0, 0], opts={**CAN, 'c1': '#A8786A', 'c2': '#CBC5B9', 'overcast': 0.4, 'haze': 0.1, 'ribs': 40, 'rim': 0.75}),
+               P('tournesols9', 'sunflowers', pos=[0, 0, -1.0], opts={'cols': 13, 'rows': 12, 'gap': 0.7, 'droopAt': 0.32, 'wave': 0.11, 'hs': 1.45, 'up': -0.2, 'down': 1.0, 'fall': 0.34, 'sag': 0.2, 'arc': 0.7,
+                                                                   'straggler': [6, 1], 'lookAt': 0.6, 'dropAt': 1.08, 'sigh': True, 'sighDur': 0.55}),
+               P('heros9', 'sunflowers', pos=HERO9, opts={'cols': 1, 'rows': 1, 'seed': 5, 'h': 1.1, 'droopAt': 0.18, 'hs': 1.6, 'up': -0.2, 'down': 1.0, 'fall': 0.42, 'sag': 0.16, 'arc': 0.75, 'face': True})],
         cams=[C9])
 st.cue('sfx:slideDownSlow', 'S09', 0.7, 0.35)
 
@@ -384,7 +424,13 @@ st.shot('S11', 'pressRoom', setOpts={'backdrop': ' ', 'fg': 'rgba(0,0,0,0)', 'ch
                P('titre11', 'wallTitle', pos=[0.8, 3.13, -2.96], opts={'w': 1.32, 'h': 0.34, 'text': 'MISSION RÉUSSIE', 'bg': '#2E8A4A', 'fg': '#F4F1E8', 'rule': False, 'tick': True, 'emit': 0.35}),
                P('flash11a', 'camFlash', pos=[-0.7, 1.95, 0.4], opts={'w': 0.5, 'at': [r(OK11 + 0.05), r(OK11 + 0.45)]}),
                P('flash11b', 'camFlash', pos=[1.0, 1.85, 0.2], opts={'w': 0.5, 'at': [r(OK11 + 0.25)]}),
-               P('flash11c', 'camFlash', pos=[1.2, 1.7, 0.5], opts={'w': 0.45, 'at': [0.35]})],
+               P('flash11c', 'camFlash', pos=[1.2, 1.7, 0.5], opts={'w': 0.45, 'at': [0.35]}),
+               # (round 3) the empty lower frame filled: reporters' hands clapping up from the bottom edge and flash pops low in the room on « réussie »
+               *[P(f'mains11_{i}', 'clapHands', pos=unproject(C11['to'], C11['lookAt2'], 42, fx, fy, d), ry=r(yaw(C11['to'], C11['lookAt2']) + 180 + dr), rot=[0.0, 0.0, 0.0],
+                   opts={'at': r(OK11 - 0.1 + 0.07 * i), 'rate': 3.3 + 0.3 * i, 'ph': 0.3 * i, 'sleeve': ['#2B3346', '#7A2E4E', '#3A3D44'][i]})
+                 for i, (fx, fy, d, dr) in enumerate([(0.16, 0.85, 2.0, 12), (0.5, 0.88, 2.3, 0), (0.84, 0.84, 2.1, -12)])],
+               P('flash11d', 'camFlash', pos=unproject(C11['to'], C11['lookAt2'], 42, 0.1, 0.64, 3.4), opts={'w': 0.4, 'at': [r(OK11 + 0.12), r(OK11 + 0.55)]}),
+               P('flash11e', 'camFlash', pos=unproject(C11['to'], C11['lookAt2'], 42, 0.9, 0.6, 3.6), opts={'w': 0.4, 'at': [r(OK11 + 0.33), r(OK11 + 0.7)]})],
         cams=[C11])
 st.cue('sfx:fanfare', 'S11', OK11, 0.3); st.cue('sfx:shutter', 'S11', r(OK11 + 0.05), 0.35); st.cue('sfx:shutter', 'S11', r(OK11 + 0.25), 0.3)
 
@@ -542,15 +588,16 @@ D18 = st.dur('S18')
 #     neighbours on folding chairs lean in and squeeze his head from both sides (a side squash, one eye pushed shut), twice
 RY18 = 22
 HEAD18 = off(CH, RY18, -0.18, 0.0, 1.3)
-PICROWS = [(0.15, [-1.45, -2.35, 1.45]), (-0.9, [-2.0, -1.0, 0.0, 1.0]), (-1.8, [-1.5, -0.5, 0.5]), (-2.6, [-1.0, 0.0])]
+# (round 3) a gap in the rows straight behind him (the line from the end camera through his head), so his head ends against the house wall
+PICROWS = [(0.15, [-1.45, -2.35, 1.45]), (-0.9, [-2.3, -1.45, 0.75, 1.6]), (-1.8, [-2.0, 0.45, 1.35]), (-2.6, [-2.3, 0.2])]
 PICWHO = [('journaliste1', 20, 'sitFloor'), ('manif6', -15, 'sitFloorWave'), ('gendarme2', -20, 'sitFloorSip'),
           ('manif1', 15, 'sitFloorEat'), ('savant2', -10, 'sitFloorSip'), ('manif4', 5, 'sitFloorSip'), ('gendarme1', -25, 'sitFloorEat'),
           ('savant1', 10, 'sitFloor'), ('manif5', -5, 'sitFloorEat'), ('savant3', 25, 'sitFloorWave'), ('manif2', 10, 'sitFloorEat'), ('manif3', -15, 'sitFloor')]
 PICPOS = [[r(CH[0] + dx), 0, r(CH[2] + dz)] for dz, xs in PICROWS for dx in xs]
-NB18 = [('journaliste2', off(CH, RY18, -0.3, -0.64, -0.12), 1), ('voisine', off(CH, RY18, -0.3, 0.64, -0.12), -1)]
+NB18 = [('journaliste2', off(CH, RY18, -0.3, -0.6, -0.12), 1), ('voisine', off(CH, RY18, -0.3, 0.55, -0.12), -1)]   # (round 3) closer: the cheeks touch his head
 PIC = [(n, PICPOS[i], ry, clip) for i, (n, ry, clip) in enumerate(PICWHO)]
 BCOL = ['#C23A2E', '#2E6FB5', '#2F8A4A', '#E0A020', '#7A2E4E', '#C23A2E', '#2E6FB5']
-BLANK = [[r(CH[0] + sum(xs) / len(xs)), r(CH[2] + dz + 0.1), 0.0, r(1.0 * len(xs) + 0.4), 0.95, BCOL[i]] for i, (dz, xs) in enumerate(PICROWS[1:])]
+BLANK = [[r(CH[0] + (max(xs) + min(xs)) / 2), r(CH[2] + dz + 0.1), 0.0, r(max(xs) - min(xs) + 1.0), 0.95, BCOL[i]] for i, (dz, xs) in enumerate(PICROWS[1:])]
 CAR = [1.6, 0, -2.9]
 # the second row passes a baguette (manif1 to savant2), the heads turn in a ripple
 PA18, PB18 = PICPOS[3], PICPOS[4]
@@ -559,26 +606,42 @@ PASS18 = {'manif1': [k(0.15, toon={'reach': {'L': R5(BA, 1, 0.08)}, 'hands': {'L
                      k(0.6, toon={'reach': {'L': R5(BM, 1, 0.08)}, 'hands': {'L': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.25), k(1.0, toon={'reach': {'L': R5(BM, 0.0, 0.08)}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.3), k(0.55, look=BB, lookDur=0.12)],
           'savant2': [k(0.6, toon={'reach': {'R': R5(BM, 1, 0.08)}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.2, 'mouth': 'O'}}, toonDur=0.25), k(0.6, look=BM, lookDur=0.12),
                       k(1.05, toon={'reach': {'R': R5(add(BB, [0.05, 0.15, 0]), 1, 0.08)}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.3)]}
-F18A, F18B = [0.8, 9.5, 10.5], [-1.2, 2.6, 2.9]
+F18A = [0.8, 9.5, 10.5]
 L18A, LENS18A, W18A = fit(F18A, {'mec': HEAD18, 'car': [3.6, 2.4, -2.9], 'carL': [-0.4, 0.0, -2.0], 'row0': [CH[0] - 2.35, 1.0, CH[2] + 0.15], 'front': off(CH, RY18, 1.0, 0, 0)}, margin=0.04, top=0.12, bottom=0.76, lenses=range(30, 71))
-L18B, LENS18B, W18B = fit(F18B, {'head': add(HEAD18, [0, 0.35, 0]), 'knee': off(CH, RY18, 0.45, 0, 0.3), 'nbL': add(NB18[0][1], [0, 1.2, 0]), 'nbR': add(NB18[1][1], [0, 1.2, 0])}, margin=0.1, top=0.36, bottom=0.76, lenses=range(LENS18A, LENS18A + 1))
-CHECKS.append(f"S18 fit A {LENS18A} {W18A} | B {LENS18B} {W18B}")
-C18 = cam(0.0, F18A, F18B, L18A, L18B, lens=LENS18A, ease='inOut')
+# (round 3) the wide (the packed lawn, the director on the car roof) is only the first beat: from 0.3 s the camera cranes down onto him and ends
+#     tight, low and square to him (a little under his head), his head about a sixth of the frame height against the house wall, the two
+#     neighbours' heads pressed to his from both sides; then the squash comes in two beats (from screen left, then from screen right) and holds
+F18B = off(CH, RY18, 3.0, 0.0, 1.05)
+LENS18B = 44
+L18B = add(HEAD18, [0.0, -0.22, 0.0])
+CR18 = 0.3; GL18 = 0.62
+CHECKS.append(f"S18 fit A {LENS18A} {W18A} | B {LENS18B}")
+C18 = cam(0.0, F18A, add(F18A, [-0.3, -0.8, -0.6]), L18A, L18A, lens=LENS18A)
+C18B = glide([cam(CR18, F18B, add(F18B, [0.0, 0.0, 0.0]), L18B, L18B, lens=LENS18B)], GL18)
 chk('S18', F18A, L18A, LENS18A, {'mec': HEAD18, **{n: [p[0], 1.2, p[2]] for n, p, ry, c in PIC}, 'dir': [CAR[0] - 0.2, 2.5, CAR[2]]})
-chk('S18b', F18B, L18B, LENS18B, {'mec': HEAD18, 'knee': off(CH, RY18, 0.45, 0, 0.3), 'chairFront': off(CH, RY18, 0.75, 0, 0.0), **{n: add(p, [0, 1.6, 0]) for n, p, sg in NB18}})
-SQZ = {'face': {**SQUINT, 'lidL': 1.0, 'lid': 0.5, 'mouth': 'wavy', 'mouthTilt': 8}, 'scl': {'head': [0.64, 1.2, 1.0]}, 'sq': [0.94, 1.04, 1.0]}
-REL = {'face': {**SQUINT, 'lid': 0.45, 'mouth': 'line'}, 'scl': {'head': [0.92, 1.05, 1.0]}, 'sq': [1, 1, 1]}
+chk('S18b', F18B, L18B, LENS18B, {'mec': HEAD18, 'headTop': add(HEAD18, [0, 0.3, 0]), 'knee': off(CH, RY18, 0.45, 0, 0.3), 'chairFront': off(CH, RY18, 0.75, 0, 0.0), **{n: add(p, [0, 1.3, 0]) for n, p, sg in NB18}})
+# beat 1 (B1): pushed from screen left (his right): the head squeezed narrow and tipped to screen right, the near eye shut; beat 2 (B2): pushed
+#     from screen right as well: the head squeezed tall and thin between the two cheeks, upright, the eye still shut, held trembling to the end
+B1_18, B2_18 = 0.98, 1.3
+def SQ18(sx, sy, tilt, sq=(1, 1, 1), mouth='wavy'):
+    return {**LOUNGE, 'bend': {'spine': [-0.42, 0, 0, 1, None], 'neck': [0.12, 0, tilt, 1, None]}, 'face': {**SQUINT, 'lidR': 1.0, 'lid': 0.55, 'mouth': mouth, 'mouthTilt': 8},
+            'scl': {'head': [sx, sy, 1.0]}, 'sq': list(sq)}
 HERO18 = [k(0.0, look='camera'), k(0.0, toon={**LOUNGE, 'face': {**SQUINT, 'mouth': 'line'}}, toonDur=0.0),
-          k(0.5, toon={**LOUNGE, **SQZ}, toonDur=0.08, toonEase='out'), k(0.62, toon={**LOUNGE, **SQZ, 'scl': {'head': [0.74, 1.13, 1.0]}}, toonDur=0.08),
-          k(0.95, toon={**LOUNGE, **REL}, toonDur=0.1), k(1.2, toon={**LOUNGE, **SQZ, 'scl': {'head': [0.66, 1.2, 1.0]}}, toonDur=0.07, toonEase='out'),
-          k(1.34, toon={**LOUNGE, **SQZ}, toonDur=0.08), *blink(1.62, {**SQUINT, 'lidL': 1.0, 'lid': 0.5, 'mouth': 'wavy'})]
-def NBK(sg):
-    lean = lambda a: {'bend': {'spine': [0.1, a * sg, 0, 1, None], 'neck': [0.0, 0.5 * a * sg, 0, 1, None]}, 'face': {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}}
-    return [k(0.0, look='camera'), k(0.0, toon=lean(0.06), toonDur=0.0), k(0.46, toon=lean(0.22), toonDur=0.1, toonEase='out'), k(0.95, toon=lean(0.12), toonDur=0.12),
-            k(1.16, toon=lean(0.26), toonDur=0.08, toonEase='out'), k(1.4, toon=lean(0.22), toonDur=0.1), k(0.7, look=[HEAD18[0], 1.4, HEAD18[2]], lookDur=0.15), k(1.5, look='camera', lookDur=0.15)]
+          k(r(B1_18 - 0.07), toon={**LOUNGE, 'face': {**SQUINT, 'lid': 0.3, 'mouth': 'line'}}, toonDur=0.06),
+          k(B1_18, toon=SQ18(0.72, 1.12, -0.28, (0.96, 1.03, 1.0)), toonDur=0.06, toonEase='out'),
+          k(r(B1_18 + 0.12), toon=SQ18(0.78, 1.09, -0.23), toonDur=0.1),
+          k(B2_18, toon=SQ18(0.58, 1.24, 0.0, (0.95, 1.05, 1.0)), toonDur=0.06, toonEase='out'),
+          k(r(B2_18 + 0.1), toon=SQ18(0.63, 1.2, 0.02, mouth='grimace'), toonDur=0.08),
+          *[k(r(B2_18 + 0.2 + 0.1 * j), toon=SQ18(0.61 + 0.03 * (j % 2), 1.21 - 0.02 * (j % 2), 0.01, mouth='grimace'), toonDur=0.05) for j in range(5)]]
+def NBK(sg, t1):
+    lean = lambda a, face=None: {'bend': {'spine': [0.1, a * sg, 0, 1, None], 'neck': [0.0, 0.5 * a * sg, 0, 1, None]}, 'face': face or {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}}
+    PRESS = {'lid': 0.75, 'mouth': 'bigsmile', 'brow': 0.6, 'cheeks': 1.0}
+    return [k(0.0, look='camera'), k(0.0, toon=lean(0.06), toonDur=0.0), k(0.55, look=[HEAD18[0], 1.4, HEAD18[2]], lookDur=0.15),
+            k(r(t1 - 0.08), toon=lean(0.02), toonDur=0.08), k(t1, toon=lean(0.3, PRESS), toonDur=0.06, toonEase='out'), k(r(t1 + 0.1), toon=lean(0.27, PRESS), toonDur=0.08),
+            *[k(r(t1 + 0.2 + 0.1 * j), toon=lean(0.27 + 0.025 * (j % 2), PRESS), toonDur=0.05) for j in range(int((D18 - t1 - 0.2) / 0.1))]]
 st.shot('S18', 'pavillon', setOpts={**GARDEN, 'mailbox': False}, actors=[
         act('mec', SEAT, RY18, 'sit', 'unimpressed', keys=HERO18),
-        *[act(n, add(p, [0, 0.0, 0]), RY18, 'sit', 'neutral', keys=NBK(sg)) for n, p, sg in NB18],
+        *[act(n, add(p, [0, 0.0, 0]), r(RY18 - 38 * sg), 'sit', 'neutral', keys=NBK(sg, B1_18 if sg < 0 else B2_18)) for n, p, sg in NB18],
         *[act(n, p, ry, 'sitFloor' if n in ('manif1', 'savant2') else clip, 'neutral', keys=[k(0.0, look='camera' if i % 3 == 0 else HOLEW), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'smile' if i % 2 else 'line'}}, toonDur=0.0),
             k(r(0.25 + 0.11 * i), look=(HOLEW if i % 3 == 0 else [CH[0], 1.0, CH[2]]), lookDur=0.15), k(r(1.0 + 0.07 * i), look=('camera' if i % 2 else [CAR[0], 2.2, CAR[2]]), lookDur=0.15),
             *blink(r(0.5 + 0.13 * (i % 7)), {'lid': 0.5, 'mouth': 'smile' if i % 2 else 'line'}), *PASS18.get(n, [])]) for i, (n, p, ry, clip) in enumerate(PIC)],
@@ -588,7 +651,7 @@ st.shot('S18', 'pavillon', setOpts={**GARDEN, 'mailbox': False}, actors=[
                P('pique18', 'picnicSpread', pos=[0, 0, 0], opts={'blankets': BLANK}),
                P('baguette18', 'baguette', pos=BA, ry=20, keys=[k(0.6, to=BM, dur=0.25, ease='inOut'), k(1.05, to=add(BB, [0.05, 0.15, 0]), dur=0.3, ease='inOut')]),
                P('voiture18', 'car', pos=CAR, ry=0, opts={'color': '#3E7AB8'}), P('serviette18', 'beachTowel', pos=[CAR[0] - 0.25, 2.06, CAR[2]], ry=90, opts={'w': 0.9, 'd': 1.7, 'hang': 0.3})],
-        cams=[C18])
+        cams=[C18, C18B])
 st.cue('sfx:street', 'S18', 0.0, 0.3)
 
 # 19: he had a parasol in the garage. Beside his deckchair, the garage open behind him, he holds a small dusty parasol; it opens with a puff of dust; a
@@ -599,16 +662,19 @@ st.cue('sfx:street', 'S18', 0.0, 0.3)
 #     it (double take, eyes out a little), then turns to us, one blink, and holds. Two picnickers eat in the background, nobody in front of him
 D19 = st.dur('S19'); YANK19 = 0.62; OPEN19 = 1.05
 ME19 = [-1.05, 0, -1.15]; RY19 = 6
-SHED = [-1.0, 0, -2.15]
-CH19 = [0.05, 0, -0.75]
-IN19 = [-1.35, 0.95, -3.0]                                      # the grip, deep in the garage
-UPG = [-1.47, 1.6, -0.8]                                       # the grip once raised: in front of his right shoulder, the canopy over it
-F19 = [-1.25, 1.75, 2.0]
-L19, LENS19, W19 = fit(F19, {'headTop': [ME19[0], 2.5, ME19[2]], 'parTop': add(UPG, [0.28, 1.1, 0]), 'parL': add(UPG, [-0.18, 0.88, 0]), 'parR': add(UPG, [0.7, 0.95, 0]), 'hand': add(UPG, [0, -0.2, 0]), 'hip': [ME19[0], 0.95, ME19[2]]}, margin=0.05, top=0.1, bottom=0.97, lenses=range(28, 70))
+# (round 3) a little wider and turned: the garage moved right behind him (his arm still reaches into it), so the garden shows on the left under the
+#     parasol with two small picnickers on coolers and the edge of his striped deckchair; the grip raised 0.12 m (the crook and the hand sat on the
+#     top line of the caption band)
+SHED = [-0.35, 0, -2.15]
+CH19 = [-2.0, 0, -0.75]
+IN19 = [-1.15, 0.95, -3.0]                                      # the grip, deep in the garage
+UPG = [-1.47, 1.72, -0.8]                                      # the grip once raised: in front of his right shoulder, the canopy over it
+F19 = [-1.55, 1.7, 2.3]
+L19, LENS19, W19 = [-1.25, 1.62, -2.0], 46, {}
 C19 = cam(0.0, F19, add(F19, [0.05, 0.0, -0.25]), L19, add(L19, [0.0, 0.03, 0.0]), lens=LENS19)
 CHECKS.append(f"S19 fit lens {LENS19} {W19}")
-chk('S19', C19['from'], C19['lookAt'], LENS19, {'head': [ME19[0], 2.05, ME19[2]], 'grip': UPG, 'parTop': add(UPG, [0, 0.95, 0]), 'inside': IN19, 'shelf': add(SHED, [0, 1.2, -1.6]), 'chair': CH19})
-PIC19 = [('manif4', [1.5, 0, -2.9], -35, 'sitFloorEat'), ('gendarme1', [2.3, 0, -1.6], -60, 'sitFloorSip')]
+chk('S19', C19['from'], C19['lookAt'], LENS19, {'head': [ME19[0], 2.05, ME19[2]], 'grip': UPG, 'crook': add(UPG, [0, -0.2, 0]), 'parTop': add(UPG, [0.28, 1.1, 0]), 'parL': add(UPG, [-0.18, 0.88, 0]), 'inside': IN19, 'shelf': add(SHED, [0, 1.2, -1.6]), 'chairTop': add(CH19, [0.2, 0.95, 0.1]), 'pic1': [-2.3, 1.35, -2.6], 'pic2': [-2.0, 1.35, -3.4]})
+PIC19 = [('manif4', [-2.3, 0, -2.6], 35, 'sitFloorEat'), ('gendarme1', [-2.0, 0, -3.4], 20, 'sitFloorSip')]
 DEAD19 = {'lid': 0.4, 'mouth': 'line', 'brow': -0.1}
 def G19(p, w=1): return R5(add(p, [0.0, 0.0, 0.0]), w, 0.05)
 PATH19 = [(0.0, IN19), (0.18, add(IN19, [0.08, 0.05, 0.05])), (0.32, add(IN19, [-0.06, -0.03, 0.0])), (0.46, add(IN19, [0.04, 0.04, 0.06])),
@@ -636,9 +702,9 @@ st.shot('S19', 'pavillon', setOpts={**GARDEN, 'mailbox': False}, actors=[
         act('mec', ME19, RY19, 'stand', 'unimpressed', keys=HERO19),
         *[act(n, p, ry, clip, 'neutral', keys=[k(0.0, look=[ME19[0], 1.9, ME19[2]] if i else HOLEW), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'smile' if i % 2 else 'line'}}, toonDur=0.0),
             k(r(OPEN19 + 0.25 + 0.15 * i), look=PTOP, lookDur=0.2), *blink(r(0.5 + 0.7 * i), {'lid': 0.5, 'mouth': 'smile' if i % 2 else 'line'})]) for i, (n, p, ry, clip) in enumerate(PIC19)]],
-        props=[P('nuages19', 'noClouds'), GDOME('dome19'), PATCH('disque19'), P('chaise19', 'deckChair', pos=CH19, ry=-20), KEPI('kepi19', 'gendarme1'),
+        props=[P('nuages19', 'noClouds'), GDOME('dome19'), PATCH('disque19'), P('chaise19', 'deckChair', pos=CH19, ry=25), KEPI('kepi19', 'gendarme1'),
                P('pique19', 'picnicSpread', pos=[0, 0, 0], opts={'seed': 37, 'blankets': [[p[0], r(p[2] + 0.1), 0.2, 1.3, 1.1, BCOL[i]] for i, (n, p, ry, c) in enumerate(PIC19)]}),
-               P('garage19', 'garageShed', pos=SHED, ry=0, opts={'w': 2.3, 'd': 1.9, 'h': 2.4, 'color': '#E3D8C2'}), P('etagere19', 'garageShelf', pos=add(SHED, [0, 0, -1.7]), ry=0, opts={'w': 1.8}),
+               P('garage19', 'garageOpen', pos=SHED, ry=0, opts={'w': 2.3, 'd': 1.9, 'h': 2.4, 'color': '#E3D8C2'}), P('etagere19', 'garageShelf', pos=add(SHED, [0, 0, -1.7]), ry=0, opts={'w': 1.8}),
                P('parasol19', 'kidParasol', pos=IN19, rot=[-0.5, 0, 0.3], opts={'r': 0.42, 'len': 1.0, 'openAt': OPEN19}, keys=[*PAR_KEYS, k(r(YANK19 - 0.08), rotTo=[-0.06, 0.0, -0.26], dur=0.3, ease='out')])],
         cams=[C19])
 st.cue('whoosh', 'S19', r(YANK19 - 0.02), 0.2, 0.3, 500, 2000); st.cue('sfx:poof', 'S19', r(OPEN19 + 0.02), 0.4); st.cue('sfx:boing', 'S19', r(DT19 + 0.16 + 0.22), 0.25)
