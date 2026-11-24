@@ -146,7 +146,9 @@ export const RAYON_PROPS = {
     return g;
   },
   // the space parasol: a red and white canopy of o.ribs gores (radius o.r), a pole and a hub; axis +Y (the canopy's top toward +Y); furled (a thin
-  // spike) before o.openAt, open over o.openDur with an ease out and a small overshoot; o.open: already open; o.spin: slow turn about its axis
+  // spike) before o.openAt, open over o.openDur with an ease out and a small overshoot; o.open: already open; o.spin: slow turn about its axis;
+  // (round 1) o.steady: the radius grows at a steady rate (the rim reaches a given radius at a predictable time), then a 3 % overshoot settles;
+  // o.jolts [t, ...]: the canopy shudders at each hit
   orbitParasol(o) {
     const R = o.r ?? 6, H = R * 0.32, n = o.ribs ?? 12, g = grp(), can = grp(); g.add(can);
     const cols = o.colors || [RED, '#F4F1E8'];
@@ -158,7 +160,9 @@ export const RAYON_PROPS = {
     const set = op => { can.scale.set(0.05 + 0.95 * op, 1 + (1 - op) * 3.2, 0.05 + 0.95 * op); };
     set(o.open ?? 0);
     g.userData.update = t => {
-      if (o.openAt != null) { const u = clamp01((t - o.openAt) / (o.openDur ?? 0.55)); set(Math.min(1.04, outBack(u) * 0.96 + 0.04 * u)); }
+      if (o.openAt != null) { const u = clamp01((t - o.openAt) / (o.openDur ?? 0.55));
+        if (o.steady) set(u < 0.85 ? u / 0.85 * 1.03 : 1.03 - 0.03 * smooth((u - 0.85) / 0.15)); else set(Math.min(1.04, outBack(u) * 0.96 + 0.04 * u)); }
+      if (o.jolts) { let w = 0; for (const j of o.jolts) { const d = t - j; if (d > 0 && d < 0.5) w += 0.05 * Math.exp(-d * 9) * Math.sin(d * 40); } can.rotation.x = w; can.rotation.z = 0.6 * w; }
       can.rotation.y = (o.spin ?? 0) * t;
     };
     g.userData.update(-1); return g;
@@ -395,28 +399,38 @@ export const RAYON_PROPS = {
     return g;
   },
   // (round 1) the little parasol from the garage, held in the hand: the pivot is the grip (where the hand closes), a hooked wooden handle under it,
-  // the pole up to a faded canopy (radius o.r, colours o.colors: washed-out pink and cream); furled before o.openAt, then it pops open in 0.16 s
-  // with an overshoot and a wobble, and a cloud of soft beige dust puffs (smooth shaded, like the rocket smoke) bursts from the rim, hangs and sinks
+  // the pole up to a faded canopy (radius o.r, colours o.colors: washed-out pink and cream, unlit so the lawn's green bounce does not tint it); furled before o.openAt, then it pops open in 0.16 s
+  // with an overshoot and a wobble, and a cloud of soft beige dust (soft round sprites, no facets) bursts from the rim, hangs, sinks and fades
   kidParasol(o) {
-    const R = o.r ?? 0.5, L = o.len ?? 0.78, g = grp(), wood = '#A88A62', cols = o.colors || ['#D8AFA4', '#EDE5D0'];
+    const R = o.r ?? 0.5, L = o.len ?? 0.78, g = grp(), wood = '#A88A62', cols = o.colors || ['#D4968A', '#E6D9BC'];
     g.add(at(cyl(0.014, 0.014, L + 0.12, wood, 6, { pivot: 'bottom', outline: 0.004 }), 0, -0.12, 0));
     g.add(rod([0, -0.12, 0], [0.02, -0.17, 0], 0.016, wood, 5), rod([0.02, -0.17, 0], [0.07, -0.17, 0], 0.016, wood, 5), rod([0.07, -0.17, 0], [0.085, -0.12, 0], 0.016, wood, 5));
     const can = grp(); can.position.y = L; g.add(can);
-    for (let i = 0; i < 8; i++) { const m = new THREE.Mesh(new THREE.ConeGeometry(R, R * 0.42, 1, 1, true, i * TAU / 8, TAU / 8), mat(cols[i % cols.length], { doubleSide: true, unique: true })); m.position.y = -R * 0.21; can.add(m); }
+    for (let i = 0; i < 8; i++) { const m = new THREE.Mesh(new THREE.ConeGeometry(R, R * 0.42, 1, 1, true, i * TAU / 8, TAU / 8), new THREE.MeshBasicMaterial({ color: cols[i % cols.length], side: THREE.DoubleSide })); m.position.y = -R * 0.21; can.add(m); }
     for (let i = 0; i < 8; i++) { const a = i * TAU / 8; can.add(rod([0, 0, 0], [Math.sin(a) * R, -R * 0.42, Math.cos(a) * R], 0.006, '#8A8478', 3)); }
     can.add(at(sphere(0.025, '#C9B48A', 1), 0, 0.03, 0));
     const set = op => { can.scale.set(0.08 + 0.92 * op, 1 + (1 - op) * 2.4, 0.08 + 0.92 * op); can.position.y = L - (1 - op) * R * 0.5; };
     set(o.open ? 1 : 0);
-    const puffs = []; for (let i = 0; i < (o.puffs ?? 16); i++) { const m = new THREE.Mesh(sphereGeo(2), cloudMat(o.dust || '#E6D7B4', '#B9A37C')); m.castShadow = false; m.visible = false; const a = i / (o.puffs ?? 16) * TAU + hsh(i) * 0.4;
-      puffs.push({ m, a, out: 0.25 + 0.35 * hsh(i + 7), up: (hsh(i + 3) - 0.3) * 0.25, s: 0.07 + 0.07 * hsh(i + 11), d: 0.04 * hsh(i + 5) }); g.add(m); }
+    const dtex = softTex('radial'), puffs = [];
+    for (let i = 0; i < (o.puffs ?? 18); i++) { const m = new THREE.Sprite(new THREE.SpriteMaterial({ map: dtex, color: o.dust || '#CDB792', transparent: true, opacity: 0, depthWrite: false, fog: false })); m.visible = false; const a = i / (o.puffs ?? 18) * TAU * 2.0 + hsh(i) * 0.6;
+      puffs.push({ m, a, out: 0.15 + 0.45 * hsh(i + 7), up: (hsh(i + 3) - 0.1) * 0.45, s: 0.16 + 0.16 * hsh(i + 11), d: 0.05 * hsh(i + 5) }); g.add(m); }
     g.userData.update = t => {
       if (o.openAt == null) return;
       const u = (t - o.openAt) / (o.openDur ?? 0.16), op = u <= 0 ? 0 : Math.min(1.08, outBack(u) * 0.97 + 0.03 * clamp01(u));
       set(op); const w = t - o.openAt - (o.openDur ?? 0.16); can.rotation.z = w > 0 ? 0.12 * Math.exp(-w * 6) * Math.sin(w * 22) : 0; can.rotation.x = w > 0 ? 0.07 * Math.exp(-w * 6) * Math.sin(w * 22 + 1.3) : 0;
-      for (const p of puffs) { const v = (t - o.openAt - p.d) / (o.dustDur ?? 1.4); p.m.visible = v > 0 && v < 1; if (!p.m.visible) continue;
-        const e = easeOut(Math.min(1, v * 2.2)), rr = R * (0.85 + p.out * e / R * 1.2); p.m.position.set(Math.sin(p.a) * rr, L - R * 0.35 + p.up * e - 0.35 * v * v, Math.cos(p.a) * rr);
-        p.m.scale.setScalar(Math.max(0.005, p.s * (0.5 + 1.4 * e) * (v < 0.6 ? 1 : 1 - (v - 0.6) / 0.4))); }
+      for (const p of puffs) { const v = (t - o.openAt - p.d) / (o.dustDur ?? 1.25); p.m.visible = v > 0 && v < 1; if (!p.m.visible) continue;
+        const e = easeOut(Math.min(1, v * 2.0)), rr = R * 0.8 + p.out * e; p.m.position.set(Math.sin(p.a) * rr, L - R * 0.1 + p.up * e - 0.2 * v * v, Math.cos(p.a) * rr * (o.dustZ ?? 0.35) - 0.08);
+        p.m.scale.setScalar(p.s * (0.4 + 1.6 * e)); p.m.material.opacity = (o.dustOp ?? 0.8) * Math.min(1, v * 8) * (v < 0.55 ? 1 : 1 - (v - 0.55) / 0.45); }
     };
+    g.userData.update(-1); return g;
+  },
+  // (round 1) a contact spark: at o.at a white-hot star (o.n spikes) and a glow pop out to size o.s, then shrink away in o.dur (0.22 s)
+  hitSpark(o) {
+    const g = grp(), st = grp(), n = o.n ?? 8, S = o.s ?? 1; g.add(st);
+    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.ConeGeometry(0.07, 1, 3), new THREE.MeshBasicMaterial({ color: i % 2 ? '#FFE27A' : '#FFFFFF', fog: false })); m.position.y = 0.5; const arm = grp(m); arm.rotation.z = i * TAU / n + 0.2; arm.scale.y = i % 2 ? 0.6 : 1; st.add(arm); }
+    const gl = glowSprite('#FFE7A0', 2.2, 1); g.add(gl);
+    g.userData.update = t => { const u = (t - (o.at ?? 0)) / (o.dur ?? 0.22); g.visible = u > 0 && u < 1; if (!g.visible) return; const k = S * (u < 0.25 ? 0.4 + 2.4 * u : 1 - 0.8 * (u - 0.25) / 0.75);
+      st.scale.setScalar(Math.max(0.01, k)); st.rotation.z = u * 0.8; gl.scale.setScalar(2.2 * Math.max(0.01, k)); gl.material.opacity = 1 - u; if (o.face) st.lookAt(...o.face); };
     g.userData.update(-1); return g;
   },
   // grey dust shaken out of the old parasol when it opens: o.at the burst, round grey puffs flying out and fading (scaled down, never transparent)

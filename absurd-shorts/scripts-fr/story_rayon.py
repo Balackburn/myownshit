@@ -60,7 +60,7 @@ def KEPI(pid, who): return P(pid, 'kepi', on={'actor': who, 'joint': 'head', 'of
 GREY = 'saturate(0.38) brightness(0.9) contrast(1.04)'          # the country under the parasol ((stills 1) brightness 0.82 was muddy)
 GREYIN = 'saturate(0.55) brightness(0.9)'                         # indoors under the parasol (the press room)
 
-for g_ in [('S01', 0.4, 'mec', 'squint'), ('S04', 1.1, 'mec', 'rockets'), ('S17', 0.75, 'mec', 'squint2'), ('S19', 1.2, 'mec', 'parasol')]:
+for g_ in [('S01', 0.4, 'mec', 'squint'), ('S04', 1.1, 'mec', 'rockets'), ('S17', 0.75, 'mec', 'squint2'), ('S19', 2.4, 'mec', 'parasol')]:
     st.gag(*g_)
 
 # ============================== his garden (pavillon: the house front at z -4.1, the lawn to the fence at z 2.2); the set's sun comes from +X+Z
@@ -208,22 +208,30 @@ st.shot('S06', 'spaceDark', actors=[],
 st.cue('whoosh', 'S06', OPEN6, 0.3, 0.4, 300, 1800); st.cue('sfx:poof', 'S06', r(OPEN6 + 0.35), 0.45)
 
 # 7: it mowed down three satellites. From the side, the rim of the opening parasol bats them away one after another
-D7 = st.dur('S07'); OPEN7, DUR7 = 0.55, 1.1
-PZ7 = -10.0; RIM7 = r(PZ7 + 6.5 * 0.32)
-def op_(u): c = 1.70158; uu = min(1.0, max(0.0, u)); return min(1.04, (1 + (c + 1) * (uu - 1) ** 3 + c * (uu - 1) ** 2) * 0.96 + 0.04 * uu)
-def hit_t(frac):
-    u = 0.0
-    while u < 1.0 and 0.05 + 0.95 * op_(u) < frac: u += 0.005
-    return r(OPEN7 + DUR7 * u, 2)
-SATS7 = [('sat7a', [0.5, 3.1, RIM7], 3.1 / 6.5, [6, 10, 6]), ('sat7b', [1.0, -4.4, RIM7], 4.5 / 6.5, [7, -12, 5]), ('sat7c', [-0.3, 5.9, RIM7], 5.9 / 6.5, [3, 14, 7])]
-C7 = cam(0.0, [13.5, 0.4, -3.2], [13.0, 0.3, -3.6], [0.0, 0.3, -8.6], [0.0, 0.3, -8.6], lens=56)
-chk('S07', C7['from'], C7['lookAt'], 56, {'rimTop': [0, 6.5, RIM7], 'rimBot': [0, -6.5, RIM7], **{n: p for n, p, f, d in SATS7}})
-HITS7 = {n: hit_t(f) for n, p, f, d in SATS7}
-CHECKS.append(f"S07 hits {HITS7}")
+D7 = st.dur('S07')
+# (round 1) from the side, nearly along the canopy's plane: the furled spike opens at a steady rate (the rim's radius grows 4.5 m/s), and three big
+#     satellites parked in the rim's plane are batted away one after the other, 0.4 s apart: a contact frame, a spark, the canopy shudders, the
+#     satellite spins off out of the frame; then the open parasol holds, turning slowly, with a last panel tumbling away
+OPEN7, RATE7 = 0.1, 4.5
+R7 = 6.5; PZ7 = -10.0; RIM7 = r(PZ7 + R7 * 0.32)
+DUR7 = r(R7 * 1.03 / RATE7 / 0.85, 3)
+def hit_r(rad): return r(OPEN7 + rad / RATE7, 2)
+SATS7 = [('sat7a', [0.0, 2.05, RIM7], [0.0, 1.0, 0.25], 1.0), ('sat7b', [0.2, -3.85, RIM7], [0.0, -1.0, 0.35], -1.0), ('sat7c', [-0.2, 5.65, RIM7], [0.0, 1.0, 0.2], 1.0)]
+F7 = [17.0, 0.6, -4.2]
+C7 = cam(0.0, F7, add(F7, [-0.4, 0.0, -0.2]), [0.0, 0.7, -8.3], [0.0, 0.8, -8.3], lens=52)
+chk('S07', C7['from'], C7['lookAt'], 52, {'rimTop': [0, R7, RIM7], 'rimBot': [0, -R7, RIM7], 'apex': [0, 0, PZ7], **{n: p for n, p, d, sg in SATS7}})
+HITS7 = {n: hit_r(abs(p[1]) - 0.45) for n, p, d, sg in SATS7}
+CHECKS.append(f"S07 hits {HITS7} openDur {DUR7}")
+def SATK(n, p, d, sg):
+    h = HITS7[n]; out = add(p, mul(d, 13.0))
+    return [k(0.0, to=add(p, [0.0, -0.25 * sg, 0.3]), dur=h, ease='linear'), k(0.0, rotTo=[0.15, 1.35, 0.1 * sg], dur=h, ease='linear'),
+            k(h, to=add(p, mul(d, 0.6)), dur=0.06, ease='out'), k(r(h + 0.06), to=out, dur=0.55, ease='in'), k(h, rotTo=[4.5 * sg, 6.0, 2.5], dur=0.62, ease='in'),
+            k(h, scale=0.5, dur=0.0), k(r(h + 0.03), scale=0.42, dur=0.05)]
 st.shot('S07', 'spaceDark', actors=[],
-        props=[P('parasol7', 'orbitParasol', pos=[0, 0, PZ7], rot=[-PI / 2, 0, 0], opts={'r': 6.5, 'openAt': OPEN7, 'openDur': DUR7}),
-               P('terre7', 'earthGlobe', pos=[-14, -16, 30], opts={'radius': 10, 'seed': 5}),
-               *[P(n, 'satellite', pos=p, rot=[0.2, 1.4, 0.1], scale=0.32, keys=[k(HITS7[n], to=add(p, d), dur=0.9, ease='out'), k(HITS7[n], rotTo=[2.4, 4.0, 1.2], dur=0.9, ease='out')]) for n, p, f, d in SATS7]],
+        props=[P('parasol7', 'orbitParasol', pos=[0, 0, PZ7], rot=[-PI / 2, 0, 0], opts={'r': R7, 'openAt': OPEN7, 'openDur': DUR7, 'steady': True, 'spin': 0.12, 'jolts': list(HITS7.values())}),
+               P('terre7', 'earthGlobe', pos=[-40, -30, -14], opts={'radius': 14, 'seed': 5}),
+               *[P(n, 'satellite', pos=p, rot=[0.15, 1.35, 0.1 * sg], scale=0.46, keys=SATK(n, p, d, sg)) for n, p, d, sg in SATS7],
+               *[P(f'etincelle7{n[-1]}', 'hitSpark', pos=add(p, [0.6, -0.45 * sg, 0.0]), opts={'at': HITS7[n], 's': 1.3, 'face': F7}) for n, p, d, sg in SATS7]],
         cams=[C7])
 for n in HITS7: st.cue('clang', 'S07', HITS7[n], 0.4)
 
@@ -424,32 +432,55 @@ st.cue('sfx:street', 'S18', 0.0, 0.3)
 
 # 19: he had a parasol in the garage. Beside his deckchair, the garage open behind him, he holds a small dusty parasol; it opens with a puff of dust; a
 #     look to us
-D19 = st.dur('S19'); OPEN19 = 1.08
-CH19 = [0.2, 0, -0.5]
-PIC19 = [('manif1', [-2.0, 0, 0.9], 25, 'sitFloorEat'), ('savant2', [-2.6, 0, -1.2], 40, 'sitFloorSip'), ('manif4', [-0.3, 0, -3.0], -15, 'sitFloor'), ('gendarme1', [-1.9, 0, -2.6], 20, 'sitFloorEat')]   # (staging 2) the picnic goes on round him, never in front of him and his parasol                                          # (staging 1) the deckchair moved up beside him for this shot: the parasol shades it
-PAR19 = [0.0, 0, -1.0]
-ME19 = [-0.65, 0, -0.75]; RY19 = 10
-SHED = [-2.9, 0, 0.5]
-F19 = [r(ME19[0] + 0.2), 1.6, r(ME19[2] + 7.5)]
-L19, LENS19, W19 = fit(F19, {'head': [ME19[0], 2.35, ME19[2]], 'feet': [ME19[0], 0, ME19[2]], 'parTop': add(PAR19, [0, 2.3, 0]), 'shed': add(SHED, [0.6, 2.0, 0.6]), 'chair': CH19}, margin=0.1, top=0.12, bottom=0.76)
-C19 = cam(0.0, F19, add(F19, [0, 0, -0.2]), L19, L19, lens=LENS19)
+# (round 1) re-staged as a medium close: the open garage right behind him (its shelf of pots and boxes lit at the back), his deckchair beside him.
+#     Without looking, his right arm stretches back into the garage and rummages; a tug (anticipation), a yank: out comes a small faded child's
+#     parasol, which he raises over his shoulder; it pops open in a soft cloud of beige dust that hangs; he looks up at it, back at us, snaps back to
+#     it (double take, eyes out a little), then turns to us, one blink, and holds. Two picnickers eat in the background, nobody in front of him
+D19 = st.dur('S19'); YANK19 = 0.62; OPEN19 = 1.05
+ME19 = [-1.05, 0, -1.15]; RY19 = 6
+SHED = [-1.0, 0, -2.15]
+CH19 = [0.05, 0, -0.75]
+IN19 = [-1.35, 0.95, -3.0]                                      # the grip, deep in the garage
+UPG = [-1.47, 1.6, -0.8]                                       # the grip once raised: in front of his right shoulder, the canopy over it
+F19 = [-1.25, 1.75, 2.0]
+L19, LENS19, W19 = fit(F19, {'headTop': [ME19[0], 2.5, ME19[2]], 'parTop': add(UPG, [0.28, 1.1, 0]), 'parL': add(UPG, [-0.18, 0.88, 0]), 'parR': add(UPG, [0.7, 0.95, 0]), 'hand': add(UPG, [0, -0.2, 0]), 'hip': [ME19[0], 0.95, ME19[2]]}, margin=0.05, top=0.1, bottom=0.97, lenses=range(28, 70))
+C19 = cam(0.0, F19, add(F19, [0.05, 0.0, -0.25]), L19, add(L19, [0.0, 0.03, 0.0]), lens=LENS19)
 CHECKS.append(f"S19 fit lens {LENS19} {W19}")
-chk('S19', C19['from'], C19['lookAt'], LENS19, {'head': [ME19[0], 2.05, ME19[2]], 'parTop': add(PAR19, [0, 2.25, 0]), 'shed': add(SHED, [0, 1.2, -1.0]), 'chair': CH19})
-st.shot('S19', 'pavillon', setOpts=GARDEN, actors=[
-        act('mec', ME19, RY19, 'stand', 'unimpressed', keys=[k(0.0, look='camera'),
-            k(0.0, toon={'reach': {'L': R5(add(PAR19, [0.03, 1.12, 0.03]), 1, 0.04)}, 'hands': {'L': 'grip'}, 'face': {'lid': 0.75, 'mouth': 'line', 'brow': -0.4}}, toonDur=0.0),
-            k(r(OPEN19 - 0.15), toon={'reach': {'L': R5(add(PAR19, [0.03, 1.02, 0.03]), 1, 0.04)}, 'sq': [1.02, 0.97, 1.02]}, toonDur=0.1, keepPose=True),
-            k(OPEN19, toon={'reach': {'L': R5(add(PAR19, [0.03, 1.16, 0.03]), 1, 0.04)}, 'sq': [1, 1, 1]}, toonDur=0.08, keepPose=True),
-            k(r(OPEN19 + 0.1), look=add(PAR19, [0, 2.3, 0]), lookDur=0.12), k(r(OPEN19 + 0.25), toon={'face': {'lid': 0.4, 'mouth': 'line', 'brow': -0.1}}, toonDur=0.15, keepPose=True),
-            k(r(OPEN19 + 0.75), look='camera', lookDur=0.12), *blink(r(OPEN19 + 1.1), {'lid': 0.4, 'mouth': 'line', 'brow': -0.1})]),
-        *[act(n, p, ry, clip, 'neutral', keys=[k(0.0, look=HOLEW if i % 2 else [ME19[0], 1.9, ME19[2]]), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'smile' if i % 2 else 'line'}}, toonDur=0.0)]) for i, (n, p, ry, clip) in enumerate(PIC19)]],
-        props=[P('nuages19', 'noClouds'), GDOME('dome19'), PATCH('disque19'), P('chaise19', 'deckChair', pos=CH19, ry=RY), KEPI('kepi19', 'gendarme1'),
+chk('S19', C19['from'], C19['lookAt'], LENS19, {'head': [ME19[0], 2.05, ME19[2]], 'grip': UPG, 'parTop': add(UPG, [0, 0.95, 0]), 'inside': IN19, 'shelf': add(SHED, [0, 1.2, -1.6]), 'chair': CH19})
+PIC19 = [('manif4', [1.5, 0, -2.9], -35, 'sitFloorEat'), ('gendarme1', [2.3, 0, -1.6], -60, 'sitFloorSip')]
+DEAD19 = {'lid': 0.4, 'mouth': 'line', 'brow': -0.1}
+def G19(p, w=1): return R5(add(p, [0.0, 0.0, 0.0]), w, 0.05)
+PATH19 = [(0.0, IN19), (0.18, add(IN19, [0.08, 0.05, 0.05])), (0.32, add(IN19, [-0.06, -0.03, 0.0])), (0.46, add(IN19, [0.04, 0.04, 0.06])),
+          (r(YANK19 - 0.08), add(IN19, [0.0, 0.0, -0.12])), (r(YANK19 + 0.16), add(UPG, [0.05, 0.12, 0.1])), (r(YANK19 + 0.3), UPG)]
+HERO19 = [k(0.0, look='camera'), k(0.0, toon={'reach': {'R': G19(IN19)}, 'hands': {'R': 'grip'}, 'hose': 0.12, 'face': {**DEAD19, 'gx': -0.6}}, toonDur=0.0)]
+for i in range(1, len(PATH19)):
+    t_, p_ = PATH19[i]; d_ = r(PATH19[i][0] - PATH19[i - 1][0])
+    extra = {}
+    if t_ == r(YANK19 - 0.08): extra = {'sq': [1.06, 0.93, 1.06], 'face': {'lid': 0.55, 'mouth': 'clench', 'brow': -0.4, 'gx': -0.6}}
+    elif t_ == r(YANK19 + 0.16): extra = {'sq': [0.95, 1.07, 0.95], 'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.1}}
+    elif t_ == r(YANK19 + 0.3): extra = {'sq': [1, 1, 1], 'face': DEAD19}
+    else: extra = {'face': {**DEAD19, 'gx': -0.6, 'mouth': 'wavy' if i % 2 else 'line'}}
+    HERO19.append(k(t_, toon={'reach': {'R': G19(p_)}, 'hands': {'R': 'grip'}, 'hose': 0.12, **extra}, toonDur=d_ if t_ != r(YANK19 + 0.16) else 0.16, toonEase='out' if t_ == r(YANK19 + 0.16) else 'inOut'))
+HOLD19 = {'reach': {'R': G19(UPG)}, 'hands': {'R': 'grip'}}
+PTOP = add(UPG, [0.1, 1.15, 1.6])                              # up and toward us: the head tips back a little, the face stays to the lens
+DT19 = r(OPEN19 + 0.12)
+HERO19 += [k(r(OPEN19 - 0.06), toon={**HOLD19, 'face': {**DEAD19, 'lid': 0.3}}, toonDur=0.06, keepPose=True),
+           k(OPEN19, toon={**HOLD19, 'sq': [1.04, 0.95, 1.04], 'face': {'lid': 0.7, 'mouth': 'grimace', 'brow': -0.3}}, toonDur=0.04),
+           k(r(OPEN19 + 0.12), toon={**HOLD19, 'sq': [1, 1, 1], 'face': {'lid': 0.35, 'mouth': 'line', 'brow': 0.0}}, toonDur=0.1),
+           *doubleTake(DT19, PTOP, keep=HOLD19, back='camera', pop=0.5, blank=0.22, hold=0.3),
+           k(r(DT19 + 0.95), look='camera', lookDur=0.18), k(r(DT19 + 0.95), toon={**HOLD19, 'face': DEAD19}, toonDur=0.15),
+           *[{**x, 'toon': {**HOLD19, **x['toon']}} for x in blink(r(DT19 + 1.2), DEAD19)]]
+PAR_KEYS = [k(t_, to=p_, dur=r(PATH19[i][0] - PATH19[i - 1][0]) if i else 0.0, ease='out' if t_ == r(YANK19 + 0.16) else 'inOut') for i, (t_, p_) in enumerate(PATH19) if i]
+st.shot('S19', 'pavillon', setOpts={**GARDEN, 'mailbox': False}, actors=[
+        act('mec', ME19, RY19, 'stand', 'unimpressed', keys=HERO19),
+        *[act(n, p, ry, clip, 'neutral', keys=[k(0.0, look=[ME19[0], 1.9, ME19[2]] if i else HOLEW), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'smile' if i % 2 else 'line'}}, toonDur=0.0),
+            k(r(OPEN19 + 0.25 + 0.15 * i), look=PTOP, lookDur=0.2), *blink(r(0.5 + 0.7 * i), {'lid': 0.5, 'mouth': 'smile' if i % 2 else 'line'})]) for i, (n, p, ry, clip) in enumerate(PIC19)]],
+        props=[P('nuages19', 'noClouds'), GDOME('dome19'), PATCH('disque19'), P('chaise19', 'deckChair', pos=CH19, ry=-20), KEPI('kepi19', 'gendarme1'),
                P('pique19', 'picnicSpread', pos=[0, 0, 0], opts={'seed': 37, 'blankets': [[p[0], r(p[2] + 0.1), 0.2, 1.3, 1.1, BCOL[i]] for i, (n, p, ry, c) in enumerate(PIC19)]}),
-               P('garage19', 'garageShed', pos=SHED, ry=70), P('etagere19', 'garageShelf', pos=off(SHED, 70, -2.9, 0, 0), ry=70, opts={'w': 1.8}),
-               P('parasol19', 'parasol', pos=PAR19, opts={'radius': 1.0, 'height': 2.1, 'openAt': OPEN19, 'colors': ['#2F8A6A', '#F4EEDF']}),
-               P('poussiere19', 'dustBurst', pos=add(PAR19, [0, 2.0, 0]), opts={'at': OPEN19, 'dur': 0.9, 'r': 1.1})],
+               P('garage19', 'garageShed', pos=SHED, ry=0, opts={'w': 2.3, 'd': 1.9, 'h': 2.4, 'color': '#E3D8C2'}), P('etagere19', 'garageShelf', pos=add(SHED, [0, 0, -1.7]), ry=0, opts={'w': 1.8}),
+               P('parasol19', 'kidParasol', pos=IN19, rot=[-0.5, 0, 0.3], opts={'r': 0.42, 'len': 1.0, 'openAt': OPEN19}, keys=[*PAR_KEYS, k(r(YANK19 - 0.08), rotTo=[-0.06, 0.0, -0.26], dur=0.3, ease='out')])],
         cams=[C19])
-st.cue('whoosh', 'S19', r(OPEN19 - 0.05), 0.2, 0.3, 500, 2000); st.cue('sfx:poof', 'S19', r(OPEN19 + 0.02), 0.4)
+st.cue('whoosh', 'S19', r(YANK19 - 0.02), 0.2, 0.3, 500, 2000); st.cue('sfx:poof', 'S19', r(OPEN19 + 0.02), 0.4); st.cue('sfx:boing', 'S19', r(DT19 + 0.16 + 0.22), 0.25)
 
 print('\n'.join(CHECKS))
 
