@@ -104,7 +104,7 @@ OFFICE = {'door': False, 'printer': False, 'picture': False, 'carpet': False, 'w
 WARLOOK = {'sunDir': [0.3, 0.8, 0.9]}
 CAP = lambda pid, who, s=1.0: P(pid, 'plainCap', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.47, 0.0]}, opts={'w': 0.25 * s, 'd': 0.19 * s})
 EPA = lambda pid, who: P(pid, 'blankEpaulettes', on={'actor': who, 'joint': 'torso', 'offset': [0.0, 0.42, 0.0]}, opts={'w': 0.5})
-HELMET = lambda pid, who, **o: P(pid, 'armyHelmet', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.46, 0.0]}, opts={'s': 0.95, **o})
+HELMET = lambda pid, who, **o: P(pid, 'softHelmet', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.46, 0.0]}, opts={'s': 0.95, **o})
 def EAR(pid, who, side=1, color=None, **kw):   # a handset held at the ear (side 1: his right ear)
     return P(pid, 'handset', on={'actor': who, 'joint': 'head', 'offset': [-0.2 * side, 0.2, 0.03]}, opts={'len': 0.32, 'rot': [-0.35, r(PI / 2 * side), 0.0], **({'color': color} if color else {})}, **kw)
 
@@ -171,12 +171,12 @@ st.shot('S02', 'office', setOpts=OFFICE, look=WARLOOK, actors=[
             TK(SNAP2, {'R': R5(add(EARG2, [0, 0.12, 0]))}, {'R': 'grip'}, {'lid': 0.0, 'pop': 0.4, 'mouth': 'O', 'brow': 0.6}, (0.88, 1.16, 0.88), d=0.07, e='out', keep=True),
             TK(r(SNAP2 + 0.12), {'R': R5(EARG2)}, {'R': 'grip'}, BARK, (1.1, 0.9, 1.1), d=0.05, e='in', keep=True),
             TK(r(SNAP2 + 0.35), {'R': R5(EARG2)}, {'R': 'grip'}, {'lid': 0.15, 'mouth': 'O', 'brow': -0.7}, (1, 1, 1), d=0.15, keep=True),
-            *blink(1.25, {'lid': 0.15, 'mouth': 'line', 'brow': -0.7})]),
+            *blink(1.25, {'lid': 0.15, 'mouth': 'line', 'brow': -0.7}), TK(1.05, face={'lid': 0.15, 'mouth': 'O', 'brow': -0.8}, bend={'neck': SP(0.25)}, d=0.1, keep=True), TK(1.2, bend={'neck': SP(0.0)}, d=0.1, keep=True), k(1.45, look=bpt(0, 0.3), lookDur=0.12), *BREATHE(0.9, D2, 0.4, 0.02)]),
         act('colB', COLB2, -20, 'stand', 'neutral', keys=[k(0.0, look='camera'), TK(0.0, ATTEN(COLB2, -20), {'R': 'open', 'L': 'open'}, ATT, d=0.0),
-            TK(SNAP2, ATTEN(COLB2, -20), {'R': 'open', 'L': 'open'}, {**ATT, 'pop': 0.2}, (0.96, 1.05, 0.96), d=0.06, keep=True), TK(0.6, sq=(1, 1, 1), face=ATT, d=0.15, keep=True), *blink(1.0, ATT)]),
+            TK(SNAP2, ATTEN(COLB2, -20), {'R': 'open', 'L': 'open'}, {**ATT, 'pop': 0.2}, (0.96, 1.05, 0.96), d=0.06, keep=True), TK(0.6, sq=(1, 1, 1), face=ATT, d=0.15, keep=True), *blink(1.0, ATT), *BREATHE(0.8, D2, 0.45, 0.015), k(1.3, look=add(GEN2, [0, 2.0, 0]), lookDur=0.12)]),
         act('colA', COLA2, 20, 'stand', 'neutral', keys=[k(0.0, look='camera'), TK(0.0, ATTEN(COLA2, 20), {'R': 'open', 'L': 'open'}, ATT, d=0.0),
-            TK(r(SNAP2 + 0.03), ATTEN(COLA2, 20), {'R': 'open', 'L': 'open'}, {**ATT, 'pop': 0.2}, (0.96, 1.05, 0.96), d=0.06, keep=True), TK(0.65, sq=(1, 1, 1), face=ATT, d=0.15, keep=True), *blink(1.15, ATT)])],
-        props=[BOARDP('S02'), P('table2', 'table', pos=TAB2, opts={'w': 0.55, 'd': 0.5, 'h': 0.85, 'color': '#3A3530'}), P('rouge2', 'redDeskPhone', pos=PH2, ry=25, opts={'ring': [[0.0, SNAP2]]}),
+            TK(r(SNAP2 + 0.03), ATTEN(COLA2, 20), {'R': 'open', 'L': 'open'}, {**ATT, 'pop': 0.2}, (0.96, 1.05, 0.96), d=0.06, keep=True), TK(0.65, sq=(1, 1, 1), face=ATT, d=0.15, keep=True), *blink(1.15, ATT), *BREATHE(0.85, D2, 0.45, 0.015)])],
+        props=[BOARDP('S02'), P('smear2', 'smearArc', pos=[0, 0, 0], opts={'pts': [HS_CRADLE, add([(HS_CRADLE[i] + EARG2[i]) / 2 for i in range(3)], [-0.1, 0.25, 0.1]), EARG2], 'win': [r(SNAP2 - 0.08), r(SNAP2 + 0.03)], 'color': '#4E5A34', 'r': 0.09, 'opacity': 0.65}), P('table2', 'table', pos=TAB2, opts={'w': 0.55, 'd': 0.5, 'h': 0.85, 'color': '#3A3530'}), P('rouge2', 'redDeskPhone', pos=PH2, ry=25, opts={'ring': [[0.0, SNAP2]]}),
                P('combine2a', 'handset', pos=HS_CRADLE, rot=[0, r(math.radians(25)), r(PI / 2)], opts={'len': 0.32, 'color': '#D8262C'}, keys=[k(SNAP2 - 0.12, visible=False)]),
                EAR('combine2b', 'general', color='#D8262C', keys=[k(0.0, visible=False), k(SNAP2 - 0.12, visible=True)]),
                CAP('cap2', 'general', 1.05), EPA('epa2', 'general'), CAP('capA2', 'colA'), EPA('epaA2', 'colA'), CAP('capB2', 'colB'), EPA('epaB2', 'colB')],
@@ -226,28 +226,29 @@ D4b = st.dur('S04b')
 SEA = {}
 GA0 = [2.6, 0, -1.6]; GB0 = [4.3, 0, -4.6]; WALK = 1.1
 LIFT4 = 2.62
-def carry_group(tag, c0, b_id, s_ids, col):
+def carry_group(tag, c0, b_id, s_ids, col, wave=False):
     """a sun lounger carried overhead by two soldiers (one at each end, arms up), walking toward +Z; the sunbather lying flat on it, calm"""
     c1 = add(c0, [0, 0, WALK]); acts = []; props = []
     for j, e in enumerate((1, -1)):          # front end (+Z), back end
-        p0 = add(c0, [0, 0, 0.62 * e]); p1 = add(p0, [0, 0, WALK])
+        p0 = add(c0, [-0.28 * e, 0, 0.62 * e]); p1 = add(p0, [0, 0, WALK])
         ks = [k(0.0, look='camera'), k(0.0, to=p1, dur=D4b, clip='walk', ease='linear', face=0)]
         for i in range(7):
             t = r(D4b * i / 6); z = r(c0[2] + 0.62 * e + WALK * i / 6)
-            ks.append(TK(t, {'R': R5([r(c0[0] - 0.22), r(LIFT4 - 0.02), r(z + 0.05 * e)]), 'L': R5([r(c0[0] + 0.22), r(LIFT4 - 0.02), r(z + 0.05 * e)])}, {'R': 'grip', 'L': 'grip'}, {'lid': 0.25, 'mouth': 'line', 'brow': -0.4}, (1.04, 0.95, 1.04) if i % 2 else (0.97, 1.03, 0.97), d=r(D4b / 6), e='linear'))
+            ks.append(TK(t, {'R': R5([r(c0[0] - 0.24), r(LIFT4 - 0.02), r(z + 0.05 * e)]), 'L': R5([r(c0[0] + 0.24), r(LIFT4 - 0.02), r(z + 0.05 * e)])}, {'R': 'grip', 'L': 'grip'}, {'lid': 0.25, 'mouth': 'line', 'brow': -0.4}, (1.04, 0.95, 1.04) if i % 2 else (0.97, 1.03, 0.97), d=r(D4b / 6), e='linear'))
         acts.append(act(s_ids[j], p0, 0, 'walk', 'neutral', keys=ks))
         props.append(HELMET(f'casque{tag}{j}', s_ids[j]))
-    props.append(P(f'transat{tag}', 'sunLounger', pos=add(c0, [0, LIFT4, 0]), opts={'color': col}, keys=[k(0.0, to=add(c1, [0, LIFT4, 0]), dur=D4b, ease='linear')]))
+    props.append(P(f'transat{tag}', 'sunLounger', pos=add(c0, [0, LIFT4, 0]), rot=[0, 0, -0.14], opts={'color': col, 'back': 1.0}, keys=[k(0.0, to=add(c1, [0, LIFT4, 0]), dur=D4b, ease='linear')]))
     face = {'lid': 0.45, 'mouth': 'smile', 'brow': 0.2}
-    bk = [k(0.0, look=[c0[0] - 2, 6, c0[2] + 4]), k(0.0, to=add(c1, [0, LIFT4 + 0.1, 0]), dur=D4b, ease='linear', glide=True, face='keep'), TK(0.0, face=face, d=0.0), *blink(0.7, face)]
-    acts.append(act(b_id, add(c0, [0, LIFT4 + 0.1, 0]), 0, 'lieBack', 'happy', keys=bk))
+    bk = [k(0.0, look='camera'), k(0.0, to=add(c1, [0, LIFT4 + 0.12, 0.05]), dur=D4b, ease='linear', glide=True, face='keep'), TK(0.0, face=face, d=0.0), *blink(0.9, face)]
+    if wave: bk += [TK(0.2, {'L': R5(add(c0, [0.35, LIFT4 + 1.15, 0.45]))}, {'L': 'open'}, {'lid': 0.3, 'mouth': 'bigsmile', 'brow': 0.4}, d=0.15), TK(0.45, {'L': R5(add(c0, [0.6, LIFT4 + 1.1, 0.75]))}, {'L': 'open'}, face, d=0.15, keep=True), TK(0.7, {'L': R5(add(c0, [0.35, LIFT4 + 1.15, 0.95]))}, {'L': 'open'}, face, d=0.15, keep=True), TK(0.95, {'L': R5(add(c0, [0.6, LIFT4 + 1.1, 1.2]))}, {'L': 'open'}, face, d=0.15, keep=True)]
+    acts.append(act(b_id, add(c0, [0, LIFT4 + 0.12, 0.05]), 25, 'reclineBack', 'happy', keys=bk))
     props.append(P(f'lunettes{tag}', 'shades', on={'actor': b_id, 'joint': 'head', 'offset': [0.0, 0.3, 0.095]}, opts={'ear': False}))
     return acts, props
-AA, PA = carry_group('A', GA0, 'bain1', ('sold1', 'sold2'), '#2EA8A0')
+AA, PA = carry_group('A', GA0, 'bain1', ('sold1', 'sold2'), '#2EA8A0', True)
 AB, PB = carry_group('B', GB0, 'bain2', ('sold3', 'sold4'), '#E8A030')
 C4b = cam(0.0, [4.6, 1.2, 6.2], [4.5, 1.22, 5.8], [3.0, 2.05, -2.4], [3.0, 2.05, -2.4], lens=46)
 chk('S04b', C4b, {'loungerA': add(GA0, [0, LIFT4 + 0.3, WALK]), 'loungerA0': add(GA0, [0, LIFT4 + 0.3, 0]), 'soldAf': add(GA0, [0, 2.05, 0.62 + WALK]), 'soldAb': add(GA0, [0, 2.05, -0.62 + WALK]), 'loungerB': add(GB0, [0, LIFT4 + 0.3, WALK]), 'soldBf': add(GB0, [0, 2.05, 0.62 + WALK]), 'parasol': [2.0, 2.1, -6.6], 'feetA': add(GA0, [0, 0, 0.62 + WALK])})
-st.shot('S04b', 'beach', setOpts=SEA, look={'sunDir': [0.4, 0.9, 0.8]}, actors=[*AA, *AB], props=[*PA, *PB, P('parasol4', 'umbrella', pos=[2.0, 0, -6.6], opts={'radius': 1.1, 'height': 2.1, 'colors': ['#E8A030', '#F4F1E8']})], cams=[C4b])
+st.shot('S04b', 'beach', setOpts=SEA, look={'sunDir': [0.4, 0.9, 0.8]}, actors=[*AA, *AB], props=[*PA, *PB, P('parasol4', 'umbrella', pos=[2.9, 0, -8.6], opts={'radius': 1.1, 'height': 2.1, 'colors': ['#E8A030', '#F4F1E8']})], cams=[C4b])
 st.card('S04b', 'DÉGAGÉ', at=0.45)
 st.cue('sfx:stepHeavy', 'S04b', 0.0, 0.2); st.cue('gust', 'S04b', 0.0, 0.12, 1.2)
 
@@ -265,6 +266,7 @@ st.shot('S05', 'office', setOpts=OFFICE, look=WARLOOK, actors=[
         act('colL', COL_L, RYL, 'stand', 'determined', keys=sc_keys),
         act('colR', COL_R, RYR, 'stand', 'neutral', keys=[k(0.0, look=bpt(0.0, 0.7)), TK(0.0, ATTEN(COL_R, RYR), {'R': 'open', 'L': 'open'}, ATT, d=0.0), k(r(DROP5 + 0.05), look=bpt(0.0, 0.0), lookDur=0.15), *blink(0.5, ATT)])],
         props=[BOARDP('S05', sides=1.0, top=[[T5a, 0.0], [T5b, 1.0]], dropAt=DROP5), *OSGENP('S05'), CAP('capL5', 'colL'), EPA('epaL5', 'colL'), CAP('capR5', 'colR'), EPA('epaR5', 'colR'),
+               *[P(f'smear5{i}', 'smearArc', pos=[0, 0, 0], opts={'pts': [add(SC5[i - 1][1], [0, 0.03, 0.05]), add(SC5[i][1], [0, 0.03, 0.05])], 'win': [r(SC5[i][0] - 0.07), r(SC5[i][0] + 0.01)], 'color': '#D9DEE3', 'r': 0.05, 'opacity': 0.6}) for i in range(1, 5)],
                P('ciseaux5', 'bigScissors', pos=add(SC5[0][1], [-0.1, -0.25, 0.15]), rot=[-BTL, 0, 0], opts={'len': 0.42, 'open': 0.4, 'snip': [[0, 1]] + [[r(T5a + 0.08 * i), (i + 1) % 2] for i in range(9)] + [[r(T5b + 0.05), 1]]},
                  keys=[k(0.0, to=SC5[0][1], dur=T5a), *[k(t, to=q, dur=0.16, ease='linear') for (t, q) in SC5[1:]], k(r(DROP5 + 0.1), to=add(COL_L, [0.45, 1.55, 0.5]), dur=0.2)])],
         cams=[C_OS])
@@ -302,44 +304,44 @@ st.cue('sfx:stepHeavy', 'S06', 0.0, 0.25)
 # ================================================================= the village square (S07)
 # 7: a village changed country; it noticed nothing. Static wide: three old men play pétanque in the foreground; one winds up and throws (a high arc,
 #    hang time at the top, a thud and a puff); behind them the soldiers carry the barrier past from left to right, walking backwards; nobody looks up
-D7 = st.dur('S07'); TH7 = 0.95; LAND7 = 1.75
-PET = [[-1.5, 0, 1.0], [-0.9, 0, 1.45], [1.6, 0, 0.9]]
-JACK = [0.1, 0.06, 3.6]
-C7 = cam(0.0, [0.3, 2.7, 10.4], [0.3, 2.68, 10.15], [0.0, 1.25, -1.5], [0.0, 1.25, -1.5], lens=40)
-BZ7 = -3.2; BX0, BX1 = -5.2, 4.2
-chk('S07', C7, {'p1face': add(PET[0], [0, 2.05, 0]), 'p2face': add(PET[1], [0, 2.05, 0]), 'p3face': add(PET[2], [0, 2.05, 0]), 'jack': JACK, 'barrierMid0': [BX0, 1.15, BZ7], 'barrierMid1': [BX1, 1.15, BZ7], 'soldFace': [0, 2.05, BZ7], 'arcTop': [0.0, 3.2, 2.6]})
+D7 = st.dur('S07'); TH7 = 0.95; LAND7 = 1.78
+PET = [[-1.5, 0, 0.4], [-0.75, 0, 1.3], [1.6, 0, 0.3]]
+RYP = [70, 62, -70]
+JACK = [0.55, 0.06, 1.0]
+C7 = cam(0.0, [0.1, 1.2, 10.5], [0.1, 1.22, 10.25], [0.1, 1.5, -1.0], [0.1, 1.5, -1.0], lens=42)
+BZ7 = -2.6; BX0, BX1 = -5.6, 4.6; BY7 = 0.55        # the barrier carried with its feet BY7 off the ground: the boom at head height
+chk('S07', C7, {'p1face': add(PET[0], [0, 2.05, 0]), 'p2face': add(PET[1], [0, 1.75, 0]), 'p3face': add(PET[2], [0, 2.05, 0]), 'jack': JACK, 'boomL': [-1.6, 1.15 + BY7, BZ7], 'boomR': [1.6, 1.15 + BY7, BZ7], 'soldFace': [0, 2.05, BZ7], 'arcTop': [0.0, 3.0, 1.0]})
 OLD = {'lid': 0.45, 'mouth': 'line', 'brow': 0.0}
-def boule_path():
-    p0 = off(PET[1], 0, 0.35, -0.3, 1.25); top = [-0.3, 3.2, 2.5]; land = add(JACK, [0.25, 0.0, -0.2])
-    return p0, top, land
-B0, BTOP, BLAND = boule_path()
-def side_walk(who, x0, x1, z):
-    p0 = [x0, 0, z]; ks = [k(0.0, look=[x0 + 3, 1.2, z + 3]), k(0.0, to=[x1, 0, z], dur=D7, clip='walk', back=True, ease='linear', face=-90)]
-    hand = lambda x: {'R': R5([r(x + 0.0), 1.2, r(z + 0.32)]), 'L': R5([r(x + 0.0), 1.2, r(z - 0.32)])}
+B0 = off(PET[1], RYP[1], 0.4, -0.25, 1.05); BTOP = [-0.05, 3.0, 1.1]; BLAND = add(JACK, [-0.2, 0.0, 0.15])
+def side_walk(who, x0, x1, z, s):
+    p0 = [x0, 0, z]; ks = [k(0.0, look=[x0 - 3, 1.4, z + 3]), k(0.0, to=[x1, 0, z], dur=D7, clip='walk', back=True, ease='linear', face=-90)]
     for i in range(9):
         t = r(i * D7 / 8); x = r(x0 + (x1 - x0) * t / D7)
-        ks.append(TK(t, hand(x), {'R': 'grip', 'L': 'grip'}, OLD, d=r(D7 / 8), e='linear'))
-    return act(who, p0, -90, 'walk', 'neutral', keys=ks)
+        ks.append(TK(t, {'R': R5([r(x + 0.12 * s), 1.45, r(z + 0.05)]), 'L': R5([r(x + 0.12 * s), 1.05, r(z + 0.05)])}, {'R': 'grip', 'L': 'grip'}, OLD, (1.06, 0.93, 1.06) if i % 2 else (0.96, 1.05, 0.96), d=r(D7 / 8), e='linear'))
+    return act(who, p0, -90, 'walk', 'neutral', keys=[*ks, *blink(1.2, OLD)])
 L7 = 3.2
+WATCH = lambda who, t0: [k(r(TH7 + t0), look=BTOP, lookDur=0.25), k(r(TH7 + 0.5), look=BTOP, lookDur=0.1), k(r(LAND7 - 0.05 + t0), look=BLAND, lookDur=0.12)]
 st.shot('S07', 'grassland', setOpts={'clouds': 20}, look={'sunDir': [0.5, 0.8, 0.8]}, actors=[
-        act('pet1', PET[0], 25, 'stand', 'neutral', keys=[k(0.0, look=JACK), TK(0.0, {'R': R5(off(PET[0], 25, 0.2, 0.2, 1.05)), 'L': R5(off(PET[0], 25, 0.25, -0.2, 1.05))}, {'R': 'rest', 'L': 'rest'}, OLD, (1, 1, 1), {'spine': SP(0.25)}, d=0.0),
-            k(TH7, look=BTOP, lookDur=0.3), k(LAND7, look=BLAND, lookDur=0.2), *blink(2.3, OLD)]),
-        act('pet2', PET[1], 0, 'stand', 'determined', keys=[k(0.0, look=JACK),
-            TK(0.0, {'R': R5(off(PET[1], 0, 0.3, 0.3, 0.9))}, {'R': 'grip'}, {'lid': 0.4, 'mouth': 'line', 'brow': -0.3}, (1, 1, 1), {'spine': SP(0.35)}, d=0.0),
-            TK(r(TH7 - 0.35), {'R': R5(off(PET[1], 0, -0.4, 0.35, 0.8))}, {'R': 'grip'}, {'lid': 0.3, 'mouth': 'clench', 'brow': -0.6}, (1.12, 0.86, 1.12), {'spine': SP(0.6)}, d=0.3, keep=True),
-            TK(TH7, {'R': R5(B0)}, {'R': 'open'}, {'lid': 0.1, 'mouth': 'O', 'brow': 0.4}, (0.86, 1.18, 0.86), {'spine': SP(-0.1)}, d=0.08, e='out', keep=True),
-            TK(r(TH7 + 0.3), {'R': R5(off(PET[1], 0, 0.5, 0.3, 1.6))}, {'R': 'open'}, {'lid': 0.3, 'mouth': 'line', 'brow': 0.0}, (1, 1, 1), {'spine': SP(0.1)}, d=0.2, keep=True),
-            k(r(TH7 + 0.05), look=BTOP, lookDur=0.25), k(LAND7, look=BLAND, lookDur=0.15), *blink(2.4, OLD)]),
-        act('pet3', PET[2], -30, 'stand', 'neutral', keys=[k(0.0, look=JACK), TK(0.0, {'R': R5(off(PET[2], -30, 0.1, 0.3, 1.0)), 'L': R5(off(PET[2], -30, 0.1, -0.3, 1.0))}, {'R': 'rest', 'L': 'rest'}, OLD, (1, 1, 1), {'spine': SP(0.22), 'neck': SP(0.15)}, d=0.0),
-            k(r(TH7 + 0.1), look=BTOP, lookDur=0.3), k(r(LAND7 + 0.05), look=BLAND, lookDur=0.2), TK(r(LAND7 + 0.15), face={'lid': 0.4, 'mouth': 'smile', 'brow': 0.2}, bend={'neck': SP(0.3)}, d=0.1, keep=True), TK(r(LAND7 + 0.3), face=OLD, bend={'neck': SP(0.0)}, d=0.12, keep=True)]),
-        side_walk('sold1', r(BX0 - L7 / 2 + 0.15), r(BX1 - L7 / 2 + 0.15), BZ7), side_walk('sold2', r(BX0 + L7 / 2 - 0.15), r(BX1 + L7 / 2 - 0.15), BZ7)],
+        act('pet1', PET[0], RYP[0], 'stand', 'neutral', keys=[k(0.0, look=JACK), TK(0.0, {'R': R5(off(PET[0], RYP[0], 0.2, 0.2, 1.05)), 'L': R5(off(PET[0], RYP[0], 0.25, -0.2, 1.05))}, {'R': 'rest', 'L': 'rest'}, OLD, (1, 1, 1), {'spine': SP(0.28), 'neck': SP(0.1)}, d=0.0),
+            *WATCH('pet1', 0.08), *blink(2.3, OLD), *BREATHE(0.0, D7, 0.7, 0.012)]),
+        act('pet2', PET[1], RYP[1], 'stand', 'determined', keys=[k(0.0, look=JACK),
+            TK(0.0, {'R': R5(off(PET[1], RYP[1], 0.3, 0.3, 0.75)), 'L': R5(off(PET[1], RYP[1], 0.35, -0.2, 0.7))}, {'R': 'grip', 'L': 'rest'}, {'lid': 0.4, 'mouth': 'line', 'brow': -0.3}, (1.06, 0.86, 1.06), {'spine': SP(0.55)}, d=0.0),
+            TK(r(TH7 - 0.4), {'R': R5(off(PET[1], RYP[1], -0.45, 0.3, 0.55))}, {'R': 'grip'}, {'lid': 0.3, 'mouth': 'clench', 'brow': -0.7}, (1.16, 0.78, 1.16), {'spine': SP(0.75)}, d=0.3, keep=True),
+            TK(r(TH7 - 0.04), {'R': R5(off(PET[1], RYP[1], 0.2, 0.3, 0.8))}, {'R': 'grip'}, {'lid': 0.2, 'mouth': 'O', 'brow': 0.2}, (0.95, 1.05, 0.95), {'spine': SP(0.35)}, d=0.05, e='in', keep=True),
+            TK(TH7, {'R': R5(B0)}, {'R': 'open'}, {'lid': 0.1, 'mouth': 'O', 'brow': 0.4}, (0.86, 1.18, 0.86), {'spine': SP(-0.05)}, d=0.06, e='out', keep=True),
+            TK(r(TH7 + 0.25), {'R': R5(off(PET[1], RYP[1], 0.45, 0.25, 1.9))}, {'R': 'open'}, {'lid': 0.25, 'mouth': 'line', 'brow': 0.2}, (0.95, 1.06, 0.95), {'spine': SP(0.0)}, d=0.2, keep=True),
+            TK(r(LAND7 + 0.25), {'R': R5(off(PET[1], RYP[1], 0.3, 0.3, 1.0))}, {'R': 'rest'}, OLD, (1, 1, 1), {'spine': SP(0.25)}, d=0.3, keep=True),
+            k(0.0, look=JACK), *WATCH('pet2', 0.02), *blink(2.45, OLD)]),
+        act('pet3', PET[2], RYP[2], 'stand', 'neutral', keys=[k(0.0, look=JACK), TK(0.0, {'R': R5(off(PET[2], RYP[2], 0.1, 0.3, 1.0)), 'L': R5(off(PET[2], RYP[2], 0.1, -0.3, 1.0))}, {'R': 'rest', 'L': 'rest'}, OLD, (1, 1, 1), {'spine': SP(0.22), 'neck': SP(0.15)}, d=0.0),
+            *WATCH('pet3', 0.12), TK(r(LAND7 + 0.15), face={'lid': 0.4, 'mouth': 'smile', 'brow': 0.2}, bend={'neck': SP(0.35), 'spine': SP(0.22)}, d=0.1, keep=True), TK(r(LAND7 + 0.32), face=OLD, bend={'neck': SP(0.15), 'spine': SP(0.22)}, d=0.12, keep=True)]),
+        side_walk('sold1', r(BX0 - L7 / 2 + 0.15), r(BX1 - L7 / 2 + 0.15), BZ7, 1), side_walk('sold2', r(BX0 + L7 / 2 - 0.15), r(BX1 + L7 / 2 - 0.15), BZ7, -1)],
         props=[P('place7', 'villageSquare', pos=[0, 0, -2.0], opts={'trees': [[-5.0, 1.0], [5.5, 1.5]]}),
-               P('barriere7', 'fieldBarrier', pos=[BX0, 0, BZ7], ry=90, opts={'len': L7, 'sway': 0.02}, keys=[k(0.0, to=[BX1, 0, BZ7], dur=D7, ease='linear')]),
+               P('barriere7', 'fieldBarrier', pos=[BX0, BY7, BZ7], opts={'len': L7, 'sway': 0.02}, keys=[k(0.0, to=[BX1, BY7, BZ7], dur=D7, ease='linear')]),
                HELMET('casque71', 'sold1'), HELMET('casque72', 'sold2'),
-               P('cochonnet7', 'boule', pos=JACK, opts={'r': 0.035, 'color': '#E8C040'}),
-               *[P(f'boule7{i}', 'boule', pos=q, opts={'r': 0.05}) for i, q in enumerate([[0.55, 0.06, 3.2], [-0.35, 0.06, 3.9], [0.85, 0.06, 4.1]])],
-               P('boule7', 'boule', pos=B0, opts={'r': 0.065}, keys=[k(TH7, path=[B0, [r((B0[0] + BTOP[0]) / 2), r(BTOP[1] - 0.25), r((B0[2] + BTOP[2]) / 2)], BTOP], dur=0.42, ease='out'), k(r(TH7 + 0.54), to=BLAND, dur=r(LAND7 - TH7 - 0.54), ease='in'), k(LAND7, squash=[1.3, 0.7, 1.3], dur=0.25)]),
-               P('poussiere7', 'softDust', pos=BLAND, opts={'at': LAND7, 'n': 10, 'size': 0.3, 'rise': 0.35, 'spread': 0.5, 'life': 0.6, 'color': '#E8DCC0', 'opacity': 0.8}),
+               P('cochonnet7', 'boule', pos=JACK, opts={'r': 0.04, 'color': '#E8C040'}),
+               *[P(f'boule7{i}', 'boule', pos=q, opts={'r': 0.06}) for i, q in enumerate([[0.85, 0.06, 0.8], [0.25, 0.06, 1.35], [1.05, 0.06, 1.3]])],
+               P('boule7', 'boule', pos=B0, opts={'r': 0.07}, keys=[k(TH7, path=[B0, [r((B0[0] + BTOP[0]) / 2), r(BTOP[1] - 0.3), r((B0[2] + BTOP[2]) / 2)], BTOP], dur=0.42, ease='out'), k(r(TH7 + 0.54), to=BLAND, dur=r(LAND7 - TH7 - 0.54), ease='in'), k(LAND7, squash=[1.35, 0.65, 1.35], dur=0.25)]),
+               P('poussiere7', 'softDust', pos=BLAND, opts={'at': LAND7, 'n': 12, 'size': 0.32, 'rise': 0.4, 'spread': 0.55, 'life': 0.6, 'color': '#E8DCC0', 'opacity': 0.85}),
                *[P(f'casquette7{j}', 'plainCap', on={'actor': f'pet{j}', 'joint': 'head', 'offset': [0.0, 0.47, 0.0]}, opts={'w': 0.23, 'd': 0.19, 'color': c, 'band': c}) for j, c in ((1, '#6A5E4E'), (3, '#4E5A66'))]],
         cams=[C7])
 st.cue('whoosh', 'S07', TH7, 0.15, 0.3, 500, 2500); st.cue('thud', 'S07', LAND7, 0.35); st.cue('clack', 'S07', r(LAND7 + 0.02), 0.2)
@@ -372,20 +374,23 @@ def tread(kk):   # the middle of tread kk (0 lowest .. 3 top): (radius, height)
     r0 = HR * (1 - kk / HN); r1 = HR * (1 - (kk + 1) / HN)
     return (r((r0 - (r0 - r1) * 0.12 + r1) / 2) if kk < HN - 1 else 0.0, r(HH * (kk + 1) / HN + 0.05))
 COWS = []
-for kk, az in zip(range(4), (-28, 24, -12, 0)):
-    rr, yy = tread(kk); COWS.append(([r(rr * math.sin(math.radians(az))), yy, r(rr * math.cos(math.radians(az)))], 90 + az if kk % 2 == 0 else -90 + az))
+for kk, az in zip(range(4), (-38, 34, -22, 0)):
+    rr, yy = tread(kk); COWS.append(([r(rr * math.sin(math.radians(az))), r(yy - (0.08 if kk == HN - 1 else 0.0)), r(rr * math.cos(math.radians(az)))], 90 + az if kk % 2 == 0 else -90 + az))
 C9 = cam(0.0, [0.0, 7.5, 31.5], [-0.8, 7.1, 29.6], [0.0, 1.9, 1.0], [-0.3, 1.8, 1.0], lens=40)
 chk('S09', C9, {**{f'cow{i}': add(p, [0, 0.8, 0]) for i, (p, _) in enumerate(COWS)}, 'hillL': [-HR, 0, 0], 'hillR': [HR, 0, 0], 'top': [0, HH, 0], 'excL': [-5.6, 2.5, 3.6], 'excR': [5.8, 2.5, 3.0]})
 EXL = [-4.4, 0.05, 7.4]; EXR = [4.4, 0.05, 7.6]
 BITE9, BITE9b = 0.78, 1.42           # the left bucket bites the last riser (anticipation 0.3-0.7), the right one sharpens it
 CUT9 = [[0.0, 0.0], [BITE9, 0.05], [r(BITE9 + 0.35), 0.7], [BITE9b, 0.75], [r(BITE9b + 0.3), 1.0]]
 COW0LOW = [COWS[0][0][0], r(COWS[0][0][1] - 0.5), COWS[0][0][2]]
-def cowkeys(i, p):
-    ks = [k(0.0, look=[0, 1.5, 30]), k(0.3 + 0.2 * i, look=[3 - 2 * i, 1.0, 20], lookDur=0.3), k(r(BITE9 + 0.05 + 0.05 * i), look=[-4.0, 0.5, 6.0], lookDur=0.12), k(r(1.6 + 0.12 * i), look='camera', lookDur=0.25), k(r(2.2 + 0.05 * i), look=[-3 + 2 * i, 0.5, 15], lookDur=0.3)]
-    if i == 0: ks += [k(r(BITE9b + 0.22), to=add(p, [0, 0.55, 0.05]), dur=0.14, ease='out', glide=True, face='keep'), k(r(BITE9b + 0.36), to=p, dur=0.12, ease='in', glide=True, face='keep')]
+def cowkeys(i, p):   # head turns only, side-on bodies (no look at the lens); the lowest cow hops onto its new step: squash, rise, hang, land, squash
+    ks = [k(0.0, look=[p[0] + 3 * (1 if i % 2 else -1), p[1] + 0.8, p[2] + 1.0]), k(r(BITE9 + 0.05 + 0.05 * i), look=[-4.0, 0.5, 6.0], lookDur=0.12), k(r(1.65 + 0.12 * i), look=[p[0] + 3 * (1 if i % 2 else -1), p[1] + 0.8, p[2] + 2.0], lookDur=0.25)]
+    if i == 0:
+        T = r(BITE9b + 0.18)
+        ks += [k(T, to=add(COW0LOW, [0, -0.06, 0]), dur=0.06, glide=True, face='keep'), k(r(T + 0.06), to=add(p, [0, 0.6, 0.05]), dur=0.12, ease='out', glide=True, face='keep'),
+               k(r(T + 0.18), to=add(p, [0, 0.64, 0.05]), dur=0.1, glide=True, face='keep'), k(r(T + 0.28), to=add(p, [0, -0.05, 0]), dur=0.1, ease='in', glide=True, face='keep'), k(r(T + 0.38), to=p, dur=0.08, glide=True, face='keep')]
     return ks
 st.shot('S09', 'grassland', setOpts={'clouds': 30}, look={'sunDir': [0.5, 0.8, 0.9]}, actors=[
-        *[act(f'vache{i + 1}', COW0LOW if i == 0 else p, ry, 'idle', None, keys=cowkeys(i, p) if i else [*cowkeys(0, p)[:5], k(r(BITE9b + 0.22), to=add(p, [0, 0.45, 0.05]), dur=0.16, ease='out', glide=True, face='keep'), k(r(BITE9b + 0.38), to=p, dur=0.12, ease='in', glide=True, face='keep')]) for i, (p, ry) in enumerate(COWS)]],
+        *[act(f'vache{i + 1}', COW0LOW if i == 0 else p, ry, 'idle', None, keys=cowkeys(i, p)) for i, (p, ry) in enumerate(COWS)]],
         props=[P('colline9', 'terraceHill', pos=[0, 0, 0], opts={'r': HR, 'h': HH, 'n': HN, 'cut': CUT9}),
                P('pelle9a', 'excavator', pos=EXL, ry=yaw(EXL, [-2.0, 0, 4.8]), scale=1.0, opts={'dig': [[0, 0.35], [0.3, 0.35], [0.7, 0.0], [BITE9, 1.0], [r(BITE9 + 0.4), 1.0], [r(BITE9 + 0.7), 0.3], [2.2, 0.2], [2.5, 0.6]], 'swing': [[0, 0.0], [r(BITE9 + 0.45), 0.0], [r(BITE9 + 0.8), 0.5], [2.4, 0.5]], 'shake': [[BITE9, r(BITE9 + 0.2)]]}),
                P('pelle9b', 'excavator', pos=EXR, ry=yaw(EXR, [2.0, 0, 4.8]), scale=1.0, opts={'dig': [[0, 0.5], [0.6, 0.6], [r(BITE9b - 0.4), 0.0], [BITE9b, 1.0], [r(BITE9b + 0.35), 0.9], [r(BITE9b + 0.7), 0.2]], 'shake': [[BITE9b, r(BITE9b + 0.2)]]}),
@@ -417,15 +422,15 @@ st.cue('sfx:scratch', 'S10', P10a, 0.3); st.cue('sfx:ding', 'S10', r(P10b + 0.05
 # 11: the country was cut in two; it still is. Almost straight down: a single line of four plain tanks drives nose to tail up the frame through a dark
 #     forest and fields; behind the lead tank a bright bare earth stripe grows from the coast at the bottom to the coast at the top; they leave the frame
 #     and the camera holds on the finished stripe, static
-D11 = st.dur('S11'); RUN11 = 1.85
+D11 = st.dur('S11'); RUN11 = 2.2
 DD = 40.0
 C11 = cam(0.0, [0.0, 62.0, 5.0], [0.0, 57.5, 4.6], [0.0, 0.0, 0.0], [0.0, 0.0, -0.4], lens=40)
 chk('S11', C11, {'coastTop': [0, 0, -DD / 2], 'coastBot': [0, 0, DD / 2], 'stripeL': [-1.6, 0, 0], 'stripeR': [1.6, 0, 0], 'edgeL': [-13, 0, 0], 'edgeR': [13, 0, 0]})
-Z0, Z1 = 24.0, -50.0
-TANKS = [(i, r(Z0 + 5.8 * i), r(Z1 + 5.8 * i)) for i in range(4)]
+Z0, Z1 = 26.0, -46.0
+TANKS = [(i, r(Z0 + 8.6 * i), r(Z1 + 8.6 * i)) for i in range(3)]
 st.shot('S11', 'spaceDark', setOpts={'stars': 10}, look={'sunDir': [0.5, 0.9, 0.3], 'exposure': 1.1}, actors=[],
-        props=[P('pays11', 'forestStripe', pos=[0, 0, 0], opts={'w': 40, 'd': DD, 'sw': 3.4, 'lead': [[0.0, Z0 - 2.6], [RUN11, Z1 - 2.6]], 'n': 1600}),
-               *[P(f'char11{i}', 'plainTank', pos=[0, 0.1, z0], ry=180, scale=0.95, opts={'rumble': [[0.0, D11, 0.02]]}, keys=[k(0.0, to=[0, 0.1, z1], dur=RUN11, ease='linear')]) for i, z0, z1 in TANKS]],
+        props=[P('pays11', 'forestStripe', pos=[0, 0, 0], opts={'w': 40, 'd': DD, 'sw': 5.0, 'lead': [[0.0, Z0 + 3.4], [RUN11, Z1 + 3.4]], 'n': 1600}),
+               *[P(f'char11{i}', 'plainTank', pos=[0, 0.1, z0], ry=180, scale=1.6, opts={'rumble': [[0.0, D11, 0.02]]}, keys=[k(0.0, to=[0, 0.1, z1], dur=RUN11, ease='linear')]) for i, z0, z1 in TANKS]],
         cams=[C11])
 st.cue('engine', 'S11', 0.0, 0.3, 1.9)
 
@@ -433,64 +438,73 @@ st.cue('engine', 'S11', 0.0, 0.3, 1.9)
 #     swells out onto the felt; it spreads and the whole head of hair goes glossy, a white shine streak; (b) the government froze the wages: a
 #     factory gate (USINE), a minister in a plain gold sash hands the first worker in the queue a big light-blue block of ice with a yellow pay
 #     envelope frozen inside: his knees buckle under it (squash, shiver, his breath steams); the others hold theirs flat toward us, deadpan
-D12 = st.dur('S12'); SQ12 = (0.15, 0.55); GEL12 = (0.55, 0.95)
-TUBE = bpt(-0.05, 0.38, 0.32)
-TUBEROT = [-0.75, 0, -0.75]
-C12 = cam(0.0, add(bpt(0.0, 0.18, 0), [0.15, 0.1, 2.15]), add(bpt(0.0, 0.18, 0), [0.12, 0.1, 2.0]), bpt(0.0, 0.18, 0), bpt(0.0, 0.18, 0), lens=42)
-chk('S12', C12, {'tube': TUBE, 'blob': bpt(-0.05, 0.3, 0), 'mapL': bpt(-0.9, 0.2), 'mapR': bpt(0.9, 0.2), 'top': bpt(0, 0.95), 'bot': bpt(0, -0.6)})
-TH = lambda s: add(TUBE, [s * 0.09, 0.0, 0.03])
+D12 = st.dur('S12'); SQ12 = (0.12, 0.5); GEL12 = (0.5, 1.0)
+BLOB = [-0.08, 0.15]
+TUBE = bpt(-0.4, 0.56, 0.3)
+_Y = unit3([bpt(*BLOB, 0.05)[i] - TUBE[i] for i in range(3)]); _N = [0.0, math.sin(BTL), math.cos(BTL)]
+_X = unit3(cross3(_Y, _N)); _Z = cross3(_X, _Y)
+TRX, TRY, TRZ = axes_euler(_X, _Y, _Z)
+C12 = cam(0.0, add(bpt(-0.1, 0.25, 0), [0.15, 0.1, 2.2]), add(bpt(-0.1, 0.25, 0), [0.12, 0.08, 2.0]), bpt(-0.1, 0.25, 0), bpt(-0.1, 0.25, 0), lens=42)
+chk('S12', C12, {'tube': TUBE, 'blob': bpt(*BLOB, 0), 'mapL': bpt(-0.9, 0.2), 'mapR': bpt(0.9, 0.2), 'top': bpt(0, 0.95), 'bot': bpt(0, -0.6)})
+TH = lambda s, q=0.0: [r(TUBE[i] + _X[i] * s * (0.085 - 0.035 * q)) for i in range(3)]
 st.shot('S12', 'office', setOpts=OFFICE, look=WARLOOK, actors=[
-        act('colL', [-0.85, 0, -0.35], 55, 'stand', 'determined', keys=[k(0.0, look=bpt(-0.05, 0.3)),
-            TK(0.0, {'R': R5(TH(1)), 'L': R5(TH(-1))}, {'R': 'grip', 'L': 'grip'}, {'lid': 0.3, 'mouth': 'line', 'brow': -0.5}, d=0.0),
-            TK(SQ12[1], {'R': R5(add(TH(1), [-0.04, 0, 0])), 'L': R5(add(TH(-1), [0.04, 0, 0]))}, {'R': 'fist', 'L': 'fist'}, {'lid': 0.1, 'mouth': 'clench', 'brow': -0.9, 'puff': 1}, (1.06, 0.94, 1.06), d=0.35, keep=True)])],
-        props=[BOARDP('S12', **DONE_PART, gel=[[GEL12[0], 0.0], [GEL12[1], 1.0]], blob=[[SQ12[0], 0.0], [SQ12[1], 1.0], [GEL12[1], 0.6]], blobAt=[-0.05, 0.3], blobR=0.1),
-               P('tube12', 'gelTube', pos=TUBE, rot=TUBEROT, opts={'squeeze': [[SQ12[0], 0.0], [SQ12[1], 1.0]], 'drop': 0.0}),
-               P('brille12', 'twinkle', pos=bpt(-0.25, 0.35, 0.1), opts={'at': 0.85, 's': 0.25, 'dur': 0.3})],
+        act('colL', [-1.3, 0, -0.45], 60, 'stand', 'determined', keys=[k(0.0, look=bpt(*BLOB)),
+            TK(0.0, {'R': R5(TH(1)), 'L': R5(TH(-1))}, {'R': 'open', 'L': 'open'}, {'lid': 0.3, 'mouth': 'line', 'brow': -0.5}, d=0.0),
+            TK(SQ12[0], {'R': R5(TH(1, 0.2)), 'L': R5(TH(-1, 0.2))}, {'R': 'fist', 'L': 'fist'}, {'lid': 0.25, 'mouth': 'clench', 'brow': -0.7}, (1.02, 0.98, 1.02), d=0.08, keep=True),
+            TK(SQ12[1], {'R': R5(TH(1, 1.0)), 'L': R5(TH(-1, 1.0))}, {'R': 'fist', 'L': 'fist'}, {'lid': 0.05, 'mouth': 'clench', 'brow': -0.9, 'puff': 1}, (1.1, 0.9, 1.1), d=0.3, e='in', keep=True),
+            TK(r(SQ12[1] + 0.25), {'R': R5(TH(1, 0.6)), 'L': R5(TH(-1, 0.6))}, {'R': 'grip', 'L': 'grip'}, {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}, (1, 1, 1), d=0.2, keep=True)])],
+        props=[BOARDP('S12', **DONE_PART, gel=[[GEL12[0], 0.0], [GEL12[1], 1.0]], blob=[[SQ12[0], 0.0], [SQ12[1], 1.0], [GEL12[1], 0.7]], blobAt=BLOB, blobR=0.11, sweep=True),
+               P('tube12', 'gelTube', pos=TUBE, ry=TRY, rot=[TRX, 0, TRZ], opts={'squeeze': [[SQ12[0], 0.0], [SQ12[1], 1.0], [r(SQ12[1] + 0.25), 0.6]], 'drop': 0.04}),
+               P('brille12', 'twinkle', pos=bpt(0.25, 0.3, 0.1), opts={'at': 0.92, 's': 0.25, 'dur': 0.3})],
         cams=[C12])
-st.cue('sfx:splat', 'S12', SQ12[0], 0.3); st.cue('sfx:ding', 'S12', 0.85, 0.2)
+st.cue('sfx:splat', 'S12', SQ12[1], 0.3); st.cue('sfx:ding', 'S12', 0.92, 0.2)
 
-D12b = st.dur('S12b'); GIVE = 0.55
+D12b = st.dur('S12b'); PUSH, GIVE, UP12 = 0.4, 0.62, 1.32
 GATE = [0.0, 0, -4.2]
-MIN = [-0.95, 0, -0.75]; RYM = 65
-OUV = [[0.05, 0, -1.0], [0.6, 0, -2.2], [1.15, 0, -3.4]]
-C12b = cam(0.0, [0.75, 1.75, 5.3], [0.7, 1.73, 5.0], [0.1, 1.55, -1.5], [0.1, 1.55, -1.5], lens=42)
-ICEY = 1.38
-def ICE(p, ry=0): return off(p, ry, 0.33, 0.0, ICEY)
-ICE0 = off(MIN, RYM, 0.42, 0.0, 1.3)
-chk('S12b', C12b, {'minFace': add(MIN, [0, 2.05, 0]), **{f'ouv{i}face': add(p, [0, 2.05, 0]) for i, p in enumerate(OUV)}, **{f'ice{i}': ICE(p) for i, p in enumerate(OUV)}, 'sign': [0, 4.0, -3.8], 'ice0': ICE0})
+MIN = [-0.6, 0, -0.75]; RYM = 55
+OUV = [[0.45, 0, -0.95], [1.1, 0, -2.3], [1.75, 0, -3.5]]; RYO = [-40, -12, -8]
+C12b = cam(0.0, [0.3, 1.7, 5.0], [0.28, 1.68, 4.75], [0.3, 1.45, -1.3], [0.3, 1.45, -1.3], lens=42)
+def ICE(p, ry=0, y=1.32): return off(p, ry, 0.36, 0.0, y)
+ICE0 = off(MIN, RYM, 0.45, 0.0, 1.28)
+ICE1 = ICE(OUV[0], RYO[0])
+chk('S12b', C12b, {'minFace': add(MIN, [0, 2.05, 0]), **{f'ouv{i}face': add(p, [0, 2.05, 0]) for i, p in enumerate(OUV)}, 'ice0': ICE0, 'ice1': ICE1, 'iceLow': add(ICE1, [0, -0.45, 0]), 'ice2': ICE(OUV[1], RYO[1]), 'sign': [0, 4.0, -3.8]})
 DUL = {'lid': 0.45, 'mouth': 'line', 'brow': -0.1}
-def holder(who, p, extra=(), first=False):
-    a = ICE(p) if not first else ICE0
-    ks = [k(0.0, look='camera'), TK(0.0, {'R': R5(add(ICE(p), [-0.29, 0, 0])), 'L': R5(add(ICE(p), [0.29, 0, 0]))} if not first else {'R': R5(off(p, 0, 0.1, 0.3, 1.0)), 'L': R5(off(p, 0, 0.1, -0.3, 1.0))}, {'R': 'open', 'L': 'open'}, DUL, d=0.0)]
-    return act(who, p, 0, 'stand', 'neutral', keys=[*ks, *extra])
-o1 = [TK(r(GIVE - 0.1), {'R': R5(add(ICE0, [-0.29, 0, 0.05])), 'L': R5(add(ICE0, [0.29, 0, 0.05]))}, {'R': 'open', 'L': 'open'}, {'lid': 0.3, 'mouth': 'line', 'brow': 0.1}, d=0.2, keep=True),
-      TK(GIVE, {'R': R5(add(ICE(OUV[0]), [-0.29, -0.3, 0])), 'L': R5(add(ICE(OUV[0]), [0.29, -0.3, 0]))}, {'R': 'open', 'L': 'open'}, {'lid': 0.0, 'pop': 0.3, 'mouth': 'O', 'brow': 0.6}, (1.18, 0.78, 1.18), {'spine': SP(0.25)}, d=0.08, e='out', keep=True),
-      TK(r(GIVE + 0.35), {'R': R5(add(ICE(OUV[0]), [-0.29, -0.05, 0])), 'L': R5(add(ICE(OUV[0]), [0.29, -0.05, 0]))}, {'R': 'open', 'L': 'open'}, {'lid': 0.4, 'mouth': 'wavy', 'brow': -0.2}, (1.03, 0.97, 1.03), {'spine': SP(0.05)}, d=0.25, keep=True),
-      k(GIVE, fx={'shiver': True}), k(r(GIVE - 0.2), look=ICE0, lookDur=0.15), k(r(GIVE + 0.4), look='camera', lookDur=0.15), *blink(1.6, {'lid': 0.4, 'mouth': 'wavy', 'brow': -0.2})]
+HB = lambda c, dy=0.0: {'R': R5(add(c, [-0.3, dy, 0.02])), 'L': R5(add(c, [0.3, dy, 0.02]))}
+def holder(who, p, ry, extra=()):
+    return act(who, p, ry, 'stand', 'neutral', keys=[k(0.0, look='camera'), TK(0.0, HB(ICE(p, ry)), {'R': 'open', 'L': 'open'}, DUL, d=0.0), *extra])
+o1 = [k(0.0, look=ICE0), TK(0.0, {'R': R5(off(OUV[0], RYO[0], 0.15, 0.3, 1.0)), 'L': R5(off(OUV[0], RYO[0], 0.15, -0.3, 1.0))}, {'R': 'open', 'L': 'open'}, {'lid': 0.3, 'mouth': 'line', 'brow': 0.1}, d=0.0),
+      TK(PUSH, HB(ICE1, 0.05), {'R': 'open', 'L': 'open'}, {'lid': 0.2, 'mouth': 'line', 'brow': 0.3}, d=0.2, keep=True),
+      TK(GIVE, HB(add(ICE1, [0, -0.45, 0])), {'R': 'open', 'L': 'open'}, {'lid': 0.0, 'pop': 0.35, 'mouth': 'O', 'brow': 0.7}, (1.32, 0.58, 1.32), d=0.07, e='out', keep=True),
+      TK(r(GIVE + 0.45), HB(add(ICE1, [0, -0.42, 0])), {'R': 'open', 'L': 'open'}, {'lid': 0.1, 'pop': 0.2, 'mouth': 'wavy', 'brow': 0.5}, (1.3, 0.6, 1.3), d=0.4, e='linear', keep=True),
+      TK(UP12, HB(add(ICE1, [0, 0.08, 0])), {'R': 'open', 'L': 'open'}, {'lid': 0.3, 'mouth': 'wavy', 'brow': -0.1}, (0.9, 1.12, 0.9), d=0.1, e='out', keep=True),
+      TK(r(UP12 + 0.18), HB(ICE1), {'R': 'open', 'L': 'open'}, {'lid': 0.45, 'mouth': 'line', 'brow': -0.1}, (1, 1, 1), d=0.14, keep=True),
+      k(GIVE, fx={'shiver': True}), k(r(UP12 + 0.1), fx={'shiver': False}), k(r(GIVE + 0.1), look='camera', lookDur=0.1), *blink(1.75, DUL)]
 st.shot('S12b', 'grassland', setOpts={'clouds': 20, 'grass': '#9DB87A'}, look={'sunDir': [0.4, 0.8, 0.9]}, actors=[
-        act('ministre', MIN, RYM, 'stand', 'neutral', keys=[k(0.0, look=ICE(OUV[0])),
-            TK(0.0, {'R': R5(add(ICE0, [-0.29, 0, 0])), 'L': R5(add(ICE0, [0.29, 0, 0]))}, {'R': 'open', 'L': 'open'}, {'lid': 0.35, 'mouth': 'smile', 'brow': 0.1}, d=0.0),
-            TK(r(GIVE - 0.05), {'R': R5(add(ICE(OUV[0]), [-0.3, 0.02, 0])), 'L': R5(add(ICE(OUV[0]), [0.3, 0.02, 0]))}, {'R': 'open', 'L': 'open'}, {'lid': 0.3, 'mouth': 'smile', 'brow': 0.2}, d=0.35, keep=True),
-            TK(r(GIVE + 0.3), {'R': R5(off(MIN, RYM, 0.1, 0.3, 1.0)), 'L': R5(off(MIN, RYM, 0.1, -0.3, 1.0))}, {'R': 'rest', 'L': 'rest'}, {'lid': 0.3, 'mouth': 'smile', 'brow': 0.2}, d=0.3, keep=True),
-            k(r(GIVE + 0.35), look='camera', lookDur=0.15), *blink(1.4, {'lid': 0.3, 'mouth': 'smile', 'brow': 0.2})]),
-        holder('ouv1', OUV[0], o1, first=True), holder('ouv2', OUV[1], [*blink(0.9, DUL), *BREATHE(0.0, D12b, 0.6)]), holder('ouv3', OUV[2], [*blink(1.3, DUL), *BREATHE(0.2, D12b, 0.6)])],
+        act('ministre', MIN, RYM, 'stand', 'neutral', keys=[k(0.0, look=ICE1),
+            TK(0.0, HB(ICE0), {'R': 'open', 'L': 'open'}, {'lid': 0.35, 'mouth': 'smile', 'brow': 0.1}, d=0.0),
+            TK(PUSH, HB(add(ICE1, [0, 0.05, 0])), {'R': 'open', 'L': 'open'}, {'lid': 0.3, 'mouth': 'smile', 'brow': 0.2}, (1.0, 1.0, 1.0), {'spine': SP(0.2)}, d=0.22, keep=True),
+            TK(r(GIVE + 0.25), {'R': R5(off(MIN, RYM, 0.1, 0.3, 1.0)), 'L': R5(off(MIN, RYM, 0.1, -0.3, 1.0))}, {'R': 'rest', 'L': 'rest'}, {'lid': 0.3, 'mouth': 'smile', 'brow': 0.2}, (1, 1, 1), {'spine': SP(0.0)}, d=0.3, keep=True),
+            k(PUSH, to=off(MIN, RYM, 0.25), dur=0.22, face='keep'), k(r(GIVE + 0.3), to=MIN, dur=0.35, face='keep'),
+            k(r(GIVE + 0.35), look='camera', lookDur=0.15), *blink(1.5, {'lid': 0.3, 'mouth': 'smile', 'brow': 0.2})]),
+        act('ouv1', OUV[0], RYO[0], 'stand', 'neutral', keys=o1),
+        holder('ouv2', OUV[1], RYO[1], [*blink(0.9, DUL), *BREATHE(0.0, D12b, 0.6)]), holder('ouv3', OUV[2], RYO[2], [*blink(1.3, DUL), *BREATHE(0.2, D12b, 0.6)])],
         props=[P('usine12', 'factoryGate', pos=GATE, opts={'w': 14}),
-               P('glace12a', 'iceBlock', pos=ICE0, opts={'seed': 1}, keys=[k(r(GIVE - 0.1), to=add(ICE(OUV[0]), [0, 0.0, 0]), dur=0.2), k(GIVE, to=add(ICE(OUV[0]), [0, -0.3, 0]), dur=0.08, ease='out'), k(r(GIVE + 0.35), to=add(ICE(OUV[0]), [0, -0.05, 0]), dur=0.25)]),
-               P('glace12b', 'iceBlock', pos=ICE(OUV[1]), opts={'seed': 2}), P('glace12c', 'iceBlock', pos=ICE(OUV[2]), opts={'seed': 3}),
-               P('souffle12', 'breathPuffs', on={'actor': 'ouv1', 'joint': 'head', 'offset': [0.06, 0.1, 0.19]}, opts={'times': [0.9, 1.5], 'dir': [0.25, -0.1, 0.15], 's': 0.06, 'life': 0.8})],
+               P('glace12a', 'iceBlock', pos=ICE0, ry=r(RYM - 40), opts={'seed': 1}, keys=[k(PUSH, to=ICE1, dur=0.22), k(PUSH, rotTo=[0, math.radians(RYO[0]), 0], dur=0.22), k(GIVE, to=add(ICE1, [0, -0.45, 0]), dur=0.07, ease='out'), k(r(GIVE + 0.45), to=add(ICE1, [0, -0.42, 0]), dur=0.4), k(UP12, to=add(ICE1, [0, 0.08, 0]), dur=0.1, ease='out'), k(r(UP12 + 0.18), to=ICE1, dur=0.14)]),
+               P('glace12b', 'iceBlock', pos=ICE(OUV[1], RYO[1]), ry=RYO[1], opts={'seed': 2}), P('glace12c', 'iceBlock', pos=ICE(OUV[2], RYO[2]), ry=RYO[2], opts={'seed': 3}),
+               P('souffle12', 'breathPuffs', on={'actor': 'ouv1', 'joint': 'head', 'offset': [0.06, 0.1, 0.19]}, opts={'times': [r(GIVE + 0.3), r(UP12 + 0.35)], 'dir': [0.2, -0.05, 0.2], 's': 0.08, 'life': 0.8})],
         cams=[C12b])
-st.cue('thud', 'S12b', GIVE, 0.4); st.cue('sfx:glass', 'S12b', r(GIVE + 0.02), 0.2)
+st.cue('thud', 'S12b', GIVE, 0.4); st.cue('sfx:glass', 'S12b', r(GIVE + 0.02), 0.2); st.cue('sfx:boing', 'S12b', UP12, 0.2)
 
 # ================================================================= space (S13, S14): the country lies flat, its back (the ridges) toward +Z
 # 13: seen from space, the country has a perfect haircut. From high above: the made-up country shaped like the top of a hairdo in the same green felt:
 #     sandy shaved sides, four stepped ridges at the back (nearest), a dark parting line up the middle, a white gel shine streak; the ocean curves
 #     away to the horizon, black space above; held, a glint runs along the gel streak, then COIFFÉ stamps over the black sky
 D13 = st.dur('S13'); HS = 10.0; PR = 90
-C13 = cam(0.0, [0.0, 30.0, 42.0], [3.2, 29.4, 40.6], [0.0, 0.0, 0.0], [0.3, 0.0, 0.0], lens=40, ease='inOut')
+C13 = cam(0.0, [-1.2, 30.2, 42.4], [3.4, 29.3, 40.4], [0.0, 0.0, 0.0], [0.35, 0.0, 0.0], lens=40)
 chk('S13', C13, {'horizon': [0, -9.3, -40.9], 'back': [0, 0, HS * 0.95 * 0.94], 'front': [0, 0, -HS * 0.95 * 0.94], 'sideL': [-HS * 0.8 * 0.9, 0, 0], 'sideR': [HS * 0.8 * 0.9, 0, 0], 'horizon': [0, -40, -250]})
 SPACE = {'stars': 900}
 st.shot('S13', 'spaceDark', setOpts=SPACE, look={'sunDir': [0.4, 0.9, 0.5], 'exposure': 1.1}, actors=[],
-        props=[P('pays13', 'hairCountry', pos=[0, 0, 0], opts={'s': HS, 'planetR': PR, 'clouds': 16}),
+        props=[P('pays13', 'hairCountry', pos=[0, 0, 0], opts={'s': HS, 'planetR': PR, 'clouds': 16, 'sand': '#A8945A', 'ridgeDark': '#163A16', 'ridgeLight': '#9AE07A', 'ridgeH': True}),
                P('brille13', 'twinkle', pos=[-2.2, 1.8, -1.5], opts={'at': 0.6, 's': 3.0, 'dur': 0.4}), P('brille13b', 'twinkle', pos=[-0.8, 1.8, 2.0], opts={'at': 1.35, 's': 3.0, 'dur': 0.35}), P('brille13c', 'twinkle', pos=[-1.5, 1.8, 0.3], opts={'at': 2.3, 's': 2.5, 'dur': 0.35})],
         cams=[C13])
 st.card('S13', 'COIFFÉ', at=1.95)
@@ -504,7 +518,7 @@ MIR = [0.0, 14.5, -34.0]
 C14 = cam(0.0, [0.0, 26.0, 46.0], [0.6, 24.6, 42.5], [0.0, 7.0, -22.0], [0.1, 7.3, -22.0], lens=40)
 chk('S14', C14, {'mirTop': add(MIR, [0, 7.0, 0]), 'mirBot': add(MIR, [0, -7.0, 0]), 'handle': add(MIR, [0, -12.0, 0]), 'jetL': add(MIR, [-9.6, 0, -1]), 'jetR': add(MIR, [9.6, 0, -1]), 'wingL': add(MIR, [-12.5, 0, -1]), 'jetNose': add(MIR, [-9.6, 8.5, -1]), 'countryNear': [0, 0, 12.0], 'countryFar': [0, 0, -12.0]})
 st.shot('S14', 'spaceDark', setOpts=SPACE, look={'sunDir': [0.4, 0.9, 0.6], 'exposure': 1.1}, actors=[],
-        props=[P('pays14', 'hairCountry', pos=[0, 0, 0], opts={'s': HS, 'planetR': PR, 'clouds': 16}),
+        props=[P('pays14', 'hairCountry', pos=[0, 0, 0], opts={'s': HS, 'planetR': PR, 'clouds': 16, 'sand': '#A8945A', 'ridgeDark': '#163A16', 'ridgeLight': '#9AE07A', 'ridgeH': True}),
                P('miroir14', 'mirrorJets', pos=add(MIR, [0, -6.0, 0]), opts={'mw': 9, 'mh': 12, 'js': 0.5, 'tilt': 0.25, 'burner': 0.8},
                  keys=[k(0.0, to=MIR, dur=0.6, ease='out'), k(0.62, rotTo=[0.0, 0.0, 0.24], dur=0.2, ease='out'), k(1.1, rotTo=[0.0, 0.0, -0.22], dur=0.22, ease='out'), k(1.6, rotTo=[0.0, 0.0, 0.03], dur=0.25), k(1.85, rotTo=[0.0, 0.0, 0.0], dur=0.2)])],
         cams=[C14])
@@ -530,32 +544,43 @@ st.cue('clack', 'S15', HANG15, 0.3)
 
 # 16: the same day the general called the front. Wrong number. War room, the framing of 2: the general dials the big red phone with a long finger
 #     (the dial spins back), a colonel holding the clippers stands at attention beside him; he snaps the handset to his ear on « Faux numéro »
-D16 = st.dur('S16'); DIALS = [0.45, 0.9, 1.35]; UP16 = 2.05
-C16 = cam(0.0, [-0.2, 1.75, 7.3], [-0.35, 1.7, 6.3], [-0.2, 1.42, -0.5], [-0.4, 1.4, -0.5], lens=40)
+D16 = st.dur('S16'); DIALW = [(0.3, 1.05), (1.12, 1.78)]; UP16 = 2.05; PS16 = 1.35
+C16 = cam(0.0, [-0.2, 1.75, 7.3], [-0.5, 1.8, 4.9], [-0.2, 1.42, -0.5], [-0.65, 1.45, 0.4], lens=40, ease='out')
 COL16 = [-0.15, 0, -0.1]
-DIALP = add(PH2, [0.0, 0.13, 0.07])
-k16 = [k(0.0, look=PH2), TK(0.0, {'R': R5(off(GEN2, RYG2, 0.1, 0.32, 1.0)), 'L': R5(add(HS_CRADLE, [0, 0.03, 0]))}, {'R': 'rest', 'L': 'grip'}, {'lid': 0.35, 'mouth': 'line', 'brow': -0.6}, d=0.0)]
-for i, td in enumerate(DIALS):
-    k16 += [TK(td, {'R': R5(add(DIALP, [0.04, 0.03, 0.02]), 1, 0.02)}, {'R': 'point'}, {'lid': 0.3, 'mouth': 'line', 'brow': -0.7}, (1, 1, 1), {'spine': SP(0.25)}, d=0.12, keep=True),
-            TK(r(td + 0.25), {'R': R5(add(DIALP, [-0.05, -0.02, 0.03]), 1, 0.02)}, {'R': 'point'}, {'lid': 0.3, 'mouth': 'line', 'brow': -0.7}, d=0.18, keep=True)]
-k16 += [TK(1.75, {'R': R5(off(GEN2, RYG2, 0.1, 0.32, 1.0))}, {'R': 'rest'}, ATT, (1, 1, 1), {'spine': SP(0.0)}, d=0.2, keep=True),
-        TK(r(UP16 - 0.16), {'L': R5(add(HS_CRADLE, [0.0, -0.02, -0.06]))}, {'L': 'grip'}, {'lid': 0.3, 'mouth': 'clench', 'brow': -0.8}, (1.1, 0.88, 1.1), {'spine': SP(0.2)}, d=0.12, keep=True),
-        TK(UP16, {'L': R5(off(GEN2, RYG2, 0.1, -0.25, 1.88))}, {'L': 'grip'}, {'lid': 0.1, 'mouth': 'O', 'brow': -0.5}, (0.95, 1.05, 0.95), d=0.08, e='out', keep=True),
+_ry = math.radians(25)
+def _rot(v): return [v[0] * math.cos(_ry) + v[2] * math.sin(_ry), v[1], -v[0] * math.sin(_ry) + v[2] * math.cos(_ry)]
+DC = add(PH2, _rot([0.0, 0.108 * PS16, 0.06 * PS16]))                 # the dial's centre and its plane (the phone turned 25 degrees)
+DX, DY, DN = _rot([1, 0, 0]), _rot([0, 0.454, -0.891]), _rot([0, 0.891, 0.454])
+def hole(a, n=0.0, rr=0.052): return [r(DC[i] + PS16 * rr * (math.cos(a) * DX[i] + math.sin(a) * DY[i]) + n * DN[i]) for i in range(3)]
+HS16 = add(PH2, _rot([0.0, 0.17 * PS16, -0.03 * PS16]))
+k16 = [k(0.0, look=DC), TK(0.0, {'R': R5(off(GEN2, RYG2, 0.1, 0.32, 1.0)), 'L': R5(add(HS16, [0, 0.03, 0]))}, {'R': 'rest', 'L': 'grip'}, {'lid': 0.35, 'mouth': 'line', 'brow': -0.6}, (1, 1, 1), {'spine': SP(0.2)}, d=0.0)]
+for (a, b) in DIALW:
+    m = r(a + (b - a) * 0.62); A0 = 0.9
+    k16 += [TK(r(a - 0.15), {'R': R5(hole(A0, 0.06), 1, 0.02)}, {'R': 'point'}, {'lid': 0.25, 'mouth': 'line', 'brow': -0.7}, (1, 1, 1), {'spine': SP(0.3)}, d=0.13, keep=True),
+            TK(a, {'R': R5(hole(A0, -0.005), 1, 0.02)}, {'R': 'point'}, {'lid': 0.2, 'mouth': 'clench', 'brow': -0.8}, (1.03, 0.97, 1.03), {'spine': SP(0.34)}, d=0.06, e='in', keep=True)]
+    for j in range(1, 5):
+        k16.append(TK(r(a + (m - a) * j / 4), {'R': R5(hole(A0 - 2.4 * j / 4, -0.005), 1, 0.02)}, {'R': 'point'}, {'lid': 0.2, 'mouth': 'clench', 'brow': -0.8, 'gx': 0.2 * (j % 2)}, (1.03, 0.97, 1.03), {'spine': SP(0.34)}, d=r((m - a) / 4), e='linear', keep=True))
+    k16.append(TK(r(m + 0.08), {'R': R5(hole(A0 - 2.4, 0.09), 1, 0.02)}, {'R': 'point'}, {'lid': 0.3, 'mouth': 'line', 'brow': -0.6}, (1, 1, 1), {'spine': SP(0.28)}, d=0.08, keep=True))
+k16 += [TK(1.86, {'R': R5(off(GEN2, RYG2, 0.1, 0.32, 1.0))}, {'R': 'rest'}, {'lid': 0.2, 'mouth': 'line', 'brow': -0.8, 'gx': -0.8}, (1, 1, 1), {'spine': SP(0.15)}, d=0.1, keep=True),
+        TK(1.92, face={'lid': 0.2, 'mouth': 'line', 'brow': -0.8, 'gx': 0.8}, d=0.04, keep=True),
+        TK(r(UP16 - 0.1), {'L': R5(add(HS16, [0.0, -0.02, -0.06]))}, {'L': 'grip'}, {'lid': 0.3, 'mouth': 'clench', 'brow': -0.8}, (1.14, 0.84, 1.14), {'spine': SP(0.25)}, d=0.08, keep=True),
+        TK(UP16, {'L': R5(off(GEN2, RYG2, 0.1, -0.25, 1.88))}, {'L': 'grip'}, {'lid': 0.1, 'mouth': 'O', 'brow': -0.5}, (0.9, 1.12, 0.9), {'spine': SP(0.0)}, d=0.07, e='out', keep=True),
         TK(r(UP16 + 0.12), face={'lid': 0.15, 'mouth': 'scream', 'brow': -0.8, 'jaw': 0.5}, sq=(1.06, 0.95, 1.06), d=0.06, keep=True), TK(r(UP16 + 0.4), face=ATT, sq=(1, 1, 1), d=0.15, keep=True),
         k(r(UP16 + 0.05), look='camera', lookDur=0.1), *blink(2.75, ATT)]
+DIALS = [a for a, b in DIALW]
 st.shot('S16', 'office', setOpts=OFFICE, look=WARLOOK, actors=[
         act('general', GEN2, RYG2, 'stand', 'determined', keys=k16),
         act('colB', COL16, -15, 'stand', 'neutral', keys=[k(0.0, look='camera'), TK(0.0, {'R': R5(off(COL16, -15, 0.32, 0.12, 1.38)), 'L': R5(off(COL16, -15, 0.04, -0.3, 0.98))}, {'R': 'grip', 'L': 'open'}, ATT, d=0.0),
-            *blink(1.1, ATT), k(UP16, look=add(GEN2, [0, 2.0, 0]), lookDur=0.12), k(r(UP16 + 0.4), look='camera', lookDur=0.15)]),
-        act('colA', COLA2, 20, 'stand', 'neutral', keys=[k(0.0, look='camera'), TK(0.0, ATTEN(COLA2, 20), {'R': 'open', 'L': 'open'}, ATT, d=0.0), *blink(0.9, ATT), *blink(1.9, ATT), k(UP16, look=add(GEN2, [0, 2.0, 0]), lookDur=0.12)])],
+            *blink(0.7, ATT), *blink(1.55, ATT), k(1.0, look=DC, lookDur=0.15), k(1.4, look='camera', lookDur=0.15), *BREATHE(0.0, D16, 0.5, 0.015), k(UP16, look=add(GEN2, [0, 2.0, 0]), lookDur=0.12), k(r(UP16 + 0.4), look='camera', lookDur=0.15)]),
+        act('colA', COLA2, 20, 'stand', 'neutral', keys=[k(0.0, look='camera'), TK(0.0, ATTEN(COLA2, 20), {'R': 'open', 'L': 'open'}, ATT, d=0.0), *blink(0.5, ATT), *blink(1.3, ATT), *blink(2.3, ATT), *BREATHE(0.1, D16, 0.5, 0.015), k(0.8, look=DC, lookDur=0.15), k(1.2, look='camera', lookDur=0.15), k(UP16, look=add(GEN2, [0, 2.0, 0]), lookDur=0.12)])],
         props=[BOARDP('S16', **DONE_ALL), P('table16', 'table', pos=TAB2, opts={'w': 0.55, 'd': 0.5, 'h': 0.85, 'color': '#3A3530'}),
-               P('rouge16', 'redDeskPhone', pos=PH2, ry=25, opts={'dial': [[r(t + 0.1), r(t + 0.42)] for t in DIALS]}),
-               P('combine16a', 'handset', pos=HS_CRADLE, rot=[0, r(math.radians(25)), r(PI / 2)], opts={'len': 0.32, 'color': '#D8262C'}, keys=[k(r(UP16 - 0.06), visible=False)]),
-               EAR('combine16b', 'general', side=-1, color='#D8262C', keys=[k(0.0, visible=False), k(r(UP16 - 0.06), visible=True)]),
+               P('rouge16', 'redDeskPhone', pos=PH2, ry=25, opts={'s': PS16, 'dial': [list(w) for w in DIALW]}),
+               P('combine16a', 'handset', pos=HS16, rot=[0, r(math.radians(25)), r(PI / 2)], opts={'len': 0.36, 'color': '#D8262C'}, keys=[k(r(UP16 - 0.04), visible=False)]),
+               EAR('combine16b', 'general', side=-1, color='#D8262C', keys=[k(0.0, visible=False), k(r(UP16 - 0.04), visible=True)]),
                P('tond16', 'barberClippers', on={'actor': 'colB', 'hand': 'R', 'offset': [0.0, 0.0, 0.03], 'rot': CLHAND}, opts={'s': 1.7}),
                CAP('cap16', 'general', 1.05), EPA('epa16', 'general'), CAP('capA16', 'colA'), EPA('epaA16', 'colA'), CAP('capB16', 'colB'), EPA('epaB16', 'colB')],
         cams=[C16])
-for td in DIALS: st.cue('sfx:tick', 'S16', r(td + 0.1), 0.2)
+for a_, b_ in DIALW: st.cue('sfx:tick', 'S16', a_, 0.2); st.cue('sfx:rattleShort', 'S16', r(a_ + (b_ - a_) * 0.62), 0.2)
 st.cue('clack', 'S16', UP16, 0.3)
 
 # ================================================================= the barber shop (S17, S18): back wall at z -2.2, the wall phone on the left wall
@@ -590,6 +615,7 @@ st.shot('S17', 'whiteVoid', setOpts=SHOP, lighting='interior', look={'sunDir': [
         act('barbier', BARB17, RYB17, 'stand', 'happy', keys=kb),
         act('mec', HERO_SIT, 0, 'sit', 'happy', keys=[k(0.0, look='camera'), TK(0.0, {'R': R5(add(HERO_SIT, [-0.3, 0.68, 0.25])), 'L': R5(add(HERO_SIT, [0.3, 0.68, 0.25]))}, {'R': 'rest', 'L': 'rest'}, CALM, d=0.0), *blink(1.0, CALM), *blink(2.0, CALM)])],
         props=[P('salon17', 'barberShop', pos=[0, 0, 0], opts={'w': 4.8}), P('fauteuil17', 'barberChair', pos=CHAIR),
+               *[P(f'smear17{j}', 'smearArc', pos=[0, 0, 0], opts={'pts': [off(BARB17, RYB17, 0.12, sx, 1.1), off(BARB17, RYB17, 0.12, sx, 2.45)], 'win': [r(SNAP17 - 0.04), r(SNAP17 + 0.05)], 'color': '#BFDDEA', 'r': 0.07, 'opacity': 0.55}) for j, sx in enumerate((-0.22, 0.22))],
                P('cape17', 'barberCape', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.42, 0.04]}, opts=CAPE), TUFT('meche17', 'mec'),
                P('mural17', 'wallPhone', pos=WPH), P('combine17a', 'handset', pos=WHS, rot=[0, 0, 0], opts={'len': 0.28, 'color': '#EDE6D2'}, keys=[k(r(PICK17 + 0.05), visible=False)]),
                EAR('combine17b', 'barbier', color='#EDE6D2', keys=[k(0.0, visible=False), k(r(PICK17 + 0.05), visible=True)]),
@@ -608,13 +634,13 @@ chk('S18', C18, {'heroFace': add(HERO_SIT, [0, 1.6, 0]), 'heroTop': add(HERO_SIT
 FLAT18 = {'lid': 0.45, 'mouth': 'line', 'brow': -0.1}
 st.shot('S18', 'whiteVoid', setOpts=SHOP, lighting='interior', look={'sunDir': [0.3, 0.9, 0.8]}, actors=[
         act('mecChauve', HERO_SIT, 0, 'sit', 'neutral', keys=[k(0.0, look='camera'), TK(0.0, {'R': R5(add(HERO_SIT, [-0.3, 0.68, 0.25])), 'L': R5(add(HERO_SIT, [0.3, 0.68, 0.25]))}, {'R': 'rest', 'L': 'rest'}, FLAT18, d=0.0),
-            TK(0.9, face={**FLAT18, 'gy': -1.0}, d=0.12, keep=True), TK(1.08, bend={'neck': SP(-0.15)}, d=0.2, keep=True), TK(1.5, face={**FLAT18, 'gy': 0.9, 'gx': 0.45}, bend={'neck': SP(-0.15)}, d=0.12, keep=True), TK(1.68, bend={'neck': SP(0.3), 'spine': SP(0.06)}, d=0.22, keep=True),
+            TK(0.9, face={**FLAT18, 'lid': 0.15, 'gy': -1.3, 'brow': 0.4}, d=0.1, keep=True), TK(1.05, bend={'neck': SP(-0.32)}, d=0.24, keep=True), TK(1.5, face={**FLAT18, 'lid': 0.3, 'gy': 1.2, 'gx': 0.7}, bend={'neck': SP(-0.32)}, d=0.1, keep=True), TK(1.65, bend={'neck': SP(0.42), 'spine': SP(0.08)}, d=0.25, keep=True),
             TK(2.25, face={**FLAT18, 'lid': 0.5}, d=0.12, keep=True), TK(2.4, bend={'neck': SP(0.0), 'spine': SP(0.0)}, d=0.2, keep=True), *blink(2.9, {**FLAT18, 'lid': 0.5}), *BREATHE(0.0, D18, 0.7, 0.01)]),
         act('barbier', BARB18, -10, 'stand', 'neutral', keys=[k(0.0, look='camera'), TK(0.0, {'L': R5(off(BARB18, -10, 0.34, -0.1, 1.4)), 'R': R5(off(BARB18, -10, 0.04, 0.3, 0.98))}, {'L': 'grip', 'R': 'open'}, ATT, (1, 1.02, 1), d=0.0),
             *blink(1.2, ATT), *blink(2.2, ATT), *blink(3.1, ATT), *BREATHE(0.0, D18, 0.7, 0.012)])],
         props=[P('salon18', 'barberShop', pos=[0, 0, 0], opts={'w': 4.8}), P('fauteuil18', 'barberChair', pos=CHAIR),
                P('cape18', 'barberCape', on={'actor': 'mecChauve', 'joint': 'torso', 'offset': [0.0, 0.42, 0.04]}, opts=CAPE),
-               P('crane18', 'baldCap', on={'actor': 'mecChauve', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={'w': 0.24, 'h': 0.5, 'd': 0.17, 'skin': '#E2B48E'}),
+               P('crane18', 'baldCap', on={'actor': 'mecChauve', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={'w': 0.24, 'h': 0.5, 'd': 0.17, 'skin': '#E8A262', 'top': '#C98A52', 'shineA': 0.3}),
                P('brille18', 'chvShine', on={'actor': 'mecChauve', 'joint': 'head', 'offset': [0.0, 0.51, 0.03]}, opts={'s': 1.3, 'twinkle': [0.55, 2.35, 3.45], 'tw0': 0.0, 'flare': [[0.55, 1.8]]}),
                P('meche18', 'heroTuft', pos=FLOORT, ry=20, opts={'floor': True, 's': 1.7}),
                HELMET('casque18', 'barbier', s=1.0),

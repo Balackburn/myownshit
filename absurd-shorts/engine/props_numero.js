@@ -85,11 +85,11 @@ function feltCore(o) {
     cells.forEach((c, idx) => {
       let h = L0 * c.h, ax = c.ax, ay = c.ay, cc = new THREE.Color(c.c), w = wid;
       const vn = (vTop - c.v) / Math.max(0.01, vTop - vBot);                       // 0 at the top, 1 at the bottom
-      if (Math.abs(c.lat) > 0.6 && vn <= ps * 1.04 && ps > 0) { h = L0 * 0.1; ax = ay = 0; cc = lerpC(SAND, '#B8B070', hsh(c.k + 21) * 0.5); }
+      if (Math.abs(c.lat) > 0.6 && vn <= ps * 1.04 && ps > 0) { h = L0 * 0.1; ax = ay = 0; cc = lerpC(o.sand || SAND, '#B8B070', hsh(c.k + 21) * (o.sand ? 0.15 : 0.5)); }
       else if (c.v > vTop - 0.3 && (c.u + 1) / 2 <= pt * 1.02 && pt > 0) { h = L0 * 0.32; ax *= 0.15; ay *= 0.15; cc = lerpC(c.c, '#2F6E2A', 0.4); }
       else if (c.v < -0.3 && (c.u + 1) / 2 <= pb * 1.02 && pb > 0) {
         const f = (c.v - vBot) / (-0.3 - vBot), kk = Math.min(3, Math.floor(f * 4)), fr = f * 4 - kk;
-        h = L0 * (0.22 + 0.24 * kk) * (fr > 0.72 ? 1.12 : 1.0); ax = 0; ay = 0; cc = new THREE.Color(fr > 0.72 ? '#8AD06A' : (kk % 2 ? '#2E6A2A' : '#4C9A3E'));
+        h = L0 * (0.22 + 0.24 * kk) * (fr > 0.72 ? 1.12 : 1.0) * (o.ridgeH ? (0.55 + 0.6 * fr) : 1); ax = 0; ay = 0; cc = new THREE.Color(fr > 0.72 ? (o.ridgeLight || '#8AD06A') : (fr < 0.3 && o.ridgeDark ? o.ridgeDark : (kk % 2 ? '#2E6A2A' : '#4C9A3E')));
       }
       if (Math.abs(c.u) < 0.04 && vn <= pp * 1.04 && pp > 0) { h = 0.002; cc = new THREE.Color('#1C2E1C'); }
       if (pg > 0) { cc.lerp(new THREE.Color('#69C957'), 0.45 * pg); ax *= 1 - 0.7 * pg; ay = ay * (1 - 0.7 * pg) - 0.25 * pg; }
@@ -104,6 +104,7 @@ function feltCore(o) {
       const ex = (f.sd < 0 ? rowL[j] : rowR[j]) * W / 2;
       f.tg.position.set(ex + f.vx * u, vv * H / 2 + f.vy * u - 2.2 * u * u, L0 + f.vz * u); f.tg.rotation.set(f.sp * u * 0.5, f.sp * u, f.sp * u * 0.3); f.tg.scale.setScalar(1 + 0.6 * u); }
     shine.material.opacity = Math.min(0.85, 0.7 * clamp01(pg) * (o.shine ?? 1));
+    if (o.sweep) { const sx = -W * 0.42 + W * 0.62 * clamp01(pg); shine.position.x = sx; shine2.position.x = sx + W * 0.1; }
     { const ppv = clamp01(pp); partLine.visible = ppv > 0.01; const len = (vTop - vBot) * H / 2 * ppv; partLine.scale.set(W * (o.partW ?? 0.022), Math.max(0.001, len), L0 * 0.15); partLine.position.y = vTop * H / 2 - len / 2; }
     if (blob) { const b = lin(o.blob, t, 0); blob.visible = b > 0.01; const r = (o.blobR ?? 0.09) * b; blob.scale.set(r * (1 + 0.6 * pg), r * (1 + 0.3 * pg), r * 0.5); }
   };
@@ -139,7 +140,7 @@ export const NUMERO_PROPS = {
   // sphere under it (r o.planetR 400) curving away to the horizon
   hairCountry(o) {
     const S = o.s ?? 14, g = grp(), c = grp(); g.add(c);
-    const felt = feltCore({ w: 1.6, h: 1.9, step: o.step ?? 0.04, len: o.len ?? 0.07, partW: 0.03, shineW: 0.035, state: o.state ?? 1, sides: o.sides, top: o.top, back: o.back, part: o.part, gel: o.gel, shine: o.shine ?? 1.2 });
+    const felt = feltCore({ w: 1.6, h: 1.9, step: o.step ?? 0.04, len: o.len ?? 0.07, partW: 0.03, shineW: 0.035, sand: o.sand, ridgeDark: o.ridgeDark, ridgeLight: o.ridgeLight, ridgeH: o.ridgeH, state: o.state ?? 1, sides: o.sides, top: o.top, back: o.back, part: o.part, gel: o.gel, shine: o.shine ?? 1.2 });
     felt.scale.setScalar(S); felt.rotation.x = -PI / 2; felt.position.y = 0.05; c.add(felt);
     if (o.planet !== false) { const R = o.planetR ?? 400, pl = new THREE.Mesh(new THREE.SphereGeometry(R, 96, 48), mat(o.sea || '#2F7FB8', { noGrain: true })); pl.position.y = -R - 0.4; pl.receiveShadow = true; g.add(pl);
       for (let i = 0; i < (o.clouds ?? 0); i++) { const a = hsh(i + 3) * TAU, d = S * 1.6 + hsh(i + 7) * R * 0.5, th = d / R, cl = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), mat('#F4F8FA', { noGrain: true }));
@@ -160,7 +161,9 @@ export const NUMERO_PROPS = {
     dial.add(at(cyl(0.075, 0.075, 0.012, '#F4F1E8', 18, { outline: 0.004 }), 0, 0, 0, PI / 2, 0, 0));
     const wheel = grp(); dial.add(wheel); for (let i = 0; i < 10; i++) { const a = -0.6 + i * 0.5; wheel.add(at(cyl(0.011, 0.011, 0.016, '#2A2420', 8), Math.cos(a) * 0.052, Math.sin(a) * 0.052, 0.002, PI / 2, 0, 0)); }
     dial.add(at(cyl(0.022, 0.022, 0.016, R, 10), 0, 0, 0.003, PI / 2, 0, 0));
-    g.userData.update = t => { wheel.rotation.z = inWin(o.dial, t) ? -2.2 * Math.abs(Math.sin((t - (o.dial.find(w => t >= w[0] && t < w[1])[0])) * 6)) : 0;
+    g.userData.update = t => { let wr = 0; for (const [a, b] of o.dial || []) { if (t < a) continue; const m = a + (b - a) * 0.62, A = o.dialA ?? 2.4;
+        if (t < m) wr = -A * smooth((t - a) / (m - a)); else { const u = (t - m) / Math.max(0.05, b - m); wr = u < 1 ? -A * (1 - u) * (1 - u) + 0.35 * Math.sin(PI * u) * (u > 0.5 ? 1 : 0.4) : 0.18 * Math.sin((u - 1) * 18) * Math.exp(-(u - 1) * 5); } }
+      wheel.rotation.z = wr;
       const on = inWin(o.ring, t); b.position.set(on ? 0.006 * Math.sin(t * 90) : 0, on ? 0.008 * Math.abs(Math.sin(t * 70)) : 0, 0); };
     g.userData.update(0); return g;
   },
@@ -186,7 +189,7 @@ export const NUMERO_PROPS = {
       c.beginPath(); c.moveTo(w / 2, h * 0.12); c.quadraticCurveTo(w * 0.78, h * 0.38, w / 2, h * 0.48); c.quadraticCurveTo(w * 0.22, h * 0.38, w / 2, h * 0.12); c.fill(); }, { res: 128 });
     lab.position.set(0, 0, 0.0765); tube.add(lab);
     const drop = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 8), new THREE.MeshLambertMaterial({ color: '#A8E0F4', emissive: '#2A5A70' })); drop.position.y = L / 2 + 0.1; g.add(drop);
-    g.userData.update = t => { const s = clamp01(lin(o.squeeze, t, 0)); body.scale.set(1 + 0.25 * s, 1, 1 - 0.55 * s); lab.position.z = 0.0765 * (1 - 0.55 * s) + 0.002;
+    g.userData.update = t => { const s = clamp01(lin(o.squeeze, t, 0)); body.scale.set(1 - 0.45 * s, 1 - 0.08 * s, 1 + 0.45 * s); lab.position.z = 0.0765 * (1 + 0.45 * s) + 0.002;
       const r = (o.drop ?? 0.07) * s; drop.visible = r > 0.004; drop.scale.set(r, r * 1.2, r); drop.position.y = L / 2 + 0.1 + r; };
     g.userData.update(0); return g;
   },
@@ -308,12 +311,12 @@ export const NUMERO_PROPS = {
   // boom, a stick and a bucket with teeth; o.dig [[t, 0..1]]: the arm's pose (0 raised, 1 bucket down and curled in); o.swing [[t, rad]]: the
   // upper body turns; o.s (1)
   excavator(o) {
-    const S = o.s ?? 1, g = grp(), b = grp(); b.scale.setScalar(S); g.add(b); const OL = '#6B7A3E', DK = '#3E4626';
+    const S = o.s ?? 1, g = grp(), b = grp(); b.scale.setScalar(S); g.add(b); const OL = o.body || '#9CAA5E', DK = '#5A6638';
     for (const s of [-1, 1]) b.add(at(box(0.55, 0.55, 3.0, '#2E3226', { outline: 0.01, pivot: 'bottom' }), s * 0.95, 0, 0));
     const up = grp(); up.position.y = 0.6; b.add(up);
     up.add(at(box(2.1, 0.8, 2.4, OL, { outline: 0.01, pivot: 'bottom' }), 0, 0, -0.2), at(box(0.95, 1.05, 1.0, OL, { outline: 0.01, pivot: 'bottom' }), -0.55, 0.8, 0.45), at(box(0.8, 0.6, 0.02, '#BFDCE8'), -0.55, 1.4, 0.96));
-    const boom = grp(); boom.position.set(0.45, 1.0, 0.8); up.add(boom); boom.add(at(box(0.42, 0.5, 3.0, '#8A9A4E', { outline: 0.012 }), 0, 0, 1.5), at(box(0.12, 0.12, 2.2, '#C9CED6', { outline: 0.004 }), 0, -0.32, 1.2));
-    const stick = grp(); stick.position.set(0, 0, 3.0); boom.add(stick); stick.add(at(box(0.34, 0.4, 2.2, '#7A8A44', { outline: 0.012 }), 0, 0, 1.1));
+    const boom = grp(); boom.position.set(0.45, 1.0, 0.8); up.add(boom); boom.add(at(box(0.42, 0.5, 3.0, '#C2CC7A', { outline: 0.016 }), 0, 0, 1.5), at(box(0.12, 0.12, 2.2, '#C9CED6', { outline: 0.004 }), 0, -0.32, 1.2));
+    const stick = grp(); stick.position.set(0, 0, 3.0); boom.add(stick); stick.add(at(box(0.34, 0.4, 2.2, '#B4C06E', { outline: 0.016 }), 0, 0, 1.1));
     const bucket = grp(); bucket.position.set(0, 0, 2.2); stick.add(bucket); bucket.add(at(box(0.95, 0.7, 0.6, DK, { outline: 0.012 }), 0, -0.3, 0.2));
     for (let i = 0; i < 5; i++) bucket.add(at(box(0.1, 0.2, 0.1, '#D0D4D8', { taper: 0.3, pivot: 'top' }), -0.36 + i * 0.18, -0.62, 0.45));
     const dirt = at(sphere(0.42, '#8A5E36', 1), 0, -0.2, 0.25); dirt.scale.set(1, 0.6, 0.8); bucket.add(dirt);
@@ -495,12 +498,12 @@ export const NUMERO_PROPS = {
   // back down to o.down (0.22) below the top, a thin band across the top of the forehead; o.w / o.h / o.d the head box (0.24 / 0.5 / 0.17);
   // o.skin; o.shine: a soft white highlight on the top
   baldCap(o) {
-    const W = o.w ?? 0.24, H = o.h ?? 0.5, D = o.d ?? 0.17, DN = o.down ?? 0.22, C = o.skin || '#E2B48E', e = 0.006, g = grp();
-    g.add(at(box(W + 2 * e, e * 2, D + 2 * e, C), 0, H + e, 0));
+    const W = o.w ?? 0.24, H = o.h ?? 0.5, D = o.d ?? 0.17, DN = o.down ?? 0.22, C = o.skin || '#E2B48E', CT = o.top || C, e = 0.006, g = grp();
+    g.add(at(box(W + 2 * e, e * 2, D + 2 * e, CT), 0, H + e, 0));
     for (const s of [-1, 1]) g.add(at(box(e, DN, D + e, C), s * (W / 2 + e / 2), H - DN / 2, -e / 2));
     g.add(at(box(W + 2 * e, DN, e, C), 0, H - DN / 2, -D / 2 - e / 2));
     g.add(at(box(W + 2 * e, o.band ?? 0.035, e, C), 0, H - (o.band ?? 0.035) / 2, D / 2 + e / 2));
-    if (o.shine !== false) { const hl = new THREE.Mesh(new THREE.PlaneGeometry(W * 0.6, D * 0.35), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.7, depthWrite: false })); hl.rotation.x = -PI / 2; hl.position.set(-W * 0.1, H + 2.2 * e, D * 0.1); g.add(noShadow(hl)); }
+    if (o.shine !== false) { const hl = new THREE.Mesh(new THREE.PlaneGeometry(W * 0.6, D * 0.35), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: o.shineA ?? 0.7, depthWrite: false })); hl.rotation.x = -PI / 2; hl.position.set(-W * 0.1, H + 2.2 * e, D * 0.1); g.add(noShadow(hl)); }
     return g;
   },
 
@@ -509,8 +512,11 @@ export const NUMERO_PROPS = {
   sunLounger(o) {
     const L = o.len ?? 1.8, g = grp(), C = o.color || '#2EA8A0';
     g.add(at(box(0.64, 0.05, L, '#F4F1E8', { outline: 0.006 }), 0, 0.025, 0), at(box(0.58, 0.06, L * 0.72, C, { outline: 0.004 }), 0, 0.08, L * 0.12));
-    g.add(at(box(0.58, 0.06, L * 0.3, C, { outline: 0.004 }), 0, 0.17, -L * 0.36, -0.45, 0, 0));
+    const BA = o.back ?? 0.45; g.add(at(box(0.58, 0.06, L * 0.3, C, { outline: 0.004 }), 0, 0.08 + Math.sin(BA) * L * 0.15, -L * 0.5 + Math.cos(BA) * L * 0.15, -BA, 0, 0));
     for (const sx of [-1, 1]) for (const sz of [-1, 1]) g.add(at(box(0.04, 0.12, 0.04, '#F4F1E8'), sx * 0.28, -0.05, sz * (L / 2 - 0.08)));
     return g;
   },
+
+  // armyHelmet (props_guepe) that casts no shadow: its skirt's shadow hatched the faces under it in green (shadow acne)
+  softHelmet(o) { const h = buildProp('armyHelmet', o || {}); h.traverse(m => { if (m.isMesh) { m.castShadow = false; m.receiveShadow = false; } }); return h; },
 };
