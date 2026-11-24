@@ -182,10 +182,12 @@ export const RAYON_PROPS = {
   // (o.op), with two softer rims; move it with keys
   shadowFront(o) {
     const Rr = o.r ?? 600, g = grp(), op = o.op ?? 0.5;
-    const disc = new THREE.Mesh(new THREE.CircleGeometry(Rr, 96).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: o.color || '#121826', transparent: true, opacity: op, depthWrite: false, fog: false }));
+    const disc = new THREE.Mesh(new THREE.CircleGeometry(Rr, 96).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: o.color || '#121826', transparent: true, opacity: op, depthWrite: false, depthTest: o.depthTest ?? false, fog: false }));
     g.add(disc);
-    [[1.0, 1.03, 0.6], [1.03, 1.07, 0.3]].forEach(([a, b, k]) => g.add(new THREE.Mesh(new THREE.RingGeometry(Rr * a, Rr * b, 96).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: o.color || '#121826', transparent: true, opacity: op * k, depthWrite: false, fog: false }))));
-    g.position.y = o.y ?? 14; g.renderOrder = 5; return g;
+    [[1.0, 1.03, 0.6], [1.03, 1.07, 0.3]].forEach(([a, b, k]) => g.add(new THREE.Mesh(new THREE.RingGeometry(Rr * a, Rr * b, 96).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: o.color || '#121826', transparent: true, opacity: op * k, depthWrite: false, depthTest: o.depthTest ?? false, fog: false }))));
+    // (staging 2) no depth test by default: in the whole film the disc, 16 m over a ground seen from 400 m, lost the depth test to the lawn (the
+    // camera's depth range is set for the close shots) and never showed, while the shot rendered alone showed it; it lies above everything anyway
+    g.position.y = o.y ?? 14; g.traverse(m => { if (m.isMesh) m.renderOrder = 5; }); return g;
   },
   // a field of sunflowers (o.cols x o.rows, o.gap apart) facing +Z and up toward the sun; from o.droopAt each head, in a wave running from the
   // front row back (o.wave s per row), swings down to hang on its stem

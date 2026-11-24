@@ -387,7 +387,7 @@ st.cue('sfx:street', 'S18', 0.0, 0.3)
 #     look to us
 D19 = st.dur('S19'); OPEN19 = 1.08
 CH19 = [0.2, 0, -0.5]
-PIC19 = [('manif1', [-1.5, 0, 2.2], 20, 'sitFloorEat'), ('savant2', [-0.2, 0, 2.4], -35, 'sitFloorSip'), ('manif4', [-0.3, 0, -3.0], -15, 'sitFloor'), ('gendarme1', [-1.9, 0, -2.6], 20, 'sitFloorEat')]   # (staging 2) the picnic goes on round him                                          # (staging 1) the deckchair moved up beside him for this shot: the parasol shades it
+PIC19 = [('manif1', [-2.0, 0, 0.9], 25, 'sitFloorEat'), ('savant2', [-2.6, 0, -1.2], 40, 'sitFloorSip'), ('manif4', [-0.3, 0, -3.0], -15, 'sitFloor'), ('gendarme1', [-1.9, 0, -2.6], 20, 'sitFloorEat')]   # (staging 2) the picnic goes on round him, never in front of him and his parasol                                          # (staging 1) the deckchair moved up beside him for this shot: the parasol shades it
 PAR19 = [0.0, 0, -1.0]
 ME19 = [-0.65, 0, -0.75]; RY19 = 10
 SHED = [-2.9, 0, 0.5]
