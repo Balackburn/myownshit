@@ -60,7 +60,7 @@ def KEPI(pid, who): return P(pid, 'kepi', on={'actor': who, 'joint': 'head', 'of
 GREY = 'saturate(0.38) brightness(0.9) contrast(1.04)'          # the country under the parasol ((stills 1) brightness 0.82 was muddy)
 GREYIN = 'saturate(0.55) brightness(0.9)'                         # indoors under the parasol (the press room)
 
-for g_ in [('S01', 0.4, 'mec', 'squint'), ('S04', 0.5, 'mec', 'rockets'), ('S17', 0.75, 'mec', 'squint2'), ('S19', 1.2, 'mec', 'parasol')]:
+for g_ in [('S01', 0.4, 'mec', 'squint'), ('S04', 1.1, 'mec', 'rockets'), ('S17', 0.75, 'mec', 'squint2'), ('S19', 1.2, 'mec', 'parasol')]:
     st.gag(*g_)
 
 # ============================== his garden (pavillon: the house front at z -4.1, the lawn to the fence at z 2.2); the set's sun comes from +X+Z
@@ -73,29 +73,36 @@ G = [r(CH[0] + 0.3), 0, r(CH[2] + 0.3)]                        # the middle of t
 DOME = {'r': 90, 'hole1': True, 'az': 140, 'el': 26, 'holeR': 4, 'haze': 0.6}
 LOUNGE = {'bend': {'spine': [-0.42, 0, 0, 1, None], 'neck': [0.12, 0, 0, 1, None]}, 'hands': {'L': 'open', 'R': 'open'},
           'touch': {'L': ['torso', 0.3, 0.1, 0.1, 1, 0.03]}}
-SQUINT = {'lid': 0.85, 'brow': -0.7, 'mouth': 'grimace'}
-VISOR = R5(off(HEAD, RY, 0.24, 0.05, 0.1), 1, 0.05)           # the right hand flat over his brow
-GARDEN = {}
+SQUINT = {'lid': 0.38, 'low': 0.26, 'brow': -0.7, 'mouth': 'grimace'}   # (round 1) slits that still read: the eyes show under the hand
+VISOR = R5(off(HEAD, RY, 0.24, 0.05, 0.1), 1, 0.05)           # (kept for the wide shots S16, S18) the right hand over his brow
+VIS_T = ['face', -0.08, 0.84, 0.1, 1, 0.12, [1.0, 0.9, 0.3]]   # (round 1) his LEFT hand (the far side from the lens): fingertips at the brow, elbow out and up                    # (round 1) the visor hand flat on his brow, above the eyes: it follows the head
+REST_R = ['torso', -0.3, 0.1, 0.1, 1, 0.03]
+def LOUNGEV(dy=0.0, dx=0.0, w=1): return {**LOUNGE, 'touch': {'R': REST_R, 'L': ['face', r(VIS_T[1] + dx), r(VIS_T[2] + dy), VIS_T[3], w, VIS_T[5], VIS_T[6]]}, 'hands': {'L': 'open', 'R': 'open'}}
+GARDEN = {'clouds': 0}                                         # (round 1) no clouds: they read as floating beige slabs
 def CHAIR(pid): return P(pid, 'deckChair', pos=CH, ry=RY)
 
 # 1: the hook. Close from the sun's side: in his deckchair he squints into the light, a hand for a visor, a warm glare at the top of the frame; on
 #    « soleil » the reverse over his shoulder: the blazing cartoon sun over the street
 D1 = st.dur('S01'); T1 = 0.85
-C1A = cam(0.0, off(CH, RY, 3.0, 0.45, 1.35), off(CH, RY, 2.75, 0.4, 1.36), off(CH, RY, -0.15, 0.0, 1.12), off(CH, RY, -0.15, 0.0, 1.14), lens=36)   # (stills 1) further: his whole squint and the hand
+C1A = cam(0.0, off(CH, RY, 2.6, 0.4, 1.45), off(CH, RY, 2.4, 0.36, 1.46), off(CH, RY, -0.15, 0.0, 1.2), off(CH, RY, -0.15, 0.0, 1.21), lens=36)   # (round 1) a little closer and higher: his face under the hand
 F1B = off(CH, RY, -3.2, -0.5, 1.0)
 L1B, LENS1B, W1B = fit(F1B, {'head': HEAD, 'headTop': add(HEAD, [0, 0.3, 0]), 'sun': SUNP, 'sunTop': add(SUNP, [0, 3.2, 0]), 'chair': off(CH, RY, 0.2, 0, 0.6)}, margin=0.1, top=0.12, bottom=0.78)
 C1B = cam(T1, F1B, add(F1B, mul(fwd(RY), 0.12)), L1B, L1B, lens=LENS1B)
 CHECKS.append(f"S01b fit lens {LENS1B} {W1B}")
-GLARE1 = unproject(C1A['from'], C1A['lookAt'], 36, 0.86, 0.06, 1.6)
-chk('S01', C1A['from'], C1A['lookAt'], 36, {'head': HEAD, 'visor': VISOR[:3], 'glare': GLARE1, 'chairFoot': add(CH, [0, 0.1, 0])})
+GLARE1 = unproject(C1A['from'], C1A['lookAt'], 36, 0.88, 0.05, 1.6)
+LOOK1 = unproject(C1A['from'], C1A['lookAt'], 36, 0.62, 0.12, 1.2)   # (round 1) he squints toward the glare, almost at us: the painted face reads
+chk('S01', C1A['from'], C1A['lookAt'], 36, {'head': HEAD, 'headTop': add(HEAD, [0, 0.45, 0]), 'glare': GLARE1, 'chairFoot': add(CH, [0, 0.1, 0])})
 chk('S01b', C1B['from'], C1B['lookAt'], 50, {'head': HEAD, 'sun': SUNP, 'shoulder': off(CH, RY, -0.1, -0.2, 1.2)})
-HERO1 = [k(0.0, look=SUNP), k(0.0, toon={**LOUNGE, 'reach': {'R': VISOR}, 'face': SQUINT}, toonDur=0.0),
-         k(0.3, toon={**LOUNGE, 'reach': {'R': VISOR}, 'face': {**SQUINT, 'lid': 0.95}, 'sq': [1.02, 0.97, 1.02]}, toonDur=0.12),
-         k(0.5, toon={**LOUNGE, 'reach': {'R': R5(add(VISOR[:3], [0, 0.03, 0]), 1, 0.05)}, 'face': SQUINT, 'sq': [1, 1, 1]}, toonDur=0.14),
-         k(1.25, toon={**LOUNGE, 'reach': {'R': R5(add(VISOR[:3], [0.02, -0.02, 0]), 1, 0.05)}, 'face': {**SQUINT, 'lid': 0.92}}, toonDur=0.2)]
+# (round 1) the squint lives: the lids flicker, the brow twitches, the hand adjusts its visor, a breath; after the cut he faces the sun (reverse)
+HERO1 = [k(0.0, look=LOOK1), k(0.0, toon={**LOUNGEV(), 'face': SQUINT}, toonDur=0.0),
+         k(0.22, toon={**LOUNGEV(0.03), 'face': {**SQUINT, 'lid': 0.78, 'brow': -0.9}, 'sq': [1.03, 0.96, 1.03]}, toonDur=0.08),
+         k(0.36, toon={**LOUNGEV(-0.01, 0.02), 'face': {**SQUINT, 'lid': 0.55, 'brow': -0.6}, 'sq': [0.99, 1.02, 0.99]}, toonDur=0.1),
+         k(0.55, toon={**LOUNGEV(0.02), 'face': {**SQUINT, 'lid': 0.7, 'mouth': 'clench'}, 'sq': [1, 1, 1]}, toonDur=0.12),
+         k(0.72, toon={**LOUNGEV(), 'face': SQUINT}, toonDur=0.1),
+         k(1.0, look=SUNP, lookDur=0.2), k(1.3, toon={**LOUNGEV(0.03, 0.02), 'face': {**SQUINT, 'lid': 0.75}}, toonDur=0.2)]
 st.shot('S01', 'pavillon', setOpts=GARDEN, actors=[act('mec', SEAT, RY, 'sit', 'unimpressed', keys=HERO1)],
-        props=[CHAIR('chaise1'), P('soleil1', 'sun', pos=SUNP, opts={'r': 2.6}, keys=[k(0.0, scale=1.0, dur=0.0), k(T1, scale=1.1, dur=0.3, ease='inOut')]),
-               P('eclat1', 'lensGlare', pos=GLARE1, opts={'s': 2.4, 'op': 0.75})],
+        props=[P('nuages01', 'noClouds'), CHAIR('chaise1'), P('soleil1', 'sun', pos=SUNP, opts={'r': 2.6}, keys=[k(0.0, scale=1.0, dur=0.0), k(T1, scale=1.1, dur=0.3, ease='inOut')]),
+               P('eclat1', 'lensGlare', pos=GLARE1, opts={'s': 1.5, 'op': 0.45}, keys=[k(T1, visible=False)])],
         cams=[C1A, C1B])
 st.cue('sfx:static', 'S01', 0.0, 0.12); st.cue('whoosh', 'S01', T1 - 0.05, 0.15, 0.25, 600, 2400)
 
@@ -143,15 +150,35 @@ SPOTS = [[x, z] for x in (-3.4, -2.1) for z in (-2.6, -1.1, 0.4)] + [[x, z] for 
 DOOR = [0.97, 0, -3.75]
 C4 = cam(0.0, [0.9, 1.4, 9.2], [0.9, 1.5, 8.7], [0.6, 2.6, -2.0], [0.6, 2.8, -2.0], lens=58, shake=0.06)
 chk('S04', C4['from'], C4['lookAt'], 58, {'head': [DOOR[0], 2.05, DOOR[2]], 'feet': DOOR, 'rocketTop': [-3.4, 2.3, -2.6], 'rocketNear': [3.8, 0.0, 0.4], 'roof': [0, 4.6, -6.6]})
-st.shot('S04', 'pavillon', setOpts=GARDEN, actors=[
-        act('mec', DOOR, 0, 'stand', 'neutral', keys=[k(0.0, look='camera'),
-            k(0.0, toon={'reach': {'L': R5([DOOR[0] - 0.28, 0.88, -3.4], 1, 0.04), 'R': R5([DOOR[0] + 0.28, 0.88, -3.4], 1, 0.04)}, 'hands': {'L': 'grip', 'R': 'grip'}, 'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.0),
-            k(0.4, look=[-1, 6, -1], lookDur=0.2), k(0.45, toon={'face': {'lid': 0.0, 'mouth': 'O', 'brow': 0.7, 'pop': 0.3}, 'sq': [0.97, 1.05, 0.97]}, toonDur=0.1, keepPose=True),
-            k(0.9, look=[2, 8, -1], lookDur=0.3), k(1.6, look=[0, 12, -2], lookDur=0.3), k(1.7, toon={'face': {'lid': 0.15, 'mouth': 'O', 'brow': 0.6}, 'sq': [1, 1, 1]}, toonDur=0.15, keepPose=True)])],
-        props=[P('fusees4', 'rocketLawn', pos=[0, 0, 0], opts={'spots': SPOTS, 's': 0.6, 't0': 0.28, 'gap': 0.07, 'acc': 16}),
-               P('chaise4', 'deckChair', pos=[DOOR[0], 0, -3.05], ry=0)],
-        cams=[C4])
-st.cue('sfx:jet', 'S04', 0.28, 0.5); st.cue('engine', 'S04', 0.3, 0.35, 1.8); st.cue('thud', 'S04', 0.3, 0.3)
+# (round 1) the take gets a close insert: the wide shows the lift-off (he is a speck in it), then a cut to him in the doorway, a dip (anticipation),
+#     the take (body stretched up, head long and thin, the eyes out on red stalks looking up at the rockets, the jaw down to the chest, hands flung
+#     open: the deckchair drops), held trembling, an overshoot squash and the settle into a long gape with a blink
+CUT4 = 0.8; TK4 = 1.02
+F4B = [0.8, 1.6, -0.75]
+L4B, LENS4B, W4B = fit(F4B, {'headTop': [DOOR[0], 3.35, DOOR[2]], 'chest': [DOOR[0], 1.15, DOOR[2]], 'side': [DOOR[0] - 0.6, 2.0, DOOR[2]], 'side2': [DOOR[0] + 0.6, 2.0, DOOR[2]]}, margin=0.1, top=0.06, bottom=0.72, lenses=range(30, 70))
+C4B = cam(CUT4, F4B, add(F4B, [-0.05, 0.02, -0.12]), L4B, add(L4B, [0, 0.04, 0]), lens=LENS4B, shake=0.025)
+CHECKS.append(f"S04b fit lens {LENS4B} {W4B}")
+UP4 = add(F4B, [0.0, 0.3, 0.0])                                # he looks at us (eyes on stalks follow the head's axis), the pupils go up
+HOLD4 = {'reach': {'L': R5([DOOR[0] + 0.28, 0.88, -3.4], 1, 0.04), 'R': R5([DOOR[0] - 0.28, 0.88, -3.4], 1, 0.04)}, 'hands': {'L': 'grip', 'R': 'grip'}}
+TAKE4 = {'sq': [0.86, 1.2, 0.86], 'scl': {'head': [0.84, 1.3, 1.0]}, 'hairUp': 1.0, 'hands': {'L': 'open', 'R': 'open'},
+         'face': {'lid': 0.0, 'pop': 1.0, 'popLen': 0.34, 'eyeScale': 1.3, 'stalkRed': 1, 'eyePitch': -0.5, 'jaw': 0.85, 'jawLen': 0.7, 'mouth': 'O', 'brow': 1.0, 'noBlink': 1}}
+GAPE4 = {'lid': 0.0, 'eye': 0.4, 'jaw': 0.45, 'mouth': 'O', 'brow': 0.8, 'gy': -0.6}
+def TK(sq, head, **f): return {**TAKE4, 'sq': sq, 'scl': {'head': head}, 'face': {**TAKE4['face'], **f}}
+HERO4 = [k(0.0, look='camera'), k(0.0, toon={**HOLD4, 'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.0),
+         k(0.3, look=[-1, 6, -1], lookDur=0.2), k(0.35, toon={**HOLD4, 'face': {'lid': 0.1, 'mouth': 'o', 'brow': 0.5}}, toonDur=0.1),
+         k(r(CUT4 - 0.02), look=UP4, lookDur=0.06),
+         k(r(TK4 - 0.14), toon={**HOLD4, 'sq': [1.1, 0.88, 1.1], 'scl': {'head': [1.12, 0.88, 1.0]}, 'face': {'lid': 0.5, 'mouth': 'line', 'brow': -0.3}}, toonDur=0.1, toonEase='inOut'),
+         k(TK4, toon=TAKE4, toonDur=0.05, toonEase='out', blend=0.02),
+         *[k(r(TK4 + 0.07 * (i + 1)), toon=TK([0.86 + 0.015 * (i % 2), 1.2 - 0.025 * (i % 2), 0.86 + 0.015 * (i % 2)], [0.84, 1.3 - 0.03 * (i % 2), 1.0], popLen=0.34 - 0.03 * (i % 2)), toonDur=0.04) for i in range(4)],
+         k(r(TK4 + 0.38), toon={'sq': [1.08, 0.92, 1.08], 'scl': {'head': [1.1, 0.9, 1.0]}, 'hands': {'L': 'open', 'R': 'open'}, 'face': {**GAPE4, 'jaw': 0.6}}, toonDur=0.08, toonEase='in'),
+         k(r(TK4 + 0.52), toon={'sq': [0.98, 1.03, 0.98], 'scl': {'head': [0.97, 1.04, 1.0]}, 'hands': {'L': 'open', 'R': 'open'}, 'face': GAPE4}, toonDur=0.08),
+         k(r(TK4 + 0.64), toon={'sq': [1, 1, 1], 'scl': {'head': [1, 1, 1]}, 'hands': {'L': 'open', 'R': 'open'}, 'face': GAPE4}, toonDur=0.1),
+         k(r(TK4 + 0.75), look=add(UP4, [0.3, 0.5, 0]), lookDur=0.3), *blink(r(TK4 + 0.85), GAPE4)]
+st.shot('S04', 'pavillon', setOpts=GARDEN, actors=[act('mec', DOOR, 0, 'stand', 'neutral', keys=HERO4)],
+        props=[P('fusees4', 'rocketLawn', pos=[0, 0, 0], opts={'spots': SPOTS, 's': 0.6, 't0': 0.28, 'gap': 0.07, 'acc': 16, 'clear': [-0.3, 1.9]}), P('nuages4', 'noClouds'),
+               P('chaise4', 'deckChair', pos=[DOOR[0], 0, -3.05], ry=0, keys=[k(r(TK4 + 0.02), rotTo=[1.45, 0.25, 0.1], dur=0.32, ease='in'), k(r(TK4 + 0.02), to=[DOOR[0] + 0.1, 0, -2.75], dur=0.32, ease='in')])],
+        cams=[C4, C4B])
+st.cue('sfx:jet', 'S04', 0.28, 0.5); st.cue('sfx:boing', 'S04', TK4, 0.4); st.cue('thud', 'S04', r(TK4 + 0.34), 0.3); st.cue('engine', 'S04', 0.3, 0.35, 1.8); st.cue('thud', 'S04', 0.3, 0.3)
 
 # ============================== space (spaceDark)
 # 5: his tomatoes in orbit. Over the Earth's limb: his tomato stakes, loose tomatoes and the watering can tumble past a satellite
@@ -332,7 +359,7 @@ C15 = cam(0.0, F15, add(F15, mul(SH15, 1.2)), L15, L15, lens=LENS15)
 CHECKS.append(f"S15 fit lens {LENS15} {W15}")
 chk('S15', F15, L15, LENS15, {'hole': HOLEW, 'garden': G, 'mec': HEAD, 'house': [0, 3, -6.6]})
 st.shot('S15', 'pavillon', setOpts=GARDEN, actors=[act('mec', SEAT, RY, 'sit', 'unimpressed', keys=[k(0.0, look=HOLEW), k(0.0, toon={**LOUNGE, 'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.0)])],
-        props=[GDOME('dome15'), PATCH('disque15'), CHAIR('chaise15'),
+        props=[P('nuages15', 'noClouds'), GDOME('dome15'), PATCH('disque15'), CHAIR('chaise15'),
                P('rayon15', 'lightShaft', pos=HOLEW, rot=[RXS, 0, RZS], ry=RYS, opts={'r': 5.0, 'len': SHAFT_L, 'op': 0.2, 'onAt': 0.02})],
         cams=[C15])
 st.cue('sfx:choir', 'S15', 0.02, 0.35)
@@ -342,7 +369,7 @@ D16 = st.dur('S16')
 C16 = cam(0.0, [G[0] + 0.4, 31.0, G[2] + 5.5], [G[0] + 0.3, 28.5, G[2] + 5.0], G, G, lens=50)
 chk('S16', C16['from'], C16['lookAt'], 50, {'chair': CH, 'patchE': add(G, [6.5, 0, 0]), 'patchW': add(G, [-6.5, 0, 0]), 'patchN': add(G, [0, 0, -6.5]), 'patchS': add(G, [0, 0, 6.5])})
 st.shot('S16', 'pavillon', setOpts=GARDEN, actors=[act('mec', SEAT, RY, 'sit', 'unimpressed', keys=[k(0.0, look=HOLEW), k(0.0, toon={**LOUNGE, 'reach': {'R': VISOR}, 'face': SQUINT}, toonDur=0.0)])],
-        props=[PATCH('disque16', dark=0), P('ombre16', 'sunPatch', pos=[G[0], 6.2, G[2]], opts={'r': 6.5, 'lawn': False, 'dark': 0.78, 'y': 0.0, 'rimOp': 0.0}), CHAIR('chaise16')],
+        props=[P('nuages16', 'noClouds'), PATCH('disque16', dark=0), P('ombre16', 'sunPatch', pos=[G[0], 6.2, G[2]], opts={'r': 6.5, 'lawn': False, 'dark': 0.78, 'y': 0.0, 'rimOp': 0.0}), CHAIR('chaise16')],
         cams=[C16])
 
 # 17: right in his eyes. The reverse first (the hole and its sun beyond the street, over his shoulder), then his squint: the framing of shot one
@@ -350,10 +377,21 @@ D17 = st.dur('S17'); T17 = 0.6
 C17A = cam(0.0, C1B['from'], C1B['to'], L1B, L1B, lens=LENS1B)
 C17B = cam(T17, C1A['from'], C1A['to'], C1A['lookAt'], C1A['lookAt2'], lens=36)
 chk('S17', C17A['from'], C17A['lookAt'], LENS1B, {'hole': add(HEAD, mul(SUNDIR, 87)), 'head': HEAD})
-st.shot('S17', 'pavillon', setOpts=GARDEN, actors=[act('mec', SEAT, RY, 'sit', 'unimpressed', keys=[*HERO1[:2],
-            k(r(T17 + 0.05), toon={**LOUNGE, 'reach': {'R': R5(add(VISOR[:3], [0, 0.02, 0]), 1, 0.05)}, 'face': {**SQUINT, 'lid': 0.97}, 'sq': [1.03, 0.96, 1.03]}, toonDur=0.08),
-            k(r(T17 + 0.3), toon={**LOUNGE, 'reach': {'R': VISOR}, 'face': SQUINT, 'sq': [1, 1, 1]}, toonDur=0.15)])],
-        props=[GDOME('dome17'), PATCH('disque17'), CHAIR('chaise17'), P('eclat17', 'lensGlare', pos=GLARE1, opts={'s': 2.6, 'op': 0.85})],
+# (round 1) the escalation of shot one: the visor hand slams up from his lap with a smear, the whole head squashes down and the face crumples
+#     (lids shut tight, the brow on the eyes, the mouth clenched), held trembling, then a small overshoot and the squint settles; the glare pulled back
+CRUMPLE = {'lid': 0.9, 'low': 0.5, 'brow': -1.0, 'mouth': 'clench', 'mouthW': 0.3, 'tremble': 1, 'cheeks': 0.6}
+LAP = ['face', -0.1, -1.2, 0.35, 1, 0.12, [1.0, -0.3, 0.2]]
+def LV(pt, w=1): return {**LOUNGE, 'touch': {'R': REST_R, 'L': pt[:4] + [w, pt[5], pt[6]]}, 'hands': {'L': 'open', 'R': 'open'}}
+HERO17 = [k(-1.0, look=SUNP), k(0.0, toon={**LV(LAP), 'face': {**SQUINT, 'lid': 0.45}}, toonDur=0.0),
+          k(r(T17 - 0.02), look=LOOK1, lookDur=0.04),
+          k(r(T17 + 0.02), toon={**LV(LAP), 'face': {**SQUINT, 'lid': 0.3, 'brow': 0.2}, 'sq': [0.97, 1.04, 0.97], 'scl': {'head': [0.95, 1.08, 1]}}, toonDur=0.05),
+          k(r(T17 + 0.1), toon={**LOUNGEV(0.06), 'face': CRUMPLE, 'sq': [1.08, 0.9, 1.08], 'scl': {'head': [1.2, 0.76, 1.08]}}, toonDur=0.06, toonEase='out'),
+          k(r(T17 + 0.24), toon={**LOUNGEV(0.05), 'face': CRUMPLE, 'sq': [1.06, 0.92, 1.06], 'scl': {'head': [1.16, 0.8, 1.06]}}, toonDur=0.07),
+          k(r(T17 + 0.36), toon={**LOUNGEV(0.06), 'face': CRUMPLE, 'sq': [1.08, 0.9, 1.08], 'scl': {'head': [1.2, 0.77, 1.08]}}, toonDur=0.07),
+          k(r(T17 + 0.48), toon={**LOUNGEV(-0.02), 'face': {**CRUMPLE, 'tremble': 0.4}, 'sq': [0.97, 1.04, 0.97], 'scl': {'head': [0.94, 1.07, 1]}}, toonDur=0.08, toonEase='in'),
+          k(r(T17 + 0.6), toon={**LOUNGEV(), 'face': {**SQUINT, 'lid': 0.8, 'low': 0.5}, 'sq': [1, 1, 1], 'scl': {'head': [1.05, 0.95, 1.02]}}, toonDur=0.1)]
+st.shot('S17', 'pavillon', setOpts=GARDEN, actors=[act('mec', SEAT, RY, 'sit', 'unimpressed', keys=HERO17)],
+        props=[P('nuages17', 'noClouds'), GDOME('dome17'), PATCH('disque17'), CHAIR('chaise17'), P('eclat17', 'lensGlare', pos=GLARE1, opts={'s': 1.3, 'op': 0.4}, keys=[k(0.0, visible=False), k(T17, visible=True)])],
         cams=[C17A, C17B])
 st.cue('sfx:static', 'S17', T17, 0.15)
 
@@ -378,7 +416,7 @@ st.shot('S18', 'pavillon', setOpts={**GARDEN, 'mailbox': False}, actors=[
         act('mec', SEAT, RY, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={**LOUNGE, 'reach': {'R': VISOR}, 'face': {**SQUINT, 'mouth': 'line'}, 'sq': [0.9, 1.04, 1.0]}, toonDur=0.0), *blink(1.1, {**SQUINT, 'mouth': 'line'})]),
         *[act(n, p, ry, clip, 'neutral', keys=[k(0.0, look='camera' if i % 3 == 0 else HOLEW), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'smile' if i % 2 else 'line'}}, toonDur=0.0)]) for i, (n, p, ry, clip) in enumerate(PIC)],
         act('directeur', [CAR[0] - 0.2, 2.06, CAR[2]], 90, 'lieRelax', 'neutral', keys=[k(0.0, look=HOLEW), k(0.0, toon={'face': {'lid': 0.8, 'mouth': 'smile'}}, toonDur=0.0)])],
-        props=[GDOME('dome18'), PATCH('disque18'), CHAIR('chaise18'), KEPI('kepi18', 'gendarme1'), KEPI('kepi18b', 'gendarme2'),
+        props=[P('nuages18', 'noClouds'), GDOME('dome18'), PATCH('disque18'), CHAIR('chaise18'), KEPI('kepi18', 'gendarme1'), KEPI('kepi18b', 'gendarme2'),
                P('pique18', 'picnicSpread', pos=[0, 0, 0], opts={'blankets': BLANK}),
                P('voiture18', 'car', pos=CAR, ry=0, opts={'color': '#3E7AB8'}), P('serviette18', 'beachTowel', pos=[CAR[0] - 0.25, 2.06, CAR[2]], ry=90, opts={'w': 0.9, 'd': 1.7, 'hang': 0.3})],
         cams=[C18])
@@ -405,7 +443,7 @@ st.shot('S19', 'pavillon', setOpts=GARDEN, actors=[
             k(r(OPEN19 + 0.1), look=add(PAR19, [0, 2.3, 0]), lookDur=0.12), k(r(OPEN19 + 0.25), toon={'face': {'lid': 0.4, 'mouth': 'line', 'brow': -0.1}}, toonDur=0.15, keepPose=True),
             k(r(OPEN19 + 0.75), look='camera', lookDur=0.12), *blink(r(OPEN19 + 1.1), {'lid': 0.4, 'mouth': 'line', 'brow': -0.1})]),
         *[act(n, p, ry, clip, 'neutral', keys=[k(0.0, look=HOLEW if i % 2 else [ME19[0], 1.9, ME19[2]]), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'smile' if i % 2 else 'line'}}, toonDur=0.0)]) for i, (n, p, ry, clip) in enumerate(PIC19)]],
-        props=[GDOME('dome19'), PATCH('disque19'), P('chaise19', 'deckChair', pos=CH19, ry=RY), KEPI('kepi19', 'gendarme1'),
+        props=[P('nuages19', 'noClouds'), GDOME('dome19'), PATCH('disque19'), P('chaise19', 'deckChair', pos=CH19, ry=RY), KEPI('kepi19', 'gendarme1'),
                P('pique19', 'picnicSpread', pos=[0, 0, 0], opts={'seed': 37, 'blankets': [[p[0], r(p[2] + 0.1), 0.2, 1.3, 1.1, BCOL[i]] for i, (n, p, ry, c) in enumerate(PIC19)]}),
                P('garage19', 'garageShed', pos=SHED, ry=70), P('etagere19', 'garageShelf', pos=off(SHED, 70, -2.9, 0, 0), ry=70, opts={'w': 1.8}),
                P('parasol19', 'parasol', pos=PAR19, opts={'radius': 1.0, 'height': 2.1, 'openAt': OPEN19, 'colors': ['#2F8A6A', '#F4EEDF']}),

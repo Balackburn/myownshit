@@ -103,7 +103,8 @@ export const RAYON_PROPS = {
     return g;
   },
   // o.n rockets (props.js rocket, flame on) standing on the lawn at o.spots [[x, z], ...] (a 4 x 3 grid by default), scale o.s; rocket i lifts off at
-  // o.t0 + o.order[i] * o.gap and climbs with acceleration o.acc; a puff of smoke swells at its foot and a scorch is left on the grass
+  // o.t0 + o.order[i] * o.gap and climbs with acceleration o.acc; a puff of smoke swells at its foot and a scorch is left on the grass; (round 1)
+  // o.clear [x0, x1]: no puff spreads into that strip of x (the garden path, kept clear for a close camera on the doorway)
   rocketLawn(o) {
     const g = grp(), s = o.s ?? 0.6, n = o.n ?? 12, acc = o.acc ?? 14, t0 = o.t0 ?? 0.3, gap = o.gap ?? 0.07;
     const spots = o.spots || Array.from({ length: n }, (_, i) => [((i % 4) - 1.5) * 1.6, -Math.floor(i / 4) * 1.6]);
@@ -121,7 +122,7 @@ export const RAYON_PROPS = {
         it.rk.traverse(c => { if (c.userData.update && c !== it.rk) c.userData.update(t); }); if (it.rk.userData.update) it.rk.userData.update(t);
         it.rk.children.forEach(c => { if (c.isGroup && c.position.y === 0.2) c.visible = u > -0.15; });   // the flame lights just before lift-off
         it.sc.visible = u > 0.05;
-        it.puffs.forEach((p, j) => { const v = clamp01((u + 0.1) / 1.4), r = 0.3 + 1.6 * easeOut(v); p.m.visible = u > -0.1; p.m.position.set(it.x + p.dx * r * s * 1.4, 0.25 * s + 0.35 * v * (1 + (j % 2)), it.z + p.dz * r * s * 1.4); p.m.scale.setScalar(p.m.userData.r0 * (0.4 + 1.3 * easeOut(v))); });   // (stills 1) soft cloud puffs: faceted spheres read as white boulders
+        it.puffs.forEach((p, j) => { const v = clamp01((u + 0.1) / 1.4), r = 0.3 + 1.6 * easeOut(v); p.m.visible = u > -0.1; let px = it.x + p.dx * r * s * 1.4; if (o.clear && px > o.clear[0] && px < o.clear[1]) px = it.x < (o.clear[0] + o.clear[1]) / 2 ? o.clear[0] : o.clear[1]; p.m.position.set(px, 0.25 * s + 0.35 * v * (1 + (j % 2)), it.z + p.dz * r * s * 1.4); p.m.scale.setScalar(p.m.userData.r0 * (0.4 + 1.3 * easeOut(v))); });   // (stills 1) soft cloud puffs: faceted spheres read as white boulders
       }
     };
     g.userData.update(-1); return g;
@@ -385,6 +386,38 @@ export const RAYON_PROPS = {
       for (let i = 0; i < 4; i++) { const x = -W / 2 + 0.25 + i * (W - 0.4) / 3 + (r() - 0.5) * 0.1; if (r() < 0.5) g.add(at(cyl(0.1, 0.1, 0.2, ['#C9CDD3', '#B5302A', '#2E5E9E'][i % 3], 10, { pivot: 'bottom', outline: 0.006 }), x, y + 0.02, 0)); else g.add(at(box(0.3, 0.22, 0.3, '#B8925E', { pivot: 'bottom', outline: 0.006 }), x, y + 0.02, 0, 0, r() * 0.3, 0)); } }
     g.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.16, 0.035, 6, 16), mat('#2F8A4A')), W / 2 - 0.3, 0.75, 0.05));
     return g;
+  },
+  // (round 1) hides the set's own clouds (pavillon always adds them; at a long lens they read as floating beige slabs): an empty prop that, each frame,
+  // finds the scene's objects named 'cloud' (props.js cloud, set level, high above the ground) and hides them
+  noClouds(o) {
+    const g = grp();
+    g.userData.update = () => { let rt = g; while (rt.parent) rt = rt.parent; if (rt !== g) rt.traverse(c => { if (c.name === 'cloud') c.visible = false; }); };
+    return g;
+  },
+  // (round 1) the little parasol from the garage, held in the hand: the pivot is the grip (where the hand closes), a hooked wooden handle under it,
+  // the pole up to a faded canopy (radius o.r, colours o.colors: washed-out pink and cream); furled before o.openAt, then it pops open in 0.16 s
+  // with an overshoot and a wobble, and a cloud of soft beige dust puffs (smooth shaded, like the rocket smoke) bursts from the rim, hangs and sinks
+  kidParasol(o) {
+    const R = o.r ?? 0.5, L = o.len ?? 0.78, g = grp(), wood = '#A88A62', cols = o.colors || ['#D8AFA4', '#EDE5D0'];
+    g.add(at(cyl(0.014, 0.014, L + 0.12, wood, 6, { pivot: 'bottom', outline: 0.004 }), 0, -0.12, 0));
+    g.add(rod([0, -0.12, 0], [0.02, -0.17, 0], 0.016, wood, 5), rod([0.02, -0.17, 0], [0.07, -0.17, 0], 0.016, wood, 5), rod([0.07, -0.17, 0], [0.085, -0.12, 0], 0.016, wood, 5));
+    const can = grp(); can.position.y = L; g.add(can);
+    for (let i = 0; i < 8; i++) { const m = new THREE.Mesh(new THREE.ConeGeometry(R, R * 0.42, 1, 1, true, i * TAU / 8, TAU / 8), mat(cols[i % cols.length], { doubleSide: true, unique: true })); m.position.y = -R * 0.21; can.add(m); }
+    for (let i = 0; i < 8; i++) { const a = i * TAU / 8; can.add(rod([0, 0, 0], [Math.sin(a) * R, -R * 0.42, Math.cos(a) * R], 0.006, '#8A8478', 3)); }
+    can.add(at(sphere(0.025, '#C9B48A', 1), 0, 0.03, 0));
+    const set = op => { can.scale.set(0.08 + 0.92 * op, 1 + (1 - op) * 2.4, 0.08 + 0.92 * op); can.position.y = L - (1 - op) * R * 0.5; };
+    set(o.open ? 1 : 0);
+    const puffs = []; for (let i = 0; i < (o.puffs ?? 16); i++) { const m = new THREE.Mesh(sphereGeo(2), cloudMat(o.dust || '#E6D7B4', '#B9A37C')); m.castShadow = false; m.visible = false; const a = i / (o.puffs ?? 16) * TAU + hsh(i) * 0.4;
+      puffs.push({ m, a, out: 0.25 + 0.35 * hsh(i + 7), up: (hsh(i + 3) - 0.3) * 0.25, s: 0.07 + 0.07 * hsh(i + 11), d: 0.04 * hsh(i + 5) }); g.add(m); }
+    g.userData.update = t => {
+      if (o.openAt == null) return;
+      const u = (t - o.openAt) / (o.openDur ?? 0.16), op = u <= 0 ? 0 : Math.min(1.08, outBack(u) * 0.97 + 0.03 * clamp01(u));
+      set(op); const w = t - o.openAt - (o.openDur ?? 0.16); can.rotation.z = w > 0 ? 0.12 * Math.exp(-w * 6) * Math.sin(w * 22) : 0; can.rotation.x = w > 0 ? 0.07 * Math.exp(-w * 6) * Math.sin(w * 22 + 1.3) : 0;
+      for (const p of puffs) { const v = (t - o.openAt - p.d) / (o.dustDur ?? 1.4); p.m.visible = v > 0 && v < 1; if (!p.m.visible) continue;
+        const e = easeOut(Math.min(1, v * 2.2)), rr = R * (0.85 + p.out * e / R * 1.2); p.m.position.set(Math.sin(p.a) * rr, L - R * 0.35 + p.up * e - 0.35 * v * v, Math.cos(p.a) * rr);
+        p.m.scale.setScalar(Math.max(0.005, p.s * (0.5 + 1.4 * e) * (v < 0.6 ? 1 : 1 - (v - 0.6) / 0.4))); }
+    };
+    g.userData.update(-1); return g;
   },
   // grey dust shaken out of the old parasol when it opens: o.at the burst, round grey puffs flying out and fading (scaled down, never transparent)
   dustBurst(o) {
