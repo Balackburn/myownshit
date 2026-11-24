@@ -187,7 +187,11 @@ export const RAYON_PROPS = {
     [[1.0, 1.03, 0.6], [1.03, 1.07, 0.3]].forEach(([a, b, k]) => g.add(new THREE.Mesh(new THREE.RingGeometry(Rr * a, Rr * b, 96).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: o.color || '#121826', transparent: true, opacity: op * k, depthWrite: false, depthTest: o.depthTest ?? false, fog: false }))));
     // (staging 2) no depth test by default: in the whole film the disc, 16 m over a ground seen from 400 m, lost the depth test to the lawn (the
     // camera's depth range is set for the close shots) and never showed, while the shot rendered alone showed it; it lies above everything anyway
-    g.position.y = o.y ?? 14; g.traverse(m => { if (m.isMesh) m.renderOrder = 5; }); return g;
+    g.position.y = o.y ?? 14; g.traverse(m => { if (m.isMesh) m.renderOrder = 5; });
+    // (staging 2) o.dx0 + o.moveAt/o.moveDur: the front slides by itself from dx0 (m along X) back to the prop's place, eased; a key move of the prop
+    // left the disc out of the whole-film render (the shot rendered alone, or with its neighbours, showed it)
+    if (o.moveAt != null) { const inner = grp(...g.children); g.add(inner); g.userData.update = t => { const u = smooth((t - o.moveAt) / (o.moveDur ?? 1)); inner.position.x = (o.dx0 ?? 0) * (1 - u); }; g.userData.update(0); }
+    return g;
   },
   // a field of sunflowers (o.cols x o.rows, o.gap apart) facing +Z and up toward the sun; from o.droopAt each head, in a wave running from the
   // front row back (o.wave s per row), swings down to hang on its stem
