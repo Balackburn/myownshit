@@ -232,17 +232,17 @@ st.cue('sfx:squeak', 'S05', 0.15, 0.3); st.cue('sfx:boing', 'S05', 0.5, 0.15); s
 #    of the roll; slowly he rises from behind it (stretched, eyes popping over the top), then stares at us
 D6 = st.dur('S06'); UP6 = 0.75; HOLD6 = 1.12
 ROLL = [0.0, -1.15]; ROLLR = 0.85   # (review 1) the roll a step out from the door: he rises behind it under the open sky, not into the lintel
-HERO6 = [0.35, -0.75, -2.45]
+HERO6 = [0.1, -0.75, -2.45]   # (control 4) a little left, the box further right: both eyes and the mouth clear
 # (review 2) turned to the right so the roll's spiral end shows (a rolled carpet, not a wall); his head rises near frame centre
 C6 = cam(0.0, [2.8, 1.6, 2.4], [2.68, 1.61, 2.25], [0.5, 1.75, -2.0], [0.5, 1.76, -2.0], lens=44)
-BOX6 = [1.3, 1.74, -1.2]
+BOX6 = [1.42, 1.74, -1.2]
 chk('S06', C6, {'eyesPeek': add(HERO6, [0, 0.55 + 2.15, 0]), 'facePop': add(HERO6, [0, 0.8 + 2.05, 0]), 'hairPop': add(HERO6, [0, 0.8 + 2.6, 0]), 'rollTop': [0, 1.75, -1.15], 'rollEnd': [1.45, 0.85, -1.15], 'rollFoot': [0, 0.05, -0.3], 'box': BOX6, 'smokeTop': add(BOX6, [0, 1.6, 0])})
 PEEK = {'lid': 0.0, 'pop': 0.4, 'mouth': 'flat', 'brow': 0.75}
 STARE6 = {'lid': 0.35, 'mouth': 'line', 'brow': -0.1}
-HANDS6 = {'R': R5([0.0, 1.77, -1.75]), 'L': R5([0.65, 1.77, -1.75])}
+HANDS6 = {'R': R5([-0.25, 1.77, -1.75]), 'L': R5([0.4, 1.77, -1.75])}
 st.shot('S06', SET, setOpts=SETO, lighting='day', look=SUN, actors=[
         act('mec', HERO6, 15, 'stand', 'neutral', keys=[k(0.0, look=add(BOX6, [0, 0.3, 0])),
-            TK(0.0, {'R': R5([0.0, 1.55, -1.8]), 'L': R5([0.65, 1.55, -1.8])}, {'R': 'grip', 'L': 'grip'}, {'lid': 0.3, 'mouth': 'line', 'autoSq': 0}, d=0.0),
+            TK(0.0, {'R': R5([-0.25, 1.55, -1.8]), 'L': R5([0.4, 1.55, -1.8])}, {'R': 'grip', 'L': 'grip'}, {'lid': 0.3, 'mouth': 'line', 'autoSq': 0}, d=0.0),
             k(0.0, toon={'autoSq': 0}, keepPose=True),
             # (review 2) a slow rise, eyes first over the top; a pop up into a stretch held 7 frames; then he settles into the stare
             k(0.12, to=add(HERO6, [0, 0.55, 0]), dur=0.6, ease='inOut', glide=True, face='keep'), k(0.25, look=add(BOX6, [0.0, 0.8, 0.5]), lookDur=0.3),
@@ -254,7 +254,7 @@ st.shot('S06', SET, setOpts=SETO, lighting='day', look=SUN, actors=[
             TK(r(HOLD6 + 0.25), HANDS6, {'R': 'grip', 'L': 'grip'}, STARE6, (1, 1, 1), d=0.25),
             k(r(UP6 + 0.1), look='camera', lookDur=0.12), *blink(1.62, STARE6)])],
         props=[TOWN('S06', **DONE, roll=True, rollAt=[0.0, -1.15]),
-               P('boite6', 'pizzaBox', pos=BOX6, ry=-35, rot=[0.5, math.radians(-35), 0], opts={'s': 1.25, 'pizza': False, 'scorch': True, 'open': 0.0, 'smoke': True, 'fire': True, 'fireK': [[0, 1.0], [0.18, 1.0], [0.42, 0.0]]})],   # (review 1) the fire dies over 7 frames into smoke   # (review 2) bigger, tilted to the lens, lid ajar: it reads as a box
+               P('boite6', 'pizzaBox', pos=BOX6, ry=-35, rot=[0.3, math.radians(-35), 0], opts={'s': 1.25, 'pizza': False, 'scorch': True, 'open': 0.0, 'smoke': True, 'fire': True, 'fireK': [[0, 1.0], [0.18, 1.0], [0.42, 0.0]]})],   # (review 1) the fire dies over 7 frames into smoke   # (review 2) bigger, tilted to the lens, lid ajar: it reads as a box
         cams=[C6])
 st.cue('sfx:scratch', 'S06', 0.15, 0.2); st.cue('sfx:boing', 'S06', UP6, 0.2)
 
@@ -488,7 +488,7 @@ SL16b = off(HERO16, RY16, 0.45, 0.18, 1.38)                          # (review 2
 BOX16 = off(HERO16, RY16, 0.55, -0.55, 0.0); BOX16[1] = r(-CD + 0.02)   # (review 3) on the floor in front of his left shoe, clear of his legs, tilted to us
 THERMO16 = add(BOX16, [-0.04, 0.06, -0.05])
 HIP16 = off(HERO16, RY16, 0.22, -0.38, 0.95)
-C16a = cam(0.0, add(PH16, [-0.12, 0.02, -0.82]), add(PH16, [-0.11, 0.0, -0.74]), add(PH16, [0.04, -0.05, 0.0]), add(PH16, [0.04, -0.05, 0.0]), lens=40)
+C16a = cam(0.0, add(PH16, [-0.12, 0.02, -0.82]), add(PH16, [-0.11, 0.0, -0.74]), add(PH16, [0.04, 0.09, 0.0]), add(PH16, [0.04, 0.1, 0.0]), lens=40)   # (control 4) the phone runs off the bottom edge: nothing of his body shows below it
 C16b = cam(CUT16, add(HERO16, [0.0, 1.55, -4.4]), add(HERO16, [0.0, 1.56, -4.25]), add(HERO16, [0.0, 1.25, 0.0]), add(HERO16, [0.0, 1.26, 0.0]), lens=42)   # (review 3) a step back: the box on the floor below the captions   # (review 1) him centred for the end hold
 chk('S16a', C16a, {'phone': PH16, 'star1': TAPPOS, 'crustHit': SLhit, 'crustUp': SLup, 'phoneTop': add(PH16, [0, 0.24, 0])})
 chk('S16b', C16b, {'face': add(HERO16, [0, 2.05, 0]), 'hairTop': add(HERO16, [0, 2.4, 0]), 'sliceCrust': SL16b, 'sliceTip': add(SL16b, [r(SLR * 0.81), -0.15, r(-SLR * 0.58)]), 'box': BOX16, 'boxLid': add(BOX16, [0, 0.55, 0.3]), 'dial': add(THERMO16, [0, 0.95, 0])})
