@@ -156,31 +156,38 @@ function pizzaBox(o = {}) {
 }
 
 // ---------------------------------------------------------------------------------------------------------------- a slice
-// A slice held by its crust (pivot at the middle of the crust, the tip toward -Z, the top +Y): o.r (0.34) long; o.charred: black, glowing specks;
-// o.crumbleAt: it falls to black dust in 0.14 s, crumbs drop o.fall (1.3 m) and a dark puff rises; o.frost (0..1): pale and frosted, with icicles
-// under the tip; o.droop (rad): the tip sags
+// A slice held by its crust (pivot at the middle of the crust, the tip toward -Z, the top +Y): o.r (0.34) long, a flat wedge of dough with a
+// cheese layer and pepperoni set into it, a round rolled crust along the back edge; its front half is hinged at mid-length and sags by o.droop
+// (rad, the tip going down); o.charred: lighter charred greys with a few glowing specks; o.crumbleAt: it falls to dust in 0.14 s, crumbs drop
+// o.fall (1.3 m) and a dark puff rises; o.frost: blue-white frosted colours with thin frost flakes lying flat on the cheese and tiny icicles under
+// the tip (nothing floats above it)
 function pizzaSlice(o = {}) {
-  const R = o.r ?? 0.34, g = grp(), sl = grp(), tip = grp(), ch = o.charred, half = PI / 9;
-  const wedge = (rr, h, c, y, a0 = PI - half, al = 2 * half) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(rr, rr, h, 6, 1, false, a0, al), mat(c, { unique: true })); m.position.set(0, y + h / 2, R); m.castShadow = true; return m; };
-  const fr = o.frost && !ch;
-  sl.add(wedge(R, 0.035, ch ? '#3A2E26' : (fr ? '#DCE6EE' : '#D9A35A'), 0), wedge(R * 0.88, 0.014, ch ? '#1E1915' : (fr ? '#F2F8FC' : '#F4CF52'), 0.035, PI - half * 0.85, 2 * half * 0.85));
-  sl.add(at(box(R * 0.8 * Math.sin(half) * 2.2, 0.05, 0.05, ch ? '#5A4636' : (fr ? '#C8D6E2' : '#C98A42'), { outline: 0.004 }), 0, 0.025, 0));
-  if (!ch) for (const [x, z] of [[0, -0.1], [0.025, -0.2], [-0.02, -0.05]]) sl.add(at(cyl(0.028, 0.028, 0.01, fr ? '#C98A96' : '#B32A22', 8), x * R / 0.34, 0.052, z * R / 0.34));
-  if (ch) for (let i = 0; i < 4; i++) sl.add(at(sphere(0.012, '#FF7A22', 0, { emissive: '#FF5A10', noGrain: true }), (hsh(i) - 0.5) * 0.06, 0.052, -0.05 - hsh(i + 2) * R * 0.6));
-  if (o.frost) { for (let i = 0; i < 12; i++) sl.add(at(new THREE.Mesh(new THREE.TetrahedronGeometry(0.012 + hsh(i) * 0.012), mat('#FFFFFF', { noGrain: true, emissive: '#C8E6F8' })), (hsh(i + 1) - 0.5) * 0.08, 0.055, -0.04 - hsh(i + 5) * R * 0.75, i, i * 2, 0));
-    for (let i = 0; i < 4; i++) { const c = new THREE.Mesh(new THREE.ConeGeometry(0.008, 0.05 + 0.03 * hsh(i), 5), mat('#EAF7FF', { noGrain: true, emissive: '#9CC8E6' })); c.rotation.x = PI; c.position.set((i - 1.5) * 0.02, -0.02, -R * 0.55 - i * 0.03); sl.add(c); } }
-  if (o.droop) { sl.rotation.x = o.droop; }
+  const R = o.r ?? 0.34, g = grp(), sl = grp(), ch = o.charred, fr = o.frost && !ch, half = PI / 9, W2 = R * Math.sin(half), ZM = R * 0.48;
+  const C = ch ? { dough: '#6A5C52', cheese: '#4A403A', crust: '#7A6656', top: '#3A302A' } : fr ? { dough: '#D6E2EC', cheese: '#EEF6FC', crust: '#C9D8E6', top: '#B88A9A' } : { dough: '#D9A35A', cheese: '#F4CF52', crust: '#C98A42', top: '#B32A22' };
+  const hw = y => W2 * (1 - y / R);   // half width at distance y from the crust
+  const part = (y0, y1, th, col, inset = 0, lift = 0) => { const sh = new THREE.Shape(); sh.moveTo(-hw(y0) + inset, y0 - y0); sh.lineTo(hw(y0) - inset, 0); sh.lineTo(Math.max(0.001, hw(y1) - inset), y1 - y0); sh.lineTo(-Math.max(0.001, hw(y1) - inset), y1 - y0); sh.closePath();
+    const geo = new THREE.ExtrudeGeometry(sh, { depth: th, bevelEnabled: false }); geo.rotateX(-PI / 2); const m = new THREE.Mesh(geo, mat(col)); m.position.y = lift; m.castShadow = true; return m; };
+  const tip = grp(); tip.position.z = -ZM; sl.add(tip);
+  sl.add(part(0, ZM, 0.03, C.dough), part(0.02, ZM, 0.012, C.cheese, 0.012, 0.03));
+  tip.add(part(ZM, R, 0.03, C.dough), part(ZM, R - 0.015, 0.012, C.cheese, 0.012, 0.03));
+  const crust = cyl(0.032, 0.032, 2 * W2 + 0.02, C.crust, 8, { outline: 0.004 }); crust.rotation.z = PI / 2; crust.position.set(0, 0.03, 0); sl.add(crust);
+  const topY = 0.042;
+  if (!ch) { for (const [x, y, host] of [[0.0, 0.1, sl], [0.03, 0.2, sl], [-0.025, 0.06, tip], [0.01, 0.13, tip]]) { const d = cyl(0.03 * R / 0.34, 0.03 * R / 0.34, 0.008, C.top, 10); d.position.set(x * R / 0.34, topY, host === tip ? -(y * R / 0.34 * 0.9) : -(y * R / 0.34) * 0.9); host.add(d); } }
+  if (ch) for (let i = 0; i < 4; i++) sl.add(at(sphere(0.011, '#FF8A3A', 0, { emissive: '#FF5A10', noGrain: true }), (hsh(i) - 0.5) * 0.06, topY, -0.04 - hsh(i + 2) * ZM * 0.8));
+  if (fr) { for (let i = 0; i < 14; i++) { const host = i % 2 ? tip : sl, yy = hsh(i + 5) * (i % 2 ? (R - ZM) * 0.7 : ZM * 0.8); const f = box(0.018 + 0.015 * hsh(i), 0.003, 0.012, '#FFFFFF', { noGrain: true, emissive: '#B8D8F0' }); f.position.set((hsh(i + 1) - 0.5) * hw(yy + (i % 2 ? ZM : 0)) * 1.2, topY + 0.001, -yy - 0.02); f.rotation.y = hsh(i) * 3; host.add(f); }
+    for (let i = 0; i < 3; i++) { const c = new THREE.Mesh(new THREE.ConeGeometry(0.007, 0.04 + 0.02 * hsh(i), 5), mat('#EAF7FF', { noGrain: true, emissive: '#9CC8E6' })); c.rotation.x = PI; c.position.set((i - 1) * 0.015, -0.015, -(R - ZM) * (0.4 + 0.2 * i)); tip.add(c); } }
+  tip.rotation.x = -(o.droop ?? 0);
   g.add(sl);
   const crumbs = [], cg = grp(); g.add(cg);
-  if (o.crumbleAt != null) for (let i = 0; i < 22; i++) { const m = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.025, 0.03), mat(i % 3 ? '#1E1A17' : '#3A302A')); m.userData.p = [(hsh(i) - 0.5) * 0.12, 0.03, -hsh(i + 4) * R, (hsh(i + 9) - 0.5) * 0.8, hsh(i + 11) * 0.6]; m.visible = false; cg.add(m); crumbs.push(m); }
-  let dust = null; if (o.crumbleAt != null) { dust = buildProp('softDust', { at: o.crumbleAt, n: 12, size: 0.22, rise: 0.35, spread: 0.35, life: 1.0, color: '#2E2A27', opacity: 0.85 }); dust.position.set(0, 0.05, -R * 0.45); g.add(dust); }
+  if (o.crumbleAt != null) for (let i = 0; i < 22; i++) { const m = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.025, 0.03), mat(i % 3 ? '#3A322C' : '#5A4C42')); m.userData.p = [(hsh(i) - 0.5) * 0.12, 0.03, -hsh(i + 4) * R, (hsh(i + 9) - 0.5) * 0.8, hsh(i + 11) * 0.6]; m.visible = false; cg.add(m); crumbs.push(m); }
+  let dust = null; if (o.crumbleAt != null) { dust = buildProp('softDust', { at: o.crumbleAt, n: 12, size: 0.22, rise: 0.35, spread: 0.35, life: 1.0, color: '#3E3834', opacity: 0.85 }); dust.position.set(0, 0.05, -R * 0.45); g.add(dust); }
   g.userData.update = t => {
     if (o.crumbleAt == null) return;
     const u = t - o.crumbleAt, k = clamp01(u / 0.14); sl.visible = k < 1; sl.scale.set(1 - 0.3 * k, 1 - 0.8 * k, 1 - 0.2 * k);
     crumbs.forEach(m => { m.visible = u >= 0; if (u < 0) return; const [x, y, z, vx, vy] = m.userData.p, yy = Math.max(-(o.fall ?? 1.3), y + vy * u - 4.9 * u * u); m.position.set(x + vx * u * 0.4, yy, z); m.rotation.set(u * 6 + x * 20, u * 4, 0); });
     dust.userData.update(t);
   };
-  g.userData.update(0); g.userData.grip = [0, 0, 0]; return g;
+  g.userData.update(0); g.userData.grip = [0, 0, 0]; g.userData.tip = [0, 0, -R]; return g;
 }
 
 // ---------------------------------------------------------------------------------------------------------------- the rating phone
@@ -216,7 +223,7 @@ function ratingPhone(o = {}) {
 // box glows red-hot; o.flames [[t0, t1]]: it catches fire; o.stretch keys [[t, v]]: a cartoon stretch along +Z (v 0.4: 40 % longer, thinner),
 // with a squash back; o.burner / o.glowS / o.gear as on the fighterJet; o.shake: the jet trembles before take-off; o.upright: the box hangs on
 // its edge under the pylon, its printed lid facing +Z (it reads from the front instead of as a dark slab in the wing's shadow); o.boxYaw (rad): that
-// face turned toward +X
+// face turned toward +X; o.slaps [t, ...]: the hanging box rocks with a damped shake at each slap
 function jetBox(o = {}) {
   const g = grp(), inner = grp(); g.add(inner);
   const j = buildProp('plainJet', { burner: o.burner ?? 0.9, glow: o.glowS ?? 0, gear: o.gear, hotCore: true }); inner.add(j);
@@ -232,6 +239,7 @@ function jetBox(o = {}) {
   g.userData.update = t => {
     if (jf) { const on = inWin(o.flames, t); jf.visible = jg.visible = on; if (on) jf.userData.update(t); }
     hg.material.opacity = 0.9 * keyAt(o.glow ?? 0, t, 0, 0.3);
+    if (o.upright && o.slaps) { const w = wob(o.slaps, t, 0.22, 30, 6); bx.rotation.z = w; bx.position.x = X + 0.04 * w; }
     const v = lin(o.stretch, t, 0); inner.scale.set(1 - 0.3 * v, 1 - 0.25 * v, 1 + v);
     const sh = inWin(o.shake, t) ? 1 : 0; inner.position.set(0.02 * sh * Math.sin(t * 71), 0.015 * sh * Math.sin(t * 53), 0);
     bx.userData.update(t); j.userData.update?.(t);
@@ -284,11 +292,11 @@ function pizzaWarMap(o = {}) {
     c.fillStyle = gr; c.fillRect(0, 0, W, H);
     const r = rng(4); c.fillStyle = '#FFFFFF'; for (let i = 0; i < 60; i++) { const x = r() * W, y = r() * H * 0.28; c.fillRect(x, y, 2 + r() * 2, 2 + r() * 2); }
     c.fillStyle = 'rgba(255,255,255,0.92)'; for (let i = 0; i < 9; i++) { const x = W * (0.04 + i * 0.12), y = H * (0.52 + 0.03 * Math.sin(i * 2.1)); for (const [dx, dy, rr] of [[0, 0, 0.05], [0.04, -0.02, 0.06], [0.08, 0.005, 0.045]]) { c.beginPath(); c.arc(x + dx * W * 0.5, y + dy * H, rr * H, 0, TAU); c.fill(); } }
-    for (let i = 0; i < 9; i++) { const x = W * (0.08 + i * 0.105), y = H * 0.88, mine = i === 4; c.fillStyle = mine ? '#F2E2B0' : '#E8E0D0'; c.fillRect(x - W * 0.025, y, W * 0.05, H * 0.05); c.fillStyle = mine ? '#D2322A' : '#7A6A5E'; c.beginPath(); c.moveTo(x - W * 0.032, y); c.lineTo(x, y - H * 0.04); c.lineTo(x + W * 0.032, y); c.fill(); }
-    const sx = W * 0.5, sy = H * 0.11, sr = H * 0.085; c.strokeStyle = '#BFE6FF'; c.lineWidth = W * 0.008; c.lineCap = 'round';
+    for (let i = 0; i < 7; i++) { const x = W * (0.08 + i * 0.14), y = H * 0.885, mine = i === 3; c.fillStyle = mine ? '#F2E2B0' : '#E8E0D0'; c.fillRect(x - W * 0.035, y, W * 0.07, H * 0.08); c.fillStyle = mine ? '#D2322A' : '#7A6A5E'; c.beginPath(); c.moveTo(x - W * 0.045, y); c.lineTo(x, y - H * 0.065); c.lineTo(x + W * 0.045, y); c.fill(); c.fillStyle = '#3A4A5A'; c.fillRect(x - W * 0.008, y + H * 0.035, W * 0.016, H * 0.045); }
+    const sx = W * 0.5, sy = H * 0.13, sr = H * 0.12; c.strokeStyle = '#D6F0FF'; c.lineWidth = W * 0.014; c.lineCap = 'round';
     for (let k = 0; k < 3; k++) { const a = k * PI / 3 + PI / 6; c.beginPath(); c.moveTo(sx - Math.cos(a) * sr, sy - Math.sin(a) * sr); c.lineTo(sx + Math.cos(a) * sr, sy + Math.sin(a) * sr); c.stroke();
       for (const e of [-1, 1]) { const ex = sx + e * Math.cos(a) * sr * 0.62, ey = sy + e * Math.sin(a) * sr * 0.62; for (const q of [-1, 1]) { const b = a + e * (PI - 0.6 * q); c.beginPath(); c.moveTo(ex, ey); c.lineTo(ex + Math.cos(b) * sr * 0.32 * e * -1, ey + Math.sin(b) * sr * 0.32 * e * -1); c.stroke(); } } }
-    c.strokeStyle = 'rgba(255,255,250,1)'; c.lineWidth = W * 0.012; c.setLineDash([W * 0.022, W * 0.009]);
+    c.strokeStyle = 'rgba(255,255,250,1)'; c.lineWidth = W * 0.02; c.setLineDash([W * 0.03, W * 0.01]);
     for (const p of MAP_PATH) { c.beginPath(); c.moveTo(ux(p[0][0]) * W, uz(p[0][1]) * H); c.bezierCurveTo(ux(p[1][0]) * W, uz(p[1][1]) * H, ux(p[2][0]) * W, uz(p[2][1]) * H, ux(p[3][0]) * W, uz(p[3][1]) * H); c.stroke(); }
     c.setLineDash([]); c.fillStyle = 'rgba(250,250,245,0.95)';
     const head = (p, q) => { const ax = ux(p[0]) * W, ay = uz(p[1]) * H, bx = ux(q[0]) * W, by = uz(q[1]) * H, a = Math.atan2(ay - by, ax - bx), s = W * 0.045; c.beginPath(); c.moveTo(ax, ay); c.lineTo(ax - Math.cos(a - 0.5) * s, ay - Math.sin(a - 0.5) * s); c.lineTo(ax - Math.cos(a + 0.5) * s, ay - Math.sin(a + 0.5) * s); c.fill(); };
