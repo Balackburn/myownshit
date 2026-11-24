@@ -2114,3 +2114,6 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   les deux dans chaque histoire.
 - (cycle 51) Le grey-scan signale un flash blanc voulu comme un creux : le vérifier image par image, et le garder à 0,12 s ou moins.
 - (cycle 51) Le brouillon de contrôle après la passe finale vaut son coût : il a trouvé deux défauts que la troisième revue n'avait pas vus.
+- (cycle 50) Avant un rendu final, vérifier qu'il reste au moins 1,2 Go libre : HyperFrames refuse de démarrer sous 1 Go (« Low disk
+  space ») après l'heure de rendu 3D. Si ça arrive, ne relancer que l'assemblage HyperFrames (le calque 3D est déjà dans assets/), après avoir
+  vidé le cache npm (`npm cache clean --force`), jamais les vidéos livrées.
