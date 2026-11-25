@@ -3076,3 +3076,8 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   Restent : la chemise sur la planche du plan final (S16), la tache qui vire au mauve sous la carte (S10), la prise du maire trop courte
   (S08), le coup de marteau du juge illisible et un fond qui rappelle un drapeau réel (S03), charges sans anticipation (S04, S06), figurants
   figés. Corrections de la revue 2 lancées, calées sur les vrais temps des mots.
+- 00 h 32 — Redémarrage du conteneur pendant le brouillon 3 de « La tache » : rendu perdu, relancé (environnement intact).
+- 01 h 30 — « La tache » (93) brouillon 3 et revue 3 : animation 7,3 (7,4), direction artistique 7,6 (7,3). Aucun drapeau ni emblème réel.
+  Restent : le fer qui ne fait pas le tour de la tache dans le plan final (S16), la charge qui ne démarre qu'à la fin (S04), la remise de la
+  planche en une image (S15), la boulette qui ne tombe pas (S01), le flacon de détachant illisible (S06). Passe finale lancée, puis brouillon
+  de contrôle avant le rendu final.
