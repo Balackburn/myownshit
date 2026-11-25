@@ -3143,3 +3143,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 22 h 00 — « La tartine » (102) revue 2 : animation 7,4, image 7,5 (saut d'échelle à la chute S13, plan des cireuses sans gag S10, regards du plan final qui ratent la tartine, tartine du tampon dans la bande des sous-titres). Corrections du tour 2 lancées. « La poule » (104) : mise en scène en cours.
 
 23 h 00 — « La poule » (104) : mise en scène faite (25 plans, 35 accessoires), brouillon 1 sans gel. Revue 1 : animation 6,8 (poses figées après le premier temps, chute du plan d'accroche vue de dos, deuxième révélation de la poule identique à la première), image 7,2 (cascade de portes trop lointaine, tas de pommes dans la bande des sous-titres, plan final recadré trop serré). Corrections lancées. « La tartine » : corrections du tour 2 en cours. Disque serré (≈ 0,75 Go).
+
+23 h 45 — « La tartine » (102) revue 3 : animation 7,8, image 7,6 (suspension de la chute S13 qui se lit debout, graphique tombé qui monte encore S09, ministres emmêlés S12, tartines collées S11, image voilée sous la table). Passe finale lancée. « La poule » (104) : corrections du tour 1 en cours.
