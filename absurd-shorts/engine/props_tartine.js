@@ -266,7 +266,7 @@ export const TARTINE_PROPS = {
   // ---------------------------------------------------------------- the wall chart (pivot at its nail, facing +Z): a framed board o.w (1.5) x
   // o.h (1.1) hanging from a nail, a pale grid and a huge green arrow rising steeply out through its top-right corner; o.grow [t0, t1]: the
   // arrow shoots up; o.fall [t0, t1]: it comes off the nail, turns over as it drops and lands upside down leaning on the wall (the arrow now
-  // pointing down) with a bounce; o.floor: the floor height under the nail (m, default 2.3 below it); o.plain: no grid (a clean board);
+  // pointing down) with a bounce (o.flip: mirrored as well, so the arrow plunges); o.floor: the floor height under the nail (m, default 2.3 below it); o.plain: no grid (a clean board);
   // o.thick: the arrow's width (1); o.frameW: the frame's margin (0.08); o.paper: the board's colour; o.burst: see below
   ttChart(o) {
     const W = o.w ?? 1.5, Hh = o.h ?? 1.1, g = grp(), board = grp(); g.add(board);
@@ -283,9 +283,20 @@ export const TARTINE_PROPS = {
       const [x1, y1] = pts[pts.length - 1], [x0, y0] = pts[Math.max(0, pts.length - 4)], a = Math.atan2(y1 - y0, x1 - x0), s = h * 0.2;
       c.fillStyle = '#3CC45A'; c.strokeStyle = '#1F8A3A'; c.lineWidth = h * 0.02; c.beginPath(); c.moveTo(x1 + Math.cos(a) * s, y1 + Math.sin(a) * s); c.lineTo(x1 + Math.cos(a + 2.4) * s, y1 + Math.sin(a + 2.4) * s); c.lineTo(x1 + Math.cos(a - 2.4) * s, y1 + Math.sin(a - 2.4) * s); c.closePath(); c.fill(); c.stroke();
     };
+    // (review 3) o.flip: the face shown once it has turned over: the curve ends inside the board under a big painted arrowhead (the 3D burst
+    // goes), so upside down and mirrored a big head points down at its bottom right
+    const drawEnd = (c, w, h) => {
+      draw(0.9)(c, w, h); const n = 40, P = u => [w * (0.1 + 0.74 * u), h * (0.86 - 0.95 * Math.pow(u, 2.2) - 0.03 * Math.sin(u * 22) * (1 - u))];
+      const [x1, y1] = P(0.9), [x0, y0] = P(0.84), a = Math.atan2(y1 - y0, x1 - x0), s = h * 0.3, th = o.thick ?? 1;
+      c.strokeStyle = '#1F8A3A'; c.lineWidth = h * 0.13 * th; c.lineCap = 'round'; c.beginPath(); c.moveTo(...P(0.8)); c.lineTo(x1, y1); c.stroke();
+      c.strokeStyle = '#3CC45A'; c.lineWidth = h * 0.085 * th; c.beginPath(); c.moveTo(...P(0.8)); c.lineTo(x1, y1); c.stroke();
+      c.fillStyle = '#3CC45A'; c.strokeStyle = '#145C27'; c.lineWidth = h * 0.025; c.lineJoin = 'round'; c.beginPath(); c.moveTo(x1 + Math.cos(a) * s, y1 + Math.sin(a) * s); c.lineTo(x1 + Math.cos(a + 2.3) * s * 0.9, y1 + Math.sin(a + 2.3) * s * 0.9); c.lineTo(x1 + Math.cos(a - 2.3) * s * 0.9, y1 + Math.sin(a - 2.3) * s * 0.9); c.closePath(); c.fill(); c.stroke();
+    };
+    let endFace = null;
     const frameC = o.frame || '#3A2E28';
     const fw = o.frameW ?? 0.08; board.add(at(box(W + fw, Hh + fw, 0.04, frameC, { outline: 0.006 }), 0, -Hh / 2 - 0.06, -0.02));
     for (let i = 0; i < N; i++) { const cv = canvas(512, Math.round(512 * Hh / W)); draw((i + 1) / N)(cv.getContext('2d'), cv.width, cv.height); const p = new THREE.Mesh(new THREE.PlaneGeometry(W, Hh), L('#FFFFFF', { map: tex(cv) })); p.position.set(0, -Hh / 2 - 0.06, 0.002); p.visible = false; board.add(p); frames.push(p); }
+    if (o.flip) { const cv = canvas(512, Math.round(512 * Hh / W)); drawEnd(cv.getContext('2d'), cv.width, cv.height); endFace = new THREE.Mesh(new THREE.PlaneGeometry(W, Hh), L('#FFFFFF', { map: tex(cv) })); endFace.position.set(0, -Hh / 2 - 0.06, 0.002); endFace.visible = false; board.add(endFace); }
     board.add(rod([0, 0, 0.01], [-W * 0.3, -0.06, 0.01], 0.006, '#2E2622'), rod([0, 0, 0.01], [W * 0.3, -0.06, 0.01], 0.006, '#2E2622'));
     // o.burst (m): a thick 3D arrow that bursts out of the board's top edge where the curve leaves it, tilted o.burstAng (0.47 rad) to the right
     let burst = null;
@@ -305,6 +316,10 @@ export const TARTINE_PROPS = {
       const yc = lerp(cy0, -drop + Hh / 2 + 0.06, v * v), bounce = landed > 0 ? Math.abs(Math.sin(landed * 22)) * 0.05 * Math.exp(-landed * 7) : 0;
       const rz = PI * smooth(v) + (landed > 0 ? rattle([[o.fall[1], 0.06, 26, 6]], t) : 0.25 * Math.sin(v * PI));
       board.rotation.set(-0.14 * smooth((v - 0.7) / 0.3), 0, rz);
+      // (review 3) o.flip: it also turns over left to right as it drops (a mirror): upside down AND mirrored, the arrow now plunges from the
+      // top left to the bottom right (a turn alone kept its rising slope)
+      if (o.flip) { const sx = Math.cos(PI * smooth(v)); board.scale.x = Math.sign(sx || -1) * Math.max(0.06, Math.abs(sx));
+        if (sx < 0) { frames.forEach(f => { f.visible = false; }); endFace.visible = true; if (burst) burst.visible = false; } else endFace.visible = false; }
       board.position.set(cy0 * Math.sin(rz), yc + bounce - cy0 * Math.cos(rz), 0.06 * smooth((v - 0.7) / 0.3));
     };
     g.userData.update(0); return g;
@@ -467,6 +482,18 @@ export const TARTINE_PROPS = {
     const geo = new THREE.ShapeGeometry(s); geo.rotateX(-PI / 2);
     const m = new THREE.Mesh(geo, L(BUTTER, { emissive: '#6A4A00', emissiveIntensity: 0.4, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -16 })); m.position.y = o.y ?? 0.01; m.receiveShadow = true;
     const g = grp(m); g.userData.update = t => { const v = o.at ? keyAt(o.at, t, 0) : 1; m.visible = v > 0.01; m.scale.setScalar(Math.max(0.01, outBack(v, 1.6))); };
+    g.userData.update(0); return g;
+  },
+
+  // ---------------------------------------------------------------- a soft contact shadow on the floor (pivot on the floor at its middle): a
+  // dark ellipse o.w (0.8) across x o.d (2) along Z with a soft edge, o.a (0.5) its strength, drawn over the sheen; o.at [[t, v]]: its strength
+  // (0..1) over time, so a body in the air shows the gap under it
+  ttShadow(o) {
+    const N = 64, cv = canvas(N, N), c = cv.getContext('2d'), gr = c.createRadialGradient(N / 2, N / 2, 0, N / 2, N / 2, N / 2);
+    gr.addColorStop(0, 'rgba(30,24,36,1)'); gr.addColorStop(0.55, 'rgba(30,24,36,0.85)'); gr.addColorStop(1, 'rgba(30,24,36,0)'); c.fillStyle = gr; c.fillRect(0, 0, N, N);
+    const mt = new THREE.MeshBasicMaterial({ map: tex(cv), transparent: true, opacity: o.a ?? 0.5, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -8, polygonOffsetUnits: -24 });
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(o.w ?? 0.8, o.d ?? 2).rotateX(-PI / 2), mt); m.position.y = o.y ?? 0.014; m.renderOrder = 2; m.castShadow = false; m.receiveShadow = false;
+    const g = grp(m); g.userData.update = t => { const v = o.at ? keyAt(o.at, t, 0) : 1; m.visible = v > 0.01; mt.opacity = (o.a ?? 0.5) * v; };
     g.userData.update(0); return g;
   },
 

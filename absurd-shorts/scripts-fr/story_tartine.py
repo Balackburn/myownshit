@@ -647,6 +647,8 @@ st.cue('sfx:whoosh', 'S08', 0.08, 0.1); st.cue('sfx:pop', 'S08', CATCH8, 0.3); s
 D9 = st.dur('S09'); CHU9 = W('S09', 'L09', 3); PAS9 = W('S09', 'L09', 4)
 MIN9 = [0.5, 0.02, -1.4]
 FALL9 = (r(CHU9 - 0.08), r(CHU9 + 0.24))
+# (review 3) the chart a little further left for this shot: once it has turned over, its big arrowhead points down left of the minister
+CH9 = add(CH6, [-0.3, 0.0, 0.0])
 TOE9 = [-0.25, r(DT6 + 0.17 + 0.012), -0.55]
 # (review 1) tighter on the minister and the chart, which now lands upside down in view above the desk
 F9 = [0.12, 1.45, 3.4]; L9 = [0.15, 1.42, -0.5]
@@ -658,7 +660,7 @@ F9C = [0.28, 1.74, 0.15]; L9C = [0.5, 1.66, -1.4]
 HAND9 = [0.22, 0.86, -0.8]
 C9 = [cam(0.0, F9, add(F9, [0.0, 0.0, -0.1]), L9, L9, lens=40, ease='out'), glide([cam(r(PAS9 - 0.12), F9B, add(F9B, [0.0, 0.0, -0.08]), L9B, L9B, lens=40, ease='out')], 0.3),
       cam(EYES9, F9C, add(F9C, [0.0, 0.0, -0.06]), L9C, L9C, lens=40, ease='out')]
-chkc('S09', C9[0], {'head': add(MIN9, [0, 1.95, 0]), 'chin': add(MIN9, [0, 1.4, 0]), 'chartTL': add(CH6, [-0.95, -0.06, 0]), 'chartBR': add(CH6, [0.95, -1.5, 0]), 'chartFloor': [CH6[0], 0.8, -2.15], 'toast': TOE9})
+chkc('S09', C9[0], {'head': add(MIN9, [0, 1.95, 0]), 'chin': add(MIN9, [0, 1.4, 0]), 'chartTL': add(CH9, [-0.95, -0.06, 0]), 'chartBR': add(CH9, [0.95, -1.5, 0]), 'chartFloor': [CH9[0], 0.8, -2.15], 'toast': TOE9})
 chkc('S09', C9[1], {'toastT': add(TOE9, [0, 0.18, 0]), 'toastB': add(TOE9, [0, -0.17, 0]), 'hand': HAND9, 'chart': [-0.3, 1.75, -2.15]})
 chkc('S09', C9[2], {'face': add(MIN9, [0, 1.64, 0.05]), 'top': add(MIN9, [0, 2.0, 0.0]), 'chin': add(MIN9, [0, 1.35, 0.05])})
 MF9 = {'lid': 0.4, 'mouth': 'smirk', 'brow': 0.1}
@@ -676,7 +678,7 @@ MINK9 = [k(0.0, look='camera'), k(0.0, toon={**MK9, 'face': MF9}, toonDur=0.0), 
          k(r(EYES9 + 0.3), toon={**MK9H(0), 'face': {**SH9, 'lid': 0.68, 'low': 0.4, 'gx': 0.95, 'gy': 0.35, 'brow': -0.3, 'sweat': 1.0}}, toonDur=0.08)]
 st.shot('S09', 'whiteVoid', setOpts={'color': '#5A3E2E'}, look={'sunDir': [0.25, 0.9, 0.8]}, actors=[act('ministre', MIN9, 0, 'sit', 'neutral', keys=MINK9)],
         props=[P('murs9', 'grinOfficeWall', pos=[0, 0, -2.3]), P('bureau9', 'grinDesk', pos=DESK6, opts={'w': 2.2, 'd': 0.9}), P('fauteuil9', 'chair', pos=add(MIN9, [0, -0.02, -0.1]), opts={'color': '#6A2A22'}),
-               P('courbe9', 'ttChart', pos=CH6, opts={**CHART, 'fall': list(FALL9), 'floor': 1.75}, keys=[k(r(CHU9 - 0.35), squash=[1.0, 1.0, 1.0], dur=0.1)]),
+               P('courbe9', 'ttChart', pos=CH9, opts={**CHART, 'fall': list(FALL9), 'floor': 1.75, 'flip': True}, keys=[k(r(CHU9 - 0.35), squash=[1.0, 1.0, 1.0], dur=0.1)]),
                TOAST('tartine9', TOE9, rot=[PI / 2, 0.0, 0.0])],
         cams=C9, fx=[{'type': 'shake', 'at': FALL9[1], 'dur': 0.3, 'amount': 0.03}])
 st.cue('sfx:rattleShort', 'S09', r(CHU9 - 0.35), 0.12); st.cue('sfx:slideDown', 'S09', FALL9[0], 0.25); st.cue('clang', 'S09', FALL9[1], 0.3); st.cue('sfx:crunch', 'S09', FALL9[1], 0.2)
@@ -934,24 +936,32 @@ TO13 = [0.62, 0.045, -2.0]
 # body does not jump toward the lens when the clip takes over (that jump read as a huge face); the root then steps back between two frames
 RUG13 = [0.15, 0.0, -0.45]; HIPL = 0.95
 AIR13 = [RUG13[0], 0.85, r(RUG13[2] + HIPL)]
+# (review 3) the hang tipped across the frame: a toon yaw turns him so his feet shoot out to the right and toward the lens, tipped past flat
+# (feet higher than the head) at hip height over the tiles, a contact shadow under him; his head comes forward off the arms
+YAW13 = 0.7; LAY13 = -1.86; HC13 = [0.15, 0.0, -0.9]
+FEET13 = [r(HC13[0] + math.sin(YAW13) * 1.05), 1.3, r(HC13[2] + math.cos(YAW13) * 1.05)]
 F13 = [0.1, 3.3, 2.8]; L13 = [0.1, 0.78, -1.4]
 C13 = cam(0.0, F13, add(F13, [0.0, -0.1, -0.2]), L13, L13, lens=46, ease='inOut')
-chkc('S13', C13, {'headWalk': add(H13A, [0, 2.4, 0]), 'feetWalk': H13A, 'headSlip': add(H13B, [0, 2.4, 0]), 'feetAir': AIR13, 'headAir': add(AIR13, [0, 0.15, -2.3]), 'feetLie': add(RUG13, [0, 0, 0.95]), 'headLie': add(RUG13, [0, 0.2, -1.4]), 'toast': TO13, 'toastHigh': [0.45, 2.6, -1.2]})
+chkc('S13', C13, {'headWalk': add(H13A, [0, 2.4, 0]), 'feetWalk': H13A, 'headSlip': add(H13B, [0, 2.4, 0]), 'feetAir': FEET13, 'headAir': [-0.6, 0.7, -1.75], 'shadow': HC13, 'feetLie': add(RUG13, [0, 0, 0.95]), 'headLie': add(RUG13, [0, 0.2, -1.4]), 'toast': TO13, 'toastHigh': [0.45, 2.6, -1.2]})
 HF13 = {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}
 TH13 = lambda t_: lerp3(H13A, H13B, min(1.0, t_ / SLIP13))
 POPF = {'lid': 0.0, 'eye': 0.5, 'pop': 0.75, 'popLen': 0.32, 'mouth': 'O', 'brow': 1.0, 'noBlink': 1}
-AIRK = lambda j=0, **x: {'lay': [-1.5, 0.0], 'hairUp': 1.3 if j % 2 else 1.1, 'auto': 0, 'sq': [1.0 + 0.03 * (j % 2), 1.0 - 0.02 * (j % 2), 1.0], 'face': {**POPF, 'pop': 0.75 + 0.08 * (j % 2)}, **x}
+AIRK = lambda j=0, **x: {'lay': [LAY13, 0.0], 'yaw': YAW13, 'hairUp': 1.3 if j % 2 else 1.1, 'auto': 0, 'sq': [1.0 + 0.03 * (j % 2), 1.0 - 0.02 * (j % 2), 1.0], 'face': {**POPF, 'pop': 0.75 + 0.08 * (j % 2)},
+                         'bend': {'neck': [0.7, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, **x}
 HERO13 = [k(0.0, look='camera'), k(0.0, to=H13B, dur=SLIP13, clip='walk', face=0, ease='linear'),
           *[k(r(t_), toon={'reach': {'R': R5(add(TH13(t_ + 0.1), [-0.3, 1.25, 0.42]), 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'rest'}, 'face': HF13}, toonDur=0.15) for t_ in [0.0, 0.2, 0.4, 0.6, 0.8]],
           k(SLIP13, clip='fallDrag', params={'expr': 'take', 'jaw': 0.8, 'stretch': 1.0}, blend=0.04),
           # the feet shoot out ahead and up: he hangs flat in the air, eyes out on stalks, trembling, the toast spinning above him
-          k(SLIP13, to=AIR13, dur=0.12, glide=True, face='keep', ease='out'),
+          k(SLIP13, to=FEET13, dur=0.12, glide=True, face='keep', ease='out'),
           k(SLIP13, toon=AIRK(0), toonDur=0.06, toonEase='out'),
           *[k(r(SLIP13 + 0.12 + 0.067 * j), toon=AIRK(j + 1), toonDur=0.03) for j in range(int((HANG13 - SLIP13 - 0.14) / 0.067))],
           # two stretched fall frames (long along the body, thin), the impact frame squashed flat with the lines round him, then the rug
           # (stills r2) the impact frame lies a hand over the floor: laid flat about his feet at the floor, half of him (the head) sank under it
-          k(HANG13, to=[AIR13[0], 0.12, AIR13[2]], dur=0.1, glide=True, face='keep', ease='linear'),
-          k(r(HANG13 - 0.01), toon={'lay': [-1.5, 0.0], 'hairUp': 1.5, 'auto': 0, 'sq': [0.78, 1.38, 0.78], 'face': POPF}, toonDur=0.02, toonEase='linear'),
+          # (review 3) the two fall frames keep him across the frame (laid along Z for a frame he read as standing up again): only the impact
+          # frame lays him straight
+          k(HANG13, to=[FEET13[0], 0.45, FEET13[2]], dur=0.07, glide=True, face='keep', ease='in'),
+          k(r(DOWN13 - 0.03), to=[AIR13[0], 0.12, AIR13[2]], dur=0.02, glide=True, face='keep', ease='linear'),
+          k(r(HANG13 - 0.01), toon={'lay': [LAY13, 0.0], 'yaw': YAW13, 'hairUp': 1.5, 'auto': 0, 'sq': [0.82, 1.26, 0.82], 'face': POPF}, toonDur=0.02, toonEase='linear'),
           k(r(DOWN13 - 0.025), toon={'lay': [-1.5708, 0.0], 'hairUp': 1.5, 'auto': 0, 'sq': [1.9, 1.04, 0.45], 'face': {'lid': 1.0, 'mouth': 'grimace', 'brow': -0.9, 'noBlink': 1}}, toonDur=0.02, toonEase='linear'),
           k(DOWN13, to=RUG13, dur=0.02, glide=True, face='keep', ease='linear'),
           k(DOWN13, clip='splat', params={'popAt': 99, 'stars': 1.6, 'blinkAt': 0.2}, blend=0.02),
@@ -962,6 +972,7 @@ TK13 = [k(SLIP13, to=[0.42, 2.25, -1.3], dur=0.42, ease='out'), k(SLIP13, rotTo=
 st.shot('S13', 'kitchenDay', setOpts=KSET, look=LOOKK, actors=[act('mec', H13A, 0, 'stand', 'neutral', keys=HERO13)],
         props=[TABLE('table13', pos=[-0.9, 0.0, -2.6]), P('brillant13', 'ttShine', pos=[0, 0, -1.2], opts={'w': 7.0, 'd': 5.0, 'tint': '#FFFFFF', 'k': 1.9, 'n': 11, 'wide': 1.3, 'glints': 22}),
                TOAST('tartine13', add(H13A, [-0.3, 1.25, 0.42]), rot=[0.0, 0.0, 0.0], keys=[k(0.0, to=add(H13B, [-0.3, 1.25, 0.42]), dur=SLIP13, ease='linear'), *TK13]),
+               P('ombre13', 'ttShadow', pos=HC13, ry=r(math.degrees(YAW13), 1), opts={'w': 0.8, 'd': 2.3, 'a': 0.5, 'at': [[r(SLIP13 + 0.02), 0.0], [r(SLIP13 + 0.12), 1.0], [r(DOWN13 - 0.01), 1.0], [r(DOWN13 + 0.03), 0.0]]}),
                P('beurre13', 'ttSplat', pos=[TO13[0], 0.0, TO13[2]], opts={'r': 0.3, 'at': [[r(DOWN13 + 0.45), 0.0], [r(DOWN13 + 0.57), 1.0]]}),
                P('choc13', 'ttImpact', pos=add(RUG13, [0.0, 0.1, -0.2]), face='camera', opts={'at': r(DOWN13 - 0.01), 'r': 1.15, 'ring': True, 'n': 14, 'dur': 0.2}),
                P('etincelles13', 'ttSparkle', pos=[0, 0, 0], opts={'pts': [[x, 0.06, z, r(0.08 + 0.16 * i), 0.4] for i, (x, z) in enumerate([(-1.0, 0.2), (1.2, -0.3), (-0.4, 0.8), (0.9, 0.9), (-1.3, -1.2), (1.4, -1.9), (-0.6, -1.6), (0.5, -2.4), (1.0, 0.3), (-1.4, 0.6)])], 'period': 1.6})],
