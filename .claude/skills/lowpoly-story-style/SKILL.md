@@ -2343,3 +2343,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 54) Étoile de mer posée au centre d'un monument funéraire = étoile rouge politique à taille téléphone (et la coquille
   Saint-Jacques rappelle une marque) ; aucun motif sur un monument : boule ou tourelle de sable unie.
 - (cycle 54) Pages de calendrier qui s'envolent : dos vierge, sinon le mois se lit à l'envers en écriture miroir.
+- (cycle 54, session 87 « La fuite ») Accessoire imbriqué dans un autre : il n'est pas animé si le parent ne le pilote pas (ruban
+  invisible).
+- (cycle 54) Les clés de main ne partent qu'à leur propre temps : sur un acteur qui marche, une clé toutes les 0,2 s visée en
+  avant, sinon l'objet sort du cadre.
+- (cycle 54) Objet porté = accessoire séparé, pas attaché à la main : attachée, l'assiette se présentait toujours par la tranche.
+- (cycle 54) Coulée de béton : arc de gravité depuis une goulotte en haut du cadre, sinon elle se lit comme un tuyau horizontal.
+- (cycle 54) Coin de frigo qui dépasse : grand, incliné, avec joint, sinon il se lit comme un micro-ondes.
+- (cycle 54) Vérifier les affirmations des critiques sur les images rendues avant de corriger.
+- (cycle 54) Les accessoires de tête disparaissent quelques images quand un mouvement `to` commence après l'apparition de l'acteur.
+- (cycle 54) draft.sh régénère scripts-fr/story_X.json : le commiter ensuite.

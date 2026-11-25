@@ -3127,3 +3127,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 16 h 10 — « Le grincement » (98) : passe finale faite (famille de dos lisible, camion vu de l'arrière avec cartons, goutte vivante en S14, déformations au milieu du film), brouillon de contrôle 4 sans gel ni creux ; rendu final 1080 lancé. « La pelle » (100) : corrections du tour 1 faites (pierre portée puis ombre qui tombe, lunettes qui glissent pour les yeux, maillots noirs, mouettes sans ombre), brouillon 2 sans gel, revue 2 en cours.
 
 16 h 25 — « La pelle » (100) revue 2 : animation 7,0 (double prise S06 trop tardive, serviettes qui clignotent S10, réactions cachées S12-S13), image 7,6 (l'étoile de mer du mausolée se lisait comme une étoile rouge politique : retirée, aucun motif). Corrections du tour 2 lancées. « Le grincement » : rendu final en cours.
+
+16 h 40 — « La fuite » (99) publiée par la session parallèle 87 (revues 4,5/5,6 → 7,0/6,8 → 6,4/7,0, passe finale, brouillon de contrôle ; 1080×1920, 42,4 s, −16 LUFS). Branche fusionnée, post consigné, leçons ajoutées. La session 87 reçoit 101 « Le régime ».
