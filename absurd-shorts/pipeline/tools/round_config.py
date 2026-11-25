@@ -36,7 +36,7 @@ s = open(p, encoding='utf-8').read(); ns = {}; exec(s, ns)
 fixes = dict(l.rstrip('\n').split('\t', 1) for l in open(fix_file, encoding='utf-8') if '\t' in l) if fix_file else {}
 new, missing = {}, []
 for sid, old in ns['SHOTS'].items():
-    n, q = int(sid[1:]), old.split('»:')[0] + '»:'
+    n, q = int(re.match(r'\d+', sid[1:]).group()), old.split('»:')[0] + '»:'
     if sid in fixes: new[sid] = f'{q} {fixes[sid]}'; continue
     if n not in out: new[sid] = old; missing.append(sid); continue
     t = re.sub(r'\s*\((?:pass|stills|review|cycle)[^)]*\)', '', out[n])    # the pass markers

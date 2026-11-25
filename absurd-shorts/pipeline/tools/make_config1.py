@@ -40,7 +40,7 @@ for li, l in enumerate(tl):
 shots = {}
 for sid, a, b in scenes:
     ws = [w for w in words if a <= w[4] < b]
-    n = int(sid[1:])
+    n = int(re.match(r'\d+', sid[1:]).group())
     if ws:
         txt = ' '.join(w[3] for w in ws)
         pre = '' if ws[0][1] == 0 else '...'; post = '' if ws[-1][1] == ws[-1][2] - 1 else '...'
@@ -52,7 +52,7 @@ for sid, a, b in scenes:
     shots[sid] = f'{frag}: {b_}{card}.'
 stills, sdesc = [], {}
 for sid, a, b in scenes:
-    n = int(sid[1:])
+    n = int(re.match(r'\d+', sid[1:]).group())
     if sid in cards: t = min(b - 0.05, a + cards[sid][0] + 0.3)
     else: t = a + 0.6 * (b - a)
     name = f's{n:02d}'
@@ -69,7 +69,7 @@ if grp: pairs.append(grp)
 pnames = ['+'.join(g) for g in pairs]
 pdesc = {}
 for i, g in enumerate(pairs):
-    parts = '; '.join(re.split(r'[;:,]', body(int(s[1:])))[0].strip().rstrip('.') for s in g)
+    parts = '; '.join(re.split(r'[;:,]', body(int(re.match(r'\d+', s[1:]).group())))[0].strip().rstrip('.') for s in g)
     span = f'{g[0]}-{g[-1]}' if len(g) > 1 else g[0]
     pdesc['+'.join(g)] = (f'every second frame (15 per second) of {span}: ' if i == 0 else f'{span}: ') + parts
 robinet = open(f'{PIPELINE_DIR}/critic_template/robinet1.py', encoding='utf-8').read().split('\n')

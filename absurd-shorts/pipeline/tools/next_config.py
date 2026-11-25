@@ -26,7 +26,7 @@ pairs = re.findall(r"motion_([A-Z0-9_]+)\.jpg — (.*)", ev)
 def _expand(p):   # (15 Nov) a strip is named by its first and last shot: S11_S13 is S11, S12 and S13 (read as two shots, rounds 2 and 3 lost the middle one)
     ids = p.split('_')
     if len(ids) != 2: return p
-    a_, b_ = int(ids[0][1:]), int(ids[1][1:])
+    a_, b_ = int(re.match(r'\d+', ids[0][1:]).group()), int(re.match(r'\d+', ids[1][1:]).group())
     return p if b_ - a_ <= 1 else '_'.join('S%02d' % i for i in range(a_, b_ + 1))
 pairs = [(_expand(p), d) for p, d in pairs]
 roles = []
