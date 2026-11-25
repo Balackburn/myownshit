@@ -1,0 +1,930 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a emmené son pneu à plat chez le médecin.",
+   "hl": [
+    "pneu",
+    "médecin."
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.174,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "emmené",
+     "s": 0.581,
+     "e": 0.767
+    },
+    {
+     "w": "son",
+     "s": 0.841,
+     "e": 0.915
+    },
+    {
+     "w": "pneu",
+     "s": 0.989,
+     "e": 1.137
+    },
+    {
+     "w": "à",
+     "s": 1.174,
+     "e": 1.211
+    },
+    {
+     "w": "plat",
+     "s": 1.322,
+     "e": 1.433
+    },
+    {
+     "w": "chez",
+     "s": 1.507,
+     "e": 1.581
+    },
+    {
+     "w": "le",
+     "s": 1.606,
+     "e": 1.631
+    },
+    {
+     "w": "médecin.",
+     "s": 1.656,
+     "e": 2.174
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Diagnostic : à plat, c'est une dépression.",
+   "hl": [
+    "plat,",
+    "dépression."
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L02.k.wav",
+   "file_start": 2.274,
+   "speech_start": 2.274,
+   "speech_end": 4.793,
+   "words": [
+    {
+     "w": "Diagnostic:",
+     "s": 2.274,
+     "e": 3.212
+    },
+    {
+     "w": "à",
+     "s": 3.262,
+     "e": 3.311
+    },
+    {
+     "w": "plat,",
+     "s": 3.422,
+     "e": 3.756
+    },
+    {
+     "w": "c'est",
+     "s": 3.805,
+     "e": 3.904
+    },
+    {
+     "w": "une",
+     "s": 3.978,
+     "e": 4.052
+    },
+    {
+     "w": "dépression.",
+     "s": 4.126,
+     "e": 4.793
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Trois semaines d'arrêt. Interdiction de rouler.",
+   "hl": [
+    "d'arrêt.",
+    "rouler."
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L03.k.wav",
+   "file_start": 4.893,
+   "speech_start": 4.893,
+   "speech_end": 7.189,
+   "words": [
+    {
+     "w": "Trois",
+     "s": 4.893,
+     "e": 5.041
+    },
+    {
+     "w": "semaines",
+     "s": 5.115,
+     "e": 5.374
+    },
+    {
+     "w": "d'arrêt.",
+     "s": 5.411,
+     "e": 5.93
+    },
+    {
+     "w": "Interdiction",
+     "s": 6.004,
+     "e": 6.448
+    },
+    {
+     "w": "de",
+     "s": 6.522,
+     "e": 6.559
+    },
+    {
+     "w": "rouler.",
+     "s": 6.596,
+     "e": 7.189
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Puis chez le psy. En poussant la voiture.",
+   "hl": [
+    "psy.",
+    "poussant"
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L04.k.wav",
+   "file_start": 7.289,
+   "speech_start": 7.289,
+   "speech_end": 9.585,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 7.289,
+     "e": 7.437
+    },
+    {
+     "w": "chez",
+     "s": 7.511,
+     "e": 7.659
+    },
+    {
+     "w": "le",
+     "s": 7.696,
+     "e": 7.733
+    },
+    {
+     "w": "psy.",
+     "s": 7.881,
+     "e": 8.326
+    },
+    {
+     "w": "En",
+     "s": 8.4,
+     "e": 8.474
+    },
+    {
+     "w": "poussant",
+     "s": 8.511,
+     "e": 8.77
+    },
+    {
+     "w": "la",
+     "s": 8.807,
+     "e": 8.844
+    },
+    {
+     "w": "voiture.",
+     "s": 8.881,
+     "e": 9.585
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Le pneu a parlé de son enfance : une brouette.",
+   "hl": [
+    "enfance",
+    "brouette."
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L05.k.wav",
+   "file_start": 9.685,
+   "speech_start": 9.685,
+   "speech_end": 12.5,
+   "words": [
+    {
+     "w": "Le",
+     "s": 9.685,
+     "e": 9.833
+    },
+    {
+     "w": "pneu",
+     "s": 9.87,
+     "e": 10.056
+    },
+    {
+     "w": "a",
+     "s": 10.093,
+     "e": 10.13
+    },
+    {
+     "w": "parlé",
+     "s": 10.204,
+     "e": 10.426
+    },
+    {
+     "w": "de",
+     "s": 10.463,
+     "e": 10.5
+    },
+    {
+     "w": "son",
+     "s": 10.574,
+     "e": 10.648
+    },
+    {
+     "w": "enfance:",
+     "s": 10.722,
+     "e": 11.512
+    },
+    {
+     "w": "une",
+     "s": 11.562,
+     "e": 11.611
+    },
+    {
+     "w": "brouette.",
+     "s": 11.685,
+     "e": 12.5
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "En cure à la montagne, il a rencontré une chambre à air.",
+   "hl": [
+    "cure",
+    "chambre"
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L06.k.wav",
+   "file_start": 12.6,
+   "speech_start": 12.6,
+   "speech_end": 15.267,
+   "words": [
+    {
+     "w": "En",
+     "s": 12.6,
+     "e": 12.674
+    },
+    {
+     "w": "cure",
+     "s": 12.748,
+     "e": 12.896
+    },
+    {
+     "w": "à",
+     "s": 12.921,
+     "e": 12.945
+    },
+    {
+     "w": "la",
+     "s": 12.97,
+     "e": 13.044
+    },
+    {
+     "w": "montagne,",
+     "s": 13.156,
+     "e": 13.674
+    },
+    {
+     "w": "il",
+     "s": 13.711,
+     "e": 13.748
+    },
+    {
+     "w": "a",
+     "s": 13.785,
+     "e": 13.822
+    },
+    {
+     "w": "rencontré",
+     "s": 13.859,
+     "e": 14.23
+    },
+    {
+     "w": "une",
+     "s": 14.304,
+     "e": 14.378
+    },
+    {
+     "w": "chambre",
+     "s": 14.415,
+     "e": 14.6
+    },
+    {
+     "w": "à",
+     "s": 14.674,
+     "e": 14.711
+    },
+    {
+     "w": "air.",
+     "s": 14.748,
+     "e": 15.267
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Par solidarité, les trois autres pneus se sont mis en arrêt.",
+   "hl": [
+    "solidarité,",
+    "arrêt."
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L07.k.wav",
+   "file_start": 15.367,
+   "speech_start": 15.367,
+   "speech_end": 18.404,
+   "words": [
+    {
+     "w": "Par",
+     "s": 15.367,
+     "e": 15.441
+    },
+    {
+     "w": "solidarité,",
+     "s": 15.515,
+     "e": 16.367
+    },
+    {
+     "w": "les",
+     "s": 16.404,
+     "e": 16.478
+    },
+    {
+     "w": "trois",
+     "s": 16.552,
+     "e": 16.7
+    },
+    {
+     "w": "autres",
+     "s": 16.774,
+     "e": 16.922
+    },
+    {
+     "w": "pneus",
+     "s": 16.996,
+     "e": 17.219
+    },
+    {
+     "w": "se",
+     "s": 17.293,
+     "e": 17.367
+    },
+    {
+     "w": "sont",
+     "s": 17.404,
+     "e": 17.515
+    },
+    {
+     "w": "mis",
+     "s": 17.589,
+     "e": 17.663
+    },
+    {
+     "w": "en",
+     "s": 17.7,
+     "e": 17.737
+    },
+    {
+     "w": "arrêt.",
+     "s": 17.811,
+     "e": 18.404
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Et toutes les voitures du pays.",
+   "hl": [
+    "voitures",
+    "pays."
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L08.k.wav",
+   "file_start": 18.504,
+   "speech_start": 18.504,
+   "speech_end": 20.059,
+   "words": [
+    {
+     "w": "Et",
+     "s": 18.504,
+     "e": 18.652
+    },
+    {
+     "w": "toutes",
+     "s": 18.726,
+     "e": 18.874
+    },
+    {
+     "w": "les",
+     "s": 18.948,
+     "e": 19.022
+    },
+    {
+     "w": "voitures",
+     "s": 19.059,
+     "e": 19.319
+    },
+    {
+     "w": "du",
+     "s": 19.393,
+     "e": 19.467
+    },
+    {
+     "w": "pays.",
+     "s": 19.504,
+     "e": 20.059
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Les ambulances aussi. Les malades les poussent.",
+   "hl": [
+    "ambulances",
+    "poussent."
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L09.k.wav",
+   "file_start": 20.159,
+   "speech_start": 20.159,
+   "speech_end": 22.53,
+   "words": [
+    {
+     "w": "Les",
+     "s": 20.159,
+     "e": 20.307
+    },
+    {
+     "w": "ambulances",
+     "s": 20.381,
+     "e": 20.752
+    },
+    {
+     "w": "aussi.",
+     "s": 20.863,
+     "e": 21.344
+    },
+    {
+     "w": "Les",
+     "s": 21.419,
+     "e": 21.493
+    },
+    {
+     "w": "malades",
+     "s": 21.53,
+     "e": 21.715
+    },
+    {
+     "w": "les",
+     "s": 21.789,
+     "e": 21.863
+    },
+    {
+     "w": "poussent.",
+     "s": 21.937,
+     "e": 22.53
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Le ministre de la Santé a déclaré l'épidémie.",
+   "hl": [
+    "ministre",
+    "l'épidémie."
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L10.k.wav",
+   "file_start": 22.63,
+   "speech_start": 22.63,
+   "speech_end": 25.0,
+   "words": [
+    {
+     "w": "Le",
+     "s": 22.63,
+     "e": 22.704
+    },
+    {
+     "w": "ministre",
+     "s": 22.778,
+     "e": 23.074
+    },
+    {
+     "w": "de",
+     "s": 23.111,
+     "e": 23.148
+    },
+    {
+     "w": "la",
+     "s": 23.185,
+     "e": 23.222
+    },
+    {
+     "w": "Santé",
+     "s": 23.296,
+     "e": 23.741
+    },
+    {
+     "w": "a",
+     "s": 23.778,
+     "e": 23.815
+    },
+    {
+     "w": "déclaré",
+     "s": 23.889,
+     "e": 24.21
+    },
+    {
+     "w": "l'épidémie.",
+     "s": 24.234,
+     "e": 25.0
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Vaccination nationale : une piqûre d'air par pneu.",
+   "hl": [
+    "Vaccination",
+    "d'air"
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L11.k.wav",
+   "file_start": 25.1,
+   "speech_start": 25.1,
+   "speech_end": 27.915,
+   "words": [
+    {
+     "w": "Vaccination",
+     "s": 25.1,
+     "e": 25.693
+    },
+    {
+     "w": "nationale:",
+     "s": 25.73,
+     "e": 26.556
+    },
+    {
+     "w": "une",
+     "s": 26.606,
+     "e": 26.656
+    },
+    {
+     "w": "piqûre",
+     "s": 26.73,
+     "e": 26.952
+    },
+    {
+     "w": "d'air",
+     "s": 27.026,
+     "e": 27.174
+    },
+    {
+     "w": "par",
+     "s": 27.248,
+     "e": 27.322
+    },
+    {
+     "w": "pneu.",
+     "s": 27.396,
+     "e": 27.915
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le vaccin, c'est une pompe. Remboursée à soixante-cinq pour cent.",
+   "hl": [
+    "pompe.",
+    "soixante-cinq"
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L12.k.wav",
+   "file_start": 28.015,
+   "speech_start": 28.015,
+   "speech_end": 31.496,
+   "words": [
+    {
+     "w": "Le",
+     "s": 28.015,
+     "e": 28.089
+    },
+    {
+     "w": "vaccin,",
+     "s": 28.163,
+     "e": 28.756
+    },
+    {
+     "w": "c'est",
+     "s": 28.805,
+     "e": 28.904
+    },
+    {
+     "w": "une",
+     "s": 28.978,
+     "e": 29.052
+    },
+    {
+     "w": "pompe.",
+     "s": 29.126,
+     "e": 29.719
+    },
+    {
+     "w": "Remboursée",
+     "s": 29.793,
+     "e": 30.163
+    },
+    {
+     "w": "à",
+     "s": 30.237,
+     "e": 30.311
+    },
+    {
+     "w": "soixante-cinq",
+     "s": 30.385,
+     "e": 30.83
+    },
+    {
+     "w": "pour",
+     "s": 30.904,
+     "e": 30.978
+    },
+    {
+     "w": "cent.",
+     "s": 31.052,
+     "e": 31.496
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Le ministre a breveté la pompe.",
+   "hl": [
+    "breveté",
+    "pompe."
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L13.k.wav",
+   "file_start": 31.596,
+   "speech_start": 31.596,
+   "speech_end": 33.448,
+   "words": [
+    {
+     "w": "Le",
+     "s": 31.596,
+     "e": 31.67
+    },
+    {
+     "w": "ministre",
+     "s": 31.744,
+     "e": 32.115
+    },
+    {
+     "w": "a",
+     "s": 32.189,
+     "e": 32.263
+    },
+    {
+     "w": "breveté",
+     "s": 32.337,
+     "e": 32.67
+    },
+    {
+     "w": "la",
+     "s": 32.707,
+     "e": 32.781
+    },
+    {
+     "w": "pompe.",
+     "s": 32.856,
+     "e": 33.448
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Le pneu est rentré regonflé à bloc.",
+   "hl": [
+    "regonflé",
+    "bloc."
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L14.k.wav",
+   "file_start": 33.548,
+   "speech_start": 33.548,
+   "speech_end": 35.622,
+   "words": [
+    {
+     "w": "Le",
+     "s": 33.548,
+     "e": 33.622
+    },
+    {
+     "w": "pneu",
+     "s": 33.696,
+     "e": 33.919
+    },
+    {
+     "w": "est",
+     "s": 33.956,
+     "e": 33.993
+    },
+    {
+     "w": "rentré",
+     "s": 34.067,
+     "e": 34.437
+    },
+    {
+     "w": "regonflé",
+     "s": 34.511,
+     "e": 34.956
+    },
+    {
+     "w": "à",
+     "s": 35.03,
+     "e": 35.055
+    },
+    {
+     "w": "bloc.",
+     "s": 35.079,
+     "e": 35.622
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "La chambre à air a emménagé dedans.",
+   "hl": [
+    "emménagé",
+    "dedans."
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L15.k.wav",
+   "file_start": 35.722,
+   "speech_start": 35.722,
+   "speech_end": 37.574,
+   "words": [
+    {
+     "w": "La",
+     "s": 35.722,
+     "e": 35.796
+    },
+    {
+     "w": "chambre",
+     "s": 35.87,
+     "e": 36.093
+    },
+    {
+     "w": "à",
+     "s": 36.167,
+     "e": 36.241
+    },
+    {
+     "w": "air",
+     "s": 36.315,
+     "e": 36.389
+    },
+    {
+     "w": "a",
+     "s": 36.463,
+     "e": 36.537
+    },
+    {
+     "w": "emménagé",
+     "s": 36.611,
+     "e": 36.981
+    },
+    {
+     "w": "dedans.",
+     "s": 37.056,
+     "e": 37.574
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Ce mec, lui, est à plat.",
+   "hl": [
+    "lui,",
+    "plat."
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L16.k.wav",
+   "file_start": 37.674,
+   "speech_start": 37.674,
+   "speech_end": 39.452,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 37.674,
+     "e": 37.822
+    },
+    {
+     "w": "mec,",
+     "s": 37.896,
+     "e": 38.267
+    },
+    {
+     "w": "lui,",
+     "s": 38.304,
+     "e": 38.686
+    },
+    {
+     "w": "est",
+     "s": 38.736,
+     "e": 38.785
+    },
+    {
+     "w": "à",
+     "s": 38.822,
+     "e": 38.859
+    },
+    {
+     "w": "plat.",
+     "s": 38.933,
+     "e": 39.452
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Arrêt refusé : il n'a pas de valve.",
+   "hl": [
+    "refusé",
+    "valve."
+   ],
+   "file": "/tmp/pipe/s7/pneu/tts/L17.k.wav",
+   "file_start": 39.552,
+   "speech_start": 39.552,
+   "speech_end": 41.626,
+   "words": [
+    {
+     "w": "Arrêt",
+     "s": 39.552,
+     "e": 39.774
+    },
+    {
+     "w": "refusé:",
+     "s": 39.848,
+     "e": 40.614
+    },
+    {
+     "w": "il",
+     "s": 40.638,
+     "e": 40.663
+    },
+    {
+     "w": "n'a",
+     "s": 40.737,
+     "e": 40.811
+    },
+    {
+     "w": "pas",
+     "s": 40.885,
+     "e": 40.959
+    },
+    {
+     "w": "de",
+     "s": 40.996,
+     "e": 41.033
+    },
+    {
+     "w": "valve.",
+     "s": 41.144,
+     "e": 41.626
+    }
+   ]
+  }
+ ],
+ "total": 42.93
+}
