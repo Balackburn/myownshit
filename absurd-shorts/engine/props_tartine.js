@@ -177,7 +177,8 @@ export const TARTINE_PROPS = {
   // ---------------------------------------------------------------- the kitchen table under a long gingham cloth (pivot at the floor centre)
   // A top o.w (1.5) x o.d (0.9) at o.h (1.05) under a cloth whose skirt falls on all four sides to o.gap (0.04) over the floor; the front skirt
   // (+Z) is two halves: o.open [[t, 0..1]] draws them aside like curtains (gathered at the corners), o.lift [[t, 0..1]] lifts the whole front
-  // skirt outward and up (someone crawls out); o.front false: no front skirt (a camera inside); o.cloth: the check colour
+  // skirt outward and up (someone crawls out); o.front false: no front skirt (a camera inside); o.cloth: the check colour; o.sides [left, right]:
+  // false drops that side skirt (someone crawls in from the side)
   ttTable(o) {
     const W = o.w ?? 1.5, Dd = o.d ?? 0.9, Hh = o.h ?? 1.05, gap = o.gap ?? 0.04, col = o.cloth || '#D9473E', g = grp(), m = 0.05;
     g.add(at(box(W, 0.06, Dd, '#A8743E', { outline: 0.006 }), 0, Hh - 0.03, 0));
@@ -188,7 +189,8 @@ export const TARTINE_PROPS = {
     const panel = (w, folds) => { const cv = canvas(256, Math.round(256 * SH / w)); gingham(cv.getContext('2d'), cv.width, cv.height, col, Math.max(4, Math.round(10 * w / (W + 2 * m))), folds);
       const p = new THREE.Mesh(new THREE.PlaneGeometry(w, SH).translate(0, -SH / 2, 0), L('#FFFFFF', { map: tex(cv), side: THREE.DoubleSide })); p.castShadow = true; p.receiveShadow = true; return p; };
     const back = panel(W + 2 * m, 5); back.position.set(0, Hh + 0.012, -Dd / 2 - m); g.add(back);
-    for (const s of [-1, 1]) { const p = panel(Dd + 2 * m, 3); p.rotation.y = PI / 2; p.position.set(s * (W / 2 + m), Hh + 0.012, 0); g.add(p); }
+    const sides = o.sides || [true, true];
+    for (const s of [-1, 1]) { if (!sides[s > 0 ? 1 : 0]) continue; const p = panel(Dd + 2 * m, 3); p.rotation.y = PI / 2; p.position.set(s * (W / 2 + m), Hh + 0.012, 0); g.add(p); }
     const lift = grp(); lift.position.set(0, Hh + 0.012, Dd / 2 + m); g.add(lift);
     const halves = [];
     if (o.front !== false) for (const s of [-1, 1]) {
@@ -258,19 +260,20 @@ export const TARTINE_PROPS = {
   // ---------------------------------------------------------------- the wall chart (pivot at its nail, facing +Z): a framed board o.w (1.5) x
   // o.h (1.1) hanging from a nail, a pale grid and a huge green arrow rising steeply out through its top-right corner; o.grow [t0, t1]: the
   // arrow shoots up; o.fall [t0, t1]: it comes off the nail, turns over as it drops and lands upside down leaning on the wall (the arrow now
-  // pointing down) with a bounce; o.floor: the floor height under the nail (m, default 2.3 below it)
+  // pointing down) with a bounce; o.floor: the floor height under the nail (m, default 2.3 below it); o.plain: no grid (a clean board);
+  // o.thick: the arrow's width (1); o.burst: see below
   ttChart(o) {
     const W = o.w ?? 1.5, Hh = o.h ?? 1.1, g = grp(), board = grp(); g.add(board);
     g.add(at(cyl(0.015, 0.015, 0.08, '#3A3D44', 6), 0, 0, 0.02, PI / 2));
     const N = 10, frames = [];
     const draw = f => (c, w, h) => {
       c.fillStyle = '#FBFAF4'; c.fillRect(0, 0, w, h); c.strokeStyle = 'rgba(40,60,90,0.18)'; c.lineWidth = h * 0.006;
-      for (let i = 1; i < 6; i++) { c.beginPath(); c.moveTo(0, h * i / 6); c.lineTo(w, h * i / 6); c.stroke(); c.beginPath(); c.moveTo(w * i / 6, 0); c.lineTo(w * i / 6, h); c.stroke(); }
+      if (!o.plain) for (let i = 1; i < 6; i++) { c.beginPath(); c.moveTo(0, h * i / 6); c.lineTo(w, h * i / 6); c.stroke(); c.beginPath(); c.moveTo(w * i / 6, 0); c.lineTo(w * i / 6, h); c.stroke(); }
       c.strokeStyle = '#2E3440'; c.lineWidth = h * 0.02; c.beginPath(); c.moveTo(w * 0.08, h * 0.06); c.lineTo(w * 0.08, h * 0.92); c.lineTo(w * 0.96, h * 0.92); c.stroke();
       const pts = [], n = 40; for (let i = 0; i <= n * f; i++) { const u = i / n; pts.push([w * (0.1 + 0.74 * u), h * (0.86 - 0.95 * Math.pow(u, 2.2) - 0.03 * Math.sin(u * 22) * (1 - u))]); }
       if (pts.length < 2) return;
-      c.strokeStyle = '#1F8A3A'; c.lineWidth = h * 0.13; c.lineJoin = 'round'; c.lineCap = 'round'; c.beginPath(); pts.forEach(([x, y], i) => i ? c.lineTo(x, y) : c.moveTo(x, y)); c.stroke();
-      c.strokeStyle = '#3CC45A'; c.lineWidth = h * 0.085; c.beginPath(); pts.forEach(([x, y], i) => i ? c.lineTo(x, y) : c.moveTo(x, y)); c.stroke();
+      const th = o.thick ?? 1; c.strokeStyle = '#1F8A3A'; c.lineWidth = h * 0.13 * th; c.lineJoin = 'round'; c.lineCap = 'round'; c.beginPath(); pts.forEach(([x, y], i) => i ? c.lineTo(x, y) : c.moveTo(x, y)); c.stroke();
+      c.strokeStyle = '#3CC45A'; c.lineWidth = h * 0.085 * th; c.beginPath(); pts.forEach(([x, y], i) => i ? c.lineTo(x, y) : c.moveTo(x, y)); c.stroke();
       const [x1, y1] = pts[pts.length - 1], [x0, y0] = pts[Math.max(0, pts.length - 4)], a = Math.atan2(y1 - y0, x1 - x0), s = h * 0.2;
       c.fillStyle = '#3CC45A'; c.strokeStyle = '#1F8A3A'; c.lineWidth = h * 0.02; c.beginPath(); c.moveTo(x1 + Math.cos(a) * s, y1 + Math.sin(a) * s); c.lineTo(x1 + Math.cos(a + 2.4) * s, y1 + Math.sin(a + 2.4) * s); c.lineTo(x1 + Math.cos(a - 2.4) * s, y1 + Math.sin(a - 2.4) * s); c.closePath(); c.fill(); c.stroke();
     };
@@ -278,9 +281,19 @@ export const TARTINE_PROPS = {
     board.add(at(box(W + 0.08, Hh + 0.08, 0.04, frameC, { outline: 0.006 }), 0, -Hh / 2 - 0.06, -0.02));
     for (let i = 0; i < N; i++) { const cv = canvas(512, Math.round(512 * Hh / W)); draw((i + 1) / N)(cv.getContext('2d'), cv.width, cv.height); const p = new THREE.Mesh(new THREE.PlaneGeometry(W, Hh), L('#FFFFFF', { map: tex(cv) })); p.position.set(0, -Hh / 2 - 0.06, 0.002); p.visible = false; board.add(p); frames.push(p); }
     board.add(rod([0, 0, 0.01], [-W * 0.3, -0.06, 0.01], 0.006, '#2E2622'), rod([0, 0, 0.01], [W * 0.3, -0.06, 0.01], 0.006, '#2E2622'));
+    // o.burst (m): a thick 3D arrow that bursts out of the board's top edge where the curve leaves it, tilted o.burstAng (0.47 rad) to the right
+    let burst = null;
+    if (o.burst) {
+      const L0 = o.burst, sw = Hh * 0.11 * (o.thick ?? 1), hw = sw * 2.3, hl = sw * 2.4, a = new THREE.Shape();
+      a.moveTo(-sw / 2, 0); a.lineTo(sw / 2, 0); a.lineTo(sw / 2, L0 - hl); a.lineTo(hw / 2, L0 - hl); a.lineTo(0, L0); a.lineTo(-hw / 2, L0 - hl); a.lineTo(-sw / 2, L0 - hl); a.lineTo(-sw / 2, 0);
+      const front = new THREE.Mesh(new THREE.ExtrudeGeometry(a, { depth: 0.05, bevelEnabled: false }), L('#3CC45A', { emissive: '#1F8A3A', emissiveIntensity: 0.25 }));
+      const rim = new THREE.Mesh(new THREE.ShapeGeometry(a), L('#145C27')); rim.scale.set(1.18, 1.04, 1); rim.position.set(0, -0.02, -0.004);
+      const piv = grp(); piv.add(rim, front); piv.rotation.z = -(o.burstAng ?? 0.47); piv.position.set(W * 0.307, -0.1, 0.03); board.add(piv); burst = piv;
+    }
     const drop = o.floor ?? 2.3, cy0 = -Hh / 2 - 0.06;
     g.userData.update = t => {
       const u = o.grow ? clamp01((t - o.grow[0]) / Math.max(0.01, o.grow[1] - o.grow[0])) : 1, i = Math.max(0, Math.min(N - 1, Math.ceil(u * N) - 1)); frames.forEach((f, j) => { f.visible = j === i; });
+      if (burst) { const g0 = o.grow ? o.grow[0] + 0.55 * (o.grow[1] - o.grow[0]) : -9, d = o.grow ? 0.45 * (o.grow[1] - o.grow[0]) + 0.1 : 1, v = clamp01((t - g0) / d); burst.visible = v > 0.01; burst.scale.set(1, Math.max(0.01, outBack(v, 1.6)), 1); }
       if (!o.fall) return;
       const v = clamp01((t - o.fall[0]) / Math.max(0.01, o.fall[1] - o.fall[0])), landed = t - o.fall[1];
       const yc = lerp(cy0, -drop + Hh / 2 + 0.06, v * v), bounce = landed > 0 ? Math.abs(Math.sin(landed * 22)) * 0.05 * Math.exp(-landed * 7) : 0;
@@ -316,12 +329,15 @@ export const TARTINE_PROPS = {
 
   // ---------------------------------------------------------------- a gleaming waxed floor (pivot at its middle, on the floor): a sheet o.w x o.d
   // painted with soft diagonal white sheen streaks and a few bright glints (transparent, depth-tested, a polygon offset toward the camera);
-  // o.tint: a faint colour over the floor under it
+  // o.tint: a faint colour over the floor under it; o.k: streak strength (1), o.n: streak count (7), o.wide: streak width (1), o.glints: bright dabs (0)
   ttShine(o) {
     const w = o.w ?? 6, d = o.d ?? 6, N = 512, cv = canvas(N, Math.round(N * d / w)), c = cv.getContext('2d'), H = cv.height;
     if (o.tint) { c.fillStyle = o.tint; c.globalAlpha = 0.25; c.fillRect(0, 0, N, H); c.globalAlpha = 1; }
-    for (let i = 0; i < 7; i++) { const x = N * (i / 6) + (hsh(i) - 0.5) * N * 0.1, gw = N * (0.04 + 0.05 * hsh(i + 2));
-      c.save(); c.translate(x, H / 2); c.rotate(0.5); const gr = c.createLinearGradient(-gw, 0, gw, 0); gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(0.5, `rgba(255,255,255,${0.35 + 0.25 * hsh(i + 5)})`); gr.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = gr; c.fillRect(-gw, -H, 2 * gw, 2 * H); c.restore(); }
+    const nS = o.n ?? 7, kS = o.k ?? 1;
+    for (let i = 0; i < nS; i++) { const x = N * (i / (nS - 1)) + (hsh(i) - 0.5) * N * 0.1, gw = N * (0.04 + 0.05 * hsh(i + 2)) * (o.wide ?? 1);
+      c.save(); c.translate(x, H / 2); c.rotate(0.5); const gr = c.createLinearGradient(-gw, 0, gw, 0); gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(0.5, `rgba(255,255,255,${Math.min(1, (0.35 + 0.25 * hsh(i + 5)) * kS)})`); gr.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = gr; c.fillRect(-gw, -H, 2 * gw, 2 * H); c.restore(); }
+    for (let i = 0; i < (o.glints ?? 0); i++) { const x = N * hsh(i * 3.1 + 7), y = H * hsh(i * 5.7 + 2), r0 = N * (0.012 + 0.018 * hsh(i + 11)), gg = c.createRadialGradient(x, y, 0, x, y, r0 * 3);
+      gg.addColorStop(0, 'rgba(255,255,255,1)'); gg.addColorStop(0.3, 'rgba(255,255,255,0.7)'); gg.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = gg; c.beginPath(); c.ellipse(x, y, r0 * 3.4, r0 * 1.6, 0.5, 0, TAU); c.fill(); }
     const m = new THREE.Mesh(new THREE.PlaneGeometry(w, d).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ map: tex(cv), transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -6, polygonOffsetUnits: -20 }));
     m.position.y = o.y ?? 0.012; m.renderOrder = 1; return grp(m);
   },
