@@ -2262,3 +2262,21 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 53) Pompe à pied : baril rond, pédale et cadran, sinon elle se lit comme une guillotine.
 - (cycle 53) Plan de rappel cadré comme un plan précédent : garder un espace entre les têtes, sinon elles fusionnent.
 - (cycle 53) Bitume en conflit de profondeur = scintillement : dessiner l'asphalte sans test de profondeur.
+- (cycle 53) Visage dans l'entrebâillement d'une porte : calculer avec project() la position écran du bord libre du battant ; vu du
+  côté des gonds, le visage doit tomber entre le chambranle et ce bord, sinon le battant le cache.
+- (cycle 53) Battant à deux creux sombres = persienne ; quatre panneaux en relief à moulures claires = porte, lisible au téléphone.
+- (cycle 53) Sac qui s'aplatit puis regonfle : clés `flat` propres à l'accessoire, pivot sur son bord bas ; la clé `squash` du
+  moteur rebondit toute seule.
+- (cycle 53) Accessoire posé sur un pupitre qui s'écrase : caler sa hauteur image par image sur la courbe de rebond du pupitre,
+  sinon il flotte.
+- (cycle 53) Barbe accrochée à la tête avec un petit décalage z : elle disparaît dans la veste ; l'avancer d'environ 0,17 et
+  relever sa pointe.
+- (cycle 53) Livre fermé posé à plat, vu à hauteur de pupitre = rouleau ; incliner livre et pupitre d'environ 0,38 rad vers la
+  caméra.
+- (cycle 53) Un 9:16 ne tient pas côte à côte un personnage qui marche, une porte au fond et un camion : longue focale de loin
+  (18 m, 36°) pour garder la porte grande à côté du personnage.
+- (cycle 53) Pages qui tournent : matière opaque pour la vraie page, clone transparent seulement pour les fantômes ; des pages
+  transparentes se lisent comme du verre gris.
+- (cycle 53) Torse qui se gonfle : `bend.spine` gras (≈ 1,6) avec un léger recul, sinon la tête sort du cadre.
+- (cycle 53) Une clé toon doit répéter reach et mains pour chaque main utilisée : changer la main de la poignée oblige à reprendre
+  toutes les clés du plan.
