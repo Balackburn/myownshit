@@ -2206,3 +2206,5 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 52) Un contour en pointillés du volume perdu rend lisible en 0,3 s un avant-après « a perdu deux étages ».
 - (cycle 52) Carton calé juste avant un glissé de caméra : il tombe pendant que la tête bouge ; le caler après le glissé et vérifier la tête du
   plan suivant sous la bande du carton.
+- (cycle 52) Plans scindés (S09b) : round_config/next_config les perdent au tour 2 (SHOTS, PAIRS) ; régénérer une config de tour 1 fraîche
+  avec make_config1 et recopier SHOTS, STILLS, STILL_DESC, PAIRS, PAIR_DESC dans la config du tour suivant.
