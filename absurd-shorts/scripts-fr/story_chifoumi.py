@@ -158,40 +158,41 @@ for t_ in (0.05, 0.31): st.cue('sfx:step', 'S01', t_, 0.25)
 st.cue('sfx:punch', 'S01', THROW1, 0.3); st.cue('sfx:paper', 'S01', LAY1, 0.25)
 
 # ============================== the video-referee room (whiteVoid + chifRoom: cool grey walls; the wall of screens on the left wall)
-ROOM2 = {'w': 9, 'd': 9, 'h': 3.6, 'wall': '#7D8CA3', 'floor': '#4A5262', 'band': '#5E6C82', 'bandH': 1.1, 'trim': '#2E3646', 'lights': 3}
-R2 = [[-0.95, 0, -1.55], [0.15, 0, -1.0], [1.15, 0, -1.85]]             # three referees, staggered; they lean toward the screens on the left wall
-SCR2 = [-3.2, 0, -1.6]
-# 2: he contested; the federation reviewed the action on video. The camera trucks right along three referees in anthracite with headsets who lean
-#    toward the wall of screens (the kitchen footage loops); on « fédération » the middle one turns to us and draws a rectangle in the air with his
-#    forearm: a glowing trail that hangs, pulsing, to the cut
+ROOM2 = {'w': 9, 'd': 9, 'h': 4.6, 'wall': '#7D8CA3', 'floor': '#4A5262', 'band': '#5E6C82', 'bandH': 1.1, 'trim': '#2E3646', 'lights': 3, 'lightY': 4.5}
+R2 = [[-1.0, 0, -2.6], [0.1, 0, -2.25], [1.1, 0, -2.7]]               # three referees with their backs to us, leaning toward the wall of screens
+SCR2 = [0.0, 0, -3.95]
+# 2: he contested; the federation reviewed the action on video. Behind three referees in anthracite with headsets who lean toward a wall of screens
+#    looping the kitchen footage, the camera trucks right; on « fédération » the middle one turns round to us and draws a rectangle in the air with
+#    his forearm, low in front of his chest so his face stays clear: a glowing trail that hangs, pulsing, to the cut
 D2 = st.dur('S02'); RECT2 = r(W('S02', 'L02', 4) - 0.05); RDUR2 = 1.0
-F2A, F2B = [-1.7, 1.75, 2.9], [-0.6, 1.72, 3.0]
-L2A, L2B = [-1.2, 1.55, -1.5], [-0.2, 1.55, -1.5]
-C2 = cam(0.0, F2A, F2B, L2A, L2B, lens=46, ease='inOut')
-REF2 = R2[1]; RYR2 = yaw(REF2, F2B) - 8
-RC2 = off(REF2, RYR2, 0.55, 0.0, 1.62)                                  # the rectangle's centre in front of his chest, facing the camera
-RR, RU = right(RYR2), [0, 1, 0]
-RW2, RH2 = 0.62, 0.4
+F2A, F2B = [-0.45, 2.0, 3.1], [0.35, 1.98, 3.0]
+L2A, L2B = [-0.2, 1.62, -3.0], [0.2, 1.6, -3.0]
+C2 = cam(0.0, F2A, F2B, L2A, L2B, lens=48, ease='inOut')
+REF2 = R2[1]; RYR2 = yaw(REF2, F2B)
+RC2 = off(REF2, RYR2, 0.62, -0.08, 1.38)                                # the rectangle's centre, low in front of his chest, facing the camera
+RR = right(RYR2)
+RW2, RH2 = 0.66, 0.4
 RECTPTS2 = [[r(RC2[0] + RR[0] * sx * RW2 / 2), r(RC2[1] + sy * RH2 / 2), r(RC2[2] + RR[2] * sx * RW2 / 2)] for sx, sy in [(1, 1), (-1, 1), (-1, -1), (1, -1), (1, 1)]]
-chkc('S02', C2, {'ref1': add(R2[0], [0, 2.3, 0]), 'ref2': add(R2[1], [0, 2.3, 0]), 'ref3': add(R2[2], [0, 2.3, 0]), 'screen': [-3.15, 1.9, -1.0], 'rectL': RECTPTS2[1], 'rectR': RECTPTS2[0], 'rectLow': RECTPTS2[2]})
-chkc('S02', C2, {'ref1': add(R2[0], [0, 2.3, 0]), 'ref3': add(R2[2], [0, 2.3, 0]), 'rectL': RECTPTS2[1], 'rectR': RECTPTS2[0], 'screen': [-3.15, 1.9, -0.4]}, end=True)
+chkc('S02', C2, {'ref1': add(R2[0], [0, 2.3, 0]), 'ref2': add(R2[1], [0, 2.3, 0]), 'ref3': add(R2[2], [0, 2.3, 0]), 'scrL': [-1.8, 2.55, -3.9], 'scrR': [1.8, 1.1, -3.9], 'rectL': RECTPTS2[1], 'rectR': RECTPTS2[0]})
+chkc('S02', C2, {'ref1': add(R2[0], [0, 2.3, 0]), 'ref2face': add(R2[1], [0, 2.0, 0]), 'ref3': add(R2[2], [0, 2.3, 0]), 'rectL': RECTPTS2[1], 'rectR': RECTPTS2[0], 'rectLow': RECTPTS2[2]}, end=True)
 # the hand rides the trail: one reach key per corner, at the times the trail gets there (constant speed, linear)
 seglen = [math.dist(RECTPTS2[i], RECTPTS2[i + 1]) for i in range(4)]; TL2 = sum(seglen)
 CORN2 = [RECT2] + [r(RECT2 + RDUR2 * sum(seglen[:i + 1]) / TL2) for i in range(4)]
 REFF = {'lid': 0.35, 'mouth': 'line', 'brow': -0.4}
-def REFLEAN(ph): return {'bend': {'spine': [0.18, 0, 0, 1, None]}, 'face': {**REFF, 'gx': 0.3}}
-REFK2 = [k(0.0, look=[-3.1, 1.7, -1.2], lookDur=0.0), k(0.0, toon=REFLEAN(0), toonDur=0.0),
-         k(r(RECT2 - 0.3), look=F2B, lookDur=0.15), k(r(RECT2 - 0.3), toon={'face': {**REFF, 'brow': 0.2}, 'reach': {'R': R5(RECTPTS2[0], 1, 0.1)}}, toonDur=0.25, toonEase='out')]
+LEAN2 = {'bend': {'spine': [0.22, 0, 0, 1, None]}, 'face': REFF}
+REFK2 = [k(0.0, look=[0.1, 1.8, -3.9], lookDur=0.0), k(0.0, toon=LEAN2, toonDur=0.0),
+         k(r(RECT2 - 0.35), look=F2B, lookDur=0.2), k(r(RECT2 - 0.3), toon={'face': {**REFF, 'brow': 0.2}, 'reach': {'R': R5(RECTPTS2[0], 1, 0.1)}}, toonDur=0.25, toonEase='out')]
 for i in range(4): REFK2.append(k(CORN2[i], toon={'face': {**REFF, 'brow': 0.3}, 'reach': {'R': R5(RECTPTS2[i + 1], 1, 0.1)}, 'hose': 0.15}, toonDur=r(CORN2[i + 1] - CORN2[i]), toonEase='linear'))
 REFK2 += [k(r(CORN2[-1] + 0.05), toon={'face': {**REFF, 'brow': 0.1}, 'reach': {'R': R5(off(REF2, RYR2, 0.3, 0.25, 1.0), 0.0, 0.1)}}, toonDur=0.3, toonEase='inOut'), *blink(r(CORN2[-1] + 0.5), REFF)]
+def NOD2(ph): return [k(r(ph + 0.6 * i), toon={**LEAN2, 'bend': {'spine': [0.22, 0, 0, 1, None], 'neck': [0.12 if i % 2 else 0.0, 0, 0, 1, None]}}, toonDur=0.25, toonEase='inOut') for i in range(5)]
 st.shot('S02', 'whiteVoid', setOpts={'color': '#C9D0DA'}, actors=[
-        act('arbitre1', R2[0], -62, 'stand', 'neutral', keys=[k(0.0, look=[-3.1, 1.6, -0.9], lookDur=0.0), k(0.0, toon=REFLEAN(0), toonDur=0.0), *life(0.1, D2, {**REFF, 'gx': 0.4}, blinks=[1.1, 2.6])]),
-        act('arbitre2', REF2, RYR2 - 40, 'stand', 'neutral', keys=[k(r(RECT2 - 0.35), to=REF2, dur=0.3, glide=True, face=RYR2), *REFK2]),
-        act('arbitre3', R2[2], -50, 'stand', 'neutral', keys=[k(0.0, look=[-3.1, 1.8, -1.9], lookDur=0.0), k(0.0, toon=REFLEAN(0), toonDur=0.0), *life(0.3, D2, {**REFF, 'gx': 0.4}, blinks=[0.7, 2.2])])],
-        props=[P('salle2', 'chifRoom', pos=[0, 0, -0.5], opts=ROOM2), P('ecrans2', 'chifScreens', pos=SCR2, ry=90, opts={'cols': 3, 'rows': 2, 'sw': 1.1, 'sh': 0.66, 'y': 1.15}),
-               P('console2', 'table', pos=[-2.45, 0, -1.4], ry=90, opts={'w': 3.2, 'd': 0.7, 'h': 0.95, 'color': '#2E3646', 'legs': '#1E2430'}),
+        act('arbitre1', R2[0], 170, 'stand', 'neutral', keys=[k(0.0, look=[-0.8, 1.9, -3.9], lookDur=0.0), k(0.0, toon=LEAN2, toonDur=0.0), *NOD2(0.2)]),
+        act('arbitre2', REF2, 180, 'stand', 'neutral', keys=[k(r(RECT2 - 0.4), to=REF2, dur=0.3, glide=True, face=RYR2), *REFK2]),
+        act('arbitre3', R2[2], 190, 'stand', 'neutral', keys=[k(0.0, look=[0.9, 1.7, -3.9], lookDur=0.0), k(0.0, toon=LEAN2, toonDur=0.0), *NOD2(0.5)])],
+        props=[P('salle2', 'chifRoom', pos=[0, 0, -0.5], opts=ROOM2), P('ecrans2', 'chifScreens', pos=SCR2, opts={'cols': 3, 'rows': 2, 'sw': 1.15, 'sh': 0.7, 'y': 1.15}),
+               P('console2', 'table', pos=[0.0, 0, -3.35], opts={'w': 3.6, 'd': 0.6, 'h': 0.95, 'color': '#2E3646', 'legs': '#1E2430'}),
                *[HEADSET(f'casque2_{i}', f'arbitre{i + 1}') for i in range(3)],
-               P('trait2', 'chifTrail', pos=[0, 0, 0], opts={'pts': RECTPTS2, 'at': RECT2, 'dur': RDUR2})],
+               P('trait2', 'chifTrail', pos=[0, 0, 0], opts={'pts': RECTPTS2, 'at': RECT2, 'dur': RDUR2, 'r': 0.014})],
         cams=[C2])
 st.cue('sfx:beep', 'S02', 0.2, 0.15); st.cue('sfx:zip', 'S02', RECT2, 0.25); st.cue('sfx:bell', 'S02', r(RECT2 + RDUR2), 0.2)
 
@@ -199,13 +200,17 @@ st.cue('sfx:beep', 'S02', 0.2, 0.15); st.cue('sfx:zip', 'S02', RECT2, 0.25); st.
 #    time (her flat hand creeps down in three jerks), then a red line drawn between them on « centième »; in the top corner the bin, huge now,
 #    overflowing with bags; the « RALENTI » brackets over it all, a cool desaturated picture
 D3 = st.dur('S03'); LINE3 = r(W('S03', 'L03', 5) - 0.1)
-EF3 = add(EF1, [0.06, 0.2, 0.0])
+EF3 = add(EF1, [0.04, 0.2, 0.0])
 FIST3 = FIST1; PAP3 = hand_tip(EF3, RYF1, SH, SLV, ahead=0.14)
-F3 = [0.55, 1.45, 0.25]; L3 = [0.2, 1.12, -1.3]; LENS3 = 44
+F3 = [0.6, 1.3, 0.15]; L3 = [0.25, 1.08, -1.5]; LENS3 = 46
 C3 = cam(0.0, F3, add(F3, [0.0, 0.0, -0.06]), L3, L3, lens=LENS3)
-BIN3 = [-0.75, 0, -2.75]
+BIN3 = [-0.4, 0, -2.7]
 chkc('S03', C3, {'fist': FIST3, 'paper': PAP3, 'binTop': add(BIN3, [0, 1.9, 0]), 'binL': add(BIN3, [-0.45, 1.0, 0]), 'binR': add(BIN3, [0.45, 1.0, 0]), 'himHead': add(HK, [0, 1.92, 0])})
 STEPS3 = [0.25, 0.55, 0.85]
+# the replay brackets fill the frame exactly: a plane 0.45 m in front of the lens, as tall as the frame there, turned to face it
+_d3 = [L3[i] - F3[i] for i in range(3)]; _n3 = math.sqrt(sum(v * v for v in _d3)); _d3 = [v / _n3 for v in _d3]
+HUDP = [r(F3[i] + _d3[i] * 0.45) for i in range(3)]; HUDH = r(2 * 0.45 * math.tan(math.radians(LENS3) / 2) * 0.98); HUDW = r(HUDH * 9 / 16)
+_yb = math.asin(-_d3[0]); HUDR = [r(math.asin(_d3[1] / math.cos(_yb)), 4), r(_yb, 4), 0.0]
 st.shot('S03', 'kitchenDay', setOpts=KIT, grade='saturate(0.55) contrast(1.06) brightness(1.03)', actors=[
         act('mec', HK, RYH, 'sit', 'neutral', keys=[k(0.0, look=FIST3, lookDur=0.0), k(0.0, toon={'reach': {'R': R5(EH1, 1, 0.0)}, **HEROHAND(), 'hip': 0, 'breathe': 0, 'face': {'lid': 0.35, 'mouth': 'line'}}, toonDur=0.0)]),
         act('femme', FK, RYF, 'sit', 'neutral', keys=[k(0.0, look=FIST3, lookDur=0.0), k(0.0, toon={'reach': {'L': R5(EF3, 1, 0.0)}, **WIFEHAND(), 'hip': 0, 'face': SMUG}, toonDur=0.0),
@@ -214,7 +219,7 @@ st.shot('S03', 'kitchenDay', setOpts=KIT, grade='saturate(0.55) contrast(1.06) b
                HANDH('mainH3', mode='rock', tilt=0.06),
                HANDF('mainF3', e=EF3, mode='paper', tilt=0.06, keys=[k(t_, to=add(EF3, [0, -0.035 * (j + 1), 0]), dur=0.02) for j, t_ in enumerate(STEPS3)]),
                P('ligne3', 'chifRedLine', pos=[0, 0, 0], opts={'a': add(FIST3, [0.0, 0.12, 0.06]), 'b': add(PAP3, [0.0, -0.06, 0.06]), 'at': LINE3, 'dur': 0.28, 'r': 0.012, 'ring': 0.075}),
-               P('hud3', 'chifHud', pos=add(F3, [-0.12, -0.11, -0.5]), ry=yaw(L3, F3), opts={'w': 0.3, 'h': 0.53})],
+               P('hud3', 'chifHud', pos=HUDP, rot=HUDR, opts={'w': HUDW, 'h': HUDH})],
         cams=[C3])
 st.cue('sfx:scratch', 'S03', 0.0, 0.25); [st.cue('sfx:tick', 'S03', t_, 0.3) for t_ in STEPS3]; st.cue('sfx:zip', 'S03', LINE3, 0.2)
 

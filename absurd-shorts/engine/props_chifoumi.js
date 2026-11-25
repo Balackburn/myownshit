@@ -9,6 +9,7 @@
 import * as THREE from 'three';
 import { box, cyl, sphere, mat, addOutline } from './style.js';
 import { grp, at, canvasPlane, rod, glowSprite, inst } from './props.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { makeFaceRig, faceState, hasFaceRig } from './facerig.js';
 
 const PI = Math.PI, TAU = 2 * PI;
@@ -70,22 +71,24 @@ function bagMesh(size, color, seed) {
 // ---------------------------------------------------------------- the mitten (shared by the human hands and the robot's hand)
 // wrist at the origin, the hand along +Z, the back of the hand +Y, the palm -Y; thumb on the side sx (+1: +X). set(curl, thumb): curl 0 is the
 // flat mitten (paper), 1 the finger block folded under the palm (rock); thumb 0 out, 1 wrapped across the front of the fist
-function mitten({ W = 0.095, T = 0.04, Lp = 0.095, Lf = 0.088, color = HERO_SKIN, sx = 1, ol = 0.05, back = null }) {
-  const g = grp(), o = { outline: ol };
-  g.add(at(box(W, T, Lp, color, o), 0, 0, Lp / 2));
-  if (back) g.add(at(box(W * 0.9, 0.004, Lp * 0.8, back), 0, T / 2 + 0.002, Lp * 0.5));
-  const knuck = at(cyl(T * 0.52, T * 0.52, W * 0.98, color, 10), 0, -T * 0.02, Lp, 0, 0, PI / 2); g.add(knuck);
-  const piv = grp(); piv.position.set(0, -T / 2, Lp); g.add(piv);
-  const fing = grp(at(box(W * 0.96, T * 0.92, Lf, color, o), 0, T * 0.46, Lf / 2), at(cyl(T * 0.46, T * 0.46, W * 0.94, color, 10), 0, T * 0.46, Lf, 0, 0, PI / 2));
-  piv.add(fing);
-  const tp = grp(); tp.position.set(sx * W * 0.44, -T * 0.05, Lp * 0.28); g.add(tp);
-  const th = grp(at(box(T * 0.82, T * 0.78, Lp * 0.62, color, o), 0, 0, Lp * 0.31), at(sphere(T * 0.42, color, 1), 0, 0, Lp * 0.62)); tp.add(th);
-  const set = (curl, thumb) => {
-    piv.rotation.x = clamp01(curl) * 3.05;
-    tp.rotation.set(lerp(0.05, 0.75, thumb), lerp(sx * 0.55, -sx * 1.25, thumb), 0);
-    tp.position.y = lerp(-T * 0.05, -T * 0.55, thumb);
-  };
-  set(0, 0); return { g, set };
+function mitten({ W = 0.095, T = 0.04, Lp = 0.095, Lf = 0.088, color = HERO_SKIN, sx = 1, ol = 0.05, back = null, thumbColor = null, crease = '#8A5A40' }) {
+  const g = grp(), rb = (w, h, d, r, c) => { const m = new THREE.Mesh(new RoundedBoxGeometry(w, h, d, 3, r), mat(c)); m.castShadow = m.receiveShadow = true; addOutline(m, ol); return m; };
+  const TC = thumbColor || color;
+  // paper: one flat mitten slab with a rounded tip and the thumb out to the side
+  const paper = grp(at(rb(W, T, Lp + Lf, T * 0.48, color), 0, 0, (Lp + Lf) / 2));
+  paper.add(at(box(W * 0.9, T * 0.08, 0.004, crease), 0, T * 0.5, Lp));
+  const tpP = grp(at(rb(T * 0.9, T * 0.85, Lp * 0.72, T * 0.4, TC), 0, 0, Lp * 0.36)); tpP.position.set(sx * W * 0.42, -T * 0.05, Lp * 0.22); tpP.rotation.y = sx * 0.6; paper.add(tpP);
+  if (back) paper.add(at(box(W * 0.75, 0.004, Lp * 0.75, back), 0, T * 0.5 + 0.002, Lp * 0.5));
+  g.add(paper);
+  // rock: the mitten folded into a rounded lump, the fold line along its side, the thumb wrapped across the front
+  const FH = T * 2.05, FL = Lp * 1.12, rock = grp(at(rb(W * 1.04, FH, FL, T * 0.62, color), 0, -FH / 2 + T / 2, FL / 2));
+  for (const s2 of [-1, 1]) rock.add(at(box(0.004, T * 0.1, FL * 0.62, crease), s2 * W * 0.525, -T * 0.42, FL * 0.48));
+  rock.add(at(box(W * 0.86, T * 0.1, 0.004, crease), 0, -T * 0.42, FL + 0.001));
+  const tpR = grp(at(rb(W * 0.72, T * 0.78, T * 0.9, T * 0.36, TC), -sx * W * 0.08, 0, 0)); tpR.position.set(sx * W * 0.12, -FH + T * 0.92, FL * 0.98); rock.add(tpR);
+  if (back) rock.add(at(box(W * 0.75, 0.004, FL * 0.7, back), 0, T * 0.5 + 0.002, FL * 0.5));
+  g.add(rock);
+  const set = curl => { const c = clamp01(curl); paper.visible = c < 0.6; rock.visible = c >= 0.4; paper.scale.set(1, 1, lerp(1, 0.55, c)); rock.scale.setScalar(lerp(0.75, 1, c)); };
+  set(0); return { g, set, paper, rock };
 }
 // the well: the mitten curled into a ring standing on the wrist, its hole facing +Z (R the ring's radius, r the tube)
 function wellRing({ R = 0.05, r = 0.024, color = WIFE_SKIN, sx = 1 }) {
@@ -121,7 +124,7 @@ export const CHIFOUMI_PROPS = {
       const prevM = stepK(modes, tPrev - 1e-4, m);
       const curlOf = q => q === 'rock' ? 1 : 0;
       const c = lerp(curlOf(prevM), curlOf(m), u);
-      M.set(c, c);
+      M.set(c);
       const well = m === 'well';
       M.g.visible = !well || u < 0.5; W.visible = well;
       W.scale.setScalar(well ? Math.max(0.01, outBack(clamp01((t - tPrev) / 0.12))) : 1);
@@ -167,7 +170,7 @@ export const CHIFOUMI_PROPS = {
     const H = o.h ?? 6, R = o.r ?? 4, bs = o.bag ?? 0.7, g = grp();
     const core = new THREE.Mesh(new THREE.ConeGeometry(R * 0.9, H * 0.97, 10, 3), mat('#1E2025')); core.position.y = H * 0.485; core.castShadow = core.receiveShadow = true; g.add(core);
     const area = PI * R * Math.hypot(R, H), n = Math.min(o.n ?? Math.round(area / (bs * bs * 0.55)), 2600), L = [], C = [], KN = [];
-    const pal = ['#25272C', '#2B2D33', '#202226', '#33363D', '#2F3B2E', '#25272C', '#2B2D33', '#3A5E8C', '#25272C', '#C9B65A'];
+    const pal = ['#25272C', '#2B2D33', '#202226', '#33363D', '#25272C', '#2B2D33', '#202226', '#2F3B2E', '#25272C', '#2B2D33', '#202226', '#33363D', '#25272C', '#3A5E8C', '#2B2D33', '#202226', '#25272C', '#C9B65A'];
     for (let i = 0; i < n; i++) {
       const u = hsh(i * 3 + 1), y = H * (1 - Math.sqrt(u)) * 0.97, a = i * 2.39996 + hsh(i) * 0.4, rr = Math.max(bs * 0.3, R * (1 - y / H)) * (0.98 + 0.08 * hsh(i + 5)), sz = bs * (0.75 + 0.5 * hsh(i + 2));
       L.push([Math.cos(a) * rr, y + sz * 0.25, Math.sin(a) * rr, 0.3 * (hsh(i + 9) - 0.5), hsh(i + 4) * TAU, 0.3 * (hsh(i + 8) - 0.5), sz, sz, sz]); C.push(pal[Math.floor(hsh(i + 11) * pal.length)]);
@@ -287,10 +290,10 @@ export const CHIFOUMI_PROPS = {
     const a = new THREE.Vector3(...(o.a || [0, 0, 0])), b = new THREE.Vector3(...(o.b || [0, 1, 0])), g = grp(), r = o.r ?? 0.03, M = unlit('#FF2B2B'), WM = unlit('#FFFFFF');
     const d = b.clone().sub(a), L = d.length(), q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.clone().normalize());
     const line = new THREE.Mesh(new THREE.CylinderGeometry(r, r, 1, 8), M), edge = new THREE.Mesh(new THREE.CylinderGeometry(r * 1.6, r * 1.6, 1, 8), WM);
-    [edge, line].forEach((m, i) => { m.quaternion.copy(q); m.renderOrder = 5 + i; m.castShadow = false; g.add(m); });
+    [line].forEach((m, i) => { m.quaternion.copy(q); m.renderOrder = 6; m.castShadow = false; g.add(m); });
     const rings = [a, b].map(p => { const m = new THREE.Mesh(new THREE.TorusGeometry(o.ring ?? 0.09, r * 0.8, 6, 24), M); m.position.copy(p); m.renderOrder = 6; g.add(m); return m; });
     g.userData.update = t => { const u = EASE.out(clamp01((t - (o.at ?? 0)) / (o.dur ?? 0.3))), l = Math.max(0.001, u * L);
-      [edge, line].forEach(m => { m.visible = u > 0; m.scale.set(1, l, 1); m.position.copy(a).addScaledVector(d.clone().normalize(), l / 2); });
+      [line].forEach(m => { m.visible = u > 0; m.scale.set(1, l, 1); m.position.copy(a).addScaledVector(d.clone().normalize(), l / 2); });
       rings[0].visible = u > 0; rings[1].visible = u >= 0.98; rings.forEach((m, i) => m.scale.setScalar(m.visible ? 1 + 0.15 * Math.sin(t * 8 + i) : 1)); };
     g.userData.update(-1); return g;
   },
@@ -335,7 +338,7 @@ export const CHIFOUMI_PROPS = {
     // the crack: a jagged dark band from z -b0 to +b0 through the centre, bending past the hole
     const hole = o.hole || [-1.3, 1.3], HR = o.holeR ?? 0.75;
     const cp = []; const NC = 46; for (let i = 0; i <= NC; i++) { const v = i / NC, z = lerp(-b0 - 1, b0 + 1, v), near = Math.exp(-Math.pow((z - hole[1]) / 2.2, 2)); cp.push([lerp(0.6 * Math.sin(v * 23) + 0.35 * Math.sin(v * 57), hole[0], near), z]); }
-    const crackM = new THREE.MeshLambertMaterial({ color: '#141210', depthTest: false, depthWrite: false }), cGeo = new THREE.BufferGeometry(), cPos = new Float32Array(NC * 6 * 3);
+    const crackM = new THREE.MeshLambertMaterial({ color: '#141210', depthTest: false, depthWrite: false, side: THREE.DoubleSide }), cGeo = new THREE.BufferGeometry(), cPos = new Float32Array(NC * 6 * 3);
     cGeo.setAttribute('position', new THREE.BufferAttribute(cPos, 3)); cGeo.setAttribute('normal', new THREE.BufferAttribute(new Float32Array(NC * 6 * 3).map((v, i) => i % 3 === 1 ? 1 : 0), 3));
     const crack = new THREE.Mesh(cGeo, crackM); crack.renderOrder = -1.5; crack.frustumCulled = false; crack.position.y = 0.013; g.add(crack);
     const holeM = new THREE.MeshBasicMaterial({ map: gradTex('hole'), depthTest: false, depthWrite: false }), holeD = new THREE.Mesh(new THREE.CircleGeometry(1, 28), holeM); holeD.rotation.x = -PI / 2; holeD.position.set(hole[0], 0.014, hole[1]); holeD.renderOrder = -1.4; g.add(holeD);
@@ -386,12 +389,12 @@ export const CHIFOUMI_PROPS = {
       return { H, fans, bodyM, headM, hairM, armL, armR, side };
     });
     if (o.board) {
-      const bw = 16, bh = 6, bx = -(a0 + rows * rd + 1.5), by = fh + rows * rh + 6.5;
+      const bw = 16, bh = 6, bx = -(a0 + rows * rd + 1.5), by = fh + rows * rh + 6.5, far = o.boardFar;
       const board = grp(at(box(bw + 0.8, bh + 0.8, 0.6, '#2A2D33', { outline: 0.006 }), 0, 0, -0.32), at(box(0.6, by, 0.6, '#5A5E66', { pivot: 'bottom' }), -bw * 0.35, -by, -0.5), at(box(0.6, by, 0.6, '#5A5E66', { pivot: 'bottom' }), bw * 0.35, -by, -0.5));
       board.add(at(canvasPlane(bw, bh, (c, W, H) => { c.fillStyle = '#0D1016'; c.fillRect(0, 0, W, H); const ln = list(o.board);
         ln.forEach((s, i) => { let fs = H * (i === 0 ? 0.3 : 0.34); c.font = `900 ${fs}px Arial`; const tw = c.measureText(s).width; if (tw > W * 0.9) { fs *= W * 0.9 / tw; c.font = `900 ${fs}px Arial`; }
           c.fillStyle = i === 0 ? '#FFB43A' : '#FFFFFF'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(s, W / 2, H * (ln.length === 1 ? 0.5 : i === 0 ? 0.3 : 0.7)); }); }, { res: 1024, emissive: 1 }), 0, 0, 0.0));
-      board.position.set(bx, by, 0); board.rotation.y = PI / 2; halves[0].H.add(board);
+      if (far) { board.position.set(far, by, -(b0 + rows * rd + 1.5)); board.rotation.y = 0; halves[far > 0 ? 1 : 0].H.add(board); } else { board.position.set(bx, by, 0); board.rotation.y = PI / 2; halves[0].H.add(board); }
     }
     const dm = new THREE.Object3D(), qY = new THREE.Quaternion(), qA = new THREE.Quaternion(), AY = new THREE.Vector3(0, 1, 0);
     const jumps = list(o.jumps);
@@ -566,8 +569,8 @@ export const CHIFOUMI_PROPS = {
     const wrist = grp(); turret.add(wrist);
     wrist.add(at(cyl(0.3, 0.3, 0.32, DK, 12, { outline: 0.02 }), 0, 0, 0.0, PI / 2, 0, 0));
     const handG = grp(); handG.position.z = 0.16; wrist.add(handG);
-    const M = mitten({ W: 1.0, T: 0.42, Lp: 0.85, Lf: 0.8, color: HC, sx: o.thumb ?? 1, ol: 0.035, back: '#5A616C' }); handG.add(M.g);
-    for (const [x, z] of [[-0.3, 0.25], [0.3, 0.25], [-0.3, 0.6], [0.3, 0.6]]) M.g.add(at(cyl(0.05, 0.05, 0.03, '#C9CED4', 8), x, 0.215, z));
+    const M = mitten({ W: 1.0, T: 0.42, Lp: 0.85, Lf: 0.8, color: HC, sx: o.thumb ?? 1, ol: 0.03, back: '#5A616C', thumbColor: '#8E959E', crease: '#C9CED4' }); handG.add(M.g);
+    for (const [x, z] of [[-0.3, 0.25], [0.3, 0.25], [-0.3, 0.6], [0.3, 0.6]]) for (const part of [M.paper, M.rock]) part.add(at(cyl(0.05, 0.05, 0.03, '#C9CED4', 8), x, 0.225, z));
     const bib = grp(at(box(0.62, 0.48, 0.02, '#FAFAF6', { outline: 0.03 }), 0, 0, 0)); for (const [x, y] of [[-0.26, 0.19], [0.26, 0.19], [-0.26, -0.19], [0.26, -0.19]]) bib.add(at(sphere(0.025, '#C9CED4', 0), x, y, 0.015));
     bib.position.set(0, 0.225, 0.48); bib.rotation.x = -PI / 2; M.g.add(bib);
     const medal = grp(at(box(0.08, 0.5, 0.02, '#2F5FA8'), -0.09, -0.22, 0, 0, 0, 0.2), at(box(0.08, 0.5, 0.02, '#2F5FA8'), 0.09, -0.22, 0, 0, 0, -0.2), at(cyl(0.2, 0.2, 0.05, '#E8B830', 16, { outline: 0.03 }), 0, -0.6, 0.0, PI / 2, 0, 0), at(cyl(0.14, 0.14, 0.06, '#F2CC50', 16), 0, -0.6, 0.0, PI / 2, 0, 0));
@@ -608,7 +611,7 @@ export const CHIFOUMI_PROPS = {
       wrist.position.set(0, 1.15 + k.w[1], k.w[0]); wrist.rotation.set(-q.hp, 0, q.roll);
       let sq = 0; for (const h of list(o.hits)) { const u = t - h; if (u >= 0 && u < 0.45) sq += Math.exp(-u * 9) * Math.cos(u * 34); }
       handG.scale.set(1 + 0.28 * sq, 1 - 0.38 * sq, 1 + 0.18 * sq);
-      M.set(q.curl, q.curl);
+      M.set(q.curl);
       const bu = o.bibAt == null ? 0 : outBack(clamp01((t - o.bibAt) / 0.2)); bib.visible = bu > 0.01; bib.scale.setScalar(Math.max(0.01, bu));
       const mu = o.medalAt == null ? 0 : outBack(clamp01((t - o.medalAt) / 0.2)); medal.visible = mu > 0.01; medal.scale.setScalar(Math.max(0.01, mu));
       if (medal.visible) { const wp = local(k.yaw, k.w[0], hS + k.w[1]); medal.position.copy(wp).add(new THREE.Vector3(0, -0.28, 0)); medal.rotation.set(0, o.medalYaw ?? k.yaw, 0.12 * Math.sin((t - o.medalAt) * 6) * Math.exp(-(t - o.medalAt) * 1.5)); }
