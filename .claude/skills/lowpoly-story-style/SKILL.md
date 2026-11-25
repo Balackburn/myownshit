@@ -2417,3 +2417,16 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 55) Moufle qui tient un objet par le centre = cadran caché ; prise sous et derrière l'objet, tapes sur le bord.
 - (cycle 55) Cravate qui pend sur l'étiquette de cou : `tieHide` sur chaque clé toon de ceux dont l'étiquette doit se lire.
 - (cycle 55) Pieds de chaise et glissade derrière une nappe vus d'une caméra basse : nappe raccourcie (`ttTable` `gap` ≈ 0,6).
+- (cycle 56, « La poule ») Cible de regard sous la tête d'un acteur penché ou agenouillé : la tête roule de 60-90° ; viser
+  lerp(cible à hauteur de tête, caméra, 0,4).
+- (cycle 56) Preset médecin : glasses False quand on lui donne des lunettes ou un miroir frontal, sinon deux paires.
+- (cycle 56) Animation de chute interne d'un accessoire (tas) + chute dans le monde = chute doublée ; option dropH 0.
+- (cycle 56) Dents dans un bec fermé : elles traversent le bec supérieur effilé ; ne les montrer que bec ouvert. Dent en or sur bec
+  jaune = invisible : bec inférieur assombri, dent en or devant.
+- (cycle 56) Porte peinte sombre dans un mur plein : elle cache les acteurs derrière ; découper une vraie ouverture avec un renfoncement.
+- (cycle 56) Chaise pliante portée attachée à la main : elle cache le visage en marchant ; l'attacher au flanc du torse, face caméra.
+- (cycle 56) Enseigne plus large que le cadre à sa profondeur = mot coupé (« MUTUELL ») ; option de largeur, vérifier chaque plan.
+- (cycle 56) Recherche caméra : boîtes x par tête ET distance maximale, sinon elle recule jusqu'à rendre les dents illisibles.
+- (cycle 56) Cinq voisins dans une rangée de maisons en 9:16 : façades étroites (1,6 m) et caméra lointaine à 45°.
+- (cycle 56) Bouche du héros en surimpression : sur l'articulation de la tête à (y 0,12, z 0,1, 0,21 × 0,105 m), pile sur la bouche
+  peinte. Prises du héros bouche fermée quand la bouche est un gag (doubleTake de story_kit ouvre la mâchoire).
