@@ -67,7 +67,7 @@ export const PARDON_PROPS = {
   // a squash-stretch bounce on each time; o.look [[t, yaw], ...]: his head turns; o.smile [[t, 0..1]]: beaming; o.blink [t, ...]; o.pop: the
   // button that pops (hidden after o.popAt); the huge lemon polka-dot tie (o.flap: it flaps, strides per second); o.sign [[t0, t1]]: his right hand
   // scribbles in front; o.raise [[t0, t1]]: his right arm up at the side; o.hold [[t0, t1]]: both arms up in front; o.straighten [[t0, t1]]: both hands
-  // at the tie, it wags then sits straight; o.puff [t]: the chest swells and settles; o.signUp [[t0, t1]]: scribbles up by his shoulder
+  // at the tie, it wags then sits straight; o.puff [t]: the chest swells and settles; o.signUp [[t0, t1]]: scribbles up by his shoulder; o.pen: a black pen in his right hand
   pdPresident(o) {
     const k = o.round ?? 1, SU = o.pj ? '#A9C2E2' : (o.suit || '#2B3A55'), g = grp(), root = grp(); g.add(root);
     const bodyR = 0.42 * k, hipY = o.sit ? 0.5 : 0.62, legL = 0.5;
@@ -91,7 +91,7 @@ export const PARDON_PROPS = {
     head.add(at(sphere(0.12, '#B9B9B6', 1), 0, 0.46, -0.1));
     const arms = [-1, 1].map(sx => { const sh = grp(); sh.position.set(sx * bodyR * 0.82, bodyR * 0.35, 0);   // (inside the barrel: a raised arm stays joined to it)
       body.add(sh);
-      const ar = at(cyl(0.07, 0.065, 0.42, SU, 8, { outline: 0.02 }), 0, -0.2, 0); sh.add(ar); sh.add(at(sphere(0.075, '#F2C29A', 1, { outline: 0.03 }), 0, -0.44, 0)); sh.rotation.z = sx * 0.35; return sh; });
+      const ar = at(cyl(0.07, 0.065, 0.42, SU, 8, { outline: 0.02 }), 0, -0.2, 0); sh.add(ar); sh.add(at(sphere(0.075, '#F2C29A', 1, { outline: 0.03 }), 0, -0.44, 0)); if (o.pen && sx < 0) sh.add(at(cyl(0.012, 0.012, 0.22, '#14161A', 6, { outline: 0.06 }), 0.02, -0.5, 0.06, 0.6, 0, 0)); sh.rotation.z = sx * 0.35; return sh; });
     const legs = [-1, 1].map(sx => { const hp = grp(); hp.position.set(sx * bodyR * 0.42, hipY, 0); root.add(hp);
       hp.add(at(cyl(0.1, 0.09, legL, o.pj ? SU : (o.pants || SU), 8, { outline: 0.02 }), 0, -legL / 2, 0), at(box(0.16, 0.08, 0.26, '#1A1C20', { outline: 0.02 }), 0, -legL + 0.02 - (o.sit ? 0 : 0.08), 0.06)); return hp; });
     if (o.sit) legs.forEach(l => { l.rotation.x = -PI / 2 + 0.1; });
@@ -165,11 +165,11 @@ export const PARDON_PROPS = {
   // then breaks in two with a crack: the halves tip apart showing a torn pale crumb end, a burst of crumbs; o.half 'L' | 'R': one half alone, its
   // torn end at x = 0
   pdBaguette(o) {
-    const L = o.len ?? 0.7, R = o.r ?? 0.058, CR = '#C9873A', g = grp(), all = grp(), halves = []; g.add(all);
+    const L = o.len ?? 0.7, R = o.r ?? 0.058, CR = '#D2A866', g = grp(), all = grp(), halves = []; g.add(all);
     for (const sd of [-1, 1]) { if (o.half && (o.half === 'L') !== (sd < 0)) continue; const h = grp();
       const m = new THREE.Mesh(new THREE.CylinderGeometry(R, R, L / 2 - 0.04, 10), mat(CR)); m.rotation.z = PI / 2; m.position.x = sd * (L / 4 + 0.02); m.scale.set(1, 1, 0.82); addOutline(m, 0.02); h.add(m);
       const tip = new THREE.Mesh(new THREE.SphereGeometry(R, 10, 8), mat(CR)); tip.scale.set(1.3, 1, 0.82); tip.position.x = sd * (L / 2 - 0.02); addOutline(tip, 0.02); h.add(tip);
-      for (let i = 0; i < 3; i++) h.add(at(box(0.07, 0.012, 0.032, '#8A5424'), sd * (L * 0.09 + i * 0.085), R * 0.8, 0, 0, 0.55 * sd, 0.12));   // the scoring
+      for (let i = 0; i < 3; i++) h.add(at(box(0.075, 0.014, 0.036, '#A8763E'), sd * (L * 0.09 + i * 0.085), R * 0.8, 0, 0, 0.55 * sd, 0.12));   // the scoring
       for (let i = 0; i < 7; i++) { const a = i / 7 * TAU; h.add(at(box(0.03, 0.03, 0.03, i % 2 ? '#F4E6C2' : '#E9D3A0'), sd * (0.02 + 0.012 * (i % 3)), Math.cos(a) * R * 0.55, Math.sin(a) * R * 0.45, a, a, 0)); }   // the torn crumb end
       h.add(at(cyl(R * 0.85, R * 0.85, 0.02, '#F4E6C2', 10), sd * 0.025, 0, 0, 0, 0, PI / 2)); all.add(h); halves.push({ h, sd }); }
     const crumbs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => { const m = at(box(0.04, 0.03, 0.035, i % 3 ? '#E9D3A0' : CR, { outline: 0.03 }), 0, 0, 0); g.add(m); return m; });
@@ -188,7 +188,7 @@ export const PARDON_PROPS = {
     const w = o.w ?? 0.5, h = o.h ?? 0.7, g = grp(), k = grp(); g.add(k);
     k.add(canvasPlane(w, h, paintScroll, { res: 256 }));
     for (const y of [h / 2, -h / 2]) k.add(at(cyl(0.035, 0.035, w + 0.08, '#E2CC98', 10, { outline: 0.03 }), 0, y, 0.02, 0, 0, PI / 2));
-    const sigs = (o.signAt || []).map((ts, i) => { const m = at(box(w * (0.22 + 0.06 * i), 0.018, 0.01, '#14161A'), -w * 0.25 + i * w * 0.18, -h * 0.28 + 0.03 * Math.sin(i * 2), 0.012, 0, 0, (i % 2 ? -0.5 : 0.45)); k.add(m); return { m, ts }; });   // o.signAt [t, ...]: a signature stroke appears at each time
+    const sigs = (o.signAt || []).map((ts, i) => { const m = at(box(w * (0.34 + 0.06 * i), 0.035, 0.012, '#14161A'), -w * 0.22 + i * w * 0.2, -h * 0.3 + 0.07 * Math.sin(i * 1.7), 0.014, 0, 0, (i % 2 ? -0.55 : 0.5)); k.add(m); return { m, ts }; });   // o.signAt [t, ...]: a signature stroke appears at each time
     let X = null;   // (a local: buildProp hoists this group's userData onto its wrapper, so g.userData is empty by the time update runs)
     if (o.xAt != null) { X = grp(); for (const sg of [-1, 1]) X.add(at(box(Math.hypot(w, h) * 0.85, 0.07, 0.02, '#D8262E', { outline: 0.02 }), 0, 0, 0.04, 0, 0, sg * Math.atan2(h, w))); k.add(X); }
     // the X falls from above the frame (o.xFrom m higher, 0.1 s), stretched in its fall, squashes flat on impact and bounces back to rest
@@ -212,17 +212,24 @@ export const PARDON_PROPS = {
     for (let x = -L / 2 + 0.15; x < L / 2; x += 0.3) g.add(at(box(0.03, 0.105, 0.56, '#3E4148'), x, 0.85, 0));
     const sc = [0, 1, 2, 3, 4, 5, 6].map(() => { const p = grp(at(box(0.34, 0.012, 0.42, '#F2E2B8', { outline: 0.03 }), 0, 0, 0), at(box(0.38, 0.05, 0.05, '#E2CC98'), 0, 0.02, -0.21), at(cyl(0.035, 0.035, 0.012, '#B5241E', 10), 0.1, 0.012, 0.12));
       for (let i = 0; i < 4; i++) p.add(at(box(0.24, 0.004, 0.012, '#9A8460'), -0.02, 0.008, -0.13 + i * 0.06));
-      const sig = grp(at(box(0.2, 0.008, 0.02, '#14161A'), -0.04, 0.012, 0.13, 0, 0.35, 0), at(box(0.1, 0.008, 0.02, '#14161A'), 0.05, 0.012, 0.11, 0, -0.6, 0)); p.add(sig); g.add(p); return { p, sig }; });
+      const sig = grp(); for (let i = 0; i < 6; i++) { const a = -1.1 + i * 0.44; sig.add(at(box(0.07, 0.01, 0.028, '#14161A'), Math.sin(a) * 0.13, 0.013, 0.1 - Math.cos(a) * 0.06, 0, -a * 0.8, 0)); } p.add(sig); g.add(p); return { p, sig }; });   // a big looping signature
     g.userData.update = t => { sc.forEach(({ p, sig }, i) => { const x = wrap01(t * (o.speed ?? 0.9) / L + i / 7) * L - L / 2; p.position.set(x, 0.92, 0); sig.visible = x > sx0; }); };
     g.userData.update(-1); return g; },
 
-  // A big empty evidence tray on a table (pivot at the floor, faces +Z): a wooden table, a wide flat grey tray, a large brown tag lying in it
-  pdTray(o) { return grp(at(box(1.3, 0.06, 0.7, '#8A6A45', { outline: 0.01 }), 0, 0.82, 0), ...[-0.55, 0.55].flatMap(x => [-0.28, 0.28].map(z => at(box(0.06, 0.82, 0.06, '#6A4A30', { pivot: 'bottom' }), x, 0, z))),
-    at(box(0.95, 0.05, 0.55, '#9AA3A8', { outline: 0.02 }), 0, 0.875, 0), at(box(0.85, 0.02, 0.45, '#BFC6CC'), 0, 0.9, 0), at(box(0.3, 0.008, 0.18, '#B5793A', { outline: 0.04 }), 0.15, 0.915, 0.05, 0, 0.3, 0), at(cyl(0.02, 0.02, 0.01, '#F2E2B8', 8), 0.03, 0.92, 0.0)); },
-  // A big iron ball and chain (pivot at the hand end of the chain): a black ball under three dark links, o.r the ball's radius
-  pdBallChain(o) { const r = o.r ?? 0.2, g = grp(); for (let i = 0; i < 4; i++) { const l = new THREE.Mesh(new THREE.TorusGeometry(0.05, 0.016, 5, 10), mat('#3A3D44')); l.position.y = -0.09 * i; l.rotation.y = i % 2 ? PI / 2 : 0; addOutline(l, 0.04); g.add(l); }
-    const b = new THREE.Mesh(new THREE.SphereGeometry(r, 14, 10), new THREE.MeshPhongMaterial({ color: '#2A2C31', shininess: 60 })); b.position.y = -0.36 - r; addOutline(b, 0.02); g.add(b); return g; },
-
+  // A big empty evidence tray on a table (pivot at the floor, faces +Z): a wooden table, a wide rimmed grey dish tilted up toward the front (o.tilt),
+  // a big brown card tag with a metal grommet and a loop of string lying in it
+  pdTray(o) { const g = grp(at(box(1.3, 0.06, 0.7, '#8A6A45', { outline: 0.01 }), 0, 0.82, 0), ...[-0.55, 0.55].flatMap(x => [-0.28, 0.28].map(z => at(box(0.06, 0.82, 0.06, '#6A4A30', { pivot: 'bottom' }), x, 0, z)))), d = grp();
+    d.position.set(0, 0.87, 0.05); d.rotation.x = o.tilt ?? 0.55; g.add(d); d.add(at(box(0.95, 0.025, 0.6, '#BFC6CC', { outline: 0.02 }), 0, 0, 0));
+    for (const [x, z, w, dd] of [[0, -0.3, 0.98, 0.04], [0, 0.3, 0.98, 0.04], [-0.47, 0, 0.04, 0.62], [0.47, 0, 0.04, 0.62]]) d.add(at(box(w, 0.07, dd, '#9AA3A8', { outline: 0.02 }), x, 0.035, z));   // the rim
+    const tag = grp(at(box(0.36, 0.008, 0.22, '#B07A3E', { outline: 0.03 }), 0, 0, 0), at(cyl(0.03, 0.03, 0.012, '#C9CED4', 12, { outline: 0.05 }), -0.13, 0.003, 0), at(cyl(0.014, 0.014, 0.014, '#5E4A30', 8), -0.13, 0.006, 0));
+    for (let i = 0; i < 7; i++) { const a = i / 7 * PI * 1.6; tag.add(at(box(0.05, 0.008, 0.008, '#E8E0CC'), -0.2 - 0.08 * Math.sin(a), 0.006, 0.07 * Math.cos(a), 0, a, 0)); }   // the string loop
+    tag.position.set(0.08, 0.02, 0.02); tag.rotation.y = 0.25; d.add(tag); return g; },
+  // A big iron ball and chain (pivot at the hand end of the chain): a shackle at the top, a chain of o.n alternate links, a black cannon ball; o.r its radius
+  pdBallChain(o) { const r = o.r ?? 0.2, n = o.n ?? 7, g = grp(), L = 0.085;
+    const sh = new THREE.Mesh(new THREE.TorusGeometry(0.07, 0.018, 6, 14, PI), mat('#4A4D54')); sh.rotation.z = PI; addOutline(sh, 0.04); g.add(sh, at(cyl(0.012, 0.012, 0.16, '#4A4D54', 6), 0, -0.005, 0, 0, 0, PI / 2));   // the shackle
+    for (let i = 0; i < n; i++) { const l = new THREE.Mesh(new THREE.TorusGeometry(0.045, 0.014, 5, 10), mat('#3A3D44')); l.scale.set(0.7, 1.2, 1); l.position.y = -0.06 - L * i; l.rotation.y = i % 2 ? PI / 2 : 0; addOutline(l, 0.05); g.add(l); }
+    const b = new THREE.Mesh(new THREE.SphereGeometry(r, 16, 12), new THREE.MeshPhongMaterial({ color: '#2A2C31', shininess: 70 })); b.position.y = -0.06 - L * n - r * 0.9; addOutline(b, 0.02); g.add(b);
+    g.add(at(cyl(0.035, 0.04, 0.05, '#2A2C31', 8), 0, -0.06 - L * n + 0.02, 0)); return g; },
   // A big wall clock with no figure (pivot at its centre, faces +Z): a pale face, twelve tick marks, two dark hands both straight up; o.jumpAt: the
   // minute hand jumps one visible notch (6 degrees, overshoot) with a wobble of the whole clock; o.r
   pdClock(o) { const R = o.r ?? 0.6, g = grp(), k = grp(); g.add(k);
@@ -263,11 +270,15 @@ export const PARDON_PROPS = {
   pdGround(o) { const W = o.w ?? 40, D = o.d ?? 30, g = grp(), f = new THREE.Mesh(new THREE.PlaneGeometry(W, D), mat(o.color || '#E4D6BE')); f.rotation.x = -PI / 2; f.position.y = 0.03; f.receiveShadow = true; g.add(f);
     if (o.kerb != null) { const rd = new THREE.Mesh(new THREE.PlaneGeometry(W, 8), mat('#6E6E72')); rd.rotation.x = -PI / 2; rd.position.set(0, 0.025, o.kerb + 4.1); g.add(rd, at(box(W, 0.14, 0.2, '#D9CDB4'), 0, 0.07, o.kerb)); rd.position.y = 0.031; }
     return g; },
-  // A plain town facade (pivot at the floor in the middle, faces +Z): a cream wall o.w x o.h, rows of tall windows with grey-blue shutters, a cornice; no sign
-  pdFacade(o) { const w = o.w ?? 12, h = o.h ?? 9, g = grp(at(box(w, h, 0.4, o.color || '#EFE6D2', { pivot: 'bottom', outline: 0.004 }), 0, 0, -0.2), at(box(w + 0.2, 0.25, 0.6, '#D9CDB4'), 0, h, -0.2), at(box(w, 0.2, 0.5, '#D9CDB4'), 0, 3.0, -0.2));
-    for (let fl = 0; fl < 3; fl++) for (let x = -w / 2 + 1.2; x < w / 2 - 0.8; x += 2.0) { const y = 3.9 + fl * 1.75; g.add(at(box(0.8, 1.25, 0.03, '#5E7A94'), x, y, 0.01), at(box(0.95, 0.08, 0.12, '#F4F1EA'), x, y - 0.66, 0.05));
-      for (const sx of [-1, 1]) g.add(at(box(0.36, 1.25, 0.04, o.shutter || '#8FA9B8', { outline: 0.02 }), x + sx * 0.6, y, 0.03)); }
-    for (let x = -w / 2 + 1.5; x < w / 2 - 1; x += 3.0) g.add(at(box(1.6, 2.2, 0.03, '#3A4450'), x, 1.15, 0.01));
+  // A town facade (pivot at the floor in the middle, faces +Z): a cream wall o.w x o.h, a shop-floor band, a cornice, three floors of tall windows
+  // with grey-blue shutters and moulded heads, iron balconies on the first floor; no sign
+  pdFacade(o) { const w = o.w ?? 12, h = o.h ?? 9, C = o.color || '#EFE6D2', T = '#D9CDB4', g = grp(at(box(w, h, 0.4, C, { pivot: 'bottom', outline: 0.004 }), 0, 0, -0.2));
+    g.add(at(box(w + 0.3, 0.3, 0.75, T, { outline: 0.006 }), 0, h, -0.2), at(box(w + 0.2, 0.12, 0.6, T), 0, h - 0.25, -0.2), at(box(w, 0.25, 0.55, T, { outline: 0.006 }), 0, 3.0, -0.2), at(box(w, 3.0, 0.42, '#D8CBB4', { pivot: 'bottom' }), 0, 0, -0.18));
+    for (let fl = 0; fl < 3; fl++) for (let x = -w / 2 + 1.2; x < w / 2 - 0.8; x += 2.0) { const y = 3.9 + fl * 1.75;
+      g.add(at(box(0.8, 1.25, 0.03, '#5E7A94'), x, y, 0.01), at(box(0.05, 1.2, 0.04, '#F4F1EA'), x, y, 0.03), at(box(1.05, 0.12, 0.14, T, { outline: 0.01 }), x, y + 0.72, 0.06), at(box(0.95, 0.08, 0.12, '#F4F1EA'), x, y - 0.66, 0.05));
+      for (const sx of [-1, 1]) g.add(at(box(0.36, 1.25, 0.04, o.shutter || '#8FA9B8', { outline: 0.02 }), x + sx * 0.6, y, 0.03));
+      if (fl === 0) { g.add(at(box(1.1, 0.06, 0.4, '#3A3D44'), x, y - 0.66, 0.22), at(box(1.1, 0.04, 0.03, '#2A2C31'), x, y - 0.18, 0.4)); for (let b = 0; b < 8; b++) g.add(at(box(0.02, 0.46, 0.02, '#2A2C31'), x - 0.5 + b * 0.143, y - 0.42, 0.4)); } }   // balcony
+    for (let x = -w / 2 + 1.5; x < w / 2 - 1; x += 3.0) g.add(at(box(1.6, 2.2, 0.03, '#3A4450'), x, 1.15, 0.03), at(box(1.8, 0.12, 0.1, T), x, 2.33, 0.05));
     return g; },
   // A plain lectern (pivot at the floor, faces +Z): a pale wooden box, two short dark microphones; no emblem
   pdPodium(o) { return grp(at(box(0.8, 1.1, 0.5, '#C9B08A', { pivot: 'bottom', outline: 0.006, taper: 1.15 }), 0, 0, 0), at(box(0.95, 0.06, 0.6, '#A88A64'), 0, 1.13, 0),
@@ -330,4 +341,17 @@ export const PARDON_PROPS = {
     g.add(at(box(0.44, 0.26, 0.33, D, { outline: 0.02 }), 0, 0.22, -0.18), at(box(0.06, 0.08, 0.04, '#D9A93A'), 0, 0.1, -0.35));   // the flap and its buckle
     for (const sx of [-1, 1]) g.add(at(box(0.08, 0.22, 0.18, D, { outline: 0.02 }), sx * 0.25, -0.12, -0.17), at(box(0.06, 0.62, 0.03, '#2A2C31'), sx * 0.13, 0.05, 0.02), at(box(0.06, 0.03, 0.25, '#2A2C31'), sx * 0.13, 0.35, 0.1));
     g.add(at(cyl(0.08, 0.08, 0.5, '#E8742A', 10, { outline: 0.02 }), 0, 0.5, -0.17, 0, 0, PI / 2)); return g; },
+  // A convict's striped tunic (attach to the torso joint; pivot at its collar, hangs -Y): a loose box tunic to mid-thigh with thick black-and-white
+  // horizontal stripes painted all round, short striped sleeves, no lapel; o.w / o.d / o.h its size
+  pdStripes(o) { const w = o.w ?? 0.62, d = o.d ?? 0.4, h = o.h ?? 0.95, g = grp(), n = o.n ?? 7;
+    const tex = (W, H) => canvasPlane(W, H, (c, Wc, Hc) => { for (let i = 0; i < n * 2; i++) { c.fillStyle = i % 2 ? '#1E2024' : '#F2F0EA'; c.fillRect(0, i * Hc / (n * 2), Wc, Hc / (n * 2) + 1); } }, { res: 128 });
+    for (const [W, x, z, ry] of [[w, 0, d / 2, 0], [w, 0, -d / 2, PI], [d, w / 2, 0, PI / 2], [d, -w / 2, 0, -PI / 2]]) { const p = tex(W, h); p.position.set(x, -h / 2, z); p.rotation.y = ry; g.add(p); }
+    g.add(at(box(w, 0.02, d, '#F2F0EA'), 0, -0.01, 0)); return g; },
+  // Soft press flashes (pivot at the middle): o.n white glows popping at o.at times over o.w x o.h, a bright core in a soft halo, no rays, gone in o.life
+  pdFlash(o) { const n = o.n ?? 6, W = o.w ?? 2, H = o.h ?? 1.2, g = grp(), fl = [];
+    for (let i = 0; i < n; i++) { const mc = new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, depthWrite: false }), mh = new THREE.MeshBasicMaterial({ color: '#FFF6DC', transparent: true, depthWrite: false });
+      const f = grp(new THREE.Mesh(new THREE.CircleGeometry(0.05, 14), mc), new THREE.Mesh(new THREE.CircleGeometry(0.16, 18), mh)); f.position.set((((i * 0.618) % 1) - 0.5) * W, (((i * 0.382 + 0.2) % 1) - 0.5) * H, 0); f.visible = false; g.add(f); fl.push({ f, mc, mh }); }
+    const times = o.at || [], life = o.life ?? 0.15;
+    g.userData.update = t => fl.forEach(({ f, mc, mh }, i) => { const u = t - (times[i % Math.max(1, times.length)] ?? -9); f.visible = u >= 0 && u < life; if (!f.visible) return; const k = 1 - u / life; f.scale.setScalar(0.8 + 0.6 * u / life); mc.opacity = k; mh.opacity = 0.5 * k; });
+    g.userData.update(-1); return g; },
 };

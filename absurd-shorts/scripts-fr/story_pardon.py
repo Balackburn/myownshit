@@ -99,15 +99,15 @@ def HALVES(sid, who='mec', t0=None, t1=None, both=None):
 #    the empty air. Cut: a plain office: the round president, the same tie, signs a big parchment and holds it up beside his head
 D1 = st.dur('S01'); CUT1 = r(st.at('S01', 'L01', 8) - 0.1); HIT1 = snap(0.4); SNAP1 = r(HIT1 + 0.03); SWAP1 = r(HIT1 + 0.3); OUT1 = r(HIT1 + 0.1)
 BK1 = [0, 0, -1.3]; H01 = [0, 0, -0.55]; H1 = [0, 0, 0.2]; HRY1 = -35
-TS0, TSH, TS1 = [2.6, 0, 0.9], [0.8, 0, 0.9], [-3.6, 0, 0.9]   # it slows into the shove (a lean back), stops a beat on him, then barges on
-C1 = cam(0.0, [0.8, 1.3, 4.3], [0.75, 1.3, 4.1], [0.1, 1.3, 0.2], [0.1, 1.32, 0.2], lens=48)   # low: the torso's collar is above the frame
+TS0, TSH, TS1 = [2.8, 0, -0.5], [0.62, 0, -0.5], [-3.8, 0, -0.5]   # BEHIND him (the baguette stays in sight): it slows into the shove, stops a beat, then barges on
+C1 = cam(0.0, [0.6, 1.3, 4.6], [0.58, 1.3, 4.45], [0.1, 1.4, 0.2], [0.1, 1.41, 0.2], lens=46)   # the big torso behind him: its collar above the frame, its tie in it
 OF = [40.0, 0, 0.0]; PR1 = add(OF, [0.15, 0, -0.2]); DESK1 = add(OF, [0.15, 0, 0.45])
 SCR1A = add(OF, [-0.1, 0.8, 0.45]); SCR1B = add(PR1, [-0.78, 1.66, 0.1])
 C1b = cam(CUT1, add(OF, [0.05, 1.4, 3.1]), add(OF, [0.05, 1.4, 2.85]), add(OF, [-0.15, 1.35, 0.0]), add(OF, [-0.15, 1.38, 0.0]), lens=46)
 BG1 = off(H1, 0, 0.35, 0.42, 1.3)   # the baguette held out at his right side (screen left), clear of the torso
-chk('S01', C1, {'heroTop': add(H1, [0, 2.35, 0]), 'heroMouth': add(H1, [0, 1.8, 0]), 'collar@hit': add(TSH, [0, 2.88, 0]), 'tieEnd@hit': add(TSH, [0, 1.68, 0.5]), 'baguette': BG1, 'torsoLeft@hit': add(TSH, [-0.65, 1.5, 0]), 'heroFeet': H1})
+chk('S01', C1, {'heroTop': add(H1, [0, 2.35, 0]), 'heroMouth': add(H1, [0, 1.8, 0]), 'collar@hit': add(TSH, [0, 3.71, 0]), 'tieKnot@hit': add(TSH, [0, 3.51, 0.63]), 'tieEnd@hit': add(TSH, [0, 2.16, 0.63]), 'baguette': BG1, 'heroFeet': H1})
 chk('S01b', C1b, {'presFace': add(PR1, [0, 1.72, 0]), 'presTop': add(PR1, [0, 2.0, 0]), 'tie': add(PR1, [0, 1.15, 0.4]), 'scroll': SCR1B, 'scrollTop': add(SCR1B, [0, 0.36, 0]), 'desk': add(DESK1, [0.7, 0.76, 0.35])})
-TAKE1 = r(OUT1 + 0.3)
+TAKE1 = 0.85; SPIN1 = 1.07; HRY1b = -52
 k1 = [k(0.0, clip='walk'), k(0.0, to=H1, dur=0.3, clip='walk', ease='out', params={'freq': 2.4}), k(0.3, clip='stand'), k(0.0, look='camera'),
       TK(0.0, {'R': R5(BG1), 'L': R5(off(H1, 0, 0.3, -0.05, 1.3))}, {'R': 'grip', 'L': 'open'}, CALM, d=0.0),
       k(r(HIT1 - 0.1), look=HEAD(TSH, 2.0), lookDur=0.06), TK(r(HIT1 - 0.1), face={**CALM, 'brow': 0.4}, sq=(1.03, 0.97, 1.03), d=0.08, keep=True),   # his eyes catch it a beat before
@@ -115,16 +115,20 @@ k1 = [k(0.0, clip='walk'), k(0.0, to=H1, dur=0.3, clip='walk', ease='out', param
       k(r(HIT1 + 0.03), face=r(HRY1 - 40), turn=0.12), TK(r(HIT1 + 0.1), sq=(1.12, 0.9, 1.12), scl={'head': [0.9, 1.15, 0.95]}, bend={'spine': SP(0.05, -0.2)}, d=0.06, keep=True),   # the spin overshoots...
       k(r(HIT1 + 0.2), face=HRY1, turn=0.15), TK(r(HIT1 + 0.22), face=WORRY, sq=(1, 1, 1), scl={'head': [1, 1, 1]}, bend={'spine': SP(0.0, 0.0)}, d=0.1, keep=True),   # ...and settles half round
       TK(SWAP1, {'R': R5(off(H1, HRY1, 0.32, 0.36, 1.2)), 'L': R5(off(H1, HRY1, 0.32, -0.36, 1.2))}, {'R': 'grip', 'L': 'grip'}, d=0.1, keep=True),   # a half in each mitten
-      k(r(TAKE1 - 0.06), look=HEAD(off(H1, HRY1, 2.5, 0, 0), 2.0), lookDur=0.06),
-      TK(TAKE1, face={**POP, 'jaw': 0.4}, sq=(0.92, 1.12, 0.92), d=0.05, e='out', keep=True), TK(r(TAKE1 + 0.14), face=WORRY, sq=(1, 1, 1), d=0.1, keep=True),   # the take at the empty air
-      TK(r(TAKE1 + 0.16), bend={'spine': SP(0.25)}, d=0.12, keep=True), *TALK(r(TAKE1 + 0.18), WORRY, 4, 0.08), TK(r(TAKE1 + 0.8), bend={'spine': SP(0.0)}, d=0.15, keep=True),   # « pardon », with a little bow
-      *blink(r(TAKE1 + 0.9), WORRY), *BREATHE(r(TAKE1 + 0.8), CUT1, 0.4)]
+      k(r(TAKE1 - 0.06), look='camera', lookDur=0.05),
+      TK(TAKE1, face={**POP, 'jaw': 0.5}, sq=(0.9, 1.14, 0.9), scl={'head': [0.92, 1.12, 0.95]}, d=0.04, e='out', keep=True),   # the take, held 6 frames...
+      TK(r(TAKE1 + 0.17), face={**POP, 'jaw': 0.3}, sq=(0.93, 1.1, 0.93), d=0.03, keep=True), TK(r(SPIN1 - 0.02), face=WORRY, sq=(1, 1, 1), scl={'head': [1, 1, 1]}, d=0.05, keep=True),
+      k(r(SPIN1 - 0.04), look=HEAD(off(H1, HRY1b, 2.5, 0, 0), 2.0), lookDur=0.05), k(SPIN1, face=r(HRY1b - 30), turn=0.12), k(r(SPIN1 + 0.13), face=HRY1b, turn=0.12),   # ...then the half turn to the empty air, overshooting
+      TK(SPIN1, sq=(1.1, 0.9, 1.1), bend={'spine': SP(0.0, -0.25)}, d=0.06, keep=True), TK(r(SPIN1 + 0.14), sq=(1, 1, 1), bend={'spine': SP(0.0, 0.0)}, d=0.08, keep=True),
+      TK(r(SPIN1 + 0.12), {'R': R5(off(H1, HRY1b, 0.32, 0.36, 1.2)), 'L': R5(off(H1, HRY1b, 0.32, -0.36, 1.2))}, d=0.12, keep=True),
+      TK(r(SPIN1 + 0.15), bend={'spine': SP(0.35)}, d=0.12, keep=True), *TALK(r(SPIN1 + 0.17), WORRY, 4, 0.07), TK(r(SPIN1 + 0.55), bend={'spine': SP(0.0)}, d=0.15, keep=True),   # a little bow: « pardon »
+      *blink(r(SPIN1 + 0.6), WORRY), *BREATHE(r(SPIN1 + 0.55), CUT1, 0.35)]
 st.shot('S01', 'whiteVoid', setOpts={'color': SKY}, look={'sunDir': [0.4, 0.9, 0.8]},
         actors=[act('mec', H01, 0, 'walk', 'neutral', keys=k1)],
         props=[P('sol1', 'pdGround', pos=[0, 0, 0], opts={'kerb': 3.0}), P('boulangerie1', 'pdBakery', pos=BK1, opts={'w': 7}),
                P('baguette1', 'pdBaguette', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.36, 0.05], 'rot': [0, 0, -1.5708]}, opts={'snapAt': SNAP1, 'len': 0.8}, keys=[k(SWAP1, visible=False)]),
                *HALVES('S01', t0=SWAP1),
-               P('torse1', 'pdTorso', pos=TS0, ry=-30, scale=1.4, opts={'round': 1.1, 'hitAt': HIT1},
+               P('torse1', 'pdTorso', pos=TS0, ry=-20, scale=1.8, opts={'round': 1.1, 'hitAt': HIT1},
                  keys=[k(0.0, to=TSH, dur=HIT1, ease='in'), k(HIT1, squash=[1.12, 0.92, 1.0], dur=0.2), k(OUT1, to=TS1, dur=0.32, ease='in'), k(r(OUT1 + 0.34), visible=False)]),
                P('bureau1', 'pdRoom', pos=OF, opts={'w': 5, 'd': 4, 'wall': '#E6DCCB', 'floor': '#B58E66', 'window': {'x': -1.3, 'y': 1.7, 'w': 1.1, 'h': 1.2}}),
                P('table1', 'table', pos=DESK1, opts={'w': 1.5, 'd': 0.7, 'h': 0.76, 'color': '#8A6A45'}),
@@ -141,8 +145,8 @@ st.cue('sfx:paper', 'S01', r(CUT1 + 0.1), 0.3); st.cue('sfx:pop', 'S01', r(CUT1 
 #    sides, then shrug together
 D2 = st.dur('S02'); SHR2 = r(st.at('S02', 'L02', 3) - 0.12)
 FAC2 = [0, 0, -1.2]; H2 = [0, 0, 0.0]
-SC2 = off(H2, 0, 0.42, 0.22, 1.5)
-G21 = [-0.72, 0, 0.45]; G22 = [0.78, 0, 0.5]; CL2 = [1.05, 0, -0.35]
+SC2 = off(H2, 0, 0.5, 0.12, 1.62)   # held up in HIS mitten, in front of him, clear of the two gendarmes
+G21 = [-0.9, 0, 0.35]; G22 = [0.95, 0, 0.4]; CL2 = [1.2, 0, -0.45]
 C2 = fcam(0.0, [0.2, 1.7, 4.0], {'heroTop': add(H2, [0, 2.4, 0]), 'g1': add(G21, [-0.3, 2.3, 0]), 'g2': add(G22, [0.35, 2.3, 0]), 'cl': add(CL2, [0.3, 2.2, 0]), 'waist': add(H2, [0, 1.05, 0.4])}, top=0.08, bottom=0.74, push=0.3)
 chk('S02', C2, {'heroFace': add(H2, [0, 1.95, 0]), 'scroll': SC2, 'g1Face': add(G21, [0, 1.85, 0]), 'g2Face': add(G22, [0, 1.85, 0]), 'clFace': add(CL2, [0, 1.8, 0])})
 k2 = [k(0.0, clip='stand'), k(0.0, look=HEAD(SC2, 1.95)), TK(0.0, {'R': R5(add(SC2, [0.0, -0.25, 0.02])), 'L': R5(off(H2, 0, 0.3, -0.32, 1.1))}, {'R': 'grip', 'L': 'grip'}, WORRY, d=0.0),
@@ -153,7 +157,7 @@ for i, (p, nm) in enumerate([(G21, 'gendarme1'), (G22, 'gendarme2'), (CL2, 'gref
     ry = yaw(p, SC2)
     ks = [k(0.0, clip='stand'), k(0.0, look=HEAD(SC2, 1.8)), TK(0.0, face=GRAVE, d=0.0),
           TK(0.02, bend={'spine': SP(-0.1)}, sq=(1.04, 0.96, 1.04), d=0.06, keep=True),   # a little rise back first...
-          TK(r(0.1 + 0.03 * i), bend={'spine': SP(0.6)}, face={**GRAVE, 'lid': 0.5}, sq=(0.96, 1.05, 0.96), d=0.12, e='out', keep=True), TK(r(0.3 + 0.03 * i), bend={'spine': SP(0.5)}, sq=(1, 1, 1), d=0.12, keep=True),   # ...then a quick lean over the scroll
+          TK(r(0.1 + 0.03 * i), bend={'spine': SP(0.45)}, face={**GRAVE, 'lid': 0.5}, sq=(0.96, 1.05, 0.96), d=0.12, e='out', keep=True), TK(r(0.3 + 0.03 * i), bend={'spine': SP(0.5)}, sq=(1, 1, 1), d=0.12, keep=True),   # ...then a quick lean over the scroll
           TK(r(SHR2 - 0.15), bend={'spine': SP(0.0)}, d=0.12, keep=True), k(r(SHR2 - 0.02), clip='bigShrug', blend=0.08), k(r(SHR2 - 0.06), look=HEAD(add(p, [0, 0, 2.0]), 1.9), lookDur=0.08),
           TK(SHR2, face={'lid': 0.3, 'mouth': 'line', 'brow': 1.0}, sq=(0.86, 1.18, 0.86), bend={'neck': SP(-0.25)}, d=0.06, e='out', keep=True),   # all together: shoulders up past the ears...
           TK(r(SHR2 + 0.1), sq=(1.06, 0.95, 1.06), d=0.08, keep=True), TK(r(SHR2 + 0.22), sq=(1, 1, 1), bend={'neck': SP(0.0)}, d=0.1, keep=True), k(r(SHR2 + 0.45), clip='stand', blend=0.2),   # ...overshoot down and settle
@@ -205,15 +209,16 @@ def judgeAct(ks, pos=None, ry=None): return act('juge', pos or JU, JRY if ry is 
 D4 = st.dur('S04'); JG4 = st.at('S04', 'L04', 4); RN4 = st.at('S04', 'L04', 5)
 DK4 = [-0.2, 0, 0.45]; HD4 = add(DK4, [0, 0, -0.15]); RAIL4 = lambda x: add(DK4, [x, 1.03, 0.36])   # the dock square to us: his deadpan face to the lens
 TR4 = [0.5, 0, 1.25]; JB4 = [1.3, 0, -1.9]; JU4 = add(JB4, [0, 0.4, -0.7]); JRY4 = -30
-C4 = cam(0.0, [0.3, 1.55, 4.6], [0.28, 1.55, 4.35], [0.15, 1.3, 0.4], [0.15, 1.3, 0.4], lens=48)
+C4 = cam(0.0, [0.3, 1.75, 4.6], [0.28, 1.75, 4.35], [0.15, 1.05, 0.4], [0.15, 1.05, 0.4], lens=48)   # a little high: tray, tag and face above the band
 chk('S04', C4, {'heroFace': add(HD4, [0, 1.5, 0]), 'heroTop': add(HD4, [0, 1.95, 0]), 'judgeFace': add(JU4, [0, 1.5, 0]), 'tray': add(TR4, [0, 0.9, 0]), 'trayR': add(TR4, [0.65, 0.9, 0.35]), 'railL': RAIL4(-0.3)})
 kj4 = [k(0.0, clip='sit'), k(0.0, look=HEAD(TR4, 1.5)), TK(0.0, HANDS(JU4, JRY4, 0.45, 0.25, 1.38, 0.45, -0.25, 1.38), {'R': 'rest', 'L': 'rest'}, GRAVE, d=0.0),
-       k(r(JG4 - 0.1), look=HEAD(HD4, 1.5), lookDur=0.15), TK(r(JG4 - 0.1), face=STERN, d=0.12, keep=True),
+       k(r(JG4 - 0.1), look=HEAD(HD4, 1.5), lookDur=0.22), TK(r(JG4 - 0.16), face={**STERN, 'lid': 0.5}, d=0.06, keep=True), TK(r(JG4 + 0.15), face=STERN, d=0.1, keep=True),   # the eyes go first, the head follows
+       k(r(JG4 + 0.25), toon={'face': {**STERN, 'lid': 1.0}}, toonDur=0.14, keepPose=True), k(r(JG4 + 0.5), toon={'face': STERN}, toonDur=0.14, keepPose=True),   # a slow blink at him
        k(r(RN4 - 0.05), look=HEAD(TR4, 1.4), lookDur=0.06), TK(r(RN4 - 0.03), face={'lid': 0.75, 'mouth': 'O', 'brow': 0.9}, scl={'head': [1.25, 0.82, 1.1]}, bend={'spine': SP(0.3)}, d=0.05, e='out', keep=True),   # a squint at the empty tray: head squashed wide
        TK(r(RN4 + 0.3), scl={'head': [1, 1, 1]}, d=0.15, keep=True), *blink(0.4, GRAVE), *blink(1.7, GRAVE), *BREATHE(0.2, D4, 0.5)]
-kh4 = [k(0.0, clip='sit'), k(0.0, look='camera'), TK(0.0, {'R': R5(add(DK4, [-0.22, 1.02, 0.32])), 'L': R5(add(DK4, [0.22, 1.02, 0.32]))}, {'R': 'rest', 'L': 'rest'}, {'lid': 0.45, 'mouth': 'line', 'brow': 0.0}, d=0.0),
+kh4 = [k(0.0, clip='sit'), k(0.0, look='camera'), TK(0.0, {'R': R5(add(DK4, [-0.22, 1.02, 0.32])), 'L': R5(add(DK4, [0.22, 1.02, 0.32]))}, {'R': 'rest', 'L': 'rest'}, {'lid': 0.12, 'mouth': 'line', 'brow': 0.0}, d=0.0),
        k(r(JG4 - 0.12), look=HEAD(JU4, 1.9), lookDur=0.1), k(r(JG4 + 0.3), look='camera', lookDur=0.12),   # a glance at the judge, back to us
-       TK(r(RN4 + 0.05), face={'lid': 0.6, 'mouth': 'line', 'brow': 0.3}, sq=(1.06, 0.93, 1.06), d=0.15, keep=True), *blink(0.6, CALM), *blink(1.75, SAD), *BREATHE(0.1, D4, 0.5)]
+       TK(r(RN4 + 0.05), face={'lid': 0.15, 'mouth': 'line', 'brow': 0.3}, sq=(1.06, 0.93, 1.06), d=0.15, keep=True), *blink(0.6, {'lid': 0.12, 'mouth': 'line', 'brow': 0.0}), *blink(1.75, {'lid': 0.15, 'mouth': 'line', 'brow': 0.3}), *BREATHE(0.1, D4, 0.5)]
 st.shot('S04', 'whiteVoid', setOpts={'color': '#E3D3B5'}, look={'sunDir': [0.3, 0.9, 0.7]},
         actors=[act('mec', HD4, 0, 'sit', 'neutral', keys=kh4), judgeAct(kj4, JU4, JRY4)],
         props=[P('salleS04', 'pdRoom', pos=CRT, opts={'w': 9, 'd': 6, 'h': 3.6, 'wall': '#E3D3B5', 'floor': '#8A6A45', 'trim': '#6A4A30'}),
@@ -229,11 +234,12 @@ PC = [0.7, 0, 1.1]; PRY = r(yaw(PC, HD) + 25); TB5 = off(PC, PRY, 0.6, 0.0, 0.0)
 C5 = cam(0.0, [2.6, 1.7, 3.6], [2.4, 1.7, 3.3], [-0.4, 1.3, 0.7], [-0.4, 1.3, 0.7], lens=50)
 chk('S05', C5, {'pFace': add(PC, [0, 1.85, 0]), 'heroFace': add(HD, [0, 1.5, 0]), 'chainHand': off(PC, PRY, 0.3, -0.4, 2.05)})
 TT5 = add(TB5, [0, 0.8, 0])
-kp5 = [k(0.0, clip='stand'), k(0.0, look=HEAD(HD, 1.5)), TK(0.0, {'R': R5(add(TT5, [0.1, 0.35, 0.1])), 'L': R5(off(PC, PRY, 0.3, -0.4, 2.05))}, {'R': 'fist', 'L': 'fist'}, STERN, d=0.0),
+kp5 = [k(0.0, clip='stand'), k(0.0, look=HEAD(HD, 1.5)), TK(0.0, {'R': R5(add(TT5, [0.1, 0.35, 0.1])), 'L': R5(off(PC, PRY, 0.05, -0.62, 2.3))}, {'R': 'fist', 'L': 'fist'}, STERN, d=0.0),   # the ball and chain held high out to his left
        TK(0.0, {'R': R5(off(PC, PRY, 0.25, 0.3, 2.25))}, d=0.0, keep=True), TK(r(TH5 - 0.12), {'R': R5(off(PC, PRY, 0.15, 0.3, 2.35))}, sq=(0.92, 1.1, 0.92), bend={'spine': SP(-0.15)}, d=0.1, keep=True),   # the fist up high (anticipation)...
        TK(TH5, {'R': R5(add(TT5, [0.1, 0.02, 0.1]))}, face={**STERN, 'mouth': 'clench'}, sq=(1.18, 0.82, 1.18), bend={'spine': SP(0.35)}, d=0.05, e='in', keep=True),   # ...the thump: squashed down onto it
        TK(r(TH5 + 0.2), {'R': R5(add(TT5, [0.1, 0.25, 0.1]))}, sq=(1, 1, 1), bend={'spine': SP(0.0)}, d=0.15, keep=True),
-       TK(PT5, {'R': R5(off(PC, PRY, 0.75, 0.1, 1.75))}, {'R': 'point'}, bend={'spine': SP(0.25)}, face={'lid': 0.1, 'mouth': 'O', 'brow': -0.9, 'jaw': 0.8}, scl={'head': [1.3, 1.3, 1.3]}, d=0.06, e='out', keep=True),   # « perpétuité »: the head swells
+       TK(PT5, {'R': R5(lerp3(add(PC, [0, 1.65, 0]), add(HD, [0, 1.5, 0]), 0.3))}, {'R': 'point'}, bend={'spine': SP(0.15)},   # the arm dead straight at the hero
+       face={'lid': 0.1, 'mouth': 'O', 'brow': -0.9, 'jaw': 0.8}, scl={'head': [1.3, 1.3, 1.3]}, d=0.06, e='out', keep=True),   # « perpétuité »: the head swells
        TK(r(PT5 + 0.25), face=STERN, scl={'head': [1, 1, 1]}, d=0.2, keep=True),
        TK(r(TH5b - 0.14), {'R': R5(off(PC, PRY, 0.15, 0.3, 2.35))}, bend={'spine': SP(-0.1)}, d=0.12, keep=True),
        TK(TH5b, {'R': R5(add(TT5, [0.1, 0.02, 0.1]))}, {'R': 'fist'}, face={'lid': 0.0, 'mouth': 'clench', 'brow': -1.0}, bend={'spine': SP(0.35)}, sq=(0.9, 1.12, 0.9), d=0.06, e='in', keep=True),   # « le coup »: a second thump, stretched
@@ -242,9 +248,9 @@ kh5 = [k(0.0, clip='sit'), k(0.0, look=HEAD(PC, 1.9)), TK(0.0, {'R': R5(off(HD, 
        *blink(0.8, WORRY), *blink(2.0, WORRY), *blink(3.0, WORRY), *BREATHE(0.1, D5, 0.55)]
 st.shot('S05', 'whiteVoid', setOpts={'color': '#E3D3B5'}, look={'sunDir': [0.3, 0.9, 0.7]},
         actors=[act('procureur', PC, PRY, 'stand', 'neutral', keys=kp5), act('mec', HD, DRY, 'sit', 'neutral', keys=kh5)],
-        props=[*courtProps('S05'), P('table5', 'table', pos=TB5, ry=PRY, opts={'w': 1.3, 'd': 0.6, 'h': 0.78, 'color': '#8A6A45'}, keys=[k(TH5, squash=[1.08, 0.85, 1.08], dur=0.3), k(TH5b, squash=[1.08, 0.85, 1.08], dur=0.3)]),
-               P('robe5', 'pdRobe', on={'actor': 'procureur', 'joint': 'hips', 'offset': [0, 0.05, 0]}, opts={'L': 0.95, 'color': '#B5241E'}), P('rabat5', 'pdRobe', on={'actor': 'procureur', 'joint': 'torso', 'offset': [0, 0.42, 0.17]}, opts={'bib': True}),
-               P('boulet5', 'pdBallChain', on={'actor': 'procureur', 'hand': 'L', 'offset': [0, -0.04, 0], 'hang': True}, opts={'r': 0.2}),
+        props=[*courtProps('S05'), P('table5', 'table', pos=TB5, ry=PRY, opts={'w': 1.3, 'd': 0.6, 'h': 0.78, 'color': '#8A6A45'}, keys=[k(TH5, squash=[1.12, 0.78, 1.12], dur=0.4), k(TH5b, squash=[1.12, 0.78, 1.12], dur=0.4)]),
+               P('robe5', 'pdRobe', on={'actor': 'procureur', 'joint': 'hips', 'offset': [0, 0.05, 0]}, opts={'L': 0.95, 'color': '#A8442E'}), P('rabat5', 'pdRobe', on={'actor': 'procureur', 'joint': 'torso', 'offset': [0, 0.42, 0.17]}, opts={'bib': True}),
+               P('boulet5', 'pdBallChain', on={'actor': 'procureur', 'hand': 'L', 'offset': [0, -0.04, 0], 'hang': True}, opts={'r': 0.2, 'n': 8}),
                P('demiL5', 'pdBaguette', pos=RAIL(-0.28), ry=DRY, opts={'half': 'L'}), P('demiR5', 'pdBaguette', pos=RAIL(0.28), ry=DRY, opts={'half': 'R'})], cams=[C5])
 st.cue('thud', 'S05', TH5, 0.45); st.cue('sfx:rattleShort', 'S05', 0.3, 0.2); st.cue('sfx:rattle', 'S05', PT5, 0.25); st.cue('thud', 'S05', TH5b, 0.45)
 
@@ -324,26 +330,27 @@ st.cue('thud', 'S07', BMP7, 0.35); st.cue('sfx:pop', 'S07', POP7, 0.4); st.cue('
 # ================================================================= S08
 # 8: a metro carriage, five passengers: they jostle, bow and mouth « pardon » together; a judge in a black robe, large in the foreground on a folding
 #    seat, bangs his gavel twice for each one and scrolls pile up on his lap; the hero stands in the corner with his two halves, mouth shut
-D8 = st.dur('S08'); BW8 = [0.35, 1.45]; BANG8 = [0.62, 0.84, 1.72, 1.94]
-JG8 = [2.1, 0, -0.5]; JRY8 = 80; LAP8 = off(JG8, JRY8, 0.33, 0.0, 0.6)   # the judge three-quarter in the lower right corner
+D8 = st.dur('S08'); BW8 = [0.2, 0.62, 1.04, 1.46, 1.88]; BANG8 = [r(b + d_) for b in BW8 for d_ in (0.14, 0.3)]   # each passenger bows in turn; bang-bang after each
+JG8 = [2.25, 0, -0.5]; JRY8 = 80; LAP8 = off(JG8, JRY8, 0.33, 0.0, 0.6)   # the judge three-quarter in the lower right corner
 PS8 = [[-0.6, 0, -0.3], [-0.9, 0, 0.3], [-1.4, 0, -0.05], [-1.8, 0, -0.4], [-2.2, 0, 0.25]]   # the five passengers in the clear lane behind
 H8 = [0.4, 0, 0.75]; HRY8 = 110
-C8 = cam(0.0, [3.85, 1.9, 0.15], [3.82, 1.9, 0.15], [-0.5, 1.2, -0.2], [-0.5, 1.2, -0.2], lens=74)
+C8 = cam(0.0, [3.85, 2.15, 0.15], [3.82, 2.15, 0.15], [-0.5, 1.25, -0.2], [-0.5, 1.25, -0.2], lens=74)   # high: the judge low in the corner, the lane of bows clear beside him
 chk('S08', C8, {'judgeTop': add(JG8, [0, 1.95, 0]), 'lap': LAP8, 'pileTop': add(LAP8, [0, 0.55, 0]), 'heroFace': add(H8, [0, 1.95, 0]), **{f'p{i}': add(p, [0, 1.85, 0]) for i, p in enumerate(PS8)}})
 UP8 = off(JG8, JRY8, 0.3, 0.3, 1.75); HIT8 = add(LAP8, [0.0, 0.1, 0.0])
 kj8 = [k(0.0, clip='sit'), k(0.0, look='camera'), TK(0.0, {'R': R5(off(JG8, JRY8, 0.4, 0.28, 1.15)), 'L': R5(add(LAP8, [0.05, 0.1, -0.15]))}, {'R': 'grip', 'L': 'rest'}, STERN, d=0.0)]
-JFX = [dict(sq=(1.15, 0.86, 1.15)), dict(bend={'spine': SP(0.35)}), dict(sq=(1.08, 0.9, 1.08), bend={'spine': SP(0.2, 0.2)}), dict(sq=(1.2, 0.82, 1.2), bend={'spine': SP(0.3)})]   # a different body take on each bang (the head stays)
+JFX = [dict(sq=(1.15, 0.86, 1.15)), dict(bend={'spine': SP(0.35)}), dict(sq=(1.08, 0.9, 1.08), bend={'spine': SP(0.2, 0.2)}), dict(sq=(1.2, 0.82, 1.2), bend={'spine': SP(0.3)}), dict(sq=(0.95, 1.06, 0.95), bend={'spine': SP(0.25, -0.2)})] * 2   # a different body take on each bang (the head stays)
 for j, b in enumerate(BANG8):
-    kj8 += [TK(r(b - 0.12), {'R': R5(UP8)}, bend={'spine': SP(-0.1)}, d=0.08, e='out', keep=True),   # the gavel up...
+    kj8 += [TK(r(b - 0.08), {'R': R5(UP8)}, bend={'spine': SP(-0.1)}, d=0.05, e='out', keep=True),   # the gavel up...
             TK(b, {'R': R5(HIT8)}, d=0.035, e='in', keep=True, **{'face': {**STERN, 'mouth': 'clench'}, **JFX[j]}),   # ...bang
-            TK(r(b + 0.1), {'R': R5(off(JG8, JRY8, 0.42, 0.28, 1.2))}, face=STERN, sq=(1, 1, 1), bend={'spine': SP(0.0)}, d=0.08, keep=True)]
+            TK(r(b + 0.05), {'R': R5(off(JG8, JRY8, 0.42, 0.28, 1.25))}, face=STERN, sq=(1, 1, 1), bend={'spine': SP(0.0)}, d=0.04, keep=True)]
 kj8 += [*blink(1.2, STERN), *blink(2.35, STERN), *BREATHE(2.1, D8, 0.4)]
 pas = []
 for i, p in enumerate(PS8):
     ry = 90 + (25 if i % 2 == 0 else -25); ks = [k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, face=CALM, d=0.0)]
-    for j, b in enumerate(BW8):
-        ks += [TK(r(b - 0.25), bend={'spine': SP(0.0, 0.35 if (i + j) % 2 else -0.35)}, sq=(1.06, 0.95, 1.06), d=0.1, keep=True),   # jostled
-               k(b, clip='bow', blend=0.08), *TALK(r(b + 0.1), WORRY, 2), TK(r(b + 0.2), sq=(1.08, 0.92, 1.08), d=0.06, keep=True), k(r(b + 0.45), clip='stand', blend=0.12), TK(r(b + 0.45), bend={'spine': SP(0.0)}, sq=(1, 1, 1), d=0.12, keep=True)]
+    b = BW8[i]
+    ks += [TK(r(b - 0.18), bend={'spine': SP(0.0, 0.35 if i % 2 else -0.35)}, sq=(1.06, 0.95, 1.06), d=0.08, keep=True),   # jostled...
+           k(b, clip='bow', blend=0.06), *TALK(r(b + 0.05), WORRY, 2, 0.07), TK(r(b + 0.14), sq=(1.08, 0.92, 1.08), d=0.05, keep=True),   # ...bows, « pardon »
+           k(r(b + 0.4), clip='stand', blend=0.12), TK(r(b + 0.4), bend={'spine': SP(0.0)}, sq=(1, 1, 1), d=0.12, keep=True)]
     ks += [*blink(r(0.9 + 0.1 * i), CALM), *BREATHE(2.0, D8, 0.4)]
     pas.append(act(f'voyageur{i + 1}', p, ry, 'stand', 'neutral', keys=ks))
 kh8 = [k(0.0, clip='stand'), k(0.0, look=HEAD(PS8[1], 1.9)), TK(0.0, {'R': R5(off(H8, HRY8, 0.35, 0.36, 1.2)), 'L': R5(off(H8, HRY8, 0.35, -0.36, 1.2))}, {'R': 'grip', 'L': 'grip'}, SHUT, d=0.0),
@@ -352,9 +359,9 @@ st.shot('S08', 'whiteVoid', setOpts={'color': '#2A3038'}, look={'sunDir': [0.2, 
         actors=[act('juge', JG8, JRY8, 'sit', 'neutral', keys=kj8), *pas, act('mec', H8, HRY8, 'stand', 'neutral', keys=kh8)],
         props=[P('rame8', 'metroCar', pos=[0, 0, 0], opts={'len': 8, 'sway': [0.006, 7]}), P('strapontin8', 'table', pos=add(JG8, [0, 0, -0.05]), opts={'w': 0.45, 'd': 0.4, 'h': 0.47, 'color': '#3A3D44', 'legs': '#2A2C31'}),
                P('maillet8', 'gavel', on={'actor': 'juge', 'hand': 'R'}, scale=1.5, keys=[k(b, squash=[1.25, 0.75, 1.25], dur=0.18) for b in BANG8]),
-               P('pile8', 'pdScrollPile', pos=add(LAP8, [0, -0.02, 0]), ry=JRY8 - 90, opts={'h': 0.2, 'w': 0.3, 'r': 0.06, 'perRow': 2, 'adds': [BANG8[0], BANG8[1], r(BANG8[1] + 0.2), BANG8[2], BANG8[3], r(BANG8[3] + 0.2)]}),
+               P('pile8', 'pdScrollPile', pos=add(LAP8, [0, -0.02, 0]), ry=JRY8 - 90, opts={'h': 0.25, 'w': 0.3, 'r': 0.06, 'perRow': 2, 'adds': BANG8}),
                *HALVES('S08')], cams=[C8])
-for b in BANG8: st.cue('clack', 'S08', b, 0.45); st.cue('whoosh', 'S08', r(b - 0.1), 0.12)
+for b in BANG8: st.cue('clack', 'S08', b, 0.4)
 st.cue('engine', 'S08', 0.0, 0.15)
 
 # ================================================================= S09
@@ -364,16 +371,16 @@ st.cue('engine', 'S08', 0.0, 0.15)
 D9 = st.dur('S09'); CUT9 = r(st.at('S09', 'L09', 8) - 0.1)
 PR9 = [0, 0, -0.35]; CV9 = [0, 0, 0.42]
 SIGN9 = [[r(0.06 + 0.43 * j), r(0.24 + 0.43 * j)] for j in range(int((CUT9 - 0.2) / 0.43))]
-C9 = fcam(0.0, [0.25, 1.6, 4.2], {'belt': add(CV9, [0.95, 0.9, 0.3]), 'beltL': add(CV9, [-0.95, 0.9, 0.3]), 'pres': add(PR9, [0, 2.2, 0])}, top=0.12, bottom=0.74, push=0.3)
+C9 = fcam(0.0, [0.2, 1.65, 3.4], {'belt': add(CV9, [0.6, 0.9, 0.3]), 'beltL': add(CV9, [-0.6, 0.9, 0.3]), 'pres': add(PR9, [0, 2.15, 0])}, top=0.1, bottom=0.74, push=0.25)
 chk('S09', C9, {'presFace': add(PR9, [0, 1.72, 0]), 'tie': add(PR9, [0, 1.2, 0.45]), 'pileTop': [-0.95, 3.0, -1.2]})
 OF9 = [40.0, 0, 0.0]; PR9B = add(OF9, [0.0, 0, -0.2]); WIN9 = add(OF9, [0.0, 2.36, -1.49])   # the window high behind him: the five cheering over his head
 C9b = cam(CUT9, add(OF9, [0.05, 1.6, 2.2]), add(OF9, [0.05, 1.62, 2.05]), add(OF9, [0.0, 1.47, -0.2]), add(OF9, [0.0, 1.49, -0.2]), lens=44)
 chk('S09b', C9b, {'face': add(PR9B, [0, 1.72, 0]), 'top': add(PR9B, [0, 2.05, 0]), 'tieKnot': add(PR9B, [0, 1.4, 0.45]), 'tieEnd': add(PR9B, [0, 0.95, 0.5]), 'winL': add(WIN9, [-0.46, 0, 0]), 'winR': add(WIN9, [0.46, 0, 0]), 'winTop': add(WIN9, [0, 0.25, 0])})
 st.shot('S09', 'whiteVoid', setOpts={'color': '#E6DCCB'}, look={'sunDir': [0.3, 0.9, 0.8]}, actors=[],
         props=[P('bureau9', 'pdRoom', pos=[0, 0, 0], opts={'w': 6, 'd': 4, 'h': 3.1, 'wall': '#E6DCCB', 'floor': '#B58E66'}),
-               P('pile9a', 'pdScrollPile', pos=[-0.95, 0, -1.25], opts={'h': 3.05, 'w': 0.75}), P('pile9b', 'pdScrollPile', pos=[0.95, 0, -1.25], opts={'h': 3.05, 'w': 0.75}),
+               P('pile9a', 'pdScrollPile', pos=[-0.85, 0, -1.2], opts={'h': 1.9, 'w': 0.7, 'perRow': 4, 'adds': [r(0.1 + 0.11 * n) for n in range(18)]}), P('pile9b', 'pdScrollPile', pos=[0.85, 0, -1.2], opts={'h': 1.9, 'w': 0.7, 'perRow': 4, 'adds': [r(0.15 + 0.11 * n) for n in range(18)]}),   # the piles grow while he signs
                P('tapis9', 'pdConveyor', pos=CV9, opts={'len': 3.0, 'speed': 0.6, 'signX': 0.05}),
-               P('president9', 'pdPresident', pos=PR9, opts={'round': 1.1, 'sign': SIGN9, 'bounce': [s[0] for s in SIGN9[::2]], 'smile': [[0, 0.8], [1.0, 1.0], [1.6, 0.8]], 'blink': [0.9, 1.9],
+               P('president9', 'pdPresident', pos=PR9, opts={'round': 1.1, 'pen': True, 'sign': SIGN9, 'bounce': [s[1] for s in SIGN9], 'smile': [[0, 0.8], [1.0, 1.0], [1.6, 0.8]], 'blink': [0.9, 1.9],
                  'look': [[0, 0.3], [0.8, 0.3], [0.95, 0.0], [1.5, 0.0], [1.65, 0.3]]}),
                P('bureau9b', 'pdRoom', pos=OF9, opts={'w': 4, 'd': 3, 'h': 3.1, 'wall': '#E6DCCB', 'floor': '#B58E66', 'window': {'x': 0.0, 'y': 2.36, 'w': 0.95, 'h': 0.5}}),
                P('foule9', 'pdCheer', pos=WIN9, opts={'w': 0.93, 'h': 0.48}),
@@ -392,8 +399,8 @@ C10 = cam(0.0, [0.3, 1.7, 6.2], [0.3, 1.7, 5.85], [0.0, 1.35, -0.6], [0.0, 1.35,
 chk('S10', C10, {**{f'in{i}': add(p, [0, 1.85, 0]) for i, p in enumerate(IN10)}, 'gdFace': add(GD10, [0, 1.85, 0]), 'gate': [0, 1.3, -2.0]})
 kin = []
 for i, p in enumerate(IN10):
-    t0 = r(GATE10 + 0.2 + 0.18 * abs(i - 2) + (0.06 if i > 2 else 0.0))
-    path = [[-0.2 + 0.1 * (i - 2), 0, -1.6], [-0.2, 0, -4.5]]
+    t0 = r(GATE10 + 0.2 + 0.28 * i)   # one by one, in single file
+    path = [[-0.2, 0, -1.3], [-0.2, 0, -4.5]]
     ks = [k(0.0, clip='stand'), k(0.0, look=HEAD(GD10, 1.9)), TK(0.0, face=SAD, d=0.0),
           k(BOW10, clip='bow', blend=0.1), *TALK(r(BOW10 + 0.15), SAD, 3), TK(r(BOW10 + 0.3), sq=(1.1, 0.9, 1.1), d=0.08, keep=True),   # all bowed together
           k(r(BOW10 + 0.65), clip='stand', blend=0.15), TK(r(BOW10 + 0.65), sq=(1, 1, 1), d=0.12, keep=True),
@@ -404,31 +411,32 @@ kg10 = [k(0.0, clip='stand'), k(0.0, look=HEAD(IN10[2], 1.9)), TK(0.0, face=STER
         TK(r(BOW10 + 0.7), face=SAD, sq=(1, 1, 1), d=0.15, keep=True), *blink(0.6, STERN), *blink(2.4, SAD), *BREATHE(0.2, D10, 0.5)]
 st.shot('S10', 'whiteVoid', setOpts={'color': SKY}, look={'sunDir': [0.4, 0.9, 0.8]},
         actors=[*kin, act('gardien', GD10, GRY10, 'stand', 'neutral', keys=kg10)],
-        props=[P('cour10', 'pdGround', pos=[0, 0, 0], opts={'color': '#C9C2B3'}), P('prison10', 'pdPrison', pos=PZ10, ry=180, opts={'w': 10, 'lit': False, 'gate': [[0, 0], [GATE10, 0], [r(GATE10 + 0.5), 1]]})], cams=[C10])
+        props=[P('cour10', 'pdGround', pos=[0, 0, 0], opts={'color': '#C9C2B3'}),
+               *[P(f'rayures10_{i + 1}', 'pdStripes', on={'actor': f'detenu{i + 1}', 'joint': 'torso', 'offset': [0, 0.66, 0]}, opts={'w': 0.6 * [1.0, 1.15, 0.9, 1.05, 0.95][i], 'd': 0.38, 'h': 0.9}) for i in range(5)], P('prison10', 'pdPrison', pos=PZ10, ry=180, opts={'w': 10, 'lit': False, 'gate': [[0, 0], [GATE10, 0], [r(GATE10 + 0.5), 1]]})], cams=[C10])
 st.cue('sfx:clink', 'S10', GATE10, 0.4); st.cue('sfx:squeak', 'S10', r(GATE10 + 0.1), 0.3)
 
 # ================================================================= S11
 # 11: the prison front, windows lit warm yellow: the director in a suit, last one out, shuts the gate and leaves the big key in it, flips a big wall
 #     switch; the windows go from yellow to grey one row at a time
 D11 = st.dur('S11'); FLIP11 = r(st.at('S11', 'L11', 5) - 0.05)
-PZ11 = [0, 0, -2.0]; SW11 = [2.0, 1.35, -1.97]
-DIR0, DIR1 = [0.0, 0, -2.6], [0.9, 0, -1.2]; DIR2 = [1.75, 0, -1.25]; DIR3 = [3.6, 0, 0.6]
-C11 = cam(0.0, [1.2, 0.9, 3.8], [1.1, 0.92, 3.5], [0.2, 2.9, -2.0], [0.2, 2.9, -2.0], lens=70)   # low and wide: the three rows of windows over him
+PZ11 = [0, 0, -2.0]; SW11 = [1.6, 1.45, -1.96]   # a BIG switch beside the gate
+DIR0, DIR1 = [0.0, 0, -2.6], [0.75, 0, -1.2]; DIR2 = [1.25, 0, -1.4]; DIR3 = [-1.9, 0, 1.3]   # he leaves toward us, out left
+C11 = cam(0.0, [0.6, 0.9, 4.0], [0.5, 0.92, 3.7], [0.2, 2.8, -2.0], [0.2, 2.8, -2.0], lens=72)   # low and wide: the three rows of windows over him
 chk('S11', C11, {'dirFace': add(DIR1, [0, 1.85, 0]), 'switch': SW11, 'key': [0.9, 1.2, -1.6], 'dir3': add(DIR3, [0, 1.85, 0])})
 kd11 = [k(0.0, clip='walk'), k(0.0, to=DIR1, dur=0.5, clip='walk', ease='out', params={'freq': 2.0}), k(0.5, clip='stand'), k(0.0, look='camera'), TK(0.0, face=CALM, d=0.0),
         k(0.5, face=-150, turn=0.15), k(0.5, look=HEAD([0.8, 0, -1.6], 1.9), lookDur=0.12),
         TK(0.5, {'R': R5([0.75, 1.25, -1.62])}, {'R': 'grip'}, d=0.12), TK(1.0, {'R': R5([0.95, 1.2, -1.75])}, d=0.45, keep=True),   # pushes the gate shut, the key stays in it
         TK(1.1, {'R': R5(off(DIR1, 0, 0.2, 0.3, 1.0))}, {'R': 'rest'}, d=0.15, keep=True),
-        k(1.1, to=DIR2, dur=0.3, clip='walk', ease='inOut', params={'freq': 2.2}), k(1.4, clip='stand'), k(1.12, face=150, turn=0.15), k(1.2, look=HEAD(SW11, 1.9), lookDur=0.1),
+        k(1.1, to=DIR2, dur=0.3, clip='walk', ease='inOut', params={'freq': 2.2}), k(1.4, clip='stand'), k(1.12, face=170, turn=0.15), k(1.2, look=HEAD(SW11, 1.9), lookDur=0.1),
         TK(r(FLIP11 - 0.15), {'L': R5(add(SW11, [0, 0.12, 0.08]))}, {'L': 'point'}, d=0.12, keep=True), TK(FLIP11, {'L': R5(add(SW11, [0, -0.1, 0.08]))}, d=0.04, e='in', keep=True),
         TK(r(FLIP11 + 0.04), face={'lid': 0.0, 'mouth': 'smile', 'brow': 1.0}, sq=(1.12, 0.88, 1.12), scl={'head': [1.2, 0.85, 1.2]}, d=0.04, e='out', keep=True),   # the click: a little satisfied squash
-        TK(r(FLIP11 + 0.2), face=CALM, sq=(1, 1, 1), scl={'head': [1, 1, 1]}, d=0.12, keep=True), TK(r(FLIP11 + 0.2), {'L': R5(off(DIR2, 150, 0.05, -0.3, 0.95))}, {'L': 'rest'}, d=0.18, keep=True),
+        TK(r(FLIP11 + 0.2), face=CALM, sq=(1, 1, 1), scl={'head': [1, 1, 1]}, d=0.12, keep=True), TK(r(FLIP11 + 0.2), {'L': R5(off(DIR2, 170, 0.05, -0.3, 0.95))}, {'L': 'rest'}, d=0.18, keep=True),
         k(r(FLIP11 + 0.3), look=HEAD([0, 0, -2], 3.0), lookDur=0.15), k(r(FLIP11 + 0.42), look=HEAD(DIR3, 1.9), lookDur=0.12), k(r(FLIP11 + 0.45), to=DIR3, dur=1.1, clip='walk', ease='in', params={'freq': 1.8}),
         *WALKHANDS(r(FLIP11 + 0.45), 1.1, [DIR2, DIR3], {'R': (0.05, 0.3, 0.95), 'L': (0.05, -0.3, 0.95)}), *blink(1.9, CALM)]   # the arm down, a glance up at the dark windows, and off
 st.shot('S11', 'whiteVoid', setOpts={'color': '#C97A68'}, look={'sunDir': [0.6, 0.35, 0.7]},   # dusk
         actors=[act('directeur', DIR0, 0, 'walk', 'neutral', keys=kd11)],
-        props=[P('rue11', 'pdGround', pos=[0, 0, 0], opts={'color': '#7A726C', 'kerb': 2.0}), P('prison11', 'pdPrison', pos=PZ11, opts={'w': 7, 'key': True, 'offAt': r(FLIP11 + 0.06), 'offEvery': 0.3, 'gate': [[0, 1], [0.5, 1], [1.0, 0]]}),
-               P('interrupteur11', 'pdSwitch', pos=SW11, scale=1.4, opts={'flipAt': FLIP11})], cams=[C11])
+        props=[P('rue11', 'pdGround', pos=[0, 0, 0], opts={'color': '#7A726C', 'kerb': 2.0}), P('prison11', 'pdPrison', pos=PZ11, opts={'w': 7, 'key': True, 'offAt': r(FLIP11 + 0.06), 'offEvery': 0.15, 'gate': [[0, 1], [0.5, 1], [1.0, 0]]}),
+               P('interrupteur11', 'pdSwitch', pos=SW11, scale=2.6, opts={'flipAt': FLIP11})], cams=[C11])
 st.cue('sfx:clink', 'S11', 1.0, 0.35); st.cue('clack', 'S11', FLIP11, 0.5)
 
 # ================================================================= S12
@@ -446,7 +454,7 @@ st.shot('S12', 'whiteVoid', setOpts={'color': '#3E6A9A'}, look={'sunDir': [0.3, 
         actors=[act('ministre', MN12, 0, 'stand', 'neutral', keys=km12)],
         props=[P('salle12', 'pdRoom', pos=[0, 0, 0], opts={'w': 6, 'd': 4, 'wall': '#3E6A9A', 'floor': '#5E656D', 'trim': '#2E5280'}), P('pupitre12', 'pdPodium', pos=PD12),
                P('panneau12', 'pdBoard', pos=BD0, opts={'w': 1.1, 'h': 0.6}, keys=[k(0.06, to=BD1, dur=0.22, ease='out'), k(r(IT12 - 0.02), squash=[1.08, 0.9, 1.0], dur=0.3)]),
-               P('flashs12', 'flashBursts', pos=[0.1, 1.7, 1.6], opts={'n': 7, 'w': 2.0, 'h': 1.2, 'at': [0.15, 0.4, 0.62, IT12, r(IT12 + 0.2), r(IT12 + 0.5), r(IT12 + 0.75)], 'life': 0.15})], cams=[C12])
+               P('flashs12', 'pdFlash', pos=[0.1, 1.7, 1.6], opts={'n': 7, 'w': 2.0, 'h': 1.2, 'at': [0.15, 0.4, 0.62, IT12, r(IT12 + 0.2), r(IT12 + 0.5), r(IT12 + 0.75)], 'life': 0.15})], cams=[C12])
 for tt in [0.15, 0.4, IT12, r(IT12 + 0.5)]: st.cue('sfx:pop', 'S12', tt, 0.2)
 st.card('S12', 'INTERDIT', at=IT12)
 
@@ -460,20 +468,20 @@ chk('S13', C13, {'daFace': add(DA13, [0, 1.85, 0]), 'hmFace': add(HM1, [0, 1.85,
 B13 = [0.0, 0, -30.0]; HM2 = add(B13, [-0.3, 0, 0.0]); GB13 = add(B13, [0.75, 0, 0.35]); CUP13 = off(HM2, 20, 0.35, 0.25, 0.0)
 C13b = cam(CUT13, add(B13, [0.1, 1.55, 3.6]), add(B13, [0.1, 1.55, 3.35]), add(B13, [0.1, 1.35, 0.0]), add(B13, [0.1, 1.38, 0.0]), lens=50)
 chk('S13b', C13b, {'hmTop': add(HM2, [0, 2.2, 0]), 'gbTop': add(GB13, [0, 2.2, 0]), 'cup': CUP13, 'hmFace': add(HM2, [0, 1.85, 0])})
-kda = [k(0.0, clip='stand'), k(0.0, look=HEAD(HM1, 1.85)), TK(0.0, {'L': R5(off(DA13, DRY13, 0.25, -0.3, 0.95)), 'R': R5(off(DA13, DRY13, 0.2, 0.3, 1.0))}, {'L': 'grip', 'R': 'rest'}, CALM, d=0.0),
+kda = [*[k(r(1.0 + 0.2 * j), look=HEAD(add(HM1, [0.25 if j % 2 else -0.25, 0, 0]), 1.85), lookDur=0.15) for j in range(3)], k(0.0, clip='stand'), k(0.0, look=HEAD(HM1, 1.85)), TK(0.0, {'L': R5(off(DA13, DRY13, 0.25, -0.3, 0.95)), 'R': R5(off(DA13, DRY13, 0.2, 0.3, 1.0))}, {'L': 'grip', 'R': 'rest'}, CALM, d=0.0),
        TK(BMP13, face={'lid': 0.0, 'mouth': 'O', 'brow': 1.0}, sq=(0.85, 1.12, 0.85), bend={'spine': SP(-0.1, 0.3)}, d=0.04, e='out', keep=True), TK(r(BMP13 + 0.2), face=WORRY, sq=(1, 1, 1), bend={'spine': SP(0.0)}, d=0.12, keep=True),
        k(r(CUFF13 + 0.05), look=HEAD(GA1, 1.85), lookDur=0.12), *blink(0.6, WORRY), *BREATHE(1.0, CUT13, 0.4)]
 khm = [k(0.0, clip='walk'), k(0.0, to=HM1, dur=BMP13, clip='walk', ease='linear', params={'freq': 2.4}), k(BMP13, clip='stand'), k(r(BMP13 + 0.02), face=90, turn=0.12), k(0.0, look=HEAD(DA13, 1.85)),
        TK(BMP13, face=WORRY, sq=(1.15, 0.88, 1.15), d=0.04, e='out', keep=True), TK(r(BMP13 + 0.12), sq=(1, 1, 1), d=0.1, keep=True),
        k(BOW13, clip='bow', blend=0.1), *TALK(r(BOW13 + 0.1), WORRY, 3),
        TK(r(CUFF13 + 0.02), face=POP, scl={'head': [1.3, 0.82, 1.2]}, d=0.04, e='out', keep=True), TK(r(CUFF13 + 0.25), face=SAD, scl={'head': [1, 1, 1]}, d=0.15, keep=True),   # cuffed mid-bow: the eyes pop, the head squashed wide
-       *blink(r(CUFF13 + 0.4), SAD)]
+       *blink(r(CUFF13 + 0.4), SAD), *[TK(r(CUFF13 + 0.3 + 0.09 * j), sq=(1.03, 0.97, 1.03) if j % 2 else (0.98, 1.02, 0.98), bend={'spine': SP(0.0, 0.06 if j % 2 else -0.06)}, d=0.08, keep=True) for j in range(7)]]   # trembling, stuck in his bow
 kga = [k(0.0, clip='stand'), k(0.0, look=HEAD(HM1, 1.85)), TK(0.0, {'R': R5(off(GA0, 60, 0.35, 0.2, 1.2))}, {'R': 'grip'}, STERN, d=0.0),
        k(0.3, to=GA1, dur=0.35, clip='walk', ease='out', params={'freq': 2.4}), k(0.65, clip='stand'),
        TK(0.6, {'R': R5(off(HM1, 90, 0.55, 0.2, 1.05))}, d=0.25, keep=True), TK(r(CUFF13 + 0.1), {'R': R5(off(GA1, 60, 0.25, 0.25, 1.0))}, {'R': 'rest'}, d=0.2, keep=True), *blink(1.2, STERN)]
 khm2 = [k(0.0, clip='stand'), k(0.0, look=HEAD(CUP13, 1.6)), TK(0.0, {'R': R5(off(HM2, 20, 0.35, 0.25, 1.0)), 'L': R5(off(HM2, 20, 0.2, -0.3, 1.0))}, {'R': 'open', 'L': 'rest'}, POP, d=0.0),
         TK(r(CUT13 + 0.12), {'L': R5(off(HM2, 20, 0.45, -0.1, 1.45))}, {'L': 'open'}, d=0.06, keep=True),   # the mitten comes up...
-        TK(r(CUT13 + 0.2), {'L': R5(off(HM2, 20, 0.3, 0.0, 1.74), 1, 0.02), 'R': R5(off(HM2, 20, 0.3, 0.3, 1.0))}, {'L': 'open'}, face={'lid': 0.0, 'mouth': 'clench', 'brow': 1.0}, scl={'head': [1.22, 0.82, 1.1]}, d=0.04, e='out', keep=True),   # ...SLAP over his mouth: the head squashed
+        TK(r(CUT13 + 0.2), {'L': R5(off(HM2, 20, 0.34, 0.0, 1.84), 1, 0.02), 'R': R5(off(HM2, 20, 0.3, 0.3, 1.0))}, {'L': 'open'}, face={'lid': 0.0, 'mouth': 'clench', 'brow': 1.0}, scl={'head': [1.22, 0.82, 1.1]}, d=0.04, e='out', keep=True),   # ...SLAP over his mouth: the head squashed
         TK(r(CUT13 + 0.32), scl={'head': [0.92, 1.08, 0.95]}, sq=(0.94, 0.94, 0.94), d=0.06, keep=True), TK(r(CUT13 + 0.5), scl={'head': [1, 1, 1]}, sq=(0.96, 0.96, 0.96), d=0.15, keep=True),   # rebound, then he shrinks a little
         k(r(CUT13 + 0.5), look=HEAD(GB13, 1.85), lookDur=0.15), *blink(0.8, POP), *blink(r(CUT13 + 1.0), {'lid': 0.0, 'mouth': 'clench', 'brow': 1.0})]
 kgb = [k(0.0, clip='writeOnHeld'), k(0.0, look=HEAD(HM2, 1.6)), TK(0.0, face=STERN, d=0.0), *blink(r(CUT13 + 0.7), STERN), *BREATHE(CUT13, D13, 0.4)]
@@ -481,8 +489,8 @@ st.shot('S13', 'whiteVoid', setOpts={'color': SKY}, look={'sunDir': [0.4, 0.9, 0
         actors=[act('dame', DA13, DRY13, 'stand', 'neutral', keys=kda), act('homme1', HM0, 90, 'walk', 'neutral', keys=khm), act('gendarme1', GA0, 60, 'stand', 'neutral', keys=kga),
                 act('homme2', HM2, 20, 'stand', 'neutral', keys=khm2), act('gendarme2', GB13, -60, 'writeOnHeld', 'neutral', keys=kgb)],
         props=[P('sol13', 'pdGround', pos=[0, 0, -15], opts={'d': 60, 'kerb': 17.5}), P('facade13', 'pdFacade', pos=FAC13, opts={'w': 14, 'color': '#F3E9C9'}), P('facade13b', 'pdFacade', pos=add(B13, [0, 0, -2.4]), opts={'w': 14, 'color': '#E8E1EE'}),
-               P('courses13', 'pdGroceries', on={'actor': 'dame', 'hand': 'L', 'offset': [0, -0.4, 0.05]}, keys=[k(BMP13, squash=[1.15, 0.8, 1.15], dur=0.35)]),
-               P('menottes13', 'handcuffs', on={'actor': 'gendarme1', 'hand': 'R'}, keys=[k(CUFF13, attach='homme1', hand='R')]),
+               P('courses13', 'pdGroceries', on={'actor': 'dame', 'hand': 'L', 'offset': [0, -0.4, 0.05], 'sway': 1}, keys=[k(BMP13, squash=[1.15, 0.8, 1.15], dur=0.35), *[k(r(0.7 + 0.22 * j), squash=[1.04, 0.96, 1.04], dur=0.22) for j in range(4)]]),
+               P('menottes13', 'handcuffs', on={'actor': 'gendarme1', 'hand': 'R'}, keys=[k(CUFF13, attach='homme1', hand='R', sway=1), k(CUFF13, squash=[1.3, 0.7, 1.3], dur=0.35), *[k(r(CUFF13 + 0.3 + 0.18 * j), squash=[1.08, 0.92, 1.08], dur=0.18) for j in range(3)]]),
                P('gobelet13', 'pdCup', pos=CUP13, scale=2.0, opts={'fall': r(CUT13 - 0.18), 'h': 0.5}), P('carnet13', 'pdTicket', on={'actor': 'gendarme2', 'hand': 'L', 'offset': [0, 0.0, 0.1], 'rot': [1.1, 0, 0]}, scale=1.3)], cams=[C13, C13b])
 st.cue('thud', 'S13', BMP13, 0.3); st.cue('sfx:cuff', 'S13', CUFF13, 0.5); st.cue('sfx:splash', 'S13', r(CUT13 + 0.12), 0.35); st.cue('sfx:gulp', 'S13', r(CUT13 + 0.3), 0.25); st.cue('sfx:scratch', 'S13', r(CUT13 + 0.5), 0.2)
 
@@ -490,38 +498,42 @@ st.cue('thud', 'S13', BMP13, 0.3); st.cue('sfx:cuff', 'S13', CUFF13, 0.5); st.cu
 # 14: a metro platform: three commuters across the frame, mouths shut, the hero among them with his halves; two tall travellers with huge backpacks
 #     turn round together and the backpacks sweep all three off their feet like skittles; they land sitting, dazed, unhurt; the baguette stays put
 D14 = st.dur('S14'); BS14 = r(st.at('S14', 'L14', 2) - 0.05); TURN14 = r(st.at('S14', 'L14', 6) - 0.15)
-ROW = -1.4; T1 = [-1.3, 0, ROW - 0.2]; T2 = [1.3, 0, ROW - 0.2]; CM = [[-0.7, 0, ROW], [0.0, 0, ROW], [0.7, 0, ROW]]
-FALL14 = [r(TURN14 + 0.14), r(TURN14 + 0.26), r(TURN14 + 0.18)]; UP14, HANG14, DOWN14 = 0.16, 0.13, 0.14
-C14 = cam(0.0, [0.0, 1.4, 4.4], [0.0, 1.4, 4.2], [0.0, 1.35, -1.5], [0.0, 1.35, -1.5], lens=56)
+ROW = -1.2; T1 = [-0.9, 0, ROW - 0.5]; T2 = [0.9, 0, ROW - 0.5]; CM = [[-0.72, 0, ROW], [0.0, 0, ROW], [0.72, 0, ROW]]   # the tall travellers just behind the three
+FALL14 = [r(TURN14 + 0.14), r(TURN14 + 0.3), r(TURN14 + 0.18)]; UP14, HANG14, DOWN14 = 0.16, 0.13, 0.14
+C14 = cam(0.0, [0.0, 1.35, 3.6], [0.0, 1.35, 3.45], [0.0, 1.6, -1.4], [0.0, 1.6, -1.4], lens=50)
 chk('S14', C14, {**{f'c{i}': add(p, [0, 1.9, 0]) for i, p in enumerate(CM)}, 'cSit': add(CM[1], [0, 1.1, 0]), 'feet': CM[1]})
 kc14 = []
-SITFX = [dict(sq=(1.3, 0.7, 1.3)), dict(scl={'head': [1.35, 0.7, 1.2]}), dict(sq=(0.8, 1.25, 0.8))]   # three different landings
+SITFX = [dict(scl={'head': [1.25, 0.8, 1.15]}), dict(scl={'head': [1.35, 0.7, 1.2]}), dict(scl={'head': [0.8, 1.25, 0.9]})]   # three different landings
 for i, p in enumerate(CM):
     nm = 'mec' if i == 1 else f'navetteur{i + 1}'; f = FALL14[i]; sx = -1 if i == 0 else (1 if i == 2 else 0)
     ks = [k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, face=SHUT, d=0.0),
           TK(BS14, bend={'spine': SP(0.0, 0.3 if i != 1 else -0.3)}, sq=(1.05, 0.96, 1.05), d=0.08, e='out', keep=True), TK(r(BS14 + 0.25), bend={'spine': SP(0.0, 0.0)}, sq=(1, 1, 1), d=0.12, keep=True),   # elbowed, silently
           k(r(BS14 + 0.1), look=HEAD(CM[1 - sx if i != 1 else 0], 1.9), lookDur=0.12), k(r(BS14 + 0.6), look='camera', lookDur=0.15),
-          k(f, clip='sitFloor', blend=0.1), k(f, to=add(p, [0.12 * sx, 0.9, 0.1]), dur=UP14, clip='sitFloor', ease='out', face='keep'),   # swept off his feet: up in an arc...
+          k(f, clip='sitFloor', blend=0.1), k(f, to=add(p, [0.1 * sx, 0.9, 0.18 if sx else -0.05]), dur=UP14, clip='sitFloor', ease='out', face='keep'),   # swept off his feet: up in an arc...
           TK(f, face={'lid': 0.0, 'mouth': 'O', 'brow': 1.0}, sq=(0.85, 1.2, 0.85), d=0.05, e='out', keep=True), TK(r(f + UP14), sq=(1.05, 0.95, 1.05), d=0.08, keep=True),   # stretched in the launch
-          k(r(f + UP14), to=add(p, [0.16 * sx, 0.95, 0.15]), dur=HANG14, clip='sitFloor', ease='inOut', face='keep'),   # ...hangs there a beat...
-          k(r(f + UP14 + HANG14), to=add(p, [0.2 * sx, 0, 0.25]), dur=DOWN14, clip='sitFloor', ease='in', face='keep'),   # ...and drops onto his backside
-          TK(r(f + UP14 + HANG14 + DOWN14), face=DAZED, d=0.03, e='out', keep=True, **SITFX[i]), TK(r(f + UP14 + HANG14 + DOWN14 + 0.15), sq=(0.95, 1.06, 0.95), scl={'head': [1, 1, 1]}, d=0.08, keep=True),
+          k(r(f + UP14), to=add(p, [0.13 * sx, 0.95, 0.22 if sx else -0.05]), dur=HANG14, clip='sitFloor', ease='inOut', face='keep'),   # ...hangs there a beat...
+          k(r(f + UP14 + HANG14), to=add(p, [0.16 * sx, 0, 0.26 if sx else 0.05]), dur=DOWN14, clip='sitFloor', ease='inOut', face='keep'),   # ...and drops onto his backside
+          TK(r(f + UP14 + HANG14 + DOWN14), face=DAZED, d=0.03, e='out', keep=True, **SITFX[i]), TK(r(f + UP14 + HANG14 + DOWN14 + 0.15), scl={'head': [1, 1, 1]}, d=0.08, keep=True),
           TK(r(f + UP14 + HANG14 + DOWN14 + 0.3), sq=(1, 1, 1), d=0.12, keep=True),
           k(r(f + 0.6), look=HEAD(add(p, [0.6 * (1 if i % 2 == 0 else -1), 0, 2.0]), 1.4), lookDur=0.2), *[k(r(f + 0.5 + 0.3 * j), look=HEAD(add(p, [(-0.6 if j % 2 == 0 else 0.6), 0, 2.0]), 1.4), lookDur=0.2) for j in range(3)],
           *blink(r(0.6 + 0.2 * i), SHUT), *blink(r(f + 0.8), DAZED), *BREATHE(r(f + 0.5), D14, 0.4)]
     if i == 1: ks += [TK(0.0, {'R': R5(off(p, 0, 0.3, 0.32, 1.1)), 'L': R5(off(p, 0, 0.3, -0.32, 1.1))}, {'R': 'grip', 'L': 'grip'}, d=0.0, keep=True),
-                      TK(f, {'R': R5(off(p, 0, 0.35, 0.45, 2.0)), 'L': R5(off(p, 0, 0.35, -0.45, 2.0))}, d=0.12, keep=True),   # arms up in the air, a half in each mitten
-                      TK(r(f + 0.5), {'R': R5(off(add(p, [0, 0, 0.25]), 0, 0.5, 0.4, 0.55)), 'L': R5(off(add(p, [0, 0, 0.25]), 0, 0.5, -0.4, 0.55))}, d=0.12, keep=True)]   # landed: the halves still held up
+                      TK(f, {'R': R5(off(p, 0, 0.35, 0.45, 2.3)), 'L': R5(off(p, 0, 0.35, -0.45, 2.3))}, d=0.12, keep=True),   # arms up in the air (with him), a half in each mitten
+                      TK(r(f + UP14 + HANG14), {'R': R5(off(add(p, [0, 0, 0.05]), 0, 0.45, 0.42, 0.75)), 'L': R5(off(add(p, [0, 0, 0.05]), 0, 0.45, -0.42, 0.75))}, d=DOWN14, keep=True)]   # down with him: landed, the halves still held up
     kc14.append(act(nm, p, 0, 'stand', 'neutral', keys=ks))
 ktr = []
 for i, (p, fc) in enumerate([(T1, -179), (T2, 179)]):
     nm = f'routard{i + 1}'
-    ks = [k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, face=CALM, d=0.0), k(TURN14, face=fc, turn=0.32),
+    ks = [k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, face=CALM, d=0.0),
+          k(0.45, face=-fc / 9, turn=0.15), TK(0.45, sq=(1.04, 0.97, 1.04), bend={'spine': SP(0.0, 0.15 * (1 if fc > 0 else -1))}, d=0.12, keep=True),   # a little wind-up the other way...
+          k(0.62, face=fc / 3, turn=0.6), TK(0.62, bend={'spine': SP(0.0, 0.0)}, d=0.2, keep=True), k(0.62, look=HEAD(add(p, [fc / 60, 0, -2.0]), 2.2), lookDur=0.3),   # ...a slow half turn (looking at the timetable)...
+          k(TURN14, face=fc, turn=0.28),   # ...and the whip round: the sacks sweep
           TK(TURN14, sq=(0.95, 1.05, 0.95), d=0.1, keep=True), TK(r(TURN14 + 0.35), sq=(1, 1, 1), d=0.15, keep=True), *blink(r(0.5 + 0.4 * i), CALM), *BREATHE(0.1, TURN14, 0.5)]
     ktr.append(act(nm, p, 0, 'stand', 'neutral', keys=ks))
 st.shot('S14', 'whiteVoid', setOpts={'color': '#2A2C30'}, look={'sunDir': [0.2, 0.9, 0.6]},
         actors=[*kc14, *ktr],
         props=[P('quai14', 'metroPlatform', pos=[0, 0, 0], opts={'len': 12, 'depth': 4, 'name': ' ', 'bench': False}),
+               P('mur14', 'pdGround', pos=[0, 6.0, -4.06], rot=[1.5708, 0, 0], opts={'w': 14, 'd': 8, 'color': '#E3DED2'}),   # the tiled wall goes on up (no black void)
                *[P(f'sac14_{i + 1}', 'pdRucksack', on={'actor': f'routard{i + 1}', 'joint': 'torso', 'offset': [0, 0.3, -0.16]}, scale=1.55, opts={'color': ['#2F7F5C', '#B5452E'][i], 'dark': ['#1E5A40', '#7E2E20'][i]}) for i in range(2)],
                *HALVES('S14')], cams=[C14])
 st.cue('whoosh', 'S14', TURN14, 0.4); st.cue('thud', 'S14', r(FALL14[0] + 0.18), 0.35); st.cue('thud', 'S14', r(FALL14[2] + 0.18), 0.3); st.cue('thud', 'S14', r(FALL14[1] + 0.18), 0.35)
@@ -556,9 +568,10 @@ st.cue('sfx:stepHeavy', 'S15', 0.1, 0.2)
 #     hero, a broken half in each mitten
 D16 = st.dur('S16'); HIT16 = snap(st.at('S16', 'L16', 4) - 0.05); SNAP16 = r(HIT16 + 0.03); SWAP16 = r(HIT16 + 0.3)
 BK16 = [0, 0, -1.3]; H016 = [0, 0, -0.5]; H16 = [0, 0, 0.5]; HRY16 = -35
-PATH16 = [[1.7, 0, -0.6], [0.8, 0, 0.2], [-0.4, 0, -0.7], [-1.05, 0, -1.0]]   # in from the right behind him (tie to us), the shoulder, then away from us
+PATH16 = [[1.7, 0, -0.6], [0.8, 0, 0.2], [-0.4, 0, -0.95], [-3.5, 0, -1.6]]   # in from the right behind him (tie to us), the shoulder, then away from us and out left
 LEG1 = math.dist(PATH16[0], PATH16[1]); LEGS = sum(math.dist(PATH16[n], PATH16[n + 1]) for n in range(1, 3))
-SIGN16 = [r(HIT16 + 0.75), r(HIT16 + 1.15), r(HIT16 + 1.55)]
+OUT16 = r(HIT16 + 1.45); SIGN16 = [r(HIT16 + 0.45), r(HIT16 + 0.75), r(HIT16 + 1.05)]
+T16b = r(HIT16 + 0.06 + (OUT16 - HIT16 - 0.06) * math.dist(PATH16[1], PATH16[2]) / LEGS)   # when he reaches the second corner
 C16 = cam(0.0, [0.8, 1.5, 6.6], [0.4, 1.5, 4.9], [0.0, 2.05, -0.2], [-0.2, 1.8, 0.0], lens=48, ease='inOut')
 chk('S16', C16, {'heroTop': add(H16, [0, 2.35, 0]), 'heroFeet': H16, 'baguette': off(H16, 0, 0.35, 0.42, 1.3), 'prA': add(PATH16[0], [0, 2.0, 0]), 'prHit': add(PATH16[1], [0, 2.0, 0]), 'prEnd': add(PATH16[-1], [0, 2.3, 0]), 'bake': add(BK16, [2.5, 4.2, 0])})
 BG16 = off(H16, 0, 0.35, 0.42, 1.3)
@@ -570,16 +583,19 @@ kh16 = [k(0.0, clip='walk'), k(0.0, to=H16, dur=0.45, clip='walk', ease='out', p
         TK(r(HIT16 + 0.16), face=WORRY, sq=(1, 1, 1), scl={'head': [1, 1, 1]}, bend={'spine': SP(0.0)}, d=0.12, keep=True),
         TK(SWAP16, {'R': R5(off(H16, HRY16, 0.32, 0.36, 1.2)), 'L': R5(off(H16, HRY16, 0.32, -0.36, 1.2))}, {'R': 'grip', 'L': 'grip'}, d=0.1, keep=True),
         *TALK(r(HIT16 + 0.32), WORRY, 4, 0.08), *[k(r(HIT16 + 0.25 + 0.35 * j), look=HEAD(PATH16[min(3, 2 + j // 2)], 2.0), lookDur=0.2) for j in range(4)],
-        k(2.3, face=-10, turn=0.3), k(2.25, look='camera', lookDur=0.15), TK(2.3, {'R': R5(off(H16, -10, 0.38, 0.4, 1.35)), 'L': R5(off(H16, -10, 0.38, -0.4, 1.35))}, face=SAD, d=0.25, keep=True),   # the hold: a half in each mitten, held up
-        *blink(1.7, WORRY), *blink(2.75, SAD), *BREATHE(1.4, D16, 0.45)]
+        k(2.2, face=-10, turn=0.3), k(2.15, look='camera', lookDur=0.15), TK(2.2, {'R': R5(off(H16, -10, 0.38, 0.4, 1.3)), 'L': R5(off(H16, -10, 0.38, -0.4, 1.3))}, face=SAD, d=0.25, keep=True),   # the hold, alone: a half in each mitten
+        k(2.55, look=HEAD(off(H16, -10, 0.4, 0.4, 0), 1.45), lookDur=0.45), k(2.95, look=HEAD(off(H16, -10, 0.4, -0.4, 0), 1.45), lookDur=0.15),   # a slow look down at one half, then the other
+        *blink(1.7, WORRY), *blink(2.45, SAD), *BREATHE(1.4, D16, 0.35)]
 st.shot('S16', 'whiteVoid', setOpts={'color': SKY}, look={'sunDir': [0.4, 0.9, 0.8]},
         actors=[act('mec', H016, 0, 'walk', 'neutral', keys=kh16)],
         props=[P('sol16', 'pdGround', pos=[0, 0, 0], opts={'kerb': 3.2}), P('boulangerie16', 'pdBakery', pos=BK16, opts={'w': 8}),
                P('baguette16', 'pdBaguette', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.36, 0.05], 'rot': [0, 0, -1.5708]}, opts={'snapAt': SNAP16, 'len': 0.8}, keys=[k(SWAP16, visible=False)]),
                *HALVES('S16', t0=SWAP16),
-               P('president16', 'pdPresident', pos=PATH16[0], ry=yaw(PATH16[0], PATH16[1]), opts={'round': 1.1, 'walk': [0, D16, 2.4], 'flap': 2.4, 'signUp': [[r(HIT16 + 0.6), D16]], 'smile': [[0, 0.45]], 'bounce': [HIT16], 'blink': [0.4]},
-                 keys=[k(0.0, path=[PATH16[1]], dur=HIT16, ease='linear', faceMove=True), k(HIT16, squash=[1.1, 0.9, 1.1], dur=0.25), k(r(HIT16 + 0.06), path=PATH16[2:], dur=r(D16 - HIT16 - 0.06), ease='out', faceMove=True)]),
-               P('parchemin16', 'pdScroll', on={'actor': 'president16', 'offset': [-0.3, 2.05, -0.1], 'rot': [0, math.pi, 0]}, opts={'w': 0.34, 'h': 0.44, 'signAt': SIGN16},
+               P('president16', 'pdPresident', pos=PATH16[0], ry=yaw(PATH16[0], PATH16[1]), opts={'round': 1.1, 'walk': [0, D16, 2.4], 'flap': 2.4, 'signUp': [[r(HIT16 + 0.35), D16]], 'smile': [[0, 0.45]], 'bounce': [HIT16], 'blink': [0.4]},
+                 keys=[k(0.0, to=PATH16[1], dur=HIT16, ease='linear'), k(HIT16, squash=[1.1, 0.9, 1.1], dur=0.25),
+                       k(r(HIT16 + 0.06), to=PATH16[2], dur=r(T16b - HIT16 - 0.06), ease='linear'), k(r(HIT16 + 0.02), rotTo=[0, math.radians(yaw(PATH16[1], PATH16[2])), 0], dur=0.15),
+                       k(T16b, to=PATH16[3], dur=r(OUT16 - T16b), ease='linear'), k(T16b, rotTo=[0, math.radians(yaw(PATH16[2], PATH16[3])), 0], dur=0.12), k(r(OUT16 + 0.05), visible=False)]),   # 'to' moves and turns: away, out of frame by ~43.9 s
+               P('parchemin16', 'pdScroll', on={'actor': 'president16', 'offset': [-0.35, 2.2, -0.12], 'rot': [0, math.pi, 0]}, opts={'w': 0.5, 'h': 0.62, 'signAt': SIGN16},
                  keys=[k(0.0, visible=False), k(r(HIT16 + 0.5), visible=True), k(r(HIT16 + 0.5), squash=[0.6, 1.3, 1.0], dur=0.25)])], cams=[C16])
 st.cue('sfx:stepHeavy', 'S16', 0.2, 0.2); st.cue('thud', 'S16', HIT16, 0.45); st.cue('sfx:crunch', 'S16', SNAP16, 0.45); st.cue('sfx:paper', 'S16', r(HIT16 + 0.5), 0.25); [st.cue('sfx:scratch', 'S16', t_, 0.18) for t_ in SIGN16]
 
@@ -607,11 +623,11 @@ st.write("Le pardon", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdL
     'greffier': {'preset': 'politique', 'seed': 3103, 'suit': '#8A939E', 'lapel': '#7A838E', 'tie': '#3A3D44', 'hair': 'receding', 'hairColor': '#8A8A86', 'glasses': True, 'toon': EX},
     'avocat': {**GOWN, 'seed': 3104},
     'juge': {**GOWN, 'seed': 3105, 'hair': 'bald', 'facial': 'beard', 'beardColor': '#BDBDBD', 'glasses': True, 'build': {'width': 1.15, 'headWidth': 1.25, 'belly': 0.1}},
-    'procureur': {**GOWN, 'seed': 3106, 'suit': '#B5241E', 'pants': '#B5241E', 'lapel': '#8E1C17', 'cuff': '#B5241E', 'hair': 'slick', 'hairColor': '#2A2420', 'glasses': False, 'facial': 'mustache'},
+    'procureur': {**GOWN, 'seed': 3106, 'suit': '#A8442E', 'pants': '#A8442E', 'lapel': '#86331F', 'cuff': '#A8442E', 'hair': 'slick', 'hairColor': '#2A2420', 'glasses': False, 'facial': 'mustache'},
     **{f'passant{i + 1}': GUEST(['worker', 'tourist', 'madame', 'fermier'][i], 3110 + i, ['#3E7FB6', '#D9A23A', '#C8322A', '#5E8C4A'][i]) for i in range(4)},
     **{f'voyageur{i + 1}': GUEST(['madame', 'worker', 'tourist', 'femme', 'fermier'][i], 3120 + i, ['#8A5AB6', '#2E7D4F', '#C86A2A', '#3E5FB6', '#B5452E'][i]) for i in range(5)},
     **{f'detenu{i + 1}': {'preset': 'pyjama', 'seed': 3130 + i, 'suit': '#2E3138', 'pants': '#2E3138', 'cuff': '#2E3138', 'hair': 'buzz', 'facial': 'stubble', 'toon': EX, 'build': {'width': [1.0, 1.15, 0.9, 1.05, 0.95][i]}} for i in range(5)},   # dark grey with white stripes
-    'gardien': {**GEND, 'seed': 3140, 'suit': '#4A5560', 'pants': '#4A5560', 'lapel': '#3E4852', 'cuff': '#4A5560', 'hatColor': '#4A5560'},
+    'gardien': {**GEND, 'seed': 3140, 'suit': '#2E4A7A', 'pants': '#2E4A7A', 'lapel': '#2E4A7A', 'tie': '#2E4A7A', 'shirt': '#2E4A7A', 'cuff': '#2E4A7A', 'hatColor': '#2E4A7A'},   # plain blue
     'directeur': {'preset': 'politique', 'seed': 3141, 'suit': '#6A5440', 'lapel': '#5A4634', 'tie': '#2E4A6A', 'hair': 'receding', 'hairColor': '#8A8A86', 'facial': 'mustache', 'glasses': True, 'toon': EX},
     'ministre': {'preset': 'politique', 'seed': 3142, 'suit': '#4A4F58', 'lapel': '#3C414A', 'tie': '#7A2E2E', 'hair': 'slick', 'hairColor': '#3A3A40', 'glasses': False, 'build': {'width': 1.1, 'headWidth': 1.2}, 'toon': EX},
     'dame': {'preset': 'madame', 'seed': 3143, 'suit': '#C86A8A', 'toon': EX},
