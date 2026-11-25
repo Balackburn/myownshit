@@ -3090,3 +3090,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   La session reçoit « Le distributeur » (95).
 - 03 h 16 — « La tache » (93) LIVRÉE et publiée sur TikTok (1080x1920, 35,6 s, −16,0 LUFS, sans creux ; post cmwvjv27o0j0kqd07hqi3d4gn).
   Revues 5,8/6,8 → 7,4/7,3 → 7,3/7,6, passe finale, brouillon de contrôle. Planche de 14 images : tout en français, aucun drapeau ni emblème.
+- 04 h 40 — Textes 97-99 prêts (atelier : nature et animaux, maison et voisins, transports et santé ; juges comédie, rétention,
+  fabrication) : « Le pneu » (97 ; 8,5/7/8), « Le grincement » (98 ; 8/6,5/8,5 ; l'absurde ramené à la ligne un), « La fuite » (99 ;
+  7/8,5/7,5). Écartés : « La taupe » (même moteur d'espionnage que « La fuite »), « Le flocon », « Le rhume » (reprend la chute de
+  « L'éternuement »). Textes raccourcis à 128-134 mots (35-37 s). Enregistrés (stubs, props.js, queue11) ; import du moteur vérifié.

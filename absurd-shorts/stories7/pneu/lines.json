@@ -1,0 +1,155 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a emmené son pneu à plat chez le médecin.",
+  "hl": [
+   "pneu",
+   "médecin."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Diagnostic : à plat, c'est une dépression.",
+  "hl": [
+   "plat,",
+   "dépression."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Trois semaines d'arrêt. Interdiction de rouler.",
+  "hl": [
+   "d'arrêt.",
+   "rouler."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Puis chez le psy. En poussant la voiture.",
+  "hl": [
+   "psy.",
+   "poussant"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Le pneu a parlé de son enfance : une brouette.",
+  "hl": [
+   "enfance",
+   "brouette."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "En cure à la montagne, il a rencontré une chambre à air.",
+  "hl": [
+   "cure",
+   "chambre"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Par solidarité, les trois autres pneus se sont mis en arrêt.",
+  "hl": [
+   "solidarité,",
+   "arrêt."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Et toutes les voitures du pays.",
+  "hl": [
+   "voitures",
+   "pays."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Les ambulances aussi. Les malades les poussent.",
+  "hl": [
+   "ambulances",
+   "poussent."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Le ministre de la Santé a déclaré l'épidémie.",
+  "hl": [
+   "ministre",
+   "l'épidémie."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Vaccination nationale : une piqûre d'air par pneu.",
+  "hl": [
+   "Vaccination",
+   "d'air"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le vaccin, c'est une pompe. Remboursée à soixante-cinq pour cent.",
+  "hl": [
+   "pompe.",
+   "soixante-cinq"
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le ministre a breveté la pompe.",
+  "hl": [
+   "breveté",
+   "pompe."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Le pneu est rentré regonflé à bloc.",
+  "hl": [
+   "regonflé",
+   "bloc."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "La chambre à air a emménagé dedans.",
+  "hl": [
+   "emménagé",
+   "dedans."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Ce mec, lui, est à plat.",
+  "hl": [
+   "lui,",
+   "plat."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Arrêt refusé : il n'a pas de valve.",
+  "hl": [
+   "refusé",
+   "valve."
+  ]
+ }
+]

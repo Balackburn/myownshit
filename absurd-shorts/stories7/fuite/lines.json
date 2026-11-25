@@ -1,0 +1,164 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a signalé une fuite. Les services secrets ont débarqué.",
+  "hl": [
+   "fuite.",
+   "secrets"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Une fuite sous l'évier.",
+  "hl": [
+   "fuite",
+   "l'évier."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Une heure plus tard, son évier était classé secret-défense.",
+  "hl": [
+   "évier",
+   "secret-défense."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Chaque goutte a été fichée.",
+  "hl": [
+   "goutte",
+   "fichée."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Les gouttes tombaient en morse.",
+  "hl": [
+   "gouttes",
+   "morse."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Décodées, elles donnaient le mot de passe du palais.",
+  "hl": [
+   "Décodées,",
+   "passe"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Le palais l'a changé. La goutte suivante a donné le nouveau.",
+  "hl": [
+   "changé.",
+   "nouveau."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "La presse parle de la plus grande fuite du siècle.",
+  "hl": [
+   "presse",
+   "fuite"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Le ministre de l'Intérieur a démissionné. Il avait laissé couler.",
+  "hl": [
+   "démissionné.",
+   "couler."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Le président a ordonné de colmater.",
+  "hl": [
+   "président",
+   "colmater."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "L'armée a noyé l'évier dans le béton. Le frigo aussi.",
+  "hl": [
+   "béton.",
+   "frigo"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "La fuite est ressortie chez le voisin du dessous.",
+  "hl": [
+   "ressortie",
+   "dessous."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Il a été arrêté pour recel.",
+  "hl": [
+   "arrêté",
+   "recel."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Les services ont envoyé leur meilleur plombier.",
+  "hl": [
+   "meilleur",
+   "plombier."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Il a changé le joint. Dix centimes.",
+  "hl": [
+   "joint.",
+   "centimes."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Facture : trois millions. Classée secret-défense.",
+  "hl": [
+   "Facture",
+   "millions."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Le robinet ne fuit plus.",
+  "hl": [
+   "robinet",
+   "plus."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Il écoute.",
+  "hl": [
+   "Il",
+   "écoute."
+  ]
+ }
+]
