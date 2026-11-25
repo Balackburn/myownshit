@@ -1,5 +1,52 @@
 #!/usr/bin/env python3
-"""La tartine (story 102, cycle 54; DOCSTRING_PLACEHOLDER)"""
+"""La tartine (story 102, cycle 54; a hook, an institutional escalation, a reversal, a dry last line).
+This man picks his toast up in six seconds and an inspector crawls out from under his table, stopwatch in hand: the rule is five. The toast is
+confiscated, and the inspector lives under the table (nobody knows why). A law follows (five seconds on the floor and it belongs to the State),
+every kitchen gets its agent, butter side down is taxed double, the takings soar and the ministers, to save money, eat off the floor; then the
+country becomes deft and the takings crash, not the toasts. The State has every floor waxed: four million toasts a day, all butter side down, three
+ministers slip and are seized, and nobody sees the difference. Yesterday he slipped in his own kitchen and got up in six seconds: he belongs to the
+State, assigned under a table, the inspector's, in his own kitchen. The inspector, it was seven seconds.
+Running gags: the big brown luggage tag round the neck (ttTag: kraft card, eyelet, string, ruled lines; its back carries a stopwatch drawing with
+the owner's own time) on the inspector in every shot he is in (S01b, S02, S02b, S03, S14b, S16, S17), on every agent (S05, S05b, S10, S11, S12b, S15),
+on the bagged toast (S02b, S06), slapped on the three ministers when they slip (S12b) and on the hero (S15); in S17 the inspector turns his round to
+the lens: the needle deep in the red. The stopwatch (ttStopwatch: green wedge up to five, red zone after, no digits) is held up to the lens the same
+way in S02 and S14b (« en six secondes » comes back word for word). The toast always shows its buttered side (ttToast: a thick yellow butter layer and
+a pat; ttSplat: the yellow ring when it lands butter side down); the bagged toast from S02b sits on the minister's desk in S06; the wall clock ticks
+six jumping ticks in S01 and again in S14. The question opened in S03 (« Personne ne sait pourquoi ») is answered by the tag in S17.
+Staging: S01 low in his peach kitchen: the toast slips, lands butter side down (splat, squash), his jaw drops to his chest, the clock ticks six times,
+his eyes go to it (eyes only), he dives (stretched smear into a crouch) on « six », snatches it and turns its butter to us. S01b the cloth flap lifts,
+the small grey inspector (scale 0.68, flat cap, moustache) slides out on his knees, straightens with a stretch; the hero's double take. S02 the
+stopwatch thrust at the lens (squash), two taps on the bezel on « cinq ». S02b his arm shoots up like rubber, snatches the toast and drops it in a
+clear bag (zip, squash); CONFISQUÉE; the hero's empty mitten stays at mouth height, eyes sliding down. S03 under the table, curtains drawn: pillow,
+mug, little lamp, he wriggles, pats the pillow and snaps the cloth shut on « pourquoi ». S04 the council room (straight benches, two rows, a plain
+SALLE DU CONSEIL sign): stopwatches lifted to the chest, a trembling wait, one click on « l'État », everyone jolts with the hair up. S05 two kitchens of
+a cut-away block, a whip pan from one to the other past the hatched section: a stiff couple, an agent popping up from under the near cloth edge.
+S05b a toast lands butter side down; the agent raises a rubber stamp (held, trembling), slams it, the form flies up to the lens: a red stamp with two
+toast icons. S06 the minister rubs his mittens, the chart's arrow shoots up and he stretches after it. S07 three ministers with napkins sit on the
+carpet before the empty table and bow down to bite their floor toasts in unison, nod on « budget ». S08 a café terrace: an old lady catches her
+falling croissant with both mittens, a waiter walks past with a steady tower of plates. S09 the chart drops off its nail, turns over and lands
+upside down; the minister folds like an accordion; the camera glides to a toast standing on its edge on the desk, perfectly still. S10 three floor
+polishers advance down a gleaming corridor, the agents buzzing with them, sparkles. S11 a shiny kitchen: a cascade of toasts lands butter side down
+in a row, the couple glides sideways on their chairs, the agent clicks at each landing. S12 three ministers slide toward us on their backs, arms
+streaming. S12b tags slapped on their chests (a squash each); they spring up like boards and walk to their offices. S13 the hero walks in with a toast,
+his feet shoot out, he hangs, drops flat as a rug (stars), the toast lands butter side down by his head. S14 he springs back up and rubs his back,
+the clock ticks six; S14b the stopwatch at the lens as in S02. S15 an agent slaps a tag on his chest (he deflates and re-inflates), NATIONALISÉ,
+the other hands him a stopwatch. S16 under the table: the inspector shifts over, the hero (now in grey) crawls in, his head squashed by the table
+top. S17 the inspector turns his tag round (seven: deep red), then both stare up at a toast teetering on a plate over the table's edge; deadpan.
+Natural look; cycle 54: props_tartine.js (ttToast, ttStopwatch, ttTag, ttTable, ttPlate, ttPillow, ttNookLamp, ttMug, ttForm, ttChart, ttPolisher,
+ttSparkle, ttShine, ttNapkin, ttPlateTower, ttCafeFront, ttCouncilDesk, ttSign, ttCutWall, ttFill, ttNoShadow, ttImpact, ttSplat, ttWallClock, ttPanel,
+ttFloor); reused: chvBag (props_cheveu), bistroTable (props_ressort), grinOfficeWall and grinDesk (props_grincement), corridor (props_distributeur),
+tacheBox (props_tache), rubberStamp, croissant, chair, bench, table, carpet (props.js); sets kitchenDay, mairie (no banner, no map, the flag outside
+the room), whiteVoid.
+Lessons applied from the start: Looney deformation on every gag accent (the toast's splat squash, the jaw drop, the dive smear, the double take, the
+rubber-arm snatch, the bag's squash, the council's jolt, the stamp's hold and slam, the minister's stretch and accordion, the board stand-up, the
+rug flatten and spring-back, the deflate on the tag); every action starts in the first 0.3 s of its shot; the hero's reactions framed with nobody
+in front of them; look targets at head height or 'camera' (eyes only for the clock); blinks and breathing on holds; word timings from timeline.json
+through st.at (words from 0, printed beside their times); cameras placed with a grid search against per-point boxes (tools/camsearch.py) and checked
+with project() (CHECKS); no transparent layer drawn without depth test (ttShine is depth-tested with a polygon offset); flat floor props with a
+polygon offset (ttSplat, ttShine); carried objects (toasts, stopwatches, stamp, form, tray, croissant) are world props moved with the hands' reach
+times; new props prefixed tt; sound names checked against audio3.py/audio.py/mix.py; no raised arm held still, no hand at the face; no real flag,
+emblem, organisation or brand; stamps held up to the lens; no digits or currency on screen; French only on screen; nobody hurt."""
 from story_kit import *
 import math
 
@@ -47,12 +94,13 @@ def blinks_in(t0, t1, every=2.4, ph=0.0):
 
 # ============================== the State's mark: the big brown luggage tag round the neck (torso frame: origin at the waist, chest front z 0.14)
 TAGOFF = [0.0, 0.47, 0.165]
-def TAG(pid, who, needle=7.0, flip=None, swing=None, w=0.26, h=0.36, cord=(0.1, 0.17, -0.1), keys=None, scale=None):
+def TAG(pid, who, needle=7.0, flip=None, swing=None, w=0.26, h=0.36, cord=(0.1, 0.17, -0.1), keys=None, scale=None, dz=0.0):
     o = {'w': w, 'h': h, 'needle': needle, 'cord': list(cord)}
     if flip: o['flip'] = flip
     if swing: o['swing'] = swing
     kw = {**({'keys': keys} if keys else {}), **({'scale': scale} if scale is not None else {})}
-    return P(pid, 'ttTag', on={'actor': who, 'joint': 'torso', 'offset': list(TAGOFF)}, opts=o, **kw)
+    # (stills 3) dz: the kneeling agents at scale 0.78 swallowed the card inside the jacket at the usual depth
+    return P(pid, 'ttTag', on={'actor': who, 'joint': 'torso', 'offset': [TAGOFF[0], TAGOFF[1], r(TAGOFF[2] + dz)]}, opts=o, **kw)
 def WATCH(pid, pos, needle=None, at_=None, clicks=(), rad=0.16, keys=None, ry=0, rot=None, scale=None):
     o = {'r': rad}
     if needle: o['needle'] = needle
@@ -62,7 +110,8 @@ def WATCH(pid, pos, needle=None, at_=None, clicks=(), rad=0.16, keys=None, ry=0,
     return P(pid, 'ttStopwatch', pos=list(pos), ry=ry, opts=o, **kw)
 def CLICKS(sid, ts, g=0.32):
     for t_ in ts: st.cue('sfx:click', sid, r(t_), g)
-TOAST_T = 0.051                                                          # the toast's thickness (w 0.3): its centre sits 0.023 over the floor, butter up
+# the toast's thickness (w 0.34); butter side down its centre sits about 0.045 over the floor
+TOAST_T = 0.051
 def TOAST(pid, pos, rot=(0.0, 0.0, 0.0), keys=None, scale=None, **o):
     kw = {**({'keys': keys} if keys else {}), **({'scale': scale} if scale is not None else {})}
     return P(pid, 'ttToast', pos=list(pos), rot=list(rot), opts={'w': 0.34, **o}, **kw)
@@ -81,7 +130,8 @@ def MOVES(moves): return [k(t0, to=list(to), dur=d, ease=e) for t0, to, d, e in 
 # ============================== the hero's kitchen (kitchenDay: back wall z -3.6, counter along it, a hanging lamp at (0, 2.7, -1.0))
 KSET = {}
 TBL = [-0.2, 0.0, -1.0]; TH = 1.1; TW, TD = 1.6, 0.95
-TFRONT = r(TBL[2] + TD / 2 + 0.05)                                       # the cloth's front plane
+# the cloth's front plane
+TFRONT = r(TBL[2] + TD / 2 + 0.05)
 CLOCK = [-1.6, 2.05, -3.5]
 def TABLE(pid, pos=TBL, **o): return P(pid, 'ttTable', pos=list(pos), opts={'w': TW, 'd': TD, 'h': TH, **o})
 LOOKK = {'sunDir': [0.35, 0.85, 0.75]}
@@ -172,7 +222,7 @@ def IK(watch, sp=0.0, neck=0.0, **x):
     d = {'reach': {'R': R5(watch, 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'rest'}, 'bend': {'spine': [sp, 0, 0, 1, None], 'neck': [neck, 0, 0, 1, None]}, 'hip': 0}
     d.update(x); return d
 # (stills 1) the stopwatch held low at his right side, so the tag on his chest stays clear
-WOFF = lambda p, h=0.42: off(p, RYI, 0.22, -0.3, h)
+WOFF = lambda p, h=0.42: off(p, RYI, 0.18, -0.42, h)
 WM1b = [(OUT1b[0], WOFF(INS, 0.32), r(OUT1b[1] - OUT1b[0]), 'inOut'), (0.75, WOFF(INS), 0.25, 'out')]
 WT1b = track(WOFF(INS0, 0.3), WM1b)
 INSK1b = [k(0.0, look='camera'), k(0.0, clip='kneel'), k(0.0, toon={**IK(WT1b(0.0), 0.75, -0.55), 'face': IF}, toonDur=0.0),
@@ -352,7 +402,8 @@ def FAMK(p_, ry, ph, hold_at, face, agent_head, take_t=None):
 def AGENTK(p_, ry, watch, face, lift_dip=0.0, ph=0.0):
     # (stills 2) he pops up from below the cloth's near edge, upright on his knees (bent forward, his tag faced the floor): sunk low, then up with
     # a stretch and a settle, the stopwatch held up beside his face, his eyes darting from one diner to the other
-    keep = lambda w_, sp=0.0: {'reach': {'R': R5(w_, 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'rest'}, 'bend': {'spine': [sp, 0, 0, 1, None]}, 'hip': 0}
+    # (stills 3) the stopwatch in the mitten on its own side (the far mitten crossed his chest and hid the tag)
+    keep = lambda w_, sp=0.0: {'reach': {'L': R5(w_, 1, 0.0)}, 'hands': {'L': 'grip', 'R': 'rest'}, 'bend': {'spine': [sp, 0, 0, 1, None]}, 'hip': 0}
     ks = [k(0.0, look='camera'), k(0.0, clip='kneel'), k(0.0, toon={**keep(add(watch, [0, -0.25, 0]), 0.2), 'sq': [1.1, 0.72, 1.1], 'face': face}, toonDur=0.0)]
     ks += beat(r(0.12 + ph), {**keep(watch), 'sq': [0.92, 1.12, 0.92], 'face': {**face, 'lid': 0.2, 'brow': 0.2}}, antic={**keep(add(watch, [0, -0.25, 0]), 0.2), 'sq': [1.12, 0.7, 1.12], 'face': face}, hold=0.12,
                settle={**keep(watch), 'face': face})
@@ -386,7 +437,8 @@ def KIT_ACTORS(sfx_, c, pre, ph):
             act(f'{pre}agent', ag, 0, 'kneel', 'neutral', scale=0.78, keys=AGENTK(ag, 0, w_, AF5, ph=ph))], w_
 def KIT_PROPS(n, c, pre, cloth, w_):
     f1, f2 = FAMPOS(c)
-    return [*KITCHEN(n, c, cloth, [[0.0, 0.42]]), WATCH(f'chrono{n}', w_, at_=0.0, rad=0.1, ry=0), TAG(f'etiq{n}', f'{pre}agent', needle=6.5),
+    # (stills 3) the cloth stays down: lifted, its front flap swung out over the agent's chest and hid his tag
+    return [*KITCHEN(n, c, cloth, [[0.0, 0.0]]), WATCH(f'chrono{n}', w_, at_=0.0, rad=0.1, ry=0), TAG(f'etiq{n}', f'{pre}agent', needle=6.5, dz=0.1),
             TOAST(f'tA{n}', add(f1, [0.12, 1.25, 0.47]), rot=[PI / 2, 0.0, 0.0], scale=0.85), TOAST(f'tB{n}', add(f2, [-0.12, 1.25, 0.47]), rot=[PI / 2, 0.0, 0.0], scale=0.85)]
 AA, wa = KIT_ACTORS('S05', KA, 'a', 0.0)
 AB, wb = KIT_ACTORS('S05', KB, 'b', 0.35)
@@ -431,7 +483,7 @@ st.shot('S05b', 'kitchenDay', setOpts=KSET, look=LOOKK, actors=[act('bagent', AG
                P('beurre5b', 'ttSplat', pos=[TO5b[0], 0.0, TO5b[2]], opts={'r': 0.3, 'at': [[LAND5b, 0.0], [r(LAND5b + 0.12), 1.0]]}),
                P('formulaire5b', 'ttForm', pos=FORM0, ry=RY5b, rot=[-PI / 2, 0.0, 0.0], opts={'stampAt': SLAM5b, 'w': 0.5, 'h': 0.64}, keys=FK5b),
                P('tampon5b', 'rubberStamp', pos=off(AG5b, RY5b, 0.3, 0.25, 0.6), scale=1.6, keys=SK5b),
-               TAG('etiq5b', 'bagent', needle=6.5, swing=[[r(SLAM5b), 0.3, 10, 3]])],
+               TAG('etiq5b', 'bagent', needle=6.5, swing=[[r(SLAM5b), 0.3, 10, 3]], dz=0.1)],
         cams=[C5b])
 st.cue('sfx:splat', 'S05b', LAND5b, 0.35); st.cue('sfx:whoosh', 'S05b', 0.38, 0.1); st.cue('thud', 'S05b', SLAM5b, 0.35); st.cue('sfx:gavel', 'S05b', SLAM5b, 0.25); st.cue('sfx:paper', 'S05b', UP5b, 0.15)
 
@@ -505,22 +557,23 @@ MAMIE = [0.1, 0.0, 0.2]; RYM8 = -20
 TAB8 = [0.55, 0.0, 0.45]
 CR0 = [0.42, 0.79, 0.55]; CATCH8 = r(PAYS8 + 0.25); CRC = off(MAMIE, RYM8, 0.55, -0.15, 0.62)
 SERV0 = [-1.6, 0.0, -1.2]; SERV1 = [1.8, 0.0, -1.2]
-TRAY = lambda p_: add(p_, [0.0, 1.72, 0.32])
+# (stills 3) the tray carried out ahead of him at shoulder height (on his near side the plates hid his face)
+TRAY = lambda p_: add(p_, [0.5, 1.6, 0.05])
 F8 = [0.15, 1.15, 4.2]; L8 = [0.15, 1.15, -0.5]
 C8 = cam(0.0, F8, add(F8, [0.0, 0.0, -0.25]), L8, L8, lens=46, ease='inOut')
 chkc('S08', C8, {'head': add(MAMIE, [0, 1.75, 0]), 'catch': CRC, 'cr0': CR0, 'servMid': add(lerp3(SERV0, SERV1, 0.45), [0, 2.4, 0]), 'tower': add(TRAY(lerp3(SERV0, SERV1, 0.45)), [0, 0.5, 0]), 'sign': [-0.9, 3.55, -2.4]})
 GF8 = {'lid': 0.4, 'mouth': 'smile', 'brow': 0.1}
 MK8 = lambda l_=None, r_=None, sp=0.0: {'reach': {**({'L': R5(l_, 1, 0.0)} if l_ else {}), **({'R': R5(r_, 1, 0.0)} if r_ else {})}, 'hands': {'L': 'open' if l_ else 'rest', 'R': 'open' if r_ else 'rest'}, 'bend': {'spine': [sp, 0, 0, 1, None]}, 'hip': 0}
 CRK8 = [k(0.05, to=add(CR0, [0.05, 0.05, 0.05]), dur=0.12, ease='out'), k(0.17, to=add(CRC, [0.0, 0.18, 0.0]), dur=r(CATCH8 - 0.2), ease='in'), k(0.05, rotTo=[1.2, 0.5, 2.5], dur=r(CATCH8 - 0.05), ease='linear'), k(r(CATCH8 - 0.03), to=CRC, dur=0.03, ease='linear'),
-        k(r(CATCH8 + 0.15), to=add(CRC, [0.05, 0.45, 0.05]), dur=0.2, ease='out'), k(r(CATCH8 + 0.15), rotTo=[0.0, 0.3, 0.0], dur=0.2, ease='out')]
-CRT = track(CR0, [(0.05, add(CR0, [0.05, 0.05, 0.05]), 0.12, 'out'), (0.17, add(CRC, [0.0, 0.18, 0.0]), r(CATCH8 - 0.2), 'in'), (r(CATCH8 - 0.03), CRC, 0.03, 'linear'), (r(CATCH8 + 0.15), add(CRC, [0.05, 0.45, 0.05]), 0.2, 'out')])
+        k(r(CATCH8 + 0.15), to=add(CRC, [0.18, 0.22, 0.08]), dur=0.2, ease='out'), k(r(CATCH8 + 0.15), rotTo=[0.0, 0.3, 0.0], dur=0.2, ease='out')]
+CRT = track(CR0, [(0.05, add(CR0, [0.05, 0.05, 0.05]), 0.12, 'out'), (0.17, add(CRC, [0.0, 0.18, 0.0]), r(CATCH8 - 0.2), 'in'), (r(CATCH8 - 0.03), CRC, 0.03, 'linear'), (r(CATCH8 + 0.15), add(CRC, [0.18, 0.22, 0.08]), 0.2, 'out')])
 MAMK8 = [k(0.0, look=add(CR0, [0, 0.0, 0])), k(0.0, toon={**MK8(None, add(TAB8, [-0.1, 0.8, 0.0])), 'face': GF8}, toonDur=0.0),
          k(0.04, toon={**MK8(None, add(TAB8, [-0.05, 0.85, 0.12])), 'face': {**GF8, 'mouth': 'o'}}, toonDur=0.06),
          k(0.14, look=add(CRC, [0, 0.1, 0]), lookDur=0.08),
          k(r(CATCH8 - 0.12), toon={**MK8(add(CRT(CATCH8 - 0.06), [-0.08, 0.04, 0]), add(CRT(CATCH8 - 0.06), [0.08, 0.04, 0]), 0.55), 'sq': [0.9, 1.12, 0.9], 'hose': 0.15, 'face': {**GF8, 'lid': 0.0, 'mouth': 'o', 'brow': 0.8}}, toonDur=0.06, toonEase='out'),
          *beat(CATCH8, {**MK8(add(CRC, [-0.07, 0.03, 0]), add(CRC, [0.07, 0.03, 0]), 0.55), 'sq': [1.08, 0.92, 1.08], 'face': {**GF8, 'lid': 0.1, 'mouth': 'smile', 'brow': 0.6}}, hold=0.14,
-               settle={**MK8(add(CRC, [-0.07, 0.48, 0.05]), add(CRC, [0.07, 0.48, 0.05]), 0.1), 'face': {**GF8, 'lid': 0.5, 'mouth': 'smirk', 'brow': 0.5}}),
-         k(r(CATCH8 + 0.45), look='camera', lookDur=0.12), *blink(r(CATCH8 + 0.8), {**GF8, 'lid': 0.5, 'mouth': 'smirk', 'brow': 0.5}, MK8(add(CRC, [-0.07, 0.48, 0.05]), add(CRC, [0.07, 0.48, 0.05]), 0.1))]
+               settle={**MK8(add(CRC, [0.11, 0.25, 0.08]), add(CRC, [0.25, 0.25, 0.08]), 0.1), 'face': {**GF8, 'lid': 0.5, 'mouth': 'smirk', 'brow': 0.5}}),
+         k(r(CATCH8 + 0.45), look='camera', lookDur=0.12), *blink(r(CATCH8 + 0.8), {**GF8, 'lid': 0.5, 'mouth': 'smirk', 'brow': 0.5}, MK8(add(CRC, [0.11, 0.25, 0.08]), add(CRC, [0.25, 0.25, 0.08]), 0.1))]
 SV = lambda t_: lerp3(SERV0, SERV1, max(0.0, min(1.0, t_ / D8)))
 SERVK8 = [k(0.0, look=[3.0, 2.0, -1.2]), k(0.0, to=SERV1, dur=D8, clip='walk', face=90, ease='linear'), k(0.0, look=[3.0, 2.0, -1.2])]
 t_ = 0.0
@@ -530,7 +583,7 @@ st.shot('S08', 'whiteVoid', setOpts={'color': '#B9C9D6'}, look={'sunDir': [0.4, 
         actors=[act('mamie', MAMIE, RYM8, 'sit', 'neutral', keys=MAMK8), act('serveur', SERV0, 90, 'stand', 'neutral', keys=SERVK8)],
         props=[P('sol8', 'ttFloor', pos=[0, 0, 0], opts={'w': 14, 'd': 10, 'tile': 0.45, 'colors': ['#E2D9C8', '#D2C8B4']}), P('cafe8', 'ttCafeFront', pos=[0.0, 0.0, -2.4], opts={'w': 7.0, 'h': 4.6}),
                P('tableC8', 'bistroTable', pos=TAB8, opts={'h': 0.76}), P('chaise8', 'chair', pos=MAMIE, ry=RYM8, opts={'color': '#2E5A3E'}), P('assiette8', 'ttPlate', pos=[0.5, 0.765, 0.45]),
-               P('croissant8', 'croissant', pos=CR0, scale=3.0, keys=CRK8), P('tasse8', 'ttMug', pos=[0.7, 0.765, 0.35], opts={'r': 0.045, 'color': '#F4F1E8'}),
+               P('croissant8', 'croissant', pos=CR0, scale=2.5, keys=CRK8), P('tasse8', 'ttMug', pos=[0.7, 0.765, 0.35], opts={'r': 0.045, 'color': '#F4F1E8'}),
                P('pile8', 'ttPlateTower', pos=TRAY(SERV0), opts={'n': 14}, keys=[k(0.0, to=TRAY(SERV1), dur=D8, ease='linear')])],
         cams=[C8])
 st.cue('sfx:whoosh', 'S08', 0.08, 0.1); st.cue('sfx:pop', 'S08', CATCH8, 0.3); st.cue('sfx:clink', 'S08', 0.6, 0.06); st.cue('sfx:clink', 'S08', 1.4, 0.06)
@@ -622,7 +675,7 @@ def FAMK11(p_, ph):
     return ks
 def AGK11():
     w_ = off(AG11, -10, 0.3, -0.32, 1.05)
-    keep = lambda w2, look_x=0.0: {'reach': {'R': R5(w2, 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'rest'}, 'hip': 0}
+    keep = lambda w2, look_x=0.0: {'reach': {'L': R5(w2, 1, 0.0)}, 'hands': {'L': 'grip', 'R': 'rest'}, 'hip': 0}
     ks = [k(0.0, look='camera'), k(0.0, clip='kneel'), k(0.0, toon={**keep(w_), 'face': AF5}, toonDur=0.0)]
     for j, t_ in enumerate(LAND11):
         ks += [k(r(t_ - 0.1), look=[FX11[j], 0.3, 0.05], lookDur=0.08), k(r(t_), toon={**keep(add(w_, [0, -0.03, 0])), 'sq': [1.05, 0.95, 1.05], 'face': {**AF5, 'lid': 0.6}}, toonDur=0.03), k(r(t_ + 0.08), toon={**keep(w_), 'face': AF5}, toonDur=0.06)]
@@ -641,7 +694,7 @@ st.shot('S11', 'kitchenDay', setOpts=KSET, look=LOOKK, actors=[act('apere', FAM1
         props=[P('table11', 'ttTable', pos=KC, opts={'w': 1.4, 'd': 0.85, 'h': TH, 'cloth': '#D9473E'}), P('brillant11', 'ttShine', pos=[0, 0, -0.4], opts={'w': 7.0, 'd': 6.5, 'tint': '#FFFFFF'}),
                *[P(f'chaise11_{i}', 'chair', pos=p_, keys=[k(0.0, to=add(p_, [SLIDE11, 0.0, 0.0]), dur=D11, ease='linear')]) for i, p_ in enumerate(FAM11)],
                P('plat11', 'ttPlate', pos=add(KC, [0.0, TH + 0.012, 0.1]), opts={'r': 0.22}), *TOASTS11,
-               WATCH('chrono11', W11, at_=6.0, clicks=LAND11, rad=0.1), TAG('etiq11', 'aagent', needle=6.5),
+               WATCH('chrono11', W11, at_=6.0, clicks=LAND11, rad=0.1), TAG('etiq11', 'aagent', needle=6.5, dz=0.1),
                P('etincelles11', 'ttSparkle', pos=[0, 0, 0], opts={'pts': [[x, 0.06, z, r(0.2 + 0.31 * i), 0.28] for i, (x, z) in enumerate([(-1.6, 0.6), (1.4, 0.9), (-0.6, 1.3), (1.8, -0.2), (-1.9, -0.4), (0.9, 1.6)])], 'period': 1.8})],
         cams=[C11])
 for t_ in LAND11: st.cue('sfx:splat', 'S11', t_, 0.22); st.cue('sfx:click', 'S11', t_, 0.25)

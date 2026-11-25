@@ -2377,3 +2377,18 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 54) Bras élastiques tendus loin vers l'objectif : ils s'affaissent en barre diagonale sauf avec `hose` à 0 et les deux mains
   sur le bord proche.
 - (cycle 54) Palier de bronzage : le mesurer contre la lumière de chaque plan ; une lumière chaude sur le visage annule un pas de 0,06.
+- (cycle 55, « La tartine ») Le preset `lemec` garde son costume marine quel que soit `suit` ; héros dans une autre couleur :
+  `lemec_charcoal` avec `atlas: 'lemec', atlasBody: False`.
+- (cycle 55) Étiquette de cou fixée au torse à z 0,165 : elle disparaît dans la veste des agents agenouillés à l'échelle 0,78 ;
+  l'avancer d'environ 0,1 m.
+- (cycle 55) Rabat de nappe soulevé : il pivote vers l'extérieur et cache la poitrine de celui qui est agenouillé devant ; le
+  laisser baissé quand une étiquette doit se lire.
+- (cycle 55) Objet tenu (chronomètre) dans la moufle de son côté ; la moufle opposée traverse la poitrine et cache l'étiquette.
+- (cycle 55) Corps allongé dans l'axe de la caméra, vu d'une caméra haute de face = debout en 9:16 ; une suspension en l'air demande
+  une vue de côté ou de trois quarts.
+- (cycle 55) Personnage tombé à plat à une coupe (`splat` avec `popAt: 99`) et relevé dans le plan suivant depuis le clip `splat`,
+  pour que les deux plans raccordent.
+- (cycle 55) Tartines au sol : points d'atterrissage ≈ 0,5 m plus près de la table que de la caméra, sinon elles tombent dans la
+  bande des sous-titres ; beurre lisible d'en bas seulement avec la tartine inclinée ≈ 0,9 rad vers l'objectif ; anneau
+  d'éclaboussure plus large que la tartine.
+- (cycle 55) L'outil de planche plante sur un cards.txt vide : filtrer les entrées sans '@'.
