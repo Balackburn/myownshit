@@ -360,7 +360,7 @@ export const POULE_PROPS = {
   },
 
   // ---------------------------------------------------------------- a big old yellowed envelope (pivot at its middle, front +Z): stained, the flap lines, a faded
-  // stamp corner; o.dust [t...]: a puff of dust blown off its face toward +Z; o.letter [[t, 0..1]]: the letter slides up out of it and shows a drawing of
+  // stamp corner; o.dust [t...]: a soft translucent cloud of dust blown off its face toward +Z, kept low under the face (o.dustDur 0.85 s); o.letter [[t, 0..1]]: the letter slides up out of it and shows a drawing of
   // a hen with teeth (the condition, no text); o.w (0.42)
   poOldLetter(o) {
     const w = o.w ?? 0.42, h = w * 0.64, g = grp(), env = grp(); g.add(env);
@@ -387,8 +387,8 @@ export const POULE_PROPS = {
       const lv = keyAt(o.letter, t, 0); letter.visible = lv > 0.01; letter.position.y = lv * h * 0.95;
       let d = -1; const DD = o.dustDur ?? 0.85; for (const t0 of o.dust || []) if (t >= t0 && t < t0 + DD) d = t - t0;
       puffs.forEach((m, i) => { m.visible = d >= 0; if (d < 0) return; const u = d / DD, a = (i / NP - 0.5) * 2.4 + (hsh(i * 9) - 0.5) * 0.4, k = smooth(Math.min(1, u * 1.8));
-        m.position.set(Math.sin(a) * w * 0.75 * (0.25 + k), h * 0.15 + k * w * 0.5 * (0.3 + hsh(i)), 0.03 + k * w * 1.4 * (0.5 + hsh(i * 3)));
-        m.scale.setScalar(Math.max(0.01, (0.7 + 2.8 * k) * (0.7 + 0.6 * hsh(i * 5)))); m.material.opacity = 0.75 * Math.pow(1 - u, 1.3); });
+        m.position.set(Math.sin(a) * w * 0.85 * (0.3 + k), h * 0.1 + k * w * 0.12 * (hsh(i) - 0.3), 0.03 + k * w * 1.5 * (0.5 + hsh(i * 3)));
+        m.scale.setScalar(Math.max(0.01, (1.2 + 1.9 * k) * (0.7 + 0.6 * hsh(i * 5)))); m.material.opacity = 0.75 * Math.pow(1 - u, 1.6); });
     };
     g.userData.update(0); g.userData.grip = [0, 0, 0]; return g;
   },

@@ -769,7 +769,7 @@ SLAP11 = 0.45
 CARD0 = off(CL11, RYC11, 0.36, 0.12, 0.82); CARD1 = off(CL11, RYC11, 0.4, 0.12, 1.58); RYCD = r(yaw(CARD1, F11b)); POP11 = r(LES11 - 0.28)
 CX = [math.cos(math.radians(RYCD)), 0.0, -math.sin(math.radians(RYCD))]
 CEDGE = lambda p, sd: [r(p[0] + sd * 0.28 * CX[0]), r(p[1] - 0.04), r(p[2] + sd * 0.28 * CX[2])]
-MIT = off(IC11, RYI11b, 0.4, 0.3, 1.6)
+MIT = off(IC11, RYI11b, 0.4, 0.38, 1.55)
 chkc('S11b', C11b, {'clerkTop': add(CL11, [0, 2.15, 0]), 'clerkChin': add(CL11, [0, 1.65, 0]), 'inspTop': add(IC11, [0, 2.38, 0]), 'inspChin': add(IC11, [0, 1.62, 0]), 'mitten': MIT, 'chestForm': FC11,
                     'card': CARD1, 'cardL': CEDGE(CARD1, -1), 'cardR': CEDGE(CARD1, 1)})
 FM11 = [(0.12, FB11, 0.16, 'out'), (r(0.12 + 0.16), FC11, r(SLAP11 - 0.28), 'in')]
@@ -796,15 +796,14 @@ def BLOWS(t0, t1, look_):
     return out
 WINCE = {'lid': 1.0, 'mouth': 'clench', 'brow': -0.8}
 INK11b = [k(0.0, toon=IHK(MIT, 1.3, face=BLOW), toonDur=0.0), *BLOWS(0.0, 0.4, add(MIT, [0.0, 0.05, 0.0])),
-          k(0.4, look=add(CL11, [0, 1.85, 0]), lookDur=0.08),
+          k(0.4, look='camera', lookDur=0.08),
           *beat(SLAP11, {**IHK(off(IC11, RYI11b, 0.3, 0.48, 1.85), 1.3), 'sq': [1.15, 0.86, 1.15], 'bend': {'spine': [-0.22, 0, 0, 1, None], 'neck': [-0.15, 0, 0, 1, None]}, 'face': WINCE}, hold=0.24,
-                antic={**IHK(MIT, 1.3), 'sq': [0.94, 1.06, 0.94], 'face': BLOW}, over={**IHK(MIT, 1.25), 'sq': [0.93, 1.08, 0.93], 'face': WINCE},
+                antic={**IHK(MIT, 1.3), 'sq': [0.94, 1.06, 0.94], 'face': BLOW}, over={**IHK(MIT, 1.25), 'sq': [0.97, 1.03, 0.97], 'face': WINCE},
                 settle={**IHK(MIT, 1.2), 'face': {'lid': 0.5, 'mouth': 'wavy', 'brow': -0.3}}),
           # he shakes the stinging mitten hard
           *[k(r(0.8 + 0.06 * j), toon=IHK(add(MIT, [r(0.03 * (j % 2)), -0.1 if j % 2 else 0.1, 0.0]), 1.4 if j % 2 else 1.1, face={'lid': 0.6, 'mouth': 'wavy', 'brow': -0.5, 'browTilt': 10}), toonDur=0.04) for j in range(6)],
-          k(1.18, look=CARD1, lookDur=0.15),
-          k(1.2, toon=IHK(MIT, 1.25, face={'lid': 0.35, 'mouth': 'line', 'brow': -0.1}), toonDur=0.1),
-          *life(1.3, 1.75, {'lid': 0.35, 'mouth': 'line', 'brow': -0.1}, IHK(MIT, 1.25), blinks=[1.45], period=0.4),
+          k(1.2, toon=IHK(MIT, 1.25, face={'lid': 0.35, 'mouth': 'line', 'brow': -0.1, 'gx': 0.8}), toonDur=0.1),
+          *life(1.3, 1.75, {'lid': 0.35, 'mouth': 'line', 'brow': -0.1, 'gx': 0.8}, IHK(MIT, 1.25), blinks=[1.45], period=0.4),
           *BLOWS(1.78, D11b, add(MIT, [0.0, 0.05, 0.0])), *blink(2.25, BLOW, IHK(MIT, 1.3))]
 st.shot('S11b', 'whiteVoid', setOpts=CSET, actors=[act('guichet', CL11, RYC11, 'stand', 'neutral', keys=CLK11), act('controleur', IC11, RYI11b, 'stand', 'neutral', keys=INK11b)],
         props=[COUNTER('11b', sign=False), P('form11b', 'poForm', pos=FA11, rot=[-PI / 2, 0, -0.3], opts={'w': 0.3}, keys=[*MOVES(FM11), k(r(0.12 + 0.16), rotTo=[0.0, r(math.radians(RYI11b)), 0.0], dur=r(SLAP11 - 0.28)), k(SLAP11, squash=[1.12, 0.9, 1.0], dur=0.3)]),
