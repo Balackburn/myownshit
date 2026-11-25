@@ -54,6 +54,10 @@ function TIE(L = 0.6) {
 function paintScroll(c, W, H) { c.fillStyle = '#F2E2B8'; c.fillRect(0, 0, W, H); c.strokeStyle = '#6A4A2A'; c.lineWidth = W * 0.012;
   for (let i = 0; i < 7; i++) { c.beginPath(); const y = H * (0.14 + 0.09 * i); c.moveTo(W * 0.14, y); for (let x = 0.14; x <= 0.86; x += 0.04) c.lineTo(W * x, y + H * 0.008 * Math.sin(x * 40 + i)); c.stroke(); }
   c.fillStyle = '#B5241E'; c.beginPath(); c.arc(W * 0.5, H * 0.84, W * 0.1, 0, TAU); c.fill(); c.fillStyle = '#8A1812'; c.beginPath(); c.arc(W * 0.5, H * 0.84, W * 0.055, 0, TAU); c.fill(); }
+// A rolled scroll (pivot at its middle, along X): a cream tube with spiral ends and a red ribbon with a seal
+function ROLL(L = 0.42, r = 0.06) { const g = grp(), t = new THREE.Mesh(new THREE.CylinderGeometry(r, r, L, 12), mat('#F2E2B8')); t.rotation.z = PI / 2; addOutline(t, 0.02); g.add(t);
+  for (const sx of [-1, 1]) g.add(at(cyl(r * 0.55, r * 0.55, 0.012, '#C9A86A', 10), sx * (L / 2 + 0.004), 0, 0, 0, 0, PI / 2), at(cyl(r * 0.2, r * 0.2, 0.014, '#8A6A3A', 8), sx * (L / 2 + 0.006), 0, 0, 0, 0, PI / 2));
+  g.add(at(cyl(r * 1.06, r * 1.06, 0.05, '#C8322A', 12), 0, 0, 0, 0, 0, PI / 2), at(cyl(r * 0.45, r * 0.45, 0.02, '#9A1E18', 10), 0, 0, r * 1.05, PI / 2, 0, 0)); return g; }
 export const PARDON_PROPS = {
   // The president (his own round model, not a human rig; pivot at the floor between his feet, faces +Z): a barrel body in a dark suit with a white
   // shirt V and a tie, short legs, short arms with round hands, a big round kindly head (pink cheeks, little eyes, a wide smile, grey side hair).
@@ -63,7 +67,7 @@ export const PARDON_PROPS = {
   // a squash-stretch bounce on each time; o.look [[t, yaw], ...]: his head turns; o.smile [[t, 0..1]]: beaming; o.blink [t, ...]; o.pop: the
   // button that pops (hidden after o.popAt); the huge lemon polka-dot tie (o.flap: it flaps, strides per second); o.sign [[t0, t1]]: his right hand
   // scribbles in front; o.raise [[t0, t1]]: his right arm up at the side; o.hold [[t0, t1]]: both arms up in front; o.straighten [[t0, t1]]: both hands
-  // at the tie, it wags then sits straight
+  // at the tie, it wags then sits straight; o.puff [t]: the chest swells and settles; o.signUp [[t0, t1]]: scribbles up by his shoulder
   pdPresident(o) {
     const k = o.round ?? 1, SU = o.pj ? '#A9C2E2' : (o.suit || '#2B3A55'), g = grp(), root = grp(); g.add(root);
     const bodyR = 0.42 * k, hipY = o.sit ? 0.5 : 0.62, legL = 0.5;
@@ -85,7 +89,8 @@ export const PARDON_PROPS = {
     const eyesOpen = canvasPlane(0.24, 0.08, (c, W, H) => { c.clearRect(0, 0, W, H); c.fillStyle = '#2A1E16'; for (const x of [0.2, 0.8]) { c.beginPath(); c.arc(W * x, H * 0.5, H * 0.35, 0, TAU); c.fill(); } }, { res: 128, transparent: true }); eyesOpen.position.set(0, 0.255, 0.275); head.add(eyesOpen);
     for (const sx of [-1, 1]) head.add(at(sphere(0.07, '#B9B9B6', 1), sx * 0.26, 0.28, -0.02), at(sphere(0.05, '#F2C29A', 0), sx * 0.29, 0.22, 0.02));   // grey side hair, ears
     head.add(at(sphere(0.12, '#B9B9B6', 1), 0, 0.46, -0.1));
-    const arms = [-1, 1].map(sx => { const sh = grp(); sh.position.set(sx * bodyR * 0.95, bodyR * 0.35, 0); body.add(sh);
+    const arms = [-1, 1].map(sx => { const sh = grp(); sh.position.set(sx * bodyR * 0.82, bodyR * 0.35, 0);   // (inside the barrel: a raised arm stays joined to it)
+      body.add(sh);
       const ar = at(cyl(0.07, 0.065, 0.42, SU, 8, { outline: 0.02 }), 0, -0.2, 0); sh.add(ar); sh.add(at(sphere(0.075, '#F2C29A', 1, { outline: 0.03 }), 0, -0.44, 0)); sh.rotation.z = sx * 0.35; return sh; });
     const legs = [-1, 1].map(sx => { const hp = grp(); hp.position.set(sx * bodyR * 0.42, hipY, 0); root.add(hp);
       hp.add(at(cyl(0.1, 0.09, legL, o.pj ? SU : (o.pants || SU), 8, { outline: 0.02 }), 0, -legL / 2, 0), at(box(0.16, 0.08, 0.26, '#1A1C20', { outline: 0.02 }), 0, -legL + 0.02 - (o.sit ? 0 : 0.08), 0.06)); return hp; });
@@ -93,6 +98,7 @@ export const PARDON_PROPS = {
     g.userData.update = t => {
       let bob = 0, sway = 0, sqy = 1;
       const W = o.walk; if (W && t >= W[0] && t <= W[1]) { const ph = (t - W[0]) * TAU * (W[2] ?? 1.8); legs.forEach((l, i) => { l.rotation.x = 0.5 * Math.sin(ph + i * PI); }); bob = 0.03 * Math.abs(Math.sin(ph)); sway = 0.08 * Math.sin(ph); }
+      for (const b of o.puff || []) { const u = t - b; if (u >= 0 && u < 0.9) sqy *= 1 + 0.14 * Math.sin(Math.min(1, u / 0.25) * PI / 2) * (u < 0.5 ? 1 : 1 - (u - 0.5) / 0.4) + 0.03 * Math.exp(-6 * u) * Math.sin(u * 25); }   // o.puff [t]: the chest swells proudly and settles
       for (const b of o.bounce || []) { const u = t - b; if (u >= 0 && u < 0.3) sqy *= 1 - 0.18 * Math.exp(-9 * u) * Math.cos(u * 30); }
       sqy *= 1 + 0.018 * Math.sin(t * 4.2); head.position.y = bodyR * 1.05 + 0.012 * Math.sin(t * 4.2 + 0.6);   // always breathing
       root.position.y = bob; root.rotation.z = sway; body.scale.set(1 / Math.sqrt(sqy), sqy, 1 / Math.sqrt(sqy));
@@ -106,7 +112,8 @@ export const PARDON_PROPS = {
       for (const [a, b] of o.sign || []) if (t >= a && t <= b) arms[0].rotation.set(-1.25 + 0.12 * Math.sin((t - a) * 26), 0.15 * Math.sin((t - a) * 13), -0.15);   // o.sign: his right hand scribbles in front of him
       for (const [a, b] of o.raise || []) if (t >= a && t <= b) { const u = Math.min(1, (t - a) / 0.15); arms[0].rotation.set(0, 0, -(0.35 + 1.65 * u)); }   // o.raise: his right arm up at the side (holds a scroll up beside his head)
       for (const [a, b] of o.hold || []) if (t >= a && t <= b) { arms[0].rotation.set(-2.2, 0, -0.25); arms[1].rotation.set(-2.2, 0, 0.25); }   // o.hold: both arms up in front (holds a scroll up to us)
-      for (const [a, b] of o.straighten || []) if (t >= a && t <= b) { const u = (t - a) / (b - a); arms[0].rotation.set(-1.6, 0.3, -0.5); arms[1].rotation.set(-1.4, -0.3, 0.5); if (body.userData.tie) body.userData.tie.rotation.z = 0.25 * Math.sin(u * PI * 3) * (1 - u); }   // o.straighten: both hands at the tie, it wags then sits straight
+      for (const [a, b] of o.straighten || []) if (t >= a && t <= b) { const u = (t - a) / (b - a); arms[0].rotation.set(-1.6, 0.3, -0.5); arms[1].rotation.set(-1.4, -0.3, 0.5); arms[0].rotation.x += 0.25 * Math.sin(u * PI * 4); arms[1].rotation.x += 0.25 * Math.sin(u * PI * 4); if (body.userData.tie) { body.userData.tie.rotation.z = 0.5 * Math.sin(u * PI * 4) * (1 - u); body.userData.tie.scale.y = 1 + 0.12 * Math.abs(Math.sin(u * PI * 4)) * (1 - u); } }   // o.straighten: both hands tug at the tie, it wags then sits straight
+      for (const [a, b] of o.signUp || []) if (t >= a && t <= b) arms[0].rotation.set(-2.75 + 0.15 * Math.sin((t - a) * 24), 0.2 * Math.sin((t - a) * 12), -0.25);   // o.signUp: his right hand up by his shoulder, scribbling on a scroll held there
       if (body.userData.tie && o.flap) body.userData.tie.rotation.set(-0.32 - 0.25 * Math.abs(Math.sin(t * o.flap * PI)), 0, 0.2 * Math.sin(t * o.flap * PI * 2));   // o.flap: the tie flaps as he strides
       const sm = kv(o.smile, t, 0.6); face.scale.set(1, 1, 1); eyesOpen.visible = !(o.blink || []).some(b => t >= b && t < b + 0.1) && sm < 0.85;
       btn.visible = !(o.popAt != null && t >= o.popAt);
@@ -154,40 +161,59 @@ export const PARDON_PROPS = {
     g.userData.update(-1); return g;
   },
 
-  // A long baguette (pivot at its middle, along X): whole, then at o.snapAt it breaks in two with a crack (the halves tip apart, a burst of crumbs);
-  // o.half 'L' | 'R': one half only (carried), its broken end at x = 0
+  // A long baguette (pivot at its middle, along X): a thick golden crust with dark scoring; at o.snapAt it first bends and stretches (2-3 frames),
+  // then breaks in two with a crack: the halves tip apart showing a torn pale crumb end, a burst of crumbs; o.half 'L' | 'R': one half alone, its
+  // torn end at x = 0
   pdBaguette(o) {
-    const L = o.len ?? 0.7, g = grp(), halves = [];
-    for (const sd of [-1, 1]) { if (o.half && (o.half === 'L') !== (sd < 0)) continue; const h = grp(), m = at(cyl(0.04, 0.035, L / 2, '#D9A35C', 8, { outline: 0.02 }), sd * L / 4, 0, 0, 0, 0, PI / 2); h.add(m);
-      for (let i = 0; i < 2; i++) h.add(at(box(0.05, 0.006, 0.03, '#B5793A'), sd * (L * 0.1 + i * 0.12), 0.037, 0, 0, 0.5, 0));
-      h.add(at(cyl(0.035, 0.035, 0.01, '#F2E2B8', 8), 0, 0, 0, 0, 0, PI / 2)); g.add(h); halves.push({ h, sd }); }   // the pale crumb at the break
-    const crumbs = [0, 1, 2, 3, 4, 5, 6, 7].map(() => { const m = at(box(0.035, 0.025, 0.03, '#D9A35C', { outline: 0.03 }), 0, 0, 0); g.add(m); return m; });
-    g.userData.update = t => { const u = o.snapAt != null ? t - o.snapAt : -1, k = u > 0 ? outBack(u / 0.18) : 0;
-      for (const { h, sd } of halves) { if (o.half) continue; h.rotation.z = -sd * 0.7 * k; h.position.set(sd * 0.03 * k, -0.02 * k, 0); }
-      crumbs.forEach((m, i) => { const du = u - 0.01 * i; m.visible = du > 0 && du < 0.7 && !o.half; if (!m.visible) return; const a = i / 8 * TAU; m.position.set(Math.cos(a) * 0.5 * du, 0.9 * du - 2.4 * du * du, Math.sin(a) * 0.3 * du + 0.05); m.rotation.set(du * 9, du * 6, 0); }); };
+    const L = o.len ?? 0.7, R = o.r ?? 0.058, CR = '#C9873A', g = grp(), all = grp(), halves = []; g.add(all);
+    for (const sd of [-1, 1]) { if (o.half && (o.half === 'L') !== (sd < 0)) continue; const h = grp();
+      const m = new THREE.Mesh(new THREE.CylinderGeometry(R, R, L / 2 - 0.04, 10), mat(CR)); m.rotation.z = PI / 2; m.position.x = sd * (L / 4 + 0.02); m.scale.set(1, 1, 0.82); addOutline(m, 0.02); h.add(m);
+      const tip = new THREE.Mesh(new THREE.SphereGeometry(R, 10, 8), mat(CR)); tip.scale.set(1.3, 1, 0.82); tip.position.x = sd * (L / 2 - 0.02); addOutline(tip, 0.02); h.add(tip);
+      for (let i = 0; i < 3; i++) h.add(at(box(0.07, 0.012, 0.032, '#8A5424'), sd * (L * 0.09 + i * 0.085), R * 0.8, 0, 0, 0.55 * sd, 0.12));   // the scoring
+      for (let i = 0; i < 7; i++) { const a = i / 7 * TAU; h.add(at(box(0.03, 0.03, 0.03, i % 2 ? '#F4E6C2' : '#E9D3A0'), sd * (0.02 + 0.012 * (i % 3)), Math.cos(a) * R * 0.55, Math.sin(a) * R * 0.45, a, a, 0)); }   // the torn crumb end
+      h.add(at(cyl(R * 0.85, R * 0.85, 0.02, '#F4E6C2', 10), sd * 0.025, 0, 0, 0, 0, PI / 2)); all.add(h); halves.push({ h, sd }); }
+    const crumbs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => { const m = at(box(0.04, 0.03, 0.035, i % 3 ? '#E9D3A0' : CR, { outline: 0.03 }), 0, 0, 0); g.add(m); return m; });
+    g.userData.update = t => { const u = o.snapAt != null ? t - o.snapAt : -1;
+      if (!o.half) { const pre = o.snapAt != null && u > -0.1 && u <= 0 ? 1 + u / 0.1 : 0;   // the bend and stretch just before the crack
+        all.scale.set(1 + 0.18 * pre, 1 - 0.12 * pre, 1); all.rotation.z = 0;
+        const k = u > 0 ? outBack(u / 0.16) : 0;
+        for (const { h, sd } of halves) { h.rotation.z = -sd * (0.18 * pre + 0.95 * k); h.position.set(sd * 0.05 * k, 0.04 * pre - 0.03 * k, 0); } }
+      crumbs.forEach((m, i) => { const du = u - 0.008 * i; m.visible = du > 0 && du < 0.8 && !o.half; if (!m.visible) return; const a = i / 10 * TAU; m.position.set(Math.cos(a) * 0.6 * du, 1.3 * du - 3.2 * du * du, Math.sin(a) * 0.35 * du + 0.06); m.rotation.set(du * 9, du * 6, 0); }); };
     g.userData.update(-1); return g;
   },
 
   // A big parchment scroll (pivot at its middle, faces +Z, upright): a sheet with curled rods top and bottom, wavy ink lines, a red wax seal;
-  // o.w / o.h; o.xAt: a big red X stamps across it DIAGONALLY (two diagonal strokes, never upright), slamming down with a squash
+  // o.w / o.h; o.signAt: signature strokes; o.xAt: a big red X stamps across it DIAGONALLY (two diagonal strokes, never upright), slamming down with a squash
   pdScroll(o) {
     const w = o.w ?? 0.5, h = o.h ?? 0.7, g = grp(), k = grp(); g.add(k);
     k.add(canvasPlane(w, h, paintScroll, { res: 256 }));
     for (const y of [h / 2, -h / 2]) k.add(at(cyl(0.035, 0.035, w + 0.08, '#E2CC98', 10, { outline: 0.03 }), 0, y, 0.02, 0, 0, PI / 2));
+    const sigs = (o.signAt || []).map((ts, i) => { const m = at(box(w * (0.22 + 0.06 * i), 0.018, 0.01, '#14161A'), -w * 0.25 + i * w * 0.18, -h * 0.28 + 0.03 * Math.sin(i * 2), 0.012, 0, 0, (i % 2 ? -0.5 : 0.45)); k.add(m); return { m, ts }; });   // o.signAt [t, ...]: a signature stroke appears at each time
     let X = null;   // (a local: buildProp hoists this group's userData onto its wrapper, so g.userData is empty by the time update runs)
     if (o.xAt != null) { X = grp(); for (const sg of [-1, 1]) X.add(at(box(Math.hypot(w, h) * 0.85, 0.07, 0.02, '#D8262E', { outline: 0.02 }), 0, 0, 0.04, 0, 0, sg * Math.atan2(h, w))); k.add(X); }
-    g.userData.update = t => { if (X) { const u = t - o.xAt; X.visible = u >= 0; const s = u < 0 ? 0 : u < 0.08 ? 1.6 - 0.6 * (u / 0.08) : 1 + 0.06 * Math.exp(-10 * (u - 0.08)) * Math.sin((u - 0.08) * 40); X.scale.set(s, s, 1); } };
+    // the X falls from above the frame (o.xFrom m higher, 0.1 s), stretched in its fall, squashes flat on impact and bounces back to rest
+    g.userData.update = t => { for (const { m, ts } of sigs) m.visible = t >= ts; if (X) { const u = t - o.xAt + 0.1; X.visible = u >= 0; if (u < 0) return; const F = o.xFrom ?? 1.4;
+      if (u < 0.1) { const f = u / 0.1; X.position.y = F * (1 - f * f); X.scale.set(0.85, 1.35, 1); }
+      else { const v = u - 0.1; X.position.y = 0.05 * Math.max(0, Math.sin(v * 22)) * Math.exp(-9 * v); const q = Math.exp(-12 * v) * Math.cos(v * 34); X.scale.set(1 + 0.35 * q, 1 - 0.4 * q, 1); } } };
     g.userData.update(-1); return g;
   },
-  // A tall pile of rolled scrolls (pivot at the floor, faces +Z): rolled cream tubes with red seals stacked in a heap up to o.h
-  pdScrollPile(o) { const H = o.h ?? 2.6, g = grp(); let n = 0;
-    for (let y = 0.06; y < H; y += 0.1) { const rw = 0.9 - 0.5 * (y / H); for (let x = -rw / 2; x <= rw / 2; x += 0.14) { const r = at(cyl(0.05, 0.05, 0.42, '#F2E2B8', 8, { outline: 0.02 }), x + 0.03 * Math.sin(n), y, 0.02 * Math.cos(n * 1.7), PI / 2 + 0.2 * Math.sin(n * 2.3), 0, 0); g.add(r); if (n % 3 === 0) g.add(at(cyl(0.025, 0.025, 0.01, '#B5241E', 8), x, y, 0.22)); n++; } }
-    return g; },
-  // A scroll conveyor (pivot at the floor in its middle, belt along X): a dark belt on legs, rolled scrolls riding along it at o.speed m/s
-  pdConveyor(o) { const L = o.len ?? 3, g = grp(at(box(L, 0.1, 0.5, '#2A2C31', { outline: 0.01 }), 0, 0.85, 0));
+  // A tall pile of rolled scrolls (pivot at the floor, faces +Z): neat rows of big rolls with spiral ends and red ribbons, a slight sag, up to o.h;
+  // o.adds [t, ...]: one more roll pops on top at each time (squash on landing), o.perRow of them a row; o.w its width
+  pdScrollPile(o) { const H = o.h ?? 2.6, W = o.w ?? 0.9, r = o.r ?? 0.065, g = grp(); let n = 0, top = 0;
+    for (let y = r; y < H; y += r * 1.8) { const cols = Math.max(1, Math.round((W - 0.25 * (y / H)) / 0.15)); for (let c = 0; c < cols; c++) { const x = (c - (cols - 1) / 2) * 0.15 + ((n * 7) % 3 - 1) * 0.01;
+        const R0 = ROLL(0.44, r); R0.position.set(x, y, 0.03 * Math.sin(n)); R0.rotation.y = 0.15 * Math.sin(n * 1.3); g.add(R0); n++; } top = y; }
+    const extra = (o.adds || []).map((ta, i) => { const pr = o.perRow ?? 3, R1 = ROLL(0.44, r); R1.position.set(((i % pr) - (pr - 1) / 2) * 0.13, top + r * 1.8 * (1 + Math.floor(i / pr)), 0); g.add(R1); return { R1, ta }; });
+    g.userData.update = t => { for (const { R1, ta } of extra) { const u = t - ta; R1.visible = u >= 0; const q = u > 0 ? Math.exp(-12 * u) * Math.cos(u * 30) : 0; R1.scale.set(1 + 0.3 * q, 1 - 0.35 * q, 1 + 0.3 * q); } };
+    g.userData.update(-1); return g; },
+  // A scroll conveyor (pivot at the floor in its middle, belt along X): a dark belt on legs, open parchments riding flat along it at o.speed m/s; each
+  // one gets a black signature stroke as it passes x = o.signX (under the president's pen)
+  pdConveyor(o) { const L = o.len ?? 3, g = grp(at(box(L, 0.1, 0.55, '#2A2C31', { outline: 0.01 }), 0, 0.85, 0)), sx0 = o.signX ?? 0;
     for (const x of [-L / 2 + 0.1, L / 2 - 0.1]) g.add(at(box(0.08, 0.85, 0.45, '#5E656D', { pivot: 'bottom' }), x, 0, 0));
-    const sc = [0, 1, 2, 3, 4, 5].map(() => { const r = grp(at(cyl(0.05, 0.05, 0.4, '#F2E2B8', 8, { outline: 0.03 }), 0, 0, 0, PI / 2, 0, 0), at(cyl(0.028, 0.028, 0.01, '#B5241E', 8), 0, 0, 0.2, PI / 2, 0, 0)); g.add(r); return r; });
-    g.userData.update = t => { sc.forEach((r, i) => { const x = wrap01(t * (o.speed ?? 0.9) / L + i / 6) * L - L / 2; r.position.set(x, 0.95, 0); }); };
+    for (let x = -L / 2 + 0.15; x < L / 2; x += 0.3) g.add(at(box(0.03, 0.105, 0.56, '#3E4148'), x, 0.85, 0));
+    const sc = [0, 1, 2, 3, 4, 5, 6].map(() => { const p = grp(at(box(0.34, 0.012, 0.42, '#F2E2B8', { outline: 0.03 }), 0, 0, 0), at(box(0.38, 0.05, 0.05, '#E2CC98'), 0, 0.02, -0.21), at(cyl(0.035, 0.035, 0.012, '#B5241E', 10), 0.1, 0.012, 0.12));
+      for (let i = 0; i < 4; i++) p.add(at(box(0.24, 0.004, 0.012, '#9A8460'), -0.02, 0.008, -0.13 + i * 0.06));
+      const sig = grp(at(box(0.2, 0.008, 0.02, '#14161A'), -0.04, 0.012, 0.13, 0, 0.35, 0), at(box(0.1, 0.008, 0.02, '#14161A'), 0.05, 0.012, 0.11, 0, -0.6, 0)); p.add(sig); g.add(p); return { p, sig }; });
+    g.userData.update = t => { sc.forEach(({ p, sig }, i) => { const x = wrap01(t * (o.speed ?? 0.9) / L + i / 7) * L - L / 2; p.position.set(x, 0.92, 0); sig.visible = x > sx0; }); };
     g.userData.update(-1); return g; },
 
   // A big empty evidence tray on a table (pivot at the floor, faces +Z): a wooden table, a wide flat grey tray, a large brown tag lying in it
@@ -228,7 +254,8 @@ export const PARDON_PROPS = {
     if (o.key) gate.add(at(cyl(0.1, 0.1, 0.035, '#E0B040', 12, { outline: 0.04 }), 2 * G - 0.2, 1.2, 0.36, PI / 2, 0, 0), at(cyl(0.05, 0.05, 0.04, '#3A3D44', 10), 2 * G - 0.2, 1.2, 0.37, PI / 2, 0, 0),
       at(box(0.06, 0.06, 0.28, '#E0B040', { outline: 0.04 }), 2 * G - 0.2, 1.2, 0.2), at(box(0.06, 0.08, 0.04, '#E0B040'), 2 * G - 0.2, 1.15, 0.12));   // the big key left in the lock
     const dark = new THREE.Color('#6E757C'), lit = new THREE.Color('#FFD878'), litE = new THREE.Color('#E8B040'), off = new THREE.Color('#000000');
-    g.userData.update = t => { gate.rotation.y = -1.7 * kv(o.gate, t, 0);
+    const gk = o.gate || [], gEnd = gk.length ? gk[gk.length - 1][0] : 1e9;
+    g.userData.update = t => { const gb = t > gEnd ? 0.07 * Math.exp(-7 * (t - gEnd)) * Math.sin((t - gEnd) * 20) : 0; gate.rotation.y = -1.7 * kv(o.gate, t, 0) - gb;   // a little bounce at the end of its swing
       rows.forEach((rm, r) => { const isOff = o.lit === false || (o.offAt != null && t >= o.offAt + (2 - r) * (o.offEvery ?? 0.3)); rm.color.copy(isOff ? dark : lit); rm.emissive.copy(isOff ? off : litE); }); };
     g.userData.update(-1); return g;
   },
@@ -265,7 +292,7 @@ export const PARDON_PROPS = {
       while (c.measureText('PARDON').width > W * 0.86) { fs *= 0.95; c.font = `900 ${fs}px Arial`; } c.fillStyle = '#14161A'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('PARDON', W / 2, H * 0.53);
       c.strokeStyle = '#D8262E'; c.lineWidth = H * 0.09; c.lineCap = 'round'; c.beginPath(); c.moveTo(W * 0.08, H * 0.82); c.lineTo(W * 0.92, H * 0.18); c.stroke(); }, { res: 512 })); },
   // A big ticket pad held (pivot at its middle, faces +Z): a white pad with grey lines (no word), a red header band; o.tearAt: the top sheet flaps
-  pdTicket(o) { const g = grp(at(box(0.26, 0.36, 0.03, '#FBF8F0', { outline: 0.03 }), 0, 0, 0), at(box(0.26, 0.06, 0.035, '#C8322A'), 0, 0.15, 0)); for (let i = 0; i < 5; i++) g.add(at(box(0.18, 0.012, 0.035, '#9AA3A8'), 0, 0.07 - i * 0.05, 0)); return g; },
+  pdTicket(o) { const g = grp(at(box(0.3, 0.42, 0.06, '#FBF8F0', { outline: 0.03 }), 0, 0, 0), at(box(0.32, 0.07, 0.07, '#C8322A', { outline: 0.03 }), 0, 0.2, 0)); for (let i = 0; i < 6; i++) g.add(at(box(0.22, 0.014, 0.065, '#9AA3A8'), 0, 0.1 - i * 0.055, 0)); return g; },
   // A paper cup (pivot at its bottom): white with a brown band; o.fall [t0]: it drops and tips over, a splash
   pdCup(o) { const g = grp(), c = grp(at(cyl(0.06, 0.045, 0.14, '#F4F1EA', 10, { pivot: 'bottom', outline: 0.03 }), 0, 0, 0), at(cyl(0.062, 0.058, 0.04, '#8A5A38', 10), 0, 0.07, 0)); g.add(c);
     const sp = at(cyl(0.18, 0.18, 0.01, '#8A5A38', 14), 0.2, 0.005, 0); g.add(sp);
@@ -279,8 +306,28 @@ export const PARDON_PROPS = {
         c.fillStyle = '#E8B98A'; c.beginPath(); c.arc(x, y - H * 0.07, W * 0.045, 0, TAU); c.fill(); c.strokeStyle = cols[i]; c.lineWidth = W * 0.025; c.beginPath(); c.moveTo(x - W * 0.04, y + H * 0.04); c.lineTo(x - W * 0.08, y - H * 0.12); c.moveTo(x + W * 0.04, y + H * 0.04); c.lineTo(x + W * 0.08, y - H * 0.12); c.stroke(); } }, { res: 256, emissive: 0.9 });
     g.add(pic); const pet = [0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => { const m = at(box(0.04, 0.03, 0.01, ['#E8508A', '#F2C94C', '#FFFFFF'][i % 3]), 0, 0, 0.02); g.add(m); return m; });
     g.userData.update = t => { pet.forEach((m, i) => { const u = wrap01(t * 0.6 + i / 9); m.position.set((hsh(i) - 0.5) * w * 0.9, h * 0.45 - u * h * 0.9, 0.02); m.rotation.z = t * 5 + i; }); }; g.userData.update(0); return g; },
-  // Two swing doors in a low wooden screen (pivot at the floor in the middle, faces +Z): o.swingAt: they flap open and swing back and forth
-  pdSwingDoors(o) { const g = grp(), ds = [-1, 1].map(sd => { const p = grp(); p.position.set(sd * 0.55, 0, 0); g.add(p); p.add(at(box(0.52, 1.1, 0.05, '#8A6A45', { outline: 0.01 }), -sd * 0.27, 0.75, 0)); return { p, sd }; });
-    for (const x of [-1.6, 1.6]) g.add(at(box(1.0, 1.1, 0.08, '#7A5A3C', { pivot: 'bottom', outline: 0.008 }), x, 0.2, 0));
-    g.userData.update = t => { const u = o.swingAt != null ? t - o.swingAt : -1; for (const { p, sd } of ds) p.rotation.y = u > 0 ? sd * 1.3 * Math.exp(-2.5 * u) * Math.cos(u * 9) : 0; }; g.userData.update(-1); return g; },
+  // Two swing doors in a wall opening (pivot at the floor in the middle, faces +Z): padded leather doors 1.9 m tall with round windows, posts and a
+  // lintel, a wall either side; o.swingAt: they burst open toward +Z and swing back and forth with dying overshoots
+  pdSwingDoors(o) { const g = grp(), W = o.wall || '#E3D3B5', ds = [-1, 1].map(sd => { const p = grp(); p.position.set(sd * 0.62, 0, 0); g.add(p);
+      p.add(at(box(0.6, 1.9, 0.07, '#7A2E2A', { outline: 0.008 }), -sd * 0.31, 1.0, 0), at(cyl(0.12, 0.12, 0.08, '#CFE3EE', 14), -sd * 0.31, 1.55, 0, PI / 2, 0, 0));
+      for (let i = 0; i < 4; i++) p.add(at(sphere(0.015, '#D9A93A', 0), -sd * (0.08 + i * 0.15), 0.3, 0.04));
+      return { p, sd }; });
+    g.add(at(box(0.12, 2.3, 0.2, '#6A4A30', { pivot: 'bottom', outline: 0.008 }), -0.7, 0, 0), at(box(0.12, 2.3, 0.2, '#6A4A30', { pivot: 'bottom', outline: 0.008 }), 0.7, 0, 0), at(box(1.52, 0.14, 0.2, '#6A4A30', { outline: 0.008 }), 0, 2.3, 0));
+    g.add(at(box(3.0, 3.6, 0.15, W, { pivot: 'bottom' }), -2.26, 0, -0.05), at(box(3.0, 3.6, 0.15, W, { pivot: 'bottom' }), 2.26, 0, -0.05), at(box(1.4, 1.2, 0.15, W, { pivot: 'bottom' }), 0, 2.4, -0.05));
+    g.userData.update = t => { const u = o.swingAt != null ? t - o.swingAt : -1; for (const { p, sd } of ds) p.rotation.y = u > 0 ? sd * (u < 0.08 ? 1.4 * u / 0.08 : 1.4 * Math.exp(-2.2 * (u - 0.08)) * Math.cos((u - 0.08) * 8)) : 0; }; g.userData.update(-1); return g; },
+  // A long robe skirt (attach to the hips joint; pivot at the waist, hangs -Y): a flared gown from the waist to the ankles, o.color, o.L its length,
+  // a few vertical folds; o.jabot: a white bib (attach a second one to the torso with o.bib)
+  pdRobe(o) { const L = o.L ?? 0.9, C = o.color || '#14161A', g = grp();
+    if (o.bib) { g.add(at(box(0.16, 0.22, 0.03, '#F4F4F0', { outline: 0.03 }), 0, 0, 0)); return g; }
+    const c = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.36, L, 14, 1, true), mat(C, { doubleSide: true })); c.position.y = -L / 2; c.scale.z = 0.8; addOutline(c, 0.01); g.add(c);
+    for (let i = 0; i < 6; i++) { const a = i / 6 * TAU + 0.3; g.add(at(box(0.02, L * 0.9, 0.02, C === '#14161A' ? '#2A2C31' : '#8E1C17'), Math.sin(a) * 0.29, -L * 0.52, Math.cos(a) * 0.23, -0.12 * Math.cos(a), 0, 0.12 * Math.sin(a))); }
+    return g; },
+  // A big rucksack (attach to the torso joint; pivot at its back face's middle, faces -Z away from the back): a tall rounded pack with a flap and a
+  // buckle, two side pockets, a rolled mat on top, two shoulder straps over the shoulders; o.color
+  pdRucksack(o) { const C = o.color || '#2F7F5C', D = o.dark || '#1E5A40', g = grp();
+    g.add(at(box(0.42, 0.6, 0.3, C, { outline: 0.01 }), 0, 0, -0.17));
+    const topc = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.42, 12), mat(C)); topc.rotation.z = PI / 2; topc.position.set(0, 0.3, -0.17); addOutline(topc, 0.02); g.add(topc);   // the rounded top
+    g.add(at(box(0.44, 0.26, 0.33, D, { outline: 0.02 }), 0, 0.22, -0.18), at(box(0.06, 0.08, 0.04, '#D9A93A'), 0, 0.1, -0.35));   // the flap and its buckle
+    for (const sx of [-1, 1]) g.add(at(box(0.08, 0.22, 0.18, D, { outline: 0.02 }), sx * 0.25, -0.12, -0.17), at(box(0.06, 0.62, 0.03, '#2A2C31'), sx * 0.13, 0.05, 0.02), at(box(0.06, 0.03, 0.25, '#2A2C31'), sx * 0.13, 0.35, 0.1));
+    g.add(at(cyl(0.08, 0.08, 0.5, '#E8742A', 10, { outline: 0.02 }), 0, 0.5, -0.17, 0, 0, PI / 2)); return g; },
 };
