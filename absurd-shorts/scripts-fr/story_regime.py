@@ -69,7 +69,7 @@ def EAT(t0, t1, mouth_hand, plate_hand, every=0.5, face=None):
     for j in range(n):
         a = r(t0 + j * every); out += [TK(a, {'R': R5(mouth_hand)}, {'R': 'pinch'}, face={**(face or HAPPY), 'mouth': 'O'}, d=r(every * 0.35), keep=True), TK(r(a + every * 0.5), {'R': R5(plate_hand)}, {'R': 'pinch'}, face={**(face or HAPPY), 'mouth': 'smile'}, sq=(1.02, 0.98, 1.02) if j % 2 else (1, 1, 1), d=r(every * 0.35), keep=True)]
     return out
-WIFE_SLEEVE = '#5E8C7A'; WIFE_MITTEN = '#E8A23A'
+WIFE_SLEEVE = '#3E9A5A'; WIFE_MITTEN = '#2E7A46'
 
 def WIFE(sid, p, ry, food, t0=0.1, t1=None, every=0.55):
     """the wife standing, a dessert plate in her left hand, eating with a fork in her right: (actor, props)"""
@@ -77,7 +77,7 @@ def WIFE(sid, p, ry, food, t0=0.1, t1=None, every=0.55):
     plate = off(p, ry, 0.42, -0.12, 1.25); mouth = off(p, ry, 0.2, 0.04, 1.75)
     ks = [k(0.0, clip='stand'), k(0.0, look=plate), TK(0.0, {'L': R5(add(plate, [0, -0.03, 0])), 'R': R5(add(plate, [0.05, 0.05, 0.03]))}, {'L': 'grip', 'R': 'pinch'}, HAPPY, d=0.0),
           *EAT(t0, t1, mouth, add(plate, [0.03, 0.06, 0.02]), every), *blink(r(t0 + 0.7), HAPPY)]
-    props = [P(f'dessert{sid}', 'rgPlate', pos=add(plate, [0, -0.07, 0]), opts={'food': food, 'r': 0.15}), P(f'fourchette{sid}', 'rgFork', on={'actor': 'femme', 'hand': 'R', 'offset': [0, -0.02, 0.03]}, opts={'bite': '#FFF6E6' if food != 'crepe' else '#E9B65C'})]
+    props = [P(f'dessert{sid}', 'rgPlate', pos=add(plate, [0, -0.07, 0]), opts={'food': food, 'r': 0.2 if food == 'crepe' else 0.15}), P(f'fourchette{sid}', 'rgFork', on={'actor': 'femme', 'hand': 'R', 'offset': [0, -0.02, 0.03]}, opts={'bite': '#FFF6E6' if food != 'crepe' else '#E9B65C'})]
     return act('femme', p, ry, 'stand', 'neutral', keys=ks), props
 
 # ================================================================= S01
@@ -92,8 +92,8 @@ BR0, BR1 = [0.5, TH, 0.0], [0.12, TH, -0.12]
 WF1 = [0.8, 0, -1.55]; WRY1 = -25
 C1 = cam(0.0, [0.25, 1.1, 2.3], [0.22, 1.09, 2.15], [0.15, 1.5, -0.9], [0.15, 1.5, -0.9], lens=50)
 BED = [40.0, 0, 0.0]
-SUIT1 = add(BED, [0.35, 0, 0.2]); PRES1 = add(SUIT1, [0, 0.24, -0.02])
-C1b = cam(CUT1, add(BED, [0.5, 1.5, 5.4]), add(BED, [0.5, 1.47, 5.15]), add(BED, [0.2, 1.25, 0.0]), add(BED, [0.2, 1.25, 0.0]), lens=50)
+SUIT1 = add(BED, [0.3, 0, 0.3]); PRES1 = add(SUIT1, [0, 0.14, -0.04])
+C1b = cam(CUT1, add(BED, [0.75, 1.15, 3.9]), add(BED, [0.72, 1.14, 3.7]), add(BED, [0.3, 0.95, 0.2]), add(BED, [0.3, 0.95, 0.2]), lens=50)   # low: the case under him reads
 chk('S01', C1, {'heroFace': add(HER1, [0, 1.5, 0]), 'broc': BR1, 'fries': FR0, 'wifeFace': add(WF1, [0, 1.85, 0]), 'wifeFeet': WF1})
 chk('S01b', C1b, {'presFace': add(PRES1, [0, 1.5, 0]), 'suit': SUIT1, 'suit2': add(BED, [1.2, 0.4, 0.4])})
 k1 = [k(0.0, clip='sit'), k(0.0, look=FR0), TK(0.0, {'R': R5(add(FR0, [-0.05, 0.05, 0.12])), 'L': R5(add(BR0, [0.1, 0.05, 0.1]))}, {'R': 'open', 'L': 'grip'}, {**GRAVE, 'brow': 0.3}, d=0.0),
@@ -110,32 +110,30 @@ st.shot('S01', 'kitchenDay', actors=[act('mec', HER1, 0, 'sit', 'neutral', keys=
                P('frites1', 'rgPlate', pos=FR0, opts={'food': 'fries'}, keys=[k(0.25, to=FR1, dur=0.25, ease='out')]), P('brocoli1', 'rgPlate', pos=BR0, opts={'food': 'broccoli', 'r': 0.2}, keys=[k(0.55, to=BR1, dur=0.3, ease='inOut')]),
                *wprops1,
                P('chambre1', 'rgRoom', pos=BED, opts={'w': 5, 'd': 4, 'wall': '#E6DCCB', 'floor': '#B58E66'}), P('lit1', 'bed', pos=add(BED, [-1.4, 0, -0.9]), opts={'blanket': '#9AB0C8'}),
-               P('valise1', 'suitcase', pos=SUIT1, scale=[1.15, 0.95, 1.7], opts={'color': '#7A4A2E', 'w': 0.7, 'h': 0.62, 'd': 0.34}),
-               P('president1', 'rgPresident', pos=PRES1, opts={'sit': True, 'round': 1.0, 'bounce': [r(CUT1 + 0.08 + 0.3 * j) for j in range(5)], 'smile': [[0, 0.6]], 'blink': [r(CUT1 + 0.7)]}),
-               P('valise1b', 'suitcase', pos=add(BED, [1.25, 0, 0.35]), opts={'color': '#7A4A2E', 'w': 0.55, 'h': 0.6, 'd': 0.3})], cams=[C1, C1b])
-st.cue('sfx:clink', 'S01', 0.3, 0.3); st.cue('thud', 'S01', r(CUT1 + 0.1), 0.3); st.cue('sfx:spring', 'S01', r(CUT1 + 0.32), 0.2)
+               P('valise1', 'rgCase', pos=SUIT1, opts={'w': 0.95, 'h': 0.48, 'd': 0.42, 'bulge': 0.2, 'squash': [r(CUT1 + 0.12 + 0.36 * j) for j in range(4)], 'latchAt': r(CUT1 + 1.4)}),
+               P('president1', 'rgPresident', pos=PRES1, opts={'sit': True, 'round': 1.0, 'bounce': [r(CUT1 + 0.12 + 0.36 * j) for j in range(4)], 'smile': [[0, 0.6], [r(CUT1 + 1.4), 1.0]], 'blink': [r(CUT1 + 0.7)]}, keys=[k(r(CUT1 + 0.12 + 0.36 * j), to=add(PRES1, [0, 0.1 if j % 2 == 0 else 0.0, 0]), dur=0.15, ease='out') for j in range(4)]),
+               P('valise1b', 'rgCase', pos=add(BED, [1.3, 0, 0.15]), opts={'w': 0.6, 'h': 0.55, 'd': 0.32})], cams=[C1, C1b])
+st.cue('sfx:clink', 'S01', 0.3, 0.3); st.cue('thud', 'S01', r(CUT1 + 0.1), 0.3); st.cue('sfx:spring', 'S01', r(CUT1 + 0.12), 0.2); st.cue('sfx:spring', 'S01', r(CUT1 + 0.48), 0.2); st.cue('clack', 'S01', r(CUT1 + 1.4), 0.4)
 
 # ================================================================= S02
-# 2: the town square, low and wide: a giant broccoli statue on a stone plinth; a row of generals in plain uniforms and peaked caps put a hand on
-#    the heart, then bow their heads all together toward it (no raised arm); a drum roll
-D2 = st.dur('S02'); BOW2 = r(st.at('S02', 'L02', 3) - 0.05)
-STAT = [0.0, 0, -4.0]
-GEN = [[-1.7, 0, -0.6], [-0.55, 0, -0.2], [0.6, 0, -0.2], [1.75, 0, -0.6]]
-C2 = fcam(0.0, [0.4, 0.75, 6.2], {'statTop': add(STAT, [0, 5.2, 0]), 'plinth': add(STAT, [0, 0, 0.6]), **{f'g{i}': add(p, [0, 2.4, 0]) for i, p in enumerate(GEN)}, 'gL': add(GEN[0], [-0.4, 1.0, 0]), 'gR': add(GEN[3], [0.4, 1.0, 0]), 'gk': add(GEN[1], [0, 0.5, 0])}, top=0.08, bottom=0.78, margin=0.06, push=0.3)
-CUT2 = r(BOW2 - 0.2)
-C2b = cam(CUT2, [5.4, 1.35, -2.2], [5.25, 1.35, -2.15], [-0.6, 1.5, -0.3], [-0.6, 1.45, -0.3], lens=52)   # a cut to three-quarter front for the bow
-chk('S02', C2, {'statTop': add(STAT, [0, 5.0, 0]), **{f'g{i}': add(p, [0, 1.95, 0]) for i, p in enumerate(GEN)}})
+# 2: the town square, low: a giant broccoli statue on a tall stone plinth on the right of the frame; a row of generals in plain uniforms and peaked
+#    caps facing it (three-quarter to us) put a hand on the heart, then bow their heads in a wave toward it (no raised arm); a drum roll
+D2 = st.dur('S02'); BOW2 = r(st.at('S02', 'L02', 3) - 0.25)
+STAT = [0.0, 0, -4.0]; SQ = [-2.2, 1.25, 4.2]   # in the street, beside the statue's line
+GEN = [[2.3, 0, -4.5], [2.55, 0, -5.3], [2.25, 0, -6.1], [1.7, 0, -6.9]]
+C2 = cam(0.0, SQ, add(SQ, [0.1, 0.0, -0.2]), [0.8, 2.7, -5.0], [0.8, 2.6, -5.0], lens=50)   # from beside the statue: its plinth, the broccoli against the sky, the generals facing us
+chk('S02', C2, {'statTop': add(STAT, [0, 5.7, 0]), 'plinthFoot': add(STAT, [-0.8, 0, 0.8]), **{f'g{i}': add(p, [0, 1.95, 0]) for i, p in enumerate(GEN)}, 'gFeet': GEN[0]})
 gens = []
 for i, p in enumerate(GEN):
-    ry = yaw(p, STAT) * 0.6 + 180 * 0.4 if False else yaw(p, STAT)
+    ry = yaw(p, STAT)
     heart = off(p, ry, 0.22, -0.08, 1.45)
-    ks = [k(0.0, clip='stand'), k(0.0, look=add(STAT, [0, 4.0, 0])), TK(0.0, HANDS(p, ry, 0.12, 0.25, 0.95, 0.12, -0.25, 0.95), {'R': 'rest', 'L': 'rest'}, STERN, d=0.0),
-          TK(r(0.25 + 0.04 * i), {'R': R5(heart)}, {'R': 'open'}, sq=(0.98, 1.03, 0.98), d=0.25, keep=True),   # a hand on the heart
-          TK(r(BOW2 + 0.12 * (3 - i)), bend={'spine': SP(0.5), 'neck': SP(0.0)}, face={**STERN, 'lid': 0.9}, sq=(0.98, 1.02, 0.98), d=0.3, e='inOut', keep=True),   # they bow in a wave, one after another
-          TK(r(BOW2 + 0.75 + 0.1 * (3 - i)), bend={'spine': SP(0.05)}, face=STERN, sq=(1, 1, 1), d=0.3, keep=True), *blink(r(0.4 + 0.15 * i), STERN), *BREATHE(r(BOW2 + 1.1), D2, 0.4, 0.015)]
+    ks = [k(0.0, clip='stand'), k(0.0, look=add(STAT, [0, 4.6, 0])), TK(0.0, HANDS(p, ry, 0.12, 0.25, 0.95, 0.12, -0.25, 0.95), {'R': 'rest', 'L': 'rest'}, STERN, d=0.0),
+          TK(r(0.2 + 0.06 * i), {'R': R5(heart)}, {'R': 'open'}, sq=(0.98, 1.03, 0.98), d=0.22, keep=True),   # a hand on the heart
+          TK(r(BOW2 + 0.12 * i), bend={'spine': SP(0.5), 'neck': SP(0.0)}, face={**STERN, 'lid': 0.9}, sq=(0.98, 1.02, 0.98), d=0.28, e='inOut', keep=True),   # a bow in a wave
+          TK(r(BOW2 + 0.7 + 0.12 * i), bend={'spine': SP(0.05)}, face=STERN, sq=(1, 1, 1), d=0.28, keep=True), *blink(r(0.45 + 0.15 * i), STERN), *BREATHE(r(BOW2 + 1.0), D2, 0.4, 0.015)]
     gens.append(act(f'general{i + 1}', p, ry, 'stand', 'neutral', keys=ks))
 st.shot('S02', 'parisStreet', setOpts={'clouds': 4, 'eiffel': False}, look={'sunDir': [0.4, 0.9, 0.8]}, actors=gens,
-        props=[P('statue2', 'rgBroccoli', pos=STAT, opts={'s': 3.4, 'plinth': 1.4}), P('pave2', 'parkLot', pos=add(STAT, [0, 0.02, 2.5]), opts={'w': 12, 'd': 10, 'color': '#C9BFAE'})], cams=[C2, C2b])
+        props=[P('statue2', 'rgBroccoli', pos=STAT, opts={'s': 3.0, 'plinth': 2.0}), P('pave2', 'parkLot', pos=add(STAT, [-2, 0.02, 0]), opts={'w': 14, 'd': 12, 'color': '#C9BFAE'})], cams=[C2])
 st.cue('sfx:ticks', 'S02', 0.0, 0.25); st.cue('sfx:ticks', 'S02', 0.6, 0.25); st.cue('sfx:fanfare', 'S02', r(BOW2 + 0.1), 0.25)
 
 # ================================================================= S03
@@ -157,9 +155,9 @@ k3 = [k(0.0, clip='stand'), k(0.0, look=CAKE3), TK(0.0, {'R': R5(add(CAKE3, [-0.
 wife3, wprops3 = WIFE('S03', WF3, WRY3, 'cake', t0=0.6, every=0.5)
 st.shot('S03', 'whiteVoid', setOpts={'color': '#E9DCC8'}, look={'sunDir': [-0.3, 0.6, 0.9]}, actors=[act('mec', HER3, HRY3, 'stand', 'neutral', keys=k3), wife3],
         props=[P('salle3', 'rgRoom', pos=[0, 0, 0.0], opts={'w': 6, 'd': 4, 'wall': '#E8C9A0', 'floor': '#A9784A', 'window': {'x': -0.4, 'y': 1.75, 'w': 1.6, 'h': 1.3, 'dusk': True}}),
-               P('sirene3', 'alarmSiren', pos=[-0.95, 2.0, -1.97], opts={'from': 0.0, 's': 1.2}),
+               P('sirene3', 'alarmSiren', pos=[-0.75, 1.55, -1.93], opts={'from': 0.0, 's': 1.0, 'len': 0.35}),
                P('table3', 'table', pos=[0.0, 0, 0.2], opts={'w': 1.3, 'd': 0.8, 'h': 0.95}), P('gateau3', 'rgCake', pos=CAKE3, opts={'s': 0.38}),
-               P('cloche3', 'glassDome', pos=add(CAKE3, [0, 0.95, 0]), opts={'radius': 0.32, 'height': 0.62, 'base': False, 'opacity': 0.2}, keys=[k(DOME3, to=CAKE3, dur=0.3, ease='in')]),
+               P('cloche3', 'rgDome', pos=add(CAKE3, [0, 0.95, 0]), opts={'r': 0.3, 'h': 0.6}, keys=[k(DOME3, to=CAKE3, dur=0.3, ease='in')]),
                P('cadenas3', 'fuPadlock', pos=add(CAKE3, [0.36, 0.12, 0.1]), ry=60, opts={'w': 0.3, 'open': True, 'shutAt': LOCK3}, keys=[k(0.0, visible=False), k(r(LOCK3 - 0.3), visible=True)]), *wprops3], cams=[C3])
 st.cue('sfx:static', 'S03', 0.0, 0.2); st.cue('clang', 'S03', r(DOME3 + 0.3), 0.3); st.cue('sfx:cuff', 'S03', LOCK3, 0.45)
 
@@ -168,12 +166,12 @@ st.cue('sfx:static', 'S03', 0.0, 0.2); st.cue('clang', 'S03', r(DOME3 + 0.3), 0.
 #    at the back of the line the president trots after them with his two suitcases; EXIL
 D4 = st.dur('S04'); CARD4 = r(st.at('S04', 'L04', 6))
 BAR = [0.0, 0, 0.0]
-C4 = cam(0.0, [0.4, 1.2, 5.6], [0.35, 1.19, 5.35], [-0.9, 1.15, 0.3], [-0.7, 1.15, 0.3], lens=58)
+C4 = cam(0.0, [0.5, 1.45, 4.3], [0.45, 1.44, 4.1], [-0.8, 1.0, 0.2], [-0.6, 1.0, 0.2], lens=60)
 chk('S04', C4, {'barMid': [0, 1.05, 0], 'pres0': [-4.2, 1.95, 0.25], 'pres1': [-0.6, 1.95, 0.25]})
 PR4A, PR4B = [-3.3, 0, 0.75], [-0.4, 0, 0.75]
 cheeses = [P(f'fromage4_{i}', 'rgCheese', pos=[-3.0 + 1.0 * i, 0, 0.0], opts={'r': 0.42, 'roll': [0.0, D4, 4.2]}) for i in range(4)]   # on the barrier's line: they roll under the pole
 st.shot('S04', 'grassland', look={'sunDir': [-0.6, 0.35, -0.5]}, actors=[],
-        props=[P('ciel4', 'rgDusk', pos=[0, 0, -30], opts={'w': 90, 'h': 26}), P('route4', 'parkLot', pos=[0, 0.02, 0.2], opts={'w': 30, 'd': 2.6, 'color': '#6E6A66'}),
+        props=[P('ciel4', 'rgDusk', pos=[0, 0, -30], opts={'w': 90, 'h': 26, 'country': True}), P('route4', 'parkLot', pos=[0, 0.02, 0.2], opts={'w': 30, 'd': 2.6, 'color': '#6E6A66'}),
                P('barriere4', 'rgBarrier', pos=BAR, opts={'w': 2.6}), *cheeses,
                P('president4', 'rgPresident', pos=PR4A, ry=60, opts={'walk': [0.0, D4, 3.2], 'look': [[0, -0.6]], 'smile': [[0, 0.3]]}, keys=[k(0.0, to=PR4B, dur=D4, ease='linear')]),
                *[P(f'valise4{c}', 'suitcase', pos=add(PR4A, off([0, 0, 0], 60, 0.0, sx * 0.62, 0.12)), ry=60, opts={'color': '#7A4A2E', 'w': 0.45, 'h': 0.5, 'd': 0.26}, keys=[k(0.0, to=add(PR4B, off([0, 0, 0], 60, 0.0, sx * 0.62, 0.12)), dur=D4, ease='linear')]) for c, sx in (('a', 1), ('b', -1))]], cams=[C4])
@@ -186,7 +184,7 @@ for j in range(4): st.cue('sfx:stepRun', 'S04', r(0.3 + 0.55 * j), 0.15)
 D5 = st.dur('S05'); STEP5 = 0.2; JUMP5 = 0.55; CUT5 = r(st.at('S05', 'L05', 5) - 0.1)
 SC5 = [0.3, 0, -0.6]
 MIN1 = add(SC5, [0, 0.09, 0.05]); MIN1A = [0.3, 0, 0.4]
-MIN2 = [-1.15, 0, -0.9]; MRY2 = 25
+MIN2 = [-0.75, 0, -0.75]; MRY2 = 20
 C5 = fcam(0.0, [0.6, 1.35, 4.6], {'m1Top': add(MIN1, [0, 2.45, 0]), 'scale': add(SC5, [0, 1.7, -0.2]), 'scaleB': add(SC5, [0, 0, 0.3]), 'm2Top': add(MIN2, [0, 2.4, 0]), 'm2K': add(MIN2, [0, 0.4, 0]), 'sign': [1.6, 2.2, -2.5]}, top=0.1, bottom=0.8, margin=0.07, push=0.25)
 chk('S05', C5, {'m1Face': add(MIN1, [0, 1.95, 0]), 'weight': add(SC5, [0.2, 1.55, -0.2]), 'm2Face': add(MIN2, [0, 1.95, 0])})
 CH5A, CH5B = [0.0, 0, 0.6], [2.6, 0, 0.6]
@@ -230,6 +228,8 @@ ECL6 = add(TM, [0.42, 1.27, 0.25])
 kt6 = [k(0.0, clip='stand'), k(0.0, look=[-1.2, 1.9, 1.5]), TK(0.0, {'R': R5(add(TM, [-0.12, 1.45, 0.3])), 'L': R5(add(TM, [0.12, 1.45, 0.3]))}, {'R': 'grip', 'L': 'grip'}, {'lid': 0.5, 'mouth': 'line', 'brow': -0.4}, d=0.0),
        TK(OPEN6, {'R': R5(add(TM, [-0.6, 1.35, 0.3])), 'L': R5(add(TM, [0.6, 1.35, 0.3]))}, d=0.25, e='out', keep=True), k(r(OPEN6 + 0.1), look=[1.2, 1.9, 1.5], lookDur=0.15),   # opens the coat, looks both ways
        k(r(OPEN6 + 0.8), look='camera', lookDur=0.12), TK(r(OPEN6 + 0.85), face={'lid': 0.4, 'mouth': 'smile', 'brow': 0.6}, d=0.1, keep=True), *blink(1.6, {'lid': 0.5, 'mouth': 'line', 'brow': -0.4}),
+       *[TK(r(0.6 + 0.3 * j), sq=(1.02, 0.98, 1.02) if j % 2 == 0 else (0.99, 1.01, 0.99), bend={'spine': SP(0.05 * (j % 2), 0.06 * (1 if j % 2 else -1))}, d=0.25, keep=True) for j in range(5)],   # shifts his weight, sways
+       k(0.95, look=[-1.2, 1.9, 1.5], lookDur=0.12), k(1.35, look=[1.2, 1.9, 1.5], lookDur=0.12), k(1.75, look='camera', lookDur=0.12),
        k(r(TAKE6 + 0.1), look=[1.2, 1.4, 1.5], lookDur=0.1), TK(r(TAKE6 + 0.15), face={'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}, sq=(1.02, 0.98, 1.02), d=0.1, keep=True), k(r(TAKE6 + 0.6), look='camera', lookDur=0.15), *BREATHE(1.2, D6, 0.5, 0.012), *blink(r(D6 - 0.5), {'lid': 0.4, 'mouth': 'smile', 'brow': 0.6})]
 SLV6 = [[0.0, 1.6, 1.45, 1.3], [r(TAKE6 - 0.3), 1.6, 1.45, 1.3], [TAKE6, 0.52, 1.3, 0.42], [r(TAKE6 + 0.2), 0.52, 1.3, 0.42], [r(TAKE6 + 0.55), 1.7, 1.4, 1.2]]
 st.shot('S06', 'streetNight', look={'sunDir': [0.3, 0.8, 0.6]}, actors=[act('resistant', TM, 0, 'stand', 'neutral', keys=kt6)],
@@ -244,21 +244,21 @@ st.cue('sfx:zip', 'S06', OPEN6, 0.3); st.cue('sfx:paper', 'S06', TAKE6, 0.25)
 #    freeze mid-bite, cheese dripping; among them the hero's wife, cheeks full
 D7 = st.dur('S07'); BURST7 = 0.25
 TAB7 = [0.0, 0, 0.3]; RAC7 = add(TAB7, [0, 0.95, 0])
-DOOR7 = [-0.1, 0, -1.9]
-GU = [([-0.95, 0, 0.0], 45), ([-0.35, 0, -0.35], 15), ([0.4, 0, -0.35], -15), ([0.95, 0, 0.0], -45), ([-0.85, 0, 0.75], 110), ([0.85, 0, 0.75], -110)]
-C7 = cam(0.0, [0.35, 1.35, 3.1], [0.33, 1.34, 2.95], [0.15, 1.45, -0.6], [0.15, 1.45, -0.6], lens=56)
+DOOR7 = [0.75, 0, -1.25]
+GU = [([-0.95, 0, 0.0], 45), ([-0.45, 0, -0.38], 15), ([0.2, 0, -0.42], 0), ([0.95, 0, 0.0], -45), ([-1.25, 0, 0.75], 110), ([1.3, 0, 0.75], -110)]
+C7 = cam(0.0, [0.25, 1.75, 3.4], [0.24, 1.74, 3.25], [0.35, 1.45, -0.8], [0.35, 1.45, -0.8], lens=56)
 chk('S07', C7, {'door': add(DOOR7, [0, 1.8, 0]), 'rac': RAC7, **{f'g{i}': add(p, [0, 1.5, 0]) for i, (p, _) in enumerate(GU)}})
 guests = []
 for i, (p, ry) in enumerate(GU):
     nm = 'femme' if i == 2 else f'invite{i + 1}'
-    mouth = off(p, ry, 0.2, 0.05, 1.42)
+    mouth = off(p, ry, 0.2, 0.05, 1.42) if i != 2 else off(p, ry, 0.3, 0.12, 1.55)   # the wife's fork raised
     ks = [k(0.0, clip='sit'), k(0.0, look=RAC7), TK(0.0, {'R': R5(add(RAC7, [0.0, -0.05, 0.0]) if i % 2 else mouth), 'L': R5(off(p, ry, 0.35, -0.2, 0.95))}, {'R': 'pinch', 'L': 'rest'}, HAPPY, d=0.0),
           TK(r(BURST7 + 0.02 + 0.02 * i), face={'lid': 0.0, 'mouth': 'O' if i != 2 else 'line', 'brow': 1.0, 'pop': 1.0}, sq=(0.86, 1.2, 0.86), d=0.05, e='out', keep=True),   # eyes on stalks, a stretch up
           TK(r(BURST7 + 0.18 + 0.02 * i), face={'lid': 0.0, 'mouth': 'O' if i != 2 else 'line', 'brow': 1.0, 'pop': 0.3}, d=0.12, keep=True),
           k(r(BURST7 + 0.05 + 0.02 * i), look=add(DOOR7, [0, 1.8, 0]), lookDur=0.06), TK(r(BURST7 + 0.2), sq=(1, 1, 1), d=0.1, keep=True),
           k(r(1.1 + 0.15 * i), look='camera', lookDur=0.06), k(r(1.4 + 0.15 * i), look=add(DOOR7, [0, 1.8, 0]), lookDur=0.06)]   # eyes dart
     ks += [*[TK(r(BURST7 + 0.5 + 0.13 * j + 0.03 * i), sq=(1.015, 0.985, 1.015) if j % 2 == 0 else (1, 1, 1), d=0.06, keep=True) for j in range(14)], *blink(r(1.0 + 0.23 * i), {'lid': 0.0, 'mouth': 'O', 'brow': 1.0})]   # frozen, trembling
-    if i == 2: ks += [TK(r(BURST7 + 0.03), scl={'head': [1.18, 1.0, 1.05]}, d=0.06, keep=True), k(r(BURST7 + 0.8), look='camera', lookDur=0.15), TK(r(BURST7 + 1.2), scl={'head': [1.24, 0.97, 1.08]}, d=0.15, keep=True), TK(r(BURST7 + 1.5), scl={'head': [1.18, 1.0, 1.05]}, d=0.15, keep=True)]   # the wife: cheeks full, a chew, she looks at us   # the wife: cheeks full, she looks at us
+    if i == 2: ks += [TK(0.0, {'R': R5(off(p, ry, 0.32, 0.15, 1.6))}, {'R': 'pinch'}, d=0.0, keep=True), TK(r(BURST7 + 0.03), scl={'head': [1.18, 1.0, 1.05]}, d=0.06, keep=True), k(r(BURST7 + 0.8), look='camera', lookDur=0.15), TK(r(BURST7 + 1.2), scl={'head': [1.24, 0.97, 1.08]}, d=0.15, keep=True), TK(r(BURST7 + 1.5), scl={'head': [1.18, 1.0, 1.05]}, d=0.15, keep=True)]   # the wife: cheeks full, a chew, she looks at us   # the wife: cheeks full, she looks at us
     guests.append(act(nm, p, ry, 'sit', 'neutral', keys=ks))
 gend = []
 for i, sx in enumerate([-1, 1]):
@@ -267,26 +267,24 @@ for i, sx in enumerate([-1, 1]):
           TK(r(BURST7 + 0.1), sq=(1.08, 0.94, 1.08), d=0.05, e='out', keep=True), TK(r(BURST7 + 0.25), sq=(1, 1, 1), d=0.1, keep=True),
           TK(r(BURST7 + 0.4 + 0.1 * i), {'R': R5(off(p, 0, 0.5, 0.2, 1.7))}, {'R': 'point'}, d=0.15, keep=True), *blink(1.4, STERN)]
     gend.append(act(f'gendarme{i + 1}', p, 0, 'stand', 'neutral', keys=ks))
-st.shot('S07', 'cave', look={'sunDir': [0.2, 0.8, 0.6]}, actors=[*guests, *gend],
-        dark=[[0.0, 0.18, 0.001]], darkFloor=0.65, darkTint='#4A3428', darkPool={'at': add(RAC7, [0, 0.55, 0]), 'r': 2.3, 'k': 1.0, 'tint': '#FFC07A'},
+st.shot('S07', 'cave', look={'sunDir': [0.3, 0.9, 0.8]}, actors=[*guests, *gend],
         props=[P('table7', 'table', pos=TAB7, opts={'w': 1.4, 'd': 1.0, 'h': 0.95}), P('raclette7', 'rgRaclette', pos=RAC7),
-               *[P(f'chaise7_{i}', 'chair', pos=p, ry=ry) for i, (p, ry) in enumerate(GU)], P('porte7', 'rgDoor', pos=DOOR7, opts={'burstAt': BURST7, 'light': '#FFE6B0'}), P('mur7', 'rgRoom', pos=[0, 0, 0.2], opts={'w': 5, 'd': 4.3, 'h': 2.6, 'wall': '#8A8078', 'floor': '#6E665E'})], cams=[C7])
+               *[P(f'chaise7_{i}', 'chair', pos=p, ry=ry) for i, (p, ry) in enumerate(GU)], P('fourchette7', 'rgFork', on={'actor': 'femme', 'hand': 'R', 'offset': [0, -0.02, 0.03]}, opts={'bite': '#FFD86A'}), P('porte7', 'rgDoor', pos=DOOR7, opts={'burstAt': BURST7, 'light': '#BFD8FF'})], cams=[C7])
 st.cue('thud', 'S07', BURST7, 0.5); st.cue('whoosh', 'S07', BURST7, 0.2); st.cue('sfx:gasp', 'S07', r(BURST7 + 0.1), 0.3)
 
 # ================================================================= S08
 # 8: half a second: the hero on the column scale, the weight nudges back a hair. Cut, full frame: a giant weighbridge carrying a whole block of
 #    houses, its big dial needle swinging a long way down; a crowd beside it cheers
-D8 = st.dur('S08'); CUT8 = r(st.at('S08', 'L08', 6) - 0.1)
+D8 = st.dur('S08'); CUT8 = 0.55
 SCALE8 = [40.0, 0, 0.0]; HER8 = add(SCALE8, [0, 0.09, 0.05])
-C8 = cam(0.0, add(SCALE8, [1.3, 1.3, 3.2]), add(SCALE8, [1.25, 1.3, 3.05]), add(SCALE8, [0.15, 1.3, -0.1]), add(SCALE8, [0.15, 1.3, -0.1]), lens=50)
+C8 = cam(0.0, add(SCALE8, [0.65, 1.95, 1.0]), add(SCALE8, [0.62, 1.95, 0.95]), add(SCALE8, [0.15, 2.0, -0.25]), add(SCALE8, [0.15, 2.0, -0.25]), lens=46)   # close on the weight
 chk('S08', C8, {'face': add(HER8, [0, 1.95, 0]), 'weight': add(SCALE8, [0.0, 1.55, -0.2])})
 WB = [0.0, 0, -4.0]
-C8b = fcam(CUT8, [1.0, 1.3, 11.0], {'wbL': add(WB, [-2.6, 0.2, 2.6]), 'wbTop': add(WB, [0, 3.9, 0]), 'dialT': add(WB, [3.55, 4.95, 1.6]), 'dialR': add(WB, [4.8, 3.6, 1.6]), 'crowdK': [0, 0.8, 3.6]}, top=0.08, bottom=0.8, margin=0.03, push=0.3)
+C8b = fcam(CUT8, [0.6, 0.9, 10.0], {'wbL': add(WB, [-2.7, 0.0, 2.6]), 'wbTop': add(WB, [0, 3.9, 0]), 'gantry': add(WB, [4.3, 5.3, 1.8]), 'gR': add(WB, [4.3, 0.2, 1.8]), 'crowdT': [0, 2.0, 3.6]}, top=0.1, bottom=0.82, margin=0.03, push=0.3)
 chk('S08b', C8b, {'dial': add(WB, [4.6, 3.6, 1.4]), 'house': add(WB, [0, 2.0, 0])})
 kh8 = [k(0.0, clip='stand'), k(0.0, look=add(SCALE8, [0.1, 1.55, -0.2])), TK(0.0, HANDS(HER8, 0, 0.1, 0.25, 1.0, 0.1, -0.25, 1.0), {'R': 'rest', 'L': 'rest'}, {'lid': 0.0, 'mouth': 'line', 'brow': 0.7}, d=0.0),
-       *[TK(r(0.05 + 0.18 * j), sq=(1.03, 0.97, 1.03) if j % 2 == 0 else (0.98, 1.02, 0.98), d=0.1, keep=True) for j in range(5)],   # holds his breath, teetering
-       TK(r(CUT8 - 0.5), face={'lid': 0.2, 'mouth': 'smile', 'brow': 0.9}, sq=(0.94, 1.08, 0.94), d=0.08, e='out', keep=True), k(r(CUT8 - 0.45), look='camera', lookDur=0.1)]
-CRW = [[-1.3, 0, 3.3], [-0.4, 0, 3.7], [0.5, 0, 3.4], [1.4, 0, 3.8]]
+       TK(0.2, face={'lid': 0.2, 'mouth': 'smile', 'brow': 0.9}, sq=(0.94, 1.08, 0.94), d=0.08, e='out', keep=True)]
+CRW = [[-1.6, 0, 3.4], [-0.5, 0, 3.8], [0.7, 0, 3.5], [1.8, 0, 3.9]]
 crowd8 = []
 for i, p in enumerate(CRW):
     ry = 150 + 10 * i
@@ -294,8 +292,8 @@ for i, p in enumerate(CRW):
           *[TK(r(CUT8 + 0.35 + 0.05 * i + 0.3 * j), {'R': R5(off(p, ry, 0.15, 0.3, 2.3 - 0.25 * (j % 2))), 'L': R5(off(p, ry, 0.15, -0.3, 2.3 - 0.25 * ((j + 1) % 2)))}, {'R': 'open', 'L': 'open'}, HAPPY, sq=(0.96, 1.05, 0.96) if j % 2 == 0 else (1, 1, 1), d=0.15, keep=True) for j in range(4)]]
     crowd8.append(act(f'foule{i + 1}', p, ry, 'stand', 'neutral', keys=ks))
 st.shot('S08', 'grassland', look={'sunDir': [0.5, 0.9, 0.7]}, actors=[act('mec', HER8, 0, 'stand', 'neutral', keys=kh8), *crowd8],
-        props=[P('salle8', 'rgRoom', pos=SCALE8, opts={'w': 4, 'd': 3, 'wall': '#E2EEF0', 'floor': '#D9D2C2'}), P('balance8', 'rgScale', pos=SCALE8, scale=1.25, opts={'nudge': [r(CUT8 - 0.6), 0.03, 0.35]}),
-               P('pont8', 'rgWeighbridge', pos=WB, opts={'w': 4.6, 'swing': [r(CUT8 + 0.15), r(CUT8 + 1.3), -0.3, 2.6], 'sink': [r(CUT8 + 0.1), r(CUT8 + 0.6), 0.12]})], cams=[C8, C8b])
+        props=[P('salle8', 'rgRoom', pos=SCALE8, opts={'w': 4, 'd': 3, 'wall': '#E2EEF0', 'floor': '#D9D2C2'}), P('balance8', 'rgScale', pos=SCALE8, scale=1.25, opts={'nudge': [0.15, 0.04, 0.35]}),
+               P('pont8', 'rgWeighbridge', pos=WB, opts={'w': 4.6, 'swing': [r(CUT8 + 0.2), r(CUT8 + 1.2), -0.3, 2.6], 'sink': [r(CUT8 + 0.1), r(CUT8 + 0.6), 0.12]})], cams=[C8, C8b])
 st.cue('clack', 'S08', 0.25, 0.25); st.cue('sfx:tick', 'S08', r(CUT8 + 0.2), 0.3); st.cue('sfx:choir', 'S08', r(CUT8 + 0.4), 0.2)
 
 # ================================================================= S09
@@ -308,8 +306,8 @@ C9 = cam(0.0, [0.35, 1.55, 2.2], [0.33, 1.53, 2.05], [0.0, 1.35, -0.3], [0.0, 1.
 chk('S09', C9, {'face': add(HER9, [0, 1.5, 0]), 'choco': CHO9, 'lamp': [0, 2.4, 0.0], 'edge': [0.75, 1.0, 1.0]})
 SL9 = [[0.0, 1.7, 1.06, 0.12], [IN9, 1.7, 1.06, 0.12], [r(IN9 + 0.45), 0.22, 1.06, 0.12], [r(OUT9 - 0.1), 0.22, 1.06, 0.12], [r(OUT9 + 0.35), 1.8, 1.06, 0.12]]   # from the side, at table height
 k9 = [k(0.0, clip='sit'), k(0.0, look=add(CHO9, [0, 0.35, 0.3])), TK(0.0, HANDS(HER9, 0, 0.45, 0.25, 1.0, 0.45, -0.25, 1.0), {'R': 'rest', 'L': 'rest'}, {'lid': 0.3, 'mouth': 'line', 'brow': 0.2}, d=0.0),
-      k(r(IN9 + 0.2), look=[-1.5, 1.4, 1.0], lookDur=0.15),   # a look away...
-      k(r(OUT9 + 0.05), look=add(CHO9, [0, 0.25, 0.1]), lookDur=0.05), TK(r(OUT9 + 0.05), face={'lid': 0.0, 'mouth': 'O', 'brow': 1.0}, scl={'head': [1.45, 0.85, 1.0]}, d=0.04, e='out', keep=True), TK(r(OUT9 + 0.12), scl={'head': [1, 1, 1]}, d=0.08, keep=True),   # ...and the whip back, smeared wide
+      k(r(IN9 + 0.2), look=[-0.8, 1.6, 1.6], lookDur=0.15),   # a look away...
+      k(r(OUT9 + 0.05), look=add(CHO9, [0, 0.25, 0.1]), lookDur=0.05), TK(r(OUT9 + 0.05), face={'lid': 0.0, 'mouth': 'line', 'brow': 1.0}, scl={'head': [1.4, 0.88, 1.0]}, d=0.04, e='out', keep=True), TK(r(OUT9 + 0.12), scl={'head': [1, 1, 1]}, d=0.08, keep=True),   # ...and the whip back, smeared wide
       TK(r(OUT9 + 0.2), face={'lid': 0.1, 'mouth': 'line', 'brow': 0.8}, sq=(1, 1, 1), d=0.15, keep=True), *[TK(r(OUT9 + 0.3 + 0.12 * j), sq=(1.01, 0.99, 1.01) if j % 2 == 0 else (1, 1, 1), d=0.06, keep=True) for j in range(5)], *blink(0.6, CALM)]   # trembling
 st.shot('S09', 'kitchenDay', look={'sunDir': [-0.5, 0.4, 0.6]}, actors=[act('mec', HER9, 0, 'sit', 'neutral', keys=k9)],
         dark=[[0.0, 0.5, 0.001]], darkFloor=0.35, darkTint='#4A3A40', darkPool={'at': [0.0, 1.15, 0.0], 'r': 1.35, 'k': 1.0, 'tint': '#FFE2A8'},
@@ -323,39 +321,42 @@ st.cue('sfx:paper', 'S09', r(IN9 + 0.4), 0.15); st.cue('sfx:gulp', 'S09', r(OUT9
 # ================================================================= S10
 # 10: close: the hero snaps the chocolate square in two, a loud crack, crumbs pop; his eyes close
 D10 = st.dur('S10'); SNAP10 = 0.3
-CH10 = [0.0, 1.38, 0.45]
-C10 = cam(0.0, [0.1, 1.65, 1.7], [0.1, 1.64, 1.6], [0.0, 1.55, 0.0], [0.0, 1.55, 0.0], lens=46)
+CH10 = [0.0, 1.62, 0.42]
+C10 = cam(0.0, [0.25, 1.62, 1.6], [0.25, 1.62, 1.5], [0.0, 1.7, 0.0], [0.0, 1.7, 0.0], lens=46)
 chk('S10', C10, {'face': [0, 1.95, 0.05], 'choco': CH10})
 k10 = [k(0.0, clip='sit'), k(0.0, look=CH10), TK(0.0, {'R': R5(add(CH10, [-0.09, -0.01, 0.0])), 'L': R5(add(CH10, [0.09, -0.01, 0.0]))}, {'R': 'pinch', 'L': 'pinch'}, {'lid': 0.1, 'mouth': 'line', 'brow': 0.6}, d=0.0),
-       TK(r(SNAP10 - 0.12), sq=(1.04, 0.96, 1.04), face={'lid': 0.0, 'mouth': 'clench', 'brow': 0.8}, d=0.1, keep=True),
-       TK(SNAP10, {'R': R5(add(CH10, [-0.17, 0.05, 0.0])), 'L': R5(add(CH10, [0.17, 0.05, 0.0]))}, face={'lid': 1.0, 'mouth': 'O', 'brow': 0.2}, sq=(0.95, 1.07, 0.95), d=0.06, e='out', keep=True),   # crack: eyes shut
+       TK(r(SNAP10 - 0.12), sq=(1.04, 0.96, 1.04), face={'lid': 0.0, 'mouth': 'line', 'brow': 0.8}, d=0.1, keep=True),
+       TK(SNAP10, {'R': R5(add(CH10, [-0.17, 0.05, 0.0])), 'L': R5(add(CH10, [0.17, 0.05, 0.0]))}, face={'lid': 1.0, 'mouth': 'line', 'brow': 0.2}, sq=(0.95, 1.07, 0.95), d=0.06, e='out', keep=True),   # crack: eyes shut
        TK(r(SNAP10 + 0.01), scl={'head': [1.35, 0.5, 1.2]}, d=0.04, e='out', keep=True), TK(r(SNAP10 + 0.12), scl={'head': [0.9, 1.2, 0.95]}, d=0.1, keep=True), TK(r(SNAP10 + 0.25), scl={'head': [1, 1, 1]}, d=0.1, keep=True),   # flattened by the crack, then puffed back
        TK(r(SNAP10 + 0.2), face={'lid': 1.0, 'mouth': 'smile', 'brow': 0.3}, sq=(1, 1, 1), d=0.15, keep=True)]
 st.shot('S10', 'kitchenDay', look={'sunDir': [-0.5, 0.4, 0.6]}, actors=[act('mec', [0, 0, 0], 0, 'sit', 'neutral', keys=k10)],
-        dark=[[0.0, 0.5, 0.001]], darkFloor=0.32, darkTint='#4A3A40', darkPool={'at': [0.0, 1.6, 0.2], 'r': 1.0, 'k': 1.0, 'tint': '#FFE2A8'},
-        props=[P('chaise10', 'chair', pos=[0, 0, -0.05]), P('carre10', 'rgChoco', pos=CH10, rot=[1.2, 0, 0], opts={'s': 0.16, 'snapAt': SNAP10})], cams=[C10])
+        dark=[[0.0, 0.5, 0.001]], darkFloor=0.32, darkTint='#4A3A40', darkPool={'at': CH10, 'r': 0.9, 'k': 1.0, 'tint': '#FFE2A8'},
+        props=[P('chaise10', 'chair', pos=[0, 0, -0.05]), P('carre10', 'rgChoco', pos=CH10, rot=[1.25, 0, 0], opts={'s': 0.2, 'snapAt': SNAP10})], cams=[C10])
 st.cue('sfx:crunch', 'S10', SNAP10, 0.6); st.cue('sfx:pop', 'S10', r(SNAP10 + 0.03), 0.25)
 
 # ================================================================= S11
-# 11: the town square from S02: the crowd hauls on ropes; the giant broccoli statue topples off its plinth in slow motion and bounces once; TOMBÉ
-D11 = st.dur('S11'); TOP11 = [0.25, 0.78]; CARD11 = r(TOP11[1] + 0.02)
-PUL = [[-1.6, 0, 3.2], [-0.6, 0, 3.6], [0.6, 0, 3.6], [1.6, 0, 3.2]]
-C11 = cam(0.0, [2.4, 0.7, 9.4], [2.35, 0.7, 9.2], [-0.4, 2.4, -1.0], [-0.4, 2.3, -1.0], lens=58)   # low and wide from the crowd's side: the plinth and the broccoli against the sky
-chk('S11', C11, {'statTop': add(STAT, [0, 5.0, 0]), 'fallen': add(STAT, [0, 0.5, 4.0]), **{f'p{i}': add(p, [0, 1.95, 0]) for i, p in enumerate(PUL)}})
+# 11: the town square from S02's angle: rope pullers small in the near corners haul; the broccoli statue creaks back, falls toward us across the frame
+#    off its tall plinth, squashes on the cobbles, bounces once with hang time, then dust; TOMBÉ
+D11 = st.dur('S11'); TOP11 = [0.3, 0.85]; CARD11 = r(TOP11[1] + 0.02)
+RY11 = yaw(STAT, SQ)
+PUL = [[-2.55, 0, 1.4], [-2.6, 0, 0.6], [-0.35, 0, 1.9], [0.05, 0, 1.1]]
+C11 = cam(0.0, [-2.2, 0.85, 5.2], [-2.15, 0.85, 5.1], [-0.2, 2.8, -4.2], [-0.2, 2.75, -4.2], lens=58)
+chk('S11', C11, {'statTop': add(STAT, [0, 5.7, 0]), 'plinth': add(STAT, [0, 0.2, 0]), 'fallen': off(STAT, RY11, 4.0, 0, 0.6), **{f'p{i}': add(p, [0, 1.95, 0]) for i, p in enumerate(PUL)}})
 pull = []
 for i, p in enumerate(PUL):
-    ry = 180 + (-20 if p[0] < 0 else 20)
+    ry = yaw(p, STAT)
     hand = off(p, ry, 0.35, 0.0, 1.25)
-    ks = [k(0.0, clip='stand'), k(0.0, look=add(STAT, [0, 4.0, 0])), TK(0.0, {'R': R5(add(hand, [0.05, 0.05, 0])), 'L': R5(add(hand, [-0.05, -0.05, 0.1]))}, {'R': 'grip', 'L': 'grip'}, STERN, bend={'spine': SP(-0.2)}, d=0.0),
-          *[TK(r(0.02 + 0.12 * j), sq=(1.06, 0.94, 1.06) if j % 2 == 0 else (1, 1, 1), bend={'spine': SP(-0.4 if j % 2 == 0 else -0.2)}, d=0.1, keep=True) for j in range(3)],   # heave, heave
-          TK(r(TOP11[0] + 0.3), face={'lid': 0.0, 'mouth': 'O', 'brow': 1.0}, d=0.1, keep=True), k(r(TOP11[1] - 0.1), clip='stand', blend=0.1),
-          TK(r(TOP11[1] + 0.02), sq=(0.9, 1.12, 0.9), face={'lid': 0.0, 'mouth': 'O', 'brow': 1.0}, d=0.05, e='out', keep=True), TK(r(TOP11[1] + 0.15), sq=(1, 1, 1), d=0.1, keep=True)]   # the jolt of the impact
+    ks = [k(0.0, clip='stand'), k(0.0, look=add(STAT, [0, 4.5, 0])), TK(0.0, {'R': R5(add(hand, [0.03, 0.05, 0])), 'L': R5(add(hand, [-0.03, -0.05, 0.05]))}, {'R': 'grip', 'L': 'grip'}, STERN, bend={'spine': SP(-0.25)}, d=0.0),
+          *[TK(r(0.02 + 0.13 * j), sq=(1.06, 0.94, 1.06) if j % 2 == 0 else (1, 1, 1), bend={'spine': SP(-0.45 if j % 2 == 0 else -0.25)}, d=0.1, keep=True) for j in range(3)],   # heave, heave
+          TK(r(TOP11[0] + 0.25), face={'lid': 0.0, 'mouth': 'O', 'brow': 1.0}, d=0.1, keep=True),
+          TK(r(TOP11[1] + 0.02), sq=(0.9, 1.12, 0.9), d=0.05, e='out', keep=True), TK(r(TOP11[1] + 0.15), sq=(1, 1, 1), d=0.1, keep=True), *blink(r(D11 - 0.3), STERN)]
     pull.append(act(f'foule{i + 1}', p, ry, 'stand', 'neutral', keys=ks))
 st.shot('S11', 'parisStreet', setOpts={'clouds': 4, 'eiffel': False}, look={'sunDir': [0.4, 0.9, 0.8]}, actors=pull,
-        props=[P('statue11', 'rgBroccoli', pos=STAT, opts={'s': 3.4, 'plinth': 1.4, 'topple': [TOP11[0], TOP11[1], 1], 'ropes': [[r(off(p, 180 + (-20 if p[0] < 0 else 20), 0.35, 0.0, 1.25)[i] - STAT[i]) for i in range(3)] for p in PUL]}),
-               P('pave11', 'parkLot', pos=add(STAT, [0, 0.02, 2.5]), opts={'w': 12, 'd': 10, 'color': '#C9BFAE'}), P('poussiere11', 'dustPuff', pos=add(STAT, [0, 0.1, 4.4]), keys=[k(0.0, visible=False), k(TOP11[1], visible=True)])], cams=[C11])
+        props=[P('statue11', 'rgBroccoli', pos=STAT, ry=RY11, opts={'s': 3.0, 'plinth': 2.0, 'topple': [TOP11[0], TOP11[1], 1], 'dustDelay': 0.6,
+                 'ropes': [[r(c) for c in ((lambda q: [q[0] * math.cos(math.radians(RY11)) - q[2] * math.sin(math.radians(RY11)), q[1], q[0] * math.sin(math.radians(RY11)) + q[2] * math.cos(math.radians(RY11))])([off(p, yaw(p, STAT), 0.35, 0.0, 1.25)[j] - STAT[j] for j in range(3)]))] for p in PUL]}),
+               P('pave11', 'parkLot', pos=add(STAT, [-2, 0.02, 0]), opts={'w': 14, 'd': 12, 'color': '#C9BFAE'})], cams=[C11])
 st.card('S11', 'TOMBÉ', at=CARD11)
-st.cue('sfx:stretch', 'S11', 0.1, 0.3); st.cue('thud', 'S11', TOP11[1], 0.7); st.cue('sfx:bonk', 'S11', r(TOP11[1] + 0.25), 0.3)
+st.cue('sfx:stretch', 'S11', 0.05, 0.3); st.cue('sfx:squeak', 'S11', r(TOP11[0] - 0.15), 0.2); st.cue('thud', 'S11', TOP11[1], 0.7); st.cue('sfx:bonk', 'S11', r(TOP11[1] + 0.5), 0.3)
 
 # ================================================================= S12
 # 12: a street: a cheering crowd surges through a bakery door, baguettes held at chest height; the baker throws croissants over them like confetti
@@ -388,7 +389,7 @@ D13 = st.dur('S13')
 ROWS = [[-2.4, 0, -1.4], [-1.0, 0, -1.6], [0.6, 0, -1.5], [-2.0, 0, 2.2], [1.0, 0, 2.4]]
 CAR0, CAR1 = [2.2, 0, 0.9], [-1.4, 0, 0.9]
 CARRY = [[-0.45, 0, -0.3], [0.45, 0, -0.3], [-0.45, 0, 0.3], [0.45, 0, 0.3]]
-C13 = cam(0.0, [0.4, 1.2, 5.6], [0.35, 1.19, 5.35], [-0.6, 1.3, 0.3], [-0.8, 1.3, 0.3], lens=58)   # the S04 framing
+C13 = cam(0.0, [0.5, 1.45, 4.3], [0.45, 1.44, 4.1], [-0.6, 1.1, 0.2], [-0.8, 1.1, 0.2], lens=60)   # the S04 framing
 chk('S13', C13, {'camem0': add(CAR0, [0, 2.65, 0]), 'camem1': add(CAR1, [0, 2.65, 0]), **{f'row{i}': add(p, [0, 1.95, 0]) for i, p in enumerate(ROWS)}})
 clap = []
 for i, p in enumerate(ROWS):
@@ -420,13 +421,13 @@ C14 = fcam(0.0, [-0.6, 1.2, 8.2], {'pTop0': add(PR14A, [0, 2.1, 0]), 'pTop1': ad
 chk('S14', C14, {'pFace0': add(PR14A, [0, 1.95, 0]), 'pFace1': add(PR14B, [0, 1.95, 0])})
 ry14 = yaw(PR14A, PR14B)
 def p14(t): return lerp3(PR14A, PR14B, min(1.0, t / D14))
-CH14 = add(p14(POP14), [0, 1.0, 0.55])
+CH14 = add(p14(POP14), off([0, 0, 0], ry14, 0.62, 0, 1.0))
 st.shot('S14', 'grassland', look={'sunDir': [0.5, 0.9, 0.7]}, actors=[],
         props=[P('route14', 'parkLot', pos=[0, 0.02, 0.8], opts={'w': 30, 'd': 3.2, 'color': '#8A8682'}), P('fromage14', 'rgCheese', pos=[0.4, 0, -0.2], ry=180, opts={'r': 0.42, 'roll': [0.0, D14, 3.5]}),
-               P('president14', 'rgPresident', pos=PR14A, ry=ry14, opts={'round': 1.45, 'walk': [0.0, D14, 1.6], 'wave': [[0.2, r(POP14 - 0.1)], [r(POP14 + 0.35), D14]], 'smile': [[0, 1.0]], 'popAt': POP14, 'bounce': [POP14]},
+               P('president14', 'rgPresident', pos=PR14A, ry=ry14, opts={'round': 1.45, 'walk': [0.0, D14, 1.6], 'carry': True, 'smile': [[0, 1.0]], 'popAt': POP14, 'bounce': [POP14, r(POP14 + 0.02)]},
                  keys=[k(0.0, to=PR14B, dur=D14, ease='out')]),
-               *[P(f'valise14{c}', 'suitcase', pos=add(PR14A, off([0, 0, 0], ry14, dz, sx * 0.85, 0.0)), ry=ry14, scale=[1.2, 1.0, 1.7], opts={'color': '#7A4A2E', 'w': 0.5, 'h': 0.55, 'd': 0.26}, keys=[k(0.0, to=add(PR14B, off([0, 0, 0], ry14, dz, sx * 0.85, 0.0)), dur=D14, ease='out')]) for c, sx, dz in (('a', -1, 0.0), ('b', -1, -0.65))],
-               P('bouton14', 'rgButton', pos=CH14, opts={'popAt': POP14, 'to': [0.5, -0.98, 0.9], 'roll': [-1.6, 1.2]}, keys=[k(0.0, visible=False), k(POP14, visible=True)]),
+               *[P(f'valise14{c}', 'rgCase', pos=add(PR14A, off([0, 0, 0], ry14, 0.1, sx * 0.78, 0.42)), ry=ry14, opts={'w': 0.55, 'h': 0.42, 'd': 0.3, 'bulge': 0.22}, keys=[k(0.0, to=add(PR14B, off([0, 0, 0], ry14, 0.1, sx * 0.78, 0.42)), dur=D14, ease='out')]) for c, sx in (('a', -1), ('b', 1))],   # a bulging case in each hand
+               P('bouton14', 'rgButton', pos=CH14, scale=3.0, opts={'popAt': POP14, 'to': [r((-0.6 - CH14[0]) * 0.12), r(-CH14[1] / 3.0 + 0.02), r((8.2 - CH14[2]) * 0.14)], 'roll': [-0.25, 0.5]}, keys=[k(0.0, visible=False), k(POP14, visible=True)]),   # big, shot toward the lens
                P('confettis14', 'confettiRain', pos=[0.8, 0, 0.8], opts={'w': 6, 'h': 4, 'd': 3, 'n': 90})], cams=[C14])
 st.cue('sfx:pop', 'S14', POP14, 0.45); st.cue('sfx:twang', 'S14', r(POP14 + 0.02), 0.2)
 
@@ -440,29 +441,33 @@ C15 = fcam(0.0, [0.6, 1.25, 3.6], {'cal': add(CAL, [-0.3, 0.4, 0]), 'heroTop': a
 chk('S15', C15, {'cal': CAL, 'heroFace': add(HER15, [0, 1.95, 0]), 'wifeFace': add(WF15, [0, 1.85, 0])})
 MON = add(CAL, [-0.18, 0.02, 0.06])
 k15 = [k(0.0, clip='stand'), k(0.0, look=CAL), TK(0.0, {'R': R5(add(MON, [0.1, -0.1, 0.06])), 'L': R5(off(HER15, HRY15, 0.2, -0.28, 1.0))}, {'R': 'pinch', 'L': 'rest'}, {'lid': 0.3, 'mouth': 'line', 'brow': -0.3}, d=0.0),
-       *[TK(r(CIRC15 + 0.07 * j), {'R': R5(add(MON, [0.05 * math.cos(j * 1.4), 0.05 * math.sin(j * 1.4), 0.04]))}, d=0.06, keep=True) for j in range(5)],
-       TK(r(CIRC15 + 0.45), {'R': R5(off(HER15, HRY15, 0.3, 0.3, 1.1))}, face={'lid': 0.2, 'mouth': 'smile', 'brow': 0.4}, sq=(1.03, 0.97, 1.03), d=0.15, keep=True), k(r(CIRC15 + 0.45), look='camera', lookDur=0.15)]
+       *[TK(r(CIRC15 + 0.075 * j), {'R': R5(add(MON, [0.07 * math.cos(j * 0.8 + 1.6), 0.06 * math.sin(j * 0.8 + 1.6) - 0.08, 0.04]))}, d=0.07, keep=True) for j in range(9)],   # the pen goes round
+       TK(r(CIRC15 + 0.7), {'R': R5(off(HER15, HRY15, 0.3, 0.3, 1.1))}, face={'lid': 0.2, 'mouth': 'smile', 'brow': 0.4}, sq=(1.03, 0.97, 1.03), d=0.15, keep=True), k(r(CIRC15 + 0.7), look='camera', lookDur=0.15), *[TK(r(0.1 + 0.25 * j), {'R': R5(add(MON, [0.15 - 0.05 * (j % 2), -0.12, 0.08]))}, d=0.2, keep=True) for j in range(3)]]
 wife15, wprops15 = WIFE('S15', WF15, WRY15, 'crepe', t0=0.1, every=0.5)
 st.shot('S15', 'kitchenDay', actors=[act('mec', HER15, HRY15, 'stand', 'neutral', keys=k15), wife15],
-        props=[P('calendrier15', 'rgCalendar', pos=CAL, opts={'w': 0.75, 'h': 0.95, 'circleAt': CIRC15, 'row': 2}), P('feutre15', 'rgMarker', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.0, 0.03]}),
-               P('metre15', 'tapeMeasure', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.05, 0.3]}), *wprops15], cams=[C15])
+        props=[P('calendrier15', 'rgCalendar', pos=CAL, opts={'w': 0.75, 'h': 0.95, 'circleAt': CIRC15, 'circleDur': 0.6, 'row': 2}), P('feutre15', 'rgMarker', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.0, 0.03]}),
+               P('metre15', 'rgTapeRing', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.0, 0.0]}, opts={'r': 0.3}), *wprops15], cams=[C15])
 st.cue('sfx:squeak', 'S15', CIRC15, 0.25)
 
 # ================================================================= S16
-# 16: the presidential bedroom from S01: the president in pyjamas sits on the bed, the two packed suitcases by the door; he glances at a wall
-#    calendar with Monday circled in red and gives the nearest suitcase a little pat; held, deadpan
+# 16: the presidential bedroom from S01: the president in pyjamas sits on the bed; by the door on the right the two stuffed suitcases; he glances at
+#    the wall calendar (Monday circled in red) by the door, a beat, gives the nearest case a little pat (it swells and settles) and leaves his hand on
+#    it; held, deadpan
 D16 = st.dur('S16'); PAT16 = r(st.at('S16', 'L16', 4))
 BED16 = [0.0, 0, 0.0]
-PR16 = add(BED16, [0.1, 0.05, 0.25]); CAL16 = add(BED16, [-0.95, 1.75, -1.95])
-SUITA = add(BED16, [-0.75, 0, 0.75]); SUITB = add(BED16, [1.0, 0, 0.55])
-C16 = cam(0.0, add(BED16, [0.3, 1.5, 5.2]), add(BED16, [0.3, 1.5, 5.0]), add(BED16, [0.15, 1.3, -0.3]), add(BED16, [0.15, 1.3, -0.3]), lens=50)
-chk('S16', C16, {'face': add(PR16, [0, 1.5, 0]), 'cal': CAL16, 'suit': add(SUITA, [0, 0.7, 0]), 'suitB': add(SUITB, [0.3, 0.7, 0])})
+PR16 = add(BED16, [-0.35, 0.1, 0.35]); CAL16 = add(BED16, [0.55, 1.65, -1.94]); DOOR16 = add(BED16, [1.55, 0, -1.92])
+SUITA = add(BED16, [0.35, 0, 0.78]); SUITB = add(BED16, [1.3, 0, -1.0])
+C16 = cam(0.0, add(BED16, [0.15, 1.25, 4.6]), add(BED16, [0.15, 1.25, 4.4]), add(BED16, [0.35, 1.05, -0.4]), add(BED16, [0.35, 1.05, -0.4]), lens=54)
+chk('S16', C16, {'face': add(PR16, [0, 1.45, 0]), 'cal': CAL16, 'suitA': add(SUITA, [0, 0.55, 0]), 'suitAfoot': SUITA, 'suitB': add(SUITB, [0.3, 0.55, 0]), 'door': add(DOOR16, [0, 2.2, 0])})
 st.shot('S16', 'whiteVoid', setOpts={'color': '#E6DCCB'}, look={'sunDir': [0.3, 0.9, 0.8]}, actors=[],
-        props=[P('chambre16', 'rgRoom', pos=BED16, opts={'w': 5, 'd': 4, 'wall': '#E6DCCB', 'floor': '#B58E66'}), P('lit16', 'bed', pos=add(BED16, [0.0, 0, -0.75]), ry=90, opts={'blanket': '#9AB0C8'}),
-               P('president16', 'rgPresident', pos=add(PR16, [0, 0.05, 0]), opts={'sit': True, 'pj': True, 'round': 1.45, 'look': [[0.0, 0.0], [0.35, 0.0], [0.55, 0.7], [1.0, 0.7], [1.2, 0.0]], 'pat': [PAT16, r(PAT16 + 0.25)], 'bounce': [r(PAT16 + 0.6), r(PAT16 + 1.1)], 'blink': [0.9, 1.9], 'smile': [[0, 0.6]]}),
-               P('valise16a', 'suitcase', pos=SUITA, scale=[1.1, 1.0, 1.5], opts={'color': '#7A4A2E', 'w': 0.6, 'h': 0.62, 'd': 0.32}), P('valise16b', 'suitcase', pos=SUITB, scale=[1.1, 1.0, 1.5], opts={'color': '#7A4A2E', 'w': 0.55, 'h': 0.6, 'd': 0.3}),
+        props=[P('chambre16', 'rgRoom', pos=BED16, opts={'w': 5, 'd': 4, 'wall': '#E6DCCB', 'floor': '#B58E66'}), P('lit16', 'bed', pos=add(BED16, [-0.6, 0, -0.75]), ry=90, opts={'blanket': '#9AB0C8'}),
+               P('porte16', 'rgDoor', pos=DOOR16, opts={'light': '#F4EEE2', 'color': '#8A6A45'}),
+               P('president16', 'rgPresident', pos=PR16, opts={'sit': True, 'pj': True, 'round': 1.45, 'look': [[0.0, 0.0], [0.3, 0.0], [0.5, 0.65], [1.0, 0.65], [1.2, 0.35]],
+                 'pat': [PAT16, r(PAT16 + 0.25)], 'patArm': 'L', 'restAt': r(PAT16 + 0.6), 'bounce': [r(PAT16 + 0.05)], 'blink': [0.9, 1.6, 2.6], 'smile': [[0, 0.6], [r(PAT16 + 0.5), 0.9]]}),
+               P('valise16a', 'rgCase', pos=SUITA, ry=-20, opts={'w': 0.7, 'h': 0.5, 'd': 0.34, 'bulge': 0.2, 'puff': [r(PAT16 + 0.1), r(PAT16 + 0.35)]}),
+               P('valise16b', 'rgCase', pos=SUITB, ry=-20, opts={'w': 0.66, 'h': 0.55, 'd': 0.34, 'bulge': 0.2}),
                P('calendrier16', 'rgCalendar', pos=CAL16, opts={'w': 0.5, 'h': 0.64, 'row': 2})], cams=[C16])
-st.cue('sfx:bonk', 'S16', r(PAT16 + 0.2), 0.12); st.cue('sfx:bonk', 'S16', r(PAT16 + 0.4), 0.12)
+st.cue('sfx:bonk', 'S16', r(PAT16 + 0.1), 0.12); st.cue('sfx:bonk', 'S16', r(PAT16 + 0.35), 0.12)
 
 for g_ in [('S01', CUT1, 'mec', 'packs'), ('S02', BOW2, 'general1', 'bow'), ('S03', LOCK3, 'mec', 'lock'), ('S04', 0.5, 'mec', 'trot'), ('S05', JUMP5, 'ministre1', 'scale'),
            ('S06', OPEN6, 'resistant', 'coat'), ('S07', BURST7, 'femme', 'raid'), ('S08', CUT8, 'mec', 'kilos'), ('S09', OUT9, 'mec', 'chocolate'), ('S10', SNAP10, 'mec', 'crack'),
@@ -491,7 +496,7 @@ st.write("Le régime", rig='toon', fingers=True, cloth=True, idleShift=1.6, hold
     'ministre1': {**MIN, 'seed': 2120, 'suit': '#4A4F58', 'lapel': '#3C414A', 'tie': '#7A2E2E', 'build': {'width': 1.5, 'headWidth': 1.35, 'belly': 0.35}},
     'ministre1b': {**MIN, 'seed': 2120, 'suit': '#4A4F58', 'lapel': '#3C414A', 'tie': '#7A2E2E', 'build': {'width': 1.5, 'headWidth': 1.35, 'belly': 0.35}},
     'ministre2': {**MIN, 'seed': 2121, 'suit': '#5A4A3A', 'lapel': '#4A3A2E', 'tie': '#2E4A6A', 'build': {'width': 0.95, 'headWidth': 1.2}},
-    'huissier1': {**MIN, 'seed': 2122, 'suit': '#1E2126', 'lapel': '#14161A', 'tie': '#14161A'}, 'huissier2': {**MIN, 'seed': 2123, 'suit': '#1E2126', 'lapel': '#14161A', 'tie': '#14161A'},
+    'huissier1': {**MIN, 'seed': 2122, 'suit': '#9AA3AE', 'lapel': '#8A939E', 'tie': '#3A3D44'}, 'huissier2': {**MIN, 'seed': 2123, 'suit': '#9AA3AE', 'lapel': '#8A939E', 'tie': '#3A3D44'},
     'resistant': {'preset': 'commissaire', 'seed': 2124, 'suit': '#B89A6A', 'lapel': '#A88A5A', 'glasses': False, 'toon': EX},
     **{f'invite{i + 1}': GUEST(['madame', 'worker', 'femme', 'tourist', 'fermier', 'mamie'][i], 2130 + i, ['#B5452E', '#3E7FB6', '#7A5A8A', '#D9A23A', '#5E8C4A', '#C86A8A'][i]) for i in range(6) if i != 2},
     'gendarme1': {**GEND, 'seed': 2140}, 'gendarme2': {**GEND, 'seed': 2141},
