@@ -83,13 +83,13 @@ function tooth(w, h, d, gold = false) {
   return m;
 }
 // where the hen's teeth stand on her lower beak (x, z on its top face, metres at hen size 1), in the order they grow; one tooth stands alone in the middle
-const LAYOUT6 = [[-0.018, 0.104], [0.018, 0.104], [-0.044, 0.072], [0.044, 0.072], [-0.052, 0.04], [0.052, 0.04]];
-const LAYOUT1 = [[0.0, 0.1]];
+const LAYOUT6 = [[-0.022, 0.118], [0.022, 0.118], [-0.052, 0.082], [0.052, 0.082], [-0.06, 0.046], [0.06, 0.046]];
+const LAYOUT1 = [[0.0, 0.112]];
 
 // ---------------------------------------------------------------- apples: a big red apple with a bite (pivot at its middle); the bite face (cream, scalloped)
 // faces o.dir; o.tooth 'white' | 'gold' | null: one big tooth stuck in the bite; o.pecked: bitten on both sides (a core)
 function appleMesh(r, dir, toothKind, pecked, seed = 1) {
-  const g = grp(), d = new THREE.Vector3(...dir).normalize(), dirs = pecked ? [d, d.clone().negate()] : [d], c = 0.42;
+  const g = grp(), d = new THREE.Vector3(...dir).normalize(), dirs = pecked ? [d, d.clone().negate()] : [d], c = 0.6;
   const geo = new THREE.IcosahedronGeometry(r, 2), p = geo.attributes.position, v = new THREE.Vector3();
   for (let i = 0; i < p.count; i++) { v.set(p.getX(i), p.getY(i) * 0.9, p.getZ(i));
     if (v.y > r * 0.75) v.y -= (v.y - r * 0.75) * 0.6 * (1 - Math.min(1, Math.hypot(v.x, v.z) / (r * 0.5)));
@@ -105,8 +105,9 @@ function appleMesh(r, dir, toothKind, pecked, seed = 1) {
     const face = new THREE.Mesh(new THREE.ShapeGeometry(sh), L('#F7ECC6', { emissive: '#5A4A20', emissiveIntensity: 0.35, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -6 }));
     face.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), q); face.position.copy(q).multiplyScalar(c * r + 0.001); face.receiveShadow = true; g.add(face);
     const pip = sphere(r * 0.06, '#4A2A18', 0); pip.scale.set(0.6, 1, 0.4); pip.quaternion.copy(face.quaternion); pip.position.copy(q).multiplyScalar(c * r + 0.002).add(new THREE.Vector3(0, -r * 0.12, 0)); g.add(pip);
-    if (toothKind && j === 0) { const tw = r * 0.46, th = r * 0.56, tt = tooth(tw, th, r * 0.34, toothKind === 'gold');
-      tt.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), q); tt.position.copy(q).multiplyScalar(c * r - th * 0.38).add(new THREE.Vector3(0, r * 0.08, 0)); g.add(tt); g.userData.tooth = tt; }
+    if (toothKind && j === 0) { const tw = r * 0.5, th = r * 0.78, tt = tooth(tw, th, r * 0.36, toothKind === 'gold'), up = new THREE.Vector3(0, 1, 0);
+      const ax = q.clone().multiplyScalar(0.55).add(up).normalize(), inPl = up.clone().addScaledVector(q, -up.dot(q)); if (inPl.lengthSq() > 1e-6) inPl.normalize();
+      tt.quaternion.setFromUnitVectors(up, ax); tt.position.copy(q).multiplyScalar(c * r).addScaledVector(inPl, cutR * 0.15).addScaledVector(ax, -th * 0.28); g.add(tt); g.userData.tooth = tt; }
   }
   return g;
 }
@@ -163,17 +164,18 @@ export const POULE_PROPS = {
     neck.add(ink(cyl(0.09, 0.115, 0.25, W, 8, { pivot: 'bottom' }), 0.04));
     const head = grp(); head.position.set(0, 0.22, 0.02); neck.add(head);
     head.add(at(ink(facet(0.135, 0.145, 0.15, W, 9, 0.04), 0.03), 0, 0.05, 0));
-    for (const [y, z, r] of [[0.23, 0.065, 0.062], [0.262, 0.0, 0.07], [0.248, -0.065, 0.062], [0.21, -0.115, 0.05]]) { const c = sphere(r, RED, 1, { noGrain: true }); c.scale.set(0.42, 1.12, 0.92); c.position.set(0, y, z); ink(c, 0.06); head.add(c); }
+    for (const [y, z, r] of [[0.23, 0.065, 0.062], [0.262, 0.0, 0.07], [0.248, -0.065, 0.062], [0.21, -0.115, 0.05]]) { const c = sphere(r, RED, 1, { noGrain: true }); c.scale.set(0.66, 1.12, 0.92); c.position.set(0, y, z); ink(c, 0.06); head.add(c); }
+    head.scale.setScalar(o.headS ?? 1.15);
     const beak = grp(); beak.position.set(0, 0.03, 0.125); head.add(beak);
-    const up = box(0.13, 0.058, 0.15, BEAK, { taper: { x: 0.38, z: 0.32 }, taperAxis: 'z', noGrain: true }); up.geometry.translate(0, 0.029, 0.075); ink(up, 0.05); beak.add(up);
-    const roof = box(0.112, 0.004, 0.13, '#5A1612', { taper: { x: 0.4, z: 1 }, taperAxis: 'z' }); roof.position.set(0, 0.0, 0.066); beak.add(roof);
+    const up = box(0.15, 0.065, 0.17, BEAK, { taper: { x: 0.42, z: 0.35 }, taperAxis: 'z', noGrain: true }); up.geometry.translate(0, 0.0325, 0.085); ink(up, 0.05); beak.add(up);
+    const roof = box(0.13, 0.004, 0.15, '#5A1612', { taper: { x: 0.42, z: 1 }, taperAxis: 'z' }); roof.position.set(0, 0.0, 0.076); beak.add(roof);
     const jaw = grp(); jaw.position.set(0, 0.0, 0.004); beak.add(jaw);
-    const lo = box(0.122, 0.042, 0.142, BEAK2, { taper: { x: 0.5, z: 0.5 }, taperAxis: 'z', noGrain: true }); lo.geometry.translate(0, -0.021, 0.071); ink(lo, 0.05); jaw.add(lo);
-    jaw.add(at(box(0.1, 0.006, 0.12, '#8E2620', { taper: { x: 0.5, z: 1 }, taperAxis: 'z' }), 0, 0.0, 0.064));
+    const lo = box(0.14, 0.05, 0.162, BEAK2, { taper: { x: 0.55, z: 0.5 }, taperAxis: 'z', noGrain: true }); lo.geometry.translate(0, -0.025, 0.081); ink(lo, 0.05); jaw.add(lo);
+    jaw.add(at(box(0.118, 0.006, 0.14, '#8E2620', { taper: { x: 0.55, z: 1 }, taperAxis: 'z' }), 0, 0.0, 0.074));
     for (const sd of [-1, 1]) { const w = sphere(0.034, RED, 1, { noGrain: true }); w.scale.set(0.8, 1.5, 0.7); w.position.set(sd * 0.024, -0.075, 0.035); ink(w, 0.06); jaw.add(w); }
     // the teeth: built for both layouts, shown by count
-    const T6 = LAYOUT6.map(([x, z], i) => { const m = tooth(0.034, 0.04, 0.026, i === o.gold); m.position.set(x, -0.004, z); jaw.add(m); return m; });
-    const T1 = LAYOUT1.map(([x, z]) => { const m = tooth(0.038, 0.044, 0.028, o.gold === 0 && o.oneGold); m.position.set(x, -0.004, z); jaw.add(m); return m; });
+    const T6 = LAYOUT6.map(([x, z], i) => { const m = tooth(0.042, 0.05, 0.03, i === o.gold); m.position.set(x, -0.004, z); jaw.add(m); return m; });
+    const T1 = LAYOUT1.map(([x, z]) => { const m = tooth(0.058, 0.066, 0.036, false); m.position.set(x, -0.004, z); jaw.add(m); return m; });
     const spk = starSprite('#FFF6D0'); jaw.add(spk);
     const eyes = [];
     for (const sd of [-1, 1]) {
@@ -197,14 +199,14 @@ export const POULE_PROPS = {
       neck.rotation.x = pk * 0.8; neck.rotation.y = keyAt(o.yaw, t, 0) * 0.35;
       head.rotation.set(keyAt(o.pitch, t, 0) + pk * 0.3, keyAt(o.yaw, t, 0) * 0.65, keyAt(o.roll, t, 0));
       const cd = inside(o.chew, t), ch = cd >= 0 ? 0.5 - 0.5 * Math.cos(cd * TAU * 4.2) : 0;
-      jaw.rotation.x = 0.78 * clamp01(keyAt(o.open, t, 0) + ch * 0.85);
+      jaw.rotation.x = 0.85 * clamp01(keyAt(o.open, t, 0) + ch * 0.85);
       head.position.y = 0.22 - 0.012 * ch;
       const [n, tn] = stepAt(o.teeth, t, o.n ?? 0), [n0] = stepAt(o.teeth, tn - 1e-4, o.n ?? 0), pop = clamp01((t - tn) / 0.28);
       T1.forEach(m => { m.visible = n === 1; m.scale.setScalar(n === 1 && n0 < 1 ? Math.max(0.01, outBack(pop, 2.6)) : 1); });
       const p6 = n0 >= 2 ? n0 : 0;
       T6.forEach((m, i) => { const on = n >= 2 && i < n; m.visible = on; m.scale.setScalar(on && i >= p6 ? Math.max(0.01, outBack(pop, 2.6)) : 1); });
       const si = o.sparkTooth ?? o.gold ?? 0, sp = n === 1 ? LAYOUT1[0] : (LAYOUT6[si] || LAYOUT6[0]);
-      spk.position.set(sp[0] + 0.01, 0.06, sp[1] + 0.02); sparkAt(spk, t, o.spark, o.sparkSize ?? 0.16);
+      spk.position.set(sp[0] + 0.012, 0.075, sp[1] + 0.02); sparkAt(spk, t, o.spark, o.sparkSize ?? 0.16);
       const bl = pulse(o.blinks, t, 0.13), sqn = keyAt(o.squint, t, 0), bv = keyAt(o.brow, t, 0), gx = keyAt(gzx, t, 0), gy = keyAt(gzy, t, 0);
       for (const E of eyes) { E.eg.scale.y = Math.max(0.07, (1 - 0.5 * sqn) * (1 - 0.94 * bl)); E.pup.position.x = gx * 0.015; E.pup.position.y = gy * 0.013 - 0.004 * sqn;
         E.brow.position.y = 0.16 + 0.022 * Math.max(0, bv) - 0.006 * Math.max(0, -bv); E.brow.rotation.z = E.sd * 0.45 * Math.max(0, -bv) - E.sd * 0.15 * Math.max(0, bv); }
@@ -233,7 +235,7 @@ export const POULE_PROPS = {
 
   // ---------------------------------------------------------------- a heap of bitten apples (pivot at the floor under its middle): each keeps one big tooth in its
   // bite, the bites turned to +Z and up; o.n apples (o.add [[t, n]]: the count over time, a new one drops in from above); o.gold: the index of the one with the
-  // gold tooth; o.r (0.1)
+  // gold tooth; o.r (0.1); o.dropH (0.5): how high a new one drops from (0: it appears in place with a bounce)
   poApplePile(o) {
     const r = o.r ?? 0.1, g = grp(), A = [];
     const N = Math.min(PILE.length, Math.max(o.n ?? 1, ...(o.add || []).map(q => q[1])));
@@ -242,7 +244,7 @@ export const POULE_PROPS = {
     const sp = starSprite('#FFF6D0'); g.add(sp);
     g.userData.update = t => {
       const [n, tn] = stepAt(o.add, t, o.n ?? 1), [n0] = stepAt(o.add, tn - 1e-4, o.n ?? 1), u = clamp01((t - tn) / 0.3);
-      A.forEach(({ a, y0 }, i) => { a.visible = i < n; const fresh = i >= n0 && i < n; a.position.y = y0 + (fresh ? 0.5 * (1 - u * u) + (u >= 1 ? 0 : 0) : 0); const b = fresh && u > 0.8 ? 1 + 0.25 * Math.sin((u - 0.8) / 0.2 * PI) : 1; a.scale.set(b, 2 - b, b); });
+      A.forEach(({ a, y0 }, i) => { a.visible = i < n; const fresh = i >= n0 && i < n; a.position.y = y0 + (fresh ? (o.dropH ?? 0.5) * (1 - u * u) : 0); const b = fresh && u > 0.8 ? 1 + 0.25 * Math.sin((u - 0.8) / 0.2 * PI) : 1; a.scale.set(b, 2 - b, b); });
       if (o.gold != null && A[o.gold]) { const q = A[o.gold].a; sp.position.set(q.position.x + 0.03, q.position.y + r * 0.6, q.position.z + r * 0.8); sparkAt(sp, t, o.spark, 0.14); } else sp.visible = false;
     };
     g.userData.update(0); return g;
@@ -300,11 +302,11 @@ export const POULE_PROPS = {
   poMould(o) {
     const k = o.k ?? 2.6, g = grp(), P = '#EFEAE0';
     g.add(ink(box(0.42, 0.05, 0.4, '#E3DCCD', { pivot: 'bottom' }), 0.02));
-    const base = grp(); base.position.set(0, 0.05, -0.04); g.add(base);
-    for (let i = 0; i < 9; i++) { const a = PI * (i / 8), x = Math.cos(a) * 0.15, z = Math.sin(a) * 0.15 + 0.0; base.add(at(ink(box(0.075, 0.07, 0.08, P, { pivot: 'bottom' }), 0.03), x, 0, z, 0, -a + PI / 2, 0)); }
+    const R = 0.16 * k / 2.6, base = grp(); base.position.set(0, 0.05, -0.08); g.add(base);
+    for (let i = 0; i < 11; i++) { const a = -1.5 + 3.0 * i / 10; base.add(at(ink(box(0.09, 0.075, 0.085, '#E9AFA6', { pivot: 'bottom' }), 0.03), Math.sin(a) * R, 0, Math.cos(a) * R, 0, a, 0)); }
     const sp = starSprite('#FFF6D0'); g.add(sp); let gp = null;
-    LAYOUT6.forEach(([x, z], i) => { const m = tooth(0.034 * k, 0.04 * k, 0.026 * k, i === o.gold); const X = x * k * 1.25, Z = (z - 0.072) * k * 1.7 + 0.04; m.position.set(X, 0.11, Z); m.rotation.y = -X * 2.0; g.add(m); if (i === o.gold) gp = [X, Z]; });
-    g.userData.update = t => { if (gp) { sp.position.set(gp[0] + 0.02, 0.24, gp[1] + 0.04); sparkAt(sp, t, o.spark, 0.2); } else sp.visible = false; };
+    [-0.27, 0.27, -0.8, 0.8, -1.3, 1.3].forEach((a, i) => { const m = tooth(0.062 * k / 2.6, 0.078 * k / 2.6, 0.046 * k / 2.6, i === o.gold); const X = Math.sin(a) * R, Z = Math.cos(a) * R - 0.08; m.position.set(X, 0.115, Z); m.rotation.y = a; g.add(m); if (i === o.gold) gp = [X, Z]; });
+    g.userData.update = t => { if (gp) { sp.position.set(gp[0] + 0.02, 0.22, gp[1] + 0.05); sparkAt(sp, t, o.spark, 0.2); } else sp.visible = false; };
     g.userData.update(0); g.userData.grip = [0, 0, 0]; return g;
   },
 
@@ -318,16 +320,19 @@ export const POULE_PROPS = {
       const sky = c.createLinearGradient(0, 0, 0, Hc * 0.6); sky.addColorStop(0, '#5FB2E6'); sky.addColorStop(1, '#BDE4F4'); c.fillStyle = sky; c.fillRect(0, 0, Wc, Hc);
       c.fillStyle = '#FFD84A'; c.beginPath(); c.arc(Wc * 0.82, Hc * 0.17, Hc * 0.1, 0, TAU); c.fill();
       c.fillStyle = '#2F8FC9'; c.fillRect(0, Hc * 0.5, Wc, Hc * 0.13); c.fillStyle = '#F1D9A0'; c.fillRect(0, Hc * 0.62, Wc, Hc * 0.38);
-      c.save(); c.translate(Wc * 0.48, Hc * 0.86); c.rotate(-0.5);
-      for (let i = 0; i < 6; i++) { c.fillStyle = i % 2 ? '#F4F1E8' : '#E2403A'; c.fillRect(-Wc * 0.02 + i * Wc * 0.07, -Hc * 0.46, Wc * 0.07, Hc * 0.46); }
-      c.restore(); c.strokeStyle = '#8A5A34'; c.lineWidth = Wc * 0.018; c.beginPath(); c.moveTo(Wc * 0.4, Hc * 0.98); c.lineTo(Wc * 0.62, Hc * 0.5); c.moveTo(Wc * 0.78, Hc * 0.98); c.lineTo(Wc * 0.58, Hc * 0.62); c.stroke();
-      c.fillStyle = '#23262E'; c.save(); c.translate(Wc * 0.56, Hc * 0.72); c.rotate(-0.5); c.fillRect(-Wc * 0.1, -Hc * 0.1, Wc * 0.32, Hc * 0.18); c.restore();
-      c.fillStyle = '#E8B48A'; c.fillRect(Wc * 0.34, Hc * 0.44, Wc * 0.16, Hc * 0.2); c.fillStyle = '#E6E2D8'; c.fillRect(Wc * 0.33, Hc * 0.4, Wc * 0.18, Hc * 0.07);
-      c.strokeStyle = '#1B1418'; c.lineWidth = Hc * 0.018; c.beginPath(); c.arc(Wc * 0.42, Hc * 0.55, Wc * 0.045, 0.15 * PI, 0.85 * PI); c.stroke();
-      c.beginPath(); c.arc(Wc * 0.38, Hc * 0.5, Wc * 0.014, PI, TAU); c.stroke(); c.beginPath(); c.arc(Wc * 0.46, Hc * 0.5, Wc * 0.014, PI, TAU); c.stroke();
-      c.strokeStyle = '#23262E'; c.lineWidth = Wc * 0.03; c.beginPath(); c.moveTo(Wc * 0.36, Hc * 0.62); c.lineTo(Wc * 0.3, Hc * 0.47); c.lineTo(Wc * 0.36, Hc * 0.4); c.moveTo(Wc * 0.48, Hc * 0.62); c.lineTo(Wc * 0.54, Hc * 0.47); c.lineTo(Wc * 0.49, Hc * 0.4); c.stroke();
+      const poly = (pts, col) => { c.fillStyle = col; c.beginPath(); pts.forEach(([x, y], i) => c[i ? 'lineTo' : 'moveTo'](x * Wc, y * Hc)); c.closePath(); c.fill(); c.strokeStyle = '#1B1418'; c.lineWidth = Hc * 0.012; c.stroke(); };
+      for (let i = 0; i < 6; i++) { const u0 = i / 6, u1 = (i + 1) / 6, A = [0.12, 0.98], Bp = [0.46, 0.98], C = [0.74, 0.36], D = [0.42, 0.36];
+        const l = (P, Q, u) => [P[0] + (Q[0] - P[0]) * u, P[1] + (Q[1] - P[1]) * u]; poly([l(A, Bp, u0), l(A, Bp, u1), l(D, C, u1), l(D, C, u0)], i % 2 ? '#F4F1E8' : '#E2403A'); }
+      c.strokeStyle = '#8A5A34'; c.lineWidth = Wc * 0.02; c.beginPath(); c.moveTo(Wc * 0.12, Hc * 0.99); c.lineTo(Wc * 0.44, Hc * 0.34); c.moveTo(Wc * 0.62, Hc * 0.99); c.lineTo(Wc * 0.5, Hc * 0.62); c.stroke();
+      poly([[0.3, 0.86], [0.46, 0.86], [0.64, 0.5], [0.5, 0.48]], '#23262E');
+      poly([[0.42, 0.84], [0.5, 0.78], [0.94, 0.86], [0.92, 0.95]], '#2E323C');
+      poly([[0.5, 0.52], [0.44, 0.34], [0.5, 0.3], [0.56, 0.48]], '#23262E'); poly([[0.62, 0.5], [0.8, 0.36], [0.84, 0.42], [0.66, 0.56]], '#23262E');
+      c.save(); c.translate(Wc * 0.6, Hc * 0.3); c.rotate(-0.35); poly([[-0.09, -0.12], [0.09, -0.12], [0.09, 0.12], [-0.09, 0.12]].map(([x, y]) => [x * 1.0, y * Wc / Hc * 1.0]), '#E8B48A');
+      c.fillStyle = '#ECE8DE'; c.fillRect(-Wc * 0.1, -Wc * 0.15, Wc * 0.2, Wc * 0.07); c.strokeStyle = '#1B1418'; c.lineWidth = Hc * 0.016;
+      c.beginPath(); c.arc(-Wc * 0.04, -Wc * 0.02, Wc * 0.022, PI, TAU); c.stroke(); c.beginPath(); c.arc(Wc * 0.04, -Wc * 0.02, Wc * 0.022, PI, TAU); c.stroke();
+      c.fillStyle = '#7A1E22'; c.beginPath(); c.arc(0, Wc * 0.035, Wc * 0.05, 0, PI); c.closePath(); c.fill(); c.stroke(); c.restore();
     }, { res: 256, emissive: 0.25 });
-    pic.position.set(0, h / 2, 0.003);
+    pic.position.set(0, h / 2, 0.008);
     const mt = box(w * 0.92, h * 0.9, 0.006, '#F4EEDF'); mt.position.set(0, h / 2, 0.0); g.add(mt, pic);
     if (o.stand !== false) g.add(at(box(0.04, h * 0.85, 0.02, F), 0, h * 0.42, -0.12, -0.38, 0, 0));
     g.userData.grip = [0, h / 2, 0]; return g;
@@ -346,12 +351,12 @@ export const POULE_PROPS = {
     front.position.z = 0.012; env.add(front, at(box(w, h, 0.022, '#CDB274'), 0, 0, 0));
     const letter = grp(); env.add(letter);
     const sheet = paintPlane(w * 0.86, h * 1.05, (c, Wc, Hc) => { c.fillStyle = '#F4ECD4'; c.fillRect(0, 0, Wc, Hc);
-      c.save(); c.translate(Wc * 0.5, Hc * 0.42); const S = Wc * 0.28;
+      c.save(); c.translate(Wc * 0.4, Hc * 0.44); const S = Wc * 0.25;
       c.fillStyle = '#FFFFFF'; c.strokeStyle = '#2A2020'; c.lineWidth = S * 0.06; c.beginPath(); c.ellipse(0, S * 0.25, S * 0.95, S * 0.62, 0, 0, TAU); c.fill(); c.stroke();
       c.beginPath(); c.arc(S * 0.75, -S * 0.42, S * 0.42, 0, TAU); c.fill(); c.stroke();
       c.fillStyle = '#E3342A'; for (const [x, y] of [[0.55, -0.85], [0.78, -0.92], [1.0, -0.82]]) { c.beginPath(); c.arc(x * S, y * S, S * 0.15, 0, TAU); c.fill(); }
       c.fillStyle = '#F6B523'; c.beginPath(); c.moveTo(S * 1.12, -S * 0.5); c.lineTo(S * 1.62, -S * 0.44); c.lineTo(S * 1.12, -S * 0.36); c.fill(); c.beginPath(); c.moveTo(S * 1.12, -S * 0.3); c.lineTo(S * 1.55, -S * 0.12); c.lineTo(S * 1.1, -S * 0.16); c.fill();
-      c.fillStyle = '#FFFFFF'; for (const x of [1.2, 1.32]) { c.fillRect(x * S, -S * 0.34, S * 0.1, S * 0.14); c.strokeRect(x * S, -S * 0.34, S * 0.1, S * 0.14); }
+      c.fillStyle = '#FFFFFF'; for (const x of [1.16, 1.34]) { c.fillRect(x * S, -S * 0.4, S * 0.16, S * 0.22); c.strokeRect(x * S, -S * 0.4, S * 0.16, S * 0.22); }
       c.fillStyle = '#1B1418'; c.beginPath(); c.arc(S * 0.86, -S * 0.5, S * 0.07, 0, TAU); c.fill();
       c.restore(); c.fillStyle = '#B7A884'; for (let i = 0; i < 3; i++) c.fillRect(Wc * 0.12, Hc * (0.78 + i * 0.07), Wc * (0.76 - i * 0.2), Hc * 0.025); }, { res: 256, emissive: 0.25 });
     sheet.position.z = 0.0; letter.add(sheet, at(box(w * 0.86, h * 1.05, 0.004, '#E8DFC4'), 0, 0, -0.003)); letter.position.z = 0.006; letter.visible = false;
@@ -420,7 +425,7 @@ export const POULE_PROPS = {
   },
 
   // ---------------------------------------------------------------- the insurer's counter (pivot at the floor, the customer's side +Z; the clerk stands behind it
-  // near z -0.6): a pale mint back wall at z -1.6 with a teal band and a plain white sign « MUTUELLE », a cream counter with a teal front stripe at z 0, a pot
+  // near z -0.6): a pale mint back wall at z -1.6 with a teal band and a plain white sign « MUTUELLE » (o.sign false: none; o.signX / o.signY), a cream counter with a teal front stripe at z 0, a pot
   // plant, a framed umbrella picture, a tiled floor; o.signX, o.w (7)
   poCounter(o) {
     const W = o.w ?? 7, g = grp(), bz = -1.6;
@@ -430,7 +435,7 @@ export const POULE_PROPS = {
     const sx = o.signX ?? 0;
     const sign = paintPlane(1.9, 0.42, (c, Wc, Hc) => { c.fillStyle = '#FBFAF4'; c.fillRect(0, 0, Wc, Hc); c.strokeStyle = '#3F8F98'; c.lineWidth = Hc * 0.08; c.strokeRect(0, 0, Wc, Hc);
       c.fillStyle = '#2E6F78'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${Hc * 0.56}px Arial`; c.fillText('MUTUELLE', Wc / 2, Hc * 0.54); }, { res: 512, emissive: 0.3 });
-    sign.position.set(sx, 2.55, bz + 0.03); g.add(sign, at(box(1.96, 0.48, 0.03, '#3F8F98'), sx, 2.55, bz + 0.01));
+    sign.position.set(sx, o.signY ?? 2.55, bz + 0.03); if (o.sign !== false) g.add(sign, at(box(1.96, 0.48, 0.03, '#3F8F98'), sx, o.signY ?? 2.55, bz + 0.01));
     const umb = paintPlane(0.62, 0.78, (c, Wc, Hc) => { c.fillStyle = '#F7F1E2'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#3F8F98'; c.beginPath(); c.arc(Wc / 2, Hc * 0.48, Wc * 0.36, PI, TAU); c.closePath(); c.fill();
       c.strokeStyle = '#2A3A40'; c.lineWidth = Wc * 0.04; c.beginPath(); c.moveTo(Wc / 2, Hc * 0.48); c.lineTo(Wc / 2, Hc * 0.8); c.arc(Wc * 0.45, Hc * 0.8, Wc * 0.05, 0, PI); c.stroke(); }, { res: 128, emissive: 0.2 });
     umb.position.set(o.picX ?? 2.2, 1.75, bz + 0.03); g.add(umb, at(box(0.7, 0.86, 0.03, '#7A4A2A'), o.picX ?? 2.2, 1.75, bz + 0.01));
@@ -450,8 +455,9 @@ export const POULE_PROPS = {
     const sh = new THREE.Shape(); for (let i = 0; i <= 24; i++) { const a = i / 24 * TAU, rr = R * 0.62 * (1 + 0.16 * Math.cos(a) - 0.08 * Math.sin(2 * a)); if (i === 0) sh.moveTo(Math.cos(a) * rr * 1.15, Math.sin(a) * rr * 0.85); else sh.lineTo(Math.cos(a) * rr * 1.15, Math.sin(a) * rr * 0.85); }
     const geo = new THREE.ExtrudeGeometry(sh, { depth: 0.05, bevelEnabled: true, bevelThickness: 0.012, bevelSize: 0.015, bevelSegments: 1, curveSegments: 4 }); geo.rotateX(-PI / 2);
     const cv = canvas(256, 256), c = cv.getContext('2d'); c.fillStyle = '#9A4426'; c.fillRect(0, 0, 256, 256); c.strokeStyle = '#3E1A0E'; c.lineWidth = 10; for (let i = 0; i < 5; i++) { c.beginPath(); c.moveTo(i * 60 - 20, 0); c.lineTo(i * 60 + 80, 256); c.stroke(); }
-    const t_ = tex(cv); t_.wrapS = t_.wrapT = THREE.RepeatWrapping; const top = L('#FFFFFF', { map: t_ }), side = L('#E8D8B4', { flatShading: true });
+    const t_ = tex(cv); t_.wrapS = t_.wrapT = THREE.RepeatWrapping; t_.repeat.set(4, 4); const top = L('#FFFFFF', { map: t_ }), side = L('#6E2E1A', { flatShading: true });
     const m = new THREE.Mesh(geo, [top, side]); m.castShadow = true; ink(m, 0.02); meat.add(m);
+    const fat = new THREE.Mesh(new THREE.TorusGeometry(R * 0.58, 0.02, 4, 16, PI * 0.9), mat('#F4E6C4')); fat.rotation.x = -PI / 2; fat.scale.set(1.15, 0.85, 1); fat.position.set(0, 0.035, 0); fat.rotation.z = 0.0; meat.add(fat);
     const bone = grp(at(box(0.05, 0.04, R * 1.0, '#FBF6E8', { outline: 0.03 }), 0.02, 0.05, 0), at(box(R * 0.6, 0.04, 0.05, '#FBF6E8', { outline: 0.03 }), 0.02 - R * 0.25, 0.05, R * 0.28)); g.add(bone); bone.position.y = 0.035;
     g.userData.update = t => { const v = keyAt(o.eat, t, 0); meat.scale.set(Math.max(0.05, 1 - 0.7 * v), 1, Math.max(0.05, 1 - 0.55 * v)); meat.position.x = -R * 0.2 * v; };
     g.userData.update(0); return g;
@@ -483,7 +489,7 @@ export const POULE_PROPS = {
   // ---------------------------------------------------------------- a dentist's head mirror (attach to the 'head' joint): a dark band round the forehead and a big
   // round silver mirror with a hole, tipped up; o.y (0.4) / o.z (0.12), o.r (0.08)
   poHeadMirror(o) {
-    const R = o.r ?? 0.08, g = grp(), y = o.y ?? 0.4, z = o.z ?? 0.12;
+    const R = o.r ?? 0.08, g = grp(), y = o.y ?? 0.5, z = o.z ?? 0.12;
     g.add(at(box(o.w ?? 0.36, 0.035, 0.02, '#2A2C34'), 0, y, z - 0.005));
     const m = grp(); m.position.set(0, y + 0.01, z + 0.02); m.rotation.x = -0.35; g.add(m);
     const disc = cyl(R, R, 0.012, '#DCE4EA', 20, { noGrain: true, emissive: '#7A8A94' }); disc.rotation.x = PI / 2; ink(disc, 0.06); m.add(disc);
@@ -552,6 +558,25 @@ export const POULE_PROPS = {
     return g;
   },
 
+  // ---------------------------------------------------------------- a wall with a doorway, seen from the corridor (pivot at the floor under the middle of the doorway,
+  // the corridor side +Z): o.w (7) x o.h (3.2), the opening o.dw (1.3) x o.dh (2.4) cut through it (the room behind shows), a cream frame; o.color
+  poWall(o) {
+    const W = o.w ?? 7, H = o.h ?? 3.2, dw = o.dw ?? 1.3, dh = o.dh ?? 2.4, C = o.color || '#E4DCC8', side = (W - dw) / 2, g = grp();
+    g.add(at(box(side, H, 0.16, C, { pivot: 'bottom' }), -(dw + side) / 2, 0, 0), at(box(side, H, 0.16, C, { pivot: 'bottom' }), (dw + side) / 2, 0, 0), at(box(dw, H - dh, 0.16, C, { pivot: 'bottom' }), 0, dh, 0));
+    const tr = o.trim || '#F4EEE2';
+    g.add(at(box(0.1, dh, 0.22, tr), -dw / 2 - 0.05, dh / 2, 0), at(box(0.1, dh, 0.22, tr), dw / 2 + 0.05, dh / 2, 0), at(box(dw + 0.2, 0.1, 0.22, tr), 0, dh + 0.05, 0));
+    if (o.band !== false) for (const sd of [-1, 1]) g.add(at(box(side, 1.0, 0.02, o.band || '#B8A07A'), sd * (dw + side) / 2, 0.5, 0.09));
+    return g;
+  },
+
+  // ---------------------------------------------------------------- a wooden crate (pivot at the floor, front +Z): slatted sides o.w (1.1) x o.h (0.5) x o.d (0.6)
+  poCrate(o) {
+    const w = o.w ?? 1.1, h = o.h ?? 0.5, d = o.d ?? 0.6, g = grp(at(box(w, h, d, '#C8955E', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0));
+    for (let i = 0; i < 3; i++) g.add(at(box(w + 0.01, 0.03, d + 0.01, '#9A6A3E'), 0, 0.08 + i * (h - 0.12) / 2, 0));
+    for (const sd of [-1, 1]) g.add(at(box(0.05, h, 0.05, '#9A6A3E'), sd * (w / 2 - 0.02), h / 2, d / 2));
+    g.userData.top = [0, h, 0]; return g;
+  },
+
   // ---------------------------------------------------------------- a reception desk (pivot at the floor, the visitor's side +Z): a light wood counter with a teal
   // band and a cream top; o.w (2.0)
   poReception(o) {
@@ -593,8 +618,8 @@ export const POULE_PROPS = {
       rig.add(at(ink(cyl(0.065, 0.06, 0.28, P, 7), 0.04), sd * 0.27, 0.42, 0.14, 0.9, 0, sd * 0.35), at(cyl(0.062, 0.062, 0.05, DK, 7), sd * 0.24, 0.31, 0.27, 0.9, 0, sd * 0.35)); }
     rig.add(at(box(0.72, 0.07, 0.04, '#7A808A'), 0, 0.2, 0.3), at(box(0.12, 0.09, 0.05, '#C8CED6', { outline: 0.02 }), 0, 0.2, 0.32));
     const wings = [];
-    for (const sd of [-1, 1]) { const wp = grp(); wp.position.set(sd * 0.16, 0.6, -0.2); rig.add(wp);
-      for (let j = 0; j < 3; j++) { const f = box(0.36 - j * 0.07, 0.11, 0.025, '#FFFFFF', { taper: { x: 1, z: 1 }, noGrain: true, emissive: '#2A2A2A' }); f.geometry.translate(sd * (0.18 - j * 0.035), 0, 0); ink(f, 0.05); f.position.set(0, 0.1 - j * 0.09, -0.01 * j); f.rotation.z = sd * (0.5 - j * 0.18); wp.add(f); }
+    for (const sd of [-1, 1]) { const wp = grp(); wp.position.set(sd * 0.2, 0.62, -0.18); rig.add(wp);
+      for (let j = 0; j < 3; j++) { const f = box(0.34 - j * 0.07, 0.1, 0.025, '#FFFFFF', { noGrain: true, emissive: '#2A2A2A' }); f.geometry.translate(sd * (0.17 - j * 0.035), 0, 0); ink(f, 0.05); f.position.set(0, -0.06 * j, -0.01 * j); f.rotation.z = sd * (0.85 - j * 0.3); wp.add(f); }
       wings.push([wp, sd]); }
     const head = grp(); head.position.set(0, 0.78, 0.05); rig.add(head);
     head.add(ink(facet(0.27, 0.24, 0.24, P, 23, 0.04), 0.025));
@@ -625,8 +650,9 @@ export const POULE_PROPS = {
   poCards(o) {
     const w = o.w ?? 0.34, h = w * 0.46, g = grp();
     const card = () => paintPlane(w, h, (c, Wc, Hc) => { c.fillStyle = '#FBFAF4'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#2F62B5'; c.fillRect(0, 0, Wc, Hc * 0.26);
-      c.fillStyle = '#FFFFFF'; c.save(); c.translate(Wc * 0.12, Hc * 0.13); c.beginPath(); c.moveTo(-Hc * 0.1, 0); c.lineTo(Hc * 0.12, -Hc * 0.015); c.lineTo(Hc * 0.14, Hc * 0.015); c.lineTo(-Hc * 0.1, Hc * 0.02); c.fill();
-      c.fillRect(-Hc * 0.01, -Hc * 0.09, Hc * 0.04, Hc * 0.18); c.restore();
+      c.fillStyle = '#FFFFFF'; c.save(); c.translate(Wc * 0.13, Hc * 0.135); const q = Hc * 0.1; c.beginPath(); c.ellipse(0, 0, q * 1.3, q * 0.28, 0, 0, TAU); c.fill();
+      c.beginPath(); c.moveTo(-q * 0.2, 0); c.lineTo(-q * 0.55, q * 0.75); c.lineTo(-q * 0.25, q * 0.75); c.lineTo(q * 0.35, 0); c.fill();
+      c.beginPath(); c.moveTo(-q * 1.0, 0); c.lineTo(-q * 1.35, -q * 0.65); c.lineTo(-q * 1.1, -q * 0.65); c.lineTo(-q * 0.7, 0); c.fill(); c.restore();
       c.strokeStyle = '#9AA4B4'; c.setLineDash([Hc * 0.05, Hc * 0.04]); c.lineWidth = Hc * 0.02; c.beginPath(); c.moveTo(Wc * 0.72, Hc * 0.3); c.lineTo(Wc * 0.72, Hc); c.stroke(); c.setLineDash([]);
       c.fillStyle = '#B4BCC8'; for (let i = 0; i < 3; i++) c.fillRect(Wc * 0.06, Hc * (0.42 + i * 0.17), Wc * (0.56 - i * 0.12), Hc * 0.06); c.fillRect(Wc * 0.77, Hc * 0.45, Wc * 0.17, Hc * 0.06); c.fillRect(Wc * 0.77, Hc * 0.65, Wc * 0.12, Hc * 0.06);
       c.strokeStyle = '#2F62B5'; c.lineWidth = Hc * 0.04; c.strokeRect(1, 1, Wc - 2, Hc - 2); }, { res: 256, emissive: 0.3, double: true });
