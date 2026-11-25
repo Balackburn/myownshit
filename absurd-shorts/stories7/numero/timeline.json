@@ -1,0 +1,975 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a appelé son coiffeur. Faux numéro.",
+   "hl": [
+    "coiffeur.",
+    "Faux"
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.47,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "appelé",
+     "s": 0.619,
+     "e": 0.767
+    },
+    {
+     "w": "son",
+     "s": 0.841,
+     "e": 0.915
+    },
+    {
+     "w": "coiffeur.",
+     "s": 0.952,
+     "e": 1.433
+    },
+    {
+     "w": "Faux",
+     "s": 1.73,
+     "e": 1.878
+    },
+    {
+     "w": "numéro.",
+     "s": 1.952,
+     "e": 2.47
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il est tombé sur l'état-major.",
+   "hl": [
+    "tombé",
+    "l'état-major."
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L02.k.wav",
+   "file_start": 2.57,
+   "speech_start": 2.57,
+   "speech_end": 4.052,
+   "words": [
+    {
+     "w": "Il",
+     "s": 2.57,
+     "e": 2.644
+    },
+    {
+     "w": "est",
+     "s": 2.681,
+     "e": 2.719
+    },
+    {
+     "w": "tombé",
+     "s": 2.793,
+     "e": 3.015
+    },
+    {
+     "w": "sur",
+     "s": 3.089,
+     "e": 3.163
+    },
+    {
+     "w": "l'état-major.",
+     "s": 3.212,
+     "e": 4.052
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il a demandé : « On dégage bien les côtés. »",
+   "hl": [
+    "dégage",
+    "côtés."
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L03.k.wav",
+   "file_start": 4.152,
+   "speech_start": 4.152,
+   "speech_end": 6.3,
+   "words": [
+    {
+     "w": "Il",
+     "s": 4.152,
+     "e": 4.226
+    },
+    {
+     "w": "a",
+     "s": 4.263,
+     "e": 4.3
+    },
+    {
+     "w": "demandé:",
+     "s": 4.448,
+     "e": 4.992
+    },
+    {
+     "w": "On",
+     "s": 5.016,
+     "e": 5.041
+    },
+    {
+     "w": "dégage",
+     "s": 5.115,
+     "e": 5.411
+    },
+    {
+     "w": "bien",
+     "s": 5.46,
+     "e": 5.559
+    },
+    {
+     "w": "les",
+     "s": 5.596,
+     "e": 5.633
+    },
+    {
+     "w": "côtés.",
+     "s": 5.67,
+     "e": 6.3
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "L'armée a évacué les deux côtes.",
+   "hl": [
+    "évacué",
+    "côtes."
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L04.k.wav",
+   "file_start": 6.4,
+   "speech_start": 6.4,
+   "speech_end": 8.03,
+   "words": [
+    {
+     "w": "L'armée",
+     "s": 6.4,
+     "e": 6.77
+    },
+    {
+     "w": "a",
+     "s": 6.807,
+     "e": 6.844
+    },
+    {
+     "w": "évacué",
+     "s": 6.881,
+     "e": 7.215
+    },
+    {
+     "w": "les",
+     "s": 7.289,
+     "e": 7.363
+    },
+    {
+     "w": "deux",
+     "s": 7.4,
+     "e": 7.474
+    },
+    {
+     "w": "côtes.",
+     "s": 7.511,
+     "e": 8.03
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "« Vous raccourcissez un peu devant. »",
+   "hl": [
+    "raccourcissez",
+    "devant."
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L05.k.wav",
+   "file_start": 8.13,
+   "speech_start": 8.13,
+   "speech_end": 9.685,
+   "words": [
+    {
+     "w": "Vous",
+     "s": 8.13,
+     "e": 8.204
+    },
+    {
+     "w": "raccourcissez",
+     "s": 8.241,
+     "e": 8.796
+    },
+    {
+     "w": "un",
+     "s": 8.833,
+     "e": 8.87
+    },
+    {
+     "w": "peu",
+     "s": 8.907,
+     "e": 9.019
+    },
+    {
+     "w": "devant.",
+     "s": 9.093,
+     "e": 9.685
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Le front a reculé de dix kilomètres.",
+   "hl": [
+    "front",
+    "reculé"
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L06.k.wav",
+   "file_start": 9.785,
+   "speech_start": 9.785,
+   "speech_end": 11.711,
+   "words": [
+    {
+     "w": "Le",
+     "s": 9.785,
+     "e": 9.859
+    },
+    {
+     "w": "front",
+     "s": 10.007,
+     "e": 10.156
+    },
+    {
+     "w": "a",
+     "s": 10.193,
+     "e": 10.23
+    },
+    {
+     "w": "reculé",
+     "s": 10.304,
+     "e": 10.674
+    },
+    {
+     "w": "de",
+     "s": 10.748,
+     "e": 10.822
+    },
+    {
+     "w": "dix",
+     "s": 10.859,
+     "e": 10.933
+    },
+    {
+     "w": "kilomètres.",
+     "s": 10.97,
+     "e": 11.711
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Un village a changé de pays. Il n'a rien remarqué.",
+   "hl": [
+    "village",
+    "pays."
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L07.k.wav",
+   "file_start": 11.811,
+   "speech_start": 11.811,
+   "speech_end": 14.478,
+   "words": [
+    {
+     "w": "Un",
+     "s": 11.811,
+     "e": 11.885
+    },
+    {
+     "w": "village",
+     "s": 11.959,
+     "e": 12.256
+    },
+    {
+     "w": "a",
+     "s": 12.293,
+     "e": 12.33
+    },
+    {
+     "w": "changé",
+     "s": 12.404,
+     "e": 12.626
+    },
+    {
+     "w": "de",
+     "s": 12.663,
+     "e": 12.7
+    },
+    {
+     "w": "pays.",
+     "s": 12.737,
+     "e": 13.33
+    },
+    {
+     "w": "Il",
+     "s": 13.367,
+     "e": 13.441
+    },
+    {
+     "w": "n'a",
+     "s": 13.466,
+     "e": 13.515
+    },
+    {
+     "w": "rien",
+     "s": 13.589,
+     "e": 13.737
+    },
+    {
+     "w": "remarqué.",
+     "s": 13.811,
+     "e": 14.478
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "« Un petit dégradé derrière. »",
+   "hl": [
+    "dégradé",
+    "derrière."
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L08.k.wav",
+   "file_start": 14.578,
+   "speech_start": 14.578,
+   "speech_end": 16.207,
+   "words": [
+    {
+     "w": "Un",
+     "s": 14.578,
+     "e": 14.652
+    },
+    {
+     "w": "petit",
+     "s": 14.726,
+     "e": 14.948
+    },
+    {
+     "w": "dégradé",
+     "s": 15.022,
+     "e": 15.393
+    },
+    {
+     "w": "derrière.",
+     "s": 15.467,
+     "e": 16.207
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Les pelleteuses ont taillé l'arrière-pays en escalier.",
+   "hl": [
+    "taillé",
+    "escalier."
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L09.k.wav",
+   "file_start": 16.307,
+   "speech_start": 16.307,
+   "speech_end": 18.752,
+   "words": [
+    {
+     "w": "Les",
+     "s": 16.307,
+     "e": 16.456
+    },
+    {
+     "w": "pelleteuses",
+     "s": 16.53,
+     "e": 16.9
+    },
+    {
+     "w": "ont",
+     "s": 16.974,
+     "e": 17.048
+    },
+    {
+     "w": "taillé",
+     "s": 17.085,
+     "e": 17.27
+    },
+    {
+     "w": "l'arrière-pays",
+     "s": 17.295,
+     "e": 17.863
+    },
+    {
+     "w": "en",
+     "s": 17.937,
+     "e": 18.011
+    },
+    {
+     "w": "escalier.",
+     "s": 18.159,
+     "e": 18.752
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "« La raie au milieu. »",
+   "hl": [
+    "raie",
+    "milieu."
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L10.k.wav",
+   "file_start": 18.852,
+   "speech_start": 18.852,
+   "speech_end": 19.963,
+   "words": [
+    {
+     "w": "La",
+     "s": 18.852,
+     "e": 19.0
+    },
+    {
+     "w": "raie",
+     "s": 19.037,
+     "e": 19.148
+    },
+    {
+     "w": "au",
+     "s": 19.222,
+     "e": 19.296
+    },
+    {
+     "w": "milieu.",
+     "s": 19.37,
+     "e": 19.963
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Le pays a été coupé en deux. Il l'est toujours.",
+   "hl": [
+    "coupé",
+    "toujours."
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L11.k.wav",
+   "file_start": 20.063,
+   "speech_start": 20.063,
+   "speech_end": 22.73,
+   "words": [
+    {
+     "w": "Le",
+     "s": 20.063,
+     "e": 20.211
+    },
+    {
+     "w": "pays",
+     "s": 20.248,
+     "e": 20.507
+    },
+    {
+     "w": "a",
+     "s": 20.581,
+     "e": 20.619
+    },
+    {
+     "w": "été",
+     "s": 20.656,
+     "e": 20.878
+    },
+    {
+     "w": "coupé",
+     "s": 20.927,
+     "e": 21.1
+    },
+    {
+     "w": "en",
+     "s": 21.174,
+     "e": 21.248
+    },
+    {
+     "w": "deux.",
+     "s": 21.322,
+     "e": 21.73
+    },
+    {
+     "w": "Il",
+     "s": 21.767,
+     "e": 21.841
+    },
+    {
+     "w": "l'est",
+     "s": 21.89,
+     "e": 21.989
+    },
+    {
+     "w": "toujours.",
+     "s": 22.026,
+     "e": 22.73
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "« Et un peu de gel. » Le gouvernement a gelé les salaires.",
+   "hl": [
+    "gel.",
+    "gelé"
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L12.k.wav",
+   "file_start": 22.83,
+   "speech_start": 22.83,
+   "speech_end": 25.867,
+   "words": [
+    {
+     "w": "Et",
+     "s": 22.83,
+     "e": 22.904
+    },
+    {
+     "w": "un",
+     "s": 22.978,
+     "e": 23.052
+    },
+    {
+     "w": "peu",
+     "s": 23.089,
+     "e": 23.163
+    },
+    {
+     "w": "de",
+     "s": 23.2,
+     "e": 23.274
+    },
+    {
+     "w": "gel.",
+     "s": 23.422,
+     "e": 23.867
+    },
+    {
+     "w": "Le",
+     "s": 23.904,
+     "e": 23.941
+    },
+    {
+     "w": "gouvernement",
+     "s": 24.015,
+     "e": 24.533
+    },
+    {
+     "w": "a",
+     "s": 24.607,
+     "e": 24.756
+    },
+    {
+     "w": "gelé",
+     "s": 24.867,
+     "e": 25.015
+    },
+    {
+     "w": "les",
+     "s": 25.052,
+     "e": 25.126
+    },
+    {
+     "w": "salaires.",
+     "s": 25.2,
+     "e": 25.867
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Vu de l'espace, le pays a une coupe impeccable.",
+   "hl": [
+    "l'espace,",
+    "impeccable."
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L13.k.wav",
+   "file_start": 25.967,
+   "speech_start": 25.967,
+   "speech_end": 28.713,
+   "words": [
+    {
+     "w": "Vu",
+     "s": 25.967,
+     "e": 26.115
+    },
+    {
+     "w": "de",
+     "s": 26.152,
+     "e": 26.189
+    },
+    {
+     "w": "l'espace,",
+     "s": 26.263,
+     "e": 26.93
+    },
+    {
+     "w": "le",
+     "s": 27.004,
+     "e": 27.078
+    },
+    {
+     "w": "pays",
+     "s": 27.115,
+     "e": 27.3
+    },
+    {
+     "w": "a",
+     "s": 27.337,
+     "e": 27.374
+    },
+    {
+     "w": "une",
+     "s": 27.448,
+     "e": 27.522
+    },
+    {
+     "w": "coupe",
+     "s": 27.596,
+     "e": 27.819
+    },
+    {
+     "w": "impeccable.",
+     "s": 27.893,
+     "e": 28.707
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Deux avions ont tenu le miroir derrière.",
+   "hl": [
+    "avions",
+    "miroir"
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L14.k.wav",
+   "file_start": 28.813,
+   "speech_start": 28.813,
+   "speech_end": 30.887,
+   "words": [
+    {
+     "w": "Deux",
+     "s": 28.813,
+     "e": 29.035
+    },
+    {
+     "w": "avions",
+     "s": 29.11,
+     "e": 29.332
+    },
+    {
+     "w": "ont",
+     "s": 29.406,
+     "e": 29.48
+    },
+    {
+     "w": "tenu",
+     "s": 29.554,
+     "e": 29.702
+    },
+    {
+     "w": "le",
+     "s": 29.739,
+     "e": 29.776
+    },
+    {
+     "w": "miroir",
+     "s": 29.85,
+     "e": 30.147
+    },
+    {
+     "w": "derrière.",
+     "s": 30.221,
+     "e": 30.887
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Ce mec a dit « parfait » et il a raccroché.",
+   "hl": [
+    "parfait",
+    "raccroché."
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L15.k.wav",
+   "file_start": 30.987,
+   "speech_start": 30.987,
+   "speech_end": 33.284,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 30.987,
+     "e": 31.135
+    },
+    {
+     "w": "mec",
+     "s": 31.173,
+     "e": 31.284
+    },
+    {
+     "w": "a",
+     "s": 31.358,
+     "e": 31.395
+    },
+    {
+     "w": "dit",
+     "s": 31.432,
+     "e": 31.58
+    },
+    {
+     "w": "parfait",
+     "s": 31.691,
+     "e": 32.173
+    },
+    {
+     "w": "et",
+     "s": 32.247,
+     "e": 32.284
+    },
+    {
+     "w": "il",
+     "s": 32.321,
+     "e": 32.395
+    },
+    {
+     "w": "a",
+     "s": 32.432,
+     "e": 32.469
+    },
+    {
+     "w": "raccroché.",
+     "s": 32.506,
+     "e": 33.284
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Le même jour, le général a appelé le front. Faux numéro.",
+   "hl": [
+    "général",
+    "Faux"
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L16.k.wav",
+   "file_start": 33.384,
+   "speech_start": 33.384,
+   "speech_end": 36.347,
+   "words": [
+    {
+     "w": "Le",
+     "s": 33.384,
+     "e": 33.458
+    },
+    {
+     "w": "même",
+     "s": 33.569,
+     "e": 33.68
+    },
+    {
+     "w": "jour,",
+     "s": 33.791,
+     "e": 34.124
+    },
+    {
+     "w": "le",
+     "s": 34.161,
+     "e": 34.198
+    },
+    {
+     "w": "général",
+     "s": 34.273,
+     "e": 34.643
+    },
+    {
+     "w": "a",
+     "s": 34.68,
+     "e": 34.717
+    },
+    {
+     "w": "appelé",
+     "s": 34.754,
+     "e": 34.902
+    },
+    {
+     "w": "le",
+     "s": 34.939,
+     "e": 35.013
+    },
+    {
+     "w": "front.",
+     "s": 35.124,
+     "e": 35.532
+    },
+    {
+     "w": "Faux",
+     "s": 35.581,
+     "e": 35.68
+    },
+    {
+     "w": "numéro.",
+     "s": 35.754,
+     "e": 36.347
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Il est tombé sur le coiffeur : « Rasez tout. »",
+   "hl": [
+    "coiffeur",
+    "Rasez"
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L17.k.wav",
+   "file_start": 36.447,
+   "speech_start": 36.447,
+   "speech_end": 38.669,
+   "words": [
+    {
+     "w": "Il",
+     "s": 36.447,
+     "e": 36.521
+    },
+    {
+     "w": "est",
+     "s": 36.558,
+     "e": 36.595
+    },
+    {
+     "w": "tombé",
+     "s": 36.669,
+     "e": 36.891
+    },
+    {
+     "w": "sur",
+     "s": 36.928,
+     "e": 36.965
+    },
+    {
+     "w": "le",
+     "s": 37.039,
+     "e": 37.113
+    },
+    {
+     "w": "coiffeur:",
+     "s": 37.15,
+     "e": 37.829
+    },
+    {
+     "w": "Rasez",
+     "s": 37.854,
+     "e": 38.15
+    },
+    {
+     "w": "tout.",
+     "s": 38.373,
+     "e": 38.669
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Ce mec était dans le fauteuil. Il voulait juste les pointes.",
+   "hl": [
+    "fauteuil.",
+    "pointes."
+   ],
+   "file": "/tmp/pipe/s7/numero/tts/L18.k.wav",
+   "file_start": 38.769,
+   "speech_start": 38.769,
+   "speech_end": 41.435,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 38.769,
+     "e": 38.843
+    },
+    {
+     "w": "mec",
+     "s": 38.917,
+     "e": 39.065
+    },
+    {
+     "w": "était",
+     "s": 39.139,
+     "e": 39.287
+    },
+    {
+     "w": "dans",
+     "s": 39.312,
+     "e": 39.361
+    },
+    {
+     "w": "le",
+     "s": 39.398,
+     "e": 39.435
+    },
+    {
+     "w": "fauteuil.",
+     "s": 39.473,
+     "e": 40.102
+    },
+    {
+     "w": "Il",
+     "s": 40.139,
+     "e": 40.176
+    },
+    {
+     "w": "voulait",
+     "s": 40.25,
+     "e": 40.473
+    },
+    {
+     "w": "juste",
+     "s": 40.584,
+     "e": 40.769
+    },
+    {
+     "w": "les",
+     "s": 40.843,
+     "e": 40.917
+    },
+    {
+     "w": "pointes.",
+     "s": 41.028,
+     "e": 41.435
+    }
+   ]
+  }
+ ],
+ "total": 42.74
+}

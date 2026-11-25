@@ -1,0 +1,164 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a appelé son coiffeur. Faux numéro.",
+  "hl": [
+   "coiffeur.",
+   "Faux"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il est tombé sur l'état-major.",
+  "hl": [
+   "tombé",
+   "l'état-major."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il a demandé : « On dégage bien les côtés. »",
+  "hl": [
+   "dégage",
+   "côtés."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "L'armée a évacué les deux côtes.",
+  "hl": [
+   "évacué",
+   "côtes."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "« Vous raccourcissez un peu devant. »",
+  "hl": [
+   "raccourcissez",
+   "devant."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Le front a reculé de dix kilomètres.",
+  "hl": [
+   "front",
+   "reculé"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Un village a changé de pays. Il n'a rien remarqué.",
+  "hl": [
+   "village",
+   "pays."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "« Un petit dégradé derrière. »",
+  "hl": [
+   "dégradé",
+   "derrière."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Les pelleteuses ont taillé l'arrière-pays en escalier.",
+  "hl": [
+   "taillé",
+   "escalier."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "« La raie au milieu. »",
+  "hl": [
+   "raie",
+   "milieu."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Le pays a été coupé en deux. Il l'est toujours.",
+  "hl": [
+   "coupé",
+   "toujours."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "« Et un peu de gel. » Le gouvernement a gelé les salaires.",
+  "hl": [
+   "gel.",
+   "gelé"
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Vu de l'espace, le pays a une coupe impeccable.",
+  "hl": [
+   "l'espace,",
+   "impeccable."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Deux avions ont tenu le miroir derrière.",
+  "hl": [
+   "avions",
+   "miroir"
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Ce mec a dit « parfait » et il a raccroché.",
+  "hl": [
+   "parfait",
+   "raccroché."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Le même jour, le général a appelé le front. Faux numéro.",
+  "hl": [
+   "général",
+   "Faux"
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Il est tombé sur le coiffeur : « Rasez tout. »",
+  "hl": [
+   "coiffeur",
+   "Rasez"
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Ce mec était dans le fauteuil. Il voulait juste les pointes.",
+  "hl": [
+   "fauteuil.",
+   "pointes."
+  ]
+ }
+]
