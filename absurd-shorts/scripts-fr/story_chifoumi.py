@@ -72,6 +72,10 @@ def chkc(sid, c, pts, end=False):
 def FC(sid, frm, pts, top=0.2, bottom=0.74, lenses=range(30, 60), margin=0.07):
     look, lens, w = fit(frm, pts, margin=margin, top=top, bottom=bottom, lenses=lenses)
     CHECKS.append(f'{sid} fit lens {lens}'); return look, lens or max(lenses)
+def FB(sid, frm, pts, top=0.2, bottom=0.74, lenses=range(30, 57), margin=0.07, inside=None, level=True):
+    # fitBack: back the camera away along the line from the points until a lens fits; the distance moved goes to CHECKS
+    f2, look, lens = fitBack(frm, pts, margin=margin, top=top, bottom=bottom, lenses=lenses, inside=inside, level=level)
+    CHECKS.append(f'{sid} fitBack {frm} -> {f2} lens {lens}'); return f2, look, lens or max(lenses)
 def W(sid, lid, i):
     # (cycle 51) word timings from timeline.json: st.at counts the words from 0; the word is printed beside its time
     t = st.at(sid, lid, i); CHECKS.append(f"{sid} « {st.L[lid]['words'][i]['w']} » at {t}"); return t
@@ -107,22 +111,24 @@ for g_ in [('S01', 1.2, 'mec', 'fist under her hand'), ('S07', 1.9, 'mec', 'look
 # ============================== the kitchen (kitchenDay: the counter along the back wall at z -3.3, the hanging lamp at (0, 2.7, -1.0))
 KIT = {'fridge': False}
 KT = [0.3, 0, -1.05]                                                    # the little table, 1.1 x 0.75, its top at 0.76
-HK = [-0.27, 0.03, -1.62]; RYH = 22                                     # him behind the table on the left, turned three-quarters to us (a V)
-FK = [0.87, 0.03, -1.62]; RYF = -22                                     # her on the right
-BIN1 = [0.3, 0, -2.85]                                                  # the red bin in the gap between them, against the counter, lit by the window
+HK = [-0.12, 0.03, -1.62]; RYH = 22                                     # him behind the table on the left, turned three-quarters to us (a V)
+FK = [0.72, 0.03, -1.62]; RYF = -22                                     # her on the right
+BIN1 = [0.38, 0, -2.85]                                                 # the red bin in the gap between them, against the counter, lit by the window
 SH = 2.2; SLV = 0.08                                                    # the cartoon hands: 2.2 times real size, a short forearm
-EH1 = [-0.2, 0.93, -1.0]; RYE1 = 70                                     # his elbow (where his own left hand goes) and the forearm's heading: from the left
-EF1 = [0.86, 0.93, -1.0]; RYF1 = -70                                    # her elbow: from the right
+RYE1, RYF1 = 55, -55                                                    # the forearms' headings: his from the left, hers from the right, angled to us
+FIST_T, PAP_T = [0.19, 1.1, -0.865], [0.49, 1.1, -0.865]                # where the two hands meet, held up at chest height over the table
+EH1 = [r(FIST_T[0] - fwd(RYE1)[0] * SH * (SLV + 0.1)), FIST_T[1], r(FIST_T[2] - fwd(RYE1)[2] * SH * (SLV + 0.1))]      # his right hand goes there (the prop's elbow)
+EF1 = [r(PAP_T[0] - fwd(RYF1)[0] * SH * (SLV + 0.14)), PAP_T[1], r(PAP_T[2] - fwd(RYF1)[2] * SH * (SLV + 0.14))]      # her left hand
 FIST1 = hand_tip(EH1, RYE1, SH, SLV)
 PAP1 = hand_tip(EF1, RYF1, SH, SLV, ahead=0.14)
-ONFIST1 = add(FIST1, [0.02, 0.1, 0.0])                                  # her flat hand laid over his fist: the elbow that puts the palm there
+ONFIST1 = add(FIST1, [0.03, 0.11, 0.0])                                  # her flat hand laid over his fist: the elbow that puts the palm there
 EF1B = [r(ONFIST1[0] - fwd(RYF1)[0] * SH * (SLV + 0.14)), r(ONFIST1[1] - 0.04), r(ONFIST1[2] - fwd(RYF1)[2] * SH * (SLV + 0.14))]
-def KITCHEN_PROPS(n, lvl=0, binS=1.35, flies=0):
+def KITCHEN_PROPS(n, lvl=0, binS=1.5, flies=0):
     return [P(f'table{n}', 'table', pos=KT, opts={'w': 1.1, 'd': 0.75, 'h': 0.76, 'color': '#DDB27A', 'legs': '#9A6E42'}),
             P(f'chaiseH{n}', 'chair', pos=[HK[0], 0, HK[2]], ry=RYH, opts={'color': '#7FB0C8'}), P(f'chaiseF{n}', 'chair', pos=[FK[0], 0, FK[2]], ry=RYF, opts={'color': '#7FB0C8'}),
-            P(f'poubelle{n}', 'chifBin', pos=BIN1, ry=8, opts={'level': lvl, 's': binS, 'flies': flies, 'stink': 2 if lvl else 0})]
-HEROHAND = lambda: {'scl': {'handL': HIDE}}
-WIFEHAND = lambda: {'scl': {'handR': HIDE}}
+            P(f'poubelle{n}', 'chifBin', pos=BIN1, ry=-10, opts={'level': lvl, 's': binS, 'flies': flies, 'stink': 2 if lvl else 0})]
+HEROHAND = lambda: {'scl': {'handR': HIDE}}
+WIFEHAND = lambda: {'scl': {'handL': HIDE}}
 HANDH = lambda pid, e=EH1, **o: HAND(pid, e, RYE1, s=SH, sleeve=SLV, side='L', **o)
 HANDF = lambda pid, e=EF1, **o: HAND(pid, e, RYF1, s=SH, sleeve=SLV, side='R', skin='#EBC29C', sleeveColor='#5E8C7A', **o)
 
@@ -130,18 +136,18 @@ HANDF = lambda pid, e=EF1, **o: HAND(pid, e, RYF1, s=SH, sleeve=SLV, side='R', s
 #    from the left, her flat mitten (paper) from the right, each a quarter of the frame; she lays her hand over his fist and smiles; he looks down
 #    at it, then at us. Between them, lit, the red bin with its lid propped up by a bulging bag (the running gag, never mentioned)
 D1 = st.dur('S01'); THROW1 = r(W('S01', 'L01', 3) - 0.02); LAY1 = r(THROW1 + 0.36)
-F1 = [0.3, 1.72, 0.72]; L1 = [0.3, 1.22, -1.5]
-C1 = cam(0.0, F1, add(F1, [0.0, -0.03, -0.16]), L1, add(L1, [0, -0.02, 0]), lens=52, ease='inOut')
+F1 = [0.3, 1.85, 0.95]; L1 = [0.3, 1.25, -1.5]
+C1 = cam(0.0, F1, add(F1, [0.0, -0.03, -0.15]), L1, add(L1, [0, -0.02, 0]), lens=50, ease='inOut')
 chkc('S01', C1, {'fist': FIST1, 'paper': PAP1, 'binTop': add(BIN1, [0, 1.15, 0]), 'binFoot': add(BIN1, [0, 0.05, 0]), 'himHead': add(HK, [0, 1.92, 0]), 'herHead': add(FK, [0, 1.86, 0]), 'himEar': add(HK, [-0.2, 1.6, 0]), 'herEar': add(FK, [0.2, 1.6, 0])})
 chkc('S01', C1, {'fist': FIST1, 'onFist': ONFIST1, 'binTop': add(BIN1, [0, 1.15, 0]), 'himHead': add(HK, [0, 1.92, 0])}, end=True)
 SMUG = {'lid': 0.25, 'mouth': 'smile', 'brow': 0.3}
-HERO1 = [k(-0.4, look=add(FIST1, [0, 0.3, 0.5])), k(0.0, toon={'reach': {'L': R5(EH1, 1, 0.0)}, **HEROHAND(), 'hip': 0, 'face': {'lid': 0.35, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.0),
+HERO1 = [k(-0.4, look=add(FIST1, [0, 0.3, 0.5])), k(0.0, toon={'reach': {'R': R5(EH1, 1, 0.0)}, **HEROHAND(), 'hip': 0, 'face': {'lid': 0.35, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.0),
          *[k(t_, toon={'sq': [1.0, 0.98, 1.0]}, toonDur=0.1, keepPose=True) for t_ in (0.05, 0.31)],
          k(r(THROW1 + 0.4), look=FIST1, lookDur=0.12), k(r(THROW1 + 0.4), toon={'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.2, 'gy': 0.5}}, toonDur=0.1, keepPose=True),
          k(1.62, look='camera', lookDur=0.12), k(1.62, toon={'face': {'lid': 0.45, 'mouth': 'line', 'brow': -0.15}}, toonDur=0.1, keepPose=True), *blink(1.95, {'lid': 0.45, 'mouth': 'line', 'brow': -0.15})]
-FEMME1 = [k(-0.4, look=add(FIST1, [0, 0.3, 0.5])), k(0.0, toon={'reach': {'R': R5(EF1, 1, 0.0)}, **WIFEHAND(), 'hip': 0, 'face': {'lid': 0.2, 'mouth': 'line', 'brow': 0.2}}, toonDur=0.0),
+FEMME1 = [k(-0.4, look=add(FIST1, [0, 0.3, 0.5])), k(0.0, toon={'reach': {'L': R5(EF1, 1, 0.0)}, **WIFEHAND(), 'hip': 0, 'face': {'lid': 0.2, 'mouth': 'line', 'brow': 0.2}}, toonDur=0.0),
           k(THROW1, toon={'face': SMUG}, toonDur=0.08, keepPose=True),
-          k(r(THROW1 + 0.04), toon={'reach': {'R': R5(EF1B, 1, 0.0)}, 'sq': [1.02, 0.99, 1.02]}, toonDur=0.32, toonEase='inOut', keepPose=True),
+          k(r(THROW1 + 0.04), toon={'reach': {'L': R5(EF1B, 1, 0.0)}, 'sq': [1.02, 0.99, 1.02]}, toonDur=0.32, toonEase='inOut', keepPose=True),
           k(1.3, look='camera', lookDur=0.15), *blink(1.75, SMUG)]
 st.shot('S01', 'kitchenDay', setOpts=KIT, actors=[act('mec', HK, RYH, 'sit', 'neutral', keys=HERO1), act('femme', FK, RYF, 'sit', 'neutral', keys=FEMME1)],
         props=[*KITCHEN_PROPS(1), APRON('tablier1', 'femme'),
@@ -193,22 +199,22 @@ st.cue('sfx:beep', 'S02', 0.2, 0.15); st.cue('sfx:zip', 'S02', RECT2, 0.25); st.
 #    time (her flat hand creeps down in three jerks), then a red line drawn between them on « centième »; in the top corner the bin, huge now,
 #    overflowing with bags; the « RALENTI » brackets over it all, a cool desaturated picture
 D3 = st.dur('S03'); LINE3 = r(W('S03', 'L03', 5) - 0.1)
-FIST3 = add(FIST1, [0.0, 0.0, 0.0]); EF3 = add(EF1, [0.0, 0.18, 0.0])
-F3 = [0.22, 1.22, 0.3]; L3 = [0.36, 1.12, -1.0]; LENS3 = 38
+EF3 = add(EF1, [0.06, 0.2, 0.0])
+FIST3 = FIST1; PAP3 = hand_tip(EF3, RYF1, SH, SLV, ahead=0.14)
+F3 = [0.55, 1.45, 0.25]; L3 = [0.2, 1.12, -1.3]; LENS3 = 44
 C3 = cam(0.0, F3, add(F3, [0.0, 0.0, -0.06]), L3, L3, lens=LENS3)
-BIN3 = [-0.7, 0, -2.7]
-PAP3 = hand_tip(EF3, RYF1, SH, SLV, ahead=0.14)
-chkc('S03', C3, {'fist': FIST3, 'paper': PAP3, 'binTop': add(BIN3, [0, 2.2, 0]), 'binL': add(BIN3, [-0.4, 1.2, 0])})
+BIN3 = [-0.75, 0, -2.75]
+chkc('S03', C3, {'fist': FIST3, 'paper': PAP3, 'binTop': add(BIN3, [0, 1.9, 0]), 'binL': add(BIN3, [-0.45, 1.0, 0]), 'binR': add(BIN3, [0.45, 1.0, 0]), 'himHead': add(HK, [0, 1.92, 0])})
 STEPS3 = [0.25, 0.55, 0.85]
 st.shot('S03', 'kitchenDay', setOpts=KIT, grade='saturate(0.55) contrast(1.06) brightness(1.03)', actors=[
         act('mec', HK, RYH, 'sit', 'neutral', keys=[k(0.0, look=FIST3, lookDur=0.0), k(0.0, toon={'reach': {'R': R5(EH1, 1, 0.0)}, **HEROHAND(), 'hip': 0, 'breathe': 0, 'face': {'lid': 0.35, 'mouth': 'line'}}, toonDur=0.0)]),
         act('femme', FK, RYF, 'sit', 'neutral', keys=[k(0.0, look=FIST3, lookDur=0.0), k(0.0, toon={'reach': {'L': R5(EF3, 1, 0.0)}, **WIFEHAND(), 'hip': 0, 'face': SMUG}, toonDur=0.0),
-                                                       *[k(t_, toon={'reach': {'L': R5(add(EF3, [0, -0.04 * (j + 1), 0]), 1, 0.0)}}, toonDur=0.02, keepPose=True) for j, t_ in enumerate(STEPS3)]])],
-        props=[*KITCHEN_PROPS(3, lvl=2, binS=1.0, flies=4)[:3], P('poubelle3', 'chifBin', pos=BIN3, ry=20, opts={'level': 2, 's': 1.55, 'flies': 5, 'stink': 3}),
-               HAND('mainH3', EH1, RYE1, s=SH, sleeve=SLV, mode='rock', tilt=0.08),
-               HAND('mainF3', EF3, RYF1, s=SH, sleeve=SLV, side='L', skin='#EBC29C', sleeveColor='#5E8C7A', mode='paper', tilt=0.08, keys=[k(t_, to=add(EF3, [0, -0.04 * (j + 1), 0]), dur=0.02) for j, t_ in enumerate(STEPS3)]),
-               P('ligne3', 'chifRedLine', pos=[0, 0, 0], opts={'a': add(FIST3, [0.02, 0.09, 0.05]), 'b': add(PAP3, [0.0, -0.08, 0.05]), 'at': LINE3, 'dur': 0.28, 'r': 0.012, 'ring': 0.075}),
-               P('hud3', 'chifHud', pos=add(F3, [0.03, -0.05, -0.55]), ry=yaw(L3, F3), opts={'w': 0.36, 'h': 0.62})],
+                                                       *[k(t_, toon={'reach': {'L': R5(add(EF3, [0, -0.035 * (j + 1), 0]), 1, 0.0)}}, toonDur=0.02, keepPose=True) for j, t_ in enumerate(STEPS3)]])],
+        props=[*KITCHEN_PROPS(3)[:3], P('poubelle3', 'chifBin', pos=BIN3, ry=20, opts={'level': 2, 's': 1.55, 'flies': 5, 'stink': 3}),
+               HANDH('mainH3', mode='rock', tilt=0.06),
+               HANDF('mainF3', e=EF3, mode='paper', tilt=0.06, keys=[k(t_, to=add(EF3, [0, -0.035 * (j + 1), 0]), dur=0.02) for j, t_ in enumerate(STEPS3)]),
+               P('ligne3', 'chifRedLine', pos=[0, 0, 0], opts={'a': add(FIST3, [0.0, 0.12, 0.06]), 'b': add(PAP3, [0.0, -0.06, 0.06]), 'at': LINE3, 'dur': 0.28, 'r': 0.012, 'ring': 0.075}),
+               P('hud3', 'chifHud', pos=add(F3, [-0.12, -0.11, -0.5]), ry=yaw(L3, F3), opts={'w': 0.3, 'h': 0.53})],
         cams=[C3])
 st.cue('sfx:scratch', 'S03', 0.0, 0.25); [st.cue('sfx:tick', 'S03', t_, 0.3) for t_ in STEPS3]; st.cue('sfx:zip', 'S03', LINE3, 0.2)
 
@@ -340,7 +346,7 @@ PATH8 = [{'t': 0.0, 'p': [0, 1.5, 2.6], 'hp': -1.0, 'curl': 0.0}, {'t': 0.25, 'p
          {'t': r(CLOSE8 - 0.1), 'p': [0, 5.5, 1.9], 'hp': 0.35, 'curl': 0.0, 'st': 1.08, 'ease': 'out'}, {'t': CLOSE8, 'p': [0, 5.45, 1.95], 'hp': 0.35, 'curl': 1.0, 'st': 1.0, 'ease': 'out'},
          {'t': FLEX8, 'p': [0, 5.4, 2.0], 'hp': 0.3, 'curl': 1.0, 'ease': 'inOut'}, {'t': r(FLEX8 + 0.12), 'p': [0, 5.5, 1.95], 'hp': 0.4, 'curl': 1.0, 'ease': 'out'}, {'t': D8, 'p': [0, 5.45, 1.98], 'hp': 0.36, 'curl': 1.0, 'ease': 'inOut'}]
 F8 = [3.3, 1.25, 5.6]
-L8, LENS8 = FC('S08', F8, {'handTop': tow(RB8, 0, [0, 6.5, 2.4]), 'base': add(RB8, [0, 0, 1.2]), 'w1': add(W8[0], [0, 2.2, 0]), 'w2': add(W8[1], [0, 2.2, 0]), 'w1f': W8[0]}, top=0.12, bottom=0.74)
+F8, L8, LENS8 = FB('S08', F8, {'handTop': tow(RB8, 0, [0, 6.5, 2.4]), 'base': add(RB8, [0, 0, 1.2]), 'w1': add(W8[0], [0, 2.2, 0]), 'w2': add(W8[1], [0, 2.2, 0]), 'w1f': W8[0]}, top=0.12, bottom=0.74)
 C8 = cam(0.0, F8, add(F8, [-0.25, 0.1, -0.2]), L8, add(L8, [0, 0.15, 0]), lens=LENS8, ease='inOut')
 chkc('S08', C8, {'hand': tow(RB8, 0, [0, 5.5, 2.6]), 'handLow': tow(RB8, 0, [0, 1.5, 3.2]), 'scrA': [3.8, 2.0, -2.5], 'scrB': [-3.8, 2.0, -2.5]})
 WELD = lambda p, ry, ph: [k(0.0, look=add(RB8, [0, 0.6, 0]), lookDur=0.0), k(0.0, toon={'reach': {'R': R5(off(p, ry, 0.55, 0.0, 0.85), 1, 0.05), 'L': R5(off(p, ry, 0.45, 0.15, 0.95), 1, 0.05)}, 'bend': {'spine': [0.35, 0, 0, 1, None]}, 'face': DEAD}, toonDur=0.0),
@@ -362,7 +368,7 @@ PATH9 = [{'t': 0.0, 'p': [0, 5.4, 2.0], 'hp': 0.35, 'curl': 1.0}, {'t': 0.6, 'p'
          {'t': r(HIT9 - 0.12), 'p': [0, 6.35, 1.55], 'hp': 0.75, 'curl': 1.0, 'st': 1.16, 'ease': 'inOut'}, {'t': HIT9, 'p': [0, 1.7, 3.55], 'hp': -0.15, 'curl': 1.0, 'st': 1.0, 'ease': 'in'},
          {'t': r(HIT9 + 0.12), 'p': [0, 1.62, 3.55], 'hp': -0.18, 'curl': 1.0, 'ease': 'out'}, {'t': D9, 'p': [0, 1.66, 3.55], 'hp': -0.16, 'curl': 1.0, 'ease': 'inOut'}]
 F9 = [3.4, 1.15, 6.4]
-L9, LENS9 = FC('S09', F9, {'up': tow(RB8, 0, [0, 7.6, 1.9]), 'table': add(TT9, [0.8, 0.0, 0.5]), 'tableL': add(TT9, [-0.8, 0.0, 0.5]), 'base': add(RB8, [0, 0, 1.0])}, top=0.1, bottom=0.74)
+F9, L9, LENS9 = FB('S09', F9, {'up': tow(RB8, 0, [0, 7.6, 1.9]), 'table': add(TT9, [0.8, 0.0, 0.5]), 'tableL': add(TT9, [-0.8, 0.0, 0.5]), 'base': add(RB8, [0, 0, 1.0])}, top=0.1, bottom=0.74)
 C9 = cam(0.0, F9, add(F9, [-0.15, 0, -0.25]), L9, add(L9, [0, -0.1, 0]), lens=LENS9, ease='inOut')
 chkc('S09', C9, {'fistHit': tow(RB8, 0, [0, 1.3, 4.0]), 'tableTop': add(TT9, [0, 1.0, 0])})
 st.shot('S09', 'whiteVoid', setOpts={'color': '#A9B0B6'}, actors=[],
@@ -378,18 +384,18 @@ st.cue('sfx:zip', 'S09', r(HIT9 - 0.12), 0.25); st.cue('thunder', 'S09', HIT9, 0
 #    « perdu », a ring of dust rolling out along the grass; then closer: two workers in white hard hats lean out of two windows now at ground level,
 #    dusty, unhurt, and cough a puff of dust
 D9b = st.dur('S09b'); SINK9 = r(W('S09b', 'L09', 9) - 0.12); FH = 3.2
-FB = [0.0, 0, -14.0]; FBW, FBD = 16.0, 10.0
+FAC = [0.0, 0, -14.0]; FBW, FBD = 16.0, 10.0
 OPEN9 = [[2, 2], [2, 4]]
 def WINX(c): return r(-FBW / 2 + (c + 0.5) * FBW / math.floor(FBW / 2.2))
-WK = [[r(FB[0] + WINX(c)), -0.45, r(FB[2] + FBD / 2 - 0.55)] for f, c in OPEN9]
+WK = [[r(FAC[0] + WINX(c)), -0.45, r(FAC[2] + FBD / 2 - 0.55)] for f, c in OPEN9]
 SEEN9 = r(SINK9 + 0.95)
-F9bA = [9.0, 2.0, 16.0]
-L9bA, LENS9bA = FC('S09b', F9bA, {'roof': add(FB, [-FBW / 2, 4 * FH + 0.5, FBD / 2]), 'roofR': add(FB, [FBW / 2, 4 * FH + 0.5, -FBD / 2]), 'chimney': add(FB, [4.8, 4 * FH + 7, -2]), 'footL': add(FB, [-FBW / 2, 0, FBD / 2]), 'ring': add(FB, [FBW / 2 + 6, 0, FBD / 2 + 6])}, top=0.1, bottom=0.74, lenses=range(30, 57))
+F9bA = [10.0, 2.2, 14.0]
+F9bA, L9bA, LENS9bA = FB('S09b', F9bA, {'roof': add(FAC, [-FBW / 2, 4 * FH + 0.5, FBD / 2]), 'roofR': add(FAC, [FBW / 2, 4 * FH + 0.5, -FBD / 2]), 'footL': add(FAC, [-FBW / 2, 0, FBD / 2]), 'footR': add(FAC, [FBW / 2, 0, FBD / 2])}, top=0.14, bottom=0.72, lenses=range(30, 57))
 C9bA = cam(0.0, F9bA, add(F9bA, [-0.4, 0, -0.3]), L9bA, L9bA, lens=LENS9bA)
 F9bB = [WK[0][0] + 2.6, 1.55, WK[0][2] + 5.2]
 L9bB = [r((WK[0][0] + WK[1][0]) / 2 + 0.2), 1.25, WK[0][2]]
 C9bB = cam(r(SEEN9 - 0.05), F9bB, add(F9bB, [-0.2, 0, -0.25]), L9bB, L9bB, lens=40)
-chkc('S09b', C9bB, {'w1': add(WK[0], [0, 2.15, 0.6]), 'w2': add(WK[1], [0, 2.15, 0.6]), 'win1': [WK[0][0], 1.76, FB[2] + FBD / 2], 'win2': [WK[1][0], 1.76, FB[2] + FBD / 2]})
+chkc('S09b', C9bB, {'w1': add(WK[0], [0, 2.15, 0.6]), 'w2': add(WK[1], [0, 2.15, 0.6]), 'win1': [WK[0][0], 1.76, FAC[2] + FBD / 2], 'win2': [WK[1][0], 1.76, FAC[2] + FBD / 2]})
 COUGH = {'lid': 0.6, 'mouth': 'O', 'jaw': 0.3, 'brow': 0.5, 'puff': 0.6}
 def WORKER(i):
     t0 = r(SEEN9 + 0.08 * i)
@@ -397,7 +403,7 @@ def WORKER(i):
             k(t0, toon={'bend': {'spine': [0.75, 0, 0, 1, None]}, 'reach': {'R': R5(off(WK[i], 0, 0.75, -0.35, 1.05), 1, 0.05), 'L': R5(off(WK[i], 0, 0.75, 0.35, 1.05), 1, 0.05)}, 'face': {'lid': 0.1, 'mouth': 'o', 'brow': 0.7}, 'hip': 0}, toonDur=0.12, toonEase='out'),
             k(r(t0 + 0.3 + 0.06 * i), toon={'face': COUGH, 'sq': [1.04, 0.95, 1.04]}, toonDur=0.05, keepPose=True), k(r(t0 + 0.45 + 0.06 * i), toon={'face': {'lid': 0.4, 'mouth': 'line', 'brow': 0.2}, 'sq': [1, 1, 1]}, toonDur=0.12, keepPose=True)]
 st.shot('S09b', 'grassland', setOpts=GRASS, actors=[act(f'ouvrier{i + 1}', WK[i], 0, 'stand', 'neutral', keys=WORKER(i)) for i in range(2)],
-        props=[P('usineX9', 'chifFactoryBox', pos=FB, opts={'w': FBW, 'd': FBD, 'floors': 4, 'fh': FH, 'sinkAt': SINK9, 'sinkDur': 0.45, 'sinkFloors': 2, 'open': OPEN9}),
+        props=[P('usineX9', 'chifFactoryBox', pos=FAC, opts={'w': FBW, 'd': FBD, 'floors': 4, 'fh': FH, 'sinkAt': SINK9, 'sinkDur': 0.45, 'sinkFloors': 2, 'open': OPEN9}),
                *[P(f'toux9_{i}', 'softDust', pos=off(WK[i], 0, 1.1, 0, 1.75), opts={'at': r(SEEN9 + 0.3 + 0.14 * i), 'n': 5, 'size': 0.35, 'spread': 0.4, 'rise': 0.3, 'life': 0.6, 'color': '#D9CDB4'}) for i in range(2)]],
         cams=[C9bA, C9bB])
 st.cue('thunder', 'S09b', SINK9, 0.55); st.cue('sfx:crunch', 'S09b', r(SINK9 + 0.4), 0.35); st.cue('sfx:poof', 'S09b', r(SEEN9 + 0.3), 0.25)
@@ -460,7 +466,7 @@ def RS(p): return tol(RBS, RYRS, p)
 #     the little table; behind the far rim a mountain of bin bags circled by seagulls; the scoreboard reads FINALE / ELLE – LA MAIN
 D11 = st.dur('S11'); HYMN11 = r(W('S11', 'L11', 3) - 0.1)
 F11 = [2.2, 1.25, 9.5]
-L11, LENS11 = FC('S11', F11, {'heapTop': add(HEAP11, [0, 46, 0]), 'fist': UP11, 'wife': add(FM, [0, 2.2, 0]), 'wifeF': FM, 'board': [-8, 20, -40]}, top=0.1, bottom=0.74, lenses=range(30, 57))
+F11, L11, LENS11 = FB('S11', F11, {'heapTop': add(HEAP11, [0, 46, 0]), 'fist': UP11, 'wife': add(FM, [0, 2.2, 0]), 'wifeF': FM, 'board': [-8, 20, -40]}, top=0.1, bottom=0.74, lenses=range(30, 57))
 C11 = cam(0.0, F11, add(F11, [-0.3, 0.15, -0.6]), L11, add(L11, [0, 0.3, 0]), lens=LENS11, ease='inOut')
 chkc('S11', C11, {'robotBase': RBS, 'table': TBL, 'standsFar': [0, 11, -38], 'standsL': [-40, 11, 5]})
 PATH11 = [{'t': 0.0, 'p': RS(UP11), 'hp': -0.25, 'curl': 1.0}, {'t': 1.2, 'p': RS(add(UP11, [0, 0.12, 0])), 'hp': -0.2, 'curl': 1.0, 'ease': 'inOut'}, {'t': D11, 'p': RS(add(UP11, [0, -0.05, 0])), 'hp': -0.27, 'curl': 1.0, 'ease': 'inOut'}]
@@ -481,7 +487,7 @@ PATH12 = [{'t': 0.0, 'p': RS(UP11), 'hp': -0.25, 'curl': 1.0}]
 for b in B12: PATH12 += [{'t': r(b - 0.2), 'p': RS(add(UP11, [0, 0.7, 0])), 'hp': -0.05, 'curl': 1.0, 'ease': 'out', 'st': 1.05}, {'t': b, 'p': RS(add(UP11, [0, -0.35, 0])), 'hp': -0.4, 'curl': 1.0, 'ease': 'in'}]
 PATH12 += [{'t': r(B12[2] + 0.25), 'p': RS(UP11), 'hp': -0.25, 'curl': 1.0, 'ease': 'out'}, {'t': D12, 'p': RS(add(UP11, [0, 0.1, 0])), 'hp': -0.25, 'curl': 1.0, 'ease': 'inOut'}]
 F12A = [-3.6, 1.05, 5.2]
-L12A, LENS12A = FC('S12', F12A, {'fistUp': add(UP11, [0.4, 1.5, 0]), 'table': TBL, 'wife': add(FM, [0, 2.2, 0]), 'wifeF': FM, 'base': RBS}, top=0.12, bottom=0.74)
+F12A, L12A, LENS12A = FB('S12', F12A, {'fistUp': add(UP11, [0.4, 1.5, 0]), 'table': TBL, 'wife': add(FM, [0, 2.2, 0]), 'wifeF': FM, 'base': RBS}, top=0.12, bottom=0.74)
 C12A = cam(0.0, F12A, add(F12A, [0.15, 0.05, -0.2]), L12A, L12A, lens=LENS12A)
 F12B, T12B = [46.0, 44.0, 0.0], [52.0, 50.0, 0.0]
 C12B = cam(CUT12, F12B, T12B, [-2.0, 0, 0], [-2.0, 0, 0], lens=52)
@@ -505,7 +511,7 @@ PATH13 = [{'t': 0.0, 'p': RS(HIGH13), 'hp': -0.6, 'curl': 1.0, 'st': 1.1}, {'t':
           {'t': ROCK13, 'p': RS(LOW13), 'hp': -0.75, 'curl': 1.0, 'st': 1.0, 'ease': 'in'}, {'t': r(ROCK13 + 0.12), 'p': RS(add(LOW13, [0, 0.1, 0])), 'hp': -0.72, 'curl': 1.0, 'ease': 'out'},
           {'t': D13, 'p': RS(add(LOW13, [0, 0.06, 0])), 'hp': -0.74, 'curl': 1.0, 'ease': 'inOut'}]
 F13 = [-2.3, 0.75, 2.4]
-L13, LENS13 = FC('S13', F13, {'fistLow': add(LOW13, [-0.5, -0.5, 0]), 'fistLowR': add(LOW13, [0.7, 0.4, 0]), 'fistHigh': add(HIGH13, [-0.3, 0.6, 0]), 'tableTop': [0.0, 0.76, 0.0]}, top=0.12, bottom=0.74)
+F13, L13, LENS13 = FB('S13', F13, {'fistLow': add(LOW13, [-0.5, -0.5, 0]), 'fistLowR': add(LOW13, [0.7, 0.4, 0]), 'fistHigh': add(HIGH13, [-0.3, 0.6, 0]), 'tableTop': [0.0, 0.76, 0.0]}, top=0.12, bottom=0.74)
 C13 = cam(0.0, F13, add(F13, [0.1, -0.03, -0.12]), L13, L13, lens=LENS13)
 st.shot('S13', 'grassland', setOpts=GRASS, actors=[act('femme', FM, RYFM, 'stand', 'neutral', keys=[k(0.0, look=LOW13, lookDur=0.0), k(0.0, toon={'face': WIFEF}, toonDur=0.0)])],
         props=[P('stade13', 'chifStadium', pos=[0, 0, 0], opts={**STAD, 'cheer': 0.8, 'standAt': -1, 'crackAt': -1, 'holeAt': -1, 'split': [[0, 6.0]]}), *PITCH_TABLE(13), APRON('tablier13', 'femme'),
@@ -530,7 +536,7 @@ PATH14 = [{'t': 0.0, 'p': RS(add(LOW13, [0, 0.06, 0])), 'hp': -0.74, 'curl': 1.0
           {'t': IN14, 'p': RS([HOLE[0] + 0.25, 0.6, HOLE[1]]), 'hp': -1.4, 'curl': 1.0, 'st': 1.25, 'ease': 'in'}, {'t': r(IN14 + 0.2), 'p': RS([HOLE[0] + 0.15, -2.2, HOLE[1]]), 'hp': -1.5, 'curl': 1.0, 'st': 1.35, 'ease': 'in'},
           {'t': D14, 'p': RS([HOLE[0] + 0.15, -2.3, HOLE[1]]), 'hp': -1.5, 'curl': 1.0, 'st': 1.35, 'ease': 'linear'}]
 F14B = [-0.2, 3.5, 4.9]
-L14B, LENS14B = FC('S14', F14B, {'rimNear': add(HW, [0, 0, 0.9]), 'rimFar': add(HW, [0, 0.5, -0.9]), 'wifeHead': add(FM, [0, 2.3, 0]), 'tableTop': [0.4, 0.76, 0.0], 'fistTop': add(LOW13, [0, 0.8, 0])}, top=0.26, bottom=0.74)
+F14B, L14B, LENS14B = FB('S14', F14B, {'rimNear': add(HW, [0, 0, 0.9]), 'rimFar': add(HW, [0, 0.5, -0.9]), 'wifeHead': add(FM, [0, 2.3, 0]), 'tableTop': [0.4, 0.76, 0.0], 'fistTop': add(LOW13, [0, 0.8, 0])}, top=0.26, bottom=0.74)
 C14B = cam(CUT14, F14B, add(F14B, [0.0, -0.1, -0.15]), L14B, add(L14B, [0, -0.15, 0]), lens=LENS14B)
 chkc('S14', C14B, {'well': HW, 'wifeHead': add(FM, [0, 2.32, 0])})
 RINGF = {'lid': 0.15, 'mouth': 'smile', 'brow': 0.5}
@@ -554,7 +560,7 @@ RYS15 = yaw(HS15, [-SPL, 0, 0]) - 12
 NB15 = [off(HS15, RYS15, 0.0, -0.85, 0.0), off(HS15, RYS15, 0.0, 0.85, 0.0)]
 EH15A = off(HS15, RYS15, 0.32, 0.08, 1.32); EH15B = off(HS15, RYS15, 0.3, 0.1, 0.95)
 F15 = off(HS15, RYS15, 2.9, 0.3, 1.55)
-L15, LENS15 = FC('S15', F15, {'head': add(HS15, [0, 2.32, 0]), 'fist': add(EH15A, [0, 0.35, 0]), 'fistLow': EH15B, 'nb1': add(NB15[0], [0, 2.2, 0]), 'nb2': add(NB15[1], [0, 2.2, 0])}, top=0.15, bottom=0.74, lenses=range(30, 56))
+F15, L15, LENS15 = FB('S15', F15, {'head': add(HS15, [0, 2.32, 0]), 'fist': add(EH15A, [0, 0.35, 0]), 'fistLow': EH15B, 'nb1': add(NB15[0], [0, 2.2, 0]), 'nb2': add(NB15[1], [0, 2.2, 0])}, top=0.15, bottom=0.74, lenses=range(30, 56))
 C15 = cam(0.0, F15, off(HS15, RYS15, 2.6, 0.25, 1.45), L15, add(L15, [0, -0.08, 0]), lens=LENS15, ease='inOut')
 CHEER = lambda p, ry, ph: [k(0.0, look=[-SPL, 2, 0], lookDur=0.0), *[k(r(ph + 0.22 * i), toon={'reach': {'R': R5(off(p, ry, 0.15, -0.35, 2.35 if i % 2 == 0 else 2.05), 1, 0.05), 'L': R5(off(p, ry, 0.15, 0.35, 2.05 if i % 2 == 0 else 2.35), 1, 0.05)}, 'face': {'lid': 0.0, 'mouth': 'O', 'jaw': 0.4, 'brow': 0.8}, 'sq': [1.0, 1.03 if i % 2 else 0.98, 1.0]}, toonDur=0.18, toonEase='inOut') for i in range(8)]]
 HEROK15 = [k(0.0, look='camera', lookDur=0.0), k(0.0, toon={'reach': {'R': R5(EH15A, 1, 0.0)}, 'scl': {'handR': HIDE}, 'face': {'lid': 0.45, 'mouth': 'line', 'brow': -0.1}}, toonDur=0.0),
@@ -569,14 +575,14 @@ st.cue('rain', 'S15', 0.0, 0.16, D15)
 
 # 15b: the insert: the kitchen again, closer, his fist under her flat hand, which pats it twice
 D15b = st.dur('S15b')
-F15b = [0.36, 1.22, 0.05]; L15b = [FIST1[0], 1.0, FIST1[2] - 0.2]
+F15b = [0.05, 1.42, -0.15]; L15b = [FIST1[0] + 0.05, 1.05, FIST1[2] - 0.25]
 C15b = cam(0.0, F15b, add(F15b, [0, -0.01, -0.06]), L15b, L15b, lens=38)
 chkc('S15b', C15b, {'fist': FIST1, 'onFist': ONFIST1, 'binTop': add(BIN1, [0, 1.1, 0])})
 st.shot('S15b', 'kitchenDay', setOpts=KIT, actors=[
         act('mec', HK, RYH, 'sit', 'neutral', keys=[k(0.0, look=FIST1, lookDur=0.0), k(0.0, toon={'reach': {'R': R5(EH1, 1, 0.0)}, **HEROHAND(), 'hip': 0, 'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.0)]),
         act('femme', FK, RYF, 'sit', 'neutral', keys=[k(0.0, look=FIST1, lookDur=0.0), k(0.0, toon={'reach': {'L': R5(EF1B, 1, 0.0)}, **WIFEHAND(), 'hip': 0, 'face': SMUG}, toonDur=0.0)])],
-        props=[*KITCHEN_PROPS('15b', lvl=0), HAND('mainH15b', EH1, RYE1, s=SH, sleeve=SLV, mode='rock', tilt=0.08),
-               HAND('mainF15b', EF1B, RYF1, s=SH, sleeve=SLV, side='L', skin='#EBC29C', sleeveColor='#5E8C7A', mode='paper', tiltK=[[0.0, 0.08], [0.1, -0.06], [0.18, 0.08], [0.3, -0.06], [0.38, 0.08]])],
+        props=[*KITCHEN_PROPS('15b', lvl=0), HANDH('mainH15b', mode='rock', tilt=0.06),
+               HANDF('mainF15b', e=EF1B, mode='paper', tiltK=[[0.0, 0.06], [0.1, -0.08], [0.18, 0.06], [0.3, -0.08], [0.38, 0.06]])],
         cams=[C15b])
 st.cue('sfx:paper', 'S15b', 0.1, 0.18); st.cue('sfx:paper', 'S15b', 0.3, 0.18)
 
@@ -617,7 +623,7 @@ YAW17 = math.radians(yaw(RB17, F17) - RY17)
 PATH17 = [{'t': 0.0, 'p': R17([-1.4, 2.6, 2.4]), 'hp': -0.45, 'curl': 0.8}, {'t': 0.45, 'p': R17(RECT17P[0]), 'hp': 0.25, 'curl': 0.0, 'roll': 0.0, 'ease': 'inOut'}]
 for i in range(4): PATH17.append({'t': CORN17[i + 1], 'p': R17(RECT17P[i + 1]), 'hp': 0.25, 'curl': 0.0, 'ease': 'linear'})
 PATH17 += [{'t': r(CORN17[-1] + 0.35), 'p': R17(add(RC17, [0.1, -0.1, 0.2])), 'hp': 0.3, 'curl': 0.0, 'ease': 'inOut'}, {'t': D17, 'p': R17(add(RC17, [0.12, -0.05, 0.2])), 'hp': 0.28, 'curl': 0.0, 'ease': 'inOut'}]
-L17, LENS17 = FC('S17', F17, {'rectTL': add(RECT17P[1], [0, 0.6, 0]), 'rectBR': add(RECT17P[3], [0, -0.3, 0]), 'rectR': RECT17P[0], 'heapTop': add(HEAP16, [0, 8.0, 0]), 'base': RB17}, top=0.12, bottom=0.74, lenses=range(34, 58))
+F17, L17, LENS17 = FB('S17', F17, {'rectTL': add(RECT17P[1], [0, 0.6, 0]), 'rectBR': add(RECT17P[3], [0, -0.3, 0]), 'rectR': RECT17P[0], 'heapTop': add(HEAP16, [0, 8.0, 0]), 'base': RB17}, top=0.12, bottom=0.74, lenses=range(34, 58))
 C17 = cam(0.0, F17, add(F17, [0.0, 0.0, -0.5]), L17, L17, lens=LENS17, ease='inOut')
 chkc('S17', C17, {'rollStart': add(HEAP16, [0, 9.9, 0.8]), 'rollEnd': add(HEAP16, [0, 0.5, 7.0]), 'heapTop': add(HEAP16, [0, 11.5, 0])})
 chkc('S17', C17, {'rectL': RECT17P[1], 'rectR': RECT17P[0], 'rectLow': RECT17P[2]}, end=True)
