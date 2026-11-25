@@ -31,6 +31,13 @@ function lastChange(keys, t) {
   for (let i = 0; i < keys.length - 1; i++) if (keys[i + 1][1] !== keys[i][1] && keys[i][0] <= t) tc = keys[i][0];
   return tc;
 }
+// the last change of a keyed value before t with its sign (+1 rising, -1 falling), or null
+function lastStep(keys, t) {
+  if (!Array.isArray(keys)) return null;
+  let r = null;
+  for (let i = 0; i < keys.length - 1; i++) if (keys[i + 1][1] !== keys[i][1] && keys[i][0] <= t) r = { tc: keys[i][0], dir: Math.sign(keys[i + 1][1] - keys[i][1]), dt: keys[i + 1][0] - keys[i][0] };
+  return r;
+}
 // a pop-in scale: 0 before t0, a springy overshoot to 1 over d s
 const popS = (t, t0, d = 0.22) => t < t0 ? 0 : outBack((t - t0) / d);
 // a quick swell for each time of a list (a puff): 1 + a over 0.12 s, back over 0.25 s
@@ -78,7 +85,7 @@ function rubber(R, r, color, seg = [9, 26]) {
 // o.breathe (0): a slow faint swell (alive); o.color.
 function tyreMesh(o = {}) {
   const R = o.R ?? 0.27, r = o.r ?? 0.1, g = grp(), lift = grp(), spin = grp(); g.add(lift); lift.add(spin);
-  const ru = rubber(R, r, o.color || RUBBER); spin.add(ru.m);
+  const ru = rubber(R, r, o.color || RUBBER); lift.add(ru.m);   // (pass 2) the rubber rides on lift: a flat tyre keeps its flat spot at the floor while the rim and valve turn
   // tread blocks round the outside (they follow the rubber)
   const NB = o.tread ? 26 : 0, blocks = [];   // (pass 1) o.tread: tread blocks (a ring of them read as gear teeth on the lying tyre: off by default)
   for (let i = 0; i < NB; i++) { const a = i / NB * TAU, b = box(0.03, 0.012, r * 1.2, '#1E2025'); spin.add(b); blocks.push({ b, a }); }
@@ -106,12 +113,15 @@ function tyreMesh(o = {}) {
   if (o.towel) {
     const tm = mat('#F6F4EE', { doubleSide: true });
     if (o.towel === 'scarf') {
-      drapes.add(drape(PI * 0.95, r * 1.2, tm, ru.Rt + 0.025));
-      drapes.add(at(box(0.11, 0.3, 0.025, '#F6F4EE', { outline: 0.01 }), 0.06, ru.Rt - 0.1, r * 1.05, 0, 0, 0.12), at(box(0.13, 0.03, 0.03, '#C9D6DE'), 0.08, ru.Rt - 0.22, r * 1.07, 0, 0, 0.12));
+      // (pass 2) a fat towel scarf: a thick band over the top, a knot at the front and two long striped ends hanging down the side wall
+      const band = new THREE.Mesh(new THREE.TorusGeometry(ru.Rt + 0.03, 0.065, 8, 20, PI * 0.9), mat('#F6F4EE')); band.rotation.z = PI * 0.05; band.castShadow = true; addOutline(band, 0.04); drapes.add(band);
+      const knot = sphere(0.085, '#F6F4EE', 1, { outline: 0.06 }); knot.position.set(ru.Rt * 0.55, ru.Rt * 0.78, r * 1.25); drapes.add(knot);
+      for (const [dx, a] of [[0.0, 0.18], [0.11, -0.12]]) { const e = grp(at(box(0.15, 0.42, 0.04, '#F6F4EE', { pivot: 'top', outline: 0.03 }), 0, 0, 0), at(box(0.152, 0.035, 0.045, '#5A8FC8'), 0, -0.3, 0), at(box(0.152, 0.035, 0.045, '#5A8FC8'), 0, -0.36, 0)); e.position.set(ru.Rt * 0.55 + dx, ru.Rt * 0.74, r * 1.35); e.rotation.z = a; drapes.add(e); }
     } else {
-      drapes.add(drape(PI * 1.05, r * 2.6, tm, ru.Rt + 0.02));
-      for (const z of [-1, 1]) drapes.add(cap(ru.Rt + 0.02, ru.Rt * 0.42, z * r * 1.3, tm));
-      for (const s of [-1, 1]) drapes.add(at(box(0.04, 0.26, r * 2.6, '#F6F4EE', { outline: 0.01 }), s * (ru.Rt + 0.02), -0.08, 0, 0, 0, s * 0.05));
+      // (pass 2) folded over the top, not a hood: a narrower arc, small side flaps, two ends hanging at the sides
+      drapes.add(drape(PI * 0.62, r * 2.4, tm, ru.Rt + 0.02));
+      for (const z of [-1, 1]) drapes.add(cap(ru.Rt + 0.02, ru.Rt * 0.72, z * r * 1.2, tm));
+      for (const s of [-1, 1]) drapes.add(at(box(0.18, 0.04, r * 2.4, '#F6F4EE', { outline: 0.01 }), s * ru.Rt * 0.55, ru.Rt * 0.86, 0, 0, 0, -s * 0.9));
       drapes.add(at(box(0.3, 0.02, r * 2.62, '#C9D6DE'), 0, ru.Rt + 0.03, 0));
     }
   }
@@ -130,13 +140,14 @@ function tyreMesh(o = {}) {
     const f = clamp01(kv(o.flat, t, 0)), pf = puffK(o.puff, t, 0.1) * (1 + (o.breathe ?? 0) * 0.5 * (1 + Math.sin(t * 2.4)));
     ru.set(f, mode);
     for (const { b, a } of blocks) { const [x, y, z] = ru.warp(Math.cos(a) * (ru.Rt - 0.004), Math.sin(a) * (ru.Rt - 0.004), 0, f, mode); b.position.set(x, y, z); b.rotation.z = a - PI / 2; }
-    const s = mode === 'lie' ? 1 : 1 - 0.26 * f; rimG.scale.set(1, s, 1);
-    const [vx, vy, vz] = ru.warp(vBase[0], vBase[1], vBase[2], f, mode); valve.position.set(vx, mode === 'lie' ? vy : vBase[1] * s, mode === 'lie' ? vz : vz);
+    const s = mode === 'lie' ? 1 : 1 - 0.26 * f, rolling = !!o.roll && f > 0;
+    if (rolling) rimG.scale.setScalar(s * 0.86); else rimG.scale.set(1, s, 1);   // a flat tyre that rolls: a smaller round rim (an oval one would turn)
+    const [vx, vy, vz] = ru.warp(vBase[0], vBase[1], vBase[2], f, mode); if (rolling) valve.position.set(vBase[0] * s * 0.86, vBase[1] * s * 0.86, vz); else valve.position.set(vx, mode === 'lie' ? vy : vBase[1] * s, vz);
     spin.rotation.z = o.roll ? -kv(o.roll, t, 0) / ru.Rt : 0;
     const h = ru.axle(f, mode);
     if (mode === 'lie') { lift.rotation.x = -PI / 2; lift.position.y = h; } else lift.position.y = h;
     drapes.visible = f < 0.5 || mode === 'up'; drapes.position.y = mode === 'up' ? -0.45 * f * ru.Rt : 0; drapes.scale.set(1, 1 - 0.3 * f, 1 + 0.4 * f);
-    lift.scale.set(pf, pf, pf);
+    const sv = kv(o.stretch, t, 0); lift.scale.set(pf * (1 - 0.5 * sv), pf * (1 + sv), pf);   // (pass 2) o.stretch [[t, v]]: taller and thinner (a pumped-up stretch)
   };
   g.userData.axle = f => ru.axle(f, mode);
   g.userData.update(-1); return g;
@@ -147,14 +158,15 @@ function tyreMesh(o = {}) {
 // the rim on the road); returns { g, set(state, spinAngle), axle(state) }
 function carWheel(s, R = 0.2, r = 0.11, lite = false) {
   const g = grp(), spin = grp(); g.add(spin);
-  const ru = rubber(R, r, RUBBER, lite ? [6, 16] : [8, 22]); spin.add(ru.m);
+  const ru = rubber(R, r, RUBBER, lite ? [6, 16] : [8, 22]); g.add(ru.m);   // (pass 2) the rubber does not turn: its flat spot stays down
   const rr = R - r * 0.7, rim = grp(at(cyl(rr, rr, r * 1.4, RIM, 14, { outline: 0.01 }), 0, 0, 0, PI / 2), at(cyl(rr * 0.4, rr * 0.4, r * 1.5, HUB, 8), 0, 0, 0, PI / 2));
   if (!lite) for (let i = 0; i < 4; i++) { const a = i / 4 * TAU; rim.add(at(box(0.03, 0.012, r * 1.45, '#6B727A'), Math.cos(a) * rr * 0.62, Math.sin(a) * rr * 0.62, 0, 0, 0, a)); }
   spin.add(rim); g.scale.z = s;
-  const set = (st, ang = 0) => {
+  // sv: a stretch (pumped up: taller and thinner, then the snap round overshoots)
+  const set = (st, ang = 0, sv = 0) => {
     const f = clamp01(st), bare = st > 1.5;
-    ru.m.visible = !bare; ru.set(f, 'up'); rim.scale.set(1, bare ? 1 : 1 - 0.26 * f, 1); spin.rotation.z = ang;
-    if (bare) rim.position.y = 0; else rim.position.y = 0;
+    ru.m.visible = !bare; ru.set(f, 'up'); rim.scale.setScalar(bare ? 1 : 1 - 0.26 * f); spin.rotation.z = ang;
+    ru.m.scale.set(1 - 0.45 * sv, 1 + sv, 1); spin.scale.set(1 - 0.3 * sv, 1 + 0.6 * sv, 1);
   };
   const axle = st => st > 1.5 ? rr : ru.axle(clamp01(st), 'up');
   return { g, set, axle };
@@ -210,18 +222,24 @@ function carBuild(o = {}) {
   if (o.sparks) for (const [x, z] of WP) { const sg = grp(), st = []; for (let i = 0; i < 9; i++) { const m = noShadow(new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.014, 0.014), new THREE.MeshBasicMaterial({ color: i % 3 ? '#FFB23A' : '#FFF2A8' }))); sg.add(m); st.push(m); } sg.position.set(x, 0.02, z + Math.sign(z) * 0.08); g.add(sg); sparkSets.push({ sg, st }); }
   // a dust puff at each wheel when it drops (o.dust: true)
   const puffs = [];
-  if (o.dust) for (const [x, z] of WP) { const pg = grp(); for (let i = 0; i < 4; i++) { const m = noShadow(sphere(0.16, '#CFC6B2', 0, { unique: true, opacity: 0.85 })); pg.add(m); } pg.position.set(x, 0.05, z + Math.sign(z) * 0.15); g.add(pg); puffs.push(pg); }
+  if (o.dust) for (const [x, z] of WP) { const pg = grp(); for (let i = 0; i < 4; i++) { const m = noShadow(sphere(0.22, '#D8CFBA', 0, { unique: true, opacity: 0.9 })); pg.add(m); } pg.position.set(x, 0.05, z + Math.sign(z) * 0.15); g.add(pg); puffs.push(pg); }
   const R0 = 0.31;
   const update = t => {
     const st = [0, 1, 2, 3].map(i => kv(keysOf(i), t, 0)), roll = o.roll ? kv(o.roll, t, 0) : 0;
     const h = st.map((s, i) => wheels[i].axle(s));
-    wheels.forEach((w, i) => { w.set(st[i], -roll / R0); w.g.position.y = h[i]; });
-    // the body rides on the four axles: a drop, a pitch and a roll; a bounce after each change
-    let bounce = 0;
-    for (let i = 0; i < 4; i++) { const tc = lastChange(keysOf(i), t); if (tc != null) { const u = t - tc - 0.06; if (u > 0 && u < 0.9) bounce += -0.08 * Math.exp(-5.5 * u) * Math.sin(u * 19); } }
+    // (pass 2) a wheel pumped up (its state falls) stretches tall while it fills, then snaps round with an overshoot; a wheel that drops (its
+    // state rises) squashes the whole body on the bounce
+    let bounce = 0, squash = 0;
+    wheels.forEach((w, i) => {
+      const ls = lastStep(keysOf(i), t); let sv = 0;
+      if (ls && ls.dir < 0) { const u = t - ls.tc; if (u >= 0 && u < ls.dt) sv = 0.45 * smooth(u / ls.dt); else if (u >= ls.dt && u < ls.dt + 0.7) { const v = u - ls.dt; sv = 0.45 * Math.exp(-7 * v) * Math.cos(v * 22); } }
+      if (ls && ls.dir > 0) { const u = t - ls.tc - ls.dt; if (u > 0 && u < 0.9) { bounce += -0.11 * Math.exp(-5 * u) * Math.sin(u * 17 + 0.6); squash += 0.16 * Math.exp(-6 * u) * Math.cos(u * 17); } }
+      w.set(st[i], -roll / R0, sv); w.g.position.y = h[i] * (1 + sv);
+    });
     const front = (h[0] + h[1]) / 2, back = (h[2] + h[3]) / 2, left = (h[0] + h[2]) / 2, right = (h[1] + h[3]) / 2;
+    const sq = Math.max(-0.12, Math.min(0.18, squash)); body.scale.set(1 + 0.4 * sq, 1 - sq, 1 + 0.4 * sq);
     body.position.y = (front + back) / 2 - R0 + bounce; body.rotation.z = Math.atan2(front - back, 2.3); body.rotation.x = -Math.atan2(left - right, 1.48);
-    if (head && o.leanOut) { const k = smooth((t - o.leanOut[0]) / 0.3) * (1 - smooth((t - o.leanOut[1]) / 0.3)); head.position.z = 0.38 + 0.5 * k; head.position.y = cy0 + 0.16 + 0.06 * k; head.rotation.x = -0.25 * k; }
+    if (head && o.leanOut) { const k = smooth((t - o.leanOut[0]) / 0.3) * (1 - smooth((t - o.leanOut[1]) / 0.3)); head.position.z = 0.38 + 0.72 * k; head.position.y = cy0 + 0.16 + 0.12 * k; head.rotation.x = -0.35 * k; }
     sparkSets.forEach(({ sg, st: ss }, i) => {
       const on = st[i] > 1.5 && o.sparks.some(([a, b]) => t >= a && t <= b); sg.visible = on; if (!on) return;
       ss.forEach((m, j) => { const per = 0.3, u = ((t + j * 0.037) % per) / per, a = PI * (0.75 + 0.5 * hsh(j)); m.position.set(Math.cos(a) * 0.9 * u, 0.02 + 0.35 * u * (1 - u) * (1 + hsh(j + 3)), (hsh(j + 7) - 0.5) * 0.3 * u); m.rotation.z = -a; m.scale.x = 1 - u * 0.6; });
@@ -330,14 +348,15 @@ export const PNEU_PROPS = {
     let n = 0;
     for (const [z, x0, cnt, gap] of lanes) for (let i = 0; i < cnt; i++) {
       const x = x0 - i * (gap ?? 5.2) + (hsh(n) - 0.5) * 0.6, td = t0 + Math.max(0, x - farX) / speed + (hsh(n + 9) - 0.5) * 0.08;
-      const drv = o.drivers && n % 3 === 1;
+      const drv = o.drivers && (o.drivers === 'all' || n % 3 === 1);
       const c = carBuild({ color: cols[n % cols.length], lite: o.lite ?? true, state: [[td, 0], [td + 0.07, 1]], dust: true, driver: drv ? '#E0B48A' : null, leanOut: drv ? [td + 0.35, 99] : null });
       c.g.position.set(x, 0, z + (hsh(n + 3) - 0.5) * 0.25); c.g.rotation.y = (hsh(n + 5) - 0.5) * 0.05; g.add(c.g); cars.push(c); n++;
     }
     if (o.road !== false) {
       const len = o.len ?? 90, zs = lanes.map(l => l[0]), zmin = Math.min(...zs) - 2.2, zmax = Math.max(...zs) + 2.2, w = zmax - zmin, zc = (zmin + zmax) / 2;
-      const asph = new THREE.Mesh(new THREE.PlaneGeometry(len, w), mat('#666A70')); asph.rotation.x = -PI / 2; asph.position.set(-len / 2 + 30, 0.012, zc); asph.receiveShadow = true; g.add(asph);
-      for (let li = 0; li < zs.length - 1; li++) { const zz = (zs[li] + zs[li + 1]) / 2; for (let x = 30; x > -len + 30; x -= 6) { const d = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 0.14), mat('#F1F0E8')); d.rotation.x = -PI / 2; d.position.set(x, 0.016, zz); g.add(d); } }
+      const am = mat('#666A70', { unique: true }); am.polygonOffset = true; am.polygonOffsetFactor = -2; am.polygonOffsetUnits = -2;   // (pass 2) lifted and offset: it flickered against the field
+      const asph = new THREE.Mesh(new THREE.PlaneGeometry(len, w), am); asph.rotation.x = -PI / 2; asph.position.set(-len / 2 + 30, 0.05, zc); asph.receiveShadow = true; g.add(asph);
+      for (let li = 0; li < zs.length - 1; li++) { const zz = (zs[li] + zs[li + 1]) / 2; for (let x = 30; x > -len + 30; x -= 6) { const d = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 0.14), mat('#F1F0E8')); d.rotation.x = -PI / 2; d.position.set(x, 0.09, zz); g.add(d); } }
       for (const zz of [zmin, zmax]) { g.add(at(box(len, 0.08, 0.3, '#B8BCC2', { outline: 0.004 }), -len / 2 + 30, 0.62, zz)); for (let x = 30; x > -len + 30; x -= 3) g.add(at(box(0.1, 0.62, 0.1, '#7E848B', { pivot: 'bottom' }), x, 0, zz)); }
     }
     g.userData.update = t => cars.forEach(c => c.update(t));
@@ -372,7 +391,8 @@ export const PNEU_PROPS = {
   // its middle, a raised head end at -X
   pnExam(o) {
     const L = o.len ?? 1.9, g = grp(at(box(L * 0.8, 0.62, 0.5, '#E9ECEA', { pivot: 'bottom', outline: 0.008 }), 0, 0.1, 0), at(box(L, 0.12, 0.72, o.color || '#8FC1B2', { pivot: 'bottom', outline: 0.008 }), 0, 0.72, 0));
-    g.add(at(box(L * 0.92, 0.006, 0.42, '#FBFAF4'), 0.04, 0.843, 0), at(box(0.55, 0.12, 0.72, o.color || '#8FC1B2', { outline: 0.008 }), -L / 2 + 0.3, 0.9, 0, 0, 0, -0.32));
+    g.add(at(box(L * 0.92, 0.006, 0.42, '#FBFAF4'), 0.04, 0.843, 0));
+    if (o.head !== false) g.add(at(box(0.55, 0.12, 0.72, o.color || '#8FC1B2', { outline: 0.008 }), -L / 2 + 0.3, 0.9, 0, 0, 0, -0.32));   // (pass 2) o.head false: flat (the raised end read as a stray green slab)
     for (const x of [-L * 0.36, L * 0.36]) for (const z of [-0.2, 0.2]) g.add(at(box(0.08, 0.1, 0.08, '#5E656D', { pivot: 'bottom' }), x, 0, z));
     return g;
   },
@@ -404,12 +424,20 @@ export const PNEU_PROPS = {
   // A psychiatrist's couch (pivot at the floor in its middle, long along X, front +Z): a brown leather chaise longue, its head end raised at -X,
   // a round bolster, short dark legs
   pnCouch(o) {
-    const C = o.color || '#7A4A2E', L = o.len ?? 1.9, g = grp(at(box(L, 0.18, 0.7, C, { pivot: 'bottom', outline: 0.008 }), 0, 0.2, 0));
-    g.add(at(box(L - 0.1, 0.1, 0.64, new THREE.Color(C).multiplyScalar(1.12).getStyle(), { pivot: 'bottom' }), 0.03, 0.38, 0));
-    g.add(at(box(0.6, 0.12, 0.7, C, { outline: 0.008 }), -L / 2 + 0.25, 0.62, 0, 0, 0, -0.55), at(cyl(0.09, 0.09, 0.66, '#5E3822', 10), -L / 2 + 0.55, 0.56, 0, PI / 2));
-    for (const x of [-L / 2 + 0.1, L / 2 - 0.1]) for (const z of [-0.28, 0.28]) g.add(at(cyl(0.035, 0.025, 0.2, '#3A2618', 6, { pivot: 'bottom' }), x, 0, z));
+    // (pass 2) a real chaise longue: a tufted oxblood leather seat at 0.45 on turned legs, a high curled head end at -X rising to 1.0 m with a
+    // rolled top, a bolster; userData.headRest: the point (local) a reclining tyre leans on
+    const C = o.color || '#8B3A2E', D = new THREE.Color(C).multiplyScalar(0.72).getStyle(), Lt = new THREE.Color(C).multiplyScalar(1.15).getStyle(), L = o.len ?? 1.9, g = grp();
+    for (const x of [-L / 2 + 0.12, L / 2 - 0.12]) for (const z of [-0.3, 0.3]) g.add(at(cyl(0.04, 0.025, 0.22, '#3A2618', 8, { pivot: 'bottom', outline: 0.02 }), x, 0, z));
+    g.add(at(box(L, 0.12, 0.76, '#5A3A22', { pivot: 'bottom', outline: 0.01 }), 0, 0.2, 0));
+    g.add(at(box(L - 0.08, 0.14, 0.7, C, { pivot: 'bottom', outline: 0.01 }), 0.02, 0.31, 0));
+    for (let i = 0; i < 5; i++) for (const z of [-0.18, 0.18]) g.add(at(sphere(0.018, D, 0), -L / 2 + 0.5 + i * 0.3, 0.452, z));
+    const back = grp(at(box(0.16, 0.62, 0.76, C, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(cyl(0.11, 0.11, 0.8, Lt, 12, { outline: 0.02 }), 0.03, 0.64, 0, PI / 2));
+    back.position.set(-L / 2 + 0.1, 0.36, 0); back.rotation.z = -0.32; g.add(back);
+    g.add(at(cyl(0.1, 0.1, 0.66, Lt, 12, { outline: 0.02 }), -L / 2 + 0.38, 0.54, 0, PI / 2));
+    g.userData.headRest = [-L / 2 + 0.45, 0.6, 0];
     return g;
   },
+
 
   // A thought bubble (pivot at its middle, faces +Z; turn it to the camera): a white cloud with a dark outline and a trail of three small circles
   // down to the lower left (toward the thinker), a one-wheeled wheelbarrow drawn inside filling half of it; o.w (1.3); o.popAt: it springs in
@@ -435,7 +463,11 @@ export const PNEU_PROPS = {
     const rimG = new THREE.Mesh(new THREE.TorusGeometry(R + 0.12, 0.2, 6, 26), mat('#9C9A94')); rimG.rotation.x = PI / 2; rimG.position.y = 0.12; rimG.castShadow = rimG.receiveShadow = true; g.add(rimG);
     const water = new THREE.Mesh(new THREE.CircleGeometry(R, 32), mat('#4FC2C9', { noGrain: true })); water.rotation.x = -PI / 2; water.position.y = 0.16; g.add(water);
     const rings = []; for (let i = 0; i < 3; i++) { const m = noShadow(new THREE.Mesh(new THREE.RingGeometry(0.4, 0.44, 24), new THREE.MeshBasicMaterial({ color: '#BFF1F2', transparent: true, opacity: 0.6 }))); m.rotation.x = -PI / 2; m.position.y = 0.165; g.add(m); rings.push(m); }
-    const steam = []; for (let i = 0; i < 14; i++) { const m = noShadow(sphere(0.09, '#FFFFFF', 1, { unique: true, opacity: 0.3 })); m.material.depthWrite = false; g.add(m); steam.push(m); }
+    // (pass 2) steam as soft translucent wisps (additive curls drawn on a canvas), not spheres
+    const wc = document.createElement('canvas'); wc.width = 64; wc.height = 128; { const x = wc.getContext('2d'); x.clearRect(0, 0, 64, 128); x.lineCap = 'round';
+      for (let k2 = 0; k2 < 3; k2++) { x.strokeStyle = `rgba(255,255,255,${0.35 - k2 * 0.1})`; x.lineWidth = 18 - k2 * 5; x.beginPath(); x.moveTo(32, 124); x.bezierCurveTo(6, 90, 58, 60, 30, 30); x.bezierCurveTo(16, 14, 40, 6, 34, 2); x.stroke(); } }
+    const wt = new THREE.CanvasTexture(wc); wt.colorSpace = THREE.SRGBColorSpace;
+    const steam = []; for (let i = 0; i < 9; i++) { const m = noShadow(new THREE.Mesh(new THREE.PlaneGeometry(0.35, 0.7), new THREE.MeshBasicMaterial({ map: wt, transparent: true, opacity: 0.5, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide }))); g.add(m); steam.push(m); }
     if (o.chalet !== false) {
       const ch = grp(at(box(3.4, 2.2, 2.4, '#A8744A', { pivot: 'bottom', outline: 0.012 }), 0, 0, 0));
       for (let i = 0; i < 6; i++) ch.add(at(box(3.42, 0.04, 2.42, '#8C5E3A'), 0, 0.3 + i * 0.35, 0));
@@ -446,7 +478,7 @@ export const PNEU_PROPS = {
     for (const [x, z, s] of (o.pines || [[-3.2, -2.6, 1.1], [3.4, -3.4, 1.3]])) { const p = grp(at(cyl(0.12, 0.14, 0.5, '#6A4A30', 6, { pivot: 'bottom' }), 0, 0, 0)); for (let i = 0; i < 3; i++) p.add(at(cyl(0.05, 0.9 - i * 0.22, 0.9, i % 2 ? '#2F6A48' : '#3A7A52', 7, { pivot: 'bottom', outline: 0.01 }), 0, 0.4 + i * 0.55, 0)); p.add(at(cyl(0.03, 0.5, 0.25, '#F4F6F4', 7, { pivot: 'bottom' }), 0, 1.75, 0)); p.scale.setScalar(s); p.position.set(x, 0, z); g.add(p); }
     g.userData.update = t => {
       rings.forEach((m, i) => { const u = ((t * 0.5 + i / 3) % 1); m.scale.setScalar(0.4 + u * 3.2); m.material.opacity = 0.55 * (1 - u); m.position.x = (o.ringAt || [0, 0])[0]; m.position.z = (o.ringAt || [0, 0])[1]; });
-      steam.forEach((m, i) => { const per = 2.6, u = ((t + i * per / steam.length) % per) / per, a = hsh(i) * TAU, rr = R * 0.75 * Math.sqrt(hsh(i + 2)); m.position.set(Math.cos(a) * rr + 0.15 * Math.sin(t + i), 0.2 + u * 1.1, Math.sin(a) * rr * 0.8); m.scale.setScalar(0.6 + u * 1.6); m.material.opacity = 0.28 * Math.sin(PI * u); });
+      steam.forEach((m, i) => { const per = 2.6, u = ((t + i * per / steam.length) % per) / per, a = hsh(i) * TAU, rr = R * 0.75 * Math.sqrt(hsh(i + 2)); m.position.set(Math.cos(a) * rr + 0.15 * Math.sin(t + i), 0.45 + u * 0.9, Math.sin(a) * rr * 0.8); m.scale.set(0.7 + u * 0.8, 0.6 + u * 0.9, 1); m.rotation.z = 0.3 * Math.sin(t * 0.8 + i); m.material.opacity = 0.55 * Math.sin(PI * u); });
     };
     g.userData.update(-1); return g;
   },
@@ -466,8 +498,8 @@ export const PNEU_PROPS = {
   // flanges, a plunger rod and thumb disc; o.pushAt [[t0, t1], ...]: the plunger goes in over each span (out again 0.3 s after); userData.grip
   // the barrel's flanges (local) and userData.thumb the plunger's disc at rest
   pnSyringe(o) {
-    const g = grp(), Lb = 0.75, rb = 0.075, nd = 0.16;
-    g.add(at(cyl(0.012, 0.012, nd, '#C9CED4', 6), -nd / 2, 0, 0, 0, 0, PI / 2), at(cyl(0.03, rb, 0.08, '#C9CED4', 10), -nd - 0.04, 0, 0, 0, 0, PI / 2));
+    const g = grp(), Lb = 0.75, rb = o.rb ?? 0.075, nd = 0.16;   // (pass 2) o.rb: a fatter barrel
+    g.add(at(cyl(0.012 * rb / 0.075, 0.012 * rb / 0.075, nd, '#C9CED4', 6), -nd / 2, 0, 0, 0, 0, PI / 2), at(cyl(0.03, rb, 0.08, '#C9CED4', 10), -nd - 0.04, 0, 0, 0, 0, PI / 2));
     const barrel = new THREE.Mesh(new THREE.CylinderGeometry(rb, rb, Lb, 14, 1, true), new THREE.MeshLambertMaterial({ color: '#CDEFF8', transparent: true, opacity: 0.78, side: THREE.DoubleSide, depthWrite: false }));
     barrel.rotation.z = PI / 2; barrel.position.x = -nd - 0.08 - Lb / 2; addOutline(barrel, 0.03); g.add(barrel);   // (pass 1) a near-opaque pale barrel with an ink edge: at 0.45 it vanished on the asphalt
     for (let i = 1; i < 6; i++) g.add(at(box(0.006, 0.05, 0.004, '#5E6670'), -nd - 0.08 - i * Lb / 6, rb * 0.62, rb * 0.78));
@@ -482,17 +514,20 @@ export const PNEU_PROPS = {
   // A plain foot pump (pivot at the floor in its middle, front +Z): a dark grey footplate, a yellow pedal hinged at the back over a fat red-orange
   // cylinder, a round dial with a needle and no figure, a black hose coiling out to a brass nozzle; o.pumpAt [t, ...]: the pedal goes down and up
   pnPump(o) {
+    // (pass 2) a plain foot pump read side on (long along X, seen from +Z): a dark base plate, a long red pedal hinged at the -X end and raised at
+    // +X on a silver piston, a spring, a black hose from the hinge curling back to a brass nozzle; o.pumpAt [t, ...]: the pedal goes down and up
     const s = o.s ?? 1, g = grp(), k = grp(); g.add(k); k.scale.setScalar(s);
-    k.add(at(box(0.36, 0.035, 0.2, '#3A3D44', { pivot: 'bottom', outline: 0.02 }), 0, 0, 0));
-    k.add(at(cyl(0.05, 0.05, 0.14, '#D9532E', 10, { outline: 0.02 }), -0.03, 0.1, 0, 0, 0, -0.5));
-    const ped = grp(at(box(0.26, 0.03, 0.17, '#F2C230', { outline: 0.02 }), 0.13, 0, 0), at(box(0.2, 0.008, 0.13, '#2A2C31'), 0.14, 0.018, 0)); ped.position.set(-0.13, 0.08, 0); ped.rotation.z = 0.32; k.add(ped);
-    const dial = canvasPlane(0.09, 0.09, (c, W, H) => { c.fillStyle = '#FBFAF4'; c.beginPath(); c.arc(W / 2, H / 2, W * 0.47, 0, TAU); c.fill(); c.lineWidth = W * 0.06; c.strokeStyle = '#1E2126'; c.stroke(); c.strokeStyle = '#D23A2E'; c.lineWidth = W * 0.05; c.beginPath(); c.moveTo(W / 2, H / 2); c.lineTo(W * 0.72, H * 0.3); c.stroke(); }, { res: 64, transparent: true });
-    k.add(at(cyl(0.05, 0.05, 0.03, '#2A2C31', 12), 0.16, 0.09, 0.06, PI / 2), at(dial, 0.16, 0.09, 0.077));
-    const curve = new THREE.CatmullRomCurve3([[0.16, 0.06, 0.04], [0.26, 0.05, 0.14], [0.22, 0.04, 0.26], [0.05, 0.05, 0.25], [-0.08, 0.03, 0.18]].map(p => new THREE.Vector3(...p)));
-    k.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 20, 0.012, 6), mat('#1E2126')), at(cyl(0.016, 0.016, 0.05, '#C9A23A', 8), -0.1, 0.03, 0.17, 0, 0, PI / 2));
-    g.userData.update = t => { let p = 0; for (const a of (o.pumpAt || [])) { const u = t - a; if (u >= 0 && u < 0.35) p = Math.max(p, u < 0.12 ? u / 0.12 : 1 - (u - 0.12) / 0.23); } ped.rotation.z = 0.32 * (1 - p); };
+    k.add(at(box(0.44, 0.03, 0.14, '#33363C', { pivot: 'bottom', outline: 0.03 }), 0, 0, 0), at(cyl(0.025, 0.025, 0.16, '#33363C', 8), -0.2, 0.05, 0, PI / 2));
+    const piston = at(cyl(0.035, 0.035, 0.12, '#C9CED4', 10, { outline: 0.03 }), 0.12, 0.09, 0); k.add(piston);
+    const rod2 = at(cyl(0.014, 0.014, 0.1, '#8A9098', 6), 0.12, 0.16, 0); k.add(rod2);
+    const ped = grp(at(box(0.42, 0.035, 0.12, '#D23A2E', { outline: 0.03 }), 0.21, 0, 0), at(box(0.12, 0.012, 0.1, '#1E2126'), 0.33, 0.022, 0)); ped.position.set(-0.2, 0.06, 0); k.add(ped);
+    const curve = new THREE.CatmullRomCurve3([[-0.2, 0.05, 0.0], [-0.32, 0.06, 0.03], [-0.36, 0.2, 0.04], [-0.24, 0.3, 0.03], [-0.1, 0.24, 0.02]].map(p => new THREE.Vector3(...p)));
+    k.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 24, 0.014, 6), mat('#1E2126')), at(cyl(0.018, 0.018, 0.06, '#C9A23A', 8, { outline: 0.03 }), -0.08, 0.23, 0.02, 0, 0, -1.0));
+    g.userData.update = t => { let p = 0; for (const a of (o.pumpAt || [])) { const u = t - a; if (u >= 0 && u < 0.35) p = Math.max(p, u < 0.12 ? u / 0.12 : 1 - (u - 0.12) / 0.23); }
+      const a = 0.36 * (1 - 0.6 * p); ped.rotation.z = a; const yTip = 0.06 + Math.sin(a) * 0.32; rod2.position.y = (0.15 + yTip) / 2; rod2.scale.y = Math.max(0.2, (yTip - 0.15) / 0.1 + 1); };
     g.userData.update(-1); return g;
   },
+
 
   // A round sticker (pivot at its middle, faces +Z): a disc o.r (0.16) two thirds green and one third pale (a pie chart), a white border and a
   // dark outline, no figure; o.popAt: it slaps on with a spring and a spin
@@ -535,13 +570,13 @@ export const PNEU_PROPS = {
   // A white plinth with the pump under a glass dome (pivot at the floor in its middle): a white column 1.0 m tall, a foot pump on its top, a clear
   // dome over it with a dark base ring and a knob; o.pumpS (1.4) the pump's size
   pnPlinth(o) {
-    const g = grp(at(box(0.62, 1.0, 0.62, '#F2F0EA', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(box(0.7, 0.06, 0.7, '#DCD8CE', { outline: 0.008 }), 0, 1.0, 0), at(box(0.7, 0.08, 0.7, '#DCD8CE'), 0, 0.04, 0));
-    const pump = PNEU_PROPS.pnPump({ s: o.pumpS ?? 1.4 }); pump.position.y = 1.03; g.add(pump);
+    const g = grp(at(box(0.8, 1.0, 0.8, '#F2F0EA', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(box(0.88, 0.06, 0.88, '#DCD8CE', { outline: 0.008 }), 0, 1.0, 0), at(box(0.88, 0.08, 0.88, '#DCD8CE'), 0, 0.04, 0));   // (pass 2) wider, for the side-on pump
+    const pump = PNEU_PROPS.pnPump({ s: o.pumpS ?? 1.2 }); pump.position.y = 1.03; g.add(pump);
     const gm = new THREE.MeshLambertMaterial({ color: '#E2F2F4', transparent: true, opacity: 0.28, side: THREE.DoubleSide, depthWrite: false });
-    const wall = new THREE.Mesh(new THREE.CylinderGeometry(0.29, 0.29, 0.34, 20, 1, true), gm); wall.position.y = 1.03 + 0.17; g.add(wall);
-    const cap = new THREE.Mesh(new THREE.SphereGeometry(0.29, 20, 8, 0, TAU, 0, PI / 2), gm); cap.position.y = 1.37; cap.scale.y = 0.7; g.add(cap);
-    g.add(at(cyl(0.3, 0.3, 0.03, '#2E3238', 20), 0, 1.045, 0), at(sphere(0.03, '#2E3238', 1), 0, 1.58, 0));
-    const hl = noShadow(at(box(0.02, 0.3, 0.005, '#FFFFFF', { opacity: 0.6, noGrain: true }), -0.15, 1.25, 0.245, 0, -0.5, 0)); g.add(hl);
+    const wall = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.38, 0.4, 20, 1, true), gm); wall.position.y = 1.03 + 0.2; g.add(wall);
+    const cap = new THREE.Mesh(new THREE.SphereGeometry(0.38, 20, 8, 0, TAU, 0, PI / 2), gm); cap.position.y = 1.43; cap.scale.y = 0.6; g.add(cap);
+    g.add(at(cyl(0.39, 0.39, 0.03, '#2E3238', 20), 0, 1.045, 0), at(sphere(0.03, '#2E3238', 1), 0, 1.67, 0));
+    const hl = noShadow(at(box(0.02, 0.3, 0.005, '#FFFFFF', { opacity: 0.6, noGrain: true }), -0.2, 1.28, 0.32, 0, -0.5, 0)); g.add(hl);
     return g;
   },
 
