@@ -84,6 +84,7 @@ function mitten({ W = 0.095, T = 0.04, Lp = 0.095, Lf = 0.088, color = HERO_SKIN
   const FH = T * 2.05, FL = Lp * 1.12, rock = grp(at(rb(W * 1.04, FH, FL, T * 0.62, color), 0, -FH / 2 + T / 2, FL / 2));
   for (const s2 of [-1, 1]) rock.add(at(box(0.004, T * 0.1, FL * 0.62, crease), s2 * W * 0.525, -T * 0.42, FL * 0.48));
   rock.add(at(box(W * 0.86, T * 0.1, 0.004, crease), 0, -T * 0.42, FL + 0.001));
+  for (const z of [0.3, 0.55, 0.8]) rock.add(at(box(W * 0.8, 0.004, T * 0.08, crease), 0, -FH + T / 2 - 0.002, FL * z));
   const tpR = grp(at(rb(W * 0.72, T * 0.78, T * 0.9, T * 0.36, TC), -sx * W * 0.08, 0, 0)); tpR.position.set(sx * W * 0.12, -FH + T * 0.92, FL * 0.98); rock.add(tpR);
   if (back) rock.add(at(box(W * 0.75, 0.004, FL * 0.7, back), 0, T * 0.5 + 0.002, FL * 0.5));
   g.add(rock);
@@ -170,7 +171,7 @@ export const CHIFOUMI_PROPS = {
     const H = o.h ?? 6, R = o.r ?? 4, bs = o.bag ?? 0.7, g = grp();
     const core = new THREE.Mesh(new THREE.ConeGeometry(R * 0.9, H * 0.97, 10, 3), mat('#1E2025')); core.position.y = H * 0.485; core.castShadow = core.receiveShadow = true; g.add(core);
     const area = PI * R * Math.hypot(R, H), n = Math.min(o.n ?? Math.round(area / (bs * bs * 0.55)), 2600), L = [], C = [], KN = [];
-    const pal = ['#25272C', '#2B2D33', '#202226', '#33363D', '#25272C', '#2B2D33', '#202226', '#2F3B2E', '#25272C', '#2B2D33', '#202226', '#33363D', '#25272C', '#3A5E8C', '#2B2D33', '#202226', '#25272C', '#C9B65A'];
+    const pal = ['#25272C', '#2B2D33', '#202226', '#33363D', '#25272C', '#2B2D33', '#202226', '#2F3B2E', '#25272C', '#2B2D33', '#202226', '#33363D'];
     for (let i = 0; i < n; i++) {
       const u = hsh(i * 3 + 1), y = H * (1 - Math.sqrt(u)) * 0.97, a = i * 2.39996 + hsh(i) * 0.4, rr = Math.max(bs * 0.3, R * (1 - y / H)) * (0.98 + 0.08 * hsh(i + 5)), sz = bs * (0.75 + 0.5 * hsh(i + 2));
       L.push([Math.cos(a) * rr, y + sz * 0.25, Math.sin(a) * rr, 0.3 * (hsh(i + 9) - 0.5), hsh(i + 4) * TAU, 0.3 * (hsh(i + 8) - 0.5), sz, sz, sz]); C.push(pal[Math.floor(hsh(i + 11) * pal.length)]);
@@ -476,7 +477,7 @@ export const CHIFOUMI_PROPS = {
   // of him making a fist (a wedding veil beside him, a bicycle, asleep on a pillow), and under them a thick block of tally marks that fills row by
   // row from o.tallyAt over o.tallyDur (o.rows rows)
   chifBoard(o) {
-    const W = o.w ?? 2.6, H = o.h ?? 1.6, y0 = o.y ?? 0.8, g = grp(), AL = '#B9BEC4';
+    const W = o.w ?? 2.6, H = o.h ?? 1.6, y0 = o.y ?? 0.8, g = grp(), AL = '#6E757E';
     g.add(at(box(W + 0.1, H + 0.1, 0.05, AL, { outline: 0.006 }), 0, y0 + H / 2, -0.03));
     for (const s of [-1, 1]) g.add(at(box(0.06, y0 + H, 0.06, AL, { pivot: 'bottom' }), s * (W / 2 + 0.05), 0, -0.06), at(box(0.06, 0.06, 0.7, AL), s * (W / 2 + 0.05), 0.1, -0.06), at(sphere(0.05, '#2A2C30', 0), s * (W / 2 + 0.05), 0.05, 0.25), at(sphere(0.05, '#2A2C30', 0), s * (W / 2 + 0.05), 0.05, -0.37));
     g.add(at(box(W * 0.98, H * 0.98, 0.012, '#F8F8F4'), 0, y0 + H / 2, 0.0));
@@ -494,7 +495,11 @@ export const CHIFOUMI_PROPS = {
       const suit = (cx, cy, w) => { c.fillStyle = NAVY; c.beginPath(); c.roundRect(cx - w / 2, cy, w, Hc, w * 0.15); c.fill(); c.fillStyle = CUFF; c.beginPath(); c.moveTo(cx - w * 0.12, cy); c.lineTo(cx, cy + w * 0.3); c.lineTo(cx + w * 0.12, cy); c.fill(); c.fillStyle = '#C8302A'; c.fillRect(cx - w * 0.04, cy + w * 0.05, w * 0.08, w * 0.4); };
       if (kind === 'veil') {
         c.fillStyle = 'rgba(255,255,255,0.95)'; c.beginPath(); c.moveTo(Wc * 0.68, Hc * 0.16); c.quadraticCurveTo(Wc * 1.05, Hc * 0.3, Wc * 0.98, Hc); c.lineTo(Wc * 0.5, Hc); c.quadraticCurveTo(Wc * 0.44, Hc * 0.4, Wc * 0.68, Hc * 0.16); c.fill();
-        c.strokeStyle = '#D8C8B8'; c.lineWidth = Wc * 0.012; c.stroke(); c.fillStyle = '#F2D9A0'; c.beginPath(); c.arc(Wc * 0.68, Hc * 0.18, Wc * 0.06, 0, TAU); c.fill();
+        c.strokeStyle = '#D8C8B8'; c.lineWidth = Wc * 0.012; c.stroke();
+        c.fillStyle = '#6A4028'; c.beginPath(); c.arc(Wc * 0.7, Hc * 0.33, Wc * 0.12, 0, TAU); c.fill(); c.fillStyle = WIFE_SKIN; c.fillRect(Wc * 0.61, Hc * 0.3, Wc * 0.18, Hc * 0.2); c.fillStyle = '#151515'; c.fillRect(Wc * 0.64, Hc * 0.37, Wc * 0.03, Wc * 0.03); c.fillRect(Wc * 0.72, Hc * 0.37, Wc * 0.03, Wc * 0.03); c.fillStyle = '#C8302A'; c.fillRect(Wc * 0.66, Hc * 0.45, Wc * 0.07, Wc * 0.015);
+        c.fillStyle = 'rgba(255,255,255,0.55)'; c.beginPath(); c.moveTo(Wc * 0.58, Hc * 0.24); c.quadraticCurveTo(Wc * 0.7, Hc * 0.14, Wc * 0.82, Hc * 0.24); c.lineTo(Wc * 0.95, Hc); c.lineTo(Wc * 0.52, Hc); c.fill();
+        c.fillStyle = '#F2F2EE'; c.beginPath(); c.arc(Wc * 0.62, Hc * 0.85, Wc * 0.06, 0, TAU); c.arc(Wc * 0.7, Hc * 0.82, Wc * 0.06, 0, TAU); c.fill(); c.fillStyle = '#E86A8A'; c.beginPath(); c.arc(Wc * 0.66, Hc * 0.8, Wc * 0.035, 0, TAU); c.fill();
+        c.fillStyle = '#E8C030'; c.fillRect(Wc * 0.62, Hc * 0.21, Wc * 0.16, Hc * 0.025);
         suit(Wc * 0.36, Hc * 0.62, Wc * 0.5); head(Wc * 0.36, Hc * 0.42, Wc * 0.34, 0, 0); fist(Wc * 0.5, Hc * 0.75, Wc * 0.2);
       } else if (kind === 'bike') {
         suit(Wc * 0.5, Hc * 0.55, Wc * 0.46); head(Wc * 0.5, Hc * 0.33, Wc * 0.32, 0, 1);
@@ -681,7 +686,7 @@ export const CHIFOUMI_PROPS = {
     body.add(at(cyl(0.6, 0.75, 7, '#B04A3A', 10, { pivot: 'bottom', outline: 0.01 }), w * 0.3, H, -d * 0.2), at(cyl(0.65, 0.65, 0.4, '#F2F2EE', 10), w * 0.3, H + 6.2, -d * 0.2));
     body.add(at(canvasPlane(5.5, 1.3, (c, W, Hc) => { c.fillStyle = '#2E4563'; c.fillRect(0, 0, W, Hc); c.fillStyle = '#F2F2EE'; c.font = `900 ${Hc * 0.66}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('USINE', W / 2, Hc * 0.55); }, { res: 512, emissive: 0.1 }), -w * 0.15, H + 1.2, d / 2 - 0.3));
     body.add(at(box(5.7, 1.5, 0.15, '#2A2D33'), -w * 0.15, H + 1.2, d / 2 - 0.4), at(box(0.15, 1.0, 0.15, '#5A5E66', { pivot: 'bottom' }), -w * 0.15 - 2, H + 0.4, d / 2 - 0.4), at(box(0.15, 1.0, 0.15, '#5A5E66', { pivot: 'bottom' }), -w * 0.15 + 2, H + 0.4, d / 2 - 0.4));
-    const dust = []; for (let i = 0; i < 34; i++) { const m = softSprite(i % 3 ? '#D9CDB4' : '#C4B696', 0); m.visible = false; g.add(m); dust.push(m); }
+    const dust = []; for (let i = 0; i < 48; i++) { const m = softSprite(i % 3 ? '#D2C4A6' : '#B8A884', 0); m.visible = false; g.add(m); dust.push(m); }
     const rub = []; for (let i = 0; i < 26; i++) { const a = i / 26 * TAU, r = 1.0; const m = box(0.5 + 0.4 * hsh(i), 0.3 + 0.3 * hsh(i + 1), 0.5, i % 2 ? '#7A6A55' : '#8E8070', { outline: 0.02 }); const ex = Math.cos(a), ez = Math.sin(a); m.position.set(ex * (w / 2 + 0.4) * r, 0.1, ez * (d / 2 + 0.4) * r); m.rotation.set(hsh(i) - 0.5, a, hsh(i + 2) - 0.5); m.visible = false; g.add(m); rub.push(m); }
     const drop = (o.sinkFloors ?? 2) * fh;
     g.userData.update = t => {
@@ -690,7 +695,7 @@ export const CHIFOUMI_PROPS = {
       body.position.y = -drop * e; body.position.x = u > 0 && u < 1.6 ? 0.08 * Math.sin(t * 70) * (1 - clamp01(u / 1.6)) : 0;
       rub.forEach(m => { m.visible = u > 0.6; });
       dust.forEach((m, i) => { const v = (t - (o.sinkAt ?? 99) - (o.sinkDur ?? 0.45) * 0.6 - 0.015 * i) / 1.8; m.visible = v > 0 && v < 1; if (!m.visible) return; const a = i / dust.length * TAU + 0.2 * hsh(i), e2 = 1 - Math.pow(1 - v, 2.2);
-        m.position.set(Math.cos(a) * (w / 2 + 0.5 + 6 * e2), 0.8 + 1.6 * e2 + 0.6 * hsh(i), Math.sin(a) * (d / 2 + 0.5 + 6 * e2)); const sc = (2.4 + 2 * hsh(i + 3)) * (0.7 + 0.8 * e2); m.scale.set(sc, sc * 0.75, 1); m.material.opacity = 0.9 * (v < 0.1 ? v / 0.1 : 1 - smooth((v - 0.3) / 0.7)); });
+        m.position.set(Math.cos(a) * (w / 2 + 0.5 + 6 * e2), 0.8 + 1.6 * e2 + 0.6 * hsh(i), Math.sin(a) * (d / 2 + 0.5 + 6 * e2)); const sc = (3.2 + 2.4 * hsh(i + 3)) * (0.7 + 0.8 * e2); m.scale.set(sc, sc * 0.75, 1); m.material.opacity = 1.0 * (v < 0.1 ? v / 0.1 : 1 - smooth((v - 0.3) / 0.7)); });
     };
     g.userData.update(0); return g;
   },
