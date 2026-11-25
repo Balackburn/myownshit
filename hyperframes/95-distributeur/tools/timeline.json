@@ -1,0 +1,950 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a mis une pièce dans le distributeur. Rien n'est tombé.",
+   "hl": [
+    "pièce",
+    "Rien"
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 3.063,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "mis",
+     "s": 0.581,
+     "e": 0.619
+    },
+    {
+     "w": "une",
+     "s": 0.693,
+     "e": 0.767
+    },
+    {
+     "w": "pièce",
+     "s": 0.841,
+     "e": 0.989
+    },
+    {
+     "w": "dans",
+     "s": 1.063,
+     "e": 1.137
+    },
+    {
+     "w": "le",
+     "s": 1.162,
+     "e": 1.186
+    },
+    {
+     "w": "distributeur.",
+     "s": 1.211,
+     "e": 2.026
+    },
+    {
+     "w": "Rien",
+     "s": 2.174,
+     "e": 2.396
+    },
+    {
+     "w": "n'est",
+     "s": 2.445,
+     "e": 2.544
+    },
+    {
+     "w": "tombé.",
+     "s": 2.594,
+     "e": 3.063
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Le ministre a tranché : c'est une banque.",
+   "hl": [
+    "tranché",
+    "banque."
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L02.k.wav",
+   "file_start": 3.163,
+   "speech_start": 3.163,
+   "speech_end": 5.311,
+   "words": [
+    {
+     "w": "Le",
+     "s": 3.163,
+     "e": 3.237
+    },
+    {
+     "w": "ministre",
+     "s": 3.311,
+     "e": 3.632
+    },
+    {
+     "w": "a",
+     "s": 3.656,
+     "e": 3.681
+    },
+    {
+     "w": "tranché:",
+     "s": 3.756,
+     "e": 4.397
+    },
+    {
+     "w": "c'est",
+     "s": 4.422,
+     "e": 4.57
+    },
+    {
+     "w": "une",
+     "s": 4.644,
+     "e": 4.719
+    },
+    {
+     "w": "banque.",
+     "s": 4.83,
+     "e": 5.311
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Elle a reçu sa licence. Ce mec est son premier client.",
+   "hl": [
+    "licence.",
+    "client."
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L03.k.wav",
+   "file_start": 5.411,
+   "speech_start": 5.411,
+   "speech_end": 8.374,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 5.411,
+     "e": 5.485
+    },
+    {
+     "w": "a",
+     "s": 5.522,
+     "e": 5.559
+    },
+    {
+     "w": "reçu",
+     "s": 5.633,
+     "e": 5.781
+    },
+    {
+     "w": "sa",
+     "s": 5.856,
+     "e": 5.93
+    },
+    {
+     "w": "licence.",
+     "s": 6.189,
+     "e": 6.67
+    },
+    {
+     "w": "Ce",
+     "s": 6.744,
+     "e": 6.819
+    },
+    {
+     "w": "mec",
+     "s": 6.856,
+     "e": 7.115
+    },
+    {
+     "w": "est",
+     "s": 7.189,
+     "e": 7.263
+    },
+    {
+     "w": "son",
+     "s": 7.337,
+     "e": 7.411
+    },
+    {
+     "w": "premier",
+     "s": 7.485,
+     "e": 7.707
+    },
+    {
+     "w": "client.",
+     "s": 7.781,
+     "e": 8.374
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Tout le pays y a placé ses économies.",
+   "hl": [
+    "pays",
+    "économies."
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L04.k.wav",
+   "file_start": 8.474,
+   "speech_start": 8.474,
+   "speech_end": 10.474,
+   "words": [
+    {
+     "w": "Tout",
+     "s": 8.474,
+     "e": 8.622
+    },
+    {
+     "w": "le",
+     "s": 8.696,
+     "e": 8.77
+    },
+    {
+     "w": "pays",
+     "s": 8.869,
+     "e": 9.067
+    },
+    {
+     "w": "y",
+     "s": 9.104,
+     "e": 9.141
+    },
+    {
+     "w": "a",
+     "s": 9.215,
+     "e": 9.289
+    },
+    {
+     "w": "placé",
+     "s": 9.326,
+     "e": 9.585
+    },
+    {
+     "w": "ses",
+     "s": 9.659,
+     "e": 9.733
+    },
+    {
+     "w": "économies.",
+     "s": 9.919,
+     "e": 10.474
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Elle n'a jamais rien rendu. Comme une vraie.",
+   "hl": [
+    "rendu.",
+    "vraie."
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L05.k.wav",
+   "file_start": 10.574,
+   "speech_start": 10.574,
+   "speech_end": 12.944,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 10.574,
+     "e": 10.685
+    },
+    {
+     "w": "n'a",
+     "s": 10.722,
+     "e": 10.87
+    },
+    {
+     "w": "jamais",
+     "s": 10.944,
+     "e": 11.167
+    },
+    {
+     "w": "rien",
+     "s": 11.241,
+     "e": 11.389
+    },
+    {
+     "w": "rendu.",
+     "s": 11.5,
+     "e": 12.031
+    },
+    {
+     "w": "Comme",
+     "s": 12.081,
+     "e": 12.204
+    },
+    {
+     "w": "une",
+     "s": 12.278,
+     "e": 12.352
+    },
+    {
+     "w": "vraie.",
+     "s": 12.389,
+     "e": 12.944
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Elle a racheté la machine à café. Puis la photocopieuse.",
+   "hl": [
+    "café.",
+    "photocopieuse."
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L06.k.wav",
+   "file_start": 13.044,
+   "speech_start": 13.044,
+   "speech_end": 15.859,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 13.044,
+     "e": 13.144
+    },
+    {
+     "w": "a",
+     "s": 13.168,
+     "e": 13.193
+    },
+    {
+     "w": "racheté",
+     "s": 13.267,
+     "e": 13.489
+    },
+    {
+     "w": "la",
+     "s": 13.526,
+     "e": 13.563
+    },
+    {
+     "w": "machine",
+     "s": 13.637,
+     "e": 13.859
+    },
+    {
+     "w": "à",
+     "s": 13.933,
+     "e": 13.982
+    },
+    {
+     "w": "café.",
+     "s": 14.032,
+     "e": 14.551
+    },
+    {
+     "w": "Puis",
+     "s": 14.575,
+     "e": 14.748
+    },
+    {
+     "w": "la",
+     "s": 14.822,
+     "e": 14.896
+    },
+    {
+     "w": "photocopieuse.",
+     "s": 14.97,
+     "e": 15.859
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Elle a nommé un directeur.",
+   "hl": [
+    "nommé",
+    "directeur."
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L07.k.wav",
+   "file_start": 15.959,
+   "speech_start": 15.959,
+   "speech_end": 17.367,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 15.959,
+     "e": 16.033
+    },
+    {
+     "w": "a",
+     "s": 16.07,
+     "e": 16.107
+    },
+    {
+     "w": "nommé",
+     "s": 16.181,
+     "e": 16.33
+    },
+    {
+     "w": "un",
+     "s": 16.404,
+     "e": 16.478
+    },
+    {
+     "w": "directeur.",
+     "s": 16.663,
+     "e": 17.367
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Faillite : le directeur avait tout bu en cafés.",
+   "hl": [
+    "Faillite",
+    "cafés."
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L08.k.wav",
+   "file_start": 17.467,
+   "speech_start": 17.467,
+   "speech_end": 20.059,
+   "words": [
+    {
+     "w": "Faillite:",
+     "s": 17.467,
+     "e": 18.232
+    },
+    {
+     "w": "le",
+     "s": 18.256,
+     "e": 18.281
+    },
+    {
+     "w": "directeur",
+     "s": 18.356,
+     "e": 18.726
+    },
+    {
+     "w": "avait",
+     "s": 18.8,
+     "e": 19.022
+    },
+    {
+     "w": "tout",
+     "s": 19.096,
+     "e": 19.17
+    },
+    {
+     "w": "bu",
+     "s": 19.244,
+     "e": 19.319
+    },
+    {
+     "w": "en",
+     "s": 19.393,
+     "e": 19.467
+    },
+    {
+     "w": "cafés.",
+     "s": 19.578,
+     "e": 20.059
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Elle a commencé à pencher.",
+   "hl": [
+    "commencé",
+    "pencher."
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L09.k.wav",
+   "file_start": 20.159,
+   "speech_start": 20.159,
+   "speech_end": 21.504,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 20.159,
+     "e": 20.27
+    },
+    {
+     "w": "a",
+     "s": 20.307,
+     "e": 20.344
+    },
+    {
+     "w": "commencé",
+     "s": 20.381,
+     "e": 20.752
+    },
+    {
+     "w": "à",
+     "s": 20.789,
+     "e": 20.826
+    },
+    {
+     "w": "pencher.",
+     "s": 20.9,
+     "e": 21.493
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "En penchant, elle a écrasé le distributeur de sandwichs.",
+   "hl": [
+    "écrasé",
+    "sandwichs."
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L10.k.wav",
+   "file_start": 21.604,
+   "speech_start": 21.604,
+   "speech_end": 24.493,
+   "words": [
+    {
+     "w": "En",
+     "s": 21.604,
+     "e": 21.752
+    },
+    {
+     "w": "penchant,",
+     "s": 21.826,
+     "e": 22.419
+    },
+    {
+     "w": "elle",
+     "s": 22.493,
+     "e": 22.567
+    },
+    {
+     "w": "a",
+     "s": 22.604,
+     "e": 22.641
+    },
+    {
+     "w": "écrasé",
+     "s": 22.678,
+     "e": 23.011
+    },
+    {
+     "w": "le",
+     "s": 23.085,
+     "e": 23.159
+    },
+    {
+     "w": "distributeur",
+     "s": 23.259,
+     "e": 23.678
+    },
+    {
+     "w": "de",
+     "s": 23.715,
+     "e": 23.752
+    },
+    {
+     "w": "sandwichs.",
+     "s": 23.826,
+     "e": 24.493
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Trop grosse pour tomber.",
+   "hl": [
+    "grosse",
+    "tomber."
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L11.k.wav",
+   "file_start": 24.593,
+   "speech_start": 24.593,
+   "speech_end": 25.852,
+   "words": [
+    {
+     "w": "Trop",
+     "s": 24.593,
+     "e": 24.741
+    },
+    {
+     "w": "grosse",
+     "s": 24.815,
+     "e": 25.037
+    },
+    {
+     "w": "pour",
+     "s": 25.111,
+     "e": 25.185
+    },
+    {
+     "w": "tomber.",
+     "s": 25.259,
+     "e": 25.852
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "L'État l'a renflouée : deux milliards en pièces.",
+   "hl": [
+    "renflouée",
+    "milliards"
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L12.k.wav",
+   "file_start": 25.952,
+   "speech_start": 25.952,
+   "speech_end": 28.397,
+   "words": [
+    {
+     "w": "L'État",
+     "s": 25.952,
+     "e": 26.248
+    },
+    {
+     "w": "l'a",
+     "s": 26.273,
+     "e": 26.322
+    },
+    {
+     "w": "renflouée:",
+     "s": 26.434,
+     "e": 27.162
+    },
+    {
+     "w": "deux",
+     "s": 27.186,
+     "e": 27.248
+    },
+    {
+     "w": "milliards",
+     "s": 27.285,
+     "e": 27.582
+    },
+    {
+     "w": "en",
+     "s": 27.656,
+     "e": 27.73
+    },
+    {
+     "w": "pièces.",
+     "s": 27.804,
+     "e": 28.397
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Le distributeur de sandwichs, lui, n'a rien eu.",
+   "hl": [
+    "sandwichs,",
+    "rien"
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L13.k.wav",
+   "file_start": 28.497,
+   "speech_start": 28.497,
+   "speech_end": 31.089,
+   "words": [
+    {
+     "w": "Le",
+     "s": 28.497,
+     "e": 28.571
+    },
+    {
+     "w": "distributeur",
+     "s": 28.608,
+     "e": 29.089
+    },
+    {
+     "w": "de",
+     "s": 29.126,
+     "e": 29.163
+    },
+    {
+     "w": "sandwichs,",
+     "s": 29.237,
+     "e": 29.793
+    },
+    {
+     "w": "lui,",
+     "s": 29.83,
+     "e": 30.225
+    },
+    {
+     "w": "n'a",
+     "s": 30.249,
+     "e": 30.348
+    },
+    {
+     "w": "rien",
+     "s": 30.459,
+     "e": 30.571
+    },
+    {
+     "w": "eu.",
+     "s": 30.793,
+     "e": 31.089
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "La canette est enfin tombée. C'était la prime du directeur.",
+   "hl": [
+    "canette",
+    "prime"
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L14.k.wav",
+   "file_start": 31.189,
+   "speech_start": 31.189,
+   "speech_end": 34.158,
+   "words": [
+    {
+     "w": "La",
+     "s": 31.189,
+     "e": 31.263
+    },
+    {
+     "w": "canette",
+     "s": 31.337,
+     "e": 31.634
+    },
+    {
+     "w": "est",
+     "s": 31.708,
+     "e": 31.782
+    },
+    {
+     "w": "enfin",
+     "s": 31.856,
+     "e": 32.078
+    },
+    {
+     "w": "tombée.",
+     "s": 32.115,
+     "e": 32.671
+    },
+    {
+     "w": "C'était",
+     "s": 32.708,
+     "e": 32.893
+    },
+    {
+     "w": "la",
+     "s": 32.967,
+     "e": 33.041
+    },
+    {
+     "w": "prime",
+     "s": 33.152,
+     "e": 33.263
+    },
+    {
+     "w": "du",
+     "s": 33.3,
+     "e": 33.337
+    },
+    {
+     "w": "directeur.",
+     "s": 33.485,
+     "e": 34.152
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Ce mec a réclamé sa pièce.",
+   "hl": [
+    "réclamé",
+    "pièce."
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L15.k.wav",
+   "file_start": 34.258,
+   "speech_start": 34.258,
+   "speech_end": 35.814,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 34.258,
+     "e": 34.406
+    },
+    {
+     "w": "mec",
+     "s": 34.443,
+     "e": 34.628
+    },
+    {
+     "w": "a",
+     "s": 34.665,
+     "e": 34.703
+    },
+    {
+     "w": "réclamé",
+     "s": 34.777,
+     "e": 35.073
+    },
+    {
+     "w": "sa",
+     "s": 35.147,
+     "e": 35.221
+    },
+    {
+     "w": "pièce.",
+     "s": 35.258,
+     "e": 35.814
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Refusé : elle est placée sur quarante ans.",
+   "hl": [
+    "Refusé",
+    "quarante"
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L16.k.wav",
+   "file_start": 35.914,
+   "speech_start": 35.914,
+   "speech_end": 38.136,
+   "words": [
+    {
+     "w": "Refusé:",
+     "s": 35.914,
+     "e": 36.679
+    },
+    {
+     "w": "elle",
+     "s": 36.703,
+     "e": 36.728
+    },
+    {
+     "w": "est",
+     "s": 36.765,
+     "e": 36.803
+    },
+    {
+     "w": "placée",
+     "s": 36.877,
+     "e": 37.173
+    },
+    {
+     "w": "sur",
+     "s": 37.247,
+     "e": 37.321
+    },
+    {
+     "w": "quarante",
+     "s": 37.395,
+     "e": 37.617
+    },
+    {
+     "w": "ans.",
+     "s": 37.691,
+     "e": 38.136
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "La banque était en panne depuis le début. C'était écrit en tout petit.",
+   "hl": [
+    "panne",
+    "petit."
+   ],
+   "file": "/tmp/pipe/s7/distributeur/tts/L17.k.wav",
+   "file_start": 38.236,
+   "speech_start": 38.236,
+   "speech_end": 41.643,
+   "words": [
+    {
+     "w": "La",
+     "s": 38.236,
+     "e": 38.31
+    },
+    {
+     "w": "banque",
+     "s": 38.384,
+     "e": 38.606
+    },
+    {
+     "w": "était",
+     "s": 38.717,
+     "e": 38.828
+    },
+    {
+     "w": "en",
+     "s": 38.903,
+     "e": 38.977
+    },
+    {
+     "w": "panne",
+     "s": 39.014,
+     "e": 39.125
+    },
+    {
+     "w": "depuis",
+     "s": 39.199,
+     "e": 39.384
+    },
+    {
+     "w": "le",
+     "s": 39.421,
+     "e": 39.495
+    },
+    {
+     "w": "début.",
+     "s": 39.569,
+     "e": 40.125
+    },
+    {
+     "w": "C'était",
+     "s": 40.162,
+     "e": 40.384
+    },
+    {
+     "w": "écrit",
+     "s": 40.458,
+     "e": 40.68
+    },
+    {
+     "w": "en",
+     "s": 40.754,
+     "e": 40.828
+    },
+    {
+     "w": "tout",
+     "s": 40.903,
+     "e": 40.977
+    },
+    {
+     "w": "petit.",
+     "s": 41.088,
+     "e": 41.643
+    }
+   ]
+  }
+ ],
+ "total": 42.94
+}
