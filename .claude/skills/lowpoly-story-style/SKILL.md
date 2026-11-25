@@ -2312,3 +2312,19 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 54) Caler les temps de pose d'un objet sur la durée du plan : la pierre tombale se posait 0,1 s après la coupe.
 - (cycle 54) Foule alignée en profondeur vers la caméra = elle se cache elle-même ; recherche caméra avec une boîte x par tête
   (16 % d'écart), résolu en une passe.
+- (cycle 54) Héros enterré dont le soleil est derrière la pierre : son visage n'est jamais au soleil ; simuler « l'ombre lui tombe
+  dessus » avec une lumière chaude cachée sur le visage qui s'éteint quand l'ombre arrive.
+- (cycle 54) Mouettes qui tournent au-dessus d'une caméra basse = grandes ombres floues qui balaient le sable ; pas d'ombre, et
+  loin au-dessus de la mer.
+- (cycle 54) Figurant posé là où l'accessoire ira ensuite : il fait de l'ombre au héros avant et tue le moment ; le faire sortir
+  de l'axe du soleil.
+- (cycle 54) Deux porteurs d'une dalle : de profil, face à face ; de face, les manches noires disparaissent sur les costumes noirs.
+- (cycle 54) Acteur qui entre avec des reach pointés vers sa place finale = bras étirés à travers l'image ; reach vides jusqu'à
+  l'arrivée.
+- (cycle 54) Lunettes baissées d'une valeur fixe : sur une tête étirée elles restent sur les yeux ; prise avec tête agrandie =
+  descente plus profonde.
+- (cycle 54) Affaissement d'un enfant avec un reach vers un point fixe du monde : le bras s'étire quand il repart ; reach vides
+  pour les affaissements et les sorties.
+- (cycle 54) Accessoire noir sur serviettes sombres = invisible ; serviettes de deuil à rayures claires pour que maillots et ballon
+  noirs se lisent.
+- (cycle 54) Foulard sur une figurante aux longs cheveux clairs : les cheveux traversent le dessus ; assombrir les cheveux.
