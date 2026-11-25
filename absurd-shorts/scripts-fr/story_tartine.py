@@ -531,9 +531,11 @@ D6 = st.dur('S06'); REC6 = W('S06', 'L06', 1); DEC6 = W('S06', 'L06', 5)
 MIN6 = [0.6, 0.0, -1.35]; DESK6 = [0.0, 0.0, -0.75]; DT6 = 0.78
 # (review 1) a clean board left of him: its thick arrow bursts out of the top edge and up past his head
 CH6 = [-0.3, 3.0, -2.2]
-CHART = {'w': 1.9, 'h': 1.4, 'plain': True, 'thick': 1.5, 'burst': 1.0, 'frameW': 0.2, 'paper': '#FFF3C8', 'frame': '#2A1E18'}
+# (review 2) a mid-tone blue-grey board in a thick dark frame: the cream board read as the cream window behind it
+CHART = {'w': 1.9, 'h': 1.4, 'plain': True, 'thick': 1.5, 'burst': 1.0, 'frameW': 0.26, 'paper': '#9DB8C8', 'frame': '#1E1612'}
 BAG6 = [-0.62, r(DT6 + 0.27), -0.6]
-F6 = [0.0, 1.8, 4.6]; L6 = [0.0, 1.85, -0.5]
+# (review 2) further back and a little lower in the frame: the stretched head and the arrow tip stay in, the bag above the captions (camsearch)
+F6 = [0.0, 1.6, 6.0]; L6 = [0.0, 1.85, -0.5]
 C6 = cam(0.0, F6, add(F6, [0.0, 0.0, -0.25]), L6, add(L6, [0, 0.03, 0]), lens=40, ease='inOut')
 chkc('S06', C6, {'head': add(MIN6, [0, 2.4, 0]), 'headUp': add(MIN6, [0, 3.6, 0]), 'tip': add(CH6, [1.05, 0.85, 0.05]), 'chin': add(MIN6, [0, 1.75, 0]), 'chartTL': add(CH6, [-0.95, -0.06, 0]), 'chartBR': add(CH6, [0.95, -1.5, 0]), 'bag': BAG6, 'bagB': add(BAG6, [0, -0.25, 0]), 'deskL': [-1.1, DT6, -0.3]})
 MF6 = {'lid': 0.55, 'low': 0.25, 'mouth': 'smirk', 'brow': -0.3}
@@ -647,16 +649,30 @@ FALL9 = (r(CHU9 - 0.08), r(CHU9 + 0.24))
 TOE9 = [-0.25, r(DT6 + 0.17 + 0.012), -0.55]
 # (review 1) tighter on the minister and the chart, which now lands upside down in view above the desk
 F9 = [0.12, 1.45, 3.4]; L9 = [0.15, 1.42, -0.5]
-F9B = [-0.15, 1.15, 0.75]; L9B = [-0.12, 1.02, -0.8]
-C9 = [cam(0.0, F9, add(F9, [0.0, 0.0, -0.1]), L9, L9, lens=40, ease='out'), glide([cam(r(PAS9 - 0.12), F9B, add(F9B, [0.0, 0.0, -0.08]), L9B, L9B, lens=46, ease='out')], 0.3)]
+# (review 2) the still toast framed with the minister's trembling hand at the right edge and the fallen chart at the top left (camsearch),
+# then a cut in to his eyes sliding to it
+F9B = [-0.4, 1.1, 0.84]; L9B = [-0.06, 0.98, -0.8]
+EYES9 = r(D9 - 0.42)
+F9C = [0.28, 1.74, 0.15]; L9C = [0.5, 1.66, -1.4]
+HAND9 = [0.22, 0.86, -0.8]
+C9 = [cam(0.0, F9, add(F9, [0.0, 0.0, -0.1]), L9, L9, lens=40, ease='out'), glide([cam(r(PAS9 - 0.12), F9B, add(F9B, [0.0, 0.0, -0.08]), L9B, L9B, lens=40, ease='out')], 0.3),
+      cam(EYES9, F9C, add(F9C, [0.0, 0.0, -0.06]), L9C, L9C, lens=40, ease='out')]
 chkc('S09', C9[0], {'head': add(MIN9, [0, 1.95, 0]), 'chin': add(MIN9, [0, 1.4, 0]), 'chartTL': add(CH6, [-0.95, -0.06, 0]), 'chartBR': add(CH6, [0.95, -1.5, 0]), 'chartFloor': [CH6[0], 0.8, -2.15], 'toast': TOE9})
-chkc('S09', C9[1], {'toastT': add(TOE9, [0, 0.18, 0]), 'toastB': add(TOE9, [0, -0.17, 0]), 'head': add(MIN9, [0, 1.95, 0]), 'chin': add(MIN9, [0, 1.4, 0])})
+chkc('S09', C9[1], {'toastT': add(TOE9, [0, 0.18, 0]), 'toastB': add(TOE9, [0, -0.17, 0]), 'hand': HAND9, 'chart': [-0.3, 1.75, -2.15]})
+chkc('S09', C9[2], {'face': add(MIN9, [0, 1.64, 0.05]), 'top': add(MIN9, [0, 2.0, 0.0]), 'chin': add(MIN9, [0, 1.35, 0.05])})
 MF9 = {'lid': 0.4, 'mouth': 'smirk', 'brow': 0.1}
 MK9 = {'reach': {'R': R5(add(MIN9, [-0.1, 0.82, 0.5]), 1, 0.0), 'L': R5(add(MIN9, [0.2, 0.82, 0.5]), 1, 0.0)}, 'hands': {'R': 'rest', 'L': 'rest'}, 'hip': 0}
+# (review 2) after the accordion his right mitten grips the desk beside the toast and trembles (every frame), still shaken; in the cut-in his eyes
+# slide sideways to the toast, the lids low, sweating, then a slow squint
+MK9H = lambda j: {**MK9, 'reach': {'R': R5(add(HAND9, [0.012 * (1 if j % 2 else -1), 0.008 * (j % 3 - 1), 0.0]), 1, 0.0), 'L': MK9['reach']['L']}, 'hands': {'R': 'grip', 'L': 'rest'}, 'buzz': 0.01}
+SH9 = {**MF9, 'lid': 0.2, 'mouth': 'o', 'brow': 0.6}
 MINK9 = [k(0.0, look='camera'), k(0.0, toon={**MK9, 'face': MF9}, toonDur=0.0), *life(0.05, r(FALL9[1] - 0.1), MF9, MK9, blinks=[0.3]),
          *take(r(FALL9[1] + 0.02), 'accordion', keep={**MK9, 'face': {'lid': 0.8, 'mouth': 'grimace', 'brow': -0.6}}, hold=0.3),
-         k(r(FALL9[1] + 0.6), look=add(TOE9, [0, 0.1, 0]), lookDur=0.15), k(r(FALL9[1] + 0.6), toon={**MK9, 'face': {**MF9, 'lid': 0.2, 'mouth': 'o', 'brow': 0.6}}, toonDur=0.12),
-         *life(r(FALL9[1] + 0.8), D9, {**MF9, 'lid': 0.2, 'mouth': 'o', 'brow': 0.6}, MK9, blinks=[r(D9 - 0.35)])]
+         k(r(FALL9[1] + 0.5), look='camera', lookDur=0.15),
+         *[k(r(FALL9[1] + 0.5 + 0.05 * j), toon={**MK9H(j), 'face': {**SH9, 'sweat': 0.8}}, toonDur=0.03) for j in range(int((EYES9 - FALL9[1] - 0.5) / 0.05))],
+         k(EYES9, toon={**MK9H(0), 'face': {**SH9, 'lid': 0.45, 'gx': 0.0, 'gy': 0.1, 'sweat': 0.8}}, toonDur=0.03),
+         k(r(EYES9 + 0.1), toon={**MK9H(1), 'face': {**SH9, 'lid': 0.5, 'gx': 0.95, 'gy': 0.35, 'sweat': 0.9}}, toonDur=0.18, toonEase='inOut'),
+         k(r(EYES9 + 0.3), toon={**MK9H(0), 'face': {**SH9, 'lid': 0.68, 'low': 0.4, 'gx': 0.95, 'gy': 0.35, 'brow': -0.3, 'sweat': 1.0}}, toonDur=0.08)]
 st.shot('S09', 'whiteVoid', setOpts={'color': '#5A3E2E'}, look={'sunDir': [0.25, 0.9, 0.8]}, actors=[act('ministre', MIN9, 0, 'sit', 'neutral', keys=MINK9)],
         props=[P('murs9', 'grinOfficeWall', pos=[0, 0, -2.3]), P('bureau9', 'grinDesk', pos=DESK6, opts={'w': 2.2, 'd': 0.9}), P('fauteuil9', 'chair', pos=add(MIN9, [0, -0.02, -0.1]), opts={'color': '#6A2A22'}),
                P('courbe9', 'ttChart', pos=CH6, opts={**CHART, 'fall': list(FALL9), 'floor': 1.75}, keys=[k(r(CHU9 - 0.35), squash=[1.0, 1.0, 1.0], dur=0.1)]),
@@ -678,34 +694,62 @@ LOOKC = {'sunDir': [0.3, 0.9, 0.6]}
 #     with sheen streaks and sparkles pop
 D10 = st.dur('S10'); CIR10 = W('S10', 'L10', 3); SOL10 = W('S10', 'L10', 6)
 PX10 = [-0.75, 0.0, 0.75]; Z10A = 1.2; Z10B = 4.2
-# (review 1) tighter: the agents' heads near the top, the polishers near the bottom, little ceiling and floor (camsearch)
+# (review 2) a gag: the three buzz forward in unison, stop dead together on « sols » (sparkles pop, a frozen beat, hair settling), then the right
+# one bucks back to life and drags its agent away sideways out of frame, his arms stretched like rubber, while the other two turn their heads
+STOP10 = r(SOL10 - 0.12); BUCK10 = r(STOP10 + 0.38); ZS10 = r(Z10A + (Z10B - Z10A) * STOP10 / D10 * 1.05)
+OUT10 = [2.3, 0.0, r(ZS10 + 0.35)]
 F10 = [0.0, 1.04, 8.1]; L10 = [0.0, 1.08, 3.0]
-C10 = cam(0.0, F10, add(F10, [0.0, 0.0, 0.7]), L10, add(L10, [0.0, 0.0, 0.6]), lens=36, ease='linear')
-chkc('S10', C10, {**{f'pol{i}': [x, 0.3, Z10B] for i, x in enumerate(PX10)}, **{f'ag{i}': [x, 2.3, Z10B - 0.95] for i, x in enumerate(PX10)}, 'shineFar': [0, 0.0, 0.0], 'ceil': [0, 3.2, 1.0]})
+C10 = cam(0.0, F10, add(F10, [0.0, 0.0, 0.35]), L10, add(L10, [0.0, 0.0, 0.3]), lens=36, ease='out')
+chkc('S10', C10, {**{f'pol{i}': [x, 0.3, ZS10] for i, x in enumerate(PX10)}, **{f'ag{i}': [x, 2.3, ZS10 - 0.95] for i, x in enumerate(PX10)}, 'out': [OUT10[0], 1.0, OUT10[2]], 'shineFar': [0, 0.0, 0.0], 'ceil': [0, 3.2, 1.0]})
 AGF10 = {'lid': 0.35, 'mouth': 'line', 'brow': -0.3}
 def POLK(i, x):
-    p0 = [x, 0.0, Z10A - 0.95]; p1 = [x, 0.0, Z10B - 0.95]
-    hd = lambda t_: [x, 1.12, round(Z10A + (Z10B - Z10A) * max(0.0, min(1.0, t_ / D10)) - 0.62, 3)]
-    ks = [k(0.0, look='camera'), k(0.0, to=p1, dur=D10, clip='walk', face=0, ease='linear', speed=0.55)]
+    p1 = [x, 0.0, r(ZS10 - 0.95)]
+    hd = lambda t_: [x, 1.12, round(Z10A + (ZS10 - Z10A) * max(0.0, min(1.0, t_ / STOP10)) - 0.62, 3)]
+    ks = [k(0.0, look='camera'), k(0.0, to=p1, dur=STOP10, clip='walk', face=0, ease='linear', speed=0.55)]
     t_ = 0.0; j = 0
-    # (review 1) they buzz with the machines: the whole body jitters, the head and the hair shake every frame, the arms rattle on the handle
-    while t_ < D10:
+    # they buzz with the machines: the whole body jitters, the head and the hair shake every frame, the arms rattle on the handle
+    while t_ < STOP10 - 0.02:
         sg = 1 if j % 2 else -1
         ks.append(k(r(t_), toon={'reach': {'R': R5(add(hd(t_ + 0.05), [-0.24, 0.02 * sg, 0]), 1, 0.0), 'L': R5(add(hd(t_ + 0.05), [0.24, -0.02 * sg, 0]), 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'grip'}, 'buzz': 0.022, 'hip': 0,
                                  'bend': {'neck': [0.05 * sg, 0.07 * sg, 0, 1, None], 'armL': [0.06 * sg, 0, 0, 1, None], 'armR': [-0.06 * sg, 0, 0, 1, None]}, 'hairUp': 0.9 if j % 2 else 0.4,
                                  'sq': [1.0 + 0.015 * sg, 1.0 - 0.02 * sg, 1.0 + 0.015 * sg], 'face': {**AGF10, 'lid': 1.0 if (j + i) % 24 == 9 else 0.35, 'pupilShake': 0.8, 'mouth': 'wavy' if j % 4 < 2 else 'line'}}, toonDur=0.04))
         t_ = r(t_ + 0.05); j += 1
+    hs = hd(STOP10); grip = {'R': R5(add(hs, [-0.24, 0, 0]), 1, 0.0), 'L': R5(add(hs, [0.24, 0, 0]), 1, 0.0)}
+    # the dead stop: thrown forward over the handle (a stretch), back (a squash), then stock-still, the hair falling, eyes wide
+    ks += [k(STOP10, clip='stand', blend=0.04),
+           k(STOP10, toon={'reach': grip, 'hands': {'R': 'grip', 'L': 'grip'}, 'hip': 0, 'auto': 0, 'bend': {'spine': [0.35, 0, 0, 1, None]}, 'sq': [0.92, 1.1, 0.92], 'hairUp': 1.2, 'face': {**AGF10, 'lid': 0.0, 'eye': 0.4, 'brow': 0.8}}, toonDur=0.04, toonEase='out'),
+           k(r(STOP10 + 0.1), toon={'reach': grip, 'hands': {'R': 'grip', 'L': 'grip'}, 'hip': 0, 'auto': 0, 'bend': {'spine': [-0.08, 0, 0, 1, None]}, 'sq': [1.06, 0.94, 1.06], 'hairUp': 0.6, 'face': {**AGF10, 'lid': 0.0, 'eye': 0.4, 'brow': 0.6}}, toonDur=0.06),
+           k(r(STOP10 + 0.2), toon={'reach': grip, 'hands': {'R': 'grip', 'L': 'grip'}, 'hip': 0, 'auto': 0, 'face': {**AGF10, 'lid': 0.1, 'brow': 0.4}}, toonDur=0.08)]
+    if i == 2:
+        # bucked off sideways: dragged out of frame right, leaning back against it, heels sliding, arms stretched after the handle
+        ks += [k(r(BUCK10 + 0.06), to=[OUT10[0] - 0.55, 0.0, r(OUT10[2] - 0.95)], dur=r(D10 - BUCK10 - 0.06), glide=True, face='keep', ease='in')]
+        for jj, tt in enumerate([BUCK10, r(BUCK10 + 0.08), r(BUCK10 + 0.2), r(BUCK10 + 0.34), r(BUCK10 + 0.5)]):
+            fr = min(1.0, (tt - BUCK10) / max(0.1, D10 - BUCK10)); hx = x + (OUT10[0] - x) * fr ** 2.2 + 0.08
+            gp = {'R': R5([hx - 0.24, 1.12, r(ZS10 - 0.62)], 1, 0.0), 'L': R5([hx + 0.24, 1.12, r(ZS10 - 0.62)], 1, 0.0)}
+            ks.append(k(tt, toon={'reach': gp, 'hands': {'R': 'grip', 'L': 'grip'}, 'hip': 0, 'auto': 0, 'hose': 0.3, 'lay': [0.0, -0.32], 'hairUp': 1.3, 'sq': [0.92, 1.08, 0.92] if jj % 2 else [0.96, 1.04, 0.96],
+                                  'face': {'lid': 0.0, 'eye': 0.45, 'pop': 0.45, 'popLen': 0.2, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.05))
+    else:
+        ks += [k(r(BUCK10 + 0.12), look=[1.6, 2.0, ZS10 - 0.95], lookDur=0.12), k(r(BUCK10 + 0.12), toon={'reach': grip, 'hands': {'R': 'grip', 'L': 'grip'}, 'hip': 0, 'auto': 0, 'face': {**AGF10, 'lid': 0.3, 'brow': 0.2, 'gx': -0.8}}, toonDur=0.1),
+               *blink(r(D10 - 0.25 - 0.06 * i), {**AGF10, 'lid': 0.3, 'brow': 0.2, 'gx': -0.8}, {'reach': grip, 'hands': {'R': 'grip', 'L': 'grip'}, 'hip': 0, 'auto': 0})]
     return ks
 SPK10 = [[x + (j % 3 - 1) * 0.4, 0.06, z, r(0.1 + 0.27 * j + 0.05 * i), 0.42] for i, x in enumerate(PX10) for j, z in enumerate([0.3, 0.9, 0.5, 1.4, 0.2, 1.1, 0.7])]
-# (review 1) sparkles that follow the polishers on the fresh wax, popping just behind each machine
-SPK10 += [[x + 0.3 * (1 if j % 2 else -1), 0.06, r(Z10A + (Z10B - Z10A) * (0.15 + 0.13 * j) - 0.6), r(D10 * (0.15 + 0.13 * j) + 0.04 * i), 0.5] for i, x in enumerate(PX10) for j in range(6)]
+SPK10 += [[x + 0.3 * (1 if j % 2 else -1), 0.06, r(Z10A + (ZS10 - Z10A) * (0.15 + 0.17 * j) - 0.6), r(STOP10 * (0.15 + 0.17 * j) + 0.04 * i), 0.5] for i, x in enumerate(PX10) for j in range(5)]
+# the sparkles that pop on the sound hits: a ring round each machine at the dead stop, a burst round the bucking one
+POP10 = [[x + dx, dy, r(ZS10 + dz), STOP10, 0.75] for x in PX10 for dx, dy, dz in [(-0.45, 0.5, 0.1), (0.45, 0.65, 0.0), (0.0, 1.0, 0.2), (-0.3, 0.15, 0.35), (0.35, 0.2, 0.3)]]
+POP10 += [[PX10[2] + dx, dy, r(ZS10 + dz), r(BUCK10 + 0.02 * n), 0.8] for n, (dx, dy, dz) in enumerate([(-0.4, 0.6, 0.2), (0.5, 0.9, 0.1), (0.2, 0.2, 0.4), (-0.2, 1.2, 0.0)])]
+RUN10 = lambda i: [[0.0, 1.0], [r(STOP10 - 0.01), 1.0], [r(STOP10 + 0.03), 0.0, 'lin']] + ([[r(BUCK10 - 0.02), 0.0], [r(BUCK10 + 0.04), 2.2, 'lin']] if i == 2 else [])
+def POLKEYS(i, x):
+    ks = [k(0.0, to=[x, 0.0, ZS10], dur=STOP10, ease='linear')]
+    if i == 2: ks.append(k(BUCK10, to=OUT10, dur=r(D10 - BUCK10), ease='in'))
+    return ks
 st.shot('S10', 'whiteVoid', setOpts={'color': '#9EB0C4'}, look=LOOKC, actors=[act(f'agent{i + 1}', [x, 0.0, Z10A - 0.95], 0, 'stand', 'neutral', keys=POLK(i, x)) for i, x in enumerate(PX10)],
         props=[COR(10), *SIDEWALLS(10), *SIDEDOORS(10, [(-1, 3.0), (1, 5.5), (-1, 7.5)]), P('brillant10', 'ttShine', pos=[0, 0, 1.0], opts={'w': 4.0, 'd': 8.0, 'tint': '#FFFFFF', 'k': 1.6, 'n': 9, 'glints': 14}),
-               *[P(f'cireuse10_{i}', 'ttPolisher', pos=[x, 0.0, Z10A], opts={'color': ['#D8452F', '#E8A93A', '#2F8A6A'][i]}, keys=[k(0.0, to=[x, 0.0, Z10B], dur=D10, ease='linear')]) for i, x in enumerate(PX10)],
+               *[P(f'cireuse10_{i}', 'ttPolisher', pos=[x, 0.0, Z10A], opts={'color': ['#D8452F', '#E8A93A', '#2F8A6A'][i], 'run': RUN10(i)}, keys=POLKEYS(i, x)) for i, x in enumerate(PX10)],
                *[TAG(f'etiq10_{i}', f'agent{i + 1}', needle=[6.4, 6.8, 6.2][i], dz=0.1) for i in range(3)],
-               P('etincelles10', 'ttSparkle', pos=[0, 0, 0], opts={'pts': SPK10, 'period': 1.9})],
+               P('etincelles10', 'ttSparkle', pos=[0, 0, 0], opts={'pts': SPK10, 'period': 1.9}), P('pops10', 'ttSparkle', pos=[0, 0, 0], opts={'pts': POP10})],
         cams=[C10])
-st.cue('engine', 'S10', 0.0, 0.22, D10); st.cue('sfx:whistle', 'S10', r(SOL10), 0.05)
+st.cue('engine', 'S10', 0.0, 0.22, STOP10); st.cue('sfx:ding', 'S10', STOP10, 0.2); st.cue('thud', 'S10', STOP10, 0.15)
+st.cue('engine', 'S10', BUCK10, 0.28, r(D10 - BUCK10)); st.cue('sfx:ding', 'S10', BUCK10, 0.15); st.cue('sfx:whoosh', 'S10', r(BUCK10 + 0.08), 0.15)
 
 # 11: four million toasts a day, all butter side down. A kitchen with a mirror-shiny floor (sheen streaks), frontal and a little high: a couple at
 #     breakfast; on the shiny floor their chairs creep sideways in one direction, the two of them surprised, gripping their seats; the stack of
