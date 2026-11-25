@@ -2224,3 +2224,16 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 52) Reflet sur une tête-boîte : discret (15-20 %) et à côté du sujet, pas au-dessus.
 - (cycle 52) Couloir avec rangées de machines en plan large : mettre en scène en profondeur, caméra basse.
 - (cycle 52) Feuille tamponnée : la tourner face caméra et la faire grandir (au moins 25 % de la largeur) pour qu'elle se lise.
+- (cycle 52, « Le chifoumi » passe 3) Main géante en accessoire au bout d'un bras d'acteur : un poignet nu couleur peau et une manchette
+  entre la manche et la main (`wristL`), sinon la main flotte comme un objet détaché ; le pouce en bloc séparé plus foncé.
+- (cycle 52) Lumière d'appoint d'une fenêtre (PointLight) : l'allumer à la coupe du plan rapproché (`fillAt`) ; dans le plan large elle
+  fait une tache blanche sur la façade.
+- (cycle 52) « Se pencher à la fenêtre » ne se lit pas de face (le buste se raccourcit) : caméra de trois quarts.
+- (cycle 52) Clés `life()` après un affaissement : elles remettent `sq` près de 1 et annulent l'écrasement ; respirer autour de la pose
+  affaissée avec des clés complètes.
+- (cycle 52) Acteur déplacé (`to`) à la coupe : il se tourne et se plie vers sa cible dans les dernières images du plan d'avant ; s'il sort
+  du cadre du plan suivant, le cacher à la coupe au lieu de le déplacer.
+- (cycle 52) Gonflement d'une main de robot pointée vers le haut : agrandir les trois axes ; un étirement le long de l'axe local Y part
+  vers la caméra et ne se voit pas.
+- (cycle 52) Médaille épinglée sur un poing géant : la décaler vers la caméra d'au moins la profondeur du poing, sinon il la cache.
+- (cycle 52) Mouettes qui tournent en sens contraires = croix en X à l'écran : même sens, une hauteur par mouette (`gullLane`).
