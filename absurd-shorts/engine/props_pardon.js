@@ -67,7 +67,7 @@ export const PARDON_PROPS = {
   // a squash-stretch bounce on each time; o.look [[t, yaw], ...]: his head turns; o.smile [[t, 0..1]]: beaming; o.blink [t, ...]; o.pop: the
   // button that pops (hidden after o.popAt); the huge lemon polka-dot tie (o.flap: it flaps, strides per second); o.sign [[t0, t1]]: his right hand
   // scribbles in front; o.raise [[t0, t1]]: his right arm up at the side; o.hold [[t0, t1]]: both arms up in front; o.straighten [[t0, t1]]: both hands
-  // at the tie, it wags then sits straight; o.puff [t]: the chest swells and settles; o.signUp [[t0, t1]]: scribbles up by his shoulder; o.pen: a black pen in his right hand
+  // at the tie, it wags then sits straight; o.puff [t]: the chest swells and settles; o.signUp [[t0, t1]]: scribbles up by his shoulder; o.pen: a black pen in his right hand; o.signBig: one big loop per sign window
   pdPresident(o) {
     const k = o.round ?? 1, SU = o.pj ? '#A9C2E2' : (o.suit || '#2B3A55'), g = grp(), root = grp(); g.add(root);
     const bodyR = 0.42 * k, hipY = o.sit ? 0.5 : 0.62, legL = 0.5;
@@ -109,7 +109,7 @@ export const PARDON_PROPS = {
         else if (u >= 0 && u < 0.3) arms[pa].rotation.set(-0.3, 0, sg * (0.55 + 0.08 * Math.exp(-10 * u) * Math.sin(u * 40))); }   // ...and lands on the case beside him with a little bounce
       if (o.restAt != null && t >= o.restAt) arms[pa].rotation.set(-0.3, 0, sg * 0.55);   // o.restAt: his hand stays on the case
       if (o.carry) { arms[0].rotation.set(0, 0, -0.18); arms[1].rotation.set(0, 0, 0.18); }   // o.carry: both arms down, a case in each hand
-      for (const [a, b] of o.sign || []) if (t >= a && t <= b) arms[0].rotation.set(-1.25 + 0.12 * Math.sin((t - a) * 26), 0.15 * Math.sin((t - a) * 13), -0.15);   // o.sign: his right hand scribbles in front of him
+      for (const [a, b] of o.sign || []) if (t >= a && t <= b) { const u = (t - a) / Math.max(0.05, b - a), L = o.signBig ? 0.4 : 0.12; arms[0].rotation.set(-1.25 + L * Math.sin(u * TAU), (o.signBig ? 0.55 : 0.15) * Math.sin(u * TAU * (o.signBig ? 1 : 2) - PI / 2), -0.15); }   // o.sign: his right hand scribbles in front of him (o.signBig: one big looping arc per window)
       for (const [a, b] of o.raise || []) if (t >= a && t <= b) { const u = Math.min(1, (t - a) / 0.15); arms[0].rotation.set(0, 0, -(0.35 + 1.65 * u)); }   // o.raise: his right arm up at the side (holds a scroll up beside his head)
       for (const [a, b] of o.hold || []) if (t >= a && t <= b) { arms[0].rotation.set(-2.2, 0, -0.25); arms[1].rotation.set(-2.2, 0, 0.25); }   // o.hold: both arms up in front (holds a scroll up to us)
       for (const [a, b] of o.straighten || []) if (t >= a && t <= b) { const u = (t - a) / (b - a); arms[0].rotation.set(-1.6, 0.3, -0.5); arms[1].rotation.set(-1.4, -0.3, 0.5); arms[0].rotation.x += 0.25 * Math.sin(u * PI * 4); arms[1].rotation.x += 0.25 * Math.sin(u * PI * 4); if (body.userData.tie) { body.userData.tie.rotation.z = 0.5 * Math.sin(u * PI * 4) * (1 - u); body.userData.tie.scale.y = 1 + 0.12 * Math.abs(Math.sin(u * PI * 4)) * (1 - u); } }   // o.straighten: both hands tug at the tie, it wags then sits straight
@@ -258,8 +258,8 @@ export const PARDON_PROPS = {
     const gate = grp(); gate.position.set(-G, 0, 0.08); g.add(gate);
     for (let b = 0; b < 8; b++) gate.add(at(cyl(0.03, 0.03, GH - 0.1, '#2A2C31', 6, { pivot: 'bottom' }), 0.14 + b * 0.275, 0.02, 0));
     gate.add(at(box(2 * G, 0.08, 0.06, '#2A2C31'), G, 0.3, 0), at(box(2 * G, 0.08, 0.06, '#2A2C31'), G, GH - 0.15, 0), at(box(0.22, 0.32, 0.1, '#3A3D44', { outline: 0.02 }), 2 * G - 0.2, 1.2, 0.05));
-    if (o.key) gate.add(at(cyl(0.1, 0.1, 0.035, '#E0B040', 12, { outline: 0.04 }), 2 * G - 0.2, 1.2, 0.36, PI / 2, 0, 0), at(cyl(0.05, 0.05, 0.04, '#3A3D44', 10), 2 * G - 0.2, 1.2, 0.37, PI / 2, 0, 0),
-      at(box(0.06, 0.06, 0.28, '#E0B040', { outline: 0.04 }), 2 * G - 0.2, 1.2, 0.2), at(box(0.06, 0.08, 0.04, '#E0B040'), 2 * G - 0.2, 1.15, 0.12));   // the big key left in the lock
+    if (o.key) gate.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.13, 0.04, 8, 18), new THREE.MeshPhongMaterial({ color: '#F0C030', emissive: '#5A4210', shininess: 90 })), 2 * G - 0.2, 1.42, 0.5),
+      at(box(0.07, 0.07, 0.42, '#F0C030', { outline: 0.04 }), 2 * G - 0.2, 1.2, 0.3), at(box(0.07, 0.3, 0.07, '#F0C030', { outline: 0.04 }), 2 * G - 0.2, 1.3, 0.5), at(box(0.07, 0.1, 0.05, '#F0C030'), 2 * G - 0.2, 1.13, 0.14));   // the big gold key left in the lock, its bow up
     const dark = new THREE.Color('#6E757C'), lit = new THREE.Color('#FFD878'), litE = new THREE.Color('#E8B040'), off = new THREE.Color('#000000');
     const gk = o.gate || [], gEnd = gk.length ? gk[gk.length - 1][0] : 1e9;
     g.userData.update = t => { const gb = t > gEnd ? 0.07 * Math.exp(-7 * (t - gEnd)) * Math.sin((t - gEnd) * 20) : 0; gate.rotation.y = -1.7 * kv(o.gate, t, 0) - gb;   // a little bounce at the end of its swing
@@ -285,18 +285,19 @@ export const PARDON_PROPS = {
     ...[-0.15, 0.15].map(x => at(cyl(0.015, 0.015, 0.3, '#2A2C31', 6), x, 1.3, 0.1, 0.4, 0, x)), ...[-0.15, 0.15].map(x => at(sphere(0.04, '#2A2C31', 1), x * 1.4, 1.45, 0.16))); },
   // A plain wooden dock (pivot at the floor in its middle, faces +Z): a low wooden box open at the back, a broad rail on top at o.h (1.0), a bench inside;
   // o.open 'L': no left side (at -X), the way out
-  pdDock(o) { const w = o.w ?? 1.6, h = o.h ?? 1.0, W = '#8A6A45';
-    return grp(at(box(w, h - 0.06, 0.08, W, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0.35), ...[-1, 1].filter(s => !(o.open === 'L' && s < 0)).map(s => at(box(0.08, h - 0.06, 0.7, W, { pivot: 'bottom', outline: 0.006 }), s * w / 2, 0, 0)),
-      at(box(w + 0.12, 0.08, 0.2, '#6A4A30', { outline: 0.01 }), 0, h - 0.02, 0.35), ...[-1, 1].filter(s => !(o.open === 'L' && s < 0)).map(s => at(box(0.14, 0.08, 0.74, '#6A4A30'), s * w / 2, h - 0.02, 0)),
-      at(box(w - 0.2, 0.08, 0.36, '#6A4A30', { outline: 0.01 }), 0, 0.46, -0.2), at(box(w - 0.2, 0.46, 0.06, '#5A3E28', { pivot: 'bottom' }), 0, 0, -0.2)); },
+  pdDock(o) { const w = o.w ?? 1.6, h = o.h ?? 1.0, D = o.depth ?? 0.7, W = '#8A6A45', f = D / 2, bz = -D / 2 + 0.15;   // o.depth: deep enough for a seated man's knees
+    return grp(at(box(w, h - 0.06, 0.08, W, { pivot: 'bottom', outline: 0.006 }), 0, 0, f), ...[-1, 1].filter(s => !(o.open === 'L' && s < 0)).map(s => at(box(0.08, h - 0.06, D, W, { pivot: 'bottom', outline: 0.006 }), s * w / 2, 0, 0)),
+      at(box(w + 0.12, 0.08, 0.2, '#6A4A30', { outline: 0.01 }), 0, h - 0.02, f), ...[-1, 1].filter(s => !(o.open === 'L' && s < 0)).map(s => at(box(0.14, 0.08, D + 0.04, '#6A4A30'), s * w / 2, h - 0.02, 0)),
+      at(box(w - 0.2, 0.08, 0.36, '#6A4A30', { outline: 0.01 }), 0, 0.46, bz), at(box(w - 0.2, 0.46, 0.06, '#5A3E28', { pivot: 'bottom' }), 0, 0, bz - 0.15)); },
   // A plain wooden judge's bench (pivot at the floor in its middle, faces +Z): a tall panelled wooden front, a top, a raised floor behind; no emblem
   pdJudgeBench(o) { const w = o.w ?? 2.6, h = o.h ?? 1.35, g = grp(at(box(w, h, 0.7, '#7A5A3C', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(w + 0.15, 0.08, 0.85, '#5A3E28', { outline: 0.01 }), 0, h + 0.04, -0.05),
       at(box(w, 0.4, 1.4, '#6A4A30', { pivot: 'bottom' }), 0, 0, -1.0));
     for (let i = 0; i < 3; i++) g.add(at(box(w / 3 - 0.16, h - 0.35, 0.02, '#8A6A45', { outline: 0.02 }), -w / 3 + i * w / 3, h / 2, 0.36));
     return g; },
   // A big wall switch on a plate (pivot at its middle, faces +Z): o.flipAt: the lever snaps down
-  pdSwitch(o) { const g = grp(at(box(0.3, 0.45, 0.04, '#E8E2D2', { outline: 0.02 }), 0, 0, 0)), lv = grp(at(box(0.08, 0.2, 0.06, '#C9CED4', { outline: 0.03 }), 0, 0.1, 0.05)); g.add(lv);
-    g.userData.update = t => { lv.rotation.x = o.flipAt != null && t >= o.flipAt ? PI - 0.4 * Math.exp(-15 * (t - o.flipAt)) : 0.3; }; g.userData.update(-1); return g; },
+  pdSwitch(o) { const g = grp(at(box(0.36, 0.52, 0.05, '#3A3D44', { outline: 0.02 }), 0, 0, -0.01), at(box(0.28, 0.44, 0.05, '#E8E2D2'), 0, 0, 0.01), at(box(0.1, 0.16, 0.06, '#5E656D'), 0, 0, 0.03)),
+      lv = grp(at(box(0.05, 0.22, 0.05, '#2A2C31', { outline: 0.03 }), 0, 0.11, 0.06), at(sphere(0.05, '#C8322A', 1, { outline: 0.04 }), 0, 0.23, 0.06)); g.add(lv);   // a dark frame, a pale plate, a big lever with a red knob
+    g.userData.update = t => { const u = o.flipAt != null ? t - o.flipAt : -1; lv.rotation.x = u >= 0 ? PI - 0.5 + 0.5 * (1 - Math.exp(-14 * u) * Math.cos(u * 30)) - (u > 0.3 ? 0 : 0) : 0.35; }; g.userData.update(-1); return g; },
   // A white board held up (pivot at its middle, faces +Z): « PARDON » in big black letters sized to fit, struck through by ONE diagonal red line
   pdBoard(o) { const w = o.w ?? 1.1, h = o.h ?? 0.6;
     return grp(at(box(w + 0.04, h + 0.04, 0.03, '#C9CED4', { outline: 0.01 }), 0, 0, -0.02), canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); let fs = H * 0.6; c.font = `900 ${fs}px Arial`;
