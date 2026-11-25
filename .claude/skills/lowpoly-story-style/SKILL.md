@@ -2194,3 +2194,15 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 52) Poing-moufle : il se lit du côté replié (plis et pouce plus clair), levé et tourné vers la caméra ; de dos c'est une boîte.
   Main plate levée : la tourner d'environ 0,9 rad paume vers la caméra, de profil c'est une gélule.
 - (cycle 52) `fitBack` sur une caméra de chute recule de 4-5 m et rapetisse le gag : placer la caméra à la main et vérifier avec `project()`.
+- (cycle 52) Deux-plan 9:16 : au niveau des mains le cadre ne fait qu'environ 1 m de large ; vérifier les positions de départ des mains, pas
+  seulement le point de rencontre. Les coins hauts sont occupés par les têtes : reculer la caméra pour y loger un gag de fond.
+- (cycle 52) Travelling de caméra (accessoire) visé sur un objet et vu de face : il le cache ; faire entrer le rail en travers de la ligne de vue.
+- (cycle 52) Une tape donnée depuis le rang de derrière sur un poing disparaît derrière le corps ; une tape sur la tête se lit, et écraser la
+  tête à chaque tape ajoute une réaction.
+- (cycle 52) Dans un accessoire, une référence rangée dans `g.userData` pendant la construction peut avoir disparu dans `update` : la garder
+  dans une variable locale.
+- (cycle 52) Objet du gag juste derrière l'acteur dans un gros plan : l'action se joue cachée par sa tête ; le décaler d'environ 0,8 largeur
+  d'écran du côté opposé à l'accessoire tenu.
+- (cycle 52) Un contour en pointillés du volume perdu rend lisible en 0,3 s un avant-après « a perdu deux étages ».
+- (cycle 52) Carton calé juste avant un glissé de caméra : il tombe pendant que la tête bouge ; le caler après le glissé et vérifier la tête du
+  plan suivant sous la bande du carton.
