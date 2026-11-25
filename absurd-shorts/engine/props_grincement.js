@@ -36,6 +36,14 @@ const drawDrop = (c, x, y, h, fill = '#E8A818', edge = INK, lw = 0.07) => {
   c.fillStyle = 'rgba(255,255,255,0.75)'; c.beginPath(); c.ellipse(x - h * 0.12, y + h * 0.08, h * 0.05, h * 0.11, 0.35, 0, TAU); c.fill();
 };
 
+// (round 1 fix) a soft additive glow: a square plane o size wide with a radial gradient in colour col, peak opacity op, at position p (faces +Z)
+const glowPlane = (size, col, op, p) => {
+  const N = 128, cv = canvas(N, N), c = cv.getContext('2d'), gr = c.createRadialGradient(N / 2, N / 2, 0, N / 2, N / 2, N / 2);
+  gr.addColorStop(0, col); gr.addColorStop(0.35, col); gr.addColorStop(1, 'rgba(0,0,0,0)'); c.fillStyle = gr; c.fillRect(0, 0, N, N);
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(size, size), new THREE.MeshBasicMaterial({ map: tex(cv), transparent: true, opacity: op, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false, side: THREE.DoubleSide }));
+  m.position.set(p[0], p[1], p[2]); m.renderOrder = 3; return m;
+};
+
 export const GRINCEMENT_PROPS = {
 
   // ---------------------------------------------------------------- the squeak (pivot at the hinge; give the prop face: 'camera')
@@ -119,11 +127,17 @@ export const GRINCEMENT_PROPS = {
     const hs = D.hinge === 'R' ? -1 : 1, hx = -hs * dw / 2, piv = grp(); piv.position.set(hx, 0.02, -0.06); g.add(piv);
     const lw = dw - 0.03, lh = dh - 0.04, dc = D.color, dk = new THREE.Color(dc).multiplyScalar(0.78).getStyle(), lf = grp(); lf.position.x = hs * lw / 2; piv.add(lf);
     lf.add(at(box(lw, lh, 0.07, dc, { outline: 0.008, unique: true }), 0, lh / 2, 0));
+    // (round 1 fix) four raised panels with pale mouldings round each (two tall above, two short below), so the leaf reads as a panelled door
+    const lt = new THREE.Color(dc).lerp(new THREE.Color('#FFFFFF'), 0.32).getStyle();
     for (const f of [1, -1]) {
-      for (const [py, ph] of [[lh * 0.7, lh * 0.36], [lh * 0.27, lh * 0.36]]) lf.add(at(box(lw * 0.64, ph, 0.02, dk), 0, py, f * 0.042));
+      for (const [py, ph] of [[lh * 0.69, lh * 0.36], [lh * 0.235, lh * 0.27]]) for (const px of [-lw * 0.205, lw * 0.205]) {
+        const pw = lw * 0.3, mt = 0.026;
+        lf.add(at(box(pw - 0.03, ph - 0.03, 0.028, dk), px, py, f * 0.045));
+        for (const [mx, my, mw, mh] of [[px, py + ph / 2, pw + mt, mt], [px, py - ph / 2, pw + mt, mt], [px - pw / 2, py, mt, ph + mt], [px + pw / 2, py, mt, ph + mt]]) lf.add(at(box(mw, mh, 0.024, lt), mx, my, f * 0.046));
+      }
       lf.add(at(sphere(0.055, '#E2B53C', 1), hs * (lw / 2 - 0.12), lh * 0.47, f * 0.07), at(cyl(0.04, 0.04, 0.03, '#C9982E', 8), hs * (lw / 2 - 0.12), lh * 0.47, f * 0.045, PI / 2));
     }
-    lf.add(at(box(0.3, 0.06, 0.02, '#C9982E', { outline: 0.004 }), 0, lh * 0.5, 0.045));
+    lf.add(at(box(0.3, 0.06, 0.02, '#C9982E', { outline: 0.004 }), 0, lh * 0.44, 0.05));
     for (const y of [0.35, dh - 0.45]) g.add(at(box(0.05, 0.16, 0.05, '#4A4A50'), hx, y, -0.02));
     const ins = D.inside === false ? null : { w: 3.4, d: 3.6, wall: '#F1E4C8', floor: '#A9805A', light: 3.2, ...(D.inside || {}) };
     if (ins) {
@@ -139,33 +153,38 @@ export const GRINCEMENT_PROPS = {
     g.userData.update(0); return g;
   },
 
-  // ---------------------------------------------------------------- the oil can (pivot under its base, the spout toward +X): a saturated red body
-  // with a yellow band and a white glint, a brass cone, a long thin spout, a thumb pump and a loop handle on the back; about 0.42 m tall (o.s scales
-  // it in place), o.flip: the spout toward -X. o.over: the bagged copy, drawn after the bag's film (transparent at opacity 1, renderOrder 5).
+  // ---------------------------------------------------------------- the oil can (pivot under its base, the spout toward +X): a classic burette
+  // (round 1 fix: the tall can with a loop handle read as a kettle): a squat wide red body with a yellow band and a white glint, a red cone shoulder,
+  // a short brass neck and one long thin spout angled up and out (about 34 deg), a small brass thumb pump at the back, no handle; about 0.42 m tall
+  // to the spout's tip (o.s scales it in place), o.flip: the spout toward -X. o.over: the bagged copy, drawn after the bag's film (transparent at
+  // opacity 1, renderOrder 5).
   grinOilCan(o) {
     const g = grp(), b = grp(); g.add(b); b.scale.setScalar(o.s ?? 1); if (o.flip) b.scale.x *= -1;
     const M = (c, e) => { const m = new THREE.MeshLambertMaterial({ color: c, emissive: e || '#000000', flatShading: true }); if (o.over) { m.transparent = true; m.opacity = 1; m.depthWrite = true; } return m; };
     const mk = (geo, c, x, y, z, e) => { const m = new THREE.Mesh(geo, M(c, e)); m.position.set(x, y, z); m.castShadow = true; if (o.over) m.renderOrder = 5; b.add(m); return m; };
     const red = o.color || '#E0261C', inkM = new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide }); if (o.over) { inkM.transparent = true; inkM.opacity = 1; }
-    const body = mk(new THREE.CylinderGeometry(0.1, 0.115, 0.17, 16), red, 0, 0.085, 0, '#3A0806');
-    const ink = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.115, 0.17, 16), inkM); ink.scale.setScalar(1.07); body.add(ink); if (o.over) ink.renderOrder = 4;
-    mk(new THREE.CylinderGeometry(0.117, 0.117, 0.04, 16), '#FFC414', 0, 0.09, 0, '#4A3000');
-    mk(new THREE.CylinderGeometry(0.035, 0.1, 0.08, 16), '#D9A93A', 0, 0.21, 0, '#3A2A08');
-    const glint = mk(new THREE.BoxGeometry(0.02, 0.12, 0.01), '#FFFFFF', -0.05, 0.085, 0.1, '#FFFFFF'); glint.rotation.y = -0.45;
-    const tip = [0.27, 0.42, 0]; const sp = new THREE.Mesh(new THREE.CylinderGeometry(0.009, 0.016, 1, 6), M('#C9CED4', '#2A2E34')); const a = new THREE.Vector3(0.03, 0.22, 0), d = new THREE.Vector3(...tip).sub(a);
+    const inked = (m, s = 1.07) => { const i = new THREE.Mesh(m.geometry, inkM); i.scale.setScalar(s); m.add(i); if (o.over) i.renderOrder = 4; return m; };
+    inked(mk(new THREE.CylinderGeometry(0.128, 0.138, 0.075, 18), red, 0, 0.0375, 0, '#3A0806'), 1.06);
+    inked(mk(new THREE.CylinderGeometry(0.032, 0.128, 0.085, 18), red, 0, 0.1175, 0, '#3A0806'), 1.07);
+    mk(new THREE.CylinderGeometry(0.14, 0.142, 0.028, 18), '#FFC414', 0, 0.04, 0, '#4A3000');
+    inked(mk(new THREE.CylinderGeometry(0.03, 0.034, 0.035, 10), '#D9A93A', 0, 0.175, 0, '#3A2A08'), 1.15);
+    const glint = mk(new THREE.BoxGeometry(0.018, 0.05, 0.01), '#FFFFFF', -0.06, 0.06, 0.115, '#FFFFFF'); glint.rotation.y = -0.45;
+    const glint2 = mk(new THREE.BoxGeometry(0.012, 0.06, 0.01), '#FFFFFF', -0.035, 0.12, 0.075, '#FFFFFF'); glint2.rotation.set(0.6, -0.45, 0);
+    const tip = [0.37, 0.43, 0]; const sp = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.017, 1, 6), M('#C9CED4', '#2A2E34')); const a = new THREE.Vector3(0.012, 0.19, 0), d = new THREE.Vector3(...tip).sub(a);
     sp.scale.y = d.length(); sp.position.copy(a).addScaledVector(d, 0.5); sp.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.clone().normalize()); sp.castShadow = true; if (o.over) sp.renderOrder = 5; b.add(sp);
-    const spI = new THREE.Mesh(new THREE.CylinderGeometry(0.009, 0.016, 1, 6), inkM); spI.scale.set(1.9, 1.02, 1.9); sp.add(spI);
-    mk(new THREE.SphereGeometry(0.025, 8, 6), '#C9CED4', 0, 0.255, 0); mk(new THREE.CylinderGeometry(0.02, 0.02, 0.05, 8), '#D9A93A', -0.03, 0.27, 0);
-    const hd = new THREE.Mesh(new THREE.TorusGeometry(0.065, 0.016, 6, 12, PI * 1.2), M('#D9A93A', '#3A2A08')); hd.rotation.z = PI * 0.4; hd.position.set(-0.11, 0.12, 0); if (o.over) hd.renderOrder = 5; b.add(hd);
+    const spI = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.017, 1, 6), inkM); spI.scale.set(2.0, 1.02, 2.0); sp.add(spI);
+    mk(new THREE.CylinderGeometry(0.018, 0.018, 0.045, 8), '#D9A93A', -0.075, 0.13, 0, '#3A2A08');
+    const lever = mk(new THREE.BoxGeometry(0.07, 0.012, 0.03), '#D9A93A', -0.09, 0.16, 0, '#3A2A08'); lever.rotation.z = 0.35;
     g.userData.tip = tip.map(v => v * (o.s ?? 1)); return g;
   },
 
   // ---------------------------------------------------------------- the sealed evidence bag (pivot at its middle, facing +Z; give the prop face:
   // 'camera'): a barely tinted film o.w (0.46) x o.h (0.62) with thick white seams, two diagonal glints, a red-and-white zip strip on top and a red
   // label band at the bottom (o.text 'SCELLÉ', o.num 'N° 98'); the oil can inside (o.can false: empty), drawn after the film. o.open: the zip strip
-  // parted and the mouth held open (to catch the can).
+  // parted and the mouth held open (to catch the can). o.flat [[t, v], ...] (round 1 fix): v 1 squashes the bag flat onto its bottom edge (wide and
+  // low), v < 0 stretches it tall (the re-inflation's overshoot).
   grinBag(o) {
-    const W = o.w ?? 0.46, H = o.h ?? 0.62, g = grp();
+    const W = o.w ?? 0.46, H = o.h ?? 0.62, root = grp(), g = grp(); root.add(g);
     const film = new THREE.Mesh(new THREE.BoxGeometry(W, H, 0.05), new THREE.MeshLambertMaterial({ color: '#EAF6FC', transparent: true, opacity: o.opacity ?? 0.16, depthWrite: false, emissive: '#22303A' })); film.renderOrder = 2; g.add(film);
     for (const [x, y, w, h] of [[-W / 2, 0, 0.022, H], [W / 2, 0, 0.022, H], [0, -H / 2, W, 0.022]]) g.add(at(box(w, h, 0.056, '#F6FAFC', { outline: 0.004 }), x, y, 0));
     for (const [x, rz] of [[-W * 0.18, -0.5], [W * 0.26, -0.5]]) { const gl = new THREE.Mesh(new THREE.PlaneGeometry(0.025, H * 0.55), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.55, depthWrite: false })); gl.position.set(x, H * 0.12, 0.03); gl.rotation.z = rz; gl.renderOrder = 6; g.add(gl); }
@@ -174,8 +193,10 @@ export const GRINCEMENT_PROPS = {
     const lab = canvasPlane(W * 0.9, H * 0.2, (c, w, h) => { c.fillStyle = '#C8202A'; c.fillRect(0, 0, w, h); c.fillStyle = '#FFFFFF'; c.textAlign = 'center'; c.textBaseline = 'middle';
       fitText(c, o.text || 'SCELLÉ', w / 2, h * 0.38, w * 0.86, h * 0.52); c.font = `700 ${h * 0.26}px Arial`; c.fillText(o.num || 'N° 98', w / 2, h * 0.79); }, { res: 256, emissive: 0.25 });
     lab.position.set(0, -H * 0.37, 0.03); lab.renderOrder = 6; g.add(lab);
-    if (o.can !== false) { const cn = GRINCEMENT_PROPS.grinOilCan({ over: true, s: o.canS ?? 0.95 }); cn.position.set(-0.07, -H * 0.24, 0); cn.rotation.set(0, -0.35, 0.12); g.add(cn); }
-    return g;
+    if (o.can !== false) { const cn = GRINCEMENT_PROPS.grinOilCan({ over: true, s: o.canS ?? 0.84 }); cn.position.set(-0.1, -H * 0.235, 0.0); cn.rotation.set(0, -0.3, 0.0); g.add(cn); }
+    if (o.flat) root.userData.update = t => { const v = keyAt(o.flat, t, 0), sy = 1 - 0.62 * v; g.scale.set(1 + 0.42 * v, sy, 1 + 0.15 * v); g.position.y = -H / 2 * (1 - sy); };
+    if (o.flat) root.userData.update(0);
+    return root;
   },
 
   // ---------------------------------------------------------------- the bronze plaque screwed on the door (pivot at its middle, facing +Z): a
@@ -255,19 +276,34 @@ export const GRINCEMENT_PROPS = {
   },
 
   // ---------------------------------------------------------------- the dictionary (pivot under it, lying open, the spine along Z, pages up +Y):
-  // a thick leather book o.w (0.9, both pages) x o.d (0.62); o.flip [t0, t1, n]: n blank pages turn right to left between t0 and t1; the right page
-  // shows the one word o.word (« IIIIIK ») huge; o.defAt: under it the definition o.def (« de l'huile ») and an oil drop write in. o.closed: the
-  // closed volume (o.w/2 x o.d x 0.24 thick), dark red leather, gold bands and « DICTIONNAIRE » on its cover.
+  // a thick leather book o.w (0.9, both pages) x o.d (0.62); the right page shows the one word o.word (« IIIIIK ») huge; o.defAt: under it the
+  // definition o.def (« de l'huile ») and an oil drop write in.
+  // o.flip [t0, t1, n, accel] (round 1 fix): n blank pages turn right to left, each one sooner and faster than the last (start times follow
+  // (j / (n - 1)) ^ (1 / accel), durations shrink from 0.3 s to 0.055 s); a fast page drags three fading ghosts behind it (a smear fan); the last one
+  // slams down at t1 (a hard stop) and the whole book gives a small settle bounce (squash, rebound) over the next 0.5 s.
+  // o.closed: the closed volume (o.w/2 x o.d x o.thick), a real huge book: dark red leather boards proud of a cream page block whose edges show
+  // fine page lines and a bevel, a rounded spine with raised gold bands, gold corner pieces, a gilt frame and « DICTIONNAIRE » on the cover.
   grinBook(o) {
-    const W = o.w ?? 0.9, D = o.d ?? 0.62, g = grp(), lea = o.leather || '#7A2A22', gold = '#E2B53C', pw = W / 2 - 0.02;
+    const W = o.w ?? 0.9, D = o.d ?? 0.62, root = grp(), g = grp(), lea = o.leather || '#7A2A22', gold = '#E2B53C', pw = W / 2 - 0.02; root.add(g);
     if (o.closed) {
-      const Th = o.thick ?? 0.24, bw = W / 2;
-      g.add(at(box(bw + 0.03, Th, D + 0.03, lea, { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(box(bw - 0.01, Th - 0.04, D - 0.01, '#F2E8D0', { pivot: 'bottom' }), 0.025, 0.02, 0));
-      for (const z of [-D * 0.32, D * 0.32]) g.add(at(box(0.04, Th + 0.012, 0.05, gold), -bw / 2 - 0.005, -0.006, z));
-      const cov = canvasPlane(bw * 0.92, D * 0.92, (c, w, h) => { c.fillStyle = lea; c.fillRect(0, 0, w, h); c.strokeStyle = gold; c.lineWidth = w * 0.025; c.strokeRect(w * 0.06, h * 0.05, w * 0.88, h * 0.9);
-        c.fillStyle = gold; c.textAlign = 'center'; c.textBaseline = 'middle'; fitText(c, 'DICTIONNAIRE', w / 2, h * 0.32, w * 0.8, h * 0.12); c.font = `700 ${h * 0.07}px Arial`; fitText(c, 'DU GRINCEMENT', w / 2, h * 0.46, w * 0.7, h * 0.07, 700); drawDrop(c, w / 2, h * 0.7, h * 0.2, gold, '#5A1A12', 0.05); }, { res: 512 });
-      cov.rotation.x = -PI / 2; cov.position.set(0.0, Th + 0.017, 0); g.add(cov);
-      return g;
+      const Th = o.thick ?? 0.24, bw = W / 2, bt = 0.035, ov = 0.035, pg = '#F2E8D0', pl = '#CDBE98';
+      for (const y of [bt / 2, Th - bt / 2]) g.add(at(box(bw + ov, bt, D + 2 * ov, lea, { outline: 0.006 }), ov / 2, y, 0));
+      g.add(at(box(bw - 0.02, Th - 2 * bt, D, pg), 0.0, Th / 2, 0));
+      for (let i = 1; i < 9; i++) { const y = bt + (Th - 2 * bt) * i / 9; g.add(at(box(bw - 0.03, 0.003, 0.004, pl), 0.0, y, D / 2 + 0.001), at(box(0.004, 0.003, D - 0.01, pl), bw / 2 - 0.009, y, 0)); }
+      for (const y of [bt + 0.004, Th - bt - 0.004]) g.add(at(box(bw - 0.02, 0.008, 0.012, '#E2D4AE'), 0.0, y, D / 2 - 0.002), at(box(0.012, 0.008, D, '#E2D4AE'), bw / 2 - 0.012, y, 0));
+      const spine = new THREE.Mesh(new THREE.CylinderGeometry(Th / 2, Th / 2, D + 2 * ov, 14), mat(lea)); spine.rotation.x = PI / 2; spine.position.set(-bw / 2, Th / 2, 0); spine.scale.set(0.55, 1, 1); g.add(spine);
+      for (const z of [-0.36, -0.12, 0.12, 0.36]) { const bd = new THREE.Mesh(new THREE.CylinderGeometry(Th / 2 + 0.012, Th / 2 + 0.012, 0.04, 14), mat(gold)); bd.rotation.x = PI / 2; bd.position.set(-bw / 2, Th / 2, z * D); bd.scale.set(0.58, 1, 1); g.add(bd); }
+      const cs = 0.17, tri = new THREE.Shape([V2(0, 0), V2(cs, 0), V2(0, cs)]), tg = new THREE.ExtrudeGeometry(tri, { depth: 0.012, bevelEnabled: false });
+      const cx0 = ov / 2 - (bw + ov) / 2, cx1 = ov / 2 + (bw + ov) / 2, cz = D / 2 + ov;
+      for (const y of [Th + 0.001, -0.001]) for (const [x, z, sx, sz] of [[cx1, cz, -1, -1], [cx1, -cz, -1, 1], [cx0, cz, 1, -1], [cx0, -cz, 1, 1]]) {
+        const m = new THREE.Mesh(tg, mat(gold, { emissive: '#4A3608' })); m.rotation.x = -PI / 2; m.scale.set(sx, sz * -1, y > 0 ? 1 : -1); m.position.set(x, y, z); g.add(m);
+        g.add(at(box(0.014, bt + 0.004, cs * 0.9, gold), x - sx * 0.006, y > 0 ? Th - bt / 2 : bt / 2, z + sz * cs * 0.45), at(box(cs * 0.9, bt + 0.004, 0.014, gold), x + sx * cs * 0.45, y > 0 ? Th - bt / 2 : bt / 2, z - sz * 0.006));
+      }
+      const cov = canvasPlane(bw * 0.9, D * 0.9, (c, w, h) => { c.fillStyle = lea; c.fillRect(0, 0, w, h); c.strokeStyle = gold; c.lineWidth = w * 0.025; c.strokeRect(w * 0.08, h * 0.07, w * 0.84, h * 0.86);
+        c.lineWidth = w * 0.008; c.strokeRect(w * 0.12, h * 0.1, w * 0.76, h * 0.8);
+        c.fillStyle = gold; c.textAlign = 'center'; c.textBaseline = 'middle'; fitText(c, 'DICTIONNAIRE', w / 2, h * 0.32, w * 0.72, h * 0.12); fitText(c, 'DU GRINCEMENT', w / 2, h * 0.46, w * 0.62, h * 0.07, 700); drawDrop(c, w / 2, h * 0.68, h * 0.2, gold, '#5A1A12', 0.05); }, { res: 512, emissive: 0.12 });
+      cov.rotation.x = -PI / 2; cov.position.set(ov / 2, Th + 0.004, 0); g.add(cov);
+      return root;
     }
     // the open book: covers, page blocks (a thick fan on the left: a thousand pages), the spine
     g.add(at(box(W + 0.06, 0.03, D + 0.05, lea, { outline: 0.006 }), 0, 0.015, 0));
@@ -283,19 +319,28 @@ export const GRINCEMENT_PROPS = {
     const left = mkPage(pageDraw(false, false), -pw / 2 - 0.01, 0.121), rightBlank = mkPage(pageDraw(false, false), pw / 2 + 0.01, 0.081), rightWord = mkPage(pageDraw(true, false), pw / 2 + 0.01, 0.0815), rightDef = mkPage(pageDraw(true, true), pw / 2 + 0.01, 0.082);
     for (const p of [left, rightBlank, rightWord, rightDef]) g.add(p);
     left.material.side = rightBlank.material.side = THREE.FrontSide;
-    // the turning pages: a pivot on the spine, each sheet lies along +X and turns over to -X
-    const F = o.flip || null, nF = F ? F[2] : 0, flips = [];
-    for (let i = 0; i < Math.min(nF, 10); i++) { const pv = grp(), sh = canvasPlane(pw, D - 0.05, (c, w, h) => { c.fillStyle = i % 2 ? '#F7EFDA' : '#FBF5E4'; c.fillRect(0, 0, w, h); c.strokeStyle = 'rgba(160,140,100,0.5)'; c.lineWidth = w * 0.01; c.strokeRect(1, 1, w - 2, h - 2); }, { res: 128 });
-      sh.rotation.x = -PI / 2; sh.position.x = pw / 2; pv.add(sh); pv.position.set(0, 0.085, 0); g.add(pv); flips.push(pv); }
-    g.userData.update = t => {
-      let showWord = !F || t >= F[1];
-      flips.forEach((pv, i) => { if (!F) { pv.visible = false; return; } const per = (F[1] - F[0]) / nF; let best = -1;
-        for (let j = i; j < nF; j += flips.length) { const u = (t - F[0] - j * per) / (per * 2.2); if (u >= 0 && u <= 1) best = u; }
-        pv.visible = best >= 0; if (best >= 0) { const e = smooth(best); pv.rotation.z = PI * e; pv.position.y = 0.085 + 0.06 * Math.sin(PI * e); } });
+    // the turning pages: a pool of sheets on pivots on the spine, each lies along +X and turns over to -X
+    const F = o.flip || null, nF = F ? F[2] : 0, acc = F ? (F[3] ?? 2.4) : 1, pool = [];
+    const starts = [], durs = [];
+    if (F) { const dl = 0.055; for (let j = 0; j < nF; j++) { const q = nF > 1 ? j / (nF - 1) : 1; durs.push(lerp(0.3, dl, Math.pow(q, 0.8))); starts.push(F[0] + (F[1] - dl - F[0]) * Math.pow(q, 1 / acc)); } }
+    for (let i = 0; i < (F ? 18 : 0); i++) { const pv = grp(), sh = canvasPlane(pw, D - 0.05, (c, w, h) => { c.fillStyle = i % 2 ? '#F7EFDA' : '#FBF5E4'; c.fillRect(0, 0, w, h); c.strokeStyle = 'rgba(160,140,100,0.5)'; c.lineWidth = w * 0.01; c.strokeRect(1, 1, w - 2, h - 2); }, { res: 128 });
+      sh.material.transparent = true; sh.material.depthWrite = false; sh.rotation.x = -PI / 2; sh.position.x = pw / 2; pv.add(sh); pv.position.set(0, 0.085, 0); pv.visible = false; g.add(pv); pool.push([pv, sh]); }
+    root.userData.update = t => {
+      const showWord = !F || t >= F[1];
+      if (F) {
+        const live = [];
+        for (let j = 0; j < nF; j++) { const u = (t - starts[j]) / durs[j]; if (u < 0 || u > 1.6) continue;
+          if (u <= 1) live.push([u, 1]);
+          if (durs[j] < 0.15) for (const [lag, op] of [[0.16, 0.5], [0.32, 0.3], [0.48, 0.15]]) { const v = u - lag; if (v >= 0 && v <= 1) live.push([v, op]); } }
+        pool.forEach(([pv, sh], i) => { const e = live[i]; pv.visible = !!e; if (!e) return; const [u, op] = e, a = op < 1 ? u : smooth(u);
+          pv.rotation.z = PI * a; pv.position.y = 0.085 + 0.07 * Math.sin(PI * a) + i * 0.0004; sh.material.opacity = op; });
+        const v = t - F[1], b = v > 0 && v < 0.6 ? Math.exp(-6.5 * v) * Math.cos(v * 26) : 0;
+        g.scale.set(1 + 0.03 * b, 1 - 0.16 * b, 1 + 0.03 * b);
+      }
       const def = o.defAt != null && t >= o.defAt;
       rightBlank.visible = !showWord; rightWord.visible = showWord && !def; rightDef.visible = showWord && def;
     };
-    g.userData.update(0); return g;
+    root.userData.update(0); return root;
   },
 
   // ---------------------------------------------------------------- a wooden lectern (pivot at the floor, facing +Z): a column, a slanted top
@@ -364,18 +409,20 @@ export const GRINCEMENT_PROPS = {
   },
 
   // ---------------------------------------------------------------- a duvet over somebody lying in bed (pivot at its foot end's middle on the
-  // mattress, lying along -Z toward the pillow): a soft slab o.w (1.05) x o.len (1.5) with a fold at its top edge, o.color; o.pull [[t, extra]]: the top
-  // edge slides further toward the pillow by extra metres (he pulls it up)
+  // mattress, lying along -Z toward the pillow): (round 1 fix: the slab, its fold and its stripes read as stairs) one soft rounded mass o.w (1.05) x
+  // o.len (1.5), a capsule half sunk in the mattress, o.color, a pale rolled edge at the top; o.pull [[t, extra]]: the top edge slides further toward
+  // the pillow by extra metres; o.bib [[t, h]]: for somebody sitting up, the top of the duvet rises as one rounded hump to h metres over the mattress
+  // (he pulls it up to his nose)
   grinDuvet(o) {
-    const W = o.w ?? 1.05, Lb = o.len ?? 1.5, g = grp(), c = o.color || '#E8EEF6', body = grp(); g.add(body);
-    const slab = box(W, 0.2, 1, c, { outline: 0.006, unique: true }); slab.position.set(0, 0.1, -0.5); body.add(slab);
-    const fold = box(W + 0.02, 0.22, 0.16, o.fold || '#F7F9FC', { outline: 0.006 }), fg = grp(fold); body.add(fg);
-    for (let i = 0; i < 3; i++) body.add(at(box(W * 0.98, 0.012, 0.03, o.stripe || '#A9BCD6'), 0, 0.205, -0.3 - i * 0.35));
-    // o.bib [[t, h]]: for somebody sitting up, a fold of duvet that rises at the top edge to h metres over the mattress (he pulls it up to his nose)
-    const bib = o.bib ? box(W * 0.92, 1, 0.16, c, { outline: 0.006, unique: true }) : null, bibTop = o.bib ? box(W * 0.94, 0.12, 0.2, o.fold || '#F7F9FC', { outline: 0.006 }) : null;
-    if (bib) body.add(bib, bibTop);
-    g.userData.update = t => { const L = Lb + keyAt(o.pull, t, 0); slab.scale.z = L; slab.position.z = -L / 2; fg.position.set(0, 0.12, -L); [2, 3, 4].forEach((j, i) => { body.children[j].position.z = -L * (0.2 + i * 0.25); });
-      if (bib) { const h = Math.max(0.2, keyAt(o.bib, t, 0.6)); bib.scale.y = h; bib.position.set(0, h / 2, -L + 0.02); bibTop.position.set(0, h, -L + 0.02); fg.visible = false; } };
+    const W = o.w ?? 1.05, Lb = o.len ?? 1.5, g = grp(), c = o.color || '#E8EEF6', fc = o.fold || '#F7F9FC';
+    const cap = new THREE.CapsuleGeometry(0.5, 1, 6, 18); cap.rotateX(PI / 2);
+    const slab = new THREE.Mesh(cap, mat(c, { unique: true })); slab.castShadow = slab.receiveShadow = true; g.add(slab);
+    const bib = o.bib ? new THREE.Mesh(new THREE.CapsuleGeometry(0.5, 1, 6, 18), mat(c, { unique: true })) : null;
+    const roll = new THREE.Mesh(new THREE.CapsuleGeometry(0.5, 1, 4, 14), mat(fc)); roll.rotation.z = PI / 2; g.add(roll);
+    if (bib) { bib.castShadow = bib.receiveShadow = true; g.add(bib); }
+    g.userData.update = t => { const L = Lb + keyAt(o.pull, t, 0); slab.scale.set(W, 0.36, L / 2); slab.position.set(0, 0.0, -L / 2);
+      if (bib) { const h = Math.max(0.2, keyAt(o.bib, t, 0.6)); bib.scale.set(W * 0.92, h / 2, 0.3); bib.position.set(0, h * 0.25, -L + 0.12); roll.scale.set(0.13, W * 0.46, 0.15); roll.position.set(0, h * 0.97, -L + 0.14); }
+      else { roll.scale.set(0.12, W * 0.48, 0.14); roll.position.set(0, 0.17, -L + 0.08); } };
     g.userData.update(0); return g;
   },
 
@@ -439,12 +486,86 @@ export const GRINCEMENT_PROPS = {
   },
 
   // ---------------------------------------------------------------- a bedside lamp (pivot at the floor): a little table, a lamp with a warm cream
-  // shade that glows and a warm point light (o.power 2.2, range 3.5)
+  // shade that glows and a warm point light (o.power 2.2, range 3.5); (round 1 fix) o.pool: a visible warm pool, soft additive glows on the wall
+  // behind (o.wall [dx, dy, dz, size], facing +X by default) and round the shade
   grinBedLamp(o) {
-    const g = grp();
-    g.add(at(box(0.45, 0.55, 0.4, '#8A6A44', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(cyl(0.07, 0.09, 0.05, '#3A3D44', 10), 0, 0.575, 0), at(cyl(0.015, 0.015, 0.25, '#3A3D44', 6, { pivot: 'bottom' }), 0, 0.58, 0));
-    g.add(at(cyl(0.1, 0.17, 0.2, '#FFE6B0', 12, { emissive: '#E8A848', outline: 0.004 }), 0, 0.88, 0));
-    const L = new THREE.PointLight('#FFC880', o.power ?? 2.2, o.range ?? 3.5, 1.3); L.position.set(0, 0.86, 0.1); g.add(L);
+    const g = grp(), s = o.s ?? 1, b = grp(); g.add(b); b.scale.setScalar(s);
+    b.add(at(box(0.45, 0.55, 0.4, '#8A6A44', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(cyl(0.07, 0.09, 0.05, '#3A3D44', 10), 0, 0.575, 0), at(cyl(0.015, 0.015, 0.25, '#3A3D44', 6, { pivot: 'bottom' }), 0, 0.58, 0));
+    b.add(at(cyl(0.1, 0.17, 0.2, '#FFE6B0', 12, { emissive: '#F0B058', outline: 0.004 }), 0, 0.88, 0));
+    const L = new THREE.PointLight('#FFC880', o.power ?? 2.2, o.range ?? 3.5, 1.3); L.position.set(0, 0.86 * s, 0.1); g.add(L);
+    if (o.pool) {
+      const P = o.pool === true ? {} : o.pool;
+      g.add(glowPlane(P.halo ?? 0.9, P.color || '#FFB860', P.op ?? 0.55, [0, 0.9 * s, 0.02]));
+      if (P.wall) { const [dx, dy, dz, sz] = P.wall, w = glowPlane(sz, P.color || '#FFB860', P.wallOp ?? 0.45, [dx, dy, dz]); w.rotation.y = P.wallRy ?? PI / 2; g.add(w); }
+      if (P.floor) { const [dx, dz, sz] = P.floor, f = glowPlane(sz, P.color || '#FFB860', P.floorOp ?? 0.35, [dx, 0.04, dz]); f.rotation.x = -PI / 2; g.add(f); }
+    }
     return g;
+  },
+
+  // ---------------------------------------------------------------- (round 1 fix) a knitted beanie (attach to the head joint, offset [0, 0.5, 0]):
+  // a turned-up ribbed cuff that wraps the top of the box head o.w (0.34) x o.d (0.26), a rounded knit crown and a fluffy pompom; o.color, o.cuff,
+  // o.pom. Not a fez: the crown is a dome, the cuff wider than the crown's base, the pompom on top.
+  grinBeanie(o) {
+    const W = o.w ?? 0.34, Dd = o.d ?? 0.26, c = o.color || '#C8322A', cc = o.cuff || new THREE.Color(c).multiplyScalar(0.82).getStyle(), g = grp();
+    g.add(at(box(W + 0.04, 0.12, Dd + 0.04, cc, { outline: 0.008 }), 0, -0.07, 0));
+    for (let i = 0; i < 7; i++) { const x = -W / 2 + (i + 0.5) * W / 7; g.add(at(box(0.012, 0.11, 0.006, new THREE.Color(cc).multiplyScalar(0.78).getStyle()), x, -0.07, Dd / 2 + 0.022)); }
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(1, 16, 10, 0, TAU, 0, PI / 2), mat(c)); dome.scale.set(W / 2 + 0.01, 0.17, Dd / 2 + 0.01); dome.position.y = -0.02; dome.castShadow = true; g.add(dome);
+    const dI = new THREE.Mesh(dome.geometry, new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide })); dI.scale.setScalar(1.05); dome.add(dI);
+    for (const a of [-0.5, 0, 0.5]) g.add(at(box(0.01, 0.12, 0.006, new THREE.Color(c).multiplyScalar(0.8).getStyle()), a * W * 0.5, 0.05, Dd / 2 - 0.005 - 0.03 * Math.abs(a), -0.5, 0, -a * 0.6));
+    const pom = sphere(0.065, o.pom || '#F4F1E8', 1); pom.position.y = 0.17; g.add(pom);
+    return g;
+  },
+
+  // ---------------------------------------------------------------- (round 1 fix) the invigilator's conductor baton (attach to a hand): a long
+  // white stick o.len (0.62) with a dark cork grip, pointing along +Z of the hand from the grip
+  grinBaton(o) {
+    const L = o.len ?? 0.62, g = grp();
+    const st = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.014, L, 6), mat('#F6F4EC', { emissive: '#4A4A46' })); st.rotation.x = PI / 2; st.position.z = L / 2; g.add(st);
+    const sI = new THREE.Mesh(st.geometry, new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide })); sI.scale.set(1.9, 1.01, 1.9); st.add(sI);
+    g.add(at(cyl(0.025, 0.02, 0.09, '#5A3A28', 8), 0, 0, 0.0, PI / 2));
+    return g;
+  },
+
+  // ---------------------------------------------------------------- (round 1 fix) a small moving van seen from its back (pivot at the floor in its
+  // middle, the front toward -Z, the open back toward +Z): a white box o.len (3.0) long with a blue band and « DÉMÉNAGEMENT » on its sides (o.text), a
+  // coloured cab in front with a dark windscreen and side window, four dark wheels with pale hubs, tail lamps, and both rear doors swung wide open
+  // (o.doors, rad) on a dark load space with a few boxes inside
+  grinVan(o) {
+    const Lv = o.len ?? 3.0, Wv = 1.7, Hb = 1.75, C = o.color || '#E8742E', g = grp(), y0 = 0.35, zb = Lv / 2;
+    g.add(at(box(Wv, Hb, Lv - 1.0, '#F4F2EC', { pivot: 'bottom', outline: 0.012 }), 0, y0, 0.5));
+    g.add(at(box(Wv + 0.01, Hb - 0.1, 0.05, '#2A2D33'), 0, y0 + 0.05 + (Hb - 0.1) / 2, zb - 0.02));
+    for (const [x, y, z, s] of [[-0.35, 0.0, zb - 0.4, 0.5], [0.3, 0.0, zb - 0.6, 0.6], [-0.2, 0.5, zb - 0.7, 0.45]]) g.add(at(box(s, s * 0.8, s, '#C49A66', { pivot: 'bottom', outline: 0.006 }), x, y0 + 0.06 + y, z));
+    for (const sd of [-1, 1]) { g.add(at(box(0.012, 0.16, Lv - 1.1, '#2F62B5'), sd * (Wv / 2 + 0.006), y0 + 0.5, 0.5));
+      const t = canvasPlane(Lv - 1.3, 0.34, (c, w, h) => { c.fillStyle = '#F4F2EC'; c.fillRect(0, 0, w, h); c.fillStyle = '#2F62B5'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitText(c, o.text || 'DÉMÉNAGEMENT', w / 2, h * 0.55, w * 0.94, h * 0.8); }, { res: 512 });
+      t.rotation.y = sd * PI / 2; t.position.set(sd * (Wv / 2 + 0.008), y0 + 1.2, 0.5); g.add(t); }
+    g.add(at(box(Wv - 0.06, 0.95, 1.0, C, { pivot: 'bottom', outline: 0.012 }), 0, y0, -Lv / 2 + 0.5), at(box(Wv - 0.06, 0.55, 0.75, C, { pivot: 'bottom', outline: 0.01 }), 0, y0 + 0.95, -Lv / 2 + 0.62));
+    g.add(at(box(Wv - 0.2, 0.42, 0.03, '#33456E', { emissive: '#1A2238' }), 0, y0 + 1.22, -Lv / 2 + 0.24, -0.35, 0, 0));
+    for (const sd of [-1, 1]) g.add(at(box(0.02, 0.36, 0.5, '#33456E', { emissive: '#1A2238' }), sd * (Wv / 2 - 0.02), y0 + 1.2, -Lv / 2 + 0.66));
+    g.add(at(box(Wv, 0.14, 0.1, '#3A3D44', { outline: 0.006 }), 0, y0 + 0.08, zb + 0.03), at(box(Wv, 0.14, 0.1, '#3A3D44'), 0, y0 + 0.1, -Lv / 2 - 0.02));
+    for (const sd of [-1, 1]) g.add(at(box(0.14, 0.22, 0.04, '#D8262C', { emissive: '#6A0A0A' }), sd * (Wv / 2 - 0.1), y0 + 0.45, zb + 0.01));
+    for (const z of [-Lv / 2 + 0.55, Lv / 2 - 0.55]) for (const sd of [-1, 1]) { const wh = cyl(0.34, 0.34, 0.24, '#22252A', 14); wh.rotation.z = PI / 2; wh.position.set(sd * (Wv / 2 - 0.08), 0.34, z); g.add(wh);
+      const hub = cyl(0.15, 0.15, 0.02, '#B9BEC4', 8); hub.rotation.z = PI / 2; hub.position.set(sd * (Wv / 2 + 0.05), 0.34, z); g.add(hub); }
+    const da = o.doors ?? 1.9;
+    for (const sd of [-1, 1]) { const pv = grp(); pv.position.set(sd * Wv / 2, y0 + 0.05, zb); pv.rotation.y = sd * da; g.add(pv);
+      pv.add(at(box(Wv / 2 - 0.02, Hb - 0.12, 0.05, '#ECEAE2', { pivot: 'bottom', outline: 0.008 }), -sd * (Wv / 4 - 0.01), 0, 0.03), at(box(0.05, 0.3, 0.02, '#8A8E94'), -sd * (Wv / 2 - 0.14), (Hb - 0.12) * 0.5, 0.06)); }
+    return g;
+  },
+
+  // ---------------------------------------------------------------- (round 1 fix) a bare bulb hanging from a ceiling rose (pivot at the rose): a
+  // round plate, a cord o.drop (0.6) long, a cap and a glowing bulb with a soft halo, a faint cone of light under it and a warm point light (o.power,
+  // o.range); it swings by o.swing (rad) at o.rate (rad/s) the whole shot; o.pool [y, size]: a soft warm pool on the surface at height y (relative to
+  // the pivot, e.g. the shelf) that slides under the swinging bulb
+  grinBulb(o) {
+    const d = o.drop ?? 0.6, g = grp(), arm = grp(); g.add(arm);
+    g.add(at(cyl(0.07, 0.07, 0.025, '#E6E2D8', 12, { outline: 0.004 }), 0, -0.012, 0));
+    arm.add(at(cyl(0.006, 0.006, d, '#222222', 4, { pivot: 'top' }), 0, 0, 0), at(cyl(0.022, 0.022, 0.06, '#3A3A3A', 8), 0, -d, 0), at(sphere(0.055, '#FFF1C8', 1, { emissive: '#FFD27A', noGrain: true }), 0, -d - 0.07, 0));
+    const halo = glowPlane(o.halo ?? 0.55, '#FFD890', 0.7, [0, -d - 0.07, 0.02]); halo.userData.bill = true; arm.add(halo);
+    const cone = new THREE.Mesh(new THREE.ConeGeometry(o.coneR ?? 0.5, o.coneH ?? 1.0, 16, 1, true), new THREE.MeshBasicMaterial({ color: '#FFE2A0', transparent: true, opacity: o.coneOp ?? 0.07, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, toneMapped: false }));
+    cone.position.y = -d - 0.07 - (o.coneH ?? 1.0) / 2; arm.add(cone);
+    const l = new THREE.PointLight(o.color || '#FFCF8A', o.power ?? 5, o.range ?? 6, 1.3); l.position.set(0, -d - 0.12, 0.05); arm.add(l);
+    const pool = o.pool ? glowPlane(o.pool[1], '#FFC870', o.poolOp ?? 0.4, [0, o.pool[0], 0]) : null; if (pool) { pool.rotation.x = -PI / 2; g.add(pool); }
+    g.userData.update = t => { const a = (o.swing ?? 0) * Math.sin(t * (o.rate ?? 2.4) + (o.ph ?? 0)); arm.rotation.z = a;
+      if (pool) pool.position.x = -o.pool[0] * Math.tan(a); };
+    g.userData.update(0); return g;
   },
 };
