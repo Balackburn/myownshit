@@ -64,12 +64,14 @@ function drawStain(c, W, H, s, outlineOnly = false, col = null) {
     path(); c.stroke(); sh.drips.forEach(d => { drip(d); c.stroke(); });
     return;
   }
-  c.fillStyle = STAIN; c.strokeStyle = STAIN_D; c.lineWidth = Math.max(1.5, 0.006 * W) * k; c.lineJoin = 'round';
+  // (round 3) s.pal [fill, dark, light]: a stain colour for a shot under a warm key (the plain red turned orange there)
+  const PAL = s.pal || [STAIN, STAIN_D, STAIN_L];
+  c.fillStyle = PAL[0]; c.strokeStyle = PAL[1]; c.lineWidth = Math.max(1.5, 0.006 * W) * k; c.lineJoin = 'round';
   path(); c.fill(); sh.drips.forEach(d => { drip(d, s.ext ?? 0); c.fill(); }); path(); c.stroke(); sh.drips.forEach(d => { drip(d, s.ext ?? 0); c.stroke(); });
   sh.dots.forEach(([x, y, r]) => { c.beginPath(); c.ellipse(X(x), Y(y), r * f * 1.25, r * f * 0.85, 0.4, 0, TAU); c.fill(); });
   // a highlight and a few darker lumps of tomato
-  c.fillStyle = STAIN_L; c.beginPath(); c.ellipse(X(-0.025 - 0.08 * s.u), Y(-0.02), 0.03 * f * (1 + 2.2 * s.u), 0.013 * f, -0.3, 0, TAU); c.fill();
-  c.fillStyle = STAIN_D; [[0.02, 0.02], [-0.04, 0.015], [0.035, -0.03]].forEach(([x, y], i) => { c.beginPath(); c.ellipse(X(x * (1 + 3 * s.u)), Y(y), 0.008 * f * (1 + s.u), 0.006 * f, i, 0, TAU); c.fill(); });
+  c.fillStyle = PAL[2]; c.beginPath(); c.ellipse(X(-0.025 - 0.08 * s.u), Y(-0.02), 0.03 * f * (1 + 2.2 * s.u), 0.013 * f, -0.3, 0, TAU); c.fill();
+  c.fillStyle = PAL[1]; [[0.02, 0.02], [-0.04, 0.015], [0.035, -0.03]].forEach(([x, y], i) => { c.beginPath(); c.ellipse(X(x * (1 + 3 * s.u)), Y(y), 0.008 * f * (1 + s.u), 0.006 * f, i, 0, TAU); c.fill(); });
   // the strand of pasta stuck in it
   c.lineCap = 'round'; c.lineJoin = 'round';
   // (round 2) a smooth curve through the strand's points (straight segments read as a chevron)
@@ -101,7 +103,7 @@ function drawShirt(c, W, H, o, st) {
     const sm = 1 + 2.4 * Math.sin(PI * clamp01(st.slide || 0)) * (st.slide > 0 && st.slide < 1 ? 1 : 0), cr = st.crouch || 0;
     c.save(); c.translate(cx2 * W, cy2 * H); c.rotate(ang); c.scale(sm, 1 / Math.sqrt(sm)); c.rotate(-ang); c.rotate(0.22 * (st.wig || 0)); c.scale(1 + 0.22 * cr, 1 - 0.3 * cr); c.scale(1 - 0.28 * (st.shrink || 0), 1 - 0.28 * (st.shrink || 0)); c.translate(-cx2 * W, -cy2 * H);
     if (sm > 1.05) { c.globalAlpha = 0.35; drawStain(c, W, H, { u, cx: cx2 - 0.05 * Math.cos(ang) * sm, cy: cy2 - 0.05 * Math.sin(ang) * sm * W / H, sc: (o.sc ?? 1) * 0.9, k: st.k }); c.globalAlpha = 1; }
-    drawStain(c, W, H, { u, cx: cx2, cy: cy2, sc: (o.sc ?? 1) * lerp(1, o.countrySc ?? 1, u) * (1 - 0.18 * sl), k: st.k, ext: st.ext || 0 });
+    drawStain(c, W, H, { u, cx: cx2, cy: cy2, sc: (o.sc ?? 1) * lerp(1, o.countrySc ?? 1, u) * (1 - 0.18 * sl), k: st.k, ext: st.ext || 0, pal: o.pal });
     c.restore();
   }
   // the breast pocket (on his left, the right of the picture) with its flap, drawn over the stain
@@ -113,8 +115,15 @@ function drawShirt(c, W, H, o, st) {
     c.fillStyle = o.button || '#E4E8EC'; c.beginPath(); c.arc((u0 + u1) / 2 * W, V(v0 + 0.07), W * 0.012, 0, TAU); c.fill(); c.strokeStyle = '#6E757E'; c.lineWidth = W * 0.004; c.stroke();
     // a drip peeking out from under the pocket (the stain has dug in)
     // (round 1) bigger, and it peeks out and ducks back in (st.peek keyed by o.peekKeys)
-    if (st && st.peek > 0.01) { const x = (u0 + u1) / 2 + 0.02, y = V(v1 - 0.012), L = 0.1 * st.peek * W, w = 0.034 * W;
-      c.fillStyle = STAIN; c.strokeStyle = STAIN_D; c.lineWidth = W * 0.006; c.beginPath(); c.moveTo(x * W - w / 2, y); c.lineTo(x * W - w * 0.45, y + L); c.arc(x * W, y + L, w * 0.62, PI, 0, true); c.lineTo(x * W + w / 2, y); c.closePath(); c.fill(); c.stroke(); }
+    // (round 3) a splashy round head on a short neck that leans out sideways (away from the placket), with two satellite drops: a plain drip
+    // read as a tie tip or a bookmark
+    if (st && st.peek > 0.01) { const pk = st.peek, x = ((u0 + u1) / 2 + 0.02) * W, y = V(v1 - 0.012), L = 0.075 * pk * W, w = 0.03 * W, rh = 0.036 * W * (0.55 + 0.45 * Math.min(1.2, pk)), hx = x + 0.04 * W * pk, hy = y + L + rh * 0.35;
+      c.fillStyle = o.pal ? o.pal[0] : STAIN; c.strokeStyle = o.pal ? o.pal[1] : STAIN_D; c.lineWidth = W * 0.006; c.lineJoin = 'round';
+      c.beginPath(); c.moveTo(x - w / 2, y); c.quadraticCurveTo(x - w * 0.4, y + L * 0.7, hx - rh * 0.8, hy); c.lineTo(hx + rh * 0.5, hy - rh * 0.7); c.quadraticCurveTo(x + w * 0.5, y + L * 0.4, x + w / 2, y); c.closePath(); c.fill(); c.stroke();
+      c.beginPath(); c.arc(hx, hy, rh, 0, TAU); c.fill(); c.stroke();
+      for (const [a, rr] of [[0.5, 0.42], [1.7, 0.36], [2.9, 0.4], [-0.6, 0.3]]) { c.beginPath(); c.arc(hx + Math.cos(a) * rh * 0.92, hy + Math.sin(a) * rh * 0.92, rh * rr, 0, TAU); c.fill(); }
+      for (const [dx, dy, rr] of [[1.75, -0.55, 0.3], [1.35, 1.25, 0.22]]) { c.beginPath(); c.arc(hx + dx * rh * Math.min(1, pk), hy + dy * rh * Math.min(1, pk), rh * rr, 0, TAU); c.fill(); c.stroke(); }
+      c.fillStyle = o.pal ? o.pal[2] : STAIN_L; c.beginPath(); c.ellipse(hx + rh * 0.3, hy - rh * 0.35, rh * 0.28, rh * 0.16, -0.5, 0, TAU); c.fill(); }
   }
   // (round 2) laid flat (o.flat): the sleeves are folded in along both sides (a strip and its fold line, inside the outline) and the collar
   // band is drawn inside the panel, so the laid shirt is one closed shape
@@ -123,7 +132,12 @@ function drawShirt(c, W, H, o, st) {
     c.strokeStyle = seam; c.lineWidth = W * 0.007; for (const u of [0.075, 0.925]) { c.beginPath(); c.moveTo(u * W, V(0.05)); c.lineTo(u * W, H - V(0.02)); c.stroke(); }
     c.beginPath(); c.moveTo(0, V(0.05)); c.lineTo(W * 0.075, V(0.05)); c.moveTo(W, V(0.05)); c.lineTo(W * 0.925, V(0.05)); c.stroke();
     c.fillStyle = 'rgba(120,128,140,0.22)'; c.beginPath(); c.moveTo(W * 0.3, 0); c.quadraticCurveTo(W * 0.5, V(0.075), W * 0.7, 0); c.closePath(); c.fill();
-    c.strokeStyle = seam; c.lineWidth = W * 0.008; c.strokeRect(W * 0.004, W * 0.004, W * 0.992, H - W * 0.008);
+    if (!o.volume) { c.strokeStyle = seam; c.lineWidth = W * 0.008; c.strokeRect(W * 0.004, W * 0.004, W * 0.992, H - W * 0.008); }
+    // (round 3) cloth, not a card: soft shading inside the folded sleeves and along the hem, and two loose creases
+    for (const [u0, u1] of [[0.075, 0.125], [0.925, 0.875]]) { const gr = c.createLinearGradient(u0 * W, 0, u1 * W, 0); gr.addColorStop(0, 'rgba(90,96,108,0.22)'); gr.addColorStop(1, 'rgba(90,96,108,0)'); c.fillStyle = gr; c.fillRect(Math.min(u0, u1) * W, V(0.05), 0.05 * W, H); }
+    const gh = c.createLinearGradient(0, H, 0, H - V(0.08)); gh.addColorStop(0, 'rgba(90,96,108,0.24)'); gh.addColorStop(1, 'rgba(90,96,108,0)'); c.fillStyle = gh; c.fillRect(0, H - V(0.08), W, V(0.08));
+    c.strokeStyle = 'rgba(110,117,126,0.22)'; c.lineWidth = W * 0.005; c.lineCap = 'round';
+    c.beginPath(); c.moveTo(W * 0.16, H * 0.93); c.quadraticCurveTo(W * 0.3, H * 0.86, W * 0.42, H * 0.95); c.moveTo(W * 0.62, H * 0.97); c.quadraticCurveTo(W * 0.74, H * 0.9, W * 0.86, H * 0.94); c.stroke();
   }
   // the collar: a band and two pointed flaps
   if (o.collar !== false) {
@@ -239,15 +253,26 @@ export const TACHE_PROPS = {
   // sway; o.hitAt: [t...] kicks of the jet; o.mapAt / o.mapDur: the map comes down over it; o.mapPulse: the coast flashes when it matches
   tacheHangShirt(o) {
     // (round 2) o.flatH: the laid shirt's length (x s; folded at the hem); o.white: a neutral white (no cool emissive) for a warm light
-    const s = o.s ?? 1, W0 = 0.62 * s, H0 = (o.flat ? (o.flatH ?? 0.8) : 0.8) * s, D0 = (o.flat ? 0.012 : 0.05) * s, top = -0.13 * s, g = grp(), body = grp(); g.add(body);
+    const s = o.s ?? 1, W0 = 0.62 * s, H0 = (o.flat ? (o.flatH ?? 0.8) : 0.8) * s, D0 = (o.flat ? (o.flatD ?? 0.012) : 0.05) * s, top = -0.13 * s, g = grp(), body = grp(); g.add(body);
     const WH = o.white ? '#F6F4EE' : null;
-    const lay = { stainAt: o.at || [0.34, 0.47], sc: o.sc ?? 1.0, pocket: o.pocket || [0.6, 0.82, 0.2, 0.42], bg: WH || o.bg, countryAt: o.countryAt || [0.5, 0.64], countrySc: o.countrySc ?? 1.0, res: 512, flat: !!o.flat,
+    const lay = { stainAt: o.at || [0.34, 0.47], sc: o.sc ?? 1.0, pocket: o.pocket || [0.6, 0.82, 0.2, 0.42], bg: WH || o.bg, countryAt: o.countryAt || [0.5, 0.64], countrySc: o.countrySc ?? 1.0, res: 512, flat: !!o.flat, volume: !!o.volume, pal: o.pal,
       emis: WH ? '#2E2C28' : null, emisI: WH ? 0.3 : null };
     const cloth = WH || o.bg || SHIRT, cm = WH ? { noGrain: true, emissive: '#2E2C28' } : (o.bg ? {} : { noGrain: true, emissive: '#2A3A58' });
     body.add(at(box(W0 * (o.flat ? 1.0 : 0.98), H0, D0, cloth, { outline: 0.004, ...cm }), 0, top - H0 / 2, 0));
     const face = shirtFace(W0, H0, lay, null); face.position.set(0, top - H0 / 2, D0 / 2 + 0.002); body.add(face);
     // collar band (the silhouette) and a back panel; laid flat: the collar is drawn inside the panel and the sleeves are folded under
     if (!o.flat) body.add(at(box(0.24 * s, 0.05 * s, D0 * 1.6, cloth, { outline: 0.004, ...cm }), 0, top + 0.01 * s, 0));
+    // (round 3) o.flat with o.volume: the laid shirt reads as cloth, not a printed card: the folded sleeves are soft rolls along both sides, the hem
+    // is turned up in a roll, the collar band stands up at the top, and a dark contact shadow rims the hem and the sides on the board
+    if (o.flat && o.volume) {
+      // the rolls taper at both ends (a sleeve folded over, not a frame round the panel); no hem roll or collar block (they read as a tray)
+      const rr = 0.015 * s, zc = D0 / 2 - 0.45 * rr;
+      for (const sd of [-1, 1]) { const m = cyl(rr, rr, H0 * 0.84, cloth, 10, { outline: 0.003, ...cm }); m.scale.set(1, 1, 0.8); body.add(at(m, sd * (W0 / 2 - 0.8 * rr), top - H0 * 0.5, zc));
+        for (const e of [-1, 1]) { const cap = sphere(rr, cloth, 1); cap.scale.set(1, 2.2, 0.8); body.add(at(cap, sd * (W0 / 2 - 0.8 * rr), top - H0 * 0.5 + e * H0 * 0.42, zc)); } }
+      const sc0 = o.shadowColor || '#4A3128';
+      body.add(at(box(W0 + 0.026 * s, H0 + 0.012 * s, 0.0015, sc0, { outline: 0 }), 0, top - H0 / 2 - 0.012 * s, -D0 / 2 + 0.0012));
+      body.add(at(box(W0 + 0.06 * s, H0 + 0.02 * s, 0.0012, o.shadowColor2 || '#6A4A3E', { outline: 0 }), 0, top - H0 / 2 - 0.022 * s, -D0 / 2 + 0.0006));
+    }
     const sleeves = [];
     for (const sd of (o.flat ? [] : [-1, 1])) {
       const sl = grp(); sl.position.set(sd * W0 * 0.47, top - 0.03 * s, 0);
@@ -387,6 +412,15 @@ export const TACHE_PROPS = {
   // ---------------------------------------------------------------- the riot police's round shield (facing +Z): see-through, a dark rim
   tacheRoundShield(o) {
     const R = o.r ?? 0.42, g = grp();
+    // (round 3) a solid clear-plastic read: a pale milky face (no inner ring: it read as a lens or a mesh disc), a thick dark rim and the dark
+    // upright grip seen through it (glints and a level bar with two blocks read as a clock face)
+    if (o.riot) {
+      const pane = new THREE.Mesh(new THREE.CircleGeometry(R, 32), new THREE.MeshLambertMaterial({ color: '#E3EDF3', emissive: '#55626E', emissiveIntensity: 0.25, transparent: true, opacity: 0.8, side: THREE.DoubleSide, depthWrite: false }));
+      pane.castShadow = false; g.add(pane);
+      g.add(new THREE.Mesh(new THREE.TorusGeometry(R, 0.034, 6, 36), mat('#22262C')));
+      g.add(at(box(0.05, R * 0.5, 0.014, '#3A4048', { outline: 0 }), 0, -0.02, 0.008), at(box(0.09, 0.03, 0.02, '#2A2F36', { outline: 0 }), 0, -0.02 + R * 0.25, 0.012), at(box(0.09, 0.03, 0.02, '#2A2F36', { outline: 0 }), 0, -0.02 - R * 0.25, 0.012));
+      return g;
+    }
     const pane = new THREE.Mesh(new THREE.CircleGeometry(R, 28), new THREE.MeshLambertMaterial({ color: '#BFD6E4', transparent: true, opacity: 0.5, side: THREE.DoubleSide, depthWrite: false }));
     pane.castShadow = false; g.add(pane);
     g.add(new THREE.Mesh(new THREE.TorusGeometry(R, 0.018, 6, 32), mat('#2A2F36')));
@@ -410,12 +444,17 @@ export const TACHE_PROPS = {
     const BL = 3.6; gun.add(at(cyl(0.11, 0.13, BL, col, 10, { outline: 0.008 }), 0, 0, BL / 2, PI / 2, 0, 0), at(cyl(0.16, 0.16, 0.4, dk, 10, { outline: 0.006 }), 0, 0, BL - 0.1, PI / 2, 0, 0));
     // the spray bottle: white body along the barrel, a blue label band with its word, the trigger head and nozzle at the muzzle
     const bot = grp(); bot.position.set(0, 0.42, BL - 1.15); gun.add(bot);
-    bot.add(at(box(0.62, 0.62, 1.3, '#F2F5F7', { outline: 0.008 }), 0, 0, 0), at(box(0.64, 0.4, 0.8, '#2F8FD0', { outline: 0.004 }), 0, 0, 0.0));
-    for (const sd of [-1, 1]) { const lb = canvasPlane(0.78, 0.34, (c, W, H) => { c.fillStyle = '#2F8FD0'; c.fillRect(0, 0, W, H); let fs = H * 0.5; c.font = `900 ${fs}px Arial`; const tw = c.measureText('DÉTACHANT').width; if (tw > W * 0.9) { fs *= W * 0.9 / tw; c.font = `900 ${fs}px Arial`; } c.fillStyle = '#FFFFFF'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('DÉTACHANT', W / 2, H * 0.55); }, { res: 256 });
-      lb.position.set(sd * 0.325, 0, 0); lb.rotation.y = sd * PI / 2; bot.add(lb); }
-    bot.add(at(box(0.62, 0.4, 0.32, '#F2F5F7', { outline: 0.006 }), 0, 0.05, 0.8), at(box(0.42, 0.46, 0.36, '#E8EDF0', { outline: 0.006, taper: { x: 0.8, z: 0.7 } }), 0, 0.12, 1.1));
-    bot.add(at(box(0.12, 0.34, 0.14, '#2F8FD0', { outline: 0.004 }), 0, -0.2, 1.05, -0.4, 0, 0), at(cyl(0.06, 0.07, 0.32, '#2F8FD0', 8, { outline: 0.004 }), 0, 0.2, 1.36, PI / 2, 0, 0));
-    for (const dz of [-0.35, 0.35]) bot.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.44, 0.035, 6, 18), mat('#2B2B26')), 0, -0.2, dz));
+    // (round 3) it reads as a spray bottle: a round body tapering to a shoulder and a screw collar, the blue trigger head with its hood overhanging
+    // forward, a big forward-angled trigger under it and a yellow nozzle cap at the muzzle end (the box and its black rings read as a tank of hoses)
+    const BW = '#F2F5F7', BB = '#2F8FD0';
+    bot.add(at(cyl(0.27, 0.34, 1.2, BW, 14, { outline: 0.008 }), 0, 0, -0.15, PI / 2, 0, 0), at(cyl(0.3, 0.338, 0.62, BB, 14, { outline: 0.004 }), 0, 0, -0.15, PI / 2, 0, 0));
+    for (const sd of [-1, 1]) { const lb = canvasPlane(0.6, 0.3, (c, W, H) => { c.fillStyle = BB; c.fillRect(0, 0, W, H); let fs = H * 0.5; c.font = `900 ${fs}px Arial`; const tw = c.measureText('DÉTACHANT').width; if (tw > W * 0.9) { fs *= W * 0.9 / tw; c.font = `900 ${fs}px Arial`; } c.fillStyle = '#FFFFFF'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('DÉTACHANT', W / 2, H * 0.55); }, { res: 256 });
+      lb.position.set(sd * 0.345, 0, -0.15); lb.rotation.y = sd * PI / 2; bot.add(lb); }
+    bot.add(at(cyl(0.11, 0.27, 0.22, BW, 14, { outline: 0.006 }), 0, 0, 0.56, PI / 2, 0, 0), at(cyl(0.13, 0.13, 0.12, BB, 12, { outline: 0.005 }), 0, 0, 0.73, PI / 2, 0, 0));
+    bot.add(at(box(0.26, 0.3, 0.6, BB, { outline: 0.006 }), 0, 0.1, 1.06), at(box(0.3, 0.08, 0.72, BB, { outline: 0.005 }), 0, 0.27, 1.12));
+    bot.add(at(box(0.17, 0.17, 0.16, '#F2C230', { outline: 0.005 }), 0, 0.2, 1.44), at(cyl(0.035, 0.035, 0.02, INK, 8), 0, 0.2, 1.525, PI / 2, 0, 0));
+    bot.add(at(box(0.12, 0.44, 0.09, BB, { outline: 0.005 }), 0, -0.17, 1.24, -0.5, 0, 0), at(box(0.12, 0.1, 0.16, BB, { outline: 0.004 }), 0, -0.38, 1.38, -0.2, 0, 0));
+    for (const dz of [-0.45, 0.2]) { const st = new THREE.Mesh(new THREE.TorusGeometry(0.42, 0.022, 5, 20), mat(dk)); st.position.set(0, -0.2, dz); st.scale.set(0.88, 1, 1); bot.add(st); }
     const muzzleLocal = [0, 1.38 + 0.38 + 0.42 + 0.2, -0.4 + 1.4 + BL - 1.15 + 1.52];
     const dust = foamPuffs(g, 14, 3), puff = grp(); puff.position.set(...muzzleLocal); g.add(puff); const foam = foamPuffs(puff, 10, 11);
     g.traverse(m => { if (m.isMesh && m.material && m.material.color && m.parent === g && m.geometry.type === 'IcosahedronGeometry') m.material.color.set('#CDBFA2'); });
@@ -564,7 +603,13 @@ export const TACHE_PROPS = {
     g.add(at(box(0.04, 0.16, 0.05, '#B8BEC6'), 0.0, 1.25, 0.09));
     const sh = TACHE_PROPS.tacheHangShirt({ ...(o.shirt || {}), s: o.shirt?.s ?? 1.3 }); sh.position.z = 0.13; g.add(sh);
     const y0 = o.y0 ?? 1.6, y1 = o.y1 ?? H - 0.1;
-    g.userData.update = t => { const u = o.hoistAt == null ? 1 : smooth((t - o.hoistAt) / (o.hoistDur ?? 1.2)); sh.position.y = lerp(y0, y1, u) + 0.03 * Math.sin(t * 6) * (u > 0 && u < 1 ? 1 : 0); sh.userData.update(t); };
+    // (round 3) o.tugs: the hoist goes up in that many tugs (a quick pull, then it hangs), in step with the hauler's hands; o.bounce (m): it
+    // overshoots at the top and bounces on its rope before it settles (pass the shirt a hitAt at the arrival for its swing)
+    g.userData.update = t => { const D = o.hoistDur ?? 1.2, v = o.hoistAt == null ? 1 : clamp01((t - o.hoistAt) / D); let u = smooth(v), y = 0;
+      if (o.tugs && o.hoistAt != null && v < 1) { const n = o.tugs, i = Math.floor(v * n), f = v * n - i; u = (i + easeOut(Math.min(1, f / 0.62))) / n; y = 0.025 * Math.sin(Math.min(1, f / 0.62) * PI); }
+      else if (!o.tugs) y = 0.03 * Math.sin(t * 6) * (v > 0 && v < 1 ? 1 : 0);
+      if (o.bounce && o.hoistAt != null && v >= 1) { const dt = t - o.hoistAt - D; y += o.bounce * Math.exp(-dt * 4.5) * Math.sin(dt * 15); }
+      sh.position.y = lerp(y0, y1, u) + y; sh.userData.update(t); };
     g.userData.update(-1); return g;
   },
   // a folded bundle of old cloth (faded beige and grey, never unfolded)
@@ -607,7 +652,11 @@ export const TACHE_PROPS = {
       top.add(at(box(0.16, 0.012, Wb * 0.5, '#8A9098', { outline: 0.003 }), -L / 2 - 0.1, 0.03, 0)); }
     const legs = grp(); g.add(legs);
     // (round 2) o.legW: the folded X legs wider than the board, so the X shows past its edges seen from the front
-    if (o.folded) { const lw = o.legW ?? 0.13; for (const sd of [-1, 1]) legs.add(rod([-L * 0.42, -0.05, sd * lw], [L * 0.22, -0.05, -sd * lw], 0.02, '#6E757E')); legs.add(rod([L * 0.22, -0.05, -lw - 0.02], [L * 0.22, -0.05, lw + 0.02], 0.022, '#2A2A2E'), rod([-L * 0.42, -0.05, -lw - 0.02], [-L * 0.42, -0.05, lw + 0.02], 0.022, '#2A2A2E')); top.position.y = 0; }
+    // (round 3) o.legColor / o.legR: light metal legs, thick enough to read against the brown underside, with rubber feet at the cross bars
+    if (o.folded) { const lw = o.legW ?? 0.13, lc = o.legColor || '#6E757E', lr = o.legR ?? 0.02, ly = o.legY ?? -0.05; for (const sd of [-1, 1]) legs.add(rod([-L * 0.42, ly, sd * lw], [L * 0.22, ly, -sd * lw], lr, lc));
+      legs.add(rod([L * 0.22, ly, -lw - 0.02], [L * 0.22, ly, lw + 0.02], lr * 1.1, o.legColor ? lc : '#2A2A2E'), rod([-L * 0.42, ly, -lw - 0.02], [-L * 0.42, ly, lw + 0.02], lr * 1.1, o.legColor ? lc : '#2A2A2E'));
+      if (o.legColor) for (const x of [L * 0.22, -L * 0.42]) for (const sd of [-1, 1]) legs.add(at(sphere(lr * 1.6, '#2A2A2E', 1), x, ly, sd * (lw + 0.03)));
+      top.position.y = 0; }
     // (round 2) o.tilt (rad): the top tips toward +Z about its long axis (its far edge up), the legs stay upright
     else { top.position.y = hb; top.rotation.x = o.tilt ?? 0; for (const sd of [-1, 1]) { legs.add(rod([-L * 0.3, hb - 0.02, sd * 0.13], [L * 0.2, 0.0, sd * 0.13], 0.014, '#8A9098'), rod([L * 0.2, hb - 0.02, sd * 0.13], [-L * 0.3, 0.0, sd * 0.13], 0.014, '#8A9098')); }
       legs.add(rod([L * 0.2, 0.01, -0.15], [L * 0.2, 0.01, 0.15], 0.016, '#2A2A2E'), rod([-L * 0.3, 0.01, -0.15], [-L * 0.3, 0.01, 0.15], 0.016, '#2A2A2E')); }
