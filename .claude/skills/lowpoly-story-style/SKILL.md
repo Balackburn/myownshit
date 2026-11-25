@@ -2446,3 +2446,18 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 55) Enseigne au-dessus d'un store coupée par le haut du cadre : écrire le mot sur la vitrine.
 - (cycle 55) story_kit réécrit shots.json, cues.json et cards.txt à chaque exécution : vérifier que les fenêtres de plans restent
   identiques à l'octet.
+- (cycle 56) Portes qui s'ouvrent à ≈ 109°, vues le long d'une rangée = mur de panneaux qui cache la rangée ; les rabattre presque à
+  plat contre la façade (≈ 3,06 rad) avec un rebond.
+- (cycle 56) Deux mains sur un objet plat tenu : le long de l'axe de largeur de l'objet, pas de l'axe X du monde.
+- (cycle 56) Traction au bras élastique : tirer le point de traction de côté à travers le cadre, à hauteur de poitrine et à la
+  profondeur du tenant ; vers l'objectif, l'étirement se perd en raccourci.
+- (cycle 56) Cible de regard vers un partenaire : un corps de trois quarts repasse de profil ; viser à ≈ 60 % vers l'objectif et
+  pousser les pupilles (`gx`) vers le partenaire.
+- (cycle 56) Moufle douloureuse levée pour souffler dessus = visage caché ; la tenir de côté à hauteur du menton, étoiles accrochées
+  à la main.
+- (cycle 56) Canne à pêche pointée en l'air = hors cadre ; tenue de côté et affaissée autour de son z, elle tombe dans le plan de
+  l'image.
+- (cycle 56) Poussière : icosaèdres translucides à opacité décroissante ; sphères opaques = balles ; poussière qui monte = visage
+  du souffleur caché.
+- (cycle 56) Plan final 9:16 avec hublot, cochon et héros : ≈ 1,8 m de largeur (caméra 4,5-5 m, focale 40) ; avancer le hublot
+  vers la caméra pour qu'il soit à côté de la tête du cochon.

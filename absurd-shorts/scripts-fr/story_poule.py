@@ -15,29 +15,33 @@ The clause comes back three times by ear: met (S02-S05b), turned against a victi
 poster); the last shot beats it with the same literal logic (a pig in a plane window seat, two boarding cards).
 Staging: S01 under his apple tree, waist up and low: he bites a big red apple, tugs, his neck stretches after it, the tooth pops out with the apple (twang),
 he stares at the tooth in the bite, a double take. S01b his grin at the lens: one black gap. S01c the insurer's counter (MUTUELLE): he holds up the
-apple, the clerk pushes his form back across the counter and shakes her head as she speaks the clause; he squashes down. S02 morning by the henhouse at
+apple three-quarters to us, all hope; the clerk pushes his form back and speaks the clause with a smug « never » (finger up, eyes shut, a slow head
+shake); his hope drains and his jaw drops as a block. S02 morning by the henhouse at
 hen height: the hen pecks the bitten apple, turns to the lens and grins on « dent »: one big tooth, a sparkle. S03 the clerk lifts a big stamp, it
-trembles, slams; the form springs up to the lens with a red cross (PLURIEL). S04 hen height: his mitten drops a third bitten apple on the heap (bounce);
-the hen turns to us and grins on « deux »: two teeth. S05 an expert in a head mirror kneels at her open beak with a big dental mirror, the head mirror
+trembles, slams; the form springs up to the lens with a red cross; two hard finger-taps with a head bob each, a smug tilt (PLURIEL). S04 hen height: his mitten dangles and drops a third bitten apple on the heap
+(on a low crate, above the captions); the hen follows it, turns to us and clacks her beak open, shut, open on « deux »: a sparkle on each tooth. S05 an expert in a head mirror kneels at her open beak with a big dental mirror, the head mirror
 glints, two grave nods. S05b the clerk, sour, pushes a big blank cheque at us, hangs on to it (rubber arm) and lets go. S06 a terrace of five pastel
-houses seen along the row: the doors fly open in a cascade, five neighbours step out with big yellowed envelopes and blow the dust off them. S06b the
-nearest pulls out her letter: a drawing of a hen with teeth. S07 the office: the grim boss pushes a fat envelope across the desk, hangs on to it,
-lets go; the hero snaps back with a closed-mouth smile. S08 a plain official room (no flag): on the minister's lectern a framed photo of him smiling on
+houses seen along the row from a low camera, the nearest neighbour large: the doors bang open flat against the wall in a cascade, five neighbours step
+out with big yellowed envelopes, breathe in and blow a big cloud of dust off them. S06b the
+nearest pulls out her letter: a drawing of a hen with teeth. S07 the office: the grim boss pushes a fat envelope across the desk, a tug of war with
+his rubber arm stretched, lets go (his arm snaps back); the hero snaps back with a closed-mouth smile. S08 a plain official room (no flag): on the minister's lectern a framed photo of him smiling on
 a deckchair; he glances at it, double take, gulps, a sweat drop. S09 an open-plan office: five employees spring up together and lift folded deckchairs
 (RETRAITE). S09b seen from the corridor: the minister dashes out of the door first, deckchair and fishing rod, the five file out behind. S10 the
 garden at hen height: three retirees in sunhats on deckchairs pour grain; the hen grins (full set, gold tooth sparkling), looks at the grain and turns
 her head away. S10b she tears into a T-bone steak, big chewing bites, the retirees stare (one jaw drop). S11 an inspector in grey bends over her to
-count her teeth with his clipboard: snap on his mitten, he jumps back shaking it (stars, unhurt). S11b the counter again, from the other side: the clerk
-flicks his form back, it slaps onto his chest; she speaks the clause. S12 his dentist (big round glasses) kneels beside her and holds the plaster mould
-up beside her open beak: the same grin, the gold tooth in the same place, both sparkle; he turns his head toward the hero. S13 hen height: the hero
+count her teeth with his clipboard: snap on his mitten, he leaps up, hangs in the air, drops flat as a pancake and pops back (unhurt). S11b the counter
+again, the other way round: he blows on his throbbing mitten (stars), the clerk flicks his form onto his chest (a wince) and holds up a drawing of a
+toothless hen as she speaks the clause. S12 his dentist (big round glasses) kneels beside her and holds the plaster mould
+up beside her open beak: the same grin, the gold tooth in the same place, both sparkle; she looks from the mould to him; he turns his head toward the hero. S13 hen height: the hero
 kneels beside her (she stands on a crate), both grin at the lens: his mouth toothless, hers full; they blink together. S14 the lobby: the retirees file
-back in with their folded deckchairs, glum, the minister last with his rod. S14b he lays his framed photo face down on the reception desk. S15 the clerk
-unrolls and pins a poster of a pig with wings behind her, turns, folds her arms, speaks the new clause, smug. S16 a plane cabin: a big pink pig with
-little white costume wings buckled in the window seat, clouds sliding past; it turns to us and flutters its wings. S16b the hero beside it holds up two
-big blank boarding cards to the lens, mouth closed; hold.
+back in with their folded deckchairs, glum, the minister last with his rod. S14b he lays his framed photo face down on the reception desk (a soft dust puff)
+and sinks into his shoulders, his fishing rod drooping. S15 the clerk
+unrolls and pins a poster of a pig with wings behind her, turns, slaps her arms into a fold, a slow smug tilt, speaks the new clause. S16 a plane cabin: a big pink pig with
+little white costume wings buckled in the window seat, clouds sliding past; it turns to us and flutters its wings. S16b wider: the pig (whole head and a wing), the
+window, the hero holding up two big blank boarding cards, mouth closed; the pig wiggles on « deux billets »; hold.
 Natural look; cycle 55: props_poule.js (poHen, poApple, poWholeApple, poApplePile, poAppleTree, poCoop, poGrin, poMould, poPhoto, poOldLetter, poForm,
 poCheque, poPoster, poCounter, poSteak, poGrain, poScoop, poHeadMirror, poDentalMirror, poFoldedChair, poFishingRod, poRowHouses, poRoom, poWall,
-poCrate, poReception, poCabin, poPig, poCards, poSparkle, poFill, poNoShadow, poPuff); reused: bigStamp (props_eternuement), plEnvelope and plSunHat
+poCrate, poReception, poCabin, poPig, poCards, poSparkle, poFill, poNoShadow, poPuff, poHenCard, poThrob); reused: bigStamp (props_eternuement), plEnvelope and plSunHat
 (props_pelle), deckChair (props_soleil), grinLectern (props_grincement), clipBoard (props_bus), impactStars (props_interrupteur), sweatDrop, glasses,
 desk, chair, fence, cottage (props.js); sets grassland, office, whiteVoid.
 Lessons applied from the start: Looney deformation on every gag accent (the neck stretched after the apple and the snap, the double take, the hen's
