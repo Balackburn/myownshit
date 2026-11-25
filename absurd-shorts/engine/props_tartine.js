@@ -38,7 +38,7 @@ function drawDial(c, x0, y0, S, u, full = 8, ink = false) {
   const cx = x0 + S / 2, cy = y0 + S / 2, R = S * 0.47, a0 = -PI / 2, a5 = a0 + TAU * 5 / full;
   c.fillStyle = ink ? '#F3E6CC' : '#FBFAF4'; c.beginPath(); c.arc(cx, cy, R, 0, TAU); c.fill();
   c.fillStyle = ink ? '#4FA64A' : '#35B449'; c.beginPath(); c.moveTo(cx, cy); c.arc(cx, cy, R * 0.9, a0, a5); c.closePath(); c.fill();
-  c.fillStyle = ink ? '#D8402E' : '#E2352B'; c.beginPath(); c.moveTo(cx, cy); c.arc(cx, cy, R * 0.9, a5, a0 + TAU); c.closePath(); c.fill();
+  c.fillStyle = ink ? '#DE2E1F' : '#E2352B'; c.beginPath(); c.moveTo(cx, cy); c.arc(cx, cy, R * 0.9, a5, a0 + TAU); c.closePath(); c.fill();
   c.fillStyle = ink ? '#F3E6CC' : '#FBFAF4'; c.beginPath(); c.arc(cx, cy, R * 0.22, 0, TAU); c.fill();
   c.strokeStyle = INK; c.lineCap = 'round';
   for (let i = 0; i < full * 2; i++) { const a = a0 + TAU * i / (full * 2), big = i % 2 === 0; c.lineWidth = S * (big ? 0.03 : 0.016); c.beginPath(); c.moveTo(cx + Math.cos(a) * R * (big ? 0.72 : 0.8), cy + Math.sin(a) * R * (big ? 0.72 : 0.8)); c.lineTo(cx + Math.cos(a) * R * 0.92, cy + Math.sin(a) * R * 0.92); c.stroke(); }
@@ -95,7 +95,8 @@ export const TARTINE_PROPS = {
   // A thick slice o.w (0.3) square with a domed crown: golden crumb faces, a dark crust round the edge; on +Y a thick bright yellow butter layer
   // (inset, wavy-edged, glossy streak) and a butter pat on it, so the buttered side reads from any angle; o.butter false: dry toast.
   // o.splat [[t, v]]: the butter squeezed out flat round it on the butter face (0..1), a yellow ring on the floor when it lands butter down;
-  // o.wob [[t0, amp, f, dk]]: a rock about its own Z axis (a toast teetering on its edge)
+  // o.wob [[t0, amp, f, dk]]: a rock about its own Z axis (a toast teetering on its edge); o.ooze [[t, v]]: fat yellow blobs of butter squeezed
+// out all round its edge on the butter face (0..1), they show from a low camera when it lies butter side down
   ttToast(o) {
     const W = o.w ?? 0.3, D = W, T = W * 0.15, g = grp(), body = grp(); g.add(body);
     const geo = new THREE.ExtrudeGeometry(sliceShape(W, D * 0.86), { depth: T, bevelEnabled: true, bevelThickness: T * 0.12, bevelSize: W * 0.02, bevelSegments: 1, curveSegments: 8 });
@@ -116,7 +117,11 @@ export const TARTINE_PROPS = {
       splat = new THREE.Mesh(sg, L(BUTTER, { emissive: '#6A4A00', emissiveIntensity: 0.4, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -16, side: THREE.DoubleSide }));
       splat.position.y = T / 2 + T * 0.36; splat.receiveShadow = true; body.add(splat);
     }
+    const blobs = [];
+    if (o.ooze) for (let i = 0; i < 9; i++) { const a = (i + 0.3 * hsh(i)) / 9 * TAU, rr = W * (0.5 + 0.06 * hsh(i + 3)), b = sphere(W * (0.1 + 0.04 * hsh(i + 5)), BUTTER, 1);
+      b.material = L(BUTTER, { emissive: '#6A4A00', emissiveIntensity: 0.45, flatShading: true }); b.position.set(Math.cos(a) * rr, T / 2 + T * 0.2, Math.sin(a) * rr * 0.86 - D * 0.05); body.add(b); blobs.push(b); }
     g.userData.update = t => {
+      if (blobs.length) { const v = keyAt(o.ooze, t, 0); blobs.forEach((b, i) => { const s = Math.max(0.01, outBack(clamp01(v * 1.3 - 0.03 * i), 1.6)); b.visible = v > 0.01; b.scale.set(s * 1.3, s * 0.7, s * 1.3); }); }
       if (splat) { const v = keyAt(o.splat, t, 0); splat.visible = v > 0.01; splat.scale.setScalar(Math.max(0.01, outBack(v, 1.4))); }
       body.rotation.z = rattle(o.wob, t);
     };
@@ -151,7 +156,8 @@ export const TARTINE_PROPS = {
   // hanging below, its front +Z): a kraft card o.w (0.24) x o.h (0.34) with clipped top corners, a dark brown border, a white reinforcing ring
   // round the eyelet and three ruled lines; its back: the same card with a big stopwatch drawing, the needle at o.needle units (the owner's time);
   // a string from the eyelet up to the collar on both sides (o.cord [dx, dy, dz] of its top ends, toward the neck); o.flip [[t, 0..1]]: turned
-  // round about its vertical axis (1: the back to the front); o.swing [[t0, amp, f, dk]]: it swings about the eyelet; o.color: the card
+  // round about its vertical axis (1: the back to the front); o.swing [[t0, amp, f, dk]]: it swings about the eyelet; o.color: the card;
+// o.backFull: the full turn of the drawn dial (8; a larger one shrinks the green wedge so the red zone dominates the drawing)
   ttTag(o) {
     const W = o.w ?? 0.24, H = o.h ?? 0.34, g = grp(), card = grp(); g.add(card);
     const cutK = 0.22, sh = new THREE.Shape();
@@ -163,7 +169,7 @@ export const TARTINE_PROPS = {
       c.fillStyle = '#F4EEE2'; c.beginPath(); c.arc(w / 2, h * 0.13, w * 0.13, 0, TAU); c.fill(); c.fillStyle = '#3A2410'; c.beginPath(); c.arc(w / 2, h * 0.13, w * 0.06, 0, TAU); c.fill();
       c.fillStyle = '#5E3A18'; for (const y of [0.52, 0.66, 0.8]) c.fillRect(w * 0.18, h * y, w * 0.64, h * 0.025);
     };
-    const back = (c, w, h) => { front(c, w, h); c.fillStyle = col; c.fillRect(w * 0.12, h * 0.26, w * 0.76, h * 0.64); drawDial(c, w * 0.12, h * 0.3 + (h * 0.6 - w * 0.76) / 2, w * 0.76, o.needle ?? 7, 8, true); };
+    const back = (c, w, h) => { front(c, w, h); c.fillStyle = col; c.fillRect(w * 0.12, h * 0.26, w * 0.76, h * 0.64); drawDial(c, w * 0.12, h * 0.3 + (h * 0.6 - w * 0.76) / 2, w * 0.76, o.needle ?? 7, o.backFull ?? 8, true); };
     const F = shapedPlane(sh, W, H, front, 256, { side: THREE.FrontSide }), Bk = shapedPlane(sh, W, H, back, 256, { side: THREE.FrontSide });
     F.position.z = 0.004; Bk.rotation.y = PI; Bk.position.z = -0.004; F.castShadow = true; Bk.castShadow = true;
     const edge = new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: 0.006, bevelEnabled: false }), L('#6E4420')); edge.position.z = -0.003;
@@ -306,7 +312,7 @@ export const TARTINE_PROPS = {
 
   // ---------------------------------------------------------------- a round floor polisher (pivot at the floor centre, the handle toward -Z)
   // A round base o.r (0.34) with a rubber bumper, a dark pad that spins under it, a motor dome, a shaft rising back to a T handle at about 1.15 m;
-  // o.hum: it buzzes (a small jitter); o.color
+  // o.hum: it buzzes (a small jitter); o.color; o.run [[t, v]]: the motor's speed (1 running, 0 dead stop, above 1 bucking: the jitter grows)
   ttPolisher(o) {
     const R = o.r ?? 0.34, c = o.color || '#D8452F', g = grp(), body = grp(); g.add(body);
     body.add(at(cyl(R * 0.96, R * 0.96, 0.04, '#2A2C31', 20), 0, 0.02, 0));
@@ -315,7 +321,9 @@ export const TARTINE_PROPS = {
     body.add(at(cyl(R * 0.55, R * 0.7, 0.16, '#E9ECEF', 18, { outline: 0.005 }), 0, 0.29, -R * 0.1), at(sphere(R * 0.5, '#E9ECEF', 1), 0, 0.37, -R * 0.1));
     const hb = [0, 0.3, -R * 0.4], ht = [0, 1.12, -0.62]; body.add(rod(hb, ht, 0.022, '#B7BCC4', 8), rod([ht[0] - 0.24, ht[1], ht[2]], [ht[0] + 0.24, ht[1], ht[2]], 0.026, '#2A2C31', 8));
     for (const s of [-1, 1]) body.add(at(cyl(0.032, 0.032, 0.12, '#1E2024', 8), ht[0] + s * 0.26, ht[1], ht[2], 0, 0, PI / 2));
-    g.userData.update = t => { pad.rotation.y = t * 28; if (o.hum !== false) { body.position.set(Math.sin(t * 61) * 0.004, Math.abs(Math.sin(t * 47)) * 0.005, Math.cos(t * 53) * 0.004); } };
+    const spin = t => { if (!o.run) return t * 28; let a = 0; const n = Math.max(1, Math.ceil(Math.abs(t) * 60)), h = t / n; for (let i = 0; i < n; i++) a += keyAt(o.run, (i + 0.5) * h, 1) * h; return a * 28; };
+    g.userData.update = t => { pad.rotation.y = spin(t); const v = o.run ? keyAt(o.run, t, 1) : 1;
+      if (o.hum !== false) { body.position.set(Math.sin(t * 61) * 0.004 * v, Math.abs(Math.sin(t * 47)) * 0.005 * v, Math.cos(t * 53) * 0.004 * v); body.rotation.y = v > 1 ? Math.sin(t * 37) * 0.06 * (v - 1) : 0; } };
     g.userData.update(0); g.userData.handle = ht; return g;
   },
 
@@ -329,10 +337,11 @@ export const TARTINE_PROPS = {
 
   // ---------------------------------------------------------------- a gleaming waxed floor (pivot at its middle, on the floor): a sheet o.w x o.d
   // painted with soft diagonal white sheen streaks and a few bright glints (transparent, depth-tested, a polygon offset toward the camera);
-  // o.tint: a faint colour over the floor under it; o.k: streak strength (1), o.n: streak count (7), o.wide: streak width (1), o.glints: bright dabs (0)
+  // o.tint: a faint colour over the floor under it (o.tintA its strength, 0.25); o.k: streak strength (1), o.n: streak count (7), o.wide: streak
+// width (1), o.glints: bright dabs (0)
   ttShine(o) {
     const w = o.w ?? 6, d = o.d ?? 6, N = 512, cv = canvas(N, Math.round(N * d / w)), c = cv.getContext('2d'), H = cv.height;
-    if (o.tint) { c.fillStyle = o.tint; c.globalAlpha = 0.25; c.fillRect(0, 0, N, H); c.globalAlpha = 1; }
+    if (o.tint) { c.fillStyle = o.tint; c.globalAlpha = o.tintA ?? 0.25; c.fillRect(0, 0, N, H); c.globalAlpha = 1; }
     const nS = o.n ?? 7, kS = o.k ?? 1;
     for (let i = 0; i < nS; i++) { const x = N * (i / (nS - 1)) + (hsh(i) - 0.5) * N * 0.1, gw = N * (0.04 + 0.05 * hsh(i + 2)) * (o.wide ?? 1);
       c.save(); c.translate(x, H / 2); c.rotate(0.5); const gr = c.createLinearGradient(-gw, 0, gw, 0); gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(0.5, `rgba(255,255,255,${Math.min(1, (0.35 + 0.25 * hsh(i + 5)) * kS)})`); gr.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = gr; c.fillRect(-gw, -H, 2 * gw, 2 * H); c.restore(); }
@@ -373,8 +382,12 @@ export const TARTINE_PROPS = {
     const aw = new THREE.Mesh(new THREE.PlaneGeometry(W * 0.86, 1.2), L('#FFFFFF', { map: tex(cv), side: THREE.DoubleSide })); aw.position.set(0, 2.95, 0.55); aw.rotation.x = -1.05; aw.castShadow = true; g.add(aw);
     for (let i = 0; i < 16; i++) { const x = -W * 0.43 + (i + 0.5) * W * 0.86 / 16; const v = new THREE.Mesh(new THREE.CircleGeometry(W * 0.86 / 32, 10, PI, PI), L(i % 2 ? '#FBF6EC' : ac, { side: THREE.DoubleSide })); v.position.set(x, 2.43, 1.06); g.add(v); }
     g.add(at(box(W * 0.86, 0.14, 0.02, ac), 0, 2.49, 1.05));
-    if (o.sign !== false) { const sc = canvas(256, 64), x = sc.getContext('2d'); x.fillStyle = fr; x.fillRect(0, 0, 256, 64); x.fillStyle = '#F4E6B8'; x.font = '900 44px Arial'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(o.sign || 'CAFÉ', 128, 34);
-      g.add(at(new THREE.Mesh(new THREE.PlaneGeometry(1.6, 0.4), L('#FFFFFF', { map: tex(sc) })), -0.9, 3.55, 0.05)); }
+    // (review 2) the board taller and the acute accent drawn as a thick stroke of its own: at phone size the font's accent vanished (« CAFE »)
+    if (o.sign !== false) { const sc = canvas(256, 96), x = sc.getContext('2d'), word = (o.sign || 'CAFÉ').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      x.fillStyle = fr; x.fillRect(0, 0, 256, 96); x.fillStyle = '#F4E6B8'; x.font = '900 50px Arial'; x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.fillText(word, 128, 82);
+      if (/É/.test(o.sign || 'CAFÉ')) { const tw = x.measureText(word).width, ex = 128 + tw / 2 - x.measureText('E').width * 0.42;
+        x.beginPath(); x.moveTo(ex - 9, 30); x.lineTo(ex + 5, 10); x.lineTo(ex + 16, 14); x.lineTo(ex - 1, 32); x.closePath(); x.fill(); }
+      g.add(at(new THREE.Mesh(new THREE.PlaneGeometry(1.6, 0.6), L('#FFFFFF', { map: tex(sc) })), -0.9, 3.5, 0.05)); }
     return g;
   },
 
@@ -423,11 +436,12 @@ export const TARTINE_PROPS = {
     return g; },
 
   // ---------------------------------------------------------------- impact lines round a landing (pivot on the floor at the impact, facing +Z):
-  // short white strokes radiating out, popping at o.at for 0.3 s (o.r 0.5)
+  // short white strokes radiating out, popping at o.at for 0.3 s (o.r 0.5); o.ring: a full circle of o.n (12) strokes with a dark edge (an impact
+// all round a body that lands flat), o.dur (0.3 s)
   ttImpact(o) {
-    const g = grp(), R = o.r ?? 0.5, ls = [];
-    for (let i = 0; i < 7; i++) { const a = PI * (0.08 + 0.84 * i / 6), l = box(0.035, R * 0.42, 0.01, '#FFFFFF', { noGrain: true, emissive: '#FFFFFF' }); l.castShadow = false; const p = grp(l); p.rotation.z = a - PI / 2; g.add(p); ls.push([p, l]); }
-    g.userData.update = t => { const d = t - (o.at ?? 0), v = d >= 0 && d < 0.3 ? d / 0.3 : -1; ls.forEach(([p, l]) => { l.visible = v >= 0; l.position.y = R * (0.6 + 0.6 * Math.max(0, v)); l.scale.y = Math.max(0.05, 1 - v); }); };
+    const g = grp(), R = o.r ?? 0.5, ls = [], n = o.ring ? (o.n ?? 12) : 7, dur = o.dur ?? 0.3;
+    for (let i = 0; i < n; i++) { const a = o.ring ? TAU * (i + 0.5 * (i % 2)) / n : PI * (0.08 + 0.84 * i / 6), l = box(0.035, R * 0.42, 0.01, '#FFFFFF', { noGrain: true, emissive: '#FFFFFF' }); l.castShadow = false; const p = grp(l); if (o.ring) { const e = box(0.06, R * 0.44, 0.006, INK, { noGrain: true }); e.position.z = -0.006; l.add(e); } p.rotation.z = a - PI / 2; g.add(p); ls.push([p, l]); }
+    g.userData.update = t => { const d = t - (o.at ?? 0), v = d >= 0 && d < dur ? d / dur : -1; ls.forEach(([p, l]) => { l.visible = v >= 0; l.position.y = R * (0.6 + 0.6 * Math.max(0, v)); l.scale.y = Math.max(0.05, 1 - v); }); };
     g.userData.update(0); return g;
   },
   // ---------------------------------------------------------------- a butter splat left on the floor (pivot on the floor at its middle): a flat
@@ -442,7 +456,8 @@ export const TARTINE_PROPS = {
 
   // ---------------------------------------------------------------- the kitchen wall clock (pivot at its middle, facing +Z): a round white face
   // o.r (0.3) in a thick red rim, twelve ticks (no digits), hour and minute hands, a red second hand that jumps a twelfth of a turn at each of
-  // o.ticks [t...] with a little overshoot while the whole clock pulses (a cartoon tick); o.h0: where the second hand starts (turns)
+  // o.ticks [t...] with a little overshoot while the whole clock pulses (a cartoon tick); o.h0: where the second hand starts (turns); o.pulse:
+// how much it swells on a tick (0.08); o.jump (m): how high it hops on a tick (0)
   ttWallClock(o) {
     const R = o.r ?? 0.3, g = grp(), body = grp(); g.add(body);
     body.add(at(cyl(R * 1.12, R * 1.12, 0.07, o.rim || '#D8453A', 32, { outline: 0.006 }), 0, 0, -0.03, PI / 2), at(cyl(R, R, 0.02, '#FBFAF4', 32), 0, 0, 0.012, PI / 2));
@@ -452,10 +467,31 @@ export const TARTINE_PROPS = {
     g.userData.update = t => {
       let n = 0, last = -9; for (const c of o.ticks || []) if (t >= c) { n++; last = c; }
       const d = t - last, ov = n && d < 0.12 ? Math.sin(d / 0.12 * PI) * 0.12 : 0; sh.rotation.z = -TAU * ((o.h0 ?? 0) + n / 12 + ov / 12);
-      body.scale.setScalar(1 + (n && d < 0.1 ? 0.08 * (1 - d / 0.1) : 0));
+      const k = n && d < 0.1 ? 1 - d / 0.1 : 0; body.scale.setScalar(1 + (o.pulse ?? 0.08) * k); body.position.y = (o.jump ?? 0) * k;
     };
     g.userData.update(0); return g;
   },
+  // ---------------------------------------------------------------- mirror reflections on a waxed floor for ONE camera (place the prop at the
+  // world origin): each item [x, z, w, y0, y1, color, moves?] is the front face (toward +Z) of an upright slab from height y0 to y1; its mirror
+  // image under the floor, seen from o.cam [x, y, z], is painted flat on the floor (where the camera ray to the mirrored point meets it),
+  // fading from the contact line (o.alpha 0.55) to the far end; moves: [[t, dx], ...] slides it along X (a chair). Depth-tested, a polygon
+  // offset, drawn before the sheen (ttShine): what stands on the floor still covers it
+  ttMirror(o) {
+    const C = o.cam || [0, 1.5, 5], g = grp(), gcv = canvas(4, 64), gc = gcv.getContext('2d'), gr = gc.createLinearGradient(0, 0, 0, 64);
+    gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.55, 'rgba(255,255,255,0.45)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); gc.fillStyle = gr; gc.fillRect(0, 0, 4, 64);
+    const gt = tex(gcv), its = [];
+    const q = (x, y, z) => { const k = C[1] / (C[1] + y); return [C[0] + (x - C[0]) * k, 0, C[2] + (z - C[2]) * k]; };
+    for (const [x, z, w, y0, y1, col, mv] of o.items || []) {
+      const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(12), 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute([0, 1, 1, 1, 1, 0, 0, 0], 2)); geo.setIndex([0, 2, 1, 0, 3, 2]);
+      const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: col, map: gt, transparent: true, opacity: o.alpha ?? 0.55, depthWrite: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -10 }));
+      m.position.y = o.y ?? 0.008; m.renderOrder = 0; g.add(m); its.push({ m, x, z, w, y0, y1, mv });
+    }
+    g.userData.update = t => { for (const it of its) { const dx = it.mv ? keyAt(it.mv, t, 0) : 0, xa = it.x + dx - it.w / 2, xb = it.x + dx + it.w / 2;
+      const P = [q(xa, it.y0, it.z), q(xb, it.y0, it.z), q(xb, it.y1, it.z), q(xa, it.y1, it.z)], a = it.m.geometry.attributes.position;
+      P.forEach((p, i) => a.setXYZ(i, p[0], 0, p[2])); a.needsUpdate = true; it.m.geometry.computeBoundingSphere(); } };
+    g.userData.update(0); return g;
+  },
+
   // ---------------------------------------------------------------- a flat coloured wall panel (pivot at the floor in its middle, facing +Z):
   // o.w x o.h, o.color, a skirting o.trim; another flat's wallpaper in front of a set's back wall
   ttPanel(o) {

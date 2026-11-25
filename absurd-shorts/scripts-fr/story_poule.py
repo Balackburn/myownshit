@@ -298,8 +298,8 @@ st.cue('sfx:rattleShort', 'S03', 0.06, 0.12); st.cue('thud', 'S03', SLAM3, 0.4);
 #    already lying in front of her (each with its big white tooth); it bounces on the heap; she looks at it, turns to us and grins on « deux »: two teeth
 D4 = st.dur('S04'); POU4 = W('S04', 'L04', 3); DEUX4 = W('S04', 'L04', 6)
 HEN4 = [0.3, 0.0, -0.5]; PILE4 = [0.62, 0.0, 0.12]
-F4 = [-0.08, 1.12, 2.25]; L4 = [0.45, 0.55, 0.1]
-C4 = cam(0.0, F4, lerp3(F4, [0.42, 0.75, 0.0], 0.2), L4, add(L4, [-0.04, 0.05, 0.0]), lens=40, ease='inOut')
+F4 = [-0.35, 1.3, 2.7]; L4 = [0.33, 0.58, 0.2]
+C4 = cam(0.0, F4, add(F4, [0.05, -0.03, -0.15]), L4, add(L4, [0.0, 0.02, 0.0]), lens=36, ease='inOut')
 RYH4 = r(yaw(HEN4, F4))
 H4 = [1.32, 0.0, -0.05]; RY4 = -100
 REST4 = add(PILE4, [0.1, 0.235, 0.0]); DROP4 = add(REST4, [0.0, 0.55, 0.0])
@@ -337,14 +337,14 @@ chkc('S05', C5, {'henComb': add(HEN5, [0, 1.18, 0]), 'beak': BK5, 'exHead': add(
 EXF = {'lid': 0.5, 'mouth': 'line', 'brow': -0.35}
 EXK = lambda g, **x: {'reach': {'R': R5(g, 1, 0.0), 'L': R5(off(EX5, RYE5, 0.3, 0.2, 0.95), 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'open'}, 'hip': 0, **x}
 G5A = off(EX5, RYE5, 0.35, -0.15, 1.15)
-NOD = lambda t: [k(r(t - 0.05), toon={**EXK(GRIP5), 'sq': [1.03, 0.98, 1.03], 'bend': {'spine': [0.35, 0, 0, 1, None], 'neck': [-0.1, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.4}}, toonDur=0.05),
-                 k(r(t + 0.04), toon={**EXK(GRIP5), 'sq': [1.08, 0.92, 1.08], 'bend': {'spine': [0.28, 0, 0, 1, None], 'neck': [0.24, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.75, 'brow': -0.6}}, toonDur=0.05, toonEase='out'),
-                 k(r(t + 0.16), toon={**EXK(GRIP5), 'bend': {'spine': [0.35, 0, 0, 1, None], 'neck': [0.0, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.5}}, toonDur=0.08)]
-EXK5 = [k(0.0, look=[BK5[0], 1.45, BK5[2]]), k(0.0, clip='kneel'), k(0.0, toon={**EXK(G5A), 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'face': EXF}, toonDur=0.0),
-        k(0.06, toon={**EXK(GRIP5), 'hose': 0.15, 'sq': [0.95, 1.05, 0.95], 'bend': {'spine': [0.35, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.3, 'brow': 0.2}}, toonDur=0.1, toonEase='out'),
-        k(0.3, toon={**EXK(GRIP5), 'bend': {'spine': [0.38, 0, 0, 1, None], 'neck': [0.15, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.6, 'brow': -0.5}}, toonDur=0.15),
+NOD = lambda t: [k(r(t - 0.05), toon={**EXK(GRIP5), 'sq': [1.03, 0.98, 1.03], 'bend': {'spine': [0.12, 0, 0, 1, None], 'neck': [-0.1, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.4}}, toonDur=0.05),
+                 k(r(t + 0.04), toon={**EXK(GRIP5), 'sq': [1.08, 0.92, 1.08], 'bend': {'spine': [0.12, 0, 0, 1, None], 'neck': [0.3, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.75, 'brow': -0.6}}, toonDur=0.05, toonEase='out'),
+                 k(r(t + 0.16), toon={**EXK(GRIP5), 'bend': {'spine': [0.12, 0, 0, 1, None], 'neck': [0.0, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.5}}, toonDur=0.08)]
+EXK5 = [k(0.0, look=[BK5[0], 1.45, BK5[2]]), k(0.0, clip='kneel'), k(0.0, toon={**EXK(G5A), 'bend': {'spine': [0.12, 0, 0, 1, None]}, 'face': EXF}, toonDur=0.0),
+        k(0.06, toon={**EXK(GRIP5), 'hose': 0.15, 'sq': [0.95, 1.05, 0.95], 'bend': {'spine': [0.12, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.3, 'brow': 0.2}}, toonDur=0.1, toonEase='out'),
+        k(0.3, toon={**EXK(GRIP5), 'bend': {'spine': [0.12, 0, 0, 1, None], 'neck': [0.1, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.6, 'brow': -0.5}}, toonDur=0.15),
         *NOD(r(DEUX5 + 0.02)), *NOD(r(VRA5 + 0.12)),
-        k(r(VRA5 + 0.4), look='camera', lookDur=0.2), k(r(VRA5 + 0.4), toon={**EXK(GRIP5), 'bend': {'spine': [0.25, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.4, 'brow': 0.3}}, toonDur=0.15)]
+        k(r(VRA5 + 0.4), look='camera', lookDur=0.2), k(r(VRA5 + 0.4), toon={**EXK(GRIP5), 'bend': {'spine': [0.12, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.4, 'brow': 0.3}}, toonDur=0.15)]
 MK5 = [k(0.0, to=MIR5, dur=0.0), k(0.06, squash=[1.0, 1.15, 1.0], dur=0.25)]
 st.shot('S05', 'grassland', setOpts=GSET, look=LOOKG, actors=[act('expert', EX5, RYE5, 'kneel', 'neutral', keys=EXK5)],
         props=[*GARDEN(5), HEN('poule5', HEN5, RYH5, teeth=[[0, 2]], open=[[0, 0.2], [0.12, 1.0]], gaze=[[0, 0.8, 0.3], [0.5, 0.9, 0.5]], brow=[[0, 0.5]], blinks=[0.7, 1.55],
@@ -470,7 +470,7 @@ st.cue('sfx:paper', 'S07', 0.04, 0.2); st.cue('sfx:stretch', 'S07', r(GRAB7 + 0.
 D8 = st.dur('S08'); RET8 = W('S08', 'L08', 5); CINQ8 = W('S08', 'L08', 7)
 M8 = [0.0, 0.0, -0.55]; LEC8 = [0.0, 0.0, 0.0]
 PH8 = [-0.3, 1.16, 0.12]
-F8 = [0.62, 1.48, 2.3]; L8 = [-0.08, 1.5, -0.3]
+F8 = [0.72, 1.62, 3.0]; L8 = [-0.08, 1.6, -0.3]
 C8 = cam(0.0, F8, add(F8, [-0.05, 0.0, -0.18]), L8, L8, lens=40, ease='inOut')
 chkc('S08', C8, {'minTop': add(M8, [0, 2.35, 0]), 'minChin': add(M8, [0, 1.65, 0]), 'photoTop': add(PH8, [0, 0.34, 0]), 'photoL': add(PH8, [-0.22, 0.15, 0]), 'photoR': add(PH8, [0.22, 0.15, 0])})
 MF8 = {'lid': 0.3, 'mouth': 'smile', 'brow': 0.4}
@@ -537,14 +537,14 @@ MINK9b = [k(0.0, look='camera'), k(0.0, to=MIN9B, dur=0.42, clip='run', ease='li
           k(0.0, toon={'hip': 0, 'sq': [0.9, 1.12, 0.9], 'bend': {'spine': [0.25, 0, 0, 1, None]}, 'hairUp': 0.8, 'face': {'lid': 0.0, 'eye': 0.45, 'mouth': 'smile', 'brow': 0.9}}, toonDur=0.0),
           k(0.45, toon={'hip': 0, 'sq': [0.85, 1.18, 0.85], 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'hairUp': 1.0, 'face': {'lid': 0.0, 'eye': 0.45, 'mouth': 'smile', 'brow': 0.9}}, toonDur=0.05)]
 act9b.append(act('ministre', MIN9A, 0, 'stand', 'neutral', keys=MINK9b))
-props9b += [P('transat9b_m', 'poFoldedChair', on={'actor': 'ministre', 'joint': 'torso', 'offset': [0.33, 0.2, -0.04], 'rot': [0.0, 1.5708, 0.12]}, opts={'L': 0.95, 'w': 0.46}),
+props9b += [P('transat9b_m', 'poFoldedChair', on={'actor': 'ministre', 'joint': 'torso', 'offset': [0.36, 0.15, 0.02], 'rot': [0.0, 0.0, 0.1]}, opts={'L': 0.95, 'w': 0.46}),
             P('canne9b', 'poFishingRod', on={'actor': 'ministre', 'hand': 'R', 'offset': [0.0, 0.0, 0.0], 'rot': [0.9, 0, 0]}, opts={'L': 1.5})]
 for i, who in enumerate(EMP):
     a = [0.12 + 0.12 * (i % 2), 0.0, r(-0.8 - 1.0 * i)]; b = [0.0 + 0.1 * (i % 2), 0.0, r(a[2] + 1.25)]
     ks = [k(0.0, look='camera'), k(0.0, to=b, dur=D9b, clip='walk', face=0, ease='linear'), k(0.0, toon={'hip': 0, 'face': {'lid': 0.25, 'mouth': 'smile', 'brow': 0.6}}, toonDur=0.0),
           *blink(r(0.5 + 0.13 * i), {'lid': 0.25, 'mouth': 'smile', 'brow': 0.6}, {'hip': 0})]
     act9b.append(act(who, a, 0, 'stand', 'neutral', keys=ks))
-    props9b.append(P(f'transat9b_{i}', 'poFoldedChair', on={'actor': who, 'joint': 'torso', 'offset': [-0.33, 0.2, -0.04], 'rot': [0.0, 1.5708, -0.12]}, opts={'L': 0.95, 'w': 0.46, 'colors': [['#E8463A', '#F4F1E8'], ['#2F7F8C', '#F4F1E8'], ['#E8B83A', '#F4F1E8'], ['#5E83C6', '#F4F1E8'], ['#3E7A4A', '#F4F1E8']][i]}))
+    props9b.append(P(f'transat9b_{i}', 'poFoldedChair', on={'actor': who, 'joint': 'torso', 'offset': [-0.36, 0.15, 0.02], 'rot': [0.0, 0.0, -0.1]}, opts={'L': 0.95, 'w': 0.46, 'colors': [['#E8463A', '#F4F1E8'], ['#2F7F8C', '#F4F1E8'], ['#E8B83A', '#F4F1E8'], ['#5E83C6', '#F4F1E8'], ['#3E7A4A', '#F4F1E8']][i]}))
 st.shot('S09b', 'office', setOpts={'door': False, 'printer': False, 'carpet': False}, actors=act9b,
         props=[P('mur9b', 'poWall', pos=[0, 0, WZ], opts={'w': 9, 'dw': 1.3, 'dh': 2.45, 'color': '#E4DCC8'}), *props9b], cams=[C9b], fx=[{'type': 'shake', 'at': 0.42, 'dur': 0.15, 'amount': 0.01}])
 st.cue('sfx:whoosh', 'S09b', 0.3, 0.25); st.cue('sfx:stepRun', 'S09b', 0.1, 0.2); st.cue('sfx:stepRun', 'S09b', 0.3, 0.2)
@@ -567,7 +567,7 @@ for i, (who, d) in enumerate(zip(RET, DCH10)):
     p = add(off(d, DRY10[i], 0.08), [0, -0.14, 0])
     sc_ = [r(GRAINPT[0] + (p[0] - GRAINPT[0]) * 0.55), 0.78, r(GRAINPT[2] + (p[2] - GRAINPT[2]) * 0.55)]
     fc = {'lid': 0.4, 'mouth': 'smile', 'brow': 0.4}
-    ks = [k(0.0, look=GRAINPT), k(0.0, clip='sit'), k(0.0, toon={**HAND(add(sc_, [0.0, 0.02, 0.0]), hr='grip'), 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'face': fc}, toonDur=0.0),
+    ks = [k(0.0, look=add(GRAINPT, [0, 0.7, 0])), k(0.0, clip='sit'), k(0.0, toon={**HAND(add(sc_, [0.0, 0.02, 0.0]), hr='grip'), 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'face': fc}, toonDur=0.0),
           *[k(r(0.15 + 0.3 * j + 0.07 * i), toon={**HAND(add(sc_, [0.0, 0.02 + 0.03 * (j % 2), 0.0]), hr='grip'), 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'face': fc}, toonDur=0.2, toonEase='inOut') for j in range(4)],
           k(r(FLICK10 + 0.05 + 0.04 * i), look=hen_head(HEN10, RYH10), lookDur=0.12),
           k(r(FLICK10 + 0.05 + 0.04 * i), toon={**HAND(add(sc_, [0.0, 0.06, 0.0]), hr='grip'), 'sq': [0.95, 1.05, 0.95], 'bend': {'spine': [0.1, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'o', 'brow': 0.9}}, toonDur=0.06, toonEase='out')]
@@ -617,7 +617,7 @@ for t_ in (0.08, 0.42, 0.66, 0.9, 1.14): st.cue('sfx:crunch', 'S10b', t_, 0.3)
 #     narrows her eyes; snap: her beak shuts on his mitten, he leaps back off the ground shaking it (stars), unhurt, eyes out
 D11 = st.dur('S11'); MOR11 = W('S11', 'L11', 4)
 HEN11 = [-0.15, 0.0, -0.3]; I11 = [0.62, 0.0, -0.5]
-F11 = [0.45, 1.4, 3.4]; L11 = [0.28, 1.2, -0.4]
+F11 = [0.42, 1.55, 3.9]; L11 = [0.28, 1.32, -0.4]
 C11 = cam(0.0, F11, add(F11, [-0.04, 0.0, -0.12]), L11, L11, lens=44, ease='inOut')
 RYI11 = r(yaw(I11, HEN11)); RYH11 = r((yaw(HEN11, I11) + yaw(HEN11, F11)) / 2)
 BK11 = hen_beak(HEN11, RYH11)
@@ -626,17 +626,18 @@ I11J = off(I11, RYI11, -0.28, 0.0, 0.0)
 chkc('S11', C11, {'inspTop': add(I11, [0, 2.3, 0]), 'inspHeadBent': off(I11, RYI11, 0.4, 0, 1.75), 'beak': BK11, 'henComb': add(HEN11, [0, 1.18, 0]), 'jumpTop': add(I11J, [0, 2.7, 0])})
 IF = {'lid': 0.5, 'mouth': 'line', 'brow': -0.3}
 TAP = lambda j: add(BK11, [0.05 * math.sin(j * 2.1), 0.03, 0.0])
-IK = lambda R, **x: {'reach': {'R': R5(R, 1, 0.0), 'L': R5(off(I11, RYI11, 0.3, 0.22, 1.25), 1, 0.0)}, 'hands': {'R': 'point', 'L': 'grip'}, 'hip': 0, **x}
-INK11 = [k(0.0, look=BK11), k(0.0, toon={**IK(add(TAP(0), [0, 0.05, 0.08])), 'bend': {'spine': [0.55, 0, 0, 1, None], 'neck': [0.2, 0, 0, 1, None]}, 'face': IF}, toonDur=0.0),
-         *[k(r(0.12 + 0.2 * j), toon={**IK(TAP(j)), 'bend': {'spine': [0.55, 0, 0, 1, None], 'neck': [0.2, 0, 0, 1, None]}, 'face': {**IF, 'mouth': 'o' if j % 2 else 'line'}}, toonDur=0.06) for j in range(4)],
-         k(SNAP11, toon={**IK(BK11), 'bend': {'spine': [0.55, 0, 0, 1, None], 'neck': [0.2, 0, 0, 1, None]}, 'face': {**IF, 'lid': 0.0, 'eye': 0.4}}, toonDur=0.02),
-         k(JUMP11, to=I11J, dur=0.3, glide=True, face='keep', ease='out'),
-         k(JUMP11, look='camera', lookDur=0.06),
+IK = lambda R, **x: {'reach': {'R': R5(R, 1, 0.0), 'L': R5(off(I11, RYI11, 0.3, 0.22, 1.0), 1, 0.0)}, 'hands': {'R': 'point', 'L': 'grip'}, 'hip': 0, **x}
+LK11 = lerp3([BK11[0], 1.5, BK11[2]], F11, 0.4)
+INK11 = [k(0.0, look=LK11), k(0.0, clip='kneel'), k(0.0, toon={**IK(add(TAP(0), [0, 0.05, 0.08])), 'bend': {'spine': [0.22, 0, 0, 1, None], 'neck': [0.12, 0, 0, 1, None]}, 'face': IF}, toonDur=0.0),
+         *[k(r(0.12 + 0.2 * j), toon={**IK(TAP(j)), 'bend': {'spine': [0.22, 0, 0, 1, None], 'neck': [0.12, 0, 0, 1, None]}, 'face': {**IF, 'mouth': 'o' if j % 2 else 'line'}}, toonDur=0.06) for j in range(4)],
+         k(SNAP11, toon={**IK(BK11), 'bend': {'spine': [0.22, 0, 0, 1, None], 'neck': [0.12, 0, 0, 1, None]}, 'face': {**IF, 'lid': 0.0, 'eye': 0.4}}, toonDur=0.02),
+         k(JUMP11, to=I11J, dur=0.3, glide=True, face=r(yaw(I11J, F11) + 25), ease='out'),
+         k(JUMP11, look='camera', lookDur=0.06), k(JUMP11, clip='stand'),
          k(JUMP11, toon={**IK(off(I11, RYI11, 0.0, -0.35, 2.3)), 'hands': {'R': 'open', 'L': 'grip'}, 'sq': [0.88, 1.16, 0.88], 'hairUp': 1.2, 'face': {'pop': 0.7, 'popLen': 0.3, 'brow': 1.0, 'mouth': 'scream', 'jaw': 0.7}}, toonDur=0.04, toonEase='outBack'),
          *[k(r(JUMP11 + 0.08 + 0.06 * j), toon={**IK(off(I11, RYI11, -0.1, -0.35 - 0.1 * (j % 2), 2.1 - 0.05 * j)), 'hands': {'R': 'open', 'L': 'grip'}, 'sq': [0.9, 1.12, 0.9], 'hairUp': 1.0,
                                                      'face': {'pop': 0.5, 'popLen': 0.25, 'brow': 1.0, 'mouth': 'scream', 'jaw': 0.6}}, toonDur=0.04) for j in range(5)],
          k(r(D11 - 0.12), toon={**IK(off(I11, RYI11, -0.1, -0.3, 1.8)), 'hands': {'R': 'open', 'L': 'grip'}, 'face': {'lid': 0.2, 'brow': 0.8, 'mouth': 'o', 'puff': 0.6}}, toonDur=0.1)]
-st.shot('S11', 'grassland', setOpts=GSET, look=LOOKG, actors=[act('controleur', I11, RYI11, 'stand', 'neutral', keys=INK11)],
+st.shot('S11', 'grassland', setOpts=GSET, look=LOOKG, actors=[act('controleur', I11, RYI11, 'kneel', 'neutral', keys=INK11)],
         props=[*GARDEN(11), HEN('poule11', HEN11, RYH11, teeth=[[0, 6]], gold=GOLD, open=[[0, 0.95], [r(SNAP11 - 0.03), 0.95], [SNAP11, 0.0, 'lin'], [r(SNAP11 + 0.25), 0.0], [r(SNAP11 + 0.35), 0.6]],
                                          brow=[[0, 0.0], [0.5, -0.8]], squint=[[0, 0.0], [0.5, 0.5], [r(SNAP11 + 0.25), 0.6]], gaze=[[0, 0.4, 0.3], [0.5, 0.6, 0.4]], pitch=[[0, -0.1], [r(SNAP11 - 0.02), -0.1], [SNAP11, 0.15], [r(SNAP11 + 0.15), 0.0]],
                                          sq=[[0, 1, 1, 1], [r(SNAP11 - 0.05), 1.06, 0.95, 1.06], [SNAP11, 0.92, 1.1, 0.92], [r(SNAP11 + 0.2), 1, 1, 1]], spark=[r(SNAP11 + 0.4)], blinks=[0.3]),
@@ -650,7 +651,7 @@ st.cue('sfx:bonk', 'S11', SNAP11, 0.35); st.cue('sfx:boing', 'S11', JUMP11, 0.25
 #      her head, eyes half shut
 D11b = st.dur('S11b'); LES11 = W('S11b', 'L11', 8)
 CL11 = [0.0, 0.0, -0.78]; RYC11 = 25
-IC11 = [0.56, 0.0, 0.66]; RYI11b = -118
+IC11 = [0.56, 0.0, 0.66]; RYI11b = -78
 F11b = [-0.6, 1.5, 4.1]; L11b = [0.3, 1.5, -0.2]
 C11b = cam(0.0, F11b, add(F11b, [0.08, 0.0, -0.15]), L11b, L11b, lens=40, ease='inOut')
 FA11 = [-0.02, CTOP + 0.01, -0.32]; FB11 = [0.36, CTOP + 0.02, -0.04]; FC11 = off(IC11, RYI11b, 0.17, 0.0, 1.32)
@@ -662,8 +663,8 @@ CLK11 = [k(0.0, look=add(IC11, [0, 1.9, 0])), k(0.0, toon={**CK(add(FA11, [0.1, 
          k(0.3, toon={**CK(), 'face': CLF}, toonDur=0.2), k(r(LES11 - 0.3), look='camera', lookDur=0.2),
          *TALK(r(LES11 - 0.02), r(D11b - 0.05), {**CLF, 'lid': 0.6, 'brow': 0.6}, keep=CK(), shake=0.26), *blink(0.7, CLF, CK())]
 BLOW = {'lid': 0.5, 'mouth': 'o', 'puff': 0.9, 'brow': 0.4}
-IHK = lambda **x: {'reach': {'R': R5(off(IC11, RYI11b, 0.32, -0.08, 1.72), 1, 0.0)}, 'hands': {'R': 'open'}, 'hip': 0, **x}
-INK11b = [k(0.0, look=off(IC11, RYI11b, 0.32, -0.08, 1.72)), k(0.0, toon={**IHK(), 'face': BLOW}, toonDur=0.0), k(0.2, toon={**IHK(), 'face': {**BLOW, 'puff': 0.4}}, toonDur=0.1),
+IHK = lambda dy=0.0, **x: {'reach': {'R': R5(off(IC11, RYI11b, 0.34, -0.12, 1.3 + dy), 1, 0.0)}, 'hands': {'R': 'open'}, 'hip': 0, **x}
+INK11b = [k(0.0, look=add(CL11, [0, 1.85, 0])), k(0.0, toon={**IHK(), 'face': BLOW}, toonDur=0.0), *[k(r(0.06 + 0.06 * j), toon={**IHK(0.06 * (j % 2)), 'face': {**BLOW, 'puff': 0.4 + 0.4 * (j % 2)}}, toonDur=0.05) for j in range(5)],
           *beat(SLAP11, {**IHK(), 'sq': [1.15, 0.85, 1.15], 'bend': {'spine': [-0.2, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.45, 'mouth': 'o', 'brow': 1.0}}, hold=0.24,
                 settle={**IHK(), 'face': {'lid': 0.4, 'mouth': 'line', 'brow': -0.2}}),
           k(r(SLAP11 + 0.2), look=add(CL11, [0, 1.85, 0]), lookDur=0.2), *life(r(SLAP11 + 0.6), D11b, {'lid': 0.4, 'mouth': 'line', 'brow': -0.2}, IHK(), blinks=[1.6])]
@@ -677,7 +678,7 @@ st.cue('sfx:whoosh', 'S11b', 0.12, 0.15); st.cue('sfx:splat', 'S11b', SLAP11, 0.
 #     turns his head toward the hero, off to the right, eyebrows up
 D12 = st.dur('S12'); REC12 = W('S12', 'L12', 6); TRA12 = W('S12', 'L12', 8)
 HEN12 = [-0.15, 0.0, -0.4]; D12P = [0.82, -0.42, -0.4]
-F12 = [0.15, 1.05, 2.45]; L12 = [0.3, 0.98, -0.25]
+F12 = [0.1, 1.08, 2.75]; L12 = [0.3, 1.0, -0.25]
 C12 = cam(0.0, F12, add(F12, [0.0, 0.0, -0.12]), L12, L12, lens=44, ease='inOut')
 RYH12 = r(yaw(HEN12, F12) + 8)
 MO12 = [0.33, 0.64, -0.05]
@@ -686,8 +687,8 @@ chkc('S12', C12, {'henComb': add(HEN12, [0, 1.18, 0]), 'beak': hen_beak(HEN12, R
 DF = {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}
 DK = lambda **x: {'reach': {'R': R5(add(MO12, [0.25, 0.04, 0.0]), 1, 0.0), 'L': R5(add(MO12, [-0.05, -0.02, 0.15]), 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'open'}, 'hip': 0, **x}
 HERO_OFF = [2.2, 1.9, 0.8]
-DENK12 = [k(0.0, look=add(MO12, [0, 0.12, 0])), k(0.0, clip='kneel'), k(0.0, toon={**DK(), 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'face': DF}, toonDur=0.0),
-          k(0.35, look=hen_beak(HEN12, RYH12), lookDur=0.15), k(0.75, look=add(MO12, [0, 0.12, 0]), lookDur=0.15),
+DENK12 = [k(0.0, look=add(MO12, [0, 0.55, 0])), k(0.0, clip='kneel'), k(0.0, toon={**DK(), 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'face': DF}, toonDur=0.0),
+          k(0.35, look=add(hen_beak(HEN12, RYH12), [0, 0.5, 0]), lookDur=0.15), k(0.75, look=add(MO12, [0, 0.55, 0]), lookDur=0.15),
           *beat(r(REC12 + 0.02), {**DK(), 'sq': [0.95, 1.06, 0.95], 'bend': {'spine': [0.15, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'o', 'brow': 1.0}}, hold=0.22,
                 settle={**DK(), 'face': {'lid': 0.2, 'mouth': 'smile', 'brow': 0.8}}),
           k(r(TRA12 - 0.04), look=HERO_OFF, lookDur=0.12),
@@ -727,7 +728,7 @@ st.cue('sfx:ding', 'S13', r(DENTS13 + 0.04), 0.3); st.cue('sfx:boing', 'S13', GR
 #     folded deckchairs under their arms, glum and slumped, the minister last with his fishing rod drooping
 D14 = st.dur('S14')
 DOOR14 = [0.6, 0.0, -3.5]
-F14 = [-1.25, 1.75, 4.4]; L14 = [0.5, 1.3, -1.2]
+F14 = [-1.3, 1.8, 5.1]; L14 = [0.55, 1.3, -1.2]
 C14 = cam(0.0, F14, add(F14, [0.05, 0.0, -0.15]), L14, L14, lens=40, ease='inOut')
 WALK14 = [(['emp1'], [0.2, 0.0, -0.3], [0.75, 0.0, 1.5]), (['emp2'], [0.95, 0.0, -1.0], [1.35, 0.0, 0.8]), (['emp3'], [0.3, 0.0, -1.75], [0.7, 0.0, 0.05]),
           (['emp4'], [0.95, 0.0, -2.5], [1.25, 0.0, -0.7]), (['emp5'], [0.35, 0.0, -3.2], [0.65, 0.0, -1.45]), (['ministre'], [0.7, 0.0, -3.75], [0.8, 0.0, -2.2])]
@@ -743,7 +744,7 @@ for i, (who, a, b) in enumerate(WALK14):
     if w == 'ministre':
         props14 += [P('canne14', 'poFishingRod', on={'actor': w, 'hand': 'R', 'offset': [0.0, 0.0, 0.0], 'rot': [1.9, 0, 0]}, opts={'L': 1.5}),
                     P('photo14', 'poPhoto', on={'actor': w, 'hand': 'L', 'offset': [0.0, -0.1, 0.08], 'face': 'camera'}, opts={'w': 0.36, 'h': 0.28, 'stand': False})]
-    else: props14.append(P(f'transat14_{i}', 'poFoldedChair', on={'actor': w, 'joint': 'torso', 'offset': [-0.33, 0.2, -0.04], 'rot': [0.0, 1.5708, -0.12]}, opts={'L': 0.95, 'w': 0.46, 'colors': [['#E8463A', '#F4F1E8'], ['#2F7F8C', '#F4F1E8'], ['#E8B83A', '#F4F1E8'], ['#5E83C6', '#F4F1E8'], ['#3E7A4A', '#F4F1E8']][i]}))
+    else: props14.append(P(f'transat14_{i}', 'poFoldedChair', on={'actor': w, 'joint': 'torso', 'offset': [-0.36, 0.15, 0.02], 'rot': [0.0, 0.0, -0.1]}, opts={'L': 0.95, 'w': 0.46, 'colors': [['#E8463A', '#F4F1E8'], ['#2F7F8C', '#F4F1E8'], ['#E8B83A', '#F4F1E8'], ['#5E83C6', '#F4F1E8'], ['#3E7A4A', '#F4F1E8']][i]}))
 st.shot('S14', 'whiteVoid', setOpts={'color': '#E3DCCB'}, actors=act14,
         props=[P('hall14', 'poRoom', pos=[0, 0, 0], opts={'w': 7, 'd': 7, 'h': 3.4, 'wall': '#E8E2D4', 'band': '#3F8F98', 'bandH': 0.9, 'floor': '#CFC6B2', 'door': {'x': 0.6, 'w': 1.8, 'h': 2.6, 'glass': True}}),
                P('accueil14', 'poReception', pos=[2.15, 0.0, 0.2], ry=-90, opts={'w': 2.0}), P('plante14', 'plant', pos=[-2.6, 0.0, -2.9]), *props14],
@@ -795,7 +796,7 @@ CLK15 = [k(0.0, look=add(POS15, [0, -0.3, 0])), k(0.0, toon={**PIN(0.0), 'face':
          k(r(TURN15 + 0.2), toon={**ARMS(), 'sq': [1.04, 0.97, 1.04], 'face': SMUG}, toonDur=0.08),
          *TALK(r(QU15 - 0.02), r(D15 - 0.05), {**SMUG}, keep=ARMS(), shake=0.0, nod=0.08)]
 st.shot('S15', 'whiteVoid', setOpts=CSET, actors=[act('guichet', CL15, 180, 'stand', 'neutral', keys=CLK15)],
-        props=[COUNTER(15, picX=2.3, signX=-0.55, signY=2.85), P('affiche15', 'poPoster', pos=POS15, opts={'w': 0.8, 'unroll': [[0.0, 0.25], [0.28, 1.0]]}, keys=[k(0.3, squash=[1.04, 0.96, 1.0], dur=0.25)])],
+        props=[COUNTER(15, picX=2.3, signX=-0.2, signY=2.9, signW=1.35), P('affiche15', 'poPoster', pos=POS15, opts={'w': 0.8, 'unroll': [[0.0, 0.25], [0.28, 1.0]]}, keys=[k(0.3, squash=[1.04, 0.96, 1.0], dur=0.25)])],
         cams=[C15])
 st.cue('sfx:paper', 'S15', 0.02, 0.25); st.cue('sfx:click', 'S15', 0.22, 0.25); st.cue('sfx:click', 'S15', 0.32, 0.25); st.cue('sfx:whoosh', 'S15', TURN15, 0.12)
 

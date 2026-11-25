@@ -76,9 +76,9 @@ const starSprite = color => { const sp = new THREE.Sprite(new THREE.SpriteMateri
 function sparkAt(sp, t, T, size) { let v = 0, d0 = 0; for (const t0 of T || []) { const d = t - t0; if (d >= 0 && d < 0.5) { const w = Math.sin(PI * d / 0.5); if (w > v) { v = w; d0 = d; } } } sp.visible = v > 0.02; sp.scale.setScalar(Math.max(0.001, size * v)); sp.material.rotation = d0 * 3; }
 
 // ---------------------------------------------------------------- teeth: an oversized blocky tooth, crown up (pivot at its root), white with an ink edge or gold
-const TOOTH_W = '#FFFFFF', TOOTH_G = '#F2BE2A';
+const TOOTH_W = '#FFFFFF', TOOTH_G = '#FFD83A';
 function tooth(w, h, d, gold = false) {
-  const m = box(w, h, d, gold ? TOOTH_G : TOOTH_W, { pivot: 'bottom', taper: { x: 1.12, z: 1.08 }, noGrain: true, emissive: gold ? '#7A5200' : '#4A4A4A' });
+  const m = box(w, h, d, gold ? TOOTH_G : TOOTH_W, { pivot: 'bottom', taper: { x: 1.12, z: 1.08 }, noGrain: true, emissive: gold ? '#9A7400' : '#4A4A4A' });
   ink(m, 0.12); const crown = box(w * 0.7, h * 0.12, 0.004, gold ? '#FFE48A' : '#FFFFFF', { noGrain: true, emissive: '#FFFFFF' }); crown.position.set(-w * 0.08, h * 0.78, d / 2 + 0.002); crown.castShadow = false; m.add(crown);
   return m;
 }
@@ -112,7 +112,7 @@ function appleMesh(r, dir, toothKind, pecked, seed = 1) {
   return g;
 }
 // where the apples of a heap lie (x, level, z): the bottom row first, then the ones on top
-const PILE = [[0, 0, 0], [0.205, 0, 0.02], [-0.205, 0, 0.03], [0.1, 1, 0.0], [-0.1, 1, 0.02], [0.32, 0, -0.17], [-0.31, 0, -0.15], [0.0, 2, 0.0], [0.1, 0, -0.2], [-0.12, 0, -0.22], [0.22, 1, -0.16], [-0.2, 1, -0.17]];
+const PILE = [[0, 0, 0], [0.205, 0, 0.02], [0.1, 1, 0.0], [-0.205, 0, 0.03], [-0.1, 1, 0.02], [0.32, 0, -0.17], [-0.31, 0, -0.15], [0.0, 2, 0.0], [0.1, 0, -0.2], [-0.12, 0, -0.22], [0.22, 1, -0.16], [-0.2, 1, -0.17]];
 
 // ---------------------------------------------------------------- the hen's mouth / the hero's mouth overlays
 // a grin outline (a wide D: flat top, round bottom), centred, in metres
@@ -120,12 +120,14 @@ function grinShape(w, h) { const s = new THREE.Shape(), a = w / 2; s.moveTo(-a, 
 
 // ---------------------------------------------------------------- a row of narrow terrace house fronts (pivot at the floor under the middle of the row, along X)
 function houseFront(w, h, col, door, i) {
-  const g = grp(at(box(w, h, 0.3, col, { pivot: 'bottom', outline: 0.004 }), 0, 0, -0.15));
+  const sw = (w - 0.94) / 2, g = grp(at(box(sw, h, 0.3, col, { pivot: 'bottom', outline: 0.004 }), -(0.47 + sw / 2), 0, -0.15), at(box(sw, h, 0.3, col, { pivot: 'bottom', outline: 0.004 }), 0.47 + sw / 2, 0, -0.15),
+    at(box(0.94, h - 2.1, 0.3, col, { pivot: 'bottom' }), 0, 2.1, -0.15), at(box(1.0, 2.2, 0.04, '#2E2622', { pivot: 'bottom' }), 0, 0, -0.75), at(box(1.0, 0.02, 0.8, '#5A4A3A'), 0, 0.01, -0.4));
+  for (const sd of [-1, 1]) g.add(at(box(0.04, 2.2, 0.8, '#3A302A', { pivot: 'bottom' }), sd * 0.49, 0, -0.4));
   g.add(at(box(w + 0.06, 0.22, 0.42, '#F4F1E8', { outline: 0.006 }), 0, h + 0.11, -0.12), at(box(w + 0.1, 0.5, 0.5, ['#B5402F', '#3E4A5E', '#6A3A30', '#5E83C6', '#B5402F'][i % 5], { taper: { x: 0.8, z: 1 }, outline: 0.004 }), 0, h + 0.47, -0.15));
   const win = (x, y) => [at(box(0.7, 0.75, 0.05, '#F4F1E8', { outline: 0.006 }), x, y, 0.02), at(box(0.58, 0.63, 0.02, '#8FBBD8', { emissive: '#2A4A5A' }), x, y, 0.05), at(box(0.04, 0.63, 0.03, '#F4F1E8'), x, y, 0.06)];
   g.add(...win(0, h - 0.75));
   const fr = '#F4F1E8';
-  g.add(at(box(0.1, 2.2, 0.1, fr), -0.52, 1.1, 0.04), at(box(0.1, 2.2, 0.1, fr), 0.52, 1.1, 0.04), at(box(1.14, 0.12, 0.1, fr), 0, 2.2, 0.04), at(box(0.94, 2.1, 0.02, '#2A2420'), 0, 1.05, -0.02));
+  g.add(at(box(0.1, 2.2, 0.1, fr), -0.52, 1.1, 0.04), at(box(0.1, 2.2, 0.1, fr), 0.52, 1.1, 0.04), at(box(1.14, 0.12, 0.1, fr), 0, 2.2, 0.04));
   g.add(at(box(1.3, 0.12, 0.5, '#CFC6B4', { pivot: 'bottom' }), 0, 0, 0.25));
   const piv = grp(); piv.position.set(-0.47, 0, 0.01); g.add(piv);
   const leaf = box(0.94, 2.08, 0.06, door, { outline: 0.006 }); leaf.position.set(0.47, 1.05, 0); piv.add(leaf);
@@ -144,7 +146,7 @@ export const POULE_PROPS = {
   // a squint for the grin (o.squint), ink brows (o.brow [[t, -1..1]]). The head: o.yaw / o.pitch / o.roll [[t, rad]]; o.peck [[t0, t1]] pecking;
   // the body: o.lean [[t, rad]] pitch, o.waddle [[t0, t1]], o.sq [[t, sx, sy, sz]] squash and stretch about the feet, o.shake [[t0, amp, f, dk]] a shiver
   poHen(o) {
-    const s = o.s ?? 1, W = o.color || '#F7F3E8', W2 = '#ECE4CF', RED = '#E3342A', BEAK = '#F6B523', BEAK2 = '#E9961A', LEG = '#E8A92E';
+    const s = o.s ?? 1, W = o.color || '#F7F3E8', W2 = '#ECE4CF', RED = '#E3342A', BEAK = '#F6B523', BEAK2 = '#E5801C', LEG = '#E8A92E';
     const g = grp(), rig = grp(), sway = grp(); g.add(rig); rig.add(sway);
     const legs = [];
     for (const sd of [-1, 1]) {
@@ -202,9 +204,10 @@ export const POULE_PROPS = {
       jaw.rotation.x = 0.85 * clamp01(keyAt(o.open, t, 0) + ch * 0.85);
       head.position.y = 0.22 - 0.012 * ch;
       const [n, tn] = stepAt(o.teeth, t, o.n ?? 0), [n0] = stepAt(o.teeth, tn - 1e-4, o.n ?? 0), pop = clamp01((t - tn) / 0.28);
-      T1.forEach(m => { m.visible = n === 1; m.scale.setScalar(n === 1 && n0 < 1 ? Math.max(0.01, outBack(pop, 2.6)) : 1); });
+      const shown = jaw.rotation.x > 0.07;
+      T1.forEach(m => { m.visible = n === 1 && shown; m.scale.setScalar(n === 1 && n0 < 1 ? Math.max(0.01, outBack(pop, 2.6)) : 1); });
       const p6 = n0 >= 2 ? n0 : 0;
-      T6.forEach((m, i) => { const on = n >= 2 && i < n; m.visible = on; m.scale.setScalar(on && i >= p6 ? Math.max(0.01, outBack(pop, 2.6)) : 1); });
+      T6.forEach((m, i) => { const on = n >= 2 && i < n; m.visible = on && shown; m.scale.setScalar(on && i >= p6 ? Math.max(0.01, outBack(pop, 2.6)) : 1); });
       const si = o.sparkTooth ?? o.gold ?? 0, sp = n === 1 ? LAYOUT1[0] : (LAYOUT6[si] || LAYOUT6[0]);
       spk.position.set(sp[0] + 0.012, 0.075, sp[1] + 0.02); sparkAt(spk, t, o.spark, o.sparkSize ?? 0.16);
       const bl = pulse(o.blinks, t, 0.13), sqn = keyAt(o.squint, t, 0), bv = keyAt(o.brow, t, 0), gx = keyAt(gzx, t, 0), gy = keyAt(gzy, t, 0);
@@ -356,8 +359,8 @@ export const POULE_PROPS = {
       c.fillStyle = '#FFFFFF'; c.strokeStyle = '#2A2020'; c.lineWidth = S * 0.06; c.beginPath(); c.ellipse(0, S * 0.25, S * 0.95, S * 0.62, 0, 0, TAU); c.fill(); c.stroke();
       c.beginPath(); c.arc(S * 0.75, -S * 0.42, S * 0.42, 0, TAU); c.fill(); c.stroke();
       c.fillStyle = '#E3342A'; for (const [x, y] of [[0.55, -0.85], [0.78, -0.92], [1.0, -0.82]]) { c.beginPath(); c.arc(x * S, y * S, S * 0.15, 0, TAU); c.fill(); }
-      c.fillStyle = '#F6B523'; c.beginPath(); c.moveTo(S * 1.12, -S * 0.5); c.lineTo(S * 1.62, -S * 0.44); c.lineTo(S * 1.12, -S * 0.36); c.fill(); c.beginPath(); c.moveTo(S * 1.12, -S * 0.3); c.lineTo(S * 1.55, -S * 0.12); c.lineTo(S * 1.1, -S * 0.16); c.fill();
-      c.fillStyle = '#FFFFFF'; for (const x of [1.12, 1.36]) { c.fillRect(x * S, -S * 0.42, S * 0.22, S * 0.3); c.strokeRect(x * S, -S * 0.42, S * 0.22, S * 0.3); }
+      c.fillStyle = '#F6B523'; c.beginPath(); c.moveTo(S * 1.1, -S * 0.62); c.lineTo(S * 1.95, -S * 0.52); c.lineTo(S * 1.1, -S * 0.42); c.fill(); c.stroke(); c.fillStyle = '#E5801C'; c.beginPath(); c.moveTo(S * 1.1, -S * 0.12); c.lineTo(S * 1.85, 0.0); c.lineTo(S * 1.1, S * 0.08); c.fill(); c.stroke();
+      c.fillStyle = '#FFFFFF'; for (const x of [1.2, 1.5]) { c.fillRect(x * S, -S * 0.46, S * 0.26, S * 0.4); c.strokeRect(x * S, -S * 0.46, S * 0.26, S * 0.4); }
       c.fillStyle = '#1B1418'; c.beginPath(); c.arc(S * 0.86, -S * 0.5, S * 0.07, 0, TAU); c.fill();
       c.restore(); c.fillStyle = '#B7A884'; for (let i = 0; i < 3; i++) c.fillRect(Wc * 0.12, Hc * (0.78 + i * 0.07), Wc * (0.76 - i * 0.2), Hc * 0.025); }, { res: 256, emissive: 0.25 });
     sheet.position.z = 0.0; letter.add(sheet, at(box(w * 0.86, h * 1.05, 0.004, '#E8DFC4'), 0, 0, -0.003)); letter.position.z = 0.006; letter.visible = false;
@@ -592,7 +595,7 @@ export const POULE_PROPS = {
     const s = o.s ?? 1.25, g = grp(), wx = o.wx ?? 0.95, seatW = 0.62 * s;
     g.add(at(box(3.2, 0.03, 4, '#3A4A72'), 0, 0.0, 0));
     const wall = grp(at(box(0.12, 2.6, 4, '#EDE7DA', { pivot: 'bottom' }), 0, 0, 0)); wall.position.x = -wx - 0.06; g.add(wall);
-    g.add(at(box(0.8, 0.5, 4, '#E4DDCB', { outline: 0.005 }), -wx + 0.35, 2.35, 0), at(box(0.04, 0.04, 4, '#BFB8A6'), -wx + 0.0, 2.1, 0));
+    g.add(at(box(0.6, 0.4, 4, '#E4DDCB', { outline: 0.005 }), -wx + 0.25, 2.75, 0), at(box(0.04, 0.04, 4, '#BFB8A6'), -wx + 0.0, 2.5, 0));
     const cv = canvas(512, 256), c = cv.getContext('2d'), gg = c.createLinearGradient(0, 0, 0, 256); gg.addColorStop(0, '#5FA8E0'); gg.addColorStop(1, '#CFE8F6'); c.fillStyle = gg; c.fillRect(0, 0, 512, 256);
     c.fillStyle = '#FFFFFF'; for (let i = 0; i < 6; i++) { const x = i * 90 + 20, y = 70 + 90 * hsh(i * 3); for (let j = 0; j < 4; j++) { c.beginPath(); c.arc(x + j * 22, y - (j % 2) * 12, 22, 0, TAU); c.fill(); } }
     const st = tex(cv); st.wrapS = THREE.RepeatWrapping; st.repeat.set(0.5, 1);
