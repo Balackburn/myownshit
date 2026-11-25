@@ -136,13 +136,29 @@ function houseFront(w, h, col, door, i) {
   return { g, piv };
 }
 
+// ---------------------------------------------------------------- a white costume wing (pivot at its root, spreading toward +X and up, face +Z): a feathered shape
+// with a round leading edge and four scalloped feathers along the trailing edge, grey feather lines, an ink rim behind; double-sided (mirror it with scale.x -1)
+function featherWing(Lw = 0.46) {
+  const k = Lw / 0.46, cx = 0.22 * k, cy = 0.1 * k, W_ = 0.48 * k, H_ = 0.44 * k, g = grp();
+  const mk = (sc) => { const s = new THREE.Shape(), P = (x, y) => [(x * k - cx) * sc, (y * k - cy) * sc];
+    s.moveTo(...P(0.0, 0.05)); s.quadraticCurveTo(...P(0.1, 0.3), ...P(0.46, 0.31));
+    const pts = [[0.37, 0.13], [0.27, 0.03], [0.16, -0.05], [0.02, -0.08]]; let px = 0.46, py = 0.31;
+    for (const [x, y] of pts) { s.quadraticCurveTo(...P((px + x) / 2 + 0.05, (py + y) / 2 - 0.06), ...P(x, y)); px = x; py = y; }
+    s.closePath(); return s; };
+  const face = shapedPlane(mk(1), W_, H_, (c, Wc, Hc) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, Wc, Hc); c.strokeStyle = '#B9C0CC'; c.lineWidth = Wc * 0.012; c.lineCap = 'round';
+    for (const [x0, y0, x1, y1] of [[0.12, 0.62, 0.78, 0.36], [0.1, 0.74, 0.6, 0.62], [0.1, 0.84, 0.38, 0.86], [0.2, 0.45, 0.86, 0.2]]) { c.beginPath(); c.moveTo(x0 * Wc, y0 * Hc); c.quadraticCurveTo((x0 + x1) / 2 * Wc, (y0 + y1) / 2 * Hc + Hc * 0.05, x1 * Wc, y1 * Hc); c.stroke(); } }, 256, { emissive: 0.45 });
+  face.material.side = THREE.DoubleSide; face.position.set(cx, cy, 0.004);
+  const rim = new THREE.Mesh(new THREE.ShapeGeometry(mk(1.07), 8), B(INK, { side: THREE.DoubleSide })); rim.position.set(cx, cy, -0.004);
+  g.add(face, rim); return g;
+}
+
 export const POULE_PROPS = {
 
   // ---------------------------------------------------------------- the hen (pivot at the floor between her feet, front +Z), about 1.1 m tall at o.s 1
   // A big white hen: a faceted body, a fan tail, wings that flap (o.flap [[t0, t1]]), yellow legs, a long neck, a big red comb and a red wattle, a big
   // yellow beak whose lower half opens (o.open [[t, 0..1]]; o.chew [[t0, t1]]: big up-and-down bites) on a dark mouth; on the lower beak the teeth:
   // oversized white blocks (o.teeth [[t, n]]: n of them, a new one pops in; one alone stands in the middle), o.gold: the index of the gold one, which
-  // gets a sparkle at each time in o.spark (o.sparkTooth: another index). Googly eyes with pupils (o.gaze [[t, gx, gy]]), blinks (o.blinks [t...]),
+  // gets a sparkle at each time in o.spark (o.sparkTooth: another index; o.sparks [[t, index]]: a sparkle on each tooth in turn). Googly eyes with pupils (o.gaze [[t, gx, gy]]), blinks (o.blinks [t...]),
   // a squint for the grin (o.squint), ink brows (o.brow [[t, -1..1]]). The head: o.yaw / o.pitch / o.roll [[t, rad]]; o.peck [[t0, t1]] pecking;
   // the body: o.lean [[t, rad]] pitch, o.waddle [[t0, t1]], o.sq [[t, sx, sy, sz]] squash and stretch about the feet, o.shake [[t0, amp, f, dk]] a shiver
   poHen(o) {
@@ -208,8 +224,9 @@ export const POULE_PROPS = {
       T1.forEach(m => { m.visible = n === 1 && shown; m.scale.setScalar(n === 1 && n0 < 1 ? Math.max(0.01, outBack(pop, 2.6)) : 1); });
       const p6 = n0 >= 2 ? n0 : 0;
       T6.forEach((m, i) => { const on = n >= 2 && i < n; m.visible = on && shown; m.scale.setScalar(on && i >= p6 ? Math.max(0.01, outBack(pop, 2.6)) : 1); });
-      const si = o.sparkTooth ?? o.gold ?? 0, sp = n === 1 ? LAYOUT1[0] : (LAYOUT6[si] || LAYOUT6[0]);
-      spk.position.set(sp[0] + 0.012, 0.075, sp[1] + 0.02); sparkAt(spk, t, o.spark, o.sparkSize ?? 0.16);
+      let si = o.sparkTooth ?? o.gold ?? 0; for (const [ts, ix] of o.sparks || []) if (t >= ts) si = ix;
+      const sp = n === 1 ? LAYOUT1[0] : (LAYOUT6[si] || LAYOUT6[0]), sx = o.sparks ? Math.sign(sp[0]) * 0.035 : 0;
+      spk.position.set(sp[0] + 0.012 + sx, 0.075, sp[1] + 0.02); sparkAt(spk, t, o.sparks ? [...(o.spark || []), ...o.sparks.map(q => q[0])] : o.spark, o.sparkSize ?? 0.16);
       const bl = pulse(o.blinks, t, 0.13), sqn = keyAt(o.squint, t, 0), bv = keyAt(o.brow, t, 0), gx = keyAt(gzx, t, 0), gy = keyAt(gzy, t, 0);
       for (const E of eyes) { E.eg.scale.y = Math.max(0.07, (1 - 0.5 * sqn) * (1 - 0.94 * bl)); E.pup.position.x = gx * 0.015; E.pup.position.y = gy * 0.013 - 0.004 * sqn;
         E.brow.position.y = 0.16 + 0.022 * Math.max(0, bv) - 0.006 * Math.max(0, -bv); E.brow.rotation.z = E.sd * 0.45 * Math.max(0, -bv) - E.sd * 0.15 * Math.max(0, bv); }
@@ -364,12 +381,14 @@ export const POULE_PROPS = {
       c.fillStyle = '#1B1418'; c.beginPath(); c.arc(S * 0.86, -S * 0.5, S * 0.07, 0, TAU); c.fill();
       c.restore(); c.fillStyle = '#B7A884'; for (let i = 0; i < 3; i++) c.fillRect(Wc * 0.12, Hc * (0.78 + i * 0.07), Wc * (0.76 - i * 0.2), Hc * 0.025); }, { res: 256, emissive: 0.25 });
     sheet.position.z = 0.0; letter.add(sheet, at(box(w * 0.86, h * 1.05, 0.004, '#E8DFC4'), 0, 0, -0.003)); letter.position.z = 0.006; letter.visible = false;
-    const puffs = []; for (let i = 0; i < 7; i++) { const m = sphere(0.03, i % 2 ? '#D9CDB0' : '#CDBF9E', 1); m.castShadow = false; m.receiveShadow = false; g.add(m); puffs.push(m); }
+    const NP = 12, puffs = []; for (let i = 0; i < NP; i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(0.045 * w / 0.42, 1), new THREE.MeshLambertMaterial({ color: i % 2 ? '#EDE4CE' : '#DCCFB0', transparent: true, opacity: 0.7, depthWrite: false }));
+      m.castShadow = false; m.receiveShadow = false; g.add(m); puffs.push(m); }
     g.userData.update = t => {
       const lv = keyAt(o.letter, t, 0); letter.visible = lv > 0.01; letter.position.y = lv * h * 0.95;
-      let d = -1; for (const t0 of o.dust || []) if (t >= t0 && t < t0 + 0.7) d = t - t0;
-      puffs.forEach((m, i) => { m.visible = d >= 0; if (d < 0) return; const u = d / 0.7, a = (i / 7 - 0.5) * 1.6; m.position.set(Math.sin(a) * w * 0.4 * (0.4 + u), h * 0.2 + u * 0.12 * (1 + hsh(i)), 0.03 + u * 0.35 * (0.6 + hsh(i * 3)));
-        m.scale.setScalar(Math.max(0.01, (0.6 + 1.6 * u) * (1 - u * u))); });
+      let d = -1; const DD = o.dustDur ?? 0.85; for (const t0 of o.dust || []) if (t >= t0 && t < t0 + DD) d = t - t0;
+      puffs.forEach((m, i) => { m.visible = d >= 0; if (d < 0) return; const u = d / DD, a = (i / NP - 0.5) * 2.4 + (hsh(i * 9) - 0.5) * 0.4, k = smooth(Math.min(1, u * 1.8));
+        m.position.set(Math.sin(a) * w * 0.75 * (0.25 + k), h * 0.15 + k * w * 0.5 * (0.3 + hsh(i)), 0.03 + k * w * 1.4 * (0.5 + hsh(i * 3)));
+        m.scale.setScalar(Math.max(0.01, (0.7 + 2.8 * k) * (0.7 + 0.6 * hsh(i * 5)))); m.material.opacity = 0.75 * Math.pow(1 - u, 1.3); });
     };
     g.userData.update(0); g.userData.grip = [0, 0, 0]; return g;
   },
@@ -521,21 +540,32 @@ export const POULE_PROPS = {
   },
 
   // ---------------------------------------------------------------- a fishing rod (pivot at the grip, the rod along +Y): a cork handle, a reel, a tapering rod o.L
-  // (1.7), a line hanging from the tip with a red-and-white float
+  // (1.7) in six segments, a line hanging from the tip with a red-and-white float; o.droop [[t, rad]]: the rod sags (the line keeps hanging, o.tilt the rod's
+  // own pitch; o.axis 'z': it sags about its own z instead, o.tilt then the rod's own roll), o.color, o.r (0.01) its radius at the grip, o.ink: an ink rim,
+  // o.line (0.45) the line's length, o.wob [[t0, amp, f, dk]] a wobble of the line
   poFishingRod(o) {
-    const Ln = o.L ?? 1.7, g = grp(at(cyl(0.022, 0.022, 0.28, '#C89A62', 8), 0, 0, 0), at(cyl(0.01, 0.004, Ln, '#2A3A5A', 6, { pivot: 'bottom' }), 0, 0.12, 0));
+    const Ln = o.L ?? 1.7, NS = 6, sl = Ln / NS, g = grp(at(cyl(0.022, 0.022, 0.28, '#C89A62', 8), 0, 0, 0)), RC = o.color || '#2A3A5A', r0 = o.r ?? 0.01;
     const reel = cyl(0.05, 0.05, 0.035, '#9AA4AE', 12, { outline: 0.03 }); reel.rotation.z = PI / 2; reel.position.set(0.04, 0.02, 0); g.add(reel);
-    g.add(at(cyl(0.002, 0.002, 0.45, '#E8E8E8', 3, { pivot: 'top' }), 0, Ln + 0.12, 0), at(sphere(0.025, '#E23A3A', 1), 0, Ln + 0.12 - 0.45, 0), at(sphere(0.018, '#FBFAF4', 1), 0, Ln + 0.12 - 0.42, 0));
-    g.userData.grip = [0, 0, 0]; return g;
+    const segs = []; let par = g;
+    for (let i = 0; i < NS; i++) { const sg = grp(); sg.position.y = i ? sl : 0.12; par.add(sg); const rr = r0 * (1 - 0.55 * i / NS), m = cyl(rr * 0.82, rr, sl * 1.02, RC, 6, { pivot: 'bottom' }); if (o.ink) ink(m, 0.12); sg.add(m); segs.push(sg); par = sg; }
+    const tip = grp(); tip.position.y = sl; par.add(tip);
+    const LL = o.line ?? 0.45; tip.add(at(cyl(0.002, 0.002, LL, '#E8E8E8', 3, { pivot: 'top' }), 0, 0, 0), at(sphere(0.025, '#E23A3A', 1), 0, -LL, 0), at(sphere(0.018, '#FBFAF4', 1), 0, -LL + 0.03, 0));
+    const AZ = o.axis === 'z';
+    g.userData.update = t => { const d = keyAt(o.droop, t, 0), w = rattle(o.wob, t); segs.forEach((sg, i) => { const v = i ? d / (NS - 1) : 0; if (AZ) sg.rotation.z = -v; else sg.rotation.x = v; });
+      if (AZ) tip.rotation.z = d + (o.tilt ?? 0) + w; else tip.rotation.x = -d - (o.tilt ?? 0) + w; };
+    g.userData.update(0); g.userData.grip = [0, 0, 0]; return g;
   },
 
   // ---------------------------------------------------------------- a row of narrow terrace house fronts (pivot at the floor under the middle, fronts +Z): o.n (5)
-  // fronts o.w (2.3) wide, pastel, each with a door that swings in (o.open [[t, 0..1]], each next door o.stagger (0.06 s) later), a window, a step
+  // fronts o.w (2.3) wide, pastel, each with a door that swings in (o.open [[t, 0..1]], each next door o.stagger (0.06 s) later; o.rev: from the last door),
+  // a window, a step; o.slam: a hinge wobble from that time (o.wob its amplitude, 0.15); o.swing (1.9 rad): how far a door opens outward at 1 (2.95: flat
+  // against the wall beside it)
   poRowHouses(o) {
     const n = o.n ?? 5, w = o.w ?? 2.3, g = grp(), cols = o.colors || ['#F0C6CF', '#B8E0D2', '#F4E1A8', '#C9D4F2', '#F2C9A8'], doors = ['#2F7F8C', '#B5302A', '#2F5E8C', '#3E7A4A', '#7A3E6A'], P_ = [];
     for (let i = 0; i < n; i++) { const { g: f, piv } = houseFront(w, o.h ?? 3.1, cols[i % cols.length], doors[i % doors.length], i); f.position.x = (i - (n - 1) / 2) * w; g.add(f); P_.push(piv); }
     g.add(at(box(n * w + 2, 0.12, 2.6, '#E8DCC2', { pivot: 'bottom' }), 0, 0, 1.3));
-    g.userData.update = t => { P_.forEach((p, i) => { const v = keyAt(o.open, t - i * (o.stagger ?? 0.06), 0); p.rotation.y = -1.9 * v + rattle(o.slam ? [[o.slam + i * (o.stagger ?? 0.06), 0.15, 22, 5]] : null, t); }); };
+    const stg = o.stagger ?? 0.06;
+    g.userData.update = t => { P_.forEach((p, i) => { const j = o.rev ? n - 1 - i : i, v = keyAt(o.open, t - j * stg, 0); p.rotation.y = -(o.swing ?? 1.9) * v + rattle(o.slam ? [[o.slam + j * stg, o.wob ?? 0.15, 22, 5]] : null, t); }); };
     g.userData.update(0); return g;
   },
 
@@ -614,7 +644,8 @@ export const POULE_PROPS = {
 
   // ---------------------------------------------------------------- the pig in the window seat (pivot at the seat cushion under it, front +Z): a big pink pig sitting
   // up, a round body, a big head with a snout and nostrils, pointy ears (o.ears [[t0, t1]] flick), googly eyes (o.blinks, o.gaze [[t, gx, gy]]), a smile; little
-  // white costume wings on its back (o.flap [[t0, t1]]); a grey lap belt with a buckle; o.yaw [[t, rad]] the head; o.sq [[t, sx, sy, sz]]; o.s scale
+  // white feathered costume wings on its back with an elastic strap (o.flap [[t0, t1]]; o.wingL); a grey lap belt with a buckle; o.yaw [[t, rad]] the head;
+  // o.sq [[t, sx, sy, sz]]; o.wiggle [[t0, t1]] a wiggle in the seat; o.s scale
   poPig(o) {
     const s = o.s ?? 1, P = '#F0A6AC', PD = '#D9868E', DK = '#B9606A', g = grp(), rig = grp(); g.add(rig);
     rig.add(at(ink(facet(0.34, 0.36, 0.3, P, 21, 0.04), 0.025), 0, 0.36, 0), at(facet(0.25, 0.25, 0.12, '#F6B8BD', 22, 0.03), 0, 0.3, 0.22));
@@ -622,9 +653,8 @@ export const POULE_PROPS = {
       rig.add(at(ink(cyl(0.065, 0.06, 0.28, P, 7), 0.04), sd * 0.27, 0.42, 0.14, 0.9, 0, sd * 0.35), at(cyl(0.062, 0.062, 0.05, DK, 7), sd * 0.24, 0.31, 0.27, 0.9, 0, sd * 0.35)); }
     rig.add(at(box(0.72, 0.07, 0.04, '#7A808A'), 0, 0.2, 0.3), at(box(0.12, 0.09, 0.05, '#C8CED6', { outline: 0.02 }), 0, 0.2, 0.32));
     const wings = [];
-    for (const sd of [-1, 1]) { const wp = grp(); wp.position.set(sd * 0.2, 0.62, -0.18); rig.add(wp);
-      for (let j = 0; j < 3; j++) { const f = box(0.34 - j * 0.07, 0.1, 0.025, '#FFFFFF', { noGrain: true, emissive: '#2A2A2A' }); f.geometry.translate(sd * (0.17 - j * 0.035), 0, 0); ink(f, 0.05); f.position.set(0, -0.06 * j, -0.01 * j); f.rotation.z = sd * (0.85 - j * 0.3); wp.add(f); }
-      wings.push([wp, sd]); }
+    for (const sd of [-1, 1]) { const wp = grp(); wp.position.set(sd * 0.22, 0.6, -0.2); rig.add(wp); const wg = featherWing(o.wingL ?? 0.46); wg.scale.x = sd; wg.rotation.z = sd * 0.25; wp.add(wg); wings.push([wp, sd]); }
+    rig.add(at(box(0.5, 0.035, 0.03, '#E8E4DC'), 0, 0.62, 0.0, 0, 0, 0));
     const head = grp(); head.position.set(0, 0.78, 0.05); rig.add(head);
     head.add(ink(facet(0.27, 0.24, 0.24, P, 23, 0.04), 0.025));
     const sn = ink(cyl(0.1, 0.11, 0.09, PD, 10), 0.04); sn.rotation.x = PI / 2; sn.position.set(0, -0.04, 0.24); head.add(sn);
@@ -640,6 +670,7 @@ export const POULE_PROPS = {
     const sq = (o.sq || []).map(q => [q[0], q[1]]), sqy = (o.sq || []).map(q => [q[0], q[2]]), gzx = (o.gaze || []).map(q => [q[0], q[1]]), gzy = (o.gaze || []).map(q => [q[0], q[2] ?? 0]);
     g.userData.update = t => {
       rig.scale.set(s * keyAt(sq, t, 1), s * keyAt(sqy, t, 1) * (1 + 0.012 * Math.sin(t * 2.6)), s * keyAt(sq, t, 1));
+      const wd = inside(o.wiggle, t); rig.rotation.z = wd >= 0 ? 0.13 * Math.sin(wd * TAU * 3.6) * Math.exp(-wd * 1.2) : 0; rig.position.y = wd >= 0 ? 0.035 * Math.abs(Math.sin(wd * TAU * 3.6)) * Math.exp(-wd * 1.2) : 0;
       head.rotation.set(keyAt(o.pitch, t, 0), keyAt(o.yaw, t, 0), keyAt(o.roll, t, 0) + 0.03 * Math.sin(t * 1.3));
       const fd = inside(o.flap, t), fl = fd >= 0 ? 0.35 + 0.35 * Math.sin(fd * TAU * 6) : 0; for (const [wp, sd] of wings) wp.rotation.z = sd * fl;
       const ed = inside(o.ears, t), ew = ed >= 0 ? 0.3 * Math.sin(ed * TAU * 5) : 0; for (const [ep, sd] of ears) ep.rotation.z = -sd * (0.45 + ew);
@@ -687,12 +718,48 @@ export const POULE_PROPS = {
       for (const n of names) { const a = rt.getObjectByName(n); if (a) noShadow(a); } };
     return g; },
 
+  // ---------------------------------------------------------------- a stiff card held up (pivot at its middle, front +Z): a drawing of a hen in profile, her beak wide
+  // open and empty (no teeth, a pink gum), a blue dashed ring round the beak (no text); o.w (0.46)
+  poHenCard(o) {
+    const w = o.w ?? 0.46, h = w * 0.78, g = grp();
+    g.add(at(box(w, h, 0.012, '#E8E2D2', { outline: 0.01 }), 0, 0, -0.007));
+    g.add(paintPlane(w * 0.94, h * 0.92, (c, Wc, Hc) => { c.fillStyle = '#FBF8EE'; c.fillRect(0, 0, Wc, Hc);
+      c.save(); c.translate(Wc * 0.36, Hc * 0.52); const S = Wc * 0.2; c.lineWidth = S * 0.07; c.strokeStyle = '#2A2020'; c.lineJoin = 'round';
+      c.strokeStyle = '#2A2020'; c.beginPath(); c.moveTo(-S * 0.3, S * 0.75); c.lineTo(-S * 0.35, S * 1.35); c.moveTo(S * 0.2, S * 0.75); c.lineTo(S * 0.25, S * 1.35); c.stroke();
+      c.fillStyle = '#FFFFFF'; c.beginPath(); c.ellipse(0, S * 0.3, S * 1.0, S * 0.62, 0, 0, TAU); c.fill(); c.stroke();
+      c.beginPath(); c.arc(S * 0.8, -S * 0.42, S * 0.44, 0, TAU); c.fill(); c.stroke();
+      c.fillStyle = '#E3342A'; for (const [x, y] of [[0.58, -0.88], [0.82, -0.96], [1.04, -0.84]]) { c.beginPath(); c.arc(x * S, y * S, S * 0.15, 0, TAU); c.fill(); }
+      c.fillStyle = '#7A1E22'; c.beginPath(); c.moveTo(S * 1.12, -S * 0.5); c.lineTo(S * 1.9, -S * 0.7); c.lineTo(S * 1.85, S * 0.05); c.lineTo(S * 1.12, -S * 0.2); c.closePath(); c.fill();
+      c.fillStyle = '#F2A2AA'; c.beginPath(); c.moveTo(S * 1.15, -S * 0.27); c.lineTo(S * 1.82, -S * 0.02); c.lineTo(S * 1.82, S * 0.06); c.lineTo(S * 1.15, -S * 0.17); c.closePath(); c.fill();
+      c.fillStyle = '#F6B523'; c.beginPath(); c.moveTo(S * 1.12, -S * 0.66); c.lineTo(S * 2.0, -S * 0.82); c.lineTo(S * 1.16, -S * 0.42); c.closePath(); c.fill(); c.stroke();
+      c.fillStyle = '#E5801C'; c.beginPath(); c.moveTo(S * 1.12, -S * 0.24); c.lineTo(S * 1.92, S * 0.12); c.lineTo(S * 1.12, -S * 0.08); c.closePath(); c.fill(); c.stroke();
+      c.fillStyle = '#1B1418'; c.beginPath(); c.arc(S * 0.92, -S * 0.52, S * 0.08, 0, TAU); c.fill();
+      c.strokeStyle = '#2F7FC9'; c.lineWidth = S * 0.06; c.setLineDash([S * 0.14, S * 0.1]); c.beginPath(); c.arc(S * 1.55, -S * 0.3, S * 0.62, 0, TAU); c.stroke(); c.setLineDash([]);
+      c.restore(); c.strokeStyle = '#3F8F98'; c.lineWidth = Hc * 0.03; c.strokeRect(Hc * 0.03, Hc * 0.03, Wc - Hc * 0.06, Hc * 0.94); }, { res: 320, emissive: 0.3 }));
+    g.userData.grip = [0, 0, 0]; return g;
+  },
+
+  // ---------------------------------------------------------------- stars circling a bitten mitten (attach to a hand, face the camera): o.n (3) yellow five-point
+  // stars with an ink rim on an ellipse o.r (0.13) wide, o.y above the pivot, going round at o.speed (1.4) turns a second and pulsing; o.on [[t0, t1]] (default always)
+  poThrob(o) {
+    const n = o.n ?? 3, R = o.r ?? 0.13, sz = o.size ?? 0.045, sh = new THREE.Shape(), g = grp(), S = [];
+    for (let i = 0; i < 10; i++) { const a = i * PI / 5 + PI / 2, rr = i % 2 ? 0.45 : 1; sh[i ? 'lineTo' : 'moveTo'](Math.cos(a) * rr, Math.sin(a) * rr); } sh.closePath();
+    const geo = new THREE.ShapeGeometry(sh);
+    for (let i = 0; i < n; i++) { const st = grp(), f = new THREE.Mesh(geo, B('#FFD83A', { side: THREE.DoubleSide })), rim = new THREE.Mesh(geo, B(INK, { side: THREE.DoubleSide }));
+      rim.scale.setScalar(1.3); rim.position.z = -0.002; st.add(f, rim); g.add(st); S.push(st); }
+    g.userData.update = t => { const on = !o.on || inside(o.on, t) >= 0; S.forEach((st, i) => { st.visible = on; if (!on) return; const a = t * TAU * (o.speed ?? 1.4) + i * TAU / n;
+      st.position.set(Math.cos(a) * R, (o.y ?? 0.08) + Math.sin(a) * R * 0.4, Math.sin(a) * 0.04); st.rotation.z = t * 4 + i; st.scale.setScalar(sz * (0.85 + 0.3 * Math.sin(t * 15 + i * 2))); }); };
+    g.userData.update(0); return g;
+  },
+
   // ---------------------------------------------------------------- a dust puff on the floor (pivot at the floor): small beige puffs that burst out at each time in o.at
-  // and shrink away in 0.5 s (opaque, scale only); o.r (0.35)
+  // that grow, rise and fade in o.dur (0.75) s (soft translucent puffs, o.n of them); o.r (0.35)
   poPuff(o) {
-    const g = grp(), R = o.r ?? 0.35, P_ = []; for (let i = 0; i < 8; i++) { const m = sphere(0.05, i % 2 ? '#E6DCC4' : '#D8CCB0', 1); m.castShadow = m.receiveShadow = false; g.add(m); P_.push(m); }
-    g.userData.update = t => { let d = -1; for (const t0 of o.at || []) if (t >= t0 && t < t0 + 0.5) d = t - t0;
-      P_.forEach((m, i) => { m.visible = d >= 0; if (d < 0) return; const u = d / 0.5, a = i / 8 * TAU; m.position.set(Math.cos(a) * R * smooth(u * 1.4), 0.04 + 0.12 * u * hsh(i), Math.sin(a) * R * 0.6 * smooth(u * 1.4)); m.scale.setScalar(Math.max(0.01, (0.6 + u) * (1 - u * u))); }); };
+    const g = grp(), R = o.r ?? 0.35, D = o.dur ?? 0.75, NP = o.n ?? 10, P_ = [];
+    for (let i = 0; i < NP; i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(0.05, 1), new THREE.MeshLambertMaterial({ color: i % 2 ? '#FBF8F0' : '#F0EADC', emissive: '#4A463E', transparent: true, opacity: 0.4, depthWrite: false })); m.castShadow = m.receiveShadow = false; g.add(m); P_.push(m); }
+    g.userData.update = t => { let d = -1; for (const t0 of o.at || []) if (t >= t0 && t < t0 + D) d = t - t0;
+      P_.forEach((m, i) => { m.visible = d >= 0; if (d < 0) return; const u = d / D, a = i / NP * TAU + hsh(i) * 0.6, k = smooth(Math.min(1, u * 1.7)), rr = R * k * (0.7 + 0.5 * hsh(i * 2));
+        m.position.set(Math.cos(a) * rr, 0.03 + R * 0.6 * k * (0.3 + hsh(i * 7)), Math.sin(a) * rr * 0.6); m.scale.setScalar(Math.max(0.01, (1 + 3.2 * k) * (0.6 + 0.6 * hsh(i * 5)))); m.material.opacity = 0.42 * Math.pow(1 - u, 1.4); }); };
     g.userData.update(0); return g;
   },
 };
