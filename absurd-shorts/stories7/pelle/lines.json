@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec s'est fait enterrer dans le sable. Pour la mairie, il est mort.",
+  "hl": [
+   "enterrer",
+   "mort."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Le ressortir ? Permis d'exhumer : six mois.",
+  "hl": [
+   "d'exhumer",
+   "mois."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Obsèques sur place. Il a fait le discours.",
+  "hl": [
+   "Obsèques",
+   "discours."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "On lui a posé une pierre tombale. Il a dit : « Un peu plus à gauche. »",
+  "hl": [
+   "tombale.",
+   "gauche."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Elle lui fait de l'ombre. Meilleure place de la plage.",
+  "hl": [
+   "l'ombre.",
+   "Meilleure"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Son patron a envoyé une couronne. Et son remplaçant.",
+  "hl": [
+   "couronne.",
+   "remplaçant."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Sa femme a refait sa vie. Sur la serviette d'à côté.",
+  "hl": [
+   "femme",
+   "serviette"
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Ses potes ont hérité de sa voiture.",
+  "hl": [
+   "hérité",
+   "voiture."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "La plage est devenue un cimetière. Les pelles sont interdites.",
+  "hl": [
+   "cimetière.",
+   "pelles"
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Les vacanciers bronzent en deuil.",
+  "hl": [
+   "bronzent",
+   "deuil."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Le soir, on ferme les grilles. Il a la plage pour lui seul.",
+  "hl": [
+   "grilles.",
+   "seul."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Seul le fisc ne l'a pas cru mort.",
+  "hl": [
+   "fisc",
+   "mort."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Six mois après, le permis est arrivé.",
+  "hl": [
+   "Six",
+   "permis"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Ce mec a refusé de sortir.",
+  "hl": [
+   "refusé",
+   "sortir."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Il a demandé une concession à perpétuité.",
+  "hl": [
+   "concession",
+   "perpétuité."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "À l'ombre.",
+  "hl": [
+   "À",
+   "l'ombre."
+  ]
+ }
+]

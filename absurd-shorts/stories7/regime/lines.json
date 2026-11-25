@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a changé de régime. Le président a fait ses valises.",
+  "hl": [
+   "régime.",
+   "valises."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "L'armée a prêté serment au brocoli.",
+  "hl": [
+   "serment",
+   "brocoli."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Couvre-feu à vingt heures. Pour le dessert.",
+  "hl": [
+   "Couvre-feu",
+   "dessert."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Les fromages de l'ancien régime ont fui à l'étranger.",
+  "hl": [
+   "fromages",
+   "l'étranger."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Pesée au conseil des ministres : le plus lourd a été allégé de ses fonctions.",
+  "hl": [
+   "lourd",
+   "allégé"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "La résistance s'est organisée. Des éclairs circulent sous le manteau.",
+  "hl": [
+   "résistance",
+   "éclairs"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Les gendarmes ont démantelé une raclette clandestine.",
+  "hl": [
+   "raclette",
+   "clandestine."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Ce mec a perdu deux kilos. Le pays, un million de tonnes.",
+  "hl": [
+   "kilos.",
+   "tonnes."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Un soir, un carré de chocolat est apparu sur la table.",
+  "hl": [
+   "chocolat",
+   "apparu"
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Il a craqué.",
+  "hl": [
+   "Il",
+   "craqué."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Le régime est tombé.",
+  "hl": [
+   "régime",
+   "tombé."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le peuple a pris la boulangerie d'assaut.",
+  "hl": [
+   "boulangerie",
+   "d'assaut."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Les fromages sont rentrés d'exil. Le camembert a été porté en triomphe.",
+  "hl": [
+   "camembert",
+   "triomphe."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Le président est rentré aussi. Avec dix kilos de plus.",
+  "hl": [
+   "président",
+   "kilos"
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Ce mec recommence lundi.",
+  "hl": [
+   "recommence",
+   "lundi."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Le président n'a pas défait ses valises.",
+  "hl": [
+   "défait",
+   "valises."
+  ]
+ }
+]
