@@ -3108,3 +3108,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 08 h 10 — « Le chifoumi » (96) brouillon 3 et revue 3 : animation 7,6 (7,4), direction artistique 7,9 (7,4). Aucun drapeau, anneau,
   emblème ni marque. Restent : la chute trop courte (S14), l'arbitre noir sur noir (S04), les ouvriers sans visage (S09b), la colonne de sacs
   absente (S10), quelques temps morts (S07, S08, S13). Passe finale lancée, puis brouillon de contrôle avant le rendu final.
+- 09 h 15 — « Le chifoumi » (96) passe finale faite (chute 0,93 s avec une vraie main en anneau, arbitre anthracite, ouvriers lisibles,
+  colonne de sacs, médaille au poignet du robot) ; brouillon de contrôle propre. Disque libéré (1,1 Go de mixages intermédiaires des
+  histoires livrées, leur son final restant commité). Rendu final 1080 lancé.
