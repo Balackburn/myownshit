@@ -2340,3 +2340,6 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   ≈ 265° pour qu'elles se rabattent à plat sur les côtés.
 - (cycle 53) Étirement du corps (`sq` y > 1) d'un personnage assis au lit : les genoux traversent la couette ; étirer la tête
   (`scl head`).
+- (cycle 54) Étoile de mer posée au centre d'un monument funéraire = étoile rouge politique à taille téléphone (et la coquille
+  Saint-Jacques rappelle une marque) ; aucun motif sur un monument : boule ou tourelle de sable unie.
+- (cycle 54) Pages de calendrier qui s'envolent : dos vierge, sinon le mois se lit à l'envers en écriture miroir.
