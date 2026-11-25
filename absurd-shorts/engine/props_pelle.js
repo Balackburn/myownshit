@@ -79,9 +79,11 @@ export const PELLE_PROPS = {
   // with dashes), the promenade's low white wall on the beach side; o.lit: the windows glow warm (evening); o.hide [[x0, x1], ...] leaves gaps
   plSeafront(o) {
     const g = grp(), n = o.n ?? 9, W = o.bw ?? 7.5, lit = o.lit ?? 0, cols = o.colors || ['#F2C9A0', '#F4E2B0', '#B9D8E0', '#F2B8B0', '#E9E4D6', '#C9DDB8', '#F6D58E'];
-    const winC = lit ? '#FFC46A' : '#6E8BA8', winM = lit ? mat(winC, { emissive: '#FF9A3A', noGrain: true }) : mat(winC);
+    // (review 2) lit: the facades dusk-darkened and the windows an unlit warm amber, so they read as lit windows (pale peach squares before)
+    const winC = lit ? '#FFB040' : '#6E8BA8', winM = lit ? new THREE.MeshBasicMaterial({ color: winC, toneMapped: false }) : mat(winC);
+    const dusk = c => lit ? '#' + new THREE.Color(c).lerp(new THREE.Color('#5E4460'), 0.4).getHexString() : c;
     for (let i = 0; i < n; i++) {
-      const x = (i - (n - 1) / 2) * W, fl = 3 + Math.floor(hsh(i + (o.seed ?? 1)) * 3), H = fl * 3.0 + 1, c = cols[i % cols.length];
+      const x = (i - (n - 1) / 2) * W, fl = 3 + Math.floor(hsh(i + (o.seed ?? 1)) * 3), H = fl * 3.0 + 1, c = dusk(cols[i % cols.length]);
       if ((o.hide || []).some(([a, b]) => x > a && x < b)) continue;
       const b = grp(at(box(W - 0.3, H, 9, c, { pivot: 'bottom', outline: 0.004 }), 0, 0, 4.5), at(box(W - 0.1, 0.4, 9.2, '#E9E4D6', { pivot: 'bottom' }), 0, H, 4.5));
       const wl = [];

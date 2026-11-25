@@ -445,7 +445,7 @@ def UNDK(sd):
            k(r(LAND4 + 0.04), toon={**hold(STONE0, 0.01), 'sq': [sq_[0] - 0.04, sq_[1] + 0.05, sq_[2] - 0.04], 'bend': {'spine': [sp + 0.04, 0, 0, 1, None]}, 'face': {**STR, 'mouth': 'o'}}, toonDur=0.06, toonEase='out'),
            k(r(LAND4 + 0.11), toon={**hold(STONE0), 'sq': sq_, 'bend': {'spine': [sp + 0.06, 0, 0, 1, None]}, 'face': {**UF, 'mouth': 'o', 'lid': 0.6}}, toonDur=0.07, toonEase='inOut')]
     if sd < 0:
-        pa = [r(p_set[0] + 0.17), 0.0, -0.8]
+        pa = [-0.66, 0.0, -0.1]
         back = lambda u=0.0: {'touch': {'R': ['torso', -0.13, -0.05, -0.17, 1, 0.0]}, 'reach': {'L': R5(off(pa, 0, 0.3, -0.12, 0.95 + u), 1, 0.0)}, 'hands': {'R': 'open', 'L': 'open'}, 'hip': 0}
         BF4 = {**UF, 'mouth': 'grimace', 'lid': 0.75, 'brow': 0.4}
         ks += [k(r(LAND4 + 0.2), toon={**back(), 'sq': [1.04, 0.97, 1.04], 'bend': {'spine': [0.35, 0, 0, 1, None]}, 'face': BF4}, toonDur=0.14, toonEase='inOut'),
@@ -535,7 +535,10 @@ YM6 = [-1.0, 0.0, -1.7]
 SETW6 = 0.95; ASIDE6 = 1.22
 F6 = [0.8, 0.42, 3.8]; L6 = [-0.45, 0.85, 0.0]
 C6 = cam(0.0, F6, add(F6, [-0.03, 0.0, -0.12]), L6, add(L6, [0.0, 0.0, 0.0]), lens=44, ease='inOut')
+# (review 2) once the boss has stepped aside, a quick push-in onto his head (the replacement and his box still in frame) for the take
+C6b = glide([cam(1.7, [0.4, 0.42, 3.0], [0.39, 0.42, 2.96], [-0.2, 0.64, -0.15], [-0.2, 0.64, -0.15], lens=40, ease='inOut')], 0.24)
 chkc('S06', C6, {'headTop': [0, 0.66, 0], 'chin': [0, 0.14, 0], 'takeTop': [0, 0.92, 0], 'headL': [-0.19, 0.4, 0.1], 'headR': [0.19, 0.4, 0.1], 'wreath': add(WR6, [0, 0.72, 0]), 'ymBox': add(YM6, [0, 1.2, 0.4]), 'bossA': add(BO6A, [0, 2.3, 0]), 'bossB': add(BO6B, [0, 2.5, 0]), 'bossC': add(BO6C, [0, 2.5, 0]), 'bossCside': add(BO6C, [-0.38, 1.0, 0]), 'ym': add(YM6, [0, 2.3, 0]), 'ymFeet': YM6})
+chk('S06@take', [0.39, 0.42, 2.96], [-0.2, 0.64, -0.15], 40, {'takeTop': [0, 0.92, 0], 'chin': [0, 0.14, 0], 'headL': [-0.2, 0.4, 0.1], 'headR': [0.2, 0.4, 0.1], 'ym': add(YM6, [0, 2.3, 0]), 'ymBox': add(YM6, [0, 1.2, 0.4])})
 H6 = Head('S06')
 H6.pose(0.0, FACE0, dur=0.0).breathe(0.05, r(SETW6 - 0.05), FACE0, blinks=[0.45])
 H6.look(r(SETW6 + 0.05), [-0.5, 0.6, 2.4], 0.12).pose(r(SETW6 + 0.05), {**FACE0, 'mouth': 'line', 'gx': -0.6, 'brow': 0.4}, (1.0, 1.03, 1.0), (0.0, 0.08, -0.15), dur=0.1)
@@ -583,13 +586,13 @@ YMK = [k(-0.4, look='camera'), k(0.0, to=YM6, dur=r(SETW6 - 0.3), clip='walk', f
        *life(r(SETW6 - 0.15), r(ASIDE6 + 0.2), {'lid': 0.2, 'mouth': 'smile', 'brow': 0.4}, {'reach': {'L': R5(off(YM6, 0, 0.42, 0.2, 0.92), 1, 0.0), 'R': R5(off(YM6, 0, 0.42, -0.2, 0.92), 1, 0.0)}, 'hands': {'L': 'open', 'R': 'open'}, 'hip': 0}, blinks=[0.8])]
 YMK += [k(r(ASIDE6 + 0.24), toon={**YKEEP(), 'sq': [0.94, 1.08, 0.94], 'face': YMF}, toonDur=0.12, toonEase='out')]
 for j in range(int((D6 - ASIDE6 - 0.38) / 0.14)): YMK.append(k(r(ASIDE6 + 0.38 + 0.14 * j), toon={**YKEEP(1 if j % 2 else -1), 'bend': {'foreR': [0.0, 0.35 if j % 2 else -0.35, 0, 1, None]}, 'face': YMF}, toonDur=0.1, toonEase='inOut'))
-# (cycle 54) the glasses dip deeper on a stretched head (its eyes ride up with the stretch): 0.3 m, held through the trembling hold
-DIP6 = [[0.0, 0.0], [r(DT6 - 0.02), 0.0], [r(DT6 + 0.03), 0.3], [r(DT6 + 0.27), 0.3], [r(DT6 + 0.36), 0.0]]
+# (cycle 54) the glasses dip deeper on a stretched head (its eyes ride up with the stretch): 0.22 m (0.3 covered the O mouth), held through the hold
+DIP6 = [[0.0, 0.0], [r(DT6 - 0.02), 0.0], [r(DT6 + 0.03), 0.22], [r(DT6 + 0.27), 0.22], [r(DT6 + 0.36), 0.0]]
 st.shot('S06', 'grassland', setOpts=SET, look=SUNB, actors=[H6.actor(), act('patron', BO6A, 60, 'walk', 'neutral', keys=BOSSK), act('remplacant', YM6A, 60, 'walk', 'happy', keys=YMK)],
         props=[WORLD(6), GULLS(6), SHADES('lun6', H6, dip=DIP6), FILL('appoint6'), *BURIED(6, rows=2, crabs=[([[0.0, 0.46, 0.25], [1.0, 0.42, 0.22], [2.4, 0.47, 0.25]], [1.1], 0.24), ([[0.0, 0.3, 0.4], [1.5, 0.33, 0.38]], [2.3], 0.15)]), HSTONE('stele6'),
                P('couronne6', 'plWreath', pos=WRA, ry=15, rot=[-0.18, 0, 0], opts={'R': 0.34, 'stand': False}, keys=WRK6),
                P('carton6', 'plOfficeBox', on={'actor': 'remplacant', 'joint': 'torso', 'offset': [0.0, -0.05, 0.36]})],
-        cams=[C6])
+        cams=[C6, C6b])
 st.cue('thud', 'S06', SETW6, 0.22); st.cue('whoosh', 'S06', r(DT6 + 0.1), 0.12, 0.25, 900, 3000); WAVES('S06', D6)
 
 # 7: his wife rebuilt her life on the next towel. The same low camera: behind him the next towel along fills the background: his wife in a big
@@ -690,9 +693,9 @@ def leafpt(sd, u, along=1.5, x=0.7):
     a = u * PI / 2; return [r(sd * x), r(along * math.sin(a)), r(GZ - along * math.cos(a))]
 # (review 1) close to the gates: the workers fill a third of the frame, so the stretch under the rising leaves and the shiver read
 # (review 2) low on the sand looking up: the gates' spear tips break the skyline (the seafront buildings right behind the gap are left out)
-F9 = [0.0, 0.3, 8.0]; L9 = [0.0, 1.35, 14.6]
+F9 = [0.0, 0.32, 6.9]; L9 = [0.0, 1.45, 14.6]
 C9 = cam(0.0, F9, add(F9, [0.0, 0.0, 0.3]), L9, add(L9, [0, 0.0, 0]), lens=52, ease='inOut')
-chkc('S09', C9, {'tipL': [-0.7, 2.55, GZ], 'skyline': [0.0, 3.4, GZ], 'postL': [-1.61, 2.9, GZ], 'postR': [1.61, 2.9, GZ], 'leafFlat': [0.0, 0.05, 12.2], 'cart': add(CART9, [0, 2.3, 0]), 'cartL': add(CART9, [-0.6, 0.5, 0]), 'tower': add(TOW9, [0, 3.0, 0]), 'towerR': add(TOW9, [0.8, 1.0, 0]), 'w1': add(leafpt(-1, 0.6), [0, 0.9, -0.5]), 'w2': add(leafpt(1, 0.6), [0, 0.9, -0.5])})
+chkc('S09', C9, {'w1top': [-0.78, 2.6, 11.9], 'w1end': [-0.78, 2.75, 14.15], 'tipL': [-0.7, 2.55, GZ], 'skyline': [0.0, 3.4, GZ], 'postL': [-1.61, 2.9, GZ], 'postR': [1.61, 2.9, GZ], 'leafFlat': [0.0, 0.05, 12.2], 'cart': add(CART9, [0, 2.3, 0]), 'cartL': add(CART9, [-0.6, 0.5, 0]), 'tower': add(TOW9, [0, 3.0, 0]), 'towerR': add(TOW9, [0.8, 1.0, 0]), 'w1': add(leafpt(-1, 0.6), [0, 0.9, -0.5]), 'w2': add(leafpt(1, 0.6), [0, 0.9, -0.5])})
 WKF = {'lid': 0.5, 'mouth': 'clench', 'brow': -0.6, 'sweat': 0.4}
 def WORKK(sd):
     # (review 2) each worker pushes his leaf up from underneath: crouched under its top end lying on the sand, he walks in under it as it rises,
@@ -797,17 +800,18 @@ def LIEK(i):
         t_ = r(0.1 + 0.5 * j + 0.11 * i)
         if BR - 0.35 < t_ < TURN + 0.55: continue
         ks.append(k(t_, toon={'lay': [-1.5, 0.0], 'sq': [1.0, 1.0, 1.0 + (0.04 if j % 2 else -0.02)], 'face': {**MRN, 'lid': 0.55 if j % 3 == 2 else 0.2}, 'hip': 0}, toonDur=0.3, toonEase='inOut'))
-    tw = 0.55 if i != 2 else 0.45
+    tw = 1.05 if i != 2 else 0.95
     ks += [k(r(BR - 0.2), toon={'lay': [-1.5, 0.0], 'sq': [0.98, 1.0, 0.94], 'face': MRN, 'hip': 0}, toonDur=0.12, toonEase='inOut'),
            k(BR, toon={'lay': [-1.5, 0.0], 'sq': [1.04, 1.0, 1.22], 'face': {**MRN, 'lid': 0.1, 'mouth': 'o'}, 'hip': 0}, toonDur=0.2, toonEase='out'),
            k(r(BR + 0.3), toon={'lay': [-1.5, 0.0], 'sq': [1.0, 1.0, 1.0], 'face': MRN, 'hip': 0}, toonDur=0.15, toonEase='in'),
-           k(TURN, toon={'lay': [-1.5, 0.0], 'bend': {'neck': [0.0, 0.0, -tw, 1, None]}, 'face': {**MRN, 'gx': -0.8}, 'hip': 0}, toonDur=0.08, toonEase='out'),
-           k(r(TURN + 0.36), toon={'lay': [-1.5, 0.0], 'bend': {'neck': [0.0, 0.0, -tw, 1, None]}, 'face': {**MRN, 'gx': -0.8, 'lid': 0.3}, 'hip': 0}, toonDur=0.05),
+           k(TURN, toon={'lay': [-1.5, 0.0], 'bend': {'neck': [0.0, 0.25, -tw, 1, None]}, 'face': {**MRN, 'gx': -0.8}, 'hip': 0}, toonDur=0.08, toonEase='out'),
+           k(r(TURN + 0.36), toon={'lay': [-1.5, 0.0], 'bend': {'neck': [0.0, 0.25, -tw, 1, None]}, 'face': {**MRN, 'gx': -0.8, 'lid': 0.3}, 'hip': 0}, toonDur=0.05),
            k(r(TURN + 0.44), toon={'lay': [-1.5, 0.0], 'bend': {'neck': [0.0, 0.0, 0.0, 1, None]}, 'face': MRN, 'hip': 0}, toonDur=0.1, toonEase='inOut')]
     return ks
 def FANK(p, ry, t0, hd='R'):
     o_ = 'L' if hd == 'R' else 'R'
-    hold = lambda u: {'reach': {hd: R5(off(p, ry, 0.38, -0.22 if hd == 'R' else 0.22, 1.12 + 0.05 * u), 1, 0.0)}, 'hands': {hd: 'grip', o_: 'rest'}, 'hip': 0}
+    # (review 2) off() takes his own right as + (right(ry)): the fanning hand stays on its own side, away from the lane
+    hold = lambda u: {'reach': {hd: R5(off(p, ry, 0.38, 0.24 if hd == 'R' else -0.24, 1.12 + 0.05 * u), 1, 0.0)}, 'hands': {hd: 'grip', o_: 'rest'}, 'hip': 0}
     ks = [k(-0.4, look='camera'), k(0.0, clip='sitFloor'), k(0.0, toon={**hold(0), 'face': MRN}, toonDur=0.0)]
     t_, j = 0.05, 0
     while t_ < D10 - 0.05:
@@ -907,12 +911,12 @@ D12 = st.dur('S12'); FIS12 = W('S12', 'L12', 2); MORT12 = W('S12', 'L12', 7)
 # slide down and his eyes cross down at it over the frames; the inspector springs up and thrusts his form at the lens on rubber arms
 # (review 2) he kneels further back and tucks the envelope in from behind the right side of the chin: his arm stays upstage of the face; standing,
 # he is further back so his head fits under the top of the frame
-IN12 = [0.85, 0.0, -0.55]; RYIN = -55; IN12K = [0.85, -0.32, -0.4]
+IN12 = [0.85, 0.0, -0.8]; RYIN = -55; IN12K = [0.85, -0.32, -0.4]
 ENV12 = [0.06, 0.15, 0.27]; ENVA = [0.5, 0.6, -0.1]
 TUCK12 = r(FIS12 + 0.05); UP12 = r(MORT12 - 0.35)
-FORM12 = [0.24, 0.95, 1.35]
+FORM12 = [0.38, 1.12, 1.2]
 F12 = [-0.3, 0.5, 3.1]; L12 = [0.25, 0.82, 0.0]
-C12 = cam(0.0, F12, [-0.32, 0.5, 3.3], L12, [0.28, 0.9, 0.0], lens=50, ease='inOut')
+C12 = cam(0.0, F12, [-0.34, 0.5, 3.4], L12, [0.3, 0.93, 0.0], lens=50, ease='inOut')
 chkc('S12', C12, {'headTop': [0, 0.66, 0], 'chin': [0, 0.14, 0], 'headL': [-0.19, 0.4, 0.1], 'headR': [0.19, 0.4, 0.1], 'env': ENV12, 'insp': add(IN12, [0, 1.45, 0]), 'inspUp': add(IN12, [0, 2.2, 0]), 'formTop': add(FORM12, [0, 0.31, 0]), 'formBot': add(FORM12, [0, -0.31, 0]), 'formR': add(FORM12, [0.23, 0, 0]), 'formL': add(FORM12, [-0.23, 0, 0])}, end=True)
 H12 = Head('S12')
 F12F = {**FACE0, 'mouth': 'line', 'brow': 0.2}
@@ -937,8 +941,8 @@ INK = [k(-0.4, look=[0.0, 0.5, 0.2]), k(0.0, clip='kneel'), k(0.0, toon={'reach'
        k(r(TUCK12 + 0.3), look='camera', lookDur=0.15),
        k(r(UP12 - 0.12), toon={'reach': {'R': R5(off(IN12K, RYIN, 0.25, -0.22, 0.6), 1, 0.0)}, 'hands': {'R': 'open', 'L': 'rest'}, 'sq': [1.14, 0.84, 1.14], 'bend': {'spine': [0.4, 0, 0, 1, None]}, 'face': IF12, 'hip': 0}, toonDur=0.08),
        k(UP12, clip='stand', blend=0.05), k(UP12, to=IN12, dur=0.12, glide=True, face=-35, ease='out'),
-       k(UP12, toon={'reach': {'L': R5(add(FORM12, [0.22, -0.3, -0.04]), 1, 0.0), 'R': R5(add(FORM12, [-0.22, -0.3, -0.04]), 1, 0.0)}, 'hands': {'L': 'grip', 'R': 'grip'}, 'hose': 0.35, 'sq': [0.95, 1.05, 0.95], 'bend': {'spine': [0.55, 0, 0, 1.0, None]}, 'face': {**IF12, 'mouth': 'bigsmile', 'brow': 0.5}, 'hip': 0}, toonDur=0.12, toonEase='out')]
-for j in range(4): INK.append(k(r(UP12 + 0.22 + 0.12 * j), toon={'reach': {'L': R5(add(FORM12, [0.22, -0.3 + (0.02 if j % 2 else 0.0), -0.04]), 1, 0.0), 'R': R5(add(FORM12, [-0.22, -0.3 + (0.02 if j % 2 else 0.0), -0.04]), 1, 0.0)}, 'hands': {'L': 'grip', 'R': 'grip'}, 'hose': 0.35, 'sq': [0.98, 1.02, 0.98] if j % 2 else [0.96, 1.04, 0.96], 'bend': {'spine': [0.52, 0, 0, 1.0, None]}, 'face': {**IF12, 'mouth': 'smile', 'brow': 0.4}, 'hip': 0}, toonDur=0.1))
+       k(UP12, toon={'reach': {'L': R5(add(FORM12, [0.24, -0.05, -0.04]), 1, 0.0), 'R': R5(add(FORM12, [-0.24, -0.05, -0.04]), 1, 0.0)}, 'hands': {'L': 'grip', 'R': 'grip'}, 'hose': 0.12, 'sq': [0.95, 1.05, 0.95], 'bend': {'spine': [0.55, 0, 0, 1.0, None]}, 'face': {**IF12, 'mouth': 'bigsmile', 'brow': 0.5}, 'hip': 0}, toonDur=0.12, toonEase='out')]
+for j in range(4): INK.append(k(r(UP12 + 0.22 + 0.12 * j), toon={'reach': {'L': R5(add(FORM12, [0.24, -0.05 + (0.02 if j % 2 else 0.0), -0.04]), 1, 0.0), 'R': R5(add(FORM12, [-0.24, -0.05 + (0.02 if j % 2 else 0.0), -0.04]), 1, 0.0)}, 'hands': {'L': 'grip', 'R': 'grip'}, 'hose': 0.12, 'sq': [0.98, 1.02, 0.98] if j % 2 else [0.96, 1.04, 0.96], 'bend': {'spine': [0.52, 0, 0, 1.0, None]}, 'face': {**IF12, 'mouth': 'smile', 'brow': 0.4}, 'hip': 0}, toonDur=0.1))
 ENVK = [k(0.0, to=ENVA, dur=0.0), k(r(TUCK12 - 0.14), to=ENV12, dur=0.14, ease='inOut')]
 FORMK = [k(0.0, scale=0.01, dur=0.0), k(r(UP12 + 0.02), to=add(IN12, [-0.25, 1.3, 0.45]), dur=0.0), k(r(UP12 + 0.02), scale=0.6, dur=0.0), k(r(UP12 + 0.03), to=FORM12, dur=0.13, ease='out'), k(r(UP12 + 0.03), scale=1.0, dur=0.13),
          *[k(r(UP12 + 0.22 + 0.12 * j), to=add(FORM12, [0.0, 0.02 if j % 2 else 0.0, 0.0]), dur=0.1) for j in range(4)]]
