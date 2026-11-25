@@ -183,7 +183,7 @@ export const DISTRIBUTEUR_PROPS = {
       if (plate) { let gk = -1; for (const a of [].concat(o.glint ?? [])) { const u = (t - a) / 0.35; if (u >= 0 && u < 1) gk = u; } glint.material.opacity = gk >= 0 ? 0.7 * Math.sin(gk * PI) : 0; glint.position.x = -0.22 + 0.44 * Math.max(0, gk); }
       if (funnel) { const fa = typeof o.funnel === 'number' ? t - o.funnel : 1; funnel.visible = fa >= 0; funnel.scale.setScalar(fa < 0 ? 0.01 : Math.max(0.01, outBack(fa / 0.25))); }
       coinObjs.forEach(c => { c.visible = false; }); let ci = 0;
-      for (const a of coinsAt) { const u = (t - a) / 0.16; if (u >= -0.4 && u < 1 && ci < 2) { const c = coinObjs[ci++]; c.visible = true; const w = clamp01(u); c.position.set(SLOT[0], SLOT[1] + 0.01, SLOT[2] + 0.1 * (1 - w)); c.rotation.set(0, 0, PI / 2); c.scale.setScalar(u < 0 ? 0.8 : 1 - 0.3 * w); } }
+      for (const a of coinsAt) { const u = (t - a) / 0.26; if (u >= -0.5 && u < 1 && ci < 2) { const c = coinObjs[ci++]; c.visible = true; const w = clamp01(u); c.position.set(SLOT[0], SLOT[1] + 0.012, SLOT[2] + 0.17 * (1 - w * w)); c.rotation.set(0, 0, PI / 2); c.scale.setScalar(1.3 * (u < 0 ? 1 : 1 - 0.35 * w)); } }
     };
     g.userData.update(-1); return g;
   },
@@ -388,7 +388,7 @@ export const DISTRIBUTEUR_PROPS = {
     const sheet = grp(), sheetIn = grp(); sheet.add(sheetIn); const sp = canvasPlane(0.32, 0.42, (c, W2, H2) => { c.fillStyle = '#FBFAF5'; c.fillRect(0, 0, W2, H2); c.fillStyle = '#B8BCC2'; for (let i = 0; i < 7; i++) c.fillRect(W2 * 0.12, H2 * (0.12 + i * 0.07), W2 * (0.76 - (i % 3) * 0.12), H2 * 0.022);
       c.save(); c.translate(W2 / 2, H2 * 0.7); c.rotate(-0.15); c.strokeStyle = '#D21E1E'; c.lineWidth = H2 * 0.03; c.strokeRect(-W2 * 0.45, -H2 * 0.12, W2 * 0.9, H2 * 0.24); c.fillStyle = '#D21E1E'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitFont(c, 'REFUSÉ', W2 * 0.82, Math.round(H2 * 0.2)); c.fillText('REFUSÉ', 0, H2 * 0.005); c.restore(); }, { res: 256 });
     sp.rotation.x = -PI / 2; sp.position.z = -0.21; sheetIn.add(sp, at(box(0.32, 0.002, 0.42, '#FBFAF5'), 0, -0.002, -0.21)); sheetIn.position.z = 0.21; sheet.visible = false; g.add(sheet);
-    g.userData.update = t => { if (!o.sheetAt) return; const [a, b] = o.sheetAt, u = clamp01((t - a) / Math.max(0.01, b - a)); sheet.visible = t >= a; sheet.position.set(0, 1.04, -0.3 + 0.5 * smooth(u)); sheetIn.rotation.x = 0.7 * smooth((t - b) / 0.3); };   // once out it tips up toward the customer
+    g.userData.update = t => { if (!o.sheetAt) return; const [a, b] = o.sheetAt, u = clamp01((t - a) / Math.max(0.01, b - a)); sheet.visible = t >= a; const v = smooth((t - b) / 0.3); sheet.position.set(0, 1.04, -0.3 + 0.5 * smooth(u)); sheetIn.rotation.x = (o.sheetYaw ? 1.25 : 0.7) * v; sheet.rotation.y = (o.sheetYaw ?? 0) * PI / 180 * v; sheet.scale.setScalar(1 + ((o.sheetScale ?? 1) - 1) * v); };   // o.sheetYaw (deg): it also turns that much toward the lens; o.sheetScale: grows (a cartoon cheat)   // once out it tips up toward the customer
     g.userData.update(-1); return g;
   },
 
