@@ -1,0 +1,930 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a signalé une fuite. Les services secrets ont débarqué.",
+   "hl": [
+    "fuite.",
+    "secrets"
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.989,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "signalé",
+     "s": 0.693,
+     "e": 0.89
+    },
+    {
+     "w": "une",
+     "s": 0.94,
+     "e": 0.989
+    },
+    {
+     "w": "fuite.",
+     "s": 1.063,
+     "e": 1.47
+    },
+    {
+     "w": "Les",
+     "s": 1.581,
+     "e": 1.73
+    },
+    {
+     "w": "services",
+     "s": 1.878,
+     "e": 2.026
+    },
+    {
+     "w": "secrets",
+     "s": 2.1,
+     "e": 2.322
+    },
+    {
+     "w": "ont",
+     "s": 2.359,
+     "e": 2.396
+    },
+    {
+     "w": "débarqué.",
+     "s": 2.47,
+     "e": 2.989
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Une fuite sous l'évier.",
+   "hl": [
+    "fuite",
+    "l'évier."
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L02.k.wav",
+   "file_start": 3.089,
+   "speech_start": 3.089,
+   "speech_end": 4.348,
+   "words": [
+    {
+     "w": "Une",
+     "s": 3.089,
+     "e": 3.311
+    },
+    {
+     "w": "fuite",
+     "s": 3.348,
+     "e": 3.533
+    },
+    {
+     "w": "sous",
+     "s": 3.607,
+     "e": 3.681
+    },
+    {
+     "w": "l'évier.",
+     "s": 3.719,
+     "e": 4.348
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Une heure plus tard, son évier était classé secret-défense.",
+   "hl": [
+    "évier",
+    "secret-défense."
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L03.k.wav",
+   "file_start": 4.448,
+   "speech_start": 4.448,
+   "speech_end": 7.337,
+   "words": [
+    {
+     "w": "Une",
+     "s": 4.448,
+     "e": 4.596
+    },
+    {
+     "w": "heure",
+     "s": 4.633,
+     "e": 4.67
+    },
+    {
+     "w": "plus",
+     "s": 4.744,
+     "e": 4.819
+    },
+    {
+     "w": "tard,",
+     "s": 4.893,
+     "e": 5.337
+    },
+    {
+     "w": "son",
+     "s": 5.411,
+     "e": 5.485
+    },
+    {
+     "w": "évier",
+     "s": 5.559,
+     "e": 5.781
+    },
+    {
+     "w": "était",
+     "s": 5.893,
+     "e": 6.004
+    },
+    {
+     "w": "classé",
+     "s": 6.115,
+     "e": 6.3
+    },
+    {
+     "w": "secret-défense.",
+     "s": 6.374,
+     "e": 7.337
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Chaque goutte a été fichée.",
+   "hl": [
+    "goutte",
+    "fichée."
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L04.k.wav",
+   "file_start": 7.437,
+   "speech_start": 7.437,
+   "speech_end": 8.919,
+   "words": [
+    {
+     "w": "Chaque",
+     "s": 7.437,
+     "e": 7.733
+    },
+    {
+     "w": "goutte",
+     "s": 7.77,
+     "e": 7.956
+    },
+    {
+     "w": "a",
+     "s": 7.993,
+     "e": 8.03
+    },
+    {
+     "w": "été",
+     "s": 8.141,
+     "e": 8.252
+    },
+    {
+     "w": "fichée.",
+     "s": 8.289,
+     "e": 8.919
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Les gouttes tombaient en morse.",
+   "hl": [
+    "gouttes",
+    "morse."
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L05.k.wav",
+   "file_start": 9.019,
+   "speech_start": 9.019,
+   "speech_end": 10.648,
+   "words": [
+    {
+     "w": "Les",
+     "s": 9.019,
+     "e": 9.167
+    },
+    {
+     "w": "gouttes",
+     "s": 9.204,
+     "e": 9.537
+    },
+    {
+     "w": "tombaient",
+     "s": 9.611,
+     "e": 9.833
+    },
+    {
+     "w": "en",
+     "s": 9.907,
+     "e": 9.981
+    },
+    {
+     "w": "morse.",
+     "s": 10.019,
+     "e": 10.648
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Décodées, elles donnaient le mot de passe du palais.",
+   "hl": [
+    "Décodées,",
+    "passe"
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L06.k.wav",
+   "file_start": 10.748,
+   "speech_start": 10.748,
+   "speech_end": 13.044,
+   "words": [
+    {
+     "w": "Décodées,",
+     "s": 10.748,
+     "e": 11.452
+    },
+    {
+     "w": "elles",
+     "s": 11.489,
+     "e": 11.563
+    },
+    {
+     "w": "donnaient",
+     "s": 11.637,
+     "e": 11.785
+    },
+    {
+     "w": "le",
+     "s": 11.822,
+     "e": 11.859
+    },
+    {
+     "w": "mot",
+     "s": 11.933,
+     "e": 12.007
+    },
+    {
+     "w": "de",
+     "s": 12.044,
+     "e": 12.081
+    },
+    {
+     "w": "passe",
+     "s": 12.156,
+     "e": 12.304
+    },
+    {
+     "w": "du",
+     "s": 12.378,
+     "e": 12.452
+    },
+    {
+     "w": "palais.",
+     "s": 12.526,
+     "e": 13.044
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Le palais l'a changé. La goutte suivante a donné le nouveau.",
+   "hl": [
+    "changé.",
+    "nouveau."
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L07.k.wav",
+   "file_start": 13.144,
+   "speech_start": 13.144,
+   "speech_end": 16.107,
+   "words": [
+    {
+     "w": "Le",
+     "s": 13.144,
+     "e": 13.219
+    },
+    {
+     "w": "palais",
+     "s": 13.293,
+     "e": 13.441
+    },
+    {
+     "w": "l'a",
+     "s": 13.515,
+     "e": 13.589
+    },
+    {
+     "w": "changé.",
+     "s": 13.663,
+     "e": 14.293
+    },
+    {
+     "w": "La",
+     "s": 14.33,
+     "e": 14.404
+    },
+    {
+     "w": "goutte",
+     "s": 14.441,
+     "e": 14.589
+    },
+    {
+     "w": "suivante",
+     "s": 14.626,
+     "e": 15.07
+    },
+    {
+     "w": "a",
+     "s": 15.107,
+     "e": 15.144
+    },
+    {
+     "w": "donné",
+     "s": 15.219,
+     "e": 15.367
+    },
+    {
+     "w": "le",
+     "s": 15.404,
+     "e": 15.441
+    },
+    {
+     "w": "nouveau.",
+     "s": 15.515,
+     "e": 16.107
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "La presse parle de la plus grande fuite du siècle.",
+   "hl": [
+    "presse",
+    "fuite"
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L08.k.wav",
+   "file_start": 16.207,
+   "speech_start": 16.207,
+   "speech_end": 18.726,
+   "words": [
+    {
+     "w": "La",
+     "s": 16.207,
+     "e": 16.356
+    },
+    {
+     "w": "presse",
+     "s": 16.393,
+     "e": 16.652
+    },
+    {
+     "w": "parle",
+     "s": 16.726,
+     "e": 16.948
+    },
+    {
+     "w": "de",
+     "s": 16.985,
+     "e": 17.022
+    },
+    {
+     "w": "la",
+     "s": 17.096,
+     "e": 17.17
+    },
+    {
+     "w": "plus",
+     "s": 17.244,
+     "e": 17.319
+    },
+    {
+     "w": "grande",
+     "s": 17.393,
+     "e": 17.615
+    },
+    {
+     "w": "fuite",
+     "s": 17.689,
+     "e": 17.911
+    },
+    {
+     "w": "du",
+     "s": 17.985,
+     "e": 18.059
+    },
+    {
+     "w": "siècle.",
+     "s": 18.133,
+     "e": 18.726
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Le ministre de l'Intérieur a démissionné. Il avait laissé couler.",
+   "hl": [
+    "démissionné.",
+    "couler."
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L09.k.wav",
+   "file_start": 18.826,
+   "speech_start": 18.826,
+   "speech_end": 21.937,
+   "words": [
+    {
+     "w": "Le",
+     "s": 18.826,
+     "e": 18.9
+    },
+    {
+     "w": "ministre",
+     "s": 18.974,
+     "e": 19.344
+    },
+    {
+     "w": "de",
+     "s": 19.381,
+     "e": 19.419
+    },
+    {
+     "w": "l'Intérieur",
+     "s": 19.444,
+     "e": 19.863
+    },
+    {
+     "w": "a",
+     "s": 19.9,
+     "e": 19.937
+    },
+    {
+     "w": "démissionné.",
+     "s": 20.011,
+     "e": 20.789
+    },
+    {
+     "w": "Il",
+     "s": 20.826,
+     "e": 20.863
+    },
+    {
+     "w": "avait",
+     "s": 20.9,
+     "e": 21.048
+    },
+    {
+     "w": "laissé",
+     "s": 21.085,
+     "e": 21.344
+    },
+    {
+     "w": "couler.",
+     "s": 21.419,
+     "e": 21.937
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Le président a ordonné de colmater.",
+   "hl": [
+    "président",
+    "colmater."
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L10.k.wav",
+   "file_start": 22.037,
+   "speech_start": 22.037,
+   "speech_end": 24.111,
+   "words": [
+    {
+     "w": "Le",
+     "s": 22.037,
+     "e": 22.111
+    },
+    {
+     "w": "président",
+     "s": 22.185,
+     "e": 22.63
+    },
+    {
+     "w": "a",
+     "s": 22.704,
+     "e": 22.778
+    },
+    {
+     "w": "ordonné",
+     "s": 22.889,
+     "e": 23.148
+    },
+    {
+     "w": "de",
+     "s": 23.222,
+     "e": 23.296
+    },
+    {
+     "w": "colmater.",
+     "s": 23.407,
+     "e": 24.111
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "L'armée a noyé l'évier dans le béton. Le frigo aussi.",
+   "hl": [
+    "béton.",
+    "frigo"
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L11.k.wav",
+   "file_start": 24.211,
+   "speech_start": 24.211,
+   "speech_end": 27.322,
+   "words": [
+    {
+     "w": "L'armée",
+     "s": 24.211,
+     "e": 24.656
+    },
+    {
+     "w": "a",
+     "s": 24.73,
+     "e": 24.804
+    },
+    {
+     "w": "noyé",
+     "s": 24.878,
+     "e": 25.1
+    },
+    {
+     "w": "l'évier",
+     "s": 25.174,
+     "e": 25.47
+    },
+    {
+     "w": "dans",
+     "s": 25.495,
+     "e": 25.544
+    },
+    {
+     "w": "le",
+     "s": 25.619,
+     "e": 25.656
+    },
+    {
+     "w": "béton.",
+     "s": 25.693,
+     "e": 26.31
+    },
+    {
+     "w": "Le",
+     "s": 26.334,
+     "e": 26.359
+    },
+    {
+     "w": "frigo",
+     "s": 26.433,
+     "e": 26.656
+    },
+    {
+     "w": "aussi.",
+     "s": 26.767,
+     "e": 27.322
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "La fuite est ressortie chez le voisin du dessous.",
+   "hl": [
+    "ressortie",
+    "dessous."
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L12.k.wav",
+   "file_start": 27.422,
+   "speech_start": 27.422,
+   "speech_end": 29.348,
+   "words": [
+    {
+     "w": "La",
+     "s": 27.422,
+     "e": 27.496
+    },
+    {
+     "w": "fuite",
+     "s": 27.57,
+     "e": 27.793
+    },
+    {
+     "w": "est",
+     "s": 27.83,
+     "e": 27.867
+    },
+    {
+     "w": "ressortie",
+     "s": 27.941,
+     "e": 28.237
+    },
+    {
+     "w": "chez",
+     "s": 28.311,
+     "e": 28.385
+    },
+    {
+     "w": "le",
+     "s": 28.422,
+     "e": 28.459
+    },
+    {
+     "w": "voisin",
+     "s": 28.496,
+     "e": 28.756
+    },
+    {
+     "w": "du",
+     "s": 28.793,
+     "e": 28.83
+    },
+    {
+     "w": "dessous.",
+     "s": 28.904,
+     "e": 29.348
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Il a été arrêté pour recel.",
+   "hl": [
+    "arrêté",
+    "recel."
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L13.k.wav",
+   "file_start": 29.448,
+   "speech_start": 29.448,
+   "speech_end": 31.078,
+   "words": [
+    {
+     "w": "Il",
+     "s": 29.448,
+     "e": 29.522
+    },
+    {
+     "w": "a",
+     "s": 29.596,
+     "e": 29.633
+    },
+    {
+     "w": "été",
+     "s": 29.67,
+     "e": 29.819
+    },
+    {
+     "w": "arrêté",
+     "s": 29.967,
+     "e": 30.189
+    },
+    {
+     "w": "pour",
+     "s": 30.263,
+     "e": 30.337
+    },
+    {
+     "w": "recel.",
+     "s": 30.448,
+     "e": 31.078
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Les services ont envoyé leur meilleur plombier.",
+   "hl": [
+    "meilleur",
+    "plombier."
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L14.k.wav",
+   "file_start": 31.178,
+   "speech_start": 31.178,
+   "speech_end": 33.326,
+   "words": [
+    {
+     "w": "Les",
+     "s": 31.178,
+     "e": 31.326
+    },
+    {
+     "w": "services",
+     "s": 31.511,
+     "e": 31.696
+    },
+    {
+     "w": "ont",
+     "s": 31.77,
+     "e": 31.844
+    },
+    {
+     "w": "envoyé",
+     "s": 31.919,
+     "e": 32.141
+    },
+    {
+     "w": "leur",
+     "s": 32.252,
+     "e": 32.363
+    },
+    {
+     "w": "meilleur",
+     "s": 32.4,
+     "e": 32.659
+    },
+    {
+     "w": "plombier.",
+     "s": 32.696,
+     "e": 33.326
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Il a changé le joint. Dix centimes.",
+   "hl": [
+    "joint.",
+    "centimes."
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L15.k.wav",
+   "file_start": 33.426,
+   "speech_start": 33.426,
+   "speech_end": 35.426,
+   "words": [
+    {
+     "w": "Il",
+     "s": 33.426,
+     "e": 33.5
+    },
+    {
+     "w": "a",
+     "s": 33.537,
+     "e": 33.574
+    },
+    {
+     "w": "changé",
+     "s": 33.648,
+     "e": 33.87
+    },
+    {
+     "w": "le",
+     "s": 33.907,
+     "e": 33.944
+    },
+    {
+     "w": "joint.",
+     "s": 34.019,
+     "e": 34.556
+    },
+    {
+     "w": "Dix",
+     "s": 34.574,
+     "e": 34.611
+    },
+    {
+     "w": "centimes.",
+     "s": 34.685,
+     "e": 35.426
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Facture : trois millions. Classée secret-défense.",
+   "hl": [
+    "Facture",
+    "millions."
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L16.k.wav",
+   "file_start": 35.526,
+   "speech_start": 35.526,
+   "speech_end": 38.711,
+   "words": [
+    {
+     "w": "Facture:",
+     "s": 35.526,
+     "e": 36.366
+    },
+    {
+     "w": "trois",
+     "s": 36.39,
+     "e": 36.489
+    },
+    {
+     "w": "millions.",
+     "s": 36.563,
+     "e": 37.156
+    },
+    {
+     "w": "Classée",
+     "s": 37.267,
+     "e": 37.526
+    },
+    {
+     "w": "secret-défense.",
+     "s": 37.674,
+     "e": 38.711
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Le robinet ne fuit plus.",
+   "hl": [
+    "robinet",
+    "plus."
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L17.k.wav",
+   "file_start": 38.811,
+   "speech_start": 38.811,
+   "speech_end": 40.144,
+   "words": [
+    {
+     "w": "Le",
+     "s": 38.811,
+     "e": 38.885
+    },
+    {
+     "w": "robinet",
+     "s": 38.959,
+     "e": 39.256
+    },
+    {
+     "w": "ne",
+     "s": 39.33,
+     "e": 39.404
+    },
+    {
+     "w": "fuit",
+     "s": 39.441,
+     "e": 39.626
+    },
+    {
+     "w": "plus.",
+     "s": 39.737,
+     "e": 40.144
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Il écoute.",
+   "hl": [
+    "Il",
+    "écoute."
+   ],
+   "file": "/tmp/pipe/s7/fuite/tts/L18.k.wav",
+   "file_start": 40.244,
+   "speech_start": 40.244,
+   "speech_end": 41.133,
+   "words": [
+    {
+     "w": "Il",
+     "s": 40.244,
+     "e": 40.393
+    },
+    {
+     "w": "écoute.",
+     "s": 40.615,
+     "e": 41.133
+    }
+   ]
+  }
+ ],
+ "total": 42.43
+}
