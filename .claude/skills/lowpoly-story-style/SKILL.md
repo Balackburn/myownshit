@@ -2150,3 +2150,12 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 51) Déplacement avec `clip='walk'` : l'acteur se tourne dans le sens de la marche ; `face='keep'` pour reculer face caméra.
 - (cycle 51) Clés de déplacement : chaque mouvement commence à la clé précédente, pas à son heure de fin.
 - (cycle 51) Projectile qui continue après l'impact = deuxième balle : longue clé d'écrasement (2 s) et le cacher 0,05 s après le contact.
+- (cycle 51) `st.at(shot, line, i)` compte les mots à partir de 0 : afficher le mot avant d'y caler un temps fort (la nuit tombait sur « jour »).
+  Caler les temps forts sur les vrais temps des mots de timeline.json, jamais sur une estimation par syllabes.
+- (cycle 51) `daynight` avec `once` atteint la nuit à mi-période : période 0,04 s et `from` 0,01 s avant le mot = bascule en une image.
+- (cycle 51) `kitchenDay` suspend une lampe en (0, 2,7, −1,0) : une prise qui étire la tête vers le haut doit se tenir à l'écart.
+- (cycle 51) Mâchoire tombante (`jawBlock`) cachée par un plastron : `jawFwd` d'environ 0,4 pour qu'elle pende devant la poitrine.
+- (cycle 51) Feuille transparente sur une couleur clé (carte sur la tache) : elle la teinte ; découper la forme dans la vitre (destination-out).
+- (cycle 51) Une clé keepPose fait tomber le visage : une clé de respiration doit porter le visage et éviter les fenêtres de clignement.
+- (cycle 51) Outil pointu (fer à repasser) : le pointer dans le sens du déplacement, sinon son nez recouvre ce qu'il contourne.
+- (cycle 51) Animer un élément d'un accessoire d'une autre histoire : l'envelopper dans un accessoire de son histoire, sans toucher l'autre fichier.

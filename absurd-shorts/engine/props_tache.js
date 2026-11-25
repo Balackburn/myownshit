@@ -24,8 +24,9 @@ const BLEACH = new THREE.Color('#F6F8FA'), WHITE = new THREE.Color('#FFFFFF'), C
 // ---------------------------------------------------------------- the stain: one shape, two states (u 0: the splat, u 1: the country)
 // coordinates in fractions of the shirt's width, canvas axes (y down), origin at the stain's centre; both outlines have NS points so they morph
 const NS = 40;
-const SPLAT = (() => { const p = []; for (let i = 0; i < NS; i++) { const a = i / NS * TAU; let r = 0.072 * (1 + 0.16 * Math.sin(3 * a + 0.7) + 0.1 * Math.sin(5 * a + 2.1) + 0.05 * Math.sin(9 * a + 1.3));
-  if (i % 10 === 3) r += 0.05; if (i % 10 === 4) r += 0.016; if (i === 17) r += 0.03; p.push([Math.cos(a) * r, Math.sin(a) * r * 0.92]); } return p; })();
+// (round 2) a rounder blob with uneven lobes: the four even spikes read as a five-pointed star
+const SPLAT = (() => { const p = []; for (let i = 0; i < NS; i++) { const a = i / NS * TAU; let r = 0.078 * (1 + 0.1 * Math.sin(2 * a + 0.7) + 0.07 * Math.sin(3 * a + 2.1) + 0.04 * Math.sin(7 * a + 1.3));
+  if (i === 3 || i === 4) r += 0.012; if (i === 17) r += 0.016; if (i === 29) r += 0.008; p.push([Math.cos(a) * r * 1.08, Math.sin(a) * r * 0.88]); } return p; })();
 const COUNTRY = (() => { const p = [], A = 0.31, Bb = 0.092; for (let i = 0; i < NS; i++) { const a = i / NS * TAU, c = Math.cos(a), s = Math.sin(a);
   let r = A * Bb / Math.sqrt((Bb * c) ** 2 + (A * s) ** 2); r *= 1 + 0.12 * Math.sin(4 * a + 1.0) + 0.08 * Math.sin(7 * a + 0.3) + 0.05 * Math.sin(11 * a + 2.0);
   let x = c * r, y = s * r; if (x > 0) y *= 1 - 0.55 * x / A; else y *= 1 + 0.25 * (-x / A);
@@ -36,7 +37,8 @@ const DRIPS = [[[0.012, 0.07, 0.018], [-0.03, 0.0, 0.012], [0.03, 0.0, 0.012], [
                [[-0.2, 0.1, 0.019], [-0.09, 0.17, 0.021], [0.02, 0.075, 0.016], [0.12, 0.13, 0.016], [0.22, 0.06, 0.012]]];
 const DOTS = [[[-0.13, -0.065, 0.012], [0.145, -0.03, 0.011], [0.11, 0.095, 0.009], [-0.1, 0.1, 0.008], [0.01, -0.13, 0.01], [-0.165, 0.025, 0.007]],
               [[0.37, -0.01, 0.012], [0.42, 0.02, 0.009], [0.46, -0.02, 0.007], [0.34, 0.045, 0.008], [-0.31, -0.06, 0.009], [0.39, -0.05, 0.006]]];
-const PASTAL = [[[-0.07, -0.035], [-0.025, -0.002], [0.02, -0.022], [0.064, 0.012]], [[-0.21, -0.03], [-0.06, 0.004], [0.1, -0.022], [0.28, 0.006]]];
+// (round 2) the splat's strand is a soft curl (a zigzag of four points read as a chevron)
+const PASTAL = [[[-0.068, 0.006], [-0.03, -0.024], [0.018, -0.026], [0.058, -0.004]], [[-0.21, -0.03], [-0.06, 0.004], [0.1, -0.022], [0.28, 0.006]]];
 function stainShape(u) {
   const m = (A, B) => A.map((a, i) => a.map((v, j) => lerp(v, B[i][j], u)));
   return { poly: m(SPLAT, COUNTRY), drips: m(DRIPS[0], DRIPS[1]), dots: m(DOTS[0], DOTS[1]), pasta: m(PASTAL[0], PASTAL[1]) };
@@ -55,6 +57,8 @@ function drawStain(c, W, H, s, outlineOnly = false, col = null) {
     const [x0, y0] = sh.poly[0], [x1, y1] = sh.poly[1]; c.quadraticCurveTo(X(x0), Y(y0), X((x0 + x1) / 2), Y((y0 + y1) / 2)); c.closePath(); };
   const drip = ([x, len, w], ext = 0) => { if (len + ext < 0.004) return; const y0 = bottomY(sh.poly, x) - 0.012, y1 = y0 + 0.012 + len + ext;
     c.beginPath(); c.moveTo(X(x - w / 2), Y(y0)); c.lineTo(X(x - w * 0.42), Y(y1)); c.arc(X(x), Y(y1), w * 0.62 * f, PI, 0, true); c.lineTo(X(x + w / 2), Y(y0)); c.closePath(); };
+  // (round 2) s.cut: the stain's area (outline and drips) filled to be cleared with destination-out: the map's glass stays untinted over the stain
+  if (s.cut) { c.fillStyle = '#000000'; c.strokeStyle = '#000000'; c.lineWidth = Math.max(2, 0.012 * W); c.lineJoin = 'round'; path(); c.fill(); c.stroke(); sh.drips.forEach(d => { drip(d, 0.04); c.fill(); c.stroke(); }); return; }
   if (outlineOnly) {
     c.strokeStyle = col || '#1F4E8C'; c.lineWidth = Math.max(2, (s.lw ?? 0.009) * W); c.lineJoin = 'round';
     path(); c.stroke(); sh.drips.forEach(d => { drip(d); c.stroke(); });
@@ -68,7 +72,11 @@ function drawStain(c, W, H, s, outlineOnly = false, col = null) {
   c.fillStyle = STAIN_D; [[0.02, 0.02], [-0.04, 0.015], [0.035, -0.03]].forEach(([x, y], i) => { c.beginPath(); c.ellipse(X(x * (1 + 3 * s.u)), Y(y), 0.008 * f * (1 + s.u), 0.006 * f, i, 0, TAU); c.fill(); });
   // the strand of pasta stuck in it
   c.lineCap = 'round'; c.lineJoin = 'round';
-  for (const [lw, cl] of [[0.016, PASTA_D], [0.011, PASTA]]) { c.strokeStyle = cl; c.lineWidth = lw * f; c.beginPath(); sh.pasta.forEach(([x, y], i) => (i ? c.lineTo(X(x), Y(y)) : c.moveTo(X(x), Y(y)))); c.stroke(); }
+  // (round 2) a smooth curve through the strand's points (straight segments read as a chevron)
+  const pa = sh.pasta;
+  for (const [lw, cl] of [[0.016, PASTA_D], [0.011, PASTA]]) { c.strokeStyle = cl; c.lineWidth = lw * f; c.beginPath(); c.moveTo(X(pa[0][0]), Y(pa[0][1]));
+    for (let i = 1; i < pa.length - 1; i++) c.quadraticCurveTo(X(pa[i][0]), Y(pa[i][1]), X((pa[i][0] + pa[i + 1][0]) / 2), Y((pa[i][1] + pa[i + 1][1]) / 2));
+    c.lineTo(X(pa[pa.length - 1][0]), Y(pa[pa.length - 1][1])); c.stroke(); }
 }
 
 // ---------------------------------------------------------------- the shirt's front: collar, placket, buttons, breast pocket, the stain
@@ -91,7 +99,7 @@ function drawShirt(c, W, H, o, st) {
     // (round 1) the stain lives: a crouch and a wriggle before it runs (st.wig, st.crouch), stretched into a smear along its way while it slides
     const dx = ((pk[0] + pk[1]) / 2 - o.stainAt[0]) * W, dy = V((pk[2] + pk[3]) / 2) - o.stainAt[1] * H, ang = Math.atan2(dy, dx);
     const sm = 1 + 2.4 * Math.sin(PI * clamp01(st.slide || 0)) * (st.slide > 0 && st.slide < 1 ? 1 : 0), cr = st.crouch || 0;
-    c.save(); c.translate(cx2 * W, cy2 * H); c.rotate(ang); c.scale(sm, 1 / Math.sqrt(sm)); c.rotate(-ang); c.rotate(0.22 * (st.wig || 0)); c.scale(1 + 0.22 * cr, 1 - 0.3 * cr); c.translate(-cx2 * W, -cy2 * H);
+    c.save(); c.translate(cx2 * W, cy2 * H); c.rotate(ang); c.scale(sm, 1 / Math.sqrt(sm)); c.rotate(-ang); c.rotate(0.22 * (st.wig || 0)); c.scale(1 + 0.22 * cr, 1 - 0.3 * cr); c.scale(1 - 0.28 * (st.shrink || 0), 1 - 0.28 * (st.shrink || 0)); c.translate(-cx2 * W, -cy2 * H);
     if (sm > 1.05) { c.globalAlpha = 0.35; drawStain(c, W, H, { u, cx: cx2 - 0.05 * Math.cos(ang) * sm, cy: cy2 - 0.05 * Math.sin(ang) * sm * W / H, sc: (o.sc ?? 1) * 0.9, k: st.k }); c.globalAlpha = 1; }
     drawStain(c, W, H, { u, cx: cx2, cy: cy2, sc: (o.sc ?? 1) * lerp(1, o.countrySc ?? 1, u) * (1 - 0.18 * sl), k: st.k, ext: st.ext || 0 });
     c.restore();
@@ -108,6 +116,15 @@ function drawShirt(c, W, H, o, st) {
     if (st && st.peek > 0.01) { const x = (u0 + u1) / 2 + 0.02, y = V(v1 - 0.012), L = 0.1 * st.peek * W, w = 0.034 * W;
       c.fillStyle = STAIN; c.strokeStyle = STAIN_D; c.lineWidth = W * 0.006; c.beginPath(); c.moveTo(x * W - w / 2, y); c.lineTo(x * W - w * 0.45, y + L); c.arc(x * W, y + L, w * 0.62, PI, 0, true); c.lineTo(x * W + w / 2, y); c.closePath(); c.fill(); c.stroke(); }
   }
+  // (round 2) laid flat (o.flat): the sleeves are folded in along both sides (a strip and its fold line, inside the outline) and the collar
+  // band is drawn inside the panel, so the laid shirt is one closed shape
+  if (o.flat) {
+    c.fillStyle = 'rgba(120,128,140,0.12)'; c.fillRect(0, V(0.05), W * 0.075, H); c.fillRect(W * 0.925, V(0.05), W * 0.075, H);
+    c.strokeStyle = seam; c.lineWidth = W * 0.007; for (const u of [0.075, 0.925]) { c.beginPath(); c.moveTo(u * W, V(0.05)); c.lineTo(u * W, H - V(0.02)); c.stroke(); }
+    c.beginPath(); c.moveTo(0, V(0.05)); c.lineTo(W * 0.075, V(0.05)); c.moveTo(W, V(0.05)); c.lineTo(W * 0.925, V(0.05)); c.stroke();
+    c.fillStyle = 'rgba(120,128,140,0.22)'; c.beginPath(); c.moveTo(W * 0.3, 0); c.quadraticCurveTo(W * 0.5, V(0.075), W * 0.7, 0); c.closePath(); c.fill();
+    c.strokeStyle = seam; c.lineWidth = W * 0.008; c.strokeRect(W * 0.004, W * 0.004, W * 0.992, H - W * 0.008);
+  }
   // the collar: a band and two pointed flaps
   if (o.collar !== false) {
     c.fillStyle = bg; c.strokeStyle = seam; c.lineWidth = W * 0.008; c.lineJoin = 'round';
@@ -123,9 +140,9 @@ function shirtFace(w, h, o, wTop) {
   const geo = new THREE.PlaneGeometry(w, h);
   if (wTop) { const p = geo.attributes.position; for (let i = 0; i < p.count; i++) { const v = (p.getY(i) + h / 2) / h; p.setX(i, p.getX(i) * lerp(1, wTop / w, v)); } p.needsUpdate = true; }
   // (round 1) a cool emissive under the cloth: the warm sun and grade turned the white shirt peach
-  const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: tex, side: THREE.FrontSide, emissive: o.bg ? '#000000' : '#33476A', emissiveIntensity: 0.4 }));
+  const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: tex, side: THREE.FrontSide, emissive: o.emis || (o.bg ? '#000000' : '#33476A'), emissiveIntensity: o.emisI ?? 0.4 }));
   m.receiveShadow = true; let last = '';
-  m.userData.draw = st => { const key = JSON.stringify([st.u, st.k, st.slide, st.peek, st.ext, st.wig, st.crouch].map(v => Math.round((v || 0) * 40) / 40)); if (key === last) return; last = key; drawShirt(c, cv.width, cv.height, o, st); tex.needsUpdate = true; };
+  m.userData.draw = st => { const key = JSON.stringify([st.u, st.k, st.slide, st.peek, st.ext, st.wig, st.crouch, st.shrink].map(v => Math.round((v || 0) * 40) / 40)); if (key === last) return; last = key; drawShirt(c, cv.width, cv.height, o, st); tex.needsUpdate = true; };
   return m;
 }
 // the stain's state at t from the options: o.stain ('splat' | 'country' | 'none'), o.stainAt (pop in), o.stretchAt/stretchDur (splat -> country),
@@ -139,7 +156,20 @@ function stainState(o, t) {
   // (round 1) o.wigAt: a crouch and a wriggle from o.wigAt to the slide; o.peekKeys [[t, v]...]: the drip ducks in and peeks out after it
   if (o.wigAt != null && o.slideAt != null && t > o.wigAt && t < o.slideAt + 0.05) { const v = (t - o.wigAt) / Math.max(0.05, o.slideAt - o.wigAt); st.wig = Math.sin(v * 5 * PI) * (1 - 0.5 * v); st.crouch = smooth(v * 1.4) * (v < 0.95 ? 1 : 0.3); }
   if (o.peekKeys && o.slideAt != null && t > o.slideAt) { const P = o.peekKeys; let v = P[0][1]; for (let i = 0; i < P.length; i++) { if (t >= P[i][0]) v = P[i][1]; if (i + 1 < P.length && t >= P[i][0] && t < P[i + 1][0]) { const a = (t - P[i][0]) / (P[i + 1][0] - P[i][0]); v = lerp(P[i][1], P[i + 1][1], P[i + 1][1] > P[i][1] ? outBack(a) : smooth(a)); } } if (t >= P[0][0]) st.peek = Math.max(0, v); else st.peek = 0; }
+  // (round 2) o.flinchAt [t...]: the stain winces at a blow (squeezed small and squashed, a shiver), then lets go
+  for (const f of [].concat(o.flinchAt ?? [])) { const u = t - f; if (u > 0 && u < 0.7) { const e = u < 0.04 ? u / 0.04 : Math.exp(-(u - 0.04) * 6); st.crouch = Math.max(st.crouch || 0, e); st.shrink = Math.max(st.shrink || 0, e); st.wig = (st.wig || 0) + 0.6 * e * Math.sin(u * 55); } }
   return st;
+}
+
+// (round 2) the tank's recoil at u s after the shot: hull slide (m, along -Z), barrel stretch gs, the gun's slide, the bottle's squash bs, and dz
+// the nozzle's total shift along the barrel (m); the story keys its jet with the same numbers (story_tache.py: tank_dz)
+function tankRecoil(u, SL = 0.7) {
+  if (u <= 0) return { bk: 0, hull: 0, gunZ: 0, gs: 1, bs: 1, dz: 0 };
+  const bk = u < 0.05 ? u / 0.05 : Math.exp(-(u - 0.05) * 3.2);
+  const gs = u < 0.05 ? 1 + 0.3 * u / 0.05 : u < 0.13 ? 1.3 - 0.5 * (u - 0.05) / 0.08 : 1 - 0.2 * Math.exp(-(u - 0.13) * 6) * Math.cos((u - 0.13) * 14);
+  const bs = u < 0.05 ? 1 - 0.35 * u / 0.05 : 1 - 0.35 * Math.exp(-(u - 0.05) * 5) * Math.cos((u - 0.05) * 12);
+  const hull = -SL * bk, gunZ = -0.4 * bk;
+  return { bk, hull, gunZ, gs, bs, dz: hull + gunZ + 3.97 * (gs - 1) };
 }
 
 // the invented country's map, drawn over the country-shaped stain (same outline, same place): a pale blue acetate with a grid, the coast in
@@ -153,6 +183,8 @@ function drawMap(c, W, H, o) {
   for (let i = 1; i < 8; i++) { const x = lerp(x0, x1, i / 8); c.beginPath(); c.moveTo(x, y0); c.lineTo(x, y1); c.stroke(); }
   for (let i = 1; i < 5; i++) { const y = lerp(y0, y1, i / 5); c.beginPath(); c.moveTo(x0, y); c.lineTo(x1, y); c.stroke(); }
   c.strokeStyle = '#1F4E8C'; c.lineWidth = W * 0.008; c.strokeRect(x0, y0, x1 - x0, y1 - y0);
+  // (round 2) the glass is clear over the stain (tint and grid cut out), so the stain stays saturated red under the map
+  c.save(); c.globalCompositeOperation = 'destination-out'; drawStain(c, W, H, { u: 1, cx, cy, sc, cut: true }); c.restore();
   drawStain(c, W, H, { u: 1, cx, cy, sc }, true, o.coast || '#163E78');
   c.fillStyle = '#163E78'; [[-0.12, 0.0], [0.08, -0.02], [0.2, 0.01]].forEach(([x, y], i) => { const r = W * (i ? 0.007 : 0.011); c.fillRect(cx * W + x * sc * W - r, cy * H + y * sc * W - r, 2 * r, 2 * r); });
   const title = o.mapTitle || 'CARTE OFFICIELLE'; let fs = W * 0.05; c.font = `900 ${fs}px Arial`; const tw = c.measureText(title).width, mw = (x1 - x0) * 0.8; if (tw > mw) { fs *= mw / tw; c.font = `900 ${fs}px Arial`; }
@@ -206,16 +238,18 @@ export const TACHE_PROPS = {
   // o.s: size (1: a 0.62 m wide torso); o.hanger (true); o.flat: laid on an ironing board (no hanger, sleeves along the sides); o.sway: the idle
   // sway; o.hitAt: [t...] kicks of the jet; o.mapAt / o.mapDur: the map comes down over it; o.mapPulse: the coast flashes when it matches
   tacheHangShirt(o) {
-    const s = o.s ?? 1, W0 = 0.62 * s, H0 = 0.8 * s, D0 = (o.flat ? 0.01 : 0.05) * s, top = -0.13 * s, g = grp(), body = grp(); g.add(body);
-    const lay = { stainAt: o.at || [0.34, 0.47], sc: o.sc ?? 1.0, pocket: o.pocket || [0.6, 0.82, 0.2, 0.42], bg: o.bg, countryAt: o.countryAt || [0.5, 0.64], countrySc: o.countrySc ?? 1.0, res: 512 };
-    const cloth = o.bg || SHIRT, cm = o.bg ? {} : { noGrain: true, emissive: '#2A3A58' };
-    body.add(at(box(W0 * 0.98, H0, D0, cloth, { outline: 0.004, ...cm }), 0, top - H0 / 2, 0));
+    // (round 2) o.flatH: the laid shirt's length (x s; folded at the hem); o.white: a neutral white (no cool emissive) for a warm light
+    const s = o.s ?? 1, W0 = 0.62 * s, H0 = (o.flat ? (o.flatH ?? 0.8) : 0.8) * s, D0 = (o.flat ? 0.012 : 0.05) * s, top = -0.13 * s, g = grp(), body = grp(); g.add(body);
+    const WH = o.white ? '#F6F4EE' : null;
+    const lay = { stainAt: o.at || [0.34, 0.47], sc: o.sc ?? 1.0, pocket: o.pocket || [0.6, 0.82, 0.2, 0.42], bg: WH || o.bg, countryAt: o.countryAt || [0.5, 0.64], countrySc: o.countrySc ?? 1.0, res: 512, flat: !!o.flat,
+      emis: WH ? '#2E2C28' : null, emisI: WH ? 0.3 : null };
+    const cloth = WH || o.bg || SHIRT, cm = WH ? { noGrain: true, emissive: '#2E2C28' } : (o.bg ? {} : { noGrain: true, emissive: '#2A3A58' });
+    body.add(at(box(W0 * (o.flat ? 1.0 : 0.98), H0, D0, cloth, { outline: 0.004, ...cm }), 0, top - H0 / 2, 0));
     const face = shirtFace(W0, H0, lay, null); face.position.set(0, top - H0 / 2, D0 / 2 + 0.002); body.add(face);
-    // collar band (the silhouette) and a back panel
+    // collar band (the silhouette) and a back panel; laid flat: the collar is drawn inside the panel and the sleeves are folded under
     if (!o.flat) body.add(at(box(0.24 * s, 0.05 * s, D0 * 1.6, cloth, { outline: 0.004, ...cm }), 0, top + 0.01 * s, 0));
-    else body.add(at(box(0.26 * s, 0.035 * s, 0.03 * s, cloth, { outline: 0.004, ...cm }), 0, top + 0.005 * s, 0.006 * s));
     const sleeves = [];
-    for (const sd of [-1, 1]) {
+    for (const sd of (o.flat ? [] : [-1, 1])) {
       const sl = grp(); sl.position.set(sd * W0 * 0.47, top - 0.03 * s, 0);
       const sd0 = o.flat ? 0.014 : 0.075; sl.add(at(box(0.17 * s, 0.6 * s, sd0 * s, cloth, { pivot: 'top', outline: 0.004, ...cm }), 0, 0, 0), at(box(0.18 * s, 0.07 * s, (sd0 + 0.01) * s, cloth, { pivot: 'top', outline: 0.004, ...cm }), 0, -0.58 * s, 0));
       sl.add(at(box(0.012 * s, 0.07 * s, 0.002, '#E4E8EC'), 0, -0.62 * s, (sd0 / 2 + 0.008) * s));
@@ -245,13 +279,16 @@ export const TACHE_PROPS = {
       const coast = new THREE.Mesh(new THREE.PlaneGeometry(W0 * 1.06, H0 * 1.06), new THREE.MeshBasicMaterial({ map: tx2, transparent: true, opacity: 0, depthWrite: false, fog: false, toneMapped: false }));
       coast.renderOrder = 5; coast.position.z = 0.004; map.add(coast); map.userData.coast = coast;
     }
-    const kicks = [].concat(o.hitAt ?? []);
+    // (round 2) o.hitAmp: how hard a kick throws it (2-3: a hard recoil, the sleeves fly up); o.jumpAt [t...]: it hops up on its hanger and drops back
+    const kicks = [].concat(o.hitAt ?? []), amp = o.hitAmp ?? 1, jumps = [].concat(o.jumpAt ?? []);
     g.userData.update = t => {
       face.userData.draw(stainState(o, t));
-      let sw = (o.sway ?? 0.025) * Math.sin(t * 2.3 + (o.phase ?? 0)), lift = 0;
-      for (const k of kicks) { const u = t - k; if (u > 0) { sw += 0.22 * Math.exp(-u * 3.2) * Math.sin(u * 13); lift = Math.max(lift, 0.5 * Math.exp(-u * 4) * (u < 0.08 ? u / 0.08 : 1)); } }
-      body.rotation.z = o.flat ? 0 : sw * 0.6; body.rotation.x = o.flat ? 0 : -lift * 0.35 - 0.02 * Math.sin(t * 1.7);
-      for (const q of sleeves) q.sl.rotation.z = q.base + (o.flat ? 0 : q.sd * (0.04 * Math.sin(t * 3.1 + q.sd) + lift * 0.6));
+      let sw = (o.sway ?? 0.025) * Math.sin(t * 2.3 + (o.phase ?? 0)), lift = 0, hop = 0;
+      for (const k of kicks) { const u = t - k; if (u > 0) { sw += 0.22 * Math.min(1.6, amp) * Math.exp(-u * 3.2) * Math.sin(u * 13); lift = Math.max(lift, 0.5 * amp * Math.exp(-u * 4) * (u < 0.06 ? u / 0.06 : 1)); } }
+      for (const j of jumps) { const u = t - j; if (u > 0 && u < 0.5) { hop = Math.max(hop, u < 0.07 ? 0.09 * s * Math.sin(u / 0.07 * PI / 2) : 0.09 * s * Math.max(0, Math.cos((u - 0.07) / 0.18 * PI / 2)) + (u > 0.25 ? 0.012 * s * Math.exp(-(u - 0.25) * 9) * Math.sin((u - 0.25) * 40) : 0)); lift = Math.max(lift, 0.35 * Math.exp(-u * 6) * (u < 0.05 ? u / 0.05 : 1)); } }
+      body.position.y = hop;
+      body.rotation.z = o.flat ? 0 : sw * 0.6; body.rotation.x = o.flat ? 0 : -Math.min(1, lift) * 0.35 - 0.02 * Math.sin(t * 1.7);
+      for (const q of sleeves) q.sl.rotation.z = q.base + (o.flat ? 0 : q.sd * (0.04 * Math.sin(t * 3.1 + q.sd) + Math.min(2.2, lift) * 0.6));
       if (map) { const u = (t - o.mapAt) / (o.mapDur ?? 0.55); map.visible = u > 0; if (map.visible) { const e = easeOut(u); map.position.set(body.position.x, top - H0 / 2 + (1 - e) * H0 * 1.3, D0 / 2 + 0.02 + (1 - e) * 0.1);
         map.rotation.set(body.rotation.x, 0, body.rotation.z * 0.5 + (1 - e) * 0.15); const pu = o.mapPulse != null ? (t - o.mapPulse) / 0.5 : -1; map.userData.halo.material.opacity = pu > 0 && pu < 1 ? 0.5 * (1 - pu) : 0;
         const pc = o.mapPulse != null ? t - o.mapPulse : -1; map.userData.coast.material.opacity = pc > 0 && pc < 0.7 ? (pc < 0.15 || (pc > 0.27 && pc < 0.45) ? 1 : 0.15) : 0; } }
@@ -383,11 +420,18 @@ export const TACHE_PROPS = {
     const dust = foamPuffs(g, 14, 3), puff = grp(); puff.position.set(...muzzleLocal); g.add(puff); const foam = foamPuffs(puff, 10, 11);
     g.traverse(m => { if (m.isMesh && m.material && m.material.color && m.parent === g && m.geometry.type === 'IcosahedronGeometry') m.material.color.set('#CDBFA2'); });
     g.userData.muzzle = muzzleLocal;
+    // (round 2) anticipation over o.antic s before the shot (the bottle swells, the hull squats on its tracks), then a big recoil: the hull slides
+    // back o.slide m and rocks, the barrel stretches out on the shot, snaps short and springs back, the bottle squashes flat and re-inflates
+    // (tankRecoil gives the nozzle's shift along the barrel, for a jet that follows it)
+    const anticD = o.antic ?? 0.3, SL = o.slide ?? 0.7;
     g.userData.update = t => {
-      const u = o.fireAt == null ? -1 : t - o.fireAt;
-      const rk = u > 0 ? Math.exp(-u * 4.5) * Math.sin(u * 16) : 0, bk = u > 0 ? (u < 0.05 ? u / 0.05 : Math.exp(-(u - 0.05) * 5)) : 0;
-      hull.rotation.x = -0.05 * rk - 0.03 * bk; hull.position.z = -0.25 * bk; gun.position.z = 1.4 - 0.4 * bk;
-      dust(t, o.fireAt ?? 99, 3.4, 0.9, 0.3); foam(t, o.fireAt ?? 99, 0.9, 0.5, 0.3);
+      const u = o.fireAt == null ? -9 : t - o.fireAt, a = u < 0 && u > -anticD ? smooth((u + anticD) / anticD) : 0;
+      const R = tankRecoil(u, SL), rk = u > 0 ? Math.exp(-u * 4.5) * Math.sin(u * 16) : 0;
+      hull.rotation.x = -0.07 * rk - 0.04 * R.bk + 0.02 * a; hull.position.z = R.hull; hull.position.y = -0.12 * a; hull.scale.set(1 + 0.04 * a, 1 - 0.07 * a, 1 + 0.02 * a);
+      gun.position.z = 1.4 + R.gunZ; gun.scale.set(1, 1, R.gs);
+      const bs = u < 0 ? 1 + 0.32 * a + 0.03 * a * Math.sin(t * 60) : R.bs; bot.scale.set(bs * (u < 0 ? 1 : 1 / Math.sqrt(Math.max(0.5, R.bs))), bs * (u < 0 ? 1 : 1 / Math.sqrt(Math.max(0.5, R.bs))), u < 0 ? 1 + 0.12 * a : R.bs);
+      puff.position.set(muzzleLocal[0], muzzleLocal[1] - 0.12 * a, muzzleLocal[2] + R.dz);
+      dust(t, o.fireAt ?? 99, 4.2, 1.0, 0.36); foam(t, o.fireAt ?? 99, 1.1, 0.5, 0.36);
     };
     g.userData.update(-1); return g;
   },
@@ -514,7 +558,9 @@ export const TACHE_PROPS = {
     const H = o.h ?? 7.5, g = grp();
     g.add(at(box(0.7, 0.35, 0.7, '#CDBFA4', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(cyl(0.06, 0.085, H, '#F1EFEA', 10, { pivot: 'bottom', outline: 0.006 }), 0, 0.35, 0), at(sphere(0.16, '#E2B53C', 1), 0, H + 0.45, 0));
     g.add(at(cyl(0.09, 0.09, 0.08, '#B8BEC6', 10), 0, H + 0.25, 0));
-    for (const dx of [0.07, -0.02]) g.add(rod([dx, H + 0.25, 0.1], [dx, 1.3, 0.1], 0.008, '#3A3530'));
+    // (round 2) o.ropeR: a thicker halyard (it vanished at 0.008 against the white pole), o.ropeColor
+    const rr = o.ropeR ?? 0.008, rc = o.ropeColor || '#3A3530';
+    for (const dx of [0.07, -0.02]) g.add(rod([dx, H + 0.25, 0.1], [dx, 1.3, 0.1], dx > 0 ? rr : Math.min(rr, 0.012), rc));
     g.add(at(box(0.04, 0.16, 0.05, '#B8BEC6'), 0.0, 1.25, 0.09));
     const sh = TACHE_PROPS.tacheHangShirt({ ...(o.shirt || {}), s: o.shirt?.s ?? 1.3 }); sh.position.z = 0.13; g.add(sh);
     const y0 = o.y0 ?? 1.6, y1 = o.y1 ?? H - 0.1;
@@ -522,11 +568,17 @@ export const TACHE_PROPS = {
     g.userData.update(-1); return g;
   },
   // a folded bundle of old cloth (faded beige and grey, never unfolded)
+  // (round 2) soft folded cloth, not a crate: rounded folded edges (half cylinders) along the front, a sagging middle, two loose ends that hang
+  // down either side over the arms and swing as he walks (o.swing)
   tacheBundle(o) {
-    const s = o.s ?? 1, g = grp(), cols = ['#B9AE98', '#A69C88', '#BDB4A2', '#9E9482'];
-    for (let i = 0; i < 4; i++) g.add(at(box(0.5 * s, 0.07 * s, 0.34 * s, cols[i], { outline: 0.004 }), (hsh(i) - 0.5) * 0.02, i * 0.07 * s, (hsh(i + 1) - 0.5) * 0.02, 0, (hsh(i + 2) - 0.5) * 0.1, 0));
-    g.add(at(box(0.5 * s, 0.02, 0.08 * s, '#8A806C'), 0, 0.29 * s, 0.13 * s));
-    return g;
+    const s = o.s ?? 1, g = grp(), C = o.color || '#B9AE98', D = '#9E9482', L = '#CFC6B2', Wd = 0.5 * s, Dd = 0.32 * s;
+    for (let i = 0; i < 3; i++) { const y = (0.03 + i * 0.05) * s, w = Wd * (1 - 0.04 * i), sl = at(box(w, 0.045 * s, Dd * (1 - 0.05 * i), [C, L, C][i], { outline: 0.003 }), (hsh(i) - 0.5) * 0.015, y, 0); sl.rotation.y = (hsh(i + 2) - 0.5) * 0.08; g.add(sl);
+      g.add(at(cyl(0.024 * s, 0.024 * s, w, [D, C, D][i], 8, { outline: 0.003 }), 0, y, Dd * (1 - 0.05 * i) / 2, 0, 0, PI / 2)); }
+    g.add(at(sphere(0.05 * s, L, 1), 0, 0.16 * s, 0.02 * s)); g.children[g.children.length - 1].scale.set(4.2, 0.45, 2.6);
+    const ends = [];
+    for (const sd of [-1, 1]) { const e = grp(); e.position.set(sd * Wd * 0.47, 0.06 * s, 0); e.add(at(box(0.05 * s, 0.22 * s, Dd * 0.8, C, { pivot: 'top', outline: 0.003 }), 0, 0, 0)); e.rotation.z = sd * 0.12; g.add(e); ends.push({ e, sd }); }
+    g.userData.update = t => { for (const q of ends) q.e.rotation.z = q.sd * (0.12 + (o.swing ?? 0.08) * Math.sin(t * 9 + q.sd)); };
+    g.userData.update(0); return g;
   },
 
   // ---------------------------------------------------------------- the upkeep: a steam iron (soleplate down, point toward +Z) and an ironing board
@@ -547,15 +599,17 @@ export const TACHE_PROPS = {
     const sh = new THREE.Shape(); sh.moveTo(-L / 2, -Wb / 2); sh.lineTo(L / 2 - 0.55, -Wb / 2); sh.quadraticCurveTo(L / 2 - 0.05, -Wb * 0.42, L / 2, -Wb * 0.06); sh.quadraticCurveTo(L / 2 + 0.01, 0, L / 2, Wb * 0.06); sh.quadraticCurveTo(L / 2 - 0.05, Wb * 0.42, L / 2 - 0.55, Wb / 2); sh.lineTo(-L / 2, Wb / 2); sh.lineTo(-L / 2, -Wb / 2);
     const geo = new THREE.ExtrudeGeometry(sh, { depth: 0.035, bevelEnabled: false }); geo.rotateX(-PI / 2);
     const cover = new THREE.Mesh(geo, mat(o.color || '#9CC6E2')); cover.castShadow = cover.receiveShadow = true; top.add(cover);
-    const geo2 = new THREE.ExtrudeGeometry(sh, { depth: 0.012, bevelEnabled: false }); geo2.rotateX(-PI / 2); const trim = new THREE.Mesh(geo2, mat('#5E8FB0')); trim.scale.set(1.01, 1, 1.03); trim.position.y = -0.006; top.add(trim);
+    const geo2 = new THREE.ExtrudeGeometry(sh, { depth: 0.012, bevelEnabled: false }); geo2.rotateX(-PI / 2); const trim = new THREE.Mesh(geo2, mat(o.trim || '#5E8FB0')); trim.scale.set(1.01, 1, 1.03); trim.position.y = -0.006; top.add(trim);
     if (o.form) { const f = canvasPlane(0.3, 0.4, (c, W, H) => { c.fillStyle = '#FBF8EE'; c.fillRect(0, 0, W, H); c.fillStyle = INK; c.textAlign = 'center'; c.textBaseline = 'middle'; let fs = W * 0.13; c.font = `900 ${fs}px Arial`; const t1 = 'ENTRETIEN', tw = c.measureText(t1).width; if (tw > W * 0.86) { fs *= W * 0.86 / tw; c.font = `900 ${fs}px Arial`; } c.fillText(t1, W / 2, H * 0.12);
         c.fillStyle = '#9AA3AE'; for (let i = 0; i < 7; i++) { c.fillRect(W * 0.12, H * (0.26 + i * 0.09), W * 0.5, H * 0.014); c.strokeStyle = '#6E757E'; c.lineWidth = W * 0.01; c.strokeRect(W * 0.72, H * (0.24 + i * 0.09), W * 0.06, W * 0.06); } }, { res: 256 });
       f.rotation.x = -PI / 2; f.rotation.z = 0.08; f.position.set(o.formX ?? 0.18, 0.04, 0); top.add(f); }
     if (o.rest !== false) { const rc = '#B8BEC6'; top.add(rod([-L / 2, 0.02, -Wb * 0.36], [-L / 2 - 0.2, 0.02, -Wb * 0.3], 0.012, rc), rod([-L / 2, 0.02, Wb * 0.36], [-L / 2 - 0.2, 0.02, Wb * 0.3], 0.012, rc), rod([-L / 2 - 0.2, 0.02, -Wb * 0.3], [-L / 2 - 0.2, 0.02, Wb * 0.3], 0.012, rc));
       top.add(at(box(0.16, 0.012, Wb * 0.5, '#8A9098', { outline: 0.003 }), -L / 2 - 0.1, 0.03, 0)); }
     const legs = grp(); g.add(legs);
-    if (o.folded) { for (const sd of [-1, 1]) legs.add(rod([-L * 0.38, -0.05, sd * 0.13], [L * 0.22, -0.05, -sd * 0.13], 0.02, '#6E757E')); legs.add(rod([L * 0.22, -0.05, -0.15], [L * 0.22, -0.05, 0.15], 0.022, '#2A2A2E'), rod([-L * 0.38, -0.05, -0.15], [-L * 0.38, -0.05, 0.15], 0.022, '#2A2A2E')); top.position.y = 0; }
-    else { top.position.y = hb; for (const sd of [-1, 1]) { legs.add(rod([-L * 0.3, hb - 0.02, sd * 0.13], [L * 0.2, 0.0, sd * 0.13], 0.014, '#8A9098'), rod([L * 0.2, hb - 0.02, sd * 0.13], [-L * 0.3, 0.0, sd * 0.13], 0.014, '#8A9098')); }
+    // (round 2) o.legW: the folded X legs wider than the board, so the X shows past its edges seen from the front
+    if (o.folded) { const lw = o.legW ?? 0.13; for (const sd of [-1, 1]) legs.add(rod([-L * 0.42, -0.05, sd * lw], [L * 0.22, -0.05, -sd * lw], 0.02, '#6E757E')); legs.add(rod([L * 0.22, -0.05, -lw - 0.02], [L * 0.22, -0.05, lw + 0.02], 0.022, '#2A2A2E'), rod([-L * 0.42, -0.05, -lw - 0.02], [-L * 0.42, -0.05, lw + 0.02], 0.022, '#2A2A2E')); top.position.y = 0; }
+    // (round 2) o.tilt (rad): the top tips toward +Z about its long axis (its far edge up), the legs stay upright
+    else { top.position.y = hb; top.rotation.x = o.tilt ?? 0; for (const sd of [-1, 1]) { legs.add(rod([-L * 0.3, hb - 0.02, sd * 0.13], [L * 0.2, 0.0, sd * 0.13], 0.014, '#8A9098'), rod([L * 0.2, hb - 0.02, sd * 0.13], [-L * 0.3, 0.0, sd * 0.13], 0.014, '#8A9098')); }
       legs.add(rod([L * 0.2, 0.01, -0.15], [L * 0.2, 0.01, 0.15], 0.016, '#2A2A2E'), rod([-L * 0.3, 0.01, -0.15], [-L * 0.3, 0.01, 0.15], 0.016, '#2A2A2E')); }
     return g;
   },
@@ -588,5 +642,46 @@ export const TACHE_PROPS = {
       let fs = H * 0.62; c.font = `900 ${fs}px Arial`; const tw = c.measureText('MAIRIE').width; if (tw > W * 0.82) { fs *= W * 0.82 / tw; c.font = `900 ${fs}px Arial`; } c.fillStyle = '#1E2633'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('MAIRIE', W / 2, H * 0.55); }, { res: 512 });
     plate.position.set(0, h + 0.5, 0.2); g.add(plate); g.add(at(box(pw + 0.06, 0.52, 0.03, '#1E2633'), 0, h + 0.5, 0.18));
     return g;
+  },
+
+  // ---------------------------------------------------------------- (round 2) a plain box (pivot at its centre): a cap, a cover panel; o.w, o.h, o.d,
+  // o.color, o.emissive
+  tacheBox(o) {
+    return grp(box(o.w ?? 0.3, o.h ?? 0.05, o.d ?? 0.3, o.color || '#BFD7EA', { outline: o.outline ?? 0.003, noGrain: true, ...(o.emissive ? { emissive: o.emissive } : {}) }));
+  },
+  // (round 2) the court's backdrop: a plain wooden panel (front +Z, pivot at its foot) with a gold scales of justice and TRIBUNAL under it
+  tacheScalesPanel(o) {
+    const w = o.w ?? 1.3, h = o.h ?? 1.9, g = grp();
+    const pic = canvasPlane(w, h, (c, W, H) => {
+      c.fillStyle = '#6E4A32'; c.fillRect(0, 0, W, H); c.strokeStyle = '#4E3322'; c.lineWidth = W * 0.03; c.strokeRect(W * 0.05, W * 0.05, W * 0.9, H - W * 0.1);
+      const G = '#E0B44A', cx = W / 2, cy = H * 0.38, s = W * 0.3; c.strokeStyle = G; c.fillStyle = G; c.lineWidth = W * 0.022; c.lineCap = 'round';
+      c.beginPath(); c.moveTo(cx, cy - s * 0.9); c.lineTo(cx, cy + s * 0.95); c.stroke(); c.beginPath(); c.moveTo(cx - s * 0.6, cy + s * 0.95); c.lineTo(cx + s * 0.6, cy + s * 0.95); c.stroke();
+      c.beginPath(); c.moveTo(cx - s, cy - s * 0.6); c.lineTo(cx + s, cy - s * 0.6); c.stroke(); c.beginPath(); c.arc(cx, cy - s * 0.95, s * 0.09, 0, TAU); c.fill();
+      for (const sd of [-1, 1]) { const x = cx + sd * s; c.lineWidth = W * 0.01; c.beginPath(); c.moveTo(x, cy - s * 0.6); c.lineTo(x - s * 0.3, cy + s * 0.15); c.moveTo(x, cy - s * 0.6); c.lineTo(x + s * 0.3, cy + s * 0.15); c.stroke();
+        c.beginPath(); c.moveTo(x - s * 0.36, cy + s * 0.15); c.quadraticCurveTo(x, cy + s * 0.55, x + s * 0.36, cy + s * 0.15); c.closePath(); c.fill(); }
+      let fs = W * 0.12; c.font = `900 ${fs}px Arial`; const tw = c.measureText(o.text || 'TRIBUNAL').width; if (tw > W * 0.8) { fs *= W * 0.8 / tw; c.font = `900 ${fs}px Arial`; }
+      c.fillStyle = G; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || 'TRIBUNAL', cx, H * 0.8);
+    }, { res: 512 });
+    pic.position.set(0, h / 2, 0.012); g.add(pic, at(box(w + 0.04, h + 0.04, 0.02, '#4E3322'), 0, h / 2, 0));
+    return g;
+  },
+  // (round 2) the republican guard's gold helmet (props_centime guardHelmet, o.gold) with a living plume: it quivers on its foot all the time
+  // (o.quiver rad, a flutter and a slow sway) and shakes harder for a moment at o.shakeAt [t...]
+  tacheGuardHelmet(o) {
+    const g = grp(), h = buildProp('guardHelmet', { ...o, gold: true }); g.add(h);
+    let pl = null; h.traverse(m => { if (!pl && m.isMesh && m.material && m.material.color && m.material.color.getHexString() === 'd8202c' && m.parent && m.parent !== h) pl = m.parent; });
+    const ph = o.phase ?? 0, Q = o.quiver ?? 0.07, sh = [].concat(o.shakeAt ?? []);
+    g.userData.update = t => { if (h.userData.update) h.userData.update(t); if (!pl) return; let k = 0; for (const a of sh) { const u = t - a; if (u > 0 && u < 0.8) k = Math.max(k, Math.exp(-u * 5)); }
+      pl.rotation.x = Q * (0.6 * Math.sin(t * 2.1 + ph) + 0.4 * Math.sin(t * 13 + ph * 3)) + 0.25 * k * Math.sin((t - (sh[0] ?? 0)) * 26); pl.rotation.z = Q * 0.7 * Math.sin(t * 9.5 + ph * 2) + 0.12 * k * Math.cos(t * 23); };
+    g.userData.update(0); return g;
+  },
+  // (round 2) small puffs of dust on the ground (never big blurred planes): o.pts [[x, z, t, r?] ...] in the prop's frame, each a burst of
+  // low puffs that spread and settle in o.dur s; o.color
+  tacheDust(o) {
+    const g = grp(), bursts = [];
+    for (const [i, q] of (o.pts || []).entries()) { const b = grp(); b.position.set(q[0], 0.08, q[1]); g.add(b); bursts.push({ f: foamPuffs(b, o.n ?? 6, 30 + i * 7), t: q[2], r: q[3] ?? 0.5 }); }
+    g.traverse(m => { if (m.isMesh && m.material && m.material.color) { m.material.color.set(o.color || '#D9CDB4'); } });
+    g.userData.update = t => { for (const b of bursts) b.f(t, b.t, b.r, o.dur ?? 0.55, b.r * 0.38); };
+    g.userData.update(-1); return g;
   },
 };
