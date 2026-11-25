@@ -3102,3 +3102,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 07 h 05 — « Le chifoumi » (96) brouillon 2 et revue 2 : animation 7,4 (6,0), direction artistique 7,4 (7,2). Restent : la chute (le
   poing qui plonge dans le puits caché derrière sa tête, gerbe en colonne, main en anneau qui ressemble à un beignet), la médaille trop
   petite (S10), le stade qui s'ouvre à peine (S12), les yeux sur tiges trop courts (S05). Corrections de la revue 2 lancées.
+- 07 h 17 — « Le distributeur » (95) LIVRÉ et publié sur TikTok par sa session parallèle (1080x1920, 43,0 s, −16,0 LUFS, sans creux ;
+  post cmwvshxrv0lz9pj07zd6je8b4). Revues 5,5/6,0 → 6,2/6,6 → 7,4/7,4, passe finale, brouillon de contrôle. Branche fusionnée, leçons au
+  skill. La session reçoit « Le pneu » (97).

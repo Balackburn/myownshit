@@ -2216,3 +2216,11 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 52) Lumière d'appoint devant une fenêtre : 9 brûle le mur ; environ 2,5 à 1,6 m suffit à éclairer les visages.
 - (cycle 52) Bras de robot à deux segments étirés : il reste droit et plonge loin du trou ; viser un L, coude au-dessus du trou.
 - (cycle 52) `mix.py` écrit un dossier au nom de la sortie (mix et pistes) : le supprimer par chemin littéral après un pré-test.
+- (cycle 52, « Le distributeur ») Rig toon : le clip de départ d'un acteur est ignoré dès que des reach de main sont clés ; ajouter une clé
+  k(0.0, clip=...).
+- (cycle 52) L'agenouillement abaisse le corps après la résolution du bras : compenser la cible de la main.
+- (cycle 52) Volet de distributeur : il pivote vers l'intérieur et aucune bande décorative ne couvre le renfoncement, sinon le bras dedans ne se lit pas.
+- (cycle 52) Le moteur rééclaircit les images sombres : éclairer un panneau sombre plutôt que jouer sur la transparence.
+- (cycle 52) Reflet sur une tête-boîte : discret (15-20 %) et à côté du sujet, pas au-dessus.
+- (cycle 52) Couloir avec rangées de machines en plan large : mettre en scène en profondeur, caméra basse.
+- (cycle 52) Feuille tamponnée : la tourner face caméra et la faire grandir (au moins 25 % de la largeur) pour qu'elle se lise.
