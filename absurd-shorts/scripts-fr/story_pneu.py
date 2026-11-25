@@ -144,8 +144,8 @@ kd2 = [k(0.0, clip='stand'), k(0.0, look=STETH), TK(0.0, {'R': R5(add(STETH, [0.
        TK(0.5, {'R': R5(add(STETH, [0.12, 0.04, 0.06]))}, {'R': 'grip'}, GRAVE, (1, 1, 1), d=0.2, keep=True),
        TK(0.85, {'L': R5(add(VALVE, [0.03, 0.04, -0.03]))}, {'L': 'pinch'}, {**GRAVE, 'gy': -0.3}, d=0.22, keep=True), k(0.85, look=VALVE, lookDur=0.15),
        TK(1.25, {'R': R5(off(DOC2, DRY2, 0.25, 0.22, 1.05))}, {'R': 'rest'}, {**GRAVE, 'lid': 0.5}, d=0.25, keep=True),
-       TK(1.72, bend={'spine': SP(0.35), 'neck': SP(0.6)}, d=0.1, keep=True), TK(1.92, bend={'spine': SP(0.35), 'neck': SP(0.1)}, d=0.1, keep=True),   # nod one, held
-       TK(2.08, bend={'spine': SP(0.4), 'neck': SP(0.7)}, d=0.1, keep=True), TK(2.36, bend={'spine': SP(0.3), 'neck': SP(0.1)}, d=0.12, keep=True),   # nod two, deeper, held
+       TK(1.72, bend={'spine': SP(0.45), 'neck': SP(0.95)}, sq=(1.03, 0.96, 1.03), d=0.08, keep=True), TK(1.92, bend={'spine': SP(0.35), 'neck': SP(0.1)}, sq=(1, 1, 1), d=0.1, keep=True),   # nod one, held
+       TK(2.08, bend={'spine': SP(0.5), 'neck': SP(1.05)}, sq=(1.03, 0.96, 1.03), d=0.08, keep=True), TK(2.36, bend={'spine': SP(0.3), 'neck': SP(0.1)}, sq=(1, 1, 1), d=0.12, keep=True),   # nod two, deeper, held
        k(2.42, look=add(HER2, [0, 1.9, 0]), lookDur=0.15), *blink(0.6, GRAVE)]
 kh2 = [k(0.0, clip='stand'), k(0.0, look=TY2), TK(0.0, {'R': R5(off(HER2, HRY2, 0.32, 0.12, 1.25)), 'L': R5(off(HER2, HRY2, 0.1, -0.3, 0.95))}, {'R': 'grip', 'L': 'rest'}, WORRY, d=0.0),
        k(1.0, look='camera', lookDur=0.2), TK(1.0, face={**WORRY, 'brow': 0.8}, d=0.1, keep=True), k(2.0, look=TY2, lookDur=0.2), *blink(1.5, WORRY), *BREATHE(0.2, D2)]
@@ -163,8 +163,9 @@ PAD = [-0.62, TOP, -0.85]; DOC3 = [-0.25, 0, -1.65]; DRY3 = 5
 NOTE3 = add(TY2, [0.0, 0.1, 0.12]); NRX = r(-PI / 2 + 0.5, 4)
 C3 = cam(0.0, [-0.55, 1.75, 2.6], [-0.5, 1.72, 2.45], [-0.1, 1.42, -0.95], [-0.1, 1.42, -0.95], lens=44)   # the doctor's head under the card band when ARRÊT stamps
 def zc(d): return add(NOTE3, [0.0, r(d * 0.78), r(d * 0.78)])
-C3b = glide([cam(SNAP3, zc(1.45), zc(1.45), add(NOTE3, [0, 0.0, -0.03]), add(NOTE3, [0, 0.0, -0.03]), lens=42)], 0.08)   # the snap: past the mark
-C3c = glide([cam(r(SNAP3 + 0.1), zc(2.05), zc(1.95), add(NOTE3, [0, 0.0, -0.03]), add(NOTE3, [0, 0.0, -0.03]), lens=42, shake=0.004)], 0.22)   # back out: the black ring reads round the note
+C3b = glide([cam(SNAP3, zc(1.45), zc(1.45), add(NOTE3, [0, -0.06, -0.08]), add(NOTE3, [0, -0.06, -0.08]), lens=42)], 0.08)   # the snap: past the mark
+C3c = glide([cam(r(SNAP3 + 0.1), zc(2.05), zc(1.98), add(NOTE3, [0, -0.06, -0.08]), add(NOTE3, [0, -0.06, -0.08]), lens=42, shake=0.004)], 0.22)
+C3d = glide([cam(1.85, zc(2.6), zc(2.7), add(NOTE3, [0, -0.02, -0.08]), add(NOTE3, [0, -0.02, -0.08]), lens=44)], 0.18)   # (pass 4) a shorter hold, then a bounce back out   # back out: the black ring reads round the note
 chk('S03', C3, {'docFace': add(DOC3, [0, 2.0, 0]), 'docTop': add(DOC3, [0, 2.32, 0]), 'heroTop': add(HER3, [0, 2.32, 0]), 'heroFace': add(HER3, [0, 1.95, 0]), 'pad': PAD, 'note': NOTE3, 'tyre': TY2})
 chk('S03c', C3c, {'note': NOTE3, 'ringL': add(TY2, [-0.45, 0.05, 0]), 'ringR': add(TY2, [0.45, 0.05, 0]), 'ringF': add(TY2, [0, 0.05, 0.45])})
 chk('S03b', C3b, {'note': NOTE3, 'noteTop': add(NOTE3, [0, 0.06, -0.12]), 'noteBot': add(NOTE3, [0, -0.06, 0.12])})
@@ -182,7 +183,7 @@ kh3 = [k(0.0, clip='stand'), k(0.0, look=NOTE3), TK(0.0, {'R': R5(off(HER3, HRY3
 st.shot('S03', 'hospital', setOpts=HOSP, look=LOOKH, actors=[act('docteur', DOC3, DRY3, 'stand', 'neutral', keys=kd3), act('mec', HER3, HRY3, 'stand', 'neutral', keys=kh3)],
         props=[*OFFICE('S03'), TYRE_TABLE('S03'), P('bloc3', 'pnPad', pos=PAD, ry=10, opts={'tearAt': TEAR3}),
                P('notemain3', 'pnNote', on={'actor': 'docteur', 'hand': 'R', 'offset': [0, -0.1, 0.06], 'rot': [0.3, 0, 0]}, opts={'from': TEAR3, 'until': SLAP3}),
-               P('note3', 'pnNote', pos=NOTE3, rot=[NRX, 0, 0], opts={'slapAt': SLAP3}), P('stcou3', 'pnStethNeck', on={'actor': 'docteur', 'joint': 'neck'}), DROP('goutt3', 'mec', [0.22, 0.36, 0.0], 0.9)], cams=[C3, C3b, C3c])
+               P('note3', 'pnNote', pos=NOTE3, rot=[NRX, 0, 0], opts={'slapAt': SLAP3, 'w': 0.34, 'h': 0.44}), P('stcou3', 'pnStethNeck', on={'actor': 'docteur', 'joint': 'neck'}), DROP('goutt3', 'mec', [0.22, 0.36, 0.0], 0.9)], cams=[C3, C3b, C3c, C3d])
 st.card('S03', 'ARRÊT', at=st.at('S03', 'L03', 2))
 st.cue('sfx:paper', 'S03', TEAR3, 0.4); st.cue('clack', 'S03', SLAP3, 0.45); st.cue('whoosh', 'S03', r(SNAP3 - 0.05), 0.25, 0.12, 500, 2500)
 
@@ -195,9 +196,9 @@ def hero_behind(car, z=0.0): return [r(car[0] - 2.5), 0, r(car[2] + z)]   # far 
 HB0, HB1 = hero_behind(CAR4_0, 0.15), hero_behind(CAR4_1, 0.15)
 def rear_hands(car, y=0.86):
     return {'L': R5([r(car[0] - 1.82), y, r(car[2] - 0.2)]), 'R': R5([r(car[0] - 1.82), y, r(car[2] + 0.5)])}   # (pass 3) facing +X his right is +Z: the hands no longer cross
-C4 = cam(0.0, [r(X40 + 3.2), 2.3, r(ZC4 + 3.6)], [r(X41 + 3.2), 2.3, r(ZC4 + 3.6)], [r(X40 - 1.2), 0.32, ZC4], [r(X41 - 1.2), 0.32, ZC4], lens=50)   # above the open car: his body over it
+C4 = cam(0.0, [r(X40 + 3.2), 2.3, r(ZC4 + 3.6)], [r(X41 + 3.2), 2.3, r(ZC4 + 3.6)], [r(X40 - 1.2), 0.15, ZC4], [r(X41 - 1.2), 0.15, ZC4], lens=50)   # above the open car: his body over it
 chk('S04', C4, {'heroFace': add(HB0, [0, 1.95, 0]), 'heroTop': add(HB0, [0, 2.3, 0]), 'carFront': add(CAR4_0, [1.75, 0.6, 0.8]), 'cargo': add(CAR4_0, [-0.75, 1.6, 0]), 'rim': add(CAR4_0, [1.15, 0.2, 0.8])})
-PUSH = {'spine': SP(0.62), 'neck': SP(-0.55, 0.35)}
+PUSH = {'spine': SP(0.8), 'neck': SP(-0.7, 0.35)}
 k4 = [k(0.0, clip='pushCartWalk'), k(0.0, to=HB1, dur=D4, clip='pushCartWalk', ease='linear', face='keep'), k(0.0, look='camera')]
 for i in range(9):   # straining shoves: the body dips and the cheeks puff on each one
     t = r(D4 * i / 8); c = lerp3(CAR4_0, CAR4_1, i / 8)
@@ -214,7 +215,7 @@ st.cue('sfx:scratch', 'S04', 0.0, 0.3)
 #    wheelbarrow; slow push-in
 D5 = st.dur('S05'); POP5 = r(st.at('S05', 'L05', 7) - 0.05)
 COUCH = [0.05, 0, -1.75]; TY5 = [-0.35, 0.45, -1.72]   # propped against the curled head end, reclining
-ARM = [0.82, 0, -0.62]; ARY = -65
+ARM = [0.82, 0, -0.62]; ARY = -40
 BUB = [-0.05, 1.85, -1.5]
 C5 = cam(0.0, [0.5, 1.5, 3.3], [0.45, 1.5, 2.75], [0.32, 1.3, -1.3], [0.32, 1.33, -1.3], lens=44)
 chk('S05', C5, {'psyFace': add(ARM, [0, 1.55, 0]), 'tyre': add(TY5, [0, 0.35, 0]), 'bubTop': add(BUB, [0, 0.62, 0]), 'bubL': add(BUB, [-0.68, 0, 0]), 'bubR': add(BUB, [0.68, 0, 0]), 'couchL': add(COUCH, [-0.95, 0.6, 0])})
@@ -223,7 +224,7 @@ kp5 = [k(0.0, clip='sit'), k(0.0, look=TY5), TK(0.0, {'L': R5(off(ARM, ARY, 0.45
        k(1.5, look=add(BUB, [0, 0.1, 0]), lookDur=0.25), TK(1.5, face={'lid': 0.1, 'mouth': 'line', 'brow': 0.6}, d=0.15, keep=True),
        k(2.3, look='camera', lookDur=0.2), *blink(1.1, CALM)]
 st.shot('S05', 'office', setOpts={'door': False, 'printer': False, 'carpet': False}, look={'sunDir': [0.4, 0.9, 0.8]}, actors=[act('psy', ARM, ARY, 'sit', 'neutral', keys=kp5)],
-        props=[P('divan5', 'pnCouch', pos=COUCH), P('pneu5', 'pnTyre', pos=TY5, ry=0, rot=[0, 0, 0.45], opts={'flat': 0.8, 'breathe': 0.3, 'blanket': True}), P('fauteuil5', 'armchair', pos=ARM, ry=ARY, opts={'color': '#6A7F5A'}),
+        props=[P('divan5', 'pnCouch', pos=COUCH), P('pneu5', 'pnTyre', pos=TY5, ry=0, rot=[0, 0, 0.45], opts={'flat': 0.8, 'breathe': 0.9, 'blanket': True, 'puff': [0.9, 2.1]}), P('fauteuil5', 'armchair', pos=ARM, ry=ARY, opts={'color': '#6A7F5A'}),
                P('bloc5', 'clipboardProp', on={'actor': 'psy', 'hand': 'L', 'offset': [0.02, -0.08, 0.06], 'rot': [1.2, 0, 0]}),
                P('bulle5', 'pnBubble', pos=BUB, ry=yaw(BUB, C5['from']), opts={'w': 1.36, 'popAt': POP5})], cams=[C5])
 st.cue('sfx:pop', 'S05', POP5, 0.4); st.cue('sfx:paper', 'S05', 0.2, 0.2)
@@ -302,32 +303,32 @@ for tp in (P71, P72, P73): st.cue('clack', 'S07', r(tp + 0.22), 0.25)
 # 8: a low three-quarter along a motorway jam: car after car drops onto flat tyres with a dust puff, the wave rolling at us; drivers lean out
 D8 = st.dur('S08')
 LANES = [[7.2, 5.0, 9, 5.4], [3.6, 2.0, 9, 5.4], [0.0, -1.5, 8, 5.4]]   # (pass 3) the near lane on the drivers' side (+Z): they lean out toward us
-C8 = cam(0.0, [12.0, 1.0, 12.0], [11.5, 1.0, 11.75], [2.73, 1.65, 8.26], [2.73, 1.65, 8.26], lens=51)   # on the hard shoulder, the lane receding to the left   # low on the drivers' side, down the jam: the near car at the right, the wave coming from the left   # (pass 3) low on the drivers' side: the cars fill down to the captions
+C8 = cam(0.0, [10.0, 0.6, 11.0], [9.75, 0.6, 10.88], [1.6, 1.2, 7.0], [1.6, 1.2, 7.0], lens=46)   # (pass 4) low and close: the near car half the width, the lane in the middle third   # on the hard shoulder, the lane receding to the left   # low on the drivers' side, down the jam: the near car at the right, the wave coming from the left   # (pass 3) low on the drivers' side: the cars fill down to the captions
 chk('S08', C8, {'near': [5.0, 1.0, 7.2], 'near2': [2.0, 1.0, 3.6], 'far': [-25.0, 1.0, 3.6], 'near3': [-1.5, 1.0, 0.0], 'nearBot': [5.0, 0.0, 8.0]})
 st.shot('S08', 'grassland', look={'sunDir': [0.6, 0.9, 0.5]}, actors=[],
-        props=[P('bouchon8', 'pnWave', pos=[0, 0, 0], opts={'lanes': LANES, 'farX': -14.0, 'speed': 16.0, 't0': 0.2,   # (pass 3) the wave starts in the visible part of the jam: frame 6 to ~1.4 s
+        props=[P('bouchon8', 'pnWave', pos=[0, 0, 0], opts={'lanes': LANES, 'farX': -6.0, 'speed': 15.7, 't0': 0.3, 'dustS': 1.2,   # (pass 3) the wave starts in the visible part of the jam: frame 6 to ~1.4 s
                                                                                        'drivers': 'all', 'len': 120, 'shoulder': 4.5})], cams=[C8])
 for i in range(5): st.cue('thud', 'S08', r(0.3 + 0.18 * i), 0.2)
 
 # ================================================================= S09
 # 9: a hospital street: the white van with its plain orange stripe and blue beacon, on flat tyres; three patients in pale gowns push it from
 #    behind, heads turned to us; static wide
-D9 = st.dur('S09'); ZV = -4.4; XV0, XV1 = 0.8, 1.3
+D9 = st.dur('S09'); ZV = -4.4; XV0, XV1 = 0.8, 1.7
 VAN0, VAN1 = [XV0, 0, ZV], [XV1, 0, ZV]
 # two patients at the back doors, the third pushes the second's back (a chain); seen from the side, a little ahead of them, heads turned to us
-PAT = [('malade1', -3.4, -3.85, 'door'), ('malade2', -3.4, -4.8, 'door'), ('malade3', -3.95, -3.05, 'back')]   # (pass 2) further back: leaning in
+PAT = [('malade1', -3.4, -3.85, 'door'), ('malade2', -3.4, -4.8, 'door'), ('malade3', -4.15, -3.75, 'back')]   # (pass 2) further back: leaning in
 def pat_pos(xv, dx, z): return [r(xv + dx), 0, z]
-C9 = fcam(0.0, [-0.2, 1.5, 2.6], {'p1': add(pat_pos(XV0, -3.4, -3.85), [0, 2.3, 0]), 'p3': add(pat_pos(XV0, -3.95, -3.05), [0, 2.3, 0]), 'p2': add(pat_pos(XV0, -3.4, -4.8), [0, 2.3, 0]), 'feet': pat_pos(XV0, -3.95, -3.05), 'beacon': [XV0 - 2.2, 2.75, ZV], 'wheel': [XV0 - 1.65, 0.0, ZV + 1.0], 'stripe': [XV0 - 1.4, 1.05, ZV + 1.0]}, top=0.08, bottom=0.84, margin=0.13, push=0.25)   # (pass 3) tighter: the three pushers, the back doors, a flat rear tyre, the stripe and beacon
-chk('S09', C9, {**{n: add(pat_pos(XV0, dx, z), [0, 1.95, 0]) for n, dx, z, _ in PAT}, 'beacon': [XV0 - 2.2, 2.6, ZV], 'stripe': [XV0 - 1.0, 1.05, ZV + 1.0], 'feet1': pat_pos(XV0, -3.4, -3.85), 'vanFront': [XV0 + 2.6, 0.5, ZV + 1.0], 'pat3': add(pat_pos(XV0, -3.95, -3.05), [0, 1.95, 0])})
+C9 = fcam(0.0, [-0.2, 1.5, 2.6], {'p1': add(pat_pos(XV0, -3.4, -3.85), [0, 2.3, 0]), 'p3': add(pat_pos(XV0, -4.15, -3.75), [0, 2.3, 0]), 'p2': add(pat_pos(XV0, -3.4, -4.8), [0, 2.3, 0]), 'feet': pat_pos(XV0, -4.15, -3.75), 'beacon': [XV0 - 2.2, 2.75, ZV], 'wheel': [XV0 - 1.65, 0.0, ZV + 1.0], 'stripe': [XV0 - 1.4, 1.05, ZV + 1.0]}, top=0.08, bottom=0.84, margin=0.13, push=0.25)   # (pass 3) tighter: the three pushers, the back doors, a flat rear tyre, the stripe and beacon
+chk('S09', C9, {**{n: add(pat_pos(XV0, dx, z), [0, 1.95, 0]) for n, dx, z, _ in PAT}, 'beacon': [XV0 - 2.2, 2.6, ZV], 'stripe': [XV0 - 1.0, 1.05, ZV + 1.0], 'feet1': pat_pos(XV0, -3.4, -3.85), 'vanFront': [XV0 + 2.6, 0.5, ZV + 1.0], 'pat3': add(pat_pos(XV0, -4.15, -3.75), [0, 1.95, 0])})
 pats = []
 for i, (pid, dx, z, how) in enumerate(PAT):
     a, b = pat_pos(XV0, dx, z), pat_pos(XV1, dx, z)
     if how == 'door':
         def hands(xv, z=z): return {'L': R5([r(xv - 2.66), 1.3, r(z - 0.2)]), 'R': R5([r(xv - 2.66), 1.25, r(z + 0.2)])}
     else:
-        def hands(xv, z=z): return {'L': R5([r(xv - 3.55), 1.4, r(z - 0.95)]), 'R': R5([r(xv - 3.55), 1.35, r(z - 0.6)])}
+        def hands(xv, z=z): return {'L': R5([r(xv - 3.6), 1.4, r(z - 0.3)]), 'R': R5([r(xv - 3.6), 1.35, r(z + 0.05)])}
     ks = [k(0.0, clip='pushCartWalk'), k(0.0, to=b, dur=D9, clip='pushCartWalk', ease='linear', face='keep'), k(0.0, look='camera'),
-          TK(0.0, hands(XV0), {'L': 'open', 'R': 'open'}, [STRAIN, TIRED, {**STRAIN, 'brow': 0.2}][i], bend={'spine': SP(0.6), 'neck': SP(-0.55, 0.5)}, d=0.0),
+          TK(0.0, hands(XV0), {'L': 'open', 'R': 'open'}, [STRAIN, TIRED, {**STRAIN, 'brow': 0.2}][i], bend={'spine': SP(0.6), 'neck': [-0.55, 0.5, -0.8 if i == 0 else 0.0, 1, None]}, d=0.0),   # (pass 4) the front one twists his head to us
           *[TK(r(0.35 + 0.5 * j), sq=(1.05, 0.94, 1.05) if j % 2 == 0 else (0.98, 1.03, 0.98), d=0.2, keep=True) for j in range(4)],
           TK(D9, hands(XV1), {'L': 'open', 'R': 'open'}, d=D9, e='linear', keep=True), *blink(0.6 + 0.4 * i, TIRED)]
     pats.append(act(pid, a, 90, 'pushCartWalk', 'neutral', keys=ks))
@@ -413,7 +414,7 @@ kph = [k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, {'L': R5(add(CUSH, [
 st.shot('S12', 'whiteVoid', setOpts={'color': '#DDE9E2'}, look={'sunDir': [0.3, 0.9, 0.9]}, actors=[act('pharma', PH, 0, 'stand', 'neutral', keys=kph)],
         props=[P('comptoir12', 'pnCounter', pos=CNT, opts={'shelfZ': -1.25}), P('coussin12', 'velvetCushion', pos=CUSH, opts={'w': 0.56}),
                P('pompe12', 'pnPump', pos=add(CUSH, [0, 0.105, 0]), ry=0, opts={'s': 0.95, 'pumpAt': [0.6, 2.9]}),   # side on: the pedal pump's silhouette
-               P('prix12', 'priceTag', pos=[-0.46, 1.16, -0.26], ry=8, scale=0.7, opts={'text': ' '}, keys=[k(0.0, visible=False), k(TAG12, visible=True), k(TAG12, squash=[1.4, 1.4, 1.4], dur=0.3)]),
+               P('prix12', 'priceTag', pos=[-0.36, 1.16, -0.22], ry=8, scale=0.62, opts={'text': ' '}, keys=[k(0.0, visible=False), k(TAG12, visible=True), k(TAG12, squash=[1.4, 1.4, 1.4], dur=0.3)]),
                P('pastille12', 'pnPie', pos=[0.36, 1.33, -0.3], ry=-4, opts={'r': 0.17, 'popAt': PIE12})], cams=[C12])
 st.cue('sfx:pop', 'S12', TAG12, 0.35); st.cue('sfx:pop', 'S12', PIE12, 0.45); st.cue('sfx:squeak', 'S12', 0.6, 0.15)
 
@@ -421,7 +422,7 @@ st.cue('sfx:pop', 'S12', TAG12, 0.35); st.cue('sfx:pop', 'S12', PIE12, 0.45); st
 # 13: the same press room: the pump on a plinth under a glass dome; the minister cuts the ribbon in front of it, elbows bent; flashes
 D13 = st.dur('S13'); CUT13 = 0.95
 MIN13 = [-0.75, 0, -1.55]; MRY13 = 28; PLI = [0.4, 0, -1.75]; RIB = [0.4, 0, -1.05]
-C13 = cam(0.0, [0.0, 1.5, 2.7], [0.0, 1.5, 2.45], [-0.05, 1.35, -1.5], [-0.05, 1.35, -1.5], lens=42)
+C13 = cam(0.0, [-0.05, 1.5, 3.0], [-0.05, 1.5, 2.75], [-0.1, 1.35, -1.5], [-0.1, 1.35, -1.5], lens=44)   # (pass 4) wider: the minister whole
 chk('S13', C13, {'minFace': add(MIN13, [0, 2.0, 0]), 'minTop': add(MIN13, [0, 2.3, 0]), 'dome': add(PLI, [0, 1.6, 0]), 'pump': add(PLI, [0, 1.15, 0]), 'ribbon': add(RIB, [0, 0.95, 0])})
 SNIP = add(RIB, [-0.12, 0.95, 0.0])
 km13 = [k(0.0, clip='stand'), k(0.0, look=SNIP), TK(0.0, {'R': R5(add(SNIP, [-0.25, 0.25, 0.1])), 'L': R5(add(SNIP, [-0.35, 0.2, 0.15]))}, {'R': 'grip', 'L': 'grip'}, MINF, bend={'spine': SP(0.15)}, d=0.0),
@@ -430,7 +431,7 @@ km13 = [k(0.0, clip='stand'), k(0.0, look=SNIP), TK(0.0, {'R': R5(add(SNIP, [-0.
         k(r(CUT13 + 0.2), look='camera', lookDur=0.2), TK(r(CUT13 + 0.25), {'R': R5(off(MIN13, MRY13, 0.35, 0.25, 1.2)), 'L': R5(off(MIN13, MRY13, 0.25, -0.3, 1.0))}, {'R': 'grip', 'L': 'rest'}, SMUG, (1, 1, 1), d=0.3, keep=True), *blink(1.6, SMUG)]
 st.shot('S13', 'pressRoom', setOpts=PRESS, look=LOOKP, actors=[act('ministre', MIN13, MRY13, 'stand', 'neutral', keys=km13)],
         props=[P('socle13', 'pnPlinth', pos=PLI, ry=-10), P('courbe13', 'pnChart', pos=[0.95, 0, -2.75], ry=-14, opts={'w': 1.0, 'h': 0.75, 'y0': 1.0}), P('ruban13', 'ribbonCut', pos=RIB, opts={'w': 1.0, 'h': 0.95, 'cutAt': CUT13}),
-               P('ciseaux13', 'bigScissors', on={'actor': 'ministre', 'hand': 'R', 'offset': [0, -0.05, 0.06], 'rot': [0, -0.6, 0]}, opts={'snip': [[0, 1], [r(CUT13 - 0.05), 1], [CUT13, 0]]}),
+               P('ciseaux13', 'bigScissors', on={'actor': 'ministre', 'hand': 'R', 'offset': [0, -0.05, 0.06], 'rot': [0, -0.6, 0]}, opts={'len': 0.42, 'handle': '#2A2C31', 'snip': [[0, 1], [r(CUT13 - 0.05), 1], [CUT13, 0]]}),
                P('flash13', 'flashBursts', pos=[0.8, 0.9, 0.3], opts={'n': 5, 'w': 0.6, 'h': 0.5, 'at': [0.2, 0.6, 1.0, 1.05, 1.3, 1.65]})], cams=[C13])
 st.cue('sfx:clink', 'S13', CUT13, 0.45); st.cue('sfx:shutter', 'S13', 1.0, 0.35)
 
@@ -454,7 +455,7 @@ k14 = [k(0.0, clip='stand'), k(0.0, look=add(CARD, [0, 0.3, 0.8])), TK(0.0, {'L'
        TK(r(TAKE14 + 0.24), sq=(1, 1, 1), scl={'head': [1, 1, 1]}, face={'lid': 0.0, 'mouth': 'O', 'brow': 0.9, 'pop': 0.8, 'jaw': 0.25}, d=0.12, keep=True), *blink(0.5, TIRED), *BREATHE(0.1, 1.5, 0.4, 0.02)]
 st.shot('S14', 'pavillon', setOpts=PAV, look={'sunDir': [0.6, 0.9, 0.7]}, actors=[act('mec', HER14, HRY14, 'stand', 'neutral', keys=k14)],
         props=[P('voit14', 'pnCar', pos=CARD, opts={'open': True, 'state': 2}),
-               P('pneu14', 'pnTyre', pos=TY14_0, ry=TRY14, opts={'shine': True, 'towel': 'scarf', 'R': 0.36, 'r': 0.14, 'roll': [[0, 0], [STOP14, -r(math.dist(TY14_0, TY14_1), 3)]]}, keys=[k(0.0, to=TY14_1, dur=STOP14, ease='out'), k(STOP14, squash=[1.18, 0.8, 1.18], dur=0.4)]),
+               P('pneu14', 'pnTyre', pos=TY14_0, ry=TRY14, opts={'shine': True, 'towel': 'scarf', 'scarfAt': 0.1, 'R': 0.36, 'r': 0.14, 'roll': [[0, 0], [STOP14, -r(math.dist(TY14_0, TY14_1), 3)]]}, keys=[k(0.0, to=TY14_1, dur=STOP14, ease='out'), k(STOP14, squash=[1.18, 0.8, 1.18], dur=0.4)]),
                DROP('goutt14a', 'mec', [0.3, 0.5, -0.12], 1.5), DROP('goutt14b', 'mec', [-0.3, 0.46, -0.1], 1.35), DROP('goutt14c', 'mec', [0.0, 0.66, -0.16], 1.25)], cams=[C14])
 st.cue('sfx:squeak', 'S14', STOP14, 0.25)
 
@@ -479,14 +480,14 @@ C16 = cam(0.0, [4.6, 0.45, 2.7], [4.45, 0.45, 2.55], [1.0, 0.95, -1.7], [1.0, 0.
 chk('S16', C16, {'feet': HER16, 'head': add(HER16, [0, 0.1, 2.25]), 'tyre0': add(TY16_0, [0, 0.4, 0]), 'tyre1': add(TY16_1, [0, 0.4, 0]), 'tyreMid': [-3.6, 0.0, -1.6], 'bonnet': add(CARD, [1.95, 0.75, 0])})
 FLATF = {'lid': 1.0, 'mouth': 'line', 'brow': 0.5}
 k16 = [k(0.0, clip='stand'), k(0.0, toon={'lay': [1.52, 0]}, toonDur=0.0), k(0.0, look=[HER16[0], -1.0, 1.0]),
-       TK(0.0, {'L': R5([r(HER16[0] + 0.3), 0.3, r(CARD[2] + 1.15)], 1, 0.0), 'R': R5([r(HER16[0] - 0.3), 0.3, r(CARD[2] + 1.15)], 1, 0.0)}, {'L': 'rest', 'R': 'rest'}, FLATF, bend={'neck': SP(0.6)}, d=0.0, keep=True),
+       TK(0.0, {'L': R5([r(HER16[0] + 0.3), 0.3, r(CARD[2] + 1.15)], 1, 0.0), 'R': R5([r(HER16[0] - 0.3), 0.3, r(CARD[2] + 1.15)], 1, 0.0)}, {'L': 'rest', 'R': 'rest'}, FLATF, bend={'neck': [0.35, 0.0, -1.1, 1, None]}, d=0.0, keep=True),   # (pass 4) his face turned to us, eyes shut
        *[TK(r(0.25 + 0.5 * i), {'L': R5([r(HER16[0] + 0.3 + 0.04 * (i % 2)), 0.3, r(CARD[2] + 1.15)], 1, 0.0), 'R': R5([r(HER16[0] - 0.3 - 0.04 * (i % 2)), 0.3, r(CARD[2] + 1.15)], 1, 0.0)}, d=0.45, keep=True) for i in range(4)],
        *[k(r(0.1 + 0.6 * i), toon={'sq': [1.04, 0.94, 1.04] if i % 2 == 0 else [1, 1, 1]}, toonDur=0.55, keepPose=True) for i in range(4)],   # slow breaths
        TK(1.05, {'R': R5([r(HER16[0] - 0.3), 0.42, r(CARD[2] + 1.3)], 1, 0.0)}, {'R': 'spread'}, d=0.04, keep=True), TK(1.14, {'R': R5([r(HER16[0] - 0.3), 0.3, r(CARD[2] + 1.15)], 1, 0.0)}, {'R': 'rest'}, d=0.08, keep=True)]   # one hand twitches
-RING = [[0, 1.45, -0.6], [0, 1.6, 0.2], [0, 1.55, 1.0], [0, 1.35, 1.75], [0, 1.0, 2.5], [0, 1.0, -1.15], [0.3, 1.85, 0.6]]
+RING = [[0, 1.45, -0.6], [0, 1.6, 0.2], [0, 1.55, 1.0], [0.7, 2.0, 1.4], [0.8, 0.35, 3.1], [0, 1.0, -1.15], [0.3, 1.85, 0.6]]   # (pass 4) clear of his head
 st.shot('S16', 'pavillon', setOpts=PAV, look={'sunDir': [0.6, 0.9, 0.7]}, actors=[act('mec', HER16, 0, 'stand', 'neutral', keys=k16)],
         props=[P('voit16', 'pnCar', pos=CARD, opts={'open': True, 'state': 2}),
-               P('pneu16', 'pnTyre', pos=TY16_0, ry=0, opts={'shine': True, 'towel': 'scarf', 'R': 0.4, 'r': 0.15, 'roll': [[0, 0], [D16, r(TY16_1[0] - TY16_0[0])]]}, keys=[k(0.0, to=TY16_1, dur=D16, ease='linear')]),
+               P('pneu16', 'pnTyre', pos=TY16_0, ry=0, opts={'shine': True, 'towel': 'scarf', 'R': 0.55, 'r': 0.2, 'roll': [[0, 0], [D16, r(TY16_1[0] - TY16_0[0])]]}, keys=[k(0.0, to=TY16_1, dur=D16, ease='linear')]),
                P('glisse16', 'sweatDrop', pos=add(HER16, [0.3, 1.2, 1.2]), scale=2.0, keys=[k(0.3, to=add(HER16, [0.3, 0.12, 1.45]), dur=0.7, ease='in'), k(1.0, squash=[2.2, 0.25, 2.2], dur=0.3), k(1.35, visible=False)]),   # a drop slides off and splats
                *[P(f'goutt16_{i}', 'sweatDrop', pos=add(HER16, p), ry=90, scale=2.3 - 0.15 * (i % 3)) for i, p in enumerate(RING)]], cams=[C16])
 st.cue('sfx:poof', 'S16', 0.3, 0.35)
@@ -494,7 +495,7 @@ st.cue('sfx:poof', 'S16', 0.3, 0.35)
 # ================================================================= S17
 # 17: the framing of S02: the hero sits on the examination table; the doctor runs the stethoscope over him, looks behind his ear and under his
 #    tie for a valve, taps his chest twice, shakes his head and hands back his car keys; held
-D17 = st.dur('S17'); EAR17, TIE17, TAP17, SHAKE17, KEYS17 = 0.7, 1.3, 1.95, 2.35, 2.95
+D17 = st.dur('S17'); EAR17, TIE17, TAP17, SHAKE17, KEYS17 = 0.55, 1.05, 1.6, 1.95, 2.45   # (pass 4) keys earlier: a real hold on the slump
 HER17 = [0.05, 0.36, -0.82]; HRY17 = 10
 DOC17 = [0.95, 0, -1.3]; DRY17 = -40                    # (pass 3) behind him at his left, turned toward us: the glasses read, the arms reach forward
 CHEST = add(HER17, [0.0, 1.15, 0.22]); EAR = add(HER17, [0.24, 1.72, -0.04]); TIE = add(HER17, [0.0, 1.05, 0.24])
@@ -515,7 +516,8 @@ kd17 = [k(0.0, clip='stand'), k(0.0, look=CHEST), TK(0.0, {'R': R5(add(CHEST, [0
         k(SHAKE17, look=add(HER17, [0, 1.6, 0]), lookDur=0.1), *[TK(r(SHAKE17 + 0.18 * i), bend={'spine': SP(0.15), 'neck': SP(0.05, 0.4 if i % 2 == 0 else -0.4)}, face={**GRAVE, 'lid': 0.55}, d=0.17, keep=True) for i in range(3)],
         TK(r(SHAKE17 + 0.54), bend={'spine': SP(0.15), 'neck': SP(0.0, 0.0)}, d=0.08, keep=True),
         TK(KEYS17, {'R': R5(add(HER17, [0.36, 0.95, 0.4]))}, {'R': 'grip'}, GRAVE, d=0.16, keep=True), TK(r(KEYS17 + 0.3), {'R': R5(DRL)}, {'R': 'rest'}, d=0.2, keep=True),
-        k(r(KEYS17 + 0.3), look='camera', lookDur=0.15), *blink(1.75, GRAVE)]
+        k(r(KEYS17 + 0.3), look='camera', lookDur=0.15), *blink(1.75, GRAVE),
+        k(r(KEYS17 + 0.32), to=[1.45, 0, -1.75], dur=0.35, clip='walk', ease='inOut', face='keep'), k(r(KEYS17 + 0.68), clip='stand', blend=0.12)]   # (pass 4) a step back to his right: the hero alone in his slump
 SLUMP = {'lid': 0.65, 'mouth': 'line', 'brow': 0.35}
 kh17 = [k(0.0, clip='sit'), k(0.0, look=CHEST), TK(0.0, {'L': R5(add(HER17, [0.3, 0.55, 0.3])), 'R': R5(add(HER17, [-0.3, 0.55, 0.3]))}, {'L': 'rest', 'R': 'rest'}, {**TIRED, 'gy': 0.5}, d=0.0),   # (pass 3) left hand at +X: no crossed arms
         k(EAR17, look=EAR, lookDur=0.15), TK(EAR17, face={**TIRED, 'gx': 0.7, 'lid': 0.3}, d=0.1, keep=True),       # his eyes follow the hand
@@ -523,7 +525,7 @@ kh17 = [k(0.0, clip='sit'), k(0.0, look=CHEST), TK(0.0, {'L': R5(add(HER17, [0.3
         k(r(TIE17 + 0.08), toon={'tie': [1.15, 1.35, 0.1]}, toonDur=0.15, keepPose=True), k(r(TAP17 - 0.12), toon={'tie': [0.9, 0.0, 0.0]}, toonDur=0.08, keepPose=True), k(r(TAP17 - 0.04), toon={'tie': [1.0, 0.0, 0.0]}, toonDur=0.06, keepPose=True),
         TK(TAP17, sq=(1.03, 0.97, 1.03), d=0.04, keep=True), TK(r(TAP17 + 0.08), sq=(1, 1, 1), d=0.05, keep=True), TK(r(TAP17 + 0.2), sq=(1.03, 0.97, 1.03), d=0.04, keep=True), TK(r(TAP17 + 0.28), sq=(1, 1, 1), d=0.05, keep=True),
         k(SHAKE17, look=add(DOC17, [0, 1.95, 0]), lookDur=0.12), TK(SHAKE17, face={**TIRED, 'brow': 0.7, 'lid': 0.2}, d=0.1, keep=True),
-        *blink(2.78, TIRED), k(KEYS17, look=add(HER17, [0.36, 0.95, 0.4]), lookDur=0.1),
+        *blink(r(KEYS17 - 0.18), TIRED), k(KEYS17, look=add(HER17, [0.36, 0.95, 0.4]), lookDur=0.1),
         TK(r(KEYS17 + 0.08), {'L': R5(add(HER17, [0.36, 0.95, 0.4]))}, {'L': 'grip'}, d=0.14, keep=True),
         TK(r(KEYS17 + 0.3), {'L': R5(add(HER17, [0.28, 0.7, 0.32]))}, {'L': 'grip'}, SLUMP, (1.04, 0.93, 1.04), {'spine': SP(0.35), 'neck': SP(0.3)}, d=0.18, keep=True), k(r(KEYS17 + 0.3), look='camera', lookDur=0.15),
         *blink(1.05, TIRED), *BREATHE(0.2, 2.9, 0.6, 0.014)]
@@ -531,7 +533,7 @@ st.shot('S17', 'hospital', setOpts=HOSP, look=LOOKH, actors=[act('docteur', DOC1
         props=[*OFFICE('S17'), P('steth17', 'pnSteth', on={'actor': 'docteur', 'hand': 'R', 'offset': [0, -0.08, 0.04]}), P('stcou17', 'pnStethNeck', on={'actor': 'docteur', 'joint': 'neck'}),
                P('clesdoc17', 'pnKeys', on={'actor': 'docteur', 'hand': 'R', 'offset': [0, -0.08, 0.03]}, keys=[k(0.0, visible=False), k(r(KEYS17 - 0.3), visible=True), k(r(KEYS17 + 0.16), visible=False)]),
                P('clesmec17', 'pnKeys', on={'actor': 'mec', 'hand': 'L', 'offset': [0, -0.08, 0.03]}, keys=[k(0.0, visible=False), k(r(KEYS17 + 0.16), visible=True)]),
-               DROP('goutt17', 'mec', [0.22, 0.36, 0.0], 1.6)], cams=[C17])
+               DROP('goutt17', 'mec', [-0.24, 0.36, 0.0], 1.6)], cams=[C17])
 st.cue('sfx:bonk', 'S17', TAP17, 0.25); st.cue('sfx:bonk', 'S17', r(TAP17 + 0.2), 0.25); st.cue('sfx:clink', 'S17', KEYS17, 0.3)
 
 # a toon key that names one hand's reach replaces the whole reach (keepPose merges only the top level): carry the other hand's reach and hand
@@ -551,7 +553,7 @@ st.write("Le pneu", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLif
     'mec': MEC,
     'docteur': {'preset': 'doctor', 'seed': 971, 'hat': 'none', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'psy': {'preset': 'proviseur', 'seed': 972, 'hat': 'none', 'suit': '#8A6A4A', 'lapel': '#7A5A3A', 'tie': '#3A5A4A', 'hair': 'receding', 'hairColor': '#9A9A96', 'facial': 'beard', 'glasses': True, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
-    'ministre': {'preset': 'politique', 'seed': 973, 'hat': 'none', 'suit': '#2A2D33', 'lapel': '#2A2D33', 'tie': '#3C66B0', 'shirt': '#D8DEE6', 'hairColor': '#BDBDBD', 'glasses': False, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
+    'ministre': {'preset': 'politique', 'seed': 973, 'hat': 'none', 'suit': '#454A54', 'lapel': '#3C414A', 'tie': '#3C66B0', 'shirt': '#D8DEE6', 'hairColor': '#BDBDBD', 'glasses': False, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'pharma': {'preset': 'femme', 'seed': 974, 'outfit': 'doctor', 'suit': '#F4F4F0', 'lapel': '#F4F4F0', 'tie': '#4FA36A', 'hat': 'none', 'glasses': True, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'malade1': {**GOWN, 'preset': 'pyjama', 'seed': 981, 'hair': 'crew', 'hairColor': '#3A3028'},
     'malade2': {**GOWN, 'preset': 'mamie', 'seed': 982, 'outfit': 'pajamas'},

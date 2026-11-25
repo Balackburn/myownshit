@@ -115,10 +115,10 @@ function tyreMesh(o = {}) {
     if (o.towel === 'scarf') {
       // (pass 3) a short thick towel wound round the top like a scarf (a long arc read as a mudguard): a fat white roll over the top third, a knot
       // on the front and two short stubby ends sticking out
-      const roll = new THREE.Mesh(new THREE.TorusGeometry(ru.Rt + 0.02, r * 0.95, 8, 14, PI * 0.42), mat('#F6F4EE')); roll.rotation.z = PI * 0.29; roll.castShadow = true; addOutline(roll, 0.05); drapes.add(roll);
-      for (let i = 0; i < 3; i++) { const st = new THREE.Mesh(new THREE.TorusGeometry(ru.Rt + 0.02, r * 0.97, 6, 3, 0.05), mat('#6E9FD4')); st.rotation.z = PI * (0.36 + i * 0.12); drapes.add(st); }
-      const knot = sphere(r * 1.05, '#F6F4EE', 1, { outline: 0.06 }); knot.position.set(0, ru.Rt + 0.02, r * 0.9); drapes.add(knot);
-      for (const sd of [-1, 1]) drapes.add(at(box(0.11, 0.2, 0.07, '#F6F4EE', { pivot: 'top', outline: 0.04 }), sd * 0.07, ru.Rt + 0.0, r * 1.3, 0.25, 0, sd * 0.55));
+      const roll = new THREE.Mesh(new THREE.TorusGeometry(ru.Rt + 0.02, r * 0.95, 8, 14, PI * 0.42), mat('#F6F4EE')); roll.rotation.z = PI * (o.scarfAt ?? 0.29); roll.castShadow = true; addOutline(roll, 0.05); drapes.add(roll);   // (pass 4) o.scarfAt: where the roll sits round the rim (0.29 top, 0.1 the shoulder)
+      for (let i = 0; i < 3; i++) { const st = new THREE.Mesh(new THREE.TorusGeometry(ru.Rt + 0.02, r * 0.97, 6, 3, 0.05), mat('#6E9FD4')); st.rotation.z = PI * ((o.scarfAt ?? 0.29) + 0.07 + i * 0.12); drapes.add(st); }
+      const knot = sphere(r * 1.05, '#F6F4EE', 1, { outline: 0.06 }); const ka = PI * ((o.scarfAt ?? 0.29) + 0.21); knot.position.set(Math.cos(ka) * (ru.Rt + 0.02), Math.sin(ka) * (ru.Rt + 0.02), r * 0.9); drapes.add(knot);
+      for (const sd of [-1, 1]) drapes.add(at(box(0.11, 0.24, 0.07, '#F6F4EE', { pivot: 'top', outline: 0.04 }), knot.position.x + sd * 0.07, knot.position.y, r * 1.3, 0.25, 0, sd * 0.4));
     } else {
       // (pass 2) folded over the top, not a hood: a narrower arc, small side flaps, two ends hanging at the sides
       drapes.add(drape(PI * 0.62, r * 2.4, tm, ru.Rt + 0.02));
@@ -224,7 +224,7 @@ function carBuild(o = {}) {
   if (o.sparks) for (const [x, z] of WP) { const sg = grp(), st = []; for (let i = 0; i < 9; i++) { const m = noShadow(new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.014, 0.014), new THREE.MeshBasicMaterial({ color: i % 3 ? '#FFB23A' : '#FFF2A8' }))); sg.add(m); st.push(m); } sg.position.set(x, 0.02, z + Math.sign(z) * 0.08); g.add(sg); sparkSets.push({ sg, st }); }
   // a dust puff at each wheel when it drops (o.dust: true)
   const puffs = [];
-  if (o.dust) for (const [x, z] of WP) { const pg = grp(); for (let i = 0; i < 4; i++) { const m = noShadow(sphere(0.22, '#D8CFBA', 0, { unique: true, opacity: 0.9 })); pg.add(m); } pg.position.set(x, 0.05, z + Math.sign(z) * 0.15); g.add(pg); puffs.push(pg); }
+  if (o.dust) for (const [x, z] of WP) { const pg = grp(); for (let i = 0; i < 4; i++) { const m = noShadow(sphere(0.34 * (o.dustS ?? 1), '#D8CFBA', 0, { unique: true, opacity: 0.9 })); pg.add(m); } pg.position.set(x, 0.05, z + Math.sign(z) * 0.15); g.add(pg); puffs.push(pg); }   // (pass 4) bigger puffs; o.dustS
   const R0 = 0.31;
   const update = t => {
     const st = [0, 1, 2, 3].map(i => kv(keysOf(i), t, 0)), roll = o.roll ? kv(o.roll, t, 0) : 0;
@@ -247,7 +247,7 @@ function carBuild(o = {}) {
       ss.forEach((m, j) => { const per = 0.3, u = ((t + j * 0.037) % per) / per, a = PI * (0.75 + 0.5 * hsh(j)); m.position.set(Math.cos(a) * 0.9 * u, 0.02 + 0.35 * u * (1 - u) * (1 + hsh(j + 3)), (hsh(j + 7) - 0.5) * 0.3 * u); m.rotation.z = -a; m.scale.x = 1 - u * 0.6; });
     });
     puffs.forEach((pg, i) => { const tc = lastChange(keysOf(i), t), u = tc == null ? -1 : t - tc - 0.05; const on = u > 0 && u < 0.9; pg.visible = on; if (!on) return;
-      pg.children.forEach((m, j) => { const a = j / 4 * TAU + 0.6; m.position.set(Math.cos(a) * 0.5 * smooth(u * 1.6), 0.1 + 0.25 * u, Math.sin(a) * 0.3 * smooth(u * 1.6)); m.scale.setScalar(0.5 + 1.4 * smooth(u * 1.4)); m.material.opacity = 0.85 * (1 - smooth((u - 0.3) / 0.6)); }); });
+      pg.children.forEach((m, j) => { const a = j / 4 * TAU + 0.6; m.position.set(Math.cos(a) * 0.8 * smooth(u * 1.6), 0.1 + 0.35 * u, Math.sin(a) * 0.5 * smooth(u * 1.6)); m.scale.setScalar(0.5 + 1.4 * smooth(u * 1.4)); m.material.opacity = 0.85 * (1 - smooth((u - 0.3) / 0.6)); }); });
     if (cargo) cargo.userData.update(t);
   };
   return { g, update };
@@ -274,7 +274,7 @@ function vanBuild(o = {}) {
   const keysOf = i => (o.wheels && o.wheels[i] != null) ? o.wheels[i] : (o.state ?? 0), R0 = 0.38;
   const update = t => {
     const st = [0, 1, 2, 3].map(i => kv(keysOf(i), t, 0)), h = st.map((s, i) => wheels[i].axle(s)), roll = o.roll ? kv(o.roll, t, 0) : 0;
-    wheels.forEach((w, i) => { w.set(st[i], -roll / R0); w.g.position.y = h[i]; });
+    wheels.forEach((w, i) => { const f = clamp01(st[i]); w.set(st[i], -roll / R0); w.g.scale.set(1 + 0.3 * f, 1 - 0.12 * f, (1 + 0.25 * f) * Math.sign(WP[i][1])); w.g.position.y = h[i] * (1 - 0.12 * f); });   // (pass 4) a van's flat tyre spreads wider, so it reads under the body
     const front = (h[0] + h[1]) / 2, back = (h[2] + h[3]) / 2; body.position.y = (front + back) / 2 - R0; body.rotation.z = Math.atan2(front - back, 3.35);
   };
   g.userData.back = [-2.64, 1.3, 0];
@@ -351,7 +351,7 @@ export const PNEU_PROPS = {
     for (const [z, x0, cnt, gap] of lanes) for (let i = 0; i < cnt; i++) {
       const x = x0 - i * (gap ?? 5.2) + (hsh(n) - 0.5) * 0.6, td = t0 + Math.max(0, x - farX) / speed + (hsh(n + 9) - 0.5) * 0.08;
       const drv = o.drivers && (o.drivers === 'all' || n % 3 === 1);
-      const c = carBuild({ color: cols[n % cols.length], lite: o.lite ?? true, state: [[td, 0], [td + 0.07, 1]], dust: true, driver: drv ? '#E0B48A' : null, leanOut: drv ? [td + 0.35, 99] : null });
+      const c = carBuild({ color: cols[n % cols.length], lite: o.lite ?? true, state: [[td, 0], [td + 0.07, 1]], dust: true, dustS: o.dustS, driver: drv ? '#E0B48A' : null, leanOut: drv ? [td + 0.35, 99] : null });
       c.g.position.set(x, 0, z + (hsh(n + 3) - 0.5) * 0.25); c.g.rotation.y = (hsh(n + 5) - 0.5) * 0.05; g.add(c.g); cars.push(c); n++;
     }
     if (o.road !== false) {
@@ -515,22 +515,27 @@ export const PNEU_PROPS = {
     g.userData.update(-1); return g;
   },
 
-  // A plain foot pump (pivot at the floor in its middle, front +Z): a dark grey footplate, a yellow pedal hinged at the back over a fat red-orange
-  // cylinder, a round dial with a needle and no figure, a black hose coiling out to a brass nozzle; o.pumpAt [t, ...]: the pedal goes down and up
+  // A plain foot pump (pivot at the floor in its middle, front +Z)
   pnPump(o) {
-    // (pass 2) a plain foot pump read side on (long along X, seen from +Z): a dark base plate, a long red pedal hinged at the -X end and raised at
-    // +X on a silver piston, a spring, a black hose from the hinge curling back to a brass nozzle; o.pumpAt [t, ...]: the pedal goes down and up
+    // (pass 4) a classic foot pump read side on (long along X, seen from +Z): a dark foot plate with a ribbed tread, a fat round red barrel lying
+    // at a slant from the hinge, a grey pedal plate on top of it, a big round dial with a needle and no figure on the barrel's side, a black
+    // hose coiling from the hinge to a brass nozzle; o.pumpAt [t, ...]: the pedal and barrel go down and up
     const s = o.s ?? 1, g = grp(), k = grp(); g.add(k); k.scale.setScalar(s);
-    k.add(at(box(0.44, 0.03, 0.14, '#33363C', { pivot: 'bottom', outline: 0.03 }), 0, 0, 0), at(cyl(0.025, 0.025, 0.16, '#33363C', 8), -0.2, 0.05, 0, PI / 2));
-    const piston = at(cyl(0.035, 0.035, 0.12, '#C9CED4', 10, { outline: 0.03 }), 0.12, 0.09, 0); k.add(piston);
-    const rod2 = at(cyl(0.014, 0.014, 0.1, '#8A9098', 6), 0.12, 0.16, 0); k.add(rod2);
-    const ped = grp(at(box(0.42, 0.035, 0.12, '#D23A2E', { outline: 0.03 }), 0.21, 0, 0), at(box(0.12, 0.012, 0.1, '#1E2126'), 0.33, 0.022, 0)); ped.position.set(-0.2, 0.06, 0); k.add(ped);
-    const curve = new THREE.CatmullRomCurve3([[-0.2, 0.05, 0.0], [-0.32, 0.06, 0.03], [-0.36, 0.2, 0.04], [-0.24, 0.3, 0.03], [-0.1, 0.24, 0.02]].map(p => new THREE.Vector3(...p)));
-    k.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 24, 0.014, 6), mat('#1E2126')), at(cyl(0.018, 0.018, 0.06, '#C9A23A', 8, { outline: 0.03 }), -0.08, 0.23, 0.02, 0, 0, -1.0));
-    g.userData.update = t => { let p = 0; for (const a of (o.pumpAt || [])) { const u = t - a; if (u >= 0 && u < 0.35) p = Math.max(p, u < 0.12 ? u / 0.12 : 1 - (u - 0.12) / 0.23); }
-      const a = 0.36 * (1 - 0.6 * p); ped.rotation.z = a; const yTip = 0.06 + Math.sin(a) * 0.32; rod2.position.y = (0.15 + yTip) / 2; rod2.scale.y = Math.max(0.2, (yTip - 0.15) / 0.1 + 1); };
+    k.add(at(box(0.46, 0.035, 0.18, '#2E3136', { pivot: 'bottom', outline: 0.03 }), 0, 0, 0));
+    for (let i = 0; i < 4; i++) k.add(at(box(0.03, 0.012, 0.16, '#4A4E55'), 0.08 + i * 0.045, 0.04, 0));
+    const arm = grp(); arm.position.set(-0.2, 0.06, 0); k.add(arm);
+    arm.add(at(cyl(0.065, 0.065, 0.3, '#D23A2E', 14, { outline: 0.03 }), 0.17, 0.0, 0, 0, 0, PI / 2), at(cyl(0.07, 0.07, 0.03, '#2A2C31', 14), 0.02, 0, 0, 0, 0, PI / 2), at(cyl(0.07, 0.07, 0.03, '#2A2C31', 14), 0.32, 0, 0, 0, 0, PI / 2));
+    arm.add(at(box(0.2, 0.025, 0.14, '#9AA0A8', { outline: 0.03 }), 0.3, 0.08, 0), at(box(0.16, 0.008, 0.1, '#1E2126'), 0.3, 0.095, 0));
+    const dial = canvasPlane(0.1, 0.1, (c, W, H) => { c.clearRect(0, 0, W, H); c.fillStyle = '#FBFAF4'; c.beginPath(); c.arc(W / 2, H / 2, W * 0.46, 0, TAU); c.fill(); c.lineWidth = W * 0.07; c.strokeStyle = '#1E2126'; c.stroke();
+      c.lineWidth = W * 0.03; for (let i = 0; i < 7; i++) { const a = PI * (0.8 + i * 0.233); c.beginPath(); c.moveTo(W / 2 + Math.cos(a) * W * 0.32, H / 2 + Math.sin(a) * W * 0.32); c.lineTo(W / 2 + Math.cos(a) * W * 0.4, H / 2 + Math.sin(a) * W * 0.4); c.stroke(); }
+      c.strokeStyle = '#D23A2E'; c.lineWidth = W * 0.05; c.beginPath(); c.moveTo(W / 2, H / 2); c.lineTo(W * 0.74, H * 0.3); c.stroke(); }, { res: 128, transparent: true, emissive: 0.3 });
+    arm.add(at(cyl(0.055, 0.055, 0.03, '#2A2C31', 14), 0.17, 0.0, 0.07, PI / 2), at(dial, 0.17, 0.0, 0.087));
+    const curve = new THREE.CatmullRomCurve3([[-0.2, 0.06, -0.03], [-0.3, 0.05, -0.02], [-0.33, 0.18, 0.0], [-0.22, 0.28, 0.02], [-0.08, 0.24, 0.02]].map(p => new THREE.Vector3(...p)));
+    k.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 24, 0.014, 6), mat('#1E2126')), at(cyl(0.018, 0.018, 0.06, '#C9A23A', 8, { outline: 0.03 }), -0.06, 0.23, 0.02, 0, 0, -1.0));
+    g.userData.update = t => { let p = 0; for (const a of (o.pumpAt || [])) { const u = t - a; if (u >= 0 && u < 0.35) p = Math.max(p, u < 0.12 ? u / 0.12 : 1 - (u - 0.12) / 0.23); } arm.rotation.z = 0.38 * (1 - 0.55 * p); };
     g.userData.update(-1); return g;
   },
+
 
 
   // A round sticker (pivot at its middle, faces +Z): a disc o.r (0.16) two thirds green and one third pale (a pie chart), a white border and a
