@@ -95,7 +95,7 @@ def life(t0, t1, face, ph=0.0, blinks=(), period=0.9, amp=0.013):
         t_ += period / 2; i += 1
     for b in bl: out += blink(r(b), face)
     return out
-def HAND(pid, pos, ry, **o): return P(pid, 'chifHand', pos=pos, ry=ry, opts=o)
+def HAND(pid, pos, ry, keys=None, **o): return P(pid, 'chifHand', pos=pos, ry=ry, opts=o, **({'keys': keys} if keys else {}))
 def HEADSET(pid, who): return P(pid, 'chifHeadset', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={'w': 0.32})
 def APRON(pid, who): return P(pid, 'chifApron', on={'actor': who, 'joint': 'torso', 'offset': [0.0, -0.1, 0.14]}, opts={'h': 1.1, 'w': 0.4})
 def hand_tip(elbow, ry, s, sleeve, tilt=0.0, ahead=0.1):
@@ -261,7 +261,7 @@ CL5 = [0.0, 0, -1.2]; CLH = 1.2
 HM5 = [-0.42, 0, -1.65]; RYM5 = 28                                        # he stands beside the clamp, his left forearm in the jaws
 EH5 = [0.0, CLH + 0.02, -1.32]; RYE5 = 0                                   # the forearm in the clamp, the fist out toward +Z
 FIST5 = hand_tip(EH5, RYE5, 1.5, 0.22)
-SAV5 = [[1.45, 0, -1.25], [-0.15, 0, -3.1]]
+SAV5 = [[0.4, 0, -3.7], [-0.25, 0, -3.05]]
 # 5: scientists filmed his hand at ten thousand frames a second. His fist sits in an orange padded clamp under two bright lamps; two scientists in
 #    white coats write on clipboards; a big camera on rails slides slowly toward the fist (the lens a hand from it by the end); he looks at us
 D5 = st.dur('S05')
