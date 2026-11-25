@@ -291,7 +291,9 @@ export const FUITE_PROPS = {
   },
 
   // A big rubber stamp (pivot at its handle grip; held upright, the pad at -Y): a red ball handle, a wooden neck and a dark pad 0.2 wide
-  fuStamp(o) { const s = o.s ?? 1, g = grp(at(sphere(0.07 * s, '#C23A2E', 1, { outline: 0.04 }), 0, 0, 0), at(cyl(0.035 * s, 0.045 * s, 0.14 * s, '#8A5A38', 8, { outline: 0.03 }), 0, -0.1 * s, 0), at(box(0.2 * s, 0.05 * s, 0.14 * s, '#2A2C31', { outline: 0.03 }), 0, -0.19 * s, 0)); return g; },
+  fuStamp(o) { const s = o.s ?? 1, k = grp(at(sphere(0.07 * s, '#C23A2E', 1, { outline: 0.04 }), 0, 0, 0), at(cyl(0.035 * s, 0.045 * s, 0.14 * s, '#8A5A38', 8, { outline: 0.03 }), 0, -0.1 * s, 0), at(box(0.2 * s, 0.05 * s, 0.14 * s, '#2A2C31', { outline: 0.03 }), 0, -0.19 * s, 0)), g = grp(k);
+    g.userData.update = t => { const u = o.hitAt != null ? t - o.hitAt : -1, q = u >= 0 && u < 0.2 ? Math.exp(-14 * u) * Math.cos(u * 40) : 0; k.scale.set(1 + 0.3 * q, 1 - 0.35 * q, 1 + 0.3 * q); };   // o.hitAt: it squashes on the paper and jiggles back
+    g.userData.update(-1); return g; },
 
   // A drawing board on an easel (pivot at the floor in its middle, faces +Z): a white board with a blue drawing of a sink with its tap and the drop
   // under it, circled in red (no word)
@@ -322,6 +324,39 @@ export const FUITE_PROPS = {
   // A boom microphone (pivot at the hand end): a thin black pole to o.b (relative point), a fat mic standing up at its end; o.s mic scale
   fuBoom(o) {
     const b = o.b ?? [0, 0.3, -1.2], g = grp(rod([0, 0, 0], b, 0.014, '#2A2C31')), m = FUITE_PROPS.fuMic({}); m.scale.setScalar(o.s ?? 1.4); m.position.set(b[0], b[1] + 0.1 * (o.s ?? 1.4), b[2]); g.add(m);
+    return g;
+  },
+  // Chunky handcuffs (pivot between the two cuffs, chain along X): two fat steel rings standing up, facing +Z, a short chain
+  fuCuffs(o) {
+    const s = o.s ?? 1, g = grp(), m = new THREE.MeshPhongMaterial({ color: '#B9C0C8', shininess: 80 });
+    for (const sx of [-1, 1]) { const c = new THREE.Mesh(new THREE.TorusGeometry(0.075 * s, 0.022 * s, 8, 18), m); c.position.x = sx * 0.12 * s; addOutline(c, 0.04); g.add(c); }
+    for (let i = -1; i <= 1; i++) { const l = new THREE.Mesh(new THREE.TorusGeometry(0.018 * s, 0.006 * s, 4, 8), m); l.position.x = i * 0.03 * s; l.rotation.y = i % 2 ? PI / 2 : 0; g.add(l); }
+    return g;
+  },
+  // A pour of concrete (pivot at the chute's lip): a steel chute from o.from (relative) down to the lip, then a fat grey ribbon falling on a gravity
+  // arc to o.to (relative) where it splashes in a squash; o.pour [t0, t1]; o.r its thickness
+  fuPour(o) {
+    const g = grp(), R0 = o.r ?? 0.2, to = new THREE.Vector3(...(o.to || [-0.8, -1.9, -0.8])), fr = o.from || [1.2, 0.5, 0.7];
+    g.add(rod(fr, [0, 0, 0], 0.16, '#8A939B'), rod(fr.map((v, i) => v + [0, 0.12, 0][i]), [0, 0.12, 0], 0.05, '#6E767E'));   // the chute (its trough edge)
+    const vx = new THREE.Vector3(-fr[0], -fr[1], -fr[2]).normalize().multiplyScalar(0.5); vx.y = Math.max(vx.y, 0.05);   // leaves the lip moving along the chute
+    const pt = u => new THREE.Vector3(vx.x * 2 * u * (1 - u) + to.x * u * u + to.x * 0 * u, vx.y * 2 * u * (1 - u) + to.y * u * u, vx.z * 2 * u * (1 - u) + to.z * u * u);   // a quadratic arc: lip -> to
+    const curve = new THREE.CatmullRomCurve3([0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1].map(pt)), mt = new THREE.MeshLambertMaterial({ color: '#9AA0A3' });
+    const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 40, R0, 10, false), mt); g.add(tube); addOutline(tube, 0.01);
+    const lumps = [0, 1, 2, 3, 4].map(() => { const m = new THREE.Mesh(new THREE.SphereGeometry(R0 * 1.25, 8, 6), mt); g.add(m); return m; });
+    const splat = new THREE.Mesh(new THREE.SphereGeometry(R0 * 2.4, 14, 8), mt); addOutline(splat, 0.01); splat.position.copy(to); g.add(splat);
+    const drops = [0, 1, 2, 3, 4, 5].map(() => { const m = new THREE.Mesh(new THREE.SphereGeometry(R0 * 0.45, 6, 5), mt); g.add(m); return m; });
+    const n = tube.geometry.index.count;
+    g.userData.update = t => { const on = o.pour && t >= o.pour[0]; const u = on ? clamp01((t - o.pour[0]) / 0.35) : 0; tube.visible = u > 0; tube.geometry.setDrawRange(0, Math.floor(n * u / 6) * 6);   // the ribbon grows down its arc
+      lumps.forEach((m, i) => { const f = (((t * 1.4 + i / 5) % 1) + 1) % 1; m.visible = u >= 1; m.position.copy(curve.getPoint(f)); m.scale.setScalar(0.8 + 0.3 * Math.sin(i * 2 + t * 9)); });
+      const w = on ? t - o.pour[0] - 0.35 : -1; splat.visible = w > 0; const hit = w > 0 && w < 0.25 ? Math.sin(w / 0.25 * PI) : 0;
+      splat.scale.set(1.2 + 0.8 * hit + 0.12 * Math.sin(t * 15), 0.42 - 0.25 * hit + 0.06 * Math.sin(t * 15 + 1), 1.1 + 0.6 * hit + 0.12 * Math.sin(t * 13));   // the squash-splat
+      drops.forEach((m, i) => { const du = w > 0 ? (w + i * 0.13) % 0.55 : -1; m.visible = du > 0; if (du <= 0) return; const a = i / 6 * TAU; m.position.set(to.x + Math.cos(a) * 0.6 * du * 2, to.y + 1.4 * du - 2.6 * du * du, to.z + Math.sin(a) * 0.5 * du * 2); }); };
+    g.userData.update(-1); return g;
+  },
+  // Bib overalls over the shirt (attach to the torso joint): a front bib panel with two buttons and two straps over the shoulders; o.color
+  fuOveralls(o) {
+    const c = o.color || '#3E7FD6', w = o.w ?? 0.34, g = grp(at(box(w, 0.36, 0.03, c, { outline: 0.02 }), 0, 0, 0), at(box(w * 0.5, 0.12, 0.01, '#2E66B4'), 0, 0.02, 0.018));
+    for (const sx of [-1, 1]) g.add(at(box(0.06, 0.42, 0.03, c, { outline: 0.02 }), sx * w * 0.36, 0.36, -0.02, -0.25, 0, 0), at(sphere(0.022, '#E2B23A', 1), sx * w * 0.36, 0.16, 0.02));
     return g;
   },
   fuTV(o) {
@@ -363,12 +398,12 @@ export const FUITE_PROPS = {
   // o.rise [t0, t1]: it rises from the floor; o.hole [x, y]: a chiselled hole in its front (dark, with chipped edges)
   fuConcrete(o) {
     const W = o.w ?? 6.8, H = o.h ?? 2.6, D = o.d ?? 2.6, g = grp(), k = grp(); g.add(k);
-    const cv = document.createElement('canvas'); cv.width = cv.height = 256; const cx = cv.getContext('2d'); cx.fillStyle = '#A9ADAF'; cx.fillRect(0, 0, 256, 256);
-    for (let i = 0; i < 900; i++) { const v = 150 + Math.floor(hsh(i) * 40); cx.fillStyle = `rgba(${v},${v + 3},${v + 5},0.55)`; cx.fillRect(hsh(i + 1) * 256, hsh(i + 2) * 256, 2 + hsh(i + 3) * 4, 2 + hsh(i + 4) * 4); }
-    for (let i = 0; i < 14; i++) { cx.fillStyle = 'rgba(120,124,126,0.18)'; cx.beginPath(); cx.ellipse(hsh(i + 50) * 256, hsh(i + 60) * 256, 20 + hsh(i + 70) * 40, 10 + hsh(i + 80) * 20, hsh(i) * 3, 0, TAU); cx.fill(); }
-    const tx = new THREE.CanvasTexture(cv); tx.colorSpace = THREE.SRGBColorSpace; tx.wrapS = tx.wrapT = THREE.RepeatWrapping; tx.repeat.set(W / 1.3, H / 1.3);
+    const cv = document.createElement('canvas'); cv.width = cv.height = 1024; const cx = cv.getContext('2d'); cx.fillStyle = '#A9ADAF'; cx.fillRect(0, 0, 1024, 1024);
+    for (let i = 0; i < 70; i++) { const dk = hsh(i + 9) < 0.5; cx.fillStyle = dk ? 'rgba(110,114,118,0.55)' : 'rgba(205,208,210,0.6)'; cx.beginPath(); cx.arc(hsh(i + 1) * 1024, hsh(i + 2) * 1024, 3 + hsh(i + 3) * 7, 0, TAU); cx.fill(); }   // a few air bubbles
+    for (let i = 0; i < 6; i++) { cx.fillStyle = 'rgba(140,144,146,0.22)'; cx.beginPath(); cx.ellipse(hsh(i + 50) * 1024, hsh(i + 60) * 1024, 60 + hsh(i + 70) * 120, 30 + hsh(i + 80) * 60, hsh(i) * 3, 0, TAU); cx.fill(); }   // and damp patches
+    const tx = new THREE.CanvasTexture(cv); tx.colorSpace = THREE.SRGBColorSpace; tx.repeat.set(1, 1);   // one canvas over the whole face: nothing repeats
     const cm = new THREE.MeshLambertMaterial({ map: tx }), blk = new THREE.Mesh(new THREE.BoxGeometry(W, H, D), cm); blk.position.set(0, H / 2, D / 2); blk.receiveShadow = true; addOutline(blk, 0.004); k.add(blk);   // mottled concrete, not a flat grey
-    const lip = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.11, W, 10), cm); lip.rotation.z = PI / 2; lip.position.set(0, H + 0.01, D - 0.06); k.add(lip);   // a rounded lip along the front top edge
+    for (const [lx, lz, lr, lh] of (o.lumps || [])) { const lm = new THREE.Mesh(new THREE.SphereGeometry(1, 14, 8), cm); lm.scale.set(lr, lh, lr * 0.85); lm.position.set(lx, H, lz); k.add(lm); }   // o.lumps [[x, z, r, h], ...]: the top heaves in lumps
     if (o.slope) { const sl = o.slope, len = Math.hypot(sl[1], sl[0]), w2 = new THREE.Mesh(new THREE.BoxGeometry(W, 0.16, len), cm); w2.position.set(0, H + sl[0] / 2 - 0.04, sl[2] + sl[1] / 2); w2.rotation.x = Math.atan2(sl[0], sl[1]); k.add(w2); }   // o.slope [rise, depth, z0]: the top heaves up toward the back wall
     const fx = o.fx ?? -2.1, FH = o.fh ?? 0.5, FW = o.fw ?? 0.8, FD = 0.7, fr = grp(at(box(FW, FH, FD, '#F6F6F2', { pivot: 'bottom', outline: 0.012 }), 0, 0, 0), at(box(FW, 0.022, FD + 0.012, '#B9BCB6'), 0, FH * 0.66, 0));   // the freezer door seam
     fr.add(at(box(0.025, FH, 0.025, '#C9CCC6'), -FW / 2 + 0.012, FH / 2, FD / 2), at(box(0.025, FH, 0.025, '#C9CCC6'), FW / 2 - 0.012, FH / 2, FD / 2), at(box(FW, 0.025, 0.025, '#DADDD6'), 0, FH - 0.012, FD / 2));   // shaded edges
@@ -376,7 +411,7 @@ export const FUITE_PROPS = {
     fr.add(at(box(0.035, 0.12, 0.04, '#B7C2C9', { outline: 0.02 }), FW / 2 - 0.14, 0.13, FD / 2 + 0.03));   // the end of a handle, sinking into the concrete
     const mg = grp(at(cyl(0.12, 0.12, 0.035, '#E8463C', 16, { outline: 0.03 }), 0, 0, 0, PI / 2), at(sphere(0.03, '#FFFFFF', 0), -0.04, 0.04, 0.025), at(box(0.04, 0.06, 0.02, '#3E8E3A'), 0.0, 0.13, 0));   // a big red apple magnet, a leaf
     const MY = FH * 0.5; mg.position.set(-0.12, MY, FD / 2 + 0.02); fr.add(mg);
-    fr.position.set(fx, H - 0.12, o.fz ?? 0.4); if (!o.upright) fr.rotation.set(0.1, 0.45, 0.22); k.add(fr);   // o.fz: how far forward the fridge corner sticks out; o.upright: square to the block
+    fr.position.set(fx, H - 0.12, o.fz ?? 0.4); if (o.ftilt) fr.rotation.set(...o.ftilt); else if (!o.upright) fr.rotation.set(0.1, 0.45, 0.22); k.add(fr);   // o.ftilt [rx, ry, rz]: how it sticks out askew   // o.fz: how far forward the fridge corner sticks out; o.upright: square to the block
     if (o.hole) { const [hx, hy] = o.hole, sh = new THREE.Shape(); for (let i = 0; i <= 12; i++) { const a = i / 12 * TAU, rr = 1 + 0.12 * Math.sin(i * 2.7); const px = Math.cos(a) * 0.46 * rr, py = Math.sin(a) * 0.38 * rr; if (i) sh.lineTo(px, py); else sh.moveTo(px, py); }
       k.add(at(new THREE.Mesh(new THREE.ShapeGeometry(sh), new THREE.MeshBasicMaterial({ color: '#5C6168' })), hx, hy, D + 0.012), at(box(0.62, 0.05, 0.03, '#E6EAEE', { emissive: '#8A9098' }), hx, hy - 0.08, D + 0.02), at(box(0.06, 0.3, 0.03, '#E6EAEE', { emissive: '#8A9098' }), hx + 0.28, hy + 0.06, D + 0.02));   // the inside lit: the old pipe shows   // a rough dark hole, the old pipe in it
       for (let i = 0; i < 14; i++) { const a = i / 14 * TAU; k.add(at(box(0.16 + 0.06 * hsh(i), 0.12 + 0.05 * hsh(i + 4), 0.12, i % 2 ? '#8E9294' : '#B8BCBE', { outline: 0.02 }), hx + Math.cos(a) * 0.52, hy + Math.sin(a) * 0.43, D + 0.04, hsh(i) * 0.4, 0, a)); } }
@@ -399,8 +434,9 @@ export const FUITE_PROPS = {
   // water that rises over the crisps; o.splashAt: a drop lands in it (a ring)
   fuBowl(o) {
     const r = o.r ?? 0.17, g = grp(at(cyl(r, r * 0.6, r * 0.6, '#D9473A', 14, { pivot: 'bottom', outline: 0.03 }), 0, 0, 0));
-    const crisps = []; for (let i = 0; i < 14; i++) { const a = hsh(i) * TAU, rr = r * 0.75 * Math.sqrt(hsh(i + 3)); const c = at(box(0.06, 0.008, 0.045, '#F2C94C', { outline: 0.05 }), Math.cos(a) * rr, r * 0.55 + hsh(i + 5) * 0.03, Math.sin(a) * rr, hsh(i + 7) - 0.5, a, hsh(i + 9) - 0.5); g.add(c); crisps.push(c); }
-    const w = new THREE.Mesh(new THREE.CylinderGeometry(r * 0.97, r * 0.7, 0.01, 14), new THREE.MeshLambertMaterial({ color: '#5FB7E8', transparent: true, opacity: 0.8 })); g.add(w);
+    const crisps = []; for (let i = 0; i < (o.crisps === false ? 0 : 14); i++) { const a = hsh(i) * TAU, rr = r * 0.75 * Math.sqrt(hsh(i + 3)); const c = at(box(0.06, 0.008, 0.045, '#F2C94C', { outline: 0.05 }), Math.cos(a) * rr, r * 0.55 + hsh(i + 5) * 0.03, Math.sin(a) * rr, hsh(i + 7) - 0.5, a, hsh(i + 9) - 0.5); g.add(c); crisps.push(c); }
+    const w = new THREE.Mesh(new THREE.CylinderGeometry(r * 0.97, r * 0.7, 0.01, 14), new THREE.MeshLambertMaterial({ color: '#4FA8E8', emissive: '#1E5A86', transparent: true, opacity: 0.9 })); g.add(w);
+    const men = new THREE.Mesh(new THREE.TorusGeometry(r * 0.9, r * 0.05, 6, 20), new THREE.MeshLambertMaterial({ color: '#CFEFFF', emissive: '#5A8AA8' })); men.rotation.x = PI / 2; w.add(men);   // the meniscus: a pale ring where the water meets the bowl
     const ring = noShadow(new THREE.Mesh(new THREE.RingGeometry(0.02, 0.035, 14), new THREE.MeshBasicMaterial({ color: '#FFFFFF', side: THREE.DoubleSide }))); ring.rotation.x = -PI / 2; g.add(ring);
     g.userData.update = t => { const lv = clamp01(kv(o.water, t, 0)); w.visible = lv > 0.01; w.position.y = r * 0.1 + r * 0.5 * lv; const sc = 0.7 + 0.3 * lv; w.scale.set(sc, 1, sc);
       const u = o.splashAt != null ? t - o.splashAt : -1; ring.visible = u > 0 && u < 0.5; ring.position.y = r * 0.6 + 0.01; ring.scale.setScalar(1 + u * 6);
@@ -455,7 +491,7 @@ export const FUITE_PROPS = {
     door.position.set(-0.44, 0.73, 0.45); k.add(door);
     const puff = [0, 1, 2, 3, 4, 5, 6, 7, 8].map(() => { const m = noShadow(new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 6), new THREE.MeshLambertMaterial({ color: '#E2DCCF', transparent: true, opacity: 0.6, depthWrite: false }))); m.visible = false; g.add(m); return m; });
     function torus2(r) { const m = new THREE.Mesh(new THREE.TorusGeometry(r, 0.025, 6, 16), mat('#C9CED4')); return m; }
-    g.userData.update = t => { let d = clamp01(kv(o.door, t, 0)); if (o.slamAt != null && t >= o.slamAt) d = 0; door.rotation.y = -1.7 * d;
+    g.userData.update = t => { let d = clamp01(kv(o.door, t, 0)); const sw = o.slamAt != null ? (t - (o.slamAt - 0.08)) / 0.08 : -1; if (sw >= 0) d *= 1 - clamp01(sw) * clamp01(sw); door.rotation.y = -1.7 * d; door.scale.set(sw > 0 && sw < 1 ? 1.35 : 1, 1, 1);   // the swing shut: 0.08 s, the door smeared wide
       const u = o.slamAt != null ? t - o.slamAt : -1, j = u >= 0 && u < 0.6 ? Math.exp(-7 * u) * Math.sin(u * 45) : 0; k.position.x = 0.07 * j; k.rotation.z = 0.05 * j; k.position.y = u >= 0 && u < 0.2 ? 0.06 * Math.sin(u / 0.2 * PI) : 0;
       puff.forEach((m, i) => { const du = u - 0.02 * i; m.visible = du > 0 && du < 0.8; if (!m.visible) return; const a = i / puff.length * TAU; m.position.set(Math.cos(a) * (0.5 + 0.6 * du), 0.1 + (i % 3) * 0.45 + 0.2 * du, 0.5 + Math.abs(Math.sin(a)) * 0.5 * du); m.scale.setScalar(0.5 + 1.5 * du); m.material.opacity = 0.65 * (1 - du / 0.8); }); };   // the slam: a shake, a hop, a puff
     g.userData.update(-1); return g;
