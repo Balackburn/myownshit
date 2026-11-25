@@ -2280,3 +2280,14 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 53) Torse qui se gonfle : `bend.spine` gras (≈ 1,6) avec un léger recul, sinon la tête sort du cadre.
 - (cycle 53) Une clé toon doit répéter reach et mains pour chaque main utilisée : changer la main de la poignée oblige à reprendre
   toutes les clés du plan.
+- (cycle 53) Visage qui passe par l'entrebâillement : ne jamais pencher le corps vers la caméra (la perspective repousse la tête
+  derrière le battant) ; se pencher de côté dans l'ouverture et élargir le battant tant que le visage doit se lire.
+- (cycle 53) La clé toon `lay` incline tout le corps alors que les mains restent sur leurs points du monde : 15-20° sur une
+  poignée donnent gratuitement un recul et un bras étiré.
+- (cycle 53) Lent « non » de la tête qui traverse d'autres clés : clés denses (toutes les 0,067 s) qui portent la rotation, sinon
+  chaque clé intermédiaire la casse.
+- (cycle 53) Mains posées sur le dessus d'une couette relevée = plateau ; les faire agripper la face avant sous un bord drapé.
+- (cycle 53) De dos, des têtes assises n'encadrent une télévision que si elle est plus haute qu'elles (pied haut) ; vue d'au-dessus,
+  une télévision basse tombe entre les têtes.
+- (cycle 53) Personnage qui doit grandir à l'écran en marchant : le faire marcher dans l'axe de la caméra à mi-distance du fond, en
+  longue focale, et remplacer la route vide du premier plan par une bande de trottoir.

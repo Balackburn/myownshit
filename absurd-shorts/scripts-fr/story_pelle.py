@@ -220,7 +220,7 @@ st.cue('thud', 'S01', PATS1[-1], 0.15); WAVES('S01', D1); GULLCRY('S01', 1.5)
 #     certificate (no text) on the mound beside his chin, facing us; she sits back on her heels and nods gravely on « mort »; DÉCÉDÉ stamps and his
 #     head flattens under it (wide and short, held trembling) and re-inflates with a pop and an overshoot; his brows go up behind the glasses
 D1b = st.dur('S01b'); MAI1b = W('S01b', 'L01', 10); MORT1b = W('S01b', 'L01', 13)
-CLK = [0.78, 0.0, 0.12]; RYCLK = -45
+CLK = [0.78, -0.3, 0.12]; RYCLK = -45
 CERT = [0.42, 0.12, 0.2]
 F1b = [-0.25, 0.62, 3.0]; L1b = [0.2, 0.62, 0.0]
 C1b = cam(0.0, F1b, add(F1b, [0.03, 0.0, -0.15]), L1b, add(L1b, [0, 0.0, 0]), lens=52, ease='inOut')
@@ -356,7 +356,7 @@ st.cue('sfx:sniff', 'S03', 0.4, 0.1); st.cue('sfx:sniff', 'S03', 1.9, 0.1); WAVE
 #    gauche », his eyes flick to his left and his chin nods that way twice; they lift it (squashed under the weight), shuffle one step to his left
 #    and set it down (thud, it rocks): its crisp shadow drops onto him; he relaxes, satisfied (the head spreads wide, a long smile)
 D4 = st.dur('S04'); POSE4 = W('S04', 'L04', 3); TOMB4 = W('S04', 'L04', 6); DIT4 = W('S04', 'L04', 9); UN4 = W('S04', 'L04', 10); GAU4 = W('S04', 'L04', 14)
-LAND4 = r(TOMB4 + 0.05); LIFT4 = r(GAU4 + 0.3); SET4 = r(LIFT4 + 0.42)
+LAND4 = r(TOMB4 + 0.05); LIFT4 = r(GAU4 + 0.1); SET4 = r(LIFT4 + 0.3)
 U4A = lambda p: [r(p[0] - 0.72), 0.0, r(p[2] - 0.12)]
 U4B = lambda p: [r(p[0] + 0.72), 0.0, r(p[2] - 0.12)]
 F4 = [0.0, 0.85, 5.6]; L4 = [0.0, 0.82, 0.0]
@@ -376,12 +376,12 @@ H4.breathe(r(SET4 + 0.42), D4, {**FACE0, 'mouth': 'smile', 'lid': 0.4})
 UF = {'lid': 0.45, 'mouth': 'line', 'brow': -0.3}
 STR = {'lid': 0.6, 'mouth': 'clench', 'brow': -0.7, 'sweat': 0.5}
 STONEK = [k(0.0, to=add(STONE0, [0.0, 0.38, -0.25]), dur=0.0), k(0.05, to=add(STONE0, [0.0, 0.3, -0.08]), dur=r(TOMB4 - 0.12), ease='inOut'), k(r(TOMB4 - 0.07), to=STONE0, dur=0.12, ease='in'),
-          k(r(LIFT4), to=add(STONE0, [0.0, 0.16, 0.0]), dur=0.12, ease='out'), k(r(LIFT4 + 0.14), to=add(STONE, [0.0, 0.18, 0.0]), dur=0.2, ease='inOut'), k(r(SET4 - 0.06), to=STONE, dur=0.06, ease='in')]
+          k(r(LIFT4), to=add(STONE0, [0.0, 0.16, 0.0]), dur=0.07, ease='out'), k(r(LIFT4 + 0.08), to=add(STONE, [0.0, 0.18, 0.0]), dur=0.14, ease='inOut'), k(r(SET4 - 0.06), to=STONE, dur=0.06, ease='in')]
 def stone_at(t_):
     if t_ < TOMB4 + 0.05: u = smooth_((t_ - 0.05) / max(0.01, TOMB4 - 0.12)); return lerp3(add(STONE0, [0, 0.38, -0.25]), add(STONE0, [0, 0.3, -0.08]), u) if t_ < TOMB4 - 0.07 else STONE0
     if t_ < LIFT4: return STONE0
-    if t_ < LIFT4 + 0.14: return add(STONE0, [0, 0.16, 0])
-    if t_ < SET4 - 0.06: return lerp3(add(STONE0, [0, 0.16, 0]), add(STONE, [0, 0.18, 0]), smooth_((t_ - LIFT4 - 0.14) / 0.2))
+    if t_ < LIFT4 + 0.08: return add(STONE0, [0, 0.16, 0])
+    if t_ < SET4 - 0.06: return lerp3(add(STONE0, [0, 0.16, 0]), add(STONE, [0, 0.18, 0]), smooth_((t_ - LIFT4 - 0.08) / 0.14))
     return STONE
 def smooth_(u): u = max(0.0, min(1.0, u)); return u * u * (3 - 2 * u)
 def UNDK(sd):
@@ -395,13 +395,13 @@ def UNDK(sd):
         s_ = stone_at(t_); heavy = t_ < LAND4 or LIFT4 - 0.05 < t_ < SET4
         ks.append(k(r(t_), toon={**hold(s_), 'sq': [1.08, 0.9, 1.08] if heavy else [1.0, 1.0, 1.0], 'bend': {'spine': [0.35 if heavy else 0.22, 0, 0, 1, None]}, 'face': STR if heavy else UF}, toonDur=0.08))
         t_ += 0.1
-    ks += [k(r(LIFT4 + 0.12), to=base(STONE), dur=0.3, glide=True, face=0, ease='inOut'),
+    ks += [k(r(LIFT4 + 0.06), to=base(STONE), dur=0.2, glide=True, face=0, ease='inOut'),
            k(r(SET4 + 0.12), toon={'reach': {'R': R5(off(base(STONE), 0, 0.2, 0.2 * sd, 0.95), 1, 0.0)}, 'hands': {'R': 'open'}, 'sq': [0.95, 1.06, 0.95], 'face': {**UF, 'mouth': 'smile'}, 'hip': 0}, toonDur=0.15, toonEase='out'),
            k(r(SET4 + 0.3), look='camera', lookDur=0.15), *life(r(SET4 + 0.35), D4, UF, {'hip': 0}, blinks=[r(D4 - 0.3 - 0.1 * (sd > 0))])]
     if sd < 0: ks.insert(3, k(r(GAU4 + 0.05), look=[0.0, 1.2, 0.8], lookDur=0.12))
     return ks
 F4B = [0.12, 0.6, 2.7]; L4B = [0.08, 0.72, 0.0]
-C4B = glide([cam(r(SET4 - 0.12), F4B, add(F4B, [0.0, 0.0, -0.12]), L4B, L4B, lens=48, ease='out')], 0.3)
+C4B = glide([cam(r(SET4 - 0.18), F4B, add(F4B, [0.0, 0.0, -0.12]), L4B, L4B, lens=48, ease='out')], 0.3)
 chkc('S04', C4B, {'headTop': [0, 0.66, 0], 'chin': [0, 0.14, 0], 'stoneTop': add(STONE, [0, 1.46, 0])})
 st.shot('S04', 'grassland', setOpts=SET, look=SUNB, actors=[H4.actor(), act('croquemort1', U4A(STONE0), 0, 'stand', 'neutral', keys=UNDK(-1)), act('croquemort2', U4B(STONE0), 0, 'stand', 'neutral', keys=UNDK(1))],
         props=[WORLD(4), SHADES('lun4', H4), *BURIED(4, rows=1, add_=[1.1], crabs=[([[0.0, -0.45, 0.25], [0.8, -0.5, 0.22], [1.8, -0.44, 0.26]], [2.2], 0.24), ([[0.0, 0.5, 0.26], [1.4, 0.45, 0.25]], [0.6], 0.2)]),
@@ -452,7 +452,7 @@ WR6 = [-0.66, 0.0, 0.12]
 BO6A = [-2.1, 0.0, 0.3]; BO6B = [-1.12, 0.0, 0.02]; BO6C = [-1.8, 0.0, -0.45]
 YM6 = [-1.6, 0.0, -1.5]
 SETW6 = r(COU6 - 0.02); ASIDE6 = r(ET6 - 0.12)
-F6 = [0.5, 0.62, 4.5]; L6 = [-0.62, 0.85, -0.25]
+F6 = [0.45, 0.62, 4.6]; L6 = [-0.45, 0.85, -0.25]
 C6 = cam(0.0, F6, add(F6, [-0.03, 0.0, -0.18]), L6, add(L6, [0.0, 0.0, 0.0]), lens=48, ease='inOut')
 chkc('S06', C6, {'headTop': [0, 0.66, 0], 'chin': [0, 0.14, 0], 'wreath': add(WR6, [0, 1.36, 0]), 'bossA': add(BO6A, [0, 2.3, 0]), 'bossB': add(BO6B, [0, 2.3, 0]), 'bossC': add(BO6C, [0, 2.3, 0]), 'bossCside': add(BO6C, [-0.35, 1.0, 0]), 'ym': add(YM6, [0, 2.25, 0]), 'ymFeet': YM6})
 H6 = Head('S06')
@@ -889,7 +889,7 @@ st.cue('sfx:cuff', 'S14', 0.1, 0.12); st.cue('sfx:cuff', 'S14', 0.25, 0.12); st.
 # 15: he asked for a perpetual plot. Three-quarters from the left, low: the clerk from line 1 kneels by him with a clipboard; he talks (lip flaps,
 #     head bobbing, a confident tilt); she writes, ticks a box with a flourish and nods gravely twice; a sixth row of blocks pops up behind him
 D15 = st.dur('S15'); DEM15 = W('S15', 'L15', 2); CON15 = W('S15', 'L15', 4); PERP15 = W('S15', 'L15', 6)
-CL15 = [0.72, 0.0, 0.18]; RYC15 = -72
+CL15 = [0.72, -0.3, 0.18]; RYC15 = -72
 CLIP15 = off(CL15, RYC15, 0.42, 0.05, 0.95)
 TICK15 = r(PERP15 + 0.15)
 F15 = [-0.5, 0.62, 3.6]; L15 = [0.3, 0.72, 0.1]

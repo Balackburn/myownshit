@@ -151,14 +151,14 @@ D1 = st.dur('S01'); GR1 = r(W('S01', 'L01', 5) - 0.06); ETAT1 = W('S01', 'L01', 
 H1 = [-0.55, FLOOR_IN, -0.95]; RY1 = 17
 A0 = 0.55
 # (round 2 fix) the build starts at 0.4 s: the leaf eases back a hand's width from 0.4 s while he leans out into the gap, then braces (sinks back and
-#     away, squashed, trembling) until the yank
+#     away, squashed, trembling) until the yank; the leaf first opens a little as he leans to the gap (his whole face shows), then eases back
 LEAN1 = 0.4; BRACE1 = 0.72
-A1 = [[0.0, A0], [LEAN1, A0], [BRACE1, 0.5], [r(GR1 - 0.1), 0.45], [r(GR1 + 0.07), 1.42, 'lin'], [r(GR1 + 0.2), 1.27], [r(GR1 + 0.36), 1.36], [r(GR1 + 0.55), 1.33]]
+A1 = [[0.0, A0], [LEAN1, A0], [0.62, 0.7], [r(BRACE1 + 0.06), 0.66], [r(GR1 - 0.1), 0.5], [r(GR1 + 0.07), 1.42, 'lin'], [r(GR1 + 0.2), 1.27], [r(GR1 + 0.36), 1.36], [r(GR1 + 0.55), 1.33]]
 KNOBI = lambda a: door_pt(a, DW - 0.16, 1.24, -0.08)
 CANC1 = off(H1, RY1, 0.42, 0.2, 1.2)                                     # the can at his chest (his right mitten)
 # (round 2 fix) on « l'État » he steps up to the hinge side and the spout's tip goes to the upper hinge pin (0.575, 2.15): the can faces the camera,
 #     so its base sits the spout's length left of and below the pin as seen from C1B
-H1S = [-0.12, FLOOR_IN, -0.5]; RY1S = 40
+H1S = [-0.3, FLOOR_IN, -0.45]; RY1S = 45
 PIN1 = [0.56, 2.13, -0.01]
 CANU1 = [0.2, 1.79, -0.03]                                              # his mitten under the can, raised toward the hinge
 F1 = [0.6, 0.9, 2.8]; L1 = [-0.01, 1.7, -0.5]
@@ -166,7 +166,7 @@ C1 = cam(0.0, F1, add(F1, [-0.04, 0.0, -0.1]), L1, add(L1, [0, 0.02, 0]), lens=4
 F1B = [0.45, 1.0, 2.4]; L1B = [0.08, 1.8, -0.4]
 C1B = glide([cam(r(ETAT1 - 0.1), F1B, add(F1B, [-0.02, 0, -0.05]), L1B, L1B, lens=44, ease='out')], 0.3)
 SQ1 = [0.575, 2.22, 0.05]
-chkc('S01', C1, {'head': add(H1, [0, 2.05, 0]), 'headL': add(H1, [-0.16, 2.05, 0]), 'jamb': [-0.575, 1.9, 0.02], 'edgeAjar': door_pt(A0, DW, 1.9), 'edgeBrace': door_pt(0.45, DW, 1.9), 'top': add(H1, [0, 2.32, 0]), 'can': CANC1, 'hinge': SQ1, 'sqTip': add(SQ1, [-0.55, 0.2, 0]), 'edgeOpen': door_pt(1.35, DW, 1.3), 'doorTop': [0, 2.6, 0]})
+chkc('S01', C1, {'edgeLean': door_pt(0.7, DW, 1.9), 'head': add(H1, [0, 2.05, 0]), 'headL': add(H1, [-0.16, 2.05, 0]), 'jamb': [-0.575, 1.9, 0.02], 'edgeAjar': door_pt(A0, DW, 1.9), 'edgeBrace': door_pt(0.45, DW, 1.9), 'top': add(H1, [0, 2.32, 0]), 'can': CANC1, 'hinge': SQ1, 'sqTip': add(SQ1, [-0.55, 0.2, 0]), 'edgeOpen': door_pt(1.35, DW, 1.3), 'doorTop': [0, 2.6, 0]})
 chkc('S01', C1B, {'head': add(H1S, [0, 2.05, 0]), 'top': add(H1S, [0, 2.32, 0]), 'pin': PIN1, 'canBase': add(CANU1, [0, -0.05, 0.03]), 'hinge': SQ1, 'sqTip': add(SQ1, [-0.55, 0.2, 0]), 'chin': add(H1S, [0, 1.8, 0])})
 HF1 = {'lid': 0.35, 'mouth': 'line', 'brow': -0.1}
 def HB1(kn=None, can=CANC1, lean=0.12, **x):
@@ -180,11 +180,11 @@ HEAD1 = {**HB1(KNOBI(1.3), lean=0.0, neck=[0.05, -0.42, 0, 1.95, None]), 'sq': [
 BRF1 = {**HF1, 'lid': 0.55, 'mouth': 'clench', 'brow': -0.5}
 HERO1 = [k(-0.4, look='camera'), k(0.0, toon={**HB1(KNOBI(A0)), 'face': HF1}, toonDur=0.0),
          *life(0.1, r(LEAN1 - 0.04), HF1, HB1(KNOBI(A0)), blinks=[0.18]),
-         k(LEAN1, toon={**HB1(KNOBI(0.53), lean=0.0), 'lay': [0.15, -0.04], 'sq': [0.95, 1.06, 0.95], 'face': {**HF1, 'lid': 0.1, 'brow': 0.5, 'gx': 0.6, 'gy': -0.4}}, toonDur=0.16, toonEase='out'),
+         k(LEAN1, toon={**HB1(KNOBI(0.68), lean=0.0), 'lay': [0.0, -0.06], 'sq': [0.95, 1.06, 0.95], 'face': {**HF1, 'lid': 0.1, 'brow': 0.5, 'gx': 0.6, 'gy': -0.4}}, toonDur=0.22, toonEase='out'),
          k(r(LEAN1 + 0.03), look=add(SQ1, [0, -0.1, 0]), lookDur=0.12),
          k(r(BRACE1 - 0.1), look='camera', lookDur=0.1),
-         k(BRACE1, toon={**HB1(KNOBI(0.5), lean=0.16), 'lay': [-0.08, 0.1], 'sq': [1.1, 0.88, 1.1], 'face': BRF1}, toonDur=0.14, toonEase='inOut'),
-         *[k(r(BRACE1 + 0.16 + 0.067 * j), toon={**HB1(KNOBI(r(0.48 - 0.01 * j)), lean=0.16), 'lay': [-0.08, 0.1 + (0.02 if j % 2 == 0 else -0.01)], 'sq': [1.12, 0.86, 1.12] if j % 2 == 0 else [1.08, 0.9, 1.08], 'face': BRF1}, toonDur=0.04) for j in range(2)],
+         k(BRACE1, toon={**HB1(KNOBI(0.62), lean=0.08), 'lay': [-0.04, 0.04], 'sq': [1.1, 0.88, 1.1], 'face': BRF1}, toonDur=0.14, toonEase='inOut'),
+         *[k(r(BRACE1 + 0.16 + 0.067 * j), toon={**HB1(KNOBI(r(0.56 - 0.04 * j)), lean=0.08), 'lay': [-0.04, 0.04 + (0.02 if j % 2 == 0 else -0.01)], 'sq': [1.12, 0.86, 1.12] if j % 2 == 0 else [1.08, 0.9, 1.08], 'face': BRF1}, toonDur=0.04) for j in range(2)],
          k(r(TAKE1 - 0.06), look=add(SQ1, [0, -0.1, 0]), lookDur=0.06),
          *beat(TAKE1, HEAD1, antic={**HB1(KNOBI(0.8), lean=0.05), 'sq': [1.04, 0.95, 1.04], 'scl': {'head': [1.08, 0.92, 1.0]}, 'face': {**HF1, 'lid': 0.4, 'brow': 0.2}}, hold=0.24,
                over={**HB1(lean=0.0, neck=[0.0, 0.1, 0, 0.85, None]), 'sq': [1.06, 0.95, 1.06], 'scl': {'head': [1.1, 0.9, 1.0]}, 'face': {**HF1, 'lid': 0.1, 'brow': 0.6}},
@@ -483,10 +483,10 @@ for t_ in TUG6: st.cue('thud', 'S06', r(t_ + 0.14), 0.1)
 D7 = st.dur('S07'); OUV7 = W('S07', 'L07', 5); CH7 = W('S07', 'L07', 7)
 SOFA7 = [0.0, FLOOR_IN, -3.2]; H7 = [0.0, 0.16, -3.05]
 PA7 = [-0.72, 0.14, 0.42]; PB7 = [0.75, 0.14, 0.45]; RYA7 = 55; RYB7 = -55
-SQ7 = [0.5, 2.0, 0.1]                                                   # (round 2 fix) lower on the jamb, clear of the orange beanie
+SQ7 = [-0.25, 2.25, 0.1]                                                # (round 2 fix) the sprite in the doorway's top, between the two beanies
 F7 = [-0.08, 1.3, 5.2]; L7 = [-0.06, 1.2, 0.4]
 C7 = cam(0.0, F7, add(F7, [0.03, 0.0, -0.3]), L7, add(L7, [0, 0.02, 0]), lens=40, ease='inOut')
-chkc('S07', C7, {'hero': add(H7, [0, 1.85, 0]), 'heroSeat': add(H7, [0, 0.5, 0]), 'pa': add(PA7, [0, 2.35, 0]), 'pb': add(PB7, [0, 2.35, 0]), 'paFeet': PA7, 'hingeSq': SQ7, 'sqTip': add(SQ7, [-0.6, 0.2, 0]), 'patch': [0, 0.06, 1.4], 'doorTop': [0, 2.6, 0]})
+chkc('S07', C7, {'hero': add(H7, [0, 1.85, 0]), 'heroSeat': add(H7, [0, 0.5, 0]), 'pa': add(PA7, [0, 2.35, 0]), 'pb': add(PB7, [0, 2.35, 0]), 'paFeet': PA7, 'hingeSq': SQ7, 'sqTip': add(SQ7, [0.6, 0.2, 0]), 'patch': [0, 0.06, 1.4], 'doorTop': [0, 2.6, 0]})
 # (round 1 fix) the passers-by rub their mittens together over the heat (hands close, sliding up and down against each other in quick strokes), each
 #     at her or his own rate, with a slow breathing sway; the hero breathes on his sofa and blinks every 1.2 s or so
 RUB = lambda p, ry, u: {'reach': {'L': R5(off(p, ry, 0.42 + 0.02 * u, -0.05, 1.13 + 0.05 * u), 1, 0.0), 'R': R5(off(p, ry, 0.42 - 0.02 * u, 0.05, 1.13 - 0.05 * u), 1, 0.0)}, 'hands': {'L': 'open', 'R': 'open'}, 'hip': 0}
@@ -516,7 +516,7 @@ st.shot('S07', 'grassland', setOpts=SNOWSET, look={'sun': 1.6, 'fill': 1.3}, act
                P('vapeurA7', 'softWisp', pos=off(PA7, RYA7, 0.42, 0.0, 1.2), opts={'color': '#F4F6F8', 'opacity': 0.6, 'rise': 0.8, 's0': 0.05, 's1': 0.2, 'n': 10}),
                P('vapeurB7', 'softWisp', pos=off(PB7, RYB7, 0.42, 0.0, 1.15), opts={'color': '#F4F6F8', 'opacity': 0.6, 'rise': 0.8, 's0': 0.05, 's1': 0.2, 'n': 10, 'at': -0.5}),
                P('vapeurC7', 'softWisp', pos=[0.0, 2.45, 0.15], opts={'color': '#F4F6F8', 'opacity': 0.5, 'rise': 1.0, 's0': 0.08, 's1': 0.28, 'n': 12, 'drift': [0.0, 0.25]}),
-               SQUEAK('S07', 'grince7', SQ7, [0.6, 1.9], size=0.6, side=-1, amp=[0.9, 1.0])],
+               SQUEAK('S07', 'grince7', SQ7, [0.6, 1.9], size=0.6, side=1, amp=[0.9, 1.0])],
         cams=[C7])
 st.cue('gust', 'S07', 0.2, 0.18, 2.4)
 
@@ -633,8 +633,8 @@ D10 = st.dur('S10'); REC10 = W('S10', 'L10', 4); DEM10 = W('S10', 'L10', 9)
 #     parked at the near kerb (right edge, its open back toward him); every heavy step drops his head and shoulders and bounces the sagging box;
 #     the near pavement fills the bottom of the frame (no empty road); the van's side lettering is dropped (its back is all that shows); the hero's
 #     door, a fifth of the frame at the back, keeps squeaking in the wind beside him
-N10A = [0.55, 0.0, 7.5]; N10B = [0.95, 0.0, 9.35]; RYN10 = yaw(N10A, N10B)
-VAN10 = [2.5, 0.0, 10.0]; RYV10 = -120
+N10A = [0.5, 0.0, 8.7]; N10B = [0.85, 0.0, 10.7]; RYN10 = yaw(N10A, N10B)
+VAN10 = [2.75, 0.0, 10.0]; RYV10 = -100
 SQ10 = [0.575, 2.0, 0.08]
 F10 = [0.0, 1.7, 18.0]; L10 = [0.5, 1.3, 3.0]
 C10 = cam(0.0, F10, add(F10, [0.05, 0.0, -0.4]), L10, add(L10, [0.03, 0, 0.1]), lens=36, ease='inOut')
@@ -663,7 +663,7 @@ st.shot('S10', 'grassland', setOpts=SET, actors=[act('voisin', N10A, RYN10, 'sta
                P('bonnet10', 'nightCap', on={'actor': 'voisin', 'joint': 'head', 'offset': [0, 0.5, 0], 'rot': [0, 0, 0.15]}),
                P('carton10', 'cardboardBox', on={'actor': 'voisin', 'joint': 'torso', 'offset': [0, -0.36, 0.45]}, opts={'text': '', 'flapsAt': 99}),
                P('copie10', 'grinExamSheet', on={'actor': 'voisin', 'joint': 'torso', 'offset': [0, -0.1, 0.74], 'face': 'camera'}, scale=1.25),
-               P('camion10', 'grinVan', pos=VAN10, ry=RYV10, scale=0.7, opts={'doors': 1.35, 'text': ''}),
+               P('camion10', 'grinVan', pos=VAN10, ry=RYV10, scale=0.7, opts={'doors': 1.9, 'text': ''}),
                SQUEAK('S10', 'grince10', SQ10, [0.55, r(DEM10 - 0.15)], size=1.1, side=-1, amp=[1.0, 1.1])],
         cams=[C10])
 for t_ in [r(0.25 / CAD10 + j * 0.5 / CAD10) for j in range(5)]: st.cue('sfx:stepSoft', 'S10', t_, 0.15)
@@ -712,7 +712,7 @@ SET12 = r(DIC12 - 0.2)
 #     squashed, knees buckled, sunk 12 cm, trembling, the book sagging lower), a dip, the heave (they stretch, the book rises past the lectern and
 #     hangs a beat), it drops (u² keys) onto the lectern, which squashes with the book on it, and a quick dust puff bursts from under it; the side
 #     figures clap in big visible cycles from the landing on
-BOOKHI = add(BOOKC, [0, 0.5, 0.25]); DIP12 = 0.52; HEAVE12 = 0.66; HANG12 = 0.85
+BOOKHI = add(BOOKC, [0, 0.32, 0.3]); DIP12 = 0.52; HEAVE12 = 0.66; HANG12 = 0.85
 BOOKUP = add(BOOKC, [0, 0.78, 0.12])
 LECSQ = 0.78; LECD = 0.45
 def lec_a(t_):
@@ -816,7 +816,7 @@ st.card('S14', 'TRADUIT', at=r(HUI14 + 0.05))
 #     inside it the little president swings his little door and a speech bubble with a big oil drop pops out of the hinge toward us (no words); cut
 #     round to the family: they nod slowly, together
 D15 = st.dur('S15'); SOU15 = W('S15', 'L15', 4); HUI15 = W('S15', 'L15', 6); A15 = W('S15', 'L15', 7)
-TV = [0.0, 0.0, -2.4]; TVY, TVH, TVW = 1.0, 0.95, 1.5
+TV = [0.0, 0.0, -2.4]; TVY, TVH, TVW = 1.45, 0.95, 1.5                  # (round 2 fix) on a tall stand, so it rises above the seated heads
 PT = 0.45
 PRES15 = [0.0, r(TVY + 0.01), -3.0]
 DESK15 = [0.0, TVY, -2.7]
@@ -824,19 +824,19 @@ MD15 = [0.2, r(TVY + 0.351), -2.62]
 # (round 2 fix) the two parents sit apart at the two ends of the screen so that their heads and shoulders frame it from below (the child at the
 #     far end of the sofa, seen in the cut round), each turned a little in toward the screen so an ear and a sliver of profile show; no cabinet
 #     under the television, and hair colours far from the room's browns
-FAM = [('pere', [-0.42, 0.1, 0.85]), ('mere', [0.42, 0.1, 0.85]), ('enfant', [1.1, 0.1, 0.9])]
-RYFAM = {'pere': 158, 'mere': 202, 'enfant': 192}
+FAM = [('pere', [-0.34, 0.1, 0.85]), ('mere', [0.34, 0.1, 0.85]), ('enfant', [1.1, 0.1, 0.9])]
+RYFAM = {'pere': 150, 'mere': 210, 'enfant': 192}
 POP15 = r(HUI15 - 0.1)
 SW15 = [[0.0, 0.0], [r(POP15 - 0.35), 0.05], [r(POP15), 0.95], [r(POP15 + 0.5), 0.3]]
-F15 = [0.0, 3.4, 3.67]; L15A = [0.0, 1.2, -1.0]
-C15 = cam(0.0, F15, add(F15, [0, -0.03, -0.25]), L15A, add(L15A, [0, 0.02, 0]), lens=42, ease='inOut')
+F15 = [0.0, 2.6, 2.96]; L15A = [0.0, 1.5, -1.0]
+C15 = cam(0.0, F15, add(F15, [0, -0.02, -0.2]), L15A, add(L15A, [0, 0.02, 0]), lens=40, ease='inOut')
 F15B = [1.5, 1.45, -2.3]; L15B = [0.5, 1.42, 0.5]
 C15B = cam(r(A15 - 0.05), F15B, add(F15B, [-0.05, 0, 0.12]), L15B, add(L15B, [0, 0.01, 0]), lens=52, ease='out')
-chkc('S15', C15, {'tvTop': [0, TVY + TVH + 0.1, -2.4], 'tvBot': [0, TVY - 0.1, -2.4], 'tvL': [-0.85, 1.5, -2.4], 'tvR': [0.85, 1.5, -2.4], 'bubble': [0.55, 1.8, -2.2], 'presHead': [0, 1.85, -3.0], 'pereHead': [-0.42, 1.85, 0.85], 'mereHead': [0.42, 1.8, 0.85], 'enfantHead': [1.1, 1.3, 0.9], 'pereSh': [-0.72, 1.4, 0.85], 'mereSh': [0.72, 1.4, 0.85]})
-chkc('S15', C15B, {'pere': [-0.42, 1.85, 0.85], 'mere': [0.42, 1.8, 0.85], 'enfant': [1.1, 1.4, 0.9], 'chin': [0.42, 1.35, 0.85]})
+chkc('S15', C15, {'tvTop': [0, TVY + TVH + 0.1, -2.4], 'tvBot': [0, TVY - 0.1, -2.4], 'tvL': [-0.85, TVY + 0.5, -2.4], 'tvR': [0.85, TVY + 0.5, -2.4], 'bubble': [0.55, TVY + 0.8, -2.2], 'presHead': [0, TVY + 0.85, -3.0], 'pereHead': [-0.34, 1.85, 0.85], 'mereHead': [0.34, 1.8, 0.85], 'enfantHead': [1.1, 1.3, 0.9], 'pereSh': [-0.64, 1.4, 0.85], 'mereSh': [0.64, 1.4, 0.85]})
+chkc('S15', C15B, {'pere': [-0.34, 1.85, 0.85], 'mere': [0.34, 1.8, 0.85], 'enfant': [1.1, 1.4, 0.9], 'chin': [0.34, 1.35, 0.85]})
 FAMF = {'lid': 0.45, 'mouth': 'line', 'brow': 0.1}
 def FAMK(i):
-    ks = [k(-0.4, look=[0, 1.5, -2.4]), k(0.0, toon={'face': FAMF, 'hip': 0}, toonDur=0.0), *life(0.1 + 0.1 * i, r(A15 - 0.1), FAMF, {'hip': 0}, blinks=[r(0.7 + 0.35 * i), r(2.1 + 0.2 * i)], amp=0.018)]
+    ks = [k(-0.4, look=[0, r(TVY + 0.45), -2.4]), k(0.0, toon={'face': FAMF, 'hip': 0}, toonDur=0.0), *life(0.1 + 0.1 * i, r(A15 - 0.1), FAMF, {'hip': 0}, blinks=[r(0.7 + 0.35 * i), r(2.1 + 0.2 * i)], amp=0.018)]
     # (round 1 fix) two slow nods, each a stretch-down: the neck draws out long as the head drops (the body squashes a little), then it springs back
     #     up past rest (short neck, chin up) and settles; the three a few frames apart
     for j in range(2):
@@ -853,7 +853,7 @@ st.shot('S15', 'livingRoom', setOpts={'sofa': False, 'tv': False, 'carpet': Fals
         actors=[act('presidentTV', PRES15, 0, 'sit', 'neutral', scale=PT, keys=PRES15K), *[act(n, p, RYFAM[n], 'sit', 'neutral', keys=FAMK(i), **({'scale': 0.68} if n == 'enfant' else {})) for i, (n, p) in enumerate(FAM)]],
         props=[P('tele15', 'grinTV', pos=TV, opts={'w': TVW, 'h': TVH, 'y': TVY, 'depth': 0.9, 'cabinet': False}), P('bureau15', 'grinDesk', pos=DESK15, scale=PT),
                P('petiteporte15', 'grinMiniDoor', pos=MD15, scale=0.6, opts={'ornate': True, 'swing': SW15}),
-               P('bulle15', 'grinBubble', pos=[0.12, 1.3, -2.25], face='camera', opts={'w': 0.62, 'popAt': POP15, 'tail': 'left'}),
+               P('bulle15', 'grinBubble', pos=[0.12, r(TVY + 0.3), -2.25], face='camera', opts={'w': 0.62, 'popAt': POP15, 'tail': 'left'}),
                P('canape15', 'sofaProp', pos=[0.0, 0.0, 0.9], ry=180, opts={'color': '#2F7F8C', 'color2': '#5BA3AE'})],
         cams=[C15, C15B])
 st.cue('sfx:squeak', 'S15', POP15, 0.22); st.cue('pop', 'S15', r(POP15 + 0.05), 0.25)
