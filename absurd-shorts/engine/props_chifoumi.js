@@ -97,13 +97,27 @@ function mitten({ W = 0.095, T = 0.04, Lp = 0.095, Lf = 0.088, color = HERO_SKIN
   const set = curl => { const c = clamp01(curl); paper.visible = c < 0.6; rock.visible = c >= 0.4; paper.scale.set(1, 1, lerp(1, 0.55, c)); rock.scale.setScalar(lerp(0.75, 1, c)); };
   set(0); return { g, set, paper, rock };
 }
-// the well: the mitten curled into a ring standing on the wrist, its hole facing +Z (R the ring's radius, r the tube)
-function wellRing({ R = 0.05, r = 0.024, color = WIFE_SKIN, sx = 1 }) {
-  const g = grp(), ring = new THREE.Mesh(new THREE.TorusGeometry(R, r, 8, 20), mat(color)); ring.castShadow = true; addOutline(ring, 0.06);
-  g.add(at(ring, 0, R + r * 0.6, 0.02));
-  g.add(at(box(r * 1.8, R * 0.8, r * 1.9, color, { outline: 0.06 }), 0, -R * 0.25, 0.0));
-  const seam = at(box(r * 0.25, r * 2.3, r * 2.3, '#8A5A40'), sx * R * 0.72, R * 1.65 + r * 0.6, 0.02, 0, 0, -sx * 0.75); g.add(seam);
-  g.add(at(sphere(r * 1.05, color, 1), sx * R * 0.86, R * 1.45 + r * 0.6, 0.03));
+// the well: the mitten curled into a hollow ring in front of the wrist, its hole along the hand's X (seen from the thumb side): the palm rises
+// from the wrist over the top, the finger block curls round the front and down, the thumb comes forward under it and meets the fingertips; knuckle
+// creases across the curl, a seam where the tips meet, a dark hollow inside (R the hole's radius, T the curl's thickness, W the mitten's width)
+function wellRing({ R = 0.05, T = 0.031, W = 0.1, color = WIFE_SKIN, sx = 1, thumbColor = null, crease = '#8A5A40' }) {
+  const g = grp(), TC = thumbColor || color, cz = R + T + 0.004, bev = Math.min(T, W) * 0.16;
+  const onRing = (m, a, rr, xo) => { m.position.set(xo, rr * Math.sin(a), cz + rr * Math.cos(a)); m.rotation.x = -(a + PI / 2); g.add(m); return m; };
+  // one C-shaped slab (an annulus sector in the hand's Z-Y plane, extruded across the hand's X), centred on its own middle so the outline hugs it
+  const slab = (a0, a1, ri, ro, w, col, xo) => {
+    const sh = new THREE.Shape(), cw = a1 < a0;
+    sh.absarc(cz, 0, ro, a0, a1, cw); sh.absarc(cz, 0, ri, a1, a0, !cw);
+    const geo = new THREE.ExtrudeGeometry(sh, { depth: w - 2 * bev, bevelEnabled: true, bevelThickness: bev, bevelSize: bev, bevelSegments: 2, curveSegments: 22 });
+    geo.translate(0, 0, -(w - 2 * bev) / 2); geo.rotateY(-PI / 2); geo.computeBoundingBox(); const c = new THREE.Vector3(); geo.boundingBox.getCenter(c); geo.translate(-c.x, -c.y, -c.z);
+    const m = new THREE.Mesh(geo, mat(col)); m.position.set(c.x + xo, c.y, c.z); m.castShadow = m.receiveShadow = true; addOutline(m, 0.04); g.add(m); return m;
+  };
+  slab(PI * 0.98, -PI * 0.3, R, R + T, W, color, 0);
+  slab(-PI * 0.97, -PI * 0.42, R - T * 0.1, R + T * 1.15, W * 0.64, TC, sx * W * 0.2);
+  // the knuckle and palm creases drawn across both flat sides too (the side is what the camera sees of a well)
+  for (const sd of [-1, 1]) for (const a of [PI * 0.62, PI * 0.36, PI * 0.1, -PI * 0.14]) onRing(box(0.006, T * 0.95, 0.005, crease), a, R + T * 0.5, sd * (W / 2 + 0.001));
+  for (const a of [PI * 0.45, PI * 0.18, -PI * 0.08]) onRing(box(W * 0.86, 0.005, T * 0.22, crease), a, R + T + 0.002, 0);
+  onRing(box(W * 0.94, T * 1.3, 0.006, crease), -PI * 0.345, R + T * 0.5, 0);
+  const hol = new THREE.Mesh(new THREE.CircleGeometry(R * 1.03, 22), new THREE.MeshBasicMaterial({ map: gradTex('hole'), side: THREE.DoubleSide })); hol.rotation.y = PI / 2; hol.position.set(0, 0, cz); g.add(hol);
   return g;
 }
 
@@ -111,7 +125,8 @@ export const CHIFOUMI_PROPS = {
   // A forearm and a mitten hand, cartoon size (pivot at the elbow: the back end of the sleeve, the hand toward +Z, the back of the hand up): o.s scales
   // it (1: a real hand), o.sleeve (0.3) the forearm's length, o.sleeveColor / o.cuff, o.skin, o.side 'R' | 'L' (the thumb toward -X for 'L'); o.mode
   // 'rock' | 'paper' | 'well' and o.modes [[t, mode], ...] (a switch folds the fingers in 0.07 s with a squash-pop); o.pumps [t, ...]: the forearm
-  // pumps up and down once from each time (chi, fou, mi); o.tilt (rad, + down) and o.bend (the wrist, + down); o.tiltK [[t, rad], ...] keyed tilt
+  // pumps up and down once from each time (chi, fou, mi); o.tilt (rad, + down) and o.bend (the wrist, + down); o.tiltK [[t, rad], ...] keyed tilt;
+  // o.roll / o.rollK the hand turned round the forearm (rad: the well's hollow faces the hand's X, the thumb side); o.ringR the hollow's radius
   chifHand(o) {
     const s = o.s ?? 1, sx = o.side === 'L' ? -1 : 1, skin = o.skin || HERO_SKIN, SL = o.sleeve ?? 0.3, g = grp(), arm = grp(); g.add(arm);
     const sr = 0.043;
@@ -120,7 +135,7 @@ export const CHIFOUMI_PROPS = {
     const wrist = grp(); wrist.position.set(0, 0, SL); arm.add(wrist);
     const hand = grp(); wrist.add(hand);
     const M = mitten({ color: skin, sx, pw: o.paperW ?? 1.55, pt: o.paperT ?? 0.6, fingers: o.fingers ?? 4, fingerC: o.fingerC || '#9A5E42' }); hand.add(M.g);
-    const W = wellRing({ color: skin, sx }); hand.add(W);
+    const W = wellRing({ color: skin, sx, thumbColor: o.thumbColor || null, R: o.ringR ?? 0.05 }); hand.add(W);
     g.scale.setScalar(s);
     const modes = o.modes || [[-99, o.mode || 'paper']];
     const sw = modes.map(m => m[0]);
@@ -138,7 +153,7 @@ export const CHIFOUMI_PROPS = {
       hand.scale.set(pop, 1 / Math.sqrt(pop), pop);
       let pump = 0; for (const p of o.pumps || []) pump += bump(t, p, 0.26);
       arm.rotation.x = keyed(o.tiltK, t, o.tilt ?? 0) - (o.pumpAmp ?? 0.62) * pump;
-      wrist.rotation.x = (o.bend ?? 0) + 0.25 * pump;
+      wrist.rotation.x = (o.bend ?? 0) + 0.25 * pump; wrist.rotation.z = keyed(o.rollK, t, o.roll ?? 0);
     };
     g.userData.update(0); return g;
   },
@@ -173,6 +188,7 @@ export const CHIFOUMI_PROPS = {
   // A heap of black bin bags (pivot at the middle of its foot): a lumpy cone o.h high on a foot of radius o.r, bags of o.bag (m) across, a few green,
   // blue and yellow ones among the black; o.gulls circling seagulls (o.gullS their size, o.gullR the circle, o.gullH above the top), o.perch gulls
   // standing on top, o.flies buzzing dots (o.flyS); o.rollAt: one more bag rolls down the front (+Z) slope over o.rollDur (1.1 s) and settles
+  // (o.rollS its size); o.emis the bags' glow (lifts their value in a dark heap)
   chifBagHeap(o) {
     const H = o.h ?? 6, R = o.r ?? 4, bs = o.bag ?? 0.7, g = grp();
     const core = new THREE.Mesh(new THREE.ConeGeometry(R * 0.9, H * 0.97, 10, 3), mat('#2C3239')); core.position.y = H * 0.485; core.castShadow = core.receiveShadow = true; g.add(core);
@@ -184,7 +200,7 @@ export const CHIFOUMI_PROPS = {
       if (i % 2 === 0) KN.push([Math.cos(a) * rr, y + sz * 0.68, Math.sin(a) * rr, 0, 0, 0, sz, sz, sz]);
       if (i % 3 !== 1) SHN.push([Math.cos(a) * (rr + sz * 0.36), y + sz * 0.42, Math.sin(a) * (rr + sz * 0.36), 0.5, -a + PI / 2, 0, sz * 0.26, sz * 0.07, sz * 0.14]);
     }
-    const bm = inst(bagGeo(2), mat('#FFFFFF', { emissive: '#14181C' }), L, C); bm.castShadow = bm.receiveShadow = true; g.add(bm);
+    const bm = inst(bagGeo(2), mat('#FFFFFF', { emissive: o.emis || '#14181C' }), L, C); bm.castShadow = bm.receiveShadow = true; g.add(bm);
     if (o.shine !== false) { const sm2 = inst(new THREE.SphereGeometry(0.5, 7, 5), mat('#D2DCE6', { emissive: '#5A646E', noGrain: true }), SHN); sm2.castShadow = false; g.add(sm2); }
     const km = inst(new THREE.ConeGeometry(0.08, 0.2, 5), mat('#2E343B'), KN); g.add(km);
     const gulls = [], mkGull = sz => {
@@ -200,7 +216,7 @@ export const CHIFOUMI_PROPS = {
     const flies = [];
     for (let i = 0; i < (o.flies ?? 0); i++) { const f = at(sphere(0.06 * (o.flyS ?? 1), '#121214', 0), 0, 0, 0); noShadow(f); g.add(f); flies.push(f); }
     let roller = null;
-    if (o.rollAt != null) { roller = bagMesh(bs * 1.05, BAG, 7); g.add(roller); }
+    if (o.rollAt != null) { roller = bagMesh(bs * 1.05 * (o.rollS ?? 1), o.rollColor || BAG, 7); g.add(roller); }
     g.userData.update = t => {
       gulls.forEach((q, i) => { const gr = (o.gullR ?? R * 0.7) * (0.8 + 0.35 * hsh(i)), sp = (0.45 + 0.2 * hsh(i + 2)) * (i % 2 ? 1 : -1), a = t * sp + i * TAU / Math.max(1, gulls.length);
         q.position.set(Math.cos(a) * gr, H + (o.gullH ?? 2.5) + 1.2 * hsh(i + 4) + 0.3 * Math.sin(t * 1.3 + i), Math.sin(a) * gr); q.rotation.set(0, -a + (sp > 0 ? 0 : PI), sp > 0 ? 0.35 : -0.35);
@@ -329,7 +345,8 @@ export const CHIFOUMI_PROPS = {
   // each half slides d metres away along X; o.cheer (0..1) the fans' bounce, o.standAt they rise, o.heartAt their right hands go to their hearts,
   // o.jumps [t, ...] a jolt of the ground (the robot's beats); o.crackAt / o.crackDur: a crack runs across the pitch from end to end through the
   // centre, past the round hole o.hole [x, z] (radius o.holeR) that opens from o.holeAt; o.rimAt: a stone rim rises round it (the well), o.splashAt
-  // a splash comes up out of it; o.clear [[x, z, r], ...] leaves the fans out of those spots (real actors sit there); o.rows, o.a0, o.b0 the size
+  // a splash comes up out of it; o.clear [[x, z, r], ...] leaves the fans out of those spots (real actors sit there); o.rows, o.a0, o.b0 the size;
+  // o.crackW how wide the crack opens with the split, o.dustAt [t, ...] dust lines puff up along the crack from each time (o.dustS their size)
   chifStadium(o) {
     const a0 = o.a0 ?? 30, b0 = o.b0 ?? 21, rows = o.rows ?? 14, rd = o.rowD ?? 1.3, rh = o.rowH ?? 0.7, fh = o.frontH ?? 1.2, g = grp();
     const PL = o.pitchL ?? 44, PW = o.pitchW ?? 27;
@@ -361,10 +378,14 @@ export const CHIFOUMI_PROPS = {
     const inner = new THREE.Mesh(new THREE.CylinderGeometry(HR, HR, 0.5, 20, 1, true), new THREE.MeshBasicMaterial({ color: '#1A1816', side: THREE.BackSide })); inner.position.y = 0.26; rim.add(inner);
     const floor = new THREE.Mesh(new THREE.CircleGeometry(HR * 1.01, 24), new THREE.MeshBasicMaterial({ map: gradTex('hole') })); floor.rotation.x = -PI / 2; floor.position.y = 0.035; rim.add(floor);
     const glint = new THREE.Mesh(new THREE.RingGeometry(HR * 0.1, HR * 0.16, 20), unlit('#7FA6C8', { opacity: 0.55 })); glint.rotation.x = -PI / 2; glint.position.y = 0.04; rim.add(glint);
-    const SS = o.splashS ?? 1, splash = []; for (let i = 0; i < 16; i++) { const m = sphere((0.07 + 0.05 * hsh(i)) * SS, '#EAF4FF', 0, { unique: true }); m.castShadow = false; m.visible = false; rim.add(m); splash.push(m); }
-    const colG = new THREE.CylinderGeometry(0.16, 0.36, 1, 14, 1, true); colG.translate(0, 0.5, 0);
-    const column = new THREE.Mesh(colG, unlit('#EEF6FF', { opacity: 0.9, side: THREE.DoubleSide })), crown = new THREE.Mesh(new THREE.SphereGeometry(0.3, 10, 7), unlit('#FFFFFF', { opacity: 0.9 }));
-    column.castShadow = crown.castShadow = false; column.visible = crown.visible = false; rim.add(column, crown);
+    // the splash: a crown of drops thrown up and out from the rim and a jet of bigger drops from the middle, each stretched along its speed,
+    // rising and falling back (o.splashS their size, o.splashH the crown's height, o.splashTp the time to the top)
+    const SS = o.splashS ?? 1, SH = o.splashH ?? 1.6, NC1 = 34, drops = [], YA = new THREE.Vector3(0, 1, 0), dv = new THREE.Vector3();
+    for (let i = 0; i < NC1 + 10; i++) { const jet = i >= NC1, m = new THREE.Mesh(new THREE.SphereGeometry(1, 8, 6), unlit(i % 3 ? '#E6F4FF' : '#A9D4F2')); m.castShadow = false; addOutline(m, 0.08); m.visible = false; rim.add(m);
+      const a = jet ? hsh(i + 40) * TAU : (i + 0.4 * hsh(i)) / NC1 * TAU;
+      drops.push({ m, jet, a, r0: jet ? HR * 0.3 * hsh(i + 9) : HR * 0.8, vr: (jet ? 0.25 : 0.8 + 0.7 * hsh(i + 1)) * SS, h: SH * (jet ? 1.25 + 0.45 * hsh(i + 2) : 0.45 + 0.55 * hsh(i + 2)), tp: (o.splashTp ?? 0.12) * (jet ? 1.25 : 1) * (0.9 + 0.25 * hsh(i + 3)), rr: (jet ? 0.075 : 0.045 + 0.03 * hsh(i + 5)) * SS, dl: jet ? 0.03 : 0.0 }); }
+    const foam = new THREE.Mesh(new THREE.CircleGeometry(HR * 0.98, 22), unlit('#DDF0FF', { opacity: 0.7 })); foam.rotation.x = -PI / 2; foam.position.y = 0.05; foam.visible = false; rim.add(foam);
+    const dustL = []; for (const T0 of list(o.dustAt)) for (let j = 0; j <= NC; j += 2) for (const sd of [-1, 1]) { const m = softSprite(j % 4 ? '#D8CDB4' : '#BBA98A', 0); m.visible = false; m.renderOrder = 2; g.add(m); dustL.push({ m, T0, j, sd }); }
     // the two halves: stepped stands (instanced boxes), the crowd, the outer wall, two floodlights each; the scoreboard rides on the -X half
     const halves = [-1, 1].map(side => {
       const H = grp(); g.add(H);
@@ -441,7 +462,7 @@ export const CHIFOUMI_PROPS = {
         });
         [h.bodyM, h.headM, h.hairM, h.armL, h.armR].forEach(m => { m.instanceMatrix.needsUpdate = true; });
       });
-      const cu = o.crackAt == null ? 0 : clamp01((t - o.crackAt) / (o.crackDur ?? 0.5)), wcr = 0.1 + 0.35 * clamp01(d / 4);
+      const cu = o.crackAt == null ? 0 : clamp01((t - o.crackAt) / (o.crackDur ?? 0.5)), wcr = 0.1 + (o.crackW ?? 0.35) * clamp01(d / 4);
       crack.visible = cu > 0;
       for (let i = 0; i < NC; i++) {
         const v0 = i / NC, v1 = (i + 1) / NC, mid = 0.5, on0 = Math.abs(v0 - mid) <= cu * 0.5 + 1e-6, on1 = Math.abs(v1 - mid) <= cu * 0.5 + 1e-6, w0 = on0 ? wcr * (0.6 + 0.8 * hsh(i)) : 0, w1 = on1 ? wcr * (0.6 + 0.8 * hsh(i + 1)) : 0;
@@ -451,10 +472,13 @@ export const CHIFOUMI_PROPS = {
       cGeo.attributes.position.needsUpdate = true;
       const hu = o.holeAt == null ? 0 : outBack(clamp01((t - o.holeAt) / 0.35)); holeD.visible = hu > 0.01; holeD.scale.setScalar(Math.max(0.01, HR * 1.05 * hu));
       const ru = o.rimAt == null ? 0 : outBack(clamp01((t - o.rimAt) / 0.3)); rim.visible = ru > 0.001; rim.position.y = lerp(-0.62, 0, ru);
-      splash.forEach((m, i) => { const u = o.splashAt == null ? -1 : (t - o.splashAt - 0.02 * i) / 0.7; m.visible = u > 0 && u < 1 && rim.visible; if (!m.visible) return; const a = hsh(i + 2) * TAU, sp = 0.4 + 0.5 * hsh(i + 5);
-        m.position.set(Math.cos(a) * sp * u * HR * Math.sqrt(SS), 0.3 + ((1.6 + 1.2 * hsh(i)) * u - 3.2 * u * u) * SS, Math.sin(a) * sp * u * HR * Math.sqrt(SS)); m.scale.setScalar(1 - 0.6 * u); });
-      if (o.splashH) { const u = o.splashAt == null ? -1 : (t - o.splashAt) / 0.85, on = u > 0 && u < 1 && rim.visible; column.visible = crown.visible = on;
-        if (on) { const hh = Math.max(0.02, o.splashH * (u < 0.28 ? EASE.out(u / 0.28) : 1 - 0.85 * smooth((u - 0.28) / 0.72))); column.scale.set(1 + 0.6 * u, hh, 1 + 0.6 * u); crown.position.y = hh + 0.1; crown.scale.set(1 + 1.5 * u, 0.5, 1 + 1.5 * u); column.material.opacity = crown.material.opacity = 0.9 * (1 - smooth((u - 0.6) / 0.4)); } }
+      drops.forEach(D => { const tau = o.splashAt == null ? -1 : t - o.splashAt - D.dl, u = tau / D.tp, y = 0.5 + D.h * (2 * u - u * u);
+        D.m.visible = tau > 0 && y > 0.06 && rim.visible; if (!D.m.visible) return; const rr = D.r0 + D.vr * tau, vy = D.h * 2 / D.tp * (1 - u);
+        D.m.position.set(Math.cos(D.a) * rr, y, Math.sin(D.a) * rr); dv.set(Math.cos(D.a) * D.vr, vy, Math.sin(D.a) * D.vr); const sp = dv.length();
+        D.m.quaternion.setFromUnitVectors(YA, dv.normalize()); D.m.scale.set(D.rr, D.rr * (1 + 0.09 * sp), D.rr); });
+      { const tau = o.splashAt == null ? -1 : t - o.splashAt; foam.visible = tau > 0 && tau < 0.45 && rim.visible; foam.material.opacity = 0.7 * (1 - clamp01(tau / 0.45)); }
+      dustL.forEach(D => { const v = D.j / NC, u = (t - D.T0 - Math.abs(v - 0.5) * (o.crackDur ?? 0.5) * 1.2) / 0.95; D.m.visible = u > 0 && u < 1; if (!D.m.visible) return;
+        const [x, z] = cp[Math.min(D.j, NC)], e = easeOut(u), sc = (1.3 + 2.2 * e) * (o.dustS ?? 1); D.m.position.set(x + D.sd * (wcr + 0.3 + 0.9 * e), 0.25 + 1.5 * e, z); D.m.scale.set(sc, sc * 0.7, 1); D.m.material.opacity = 0.55 * (u < 0.12 ? u / 0.12 : 1 - smooth((u - 0.3) / 0.7)); });
     };
     g.userData.update(0); return g;
   },
@@ -495,7 +519,8 @@ export const CHIFOUMI_PROPS = {
 
   // The scientists' whiteboard on a wheeled stand (pivot at the floor, the face +Z): o.w (2.6) x o.h (1.6), its bottom at o.y (0.8); three big photos
   // of him making a fist (a wedding veil beside him, a bicycle, asleep on a pillow), and under them a thick block of tally marks that fills row by
-  // row from o.tallyAt over o.tallyDur (o.rows rows)
+  // row from o.tallyAt over o.tallyDur (o.rows rows), in o.ink (colour) with strokes o.inkW (of a row's height) thick; the block is o.tallyW of the
+  // board wide (0.9), its middle o.tallyX of the width off centre
   chifBoard(o) {
     const W = o.w ?? 2.6, H = o.h ?? 1.6, y0 = o.y ?? 0.8, g = grp(), AL = '#6E757E';
     g.add(at(box(W + 0.1, H + 0.1, 0.05, AL, { outline: 0.006 }), 0, y0 + H / 2, -0.03));
@@ -534,10 +559,10 @@ export const CHIFOUMI_PROPS = {
       c.restore();
     }, { res: 384 });
     ['veil', 'bike', 'pillow'].forEach((k, i) => { const p = photo(k, i); p.position.set((i - 1) * W * 0.32, y0 + H * 0.7, 0.012); p.rotation.z = [0.04, -0.02, 0.05][i]; g.add(p); g.add(at(sphere(0.025, '#C8443A', 0), (i - 1) * W * 0.32, y0 + H * 0.7 + ph / 2 - 0.03, 0.025)); });
-    const nr = o.rows ?? 5, rw = W * 0.9, rh = H * 0.33 / nr, rowsP = [];
+    const nr = o.rows ?? 5, rw = W * (o.tallyW ?? 0.9), rh = H * 0.33 / nr, rowsP = [];
     for (let j = 0; j < nr; j++) {
-      const piv = grp(); piv.position.set(-rw / 2, y0 + H * 0.4 - (j + 0.5) * rh, 0.013); g.add(piv);
-      const p = canvasPlane(rw, rh * 0.9, (c, Wc, Hc) => { c.strokeStyle = '#1F3F8A'; c.lineWidth = Hc * 0.07; c.lineCap = 'round'; const gw = Hc * 0.62; let x = Hc * 0.15, i = 0;
+      const piv = grp(); piv.position.set(-rw / 2 + W * (o.tallyX ?? 0), y0 + H * 0.4 - (j + 0.5) * rh, 0.013); g.add(piv);
+      const p = canvasPlane(rw, rh * 0.9, (c, Wc, Hc) => { c.strokeStyle = o.ink || '#1F3F8A'; c.lineWidth = Hc * (o.inkW ?? 0.07); c.lineCap = 'round'; const gw = Hc * 0.62; let x = Hc * 0.15, i = 0;
         while (x < Wc - gw * 0.8) { for (let k = 0; k < 4; k++) { c.beginPath(); c.moveTo(x + k * gw * 0.18, Hc * 0.12); c.lineTo(x + k * gw * 0.18 + Hc * 0.03 * Math.sin(i + k), Hc * 0.88); c.stroke(); } c.beginPath(); c.moveTo(x - gw * 0.08, Hc * 0.78); c.lineTo(x + gw * 0.62, Hc * 0.2); c.stroke(); x += gw * 0.95; i++; } }, { res: 1024, transparent: true });
       p.position.x = rw / 2; piv.add(p); rowsP.push(piv);
     }
@@ -570,7 +595,9 @@ export const CHIFOUMI_PROPS = {
   // links, 1), ease ('linear' | 'in' | 'out' | 'inOut': from the previous key)}, ...] with a two-bone solve in the turret's plane (elbow up).
   // o.hits [t, ...]: the hand squashes on an impact and wobbles back; o.smear [[t0, t1], ...]: three ghost hands trail it; o.trail {t0, t1, color}:
   // the hand's centre leaves a glowing trail between those times, which then hangs; o.drip: water drips off the hand and the elbow (out of the well);
-  // o.bibAt: a blank bib pops onto the back of the hand; o.medalAt: a plain medal hangs from the wrist (o.medalYaw: which way it faces, prop-local);
+  // o.bibAt: a blank bib pops onto the back of the hand (o.bibFore: on the side of the forearm instead, o.bibSide +1 / -1 which side, a number: how
+  // far along it); o.medalAt: a plain medal hangs from the wrist (o.medalYaw: which way it faces, prop-local; o.medalS its size); o.smearKind
+  // 'block': the smear is one solid stretched hand from where it was 0.07 s (o.smearLag) before, not three see-through ghosts;
   // o.s scales it all (1: shoulder at 2.1 m, links 3.0 and 2.6 m, a hand 1 m wide)
   chifRobot(o) {
     const s = o.s ?? 1, g = grp(), root = grp(); g.add(root); root.scale.setScalar(s);
@@ -600,6 +627,9 @@ export const CHIFOUMI_PROPS = {
     bib.position.set(0, 0.225, 0.48); bib.rotation.x = -PI / 2; M.g.add(bib);
     const medal = grp(at(box(0.09, 0.3, 0.02, '#2F5FA8'), -0.08, -0.12, 0, 0, 0, 0.25), at(box(0.09, 0.3, 0.02, '#2F5FA8'), 0.08, -0.12, 0, 0, 0, -0.25), at(cyl(0.25, 0.25, 0.05, '#E8B830', 18, { outline: 0.03 }), 0, -0.45, 0.0, PI / 2, 0, 0), at(cyl(0.18, 0.18, 0.06, '#F2CC50', 18), 0, -0.45, 0.0, PI / 2, 0, 0));
     root.add(medal);
+    const smB = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), mat(HC)); smB.castShadow = false; addOutline(smB, 0.02); smB.visible = false; root.add(smB);
+    const bibF = grp(at(box(0.6, 0.42, 0.02, '#FAFAF6', { outline: 0.03 }), 0, 0, 0)); for (const [x, y] of [[-0.25, 0.16], [0.25, 0.16], [-0.25, -0.16], [0.25, -0.16]]) bibF.add(at(sphere(0.025, '#C9CED4', 0), x, y, 0.015));
+    bibF.rotation.y = (o.bibSide ?? 1) * PI / 2; bibF.visible = false; fore.add(bibF);
     const ghosts = [0.45, 0.28, 0.15].map(op => { const m = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.84, 0.95), new THREE.MeshBasicMaterial({ color: HC, transparent: true, opacity: op, depthWrite: false })); m.geometry.translate(0, -0.2, 0.47); m.castShadow = false; root.add(m); return m; });
     const P = (o.path && o.path.length) ? o.path : [{ t: 0, p: [0, 3.2, 3.2], hp: 0, curl: 1 }];
     const pose = t => {
@@ -637,11 +667,14 @@ export const CHIFOUMI_PROPS = {
       let sq = 0; for (const h of list(o.hits)) { const u = t - h; if (u >= 0 && u < 0.45) sq += Math.exp(-u * 9) * Math.cos(u * 34); }
       handG.scale.set(1 + 0.28 * sq, 1 - 0.38 * sq, 1 + 0.18 * sq);
       M.set(q.curl);
-      const bu = o.bibAt == null ? 0 : outBack(clamp01((t - o.bibAt) / 0.2)); bib.visible = bu > 0.01; bib.scale.setScalar(Math.max(0.01, bu));
-      const mu = o.medalAt == null ? 0 : outBack(clamp01((t - o.medalAt) / 0.2)); medal.visible = mu > 0.01; medal.scale.setScalar(Math.max(0.01, mu));
+      const bu = o.bibAt == null ? 0 : outBack(clamp01((t - o.bibAt) / 0.2)); bib.visible = bu > 0.01 && !o.bibFore; bib.scale.setScalar(Math.max(0.01, bu));
+      bibF.visible = bu > 0.01 && !!o.bibFore; bibF.scale.setScalar(Math.max(0.01, bu)); bibF.position.set((o.bibSide ?? 1) * 0.245, 0, k.l2 * (o.bibFore === true ? 0.62 : o.bibFore || 0.62));
+      const mu = o.medalAt == null ? 0 : outBack(clamp01((t - o.medalAt) / 0.2)); medal.visible = mu > 0.01; medal.scale.setScalar(Math.max(0.01, mu) * (o.medalS ?? 1));
       if (medal.visible) { const wp = local(k.yaw, k.w[0], hS + k.w[1]); medal.position.copy(wp).add(new THREE.Vector3(0, -0.2, 0)).add(new THREE.Vector3(Math.sin(o.medalYaw ?? k.yaw), 0, Math.cos(o.medalYaw ?? k.yaw)).multiplyScalar(0.34)); medal.rotation.set(0, o.medalYaw ?? k.yaw, 0.12 * Math.sin((t - o.medalAt) * 6) * Math.exp(-(t - o.medalAt) * 1.5)); }
       const inSm = list(o.smear).some(([a, b]) => t >= a && t <= b);
-      ghosts.forEach((m, i) => { m.visible = inSm; if (!inSm) return; const tq = t - 0.03 * (i + 1), qq = pose(tq), kk = solve(qq); m.position.copy(local(kk.yaw, kk.w[0], hS + kk.w[1])); m.rotation.set(0, 0, 0); m.rotation.order = 'YXZ'; m.rotation.set(-qq.hp, kk.yaw, 0); });
+      const blk = o.smearKind === 'block'; smB.visible = false;
+      if (inSm && blk) { const c0 = centre(t - (o.smearLag ?? 0.07)), c1 = centre(t), dd = c1.clone().sub(c0), L = dd.length(); if (L > 0.15) { smB.visible = true; smB.position.copy(c0).addScaledVector(dd, 0.5); smB.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), dd.normalize()); smB.scale.set(0.82, 0.62, L + 0.2); } }
+      ghosts.forEach((m, i) => { m.visible = inSm && !blk; if (!m.visible) return; const tq = t - 0.03 * (i + 1), qq = pose(tq), kk = solve(qq); m.position.copy(local(kk.yaw, kk.w[0], hS + kk.w[1])); m.rotation.set(0, 0, 0); m.rotation.order = 'YXZ'; m.rotation.set(-qq.hp, kk.yaw, 0); });
       if (TR) { const t1 = Math.min(t, TR.t1), on = t >= TR.t0; let prev = on ? centre(TR.t0) : null;
         trailSegs.forEach((parts, i) => { const tb = TR.t0 + (t1 - TR.t0) * (i + 1) / NS, cur = on ? centre(tb) : null, ok = on && t1 > TR.t0;
           parts.forEach(m => { m.visible = ok; if (!ok) return; const d = cur.clone().sub(prev), l = d.length(); m.scale.x = Math.max(0.001, l + 0.04); m.position.copy(prev).addScaledVector(d, 0.5); if (l > 1e-5) m.quaternion.setFromUnitVectors(X, d.normalize()); });
@@ -689,7 +722,8 @@ export const CHIFOUMI_PROPS = {
 
   // A box factory seen from outside (pivot at the middle of its foot, the front +Z): o.w x o.d, o.floors storeys of o.fh, rows of blue windows, a
   // flat roof with a chimney and « USINE »; at o.sinkAt it slides o.sinkFloors storeys down into the ground (the field hides what goes under) over
-  // o.sinkDur with a jolt, and a ring of dust rolls out along the ground; o.open [[floor, col], ...]: windows left open and dark (workers lean out)
+  // o.sinkDur with a jolt, and a ring of dust rolls out along the ground; o.open [[floor, col], ...]: windows left open and dark (workers lean out),
+  // o.fill: a soft light of that strength in front of each open window so the faces in it read
   chifFactoryBox(o) {
     const w = o.w ?? 14, d = o.d ?? 9, nf = o.floors ?? 4, fh = o.fh ?? 3.2, H = nf * fh, g = grp(), body = grp(); g.add(body);
     const WALL = o.color || '#CBD2D8';
@@ -701,7 +735,8 @@ export const CHIFOUMI_PROPS = {
       for (let c = 0; c < nc; c++) { const x = -w / 2 + (c + 0.5) * w / nc, y = f * fh + fh * 0.55, isOpen = open.includes(`${f},${c}`);
         body.add(at(box(1.5, 1.45, 0.08, '#F2F2EE'), x, y, d / 2 + 0.02), at(box(1.3, 1.25, 0.06, isOpen ? '#1A1C20' : '#5E8FC2', isOpen ? {} : { emissive: '#1E3A5A' }), x, y, d / 2 + 0.05));
         if (!isOpen) body.add(at(box(0.05, 1.25, 0.07, '#F2F2EE'), x, y, d / 2 + 0.06));
-        else body.add(at(box(1.5, 1.4, 0.62, WALL, { outline: 0.006 }), x, y - 0.65 - 0.7, d / 2 + 0.31), at(box(1.62, 0.08, 0.7, '#F2F2EE'), x, y - 0.65, d / 2 + 0.33)); }
+        else { body.add(at(box(1.5, 1.4, 0.62, WALL, { outline: 0.006 }), x, y - 0.65 - 0.7, d / 2 + 0.31), at(box(1.62, 0.08, 0.7, '#F2F2EE'), x, y - 0.65, d / 2 + 0.33));
+          if (o.fill) { const L = new THREE.PointLight(o.fillColor || '#FFF0DA', o.fill, 4.5, 1.1); L.position.set(x, y + 0.2, d / 2 + 1.6); body.add(L); } } }
       for (let c = 0; c < Math.floor(d / 2.2); c++) { const z = -d / 2 + (c + 0.5) * d / Math.floor(d / 2.2), y = f * fh + fh * 0.55; body.add(at(box(0.08, 1.45, 1.5, '#F2F2EE'), w / 2 + 0.02, y, z), at(box(0.06, 1.25, 1.3, '#5E8FC2', { emissive: '#1E3A5A' }), w / 2 + 0.05, y, z)); }
     }
     body.add(at(cyl(0.6, 0.75, 7, '#B04A3A', 10, { pivot: 'bottom', outline: 0.01 }), w * 0.3, H, -d * 0.2), at(cyl(0.65, 0.65, 0.4, '#F2F2EE', 10), w * 0.3, H + 6.2, -d * 0.2));
@@ -783,13 +818,19 @@ export const CHIFOUMI_PROPS = {
   },
 
   // An apron (attach to the torso joint, offset [0, -0.1, 0.135] like a shirt front): a bib over the chest and a skirt down to the knees, pale
-  // yellow with small red dots and a red trim, its strings round the neck; o.h (1.15), o.w (0.4)
+  // yellow with small red dots and a red trim, its strings round the neck; o.h (1.15), o.w (0.4); o.flaps [t, ...]: the skirt flaps up and back
+  // from each time (o.flapAmp rad)
   chifApron(o) {
-    const w = o.w ?? 0.4, h = o.h ?? 1.15, g = grp();
-    const p = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#F6E6A6'; c.beginPath(); c.moveTo(W * 0.22, 0); c.lineTo(W * 0.78, 0); c.lineTo(W * 0.78, H * 0.38); c.lineTo(W, H * 0.44); c.lineTo(W * 0.96, H); c.lineTo(W * 0.04, H); c.lineTo(0, H * 0.44); c.lineTo(W * 0.22, H * 0.38); c.closePath(); c.fill();
+    const w = o.w ?? 0.4, h = o.h ?? 1.15, g = grp(), CUT = 0.42;
+    const full = (c, W, H) => { c.fillStyle = '#F6E6A6'; c.beginPath(); c.moveTo(W * 0.22, 0); c.lineTo(W * 0.78, 0); c.lineTo(W * 0.78, H * 0.38); c.lineTo(W, H * 0.44); c.lineTo(W * 0.96, H); c.lineTo(W * 0.04, H); c.lineTo(0, H * 0.44); c.lineTo(W * 0.22, H * 0.38); c.closePath(); c.fill();
       c.save(); c.clip(); c.fillStyle = '#D8463A'; for (let y = 0; y < H; y += W * 0.12) for (let x = (y / (W * 0.12)) % 2 ? W * 0.06 : 0; x < W; x += W * 0.12) { c.beginPath(); c.arc(x, y, W * 0.022, 0, TAU); c.fill(); } c.restore();
-      c.strokeStyle = '#C23A30'; c.lineWidth = W * 0.035; c.stroke(); c.fillStyle = '#F2D27A'; c.fillRect(W * 0.3, H * 0.58, W * 0.4, H * 0.14); c.strokeRect(W * 0.3, H * 0.58, W * 0.4, H * 0.14); }, { res: 256, transparent: true });
-    p.position.set(0, 0.62 - h / 2 + 0.0, 0); g.add(p);
+      c.strokeStyle = '#C23A30'; c.lineWidth = W * 0.035; c.stroke(); c.fillStyle = '#F2D27A'; c.fillRect(W * 0.3, H * 0.58, W * 0.4, H * 0.14); c.strokeRect(W * 0.3, H * 0.58, W * 0.4, H * 0.14); };
+    // the bib and the skirt drawn from the same picture; the skirt hangs from a pivot at the waist so it can flap
+    const bib = canvasPlane(w, h * CUT, (c, W, Hb) => full(c, W, Hb / CUT), { res: 256, transparent: true }); bib.position.set(0, 0.62 - h * CUT / 2, 0); g.add(bib);
+    const piv = grp(); piv.position.set(0, 0.62 - h * CUT, 0); g.add(piv);
+    const skirt = canvasPlane(w, h * (1 - CUT), (c, W, Hs) => { const H = Hs / (1 - CUT); c.save(); c.translate(0, -H * CUT); full(c, W, H); c.restore(); }, { res: 256, transparent: true }); skirt.position.set(0, -h * (1 - CUT) / 2, 0.004); piv.add(skirt);
+    g.userData.update = t => { let f = 0; for (const b of list(o.flaps)) { const u = t - b; if (u >= 0 && u < 0.5) f += Math.exp(-u * 7) * Math.sin(u * 22 + 0.4); } piv.rotation.x = -(o.flapAmp ?? 0.55) * f; };
+    g.userData.update(0);
     return g;
   },
 };
