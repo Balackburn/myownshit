@@ -80,24 +80,24 @@ def BREATHE(t0, t1, every=0.55, a=0.012): return [k(r(t0 + i * every), toon={'sq
 # ================================================================= the corridor and the machines (world): the wall's face at z -0.45
 WALLZ = -0.45
 M = [0.0, 0, 0.0]; FZ = 0.4                     # the drinks machine, front at z 0.4, 1.0 wide, 2.15 tall
-SLOT = [0.31, 1.18, 0.412]; FLAP = [-0.17, 0.44, 0.4]; CAN = [-0.095, 0.895, 0.31]; STK = [0.035, 1.18, 0.404]; PLATE = [0.0, 2.065, 0.42]
+SLOT = [0.25, 1.2, 0.412]; FLAP = [-0.17, 0.44, 0.4]; CAN = [-0.095, 0.895, 0.31]; STK = [0.385, 1.2, 0.4145]; PLATE = [0.0, 2.065, 0.42]   # STK: the small paper EN PANNE sticker beside the slot
 SWP = [1.22, 0, -0.09]                          # the sandwich machine (0.78 wide, 1.5 tall)
-CMP = [-1.4, 0, -0.2]                           # the coffee machine (0.5 wide, 1.5 tall, front at z 0.025)
-PCP = [-2.55, 0, -0.08]                         # the photocopier (1.1 wide, 0.95 tall)
-HERO = [-0.55, 0, 0.64]; HRY = -10              # kneeling at the machine's left, his left arm in the flap
+CMP = [-1.8, 0, -0.2]                           # the coffee machine (0.5 wide, 1.5 tall, front at z 0.025)
+PCP = [-2.95, 0, -0.08]                         # the photocopier (1.1 wide, 0.95 tall)
+HERO = [-0.55, 0, 0.64]; HRY = 30               # kneeling on one knee at the machine's left, his left arm in the flap, turned 30 degrees off the lens
 FLAPIN = [-0.14, 0.44, 0.33]                    # his left hand inside the flap
 def tilted(p, th):
     """a point of the machine (world, upright) once it leans th degrees to its right about its bottom right edge (x 0.5, y 0)"""
     a = math.radians(th); dx, y = p[0] - 0.5, p[1]
     return [r(0.5 + dx * math.cos(a) + y * math.sin(a)), r(-dx * math.sin(a) + y * math.cos(a)), p[2]]
 def SETV(): return {'color': '#C9C6B6'}
-def CORR(sid, **o): return P(f'couloir{sid}', 'corridor', pos=[0, 0, WALLZ], opts={'len': 18, 'depth': 12, 'doorX': -5.2, 'boardX': 3.4, 'plantX': -3.9, **o})
+def CORR(sid, **o): return P(f'couloir{sid}', 'corridor', pos=[0, 0, WALLZ], opts={'len': 18, 'depth': 12, 'doorX': -5.2, 'boardX': 4.6, 'plantX': -3.9, **o})
 def MACH(sid, **o): return P(f'distrib{sid}', 'drinkMachine', pos=M, opts={'flapIn': 1, 'plaque': True, **o})
 def SANDW(sid, **o): return P(f'sandw{sid}', 'sandwichMachine', pos=SWP, opts=o)
 def COFFEE(sid): return P(f'cafe{sid}', 'coffeeMachine', pos=CMP)
 def COPIER(sid): return P(f'copieur{sid}', 'photocopier', pos=PCP)
-def PLATE_C(sid, **o): return P(f'plaqueC{sid}', 'banquePlaque', pos=[CMP[0], 1.66, CMP[2] + 0.24], opts={'w': 0.44, 'h': 0.12, **o})
-def PLATE_P(sid, **o): return P(f'plaqueP{sid}', 'banquePlaque', pos=[PCP[0] - 0.12, 0.6, PCP[2] + 0.36], opts={'w': 0.5, 'h': 0.14, **o})
+def PLATE_C(sid, **o): return P(f'plaqueC{sid}', 'banquePlaque', pos=[CMP[0], 0.88, CMP[2] + 0.245], opts={'w': 0.46, 'h': 0.13, **o})
+def PLATE_P(sid, **o): return P(f'plaqueP{sid}', 'banquePlaque', pos=[PCP[0] - 0.1, 0.58, PCP[2] + 0.36], opts={'w': 0.62, 'h': 0.17, **o})
 LOOKC = {'sunDir': [0.55, 0.9, 0.7]}            # light from the upper right: the leaning machine's shade falls toward the hero
 def CORRIDOR(sid, crushed=False, mopts=None, extra=()):
     """the corridor's standing props after a shot: the wall, the drinks machine, the sandwich machine (flat from S10 on), the coffee machine and the copier"""
@@ -106,8 +106,12 @@ def CORRIDOR(sid, crushed=False, mopts=None, extra=()):
 HCALM = {'lid': 0.35, 'mouth': 'line', 'brow': 0.0}
 HREST = off(HERO, HRY, 0.3, 0.22, 0.62)        # his right hand on his right knee
 HBEND = {'spine': SP(0.28, -0.22)}            # bowed a little toward the machine
-def HERO_K(keys=(), flap=FLAPIN, face=HCALM, look='camera', rest=None, bend=None, pid='mec'):
-    ks = [k(0.0, look=look), TK(0.0, {'L': R5(flap, 1, 0.06), 'R': R5(rest or HREST)}, {'L': 'grip', 'R': 'rest'}, face, bend=bend or HBEND, d=0.0), *keys]
+def HERO_K(keys=(), flap=FLAPIN, face=HCALM, look='camera', rest=None, bend=None, pid='mec', blinks=(), breathe=None):
+    """the hero in his one locked pose: on one knee (the clip set by a key: as a start clip only the reach applied and he half stood), left arm in the
+    flap to the elbow, bowed toward the machine; blinks at the given times, a slow breath over [t0, t1] (breathe)"""
+    ks = [k(0.0, clip='kneel'), k(0.0, look=look), TK(0.0, {'L': R5(flap, 1, 0.06), 'R': R5(rest or HREST)}, {'L': 'grip', 'R': 'rest'}, face, bend=bend or HBEND, d=0.0), *keys]
+    for t in blinks: ks += blink(t, face)
+    if breathe: ks += BREATHE(breathe[0], breathe[1], 0.6, 0.014)
     return act(pid, HERO, HRY, 'kneel', 'neutral', keys=ks)
 
 for g_ in [('S01', 2.25, 'mec', 'canWobble'), ('S02', 0.4, 'ministre', 'flip'), ('S03', 1.5, 'ministre', 'handshake'), ('S07', 0.6, 'directeur', 'feetUp'),
@@ -121,7 +125,7 @@ for g_ in [('S01', 2.25, 'mec', 'canWobble'), ('S02', 0.4, 'ministre', 'flip'), 
 #    bottom spiral rocks with a click and stays put; his eyes go up to it, then to us
 D1 = st.dur('S01'); HST = [0.78, 0, 0.86]; RYST = -35
 C1 = fcam(0.0, [0.75, 1.15, 4.4], {'standTop': add(HST, [0, 2.35, 0]), 'standR': add(HST, [0.42, 1.7, 0.1]), 'kneelTop': add(HERO, [0, 1.8, 0]), 'heroL': add(HERO, [-0.42, 1.0, 0]), 'mtop': [0, 2.15, 0.4], 'flap': [FLAP[0], 0.3, 0.4], 'slot': SLOT}, push=0.2)
-C1b = fcam(1.32, [0.35, 1.05, 3.4], {'kneelTop': add(HERO, [0, 1.85, 0]), 'heroL': add(HERO, [-0.42, 1.0, 0]), 'can': CAN, 'sticker': STK, 'slot': add(SLOT, [0.08, 0, 0]), 'flap': [FLAP[0], 0.3, 0.4]}, top=0.1, bottom=0.74, push=0.2)
+C1b = fcam(1.32, [0.35, 1.05, 3.4], {'kneelTop': add(HERO, [0, 1.85, 0]), 'heroL': add(HERO, [-0.42, 1.0, 0]), 'can': CAN, 'sticker': STK, 'slot': add(SLOT, [0.08, 0, 0]), 'flap': [FLAP[0], 0.3, 0.4]}, top=0.1, bottom=0.74, push=0.35)
 chk('S01b', C1b, {'kneelFace': add(HERO, [0, 1.6, 0]), 'can': CAN, 'sticker': STK, 'slot': SLOT, 'flap': FLAP})
 chk('S01', C1, {'standFace': add(HST, [0, 2.05, 0]), 'standTop': add(HST, [0, 2.3, 0]), 'kneelFace': add(HERO, [0, 1.6, 0]), 'can': CAN, 'sticker': STK, 'slot': SLOT, 'flap': FLAP, 'top': [0, 2.15, 0.4], 'feet': HST})
 SLOTH = add(SLOT, [0.0, 0.0, 0.06])
@@ -136,9 +140,14 @@ k1 = [k(0.0, look=SLOT), TK(0.0, {'R': R5(off(HST, RYST, 0.25, 0.3, 1.1)), 'L': 
       k(DROP1, clip='kneel', blend=0.18), k(DROP1, to=HERO, dur=0.42, glide=True, face=HRY), TK(DROP1, sq=(0.88, 1.12, 0.88), d=0.06, keep=True),
       TK(r(DROP1 + 0.05), {'L': R5(add(FLAPIN, [0.05, 0.12, 0.12]))}, {'L': 'open'}, STRAIN, (1.06, 0.92, 1.06), HBEND, d=0.3, keep=True),
       TK(IN1, {'L': R5(FLAPIN, 1, 0.06), 'R': R5(HREST)}, {'L': 'grip', 'R': 'rest'}, STRAIN, (1, 1, 1), HBEND, d=0.12, keep=True),
-      *[TK(r(IN1 + 0.15 + 0.14 * i), {'L': R5(add(FLAPIN, [0.04 * (1 if i % 2 else -1), 0.02, -0.01]), 1, 0.06)}, {'L': 'grip'}, STRAIN, d=0.12, keep=True) for i in range(4)],
-      k(r(WOB1 + 0.05), look=CAN, lookDur=0.12), TK(r(WOB1 + 0.05), face={'lid': 0.1, 'mouth': 'O', 'brow': 0.6, 'gy': -0.4, 'gx': 0.5}, d=0.06, keep=True),
-      k(2.72, look='camera', lookDur=0.15), TK(2.72, face=HCALM, d=0.1, keep=True)]
+      *[TK(r(IN1 + 0.12 + 0.13 * i), {'L': R5(add(FLAPIN, [0.05 * (1 if i % 2 else -1), 0.03 * (1 if i % 3 else -1), -0.02 * (i % 2)]), 1, 0.06)}, {'L': 'grip'},
+           {**STRAIN, 'gx': 0.5 if i % 2 else 0.1}, (1.03, 0.97, 1.03) if i % 2 else (0.98, 1.02, 0.98), {'spine': SP(0.3, -0.3 if i % 2 else -0.14)}, d=0.11, keep=True) for i in range(6)],
+      TK(2.12, {'L': R5(FLAPIN, 1, 0.06)}, {'L': 'grip'}, {'lid': 0.3, 'mouth': 'line', 'brow': -0.2, 'gx': 0.3, 'gy': 0.5}, (1, 1, 1), HBEND, d=0.12, keep=True),
+      TK(r(WOB1 + 0.02), face={'lid': 0.3, 'mouth': 'line', 'brow': 0.0, 'gx': 0.6, 'gy': -0.3}, d=0.04, keep=True),
+      k(r(WOB1 + 0.12), look=CAN, lookDur=0.12), TK(r(WOB1 + 0.12), face={'lid': 0.0, 'mouth': 'O', 'brow': 0.6, 'gy': -0.4, 'gx': 0.5}, sq=(0.96, 1.05, 0.96), d=0.06, keep=True),
+      TK(r(WOB1 + 0.35), sq=(1, 1, 1), d=0.12, keep=True),
+      TK(2.62, face={**HCALM, 'gx': -0.3}, d=0.05, keep=True), k(2.72, look='camera', lookDur=0.15), TK(2.72, face=HCALM, bend={'spine': SP(0.28, -0.22), 'neck': SP(0.0, 0.15)}, d=0.12, keep=True),
+      *blink(1.98, STRAIN), *blink(2.9, HCALM)]
 st.shot('S01', 'whiteVoid', setOpts=SETV(), look=LOOKC, actors=[act('mec', HST, RYST, 'stand', 'happy', keys=k1)],
         props=CORRIDOR('S01', mopts={'plaque': False, 'flapIn': [[1.2, 0], [IN1, 1]], 'coinsAt': [0.3], 'canWobble': [WOB1]}), cams=[C1, C1b])
 st.cue('sfx:clink', 'S01', 0.42, 0.3); st.cue('sfx:rattleShort', 'S01', 0.5, 0.2); st.cue('thud', 'S01', r(DROP1 + 0.35), 0.25); st.cue('sfx:squeak', 'S01', IN1, 0.2); st.cue('sfx:click', 'S01', WOB1, 0.35)
@@ -146,11 +155,18 @@ st.cue('sfx:clink', 'S01', 0.42, 0.3); st.cue('sfx:rattleShort', 'S01', 0.5, 0.2
 # ================================================================= S02 the press room
 # 2: the minister ruled: it is a bank. A minister in a plain gold sash at a podium flips the cover of a chart on an easel beside him: a drawn red
 #    vending machine, a big equals sign, a drawn bank with columns; a snap zoom onto the equals sign; BANQUE stamps over it
-D2 = st.dur('S02'); FLIP2 = 0.42; ZOOM2 = 1.05
+D2 = st.dur('S02'); FLIP2 = 0.42; ZOOM2 = 1.28
 MIN2 = [-0.5, 0, -1.55]; POD2 = [-0.5, 0, -1.15]; CH2 = [0.55, 0, -1.75]; RYCH = -12
-EQ2 = [CH2[0] + 0.0, 0.75 + 1.5 * (1 - 0.455), CH2[2] + 0.12]
+EQ2 = [CH2[0] + 0.0, 0.75 + 1.5 * (1 - 0.42), CH2[2] + 0.12]
 C2 = cam(0.0, [0.05, 1.7, 2.7], [0.05, 1.7, 2.55], [0.03, 1.5, -1.4], [0.03, 1.5, -1.4], lens=44)
-C2b = glide([cam(ZOOM2, [0.42, 1.6, 0.35], [0.42, 1.6, 0.25], [EQ2[0] - 0.02, EQ2[1] + 0.02, EQ2[2]], [EQ2[0] - 0.02, EQ2[1] + 0.02, EQ2[2]], lens=40)], 0.12)
+EQAIM = [EQ2[0] - 0.03, EQ2[1] + 0.01, EQ2[2]]
+def zcam(at, d, d2=None):   # a camera square on the chart, d metres from it, aimed a little above the equals sign
+    a = math.radians(RYCH); f = [math.sin(a), 0, math.cos(a)]; fr = [r(EQAIM[0] + f[0] * d), r(EQAIM[1] - 0.02), r(EQAIM[2] + f[2] * d)]
+    to = [r(EQAIM[0] + f[0] * (d2 or d)), r(EQAIM[1] - 0.02), r(EQAIM[2] + f[2] * (d2 or d))]
+    return cam(at, fr, to, EQAIM, EQAIM, lens=40)
+C2b = glide([zcam(ZOOM2, 2.45)], 0.09)                        # the snap: past the mark
+C2c = glide([zcam(r(ZOOM2 + 0.12), 2.95, 2.8)], 0.22)        # back and settle, then a slow push to the end
+chk('S02c', C2c, {'eq': EQ2, 'vendTop': [CH2[0], 0.75 + 1.5 * 0.96, CH2[2] + 0.1], 'bankBot': [CH2[0], 0.75 + 1.5 * 0.18, CH2[2] + 0.1]})
 chk('S02', C2, {'minFace': add(MIN2, [0, 2.05, 0]), 'minTop': add(MIN2, [0, 2.3, 0]), 'chartTop': [CH2[0], 2.27, CH2[2]], 'chartBot': [CH2[0], 0.75, CH2[2]], 'eq': EQ2})
 chk('S02b', C2b, {'eq': EQ2, 'vendBot': [CH2[0], 0.75 + 1.5 * 0.68, CH2[2] + 0.1], 'bankTop': [CH2[0], 0.75 + 1.5 * 0.42, CH2[2] + 0.1]})
 RYM2 = 15
@@ -160,11 +176,11 @@ k2 = [k(0.0, look='camera'), TK(0.0, {'R': R5(off(MIN2, RYM2, 0.35, 0.18, 1.18))
       TK(0.2, {'L': R5(add(CORNER, [0, -0.08, 0]))}, {'L': 'grip'}, {**MINF, 'gx': 0.6}, d=0.18, keep=True), k(0.18, look=CORNER, lookDur=0.12),
       TK(FLIP2, {'L': R5(add(CORNER, [0.05, 0.12, -0.05]))}, {'L': 'grip'}, {'lid': 0.15, 'mouth': 'O', 'brow': 0.4}, (0.96, 1.05, 0.96), d=0.1, keep=True),
       TK(r(FLIP2 + 0.25), {'L': R5(off(MIN2, RYM2, 0.4, -0.35, 1.3))}, {'L': 'point'}, {'lid': 0.2, 'mouth': 'smile', 'brow': 0.3}, (1, 1, 1), d=0.18, keep=True),
-      k(r(FLIP2 + 0.25), look='camera', lookDur=0.12), *blink(1.5, MINF), *BREATHE(0.8, D2, 0.45, 0.015)]
+      k(r(FLIP2 + 0.25), look='camera', lookDur=0.12), TK(0.95, face={'lid': 0.2, 'mouth': 'smile', 'brow': 0.4, 'gx': 0.6}, bend={'neck': SP(0.0, 0.2)}, d=0.1, keep=True), *blink(1.1, MINF), *BREATHE(0.8, D2, 0.45, 0.015)]
 st.shot('S02', 'pressRoom', setOpts={'flags': False, 'podium': False, 'chairs': False, 'backdrop': ' '}, look={'sunDir': [0.3, 0.9, 0.8]}, actors=[
         act('ministre', MIN2, RYM2, 'stand', 'neutral', keys=k2)],
         props=[P('pupitre2', 'plainPodium', pos=POD2, ry=RYM2), P('tableau2', 'bankChart', pos=CH2, ry=RYCH, opts={'w': 1.0, 'flipAt': FLIP2})],
-        cams=[C2, C2b])
+        cams=[C2, C2b, C2c])
 st.card('S02', 'BANQUE', at=st.at('S02', 'L02', 6))
 st.cue('sfx:paper', 'S02', FLIP2, 0.35); st.cue('whoosh', 'S02', r(ZOOM2 - 0.05), 0.25, 0.12, 500, 2500)
 
@@ -227,7 +243,7 @@ for t in FEEDS: st.cue('sfx:clink', 'S04', r(t + 0.1), 0.25)
 # 5: it never gave anything back. Like a real one. Close on the panel and the glass: coins slide into the slot one after another (a saver's hand at
 #    the top right); below, the big can never moves; at the bottom the hero's fingers wiggle in the empty flap
 D5 = st.dur('S05'); COINS5 = [0.15, 0.45, 0.75, 1.05, 1.35, 1.65, 1.95, 2.25]
-C5 = cam(0.0, [0.5, 0.95, 2.0], [0.48, 0.95, 1.85], [0.12, 0.84, 0.4], [0.11, 0.84, 0.4], lens=44)
+C5 = cam(0.0, [0.42, 0.95, 2.0], [0.4, 0.95, 1.85], [0.05, 0.84, 0.4], [0.04, 0.84, 0.4], lens=44)
 chk('S05', C5, {'slot': SLOT, 'sticker': STK, 'can': CAN, 'flapTop': [FLAP[0], 0.58, 0.4], 'flapBot': [FLAP[0], 0.3, 0.4], 'flapL': [-0.42, 0.44, 0.4], 'panelR': [0.5, 1.0, 0.4]})
 SV5 = [0.78, 0, 0.92]
 k5 = [k(0.0, look=SLOT), TK(0.0, {'L': R5(off(SV5, -78, 0.2, -0.24, 1.15)), 'R': R5(add(SLOT, [0.03, 0.0, 0.12]))}, {'L': 'grip', 'R': 'point'}, SAVF, d=0.0)]
@@ -241,32 +257,45 @@ for t in COINS5: st.cue('sfx:clink', 'S05', r(t + 0.05), 0.2)
 # 6: it bought the coffee machine, then the photocopier. Wide along the wall from the right: brass BANQUE plates pop onto the coffee machine on
 #    « café », then onto the photocopier on « photocopieuse »: three machines in a row stepping down like a little skyline; the hero kneels small
 D6 = st.dur('S06'); POPC6 = r(st.at('S06', 'L06', 6) - 0.05); POPP6 = r(st.at('S06', 'L06', 9) - 0.05)
-C6 = fcam(0.0, [-3.9, 0.85, 2.6], {'copL': [PCP[0] - 0.55, 0.95, 0.27], 'copL0': [PCP[0] - 0.55, 0.0, 0.27], 'cofTop': [CMP[0], 1.75, 0.03], 'mtop': [0.5, 2.15, 0.4], 'mtopL': [-0.5, 2.15, 0.4], 'heroTop': add(HERO, [0, 1.8, 0]), 'heroL': add(HERO, [-0.3, 1.0, 0]), 'plateP': [PCP[0] - 0.12, 0.6, 0.28], 'm0': [0.5, 0, 0.4]}, top=0.1, margin=0.1, push=0.15, lenses=range(30, 66))
-chk('S06', C6, {'copierL': [PCP[0] - 0.55, 0.95, PCP[2] + 0.35], 'copierTop': [PCP[0], 0.95, PCP[2]], 'coffeeTop': [CMP[0], 1.5, CMP[2]], 'machTop': [0, 2.15, 0.4], 'sandw': [SWP[0] + 0.39, 1.5, 0.22], 'heroFace': add(HERO, [0, 1.6, 0]), 'plateC': [CMP[0], 1.66, CMP[2] + 0.24], 'plateP': [PCP[0] - 0.12, 0.6, PCP[2] + 0.36], 'sticker': STK})
-st.shot('S06', 'whiteVoid', setOpts=SETV(), look=LOOKC, actors=[HERO_K([*blink(0.6, HCALM), k(r(POPC6 + 0.1), look=[CMP[0], 1.6, 0.3], lookDur=0.2), k(r(POPP6 + 0.1), look=[PCP[0], 0.8, 0.3], lookDur=0.2), k(2.6, look='camera', lookDur=0.2)])],
-        props=[*CORRIDOR('S06', mopts={'glint': [0.2]}), PLATE_C('S06', popAt=POPC6, glint=[r(POPC6 + 0.4)]), PLATE_P('S06', popAt=POPP6, glint=[r(POPP6 + 0.4)])], cams=[C6])
+C6 = fcam(0.0, [-1.7, 1.0, 3.6], {'cofTop': [CMP[0] - 0.25, 1.55, 0.03], 'cof0': [CMP[0] - 0.25, 0.0, 0.03], 'plateC': [CMP[0], 0.88, 0.05], 'mtopL': [-0.5, 2.15, 0.4], 'mtopR': [0.12, 2.15, 0.4], 'heroTop': add(HERO, [0, 1.85, 0]), 'heroL': add(HERO, [-0.35, 1.0, 0])}, top=0.1, bottom=0.88, margin=0.08, push=0.15)
+C6b = glide([fcam(1.55, [-3.2, 0.95, 3.0], {'copL': [PCP[0] - 0.55, 0.95, 0.27], 'copL0': [PCP[0] - 0.55, 0.0, 0.27], 'cofTop': [CMP[0], 1.55, 0.03], 'cofR': [CMP[0] + 0.5, 1.0, 0.03], 'plateP': [PCP[0] - 0.1, 0.58, 0.28]}, top=0.1, bottom=0.88, margin=0.07, push=0.15, lenses=range(30, 66))], 0.4)
+chk('S06b', C6b, {'copierL': [PCP[0] - 0.55, 0.95, PCP[2] + 0.35], 'coffeeTop': [CMP[0], 1.5, CMP[2]], 'machTopL': [-0.5, 2.15, 0.4], 'plateP': [PCP[0] - 0.1, 0.58, PCP[2] + 0.36], 'heroFace': add(HERO, [0, 1.6, 0])})
+chk('S06', C6, {'copierL': [PCP[0] - 0.55, 0.95, PCP[2] + 0.35], 'copierTop': [PCP[0], 0.95, PCP[2]], 'coffeeTop': [CMP[0], 1.5, CMP[2]], 'machTop': [0, 2.15, 0.4], 'sandw': [SWP[0] + 0.39, 1.5, 0.22], 'heroFace': add(HERO, [0, 1.6, 0]), 'plateC': [CMP[0], 0.88, CMP[2] + 0.245], 'sticker': STK})
+st.shot('S06', 'whiteVoid', setOpts=SETV(), look=LOOKC, actors=[HERO_K([TK(r(POPC6 - 0.06), face={**HCALM, 'gx': -0.7}, d=0.04, keep=True), k(r(POPC6 + 0.06), look=[CMP[0], 1.0, 0.6], lookDur=0.2), TK(r(POPC6 + 0.06), face={'lid': 0.1, 'mouth': 'O', 'brow': 0.6}, sq=(0.96, 1.05, 0.96), d=0.06, keep=True),
+                  TK(r(POPC6 + 0.4), face=HCALM, sq=(1, 1, 1), d=0.12, keep=True), TK(r(POPP6 - 0.06), face={**HCALM, 'gx': -0.8}, d=0.04, keep=True), k(r(POPP6 + 0.06), look=[PCP[0], 0.7, 0.6], lookDur=0.25),
+                  TK(r(POPP6 + 0.06), face={'lid': 0.0, 'mouth': 'O', 'brow': 0.8}, sq=(0.95, 1.06, 0.95), d=0.06, keep=True), TK(r(POPP6 + 0.4), face=HCALM, sq=(1, 1, 1), d=0.12, keep=True), k(2.6, look='camera', lookDur=0.2)],
+                 blinks=(0.45, 1.5, 2.75), breathe=None)],
+        props=[*CORRIDOR('S06', mopts={'glint': [0.2]}), PLATE_C('S06', popAt=POPC6, glint=[r(POPC6 + 0.4)]), PLATE_P('S06', popAt=POPP6, glint=[r(POPP6 + 0.4)])], cams=[C6, C6b])
 st.cue('clack', 'S06', POPC6, 0.3); st.cue('sfx:ding', 'S06', r(POPC6 + 0.4), 0.15); st.cue('clack', 'S06', POPP6, 0.3); st.cue('sfx:ding', 'S06', r(POPP6 + 0.4), 0.15)
 
 # ================================================================= S07 the director
 # 7: it named a director. A box-headed director in an anthracite suit drops into a red armchair beside the hero (the seat squashes), a fat briefcase
 #    on his lap, and swings his feet up onto the kneeling hero's back (the hero squashes under them); smug look at us
-D7 = st.dur('S07'); SIT7, FEET7 = 0.12, 0.55
-ARM = [-1.42, 0, 1.12]; RYA = 62
+D7 = st.dur('S07'); SIT7, FEET7 = 0.12, 0.5
+ARM = [-1.5, 0, 1.2]; RYA = 50                  # the armchair at the hero's left, a little in front of him
 DIR7 = add(ARM, [0, 0.0, 0])
-C7 = fcam(0.0, [-0.3, 1.45, 4.6], {'dirTop': add(ARM, [0, 1.95, 0]), 'arm': add(ARM, [-0.43, 0.0, 0.28]), 'kneelTop': add(HERO, [0, 1.8, 0]), 'heroR': add(HERO, [0.3, 0.6, 0]), 'can': CAN, 'stk': STK}, push=0.2)
-BACK = off(HERO, HRY, -0.02, 0.17, 1.25)
-chk('S07', C7, {'dirFace': add(ARM, [0, 1.62, 0]), 'heroFace': add(HERO, [0, 1.6, 0]), 'back': BACK, 'case': off(ARM, RYA, 0.32, 0.0, 0.75), 'can': CAN, 'sticker': STK, 'armchairFoot': ARM})
+BACK = off(HERO, HRY, -0.04, 0.08, 1.12)          # the top of his bowed back and shoulders (a footstool)
+HB7 = {'spine': SP(0.55, -0.15)}
+C7 = fcam(0.0, [-0.3, 1.95, 4.4], {'dirTop': add(ARM, [0, 2.65, 0]), 'arm': add(ARM, [-0.45, 0.0, 0.3]), 'kneelTop': add(HERO, [0, 1.8, 0]), 'heroR': add(HERO, [0.35, 0.3, 0.2]), 'stk': STK}, top=0.08, bottom=0.86, push=0.2)
+chk('S07', C7, {'dirFace': add(ARM, [0, 1.62, 0]), 'dirDrop': add(ARM, [0, 2.4, 0]), 'heroFace': add(HERO, [0, 1.45, 0]), 'back': BACK, 'can': CAN, 'sticker': STK, 'armchairFoot': ARM})
 SMUG = {'lid': 0.45, 'mouth': 'smile', 'brow': 0.2}
-FEETP = {'L': [*add(BACK, [-0.04, 0.03, 0.1]), 1], 'R': [*add(BACK, [0.07, 0.05, -0.02]), 1]}
-k7 = [k(0.0, look='camera'), k(0.0, clip='sit'), TK(0.0, {'R': R5(off(ARM, RYA, 0.3, 0.16, 0.82)), 'L': R5(off(ARM, RYA, 0.3, -0.16, 0.82))}, {'R': 'grip', 'L': 'grip'}, SMUG, (0.95, 1.06, 0.95), d=0.0),
-      TK(SIT7, sq=(1.08, 0.92, 1.08), d=0.05, keep=True), TK(r(SIT7 + 0.15), sq=(1, 1, 1), d=0.12, keep=True),
-      TK(r(FEET7 - 0.2), plant={'L': [*add(BACK, [-0.1, 0.25, 0.2]), 1], 'R': [*add(BACK, [0.0, 0.3, 0.15]), 1]}, bend={'spine': SP(-0.15)}, d=0.2, keep=True),
-      TK(FEET7, plant=FEETP, bend={'spine': SP(-0.2)}, face={**SMUG, 'lid': 0.55}, d=0.08, e='in', keep=True),
-      *blink(1.15, SMUG)]
-kh7 = [TK(FEET7, sq=(1.1, 0.88, 1.1), face={'lid': 0.5, 'mouth': 'line', 'brow': -0.4}, d=0.04, e='out', keep=True), TK(r(FEET7 + 0.12), sq=(1.04, 0.95, 1.04), d=0.1, keep=True), TK(r(FEET7 + 0.3), sq=(1.02, 0.97, 1.02), face={**HCALM, 'lid': 0.5}, d=0.15, keep=True)]
-st.shot('S07', 'whiteVoid', setOpts=SETV(), look=LOOKC, actors=[act('directeur', DIR7, RYA, 'sit', 'happy', keys=k7), HERO_K(kh7)],
+def FEET(dy): return {'L': [*add(BACK, [-0.06, 0.06 + dy, 0.09]), 1], 'R': [*add(BACK, [0.06, 0.08 + dy, -0.07]), 1]}
+HANDS7 = {'R': R5(off(ARM, RYA, 0.3, 0.16, 0.82)), 'L': R5(off(ARM, RYA, 0.3, -0.16, 0.82))}
+k7 = [k(0.0, look='camera'), k(0.0, clip='sit'), k(0.0, to=DIR7, dur=SIT7, ease='in', glide=True, face=RYA),
+      TK(0.0, HANDS7, {'R': 'grip', 'L': 'grip'}, {'lid': 0.0, 'mouth': 'O', 'brow': 0.6}, (0.8, 1.25, 0.8), d=0.0),
+      TK(SIT7, sq=(1.28, 0.7, 1.28), face={'lid': 0.7, 'mouth': 'line', 'brow': -0.2}, d=0.03, e='out', keep=True),
+      TK(r(SIT7 + 0.13), sq=(0.93, 1.08, 0.93), face=SMUG, d=0.08, keep=True), TK(r(SIT7 + 0.26), sq=(1, 1, 1), d=0.1, keep=True),
+      TK(r(FEET7 - 0.16), plant=FEET(0.3), bend={'spine': SP(-0.18)}, d=0.16, keep=True),
+      TK(FEET7, plant=FEET(0.0), bend={'spine': SP(-0.22)}, face={**SMUG, 'lid': 0.55}, d=0.05, e='in', keep=True),
+      TK(r(FEET7 + 0.04), plant=FEET(-0.2), d=0.04, keep=True), TK(r(FEET7 + 0.2), plant=FEET(-0.2), d=0.1, keep=True),
+      TK(r(FEET7 + 0.3), plant=FEET(0.08), d=0.08, keep=True), TK(r(FEET7 + 0.42), plant=FEET(-0.02), d=0.08, keep=True), TK(r(FEET7 + 0.55), plant=FEET(0.0), d=0.08, keep=True),
+      *blink(1.2, SMUG)]
+kh7 = [TK(r(FEET7 + 0.02), sq=(1.16, 0.8, 1.16), face={'lid': 0.85, 'mouth': 'clench', 'brow': -0.6}, d=0.03, e='out', keep=True), TK(r(FEET7 + 0.2), sq=(1.15, 0.81, 1.15), d=0.1, keep=True),
+       TK(r(FEET7 + 0.3), sq=(0.9, 1.13, 0.9), face={'lid': 0.0, 'pop': 0.25, 'mouth': 'O', 'brow': 0.6}, d=0.08, e='out', keep=True), TK(r(FEET7 + 0.42), sq=(1.04, 0.96, 1.04), d=0.08, keep=True),
+       TK(r(FEET7 + 0.55), sq=(1, 1, 1), face={**HCALM, 'lid': 0.5}, d=0.1, keep=True), k(r(FEET7 + 0.45), look='camera', lookDur=0.12)]
+st.shot('S07', 'whiteVoid', setOpts=SETV(), look=LOOKC, actors=[act('directeur', add(DIR7, [0, 0.75, 0]), RYA, 'sit', 'happy', keys=k7), HERO_K(kh7, bend=HB7, blinks=(0.25,))],
         props=[*CORRIDOR('S07'), P('fauteuil7', 'armchair', pos=ARM, ry=RYA, opts={'color': '#A8352C', 'doily': False, 'sinkAt': SIT7}),
-               P('mallette7', 'briefcase', pos=off(ARM, RYA, 0.34, 0.0, 0.92), ry=RYA, rot=[-0.2, 0, 0], scale=1.3)], cams=[C7])
+               P('mallette7', 'briefcase', pos=off(ARM, RYA, 0.34, 0.0, 0.92), ry=RYA, rot=[-0.2, 0, 0], scale=1.3, keys=[k(0.0, visible=False), k(r(SIT7 + 0.02), visible=True)])], cams=[C7])
 st.cue('thud', 'S07', SIT7, 0.3); st.cue('sfx:boing', 'S07', FEET7, 0.2)
 
 # ================================================================= S08 bankrupt
@@ -274,11 +303,11 @@ st.cue('thud', 'S07', SIT7, 0.3); st.cue('sfx:boing', 'S07', FEET7, 0.2)
 #    height and tips it toward us: empty; a single moth flutters out; at the left a tower of empty coffee cups taller than him leans on the coffee
 #    machine beside his armchair; FAILLITE stamps
 D8 = st.dur('S08'); TIP8, MOTH8 = 0.75, 0.95
-DIR8 = [-1.08, 0, 1.88]; RYD8 = 14
+DIR8 = [-0.95, 0, 1.9]; RYD8 = 12
 BOX8 = off(DIR8, RYD8, 0.42, 0.0, 1.22)
-TOWER = [-1.88, 0, 0.12]
-C8 = fcam(0.0, [-0.2, 1.55, 5.4], {'dirTop': add(DIR8, [0, 2.35, 0]), 'dirL': add(DIR8, [-0.33, 1.2, 0]), 'tower': add(TOWER, [-0.15, 2.65, 0]), 'towerL': add(TOWER, [-0.2, 0.5, 0]), 'door': [0.45, 0.67, 0.42], 'mtopR': [0.5, 2.0, 0.4], 'kneelTop': add(HERO, [0, 1.8, 0])}, top=0.2, push=0.25)
-chk('S08', C8, {'dirFace': add(DIR8, [0, 2.05, 0]), 'dirTop': add(DIR8, [0, 2.3, 0]), 'box': BOX8, 'mothTop': add(BOX8, [0.75, 0.55, 0.45]), 'towerTop': add(TOWER, [-0.15, 2.65, 0]), 'heroFace': add(HERO, [0, 1.6, 0]), 'can': CAN, 'sticker': STK, 'machTop': [0, 2.15, 0.4]})
+TOWER = [-1.42, 0, 0.14]
+C8 = fcam(0.0, [-0.2, 1.55, 5.4], {'dirTop': add(DIR8, [0, 2.35, 0]), 'dirL': add(DIR8, [-0.33, 1.2, 0]), 'tower': add(TOWER, [-0.2, 3.0, 0]), 'towerL': add(TOWER, [-0.2, 0.5, 0]), 'cof': [CMP[0] - 0.25, 1.5, 0.0], 'door': [0.45, 0.67, 0.42], 'mtopR': [0.5, 2.0, 0.4], 'kneelTop': add(HERO, [0, 1.8, 0])}, top=0.2, push=0.25)
+chk('S08', C8, {'dirFace': add(DIR8, [0, 2.05, 0]), 'dirTop': add(DIR8, [0, 2.3, 0]), 'box': BOX8, 'mothTop': add(BOX8, [0.75, 0.55, 0.45]), 'towerTop': add(TOWER, [-0.19, 2.95, 0]), 'heroFace': add(HERO, [0, 1.6, 0]), 'can': CAN, 'sticker': STK, 'machTop': [0, 2.15, 0.4]})
 DIRF = {'lid': 0.3, 'mouth': 'smile', 'brow': 0.1}
 k8 = [k(0.0, look=BOX8), TK(0.0, {'R': R5(add(BOX8, [-0.15, -0.02, 0.0])), 'L': R5(add(BOX8, [0.15, -0.02, 0.0]))}, {'R': 'grip', 'L': 'grip'}, DIRF, d=0.0),
       TK(TIP8, {'R': R5(add(BOX8, [-0.15, 0.08, -0.05])), 'L': R5(add(BOX8, [0.15, 0.08, -0.05]))}, {'R': 'grip', 'L': 'grip'}, {**DIRF, 'gy': 0.5}, (0.98, 1.02, 0.98), d=0.15, keep=True),
@@ -286,8 +315,8 @@ k8 = [k(0.0, look=BOX8), TK(0.0, {'R': R5(add(BOX8, [-0.15, -0.02, 0.0])), 'L': 
       k(1.9, look='camera', lookDur=0.15), TK(1.9, face={'lid': 0.4, 'mouth': 'line', 'brow': -0.2}, d=0.12, keep=True), *blink(2.35, {'lid': 0.4, 'mouth': 'line', 'brow': -0.2})]
 st.shot('S08', 'whiteVoid', setOpts=SETV(), look=LOOKC, actors=[act('directeur', DIR8, RYD8, 'stand', 'happy', keys=k8), HERO_K([*blink(0.5, HCALM), k(1.1, look=add(BOX8, [0.45, 0.35, 0.25]), lookDur=0.2), k(1.8, look='camera', lookDur=0.2)])],
         props=[*CORRIDOR('S08', mopts={'boxOpen': 1}), P('fauteuil8', 'armchair', pos=ARM, ry=RYA, opts={'color': '#A8352C', 'doily': False}),
-               P('gobelets8', 'cupTower', pos=TOWER, rot=[0, 0, -0.09], opts={'n': 27, 'size': 1.3, 'at': [0, 0.01], 'sway': 0.5}),
-               P('caisse8', 'coinBox', pos=BOX8, ry=RYD8, rot=[0.25, 0, 0], keys=[k(TIP8, rotTo=[1.2, math.radians(RYD8), 0], dur=0.2)]),
+               P('gobelets8', 'cupStack', pos=TOWER, rot=[0, 0, 0.065], opts={'n': 25, 'size': 1.6}),
+               P('caisse8', 'coinBox', pos=BOX8, ry=RYD8, rot=[0.15, 0, 0], keys=[k(TIP8, rotTo=[1.05, math.radians(RYD8), 0], dur=0.18, ease='out')]),
                P('mite8', 'moth', pos=[0, 0, 0], opts={'from': add(BOX8, [0.05, 0.04, 0.12]), 'to': add(BOX8, [0.75, 0.55, 0.45]), 'at': MOTH8, 'dur': 1.5, 's': 3.6})], cams=[C8])
 st.card('S08', 'FAILLITE', at=0.05)
 st.cue('sfx:rattleShort', 'S08', TIP8, 0.25); st.cue('sfx:sniff', 'S08', MOTH8, 0.0)
@@ -314,8 +343,8 @@ st.cue('sfx:squeak', 'S09', 0.1, 0.3); st.cue('sfx:stretch', 'S09', 0.5, 0.2)
 #     into a drawn flat shape (a thud, dust); one big bright sandwich shoots out across the floor toward us; the hero's arm stretches with the flap
 D10 = st.dur('S10'); FALL10 = r(st.at('S10', 'L10', 4) - 0.02)
 TILT10 = [[0.0, 12.0], [r(FALL10 - 0.35), 18.0], [FALL10, 62.0], [r(FALL10 + 0.12), 59.0], [r(FALL10 + 0.25), 62.0]]
-SAND0 = [1.15, 0, 0.45]; SAND1 = [1.95, 0, 1.25]
-C10 = fcam(0.0, [2.2, 1.15, 6.6], {'mtop1': tilted([-0.5, 2.15, 0.4], 62), 'mtopR1': tilted([0.5, 2.15, -0.4], 62), 'mtop0': tilted([-0.5, 2.15, 0.4], 12), 'heroL': add(HERO, [-0.3, 1.0, 0]), 'kneelTop': add(HERO, [0, 1.8, 0]), 'sand1': SAND1}, push=0.2)
+SAND0 = [1.15, 0, 0.45]; SAND1 = [1.72, 0, 1.0]
+C10 = fcam(0.0, [1.8, 0.75, 5.6], {'mtop1': tilted([-0.5, 2.15, 0.4], 62), 'mtopR1': tilted([0.5, 2.15, -0.4], 62), 'mtop0': tilted([-0.5, 2.15, 0.4], 12), 'heroL': add(HERO, [-0.35, 1.0, 0]), 'kneelTop': add(HERO, [0, 1.85, 0]), 'sand1': add(SAND1, [0.15, 0, 0.1]), 'hero0': add(HERO, [0, 0, 0.3])}, top=0.08, bottom=0.88, push=0.25)
 chk('S10', C10, {'machTop0': tilted([0.5, 2.15, 0.4], 12), 'machTop1': tilted([-0.5, 2.15, 0.4], 62), 'machTopR1': tilted([0.5, 2.15, 0.4], 62), 'heroFace': add(HERO, [0, 1.6, 0]), 'sandwTop': [SWP[0], 1.5, 0.22], 'sandwich1': SAND1, 'flap62': tilted(FLAPIN, 62), 'sticker62': tilted(STK, 62)})
 kh10 = [TK(0.0, {'L': R5(tilted(FLAPIN, 12), 1, 0.06)}, {'L': 'grip'}, {**HCALM, 'gx': 0.5, 'gy': -0.5}, d=0.0, keep=True),
         TK(r(FALL10 - 0.35), {'L': R5(tilted(FLAPIN, 18), 1, 0.06)}, {'L': 'grip'}, {**HCALM, 'gx': 0.5, 'gy': -0.5}, d=0.4, keep=True),
@@ -330,58 +359,64 @@ st.cue('sfx:squeak', 'S10', 0.0, 0.25); st.cue('thud', 'S10', FALL10, 0.6); st.c
 # ================================================================= S11 too big to fall
 # 11: too big to fall. Front: two soldiers in plain olive (no insignia, bare heads) and a minister in a plain sash rush in from the right and push the
 #     machine back to forty-five degrees with their shoulders and hands, straining; the hero still kneels at its foot, arm stretched into the flap
-D11 = st.dur('S11'); STOP11 = 0.45
+D11 = st.dur('S11'); STOP11 = 0.4
 TILT11 = [[0.0, 62.0], [STOP11, 45.0], [r(STOP11 + 0.15), 47.0], [r(STOP11 + 0.3), 45.0]]
-SOLD11 = [[1.95, 0, 0.22], [1.6, 0, 0.62]]; RYS11 = [-62, -40]
-MIN11 = [1.15, 0, 1.15]; RYM11 = -35
-C11 = fcam(0.0, [0.6, 1.35, 6.4], {'mtopL': tilted([-0.5, 2.15, 0.4], 45), 'mtopR': tilted([0.5, 2.15, 0.4], 45), 'heroL': add(HERO, [-0.3, 1.0, 0]), 'kneelTop': add(HERO, [0, 1.8, 0]), 's1': add(SOLD11[0], [0, 2.25, 0]), 's1r': add(SOLD11[0], [0.3, 1.2, 0]), 's2': add(SOLD11[1], [0, 2.2, 0]), 'min': add(MIN11, [0, 2.3, 0])}, push=0.2)
-chk('S11', C11, {'machTopL45': tilted([-0.5, 2.15, 0.4], 45), 'machTopR45': tilted([0.5, 2.15, 0.4], 45), 'heroFace': add(HERO, [0, 1.6, 0]), 's1face': add(SOLD11[0], [0, 2.0, 0]), 's2face': add(SOLD11[1], [0, 1.9, 0]), 'minFace': add(MIN11, [0, 2.05, 0]), 'flap45': tilted(FLAPIN, 45), 'sticker45': tilted(STK, 45), 'can45': tilted(CAN, 45)})
-PUSHF = {'lid': 0.35, 'mouth': 'clench', 'brow': -0.8}
-def underside(x, th=45.0): return [x, r((x - 0.5) / math.tan(math.radians(th))), 0.3]
-def pusher(id_, p, ry, pts, lean, ent):
-    ks = [k(0.0, look=pts['L']), k(0.0, to=p, dur=STOP11, glide=True, face=ry), TK(0.0, {'R': R5(pts['R']), 'L': R5(pts['L'])}, {'R': 'open', 'L': 'open'}, PUSHF, (1, 1, 1), {'spine': SP(lean)}, d=0.0),
-          TK(STOP11, sq=(1.08, 0.92, 1.08), d=0.05, keep=True), k(STOP11, fx={'shiver': True}), TK(r(STOP11 + 0.25), sq=(1.03, 0.97, 1.03), d=0.1, keep=True), k(1.0, look='camera', lookDur=0.15)]
+def underside(x, th=45.0, z=0.36): return [x, r((x - 0.5) / math.tan(math.radians(th))), z]
+MIN11 = [1.2, 0, 0.98]; SOLD11 = [[1.86, 0, 0.55], [2.5, 0, 0.42]]
+C11 = fcam(0.0, [1.25, 1.25, 4.6], {'mtopL': tilted([-0.5, 2.15, 0.4], 45), 'mtopR': tilted([0.5, 2.15, 0.4], 45), 'heroF': add(HERO, [0.1, 1.5, 0]), 's1': add(SOLD11[0], [0, 2.0, 0]),
+          's2r': add(SOLD11[1], [0.32, 1.2, 0]), 's2': add(SOLD11[1], [0, 2.3, 0]), 'min': add(MIN11, [0, 2.0, 0])}, top=0.1, bottom=0.86, push=0.2)
+chk('S11', C11, {'machTopL45': tilted([-0.5, 2.15, 0.4], 45), 'machTopR45': tilted([0.5, 2.15, 0.4], 45), 'heroFace': add(HERO, [0, 1.45, 0]), 'minFace': add(MIN11, [0, 1.6, 0]), 's1face': add(SOLD11[0], [0, 1.75, 0]), 's2face': add(SOLD11[1], [0, 2.0, 0]), 'flap45': tilted(FLAPIN, 45), 'sticker45': tilted(STK, 45)})
+PUSHF = {'lid': 0.4, 'mouth': 'clench', 'brow': -0.8}
+def pusher(id_, p, ry, hands, crouch, ent, back=0.0):
+    """one who rushes in and holds the leaning machine up: faces the lens, crouched under it (sq), both palms up against it, straining (shiver, a pumping squash)"""
+    sq0 = (1 + (1 - crouch) * 0.5, crouch, 1 + (1 - crouch) * 0.5)
+    ks = [k(0.0, look='camera'), k(0.0, to=p, dur=STOP11, glide=True, face=ry), TK(0.0, {'R': R5(hands['R']), 'L': R5(hands['L'])}, {'R': 'open', 'L': 'open'}, {'lid': 0.0, 'mouth': 'O', 'brow': 0.7}, (0.92, 1.08, 0.92), {'spine': SP(back)}, d=0.0),
+          TK(STOP11, sq=(sq0[0] * 1.06, crouch * 0.94, sq0[2] * 1.06), face=PUSHF, d=0.05, e='out', keep=True), k(STOP11, fx={'shiver': True})]
+    for n in range(4): ks.append(TK(r(STOP11 + 0.2 + 0.18 * n), sq=sq0 if n % 2 else (sq0[0] * 1.02, crouch * 0.98, sq0[2] * 1.02), face={**PUSHF, 'lid': 0.5 if n % 2 else 0.3}, d=0.12, keep=True))
     return act(id_, add(p, ent), ry, 'stand', 'determined', keys=ks)
 st.shot('S11', 'whiteVoid', setOpts=SETV(), look=LOOKC, actors=[
-        pusher('sold1', SOLD11[0], RYS11[0], {'R': underside(1.85), 'L': underside(2.0)}, 0.45, [0.9, 0, 0.3]),
-        pusher('sold2', SOLD11[1], RYS11[1], {'R': underside(1.45), 'L': underside(1.6)}, 0.55, [0.8, 0, 0.5]),
-        pusher('ministre', MIN11, RYM11, {'R': [1.1, 0.75, 0.42], 'L': [1.28, 0.85, 0.42]}, 0.5, [0.7, 0, 0.6]),
+        pusher('ministre', MIN11, -8, {'R': [1.02, 0.95, 0.42], 'L': [1.38, 1.0, 0.42]}, 0.86, [0.9, 0, 0.4], -0.1),
+        pusher('sold1', SOLD11[0], -15, {'R': underside(1.68), 'L': underside(2.0)}, 0.8, [0.8, 0, 0.3], -0.25),
+        pusher('sold2', SOLD11[1], -40, {'R': [2.06, 1.53, 0.36], 'L': [2.14, 1.42, 0.1]}, 1.0, [0.7, 0, 0.2], 0.25),
         HERO_K([TK(0.0, {'L': R5(tilted(FLAPIN, 62), 1, 0.06)}, {'L': 'grip'}, {**HCALM, 'gx': 0.6}, bend={'spine': SP(0.1, -0.45)}, d=0.0, keep=True),
-                TK(STOP11, {'L': R5(tilted(FLAPIN, 45), 1, 0.06)}, {'L': 'grip'}, {**HCALM, 'gx': 0.6}, d=0.35, keep=True), k(0.3, look=[1.6, 1.9, 0.6], lookDur=0.2), k(1.0, look='camera', lookDur=0.15)], bend={'spine': SP(0.1, -0.45)})],
+                TK(STOP11, {'L': R5(tilted(FLAPIN, 45), 1, 0.06)}, {'L': 'grip'}, {**HCALM, 'gx': 0.6}, d=0.35, keep=True), k(0.3, look=[1.6, 1.6, 0.8], lookDur=0.2), k(1.0, look='camera', lookDur=0.15)], bend={'spine': SP(0.1, -0.45)}, blinks=(0.75,))],
         props=[CORR('S11'), MACH('S11', tilt=TILT11, creak=[[STOP11, D11]]), SANDW('S11', flat=True), COFFEE('S11'), COPIER('S11'), P('sandwich11', 'bigSandwich', pos=SAND1, ry=320, opts={'s': 1.3})], cams=[C11])
 st.cue('sfx:stepRun', 'S11', 0.0, 0.3); st.cue('thud', 'S11', STOP11, 0.45); st.cue('sfx:grunt', 'S11', r(STOP11 + 0.05), 0.25)
 
 # ================================================================= S12 the bailout
 # 12: the State bailed it out: two billion in coins. Still in the corridor: a giant funnel jammed in the coin slot; two soldiers tip plain sacks into
 #     its mouth, gold coins pour, heaps grow on the floor, and the machine slowly comes back upright
-D12 = st.dur('S12'); TILT12 = [[0.0, 45.0], [r(D12 - 0.25), 0.0]]
-FMOUTH0 = [0.31, r(1.18 + math.cos(0.9) * 0.78), r(0.41 + math.sin(0.9) * 0.78)]   # the funnel's mouth (props_distributeur: tipped 0.9 rad, 0.78 m from the slot)
+D12 = st.dur('S12'); TILT12 = [[0.0, 45.0], [1.0, 5.0], [1.5, 0.0]]
+FMOUTH0 = [0.25, r(1.2 + math.cos(0.5) * 1.01), r(0.412 + math.sin(0.5) * 1.01)]   # the funnel's mouth (props_distributeur: tipped 0.5 rad, 1.01 m from the slot)
 def mouth(th): return tilted(FMOUTH0, th)
-def tilt_at(t): return 45.0 * (1 - min(1.0, t / (D12 - 0.25))) if t < D12 - 0.25 else 0.0
-SOLDA = [1.05, 0, 1.45]; SOLDB = [-0.05, 0, 1.75]
+def tilt_at(t): return 45.0 + (5.0 - 45.0) * min(1.0, t / 1.0) if t < 1.0 else (5.0 * (1 - min(1.0, (t - 1.0) / 0.5)))
+CRATE = [0.98, 0, 1.08]; SOLDA = [0.98, 0.42, 1.08]; SOLDB = [1.62, 0, 1.3]
 HEAP1 = [0.85, 0, 1.15]; HEAP2 = [0.2, 0, 1.35]
-C12 = fcam(0.0, [-0.7, 1.6, 5.6], {'mouth45': mouth(45), 'mouth0': mouth(0), 'sA': add(SOLDA, [0, 2.35, 0]), 'sAr': add(SOLDA, [0.3, 1.2, 0]), 'sB': add(SOLDB, [0, 2.35, 0]), 'heroL': add(HERO, [-0.3, 1.0, 0]), 'mtop45': tilted([0.5, 2.15, 0.4], 45), 'heap': [0.75, 0.05, 1.45]}, push=0.2)
-chk('S12', C12, {'mouth45': mouth(45), 'mouth0': mouth(0), 'sAface': add(SOLDA, [0, 2.05, 0]), 'sBface': add(SOLDB, [0, 2.05, 0]), 'heroFace': add(HERO, [0, 1.6, 0]), 'heap1': add(HEAP1, [0, 0.3, 0]), 'sandw': [SWP[0], 0.15, 0.22], 'sticker0': STK, 'can0': CAN, 'machTop0': [0, 2.15, 0.4], 'machTop45': tilted([0.5, 2.15, 0.4], 45)})
-TIMES12 = [0.0, 0.5, 1.0, 1.5, 2.0, r(D12)]
-def sack_path(off_):
-    return [[t, add(mouth(tilt_at(t)), off_)] for t in TIMES12]
-SKA = sack_path([0.2, 0.3, 0.12]); SKB = sack_path([-0.22, 0.32, 0.1])
-def pourer(id_, p, path, sgn):
-    ry = yaw(p, path[0][1])
-    ks = [k(0.0, look=path[0][1]), TK(0.0, {'R': R5(add(path[0][1], [-0.1 * sgn, 0.0, 0.1])), 'L': R5(add(path[0][1], [0.1 * sgn, 0.05, 0.12]))}, {'R': 'grip', 'L': 'grip'}, PUSHF, d=0.0)]
-    for t, q in path[1:]: ks.append(TK(t, {'R': R5(add(q, [-0.1 * sgn, 0.0, 0.1])), 'L': R5(add(q, [0.1 * sgn, 0.05, 0.12]))}, {'R': 'grip', 'L': 'grip'}, PUSHF, d=0.5, e='linear', keep=True))
-    ks += [k(1.6, look='camera', lookDur=0.2), *BREATHE(0.0, D12, 0.4, 0.015)]
-    return act(id_, p, ry, 'stand', 'determined', keys=ks)
-STREAMA = [[t, add(q, [0.0, -0.05, -0.02]), add(mouth(tilt_at(t)), [0.0, -0.05, 0.0])] for t, q in SKA]
-STREAMB = [[t, add(q, [0.0, -0.05, -0.02]), add(mouth(tilt_at(t)), [0.0, -0.05, 0.0])] for t, q in SKB]
+C12 = fcam(0.0, [-1.0, 1.55, 5.4], {'mouth0': add(mouth(0), [0, 0.15, 0]), 'mouthL': add(mouth(0), [-0.45, 0, 0]), 'sA': add(SOLDA, [0, 2.3, 0]), 'sAr': add(SOLDA, [0.3, 1.2, 0]), 'sB': add(SOLDB, [0, 2.3, 0]), 'sBr': add(SOLDB, [0.3, 1.0, 0]),
+          'heroL': add(HERO, [-0.35, 1.0, 0]), 'mtop45': tilted([0.5, 2.15, 0.4], 45), 'heap': [0.75, 0.05, 1.45]}, top=0.08, bottom=0.86, push=0.2)
+chk('S12', C12, {'mouth45': mouth(45), 'mouth0': mouth(0), 'sAface': add(SOLDA, [0, 2.05, 0]), 'sBface': add(SOLDB, [0, 2.05, 0]), 'heroFace': add(HERO, [0, 1.45, 0]), 'heap1': add(HEAP1, [0, 0.3, 0]), 'sandw': [SWP[0], 0.15, 0.22], 'sticker0': STK, 'can0': CAN, 'machTop0': [0, 2.15, 0.4]})
+TIMES12 = [0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, r(D12)]
+SKA = [[t, add(mouth(tilt_at(t)), [0.24, 0.16, 0.06])] for t in TIMES12]
+HOLDB = off(SOLDB, -30, 0.3, 0.0, 0.95)
+def pourerA():
+    ry = -50; ks = [k(0.0, look=SKA[0][1])]
+    for i_, (t, q) in enumerate(SKA): ks.append(TK(t, {'R': R5(add(q, [-0.08, -0.04, 0.12])), 'L': R5(add(q, [0.12, 0.02, 0.06]))}, {'R': 'grip', 'L': 'grip'}, PUSHF if t < 1.0 else {'lid': 0.3, 'mouth': 'smile', 'brow': 0.2}, d=0.0 if i_ == 0 else 0.25, e='linear', keep=i_ > 0))
+    ks += [k(1.6, look='camera', lookDur=0.2), *blink(2.1, {'lid': 0.3, 'mouth': 'smile', 'brow': 0.2}), *BREATHE(0.0, D12, 0.4, 0.015)]
+    return act('sold1', SOLDA, ry, 'stand', 'determined', keys=ks)
+def holderB():
+    ks = [k(0.0, look=mouth(10)), TK(0.0, {'R': R5(add(HOLDB, [-0.12, 0, 0])), 'L': R5(add(HOLDB, [0.12, 0, 0]))}, {'R': 'grip', 'L': 'grip'}, PUSHF, d=0.0),
+          k(1.3, look='camera', lookDur=0.2), TK(1.3, face={'lid': 0.3, 'mouth': 'line', 'brow': -0.2}, d=0.1, keep=True), *blink(1.9, {'lid': 0.3, 'mouth': 'line', 'brow': -0.2}), *BREATHE(0.0, D12, 0.45, 0.015)]
+    return act('sold2', SOLDB, -30, 'stand', 'determined', keys=ks)
+STREAMA = [[t, add(q, [-0.05, -0.12, -0.02]), add(mouth(tilt_at(t)), [0.0, -0.05, 0.0])] for t, q in SKA]
 kh12 = [TK(0.0, {'L': R5(tilted(FLAPIN, 45), 1, 0.06)}, {'L': 'grip'}, HCALM, bend={'spine': SP(0.1, -0.45)}, d=0.0, keep=True),
-        *[TK(t, {'L': R5(tilted(FLAPIN, tilt_at(t)), 1, 0.06)}, {'L': 'grip'}, HCALM, bend={'spine': SP(0.1 + 0.18 * t / D12, -0.45 + 0.23 * t / D12)}, d=0.5, e='linear', keep=True) for t in TIMES12[1:]],
-        *blink(1.2, HCALM)]
-st.shot('S12', 'whiteVoid', setOpts=SETV(), look=LOOKC, actors=[pourer('sold1', SOLDA, SKA, 1), pourer('sold2', SOLDB, SKB, -1), HERO_K(kh12, bend={'spine': SP(0.1, -0.45)})],
+        *[TK(t, {'L': R5(tilted(FLAPIN, tilt_at(t)), 1, 0.06)}, {'L': 'grip'}, HCALM, bend={'spine': SP(0.1 + 0.18 * min(1, t / 1.5), -0.45 + 0.23 * min(1, t / 1.5))}, d=0.25, e='linear', keep=True) for t in TIMES12[1:]],
+        k(1.7, look=mouth(0), lookDur=0.25), *blink(1.2, HCALM), k(2.3, look='camera', lookDur=0.2)]
+st.shot('S12', 'whiteVoid', setOpts=SETV(), look=LOOKC, actors=[pourerA(), holderB(), HERO_K(kh12, bend={'spine': SP(0.1, -0.45)})],
         props=[CORR('S12'), MACH('S12', tilt=TILT12, funnel=True, creak=[[0.0, 1.0]]), SANDW('S12', flat=True), COFFEE('S12'), COPIER('S12'), P('sandwich12', 'bigSandwich', pos=SAND1, ry=320, opts={'s': 1.3}),
-               P('sacA12', 'plainSack', pos=SKA[0][1], rot=[2.3, 0, 0.3], opts={'open': True, 's': 1.3}, keys=[k(t, to=q, dur=0.5, ease='linear') for t, q in SKA[1:]]),
-               P('sacB12', 'plainSack', pos=SKB[0][1], rot=[2.3, 0, -0.3], opts={'open': True, 's': 1.3}, keys=[k(t, to=q, dur=0.5, ease='linear') for t, q in SKB[1:]]),
-               P('flotA12', 'coinStream', pos=[0, 0, 0], opts={'path': STREAMA, 't0': 0.0, 't1': D12, 'n': 18}), P('flotB12', 'coinStream', pos=[0, 0, 0], opts={'path': STREAMB, 't0': 0.1, 't1': D12, 'n': 18}),
+               P('caisse12', 'woodCrate', pos=CRATE, ry=-50, opts={'h': 0.42}),
+               P('sacA12', 'plainSack', pos=SKA[0][1], rot=[2.3, 0, 0.3], opts={'open': True, 's': 0.95, 'color': '#6A4C2C'}, keys=[k(t, to=q, dur=0.25, ease='linear') for t, q in SKA[1:]]),
+               P('sacB12', 'plainSack', pos=add(HOLDB, [0, 0.12, 0.05]), opts={'s': 0.95, 'color': '#6A4C2C'}),
+               P('flotA12', 'coinStream', pos=[0, 0, 0], opts={'path': STREAMA, 't0': 0.0, 't1': D12, 'n': 20}),
                P('tas12a', 'goldHeap', pos=HEAP1, opts={'R': 0.4, 'H': 0.3, 'grow': [0.2, 2.2], 'seed': 3}), P('tas12b', 'goldHeap', pos=HEAP2, opts={'R': 0.3, 'H': 0.2, 'grow': [0.6, 2.4], 'seed': 4})], cams=[C12])
 st.cue('sfx:cash', 'S12', 0.1, 0.3); st.cue('sfx:rattle', 'S12', 0.3, 0.25); st.cue('sfx:squeak', 'S12', 1.0, 0.2)
 
@@ -389,10 +424,11 @@ st.cue('sfx:cash', 'S12', 0.1, 0.3); st.cue('sfx:rattle', 'S12', 0.3, 0.25); st.
 # 13: the sandwich machine, it got nothing. Low and static on the flattened sandwich machine on the floor; behind it the drinks machine upright with
 #     its funnel and the hero kneeling; one single coin rolls off the heap toward the flat machine, wobbles, stops just short and falls flat; nobody looks
 D13 = st.dur('S13'); ROLL13 = [0.35, 1.75]
-COIN0 = [1.05, 0.82]; COIN1 = [1.17, 0.42]
-C13 = fcam(0.0, [2.3, 0.5, 2.5], {'heapE': add(HEAP1, [0.05, 0.3, -0.25]), 'coin0': [COIN0[0], 0.17, COIN0[1]], 'coin1': [COIN1[0], 0.0, COIN1[1]], 'sandwL': [SWP[0] - 0.52, 0.0, 0.26], 'sandwR': [SWP[0] + 0.52, 0.1, -0.1], 'machR': [0.5, 1.4, 0.4]}, top=0.12, bottom=0.74, push=0.1)
+COIN0 = [1.02, 0.86]; COIN1 = [1.12, 0.58]                  # it stops 0.3 m short of the flat machine (its front at z 0.26)
+C13 = fcam(0.0, [2.0, 0.85, 3.6], {'heapE': add(HEAP1, [0.05, 0.3, -0.25]), 'coin0': [COIN0[0], 0.17, COIN0[1]], 'coin1': [COIN1[0], 0.0, COIN1[1]], 'sandwL': [SWP[0] - 0.52, 0.0, 0.26], 'sandwR': [SWP[0] + 0.52, 0.1, -0.1],
+          'mouth': [0.25, 2.2, 0.9], 'kneelTop': add(HERO, [0, 1.85, 0]), 'heroL': add(HERO, [-0.35, 1.0, 0]), 'sandwich': add(SAND1, [0.2, 0.15, 0.15])}, top=0.08, bottom=0.74, push=0.12)
 chk('S13', C13, {'sandwL': [SWP[0] - 0.5, 0.09, 0.22], 'sandwR': [SWP[0] + 0.5, 0.09, 0.22], 'coin0': [COIN0[0], 0.05, COIN0[1]], 'coin1': [COIN1[0], 0.05, COIN1[1]], 'heroFace': add(HERO, [0, 1.6, 0]), 'sticker': STK, 'can': CAN, 'heap': add(HEAP1, [0, 0.3, 0])})
-st.shot('S13', 'whiteVoid', setOpts=SETV(), look=LOOKC, actors=[HERO_K([*blink(0.9, HCALM), *blink(2.2, HCALM), k(1.2, look=[2.0, 1.6, 2.5], lookDur=0.4)], look=[1.6, 1.5, 2.8])],
+st.shot('S13', 'whiteVoid', setOpts=SETV(), look=LOOKC, actors=[HERO_K([TK(1.0, face={**HCALM, 'gx': -0.5, 'gy': -0.4}, d=0.1, keep=True), k(1.15, look=[-0.6, 2.4, 1.5], lookDur=0.4), TK(2.3, face=HCALM, d=0.1, keep=True), k(2.35, look='camera', lookDur=0.25)], look=[0.6, 1.8, 3.0], blinks=(0.6, 1.7), breathe=(0.0, 2.6))],
         props=[CORR('S13'), MACH('S13', funnel=True), SANDW('S13', flat=True), COFFEE('S13'), COPIER('S13'), P('sandwich13', 'bigSandwich', pos=SAND1, ry=320, opts={'s': 1.3}),
                P('tas13a', 'goldHeap', pos=HEAP1, opts={'R': 0.4, 'H': 0.3, 'seed': 3}), P('tas13b', 'goldHeap', pos=HEAP2, opts={'R': 0.3, 'H': 0.2, 'seed': 4}),
                P('piece13', 'rollCoin', pos=[0, 0, 0], opts={'from': COIN0, 'to': COIN1, 't0': ROLL13[0], 't1': ROLL13[1], 'r': 0.085})], cams=[C13])
@@ -403,26 +439,29 @@ st.cue('sfx:rattleShort', 'S13', r(ROLL13[1] + 0.35), 0.3)
 #     hand; the camera pulls back as the director leans in, takes it out of the flap and stands holding it at chest height, label-less bands to the
 #     flashes going off at the lens
 D14 = st.dur('S14'); DROP14 = 0.15; TAKE14 = 1.35; SHOW14 = 1.95
-DIR14 = [0.72, 0, 1.0]; RYD14 = -25; DIR14A = [1.2, 0, 1.25]
-CANHOLD = off(DIR14, RYD14, 0.32, 0.0, 1.28)
+DIR14 = [0.72, 0, 1.0]; RYD14 = -25; DIR14A = [1.2, 0, 1.25]; DIR14B = [0.78, 0, 1.2]   # B: where he ends, square to the lens
+CANHOLD = off(DIR14B, 0, 0.3, 0.0, 1.3)
 C14 = cam(0.0, [0.22, 0.82, 2.15], [0.2, 0.8, 2.02], [-0.04, 0.68, 0.32], [-0.04, 0.67, 0.32], lens=44)
-C14b = glide([fcam(1.15, [0.4, 1.45, 4.2], {'dirTop': add(DIR14, [0, 2.35, 0]), 'dirR': add(DIR14, [0.33, 1.2, 0]), 'kneelTop': add(HERO, [0, 1.8, 0]), 'heroL': add(HERO, [-0.3, 1.0, 0]), 'stk': STK}, push=0.2)], 0.45)
+C14b = glide([fcam(1.25, [0.45, 1.45, 4.0], {'dirTop': add(DIR14B, [0, 2.4, 0]), 'dirR': add(DIR14B, [0.33, 1.2, 0]), 'kneelTop': add(HERO, [0, 1.85, 0]), 'heroL': add(HERO, [-0.35, 1.0, 0]), 'stk': STK}, top=0.12, bottom=0.86, push=0.3)], 0.45)
 chk('S14', C14, {'can': CAN, 'flap': FLAP, 'sticker': STK, 'flapBot': [FLAP[0], 0.3, 0.4]})
-chk('S14b', C14b, {'can': CANHOLD, 'dirFace': add(DIR14, [0, 2.05, 0]), 'dirTop': add(DIR14, [0, 2.3, 0]), 'heroFace': add(HERO, [0, 1.6, 0]), 'sticker': STK, 'flashL': [-0.3, 2.3, 1.5], 'flashR': [0.82, 2.3, 1.6], 'sandw': [SWP[0], 0.12, 0.22]})
+chk('S14b', C14b, {'can': CANHOLD, 'dirFace': add(DIR14B, [0, 2.05, 0]), 'dirTop': add(DIR14B, [0, 2.3, 0]), 'heroFace': add(HERO, [0, 1.6, 0]), 'sticker': STK, 'flashL': [-0.3, 2.3, 1.5], 'flashR': [0.82, 2.3, 1.6], 'sandw': [SWP[0], 0.12, 0.22]})
 INFLAP = add(FLAPIN, [0.04, -0.04, 0.03])
-k14 = [k(0.0, look=FLAP), k(0.75, to=DIR14, dur=0.4, glide=True, face=RYD14), TK(0.0, {'R': R5(off(DIR14, RYD14, 0.05, 0.3, 0.98)), 'L': R5(off(DIR14, RYD14, 0.05, -0.3, 0.98))}, {'R': 'rest', 'L': 'rest'}, DIRF, d=0.0),
+k14 = [k(0.0, look=FLAP), k(0.75, to=DIR14, dur=0.4, glide=True, face=RYD14), k(r(TAKE14 + 0.15), to=DIR14B, dur=0.4, glide=True, face=0), TK(0.0, {'R': R5(off(DIR14, RYD14, 0.05, 0.3, 0.98)), 'L': R5(off(DIR14, RYD14, 0.05, -0.3, 0.98))}, {'R': 'rest', 'L': 'rest'}, DIRF, d=0.0),
        TK(r(TAKE14 - 0.3), {'R': R5(add(INFLAP, [0.1, 0.02, 0.06]))}, {'R': 'open'}, DIRF, (1, 1, 1), {'spine': SP(0.7)}, d=0.3, keep=True),
        TK(TAKE14, {'R': R5(add(INFLAP, [0.1, 0.02, 0.06]))}, {'R': 'grip'}, DIRF, d=0.05, keep=True),
-       TK(SHOW14, {'R': R5(add(CANHOLD, [0.0, -0.05, 0.0])), 'L': R5(add(CANHOLD, [0.08, -0.12, 0.0]))}, {'R': 'grip', 'L': 'open'}, {'lid': 0.3, 'mouth': 'bigsmile', 'brow': 0.4}, (1, 1, 1), {'spine': SP(0.0)}, d=0.35, keep=True),
-       k(r(SHOW14 - 0.1), look='camera', lookDur=0.2), *blink(2.75, {'lid': 0.3, 'mouth': 'bigsmile', 'brow': 0.4})]
-kh14 = [TK(r(DROP14 + 0.6), face={'lid': 0.0, 'pop': 0.35, 'mouth': 'O', 'brow': 0.8}, sq=(0.95, 1.05, 0.95), d=0.05, keep=True), k(r(DROP14 + 0.6), look=FLAP, lookDur=0.1),
-        TK(r(DROP14 + 0.62), {'L': R5(add(FLAPIN, [0.0, -0.03, 0.0]), 1, 0.06)}, {'L': 'grip'}, d=0.06, keep=True),
+       TK(SHOW14, {'R': R5(add(CANHOLD, [-0.06, -0.03, 0.0])), 'L': R5(add(CANHOLD, [0.07, -0.03, 0.0]))}, {'R': 'grip', 'L': 'open'}, {'lid': 0.3, 'mouth': 'bigsmile', 'brow': 0.4}, (0.97, 1.04, 0.97), {'spine': SP(-0.08), 'neck': SP(-0.25)}, d=0.3, keep=True),
+       k(r(SHOW14 - 0.1), look=[0.3, 2.9, 2.6], lookDur=0.2), TK(2.3, sq=(1, 1, 1), d=0.2, keep=True), *[TK(t, face={'lid': 0.6, 'mouth': 'bigsmile', 'brow': 0.6}, d=0.03, keep=True) for t in (2.06, 2.21, 2.39, 2.56, 2.73, 2.91)],
+       *[TK(r(t + 0.08), face={'lid': 0.3, 'mouth': 'bigsmile', 'brow': 0.4}, d=0.05, keep=True) for t in (2.06, 2.21, 2.39, 2.56, 2.73, 2.91)]]
+LAND14 = r(DROP14 + 0.7)
+KEEP14 = {'reach': {'L': R5(add(FLAPIN, [0.0, -0.03, 0.0]), 1, 0.06), 'R': R5(HREST)}, 'hands': {'L': 'grip', 'R': 'rest'}, 'bend': HBEND}
+kh14 = [TK(r(LAND14 + 0.02), {'L': R5(add(FLAPIN, [0.0, -0.03, 0.0]), 1, 0.06)}, {'L': 'grip'}, d=0.06, keep=True),
+        *doubleTake(r(LAND14 + 0.04), FLAP, keep=KEEP14, back='camera', pop=0.6, blank=0.22, hold=0.3),
         TK(r(TAKE14 + 0.15), face={'lid': 0.4, 'mouth': 'line', 'brow': -0.3, 'gx': 0.6, 'gy': -0.3}, sq=(1, 1, 1), d=0.15, keep=True), k(r(TAKE14 + 0.1), look=add(DIR14, [0, 1.9, 0]), lookDur=0.2), k(2.6, look='camera', lookDur=0.2)]
 st.shot('S14', 'whiteVoid', setOpts=SETV(), look=LOOKC, actors=[act('directeur', DIR14A, RYD14, 'stand', 'happy', keys=k14), HERO_K(kh14)],
         props=[CORR('S14'), MACH('S14', canDrop=DROP14, canHide=TAKE14), SANDW('S14', flat=True), COFFEE('S14'), COPIER('S14'),
                P('canette14', 'bigCan', on={'actor': 'directeur', 'hand': 'R', 'offset': [0.0, -0.02, 0.06], 'rot': [0, 0, 0]}, keys=[k(0.0, visible=False), k(TAKE14, visible=True)]),
                P('flash14', 'flashBursts', pos=[-0.3, 2.3, 1.5], opts={'n': 3, 'w': 0.3, 'h': 0.6, 'at': [2.05, 2.38, 2.72], 'life': 0.12}), P('flash14b', 'flashBursts', pos=[0.82, 2.3, 1.6], opts={'n': 3, 'w': 0.3, 'h': 0.6, 'at': [2.2, 2.55, 2.9], 'life': 0.12})], cams=[C14, C14b])
-st.cue('sfx:rattleShort', 'S14', DROP14, 0.3); st.cue('clang', 'S14', r(DROP14 + 0.58), 0.4); st.cue('sfx:shutter', 'S14', 2.05, 0.3); st.cue('sfx:shutter', 'S14', 2.4, 0.3); st.cue('sfx:shutter', 'S14', 2.72, 0.3)
+st.cue('sfx:rattleShort', 'S14', DROP14, 0.3); st.cue('clang', 'S14', LAND14, 0.4); st.cue('sfx:boing', 'S14', r(LAND14 + 0.42), 0.2); st.cue('sfx:shutter', 'S14', 2.05, 0.3); st.cue('sfx:shutter', 'S14', 2.4, 0.3); st.cue('sfx:shutter', 'S14', 2.72, 0.3)
 
 # ================================================================= S15 the counter
 # 15: this man claimed his coin. A small counter with a glass window now stands before the machine's right side, a clerk behind the glass; the hero
@@ -430,7 +469,7 @@ st.cue('sfx:rattleShort', 'S14', DROP14, 0.3); st.cue('clang', 'S14', r(DROP14 +
 D15 = st.dur('S15'); OUT15, UP15, SLAP15 = 0.12, 0.35, 0.95
 CNT = [0.62, 0, 1.38]; RYC = -70
 CLERK = off(CNT, RYC, -0.55, 0.0); RYK = RYC
-HSTAND = [-0.12, 0, 1.38]; RYH15 = 48
+HSTAND = [-0.02, 0, 1.5]; RYH15 = 0
 PALM = off(CNT, RYC, 0.12, 0.25, 1.04)
 C15 = fcam(0.0, [-0.6, 1.6, 5.2], {'heroTop': add(HSTAND, [0, 2.35, 0]), 'kneelTop': add(HERO, [0, 1.8, 0]), 'heroL': add(HERO, [-0.3, 1.0, 0]), 'clerkTop': add(CLERK, [0, 2.3, 0]), 'clerkR': add(CLERK, [0.3, 1.2, 0]), 'glassTop': add(CNT, [0, 1.85, 0]), 'stk': STK}, push=0.2)
 chk('S15', C15, {'heroFace': add(HSTAND, [0, 2.05, 0]), 'heroTop': add(HSTAND, [0, 2.3, 0]), 'kneelFace': add(HERO, [0, 1.6, 0]), 'clerkFace': add(CLERK, [0, 2.05, 0]), 'palm': PALM, 'glassTop': add(CNT, [0, 1.83, 0]), 'sticker': STK, 'sandw': [SWP[0], 0.12, 0.22]})
@@ -439,19 +478,22 @@ CLERKKEYS = lambda extra=(): [k(0.0, look='camera'), TK(0.0, {'R': R5(off(CLERK,
 k15 = [TK(OUT15, {'L': R5(add(FLAPIN, [0.0, 0.0, 0.3]), 1, 0.06)}, {'L': 'grip'}, {'lid': 0.2, 'mouth': 'clench', 'brow': -0.6}, d=0.15, keep=True),
        k(UP15, clip='stand', blend=0.2), k(UP15, to=HSTAND, dur=0.4, glide=True, face=RYH15),
        TK(r(UP15 + 0.05), {'L': R5(off(HSTAND, RYH15, 0.2, -0.3, 1.0)), 'R': R5(off(HSTAND, RYH15, 0.05, 0.3, 0.98))}, {'L': 'open', 'R': 'rest'}, {'lid': 0.2, 'mouth': 'line', 'brow': -0.7}, (1, 1, 1), {'spine': SP(0.0)}, d=0.3, keep=True),
-       TK(r(SLAP15 - 0.12), {'L': R5(add(PALM, [-0.05, 0.35, 0.05]))}, {'L': 'open'}, {'lid': 0.15, 'mouth': 'clench', 'brow': -0.9}, (0.96, 1.05, 0.96), d=0.12, keep=True),
-       TK(SLAP15, {'L': R5(PALM, 1, 0.08)}, {'L': 'open'}, {'lid': 0.1, 'mouth': 'scream', 'brow': -0.9, 'jaw': 0.5}, (1.06, 0.94, 1.06), d=0.04, e='in', keep=True),
-       TK(r(SLAP15 + 0.25), face={'lid': 0.3, 'mouth': 'line', 'brow': -0.7}, sq=(1, 1, 1), d=0.15, keep=True), k(r(SLAP15 + 0.15), look='camera', lookDur=0.12), k(r(UP15 + 0.1), look=add(CLERK, [0, 2.0, 0]), lookDur=0.15)]
+       TK(0.58, {'L': R5(add(PALM, [-0.2, 1.05, 0.25]))}, {'L': 'open'}, {'lid': 0.0, 'mouth': 'clench', 'brow': -0.9}, (0.86, 1.18, 0.86), {'spine': SP(-0.18)}, d=0.12, e='out', keep=True),
+       TK(0.7, {'L': R5(add(PALM, [-0.2, 1.12, 0.25]))}, {'L': 'open'}, {'lid': 0.0, 'mouth': 'clench', 'brow': -1.0}, (0.85, 1.2, 0.85), {'spine': SP(-0.2)}, d=0.1, keep=True),
+       TK(0.84, {'L': R5(add(PALM, [-0.18, 1.08, 0.25]))}, {'L': 'open'}, {'lid': 0.05, 'mouth': 'clench', 'brow': -1.0}, (0.86, 1.19, 0.86), {'spine': SP(-0.2)}, d=0.1, keep=True),
+       TK(SLAP15, {'L': R5(PALM, 1, 0.08)}, {'L': 'open'}, {'lid': 0.1, 'mouth': 'scream', 'brow': -0.9, 'jaw': 0.5}, (1.12, 0.88, 1.12), {'spine': SP(0.25)}, d=0.04, e='in', keep=True),
+       TK(r(SLAP15 + 0.12), sq=(0.97, 1.03, 0.97), d=0.08, keep=True),
+       TK(r(SLAP15 + 0.25), face={'lid': 0.3, 'mouth': 'line', 'brow': -0.7}, sq=(1, 1, 1), bend={'spine': SP(0.1)}, d=0.15, keep=True), k(r(UP15 + 0.1), look=add(CLERK, [0, 2.0, 0]), lookDur=0.15), k(r(SLAP15 + 0.1), look='camera', lookDur=0.1), *blink(1.45, {'lid': 0.3, 'mouth': 'line', 'brow': -0.7})]
 st.shot('S15', 'whiteVoid', setOpts=SETV(), look=LOOKC, actors=[HERO_K(k15, look=FLAP), act('guichet', CLERK, RYK, 'stand', 'neutral', keys=CLERKKEYS([*react(r(SLAP15 + 0.02), 0.6), *blink(1.4, CLF)]))],
         props=[*CORRIDOR('S15', crushed=True, mopts={'canHide': 0.0, 'flapIn': [[0.0, 1.0], [0.3, 0.0]]}), P('comptoir15', 'glassCounter', pos=CNT, ry=RYC, opts={'w': 1.2}, keys=[k(SLAP15, squash=[1.03, 0.94, 1.03], dur=0.3)])], cams=[C15])
-st.cue('sfx:squeak', 'S15', OUT15, 0.2); st.cue('thud', 'S15', SLAP15, 0.5)
+st.cue('sfx:squeak', 'S15', OUT15, 0.2); st.cue('sfx:stretch', 'S15', 0.58, 0.2); st.cue('thud', 'S15', SLAP15, 0.5)
 
 # ================================================================= S16 refused
 # 16: refused: it is invested for forty years. Closer on the clerk behind the glass: he stamps a sheet (REFUSÉ) and slides it under the glass toward
 #     the hero; behind him on the wall a chart: one thick line climbing very slowly to a small piggy bank at its far end, no labels and no digits
 D16 = st.dur('S16'); STAMP16 = 0.1; SLIDE16 = [0.45, 0.95]
 CHART = [2.6, 1.75, WALLZ + 0.03]
-C16 = fcam(0.0, [0.2, 1.6, 3.6], {'clerkTop': add(CLERK, [0, 2.3, 0]), 'clerkL': add(CLERK, [-0.3, 1.2, 0]), 'chL': add(CHART, [-0.6, 0.4, 0]), 'chR': add(CHART, [0.6, -0.4, 0]), 'sheet': add(CNT, [-0.1, 1.04, 0.1])}, top=0.1, push=0.15)
+C16 = fcam(0.0, [0.3, 2.15, 3.3], {'clerkTop': add(CLERK, [0, 2.3, 0]), 'clerkL': add(CLERK, [-0.3, 1.2, 0]), 'chL': add(CHART, [-0.6, 0.4, 0]), 'chR': add(CHART, [0.6, -0.4, 0]), 'sheet': add(CNT, [-0.1, 1.04, 0.1])}, top=0.1, push=0.15)
 chk('S16', C16, {'clerkFace': add(CLERK, [0, 2.05, 0]), 'chartL': add(CHART, [-0.55, 0, 0]), 'chartR': add(CHART, [0.55, 0, 0]), 'chartTop': add(CHART, [0, 0.36, 0]), 'sheet1': add(CNT, [0, 1.04, 0]), 'heroFace': add(HSTAND, [0, 2.05, 0]), 'sandw': [SWP[0], 0.12, 0.22]})
 STAMPP = off(CNT, RYC, -0.15, 0.0, 1.06)
 k16 = CLERKKEYS([TK(r(STAMP16 - 0.1), {'R': R5(add(STAMPP, [0, 0.25, 0]))}, {'R': 'grip'}, CLF, (1.0, 1.04, 1.0), d=0.08, keep=True),
@@ -459,9 +501,12 @@ k16 = CLERKKEYS([TK(r(STAMP16 - 0.1), {'R': R5(add(STAMPP, [0, 0.25, 0]))}, {'R'
                  TK(0.3, {'R': R5(off(CLERK, RYK, 0.38, 0.18, 1.02))}, {'R': 'rest'}, CLF, (1, 1, 1), d=0.12, keep=True),
                  TK(SLIDE16[0], {'L': R5(off(CNT, RYC, -0.2, -0.05, 1.06))}, {'L': 'open'}, CLF, d=0.12, keep=True),
                  TK(SLIDE16[1], {'L': R5(off(CNT, RYC, 0.15, -0.05, 1.06))}, {'L': 'open'}, CLF, d=0.45, keep=True),
-                 TK(1.3, {'L': R5(off(CLERK, RYK, 0.38, -0.2, 1.02))}, {'L': 'rest'}, CLF, d=0.2, keep=True), *blink(1.7, CLF), *BREATHE(1.0, D16, 0.5, 0.012)])
+                 TK(1.3, {'L': R5(off(CLERK, RYK, 0.38, -0.2, 1.02))}, {'L': 'rest'}, CLF, d=0.2, keep=True), *blink(0.85, CLF), *blink(1.95, CLF), *BREATHE(0.2, D16, 0.5, 0.014),
+                 TK(0.55, face={**CLF, 'gx': -0.6}, d=0.05, keep=True), k(0.62, look=add(HSTAND, [0, 2.0, 0]), lookDur=0.2), TK(1.05, bend={'neck': SP(0.25)}, d=0.1, keep=True), TK(1.22, bend={'neck': SP(0.0)}, d=0.12, keep=True),
+                 TK(1.5, face={**CLF, 'gx': 0.5, 'mouth': 'smile'}, d=0.06, keep=True), k(1.58, look='camera', lookDur=0.2), TK(1.8, bend={'neck': SP(0.0, -0.15)}, d=0.2, keep=True)])
 kh16 = [k(0.0, look=add(CLERK, [0, 2.0, 0])), TK(0.0, {'L': R5(PALM, 1, 0.08), 'R': R5(off(HSTAND, RYH15, 0.05, 0.3, 0.98))}, {'L': 'open', 'R': 'rest'}, {'lid': 0.3, 'mouth': 'line', 'brow': -0.7}, d=0.0),
-        TK(r(STAMP16 + 0.03), face={'lid': 0.6, 'mouth': 'line', 'brow': -0.7}, d=0.04, keep=True), TK(0.3, face={'lid': 0.3, 'mouth': 'line', 'brow': -0.7, 'gy': 0.6}, d=0.1, keep=True), k(1.6, look='camera', lookDur=0.2)]
+        TK(r(STAMP16 + 0.03), face={'lid': 0.6, 'mouth': 'line', 'brow': -0.7}, d=0.04, keep=True), TK(0.3, face={'lid': 0.3, 'mouth': 'line', 'brow': -0.7, 'gy': 0.6}, d=0.1, keep=True), k(0.9, look=add(CNT, [0, 1.05, 0.35]), lookDur=0.2), TK(1.25, face={'lid': 0.0, 'mouth': 'O', 'brow': 0.6}, sq=(0.96, 1.05, 0.96), d=0.06, keep=True),
+        TK(1.5, face={'lid': 0.35, 'mouth': 'line', 'brow': -0.4}, sq=(1, 1, 1), d=0.12, keep=True), k(1.6, look='camera', lookDur=0.2), *blink(2.05, {'lid': 0.35, 'mouth': 'line', 'brow': -0.4}), *BREATHE(0.0, D16, 0.55, 0.012)]
 st.shot('S16', 'whiteVoid', setOpts=SETV(), look=LOOKC, actors=[act('guichet', CLERK, RYK, 'stand', 'neutral', keys=k16), act('mec', HSTAND, RYH15, 'stand', 'neutral', keys=kh16)],
         props=[*CORRIDOR('S16', crushed=True, mopts={'canHide': 0.0, 'flapIn': 0}), P('comptoir16', 'glassCounter', pos=CNT, ry=RYC, opts={'w': 1.2, 'sheetAt': SLIDE16}),
                P('tampon16', 'roundStamp', on={'actor': 'guichet', 'hand': 'R', 'offset': [0.0, 0.02, 0.04]}, opts={'r': 0.09}),
@@ -473,12 +518,14 @@ st.cue('clack', 'S16', STAMP16, 0.45); st.cue('sfx:paper', 'S16', SLIDE16[0], 0.
 #     EN PANNE sticker upright and square to the lens, wider than forty percent of the frame, above the caption band, clear of the BANQUE plate; the
 #     hero's box head reflected faintly in the glass beside it; held one beat longer, still drifting
 D17 = st.dur('S17')
-STKC = [STK[0], STK[1], 0.405]
-C17 = cam(0.0, [0.12, 1.3, 2.3], [STKC[0] + 0.02, STKC[1] + 0.06, 1.13], [0.0, 1.22, 0.4], [STKC[0] + 0.02, STKC[1] + 0.06, 0.4], lens=40, ease='out')
-chk('S17', C17, {'stkL': add(STKC, [-0.065, 0, 0]), 'stkR': add(STKC, [0.065, 0, 0]), 'stkBot': add(STKC, [0, -0.028, 0]), 'plate': PLATE, 'ghost': [0.0, 1.335, 0.401], 'ghostL': [-0.075, 1.335, 0.401], 'slot': SLOT})
+STKC = [STK[0], STK[1], STK[2]]
+GHOST = [0.338, 1.305, 0.4135]                     # his reflected face on the glossy black panel, just above and left of the sticker
+ENDC = [0.372, 1.245, 0.41 + 0.4]                 # the end: square to the panel, 0.4 m off it (the sticker 42 % of the width, at 0.6 of the height)
+C17 = cam(0.0, [0.25, 1.32, 2.2], ENDC, [0.15, 1.25, 0.41], [ENDC[0], ENDC[1], 0.41], lens=40, ease='linear')
+chk('S17', C17, {'stkL': add(STKC, [-0.034, 0, 0]), 'stkR': add(STKC, [0.034, 0, 0]), 'stkBot': add(STKC, [0, -0.017, 0]), 'plate': PLATE, 'ghost': GHOST, 'ghostL': add(GHOST, [-0.04, 0, 0]), 'slot': SLOT, 'panelR': [0.465, 1.2, 0.41], 'glassR': [0.13, 1.2, 0.41]})
 st.shot('S17', 'whiteVoid', setOpts=SETV(), look=LOOKC, actors=[],
         props=[*CORRIDOR('S17', crushed=True, mopts={'canHide': 0.0, 'flapIn': 0}),
-               P('reflet17', 'glassGhost', pos=[0.0, 1.335, 0.401], opts={'w': 0.15, 'opacity': 0.2, 'drift': [0.012, 0.006, 0.5, D17]})], cams=[C17])
+               P('reflet17', 'glassGhost', pos=GHOST, opts={'w': 0.075, 'alpha': 0.3, 'drift': [0.006, 0.004, 0.5, D17], 'blinkAt': [2.6, 4.25]})], cams=[C17])
 st.cue('sfx:ding', 'S17', 2.0, 0.15)
 
 # a toon key that names one hand's reach replaces the whole reach (keepPose merges only the top level): carry the other hand's reach and hand

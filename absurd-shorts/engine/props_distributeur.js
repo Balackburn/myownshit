@@ -52,16 +52,19 @@ function brassPlate(w, h, text) {
   face.position.z = 0.0065; g.add(face); return g;
 }
 
-// the yellowed EN PANNE sticker (a plane facing +Z, origin at its centre), w wide
+// the dull yellowed paper EN PANNE sticker (a plane facing +Z, origin at its centre), w wide: faded paper, soft dirty edges, a curled corner,
+// thin brownish letters (soft at a distance, read only close up)
 function penneSticker(w) {
-  const h = w * 0.42;
-  return canvasPlane(w, h, (c, W, H) => {
-    c.fillStyle = '#E6D592'; c.fillRect(0, 0, W, H);
-    const gr = c.createRadialGradient(W * 0.3, H * 0.4, 0, W * 0.5, H * 0.5, W * 0.7); gr.addColorStop(0, 'rgba(255,250,210,0.35)'); gr.addColorStop(1, 'rgba(150,120,40,0.35)'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
-    c.strokeStyle = '#8A6A2A'; c.lineWidth = H * 0.06; c.strokeRect(H * 0.07, H * 0.07, W - H * 0.14, H - H * 0.14);
-    c.fillStyle = '#2E2618'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitFont(c, 'EN PANNE', W * 0.8, Math.round(H * 0.56)); c.fillText('EN PANNE', W / 2, H * 0.54);
-    c.fillStyle = 'rgba(120,90,30,0.25)'; c.beginPath(); c.moveTo(W, 0); c.lineTo(W * 0.9, 0); c.lineTo(W, H * 0.22); c.fill();   // a curled corner
-  }, { res: 512 });
+  const h = w * 0.5;
+  const p = canvasPlane(w, h, (c, W, H) => {
+    c.clearRect(0, 0, W, H); c.fillStyle = '#D6C98F'; c.fillRect(W * 0.01, H * 0.02, W * 0.98, H * 0.96);
+    const gr = c.createRadialGradient(W * 0.4, H * 0.45, 0, W * 0.5, H * 0.5, W * 0.62); gr.addColorStop(0, 'rgba(250,240,200,0.25)'); gr.addColorStop(1, 'rgba(120,95,40,0.45)'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
+    c.fillStyle = 'rgba(110,85,40,0.18)'; for (let i = 0; i < 14; i++) { c.beginPath(); c.arc(W * hsh(i + 3), H * hsh(i + 9), H * (0.02 + 0.05 * hsh(i)), 0, TAU); c.fill(); }
+    c.fillStyle = '#5E5038'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitFont(c, 'EN PANNE', W * 0.78, Math.round(H * 0.42), 700); c.fillText('EN PANNE', W / 2, H * 0.53);
+    c.fillStyle = '#B9AB72'; c.beginPath(); c.moveTo(W * 0.99, H * 0.02); c.lineTo(W * 0.86, H * 0.02); c.lineTo(W * 0.99, H * 0.3); c.closePath(); c.fill();
+    c.fillStyle = 'rgba(40,30,15,0.35)'; c.beginPath(); c.moveTo(W * 0.86, H * 0.02); c.lineTo(W * 0.99, H * 0.3); c.lineTo(W * 0.97, H * 0.33); c.lineTo(W * 0.83, H * 0.04); c.closePath(); c.fill();
+  }, { res: 512, transparent: true });
+  p.castShadow = false; return p;
 }
 
 export const DISTRIBUTEUR_PROPS = {
@@ -79,7 +82,7 @@ export const DISTRIBUTEUR_PROPS = {
   drinkMachine(o) {
     const W = 1.0, H = 2.15, D = 0.8, FZ = D / 2, C = o.color || '#C9282B', CD = '#8E1B1E', IN = '#2C2E34';
     const GX0 = -0.45, GX1 = 0.12, GY0 = 0.72, GY1 = 1.98, GW = GX1 - GX0, GCX = (GX0 + GX1) / 2;
-    const SLOT = [0.31, 1.18, FZ + 0.012], FLAP = [-0.17, 0.44, FZ];
+    const SLOT = [0.25, 1.2, FZ + 0.012], FLAP = [-0.17, 0.44, FZ], STK = [0.385, 1.2, FZ + 0.0145];
     const g = grp(), piv = grp(), body = grp(); g.add(piv); piv.add(body); piv.position.x = W / 2; body.position.x = -W / 2;
     // cabinet: back, sides, roof, plinth, the panel on the right, the band under the glass
     body.add(at(box(W, H, 0.04, IN, { pivot: 'bottom', outline: 0.01 }), 0, 0, -FZ + 0.02));
@@ -122,13 +125,14 @@ export const DISTRIBUTEUR_PROPS = {
     const CAN0 = [COLS[2], ROWS[0] + 0.115, FZ - 0.09], can = grp(bigCanMesh({})); can.position.set(...CAN0); can.rotation.x = 0.42; can.rotation.z = -0.08; body.add(can);
     const big = spirals.find(([ri, ci]) => ri === 0 && ci === 2)[2];
     // the EN PANNE sticker on the glass, right edge, slot height
-    const stk = penneSticker(o.stickerW ?? 0.13); stk.position.set(GX1 - 0.085, SLOT[1], FZ + 0.004); stk.rotation.z = -0.05; body.add(stk);
-    // the panel: blank screen, keypad, slot, coin return
-    body.add(at(box(0.27, 0.62, 0.012, '#2A2A2E'), 0.31, 1.47, FZ + 0.006), at(box(0.2, 0.08, 0.006, '#9CE8A0', { emissive: '#2E6A34', noGrain: true }), 0.31, 1.7, FZ + 0.013));
-    const keys = []; for (let r = 0; r < 4; r++) for (let c = 0; c < 3; c++) keys.push([0.26 + c * 0.05, 1.56 - r * 0.055, FZ + 0.014]);
-    body.add(inst(new THREE.BoxGeometry(0.036, 0.036, 0.01), mat('#E6E2D8'), keys));
-    body.add(at(box(0.1, 0.14, 0.014, '#C9CCD1', { outline: 0.01 }), SLOT[0], SLOT[1], FZ + 0.007), at(box(0.012, 0.07, 0.01, '#141414'), SLOT[0], SLOT[1] + 0.01, FZ + 0.014));
-    body.add(at(box(0.12, 0.08, 0.05, '#2A2A2E'), 0.31, 0.98, FZ + 0.01), at(box(0.09, 0.05, 0.02, '#111114'), 0.31, 0.975, FZ + 0.03));
+    // the panel: a glossy black plate (x 0.175..0.465, y 0.98..1.82) with a blank screen, a keypad high up, the slot low left and the small paper
+    // EN PANNE sticker beside the slot, at its height; a coin return below
+    body.add(at(box(0.29, 0.84, 0.012, '#1E1F24'), 0.32, 1.40, FZ + 0.006), at(box(0.2, 0.08, 0.006, '#9CE8A0', { emissive: '#2E6A34', noGrain: true }), 0.32, 1.74, FZ + 0.013));
+    const keys = []; for (let r = 0; r < 4; r++) for (let c = 0; c < 3; c++) keys.push([0.27 + c * 0.05, 1.64 - r * 0.052, FZ + 0.014]);
+    body.add(inst(new THREE.BoxGeometry(0.034, 0.034, 0.01), mat('#E6E2D8'), keys));
+    body.add(at(box(0.09, 0.13, 0.014, '#C9CCD1', { outline: 0.01 }), SLOT[0], SLOT[1], FZ + 0.007), at(box(0.012, 0.065, 0.01, '#141414'), SLOT[0], SLOT[1] + 0.01, FZ + 0.014));
+    body.add(at(box(0.12, 0.08, 0.05, '#2A2A2E'), 0.32, 0.98, FZ + 0.01), at(box(0.09, 0.05, 0.02, '#111114'), 0.32, 0.975, FZ + 0.03));
+    const stk = penneSticker(o.stickerW ?? 0.068); stk.position.set(...STK); stk.rotation.z = o.stickerRot ?? 0; body.add(stk);
     // the coin box: a dark cavity behind a hinged grey door
     body.add(at(box(0.24, 0.32, 0.01, '#121214'), 0.31, 0.67, FZ + 0.004));
     const door = grp(at(box(0.25, 0.33, 0.02, '#8C949A', { outline: 0.01, unique: true }), -0.125, 0, 0), at(cyl(0.016, 0.016, 0.012, '#D9B85A', 10), -0.2, 0.0, 0.014, PI / 2, 0, 0), at(box(0.004, 0.014, 0.006, '#3A2A10'), -0.2, 0, 0.022));
@@ -145,20 +149,20 @@ export const DISTRIBUTEUR_PROPS = {
     // the funnel jammed in the slot, its mouth up and toward us, full of coins
     let funnel = null;
     if (o.funnel != null && o.funnel !== false) {
-      funnel = grp(); const R = 0.42, L = 0.62;
-      const cone = new THREE.Mesh(new THREE.CylinderGeometry(R, 0.05, L, 24, 1, true), new THREE.MeshLambertMaterial({ color: '#B8BEC4', side: THREE.DoubleSide, flatShading: true })); cone.position.y = L / 2 + 0.16; cone.castShadow = true; funnel.add(cone);
-      const rim = new THREE.Mesh(new THREE.TorusGeometry(R, 0.018, 6, 28), mat('#8E959C')); rim.rotation.x = PI / 2; rim.position.y = L + 0.16; funnel.add(rim);
+      funnel = grp(); const R = 0.44, L = 0.85;
+      const cone = new THREE.Mesh(new THREE.CylinderGeometry(R, 0.05, L, 24, 1, true), new THREE.MeshLambertMaterial({ color: '#9AA3AC', side: THREE.DoubleSide, flatShading: true })); cone.position.y = L / 2 + 0.16; cone.castShadow = true; funnel.add(cone);
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(R, 0.024, 6, 28), mat('#5E666E')); rim.rotation.x = PI / 2; rim.position.y = L + 0.16; funnel.add(rim);
       funnel.add(at(cyl(0.05, 0.05, 0.2, '#9AA1A8', 10), 0, 0.08, 0));
       const fill = new THREE.Mesh(new THREE.CylinderGeometry(R * 0.93, R * 0.6, 0.12, 24), mat('#E2B53C', { noGrain: true })); fill.position.y = L + 0.1; funnel.add(fill);
       const fl = []; const rr = rng(5); for (let i = 0; i < 60; i++) { const a = rr() * TAU, d = Math.sqrt(rr()) * R * 0.9; fl.push([Math.cos(a) * d, L + 0.165 + rr() * 0.03, Math.sin(a) * d, (rr() - 0.5) * 0.8, rr() * TAU, (rr() - 0.5) * 0.8]); }
       funnel.add(inst(new THREE.CylinderGeometry(0.035, 0.035, 0.008, 10), mat('#F0C64A', { noGrain: true }), fl));
-      funnel.position.set(SLOT[0], SLOT[1], FZ + 0.01); funnel.rotation.x = 0.9; body.add(funnel);
+      funnel.position.set(SLOT[0], SLOT[1], FZ + 0.01); funnel.rotation.x = 0.5; body.add(funnel);
     }
     // coins sliding into the slot
     const coinsAt = [].concat(o.coinsAt ?? []), coinM = mat('#E8BE3E', { noGrain: true });
     const coinObjs = [0, 1].map(() => { const c = at(cyl(0.028, 0.028, 0.006, '#E8BE3E', 14, { material: coinM, outline: 0.003 }), 0, 0, 0, 0, 0, PI / 2); c.visible = false; body.add(c); return c; });
     // a can that falls into the flap (o.canDrop)
-    g.userData.slot = SLOT; g.userData.flap = FLAP; g.userData.can = CAN0;
+    g.userData.slot = SLOT; g.userData.flap = FLAP; g.userData.can = CAN0; g.userData.sticker = STK;
     g.userData.update = t => {
       const tl = kv(o.tilt, t, 0) * PI / 180; let sh = 0;
       for (const [a, b] of o.creak || []) if (t >= a && t <= b) sh = 0.006 * Math.sin(t * 61) + 0.004 * Math.sin(t * 37);
@@ -170,8 +174,8 @@ export const DISTRIBUTEUR_PROPS = {
       can.position.set(...CAN0); can.rotation.set(0.42 + cw, 0, -0.08 + cw * 0.4); can.visible = !(o.canHide != null && t >= o.canHide);
       if (o.canDrop != null) {
         const u = t - o.canDrop; big.rotation.z = u > 0 ? Math.min(u, 0.35) * 14 : 0;
-        if (u > 0.3) { const f = clamp01((u - 0.3) / 0.28), y = CAN0[1] + (FLAP[1] - 0.04 - CAN0[1]) * f * f; can.position.set(CAN0[0] + (FLAP[0] + 0.05 - CAN0[0]) * f, y, CAN0[2] + (FZ - 0.07 - CAN0[2]) * f); can.rotation.set(0.42 + f * 1.2, 0, -0.08 + f * 0.9);
-          if (u > 0.58) { const b = u - 0.58; can.position.y += 0.03 * Math.abs(Math.sin(b * 18)) * Math.exp(-b * 9); can.rotation.set(PI / 2 - 0.25, 0, 0.8); } }
+        if (u > 0.3) { const f = clamp01((u - 0.3) / 0.4), y = CAN0[1] + 0.05 * Math.sin(f * PI) * (1 - f) + (FLAP[1] - 0.04 - CAN0[1]) * f * f; can.position.set(CAN0[0] + (FLAP[0] + 0.13 - CAN0[0]) * f, y, CAN0[2] + (FZ - 0.07 - CAN0[2]) * f + 0.06 * Math.sin(f * PI)); can.rotation.set(0.42 + f * 1.2, 0, -0.08 + f * 0.9);
+          if (u > 0.7) { const b = u - 0.7; can.position.y += 0.03 * Math.abs(Math.sin(b * 18)) * Math.exp(-b * 9); can.rotation.set(PI / 2 - 0.25, 0, 0.8); } }
       }
       if (plate) { const pa = typeof o.plaque === 'number' ? t - o.plaque : 1; plate.visible = pa >= 0; plate.scale.setScalar(Math.max(0.01, pa < 0 ? 0.01 : outBack(pa / 0.28))); }
       if (plate) { let gk = -1; for (const a of [].concat(o.glint ?? [])) { const u = (t - a) / 0.35; if (u >= 0 && u < 1) gk = u; } glint.material.opacity = gk >= 0 ? 0.7 * Math.sin(gk * PI) : 0; glint.position.x = -0.22 + 0.44 * Math.max(0, gk); }
@@ -189,7 +193,7 @@ export const DISTRIBUTEUR_PROPS = {
   banquePlaque(o) {
     const g = grp(), p = grp(brassPlate(o.w ?? 0.42, o.h ?? 0.11, o.text || 'BANQUE')); g.add(p);
     const gl = new THREE.Mesh(new THREE.PlaneGeometry(0.045, 0.15), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0, depthWrite: false })); gl.rotation.z = 0.5; gl.position.z = 0.012; p.add(gl);
-    g.userData.update = t => { const u = o.popAt == null ? 1 : (t - o.popAt) / 0.28; p.visible = u >= 0; p.scale.setScalar(u < 0 ? 0.01 : Math.max(0.01, outBack(u))); p.rotation.z = u < 1 && u >= 0 ? 0.5 * (1 - u) : 0;
+    g.userData.update = t => { const u = o.popAt == null ? 1 : (t - o.popAt) / 0.28; p.visible = u >= 0; const sc = u < 0 ? 0.01 : Math.max(0.01, outBack(u)), sq = u > 0.55 && u < 1.6 ? 0.28 * Math.sin((u - 0.55) / 1.05 * PI) * Math.exp(-(u - 0.55) * 1.5) : 0; p.scale.set(sc * (1 + sq), sc * (1 - sq), sc); p.rotation.z = u < 1 && u >= 0 ? 0.5 * (1 - u) : 0;
       let gk = -1; for (const a of [].concat(o.glint ?? [])) { const v = (t - a) / 0.35; if (v >= 0 && v < 1) gk = v; } gl.material.opacity = gk >= 0 ? 0.7 * Math.sin(gk * PI) : 0; gl.position.x = (o.w ?? 0.42) * (-0.5 + Math.max(0, gk)); };
     g.userData.update(-1); return g;
   },
@@ -248,21 +252,21 @@ export const DISTRIBUTEUR_PROPS = {
   bankChart(o) {
     const Wd = o.w ?? 1.0, Hd = Wd * 1.5, g = grp(), wood = '#8A5A34', y0 = 0.75;
     for (const s of [-1, 1]) g.add(at(box(0.05, y0 + Hd + 0.15, 0.05, wood, { pivot: 'bottom', outline: 0.01 }), s * (Wd / 2 - 0.06), 0, 0.06, -0.06, 0, -s * 0.05));
-    g.add(at(box(0.05, y0 + Hd, 0.05, wood, { pivot: 'bottom' }), 0, 0, -0.35, 0.22, 0, 0), at(box(Wd + 0.1, 0.06, 0.12, wood, { outline: 0.01 }), 0, y0, 0.12));
+    g.add(at(box(0.05, 1.5, 0.05, wood, { pivot: 'bottom' }), 0, 0, -0.42, 0.29, 0, 0), at(box(Wd + 0.1, 0.06, 0.12, wood, { outline: 0.01 }), 0, y0, 0.12));
     g.add(at(box(Wd + 0.04, Hd + 0.04, 0.03, '#3A3A3E'), 0, y0 + Hd / 2, 0.08));
     const sheet = canvasPlane(Wd, Hd, (c, W, H) => {
       c.fillStyle = '#FBFAF5'; c.fillRect(0, 0, W, H); c.lineJoin = 'round'; c.lineCap = 'round';
       const ink = '#1C1C22', lw = W * 0.018;
       // the vending machine (top third)
-      const mx = W * 0.32, my = H * 0.04, mw = W * 0.36, mh = H * 0.28;
+      const mx = W * 0.33, my = H * 0.06, mw = W * 0.34, mh = H * 0.24;
       c.fillStyle = '#D8333A'; c.fillRect(mx, my, mw, mh); c.strokeStyle = ink; c.lineWidth = lw; c.strokeRect(mx, my, mw, mh);
       c.fillStyle = '#BFE3EE'; c.fillRect(mx + mw * 0.08, my + mh * 0.1, mw * 0.55, mh * 0.62); c.strokeRect(mx + mw * 0.08, my + mh * 0.1, mw * 0.55, mh * 0.62);
       c.lineWidth = lw * 0.6; for (let i = 1; i < 4; i++) { c.beginPath(); c.moveTo(mx + mw * 0.08, my + mh * (0.1 + 0.155 * i)); c.lineTo(mx + mw * 0.63, my + mh * (0.1 + 0.155 * i)); c.stroke(); }
       c.fillStyle = ink; c.fillRect(mx + mw * 0.76, my + mh * 0.35, mw * 0.05, mh * 0.12); c.fillRect(mx + mw * 0.1, my + mh * 0.8, mw * 0.5, mh * 0.1);
       // the equals sign
-      c.fillStyle = ink; const ey = H * 0.4, ew = W * 0.42; c.fillRect(W / 2 - ew / 2, ey, ew, H * 0.035); c.fillRect(W / 2 - ew / 2, ey + H * 0.07, ew, H * 0.035);
+      c.fillStyle = ink; const ey = H * 0.37, ew = W * 0.42; c.fillRect(W / 2 - ew / 2, ey, ew, H * 0.035); c.fillRect(W / 2 - ew / 2, ey + H * 0.07, ew, H * 0.035);
       // the bank (bottom)
-      const bx = W * 0.14, by = H * 0.58, bw = W * 0.72, bh = H * 0.36;
+      const bx = W * 0.14, by = H * 0.52, bw = W * 0.72, bh = H * 0.3;
       c.fillStyle = '#E9E2CF'; c.strokeStyle = ink; c.lineWidth = lw;
       c.beginPath(); c.moveTo(bx, by + bh * 0.28); c.lineTo(bx + bw / 2, by); c.lineTo(bx + bw, by + bh * 0.28); c.closePath(); c.fill(); c.stroke();
       c.fillRect(bx + bw * 0.03, by + bh * 0.28, bw * 0.94, bh * 0.08); c.strokeRect(bx + bw * 0.03, by + bh * 0.28, bw * 0.94, bh * 0.08);
@@ -329,16 +333,39 @@ export const DISTRIBUTEUR_PROPS = {
     g.scale.setScalar(s); g.userData.grip = [0, 0, 0]; return g;
   },
 
+  // A plain wooden crate to stand on (pivot at the floor under its middle; 0.6 x o.h (0.42) x 0.5): slats and two dark bands, no marking
+  woodCrate(o) {
+    const h = o.h ?? 0.42, g = grp(at(box(0.6, h, 0.5, '#B07A44', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0));
+    for (const y of [0.3, 0.7]) g.add(at(box(0.61, 0.03, 0.51, '#7A5028'), 0, h * y, 0));
+    g.add(at(box(0.62, 0.02, 0.52, '#8E6034'), 0, h - 0.01, 0)); return g;
+  },
+
   // An open-top metal coin box (pivot at its middle; its open top toward +Y): grey steel, the dark empty inside, a handle on its front
   coinBox(o) {
-    const w = 0.26, h = 0.2, d = 0.32, g = grp(), C = '#8C949A';
-    g.add(at(box(w, 0.012, d, C, { outline: 0.02 }), 0, -h / 2, 0));
-    for (const s of [-1, 1]) g.add(at(box(0.012, h, d, C, { outline: 0.02 }), s * w / 2, 0, 0), at(box(w, h, 0.012, C, { outline: 0.02 }), 0, 0, s * d / 2));
-    g.add(at(box(w - 0.02, 0.004, d - 0.02, '#4A5058'), 0, -h / 2 + 0.008, 0));
-    for (const s of [-1, 1]) g.add(at(box(0.004, h - 0.02, d - 0.02, '#5E646C'), s * (w / 2 - 0.008), 0, 0), at(box(w - 0.02, h - 0.02, 0.004, '#545A62'), 0, 0, s * (d / 2 - 0.008)));
-    for (let i = 0; i < 5; i++) g.add(at(box(0.012, 0.003, 0.012, '#8A8478'), (hsh(i) - 0.5) * w * 0.7, -h / 2 + 0.012, (hsh(i + 5) - 0.5) * d * 0.7));
-    g.add(at(box(0.1, 0.02, 0.03, '#2A2A2E'), 0, h * 0.2, d / 2 + 0.02));
+    const w = 0.32, h = 0.26, d = 0.26, g = grp(), C = '#9AA2AA';
+    g.add(at(box(w, 0.014, d, C, { outline: 0.02 }), 0, -h / 2, 0));
+    for (const s of [-1, 1]) g.add(at(box(0.014, h, d, C, { outline: 0.02 }), s * w / 2, 0, 0), at(box(w, h, 0.014, C, { outline: 0.02 }), 0, 0, s * d / 2));
+    g.add(at(box(w - 0.02, 0.004, d - 0.02, '#585E66'), 0, -h / 2 + 0.01, 0));
+    for (const s of [-1, 1]) g.add(at(box(0.004, h - 0.02, d - 0.02, '#6C727A'), s * (w / 2 - 0.009), 0, 0), at(box(w - 0.02, h - 0.02, 0.004, '#646A72'), 0, 0, s * (d / 2 - 0.009)));
+    for (const [x, z] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) g.add(at(box(0.02, 0.02, 0.02, '#C9CED4'), x * w / 2, h / 2, z * d / 2));
+    g.add(at(box(w + 0.01, 0.016, 0.016, '#C9CED4'), 0, h / 2, d / 2), at(box(w + 0.01, 0.016, 0.016, '#C9CED4'), 0, h / 2, -d / 2));
+    for (let i = 0; i < 6; i++) g.add(at(box(0.014, 0.003, 0.014, '#9A9282'), (hsh(i) - 0.5) * w * 0.7, -h / 2 + 0.014, (hsh(i + 5) - 0.5) * d * 0.7));
+    g.add(at(box(0.12, 0.024, 0.03, '#2A2A2E'), 0, h * 0.15, d / 2 + 0.02));
     return g;
+  },
+
+  // A tall leaning tower of nested white plastic coffee cups (pivot at its foot): o.n (24) cups, o.size (1.6: cups 0.15 m tall, 0.115 m a step),
+  // a slight S-curve; o.sway (0.02 rad) a slow wobble; the whole tower leans by the prop's own rotation
+  cupStack(o) {
+    const n = o.n ?? 24, Z = o.size ?? 1.6, g = grp(), step = 0.072 * Z, rT = 0.042 * Z, rB = 0.03 * Z, hC = 0.095 * Z, cups = [];
+    const geo = new THREE.CylinderGeometry(rT, rB, hC, 14, 1, true), m1 = new THREE.MeshLambertMaterial({ color: '#F4F2EC', side: THREE.DoubleSide }), m2 = new THREE.MeshLambertMaterial({ color: '#E2DED4', side: THREE.DoubleSide });
+    const rimG = new THREE.TorusGeometry(rT, 0.004 * Z, 4, 14), rimM = mat('#C9C4B8');
+    let parent = g;
+    for (let i = 0; i < n; i++) { const c = grp(); const b = new THREE.Mesh(geo, i % 2 ? m1 : m2); b.position.y = hC / 2; b.castShadow = true; c.add(b); const rm = new THREE.Mesh(rimG, rimM); rm.rotation.x = PI / 2; rm.position.y = hC; c.add(rm);
+      c.position.y = i ? step : 0; c.rotation.z = 0.012 * Math.sin(i * 0.5); parent.add(c); parent = c; cups.push(c); }
+    const top = new THREE.Mesh(new THREE.CircleGeometry(rT * 0.95, 14), mat('#5A3A22')); top.rotation.x = -PI / 2; top.position.y = hC - 0.01; cups[n - 1].add(top);
+    g.userData.update = t => { cups.forEach((c, i) => { c.rotation.z = 0.012 * Math.sin(i * 0.5) + (o.sway ?? 0.02) * 0.08 * Math.sin(t * 2.1 + i * 0.3); }); };
+    g.userData.update(0); return g;
   },
 
   // The clerk's counter (pivot at the floor under its middle, the customer's side +Z): a pale wooden counter o.w (1.3) wide, 1.0 high, with a glass
@@ -369,9 +396,9 @@ export const DISTRIBUTEUR_PROPS = {
     const draw = f => (c, Wc, Hc) => { c.fillStyle = '#FBFAF5'; c.fillRect(0, 0, Wc, Hc); c.strokeStyle = '#3A3D44'; c.lineWidth = Hc * 0.014; c.lineCap = 'round';
       c.beginPath(); c.moveTo(Wc * 0.08, Hc * 0.08); c.lineTo(Wc * 0.08, Hc * 0.9); c.lineTo(Wc * 0.95, Hc * 0.9); c.stroke();
       c.strokeStyle = 'rgba(58,61,68,0.15)'; c.lineWidth = Hc * 0.005; for (let i = 1; i < 5; i++) { c.beginPath(); c.moveTo(Wc * 0.08, Hc * (0.9 - i * 0.16)); c.lineTo(Wc * 0.95, Hc * (0.9 - i * 0.16)); c.stroke(); }
-      const px = u => Wc * (0.1 + 0.68 * u), py = u => Hc * (0.82 - 0.16 * Math.pow(u, 2.2) - 0.012 * Math.sin(u * 40));
+      const px = u => Wc * (0.1 + 0.66 * u), py = u => Hc * (0.84 - 0.5 * Math.pow(u, 1.8) - 0.008 * Math.sin(u * 40));
       c.strokeStyle = '#2C6FD8'; c.lineWidth = Hc * 0.045; c.lineJoin = 'round'; c.beginPath(); for (let i = 0; i <= 60 * f; i++) { const u = i / 60; if (i === 0) c.moveTo(px(u), py(u)); else c.lineTo(px(u), py(u)); } c.stroke();
-      if (f >= 0.999) { const cx = Wc * 0.86, cy = py(1) - Hc * 0.04, r = Hc * 0.07; c.fillStyle = '#F2A2B8'; c.strokeStyle = '#3A2A30'; c.lineWidth = Hc * 0.01; c.beginPath(); c.ellipse(cx, cy, r * 1.25, r, 0, 0, TAU); c.fill(); c.stroke();
+      { const cx = Wc * 0.85, cy = py(1) - Hc * 0.02, r = Hc * 0.085; c.fillStyle = '#F2A2B8'; c.strokeStyle = '#3A2A30'; c.lineWidth = Hc * 0.01; c.beginPath(); c.ellipse(cx, cy, r * 1.25, r, 0, 0, TAU); c.fill(); c.stroke();
         c.beginPath(); c.ellipse(cx + r * 1.25, cy, r * 0.28, r * 0.36, 0, 0, TAU); c.fill(); c.stroke(); c.fillRect(cx - r * 0.7, cy + r * 0.7, r * 0.3, r * 0.5); c.fillRect(cx + r * 0.4, cy + r * 0.7, r * 0.3, r * 0.5);
         c.beginPath(); c.moveTo(cx + r * 0.2, cy - r * 0.8); c.lineTo(cx + r * 0.6, cy - r * 1.3); c.lineTo(cx + r * 0.75, cy - r * 0.7); c.fill(); c.stroke(); c.fillStyle = '#1C1D22'; c.beginPath(); c.arc(cx + r * 0.65, cy - r * 0.2, r * 0.1, 0, TAU); c.fill(); } };
     for (let i = 0; i < N; i++) { const p = canvasPlane(W, H, draw((i + 1) / N), { res: 512 }); p.visible = false; g.add(p); frames.push(p); }
@@ -379,16 +406,36 @@ export const DISTRIBUTEUR_PROPS = {
     g.userData.update(-1); return g;
   },
 
-  // The hero's box head reflected in a glass (a plane facing +Z, origin at its centre; o.w 0.34): a pale ghost of his head (dark hair, two eyes, a
-  // flat mouth) drawn translucent, o.opacity (0.3); o.drift [dx, dy] over [t0, t1]: it slides a little (he leans in)
+  // The hero's own painted face faintly reflected in a glossy black panel (a plane facing +Z, origin at its centre; o.w 0.1): his tall orange box
+  // face drawn mirror-wise (flat-top black hair with its tuft, thin slanted brows, heavy-lidded eyes, stubble, a short flat mouth), see-through
+  // (o.alpha 0.3 drawn into the canvas: the material opacity alone did not show) and cooled toward the panel, with two soft diagonal sheen streaks across it; o.drift [dx, dy, t0, t1]: it slides a little (he
+  // leans in); o.blinkAt [t...]: his reflected eyes close for 0.12 s
   glassGhost(o) {
-    const w = o.w ?? 0.34, h = w * 1.25, p = canvasPlane(w, h, (c, W, H) => { c.clearRect(0, 0, W, H);
-      c.fillStyle = 'rgba(244,214,186,0.95)'; c.fillRect(W * 0.12, H * 0.16, W * 0.76, H * 0.8); c.fillStyle = 'rgba(52,38,30,0.95)'; c.fillRect(W * 0.08, H * 0.04, W * 0.84, H * 0.2);
-      c.fillStyle = 'rgba(30,26,24,0.95)'; for (const x of [0.36, 0.64]) { c.beginPath(); c.ellipse(W * x, H * 0.48, W * 0.06, H * 0.07, 0, 0, TAU); c.fill(); }
-      c.fillRect(W * 0.3, H * 0.4 - H * 0.05, W * 0.14, H * 0.02); c.fillRect(W * 0.56, H * 0.4 - H * 0.05, W * 0.14, H * 0.02); c.fillRect(W * 0.4, H * 0.72, W * 0.2, H * 0.025); }, { res: 256, transparent: true });
-    p.material.opacity = o.opacity ?? 0.3; p.material.depthWrite = false; p.material.alphaTest = 0.01; p.renderOrder = 3; p.castShadow = false;
-    const g = grp(p);
-    g.userData.update = t => { if (!o.drift) return; const [dx, dy, a, b] = o.drift, u = smooth((t - a) / Math.max(0.01, b - a)); p.position.set(dx * u, dy * u, 0); };
+    const w = o.w ?? 0.1, h = w * 1.3;
+    const face = closed => (c, W, H) => { c.clearRect(0, 0, W, H); c.save(); c.translate(W, 0); c.scale(-1, 1);
+      c.fillStyle = '#F2A868'; c.fillRect(W * 0.14, H * 0.18, W * 0.72, H * 0.8);
+      c.fillStyle = '#E39456'; c.fillRect(W * 0.06, H * 0.42, W * 0.08, H * 0.16); c.fillRect(W * 0.86, H * 0.42, W * 0.08, H * 0.16);
+      c.fillStyle = '#16141A'; c.fillRect(W * 0.1, H * 0.06, W * 0.8, H * 0.17); c.beginPath(); c.moveTo(W * 0.55, H * 0.08); c.lineTo(W * 0.92, H * 0.0); c.lineTo(W * 0.86, H * 0.14); c.fill();
+      c.fillRect(W * 0.1, H * 0.2, W * 0.06, H * 0.14);
+      c.strokeStyle = '#2A1E18'; c.lineWidth = H * 0.018; c.lineCap = 'round';
+      for (const [x0, x1, y0, y1] of [[0.24, 0.42, 0.36, 0.33], [0.58, 0.76, 0.33, 0.36]]) { c.beginPath(); c.moveTo(W * x0, H * y0); c.lineTo(W * x1, H * y1); c.stroke(); }
+      for (const x of [0.33, 0.67]) { if (closed) { c.beginPath(); c.moveTo(W * (x - 0.08), H * 0.45); c.lineTo(W * (x + 0.08), H * 0.45); c.stroke(); continue; }
+        c.fillStyle = '#FFFFFF'; c.beginPath(); c.ellipse(W * x, H * 0.45, W * 0.085, H * 0.035, 0, 0, TAU); c.fill(); c.fillStyle = '#16141A'; c.beginPath(); c.arc(W * (x + 0.015), H * 0.455, H * 0.024, 0, TAU); c.fill();
+        c.fillStyle = '#C97A40'; c.fillRect(W * (x - 0.095), H * 0.405, W * 0.19, H * 0.03); }
+      c.fillStyle = 'rgba(90,50,30,0.55)'; for (let i = 0; i < 26; i++) { c.beginPath(); c.arc(W * (0.22 + 0.56 * hsh(i)), H * (0.66 + 0.26 * hsh(i + 30)), H * 0.007, 0, TAU); c.fill(); }
+      c.beginPath(); c.moveTo(W * 0.42, H * 0.76); c.lineTo(W * 0.6, H * 0.755); c.stroke(); c.restore();
+      const sg = c.createLinearGradient(0, H, W, 0); sg.addColorStop(0.0, 'rgba(255,255,255,0)'); sg.addColorStop(0.42, 'rgba(255,255,255,0)'); sg.addColorStop(0.47, 'rgba(255,255,255,0.55)'); sg.addColorStop(0.52, 'rgba(255,255,255,0)'); sg.addColorStop(0.62, 'rgba(255,255,255,0)'); sg.addColorStop(0.64, 'rgba(255,255,255,0.35)'); sg.addColorStop(0.66, 'rgba(255,255,255,0)');
+      c.globalCompositeOperation = 'source-atop'; c.fillStyle = sg; c.fillRect(0, 0, W, H);
+      const kA = o.alpha ?? 0.3, im = c.getImageData(0, 0, W, H), d = im.data;
+      for (let i = 0; i < d.length; i += 4) { const px = (i / 4) % W, py = Math.floor(i / 4 / W), dx = (px / W - 0.5) / 0.5, dy = (py / H - 0.52) / 0.5, f = kA * Math.max(0, 1 - Math.pow(Math.hypot(dx * 0.95, dy * 0.85), 3)), gy = (d[i] + d[i + 1] + d[i + 2]) / 3;
+        d[i] = (d[i] * 0.55 + gy * 0.45) * f; d[i + 1] = (d[i + 1] * 0.55 + gy * 0.45) * f; d[i + 2] = (d[i + 2] * 0.55 + gy * 0.45) * f; } c.putImageData(im, 0, 0); };   // dimmed, greyed and faded at the edges in the colour itself (added light)
+    const mk = closed => { const q = canvasPlane(w, h, face(closed), { res: 256, transparent: true }); const map = q.material.map;
+      q.material = new THREE.MeshBasicMaterial({ map, color: o.tint || '#B8CCDE', transparent: true, opacity: o.opacity ?? 1, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false });   // a reflection adds light to the black panel
+      q.renderOrder = 3; q.castShadow = false; return q; };
+    const a = mk(false), b = mk(true); b.visible = false;
+    const g = grp(a, b);
+    g.userData.update = t => { let off = [0, 0]; if (o.drift) { const [dx, dy, t0, t1] = o.drift, u = smooth((t - t0) / Math.max(0.01, t1 - t0)); off = [dx * u, dy * u]; }
+      a.position.set(off[0], off[1], 0); b.position.set(off[0], off[1], 0); const cl = [].concat(o.blinkAt ?? []).some(x => t >= x && t < x + 0.12); a.visible = !cl; b.visible = cl; };
     g.userData.update(-1); return g;
   },
 };
