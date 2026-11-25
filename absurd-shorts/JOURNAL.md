@@ -3141,3 +3141,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 21 h 00 — « La pelle » (100) livrée : rendu final 1080×1920, 41,2 s, −16 LUFS, aucune image grise, planche propre. Envoyée et publiée sur TikTok (Postiz). Revues 6,4/7,4 → 7,0/7,6 → 7,6/7,8, passe finale (bronzage peint dans la texture du visage, lunettes sur les cheveux), brouillon de contrôle.
 
 22 h 00 — « La tartine » (102) revue 2 : animation 7,4, image 7,5 (saut d'échelle à la chute S13, plan des cireuses sans gag S10, regards du plan final qui ratent la tartine, tartine du tampon dans la bande des sous-titres). Corrections du tour 2 lancées. « La poule » (104) : mise en scène en cours.
+
+23 h 00 — « La poule » (104) : mise en scène faite (25 plans, 35 accessoires), brouillon 1 sans gel. Revue 1 : animation 6,8 (poses figées après le premier temps, chute du plan d'accroche vue de dos, deuxième révélation de la poule identique à la première), image 7,2 (cascade de portes trop lointaine, tas de pommes dans la bande des sous-titres, plan final recadré trop serré). Corrections lancées. « La tartine » : corrections du tour 2 en cours. Disque serré (≈ 0,75 Go).
