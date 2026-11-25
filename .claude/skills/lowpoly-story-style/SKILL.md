@@ -2208,3 +2208,11 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   plan suivant sous la bande du carton.
 - (cycle 52) Plans scindés (S09b) : round_config/next_config les perdent au tour 2 (SHOTS, PAIRS) ; régénérer une config de tour 1 fraîche
   avec make_config1 et recopier SHOTS, STILLS, STILL_DESC, PAIRS, PAIR_DESC dans la config du tour suivant.
+- (cycle 52) Gerbe d'eau : beaucoup de petites gouttes étirées sur des paraboles rapides (environ 0,11 s jusqu'au sommet) ; un cylindre se lit
+  comme un rayon de lumière, de grosses sphères comme des œufs.
+- (cycle 52) Main en anneau : une plaque en C vue du côté du pouce, pouce plus foncé qui rejoint le bout des doigts ; un tore se lit comme un beignet.
+- (cycle 52) Mot clé tardif + plan large d'au moins 0,6 s : la coupe tombe avant le mot ; le geste clé doit alors se jouer dans le plan large.
+- (cycle 52) Acteur téléporté à une coupe : son reach vise encore l'ancien point (bras étiré en travers du cadre) ; reposer le reach à la coupe.
+- (cycle 52) Lumière d'appoint devant une fenêtre : 9 brûle le mur ; environ 2,5 à 1,6 m suffit à éclairer les visages.
+- (cycle 52) Bras de robot à deux segments étirés : il reste droit et plonge loin du trou ; viser un L, coude au-dessus du trou.
+- (cycle 52) `mix.py` écrit un dossier au nom de la sortie (mix et pistes) : le supprimer par chemin littéral après un pré-test.
