@@ -113,10 +113,12 @@ function tyreMesh(o = {}) {
   if (o.towel) {
     const tm = mat('#F6F4EE', { doubleSide: true });
     if (o.towel === 'scarf') {
-      // (pass 2) a fat towel scarf: a thick band over the top, a knot at the front and two long striped ends hanging down the side wall
-      const band = new THREE.Mesh(new THREE.TorusGeometry(ru.Rt + 0.03, 0.065, 8, 20, PI * 0.9), mat('#F6F4EE')); band.rotation.z = PI * 0.05; band.castShadow = true; addOutline(band, 0.04); drapes.add(band);
-      const knot = sphere(0.085, '#F6F4EE', 1, { outline: 0.06 }); knot.position.set(ru.Rt * 0.55, ru.Rt * 0.78, r * 1.25); drapes.add(knot);
-      for (const [dx, a] of [[0.0, 0.18], [0.11, -0.12]]) { const e = grp(at(box(0.15, 0.42, 0.04, '#F6F4EE', { pivot: 'top', outline: 0.03 }), 0, 0, 0), at(box(0.152, 0.035, 0.045, '#5A8FC8'), 0, -0.3, 0), at(box(0.152, 0.035, 0.045, '#5A8FC8'), 0, -0.36, 0)); e.position.set(ru.Rt * 0.55 + dx, ru.Rt * 0.74, r * 1.35); e.rotation.z = a; drapes.add(e); }
+      // (pass 3) a short thick towel wound round the top like a scarf (a long arc read as a mudguard): a fat white roll over the top third, a knot
+      // on the front and two short stubby ends sticking out
+      const roll = new THREE.Mesh(new THREE.TorusGeometry(ru.Rt + 0.02, r * 0.95, 8, 14, PI * 0.42), mat('#F6F4EE')); roll.rotation.z = PI * 0.29; roll.castShadow = true; addOutline(roll, 0.05); drapes.add(roll);
+      for (let i = 0; i < 3; i++) { const st = new THREE.Mesh(new THREE.TorusGeometry(ru.Rt + 0.02, r * 0.97, 6, 3, 0.05), mat('#6E9FD4')); st.rotation.z = PI * (0.36 + i * 0.12); drapes.add(st); }
+      const knot = sphere(r * 1.05, '#F6F4EE', 1, { outline: 0.06 }); knot.position.set(0, ru.Rt + 0.02, r * 0.9); drapes.add(knot);
+      for (const sd of [-1, 1]) drapes.add(at(box(0.11, 0.2, 0.07, '#F6F4EE', { pivot: 'top', outline: 0.04 }), sd * 0.07, ru.Rt + 0.0, r * 1.3, 0.25, 0, sd * 0.55));
     } else {
       // (pass 2) folded over the top, not a hood: a narrower arc, small side flaps, two ends hanging at the sides
       drapes.add(drape(PI * 0.62, r * 2.4, tm, ru.Rt + 0.02));
@@ -232,7 +234,7 @@ function carBuild(o = {}) {
     let bounce = 0, squash = 0;
     wheels.forEach((w, i) => {
       const ls = lastStep(keysOf(i), t); let sv = 0;
-      if (ls && ls.dir < 0) { const u = t - ls.tc; if (u >= 0 && u < ls.dt) sv = 0.45 * smooth(u / ls.dt); else if (u >= ls.dt && u < ls.dt + 0.7) { const v = u - ls.dt; sv = 0.45 * Math.exp(-7 * v) * Math.cos(v * 22); } }
+      if (ls && ls.dir < 0) { const u = t - ls.tc, A = o.stretchAmp ?? 0.45; if (u >= 0 && u < ls.dt) sv = A * smooth(u / ls.dt); else if (u >= ls.dt && u < ls.dt + 0.8) { const v = u - ls.dt; sv = v < 0.07 ? A : A * Math.exp(-5 * (v - 0.07)) * Math.cos((v - 0.07) * 16); } }   // (pass 3) o.stretchAmp; the stretch held two frames before the snap
       if (ls && ls.dir > 0) { const u = t - ls.tc - ls.dt; if (u > 0 && u < 0.9) { bounce += -0.11 * Math.exp(-5 * u) * Math.sin(u * 17 + 0.6); squash += 0.16 * Math.exp(-6 * u) * Math.cos(u * 17); } }
       w.set(st[i], -roll / R0, sv); w.g.position.y = h[i] * (1 + sv);
     });
@@ -353,10 +355,12 @@ export const PNEU_PROPS = {
       c.g.position.set(x, 0, z + (hsh(n + 3) - 0.5) * 0.25); c.g.rotation.y = (hsh(n + 5) - 0.5) * 0.05; g.add(c.g); cars.push(c); n++;
     }
     if (o.road !== false) {
-      const len = o.len ?? 90, zs = lanes.map(l => l[0]), zmin = Math.min(...zs) - 2.2, zmax = Math.max(...zs) + 2.2, w = zmax - zmin, zc = (zmin + zmax) / 2;
-      const am = mat('#666A70', { unique: true }); am.polygonOffset = true; am.polygonOffsetFactor = -2; am.polygonOffsetUnits = -2;   // (pass 2) lifted and offset: it flickered against the field
-      const asph = new THREE.Mesh(new THREE.PlaneGeometry(len, w), am); asph.rotation.x = -PI / 2; asph.position.set(-len / 2 + 30, 0.05, zc); asph.receiveShadow = true; g.add(asph);
-      for (let li = 0; li < zs.length - 1; li++) { const zz = (zs[li] + zs[li + 1]) / 2; for (let x = 30; x > -len + 30; x -= 6) { const d = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 0.14), mat('#F1F0E8')); d.rotation.x = -PI / 2; d.position.set(x, 0.09, zz); g.add(d); } }
+      const len = o.len ?? 90, zs = lanes.map(l => l[0]), zmin = Math.min(...zs) - 2.2, zmax = Math.max(...zs) + 2.2 + (o.shoulder ?? 0),   // (pass 3) o.shoulder: a wide hard shoulder on the +Z side (a camera stands on it)
+        w = zmax - zmin, zc = (zmin + zmax) / 2;
+      // (pass 3) painted over the field without a depth test, like parkLot (an offset was not enough at a grazing angle: the field showed through)
+      const am = new THREE.MeshLambertMaterial({ color: '#666A70', depthTest: false, depthWrite: false }), dm = new THREE.MeshLambertMaterial({ color: '#F1F0E8', depthTest: false, depthWrite: false });
+      const asph = new THREE.Mesh(new THREE.PlaneGeometry(len, w), am); asph.rotation.x = -PI / 2; asph.position.set(-len / 2 + 30, 0.05, zc); asph.receiveShadow = true; asph.renderOrder = -1.5; g.add(asph);
+      for (let li = 0; li < zs.length - 1; li++) { const zz = (zs[li] + zs[li + 1]) / 2; for (let x = 30; x > -len + 30; x -= 6) { const d = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 0.14), dm); d.renderOrder = -1.2; d.rotation.x = -PI / 2; d.position.set(x, 0.09, zz); g.add(d); } }
       for (const zz of [zmin, zmax]) { g.add(at(box(len, 0.08, 0.3, '#B8BCC2', { outline: 0.004 }), -len / 2 + 30, 0.62, zz)); for (let x = 30; x > -len + 30; x -= 3) g.add(at(box(0.1, 0.62, 0.1, '#7E848B', { pivot: 'bottom' }), x, 0, zz)); }
     }
     g.userData.update = t => cars.forEach(c => c.update(t));
