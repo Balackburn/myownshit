@@ -1,0 +1,155 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a mis une pièce dans le distributeur. Rien n'est tombé.",
+  "hl": [
+   "pièce",
+   "Rien"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Le ministre a tranché : c'est une banque.",
+  "hl": [
+   "tranché",
+   "banque."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Elle a reçu sa licence. Ce mec est son premier client.",
+  "hl": [
+   "licence.",
+   "client."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Tout le pays y a placé ses économies.",
+  "hl": [
+   "pays",
+   "économies."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Elle n'a jamais rien rendu. Comme une vraie.",
+  "hl": [
+   "rendu.",
+   "vraie."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Elle a racheté la machine à café. Puis la photocopieuse.",
+  "hl": [
+   "café.",
+   "photocopieuse."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Elle a nommé un directeur.",
+  "hl": [
+   "nommé",
+   "directeur."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Faillite : le directeur avait tout bu en cafés.",
+  "hl": [
+   "Faillite",
+   "cafés."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Elle a commencé à pencher.",
+  "hl": [
+   "commencé",
+   "pencher."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "En penchant, elle a écrasé le distributeur de sandwichs.",
+  "hl": [
+   "écrasé",
+   "sandwichs."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Trop grosse pour tomber.",
+  "hl": [
+   "grosse",
+   "tomber."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "L'État l'a renflouée : deux milliards en pièces.",
+  "hl": [
+   "renflouée",
+   "milliards"
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le distributeur de sandwichs, lui, n'a rien eu.",
+  "hl": [
+   "sandwichs,",
+   "rien"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "La canette est enfin tombée. C'était la prime du directeur.",
+  "hl": [
+   "canette",
+   "prime"
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Ce mec a réclamé sa pièce.",
+  "hl": [
+   "réclamé",
+   "pièce."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Refusé : elle est placée sur quarante ans.",
+  "hl": [
+   "Refusé",
+   "quarante"
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "La banque était en panne depuis le début. C'était écrit en tout petit.",
+  "hl": [
+   "panne",
+   "petit."
+  ]
+ }
+]
