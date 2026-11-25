@@ -2430,3 +2430,19 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 56) Cinq voisins dans une rangée de maisons en 9:16 : façades étroites (1,6 m) et caméra lointaine à 45°.
 - (cycle 56) Bouche du héros en surimpression : sur l'articulation de la tête à (y 0,12, z 0,1, 0,21 × 0,105 m), pile sur la bouche
   peinte. Prises du héros bouche fermée quand la bouche est un gag (doubleTake de story_kit ouvre la mâchoire).
+- (cycle 55) Le canal `lay` pivote aux pieds et le clip `splat` aux hanches : décaler la racine d'une longueur de hanche au
+  changement, sinon le corps saute d'≈ 1 m vers l'objectif (« visage géant »). Image d'impact d'un corps couché à plat : le relever
+  de ≈ 0,12, sinon la moitié passe sous le sol.
+- (cycle 55) `ttShine` avec un fort décalage de polygone peint par-dessus les éclaboussures au sol en rasant ; décalage réduit quand
+  des accessoires au sol doivent se voir.
+- (cycle 55) Reflets au sol : quadrilatères en dégradé peints dans le canvas du brillant pour une caméra donnée ; un décalque séparé
+  ne s'est jamais affiché.
+- (cycle 55) Caméra basse sous une table : personnage assis renversé ou coussin derrière lui = tête cachée ; coussin sur le côté.
+- (cycle 55) Panneau mi-ton devant une fenêtre : bleu-gris = vitre ; ton chaud avec grille = graphique.
+- (cycle 55) « Yeux levés » dans un plan final : les yeux seuls (gy −1, paupières ouvertes) ; une cible qui renverse la tête montre
+  le dessus du crâne.
+- (cycle 55) Tête maintenue écrasée sous un plateau : une seule montée verticale avec couches automatiques coupées, et le corps qui
+  rampe reste enfoncé tout du long.
+- (cycle 55) Enseigne au-dessus d'un store coupée par le haut du cadre : écrire le mot sur la vitrine.
+- (cycle 55) story_kit réécrit shots.json, cues.json et cards.txt à chaque exécution : vérifier que les fenêtres de plans restent
+  identiques à l'octet.
