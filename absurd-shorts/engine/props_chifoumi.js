@@ -95,7 +95,7 @@ function mitten({ W = 0.095, T = 0.04, Lp = 0.095, Lf = 0.088, color = HERO_SKIN
 function wellRing({ R = 0.05, r = 0.024, color = WIFE_SKIN, sx = 1 }) {
   const g = grp(), ring = new THREE.Mesh(new THREE.TorusGeometry(R, r, 8, 20), mat(color)); ring.castShadow = true; addOutline(ring, 0.06);
   g.add(at(ring, 0, R + r * 0.6, 0.02));
-  g.add(at(box(r * 2.0, R * 0.9, r * 2.1, color, { outline: 0.06 }), 0, R * 0.2, 0.02));
+  g.add(at(box(r * 1.8, R * 0.8, r * 1.9, color, { outline: 0.06 }), 0, -R * 0.25, 0.0));
   const seam = at(box(r * 0.25, r * 2.3, r * 2.3, '#8A5A40'), sx * R * 0.72, R * 1.65 + r * 0.6, 0.02, 0, 0, -sx * 0.75); g.add(seam);
   g.add(at(sphere(r * 1.05, color, 1), sx * R * 0.86, R * 1.45 + r * 0.6, 0.03));
   return g;
@@ -199,9 +199,9 @@ export const CHIFOUMI_PROPS = {
         const fl = 0.55 * Math.sin(t * 7.5 + i * 1.9); q.userData.w[0].rotation.z = fl; q.userData.w[1].rotation.z = -fl; });
       perch.forEach((q, i) => { q.children[1].position.y = 0.14 + 0.03 * Math.max(0, Math.sin(t * 4 + i * 2)); q.rotation.y = 0.9 + i * 1.7 + 0.35 * Math.sin(t * 0.9 + i); });
       flies.forEach((f, i) => { const a = t * (3 + hsh(i) * 2) + i * 1.3, rr = R * 0.18 + R * 0.12 * Math.sin(t * 2.1 + i); f.position.set(Math.cos(a) * rr, H * 0.92 + 0.5 * Math.sin(t * 4.7 + i * 2.3), Math.sin(a) * rr); });
-      if (roller) { const d = o.rollDur ?? 1.1, u = clamp01((t - o.rollAt) / d), y0 = H * 0.86, z0 = R * 0.12, z1 = R * 1.08, y1 = bs * 0.5;
-        const z = lerp(z0, z1, u), y = Math.max(y1, lerp(y0, y1, Math.pow(u, 0.9))) + 0.35 * bs * Math.abs(Math.sin(u * PI * 3)) * (1 - u);
-        roller.visible = t >= o.rollAt - 0.02; roller.position.set(0.2 * Math.sin(u * 2), y, z); roller.rotation.set(u * 9, 0.4, 0); }
+      if (roller) { const d = o.rollDur ?? 1.1, u = clamp01((t - o.rollAt) / d), rx = o.rollX ?? 0, z0 = R * 0.08, z1 = R * 1.12;
+        const z = lerp(z0, z1, Math.pow(u, 1.3)), x = rx * (0.15 + 0.85 * u) + 0.15 * Math.sin(u * 7), y = Math.max(0, H * (1 - Math.hypot(x, z) / R)) + bs * 0.55 + 0.35 * bs * Math.abs(Math.sin(u * PI * 3)) * (1 - u);
+        roller.visible = t >= o.rollAt - 0.02; roller.position.set(x, y, z); roller.rotation.set(u * 9, 0.4, 0); }
     };
     g.userData.update(0); return g;
   },
@@ -578,7 +578,7 @@ export const CHIFOUMI_PROPS = {
     for (const [x, z] of [[-0.3, 0.25], [0.3, 0.25], [-0.3, 0.6], [0.3, 0.6]]) for (const part of [M.paper, M.rock]) part.add(at(cyl(0.05, 0.05, 0.03, '#C9CED4', 8), x, 0.225, z));
     const bib = grp(at(box(0.62, 0.48, 0.02, '#FAFAF6', { outline: 0.03 }), 0, 0, 0)); for (const [x, y] of [[-0.26, 0.19], [0.26, 0.19], [-0.26, -0.19], [0.26, -0.19]]) bib.add(at(sphere(0.025, '#C9CED4', 0), x, y, 0.015));
     bib.position.set(0, 0.225, 0.48); bib.rotation.x = -PI / 2; M.g.add(bib);
-    const medal = grp(at(box(0.08, 0.5, 0.02, '#2F5FA8'), -0.09, -0.22, 0, 0, 0, 0.2), at(box(0.08, 0.5, 0.02, '#2F5FA8'), 0.09, -0.22, 0, 0, 0, -0.2), at(cyl(0.2, 0.2, 0.05, '#E8B830', 16, { outline: 0.03 }), 0, -0.6, 0.0, PI / 2, 0, 0), at(cyl(0.14, 0.14, 0.06, '#F2CC50', 16), 0, -0.6, 0.0, PI / 2, 0, 0));
+    const medal = grp(at(box(0.09, 0.3, 0.02, '#2F5FA8'), -0.08, -0.12, 0, 0, 0, 0.25), at(box(0.09, 0.3, 0.02, '#2F5FA8'), 0.08, -0.12, 0, 0, 0, -0.25), at(cyl(0.25, 0.25, 0.05, '#E8B830', 18, { outline: 0.03 }), 0, -0.45, 0.0, PI / 2, 0, 0), at(cyl(0.18, 0.18, 0.06, '#F2CC50', 18), 0, -0.45, 0.0, PI / 2, 0, 0));
     root.add(medal);
     const ghosts = [0.45, 0.28, 0.15].map(op => { const m = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.84, 0.95), new THREE.MeshBasicMaterial({ color: HC, transparent: true, opacity: op, depthWrite: false })); m.geometry.translate(0, -0.2, 0.47); m.castShadow = false; root.add(m); return m; });
     const P = (o.path && o.path.length) ? o.path : [{ t: 0, p: [0, 3.2, 3.2], hp: 0, curl: 1 }];
@@ -600,7 +600,7 @@ export const CHIFOUMI_PROPS = {
     const centre = t => { const q = pose(t), k = solve(q); return local(k.yaw, k.w[0], hS + k.w[1]).add(handDir(k.yaw, q.hp).multiplyScalar(0.55 + 0.25 * (1 - q.curl))); };
     const TR = o.trail, NS = 56, trailSegs = [];
     if (TR) { const col = TR.color || '#FFE27A', coreM = unlit('#FFFFFF'), haloM = unlit(col, { add: true, opacity: 0.55 }), wideM = unlit(col, { add: true, opacity: 0.2 });
-      for (let i = 0; i < NS; i++) { const parts = [[0.07, coreM], [0.18, haloM], [0.4, wideM]].map(([r, m]) => { const x = new THREE.Mesh(new THREE.BoxGeometry(1, r, r), m); x.castShadow = false; x.renderOrder = 3; x.visible = false; root.add(x); return x; }); trailSegs.push(parts); }
+      for (let i = 0; i < NS; i++) { const parts = [[0.06, coreM], [0.13, haloM], [0.26, wideM]].map(([r, m]) => { const x = new THREE.Mesh(new THREE.BoxGeometry(1, r, r), m); x.castShadow = false; x.renderOrder = 3; x.visible = false; root.add(x); return x; }); trailSegs.push(parts); }
       trailSegs.mats = [haloM, wideM]; }
     const tipS = glowSprite('#FFFFFF', 0.9, 1); tipS.visible = false; root.add(tipS);
     const drops = []; if (o.drip) for (let i = 0; i < 10; i++) { const m = sphere(0.07, '#CFE6F5', 1, { unique: true }); m.castShadow = false; m.scale.set(0.8, 1.3, 0.8); root.add(m); drops.push(m); }
@@ -619,7 +619,7 @@ export const CHIFOUMI_PROPS = {
       M.set(q.curl);
       const bu = o.bibAt == null ? 0 : outBack(clamp01((t - o.bibAt) / 0.2)); bib.visible = bu > 0.01; bib.scale.setScalar(Math.max(0.01, bu));
       const mu = o.medalAt == null ? 0 : outBack(clamp01((t - o.medalAt) / 0.2)); medal.visible = mu > 0.01; medal.scale.setScalar(Math.max(0.01, mu));
-      if (medal.visible) { const wp = local(k.yaw, k.w[0], hS + k.w[1]); medal.position.copy(wp).add(new THREE.Vector3(0, -0.28, 0)); medal.rotation.set(0, o.medalYaw ?? k.yaw, 0.12 * Math.sin((t - o.medalAt) * 6) * Math.exp(-(t - o.medalAt) * 1.5)); }
+      if (medal.visible) { const wp = local(k.yaw, k.w[0], hS + k.w[1]); medal.position.copy(wp).add(new THREE.Vector3(0, -0.2, 0)).add(new THREE.Vector3(Math.sin(o.medalYaw ?? k.yaw), 0, Math.cos(o.medalYaw ?? k.yaw)).multiplyScalar(0.34)); medal.rotation.set(0, o.medalYaw ?? k.yaw, 0.12 * Math.sin((t - o.medalAt) * 6) * Math.exp(-(t - o.medalAt) * 1.5)); }
       const inSm = list(o.smear).some(([a, b]) => t >= a && t <= b);
       ghosts.forEach((m, i) => { m.visible = inSm; if (!inSm) return; const tq = t - 0.03 * (i + 1), qq = pose(tq), kk = solve(qq); m.position.copy(local(kk.yaw, kk.w[0], hS + kk.w[1])); m.rotation.set(0, 0, 0); m.rotation.order = 'YXZ'; m.rotation.set(-qq.hp, kk.yaw, 0); });
       if (TR) { const t1 = Math.min(t, TR.t1), on = t >= TR.t0; let prev = on ? centre(TR.t0) : null;
@@ -680,7 +680,8 @@ export const CHIFOUMI_PROPS = {
       body.add(at(box(w + 0.04, 0.16, d + 0.04, '#3F6FA8'), 0, f * fh + 0.08, 0));
       for (let c = 0; c < nc; c++) { const x = -w / 2 + (c + 0.5) * w / nc, y = f * fh + fh * 0.55, isOpen = open.includes(`${f},${c}`);
         body.add(at(box(1.5, 1.45, 0.08, '#F2F2EE'), x, y, d / 2 + 0.02), at(box(1.3, 1.25, 0.06, isOpen ? '#1A1C20' : '#5E8FC2', isOpen ? {} : { emissive: '#1E3A5A' }), x, y, d / 2 + 0.05));
-        if (!isOpen) body.add(at(box(0.05, 1.25, 0.07, '#F2F2EE'), x, y, d / 2 + 0.06)); }
+        if (!isOpen) body.add(at(box(0.05, 1.25, 0.07, '#F2F2EE'), x, y, d / 2 + 0.06));
+        else body.add(at(box(1.5, 1.4, 0.62, WALL, { outline: 0.006 }), x, y - 0.65 - 0.7, d / 2 + 0.31), at(box(1.62, 0.08, 0.7, '#F2F2EE'), x, y - 0.65, d / 2 + 0.33)); }
       for (let c = 0; c < Math.floor(d / 2.2); c++) { const z = -d / 2 + (c + 0.5) * d / Math.floor(d / 2.2), y = f * fh + fh * 0.55; body.add(at(box(0.08, 1.45, 1.5, '#F2F2EE'), w / 2 + 0.02, y, z), at(box(0.06, 1.25, 1.3, '#5E8FC2', { emissive: '#1E3A5A' }), w / 2 + 0.05, y, z)); }
     }
     body.add(at(cyl(0.6, 0.75, 7, '#B04A3A', 10, { pivot: 'bottom', outline: 0.01 }), w * 0.3, H, -d * 0.2), at(cyl(0.65, 0.65, 0.4, '#F2F2EE', 10), w * 0.3, H + 6.2, -d * 0.2));
@@ -694,8 +695,8 @@ export const CHIFOUMI_PROPS = {
       const e = u <= 0 ? 0 : u < 1 ? Math.pow(u, 1.6) : 1 + 0.035 * Math.exp(-(u - 1) * 5) * Math.sin((u - 1) * 14);
       body.position.y = -drop * e; body.position.x = u > 0 && u < 1.6 ? 0.08 * Math.sin(t * 70) * (1 - clamp01(u / 1.6)) : 0;
       rub.forEach(m => { m.visible = u > 0.6; });
-      dust.forEach((m, i) => { const v = (t - (o.sinkAt ?? 99) - (o.sinkDur ?? 0.45) * 0.6 - 0.015 * i) / 1.8; m.visible = v > 0 && v < 1; if (!m.visible) return; const a = i / dust.length * TAU + 0.2 * hsh(i), e2 = 1 - Math.pow(1 - v, 2.2);
-        m.position.set(Math.cos(a) * (w / 2 + 0.5 + 6 * e2), 0.8 + 1.6 * e2 + 0.6 * hsh(i), Math.sin(a) * (d / 2 + 0.5 + 6 * e2)); const sc = (3.2 + 2.4 * hsh(i + 3)) * (0.7 + 0.8 * e2); m.scale.set(sc, sc * 0.75, 1); m.material.opacity = 1.0 * (v < 0.1 ? v / 0.1 : 1 - smooth((v - 0.3) / 0.7)); });
+      dust.forEach((m, i) => { const v = (t - (o.sinkAt ?? 99) - (o.sinkDur ?? 0.45) * 0.25 - 0.006 * i) / 1.25; m.visible = v > 0 && v < 1; if (!m.visible) return; const a = i / dust.length * TAU + 0.2 * hsh(i), e2 = 1 - Math.pow(1 - v, 2.2);
+        m.position.set(Math.cos(a) * (w / 2 + 0.3 + 3.2 * e2), 0.7 + 1.4 * e2 + 0.5 * hsh(i), Math.sin(a) * (d / 2 + 0.3 + 3.2 * e2)); const sc = (3.2 + 2.4 * hsh(i + 3)) * (0.7 + 0.8 * e2); m.scale.set(sc, sc * 0.75, 1); m.material.opacity = 1.0 * (v < 0.1 ? v / 0.1 : 1 - smooth((v - 0.3) / 0.7)); });
     };
     g.userData.update(0); return g;
   },

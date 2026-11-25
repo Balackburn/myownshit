@@ -12,11 +12,11 @@ than his house in the reveal (S16), never mentioned before line 16. The referee'
 repeats at the end (S17). « Depuis trente ans » (S06: his photos and a block of tally marks) comes back the other way in S15.
 Staging: in the kitchen, low across the table, his navy-sleeved fist (rock) and her flat mitten (paper) pump and meet, a quarter of the frame each;
 she lays her hand over his fist and smiles; behind them, lit, the red bin with its lid propped up by a bulging bag. In a video-referee room three
-referees in anthracite with headsets lean to a wall of screens looping the kitchen footage; the middle one draws a rectangle with his forearm and it
-hangs in the air as a glowing trail; slow lateral pan. The replay fills the frame: the two hands frozen apart, stepping a frame at a time, a red line
-drawn between them, the bin huge and overflowing in the top corner, « RALENTI » brackets. On the pitch a referee blows his whistle and waves the
+referees in anthracite with headsets, their backs to us, lean to a wall of screens looping the kitchen footage; the middle one turns round and draws
+a rectangle with his forearm and it hangs in the air as a glowing trail; slow lateral pan. The replay fills the frame: the two hands frozen apart, stepping a frame at a time, a red line
+drawn between them, the bin behind them now towering and overflowing with bags and flies, « RALENTI » brackets. On the pitch a referee blows his whistle and waves the
 match off (ANNULÉ); cut to the stadium from the air: a packed oval and, on the centre spot, a little kitchen table with a red top and two chairs.
-In a white lab his fist sits in a padded clamp under two lamps, two scientists write, a big camera slides on rails toward the fist. The whiteboard:
+In a white lab his fist sits in a padded clamp, scientists write, a big camera on rails slides up to the fist. The whiteboard:
 three photos of him making a fist (a wedding veil, a bicycle, asleep on a pillow); a scientist scribbles a thick block of tally marks on « trente
 ans ». At the federation an official slams a giant stamp on his file photo (a red cross, no words); he looks at his own fist. In a factory a
 giant robot arm with a graphite box mitten rises among welders' sparks and closes its fist; screens loop his fist. It slams the test table (smear,
@@ -167,7 +167,7 @@ SCR2 = [0.0, 0, -3.95]
 D2 = st.dur('S02'); RECT2 = r(W('S02', 'L02', 4) - 0.05); RDUR2 = 1.0
 F2A, F2B = [-0.45, 2.0, 3.1], [0.35, 1.98, 3.0]
 L2A, L2B = [-0.2, 1.62, -3.0], [0.2, 1.6, -3.0]
-C2 = cam(0.0, F2A, F2B, L2A, L2B, lens=48, ease='inOut')
+C2 = cam(0.0, F2A, F2B, add(L2A, [0, -0.25, 0]), add(L2B, [0, -0.25, 0]), lens=42, ease='inOut')
 REF2 = R2[1]; RYR2 = yaw(REF2, F2B)
 RC2 = off(REF2, RYR2, 0.62, -0.08, 1.38)                                # the rectangle's centre, low in front of his chest, facing the camera
 RR = right(RYR2)
@@ -202,7 +202,7 @@ st.cue('sfx:beep', 'S02', 0.2, 0.15); st.cue('sfx:zip', 'S02', RECT2, 0.25); st.
 D3 = st.dur('S03'); LINE3 = r(W('S03', 'L03', 5) - 0.1)
 EF3 = add(EF1, [0.04, 0.2, 0.0])
 FIST3 = FIST1; PAP3 = hand_tip(EF3, RYF1, SH, SLV, ahead=0.14)
-F3 = [0.32, 1.72, 0.6]; L3 = [0.36, 1.12, -1.5]; LENS3 = 42
+F3 = [0.3, 1.74, 1.15]; L3 = [0.33, 1.28, -1.5]; LENS3 = 46
 C3 = cam(0.0, F3, add(F3, [0.0, 0.0, -0.06]), L3, L3, lens=LENS3)
 BIN3 = [0.38, 0, -2.85]
 chkc('S03', C3, {'fist': FIST3, 'paper': PAP3, 'binTop': add(BIN3, [0, 1.9, 0]), 'binL': add(BIN3, [-0.45, 1.0, 0]), 'binR': add(BIN3, [0.45, 1.0, 0]), 'himHead': add(HK, [0, 1.92, 0])})
@@ -218,7 +218,7 @@ st.shot('S03', 'kitchenDay', setOpts=KIT, grade='saturate(0.55) contrast(1.06) b
         props=[*KITCHEN_PROPS(3)[:3], P('poubelle3', 'chifBin', pos=BIN3, ry=-10, opts={'level': 2, 's': 1.45, 'flies': 5, 'stink': 3}),
                HANDH('mainH3', mode='rock', tilt=0.06),
                HANDF('mainF3', e=EF3, mode='paper', tilt=0.06, keys=[k(t_, to=add(EF3, [0, -0.035 * (j + 1), 0]), dur=0.02) for j, t_ in enumerate(STEPS3)]),
-               P('ligne3', 'chifRedLine', pos=[0, 0, 0], opts={'a': add(FIST3, [0.0, 0.12, 0.06]), 'b': add(PAP3, [0.0, -0.06, 0.06]), 'at': LINE3, 'dur': 0.28, 'r': 0.01, 'ring': 0.055}),
+               P('ligne3', 'chifRedLine', pos=[0, 0, 0], opts={'a': add(FIST3, [0.0, 0.12, 0.06]), 'b': add(PAP3, [0.0, -0.06, 0.06]), 'at': LINE3, 'dur': 0.28, 'r': 0.014, 'ring': 0.075}),
                P('hud3', 'chifHud', pos=HUDP, rot=HUDR, opts={'w': HUDW, 'h': HUDH})],
         cams=[C3])
 st.cue('sfx:scratch', 'S03', 0.0, 0.25); [st.cue('sfx:tick', 'S03', t_, 0.3) for t_ in STEPS3]; st.cue('sfx:zip', 'S03', LINE3, 0.2)
@@ -249,7 +249,7 @@ REFK4 = [k(0.0, look='camera', lookDur=0.0), k(0.0, toon={'face': {**PUFF, 'puff
 for i, t_ in enumerate([WAVE4, r(WAVE4 + 0.14), r(WAVE4 + 0.28), r(WAVE4 + 0.42)]): REFK4.append(k(t_, toon=WAVEP(1 if i % 2 == 0 else -1), toonDur=0.1, toonEase='inOut'))
 REFK4.append(k(r(WAVE4 + 0.56), toon={'face': {'lid': 0.35, 'mouth': 'line', 'brow': -0.3}}, toonDur=0.15))
 st.shot('S04', 'grassland', setOpts=GRASS, actors=[act('arbitreT', REFP, 20, 'stand', 'neutral', keys=[*REFK4, k(CUT4, visible=False)])],
-        props=[P('stade4', 'chifStadium', pos=[0, 0, 0], opts={**STAD, 'cheer': 0.8}), *PITCH_TABLE(4),
+        props=[P('stade4', 'chifStadium', pos=[0, 0, 0], opts={**STAD, 'cheer': 0.8, 'board': None}), *PITCH_TABLE(4),
                P('sifflet4', 'whistle', on={'actor': 'arbitreT', 'joint': 'head', 'offset': [0.0, 0.11, 0.16], 'rot': [0, 1.5708, 0]}, scale=3.0)],
         cams=[C4A, C4B])
 st.card('S04', 'ANNULÉ', at=r(WAVE4 + 0.04))
@@ -312,7 +312,7 @@ st.shot('S06', 'whiteVoid', setOpts={'color': '#E8EEF2'}, actors=[act('savant1',
 st.cue('sfx:paper', 'S06', r(TALLY6), 0.3); st.cue('sfx:scratch', 'S06', r(TALLY6 + 0.3), 0.18)
 
 # ============================== the federation (whiteVoid + chifRoom: grey-green walls, the plaque FÉDÉRATION)
-ROOM7 = {'w': 9, 'd': 8, 'h': 3.4, 'wall': '#B7C6BC', 'floor': '#C8B08C', 'band': '#8FA89A', 'bandH': 1.05, 'trim': '#3E5446', 'lights': 2, 'sign': ['FÉDÉRATION', 0.6, 2.62, 2.4, 0.46], 'signBg': '#2E4A3C'}
+ROOM7 = {'w': 9, 'd': 8, 'h': 3.4, 'wall': '#B7C6BC', 'floor': '#C8B08C', 'band': '#8FA89A', 'bandH': 1.05, 'trim': '#3E5446', 'lights': 2, 'sign': ['FÉDÉRATION', 0.35, 2.62, 2.1, 0.42], 'signBg': '#2E4A3C'}
 DESK7 = [0.0, 0, -1.5]; FILE7 = [0.1, 0.765, -1.4]
 OF7 = [-0.55, 0, -2.25]; HM7 = [0.78, 0, -0.95]; RYM7 = -25
 # 7: he was judged too predictable. From above the desk: the official behind it hangs a giant rubber stamp tilted toward us, then slams it down on
@@ -331,8 +331,8 @@ OFK7 = [k(0.0, look=FILE7, lookDur=0.0), k(0.0, toon={'reach': {'R': R5([0.06, 1
         k(0.25, toon={'reach': {'R': R5([0.06, 2.18, -1.5], 1, 0.0), 'L': R5([0.18, 2.18, -1.5], 1, 0.0)}, 'sq': [0.96, 1.05, 0.96], 'face': {'lid': 0.2, 'mouth': 'clench', 'brow': -0.9}}, toonDur=r(STAMP7 - 0.35), toonEase='out'),
         k(r(STAMP7 - 0.07), toon={'reach': {'R': R5([0.06, 1.03, -1.42], 1, 0.0), 'L': R5([0.18, 1.03, -1.42], 1, 0.0)}, 'sq': [1.08, 0.9, 1.08], 'face': {'lid': 0.7, 'mouth': 'clench', 'brow': -1}}, toonDur=0.07, toonEase='in'),
         k(r(STAMP7 + 0.25), toon={'reach': {'R': R5([0.0, 1.63, -1.75], 1, 0.0), 'L': R5([0.12, 1.63, -1.75], 1, 0.0)}, 'face': {'lid': 0.35, 'mouth': 'line', 'brow': -0.2}}, toonDur=0.3)]
-HEROK7 = [k(0.0, look=add(FILE7, [0, 0.6, -0.4]), lookDur=0.0), k(0.0, toon={'reach': {'R': R5(EH7, 1, 0.0)}, 'scl': {'handR': HIDE}, 'face': {'lid': 0.42, 'mouth': 'line'}}, toonDur=0.0),
-          k(r(STAMP7 + 0.12), look=FIST7, lookDur=0.15), k(r(STAMP7 + 0.12), toon={'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.25, 'gy': 0.4}}, toonDur=0.12, keepPose=True), *blink(r(STAMP7 + 0.55), {'lid': 0.3, 'mouth': 'line', 'brow': 0.25})]
+HEROK7 = [k(0.0, look='camera', lookDur=0.0), k(0.0, toon={'reach': {'R': R5(EH7, 1, 0.0)}, 'scl': {'handR': HIDE}, 'face': {'lid': 0.42, 'mouth': 'line'}}, toonDur=0.0),
+          k(r(STAMP7 + 0.12), look=FIST7, lookDur=0.15), k(r(STAMP7 + 0.12), toon={'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.25, 'gy': 0.4}}, toonDur=0.12, keepPose=True), *blink(r(STAMP7 + 0.72), {'lid': 0.3, 'mouth': 'line', 'brow': 0.25})]
 st.shot('S07', 'whiteVoid', setOpts={'color': '#DDE3DC'}, actors=[act('officiel7', OF7, 8, 'stand', 'neutral', keys=OFK7), act('mec', HM7, RYM7, 'stand', 'neutral', keys=HEROK7)],
         props=[P('bureau7', 'chifRoom', pos=[0, 0, -0.5], opts=ROOM7), P('desk7', 'desk', pos=DESK7, opts={'w': 1.8, 'color': '#5E7A6A', 'top': '#B98A5A'}),
                P('dossier7', 'chifFile', pos=FILE7, ry=4, opts={'stampAt': STAMP7}), P('tampon7', 'giantStamp', pos=[0.12, 1.75, -1.55], opts={'s': 0.95}, keys=STK7),
@@ -348,10 +348,11 @@ W8 = [[2.4, 0, -1.6], [-2.2, 0, -1.9]]
 #    graphite box mitten closes into a fist with a pop on « robot » and flexes on « imbattable »; two screens on stands loop his fist
 D8 = st.dur('S08'); CLOSE8 = r(W('S08', 'L08', 6) - 0.05); FLEX8 = r(W('S08', 'L08', 7))
 PATH8 = [{'t': 0.0, 'p': [0, 1.5, 2.6], 'hp': -1.0, 'curl': 0.0}, {'t': 0.25, 'p': [0, 1.6, 2.6], 'hp': -1.0, 'curl': 0.0, 'ease': 'inOut'},
-         {'t': r(CLOSE8 - 0.1), 'p': [0.75, 4.9, 2.07], 'hp': 1.2, 'curl': 0.0, 'st': 1.08, 'ease': 'out'}, {'t': CLOSE8, 'p': [0.75, 4.85, 2.07], 'hp': 1.25, 'curl': 1.0, 'st': 1.0, 'ease': 'out'},
-         {'t': FLEX8, 'p': [0.75, 4.8, 2.1], 'hp': 1.18, 'curl': 1.0, 'ease': 'inOut'}, {'t': r(FLEX8 + 0.12), 'p': [0.75, 4.92, 2.05], 'hp': 1.3, 'curl': 1.0, 'ease': 'out'}, {'t': D8, 'p': [0.75, 4.86, 2.07], 'hp': 1.25, 'curl': 1.0, 'ease': 'inOut'}]
+         {'t': r(CLOSE8 - 0.1), 'p': [0.75, 4.9, 2.07], 'hp': 1.0, 'curl': 0.0, 'roll': 0.6, 'st': 1.08, 'ease': 'out'}, {'t': CLOSE8, 'p': [0.75, 4.85, 2.07], 'hp': 1.05, 'curl': 1.0, 'roll': 0.6, 'st': 1.0, 'ease': 'out'},
+         {'t': FLEX8, 'p': [0.75, 4.8, 2.1], 'hp': 0.98, 'curl': 1.0, 'roll': 0.6, 'ease': 'inOut'}, {'t': r(FLEX8 + 0.12), 'p': [0.75, 4.92, 2.05], 'hp': 1.1, 'curl': 1.0, 'roll': 0.6, 'ease': 'out'}, {'t': D8, 'p': [0.75, 4.86, 2.07], 'hp': 1.05, 'curl': 1.0, 'roll': 0.6, 'ease': 'inOut'}]
 F8 = [2.7, 1.0, 4.4]
 F8, L8, LENS8 = FB('S08', F8, {'handTop': tow(RB8, 0, [0, 6.5, 2.4]), 'base': add(RB8, [0, 0, 1.2]), 'w1': add(W8[0], [0, 2.2, 0]), 'w2': add(W8[1], [0, 2.2, 0]), 'w1f': W8[0]}, top=0.12, bottom=0.74)
+F8, L8, LENS8 = [2.9, 1.0, 6.0], [0.3, 3.2, -1.2], 56
 C8 = cam(0.0, F8, add(F8, [-0.25, 0.1, -0.2]), L8, add(L8, [0, 0.15, 0]), lens=LENS8, ease='inOut')
 chkc('S08', C8, {'hand': tow(RB8, 0, [0, 5.5, 2.6]), 'handLow': tow(RB8, 0, [0, 1.5, 3.2]), 'scrA': [3.8, 2.0, -2.5], 'scrB': [-3.8, 2.0, -2.5]})
 WELD = lambda p, ry, ph: [k(0.0, look=add(RB8, [0, 0.6, 0]), lookDur=0.0), k(0.0, toon={'reach': {'R': R5(off(p, ry, 0.55, 0.0, 0.85), 1, 0.05), 'L': R5(off(p, ry, 0.45, 0.15, 0.95), 1, 0.05)}, 'bend': {'spine': [0.35, 0, 0, 1, None]}, 'face': DEAD}, toonDur=0.0),
@@ -368,12 +369,12 @@ st.cue('engine', 'S08', 0.2, 0.25); st.cue('sfx:static', 'S08', 0.0, 0.12); st.c
 #    test table on « pierre » (two-frame smear, the fist squashes, the table crumples, the camera shakes, dust falls from the roof)
 D9 = st.dur('S09'); HIT9 = r(W('S09', 'L09', 6) + 0.02)
 TT9 = [0.0, 0, 1.0]
-PATH9 = [{'t': 0.0, 'p': [0.75, 4.86, 2.07], 'hp': 1.25, 'curl': 1.0}, {'t': 0.6, 'p': [0, 5.0, 2.0], 'hp': 0.7, 'curl': 1.0, 'st': 1.12, 'ease': 'out'},
-         {'t': r(HIT9 - 0.12), 'p': [0, 5.1, 1.95], 'hp': 0.8, 'curl': 1.0, 'st': 1.15, 'ease': 'inOut'}, {'t': HIT9, 'p': [0, 1.7, 3.55], 'hp': -0.15, 'curl': 1.0, 'st': 1.0, 'ease': 'in'},
+PATH9 = [{'t': 0.0, 'p': [0.75, 4.6, 2.07], 'hp': 1.05, 'curl': 1.0, 'roll': 0.6}, {'t': 0.6, 'p': [0, 4.4, 2.0], 'hp': 0.7, 'curl': 1.0, 'st': 1.12, 'ease': 'out'},
+         {'t': r(HIT9 - 0.12), 'p': [0, 4.5, 1.95], 'hp': 0.8, 'curl': 1.0, 'st': 1.15, 'ease': 'inOut'}, {'t': HIT9, 'p': [0, 1.7, 3.55], 'hp': -0.15, 'curl': 1.0, 'st': 1.0, 'ease': 'in'},
          {'t': r(HIT9 + 0.12), 'p': [0, 1.62, 3.55], 'hp': -0.18, 'curl': 1.0, 'ease': 'out'}, {'t': D9, 'p': [0, 1.66, 3.55], 'hp': -0.16, 'curl': 1.0, 'ease': 'inOut'}]
-F9 = [2.6, 1.45, 4.7]
+F9 = [3.4, 2.0, 6.6]
 _u, _v, _w = FB('S09', F9, {'up': tow(RB8, 0, [0, 7.6, 1.9]), 'table': add(TT9, [0.8, 0.0, 0.5]), 'tableL': add(TT9, [-0.8, 0.0, 0.5]), 'base': add(RB8, [0, 0, 1.0])}, top=0.1, bottom=0.74)
-L9, LENS9 = [0.0, 2.25, 0.3], 56
+L9, LENS9 = [0.0, 2.6, 0.0], 56
 C9 = cam(0.0, F9, add(F9, [-0.15, 0, -0.25]), L9, add(L9, [0, -0.1, 0]), lens=LENS9, ease='inOut')
 chkc('S09', C9, {'fistHit': tow(RB8, 0, [0, 1.3, 4.0]), 'tableTop': add(TT9, [0, 1.0, 0])})
 st.shot('S09', 'whiteVoid', setOpts={'color': '#A9B0B6'}, actors=[],
@@ -392,20 +393,21 @@ D9b = st.dur('S09b'); SINK9 = r(W('S09b', 'L09', 9) - 0.12); FH = 3.2
 FAC = [0.0, 0, -14.0]; FBW, FBD = 16.0, 10.0
 OPEN9 = [[2, 3], [2, 4]]
 def WINX(c): return r(-FBW / 2 + (c + 0.5) * FBW / math.floor(FBW / 2.2))
-WK = [[r(FAC[0] + WINX(c)), 0.35, r(FAC[2] + FBD / 2 - 0.4)] for f, c in OPEN9]
+WK = [[r(FAC[0] + WINX(c)), 0.04, r(FAC[2] + FBD / 2 + 0.24)] for f, c in OPEN9]
 SEEN9 = r(SINK9 + 0.95)
 F9bA = [10.0, 2.2, 14.0]
 F9bA, L9bA, LENS9bA = FB('S09b', F9bA, {'roof': add(FAC, [-FBW / 2, 4 * FH + 0.5, FBD / 2]), 'roofR': add(FAC, [FBW / 2, 4 * FH + 0.5, -FBD / 2]), 'footL': add(FAC, [-FBW / 2, 0, FBD / 2]), 'footR': add(FAC, [FBW / 2, 0, FBD / 2])}, top=0.14, bottom=0.72, lenses=range(30, 57))
+F9bA, L9bA, LENS9bA = [8.5, 1.3, 9.0], add(FAC, [0.6, 5.2, 2.0]), 58
 C9bA = cam(0.0, F9bA, add(F9bA, [-0.4, 0, -0.3]), L9bA, L9bA, lens=LENS9bA)
-F9bB = [r((WK[0][0] + WK[1][0]) / 2 + 0.5), 1.6, WK[0][2] + 8.5]
+F9bB = [r((WK[0][0] + WK[1][0]) / 2 + 0.4), 1.75, WK[0][2] + 6.3]
 L9bB = [r((WK[0][0] + WK[1][0]) / 2), 1.3, WK[0][2]]
-C9bB = cam(r(SEEN9 - 0.05), F9bB, add(F9bB, [-0.1, 0, -0.3]), L9bB, L9bB, lens=44)
+C9bB = cam(r(SEEN9 - 0.05), F9bB, add(F9bB, [-0.1, 0, -0.3]), add(L9bB, [0, 0.45, 0]), add(L9bB, [0, 0.45, 0]), lens=52)
 chkc('S09b', C9bB, {'w1': add(WK[0], [0, 2.15, 0.6]), 'w2': add(WK[1], [0, 2.15, 0.6]), 'win1': [WK[0][0], 1.76, FAC[2] + FBD / 2], 'win2': [WK[1][0], 1.76, FAC[2] + FBD / 2]})
 COUGH = {'lid': 0.6, 'mouth': 'O', 'jaw': 0.3, 'brow': 0.5, 'puff': 0.6}
 def WORKER(i):
     t0 = r(SEEN9 + 0.08 * i)
     return [k(0.0, visible=False), k(t0, visible=True), k(0.0, look='camera', lookDur=0.0),
-            k(t0, toon={'bend': {'spine': [0.75, 0, 0, 1, None]}, 'reach': {'R': R5(off(WK[i], 0, 0.75, -0.35, 1.05), 1, 0.05), 'L': R5(off(WK[i], 0, 0.75, 0.35, 1.05), 1, 0.05)}, 'face': {'lid': 0.1, 'mouth': 'o', 'brow': 0.7}, 'hip': 0}, toonDur=0.12, toonEase='out'),
+            k(t0, toon={'bend': {'spine': [0.3, 0, 0, 1, None], 'neck': [-0.25, 0, 0, 1, None]}, 'reach': {'R': R5(off(WK[i], 0, 0.45, 0.42, 1.18), 1, 0.05), 'L': R5(off(WK[i], 0, 0.45, -0.42, 1.18), 1, 0.05)}, 'face': {'lid': 0.1, 'mouth': 'o', 'brow': 0.7}, 'hip': 0}, toonDur=0.12, toonEase='out'),
             k(r(t0 + 0.3 + 0.06 * i), toon={'face': COUGH, 'sq': [1.04, 0.95, 1.04]}, toonDur=0.05, keepPose=True), k(r(t0 + 0.45 + 0.06 * i), toon={'face': {'lid': 0.4, 'mouth': 'line', 'brow': 0.2}, 'sq': [1, 1, 1]}, toonDur=0.12, keepPose=True)]
 st.shot('S09b', 'grassland', setOpts=GRASS, actors=[act(f'ouvrier{i + 1}', WK[i], 0, 'stand', 'neutral', keys=WORKER(i)) for i in range(2)],
         props=[P('usineX9', 'chifFactoryBox', pos=FAC, opts={'w': FBW, 'd': FBD, 'floors': 4, 'fh': FH, 'sinkAt': SINK9, 'sinkDur': 0.45, 'sinkFloors': 2, 'open': OPEN9}),
@@ -414,11 +416,11 @@ st.shot('S09b', 'grassland', setOpts=GRASS, actors=[act(f'ouvrier{i + 1}', WK[i]
 st.cue('thunder', 'S09b', SINK9, 0.55); st.cue('sfx:crunch', 'S09b', r(SINK9 + 0.4), 0.35); st.cue('sfx:poof', 'S09b', r(SEEN9 + 0.3), 0.25)
 
 # ============================== his street (pavillon without its house + chifHouse: the front at z -3.6, the door at x -1.2)
-STREET = {'house': False, 'mailbox': False}
+STREET = {'house': False, 'mailbox': False, 'fence': False}
 HOUSE = [0.0, 0, -6.6]
 RBT10 = [-5.0, 0, -4.3]                                                  # the robot beside the house, its arm running along the facade behind them
-HM10 = [-0.6, 0, -2.75]
-OFC10 = [-1.45, 0, -2.25]; LAD10 = [-2.9, 0, -2.7]; PRS10 = [-2.9, 1.03, -2.7]
+HM10 = [-0.15, 0, -2.75]
+OFC10 = [-1.0, 0, -2.3]; LAD10 = [-2.9, 0, -2.7]; PRS10 = [-2.9, 1.03, -2.7]
 HANDW10 = [-1.85, 2.45, -3.15]                                           # the robot's wrist, its fist standing up behind them, the back of the hand turned to us
 RYB10 = yaw(RBT10, HANDW10)
 PATH10 = [{'t': 0.0, 'p': tol(RBT10, RYB10, HANDW10), 'hp': 1.35, 'curl': 1.0, 'roll': 3.1416}, {'t': 1.0, 'p': tol(RBT10, RYB10, add(HANDW10, [0, 0.05, 0])), 'hp': 1.32, 'curl': 1.0, 'roll': 3.1416, 'ease': 'inOut'},
@@ -439,11 +441,11 @@ chkc('S10', C10A, {'bibChest': add(HM10, [0, 1.45, 0.15]), 'bibHand': BIBH})
 chkc('S10', C10B, {'wrist': HANDW10, 'bibHand': BIBH, 'robotBase': RBT10})
 BIBPATH = [add(HM10, [0.0, 1.42, 0.2]), add(HM10, [0.25, 1.9, 0.1]), BIBH]
 OFF10 = {'lid': 0.3, 'mouth': 'line', 'brow': 0.2}
-OFK10 = [k(0.0, look=BIBPATH[0], lookDur=0.0), k(0.0, toon={'face': OFF10, 'reach': {'R': R5(off(OFC10, 50, 0.2, 0.2, 1.0), 0.0, 0.05)}}, toonDur=0.0),
+OFK10 = [k(0.0, look=BIBPATH[0], lookDur=0.0), k(0.0, toon={'face': OFF10, 'reach': {'R': R5(off(OFC10, 20, 0.2, 0.2, 1.0), 0.0, 0.05)}}, toonDur=0.0),
          k(0.15, toon={'face': OFF10, 'reach': {'R': R5(BIBPATH[0], 1, 0.06)}}, toonDur=0.3, toonEase='inOut'),
          k(UNPIN10, toon={'face': OFF10, 'reach': {'R': R5(BIBPATH[1], 1, 0.06)}}, toonDur=0.35, toonEase='inOut'), k(r(UNPIN10 + 0.2), look=BIBH, lookDur=0.2),
          k(r(UNPIN10 + 0.35), toon={'face': OFF10, 'reach': {'R': R5(BIBPATH[2], 1, 0.06)}, 'sq': [0.97, 1.04, 0.97]}, toonDur=r(PIN10 - UNPIN10 - 0.35), toonEase='inOut'),
-         k(r(PIN10 + 0.15), toon={'face': {**OFF10, 'mouth': 'smile'}, 'reach': {'R': R5(off(OFC10, 50, 0.2, 0.2, 1.0), 0.0, 0.05)}}, toonDur=0.35, toonEase='inOut'), k(r(PIN10 + 0.3), look='camera', lookDur=0.2)]
+         k(r(PIN10 + 0.15), toon={'face': {**OFF10, 'mouth': 'smile'}, 'reach': {'R': R5(off(OFC10, 20, 0.1, 0.28, 0.95), 1, 0.05)}}, toonDur=0.35, toonEase='inOut'), k(r(PIN10 + 0.3), look='camera', lookDur=0.2)]
 BIBK = [k(0.0, visible=False), k(UNPIN10, visible=True), k(UNPIN10, to=BIBPATH[1], dur=0.35, ease='inOut'), k(r(UNPIN10 + 0.35), to=BIBPATH[2], dur=r(PIN10 - UNPIN10 - 0.35), ease='inOut'), k(PIN10, visible=False)]
 PRF = {'lid': 0.25, 'mouth': 'smile', 'brow': 0.4}
 WRIST10 = add(HANDW10, [-0.12, -0.2, 0.15])
@@ -451,9 +453,9 @@ PRK10 = [k(0.0, look=WRIST10, lookDur=0.0), k(0.0, toon={'face': PRF, 'reach': {
          k(r(MED10 - 0.45), toon={'face': PRF, 'reach': {'L': R5(off(PRS10, 65, 0.25, -0.3, 1.05), 0.6, 0.05), 'R': R5(WRIST10, 1, 0.06)}, 'sq': [0.97, 1.03, 0.97]}, toonDur=0.4, toonEase='inOut'),
          k(r(MED10 + 0.2), toon={'face': {**PRF, 'mouth': 'smile', 'brow': 0.6}, 'reach': {'L': R5(off(PRS10, 65, 0.25, -0.3, 1.05), 0.6, 0.05), 'R': R5(off(PRS10, 65, 0.3, 0.25, 1.0), 0.3, 0.05)}}, toonDur=0.35, toonEase='inOut'), k(r(MED10 + 0.3), look='camera', lookDur=0.2)]
 HEROK10 = [k(0.0, look='camera', lookDur=0.0), k(0.0, toon={'face': {'lid': 0.45, 'mouth': 'line'}}, toonDur=0.0), k(0.2, look=BIBPATH[0], lookDur=0.2), k(r(PIN10 + 0.1), look='camera', lookDur=0.15), *blink(r(PIN10 + 0.5)), *blink(2.9)]
-st.shot('S10', 'pavillon', setOpts=STREET, actors=[act('mec', HM10, 12, 'stand', 'neutral', keys=HEROK10), act('officiel10', OFC10, 50, 'stand', 'neutral', keys=OFK10),
+st.shot('S10', 'pavillon', setOpts=STREET, actors=[act('mec', HM10, 12, 'stand', 'neutral', keys=HEROK10), act('officiel10', OFC10, 20, 'stand', 'neutral', keys=OFK10),
         act('president', PRS10, 35, 'stand', 'neutral', keys=PRK10)],
-        props=[P('maison10', 'chifHouse', pos=HOUSE), P('sacs10', 'chifBagHeap', pos=[1.45, 0, -2.95], opts={'h': 4.6, 'r': 1.35, 'bag': 0.62, 'flies': 6, 'flyS': 0.9}),
+        props=[P('maison10', 'chifHouse', pos=HOUSE), P('ciel10', 'noClouds', pos=[0, 0, 0]), P('sacs10', 'chifBagHeap', pos=[1.45, 0, -2.95], opts={'h': 4.6, 'r': 1.35, 'bag': 0.62, 'flies': 6, 'flyS': 0.9}),
                P('robot10', 'chifRobot', pos=RBT10, ry=RYB10, opts={'base': 'tracks', 'path': PATH10, 'bibAt': PIN10, 'medalAt': MED10, 'medalYaw': math.radians(yaw(HANDW10, F10B) - RYB10)}),
                P('dossardH10', 'chifBib', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.32, 0.15]}, keys=[k(UNPIN10, visible=False)]),
                P('dossardV10', 'chifBib', pos=BIBPATH[0], ry=12, keys=BIBK, opts={'w': 0.34, 'h': 0.27}), P('escabeau10', 'chifStepladder', pos=LAD10, ry=65, opts={'h': 1.0})],
@@ -511,13 +513,13 @@ st.cue('thunder', 'S12', r(B12[2] + 0.3), 0.5); st.cue('sfx:crunch', 'S12', SPLI
 # 13: the hand played rock. Low and close by the table, looking up: the fist hangs high a beat, trembling, then comes down (smear) and stops above
 #     the table with a squash: a clean dark fist silhouette against the sky
 D13 = st.dur('S13'); ROCK13 = r(W('S13', 'L13', 4) - 0.04)
-HIGH13 = [0.5, 6.4, -0.1]; LOW13 = [0.2, 2.9, -0.05]
+HIGH13 = [0.45, 5.3, -0.1]; LOW13 = [0.2, 2.9, -0.05]
 PATH13 = [{'t': 0.0, 'p': RS(HIGH13), 'hp': -0.6, 'curl': 1.0, 'st': 1.1}, {'t': r(ROCK13 - 0.28), 'p': RS(add(HIGH13, [0, 0.15, 0])), 'hp': -0.55, 'curl': 1.0, 'st': 1.12, 'ease': 'out'},
           {'t': ROCK13, 'p': RS(LOW13), 'hp': -0.75, 'curl': 1.0, 'st': 1.0, 'ease': 'in'}, {'t': r(ROCK13 + 0.12), 'p': RS(add(LOW13, [0, 0.1, 0])), 'hp': -0.72, 'curl': 1.0, 'ease': 'out'},
           {'t': D13, 'p': RS(add(LOW13, [0, 0.06, 0])), 'hp': -0.74, 'curl': 1.0, 'ease': 'inOut'}]
-F13 = [-1.7, 0.7, 3.1]
+F13 = [-0.6, 0.7, 3.3]
 _u, _v, _w = FB('S13', F13, {'fistLow': add(LOW13, [-0.5, -0.5, 0]), 'fistLowR': add(LOW13, [0.7, 0.4, 0]), 'fistHigh': add(HIGH13, [-0.3, 0.6, 0]), 'tableTop': [0.0, 0.76, 0.0]}, top=0.12, bottom=0.74)
-L13, LENS13 = [0.1, 3.0, -0.1], 56
+L13, LENS13 = [0.45, 3.0, -0.2], 56
 C13 = cam(0.0, F13, add(F13, [0.1, -0.03, -0.12]), L13, L13, lens=LENS13)
 st.shot('S13', 'grassland', setOpts=GRASS, actors=[act('femme', FM, RYFM, 'stand', 'neutral', keys=[k(0.0, look=LOW13, lookDur=0.0), k(0.0, toon={'face': WIFEF}, toonDur=0.0)])],
         props=[P('stade13', 'chifStadium', pos=[0, 0, 0], opts={**STAD, 'cheer': 0.8, 'standAt': -1, 'crackAt': -1, 'holeAt': -1, 'split': [[0, 6.0]]}), *PITCH_TABLE(13), APRON('tablier13', 'femme'),
@@ -532,13 +534,13 @@ D14 = st.dur('S14'); WELL14 = r(W('S14', 'L14', 4) - 0.1); CUT14 = r(WELL14 + 0.
 HOLE = STAD['hole']; HW = [HOLE[0], 0, HOLE[1]]
 RIM14 = r(CUT14 - 0.05); DROP14 = r(CUT14 + 0.12); IN14 = r(DROP14 + 0.2); SPL14 = r(IN14 + 0.18)
 RYFW = 50
-EW14 = off(FM, RYFW, 0.3, -0.14, 1.42); RYEW = RYFW
-RING14 = hand_tip(EW14, RYEW, 1.7, 0.16, tilt=-0.15, ahead=0.05)
+EW14 = off(FM, RYFW, 0.28, -0.16, 1.5); RYEW = RYFW
+RING14 = hand_tip(EW14, RYEW, 2.0, 0.14, tilt=-0.15, ahead=0.05)
 F14A = off(FM, RYFW, 2.35, 0.1, 1.72)
 L14A = [r((RING14[0] + FM[0]) / 2), 1.7, r((RING14[2] + FM[2]) / 2)]
 C14A = cam(0.0, F14A, off(FM, RYFW, 2.2, 0.1, 1.72), L14A, L14A, lens=38)
 chkc('S14', C14A, {'ring': add(RING14, [0, 0.12, 0]), 'face': add(FM, [0, 1.95, 0]), 'headTop': add(FM, [0, 2.3, 0])})
-PATH14 = [{'t': 0.0, 'p': RS(add(LOW13, [0, 0.06, 0])), 'hp': -0.74, 'curl': 1.0}, {'t': DROP14, 'p': RS(add(LOW13, [0, 0.3, 0])), 'hp': -0.7, 'curl': 1.0, 'ease': 'inOut'},
+PATH14 = [{'t': 0.0, 'p': RS([1.3, 3.7, -0.3]), 'hp': -0.6, 'curl': 1.0}, {'t': r(CUT14 - 0.02), 'p': RS([1.2, 3.6, -0.3]), 'hp': -0.6, 'curl': 1.0, 'ease': 'inOut'}, {'t': DROP14, 'p': RS(add(LOW13, [0, 0.3, 0])), 'hp': -0.7, 'curl': 1.0, 'ease': 'inOut'},
           {'t': IN14, 'p': RS([HOLE[0] + 0.25, 0.6, HOLE[1]]), 'hp': -1.4, 'curl': 1.0, 'st': 1.25, 'ease': 'in'}, {'t': r(IN14 + 0.2), 'p': RS([HOLE[0] + 0.15, -2.2, HOLE[1]]), 'hp': -1.5, 'curl': 1.0, 'st': 1.35, 'ease': 'in'},
           {'t': D14, 'p': RS([HOLE[0] + 0.15, -2.3, HOLE[1]]), 'hp': -1.5, 'curl': 1.0, 'st': 1.35, 'ease': 'linear'}]
 F14B = [-4.6, 3.2, 2.2]
@@ -551,7 +553,7 @@ WIFEK14 = [k(0.0, look='camera', lookDur=0.0), k(0.0, toon={'face': {**WIFEF, 'l
            k(CUT14, look=HW, lookDur=0.12), k(CUT14, toon={'face': {'lid': 0.2, 'mouth': 'smile', 'brow': 0.3, 'gy': 0.6}, 'reach': {'L': R5(add(EW14, [0, 0.05, 0]), 1, 0.0)}, 'scl': {'handL': HIDE}}, toonDur=0.1)]
 st.shot('S14', 'grassland', setOpts=GRASS, actors=[act('femme', FM, RYFW, 'stand', 'neutral', keys=WIFEK14)],
         props=[P('stade14', 'chifStadium', pos=[0, 0, 0], opts={**STAD, 'cheer': 0.8, 'standAt': -1, 'crackAt': -1, 'holeAt': -1, 'rimAt': RIM14, 'splashAt': SPL14, 'split': [[0, 6.0]]}), *PITCH_TABLE(14), APRON('tablier14', 'femme'),
-               HAND('puits14', EW14, RYEW, s=1.7, sleeve=0.16, side='L', skin='#EBC29C', sleeveColor='#5E8C7A', modes=[[-1, 'rock'], [r(WELL14 - 0.08), 'well']], tilt=-0.2),
+               HAND('puits14', EW14, RYEW, s=2.0, sleeve=0.14, side='L', skin='#EBC29C', sleeveColor='#5E8C7A', modes=[[-1, 'rock'], [r(WELL14 - 0.08), 'well']], tilt=-0.2),
                P('robot14', 'chifRobot', pos=RBS, ry=RYRS, opts={'base': 'tracks', 'path': PATH14, 'smear': [[DROP14, IN14]]})],
         cams=[C14A, C14B])
 st.card('S14', 'PERDU', at=r(CUT14 + 0.2))
@@ -582,7 +584,7 @@ st.cue('rain', 'S15', 0.0, 0.16, D15)
 # 15b: the insert: the kitchen again, closer, his fist under her flat hand, which pats it twice
 D15b = st.dur('S15b')
 F15b = [0.3, 1.78, 0.85]; L15b = [0.3, 1.2, -1.5]
-C15b = cam(0.0, F15b, add(F15b, [0, -0.01, -0.06]), L15b, L15b, lens=42)
+C15b = cam(0.0, F15b, add(F15b, [0, -0.01, -0.06]), L15b, L15b, lens=46)
 chkc('S15b', C15b, {'fist': FIST1, 'onFist': ONFIST1, 'binTop': add(BIN1, [0, 1.1, 0])})
 st.shot('S15b', 'kitchenDay', setOpts=KIT, actors=[
         act('mec', HK, RYH, 'sit', 'neutral', keys=[k(0.0, look=FIST1, lookDur=0.0), k(0.0, toon={'reach': {'R': R5(EH1, 1, 0.0)}, **HEROHAND(), 'hip': 0, 'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.0)]),
@@ -601,13 +603,13 @@ D16 = st.dur('S16'); STOP16 = 0.95; TILT16 = r(W('S16', 'L16', 5) - 0.25)
 PATH16 = [{'t': 0.0, 'p': [0, 2.4, 2.6], 'hp': -0.5, 'curl': 0.8}, {'t': D16, 'p': [0, 2.5, 2.6], 'hp': -0.45, 'curl': 0.8, 'ease': 'inOut'}]
 F16 = [-1.2, 1.4, 14.5]
 L16A = [-3.5, 2.2, 0.5]
-C16A = cam(0.0, F16, add(F16, [0.2, 0, -0.2]), L16A, [-2.4, 2.4, 0.5], lens=44, ease='out')
+C16A = cam(0.0, F16, add(F16, [0.2, 0, -0.2]), L16A, [-1.5, 2.3, 1.0], lens=44, ease='out')
 L16B, LENS16B = FC('S16', F16, {'heapTop': add(HEAP16, [0, 11.5, 0]), 'gulls': add(HEAP16, [0, 14.5, 0]), 'roof': [0, 8.2, -6.6]}, top=0.08, bottom=0.6, lenses=range(36, 56))
 C16B = glide([cam(TILT16, F16, add(F16, [0.0, 0.1, -0.1]), L16B, L16B, lens=LENS16B, ease='inOut')], 0.42)
 chkc('S16', C16A, {'robotStop': add(RBT16B, [0, 3.0, 0]), 'robotStopF': RBT16B, 'heapFoot': add(HEAP16, [-6, 0, 3])})
 chkc('S16', C16B, {'heapTop': add(HEAP16, [0, 11.5, 0]), 'roof': [0, 8.2, -6.6]})
 st.shot('S16', 'pavillon', setOpts=STREET, actors=[],
-        props=[P('maison16', 'chifHouse', pos=HOUSE), P('montagne16', 'chifBagHeap', pos=HEAP16, opts={'h': 11.5, 'r': 6.5, 'bag': 0.9, 'gulls': 5, 'gullS': 1.3, 'gullR': 4.5, 'gullH': 2.0, 'perch': 2, 'flies': 10}),
+        props=[P('maison16', 'chifHouse', pos=HOUSE), P('ciel16', 'noClouds', pos=[0, 0, 0]), P('montagne16', 'chifBagHeap', pos=HEAP16, opts={'h': 11.5, 'r': 6.5, 'bag': 0.9, 'gulls': 5, 'gullS': 1.3, 'gullR': 4.5, 'gullH': 2.0, 'perch': 2, 'flies': 10}),
                P('robot16', 'chifRobot', pos=RBT16A, ry=RYB16, opts={'base': 'tracks', 'path': PATH16, 'drip': True}, keys=[k(0.0, to=RBT16B, dur=STOP16, ease='out')])],
         cams=[C16A, C16B])
 st.cue('engine', 'S16', 0.0, 0.3); st.cue('sfx:brake', 'S16', r(STOP16 - 0.2), 0.2); st.cue('sfx:squeak', 'S16', r(TILT16 + 0.3), 0.25)
@@ -620,21 +622,22 @@ RB17 = RBT16B; RY17 = 40
 F17 = [-0.6, 2.7, 10.0]
 FACE17 = [-0.6, 3.4, 2.4]                                                  # where the hand comes to face us: in front of the arm, between it and the camera
 def R17(w): return tol(RB17, RY17, w)
-RC17 = [-0.5, 3.45, 2.6]; RW17, RH17 = 1.9, 1.2
+RC17 = [0.2, 3.5, 2.75]; RW17, RH17 = 1.8, 1.15
 RR17 = right(yaw(RC17, F17))
 RECT17P = [[r(RC17[0] + RR17[0] * sx * RW17 / 2), r(RC17[1] + sy * RH17 / 2), r(RC17[2] + RR17[2] * sx * RW17 / 2)] for sx, sy in [(1, 1), (-1, 1), (-1, -1), (1, -1), (1, 1)]]
 seg17 = [math.dist(RECT17P[i], RECT17P[i + 1]) for i in range(4)]; TL17 = sum(seg17)
 CORN17 = [RECT17] + [r(RECT17 + RDUR17 * sum(seg17[:i + 1]) / TL17) for i in range(4)]
 YAW17 = math.radians(yaw(RB17, F17) - RY17)
-PATH17 = [{'t': 0.0, 'p': R17([-1.4, 2.6, 2.4]), 'hp': -0.45, 'curl': 0.8}, {'t': 0.45, 'p': R17(RECT17P[0]), 'hp': 0.25, 'curl': 0.0, 'roll': 0.0, 'ease': 'inOut'}]
-for i in range(4): PATH17.append({'t': CORN17[i + 1], 'p': R17(RECT17P[i + 1]), 'hp': 0.25, 'curl': 0.0, 'ease': 'linear'})
-PATH17 += [{'t': r(CORN17[-1] + 0.35), 'p': R17(add(RC17, [0.1, -0.1, 0.2])), 'hp': 0.3, 'curl': 0.0, 'ease': 'inOut'}, {'t': D17, 'p': R17(add(RC17, [0.12, -0.05, 0.2])), 'hp': 0.28, 'curl': 0.0, 'ease': 'inOut'}]
-F17, L17, LENS17 = FB('S17', F17, {'rectTL': add(RECT17P[1], [0, 0.6, 0]), 'rectBR': add(RECT17P[3], [0, -0.3, 0]), 'rectR': RECT17P[0], 'heapTop': add(HEAP16, [0, 8.0, 0]), 'base': RB17}, top=0.12, bottom=0.74, lenses=range(34, 58))
-C17 = cam(0.0, F17, add(F17, [0.0, 0.0, -0.5]), L17, L17, lens=LENS17, ease='inOut')
+PATH17 = [{'t': 0.0, 'p': R17([-1.4, 2.6, 2.4]), 'hp': -0.45, 'curl': 0.8}, {'t': 0.45, 'p': R17(add(RECT17P[0], [0, -0.7, 0])), 'hp': 1.3, 'curl': 0.0, 'roll': -0.9, 'ease': 'inOut'}]
+for i in range(4): PATH17.append({'t': CORN17[i + 1], 'p': R17(add(RECT17P[i + 1], [0, -0.7, 0])), 'hp': 1.3, 'curl': 0.0, 'roll': -0.9, 'ease': 'linear'})
+PATH17 += [{'t': r(CORN17[-1] + 0.4), 'p': R17(add(RC17, [1.2, -1.3, 0.3])), 'hp': 1.25, 'curl': 0.0, 'roll': -0.9, 'ease': 'inOut'}, {'t': D17, 'p': R17(add(RC17, [1.23, -1.25, 0.3])), 'hp': 1.28, 'curl': 0.0, 'roll': -0.9, 'ease': 'inOut'}]
+_u, _v, _w = FB('S17', F17, {'rectTL': add(RECT17P[1], [0, 0.6, 0]), 'rectBR': add(RECT17P[3], [0, -0.3, 0]), 'rectR': RECT17P[0], 'heapTop': add(HEAP16, [0, 8.0, 0]), 'base': RB17, 'baseL': add(RB17, [-1.5, 0.3, -0.5])}, top=0.12, bottom=0.74, lenses=range(34, 58))
+F17, L17, LENS17 = [0.1, 3.0, 9.8], add(RC17, [0.5, -0.6, 0]), 56
+C17 = cam(0.0, F17, add(F17, [0.0, 0.0, -0.4]), L17, L17, lens=LENS17, ease='inOut')
 chkc('S17', C17, {'rollStart': add(HEAP16, [0, 9.9, 0.8]), 'rollEnd': add(HEAP16, [0, 0.5, 7.0]), 'heapTop': add(HEAP16, [0, 11.5, 0])})
 chkc('S17', C17, {'rectL': RECT17P[1], 'rectR': RECT17P[0], 'rectLow': RECT17P[2]}, end=True)
 st.shot('S17', 'pavillon', setOpts=STREET, actors=[],
-        props=[P('maison17', 'chifHouse', pos=HOUSE), P('montagne17', 'chifBagHeap', pos=HEAP16, opts={'h': 11.5, 'r': 6.5, 'bag': 0.9, 'gulls': 5, 'gullS': 1.3, 'gullR': 4.5, 'gullH': 2.0, 'perch': 2, 'flies': 10, 'rollAt': ROLL17, 'rollDur': 1.2}),
+        props=[P('maison17', 'chifHouse', pos=HOUSE), P('ciel17', 'noClouds', pos=[0, 0, 0]), P('montagne17', 'chifBagHeap', pos=HEAP16, opts={'h': 11.5, 'r': 6.5, 'bag': 0.9, 'gulls': 5, 'gullS': 1.3, 'gullR': 4.5, 'gullH': 2.0, 'perch': 2, 'flies': 10, 'rollAt': ROLL17, 'rollDur': 1.2, 'rollX': -3.2}),
                P('robot17', 'chifRobot', pos=RB17, ry=RY17, opts={'base': 'tracks', 'path': PATH17, 'drip': True, 'trail': {'t0': RECT17, 't1': CORN17[-1], 'color': '#FFE27A'}})],
         cams=[C17])
 st.cue('sfx:rattleShort', 'S17', 0.1, 0.2); st.cue('sfx:zip', 'S17', RECT17, 0.25); st.cue('sfx:bell', 'S17', CORN17[-1], 0.2); st.cue('thud', 'S17', r(ROLL17 + 1.15), 0.25); st.cue('sfx:squeak', 'S17', 3.2, 0.2)

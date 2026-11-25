@@ -2182,3 +2182,15 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 51) Animaux (vaches) : pas de clés d'écrasement, et leur lecture reste fragile (chèvres, moutons) ; les garder grands et de profil.
 - (cycle 51) Pelleteuse : flèche claire et cernée, sinon on lit un char. Casque qui projette son ombre = hachures vertes sur le visage.
 - (cycle 51) Après tout redémarrage du conteneur, vérifier le log du rendu final et le relancer : il est tué sans prévenir.
+- (cycle 52, « Le chifoumi ») Les aides de type `HAND()` qui passent `**o` dans `opts` avalent `keys` : sortir `keys`, sinon l'accessoire
+  ne bouge jamais.
+- (cycle 52) Une clé keepPose fait tomber le visage : répéter `face` sur chaque clé keepPose pendant une expression.
+- (cycle 52) BufferGeometry posée à plat dans le plan XZ : facile à orienter vers le bas et cachée par le culling ; `DoubleSide` pour les
+  calques peints au sol.
+- (cycle 52) Mains en accessoire : cacher les deux moufles de chaque acteur avec `scl`, sinon un bloc de peau traîne près de la main accessoire.
+- (cycle 52) Stade qui se fend en deux le long de X : ne se lit que d'une caméra dans l'axe Z (la fente monte au milieu du cadre vertical).
+- (cycle 52) Tableaux et panneaux d'un décor qui tombent derrière les têtes ou dans la bande des cartons : les couper par plan (`board: None`).
+- (cycle 52) Gens penchés à la fenêtre d'un bâtiment plein : un appui saillant par fenêtre ouverte et l'acteur debout dedans.
+- (cycle 52) Poing-moufle : il se lit du côté replié (plis et pouce plus clair), levé et tourné vers la caméra ; de dos c'est une boîte.
+  Main plate levée : la tourner d'environ 0,9 rad paume vers la caméra, de profil c'est une gélule.
+- (cycle 52) `fitBack` sur une caméra de chute recule de 4-5 m et rapetisse le gag : placer la caméra à la main et vérifier avec `project()`.
