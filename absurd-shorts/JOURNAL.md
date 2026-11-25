@@ -3135,3 +3135,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 18 h 20 — « La pelle » (100) revue 3 : animation 7,6, image 7,8 (ovales pâles du plan final qui débordent du visage, discours S03 trop petit, ombre-sourire S04 trop courte). Passe finale lancée. « La tartine » (102) : voix placées (44,7 s), mise en scène en cours en parallèle.
 
 20 h 30 — « Le régime » (101) publiée par la session parallèle 87 (revues 4,8/5,0 → 5,4/5,4 → 6,0/6,2, passe finale, brouillon de contrôle ; 1080×1920, 43,7 s, −16 LUFS). Branche fusionnée, post consigné, leçons ajoutées (dont l'arrondi des coupes de story_kit). Atelier 103-105 : retenus « Le pardon », « La poule », « Le mot » ; finalisation en cours, 103 ira à la session 87.
+
+21 h 00 — « La tartine » (102) revue 1 : animation 6,8, image 7,3 (plan final du héros rangé sous la table illisible, glissade des ministres trop lointaine, reprise du chronomètre trop identique, une étiquette manquante). Corrections lancées. « La pelle » (100) : rendu final en cours. Textes 103-105 enregistrés ; « Le pardon » confié à la session 87.
