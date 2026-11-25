@@ -2407,3 +2407,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 55) Respirations de maintien d'un personnage très rond trop petites pour le détecteur de figés : ajouter une poussée de
   caméra lente.
 - (cycle 55) Vérifier les points récurrents sur des images isolées extraites du brouillon, la planche réduite ne suffit pas.
+- (cycle 55) Avant un deuxième mouvement `to`, l'acteur se penche et se tourne vers sa cible quelques images plus tôt ; pour quelqu'un
+  qui rampe sous une table la tête traverse le plateau : un seul mouvement, changements de pose par clip et clés toon.
+- (cycle 55) Tourner un corps penché par `lay` : clé toon `yaw`, pas un changement de facing (il balance le corps vers l'objectif).
+- (cycle 55) Ramper sous une table : clip kneel, `lay` ≈ 0,56 plus spine 0,5 et neck −1,0, départ enfoncé ; la flexion du dos seule
+  laisse le héros trop grand pour 1,04 m.
+- (cycle 55) Passer au clip `splat` avec un `lay` encore appliqué : le corps bascule vers une caméra haute pendant une image ; fondre
+  clip et retour du lay ensemble sur ≈ 0,12 s, linéaire.
+- (cycle 55) Moufle qui tient un objet par le centre = cadran caché ; prise sous et derrière l'objet, tapes sur le bord.
+- (cycle 55) Cravate qui pend sur l'étiquette de cou : `tieHide` sur chaque clé toon de ceux dont l'étiquette doit se lire.
+- (cycle 55) Pieds de chaise et glissade derrière une nappe vus d'une caméra basse : nappe raccourcie (`ttTable` `gap` ≈ 0,6).

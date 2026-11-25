@@ -261,13 +261,13 @@ export const TARTINE_PROPS = {
   // o.h (1.1) hanging from a nail, a pale grid and a huge green arrow rising steeply out through its top-right corner; o.grow [t0, t1]: the
   // arrow shoots up; o.fall [t0, t1]: it comes off the nail, turns over as it drops and lands upside down leaning on the wall (the arrow now
   // pointing down) with a bounce; o.floor: the floor height under the nail (m, default 2.3 below it); o.plain: no grid (a clean board);
-  // o.thick: the arrow's width (1); o.burst: see below
+  // o.thick: the arrow's width (1); o.frameW: the frame's margin (0.08); o.paper: the board's colour; o.burst: see below
   ttChart(o) {
     const W = o.w ?? 1.5, Hh = o.h ?? 1.1, g = grp(), board = grp(); g.add(board);
     g.add(at(cyl(0.015, 0.015, 0.08, '#3A3D44', 6), 0, 0, 0.02, PI / 2));
     const N = 10, frames = [];
     const draw = f => (c, w, h) => {
-      c.fillStyle = '#FBFAF4'; c.fillRect(0, 0, w, h); c.strokeStyle = 'rgba(40,60,90,0.18)'; c.lineWidth = h * 0.006;
+      c.fillStyle = o.paper || '#FBFAF4'; c.fillRect(0, 0, w, h); c.strokeStyle = 'rgba(40,60,90,0.18)'; c.lineWidth = h * 0.006;
       if (!o.plain) for (let i = 1; i < 6; i++) { c.beginPath(); c.moveTo(0, h * i / 6); c.lineTo(w, h * i / 6); c.stroke(); c.beginPath(); c.moveTo(w * i / 6, 0); c.lineTo(w * i / 6, h); c.stroke(); }
       c.strokeStyle = '#2E3440'; c.lineWidth = h * 0.02; c.beginPath(); c.moveTo(w * 0.08, h * 0.06); c.lineTo(w * 0.08, h * 0.92); c.lineTo(w * 0.96, h * 0.92); c.stroke();
       const pts = [], n = 40; for (let i = 0; i <= n * f; i++) { const u = i / n; pts.push([w * (0.1 + 0.74 * u), h * (0.86 - 0.95 * Math.pow(u, 2.2) - 0.03 * Math.sin(u * 22) * (1 - u))]); }
@@ -278,7 +278,7 @@ export const TARTINE_PROPS = {
       c.fillStyle = '#3CC45A'; c.strokeStyle = '#1F8A3A'; c.lineWidth = h * 0.02; c.beginPath(); c.moveTo(x1 + Math.cos(a) * s, y1 + Math.sin(a) * s); c.lineTo(x1 + Math.cos(a + 2.4) * s, y1 + Math.sin(a + 2.4) * s); c.lineTo(x1 + Math.cos(a - 2.4) * s, y1 + Math.sin(a - 2.4) * s); c.closePath(); c.fill(); c.stroke();
     };
     const frameC = o.frame || '#3A2E28';
-    board.add(at(box(W + 0.08, Hh + 0.08, 0.04, frameC, { outline: 0.006 }), 0, -Hh / 2 - 0.06, -0.02));
+    const fw = o.frameW ?? 0.08; board.add(at(box(W + fw, Hh + fw, 0.04, frameC, { outline: 0.006 }), 0, -Hh / 2 - 0.06, -0.02));
     for (let i = 0; i < N; i++) { const cv = canvas(512, Math.round(512 * Hh / W)); draw((i + 1) / N)(cv.getContext('2d'), cv.width, cv.height); const p = new THREE.Mesh(new THREE.PlaneGeometry(W, Hh), L('#FFFFFF', { map: tex(cv) })); p.position.set(0, -Hh / 2 - 0.06, 0.002); p.visible = false; board.add(p); frames.push(p); }
     board.add(rod([0, 0, 0.01], [-W * 0.3, -0.06, 0.01], 0.006, '#2E2622'), rod([0, 0, 0.01], [W * 0.3, -0.06, 0.01], 0.006, '#2E2622'));
     // o.burst (m): a thick 3D arrow that bursts out of the board's top edge where the curve leaves it, tilted o.burstAng (0.47 rad) to the right
