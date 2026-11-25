@@ -2291,3 +2291,24 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   une télévision basse tombe entre les têtes.
 - (cycle 53) Personnage qui doit grandir à l'écran en marchant : le faire marcher dans l'axe de la caméra à mi-distance du fond, en
   longue focale, et remplacer la route vide du premier plan par une bande de trottoir.
+- (cycle 54, « La pelle ») `cruise=True` sur une clé de marche extrapole le trajet en arrière avant la clé : les amis partaient
+  devant l'objectif et cachaient le héros ; réservé aux traversées.
+- (cycle 54) Héros enterré : acteur à y −1,63 avec `headOnly`, `hip: 0`, pas de `sq` du corps (il pivote aux pieds cachés) ; jouer
+  avec `scl head` autour du menton et des flexions du cou.
+- (cycle 54) Accessoire accroché à une tête mise à l'échelle : il n'hérite pas de `scl head` ; donner aux lunettes ou aux ovales
+  leurs propres clés d'écrasement copiées de la tête.
+- (cycle 54) Les yeux peints du héros penchent d'environ 30° : lunettes avec roulis −0,55 et centre à 0,31 au-dessus du menton.
+- (cycle 54) Le bronzage passe par le canal `skin` du toon ; les ovales pâles se dessinent par-dessus le visage, yeux redessinés.
+- (cycle 54) Couches de mer et de sable mouillé sur la prairie : opaques et sans test de profondeur ; une couche transparente est
+  dessinée après les acteurs et les recouvre.
+- (cycle 54) Cacher les arbres de la prairie depuis l'update d'un accessoire (`rt.traverse`, nom 'tree'), sinon ils poussent dans
+  la mer.
+- (cycle 54) Pelle accrochée à une moufle = couchée le long de l'avant-bras (deux bâtons croisés devant le visage) ; accessoire
+  libre dans le monde avec clés copiées des points d'atteinte.
+- (cycle 54) La génuflexion toon garde les hanches hautes : enfoncer de 0,3 m un figurant agenouillé pour sortir sa tête de la
+  bande des cartes.
+- (cycle 54) Cible de regard proche ou sous la tête d'un figurant = tête roulée à 90° (« cou cassé ») ; `look='camera'` ou cible à
+  hauteur de tête.
+- (cycle 54) Caler les temps de pose d'un objet sur la durée du plan : la pierre tombale se posait 0,1 s après la coupe.
+- (cycle 54) Foule alignée en profondeur vers la caméra = elle se cache elle-même ; recherche caméra avec une boîte x par tête
+  (16 % d'écart), résolu en une passe.
