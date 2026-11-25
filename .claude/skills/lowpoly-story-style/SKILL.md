@@ -2328,3 +2328,15 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 54) Accessoire noir sur serviettes sombres = invisible ; serviettes de deuil à rayures claires pour que maillots et ballon
   noirs se lisent.
 - (cycle 54) Foulard sur une figurante aux longs cheveux clairs : les cheveux traversent le dessus ; assombrir les cheveux.
+- (cycle 53) Couche transparente dessinée sans test de profondeur (tache au sol en canvas) : elle couvre tous les acteurs sur son
+  emprise ; anneaux opaques dessinés en premier.
+- (cycle 53) Plan délavé : soupçonner d'abord le dernier accessoire transparent ajouté (test en le retirant), pas l'exposition auto.
+- (cycle 53) Caméra garée loin dans une prairie enneigée : elle peut se trouver dans un arbre blanc et blanchir l'image.
+- (cycle 53) De dos, une tête-boîte ne se lit comme une personne qu'avec des cheveux contrastés avec la veste, une nuque nue et une
+  oreille ; caméra haute, têtes dans le quart bas.
+- (cycle 53) Personnage assis dans une télévision vue d'au-dessus : il se cache derrière le bord haut ; baisser le décor intérieur
+  ou agrandir le poste, vérifier la tête avec project().
+- (cycle 53) Camion vu de l'arrière : caisse creuse, sinon les cartons à l'intérieur ne se voient jamais ; portes ouvertes à
+  ≈ 265° pour qu'elles se rabattent à plat sur les côtés.
+- (cycle 53) Étirement du corps (`sq` y > 1) d'un personnage assis au lit : les genoux traversent la couette ; étirer la tête
+  (`scl head`).
