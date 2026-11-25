@@ -1088,7 +1088,7 @@ ZC16 = -1.1; YC16 = -0.06
 # (review 2) the crawl spread over about 0.55 s, sunk the whole way (rising with the crawl had put his head above the top line); arrived he
 # turns to us and rises in one vertical move (automatic layers off: no lean toward it), straight into the underside of the top: the head
 # squashes flat (wider, shorter, eyes squeezed, cheeks bulging) and stays squashed into line 17
-HE16A = [1.9, -0.5, ZC16]; HE16M = [0.75, -0.5, ZC16]; HE16C = [0.22, YC16, ZC16]; HE16T = HE16C
+HE16A = [1.5, -0.5, ZC16]; HE16M = [0.75, -0.5, ZC16]; HE16C = [0.22, YC16, ZC16]; HE16T = HE16C
 CRAWL16 = (0.05, 0.62); TURN16 = 0.62; BUMP16 = 0.78; SIT16 = 0.92
 F16 = [0.0, 0.36, 1.9]; L16 = [-0.1, 0.55, -1.0]
 C16 = cam(0.0, F16, add(F16, [0.0, 0.0, -0.12]), L16, L16, lens=50, ease='inOut')
