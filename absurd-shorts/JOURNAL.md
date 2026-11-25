@@ -3129,3 +3129,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 16 h 25 — « La pelle » (100) revue 2 : animation 7,0 (double prise S06 trop tardive, serviettes qui clignotent S10, réactions cachées S12-S13), image 7,6 (l'étoile de mer du mausolée se lisait comme une étoile rouge politique : retirée, aucun motif). Corrections du tour 2 lancées. « Le grincement » : rendu final en cours.
 
 16 h 40 — « La fuite » (99) publiée par la session parallèle 87 (revues 4,5/5,6 → 7,0/6,8 → 6,4/7,0, passe finale, brouillon de contrôle ; 1080×1920, 42,4 s, −16 LUFS). Branche fusionnée, post consigné, leçons ajoutées. La session 87 reçoit 101 « Le régime ».
+
+17 h 45 — « Le grincement » (98) livrée : rendu final 1080×1920, 41,7 s, −16 LUFS, aucune image grise, planche propre. Envoyée et publiée sur TikTok (Postiz). Revues 5,5/7,0 → 7,2/8,0 → 7,6/8,0, passe finale, brouillon de contrôle. « La pelle » (100) : corrections du tour 2 faites (aucun motif sur le mausolée, serviettes stables, taches d'ombre supprimées), brouillon 3 en cours.
