@@ -2237,3 +2237,18 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   vers la caméra et ne se voit pas.
 - (cycle 52) Médaille épinglée sur un poing géant : la décaler vers la caméra d'au moins la profondeur du poing, sinon il la cache.
 - (cycle 52) Mouettes qui tournent en sens contraires = croix en X à l'écran : même sens, une hauteur par mouette (`gullLane`).
+- (cycle 53) Plan 9:16 chargé : chaque élément doit tenir dans environ 26° à l'horizontale ; chercher position, cible et focale
+  par une petite grille contre des cadres par point (project()) au lieu de deviner — dix caméras sur seize corrigées d'un coup.
+- (cycle 53) Personnage penché à une fenêtre : fenêtre plus haute que sa tête (appui à 1,0 m → linteau à 2,6 m ou plus), sinon le
+  mur au-dessus lui coupe la tête.
+- (cycle 53) Rebord de télévision partiel : jamais une plaque pleine largeur devant l'écran, elle cache le petit décor à l'intérieur.
+- (cycle 53) Assistant qui passe `**kwargs` dans les `opts` d'un accessoire : il avale `scale` comme il avale `keys` (sac visible dès
+  la première image) ; extraire les deux.
+- (cycle 53) Tableau sur le mur du fond orienté +Z : une caméra qui regarde vers +Z voit son dos vide ; ry=180.
+- (cycle 53) « Les yeux grands ouverts au lit » : un homme allongé vu du pied du lit à 35° n'est qu'un trait ; l'asseoir contre la
+  tête de lit et donner à la couette un pli qu'il remonte.
+- (cycle 53) Sprite de charnière vu d'une caméra basse de côté : il se cache derrière son propre chambranle ; le poser devant le
+  cadre (ou `onTop`) et le vérifier sur la première image.
+- (cycle 53) Deux maisons dans le même plan ne peuvent pas être premier plan et fond en vertical : avancer celle du premier plan et
+  vérifier la ligne de vue au coin avec project().
+- (cycle 53) Volet ouvert qui dépasse du bout de son mur : il cache le gag du fond ; pas de volets sur cette fenêtre.

@@ -41,7 +41,8 @@ export const GRINCEMENT_PROPS = {
   // ---------------------------------------------------------------- the squeak (pivot at the hinge; give the prop face: 'camera')
   // Three thick arcs ))) opening to o.side (1: toward +X of the prop, i.e. the image right once turned to the camera; -1: the left), o.size (0.7 m)
   // across: a dark ink outline, a red-orange body and a yellow core with a white glint. Each time in o.at it pops (the arcs grow one after the other
-  // with an overshoot), wobbles off the hinge (rocking, jittering, drifting outward) and fades after o.life (0.72 s); o.amp: a size factor per pop.
+  // with an overshoot), wobbles off the hinge (rocking, jittering, drifting outward) and fades after o.life (0.72 s); o.amp: a size factor per pop;
+  // o.onTop: drawn over everything (a hinge hidden by its own door frame from a low camera)
   grinSqueak(o) {
     const S = o.size ?? 0.7, side = o.side ?? 1, life = o.life ?? 0.72, pops = (o.at || []).map((t, i) => [t, (o.amp || [])[i] ?? 1]).sort((a, b) => a[0] - b[0]);
     const g = grp(), inner = grp(); g.add(inner); if (side < 0) inner.scale.x = -1;
@@ -49,7 +50,7 @@ export const GRINCEMENT_PROPS = {
       const N = 256, cv = canvas(N, N), c = cv.getContext('2d'), cx = N * 0.08, cy = N / 2, R = N * (0.25 + i * 0.22), a = 0.95 - i * 0.165;
       const stroke = (w, col, r = R, a0 = -a, a1 = a) => { c.strokeStyle = col; c.lineWidth = w; c.lineCap = 'round'; c.beginPath(); c.arc(cx, cy, r, a0, a1); c.stroke(); };
       stroke(N * 0.16, INK); stroke(N * 0.11, o.edge || '#FF4316'); stroke(N * 0.058, o.color || '#FFD60A'); stroke(N * 0.02, 'rgba(255,255,255,0.9)', R - N * 0.012, -a + 0.12, -a + 0.5);
-      const m = new THREE.Mesh(new THREE.PlaneGeometry(S, S), new THREE.MeshBasicMaterial({ map: tex(cv), transparent: true, depthWrite: false, toneMapped: false, side: THREE.DoubleSide }));
+      const m = new THREE.Mesh(new THREE.PlaneGeometry(S, S), new THREE.MeshBasicMaterial({ map: tex(cv), transparent: true, depthWrite: false, depthTest: !o.onTop, toneMapped: false, side: THREE.DoubleSide }));
       m.renderOrder = 8; m.position.x = S * (0.5 - 0.08); const h = grp(m); inner.add(h); return { h, m };
     });
     g.userData.update = t => {
@@ -70,7 +71,7 @@ export const GRINCEMENT_PROPS = {
   // from the street), swing [[t, rad]] (inward, positive opens), open (rad), rattle [[t0, amp, freq, decay]], inside: false | {w, d, wall, floor,
   // light}}; o.windows [{x, y, w, h, kind 'glass'|'open'|'lit'|'night', shutters colour}] ('open': a dark room behind and a sill that sticks out,
   // somebody can stand behind it); o.roof (colour) / o.roof false; o.snow: snow on the eave and the sills; o.num: a house number by the door;
-  // o.step: a stone doorstep; o.trim (frames). userData.hinge: the hinge's [x, z] in the prop's frame.
+  // o.step: a stone doorstep; o.trim (frames); o.box (m): side walls that deep. userData.hinge: the hinge's [x, z] in the prop's frame.
   grinFacade(o) {
     const W = o.w ?? 7, H = o.h ?? 3.2, T = o.t ?? 0.25, x0 = o.x0 ?? -W / 2, g = grp(), wallC = o.wall || '#F2D58A', trim = o.trim || '#F4F4F0';
     const D = { w: 1.15, h: 2.6, color: '#1F6E7A', hinge: 'L', ...(o.door || {}) }, dw = D.w, dh = D.h, wins = o.windows || [];
@@ -89,6 +90,8 @@ export const GRINCEMENT_PROPS = {
       g.add(at(box(W + 0.6, 0.14, 3.2, rc, { outline: 0.008 }), x0 + W / 2, H + 0.75, -1.55, -0.42, 0, 0));
       if (o.snow) g.add(at(box(W + 0.62, 0.12, 0.92, '#F4F7FA', { noGrain: true }), x0 + W / 2, H + 0.23, -0.25), at(box(W + 0.62, 0.1, 3.2, '#F4F7FA', { noGrain: true }), x0 + W / 2, H + 0.84, -1.5, -0.42, 0, 0));
     }
+    // o.box (depth): side walls and a back wall, so the house reads as a volume when it is seen from the side
+    if (o.box) { const bd = o.box; for (const x of [x0, x0 + W]) g.add(at(box(0.2, H, bd, wallC, { outline: 0.006 }), x + (x === x0 ? 0.1 : -0.1), H / 2, -T - bd / 2)); g.add(at(box(W, H, 0.2, wallC), x0 + W / 2, H / 2, -T - bd + 0.1)); }
     // windows
     for (const wd of wins) {
       const cx = wd.x, cy = wd.y + wd.h / 2, fw = 0.09, kind = wd.kind || 'glass';
@@ -272,8 +275,8 @@ export const GRINCEMENT_PROPS = {
     for (let i = 1; i < 8; i++) g.add(at(box(pw, 0.002, 0.003, '#C9BC9C'), -pw / 2 - 0.01, 0.03 + i * 0.011, D / 2 - 0.009));
     const pageDraw = (wordOn, defOn) => (c, w, h) => {
       c.fillStyle = '#FBF5E4'; c.fillRect(0, 0, w, h);
-      if (wordOn) { c.fillStyle = INK; c.textAlign = 'center'; c.textBaseline = 'middle'; fitText(c, o.word || 'IIIIIK', w / 2, h * 0.3, w * 0.86, h * 0.26, 900, 'Georgia'); c.fillStyle = '#9A3A22'; c.fillRect(w * 0.15, h * 0.47, w * 0.7, h * 0.012); }
-      if (defOn) { c.fillStyle = '#1E2E44'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitText(c, o.def || "de l'huile", w / 2, h * 0.6, w * 0.82, h * 0.13, 800, 'Georgia'); drawDrop(c, w / 2, h * 0.82, h * 0.2, '#E8A818', INK, 0.06); }
+      if (wordOn) { c.fillStyle = INK; c.textAlign = 'center'; c.textBaseline = 'middle'; fitText(c, o.word || 'IIIIIK', w / 2, h * 0.26, w * 0.86, h * 0.26, 900, 'Georgia'); c.fillStyle = '#9A3A22'; c.fillRect(w * 0.15, h * 0.41, w * 0.7, h * 0.012); }
+      if (defOn) { c.fillStyle = '#1E2E44'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitText(c, o.def || "de l'huile", w / 2, h * 0.54, w * 0.86, h * 0.15, 800, 'Georgia'); drawDrop(c, w / 2, h * 0.75, h * 0.17, '#E8A818', INK, 0.06); }
     };
     // a page lies face up: its width along X, the top of its text toward -Z (read by a camera above the book, on its +Z side)
     const mkPage = (draw, x, y) => { const p = canvasPlane(pw, D - 0.04, draw, { res: 512 }); p.rotation.x = -PI / 2; p.position.set(x, y, 0); return p; };
@@ -313,7 +316,6 @@ export const GRINCEMENT_PROPS = {
     g.add(at(box(0.3, Y - 0.5, 0.2, '#3A3D44', { pivot: 'bottom' }), 0, 0.5, -0.3));
     const bz = 0.1;
     for (const [x, y, w, h] of [[-W / 2 - bz / 2, Y + H / 2, bz, H + 2 * bz], [W / 2 + bz / 2, Y + H / 2, bz, H + 2 * bz], [0, Y + H + bz / 2, W + 2 * bz, bz], [0, Y - bz / 2, W + 2 * bz, bz]]) g.add(at(box(w, h, 0.12, C, { outline: 0.008 }), x, y, 0));
-    g.add(at(box(W + 0.12, H + 0.12, 0.01, '#4A4E58'), 0, Y + H / 2, 0.062));
     for (const sd of [-1, 1]) g.add(at(box(0.04, H, Dp, C), sd * (W / 2 + 0.02), Y + H / 2, -Dp / 2), at(box(W, 0.04, Dp, C), 0, sd > 0 ? Y + H + 0.02 : Y - 0.02, -Dp / 2));
     const bg = canvasPlane(W, H, (c, w, h) => { c.fillStyle = o.wall || '#E9DCC0'; c.fillRect(0, 0, w, h); c.strokeStyle = '#C9A55A'; c.lineWidth = w * 0.008;
       for (const x of [0.06, 0.38, 0.7]) c.strokeRect(w * x, h * 0.08, w * 0.24, h * 0.6); c.fillStyle = '#B79A70'; c.fillRect(0, h * 0.78, w, h * 0.22); }, { res: 256, emissive: o.on === false ? 0 : 0.35 });
@@ -369,7 +371,11 @@ export const GRINCEMENT_PROPS = {
     const slab = box(W, 0.2, 1, c, { outline: 0.006, unique: true }); slab.position.set(0, 0.1, -0.5); body.add(slab);
     const fold = box(W + 0.02, 0.22, 0.16, o.fold || '#F7F9FC', { outline: 0.006 }), fg = grp(fold); body.add(fg);
     for (let i = 0; i < 3; i++) body.add(at(box(W * 0.98, 0.012, 0.03, o.stripe || '#A9BCD6'), 0, 0.205, -0.3 - i * 0.35));
-    g.userData.update = t => { const L = Lb + keyAt(o.pull, t, 0); slab.scale.z = L; slab.position.z = -L / 2; fg.position.set(0, 0.12, -L); body.children.slice(2).forEach((s, i) => { s.position.z = -L * (0.2 + i * 0.25); }); };
+    // o.bib [[t, h]]: for somebody sitting up, a fold of duvet that rises at the top edge to h metres over the mattress (he pulls it up to his nose)
+    const bib = o.bib ? box(W * 0.92, 1, 0.16, c, { outline: 0.006, unique: true }) : null, bibTop = o.bib ? box(W * 0.94, 0.12, 0.2, o.fold || '#F7F9FC', { outline: 0.006 }) : null;
+    if (bib) body.add(bib, bibTop);
+    g.userData.update = t => { const L = Lb + keyAt(o.pull, t, 0); slab.scale.z = L; slab.position.z = -L / 2; fg.position.set(0, 0.12, -L); [2, 3, 4].forEach((j, i) => { body.children[j].position.z = -L * (0.2 + i * 0.25); });
+      if (bib) { const h = Math.max(0.2, keyAt(o.bib, t, 0.6)); bib.scale.y = h; bib.position.set(0, h / 2, -L + 0.02); bibTop.position.set(0, h, -L + 0.02); fg.visible = false; } };
     g.userData.update(0); return g;
   },
 
