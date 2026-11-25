@@ -48,14 +48,15 @@ function feltCore(o) {
   const rowL = [], rowR = [];
   for (let j = 0; j < ny; j++) { const v = -1 + (j + 0.5) * 2 / ny; let l = 0, r = 0; for (let i = 0; i < 400; i++) { const u = -1.2 + i * 2.4 / 400; if (inside(u, v)) { if (u < l) l = u; if (u > r) r = u; } } rowL.push(l); rowR.push(r); }
   let vTop = -1, vBot = 1; for (let j = 0; j < ny; j++) { const v = -1 + (j + 0.5) * 2 / ny; if (rowR[j] > 0.01) { vTop = Math.max(vTop, v); vBot = Math.min(vBot, v); } }
+  if (o.nape != null) vBot = Math.max(vBot, o.nape);
   for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) {
     const k = j * nx + i, u = -1 + (i + 0.5 + (hsh(k) - 0.5) * 0.5) * 2 / nx, v = -1 + (j + 0.5 + (hsh(k + 7) - 0.5) * 0.5) * 2 / ny;
-    if (!inside(u, v)) continue;
+    if (!inside(u, v) || (o.nape != null && v < o.nape)) continue;
     const lat = u < 0 ? -u / Math.max(0.05, -rowL[j]) : u / Math.max(0.05, rowR[j]);
     cells.push({ u, v, lat, x: u * W / 2, y: v * H / 2, h: 0.75 + 0.5 * hsh(k + 3), ax: (hsh(k + 11) - 0.5) * 0.7, ay: (hsh(k + 13) - 0.5) * 0.7, c: GREENS[Math.floor(hsh(k + 17) * GREENS.length)], k });
   }
   // the ground under the hair: the country's shape, dark green
-  const sh = new THREE.Shape(); for (let i = 0; i <= 96; i++) { const th = i / 96 * TAU, R = shapeR(Math.cos(th), Math.sin(th)), u = 0.9 * R * Math.cos(th) * 0.995, v = 0.94 * R * Math.sin(th) * 0.995; const x = u * W / 2, y = v * H / 2; i ? sh.lineTo(x, y) : sh.moveTo(x, y); }
+  const sh = new THREE.Shape(); for (let i = 0; i <= 96; i++) { const th = i / 96 * TAU, R = shapeR(Math.cos(th), Math.sin(th)), u = 0.9 * R * Math.cos(th) * 0.995, v = 0.94 * R * Math.sin(th) * 0.995; const x = u * W / 2, y = Math.max(v, o.nape ?? -9) * H / 2; i ? sh.lineTo(x, y) : sh.moveTo(x, y); }
   const ground = new THREE.Mesh(new THREE.ShapeGeometry(sh), mat(o.ground || '#2C5A28')); ground.position.z = 0.002; ground.receiveShadow = true; g.add(ground);
   const geo = new THREE.BoxGeometry(1, 1, 1); geo.translate(0, 0.5, 0);
   const pos = geo.attributes.position; for (let i = 0; i < pos.count; i++) { const y = pos.getY(i); pos.setX(i, pos.getX(i) * (1 - 0.55 * y)); pos.setZ(i, pos.getZ(i) * (1 - 0.55 * y)); } geo.computeVertexNormals();
@@ -140,12 +141,12 @@ export const NUMERO_PROPS = {
   // sphere under it (r o.planetR 400) curving away to the horizon
   hairCountry(o) {
     const S = o.s ?? 14, g = grp(), c = grp(); g.add(c);
-    const felt = feltCore({ w: 1.6, h: 1.9, step: o.step ?? 0.04, len: o.len ?? 0.07, partW: 0.03, shineW: 0.035, sand: o.sand, ridgeDark: o.ridgeDark, ridgeLight: o.ridgeLight, ridgeH: o.ridgeH, state: o.state ?? 1, sides: o.sides, top: o.top, back: o.back, part: o.part, gel: o.gel, shine: o.shine ?? 1.2 });
+    const felt = feltCore({ w: 1.6, h: 1.9, step: o.step ?? 0.04, len: o.len ?? 0.07, partW: 0.03, shineW: 0.035, sand: o.sand, ridgeDark: o.ridgeDark, ridgeLight: o.ridgeLight, ridgeH: o.ridgeH, nape: o.nape, state: o.state ?? 1, sides: o.sides, top: o.top, back: o.back, part: o.part, gel: o.gel, shine: o.shine ?? 1.2 });
     felt.scale.setScalar(S); felt.rotation.x = -PI / 2; felt.position.y = 0.05; c.add(felt);
     if (o.planet !== false) { const R = o.planetR ?? 400, pl = new THREE.Mesh(new THREE.SphereGeometry(R, 96, 48), mat(o.sea || '#2F7FB8', { noGrain: true })); pl.position.y = -R - 0.4; pl.receiveShadow = true; g.add(pl);
       for (let i = 0; i < (o.clouds ?? 0); i++) { const a = hsh(i + 3) * TAU, d = S * 1.6 + hsh(i + 7) * R * 0.5, th = d / R, cl = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), mat('#F4F8FA', { noGrain: true }));
         cl.scale.set(3 + 4 * hsh(i), 0.4, 2 + 3 * hsh(i + 1)); cl.position.set(Math.sin(th) * R * Math.cos(a), Math.cos(th) * R - R - 0.2, Math.sin(th) * R * Math.sin(a)); cl.lookAt(0, -R, 0); cl.rotateX(PI / 2); g.add(noShadow(cl)); }
-      const sh = new THREE.Mesh(new THREE.CircleGeometry(S * 1.25, 48), mat('#5AA7D2', { noGrain: true })); sh.rotation.x = -PI / 2; sh.position.y = -0.2; g.add(sh); }
+      if (o.lagoon) { const sh = new THREE.Mesh(new THREE.CircleGeometry(S * 1.25, 48), mat('#5AA7D2', { noGrain: true })); sh.rotation.x = -PI / 2; sh.position.y = -0.2; g.add(sh); } }
     g.userData.update = t => felt.userData.update(t);
     g.userData.update(0); return g;
   },
@@ -155,7 +156,6 @@ export const NUMERO_PROPS = {
   redDeskPhone(o) {
     const S = o.s ?? 1, g = grp(), b = grp(); b.scale.setScalar(S); g.add(b); const R = o.color || '#D8262C', D = '#9E1B20';
     b.add(at(box(0.3, 0.1, 0.26, R, { outline: 0.006, taper: { x: 0.82, z: 0.78 }, pivot: 'bottom' }), 0, 0, 0));
-    b.add(at(box(0.24, 0.05, 0.08, D, { outline: 0.004 }), 0, 0.12, -0.04));
     for (const s of [-1, 1]) b.add(at(box(0.04, 0.06, 0.05, R, { outline: 0.004 }), s * 0.1, 0.15, -0.04));
     const dial = grp(); dial.position.set(0, 0.108, 0.06); dial.rotation.x = -1.1; b.add(dial);
     dial.add(at(cyl(0.075, 0.075, 0.012, '#F4F1E8', 18, { outline: 0.004 }), 0, 0, 0, PI / 2, 0, 0));
@@ -236,7 +236,7 @@ export const NUMERO_PROPS = {
     const L = o.len ?? 3.4, Y = o.y ?? 1.15, g = grp(), in_ = grp(); g.add(in_);
     const n = Math.round(L / 0.22); for (let i = 0; i < n; i++) in_.add(at(box(L / n, 0.1, 0.1, i % 2 ? '#F4F1E8' : '#D8262C', { outline: 0.004 }), -L / 2 + (i + 0.5) * L / n, Y, 0));
     for (const s of [-1, 1]) { in_.add(at(box(0.1, Y + 0.06, 0.1, '#F4F1E8', { outline: 0.004, pivot: 'bottom' }), s * (L / 2 - 0.15), o.lift ?? 0.05, 0)); in_.add(at(box(0.3, 0.06, 0.3, '#7A7E84', { outline: 0.004 }), s * (L / 2 - 0.15), (o.lift ?? 0.05) + 0.03, 0)); }
-    g.userData.update = t => { in_.rotation.z = (o.sway ?? 0.03) * Math.sin(t * 9); in_.position.y = 0.03 * Math.abs(Math.sin(t * 9)); };
+    g.userData.update = t => { const w = o.bobW ?? 9; in_.rotation.z = (o.sway ?? 0.03) * Math.sin(t * w); in_.position.y = (o.bob ?? 0.03) * Math.abs(Math.sin(t * w)); };
     g.userData.update(0); return g;
   },
 
@@ -500,10 +500,12 @@ export const NUMERO_PROPS = {
   baldCap(o) {
     const W = o.w ?? 0.24, H = o.h ?? 0.5, D = o.d ?? 0.17, DN = o.down ?? 0.22, C = o.skin || '#E2B48E', CT = o.top || C, e = 0.006, g = grp();
     g.add(at(box(W + 2 * e, e * 2, D + 2 * e, CT), 0, H + e, 0));
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(1, 20, 10, 0, TAU, 0, PI / 2), mat(CT)); dome.scale.set(W / 2 + e, o.crown ?? 0.035, D / 2 + e); dome.position.y = H + 2 * e; dome.castShadow = true; g.add(dome);
+    if (o.stubble) { for (const sd of [-1, 1]) g.add(at(box(e * 1.2, 0.03, D + e, o.stubble), sd * (W / 2 + e * 0.9), H - DN + 0.015, -e / 2)); g.add(at(box(W + 2 * e, 0.03, e * 1.2, o.stubble), 0, H - DN + 0.015, -D / 2 - e * 0.9)); }
     for (const s of [-1, 1]) g.add(at(box(e, DN, D + e, C), s * (W / 2 + e / 2), H - DN / 2, -e / 2));
     g.add(at(box(W + 2 * e, DN, e, C), 0, H - DN / 2, -D / 2 - e / 2));
     g.add(at(box(W + 2 * e, o.band ?? 0.035, e, C), 0, H - (o.band ?? 0.035) / 2, D / 2 + e / 2));
-    if (o.shine !== false) { const hl = new THREE.Mesh(new THREE.PlaneGeometry(W * 0.6, D * 0.35), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: o.shineA ?? 0.7, depthWrite: false })); hl.rotation.x = -PI / 2; hl.position.set(-W * 0.1, H + 2.2 * e, D * 0.1); g.add(noShadow(hl)); }
+    if (o.shine !== false) { const hl = new THREE.Mesh(new THREE.PlaneGeometry(W * 0.6, D * 0.35), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: o.shineA ?? 0.7, depthWrite: false })); hl.rotation.x = -PI / 2 + 0.25; hl.position.set(-W * 0.12, H + 2 * e + (o.crown ?? 0.035) + 0.002, D * 0.12); g.add(noShadow(hl)); }
     return g;
   },
 
@@ -519,4 +521,13 @@ export const NUMERO_PROPS = {
 
   // armyHelmet (props_guepe) that casts no shadow: its skirt's shadow hatched the faces under it in green (shadow acne)
   softHelmet(o) { const h = buildProp('armyHelmet', o || {}); h.traverse(m => { if (m.isMesh) { m.castShadow = false; m.receiveShadow = false; } }); return h; },
+
+  // A handset lying on its cradle (pivot at its middle, the long axis along X): a flat bar in the phone's colour, slightly bowed, with small
+  // ear and mouth ends of the same colour (no dark cups that read as eyes); o.len (0.3); o.color
+  cradleHandset(o) {
+    const L = o.len ?? 0.3, C = o.color || '#D8262C', g = grp();
+    g.add(at(box(L * 0.7, 0.035, 0.05, C, { outline: 0.004 }), 0, 0.03, 0));
+    for (const s of [-1, 1]) g.add(at(box(L * 0.2, 0.05, 0.075, C, { outline: 0.004 }), s * L * 0.4, 0.02, 0));
+    return g;
+  },
 };
