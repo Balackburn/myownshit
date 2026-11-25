@@ -3085,3 +3085,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   animée, boulette qui tombe, vrai vaporisateur, rouge constant) ; brouillon de contrôle propre (aucun creux). Place disque : cache du modèle
   de transcription whisper-small supprimé (re-téléchargeable, inutilisé par le pipeline) et une copie identique du calque 3D du « Rayon »
   retirée de out/. Rendu final 1080 lancé.
+- 02 h 19 — « Le faux numéro » (94) LIVRÉ et publié sur TikTok par sa session parallèle (1080x1920, −16,0 LUFS, sans creux ; post
+  cmwvhtg5r0i2iqd07zu23s5wm). Revues 6,8/7,1 → 7,0/7,6 → 7,8/7,7, passe finale, brouillon de contrôle. Branche fusionnée, leçons au skill.
+  La session reçoit « Le distributeur » (95).

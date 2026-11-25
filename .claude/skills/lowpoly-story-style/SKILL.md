@@ -2172,3 +2172,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 51) Boucliers anti-émeute : reflets et poignée horizontale à embouts = cadran d'horloge ; face laiteuse unie, bord épais, poignée verticale.
 - (cycle 51) Bourrelets sur les quatre bords d'un tissu posé = plateau ou cadre ; bourrelets effilés sur les côtés seulement.
 - (cycle 51) Accessoire porté avec une étiquette par défaut (REGISTRE MARIAGES) : vérifier ses options de texte pour chaque histoire.
+- (cycle 51, « Le faux numéro ») make_config1.py et round_config.py plantent sur les plans scindés (S04b, S12b) : lire le numéro avec
+  int(re.match(r'\d+', sid[1:])) et reporter les plans scindés dans les configs des tours suivants.
+- (cycle 51) Moteur toon : une clé qui ne nomme que le `reach` d'une main remplace tout le dict reach, et keepPose ne fusionne que le niveau
+  supérieur ; reporter reach et hands pour chaque acteur.
+- (cycle 51) Crâne rasé sur une tête-boîte : calotte plus pâle et rosée, reflet fixe, sommet arrondi, sinon on lit un chapeau.
+- (cycle 51) Téléphone de bureau : socle vide quand le combiné est décroché ; des écouteurs sombres se lisent comme des yeux.
+- (cycle 51) Un pays vu de l'espace se lit comme une île sauf s'il remplit environ 70 % du cadre, sans lagon, sous une forte courbe d'horizon.
+- (cycle 51) Animaux (vaches) : pas de clés d'écrasement, et leur lecture reste fragile (chèvres, moutons) ; les garder grands et de profil.
+- (cycle 51) Pelleteuse : flèche claire et cernée, sinon on lit un char. Casque qui projette son ombre = hachures vertes sur le visage.
+- (cycle 51) Après tout redémarrage du conteneur, vérifier le log du rendu final et le relancer : il est tué sans prévenir.
