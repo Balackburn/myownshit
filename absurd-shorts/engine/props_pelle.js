@@ -10,6 +10,8 @@
 import * as THREE from 'three';
 import { box, cyl, sphere, mat } from './style.js';
 import { grp, at, canvasPlane, rod, inst } from './props.js';
+import { CANICULE_PROPS } from './props_canicule.js';
+import { ROBINET_PROPS } from './props_robinet.js';
 
 const PI = Math.PI, TAU = 2 * PI;
 const clamp01 = x => Math.max(0, Math.min(1, x));
@@ -118,7 +120,7 @@ export const PELLE_PROPS = {
   // Rows of sand blocks in a horseshoe of radius o.R (0.34) open toward +Z (his face) by o.open (1.0 rad each side), each row a little smaller and
   // stepped in; o.rows rows at the start, one more row pops (outBack) at each time in o.add; o.y0: the foot of the wall (on the mound). o.mausoleum:
   // the finished mausoleum instead: high crenellated walls, two round corner towers with cone roofs beside his face, a lintel and a pediment above
-  // his head, a starfish on the pediment, steps of sand blocks in front (o.H its wall height, 0.7)
+  // his head, a plain round sand ball on a little drum on top of the pediment (no emblem), steps of sand blocks in front (o.H its wall height, 0.7)
   plCrabWall(o) {
     const g = grp(), R = o.R ?? 0.36, op = o.open ?? 1.0, bh = o.bh ?? 0.068, y0 = o.y0 ?? 0.1, c1 = o.color || '#E2C686', c2 = '#D4B470';
     const rowAt = i => { const r = R - i * 0.008, n = Math.max(6, Math.round((TAU - 2 * op) * r / 0.1)), list = [];
@@ -137,12 +139,10 @@ export const PELLE_PROPS = {
       g.add(at(box(sx * 2 + 0.12, 0.1, 0.16, c1, { outline: 0.01 }), 0, y0 + H + 0.05, zl));
       const tri = new THREE.Shape([new THREE.Vector2(-sx - 0.06, 0), new THREE.Vector2(sx + 0.06, 0), new THREE.Vector2(0, 0.26)].map(v => v));
       const ped = new THREE.Mesh(new THREE.ExtrudeGeometry(tri, { depth: 0.12, bevelEnabled: false }), mat(c2)); ped.position.set(0, y0 + H + 0.1, zl - 0.06); ped.castShadow = true; g.add(ped);
-      // (review 1) a five-armed starfish on the pediment (a fan-shaped shell recalled a company logo)
-      const star = grp(), sp = new THREE.Shape();
-      for (let k = 0; k < 10; k++) { const a = PI / 2 + k * PI / 5, rr = k % 2 ? 0.026 : 0.068; const x = Math.cos(a) * rr, y = Math.sin(a) * rr; if (k) sp.lineTo(x, y); else sp.moveTo(x, y); }
-      const sm = new THREE.Mesh(new THREE.ExtrudeGeometry(sp, { depth: 0.014, bevelEnabled: false }), mat('#E8875A')); sm.castShadow = true; star.add(sm);
-      for (let k = 0; k < 5; k++) { const a = PI / 2 + k * TAU / 5; star.add(at(box(0.008, 0.008, 0.004, '#F6D2B0'), Math.cos(a) * 0.035, Math.sin(a) * 0.035, 0.016)); }
-      star.position.set(0, y0 + H + 0.18, zl + 0.065); star.rotation.z = 0.12; g.add(star);
+      // (review 2) no emblem at all on the pediment (a red five-armed starfish read as a political star at phone size): a plain round sand ball
+      // on a little drum at its apex, the same sand as the walls
+      g.add(at(cyl(0.05, 0.06, 0.05, c2, 10, { pivot: 'bottom', outline: 0.008 }), 0, y0 + H + 0.33, zl));
+      const fin = new THREE.Mesh(new THREE.SphereGeometry(0.06, 14, 10), mat(c1)); fin.position.set(0, y0 + H + 0.43, zl); fin.castShadow = true; g.add(fin);
       // (stills 1) two low rows of steps well in front of the opening: three rows close in hid his chin and mouth from a low camera
       const steps = []; for (let i = 0; i < 2; i++) for (let j = -2 + i; j <= 2 - i; j++) steps.push([j * 0.1, 0.02 + bh * (i + 0.5), zl + 0.48 - i * 0.07, 0, 0, 0, 1, 1, 1]);
       g.add(inst(new THREE.BoxGeometry(0.095, bh * 0.95, 0.08), mat(c1), steps));
@@ -242,12 +242,12 @@ export const PELLE_PROPS = {
   // ---------------------------------------------------------------- wrought-iron cemetery gates on two stone posts (pivot at the middle of the
   // sill, front +Z): o.w (2.8) wide, o.h (2.4) high, black bars with gold spear tips, rails, an arch of scrolls; o.swing [[t, a], ...] opens both
   // leaves by a (rad, toward -Z); o.rise [[t, u], ...] u 0: the leaves lie flat on the sand (falling toward +Z), 1 stood up; o.lockAt: a big
-  // brass padlock snaps on the meeting bars (pop, the shackle drops shut); o.rattle [[t0, amp, f, dk], ...]
+  // brass padlock snaps on the meeting bars (pop, the shackle drops shut), o.lockS its size; o.nb bars per leaf (7); o.rattle [[t0, amp, f, dk], ...]
   plGates(o) {
     const W = o.w ?? 2.8, H = o.h ?? 2.4, g = grp(), iron = mat('#1E1F24'), gold = mat('#D8A93A');
     for (const sd of [-1, 1]) { g.add(at(box(0.42, H + 0.4, 0.42, '#E4DCCB', { pivot: 'bottom', outline: 0.01 }), sd * (W / 2 + 0.21), 0, 0), at(box(0.52, 0.14, 0.52, '#D2C8B4', { pivot: 'bottom' }), sd * (W / 2 + 0.21), H + 0.4, 0), at(sphere(0.16, '#E4DCCB', 1), sd * (W / 2 + 0.21), H + 0.68, 0)); }
     const leaves = [-1, 1].map(sd => { const piv = grp(), lf = grp(); piv.position.set(sd * W / 2, 0, 0); piv.add(lf); g.add(piv);
-      const lw = W / 2 - 0.02, nb = 7;
+      const lw = W / 2 - 0.02, nb = o.nb ?? 7;
       for (let i = 0; i < nb; i++) { const x = -sd * (0.08 + i * (lw - 0.12) / (nb - 1)), hh = H - 0.12 * Math.abs(i - (nb - 1) / 2) / ((nb - 1) / 2) * (sd > 0 ? 1 : 1);
         lf.add(at(new THREE.Mesh(new THREE.BoxGeometry(0.035, hh, 0.035), iron), x, hh / 2 + 0.05, 0));
         const tip = new THREE.Mesh(new THREE.ConeGeometry(0.045, 0.14, 4), gold); tip.position.set(x, hh + 0.12, 0); lf.add(tip); }
@@ -260,7 +260,7 @@ export const PELLE_PROPS = {
     lock.position.set(0, H * 0.55 - 0.18, 0.09); g.add(lock); lock.visible = false;
     g.userData.update = t => { const a = keyAt(o.swing, t, 0), u = keyAt(o.rise, t, 1), r = rattle(o.rattle, t);
       for (const [piv, lf, sd] of leaves) { piv.rotation.set(-(1 - u) * PI / 2 * -1, sd * a + r * sd, 0); }
-      if (o.lockAt != null) { const q = (t - o.lockAt) / 0.2; lock.visible = q > 0; lock.scale.setScalar(Math.max(0.01, outBack(q, 3))); shackle.position.y = 0.1 + 0.06 * (1 - clamp01((t - o.lockAt - 0.12) / 0.06)); lock.rotation.z = rattle([[o.lockAt + 0.18, 0.25, 22, 6]], t); } };
+      if (o.lockAt != null) { const q = (t - o.lockAt) / 0.2; lock.visible = q > 0; lock.scale.setScalar(Math.max(0.01, outBack(q, 3)) * (o.lockS ?? 1)); shackle.position.y = 0.1 + 0.06 * (1 - clamp01((t - o.lockAt - 0.12) / 0.06)); lock.rotation.z = rattle([[o.lockAt + 0.18, 0.25, 22, 6]], t); } };
     g.userData.update(0); return g;
   },
 
@@ -346,8 +346,10 @@ export const PELLE_PROPS = {
   // ---------------------------------------------------------------- a big crumpled white tissue (attach to a hand)
   // a rolled beach towel carried under an arm (attach to the torso joint): a striped roll
   plTowelRoll(o) { const g = grp(), cols = o.colors || ['#2E8AC9', '#F4F1E8']; for (let i = 0; i < 6; i++) g.add(at(cyl(0.1, 0.1, 0.09, cols[i % 2], 10), -0.27 + i * 0.09, 0, 0, 0, 0, PI / 2)); return g; },
-  plTissue(o) { const g = grp(), s = o.s ?? 1; for (let i = 0; i < 4; i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(0.05 * s, 0), mat('#FFFFFF', { noGrain: true })); m.position.set((hsh(i) - 0.5) * 0.05 * s, -0.04 * s - i * 0.02 * s, (hsh(i + 5) - 0.5) * 0.04 * s); m.scale.set(1.2, 0.8, 0.5); g.add(m); }
-    g.add(at(box(0.11 * s, 0.1 * s, 0.004, '#FFFFFF', { noGrain: true }), 0, -0.11 * s, 0, 0, 0, 0.3)); return g; },
+  // (review 2) a flat crumpled sheet held up to the eyes: three thin creased panels with a grey crease line (round lumps read as white birds)
+  plTissue(o) { const g = grp(), s = o.s ?? 1, W = 0.1 * s, H = 0.12 * s;
+    for (let i = 0; i < 3; i++) g.add(at(box(W * (1 - 0.15 * i), H * (1 - 0.2 * i), 0.004, i === 1 ? '#ECEEF2' : '#FFFFFF', { noGrain: true }), (i - 1) * 0.012 * s, -H * 0.45 - 0.008 * i * s, 0.004 * i, 0.25 * (i - 1), 0.35 * (i - 1), 0.2 + 0.3 * i));
+    g.add(at(box(0.004, H * 0.8, 0.006, '#C9CDD3'), 0.004, -H * 0.45, 0.006, 0, 0, 0.35)); return g; },
 
   // ---------------------------------------------------------------- a stamped permit held up to the lens (pivot at its middle, front +Z): a cream sheet,
   // the title PERMIS D'EXHUMER, grey lines, and at o.stampAt a big red round stamp ACCORDÉ pops on it (tilted, with an overshoot); o.w (0.5)
@@ -399,6 +401,27 @@ export const PELLE_PROPS = {
     g.add(at(box(0.04, 0.3, 0.22, '#2F62B5'), 0.04, h + 0.05, -0.04, 0, 0, -0.15), at(box(0.04, 0.28, 0.22, '#E8B020'), 0.1, h + 0.04, -0.04, 0, 0, 0.1));
     g.add(rod([0.18, h - 0.05, 0.0], [0.2, h + 0.25, 0.0], 0.015, '#3A3D44'), rod([0.2, h + 0.25, 0.0], [0.12, h + 0.38, 0.05], 0.015, '#3A3D44'), at(cyl(0.03, 0.07, 0.08, '#3A3D44', 8), 0.1, h + 0.36, 0.06, 0.6, 0, 0));
     g.add(at(cyl(0.04, 0.04, 0.08, '#F4F4F0', 8, { pivot: 'bottom' }), 0.16, h - 0.03, 0.12)); return g; },
+
+  // ---------------------------------------------------------------- (review 2) the little crab of « Le robinet » riding on the sand mound round his
+  // neck (pivot at his neck, like plMound): its height follows the dome under it (o.r 0.62, o.h 0.17), so on the slope it no longer sinks in
+  plCrab(o) { const g = grp(), c = ROBINET_PROPS.crab(o), R = o.r ?? 0.62, Hh = o.h ?? 0.17; g.add(c);
+    g.userData.update = t => { c.userData.update(t); const q = Math.hypot(c.position.x, c.position.z) / R; c.position.y = q < 1 ? Hh * Math.sqrt(1 - q * q) : 0; };
+    g.userData.update(0); return g; },
+
+  // ---------------------------------------------------------------- (review 2) a flat striped beach towel lying on the sand (pivot at its middle):
+  // o.w x o.d, stripes o.colors across its length; drawn with a polygon offset toward the camera, so the 9 km ground plane under it (two huge
+  // triangles, imprecise depth) never wins the depth test: the towels of the overhead shot popped in and out frame by frame
+  plTowel(o) { const w = o.w ?? 0.9, d = o.d ?? 2.0, cols = o.colors || ['#2A2C32', '#EDE8DC'], k = o.n ?? 7, N = 128, cv = canvas(N, Math.round(N * d / w)), c = cv.getContext('2d');
+    for (let i = 0; i < k; i++) { c.fillStyle = cols[i % cols.length]; c.fillRect(0, i * cv.height / k, N, cv.height / k + 1); }
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, d).rotateX(-PI / 2), new THREE.MeshLambertMaterial({ map: tex(cv), polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -16 }));
+    m.position.y = o.y ?? 0.035; m.receiveShadow = true; return grp(m); },
+
+  // ---------------------------------------------------------------- (review 2) the wall calendar of « La canicule » with blank page backs (pivot at
+  // its middle): a page that flies off showed its month in mirror writing; each page is drawn on its front only and gets a plain cream back
+  plCalendar(o) { const g = CANICULE_PROPS.monthCalendar(o), pages = [];
+    g.traverse(n => { if (n.isMesh && n.material && n.material.map && n.material.side === THREE.DoubleSide) pages.push(n); });
+    for (const n of pages) { n.material.side = THREE.FrontSide; const b = new THREE.Mesh(n.geometry, new THREE.MeshLambertMaterial({ color: '#EFEADC', side: THREE.BackSide })); b.position.copy(n.position); b.rotation.copy(n.rotation); n.parent.add(b); }
+    return g; },
 
   // ---------------------------------------------------------------- an open glossy magazine held flat between two readers (pivot at its spine)
   plMagazine(o) { const w = o.w ?? 0.34, h = w * 1.3, g = grp();
