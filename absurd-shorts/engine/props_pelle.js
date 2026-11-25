@@ -118,7 +118,7 @@ export const PELLE_PROPS = {
   // Rows of sand blocks in a horseshoe of radius o.R (0.34) open toward +Z (his face) by o.open (1.0 rad each side), each row a little smaller and
   // stepped in; o.rows rows at the start, one more row pops (outBack) at each time in o.add; o.y0: the foot of the wall (on the mound). o.mausoleum:
   // the finished mausoleum instead: high crenellated walls, two round corner towers with cone roofs beside his face, a lintel and a pediment above
-  // his head, a shell on the pediment, steps of sand blocks in front (o.H its wall height, 0.7)
+  // his head, a starfish on the pediment, steps of sand blocks in front (o.H its wall height, 0.7)
   plCrabWall(o) {
     const g = grp(), R = o.R ?? 0.36, op = o.open ?? 1.0, bh = o.bh ?? 0.068, y0 = o.y0 ?? 0.1, c1 = o.color || '#E2C686', c2 = '#D4B470';
     const rowAt = i => { const r = R - i * 0.008, n = Math.max(6, Math.round((TAU - 2 * op) * r / 0.1)), list = [];
@@ -137,8 +137,12 @@ export const PELLE_PROPS = {
       g.add(at(box(sx * 2 + 0.12, 0.1, 0.16, c1, { outline: 0.01 }), 0, y0 + H + 0.05, zl));
       const tri = new THREE.Shape([new THREE.Vector2(-sx - 0.06, 0), new THREE.Vector2(sx + 0.06, 0), new THREE.Vector2(0, 0.26)].map(v => v));
       const ped = new THREE.Mesh(new THREE.ExtrudeGeometry(tri, { depth: 0.12, bevelEnabled: false }), mat(c2)); ped.position.set(0, y0 + H + 0.1, zl - 0.06); ped.castShadow = true; g.add(ped);
-      const shell = grp(); for (let k = 0; k < 7; k++) shell.add(at(box(0.016, 0.09, 0.012, '#F4E8D0'), Math.sin((k - 3) * 0.32) * 0.03, 0.04 + Math.cos((k - 3) * 0.32) * 0.01, 0, 0, 0, -(k - 3) * 0.32));
-      shell.position.set(0, y0 + H + 0.16, zl + 0.07); g.add(shell);
+      // (review 1) a five-armed starfish on the pediment (a fan-shaped shell recalled a company logo)
+      const star = grp(), sp = new THREE.Shape();
+      for (let k = 0; k < 10; k++) { const a = PI / 2 + k * PI / 5, rr = k % 2 ? 0.026 : 0.068; const x = Math.cos(a) * rr, y = Math.sin(a) * rr; if (k) sp.lineTo(x, y); else sp.moveTo(x, y); }
+      const sm = new THREE.Mesh(new THREE.ExtrudeGeometry(sp, { depth: 0.014, bevelEnabled: false }), mat('#E8875A')); sm.castShadow = true; star.add(sm);
+      for (let k = 0; k < 5; k++) { const a = PI / 2 + k * TAU / 5; star.add(at(box(0.008, 0.008, 0.004, '#F6D2B0'), Math.cos(a) * 0.035, Math.sin(a) * 0.035, 0.016)); }
+      star.position.set(0, y0 + H + 0.18, zl + 0.065); star.rotation.z = 0.12; g.add(star);
       // (stills 1) two low rows of steps well in front of the opening: three rows close in hid his chin and mouth from a low camera
       const steps = []; for (let i = 0; i < 2; i++) for (let j = -2 + i; j <= 2 - i; j++) steps.push([j * 0.1, 0.02 + bh * (i + 0.5), zl + 0.48 - i * 0.07, 0, 0, 0, 1, 1, 1]);
       g.add(inst(new THREE.BoxGeometry(0.095, bh * 0.95, 0.08), mat(c1), steps));
@@ -331,9 +335,13 @@ export const PELLE_PROPS = {
     g.children[0].rotation.x = o.tip ?? 0.1; return g; },
 
   // ---------------------------------------------------------------- a black mourning veil (attach to the head joint, offset [0, 0.5, 0]): a little
-  // pillbox hat and a short net over the brow that stops above the eyes (the face shows)
+  // pillbox hat and a short net over the brow that stops above the eyes (the face shows); o.scarf: a black headscarf over the top, sides and back
   plVeil(o) { const g = grp(at(cyl(0.12, 0.13, 0.08, '#141418', 12, { pivot: 'bottom' }), 0, 0, -0.02)); const net = new THREE.Mesh(new THREE.PlaneGeometry(o.w ?? 0.36, o.h ?? 0.14), B('#141418', { transparent: true, opacity: 0.55, side: THREE.DoubleSide, depthWrite: false }));
-    net.position.set(0, -0.05, 0.11); net.rotation.x = 0.25; g.add(net); return g; },
+    net.position.set(0, -0.05, 0.11); net.rotation.x = 0.25; g.add(net);
+    if (o.scarf) { const sw = o.scarf === true ? 0.44 : o.scarf, sc = '#141418';
+      g.add(at(box(sw, 0.12, sw * 0.95, sc, { outline: 0.01 }), 0, 0.03, -0.01), at(box(sw, 0.55, 0.05, sc), 0, -0.22, -sw * 0.48 - 0.01));
+      for (const sd of [-1, 1]) g.add(at(box(0.05, 0.42, sw * 0.9, sc), sd * (sw / 2 + 0.005), -0.19, -0.02)); }
+    return g; },
 
   // ---------------------------------------------------------------- a big crumpled white tissue (attach to a hand)
   // a rolled beach towel carried under an arm (attach to the torso joint): a striped roll
@@ -362,19 +370,19 @@ export const PELLE_PROPS = {
     fr.position.z = f / 2 + 0.002; g.add(fr); return g; },
 
   // ---------------------------------------------------------------- the tax form held up to the lens (pivot at its middle): AVIS D'IMPOSITION, lines,
-  // a red box À PAYER with a long amount of zeros drawn as bars
+  // a red box À PAYER (no amount, no currency symbol)
   plTaxForm(o) { const w = o.w ?? 0.46, h = w * 1.35;
     return grp(at(box(w, h, 0.01, '#E8E8E4', { outline: 0.01 }), 0, 0, -0.008), canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); c.fillStyle = '#1E2A44'; c.textAlign = 'center'; c.textBaseline = 'middle';
       fitText(c, "AVIS D'IMPOSITION", W / 2, H * 0.1, W * 0.84, H * 0.07); c.fillStyle = '#9AA0AA'; for (let i = 0; i < 6; i++) c.fillRect(W * 0.1, H * (0.22 + i * 0.065), W * (i % 2 ? 0.5 : 0.78), H * 0.016);
-      c.strokeStyle = '#C8322A'; c.lineWidth = W * 0.02; c.strokeRect(W * 0.1, H * 0.66, W * 0.8, H * 0.22); c.fillStyle = '#C8322A'; fitText(c, 'À PAYER', W / 2, H * 0.72, W * 0.6, H * 0.06); fitText(c, '9 999 €', W / 2, H * 0.82, W * 0.66, H * 0.09); }, { res: 512 })); },
+      c.strokeStyle = '#C8322A'; c.lineWidth = W * 0.02; c.strokeRect(W * 0.1, H * 0.66, W * 0.8, H * 0.22); c.fillStyle = '#C8322A'; fitText(c, 'À PAYER', W / 2, H * 0.77, W * 0.7, H * 0.12); }, { res: 512 })); },
 
   // ---------------------------------------------------------------- a burst of sand thrown off his head (pivot at its source): o.at [t, ...], o.n
   // grains per burst flying out in a fan toward o.dir (+Z) and to the sides, falling under gravity, o.s their size
   plSandSpray(o) {
     const g = grp(), n = o.n ?? 40, s = o.s ?? 0.035, grains = [];
     for (const t0 of o.at || []) for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(s * (0.6 + hsh(i * 7 + t0) * 0.8), 0), mat(i % 3 ? '#D9BC7A' : '#C9A862')); m.castShadow = false; g.add(m);
-      const a = (hsh(i * 3 + t0 * 11) - 0.5) * PI * 1.5, sp = 2.2 + hsh(i + 1.3) * 2.2, up = 1.2 + hsh(i * 5.1) * 2.2; grains.push([m, t0, Math.sin(a) * sp * (o.side ?? 1), up, Math.cos(a) * sp * 0.6 + (o.fwd ?? 1.2)]); }
-    g.userData.update = t => { for (const [m, t0, vx, vy, vz] of grains) { const u = t - t0; m.visible = u > 0 && u < 0.9; if (!m.visible) continue; m.position.set(vx * u, Math.max(-0.2, vy * u - 4.9 * u * u), vz * u); m.rotation.set(u * 9, u * 7, 0); } };
+      const a = (hsh(i * 3 + t0 * 11) - 0.5) * PI * (o.fan ?? 1.5), sp = 2.2 + hsh(i + 1.3) * 2.2, up = 1.2 + hsh(i * 5.1) * 2.2; grains.push([m, t0, Math.sin(a) * sp * (o.side ?? 1), up, Math.cos(a) * sp * 0.6 + (o.fwd ?? 1.2)]); }
+    g.userData.update = t => { for (const [m, t0, vx, vy, vz] of grains) { const u = t - t0; const y = vy * u - 4.9 * u * u; m.visible = u > 0 && u < (o.life ?? 0.9) && (y > -0.05 || u < 0.1); if (!m.visible) continue; m.position.set(vx * u, Math.max(-0.2, y), vz * u); m.rotation.set(u * 9, u * 7, 0); } };
     g.userData.update(0); return g;
   },
 
@@ -402,9 +410,19 @@ export const PELLE_PROPS = {
   // (pivot at the centre of their circle): o.n (3), o.R (6), o.h (heights step 0.8 m), o.rate (rad/s), wings flapping now and then
   plGulls(o) { const g = grp(), gs = [];
     for (let i = 0; i < (o.n ?? 3); i++) { const q = grp(), bd = sphere(0.12, '#F4F4F0', 1); bd.scale.set(0.7, 0.6, 1.6); q.add(bd); const hd = sphere(0.07, '#F4F4F0', 1); hd.position.set(0, 0.05, 0.2); q.add(hd); const bk = new THREE.Mesh(new THREE.ConeGeometry(0.02, 0.07, 5), mat('#F2B23A')); bk.rotation.x = PI / 2; bk.position.set(0, 0.04, 0.29); q.add(bk);
-      const ws = [-1, 1].map(sd => { const w = grp(at(box(0.45, 0.015, 0.14, '#C9CDD3', { outline: 0.03 }), sd * 0.22, 0, 0), at(box(0.12, 0.016, 0.1, '#2A2C30'), sd * 0.42, 0.001, -0.01)); q.add(w); return [w, sd]; });
+      const ws = [-1, 1].map(sd => { const w = grp(at(box(0.45, 0.015, 0.14, '#C9CDD3', { outline: 0.03, emissive: '#6A6E74' }), sd * 0.22, 0, 0), at(box(0.12, 0.016, 0.1, '#2A2C30'), sd * 0.42, 0.001, -0.01)); q.add(w); return [w, sd]; });
       q.scale.setScalar(o.s ?? 1.4); g.add(q); gs.push([q, ws, i]); }
+    // (review 1) the gulls cast no shadow: seen low from the sand, their soft shadows swept the foreground as dark blobs
+    g.traverse(c => { c.castShadow = false; if (c.isMesh && c.material && c.material.color && c.material.color.getHex() === 0xF4F4F0) c.material = mat('#F4F4F0', { emissive: '#7A7A76' }); });
     g.userData.update = t => gs.forEach(([q, ws, i]) => { const a = t * (o.rate ?? 0.35) + i * TAU / gs.length, R = (o.R ?? 6) * (0.85 + 0.15 * i); q.position.set(Math.cos(a) * R, i * (o.h ?? 0.8) + 0.2 * Math.sin(t * 1.3 + i), Math.sin(a) * R); q.rotation.set(0, -a + PI, 0.35);
       const fl = Math.sin(t * 9 + i) > 0.2 ? Math.sin(t * 14 + i) * 0.5 : 0.08; for (const [w, sd] of ws) w.rotation.z = sd * fl; });
     g.userData.update(0); return g; },
+
+  // ---------------------------------------------------------------- an invisible fill light (pivot at the light): a soft point light that lifts a face in
+  // the headstone's shade or a stone at sunset without a visible source; o.color, o.I (intensity, 2), o.R (reach, m, 2), o.decay (1.4); o.at [[t, k], ...]
+  plFill(o) {
+    const g = grp(), l = new THREE.PointLight(o.color || '#FFE8CC', o.I ?? 2, o.R ?? 2, o.decay ?? 1.4); l.castShadow = false; g.add(l);
+    g.userData.update = t => { l.intensity = (o.I ?? 2) * keyAt(o.at, t, 1); };
+    g.userData.update(0); return g;
+  },
 };

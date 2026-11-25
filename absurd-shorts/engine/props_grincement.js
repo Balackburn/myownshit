@@ -316,13 +316,17 @@ export const GRINCEMENT_PROPS = {
     const pageDraw = (wordOn, defOn) => (c, w, h) => {
       c.fillStyle = '#FBF5E4'; c.fillRect(0, 0, w, h);
       if (wordOn) { c.fillStyle = INK; c.textAlign = 'center'; c.textBaseline = 'middle'; fitText(c, o.word || 'IIIIIK', w / 2, h * 0.26, w * 0.86, h * 0.26, 900, 'Georgia'); c.fillStyle = '#9A3A22'; c.fillRect(w * 0.15, h * 0.41, w * 0.7, h * 0.012); }
-      if (defOn) { c.fillStyle = '#1E2E44'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitText(c, o.def || "de l'huile", w / 2, h * 0.54, w * 0.86, h * 0.15, 800, 'Georgia'); drawDrop(c, w / 2, h * 0.75, h * 0.17, '#E8A818', INK, 0.06); }
+      if (defOn) { c.fillStyle = '#1E2E44'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitText(c, o.def || "de l'huile", w / 2, h * 0.54, w * 0.86, h * 0.15, 800, 'Georgia'); if (!o.dropPop) drawDrop(c, w / 2, h * 0.75, h * 0.17, '#E8A818', INK, 0.06); }
     };
     // a page lies face up: its width along X, the top of its text toward -Z (read by a camera above the book, on its +Z side)
     const mkPage = (draw, x, y) => { const p = canvasPlane(pw, D - 0.04, draw, { res: 512 }); p.rotation.x = -PI / 2; p.position.set(x, y, 0); return p; };
     const left = mkPage(pageDraw(false, false), -pw / 2 - 0.01, 0.121), rightBlank = mkPage(pageDraw(false, false), pw / 2 + 0.01, 0.081), rightWord = mkPage(pageDraw(true, false), pw / 2 + 0.01, 0.0815), rightDef = mkPage(pageDraw(true, true), pw / 2 + 0.01, 0.082);
     for (const p of [left, rightBlank, rightWord, rightDef]) g.add(p);
     left.material.side = rightBlank.material.side = THREE.FrontSide;
+    // (round 3 fix) o.dropPop: the oil drop is its own sticker over the page: it pops in with an overshoot at o.defAt, then keeps rocking and
+    // swelling gently, and the book gives a small settle bounce as it lands (no still frame on the payoff)
+    const Dp = D - 0.04, dropSp = o.dropPop ? canvasPlane(Dp * 0.36, Dp * 0.36, (c, w, h) => { c.clearRect(0, 0, w, h); drawDrop(c, w / 2, h * 0.5, h * 0.47, '#E8A818', INK, 0.06); }, { res: 256, transparent: true }) : null;
+    if (dropSp) { dropSp.rotation.x = -PI / 2; dropSp.position.set(pw / 2 + 0.01, 0.084, Dp * 0.25); dropSp.renderOrder = 3; dropSp.visible = false; g.add(dropSp); }
     // the turning pages: a pool of sheets on pivots on the spine, each lies along +X and turns over to -X
     const F = o.flip || null, nF = F ? F[2] : 0, acc = F ? (F[3] ?? 2.4) : 1, pool = [];
     const starts = [], durs = [];
@@ -344,6 +348,9 @@ export const GRINCEMENT_PROPS = {
       }
       const def = o.defAt != null && t >= o.defAt;
       rightBlank.visible = !showWord; rightWord.visible = showWord && !def; rightDef.visible = showWord && def;
+      if (dropSp) { const v = t - o.defAt; dropSp.visible = def;
+        if (def) { const k = Math.max(0.01, outBack(v / 0.2, 2.4)) * (1 + 0.06 * Math.sin(v * 8.5)); dropSp.scale.set(k, k, 1); dropSp.rotation.z = 0.16 * Math.sin(v * 7) * Math.exp(-1.5 * v) + 0.05 * Math.sin(v * 4.2);
+          const b = v < 0.7 ? Math.exp(-6 * v) * Math.cos(v * 24) : 0; g.scale.set(1 + 0.02 * b, 1 - 0.12 * b, 1 + 0.02 * b); } }
     };
     root.userData.update(0); return root;
   },
@@ -398,7 +405,8 @@ export const GRINCEMENT_PROPS = {
   // o.life (1.6 s); o.r flake radius (0.025)
   grinSnowStream(o) {
     const n = o.n ?? 70, g = grp(), fr = o.from || [0, 1.3, 2.5], dir = o.dir || [0, -0.25, -2.2], sp = o.spread || [1.6, 1.8], life = o.life ?? 1.6, r = o.r ?? 0.025;
-    const geo = new THREE.IcosahedronGeometry(r, 0), m = new THREE.MeshBasicMaterial({ color: '#FFFFFF', toneMapped: false }), flakes = [];
+    // (round 3 fix) round flakes (the faceted icosahedra read as hexagonal confetti); o.facet: the old faceted ones
+    const geo = o.facet ? new THREE.IcosahedronGeometry(r, 0) : new THREE.SphereGeometry(r, 10, 7), m = new THREE.MeshBasicMaterial({ color: '#FFFFFF', toneMapped: false }), flakes = [];
     for (let i = 0; i < n; i++) { const f = new THREE.Mesh(geo, m); const hs = Math.sin(i * 91.7) * 0.5 + 0.5, hs2 = Math.sin(i * 37.3 + 1) * 0.5 + 0.5, hs3 = Math.sin(i * 53.1 + 2) * 0.5 + 0.5; f.userData.h = [hs, hs2, hs3]; g.add(f); flakes.push(f); }
     g.userData.update = t => { for (const f of flakes) { const [a, b, c2] = f.userData.h, u = ((t / life) + a) % 1;
       f.position.set(fr[0] + (b - 0.5) * sp[0] + dir[0] * u * life + 0.08 * Math.sin(t * 3 + a * 9), fr[1] + (c2 - 0.5) * sp[1] + dir[1] * u * life + 0.05 * Math.sin(t * 4 + b * 7), fr[2] + dir[2] * u * life);
@@ -411,7 +419,22 @@ export const GRINCEMENT_PROPS = {
   grinPatch(o) {
     const R = o.r ?? 0.9, pts = []; for (let i = 0; i < 28; i++) { const a = i / 28 * TAU, k = 1 + 0.16 * Math.sin(3 * a + 0.4) + 0.1 * Math.sin(5 * a + 1.7); pts.push(V2(Math.cos(a) * R * k * (o.sx ?? 1.3), Math.sin(a) * R * k)); }
     const m = new THREE.Mesh(new THREE.ShapeGeometry(new THREE.Shape(pts)), new THREE.MeshLambertMaterial({ color: o.color || '#5E6670', depthTest: false, depthWrite: false, side: THREE.DoubleSide }));
-    m.rotation.x = -PI / 2; m.position.y = o.y ?? 0.065; m.renderOrder = o.ro ?? -1.1; m.receiveShadow = true; return grp(m);
+    m.rotation.x = -PI / 2; m.position.y = o.y ?? 0.065; m.renderOrder = o.ro ?? -1.1; m.receiveShadow = true;
+    if (!o.wet) return grp(m);
+    // (round 3 fix) o.wet: a melted wet patch instead of a flat blob: the same outline in six opaque rings shading from the snow's colour (o.ground)
+    // to the wet grey in the middle (a soft edge; opaque and drawn first like the plain patch: a transparent layer without depth test covers the
+    // actors), a long cool sheen across it, and a ring of slush lumps and melting snow round its edge
+    const SX = o.sx ?? 1.3, cG = new THREE.Color(o.ground || '#E4E8EE'), cW = new THREE.Color(o.color || '#5E6670'), rings = [];
+    for (let i = 0; i < 6; i++) { const sc = 1.24 - i * 0.06, mi = new THREE.Mesh(new THREE.ShapeGeometry(new THREE.Shape(pts.map(q => V2(q.x * sc, q.y * sc)))), new THREE.MeshLambertMaterial({ color: cG.clone().lerp(cW, (i + 1) / 6), depthTest: false, depthWrite: false, side: THREE.DoubleSide }));
+      mi.rotation.x = -PI / 2; mi.position.y = (o.y ?? 0.065) + 0.0005 * i; mi.renderOrder = (o.ro ?? -1.1) - 0.06 + 0.01 * i; mi.receiveShadow = true; rings.push(mi); }
+    const sheen = new THREE.Mesh(new THREE.CircleGeometry(R * 0.55, 20), new THREE.MeshLambertMaterial({ color: cW.clone().lerp(new THREE.Color('#DCE8F4'), 0.45), emissive: '#3A4654', depthTest: false, depthWrite: false, side: THREE.DoubleSide }));
+    sheen.scale.set(SX * 0.95, 0.2, 1); sheen.rotation.set(-PI / 2, 0, 0.25); sheen.position.set(R * 0.1, (o.y ?? 0.065) + 0.004, -R * 0.05); sheen.renderOrder = (o.ro ?? -1.1) + 0.01;
+    const glint = new THREE.Mesh(new THREE.CircleGeometry(R * 0.09, 12), new THREE.MeshBasicMaterial({ color: '#F4F8FC', depthTest: false, depthWrite: false, side: THREE.DoubleSide }));
+    glint.scale.set(SX * 1.2, 0.3, 1); glint.rotation.set(-PI / 2, 0, 0.25); glint.position.set(R * 0.35, (o.y ?? 0.065) + 0.005, -R * 0.12); glint.renderOrder = (o.ro ?? -1.1) + 0.02;
+    m.visible = false; const g = grp(m, ...rings, sheen, glint);
+    for (let i = 0; i < 22; i++) { const a = i / 22 * TAU + 0.13 * Math.sin(i * 7.1), q = pts[Math.round(a / TAU * 28) % 28], k = 1.12 + 0.08 * Math.sin(i * 3.7);
+      const lump = sphere(0.03 + 0.02 * (0.5 + 0.5 * Math.sin(i * 5.3)), i % 3 ? '#EEF2F6' : '#D3DAE2', 1); lump.scale.set(1.4, 0.45, 1.1); lump.position.set(q.x * k, (o.y ?? 0.065) - 0.01, -q.y * k); g.add(lump); }
+    return g;
   },
 
   // ---------------------------------------------------------------- a duvet over somebody lying in bed (pivot at its foot end's middle on the
@@ -564,12 +587,15 @@ export const GRINCEMENT_PROPS = {
   // ---------------------------------------------------------------- (round 1 fix) a small moving van seen from its back (pivot at the floor in its
   // middle, the front toward -Z, the open back toward +Z): a white box o.len (3.0) long with a blue band and « DÉMÉNAGEMENT » on its sides (o.text), a
   // coloured cab in front with a dark windscreen and side window, four dark wheels with pale hubs, tail lamps, and both rear doors swung wide open
-  // (o.doors, rad) on a dark load space with a few boxes inside
+  // (o.doors, rad) on a dark load space with a few boxes inside; (round 3 fix) a wheel arch over each wheel (o.arches false: none)
   grinVan(o) {
     const Lv = o.len ?? 3.0, Wv = 1.7, Hb = 1.75, C = o.color || '#E8742E', g = grp(), y0 = 0.35, zb = Lv / 2;
-    g.add(at(box(Wv, Hb, Lv - 1.0, '#F4F2EC', { pivot: 'bottom', outline: 0.012 }), 0, y0, 0.5));
-    g.add(at(box(Wv + 0.01, Hb - 0.1, 0.05, '#2A2D33'), 0, y0 + 0.05 + (Hb - 0.1) / 2, zb - 0.02));
-    for (const [x, y, z, s] of [[-0.35, 0.0, zb - 0.4, 0.5], [0.3, 0.0, zb - 0.6, 0.6], [-0.2, 0.5, zb - 0.7, 0.45]]) g.add(at(box(s, s * 0.8, s, '#C49A66', { pivot: 'bottom', outline: 0.006 }), x, y0 + 0.06 + y, z));
+    // (round 3 fix) a hollow load box (floor, roof, two walls, a dark bulkhead, grey lining), so the boxes inside show through the open back
+    const Lb = Lv - 1.0, tw = 0.06;
+    g.add(at(box(Wv, 0.08, Lb, '#8A8E94', { pivot: 'bottom', outline: 0.008 }), 0, y0, 0.5), at(box(Wv, 0.08, Lb, '#F4F2EC', { pivot: 'bottom', outline: 0.01 }), 0, y0 + Hb - 0.08, 0.5));
+    for (const sd of [-1, 1]) g.add(at(box(tw, Hb, Lb, '#F4F2EC', { pivot: 'bottom', outline: 0.01 }), sd * (Wv / 2 - tw / 2), y0, 0.5), at(box(0.01, Hb - 0.16, Lb - 0.08, '#6E727A', { pivot: 'bottom' }), sd * (Wv / 2 - tw - 0.006), y0 + 0.08, 0.5));
+    g.add(at(box(Wv - 0.02, Hb - 0.1, 0.06, '#4A4E56', { pivot: 'bottom' }), 0, y0 + 0.05, 0.5 - Lb / 2 + 0.03));
+    for (const [x, y, z, s] of [[-0.35, 0.0, zb - 0.4, 0.5], [0.3, 0.0, zb - 0.6, 0.6], [-0.2, 0.5, zb - 0.7, 0.45], [0.28, 0.6, zb - 0.8, 0.4]]) g.add(at(box(s, s * 0.8, s, '#C49A66', { pivot: 'bottom', outline: 0.006 }), x, y0 + 0.06 + y, z));
     for (const sd of [-1, 1]) { g.add(at(box(0.012, 0.16, Lv - 1.1, '#2F62B5'), sd * (Wv / 2 + 0.006), y0 + 0.5, 0.5)); if (o.text === '') continue;
       const t = canvasPlane(Lv - 1.3, 0.34, (c, w, h) => { c.fillStyle = '#F4F2EC'; c.fillRect(0, 0, w, h); c.fillStyle = '#2F62B5'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitText(c, o.text ?? 'DÉMÉNAGEMENT', w / 2, h * 0.55, w * 0.94, h * 0.8); }, { res: 512 });
       t.rotation.y = sd * PI / 2; t.position.set(sd * (Wv / 2 + 0.008), y0 + 1.2, 0.5); g.add(t); }
@@ -577,9 +603,13 @@ export const GRINCEMENT_PROPS = {
     g.add(at(box(Wv - 0.2, 0.42, 0.03, '#33456E', { emissive: '#1A2238' }), 0, y0 + 1.22, -Lv / 2 + 0.24, -0.35, 0, 0));
     for (const sd of [-1, 1]) g.add(at(box(0.02, 0.36, 0.5, '#33456E', { emissive: '#1A2238' }), sd * (Wv / 2 - 0.02), y0 + 1.2, -Lv / 2 + 0.66));
     g.add(at(box(Wv, 0.14, 0.1, '#3A3D44', { outline: 0.006 }), 0, y0 + 0.08, zb + 0.03), at(box(Wv, 0.14, 0.1, '#3A3D44'), 0, y0 + 0.1, -Lv / 2 - 0.02));
-    for (const sd of [-1, 1]) g.add(at(box(0.14, 0.22, 0.04, '#D8262C', { emissive: '#6A0A0A' }), sd * (Wv / 2 - 0.1), y0 + 0.45, zb + 0.01));
+    for (const sd of [-1, 1]) g.add(at(box(0.08, 0.22, 0.04, '#D8262C', { emissive: '#6A0A0A' }), sd * (Wv / 2 - 0.04), y0 + 0.45, zb + 0.01));
     for (const z of [-Lv / 2 + 0.55, Lv / 2 - 0.55]) for (const sd of [-1, 1]) { const wh = cyl(0.34, 0.34, 0.24, '#22252A', 14); wh.rotation.z = PI / 2; wh.position.set(sd * (Wv / 2 - 0.08), 0.34, z); g.add(wh);
-      const hub = cyl(0.15, 0.15, 0.02, '#B9BEC4', 8); hub.rotation.z = PI / 2; hub.position.set(sd * (Wv / 2 + 0.05), 0.34, z); g.add(hub); }
+      const hub = cyl(0.15, 0.15, 0.02, '#B9BEC4', 8); hub.rotation.z = PI / 2; hub.position.set(sd * (Wv / 2 + 0.05), 0.34, z); g.add(hub);
+      // (round 3 fix) a wheel arch on the body's side over each wheel: a dark well and a grey rim
+      if (o.arches !== false) { const well = new THREE.Mesh(new THREE.CircleGeometry(0.42, 12, 0, PI), new THREE.MeshLambertMaterial({ color: '#1E2024', side: THREE.DoubleSide }));
+        well.rotation.y = PI / 2; well.position.set(sd * (Wv / 2 + 0.012), 0.34, z); g.add(well);
+        const rim = new THREE.Mesh(new THREE.TorusGeometry(0.43, 0.035, 4, 12, PI), mat('#4A4E56')); rim.rotation.y = PI / 2; rim.position.set(sd * (Wv / 2 + 0.02), 0.34, z); g.add(rim); } }
     const da = o.doors ?? 1.9;
     for (const sd of [-1, 1]) { const pv = grp(); pv.position.set(sd * Wv / 2, y0 + 0.05, zb); pv.rotation.y = sd * da; g.add(pv);
       pv.add(at(box(Wv / 2 - 0.02, Hb - 0.12, 0.05, '#ECEAE2', { pivot: 'bottom', outline: 0.008 }), -sd * (Wv / 4 - 0.01), 0, 0.03), at(box(0.05, 0.3, 0.02, '#8A8E94'), -sd * (Wv / 2 - 0.14), (Hb - 0.12) * 0.5, 0.06)); }
@@ -601,6 +631,29 @@ export const GRINCEMENT_PROPS = {
     const pool = o.pool ? glowPlane(o.pool[1], '#FFC870', o.poolOp ?? 0.4, [0, o.pool[0], 0]) : null; if (pool) { pool.rotation.x = -PI / 2; g.add(pool); }
     g.userData.update = t => { const a = (o.swing ?? 0) * Math.sin(t * (o.rate ?? 2.4) + (o.ph ?? 0)); arm.rotation.z = a;
       if (pool) pool.position.x = -o.pool[0] * Math.tan(a); };
+    g.userData.update(0); return g;
+  },
+  // ---------------------------------------------------------------- (round 3 fix) a long hairdo that overhangs a box head (attach to the head
+  // joint, offset [0, 0, 0]): seen from behind or three-quarter rear it reads as hair, not a box. A rounded crown over the back two thirds of the
+  // head, wider than the head, and a back curtain whose outline bulges past the cheeks, falls onto the shoulders with a scalloped hem and flicks
+  // out at both ends; an ink edge on each. o.w / o.h / o.d: the head's width (0.222), height (0.5) and depth (0.17); o.color; o.sway (rad);
+  // o.bob: the curtain's lower edge as a fraction of the head's height (-0.02: onto the shoulders; about 0.4: a bob over a bare nape)
+  grinHairDo(o) {
+    const W = o.w ?? 0.222, H = o.h ?? 0.5, D = o.d ?? 0.17, c = o.color || '#C8503A', g = grp(), sw = grp(); g.add(sw);
+    const hm = new THREE.MeshLambertMaterial({ color: c, flatShading: true }), ink = new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide });
+    const crown = new THREE.Mesh(new THREE.CylinderGeometry(W * 0.6, W * 0.6, D * 0.78, 10, 1, false, -PI * 0.5, PI), hm);
+    crown.rotation.x = -PI / 2; crown.position.set(0, H, -D * 0.12); crown.scale.set(1, 1, 0.75); crown.castShadow = true; g.add(crown);
+    const cI = new THREE.Mesh(crown.geometry, ink); cI.scale.set(1.06, 1.03, 1.06); crown.add(cI);
+    const yb = H * (o.bob ?? -0.02), ym = (H * 0.92 + yb) / 2, yq = yb + (H * 0.92 - yb) * 0.2;
+    const P_ = [V2(-W * 0.6, H * 0.92), V2(-W * 0.66, ym), V2(-W * 0.63, yq), V2(-W * 0.6, yb), V2(-W * 0.84, yb - H * 0.07), V2(-W * 0.62, yb - H * 0.11)];
+    for (let i = 0; i <= 6; i++) { const x = -W * 0.5 + W * i / 6; P_.push(V2(x, yb - H * (i % 2 ? 0.15 : 0.1))); }
+    P_.push(V2(W * 0.62, yb - H * 0.11), V2(W * 0.84, yb - H * 0.07), V2(W * 0.6, yb), V2(W * 0.63, yq), V2(W * 0.66, ym), V2(W * 0.6, H * 0.92));
+    const sh = new THREE.Shape(P_); sh.absarc(0, H * 0.92, W * 0.6, 0, PI, false);
+    const geo = new THREE.ExtrudeGeometry(sh, { depth: 0.035, bevelEnabled: true, bevelThickness: 0.012, bevelSize: 0.01, bevelSegments: 1, curveSegments: 6 });
+    const back = new THREE.Mesh(geo, hm); back.position.set(0, 0, -D / 2 - 0.045); back.castShadow = true; sw.add(back);
+    const bI = new THREE.Mesh(geo, ink); bI.scale.set(1.04, 1.03, 1.2); back.add(bI);
+    for (const sd of [-1, 1]) { const lh = H * 0.96 - yb, lk = at(box(0.03, lh, D * 0.55, c, { outline: 0.006 }), sd * (W / 2 + 0.018), yb + lh / 2, -D * 0.22); g.add(lk); }
+    g.userData.update = t => { sw.rotation.x = -0.06 + (o.sway ?? 0.03) * Math.sin(t * 2.1); };
     g.userData.update(0); return g;
   },
 };
