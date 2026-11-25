@@ -43,6 +43,53 @@ const groundLayer = (w, d, color, x, z, order) => {
   m.position.set(x, 0.01, z); m.renderOrder = order; m.receiveShadow = true; return m;
 };
 
+function ovalsFace(o) {
+  const g = grp(), LV = o.level ?? 212, BU = o.browUp ?? 242, X0 = o.x0 ?? 200, Y0 = 160, Y1 = 400;
+  const hx = parseInt(String(o.color || '#E2A08A').slice(1), 16), pale = [hx >> 16 & 255, hx >> 8 & 255, hx & 255];
+  let st = null;
+  const setup = () => {
+    let root = g.parent; while (root && !root.userData?.headMesh) root = root.parent; if (!root) return null;
+    const hm = root.userData.headMesh, m = hm.material?.[4], orig = hm.userData.ovalOrig || m?.map, src = orig?.image; if (!src || !src.getContext) return null;
+    hm.userData.ovalOrig = orig;
+    const W = src.width, H = src.height, cv = canvas(W, H), c = cv.getContext('2d', { willReadFrequently: true }), tx = tex(cv); tx.anisotropy = 8;
+    const mk = canvas(W, Y1 - Y0), mc = mk.getContext('2d', { willReadFrequently: true });
+    const ec = [[o.lx ?? 84.5, o.ey ?? 281.5], [o.rx ?? 301, o.ey ?? 281.5]], pw = o.pw ?? 172, ph = o.ph ?? 128;
+    mc.filter = 'blur(3px)'; mc.fillStyle = '#FFFFFF';
+    ec.forEach(([x, y], i) => { const sd = i ? 1 : -1, w = pw, h = ph, r = h * 0.42; mc.save(); mc.translate(x, y - Y0); mc.scale(sd, -1); mc.beginPath();
+      mc.moveTo(-w / 2 + r, h / 2); mc.lineTo(w / 2 - r * 0.3, h / 2); mc.quadraticCurveTo(w / 2, h / 2, w / 2, h / 2 - r * 0.6); mc.lineTo(w / 2 - r * 0.3, -h / 2 + r);
+      mc.quadraticCurveTo(w / 2 - r * 0.6, -h / 2, w / 2 - r * 1.4, -h / 2); mc.lineTo(-w / 2 + r, -h / 2); mc.quadraticCurveTo(-w / 2, -h / 2, -w / 2, -h / 2 + r);
+      mc.lineTo(-w / 2, h / 2 - r); mc.quadraticCurveTo(-w / 2, h / 2, -w / 2 + r, h / 2); mc.closePath(); mc.fill(); mc.restore(); });
+    const by = (o.ey ?? 281.5) - ph * 0.2 - Y0, bh = o.bh ?? 30; mc.fillRect(ec[0][0] + pw * 0.3, by - bh / 2, ec[1][0] - ec[0][0] - pw * 0.6, bh);
+    const mask = mc.getImageData(0, 0, W, Y1 - Y0).data, ud = root.userData;
+    // the hero is one object for the whole film: once the prop that owns his face has left him (the next shot), his own face texture comes back
+    const live = q => { let p = q; while (p) { if (p === root) return true; p = p.parent; } return false; };
+    if (!ud.ovalWrapped && ud.setFaceState) { const set0 = ud.setFaceState; ud.ovalWrapped = true;
+      ud.setFaceState = s2 => { set0(s2); if (ud.ovalOwner && !live(ud.ovalOwner)) { ud.ovalOwner = null; m.map = orig; m.needsUpdate = true; } }; }
+    ud.ovalOwner = g; m.map = tx; m.needsUpdate = true;
+    return { src, W, H, c, tx, mask, m };
+  };
+  g.userData.update = t => {
+    if (!st) st = setup(); if (!st) return;
+    const { src, W, c, mask, tx, m } = st, R = W - X0;
+    if (m.map !== tx) { m.map = tx; m.needsUpdate = true; }
+    c.globalCompositeOperation = 'source-over'; c.drawImage(src, 0, 0);
+    // the right-hand features moved up level with the left ones: plain cheek over where they were, then the eye and the brow drawn higher
+    c.drawImage(src, X0, 560, R, 210, X0, 345, R, 210); c.drawImage(src, X0, 415, R, 145, X0, 415 - LV, R, 145); c.drawImage(src, X0, 300, R, 115, X0, 300 - BU, R, 115);
+    const u = keyAt(o.at, t, 1);
+    if (u > 0.01) {
+      const sk = c.getImageData(o.sx ?? 190, o.sy ?? 330, 8, 8).data; let sr = 0, sg = 0, sb = 0; for (let i = 0; i < sk.length; i += 4) { sr += sk[i]; sg += sk[i + 1]; sb += sk[i + 2]; }
+      const n = sk.length / 4, kr = pale[0] / Math.max(8, sr / n) - 1, kg = pale[1] / Math.max(8, sg / n) - 1, kb = pale[2] / Math.max(8, sb / n) - 1;
+      const id = c.getImageData(0, Y0, W, Y1 - Y0), d = id.data;
+      for (let i = 0; i < d.length; i += 4) { const mw = mask[i + 3] / 255 * (mask[i] / 255); if (mw < 0.004) continue;
+        const r = d[i], gg = d[i + 1], b = d[i + 2], lum = 0.3 * r + 0.59 * gg + 0.11 * b, w = mw * u * smooth((lum - 30) / 50);
+        d[i] = Math.min(255, r * (1 + kr * w)); d[i + 1] = Math.min(255, gg * (1 + kg * w)); d[i + 2] = Math.min(255, b * (1 + kb * w)); }
+      c.putImageData(id, 0, Y0);
+    }
+    tx.needsUpdate = true;
+  };
+  return g;
+}
+
 export const PELLE_PROPS = {
 
   // ---------------------------------------------------------------- the beach (put on the grassland set with grass: SAND)
@@ -172,29 +219,37 @@ export const PELLE_PROPS = {
   // their roll (rad, to follow his painted eyes); o.lift [[t, u], ...]: u 1 pushes them up onto his hair, tipped back; o.dip [[t, d], ...] slides
   // them down his face by d (m); o.wob [[t0, amp, f, dk], ...]: a wobble on a take; o.y0 their height on the head joint (m) and o.sq
   // [[t, sx, sy], ...] the head's own squash at t (an attached prop does not inherit the joint's scale), so they ride on his eyes
+  // (pass 4) o.liftY (0.27 m), o.liftZ (0.07 m), o.liftRot (1.0 rad): where u 1 puts them; o.liftLevel 0..1: their roll goes level as they rise;
+  // o.liftSq: the lift follows the head's squash too (they stay on the hair); o.tuck: the arms fold away into the hair as they rise (a raised arm hung beside his face as a stray black bar)
   plShades(o) {
     const g = grp(), inner = grp(), s = o.w ?? 0.34; g.add(inner);
     const lensM = new THREE.MeshPhongMaterial({ color: '#1A2030', shininess: 80, transparent: true, opacity: o.op ?? 0.86, depthWrite: true });
     const lensShape = (w, h) => { const sh = new THREE.Shape(), r = h * 0.42; sh.moveTo(-w / 2 + r, h / 2); sh.lineTo(w / 2 - r * 0.3, h / 2); sh.quadraticCurveTo(w / 2, h / 2, w / 2, h / 2 - r * 0.6); sh.lineTo(w / 2 - r * 0.3, -h / 2 + r); sh.quadraticCurveTo(w / 2 - r * 0.6, -h / 2, w / 2 - r * 1.4, -h / 2); sh.lineTo(-w / 2 + r, -h / 2); sh.quadraticCurveTo(-w / 2, -h / 2, -w / 2, -h / 2 + r); sh.lineTo(-w / 2, h / 2 - r); sh.quadraticCurveTo(-w / 2, h / 2, -w / 2 + r, h / 2); return sh; };
-    const lw = s * 0.4, lh = s * 0.27;
+    const lw = s * 0.4, lh = s * 0.27, arms = [];
     for (const sd of [-1, 1]) {
       const shp = lensShape(lw, lh), lens = new THREE.Mesh(new THREE.ShapeGeometry(shp), lensM); lens.scale.x = sd; lens.position.set(sd * s * 0.245, 0, 0.012); inner.add(lens);
       const rim = new THREE.Mesh(new THREE.ExtrudeGeometry(shp, { depth: 0.012, bevelEnabled: false }), B('#0B0C10')); rim.scale.set(sd * 1.12, 1.16, 1); rim.position.set(sd * s * 0.245, 0, -0.002); inner.add(rim);
       const gl = new THREE.Mesh(new THREE.PlaneGeometry(lw * 0.18, lh * 0.5), B('#FFFFFF', { transparent: true, opacity: 0.55 })); gl.position.set(sd * s * 0.245 - lw * 0.22, lh * 0.12, 0.016); gl.rotation.z = -0.5; inner.add(gl);
-      inner.add(at(box(0.012, 0.02, 0.2, '#0B0C10'), sd * s * 0.49, lh * 0.25, -0.1));
+      const arm = at(box(0.012, 0.02, 0.2, '#0B0C10'), sd * s * 0.49, lh * 0.25, -0.1); inner.add(arm); arms.push(arm);
     }
     inner.add(at(box(s * 0.12, 0.022, 0.014, '#0B0C10'), 0, lh * 0.22, 0.006));
     inner.rotation.z = o.tilt ?? 0;
     const sqx = o.sq ? o.sq.map(q => [q[0], q[1]]) : null, sqy = o.sq ? o.sq.map(q => [q[0], q[2]]) : null;
     g.userData.update = t => { const u = keyAt(o.lift, t, 0), d = keyAt(o.dip, t, 0), w = rattle(o.wob, t), sx = keyAt(sqx, t, 1), sy = keyAt(sqy, t, 1);
-      inner.position.set(0, (o.y0 ?? 0) * sy - d + u * 0.27, -u * 0.07); inner.rotation.set(-u * 1.0, 0, (o.tilt ?? 0) + w); inner.scale.set(sx * (1 + Math.abs(w) * 1.5), 1 + Math.abs(w) * 1.5, 1); };
+      inner.position.set(0, (o.y0 ?? 0) * sy - d + u * (o.liftY ?? 0.27) * (o.liftSq ? sy : 1), -u * (o.liftZ ?? 0.07)); inner.rotation.set(-u * (o.liftRot ?? 1.0), 0, (o.tilt ?? 0) * (1 - clamp01(u) * (o.liftLevel ?? 0)) + w); inner.scale.set(sx * (1 + Math.abs(w) * 1.5), 1 + Math.abs(w) * 1.5, 1);
+      if (o.tuck) for (const a of arms) { const k = 1 - smooth(clamp01(u) * 1.6); a.visible = k > 0.02; a.scale.set(1, 1, Math.max(0.02, k)); } };
     g.userData.update(0); return g;
   },
 
   // ---------------------------------------------------------------- the two pale ovals of the sunglasses tan, his own eyes drawn in (attach to the head
   // joint on the face, under plShades): a soft pale oval round each eye in o.color (his untanned skin), eyes drawn in the hero's heavy-lidded style
   // with pupils; o.close [[t, u], ...] u 1: closed in blissful arcs; o.eyes [[lx, ly], [rx, ry]] the eye centres (m, in the head frame); o.look [gx, gy]
+  // (pass 4) o.face: the tan drawn into his own face texture (clipped to the front of the head, under the line work): the right-hand features are
+  // moved up level with the left ones (o.level px for the eye, o.browUp px for the brow, on the 400 x 1080 face panel), and two pale lens-shaped
+  // patches joined by a strip across the bridge of the nose lighten the skin toward o.color (a pinker untanned skin, darker than the eye whites)
+  // while the ink and the pupils stay as painted; his own eyes keep their lids, blinks and the closed arcs. o.at [[t, u], ...] fades the patches
   plOvals(o) {
+    if (o.face) return ovalsFace(o);
     const g = grp(), E = o.eyes || [[-0.075, 0.33], [0.075, 0.31]], ow = o.ow ?? 0.12, oh = o.oh ?? 0.085, tl = o.tilt ?? 0;
     const mk = (state) => { const N = 256, cv = canvas(N, Math.round(N * oh / ow)), c = cv.getContext('2d'), Wc = cv.width, Hc = cv.height;
       const gr = c.createRadialGradient(Wc / 2, Hc / 2, Hc * 0.2, Wc / 2, Hc / 2, Wc / 2); gr.addColorStop(0, o.color || '#F0C49A'); gr.addColorStop(0.78, o.color || '#F0C49A'); gr.addColorStop(1, 'rgba(240,196,154,0)');
@@ -428,13 +483,27 @@ export const PELLE_PROPS = {
 
   // ---------------------------------------------------------------- (review 2) the wall calendar of « La canicule » with blank page backs (pivot at
   // its middle): a page that flies off showed its month in mirror writing; each page is drawn on its front only and gets a plain cream back
+  // (pass 4) o.fly: each torn page flies off as its own small sheet, spinning, shrinking and gone in o.flyDur (0.3 s); the flipped pages stood up
+  // together above the calendar as one blank board
   plCalendar(o) { const g = CANICULE_PROPS.monthCalendar(o), pages = [];
     g.traverse(n => { if (n.isMesh && n.material && n.material.map && n.material.side === THREE.DoubleSide) pages.push(n); });
     for (const n of pages) { n.material.side = THREE.FrontSide; const b = new THREE.Mesh(n.geometry, new THREE.MeshLambertMaterial({ color: '#EFEADC', side: THREE.BackSide })); b.position.copy(n.position); b.rotation.copy(n.rotation); n.parent.add(b); }
+    if (o.fly) { const pv = g.children.filter(c => c.isGroup), base = g.userData.update, h = o.h || 0.46, p0 = pv.map(p => p.position.clone()), fd = o.flyDur ?? 0.3;
+      g.userData.update = t => { base(t); pv.forEach((p, i) => { if (i === pv.length - 1) return; const u = (t - o.flipAt - i * (o.dur || 0.5)) / fd, sd = i % 2 ? 1 : -1;
+        if (u <= 0) { p.position.copy(p0[i]); p.rotation.set(0, 0, 0); p.scale.setScalar(1); p.visible = true; return; }
+        if (u >= 1) { p.visible = false; return; }
+        p.visible = true; p.position.set(p0[i].x + sd * (0.1 + 0.9 * u) * u, p0[i].y + 0.55 * u - 0.15 * u * u, p0[i].z + 0.12 * u);
+        p.rotation.set(-2.2 * clamp01(u * 2.5), 0.8 * sd * u, sd * 7 * u * u); p.scale.setScalar(1 - 0.6 * u); }); };
+      g.userData.update(0); }
     return g; },
 
   // ---------------------------------------------------------------- an open glossy magazine held flat between two readers (pivot at its spine)
+  // (pass 4) o.turn [t0, dur]: a page lifts off the right half and turns over onto the left half about the spine
   plMagazine(o) { const w = o.w ?? 0.34, h = w * 1.3, g = grp();
+    if (o.turn) { const pg = new THREE.Mesh(new THREE.PlaneGeometry(w * 0.96, h * 0.96), new THREE.MeshLambertMaterial({ color: '#FAF6EE', side: THREE.DoubleSide })); pg.position.x = w * 0.48;
+      const tp = grp(pg); tp.position.z = 0.004; g.add(tp); const [t0, d] = o.turn;
+      g.userData.update = t => { const u = smooth((t - t0) / d); tp.visible = u > 0.001 && u < 0.999; tp.rotation.y = -0.25 - u * (PI - 0.5); tp.position.z = 0.004 + 0.02 * Math.sin(u * PI); };
+      g.userData.update(0); }
     for (const sd of [-1, 1]) { const p = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#FAF6EE'; c.fillRect(0, 0, W, H); c.fillStyle = sd < 0 ? '#E8742E' : '#2F8AC9'; c.fillRect(W * 0.08, H * 0.08, W * 0.84, H * 0.45); c.fillStyle = '#F2C23A'; c.beginPath(); c.arc(W * 0.5, H * 0.3, W * 0.15, 0, TAU); c.fill(); c.fillStyle = '#9AA0AA'; for (let i = 0; i < 5; i++) c.fillRect(W * 0.08, H * (0.62 + i * 0.07), W * 0.8, H * 0.02); }, { res: 256 });
       p.position.set(sd * w / 2, 0, 0); const piv = grp(p); piv.rotation.y = -sd * 0.25; g.add(piv); }
     return g; },

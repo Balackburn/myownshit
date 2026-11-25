@@ -2364,3 +2364,16 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   0,5 rad ne se voit pas.
 - (cycle 54) Réutiliser l'accessoire d'une autre histoire avec un changement : l'envelopper dans un accessoire préfixé qui importe
   son export, sans toucher le fichier de l'autre histoire.
+- (cycle 54) Gag peint sur le visage (marques de bronzage, maquillage) : dans la texture du visage elle-même — copier le canvas du
+  visage à chaque image après l'évaluation des acteurs, modifier la copie, échanger la map ; découpé au visage, éclairé comme lui,
+  paupières conservées. Restaurer la texture quand l'accessoire part.
+- (cycle 54) Éclaircir la peau sous le trait sans l'effacer : multiplier chaque pixel par cible/peau avec un poids qui protège
+  l'encre ; l'encre reste sombre, le blanc des yeux sature à blanc.
+- (cycle 54) Lunettes relevées sur les cheveux : hauteur qui suit l'écrasement de la tête et branches repliées, sinon elles flottent
+  ou pendent en barre à côté du visage.
+- (cycle 54) Pages de calendrier arrachées : petites feuilles séparées qui tournent et disparaissent en ≈ 0,3 s ; des pages qui
+  restent se lisent comme un panneau vide.
+- (cycle 54) Enseigne d'un accessoire coupée par le bord du cadre = mot cassé (« GLA ») : la vider ou déplacer l'accessoire.
+- (cycle 54) Bras élastiques tendus loin vers l'objectif : ils s'affaissent en barre diagonale sauf avec `hose` à 0 et les deux mains
+  sur le bord proche.
+- (cycle 54) Palier de bronzage : le mesurer contre la lumière de chaque plan ; une lumière chaude sur le visage annule un pas de 0,06.
