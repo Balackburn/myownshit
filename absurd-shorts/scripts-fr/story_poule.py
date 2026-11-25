@@ -302,7 +302,7 @@ F4 = [-0.08, 1.12, 2.25]; L4 = [0.45, 0.55, 0.1]
 C4 = cam(0.0, F4, lerp3(F4, [0.42, 0.75, 0.0], 0.2), L4, add(L4, [-0.04, 0.05, 0.0]), lens=40, ease='inOut')
 RYH4 = r(yaw(HEN4, F4))
 H4 = [1.32, 0.0, -0.05]; RY4 = -100
-REST4 = add(PILE4, [-0.205, 0.09, 0.03]); DROP4 = add(REST4, [0.0, 0.62, 0.0])
+REST4 = add(PILE4, [0.1, 0.235, 0.0]); DROP4 = add(REST4, [0.0, 0.55, 0.0])
 LAND4 = 0.5
 chkc('S04', C4, {'henComb': add(HEN4, [0, 1.18, 0.3]), 'beak': hen_beak(HEN4, RYH4), 'pileL': add(PILE4, [-0.3, 0.1, 0]), 'pileR': add(PILE4, [0.3, 0.1, 0]), 'drop': DROP4, 'heroHead': add(H4, [0, 2.0, 0])})
 OPEN4 = r(DEUX4 + 0.02)
@@ -338,7 +338,7 @@ EXF = {'lid': 0.5, 'mouth': 'line', 'brow': -0.35}
 EXK = lambda g, **x: {'reach': {'R': R5(g, 1, 0.0), 'L': R5(off(EX5, RYE5, 0.3, 0.2, 0.95), 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'open'}, 'hip': 0, **x}
 G5A = off(EX5, RYE5, 0.35, -0.15, 1.15)
 NOD = lambda t: [k(r(t - 0.05), toon={**EXK(GRIP5), 'sq': [1.03, 0.98, 1.03], 'bend': {'spine': [0.35, 0, 0, 1, None], 'neck': [-0.1, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.4}}, toonDur=0.05),
-                 k(r(t + 0.04), toon={**EXK(GRIP5), 'sq': [1.08, 0.92, 1.08], 'bend': {'spine': [0.3, 0, 0, 1, None], 'neck': [0.32, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.75, 'brow': -0.6}}, toonDur=0.05, toonEase='out'),
+                 k(r(t + 0.04), toon={**EXK(GRIP5), 'sq': [1.08, 0.92, 1.08], 'bend': {'spine': [0.28, 0, 0, 1, None], 'neck': [0.24, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.75, 'brow': -0.6}}, toonDur=0.05, toonEase='out'),
                  k(r(t + 0.16), toon={**EXK(GRIP5), 'bend': {'spine': [0.35, 0, 0, 1, None], 'neck': [0.0, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.5}}, toonDur=0.08)]
 EXK5 = [k(0.0, look=[BK5[0], 1.45, BK5[2]]), k(0.0, clip='kneel'), k(0.0, toon={**EXK(G5A), 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'face': EXF}, toonDur=0.0),
         k(0.06, toon={**EXK(GRIP5), 'hose': 0.15, 'sq': [0.95, 1.05, 0.95], 'bend': {'spine': [0.35, 0, 0, 1, None]}, 'face': {**EXF, 'lid': 0.3, 'brow': 0.2}}, toonDur=0.1, toonEase='out'),
@@ -385,7 +385,7 @@ D6 = st.dur('S06'); PROM6 = W('S06', 'L06', 6)
 ROW = [0.0, 0.0, -3.0]; RW = 1.6
 DOORX = [r((i - 2) * RW) for i in range(5)]
 WHO6 = ['voisin4', 'voisin3', 'voisin2', 'voisin1', 'mamie']
-P6A = [[x, 0.0, -3.22] for x in DOORX]; P6B = [[x, 0.0, -2.5] for i, x in enumerate(DOORX)]
+P6A = [[x, 0.0, -3.3] for x in DOORX]; P6B = [[x, 0.0, -2.5] for i, x in enumerate(DOORX)]
 F6 = [7.0, 0.95, 7.0]; L6 = [0.4, 1.3, -2.6]
 C6 = cam(0.0, F6, add(F6, [-0.3, 0.0, -0.3]), L6, L6, lens=48, ease='inOut')
 chkc('S06', C6, {f'head{i}': add(P6B[i], [0, 2.1, 0]) for i in range(5)} | {'feet4': P6B[4], 'roof0': add(ROW, [DOORX[0], 3.5, 0])})
@@ -450,7 +450,8 @@ BOSSK7 = [k(0.0, look=add(H7, [0, 1.95, 0])), k(0.0, toon={**HAND(add(EV7A, [0.1
           k(r(LET7 - 0.04), toon={**HAND(add(EV7B, [0.16, 0.06, 0.0])), 'hose': 0.25, 'bend': {'spine': [-0.1, 0, 0, 1, None]}, 'sq': [0.95, 1.06, 0.95], 'face': {**BF7, 'mouth': 'clench', 'brow': -1.0}}, toonDur=0.08),
           k(LET7, toon={**HAND(off(B7, RYB7, 0.35, -0.2, 1.1), hr='open'), 'sq': [1.08, 0.93, 1.08], 'bend': {'spine': [-0.12, 0, 0, 1, None]}, 'face': {**BF7, 'lid': 0.2, 'brow': 0.3}}, toonDur=0.04, toonEase='out'),
           k(r(LET7 + 0.25), toon={**HAND(None), 'face': BF7}, toonDur=0.2), *blink(r(D7 - 0.25), BF7, HAND(None))]
-HEROK7 = [k(0.0, look=add(B7, [0, 1.9, 0])), k(0.0, toon={**HAND(None), 'face': {**HF, 'brow': 0.6}}, toonDur=0.0),
+LK7 = lerp3(F7, add(B7, [0, 1.9, 0]), 0.45)
+HEROK7 = [k(0.0, look=LK7), k(0.0, toon={**HAND(None), 'face': {**HF, 'brow': 0.6}}, toonDur=0.0),
           k(r(GRAB7 - 0.08), toon={**HAND(add(EV7B, [-0.14, 0.06, 0.0]), hr='grip'), 'hose': 0.12, 'bend': {'spine': [0.25, 0, 0, 1, None]}, 'face': {**HF, 'brow': 0.8, 'lid': 0.1}}, toonDur=0.08, toonEase='out'),
           k(r(GRAB7 + 0.12), toon={**HAND(add(EV7B, [-0.16, 0.06, 0.0]), hr='grip'), 'hose': 0.2, 'bend': {'spine': [-0.05, 0, 0, 1, None]}, 'sq': [0.96, 1.04, 0.96], 'face': {'lid': 0.2, 'mouth': 'line', 'brow': -0.3}}, toonDur=0.1),
           k(LET7, toon={**HAND(add(EV7C, [0.0, -0.04, 0.0]), hr='grip'), 'sq': [1.14, 0.86, 1.14], 'bend': {'spine': [-0.15, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'line', 'brow': 0.9}}, toonDur=0.04, toonEase='out'),
