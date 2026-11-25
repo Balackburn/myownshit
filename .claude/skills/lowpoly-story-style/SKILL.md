@@ -2392,3 +2392,18 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   bande des sous-titres ; beurre lisible d'en bas seulement avec la tartine inclinée ≈ 0,9 rad vers l'objectif ; anneau
   d'éclaboussure plus large que la tartine.
 - (cycle 55) L'outil de planche plante sur un cards.txt vide : filtrer les entrées sans '@'.
+- (cycle 55, session 87 « Le régime ») Le prop `suitcase` disparaît avec une échelle à trois valeurs : vérifier qu'un accessoire
+  mis à l'échelle s'affiche, sinon en faire un propre.
+- (cycle 55) Objet passé de main en main = UN seul accessoire qui suit la main puis reste posé ; une copie portée plus une copie
+  posée donnent deux objets à l'écran au transfert.
+- (cycle 55) story_kit arrondit les coupes à 4 décimales (242/30 → 8,0667, après l'image) : la première image du plan montre le
+  plan précédent ; caler chaque coupe juste sous son image dans le script de l'histoire.
+- (cycle 55) Personnage « autre » (président) qui réutilise l'acteur du héros = copie ; modèle distinct (silhouette et visage) dès
+  le premier brouillon.
+- (cycle 55) Chute de statue : socle et tige dans le cadre, anticipation, arc vers la caméra, rebond suspendu ; poussière après le
+  rebond, jamais dessus.
+- (cycle 55) Rayures peintes sur une moufle = visage de grenouille ; moufle unie.
+- (cycle 55) Scène éclairée par un objet (appareil à raclette) : l'objet est la lumière principale, pas une porte surexposée.
+- (cycle 55) Respirations de maintien d'un personnage très rond trop petites pour le détecteur de figés : ajouter une poussée de
+  caméra lente.
+- (cycle 55) Vérifier les points récurrents sur des images isolées extraites du brouillon, la planche réduite ne suffit pas.
