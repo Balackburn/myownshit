@@ -1,0 +1,950 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a ramassé sa tartine en six secondes. Un inspecteur est sorti de sous la table.",
+   "hl": [
+    "six",
+    "inspecteur"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 4.322,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "ramassé",
+     "s": 0.619,
+     "e": 0.915
+    },
+    {
+     "w": "sa",
+     "s": 0.989,
+     "e": 1.063
+    },
+    {
+     "w": "tartine",
+     "s": 1.137,
+     "e": 1.433
+    },
+    {
+     "w": "en",
+     "s": 1.544,
+     "e": 1.656
+    },
+    {
+     "w": "six",
+     "s": 1.73,
+     "e": 1.804
+    },
+    {
+     "w": "secondes.",
+     "s": 1.989,
+     "e": 2.544
+    },
+    {
+     "w": "Un",
+     "s": 2.581,
+     "e": 2.619
+    },
+    {
+     "w": "inspecteur",
+     "s": 2.693,
+     "e": 3.063
+    },
+    {
+     "w": "est",
+     "s": 3.137,
+     "e": 3.211
+    },
+    {
+     "w": "sorti",
+     "s": 3.322,
+     "e": 3.507
+    },
+    {
+     "w": "de",
+     "s": 3.544,
+     "e": 3.581
+    },
+    {
+     "w": "sous",
+     "s": 3.619,
+     "e": 3.73
+    },
+    {
+     "w": "la",
+     "s": 3.767,
+     "e": 3.804
+    },
+    {
+     "w": "table.",
+     "s": 3.878,
+     "e": 4.322
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "« La règle, c'est cinq. » Tartine confisquée.",
+   "hl": [
+    "cinq.",
+    "confisquée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L02.k.wav",
+   "file_start": 4.422,
+   "speech_start": 4.422,
+   "speech_end": 6.867,
+   "words": [
+    {
+     "w": "La",
+     "s": 4.422,
+     "e": 4.496
+    },
+    {
+     "w": "règle,",
+     "s": 4.57,
+     "e": 5.015
+    },
+    {
+     "w": "c'est",
+     "s": 5.089,
+     "e": 5.237
+    },
+    {
+     "w": "cinq.",
+     "s": 5.274,
+     "e": 5.83
+    },
+    {
+     "w": "Tartine",
+     "s": 5.879,
+     "e": 6.126
+    },
+    {
+     "w": "confisquée.",
+     "s": 6.237,
+     "e": 6.867
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il habite sous la table. Personne ne sait pourquoi.",
+   "hl": [
+    "habite",
+    "pourquoi."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L03.k.wav",
+   "file_start": 6.967,
+   "speech_start": 6.967,
+   "speech_end": 9.559,
+   "words": [
+    {
+     "w": "Il",
+     "s": 6.967,
+     "e": 7.115
+    },
+    {
+     "w": "habite",
+     "s": 7.189,
+     "e": 7.411
+    },
+    {
+     "w": "sous",
+     "s": 7.448,
+     "e": 7.559
+    },
+    {
+     "w": "la",
+     "s": 7.633,
+     "e": 7.707
+    },
+    {
+     "w": "table.",
+     "s": 7.856,
+     "e": 8.3
+    },
+    {
+     "w": "Personne",
+     "s": 8.448,
+     "e": 8.67
+    },
+    {
+     "w": "ne",
+     "s": 8.707,
+     "e": 8.744
+    },
+    {
+     "w": "sait",
+     "s": 8.819,
+     "e": 8.893
+    },
+    {
+     "w": "pourquoi.",
+     "s": 9.004,
+     "e": 9.559
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Nouvelle loi : cinq secondes par terre, et c'est à l'État.",
+   "hl": [
+    "loi",
+    "l'État."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L04.k.wav",
+   "file_start": 9.659,
+   "speech_start": 9.659,
+   "speech_end": 12.548,
+   "words": [
+    {
+     "w": "Nouvelle",
+     "s": 9.659,
+     "e": 9.956
+    },
+    {
+     "w": "loi:",
+     "s": 10.067,
+     "e": 10.573
+    },
+    {
+     "w": "cinq",
+     "s": 10.597,
+     "e": 10.696
+    },
+    {
+     "w": "secondes",
+     "s": 10.77,
+     "e": 11.03
+    },
+    {
+     "w": "par",
+     "s": 11.067,
+     "e": 11.141
+    },
+    {
+     "w": "terre,",
+     "s": 11.215,
+     "e": 11.659
+    },
+    {
+     "w": "et",
+     "s": 11.696,
+     "e": 11.733
+    },
+    {
+     "w": "c'est",
+     "s": 11.807,
+     "e": 11.956
+    },
+    {
+     "w": "à",
+     "s": 11.981,
+     "e": 12.005
+    },
+    {
+     "w": "l'État.",
+     "s": 12.03,
+     "e": 12.548
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Chaque cuisine a son agent. Côté beurre, taxé double.",
+   "hl": [
+    "agent.",
+    "double."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L05.k.wav",
+   "file_start": 12.648,
+   "speech_start": 12.648,
+   "speech_end": 15.611,
+   "words": [
+    {
+     "w": "Chaque",
+     "s": 12.648,
+     "e": 12.87
+    },
+    {
+     "w": "cuisine",
+     "s": 12.907,
+     "e": 13.241
+    },
+    {
+     "w": "a",
+     "s": 13.278,
+     "e": 13.315
+    },
+    {
+     "w": "son",
+     "s": 13.389,
+     "e": 13.463
+    },
+    {
+     "w": "agent.",
+     "s": 13.537,
+     "e": 14.056
+    },
+    {
+     "w": "Côté",
+     "s": 14.105,
+     "e": 14.241
+    },
+    {
+     "w": "beurre,",
+     "s": 14.278,
+     "e": 14.722
+    },
+    {
+     "w": "taxé",
+     "s": 14.833,
+     "e": 15.019
+    },
+    {
+     "w": "double.",
+     "s": 15.093,
+     "e": 15.611
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Les recettes de l'État ont décollé.",
+   "hl": [
+    "recettes",
+    "décollé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L06.k.wav",
+   "file_start": 15.711,
+   "speech_start": 15.711,
+   "speech_end": 17.489,
+   "words": [
+    {
+     "w": "Les",
+     "s": 15.711,
+     "e": 15.859
+    },
+    {
+     "w": "recettes",
+     "s": 15.97,
+     "e": 16.156
+    },
+    {
+     "w": "de",
+     "s": 16.23,
+     "e": 16.267
+    },
+    {
+     "w": "l'État",
+     "s": 16.304,
+     "e": 16.6
+    },
+    {
+     "w": "ont",
+     "s": 16.674,
+     "e": 16.822
+    },
+    {
+     "w": "décollé.",
+     "s": 16.896,
+     "e": 17.489
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Les ministres ne mangent plus que par terre. C'est le budget.",
+   "hl": [
+    "terre.",
+    "budget."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L07.k.wav",
+   "file_start": 17.589,
+   "speech_start": 17.589,
+   "speech_end": 20.404,
+   "words": [
+    {
+     "w": "Les",
+     "s": 17.589,
+     "e": 17.737
+    },
+    {
+     "w": "ministres",
+     "s": 17.811,
+     "e": 18.107
+    },
+    {
+     "w": "ne",
+     "s": 18.181,
+     "e": 18.219
+    },
+    {
+     "w": "mangent",
+     "s": 18.256,
+     "e": 18.478
+    },
+    {
+     "w": "plus",
+     "s": 18.552,
+     "e": 18.626
+    },
+    {
+     "w": "que",
+     "s": 18.7,
+     "e": 18.774
+    },
+    {
+     "w": "par",
+     "s": 18.848,
+     "e": 18.922
+    },
+    {
+     "w": "terre.",
+     "s": 19.033,
+     "e": 19.552
+    },
+    {
+     "w": "C'est",
+     "s": 19.589,
+     "e": 19.663
+    },
+    {
+     "w": "le",
+     "s": 19.7,
+     "e": 19.737
+    },
+    {
+     "w": "budget.",
+     "s": 20.033,
+     "e": 20.404
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Puis le pays est devenu adroit.",
+   "hl": [
+    "pays",
+    "adroit."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L08.k.wav",
+   "file_start": 20.504,
+   "speech_start": 20.504,
+   "speech_end": 22.367,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 20.504,
+     "e": 20.726
+    },
+    {
+     "w": "le",
+     "s": 20.948,
+     "e": 21.022
+    },
+    {
+     "w": "pays",
+     "s": 21.096,
+     "e": 21.319
+    },
+    {
+     "w": "est",
+     "s": 21.356,
+     "e": 21.393
+    },
+    {
+     "w": "devenu",
+     "s": 21.467,
+     "e": 21.689
+    },
+    {
+     "w": "adroit.",
+     "s": 21.763,
+     "e": 22.356
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Les recettes ont chuté. Pas les tartines.",
+   "hl": [
+    "chuté.",
+    "tartines."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L09.k.wav",
+   "file_start": 22.467,
+   "speech_start": 22.467,
+   "speech_end": 24.763,
+   "words": [
+    {
+     "w": "Les",
+     "s": 22.467,
+     "e": 22.615
+    },
+    {
+     "w": "recettes",
+     "s": 22.726,
+     "e": 22.911
+    },
+    {
+     "w": "ont",
+     "s": 22.985,
+     "e": 23.059
+    },
+    {
+     "w": "chuté.",
+     "s": 23.096,
+     "e": 23.726
+    },
+    {
+     "w": "Pas",
+     "s": 23.8,
+     "e": 23.874
+    },
+    {
+     "w": "les",
+     "s": 23.911,
+     "e": 23.948
+    },
+    {
+     "w": "tartines.",
+     "s": 24.022,
+     "e": 24.763
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "L'État a fait cirer tous les sols.",
+   "hl": [
+    "cirer",
+    "sols."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L10.k.wav",
+   "file_start": 24.863,
+   "speech_start": 24.863,
+   "speech_end": 26.863,
+   "words": [
+    {
+     "w": "L'État",
+     "s": 24.863,
+     "e": 25.233
+    },
+    {
+     "w": "a",
+     "s": 25.307,
+     "e": 25.381
+    },
+    {
+     "w": "fait",
+     "s": 25.456,
+     "e": 25.53
+    },
+    {
+     "w": "cirer",
+     "s": 25.604,
+     "e": 25.9
+    },
+    {
+     "w": "tous",
+     "s": 25.937,
+     "e": 26.048
+    },
+    {
+     "w": "les",
+     "s": 26.122,
+     "e": 26.196
+    },
+    {
+     "w": "sols.",
+     "s": 26.27,
+     "e": 26.863
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Quatre millions de tartines par jour. Toutes côté beurre.",
+   "hl": [
+    "millions",
+    "beurre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L11.k.wav",
+   "file_start": 26.963,
+   "speech_start": 26.963,
+   "speech_end": 30.0,
+   "words": [
+    {
+     "w": "Quatre",
+     "s": 26.963,
+     "e": 27.185
+    },
+    {
+     "w": "millions",
+     "s": 27.333,
+     "e": 27.63
+    },
+    {
+     "w": "de",
+     "s": 27.704,
+     "e": 27.778
+    },
+    {
+     "w": "tartines",
+     "s": 27.815,
+     "e": 28.148
+    },
+    {
+     "w": "par",
+     "s": 28.222,
+     "e": 28.296
+    },
+    {
+     "w": "jour.",
+     "s": 28.37,
+     "e": 28.914
+    },
+    {
+     "w": "Toutes",
+     "s": 28.938,
+     "e": 29.111
+    },
+    {
+     "w": "côté",
+     "s": 29.148,
+     "e": 29.333
+    },
+    {
+     "w": "beurre.",
+     "s": 29.407,
+     "e": 30.0
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Trois ministres ont glissé. Saisis. Personne n'a vu la différence.",
+   "hl": [
+    "Saisis.",
+    "différence."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L12.k.wav",
+   "file_start": 30.1,
+   "speech_start": 30.1,
+   "speech_end": 33.73,
+   "words": [
+    {
+     "w": "Trois",
+     "s": 30.1,
+     "e": 30.248
+    },
+    {
+     "w": "ministres",
+     "s": 30.322,
+     "e": 30.656
+    },
+    {
+     "w": "ont",
+     "s": 30.693,
+     "e": 30.767
+    },
+    {
+     "w": "glissé.",
+     "s": 30.804,
+     "e": 31.47
+    },
+    {
+     "w": "Saisis.",
+     "s": 31.507,
+     "e": 32.199
+    },
+    {
+     "w": "Personne",
+     "s": 32.297,
+     "e": 32.47
+    },
+    {
+     "w": "n'a",
+     "s": 32.519,
+     "e": 32.618
+    },
+    {
+     "w": "vu",
+     "s": 32.656,
+     "e": 32.693
+    },
+    {
+     "w": "la",
+     "s": 32.73,
+     "e": 32.767
+    },
+    {
+     "w": "différence.",
+     "s": 32.841,
+     "e": 33.73
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Hier, ce mec a glissé dans sa cuisine.",
+   "hl": [
+    "glissé",
+    "cuisine."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L13.k.wav",
+   "file_start": 33.83,
+   "speech_start": 33.83,
+   "speech_end": 36.052,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 33.83,
+     "e": 34.422
+    },
+    {
+     "w": "ce",
+     "s": 34.496,
+     "e": 34.57
+    },
+    {
+     "w": "mec",
+     "s": 34.607,
+     "e": 34.718
+    },
+    {
+     "w": "a",
+     "s": 34.793,
+     "e": 34.867
+    },
+    {
+     "w": "glissé",
+     "s": 34.904,
+     "e": 35.163
+    },
+    {
+     "w": "dans",
+     "s": 35.188,
+     "e": 35.237
+    },
+    {
+     "w": "sa",
+     "s": 35.311,
+     "e": 35.385
+    },
+    {
+     "w": "cuisine.",
+     "s": 35.422,
+     "e": 36.052
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Il s'est relevé en six secondes.",
+   "hl": [
+    "six",
+    "secondes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L14.k.wav",
+   "file_start": 36.152,
+   "speech_start": 36.152,
+   "speech_end": 37.707,
+   "words": [
+    {
+     "w": "Il",
+     "s": 36.152,
+     "e": 36.226
+    },
+    {
+     "w": "s'est",
+     "s": 36.3,
+     "e": 36.374
+    },
+    {
+     "w": "relevé",
+     "s": 36.448,
+     "e": 36.707
+    },
+    {
+     "w": "en",
+     "s": 36.744,
+     "e": 36.893
+    },
+    {
+     "w": "six",
+     "s": 36.967,
+     "e": 37.041
+    },
+    {
+     "w": "secondes.",
+     "s": 37.189,
+     "e": 37.707
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Il appartient à l'État. On l'a affecté sous une table.",
+   "hl": [
+    "appartient",
+    "table."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L15.k.wav",
+   "file_start": 37.807,
+   "speech_start": 37.807,
+   "speech_end": 40.326,
+   "words": [
+    {
+     "w": "Il",
+     "s": 37.807,
+     "e": 37.881
+    },
+    {
+     "w": "appartient",
+     "s": 37.956,
+     "e": 38.252
+    },
+    {
+     "w": "à",
+     "s": 38.326,
+     "e": 38.344
+    },
+    {
+     "w": "l'État.",
+     "s": 38.363,
+     "e": 38.881
+    },
+    {
+     "w": "On",
+     "s": 38.918,
+     "e": 38.943
+    },
+    {
+     "w": "l'a",
+     "s": 38.968,
+     "e": 39.067
+    },
+    {
+     "w": "affecté",
+     "s": 39.104,
+     "e": 39.437
+    },
+    {
+     "w": "sous",
+     "s": 39.486,
+     "e": 39.585
+    },
+    {
+     "w": "une",
+     "s": 39.659,
+     "e": 39.733
+    },
+    {
+     "w": "table.",
+     "s": 39.993,
+     "e": 40.326
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Celle de l'inspecteur.",
+   "hl": [
+    "Celle",
+    "l'inspecteur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L16.k.wav",
+   "file_start": 40.426,
+   "speech_start": 40.426,
+   "speech_end": 41.611,
+   "words": [
+    {
+     "w": "Celle",
+     "s": 40.426,
+     "e": 40.648
+    },
+    {
+     "w": "de",
+     "s": 40.685,
+     "e": 40.722
+    },
+    {
+     "w": "l'inspecteur.",
+     "s": 40.747,
+     "e": 41.611
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Lui, c'était sept secondes.",
+   "hl": [
+    "Lui,",
+    "sept"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tartine/tts/L17.k.wav",
+   "file_start": 41.711,
+   "speech_start": 41.711,
+   "speech_end": 43.415,
+   "words": [
+    {
+     "w": "Lui,",
+     "s": 41.711,
+     "e": 42.23
+    },
+    {
+     "w": "c'était",
+     "s": 42.267,
+     "e": 42.526
+    },
+    {
+     "w": "sept",
+     "s": 42.563,
+     "e": 42.674
+    },
+    {
+     "w": "secondes.",
+     "s": 42.748,
+     "e": 43.415
+    }
+   ]
+  }
+ ],
+ "total": 44.71
+}
