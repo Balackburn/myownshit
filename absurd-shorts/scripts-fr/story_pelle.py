@@ -345,7 +345,7 @@ def MOURNK(i, p, ry):
     return ks
 props3 = [WORLD(3), GULLS(3), SHADES('lun3', H3), *BURIED(3, add_=[0.45], crabs=[([[0.0, -0.45, 0.25], [0.4, -0.4, 0.2], [1.2, -0.42, 0.24]], [0.9], 0.24), ([[0.0, 0.48, 0.26], [0.7, 0.45, 0.22], [1.6, 0.5, 0.26]], [1.3], 0.2)])]
 for i, (n, p) in enumerate(MOURN):
-    props3 += [P(f'parasol3_{i}', 'parasol', pos=add(p, [-0.15, 0, -0.62]), opts={'radius': 0.72, 'height': 2.8, 'colors': ['#16171B', '#2A2C32'], 'open': 1}),
+    props3 += [P(f'parasol3_{i}', 'parasol', pos=add(p, [-0.15, 0, -0.62]), opts={'radius': 0.6, 'height': 2.62, 'colors': ['#16171B', '#2A2C32'], 'open': 1}),
                P(f'mouchoir3_{i}', 'plTissue', on={'actor': n, 'hand': 'R', 'offset': [0.0, -0.06, 0.04]})]
 st.shot('S03', 'grassland', setOpts=SET, look=SUNF, actors=[H3.actor(), *[act(n, p, r(yaw(p, [0.6, 0, 2.0]), 1), 'stand', 'sad', keys=MOURNK(i, p, r(yaw(p, [0.6, 0, 2.0]), 1))) for i, (n, p) in enumerate(MOURN)]],
         props=props3, cams=[C3])
@@ -452,7 +452,7 @@ WR6 = [-0.66, 0.0, 0.12]
 BO6A = [-2.1, 0.0, 0.3]; BO6B = [-1.12, 0.0, 0.02]; BO6C = [-1.8, 0.0, -0.45]
 YM6 = [-1.6, 0.0, -1.5]
 SETW6 = r(COU6 - 0.02); ASIDE6 = r(ET6 - 0.12)
-F6 = [0.5, 0.62, 4.3]; L6 = [-0.8, 0.85, -0.25]
+F6 = [0.5, 0.62, 4.5]; L6 = [-0.62, 0.85, -0.25]
 C6 = cam(0.0, F6, add(F6, [-0.03, 0.0, -0.18]), L6, add(L6, [0.0, 0.0, 0.0]), lens=48, ease='inOut')
 chkc('S06', C6, {'headTop': [0, 0.66, 0], 'chin': [0, 0.14, 0], 'wreath': add(WR6, [0, 1.36, 0]), 'bossA': add(BO6A, [0, 2.3, 0]), 'bossB': add(BO6B, [0, 2.3, 0]), 'bossC': add(BO6C, [0, 2.3, 0]), 'bossCside': add(BO6C, [-0.35, 1.0, 0]), 'ym': add(YM6, [0, 2.25, 0]), 'ymFeet': YM6})
 H6 = Head('S06')
@@ -768,7 +768,7 @@ H12.pose(r(UP12 + 0.12), {'lid': 0.1, 'eye': 0.2, 'mouth': 'line', 'brow': -0.4,
 H12.look(r(UP12 + 0.12), FORM12, 0.12).breathe(r(UP12 + 0.3), D12, {'lid': 0.1, 'eye': 0.2, 'mouth': 'line', 'brow': -0.4, 'gx': -0.3, 'gy': -0.3})
 DIP12 = [[0.0, 0.0], [r(TUCK12 + 0.05), 0.0], [r(TUCK12 + 0.16), 0.085], [r(UP12 + 0.05), 0.085], [r(UP12 + 0.2), 0.0]]
 IF12 = {'lid': 0.35, 'mouth': 'line', 'brow': -0.5}
-INK = [k(-0.4, look=[0.3, 1.0, 0.9]), k(0.0, clip='kneel'), k(0.0, toon={'reach': {'R': R5(add(ENV12, [0.12, 0.22, 0.12]), 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'rest'}, 'bend': {'spine': [0.45, 0, 0, 1, None]}, 'face': IF12, 'hip': 0}, toonDur=0.0),
+INK = [k(-0.4, look='camera'), k(0.0, clip='kneel'), k(0.0, toon={'reach': {'R': R5(add(ENV12, [0.12, 0.22, 0.12]), 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'rest'}, 'bend': {'spine': [0.45, 0, 0, 1, None]}, 'face': IF12, 'hip': 0}, toonDur=0.0),
        k(r(TUCK12 - 0.12), toon={'reach': {'R': R5(add(ENV12, [0.12, 0.08, 0.06]), 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'rest'}, 'bend': {'spine': [0.55, 0, 0, 1, None]}, 'sq': [1.04, 0.96, 1.04], 'face': IF12, 'hip': 0}, toonDur=0.12),
        k(r(TUCK12 + 0.08), toon={'reach': {'R': R5(off(IN12, RYIN, 0.3, -0.2, 0.7), 1, 0.0)}, 'hands': {'R': 'open', 'L': 'rest'}, 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'face': {**IF12, 'mouth': 'smirk'}, 'hip': 0}, toonDur=0.15),
        k(r(UP12 - 0.12), toon={'reach': {'R': R5(off(IN12, RYIN, 0.3, -0.2, 0.7), 1, 0.0)}, 'hands': {'R': 'open', 'L': 'rest'}, 'sq': [1.1, 0.88, 1.1], 'bend': {'spine': [0.4, 0, 0, 1, None]}, 'face': IF12, 'hip': 0}, toonDur=0.08),
@@ -844,7 +844,7 @@ st.cue('engine', 'S13', 0.0, 0.18, 0.5); st.cue('sfx:brake', 'S13', 0.25, 0.2); 
 D14 = st.dur('S14'); REF14 = W('S14', 'L14', 3); SOR14 = W('S14', 'L14', 5)
 P14A = [-0.62, 0.0, -0.32]; P14B = [0.62, 0.0, -0.32]
 SH14 = r(REF14 - 0.12); FRZ14 = r(SH14 + 0.36)
-F14 = [0.2, 0.6, 3.6]; L14 = [0.0, 0.62, 0.0]
+F14 = [0.2, 0.62, 4.3]; L14 = [0.0, 0.66, 0.0]
 C14 = cam(0.0, F14, add(F14, [0.0, 0.0, -0.1]), L14, add(L14, [0, 0.0, 0]), lens=50, ease='inOut')
 chkc('S14', C14, {'headTop': [0, 0.66, 0], 'chin': [0, 0.14, 0], 'p1': add(P14A, [0, 1.55, 0]), 'p2': add(P14B, [0, 1.55, 0]), 'p1spade': add(P14A, [0.2, 1.75, 0.3]), 'p2spade': add(P14B, [-0.2, 1.75, 0.3]), 'p1side': add(P14A, [-0.3, 0.8, 0])})
 H14 = Head('S14')
@@ -902,11 +902,11 @@ H15.pose(r(PERP15 + 0.6), {**FACE0, 'mouth': 'smile', 'brow': 0.6}, (1.04, 1.04,
 H15.look(r(PERP15 + 0.7), 'camera', 0.12).breathe(r(PERP15 + 0.8), D15, {**FACE0, 'mouth': 'smile'})
 CF15 = {'lid': 0.4, 'mouth': 'line', 'brow': -0.1}
 CK15 = lambda pen, nod=0.0, st_=0.25, sq=(1, 1, 1): {'reach': {'L': R5(add(CLIP15, [-0.1, -0.1, 0.0]), 1, 0.0), 'R': R5(pen, 1, 0.0)}, 'hands': {'L': 'grip', 'R': 'grip'}, 'bend': {'spine': [st_, 0, 0, 1, None], 'neck': [nod, 0, 0, 1 + nod * 1.1, None]}, 'sq': list(sq), 'face': CF15, 'hip': 0}
-CL15K = [k(-0.4, look=[0.2, 1.15, 1.0]), k(0.0, clip='kneel'), k(0.0, toon=CK15(add(CLIP15, [0.05, 0.02, 0.03])), toonDur=0.0)]
+CL15K = [k(-0.4, look='camera'), k(0.0, clip='kneel'), k(0.0, toon=CK15(add(CLIP15, [0.05, 0.02, 0.03])), toonDur=0.0)]
 for j in range(int((TICK15 - 0.3) / 0.12)): CL15K.append(k(r(0.2 + 0.12 * j), toon=CK15(add(CLIP15, [0.05 + (0.04 if j % 2 else -0.03), 0.02 - 0.012 * (j % 5), 0.03])), toonDur=0.09))
 CL15K += [k(r(TICK15 - 0.12), toon=CK15(add(CLIP15, [-0.02, 0.06, 0.06]), sq=(0.97, 1.04, 0.97)), toonDur=0.08), k(TICK15, toon=CK15(add(CLIP15, [0.0, -0.04, 0.03])), toonDur=0.04, toonEase='in'),
           k(r(TICK15 + 0.06), toon=CK15(add(CLIP15, [0.08, 0.06, 0.04])), toonDur=0.05, toonEase='out'),
-          k(r(TICK15 + 0.2), look=[0.0, 1.0, 0.7], lookDur=0.15)]
+          k(r(TICK15 + 0.2), look='camera', lookDur=0.15)]
 for j in range(2):
     t_ = r(TICK15 + 0.3 + 0.42 * j)
     CL15K += [k(t_, toon={**CK15(add(CLIP15, [0.08, 0.0, 0.04]), 0.5, 0.3, (1.04, 0.95, 1.04)), 'face': {**CF15, 'lid': 0.6}}, toonDur=0.18, toonEase='inOut'),
