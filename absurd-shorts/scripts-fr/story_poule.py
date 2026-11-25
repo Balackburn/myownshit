@@ -133,7 +133,7 @@ def HEN(pid, pos, ry, **o): return P(pid, 'poHen', pos=list(pos), ry=ry, opts=o)
 def hen_head(pos, ry, s=1.0): return off(pos, ry, 0.44 * s, 0.0, 0.88 * s)
 def hen_beak(pos, ry, s=1.0): return off(pos, ry, 0.55 * s, 0.0, 0.84 * s)
 def CLUCK(sid, t, g=0.3): st.cue('sfx:cluck', sid, r(t), g)
-GOLD = 3
+GOLD = 1
 
 # ============================== the garden (grassland, his house behind, an apple tree, the henhouse)
 GSET = {'grass': '#86BE5C', 'clouds': 30}
@@ -242,7 +242,7 @@ st.cue('sfx:paper', 'S01c', 0.14, 0.25)
 #    gone), lifts her head, turns it to the lens, squints, and on « dent » her beak springs open in a grin: one big white tooth on her lower beak, a
 #    sparkle; a squash before, a stretch on it, a blink after
 D2 = st.dur('S02'); DENT2 = W('S02', 'L02', 6)
-HEN2 = [1.12, 0.0, -0.82]; AP2 = [1.58, 0.1, -0.58]
+HEN2 = [1.12, 0.0, -0.82]; AP2 = [1.48, 0.1, -0.52]
 F2 = [0.25, 1.06, 1.5]; L2 = [1.05, 0.62, -0.3]
 RYH2 = r(yaw(HEN2, F2))
 C2 = cam(0.0, F2, lerp3(F2, hen_head(HEN2, RYH2), 0.32), L2, lerp3(L2, hen_head(HEN2, RYH2), 0.45), lens=40, ease='inOut')
@@ -266,26 +266,26 @@ F3 = [0.12, 1.38, 2.7]; L3 = [0.12, 1.5, -0.4]
 C3 = cam(0.0, F3, add(F3, [0.0, 0.0, -0.15]), L3, L3, lens=42, ease='inOut')
 FA3 = [0.12, CTOP + 0.01, -0.28]; FB3 = [0.04, 1.42, 0.22]
 SLAM3 = 0.5
-ST3U = [0.42, 1.95, -0.4]; ST3D = [0.14, CTOP + 0.4, -0.28]; ST3E = [0.62, CTOP + 0.385, -0.42]
+ST3U = [-0.12, 1.95, -0.4]; ST3D = [0.12, CTOP + 0.4, -0.28]; ST3E = [-0.42, CTOP + 0.385, -0.42]
 chkc('S03', C3, {'clerkTop': add(CL3, [0, 2.18, 0]), 'stampUp': ST3U, 'formUp': add(FB3, [0, 0.22, 0]), 'formUpB': add(FB3, [0, -0.22, 0]), 'sign': [0, 2.8, -1.6]})
-SM3 = [(r(SLAM3 - 0.07), ST3D, 0.07, 'in'), (r(SLAM3 + 0.1), add(ST3E, [-0.1, 0.18, 0.0]), 0.14, 'out'), (r(SLAM3 + 0.24), ST3E, 0.08, 'in')]
+SM3 = [(r(SLAM3 - 0.07), ST3D, 0.07, 'in'), (r(SLAM3 + 0.1), add(ST3E, [0.1, 0.18, 0.0]), 0.14, 'out'), (r(SLAM3 + 0.24), ST3E, 0.08, 'in')]
 STT3 = track(ST3U, SM3)
 FM3 = [(r(SLAM3 + 0.12), FB3, 0.22, 'out')]
 FT3 = track(FA3, FM3)
 SHV = lambda t: [r(0.012 * math.sin(t * 90)), r(0.012 * math.cos(t * 77)), 0.0]
-CLK3 = [k(0.0, look=add(FA3, [0, 0.2, 0.2])), k(0.0, toon={**CK(add(ST3U, [0, -0.04, 0]), add(FA3, [-0.16, 0.04, 0.0]), 'grip', 'open'), 'face': {**CLF, 'brow': -0.4, 'lid': 0.3}}, toonDur=0.0),
+CLK3 = [k(0.0, look=add(FA3, [0, 0.2, 0.2])), k(0.0, toon={**CK(add(ST3U, [0, -0.04, 0]), add(FA3, [0.16, 0.04, 0.0]), 'grip', 'open'), 'face': {**CLF, 'brow': -0.4, 'lid': 0.3}}, toonDur=0.0),
         # the stamp held up trembling (the arm shivers, never still), then the slam
-        *[k(r(0.06 + 0.06 * j), toon={**CK(add(add(ST3U, [0, -0.04, 0]), SHV(0.06 * j)), add(FA3, [-0.16, 0.04, 0.0]), 'grip', 'open'), 'sq': [1.0, 1.0 + 0.01 * (j % 2), 1.0], 'face': {**CLF, 'brow': -0.6, 'lid': 0.2, 'mouth': 'clench'}}, toonDur=0.05) for j in range(6)],
-        k(r(SLAM3 - 0.07), toon={**CK(add(ST3D, [0, -0.04, 0]), add(FA3, [-0.16, 0.04, 0.0]), 'grip', 'open'), 'sq': [1.0, 1.06, 1.0], 'face': {**CLF, 'brow': -0.7, 'lid': 0.1, 'mouth': 'clench'}}, toonDur=0.07, toonEase='in'),
-        k(SLAM3, toon={**CK(add(ST3D, [0, -0.04, 0]), add(FA3, [-0.16, 0.04, 0.0]), 'grip', 'open'), 'sq': [1.1, 0.9, 1.1], 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'face': {**CLF, 'brow': -0.6, 'lid': 0.3, 'mouth': 'line'}}, toonDur=0.03),
-        k(r(SLAM3 + 0.12), toon={**CK(add(STT3(0.75), [0, -0.04, 0]), add(FT3(0.84), [-0.2, -0.1, -0.04]), 'grip', 'open'), 'sq': [0.97, 1.03, 0.97], 'face': {**CLF, 'brow': 0.2, 'lid': 0.4}}, toonDur=0.2, toonEase='out'),
+        *[k(r(0.06 + 0.06 * j), toon={**CK(add(add(ST3U, [0, -0.04, 0]), SHV(0.06 * j)), add(FA3, [0.16, 0.04, 0.0]), 'grip', 'open'), 'sq': [1.0, 1.0 + 0.01 * (j % 2), 1.0], 'face': {**CLF, 'brow': -0.6, 'lid': 0.2, 'mouth': 'clench'}}, toonDur=0.05) for j in range(6)],
+        k(r(SLAM3 - 0.07), toon={**CK(add(ST3D, [0, -0.04, 0]), add(FA3, [0.16, 0.04, 0.0]), 'grip', 'open'), 'sq': [1.0, 1.06, 1.0], 'face': {**CLF, 'brow': -0.7, 'lid': 0.1, 'mouth': 'clench'}}, toonDur=0.07, toonEase='in'),
+        k(SLAM3, toon={**CK(add(ST3D, [0, -0.04, 0]), add(FA3, [0.16, 0.04, 0.0]), 'grip', 'open'), 'sq': [1.1, 0.9, 1.1], 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'face': {**CLF, 'brow': -0.6, 'lid': 0.3, 'mouth': 'line'}}, toonDur=0.03),
+        k(r(SLAM3 + 0.12), toon={**CK(add(STT3(0.75), [0, -0.04, 0]), add(FT3(0.84), [0.2, -0.1, -0.04]), 'grip', 'open'), 'sq': [0.97, 1.03, 0.97], 'face': {**CLF, 'brow': 0.2, 'lid': 0.4}}, toonDur=0.2, toonEase='out'),
         k(r(SLAM3 + 0.3), look='camera', lookDur=0.15),
-        k(r(DENTS3 - 0.1), toon={**CK(add(FB3, [0.15, 0.16, 0.03]), add(FB3, [-0.2, -0.1, -0.04]), 'point', 'open'), 'face': {**CLF, 'brow': 0.5, 'lid': 0.5, 'mouth': 'line'}}, toonDur=0.08),
-        k(r(DENTS3 + 0.04), toon={**CK(add(FB3, [0.13, 0.19, 0.0]), add(FB3, [-0.2, -0.1, -0.04]), 'point', 'open'), 'face': {**CLF, 'brow': 0.6, 'lid': 0.5, 'mouth': 'o'}}, toonDur=0.05),
-        k(r(DENTS3 + 0.2), toon={**CK(add(FB3, [0.17, 0.15, 0.04]), add(FB3, [-0.2, -0.1, -0.04]), 'point', 'open'), 'face': {**CLF, 'brow': 0.4, 'lid': 0.5, 'mouth': 'line'}}, toonDur=0.08),
-        k(r(PLU3 - 0.04), toon={**CK(add(FB3, [0.13, 0.19, 0.0]), add(FB3, [-0.2, -0.1, -0.04]), 'point', 'open'), 'sq': [1.04, 0.97, 1.04], 'face': {**CLF, 'brow': 0.7, 'lid': 0.6, 'mouth': 'smirk'}}, toonDur=0.05),
-        k(r(PLU3 + 0.16), toon={**CK(add(FB3, [0.17, 0.14, 0.04]), add(FB3, [-0.2, -0.1, -0.04]), 'point', 'open'), 'face': {**CLF, 'brow': 0.6, 'lid': 0.6, 'mouth': 'smirk'}}, toonDur=0.1),
-        *blink(r(D3 - 0.3), {**CLF, 'brow': 0.6, 'lid': 0.6, 'mouth': 'smirk'}, CK(add(FB3, [0.17, 0.14, 0.04]), add(FB3, [-0.2, -0.1, -0.04]), 'point', 'open'))]
+        k(r(DENTS3 - 0.1), toon={**CK(add(FB3, [-0.15, 0.16, 0.03]), add(FB3, [0.2, -0.1, -0.04]), 'point', 'open'), 'face': {**CLF, 'brow': 0.5, 'lid': 0.5, 'mouth': 'line'}}, toonDur=0.08),
+        k(r(DENTS3 + 0.04), toon={**CK(add(FB3, [-0.13, 0.19, 0.0]), add(FB3, [0.2, -0.1, -0.04]), 'point', 'open'), 'face': {**CLF, 'brow': 0.6, 'lid': 0.5, 'mouth': 'o'}}, toonDur=0.05),
+        k(r(DENTS3 + 0.2), toon={**CK(add(FB3, [-0.17, 0.15, 0.04]), add(FB3, [0.2, -0.1, -0.04]), 'point', 'open'), 'face': {**CLF, 'brow': 0.4, 'lid': 0.5, 'mouth': 'line'}}, toonDur=0.08),
+        k(r(PLU3 - 0.04), toon={**CK(add(FB3, [-0.13, 0.19, 0.0]), add(FB3, [0.2, -0.1, -0.04]), 'point', 'open'), 'sq': [1.04, 0.97, 1.04], 'face': {**CLF, 'brow': 0.7, 'lid': 0.6, 'mouth': 'smirk'}}, toonDur=0.05),
+        k(r(PLU3 + 0.16), toon={**CK(add(FB3, [-0.17, 0.14, 0.04]), add(FB3, [0.2, -0.1, -0.04]), 'point', 'open'), 'face': {**CLF, 'brow': 0.6, 'lid': 0.6, 'mouth': 'smirk'}}, toonDur=0.1),
+        *blink(r(D3 - 0.3), {**CLF, 'brow': 0.6, 'lid': 0.6, 'mouth': 'smirk'}, CK(add(FB3, [-0.17, 0.14, 0.04]), add(FB3, [0.2, -0.1, -0.04]), 'point', 'open'))]
 st.shot('S03', 'whiteVoid', setOpts=CSET, actors=[act('guichet', CL3, 0, 'stand', 'neutral', keys=CLK3)],
         props=[COUNTER(3, sign=False), P('form3', 'poForm', pos=FA3, rot=[-PI / 2, 0, 0], opts={'w': 0.36, 'stamp': [[0, 0], [SLAM3, 0], [r(SLAM3 + 0.02), 0.1], [r(SLAM3 + 0.2), 1.0]]},
                                 keys=[*MOVES(FM3), k(r(SLAM3 + 0.12), rotTo=[0.0, 0.0, 0.0], dur=0.22, ease='out'), k(r(DENTS3 + 0.04), squash=[1.06, 0.95, 1.0], dur=0.25), k(r(PLU3 - 0.04), squash=[1.06, 0.95, 1.0], dur=0.25)]),
@@ -615,13 +615,13 @@ for t_ in (0.08, 0.42, 0.66, 0.9, 1.14): st.cue('sfx:crunch', 'S10b', t_, 0.3)
 # 11: « Un contrôleur a été mordu. » An inspector in grey bends over the hen with his clipboard, his finger counting her teeth one by one; she
 #     narrows her eyes; snap: her beak shuts on his mitten, he leaps back off the ground shaking it (stars), unhurt, eyes out
 D11 = st.dur('S11'); MOR11 = W('S11', 'L11', 4)
-HEN11 = [-0.05, 0.0, -0.3]; I11 = [0.82, 0.0, 0.05]
-F11 = [1.95, 1.42, 3.2]; L11 = [0.42, 1.15, -0.2]
+HEN11 = [-0.15, 0.0, -0.3]; I11 = [0.62, 0.0, -0.5]
+F11 = [0.45, 1.4, 3.4]; L11 = [0.28, 1.2, -0.4]
 C11 = cam(0.0, F11, add(F11, [-0.04, 0.0, -0.12]), L11, L11, lens=44, ease='inOut')
-RYI11 = r(yaw(I11, HEN11)); RYH11 = r(yaw(HEN11, I11) - 25)
+RYI11 = r(yaw(I11, HEN11)); RYH11 = r((yaw(HEN11, I11) + yaw(HEN11, F11)) / 2)
 BK11 = hen_beak(HEN11, RYH11)
 SNAP11 = r(MOR11 - 0.08); JUMP11 = r(SNAP11 + 0.06)
-I11J = off(I11, RYI11, -0.32, 0.0, 0.0)
+I11J = off(I11, RYI11, -0.28, 0.0, 0.0)
 chkc('S11', C11, {'inspTop': add(I11, [0, 2.3, 0]), 'inspHeadBent': off(I11, RYI11, 0.4, 0, 1.75), 'beak': BK11, 'henComb': add(HEN11, [0, 1.18, 0]), 'jumpTop': add(I11J, [0, 2.7, 0])})
 IF = {'lid': 0.5, 'mouth': 'line', 'brow': -0.3}
 TAP = lambda j: add(BK11, [0.05 * math.sin(j * 2.1), 0.03, 0.0])
@@ -649,7 +649,7 @@ st.cue('sfx:bonk', 'S11', SNAP11, 0.35); st.cue('sfx:boing', 'S11', JUMP11, 0.25
 #      her head, eyes half shut
 D11b = st.dur('S11b'); LES11 = W('S11b', 'L11', 8)
 CL11 = [0.0, 0.0, -0.78]; RYC11 = 25
-IC11 = [0.56, 0.0, 0.66]; RYI11b = -155
+IC11 = [0.56, 0.0, 0.66]; RYI11b = -118
 F11b = [-0.6, 1.5, 4.1]; L11b = [0.3, 1.5, -0.2]
 C11b = cam(0.0, F11b, add(F11b, [0.08, 0.0, -0.15]), L11b, L11b, lens=40, ease='inOut')
 FA11 = [-0.02, CTOP + 0.01, -0.32]; FB11 = [0.36, CTOP + 0.02, -0.04]; FC11 = off(IC11, RYI11b, 0.17, 0.0, 1.32)
@@ -705,8 +705,8 @@ st.cue('sfx:ding', 'S12', r(REC12 + 0.04), 0.3); st.cue('sfx:ding', 'S12', r(REC
 #     the grins spring open together, and they blink at the same time
 D13 = st.dur('S13'); DENTS13 = W('S13', 'L13', 2)
 CR13 = [0.4, 0.0, -0.25]; HEN13 = [0.22, 0.5, -0.25]; HEAP13 = [0.72, 0.5, -0.15]
-H13 = [-0.4, 0.0, -0.1]; RYHH13 = 8
-F13 = [-0.35, 1.3, 2.4]; L13 = [0.02, 1.22, 0.0]
+H13 = [-0.32, 0.0, -0.05]; RYHH13 = 12
+F13 = [-0.25, 1.32, 2.5]; L13 = [0.06, 1.24, 0.0]
 C13 = cam(0.0, F13, add(F13, [0.0, 0.0, -0.12]), L13, L13, lens=44, ease='out')
 RYH13 = r(yaw(HEN13, F13))
 GR13 = 0.12; BL13 = r(DENTS13 + 0.45)

@@ -326,6 +326,7 @@ export const POULE_PROPS = {
       c.strokeStyle = '#8A5A34'; c.lineWidth = Wc * 0.02; c.beginPath(); c.moveTo(Wc * 0.12, Hc * 0.99); c.lineTo(Wc * 0.44, Hc * 0.34); c.moveTo(Wc * 0.62, Hc * 0.99); c.lineTo(Wc * 0.5, Hc * 0.62); c.stroke();
       poly([[0.3, 0.86], [0.46, 0.86], [0.64, 0.5], [0.5, 0.48]], '#23262E');
       poly([[0.42, 0.84], [0.5, 0.78], [0.94, 0.86], [0.92, 0.95]], '#2E323C');
+      poly([[0.5, 0.7], [0.53, 0.68], [0.6, 0.53], [0.57, 0.52]], '#2F62B5');
       poly([[0.5, 0.52], [0.44, 0.34], [0.5, 0.3], [0.56, 0.48]], '#23262E'); poly([[0.62, 0.5], [0.8, 0.36], [0.84, 0.42], [0.66, 0.56]], '#23262E');
       c.save(); c.translate(Wc * 0.6, Hc * 0.3); c.rotate(-0.35); poly([[-0.09, -0.12], [0.09, -0.12], [0.09, 0.12], [-0.09, 0.12]].map(([x, y]) => [x * 1.0, y * Wc / Hc * 1.0]), '#E8B48A');
       c.fillStyle = '#ECE8DE'; c.fillRect(-Wc * 0.1, -Wc * 0.15, Wc * 0.2, Wc * 0.07); c.strokeStyle = '#1B1418'; c.lineWidth = Hc * 0.016;
@@ -356,7 +357,7 @@ export const POULE_PROPS = {
       c.beginPath(); c.arc(S * 0.75, -S * 0.42, S * 0.42, 0, TAU); c.fill(); c.stroke();
       c.fillStyle = '#E3342A'; for (const [x, y] of [[0.55, -0.85], [0.78, -0.92], [1.0, -0.82]]) { c.beginPath(); c.arc(x * S, y * S, S * 0.15, 0, TAU); c.fill(); }
       c.fillStyle = '#F6B523'; c.beginPath(); c.moveTo(S * 1.12, -S * 0.5); c.lineTo(S * 1.62, -S * 0.44); c.lineTo(S * 1.12, -S * 0.36); c.fill(); c.beginPath(); c.moveTo(S * 1.12, -S * 0.3); c.lineTo(S * 1.55, -S * 0.12); c.lineTo(S * 1.1, -S * 0.16); c.fill();
-      c.fillStyle = '#FFFFFF'; for (const x of [1.16, 1.34]) { c.fillRect(x * S, -S * 0.4, S * 0.16, S * 0.22); c.strokeRect(x * S, -S * 0.4, S * 0.16, S * 0.22); }
+      c.fillStyle = '#FFFFFF'; for (const x of [1.12, 1.36]) { c.fillRect(x * S, -S * 0.42, S * 0.22, S * 0.3); c.strokeRect(x * S, -S * 0.42, S * 0.22, S * 0.3); }
       c.fillStyle = '#1B1418'; c.beginPath(); c.arc(S * 0.86, -S * 0.5, S * 0.07, 0, TAU); c.fill();
       c.restore(); c.fillStyle = '#B7A884'; for (let i = 0; i < 3; i++) c.fillRect(Wc * 0.12, Hc * (0.78 + i * 0.07), Wc * (0.76 - i * 0.2), Hc * 0.025); }, { res: 256, emissive: 0.25 });
     sheet.position.z = 0.0; letter.add(sheet, at(box(w * 0.86, h * 1.05, 0.004, '#E8DFC4'), 0, 0, -0.003)); letter.position.z = 0.006; letter.visible = false;
@@ -433,9 +434,9 @@ export const POULE_PROPS = {
     fl.rotation.x = -PI / 2; fl.position.set(0, 0.012, bz + 2.5); g.add(fl);
     g.add(at(box(W, 3.4, 0.12, o.wall || '#CFE7DA', { pivot: 'bottom' }), 0, 0, bz - 0.06), at(box(W, 0.9, 0.03, o.band || '#3F8F98'), 0, 0.45, bz + 0.015), at(box(W, 0.06, 0.04, '#F4F1E8'), 0, 0.92, bz + 0.02));
     const sx = o.signX ?? 0;
-    const sign = paintPlane(1.9, 0.42, (c, Wc, Hc) => { c.fillStyle = '#FBFAF4'; c.fillRect(0, 0, Wc, Hc); c.strokeStyle = '#3F8F98'; c.lineWidth = Hc * 0.08; c.strokeRect(0, 0, Wc, Hc);
+    const sw = o.signW ?? 1.9, sign = paintPlane(sw, sw * 0.221, (c, Wc, Hc) => { c.fillStyle = '#FBFAF4'; c.fillRect(0, 0, Wc, Hc); c.strokeStyle = '#3F8F98'; c.lineWidth = Hc * 0.08; c.strokeRect(0, 0, Wc, Hc);
       c.fillStyle = '#2E6F78'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${Hc * 0.56}px Arial`; c.fillText('MUTUELLE', Wc / 2, Hc * 0.54); }, { res: 512, emissive: 0.3 });
-    sign.position.set(sx, o.signY ?? 2.55, bz + 0.03); if (o.sign !== false) g.add(sign, at(box(1.96, 0.48, 0.03, '#3F8F98'), sx, o.signY ?? 2.55, bz + 0.01));
+    sign.position.set(sx, o.signY ?? 2.55, bz + 0.03); if (o.sign !== false) g.add(sign, at(box(sw + 0.06, sw * 0.221 + 0.06, 0.03, '#3F8F98'), sx, o.signY ?? 2.55, bz + 0.01));
     const umb = paintPlane(0.62, 0.78, (c, Wc, Hc) => { c.fillStyle = '#F7F1E2'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#3F8F98'; c.beginPath(); c.arc(Wc / 2, Hc * 0.48, Wc * 0.36, PI, TAU); c.closePath(); c.fill();
       c.strokeStyle = '#2A3A40'; c.lineWidth = Wc * 0.04; c.beginPath(); c.moveTo(Wc / 2, Hc * 0.48); c.lineTo(Wc / 2, Hc * 0.8); c.arc(Wc * 0.45, Hc * 0.8, Wc * 0.05, 0, PI); c.stroke(); }, { res: 128, emissive: 0.2 });
     umb.position.set(o.picX ?? 2.2, 1.75, bz + 0.03); g.add(umb, at(box(0.7, 0.86, 0.03, '#7A4A2A'), o.picX ?? 2.2, 1.75, bz + 0.01));
