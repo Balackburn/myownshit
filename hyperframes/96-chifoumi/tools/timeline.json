@@ -1,0 +1,950 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a perdu au chifoumi contre sa femme.",
+   "hl": [
+    "perdu",
+    "chifoumi"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.248,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "perdu",
+     "s": 0.619,
+     "e": 0.841
+    },
+    {
+     "w": "au",
+     "s": 0.878,
+     "e": 0.915
+    },
+    {
+     "w": "chifoumi",
+     "s": 0.989,
+     "e": 1.359
+    },
+    {
+     "w": "contre",
+     "s": 1.47,
+     "e": 1.581
+    },
+    {
+     "w": "sa",
+     "s": 1.656,
+     "e": 1.73
+    },
+    {
+     "w": "femme.",
+     "s": 1.804,
+     "e": 2.248
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il a contesté. La fédération a revu l'action à la vidéo.",
+   "hl": [
+    "contesté.",
+    "vidéo."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L02.k.wav",
+   "file_start": 2.348,
+   "speech_start": 2.348,
+   "speech_end": 5.533,
+   "words": [
+    {
+     "w": "Il",
+     "s": 2.348,
+     "e": 2.422
+    },
+    {
+     "w": "a",
+     "s": 2.459,
+     "e": 2.496
+    },
+    {
+     "w": "contesté.",
+     "s": 2.57,
+     "e": 3.336
+    },
+    {
+     "w": "La",
+     "s": 3.36,
+     "e": 3.385
+    },
+    {
+     "w": "fédération",
+     "s": 3.459,
+     "e": 3.978
+    },
+    {
+     "w": "a",
+     "s": 4.052,
+     "e": 4.126
+    },
+    {
+     "w": "revu",
+     "s": 4.2,
+     "e": 4.348
+    },
+    {
+     "w": "l'action",
+     "s": 4.447,
+     "e": 4.644
+    },
+    {
+     "w": "à",
+     "s": 4.719,
+     "e": 4.744
+    },
+    {
+     "w": "la",
+     "s": 4.768,
+     "e": 4.793
+    },
+    {
+     "w": "vidéo.",
+     "s": 4.867,
+     "e": 5.533
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Sa femme avait joué un centième trop tard.",
+   "hl": [
+    "centième",
+    "tard."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L03.k.wav",
+   "file_start": 5.633,
+   "speech_start": 5.633,
+   "speech_end": 7.866,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 5.633,
+     "e": 5.781
+    },
+    {
+     "w": "femme",
+     "s": 5.856,
+     "e": 6.004
+    },
+    {
+     "w": "avait",
+     "s": 6.078,
+     "e": 6.226
+    },
+    {
+     "w": "joué",
+     "s": 6.263,
+     "e": 6.522
+    },
+    {
+     "w": "un",
+     "s": 6.596,
+     "e": 6.744
+    },
+    {
+     "w": "centième",
+     "s": 6.856,
+     "e": 7.115
+    },
+    {
+     "w": "trop",
+     "s": 7.152,
+     "e": 7.263
+    },
+    {
+     "w": "tard.",
+     "s": 7.337,
+     "e": 7.856
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Match annulé. À rejouer au stade national.",
+   "hl": [
+    "annulé.",
+    "national."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L04.k.wav",
+   "file_start": 7.966,
+   "speech_start": 7.966,
+   "speech_end": 10.485,
+   "words": [
+    {
+     "w": "Match",
+     "s": 7.966,
+     "e": 8.189
+    },
+    {
+     "w": "annulé.",
+     "s": 8.337,
+     "e": 9.003
+    },
+    {
+     "w": "À",
+     "s": 9.041,
+     "e": 9.078
+    },
+    {
+     "w": "rejouer",
+     "s": 9.152,
+     "e": 9.448
+    },
+    {
+     "w": "au",
+     "s": 9.485,
+     "e": 9.522
+    },
+    {
+     "w": "stade",
+     "s": 9.596,
+     "e": 9.744
+    },
+    {
+     "w": "national.",
+     "s": 9.818,
+     "e": 10.485
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Des savants ont filmé sa main à dix mille images par seconde.",
+   "hl": [
+    "savants",
+    "seconde."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L05.k.wav",
+   "file_start": 10.585,
+   "speech_start": 10.585,
+   "speech_end": 13.548,
+   "words": [
+    {
+     "w": "Des",
+     "s": 10.585,
+     "e": 10.733
+    },
+    {
+     "w": "savants",
+     "s": 10.844,
+     "e": 11.103
+    },
+    {
+     "w": "ont",
+     "s": 11.178,
+     "e": 11.252
+    },
+    {
+     "w": "filmé",
+     "s": 11.363,
+     "e": 11.548
+    },
+    {
+     "w": "sa",
+     "s": 11.622,
+     "e": 11.696
+    },
+    {
+     "w": "main",
+     "s": 11.807,
+     "e": 11.918
+    },
+    {
+     "w": "à",
+     "s": 11.992,
+     "e": 12.141
+    },
+    {
+     "w": "dix",
+     "s": 12.178,
+     "e": 12.252
+    },
+    {
+     "w": "mille",
+     "s": 12.289,
+     "e": 12.437
+    },
+    {
+     "w": "images",
+     "s": 12.585,
+     "e": 12.733
+    },
+    {
+     "w": "par",
+     "s": 12.807,
+     "e": 12.881
+    },
+    {
+     "w": "seconde.",
+     "s": 12.955,
+     "e": 13.548
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Conclusion : il fait toujours pierre. Depuis trente ans.",
+   "hl": [
+    "toujours",
+    "pierre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L06.k.wav",
+   "file_start": 13.648,
+   "speech_start": 13.648,
+   "speech_end": 16.759,
+   "words": [
+    {
+     "w": "Conclusion:",
+     "s": 13.648,
+     "e": 14.512
+    },
+    {
+     "w": "il",
+     "s": 14.562,
+     "e": 14.611
+    },
+    {
+     "w": "fait",
+     "s": 14.685,
+     "e": 14.759
+    },
+    {
+     "w": "toujours",
+     "s": 14.833,
+     "e": 15.129
+    },
+    {
+     "w": "pierre.",
+     "s": 15.166,
+     "e": 15.771
+    },
+    {
+     "w": "Depuis",
+     "s": 15.821,
+     "e": 16.018
+    },
+    {
+     "w": "trente",
+     "s": 16.055,
+     "e": 16.241
+    },
+    {
+     "w": "ans.",
+     "s": 16.315,
+     "e": 16.759
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Ce mec a été jugé trop prévisible.",
+   "hl": [
+    "jugé",
+    "prévisible."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L07.k.wav",
+   "file_start": 16.859,
+   "speech_start": 16.859,
+   "speech_end": 19.007,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 16.859,
+     "e": 16.933
+    },
+    {
+     "w": "mec",
+     "s": 17.007,
+     "e": 17.229
+    },
+    {
+     "w": "a",
+     "s": 17.266,
+     "e": 17.303
+    },
+    {
+     "w": "été",
+     "s": 17.415,
+     "e": 17.526
+    },
+    {
+     "w": "jugé",
+     "s": 17.637,
+     "e": 17.896
+    },
+    {
+     "w": "trop",
+     "s": 17.933,
+     "e": 18.118
+    },
+    {
+     "w": "prévisible.",
+     "s": 18.192,
+     "e": 19.007
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Une usine a construit une main robot imbattable.",
+   "hl": [
+    "robot",
+    "imbattable."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L08.k.wav",
+   "file_start": 19.107,
+   "speech_start": 19.107,
+   "speech_end": 21.478,
+   "words": [
+    {
+     "w": "Une",
+     "s": 19.107,
+     "e": 19.255
+    },
+    {
+     "w": "usine",
+     "s": 19.329,
+     "e": 19.552
+    },
+    {
+     "w": "a",
+     "s": 19.589,
+     "e": 19.626
+    },
+    {
+     "w": "construit",
+     "s": 19.7,
+     "e": 19.996
+    },
+    {
+     "w": "une",
+     "s": 20.033,
+     "e": 20.07
+    },
+    {
+     "w": "main",
+     "s": 20.144,
+     "e": 20.218
+    },
+    {
+     "w": "robot",
+     "s": 20.292,
+     "e": 20.589
+    },
+    {
+     "w": "imbattable.",
+     "s": 20.663,
+     "e": 21.478
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Au premier essai, elle a fait pierre. L'usine a perdu deux étages.",
+   "hl": [
+    "pierre.",
+    "étages."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L09.k.wav",
+   "file_start": 21.578,
+   "speech_start": 21.578,
+   "speech_end": 25.207,
+   "words": [
+    {
+     "w": "Au",
+     "s": 21.578,
+     "e": 21.726
+    },
+    {
+     "w": "premier",
+     "s": 21.8,
+     "e": 22.022
+    },
+    {
+     "w": "essai,",
+     "s": 22.133,
+     "e": 22.566
+    },
+    {
+     "w": "elle",
+     "s": 22.59,
+     "e": 22.615
+    },
+    {
+     "w": "a",
+     "s": 22.689,
+     "e": 22.763
+    },
+    {
+     "w": "fait",
+     "s": 22.837,
+     "e": 22.911
+    },
+    {
+     "w": "pierre.",
+     "s": 22.948,
+     "e": 23.522
+    },
+    {
+     "w": "L'usine",
+     "s": 23.541,
+     "e": 23.8
+    },
+    {
+     "w": "a",
+     "s": 23.837,
+     "e": 23.874
+    },
+    {
+     "w": "perdu",
+     "s": 23.948,
+     "e": 24.244
+    },
+    {
+     "w": "deux",
+     "s": 24.281,
+     "e": 24.392
+    },
+    {
+     "w": "étages.",
+     "s": 24.541,
+     "e": 25.207
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Le comité olympique l'a sélectionnée. Le président l'a décorée d'avance.",
+   "hl": [
+    "olympique",
+    "décorée"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L10.k.wav",
+   "file_start": 25.307,
+   "speech_start": 25.307,
+   "speech_end": 28.863,
+   "words": [
+    {
+     "w": "Le",
+     "s": 25.307,
+     "e": 25.455
+    },
+    {
+     "w": "comité",
+     "s": 25.529,
+     "e": 25.752
+    },
+    {
+     "w": "olympique",
+     "s": 25.826,
+     "e": 26.196
+    },
+    {
+     "w": "l'a",
+     "s": 26.221,
+     "e": 26.27
+    },
+    {
+     "w": "sélectionnée.",
+     "s": 26.307,
+     "e": 27.085
+    },
+    {
+     "w": "Le",
+     "s": 27.159,
+     "e": 27.233
+    },
+    {
+     "w": "président",
+     "s": 27.344,
+     "e": 27.678
+    },
+    {
+     "w": "l'a",
+     "s": 27.727,
+     "e": 27.826
+    },
+    {
+     "w": "décorée",
+     "s": 27.9,
+     "e": 28.122
+    },
+    {
+     "w": "d'avance.",
+     "s": 28.196,
+     "e": 28.863
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Quatre-vingt mille spectateurs. Hymne national.",
+   "hl": [
+    "mille",
+    "Hymne"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L11.k.wav",
+   "file_start": 28.963,
+   "speech_start": 28.963,
+   "speech_end": 31.629,
+   "words": [
+    {
+     "w": "Quatre-vingt",
+     "s": 28.963,
+     "e": 29.37
+    },
+    {
+     "w": "mille",
+     "s": 29.407,
+     "e": 29.555
+    },
+    {
+     "w": "spectateurs.",
+     "s": 29.703,
+     "e": 30.469
+    },
+    {
+     "w": "Hymne",
+     "s": 30.493,
+     "e": 30.741
+    },
+    {
+     "w": "national.",
+     "s": 31.148,
+     "e": 31.629
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Chi, fou, mi : le stade s'est fendu en deux.",
+   "hl": [
+    "fendu",
+    "deux."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L12.k.wav",
+   "file_start": 31.729,
+   "speech_start": 31.729,
+   "speech_end": 35.063,
+   "words": [
+    {
+     "w": "Chi,",
+     "s": 31.729,
+     "e": 32.248
+    },
+    {
+     "w": "fou,",
+     "s": 32.322,
+     "e": 32.841
+    },
+    {
+     "w": "mi:",
+     "s": 32.952,
+     "e": 33.482
+    },
+    {
+     "w": "le",
+     "s": 33.532,
+     "e": 33.581
+    },
+    {
+     "w": "stade",
+     "s": 33.655,
+     "e": 33.878
+    },
+    {
+     "w": "s'est",
+     "s": 33.952,
+     "e": 34.1
+    },
+    {
+     "w": "fendu",
+     "s": 34.174,
+     "e": 34.396
+    },
+    {
+     "w": "en",
+     "s": 34.47,
+     "e": 34.544
+    },
+    {
+     "w": "deux.",
+     "s": 34.581,
+     "e": 35.063
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "La main a fait pierre.",
+   "hl": [
+    "main",
+    "pierre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L13.k.wav",
+   "file_start": 35.163,
+   "speech_start": 35.163,
+   "speech_end": 36.57,
+   "words": [
+    {
+     "w": "La",
+     "s": 35.163,
+     "e": 35.311
+    },
+    {
+     "w": "main",
+     "s": 35.385,
+     "e": 35.533
+    },
+    {
+     "w": "a",
+     "s": 35.607,
+     "e": 35.681
+    },
+    {
+     "w": "fait",
+     "s": 35.755,
+     "e": 35.829
+    },
+    {
+     "w": "pierre.",
+     "s": 35.866,
+     "e": 36.57
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Sa femme a fait puits.",
+   "hl": [
+    "femme",
+    "puits."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L14.k.wav",
+   "file_start": 36.67,
+   "speech_start": 36.67,
+   "speech_end": 38.003,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 36.67,
+     "e": 36.818
+    },
+    {
+     "w": "femme",
+     "s": 36.892,
+     "e": 37.115
+    },
+    {
+     "w": "a",
+     "s": 37.189,
+     "e": 37.263
+    },
+    {
+     "w": "fait",
+     "s": 37.337,
+     "e": 37.485
+    },
+    {
+     "w": "puits.",
+     "s": 37.559,
+     "e": 38.003
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Elle s'entraîne sur lui depuis trente ans.",
+   "hl": [
+    "s'entraîne",
+    "trente"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L15.k.wav",
+   "file_start": 38.103,
+   "speech_start": 38.103,
+   "speech_end": 40.029,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 38.103,
+     "e": 38.252
+    },
+    {
+     "w": "s'entraîne",
+     "s": 38.289,
+     "e": 38.622
+    },
+    {
+     "w": "sur",
+     "s": 38.696,
+     "e": 38.77
+    },
+    {
+     "w": "lui",
+     "s": 38.807,
+     "e": 38.918
+    },
+    {
+     "w": "depuis",
+     "s": 38.992,
+     "e": 39.215
+    },
+    {
+     "w": "trente",
+     "s": 39.289,
+     "e": 39.511
+    },
+    {
+     "w": "ans.",
+     "s": 39.585,
+     "e": 40.029
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Le perdant devait sortir la poubelle.",
+   "hl": [
+    "perdant",
+    "poubelle."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L16.k.wav",
+   "file_start": 40.129,
+   "speech_start": 40.129,
+   "speech_end": 41.907,
+   "words": [
+    {
+     "w": "Le",
+     "s": 40.129,
+     "e": 40.278
+    },
+    {
+     "w": "perdant",
+     "s": 40.352,
+     "e": 40.648
+    },
+    {
+     "w": "devait",
+     "s": 40.722,
+     "e": 40.87
+    },
+    {
+     "w": "sortir",
+     "s": 40.981,
+     "e": 41.166
+    },
+    {
+     "w": "la",
+     "s": 41.241,
+     "e": 41.315
+    },
+    {
+     "w": "poubelle.",
+     "s": 41.364,
+     "e": 41.907
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "La main a contesté : le puits, ça compte pas.",
+   "hl": [
+    "contesté",
+    "compte"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chifoumi/tts/L17.k.wav",
+   "file_start": 42.007,
+   "speech_start": 42.007,
+   "speech_end": 44.6,
+   "words": [
+    {
+     "w": "La",
+     "s": 42.007,
+     "e": 42.081
+    },
+    {
+     "w": "main",
+     "s": 42.155,
+     "e": 42.303
+    },
+    {
+     "w": "a",
+     "s": 42.341,
+     "e": 42.378
+    },
+    {
+     "w": "contesté:",
+     "s": 42.6,
+     "e": 43.229
+    },
+    {
+     "w": "le",
+     "s": 43.266,
+     "e": 43.341
+    },
+    {
+     "w": "puits,",
+     "s": 43.415,
+     "e": 43.785
+    },
+    {
+     "w": "ça",
+     "s": 43.859,
+     "e": 43.933
+    },
+    {
+     "w": "compte",
+     "s": 43.97,
+     "e": 44.155
+    },
+    {
+     "w": "pas.",
+     "s": 44.266,
+     "e": 44.6
+    }
+   ]
+  }
+ ],
+ "total": 45.9
+}

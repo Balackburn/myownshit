@@ -3111,3 +3111,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 09 h 15 — « Le chifoumi » (96) passe finale faite (chute 0,93 s avec une vraie main en anneau, arbitre anthracite, ouvriers lisibles,
   colonne de sacs, médaille au poignet du robot) ; brouillon de contrôle propre. Disque libéré (1,1 Go de mixages intermédiaires des
   histoires livrées, leur son final restant commité). Rendu final 1080 lancé.
+
+10 h 25 — « Le chifoumi » (96) livrée : rendu final 1080×1920, −16 LUFS, 45,9 s, aucune image grise, planche de contrôle propre. Envoyée et publiée sur TikTok (Postiz). Revues 6,0/7,2 → 7,4/7,4 → 7,6/7,9, puis passe finale. Rendu 3D long (≈ 1 h 25 à 0,3 image/s pour 1377 images) ; HyperFrames 2 min 44. En parallèle : « Le grincement » (98), voix et placement faits (41,6 s), mise en scène lancée.
