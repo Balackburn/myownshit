@@ -2353,3 +2353,14 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 54) Vérifier les affirmations des critiques sur les images rendues avant de corriger.
 - (cycle 54) Les accessoires de tête disparaissent quelques images quand un mouvement `to` commence après l'apparition de l'acteur.
 - (cycle 54) draft.sh régénère scripts-fr/story_X.json : le commiter ensuite.
+- (cycle 54) Ombres VSM (look natural) : three.js dessine aussi les maillages qui REÇOIVENT l'ombre dans la carte d'ombre ; une
+  tache floue ne part qu'avec castShadow ET receiveShadow coupés (`plNoShadow`).
+- (cycle 54) Accessoire plat à quelques cm au-dessus du grand plan de sol : il clignote image par image ; décalage de polygone
+  (`plTowel`), pas y + 0,02.
+- (cycle 54) `off(p, ry, f, s)` : s > 0 = droite du personnage ; une main droite avec s négatif traverse le corps.
+- (cycle 54) Double prise serrée par une ligne courte : poser la mise en place sur ~60 % du plan, travelling avant pour la prise, et
+  faire sortir le figurant qui serait coupé au bord pendant le travelling.
+- (cycle 54) Figurants allongés vus d'une grue : torsion du cou ≈ 1 rad plus un regard gx pour un mouvement de tête synchronisé ;
+  0,5 rad ne se voit pas.
+- (cycle 54) Réutiliser l'accessoire d'une autre histoire avec un changement : l'envelopper dans un accessoire préfixé qui importe
+  son export, sans toucher le fichier de l'autre histoire.

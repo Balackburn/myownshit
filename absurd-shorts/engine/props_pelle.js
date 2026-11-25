@@ -410,6 +410,14 @@ export const PELLE_PROPS = {
     g.userData.update = t => { c.userData.update(t); const q = Math.hypot(c.position.x, c.position.z) / R; c.position.y = q < 1 ? Hh * Math.sqrt(1 - q * q) : 0; };
     g.userData.update(0); return g; },
 
+  // ---------------------------------------------------------------- (review 2) an empty prop that, every frame, keeps the objects named in o.who (an
+  // actor's id, or 'prop:<id>') out of the shadow map: with the soft (VSM) shadow maps of the natural look three.js also draws every mesh that
+  // RECEIVES shadows into the map, so castShadow false alone left the tax form and the standing inspector throwing big soft blobs on the near sand
+  plNoShadow(o) { const g = grp(), names = [].concat(o.who || []);
+    g.userData.update = () => { let rt = g; while (rt.parent) rt = rt.parent; if (rt === g) return;
+      for (const n of names) { const a = rt.getObjectByName(n); if (a) a.traverse(c => { if (c.isMesh) { c.castShadow = false; c.receiveShadow = false; } }); } };
+    return g; },
+
   // ---------------------------------------------------------------- (review 2) a flat striped beach towel lying on the sand (pivot at its middle):
   // o.w x o.d, stripes o.colors across its length; drawn with a polygon offset toward the camera, so the 9 km ground plane under it (two huge
   // triangles, imprecise depth) never wins the depth test: the towels of the overhead shot popped in and out frame by frame
@@ -437,8 +445,9 @@ export const PELLE_PROPS = {
     for (let i = 0; i < (o.n ?? 3); i++) { const q = grp(), bd = sphere(0.12, '#F4F4F0', 1); bd.scale.set(0.7, 0.6, 1.6); q.add(bd); const hd = sphere(0.07, '#F4F4F0', 1); hd.position.set(0, 0.05, 0.2); q.add(hd); const bk = new THREE.Mesh(new THREE.ConeGeometry(0.02, 0.07, 5), mat('#F2B23A')); bk.rotation.x = PI / 2; bk.position.set(0, 0.04, 0.29); q.add(bk);
       const ws = [-1, 1].map(sd => { const w = grp(at(box(0.45, 0.015, 0.14, '#C9CDD3', { outline: 0.03, emissive: '#6A6E74' }), sd * 0.22, 0, 0), at(box(0.12, 0.016, 0.1, '#2A2C30'), sd * 0.42, 0.001, -0.01)); q.add(w); return [w, sd]; });
       q.scale.setScalar(o.s ?? 1.4); g.add(q); gs.push([q, ws, i]); }
-    // (review 1) the gulls cast no shadow: seen low from the sand, their soft shadows swept the foreground as dark blobs
-    g.traverse(c => { c.castShadow = false; if (c.isMesh && c.material && c.material.color && c.material.color.getHex() === 0xF4F4F0) c.material = mat('#F4F4F0', { emissive: '#7A7A76' }); });
+    // (review 1) the gulls cast no shadow: seen low from the sand, their soft shadows swept the foreground as dark blobs; (review 2) receiveShadow
+    // off too: the soft (VSM) shadow maps also draw receiving meshes
+    g.traverse(c => { c.castShadow = false; c.receiveShadow = false; if (c.isMesh && c.material && c.material.color && c.material.color.getHex() === 0xF4F4F0) c.material = mat('#F4F4F0', { emissive: '#7A7A76' }); });
     g.userData.update = t => gs.forEach(([q, ws, i]) => { const a = t * (o.rate ?? 0.35) + i * TAU / gs.length, R = (o.R ?? 6) * (0.85 + 0.15 * i); q.position.set(Math.cos(a) * R, i * (o.h ?? 0.8) + 0.2 * Math.sin(t * 1.3 + i), Math.sin(a) * R); q.rotation.set(0, -a + PI, 0.35);
       const fl = Math.sin(t * 9 + i) > 0.2 ? Math.sin(t * 14 + i) * 0.5 : 0.08; for (const [w, sd] of ws) w.rotation.z = sd * fl; });
     g.userData.update(0); return g; },

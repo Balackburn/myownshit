@@ -536,9 +536,9 @@ SETW6 = 0.95; ASIDE6 = 1.22
 F6 = [0.8, 0.42, 3.8]; L6 = [-0.45, 0.85, 0.0]
 C6 = cam(0.0, F6, add(F6, [-0.03, 0.0, -0.12]), L6, add(L6, [0.0, 0.0, 0.0]), lens=44, ease='inOut')
 # (review 2) once the boss has stepped aside, a quick push-in onto his head (the replacement and his box still in frame) for the take
-C6b = glide([cam(1.7, [0.4, 0.42, 3.0], [0.39, 0.42, 2.96], [-0.2, 0.64, -0.15], [-0.2, 0.64, -0.15], lens=40, ease='inOut')], 0.24)
+C6b = glide([cam(1.7, [0.35, 0.42, 3.0], [0.34, 0.42, 2.96], [-0.26, 0.64, -0.15], [-0.26, 0.64, -0.15], lens=40, ease='inOut')], 0.24)
 chkc('S06', C6, {'headTop': [0, 0.66, 0], 'chin': [0, 0.14, 0], 'takeTop': [0, 0.92, 0], 'headL': [-0.19, 0.4, 0.1], 'headR': [0.19, 0.4, 0.1], 'wreath': add(WR6, [0, 0.72, 0]), 'ymBox': add(YM6, [0, 1.2, 0.4]), 'bossA': add(BO6A, [0, 2.3, 0]), 'bossB': add(BO6B, [0, 2.5, 0]), 'bossC': add(BO6C, [0, 2.5, 0]), 'bossCside': add(BO6C, [-0.38, 1.0, 0]), 'ym': add(YM6, [0, 2.3, 0]), 'ymFeet': YM6})
-chk('S06@take', [0.39, 0.42, 2.96], [-0.2, 0.64, -0.15], 40, {'takeTop': [0, 0.92, 0], 'chin': [0, 0.14, 0], 'headL': [-0.2, 0.4, 0.1], 'headR': [0.2, 0.4, 0.1], 'ym': add(YM6, [0, 2.3, 0]), 'ymBox': add(YM6, [0, 1.2, 0.4])})
+chk('S06@take', [0.34, 0.42, 2.96], [-0.26, 0.64, -0.15], 40, {'takeTop': [0, 0.92, 0], 'chin': [0, 0.14, 0], 'headL': [-0.2, 0.4, 0.1], 'headR': [0.2, 0.4, 0.1], 'ym': add(YM6, [0, 2.3, 0]), 'ymBox': add(YM6, [0, 1.2, 0.4])})
 H6 = Head('S06')
 H6.pose(0.0, FACE0, dur=0.0).breathe(0.05, r(SETW6 - 0.05), FACE0, blinks=[0.45])
 H6.look(r(SETW6 + 0.05), [-0.5, 0.6, 2.4], 0.12).pose(r(SETW6 + 0.05), {**FACE0, 'mouth': 'line', 'gx': -0.6, 'brow': 0.4}, (1.0, 1.03, 1.0), (0.0, 0.08, -0.15), dur=0.1)
@@ -578,7 +578,9 @@ BOSSK = [k(-0.4, look=add(WR6, [0.3, 1.8, 0.8])), k(0.0, toon={**WRK(WRA), 'sq':
          k(r(ASIDE6 + 0.1), toon={**FL6(), 'sq': [0.95, 1.06, 0.95], 'bend': {'spine': [-0.1, -0.15, 0, 1, None]}, 'face': {**BF, 'mouth': 'smile', 'brow': 0.6}}, toonDur=0.16, toonEase='out'),
          k(r(ASIDE6 + 0.26), toon={**FL6(-0.02), 'sq': [1.0, 1.0, 1.0], 'bend': {'spine': [-0.06, -0.12, 0, 1, None]}, 'face': {**BF, 'mouth': 'smile', 'brow': 0.6}}, toonDur=0.08, toonEase='inOut'),
          k(r(ASIDE6 + 0.2), look=add(YM6, [0, 2.0, 0]), lookDur=0.15),
-         *[k(r(ASIDE6 + 0.4 + 0.2 * j), toon={**FL6(0.04 if j % 2 else -0.02), 'sq': [0.98, 1.02, 0.98] if j % 2 else [1.0, 1.0, 1.0], 'face': {**BF, 'mouth': 'smile', 'brow': 0.6}}, toonDur=0.16, toonEase='inOut') for j in range(int((D6 - ASIDE6 - 0.4) / 0.2))]]
+         *[k(r(ASIDE6 + 0.4 + 0.2 * j), toon={**FL6(0.04 if j % 2 else -0.02), 'sq': [0.98, 1.02, 0.98] if j % 2 else [1.0, 1.0, 1.0], 'face': {**BF, 'mouth': 'smile', 'brow': 0.6}}, toonDur=0.16, toonEase='inOut') for j in range(1)],
+         # (review 2) his job done, he walks off to the left during the push-in (no sliver of him left at the edge of the take)
+         k(1.68, toon={'reach': {}, 'hands': {'L': 'open', 'R': 'open'}, 'face': {**BF, 'mouth': 'smile'}, 'hip': 0}, toonDur=0.12), k(1.7, to=[-2.5, 0.0, -0.8], dur=0.5, clip='walk', face=-95, ease='in')]
 YMF = {'lid': 0.15, 'mouth': 'bigsmile', 'brow': 0.6}
 YKEEP = lambda u=0.0: {'reach': {'L': R5(off(YM6, 0, 0.42, 0.2, 0.92), 1, 0.0), 'R': R5(off(YM6, 0, 0.32, -0.32, 1.45 + 0.06 * u), 1, 0.0)}, 'hands': {'L': 'open', 'R': 'open'}, 'hip': 0}
 YM6A = [-2.6, 0.0, -1.7]
@@ -695,31 +697,33 @@ def leafpt(sd, u, along=1.5, x=0.7):
 # (review 2) low on the sand looking up: the gates' spear tips break the skyline (the seafront buildings right behind the gap are left out)
 F9 = [0.0, 0.32, 6.9]; L9 = [0.0, 1.45, 14.6]
 C9 = cam(0.0, F9, add(F9, [0.0, 0.0, 0.3]), L9, add(L9, [0, 0.0, 0]), lens=52, ease='inOut')
-chkc('S09', C9, {'w1top': [-0.78, 2.6, 11.9], 'w1end': [-0.78, 2.75, 14.15], 'tipL': [-0.7, 2.55, GZ], 'skyline': [0.0, 3.4, GZ], 'postL': [-1.61, 2.9, GZ], 'postR': [1.61, 2.9, GZ], 'leafFlat': [0.0, 0.05, 12.2], 'cart': add(CART9, [0, 2.3, 0]), 'cartL': add(CART9, [-0.6, 0.5, 0]), 'tower': add(TOW9, [0, 3.0, 0]), 'towerR': add(TOW9, [0.8, 1.0, 0]), 'w1': add(leafpt(-1, 0.6), [0, 0.9, -0.5]), 'w2': add(leafpt(1, 0.6), [0, 0.9, -0.5])})
+chkc('S09', C9, {'w1start': [-0.75, 1.5, 17.3], 'w1end': [-0.75, 2.75, 15.0], 'w1aside': [-2.05, 2.4, 15.15], 'w1asideSide': [-2.4, 1.0, 15.15], 'tipL': [-0.7, 2.55, GZ], 'skyline': [0.0, 3.4, GZ], 'postL': [-1.61, 2.9, GZ], 'postR': [1.61, 2.9, GZ], 'leafFlat': [0.0, 0.05, 12.2], 'cart': add(CART9, [0, 2.3, 0]), 'cartL': add(CART9, [-0.6, 0.5, 0]), 'tower': add(TOW9, [0, 3.0, 0]), 'towerR': add(TOW9, [0.8, 1.0, 0]), 'w1': add(leafpt(-1, 0.6), [0, 0.9, -0.5]), 'w2': add(leafpt(1, 0.6), [0, 0.9, -0.5])})
 WKF = {'lid': 0.5, 'mouth': 'clench', 'brow': -0.6, 'sweat': 0.4}
 def WORKK(sd):
-    # (review 2) each worker pushes his leaf up from underneath: crouched under its top end lying on the sand, he walks in under it as it rises,
-    # his mittens on its underside, up onto his toes at the end; on « cimetière » (the clank) he steps aside out of the opening and dusts his mittens
-    p0 = [r(sd * 0.75), 0.0, r(GZ - 2.3 - 0.4)]
-    ks = [k(-0.4, look=[r(sd * 0.75), 1.3, GZ]), k(0.0, toon={'face': WKF, 'hip': 0}, toonDur=0.0), k(0.0, to=p0, dur=0.0)]
+    # (review 2) the leaves lie flat on the promenade side (away from the lens, seen on stills): each worker stands on that side facing us, crouched
+    # under the top end of his leaf, pushes it up from underneath and walks in under it as it rises, up onto his toes at the end; on « cimetière »
+    # (the clank) he steps aside behind his post and dusts his mittens
+    def hp_at(t_):
+        u = rise_at(t_); a = u * PI / 2; along = min(2.3, 2.12 / max(0.05, math.sin(a)))
+        return [r(sd * 0.72), r(along * math.sin(a)), r(GZ + along * math.cos(a))]
+    p0 = [r(sd * 0.75), 0.0, r(hp_at(0.05)[2] + 0.42)]
+    ks = [k(-0.4, look='camera'), k(0.0, toon={'face': WKF, 'hip': 0}, toonDur=0.0), k(0.0, to=p0, dur=0.0)]
     t_ = 0.0
     while t_ < UP9 + 0.02:
-        u = rise_at(r(t_ + 0.05)); a = u * PI / 2; along = min(2.3, 2.12 / max(0.05, math.sin(a)))
-        hp = [r(sd * 0.75), r(along * math.sin(a)), r(GZ - along * math.cos(a))]
-        toes = hp[1] > 1.75; low = max(0.0, 1.0 - hp[1] / 1.5)
-        feet = [r(sd * 0.78), 0.06 if toes else 0.0, r(min(GZ - 0.42, hp[2] - 0.32 - 0.25 * low))]
-        ks.append(k(r(t_), toon={'reach': {'L': R5(add(hp, [0.16, -0.05, -0.03]), 1, 0.0), 'R': R5(add(hp, [-0.16, -0.05, -0.03]), 1, 0.0)}, 'hands': {'L': 'open', 'R': 'open'}, 'hose': 0.15,
-                                   'sq': [0.92, 1.1, 0.92] if toes else ([1.1, 0.88, 1.1] if low > 0.5 else [1.0, 1.0, 1.0]), 'bend': {'spine': [r(0.15 + 0.8 * low, 3), 0, 0, 1, None], 'neck': [-0.3 if toes else 0.0, 0, 0, 1, None]}, 'face': WKF}, toonDur=0.1))
-        ks.append(k(r(t_), to=feet, dur=0.1, glide=True, face=0, ease='linear'))
+        hp = hp_at(r(t_ + 0.05)); toes = hp[1] > 1.75; low = max(0.0, 1.0 - hp[1] / 1.5)
+        feet = [r(sd * 0.75), 0.06 if toes else 0.0, r(max(GZ + 0.4, hp[2] + 0.34 + 0.22 * low))]
+        ks.append(k(r(t_), toon={'reach': {'L': R5(add(hp, [-0.16, -0.05, 0.03]), 1, 0.0), 'R': R5(add(hp, [0.16, -0.05, 0.03]), 1, 0.0)}, 'hands': {'L': 'open', 'R': 'open'}, 'hose': 0.15,
+                                   'sq': [0.92, 1.1, 0.92] if toes else ([1.1, 0.88, 1.1] if low > 0.5 else [1.0, 1.0, 1.0]), 'bend': {'spine': [r(0.15 + 0.8 * low, 3), 0, 0, 1, None], 'neck': [-0.25 if toes else 0.0, 0, 0, 1, None]}, 'face': {**WKF, 'mouth': 'clench' if not toes else 'grimace'}}, toonDur=0.1))
+        ks.append(k(r(t_), to=feet, dur=0.1, glide=True, face=180, ease='linear'))
         t_ += 0.1
-    top = [r(sd * 0.75), 2.12, r(GZ - 0.06)]
-    ks += [k(r(UP9 - 0.02), toon={'reach': {'L': R5(add(top, [0.16, 0, -0.04]), 1, 0.0), 'R': R5(add(top, [-0.16, 0, -0.04]), 1, 0.0)}, 'hands': {'L': 'open', 'R': 'open'}, 'sq': [0.88, 1.14, 0.88], 'bend': {'neck': [-0.3, 0, 0, 1, None]}, 'face': {**WKF, 'mouth': 'o'}, 'hip': 0}, toonDur=0.04, toonEase='out'),
-           k(r(UP9 + 0.04), to=[r(sd * 1.15), 0.0, r(GZ - 0.95)], dur=0.28, glide=True, face=r(180 - 30 * sd), ease='inOut'),
-           k(r(UP9 + 0.08), look='camera', lookDur=0.15),
+    top = [r(sd * 0.72), 2.12, r(GZ + 0.06)]
+    aside = [r(sd * 2.7), 0.0, r(GZ + 0.9)]
+    ks += [k(r(UP9 - 0.02), toon={'reach': {'L': R5(add(top, [-0.16, 0, 0.04]), 1, 0.0), 'R': R5(add(top, [0.16, 0, 0.04]), 1, 0.0)}, 'hands': {'L': 'open', 'R': 'open'}, 'sq': [0.88, 1.14, 0.88], 'bend': {'neck': [-0.25, 0, 0, 1, None]}, 'face': {**WKF, 'mouth': 'o'}, 'hip': 0}, toonDur=0.04, toonEase='out'),
+           k(r(UP9 + 0.04), to=aside, dur=0.3, glide=True, face=r(180 + 25 * sd), ease='inOut'),
            k(r(UP9 + 0.06), toon={'reach': {}, 'hands': {'L': 'open', 'R': 'open'}, 'sq': [1.06, 0.95, 1.06], 'face': {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}, 'hip': 0}, toonDur=0.1, toonEase='out')]
-    for j in range(5): ks.append(k(r(UP9 + 0.34 + 0.08 * j), toon={'reach': {'L': R5(off([r(sd * 1.15), 0.0, r(GZ - 0.95)], r(180 - 30 * sd), 0.3, -0.06 + (0.05 if j % 2 else -0.03), 1.0), 1, 0.0), 'R': R5(off([r(sd * 1.15), 0.0, r(GZ - 0.95)], r(180 - 30 * sd), 0.3, 0.06 + (-0.03 if j % 2 else 0.05), 1.02), 1, 0.0)}, 'hands': {'L': 'open', 'R': 'open'}, 'face': {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}, 'hip': 0}, toonDur=0.07))
+    for j in range(5): ks.append(k(r(UP9 + 0.36 + 0.08 * j), toon={'reach': {'L': R5(off(aside, r(180 + 25 * sd), 0.3, -0.06 + (0.05 if j % 2 else -0.03), 1.0), 1, 0.0), 'R': R5(off(aside, r(180 + 25 * sd), 0.3, 0.06 + (-0.03 if j % 2 else 0.05), 1.02), 1, 0.0)}, 'hands': {'L': 'open', 'R': 'open'}, 'face': {'lid': 0.3, 'mouth': 'smile', 'brow': 0.3}, 'hip': 0}, toonDur=0.07))
     return ks
-st.shot('S09', 'grassland', setOpts=SET, look=SUNF, actors=[act('ouvrier1', [-0.75, 0.0, r(GZ - 2.7)], 0, 'stand', 'neutral', keys=WORKK(-1)), act('ouvrier2', [0.75, 0.0, r(GZ - 2.7)], 0, 'stand', 'neutral', keys=WORKK(1))],
+st.shot('S09', 'grassland', setOpts=SET, look=SUNF, actors=[act('ouvrier1', [-0.75, 0.0, r(GZ + 2.7)], 180, 'stand', 'neutral', keys=WORKK(-1)), act('ouvrier2', [0.75, 0.0, r(GZ + 2.7)], 180, 'stand', 'neutral', keys=WORKK(1))],
         props=[WORLD(9), FRONT(9, gap=[-1.85, 1.85], hide=[[-8.0, 8.0]]), GULLS(9, (0, 9, 18)), P('grilles9', 'plGates', pos=[0, 0, GZ], ry=180, opts={'w': GW, 'h': 2.4, 'nb': 6, 'rise': RISE9, 'rattle': [[UP9, 0.05, 24, 5]]}),
                P('glaces9', 'iceCreamCart', pos=CART9, ry=160), P('tour9', 'plTower', pos=TOW9, ry=200)],
         cams=[C9])
@@ -914,7 +918,7 @@ D12 = st.dur('S12'); FIS12 = W('S12', 'L12', 2); MORT12 = W('S12', 'L12', 7)
 IN12 = [0.85, 0.0, -0.8]; RYIN = -55; IN12K = [0.85, -0.32, -0.4]
 ENV12 = [0.06, 0.15, 0.27]; ENVA = [0.5, 0.6, -0.1]
 TUCK12 = r(FIS12 + 0.05); UP12 = r(MORT12 - 0.35)
-FORM12 = [0.38, 1.12, 1.2]
+FORM12 = [0.48, 0.84, 1.05]
 F12 = [-0.3, 0.5, 3.1]; L12 = [0.25, 0.82, 0.0]
 C12 = cam(0.0, F12, [-0.34, 0.5, 3.4], L12, [0.3, 0.93, 0.0], lens=50, ease='inOut')
 chkc('S12', C12, {'headTop': [0, 0.66, 0], 'chin': [0, 0.14, 0], 'headL': [-0.19, 0.4, 0.1], 'headR': [0.19, 0.4, 0.1], 'env': ENV12, 'insp': add(IN12, [0, 1.45, 0]), 'inspUp': add(IN12, [0, 2.2, 0]), 'formTop': add(FORM12, [0, 0.31, 0]), 'formBot': add(FORM12, [0, -0.31, 0]), 'formR': add(FORM12, [0.23, 0, 0]), 'formL': add(FORM12, [-0.23, 0, 0])}, end=True)
@@ -948,7 +952,7 @@ FORMK = [k(0.0, scale=0.01, dur=0.0), k(r(UP12 + 0.02), to=add(IN12, [-0.25, 1.3
          *[k(r(UP12 + 0.22 + 0.12 * j), to=add(FORM12, [0.0, 0.02 if j % 2 else 0.0, 0.0]), dur=0.1) for j in range(4)]]
 st.shot('S12', 'grassland', setOpts=SET, look=SUNB, actors=[H12.actor(), act('inspecteur', IN12K, RYIN, 'kneel', 'neutral', keys=INK)],
         props=[WORLD(12), GULLS(12), SHADES('lun12', H12, dip=DIP12), FILL('appoint12', (-0.2, 0.75, 1.0)), *BURIED(12, rows=4, crabs=[([[0.0, -0.46, 0.25], [1.4, -0.43, 0.22]], [1.0], 0.24), ([[0.0, 0.47, 0.2], [1.8, 0.42, 0.24]], [0.5], 0.2)]), HSTONE('stele12'),
-               P('enveloppe12', 'plEnvelope', pos=ENVA, rot=[-0.95, 0, 0], opts={'w': 0.34, 'fat': 0.07}, keys=ENVK),
+               P('sansombre12', 'plNoShadow', pos=[0, 0, 0], opts={'who': ['inspecteur', 'prop:avis12']}), P('enveloppe12', 'plEnvelope', pos=ENVA, rot=[-0.95, 0, 0], opts={'w': 0.34, 'fat': 0.07}, keys=ENVK),
                P('avis12', 'plTaxForm', pos=FORM12, face='camera', scale=0.01, castShadow=False, opts={'w': 0.46}, keys=FORMK)],
         cams=[C12])
 st.cue('thud', 'S12', TUCK12, 0.15); st.cue('whoosh', 'S12', r(UP12 + 0.02), 0.12, 0.2, 800, 3500); WAVES('S12', D12)
@@ -1168,5 +1172,6 @@ st.write("La pelle", rig='toon', fingers=False, cloth=True, idleShift=1.6, holdL
     'vacancier4': {'preset': 'boss', 'seed': 10025, **SWIM, 'hair': 'receding', 'hairColor': '#9A9A96', 'facial': 'mustache', 'build': {'width': 1.05, 'headWidth': 1.2, 'belly': 0.12}, 'toon': EX},
     'vacancier5': {'preset': 'femme', 'seed': 10026, **SWIM, 'hair': 'long', 'hairColor': '#1E1A18', 'build': {'width': 0.95, 'headWidth': 1.2, 'height': 0.95}, 'toon': EX},
     'vacancier6': {'preset': 'boss', 'seed': 10027, **SWIM, 'hair': 'curly', 'hairColor': '#3A2418', 'facial': 'none', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
-    'inspecteur': {'preset': 'politique', 'seed': 10028, 'suit': '#8A8E96', 'lapel': '#6E727A', 'tie': '#2C3E5C', 'hairColor': '#4A4A48', 'glasses': True, 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': EX},
+    # (review 2) no cast shadow: standing, his arms threw big soft blobs over the near sand (he is only in S12)
+    'inspecteur': {'preset': 'politique', 'seed': 10028, 'castShadow': False, 'suit': '#8A8E96', 'lapel': '#6E727A', 'tie': '#2C3E5C', 'hairColor': '#4A4A48', 'glasses': True, 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': EX},
 })
