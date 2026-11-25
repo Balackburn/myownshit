@@ -2252,3 +2252,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 53) Deux maisons dans le même plan ne peuvent pas être premier plan et fond en vertical : avancer celle du premier plan et
   vérifier la ligne de vue au coin avec project().
 - (cycle 53) Volet ouvert qui dépasse du bout de son mur : il cache le gag du fond ; pas de volets sur cette fenêtre.
+- (cycle 53, session 87 « Le pneu ») Vérifier les noms d'effets sonores contre audio3.py / audio.py / FX de mix.py avant le brouillon :
+  un nom inconnu tombe en silence.
+- (cycle 53) Préfixer les accessoires nouveaux par histoire : props.js fusionne par Object.assign, une collision écrase sans erreur.
+- (cycle 53) Vague de voitures filmée de face = masquée par la plus proche : caméra en diagonale depuis la bande d'arrêt, premières
+  chutes dès 0,3 s, voiture proche vers 1,0 s.
+- (cycle 53) Cibles de main gauche et droite inversées = bras en X ; vérifier sur la planche.
+- (cycle 53) Étiquette « sans chiffres » = sans symbole monétaire non plus.
+- (cycle 53) Pompe à pied : baril rond, pédale et cadran, sinon elle se lit comme une guillotine.
+- (cycle 53) Plan de rappel cadré comme un plan précédent : garder un espace entre les têtes, sinon elles fusionnent.
+- (cycle 53) Bitume en conflit de profondeur = scintillement : dessiner l'asphalte sans test de profondeur.
