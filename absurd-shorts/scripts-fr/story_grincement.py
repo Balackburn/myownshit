@@ -470,7 +470,7 @@ BHINGE = [r(BDOOR[0] - DW / 2), 1.95, -2.9]
 SQT8 = [r(NUIT8 + 0.05), r(PAR8 + 0.25)]
 A8 = [[0.0, 0.3], [r(SQT8[0] - 0.2), 0.32], [SQT8[0], 0.85, 'lin'], [r(SQT8[0] + 0.3), 0.55], [r(SQT8[1] - 0.12), 0.5], [SQT8[1], 1.05, 'lin'], [r(SQT8[1] + 0.35), 0.75], [D8, 0.8]]
 PULL8 = r(SOM8 + 0.05)
-BIB8 = [[0.0, 0.5], [PULL8, 0.5], [r(PULL8 + 0.22), 0.92, 'lin'], [r(PULL8 + 0.3), 0.88]]
+BIB8 = [[0.0, 0.45], [PULL8, 0.45], [r(PULL8 + 0.22), 0.84, 'lin'], [r(PULL8 + 0.3), 0.8]]
 DUV8 = [BEDX, 0.63, -0.95]; DUVL = 1.5                                    # the duvet from the foot of the bed to his waist (z -2.45)
 def BIBTOP(h, sd): return [r(BEDX + 0.2 * sd), r(DUV8[1] + h + 0.02), r(DUV8[2] - DUVL + 0.1)]
 F8 = [-3.2, 1.8, 1.4]; L8 = [-2.0, 1.48, -2.52]
@@ -481,12 +481,12 @@ HB8 = lambda h: {'reach': {'L': R5(BIBTOP(h, 1), 1, 0.0), 'R': R5(BIBTOP(h, -1),
 # (round 1 fix) on the first squeak his eyes bulge to twice their size (a jolt up, stretched, held trembling, an overshoot); the second squeak only
 #     sends the pupils to the door; then he deflates under the duvet: the body sinks wide and short, the back rounds, the head drops, the duvet comes up
 #     to his nose and the hold breathes, squashed, the eyes still wide over the duvet
-BULGE = {**HB8(0.5), 'sq': [0.93, 1.1, 0.93], 'scl': {'head': [0.95, 1.08, 1.0]}, 'face': {**BEDF, 'eye': 1.0, 'gx': -0.7, 'gy': -0.1, 'brow': 1.0, 'mouth': 'o'}}
-SAG8 = lambda q=0.0: {**HB8(1.0), 'sq': [r(1.14 + q, 3), r(0.76 - q, 3), r(1.14 + q, 3)], 'bend': {'spine': [0.25, 0, 0, 0.92, None], 'neck': [0.12, 0, 0, 0.9, None]}, 'face': {**BEDF, 'eye': 0.5, 'gx': -0.35, 'brow': 0.4}}
-HERO8 = [k(-0.4, look=[-1.6, 1.8, 0.0]), k(0.0, toon={**HB8(0.5), 'face': {**BEDF, 'gx': -0.2}}, toonDur=0.0),
-         *beat(r(SQT8[0] + 0.06), BULGE, antic={**HB8(0.5), 'sq': [1.05, 0.95, 1.05], 'face': {**BEDF, 'eye': 0.2, 'gx': -0.3}}, hold=0.24,
-               over={**HB8(0.5), 'sq': [1.02, 0.98, 1.02], 'face': {**BEDF, 'eye': 0.55, 'gx': -0.5}}, settle={**HB8(0.5), 'face': {**BEDF, 'eye': 0.45, 'gx': -0.4}}),
-         k(r(SQT8[1] + 0.06), toon={**HB8(0.5), 'face': {**BEDF, 'gx': -0.8, 'gy': -0.1, 'eye': 0.6}, 'sq': [0.98, 1.03, 0.98]}, toonDur=0.06),
+BULGE = {**HB8(0.45), 'sq': [0.93, 1.1, 0.93], 'scl': {'head': [0.95, 1.08, 1.0]}, 'face': {**BEDF, 'eye': 1.0, 'gx': -0.7, 'gy': -0.1, 'brow': 1.0, 'mouth': 'o'}}
+SAG8 = lambda q=0.0: {**HB8(0.8), 'sq': [r(1.1 + q, 3), r(0.87 - q, 3), r(1.1 + q, 3)], 'bend': {'spine': [0.25, 0, 0, 0.92, None], 'neck': [0.12, 0, 0, 0.9, None]}, 'face': {**BEDF, 'eye': 0.5, 'gx': -0.35, 'brow': 0.4}}
+HERO8 = [k(-0.4, look=[-1.6, 1.8, 0.0]), k(0.0, toon={**HB8(0.45), 'face': {**BEDF, 'gx': -0.2}}, toonDur=0.0),
+         *beat(r(SQT8[0] + 0.06), BULGE, antic={**HB8(0.45), 'sq': [1.05, 0.95, 1.05], 'face': {**BEDF, 'eye': 0.2, 'gx': -0.3}}, hold=0.24,
+               over={**HB8(0.45), 'sq': [1.02, 0.98, 1.02], 'face': {**BEDF, 'eye': 0.55, 'gx': -0.5}}, settle={**HB8(0.45), 'face': {**BEDF, 'eye': 0.45, 'gx': -0.4}}),
+         k(r(SQT8[1] + 0.06), toon={**HB8(0.45), 'face': {**BEDF, 'gx': -0.8, 'gy': -0.1, 'eye': 0.6}, 'sq': [0.98, 1.03, 0.98]}, toonDur=0.06),
          k(r(PULL8), toon=SAG8(0.04), toonDur=0.22, toonEase='inOut'), k(r(PULL8 + 0.3), toon=SAG8(-0.02), toonDur=0.12, toonEase='inOut')]
 for i_ in range(4):
     t_ = r(PULL8 + 0.45 + 0.42 * i_)
@@ -539,14 +539,21 @@ def CANDK(i, p, dp):
 IF9 = {'lid': 0.2, 'mouth': 'line', 'brow': 0.5}
 IK = lambda hr, f=IF9: {'reach': {'R': R5(hr, 1, 0.0)}, 'hands': {'R': 'open'}, 'face': f, 'hip': 0}
 INVK = [k(-0.4, look=[-0.8, 1.6, 0.5]), k(0.0, toon=IK(off(INV9, RYI9, 0.4, 0.15, 1.15)), toonDur=0.0)]
-for b in BEATS9: INVK += [k(r(b - 0.28), toon={**IK(off(INV9, RYI9, 0.4, 0.3, 1.55)), 'sq': [0.97, 1.04, 0.97]}, toonDur=0.15), k(r(b - 0.03), toon={**IK(off(INV9, RYI9, 0.55, 0.2, 1.08), {**IF9, 'mouth': 'O'}), 'sq': [1.04, 0.96, 1.04]}, toonDur=0.06, toonEase='in'),
-                          k(r(b + 0.3), toon=IK(off(INV9, RYI9, 0.4, 0.15, 1.15)), toonDur=0.2)]
+# (round 1 fix) a big conductor's beat that leads each unison squeak: the baton swings up high over her head (stretched tall, chin up), hangs two
+#     frames, then cracks down on the desk edge just before the squeak (squashed), a rebound and a rest; she blinks on the rests
+for b in BEATS9: INVK += [k(r(b - 0.36), toon={**IK(off(INV9, RYI9, 0.3, 0.32, 2.45), {**IF9, 'brow': 0.8}), 'sq': [0.95, 1.07, 0.95], 'bend': {'neck': [-0.15, 0, 0, 1, None]}}, toonDur=0.16, toonEase='out'),
+                          k(r(b - 0.12), toon={**IK(off(INV9, RYI9, 0.32, 0.34, 2.5), {**IF9, 'brow': 0.9}), 'sq': [0.94, 1.08, 0.94], 'bend': {'neck': [-0.18, 0, 0, 1, None]}}, toonDur=0.05),
+                          k(r(b - 0.04), toon={**IK(off(INV9, RYI9, 0.6, 0.2, 0.98), {**IF9, 'mouth': 'O', 'brow': -0.2}), 'sq': [1.07, 0.93, 1.07], 'bend': {'spine': [0.2, 0, 0, 1, None]}}, toonDur=0.05, toonEase='in'),
+                          k(r(b + 0.06), toon={**IK(off(INV9, RYI9, 0.55, 0.2, 1.12), {**IF9, 'mouth': 'line'}), 'sq': [0.99, 1.01, 0.99]}, toonDur=0.06, toonEase='out'),
+                          k(r(b + 0.3), toon=IK(off(INV9, RYI9, 0.4, 0.15, 1.15)), toonDur=0.2), *blink(r(b + 0.55), IF9, IK(off(INV9, RYI9, 0.4, 0.15, 1.15))) ]
 props9 = [P('fond9', 'tacheBox', pos=[0.0, 2.0, 4.0], opts={'w': 12.0, 'h': 4.0, 'd': 0.1, 'color': '#E9E1CC'}),
           P('tableau9', 'grinBoard', pos=[-0.8, 2.6, 3.92], ry=180, opts={'w': 3.0, 'h': 0.95, 'lines': ['BAC', 'ÉPREUVE DE GRINCEMENT']}),
-          P('bureau9', 'table', pos=DESK9, opts={'w': 1.3, 'd': 0.6, 'h': 0.76, 'color': '#7A5C3A', 'legs': '#5C4330'}), BAG('sachet9', BAG9, scale=1.3)]
+          P('bureau9', 'table', pos=DESK9, opts={'w': 1.3, 'd': 0.6, 'h': 0.76, 'color': '#7A5C3A', 'legs': '#5C4330'}), BAG('sachet9', BAG9, scale=1.3), P('baguette9', 'grinBaton', on={'actor': 'surveillante', 'hand': 'R', 'offset': [0.0, -0.03, 0.03]}, opts={'len': 0.7})]
 for i, (n, p, dp) in enumerate(CAND):
-    props9.append(P(f'petiteporte9_{i}', 'grinMiniDoor', pos=dp, ry=0, opts={'beats': BEATS9, 'amp': 1.25, 'color': ['#2F7F8C', '#B5402F', '#2F62B5', '#5E8C4A', '#C98A2E', '#7A4A8A'][i]}))
-    props9.append(SQUEAK('S09', f'grince9_{i}', add(dp, [-0.17, 0.42, 0.0]), BEATS9, size=0.6, side=-1 if dp[0] < -0.8 else 1, gain=0.1 if i else 0.34))
+    RYD9 = 180 + (40 if dp[0] > p[0] else -40)
+    props9.append(P(f'petiteporte9_{i}', 'grinMiniDoor', pos=dp, ry=RYD9, opts={'beats': BEATS9, 'amp': 1.25, 'color': ['#2F7F8C', '#B5402F', '#2F62B5', '#5E8C4A', '#C98A2E', '#7A4A8A'][i]}))
+    hg9 = [r(dp[0] - 0.19 * math.cos(math.radians(RYD9))), r(dp[1] + 0.45), r(dp[2] + 0.19 * math.sin(math.radians(RYD9)))]
+    props9.append(SQUEAK('S09', f'grince9_{i}', hg9, BEATS9, size=0.6, side=-1 if dp[0] < -0.8 else 1, gain=0.1 if i else 0.34))
 st.shot('S09', 'classroom', setOpts={'board': 'BAC', 'board2': 'Épreuve de grincement', 'board3': 'Durée : 4 h'},
         actors=[*[act(n, p, 180, 'sit', 'neutral', keys=CANDK(i, p, dp)) for i, (n, p, dp) in enumerate(CAND)], act('surveillante', INV9, RYI9, 'stand', 'neutral', keys=INVK)],
         props=props9, cams=[C9])
@@ -557,23 +564,32 @@ st.cue('clack', 'S09', r(BEATS9[0] - 0.05), 0.15); st.cue('clack', 'S09', r(BEAT
 #     squeaks in the wind
 D10 = st.dur('S10'); REC10 = W('S10', 'L10', 4); DEM10 = W('S10', 'L10', 9)
 N10A = [-2.0, 0.0, 4.0]; N10B = [-1.0, 0.0, 5.6]; RYN10 = yaw(N10A, N10B)
-VAN10 = [3.5, 0.0, 7.2]
+# (round 1 fix) a long lens from far down the street: the hero's door in the background is four times bigger (a fifth of the frame) with a big
+#     squeak; a small moving van (its own prop: cab, wheels, both rear doors open on a few boxes) parked three-quarters at the kerb on the right; the
+#     box's flaps folded flat so the exam sheet (in front of the box, bigger) shows all three 0/20; he walks slumped and deflated (squashed short and
+#     wide, back rounded, head hanging), with a slow sigh on top of the walk
+VAN10 = [1.9, 0.0, 5.4]; RYV10 = -30
 SQ10 = [0.575, 2.0, 0.08]
-F10 = [1.0, 2.0, 11.5]; L10 = [-0.7, 1.24, 2.4]
-C10 = cam(0.0, F10, add(F10, [-0.05, 0.0, -0.4]), L10, add(L10, [0.0, 0, 0.3]), lens=50, ease='inOut')
-chkc('S10', C10, {'headA': add(N10A, [0, 2.45, 0]), 'headB': add(N10B, [0, 2.45, 0]), 'boxB': add(N10B, [0, 1.15, 0.45]), 'feetB': N10B, 'hingeSq': SQ10, 'sqTip': add(SQ10, [-0.8, 0.25, 0]), 'doorL': [-0.575, 1.3, 0], 'vanRear': add(VAN10, [-2.6, 1.5, 0]), 'blockEdge': [-0.9, 1.5, 3.5]})
+F10 = [1.75, 1.8, 18.0]; L10 = [0.0, 1.45, 3.25]
+C10 = cam(0.0, F10, add(F10, [-0.05, 0.0, -0.5]), L10, add(L10, [0.0, 0, 0.1]), lens=36, ease='inOut')
+chkc('S10', C10, {'headA': add(N10A, [0, 2.45, 0]), 'headB': add(N10B, [0, 2.45, 0]), 'boxB': add(N10B, [0, 1.15, 0.45]), 'feetB': N10B, 'hingeSq': SQ10, 'sqTip': add(SQ10, [-1.05, 0.3, 0]), 'doorTop': [0, 2.6, 0], 'doorBot': [0, 0, 0],
+                  'vanRear': add(VAN10, [r(1.05 * math.sin(math.radians(RYV10))), 1.2, r(1.05 * math.cos(math.radians(RYV10)))]), 'vanFront': add(VAN10, [r(-1.05 * math.sin(math.radians(RYV10))), 0.9, r(-1.05 * math.cos(math.radians(RYV10)))])})
 chkc('S10', C10, {'headB': add(N10B, [0, 2.45, 0]), 'boxB': add(N10B, [0, 1.15, 0.45]), 'hingeSq': SQ10, 'doorL': [-0.575, 1.3, 0]}, end=True)
 BOXH = {'touch': {'L': ['torso', 0.42, 0.15, 0.5], 'R': ['torso', -0.42, 0.15, 0.5]}, 'hands': {'L': 'open', 'R': 'open'}, 'hip': 0}
-NF10 = {'lid': 0.55, 'mouth': 'line_m6', 'brow': -0.5}
-VOIS10 = [k(-0.4, look='camera'), k(0.0, toon={**BOXH, 'face': NF10}, toonDur=0.0), k(0.0, to=N10B, dur=r(D10 - 0.15), clip='walk', face=RYN10, ease='linear'),
-          *life(0.2, D10, NF10, BOXH, period=0.6, blinks=[r(REC10 + 0.2)]), k(r(DEM10), look=add(VAN10, [-2.0, 1.5, 0]), lookDur=0.3)]
+NF10 = {'lid': 0.6, 'mouth': 'line_m6', 'brow': -0.5, 'browTilt': 12}
+SAGW = lambda q=0.0: {**BOXH, 'sq': [r(1.09 + q, 3), r(0.88 - q, 3), r(1.09 + q, 3)], 'bend': {'spine': [0.2, 0, 0, 1, None], 'neck': [r(0.32 + q, 3), 0, 0, 1, None]}, 'face': NF10}
+VOIS10 = [k(-0.4, look='camera'), k(0.0, toon=SAGW(), toonDur=0.0), k(0.0, to=N10B, dur=r(D10 - 0.15), clip='walk', face=RYN10, ease='linear')]
+for i_ in range(int(D10 / 0.55)):
+    t_ = r(0.25 + 0.55 * i_)
+    if not any(-0.04 < t_ - b < 0.2 for b in (r(REC10 + 0.2), 2.4)): VOIS10.append(k(t_, toon=SAGW(0.02 if i_ % 2 == 0 else -0.015), toonDur=0.45, toonEase='inOut'))
+VOIS10 += [*blink(r(REC10 + 0.2), NF10, {k_: v_ for k_, v_ in SAGW().items() if k_ != 'face'}), *blink(2.4, NF10, {k_: v_ for k_, v_ in SAGW().items() if k_ != 'face'}), k(r(DEM10), look=add(VAN10, [0.0, 1.0, 0.0]), lookDur=0.3)]
 st.shot('S10', 'grassland', setOpts=SET, actors=[act('voisin', N10A, RYN10, 'stand', 'neutral', keys=VOIS10)],
         props=[*STREET(10, nb=True), FACADE('maison10', open_=1.35, rattle=[[0.5, 0.12, 12, 2.0], [r(DEM10 - 0.2), 0.12, 12, 2.0]]),
                P('bonnet10', 'nightCap', on={'actor': 'voisin', 'joint': 'head', 'offset': [0, 0.5, 0], 'rot': [0, 0, 0.15]}),
-               P('carton10', 'cardboardBox', on={'actor': 'voisin', 'joint': 'torso', 'offset': [0, -0.15, 0.48]}, opts={'text': ''}),
-               P('copie10', 'grinExamSheet', on={'actor': 'voisin', 'joint': 'torso', 'offset': [0, 0.12, 0.78], 'face': 'camera'}, scale=1.35),
-               P('camion10', 'deliveryVan', pos=VAN10, ry=0, opts={'text': 'DÉMÉNAGEMENT'}),
-               SQUEAK('S10', 'grince10', SQ10, [0.55, r(DEM10 - 0.15)], size=0.95, side=-1, amp=[1.0, 1.1])],
+               P('carton10', 'cardboardBox', on={'actor': 'voisin', 'joint': 'torso', 'offset': [0, -0.15, 0.48]}, opts={'text': '', 'flapsAt': 99}),
+               P('copie10', 'grinExamSheet', on={'actor': 'voisin', 'joint': 'torso', 'offset': [0, -0.02, 0.76], 'face': 'camera'}, scale=1.55),
+               P('camion10', 'grinVan', pos=VAN10, ry=RYV10, scale=0.7, opts={'doors': 1.35}),
+               SQUEAK('S10', 'grince10', SQ10, [0.55, r(DEM10 - 0.15)], size=1.1, side=-1, amp=[1.0, 1.1])],
         cams=[C10])
 for t_ in (0.3, 0.9, 1.5, 2.1, 2.7): st.cue('sfx:stepSoft', 'S10', t_, 0.15)
 
@@ -583,7 +599,7 @@ for t_ in (0.3, 0.9, 1.5, 2.1, 2.7): st.cue('sfx:stepSoft', 'S10', t_, 0.15)
 D11 = st.dur('S11'); VOE11 = W('S11', 'L11', 5); GRC11 = W('S11', 'L11', 7)
 PRES = [0.0, 0.02, -1.45]; DESK11 = [0.0, 0.0, -0.95]; DTOP = 0.79
 MD11 = [0.38, DTOP, -0.75]
-BAG11 = [-0.5, r(DTOP + 0.31), -0.72]
+BAG11 = [-0.4, r(DTOP + 0.31), -0.72]
 SQT11 = [0.55, r(VOE11), r(GRC11 + 0.1)]
 SW11 = [[0.0, 0.0]]
 for t_ in SQT11: SW11 += [[r(t_ - 0.3), 0.05], [r(t_ + 0.05), 0.95], [r(t_ + 0.45), 0.2]]
@@ -593,11 +609,11 @@ def sw_at(t_):
     for i in range(1, len(SW11)):
         if t_ < SW11[i][0]: u = (t_ - SW11[i - 1][0]) / (SW11[i][0] - SW11[i - 1][0]); u = u * u * (3 - 2 * u); return SW11[i - 1][1] + (SW11[i][1] - SW11[i - 1][1]) * u
     return SW11[-1][1]
-F11 = [0.0, 1.55, 3.0]; L11 = [0.0, 1.33, -0.5]
-C11 = cam(0.0, F11, add(F11, [0.0, -0.02, -0.4]), L11, add(L11, [0, 0.0, 0]), lens=36, ease='inOut')
-chkc('S11', C11, {'head': add(PRES, [0, 1.95, 0]), 'chin': add(PRES, [0, 1.38, 0]), 'mini': add(MD11, [0, 0.55, 0]), 'bag': add(BAG11, [0, 0.31, 0]), 'bagBot': add(BAG11, [0, -0.3, 0]), 'deskL': [-1.1, DTOP, -0.45], 'deskR': [1.1, DTOP, -0.45], 'sq': [0.21, 1.35, -0.73]})
+F11 = [0.08, 1.55, 3.0]; L11 = [0.1, 1.33, -0.5]
+C11 = cam(0.0, F11, add(F11, [0.0, -0.02, -0.3]), L11, add(L11, [0, 0.0, 0]), lens=42, ease='inOut')
+chkc('S11', C11, {'head': add(PRES, [0, 1.95, 0]), 'chin': add(PRES, [0, 1.38, 0]), 'mini': add(MD11, [0, 0.55, 0]), 'bag': add(BAG11, [0, 0.31, 0]), 'bagBot': add(BAG11, [0, -0.3, 0]), 'deskL': [-1.1, DTOP, -0.45], 'deskR': [1.1, DTOP, -0.45], 'sq': [0.5, 1.38, -0.72], 'sqTip': [0.8, 1.45, -0.72], 'mouth': add(PRES, [0, 1.5, 0.05])})
 PF11 = {'lid': 0.3, 'mouth': 'line', 'brow': 0.35}
-PK11 = lambda a: {'reach': {'L': R5(MDEDGE(a), 1, 0.0), 'R': R5([-0.3, r(DTOP + 0.06), -0.75], 1, 0.0)}, 'hands': {'L': 'grip', 'R': 'open'}, 'hip': 0}
+PK11 = lambda a: {'reach': {'L': R5(MDEDGE(a), 1, 0.0), 'R': R5([-0.2, r(DTOP + 0.06), -0.8], 1, 0.0)}, 'hands': {'L': 'grip', 'R': 'open'}, 'hip': 0}
 PRESK = [k(-0.4, look='camera'), k(0.0, toon={**PK11(0.0), 'face': PF11}, toonDur=0.0)]
 tt = 0.1
 while tt < D11 - 0.05:
@@ -607,7 +623,7 @@ while tt < D11 - 0.05:
 st.shot('S11', 'whiteVoid', setOpts={'color': '#5A3E2E'}, actors=[act('president', PRES, 0, 'sit', 'neutral', keys=PRESK)],
         props=[P('mur11', 'grinOfficeWall', pos=[0, 0, -2.3]), P('bureau11', 'grinDesk', pos=DESK11), P('fauteuil11', 'chair', pos=[0, 0, -1.6], opts={'color': '#6A2A22'}),
                P('petiteporte11', 'grinMiniDoor', pos=MD11, opts={'ornate': True, 'swing': SW11, 'w': 0.34, 'h': 0.5}), BAG('sachet11', BAG11),
-               SQUEAK('S11', 'grince11', [0.21, 1.35, -0.73], SQT11, size=0.42, side=-1, amp=[0.9, 1.0, 1.1], gain=0.3)],
+               SQUEAK('S11', 'grince11', [0.5, 1.38, -0.72], SQT11, size=0.28, side=1, amp=[0.9, 1.0, 1.1], gain=0.3)],
         cams=[C11])
 
 # 12: ten years later the dictionary is out. A grand library hall: the three linguists, white beards to the belt, set a huge leather dictionary down
@@ -615,47 +631,83 @@ st.shot('S11', 'whiteVoid', setOpts={'color': '#5A3E2E'}, actors=[act('president
 D12 = st.dur('S12'); DIX12 = W('S12', 'L12', 0); DIC12 = W('S12', 'L12', 5)
 LECT = [0.0, 0.0, -0.6]; BOOKC = [0.0, 1.21, -0.6]
 LV = [[-0.85, 0.0, -0.85], [0.0, 0.0, -1.3], [0.85, 0.0, -0.85]]; RYV = [35, 0, -35]
-CROWD12 = [('public1', [-1.0, 0.0, 0.6], 50), ('public2', [-1.45, 0.0, -2.1], 30), ('public3', [1.12, 0.0, 0.6], -50), ('public4', [1.5, 0.0, -2.1], -30)]
+CROWD12 = [('public1', [-1.0, 0.0, -0.3], 40), ('public2', [-1.45, 0.0, -2.1], 30), ('public3', [1.05, 0.0, -0.3], -40), ('public4', [1.5, 0.0, -2.1], -30)]
 SET12 = r(DIC12 - 0.2)
-BOOKK = [k(0.2, to=add(BOOKC, [0, 0.3, 0]), dur=r(SET12 - 0.25), ease='inOut'), k(SET12, to=BOOKC, dur=0.12, ease='in'), k(r(SET12 + 0.12), squash=[1.08, 0.85, 1.08], dur=0.35)]
+# (round 1 fix) the dictionary is a real huge book (bevelled page block, rounded spine with gold bands, gold corners) that the three bearded linguists
+#     carry in, straining: arms drawn long, knees buckling, the whole body squashed and trembling; a heave (they rise, stretched, the book goes up) and
+#     it drops onto the lectern, which squashes under it (the book rides down with the lectern's top and squashes too) and springs back; they
+#     straighten up relieved; the side figures clap big and fast from the landing on
+BOOK0 = add(BOOKC, [0, 0.12, 0.05]); HEAVE12 = r(SET12 - 0.28)
+LECSQ = 0.78; LECD = 0.45
+def lec_a(t_):
+    u = (t_ - SET12) / LECD
+    return 0.0 if u < 0 or u >= 1 else math.exp(-4.5 * u) * math.cos(u * 11) * (1 - u)
+BOOKK = [k(0.0, to=BOOK0, dur=0.0)]
+for i_ in range(int(HEAVE12 / 0.1)): BOOKK.append(k(r(0.05 + 0.1 * i_), to=add(BOOK0, [0, -0.012 if i_ % 2 == 0 else 0.008, 0]), dur=0.08))
+BOOKK += [k(r(HEAVE12 - 0.1), to=add(BOOK0, [0, -0.06, 0]), dur=0.08, ease='inOut'), k(HEAVE12, to=add(BOOKC, [0, 0.42, 0]), dur=0.17, ease='out'), k(r(HEAVE12 + 0.2), to=add(BOOKC, [0, 0.46, 0]), dur=0.06),
+          k(r(SET12 - 0.04), to=BOOKC, dur=0.04, ease='in')]
+for i_ in range(1, 14):
+    t_ = r(SET12 + i_ / 30); BOOKK.append(k(t_, to=add(BOOKC, [0, r(-1.19 * (1 - LECSQ) * lec_a(t_), 3), 0]), dur=r(1 / 30, 4), ease='linear'))
+BOOKK.append(k(SET12, squash=[1.06, 0.82, 1.06], dur=0.4))
 F12 = [0.1, 2.0, 5.6]; L12 = [0.05, 1.45, 0.0]
 C12 = cam(0.0, F12, add(F12, [0.0, 0.0, -0.35]), L12, add(L12, [0, 0.03, 0]), lens=46, ease='inOut')
-pts12 = {f'v{i}': add(p, [0, 2.3, 0]) for i, p in enumerate(LV)}; pts12.update({n: add(p, [0, 2.3, 0]) for n, p, _ in CROWD12}); pts12.update({'book': add(BOOKC, [0, 0.2, 0]), 'beardTip': add(LV[0], [0, 0.95, 0.2])})
+pts12 = {f'v{i}': add(p, [0, 2.3, 0]) for i, p in enumerate(LV)}; pts12.update({n: add(p, [0, 2.3, 0]) for n, p, _ in CROWD12}); pts12.update({'book': add(BOOKC, [0, 0.2, 0]), 'bookHeave': add(BOOKC, [0.45, 0.8, 0.6]), 'beardTip': add(LV[0], [0, 0.55, 0.2])})
 chkc('S12', C12, pts12)
 VF = {'lid': 0.35, 'mouth': 'line', 'brow': 0.4}
+STRAIN = {'lid': 0.65, 'mouth': 'clench', 'brow': -0.8, 'sweat': 0.8}
+KNEE = {'legL': [-0.45, 0, 0, 1, None], 'shinL': [0.8, 0, 0, 1, None], 'legR': [-0.45, 0, 0, 1, None], 'shinR': [0.8, 0, 0, 1, None]}
 def VK(i):
-    g0 = add(BOOKC, [(-0.42, 0.0, 0.42)[i], 0.42, (0.15, -0.3, 0.15)[i]]); g1 = add(g0, [0, -0.3, 0])
-    keep = lambda g: {'reach': {'R': R5(add(g, [0.1, 0, 0]), 1, 0.0), 'L': R5(add(g, [-0.1, 0, 0]), 1, 0.0)}, 'hands': {'L': 'grip', 'R': 'grip'}, 'hip': 0}
-    return [k(-0.4, look=BOOKC), k(0.0, toon={**keep(g0), 'face': VF}, toonDur=0.0), k(0.2, toon={**keep(add(g0, [0, -0.05, 0])), 'face': VF}, toonDur=r(SET12 - 0.25), toonEase='inOut'),
-            k(SET12, toon={**keep(g1), 'sq': [1.03, 0.97, 1.03], 'face': VF}, toonDur=0.12), k(r(SET12 + 0.3), toon={'face': {**VF, 'mouth': 'smile'}, 'hip': 0}, toonDur=0.3),
-            k(r(SET12 + 0.35), look='camera', lookDur=0.2)]
+    gx, gz = (-0.5, 0.0, 0.5)[i], (0.15, -0.62, 0.15)[i]
+    g_ = lambda dy=0.0, q=BOOK0: add(q, [gx, 0.16 + dy, gz])
+    def keep(g):
+        w = 0.25 if i == 1 else 0.13
+        return {'reach': {'R': R5(add(g, [w, 0, 0]), 1, 0.0), 'L': R5(add(g, [-w, 0, 0]), 1, 0.0)}, 'hands': {'L': 'grip', 'R': 'grip'}, 'hip': 0}
+    ks = [k(-0.4, look=BOOKC), k(0.0, toon={**keep(g_()), 'sq': [1.08, 0.9, 1.08], 'bend': {**KNEE, 'spine': [0.15, 0, 0, 1, None]}, 'face': STRAIN}, toonDur=0.0)]
+    for j in range(int(HEAVE12 / 0.1)):
+        q = 0.012 if j % 2 == 0 else -0.01
+        ks.append(k(r(0.05 + 0.1 * j + 0.02 * i), toon={**keep(g_(-0.012 if j % 2 == 0 else 0.008)), 'sq': [r(1.08 + q, 3), r(0.9 - q, 3), r(1.08 + q, 3)], 'bend': {**KNEE, 'spine': [0.15, 0, 0, 1, None]}, 'face': STRAIN}, toonDur=0.08))
+    ks += [k(r(HEAVE12 - 0.1), toon={**keep(g_(-0.06)), 'sq': [1.13, 0.84, 1.13], 'bend': {**KNEE, 'spine': [0.25, 0, 0, 1, None]}, 'face': {**STRAIN, 'mouth': 'grimace'}}, toonDur=0.08),
+           k(HEAVE12, toon={**keep(g_(0.0, add(BOOKC, [0, 0.42, 0]))), 'sq': [0.92, 1.1, 0.92], 'bend': {'spine': [-0.1, 0, 0, 1, None]}, 'face': {**STRAIN, 'lid': 0.3, 'mouth': 'O', 'brow': 0.6}}, toonDur=0.15, toonEase='out'),
+           k(r(SET12 - 0.04), toon={**keep(g_(0.0, BOOKC)), 'sq': [1.04, 0.96, 1.04], 'face': {**VF, 'mouth': 'o'}}, toonDur=0.05, toonEase='in'),
+           k(r(SET12 + 0.18), toon={'sq': [0.97, 1.04, 0.97], 'bend': {'spine': [-0.08, 0, 0, 1, None]}, 'face': {**VF, 'mouth': 'smile', 'brow': 0.7}, 'hip': 0}, toonDur=0.15, toonEase='out'),
+           k(r(SET12 + 0.38), toon={'face': {**VF, 'mouth': 'smile'}, 'hip': 0}, toonDur=0.2), k(r(SET12 + 0.35), look='camera', lookDur=0.2), *blink(r(SET12 + 0.9 + 0.12 * i), {**VF, 'mouth': 'smile'}, {'hip': 0})]
+    return ks
 def CLAP(p, ry, ph):
-    ks = [k(-0.4, look=BOOKC), k(0.0, toon={'face': {'lid': 0.2, 'mouth': 'smile', 'brow': 0.5}, 'hip': 0}, toonDur=0.0)]
-    t_, i = r(SET12 + 0.05 + ph), 0
+    F_ = {'lid': 0.2, 'mouth': 'smile', 'brow': 0.5}
+    ks = [k(-0.4, look=BOOKC), k(0.0, toon={'face': F_, 'hip': 0}, toonDur=0.0), *life(0.05, r(SET12 - 0.05), {'lid': 0.3, 'mouth': 'line', 'brow': 0.4}, {'hip': 0}, ph=ph, blinks=[r(0.4 + ph * 6)])]
+    t_, i = r(SET12 + 0.03 + ph), 0
     while t_ < D12 - 0.05:
-        c = off(p, ry, 0.38, 0.0, 1.25 + 0.03 * (i % 2)); w_ = 0.02 if i % 2 == 0 else 0.13
-        ks.append(k(r(t_), toon={'reach': {'L': R5(off(c, ry, 0, -w_), 1, 0.0), 'R': R5(off(c, ry, 0, w_), 1, 0.0)}, 'hands': {'L': 'open', 'R': 'open'}, 'face': {'lid': 0.2, 'mouth': 'smile', 'brow': 0.5}, 'hip': 0}, toonDur=0.06))
-        t_ += 0.11; i += 1
+        c = off(p, ry, 0.36, 0.0, 1.32 + 0.05 * (i % 2)); w_ = 0.015 if i % 2 == 0 else 0.2
+        ks.append(k(r(t_), toon={'reach': {'L': R5(off(c, ry, 0, -w_), 1, 0.0), 'R': R5(off(c, ry, 0, w_), 1, 0.0)}, 'hands': {'L': 'open', 'R': 'open'}, 'sq': [1.03, 0.97, 1.03] if i % 2 == 0 else [0.98, 1.02, 0.98],
+                                 'face': F_ if i % 2 else {**F_, 'mouth': 'bigsmile'}, 'hip': 0}, toonDur=0.05))
+        t_ += 0.12; i += 1
     return ks
 props12 = [P('bib12a', 'grinBookcase', pos=[-2.2, 0, -3.2], opts={'w': 3.0, 'h': 3.6}), P('bib12b', 'grinBookcase', pos=[1.2, 0, -3.2], opts={'w': 3.0, 'h': 3.6}), P('bib12c', 'grinBookcase', pos=[4.2, 0, -3.2], opts={'w': 3.0, 'h': 3.6}),
-           P('pupitre12', 'grinLectern', pos=LECT, opts={'h': 1.15, 'tilt': 0.0}), P('dico12', 'grinBook', pos=add(BOOKC, [0, 0.3, 0]), opts={'closed': True, 'w': 1.8, 'd': 1.15, 'thick': 0.36}, keys=BOOKK)]
-for i in range(3): props12.append(P(f'barbe12_{i}', 'longBeard', on={'actor': f'lingV{i + 1}', 'joint': 'head', 'offset': [0, 0.05, 0.12], 'hang': True}, opts={'len': 1.05, 'w': 0.24, 'color': '#F2F2EE', 'wave': [0.04, 3.0]}))
+           P('pupitre12', 'grinLectern', pos=LECT, opts={'h': 1.15, 'tilt': 0.0}, keys=[k(SET12, squash=[1.12, LECSQ, 1.12], dur=LECD)]),
+           P('dico12', 'grinBook', pos=BOOK0, opts={'closed': True, 'w': 1.8, 'd': 1.15, 'thick': 0.36}, keys=BOOKK)]
+for i in range(3): props12.append(P(f'barbe12_{i}', 'longBeard', on={'actor': f'lingV{i + 1}', 'joint': 'head', 'offset': [0, 0.05, 0.12], 'hang': True}, opts={'len': 1.35, 'w': 0.3, 'color': '#F2F2EE', 'strand': '#C9CDD2', 'wave': [0.05, 3.0]}))
 st.shot('S12', 'whiteVoid', setOpts={'color': '#C9B48E'}, actors=[*[act(f'lingV{i + 1}', LV[i], RYV[i], 'stand', 'neutral', keys=VK(i)) for i in range(3)], *[act(n, p, ry, 'stand', 'happy', keys=CLAP(p, ry, 0.03 * j)) for j, (n, p, ry) in enumerate(CROWD12)]],
         props=props12, cams=[C12])
-st.cue('thud', 'S12', r(SET12 + 0.1), 0.3)
+st.cue('thud', 'S12', SET12, 0.3); st.cue('sfx:stretch', 'S12', r(HEAVE12 - 0.08), 0.12)
 
 # 13: a thousand pages; one word. Top-down on the open dictionary on a dark table: blank pages flip past right to left, faster, then stop on one page
 #     with one big word in the middle: IIIIIK
 D13 = st.dur('S13'); MOT13 = W('S13', 'L13', 4)
 BOOK13 = [0.0, 0.8, 0.0]
-FL13 = [0.05, r(MOT13 - 0.25), 16]
+# (round 1 fix) thirty pages that flip sooner and faster each time (start times on (j / 29) ^ (1 / 2.4), the last ones a smear of fading ghost pages),
+#     a hard stop as the last page slams down, then the whole book's small settle bounce under the word
+FL13 = [0.05, r(MOT13 - 0.12), 30, 2.4]
+def flip_starts(F):
+    n, dl = F[2], 0.055
+    return [r(F[0] + (F[1] - dl - F[0]) * (j / (n - 1)) ** (1 / F[3]), 3) for j in range(n)]
 F13 = [0.2, 2.75, 0.55]; L13 = [0.2, 0.88, 0.0]
 C13 = cam(0.0, F13, add(F13, [0.03, -0.12, -0.02]), L13, add(L13, [0.03, 0, 0]), lens=34, ease='inOut')
 chk('S13', F13, L13, 34, {'wordL': [0.04, 0.89, -0.14], 'wordR': [0.42, 0.89, -0.14], 'pageTop': [0.22, 0.89, -0.3], 'pageBot': [0.22, 0.89, 0.3], 'spine': [0.0, 0.89, 0.0], 'leftPage': [-0.3, 0.89, 0.0]})
 st.shot('S13', 'whiteVoid', setOpts={'color': '#3A2A22'}, actors=[], props=[P('table13', 'tacheBox', pos=[0, 0.77, 0], opts={'w': 2.2, 'h': 0.06, 'd': 1.6, 'color': '#5A3A28'}),
         P('dico13', 'grinBook', pos=BOOK13, opts={'flip': FL13, 'w': 0.9, 'd': 0.62})], cams=[C13])
-for i in range(8): st.cue('sfx:paper', 'S13', r(0.06 + i * (FL13[1] - 0.05) / 8), 0.12)
-st.cue('thud', 'S13', r(FL13[1] + 0.05), 0.15)
+for t_ in flip_starts(FL13)[:9]: st.cue('sfx:paper', 'S13', r(t_ + 0.02), 0.12)
+st.cue('whoosh', 'S13', r(flip_starts(FL13)[9]), 0.12, r(FL13[1] - flip_starts(FL13)[9]), 1200, 5000)
+st.cue('thud', 'S13', r(FL13[1]), 0.2)
 
 # 14: it means « de l'huile ». The same page, a snap zoom tighter: under IIIIIK the definition « de l'huile » and a big oil drop write in; TRADUIT
 D14 = st.dur('S14'); DIR14 = W('S14', 'L14', 2); HUI14 = W('S14', 'L14', 4)
@@ -689,9 +741,14 @@ chkc('S15', C15, {'tvTop': [0, TVY + TVH + 0.1, -2.4], 'tvBot': [0, TVY - 0.1, -
 chkc('S15', C15B, {'pere': [-0.5, 1.85, 0.85], 'mere': [0.1, 1.8, 0.85], 'enfant': [0.62, 1.4, 0.88], 'chin': [0.1, 1.35, 0.85]})
 FAMF = {'lid': 0.45, 'mouth': 'line', 'brow': 0.1}
 def FAMK(i):
-    ks = [k(-0.4, look=[0, 1.5, -2.4]), k(0.0, toon={'face': FAMF, 'hip': 0}, toonDur=0.0), *life(0.1 + 0.1 * i, r(A15 - 0.1), FAMF, {'hip': 0})]
-    for j, t_ in enumerate([r(A15 + 0.1), r(A15 + 0.5), r(A15 + 0.9)]):
-        ks.append(k(r(t_ + 0.04 * i), toon={'bend': {'neck': [0.3 if j % 2 == 0 else -0.04, 0, 0, 1, None]}, 'face': FAMF, 'hip': 0}, toonDur=0.3, toonEase='inOut'))
+    ks = [k(-0.4, look=[0, 1.5, -2.4]), k(0.0, toon={'face': FAMF, 'hip': 0}, toonDur=0.0), *life(0.1 + 0.1 * i, r(A15 - 0.1), FAMF, {'hip': 0}, blinks=[r(0.7 + 0.35 * i), r(2.1 + 0.2 * i)], amp=0.018)]
+    # (round 1 fix) two slow nods, each a stretch-down: the neck draws out long as the head drops (the body squashes a little), then it springs back
+    #     up past rest (short neck, chin up) and settles; the three a few frames apart
+    for j in range(2):
+        t_ = r(A15 + 0.08 + 0.55 * j + 0.05 * i)
+        ks += [k(t_, toon={'bend': {'neck': [0.55, 0, 0, 1.75, None], 'spine': [0.12, 0, 0, 1, None]}, 'sq': [1.05, 0.94, 1.05], 'face': {**FAMF, 'lid': 0.6}, 'hip': 0}, toonDur=0.22, toonEase='inOut'),
+               k(r(t_ + 0.3), toon={'bend': {'neck': [-0.12, 0, 0, 0.88, None]}, 'sq': [0.98, 1.03, 0.98], 'face': {**FAMF, 'lid': 0.4}, 'hip': 0}, toonDur=0.12, toonEase='out'),
+               k(r(t_ + 0.44), toon={'bend': {'neck': [0.0, 0, 0, 1, None]}, 'face': FAMF, 'hip': 0}, toonDur=0.1, toonEase='inOut')]
     return ks
 MDH = lambda dz: R5([MD15[0] + 0.03, MD15[1] + 0.1, MD15[2] + dz], 1, 0.0)
 PRES15K = [k(-0.4, look='camera'), k(0.0, toon={'reach': {'L': MDH(-0.02)}, 'hands': {'L': 'grip'}, 'face': PF11, 'hip': 0}, toonDur=0.0),
@@ -710,13 +767,16 @@ st.cue('sfx:squeak', 'S15', POP15, 0.22); st.cue('pop', 'S15', r(POP15 + 0.05), 
 #     swings slowly; off screen, far away, a squeak; hold, deadpan
 D16 = st.dur('S16'); SCE16 = W('S16', 'L16', 5)
 SHELF = [0.0, 0.0, -0.55]; BAG16 = [0.05, 1.42, -0.5]
-F16 = [0.42, 1.55, 1.55]; L16 = [0.05, 1.42, -0.5]
-C16 = cam(0.0, F16, add(F16, [-0.05, 0.0, -0.35]), L16, add(L16, [0, 0.01, 0]), lens=40, ease='inOut')
-chkc('S16', C16, {'bagTop': add(BAG16, [0, 0.31, 0]), 'bagBot': add(BAG16, [0, -0.31, 0]), 'bulb': [0.05, 2.0, 0.1], 'shelfL': [-1.2, 1.1, -0.55]})
-chkc('S16', C16, {'bagTop': add(BAG16, [0, 0.31, 0]), 'bagBot': add(BAG16, [0, -0.31, 0])}, end=True)
+# (round 1 fix) a wider, higher frame so the bulb, its short cord and its ceiling rose hang fully inside the picture under the 18 % band; the bulb
+#     swings the whole hold and its warm pool and cone slide back and forth across the bag
+ROSE16 = [0.05, 2.38, -0.35]
+F16 = [0.4, 1.8, 2.6]; L16 = [0.05, 1.66, -0.5]
+C16 = cam(0.0, F16, add(F16, [-0.01, -0.02, -0.07]), L16, add(L16, [0, -0.02, 0]), lens=44, ease='inOut')
+chkc('S16', C16, {'bagTop': add(BAG16, [0, 0.31, 0]), 'bagBot': add(BAG16, [0, -0.31, 0]), 'rose': ROSE16, 'bulbL': add(ROSE16, [-0.2, -0.42, 0]), 'bulbR': add(ROSE16, [0.2, -0.42, 0]), 'shelfL': [-1.2, 1.1, -0.55]})
+chkc('S16', C16, {'bagTop': add(BAG16, [0, 0.31, 0]), 'bagBot': add(BAG16, [0, -0.31, 0]), 'rose': ROSE16}, end=True)
 st.shot('S16', 'whiteVoid', setOpts={'color': '#3E4450'}, look={'fill': 0.7}, actors=[],
         props=[P('etagere16', 'chvBagShelf', pos=SHELF, opts={'n': 0, 'w': 2.4, 'h': 2.0}), BAG('sachet16', BAG16),
-               P('ampoule16', 'cellBulb', pos=[0.05, 2.75, 0.1], opts={'drop': 0.75, 'swing': 0.22, 'power': 4.5, 'range': 5})],
+               P('ampoule16', 'grinBulb', pos=ROSE16, opts={'drop': 0.32, 'swing': 0.42, 'rate': 2.2, 'ph': 0.6, 'power': 4.0, 'range': 4.5, 'halo': 0.5, 'coneR': 0.45, 'coneH': 0.75, 'coneOp': 0.06, 'pool': [-1.27, 0.9], 'poolOp': 0.35})],
         cams=[C16])
 st.cue('sfx:squeak', 'S16', 1.9, 0.09)
 

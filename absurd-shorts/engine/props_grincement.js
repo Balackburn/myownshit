@@ -414,14 +414,14 @@ export const GRINCEMENT_PROPS = {
   // the pillow by extra metres; o.bib [[t, h]]: for somebody sitting up, the top of the duvet rises as one rounded hump to h metres over the mattress
   // (he pulls it up to his nose)
   grinDuvet(o) {
-    const W = o.w ?? 1.05, Lb = o.len ?? 1.5, g = grp(), c = o.color || '#E8EEF6', fc = o.fold || '#F7F9FC';
+    const W = o.w ?? 1.05, Lb = o.len ?? 1.5, g = grp(), c = o.color || '#E8EEF6', fc = new THREE.Color(c).lerp(new THREE.Color(o.fold || '#F7F9FC'), 0.45).getStyle();
     const cap = new THREE.CapsuleGeometry(0.5, 1, 6, 18); cap.rotateX(PI / 2);
     const slab = new THREE.Mesh(cap, mat(c, { unique: true })); slab.castShadow = slab.receiveShadow = true; g.add(slab);
     const bib = o.bib ? new THREE.Mesh(new THREE.CapsuleGeometry(0.5, 1, 6, 18), mat(c, { unique: true })) : null;
     const roll = new THREE.Mesh(new THREE.CapsuleGeometry(0.5, 1, 4, 14), mat(fc)); roll.rotation.z = PI / 2; g.add(roll);
     if (bib) { bib.castShadow = bib.receiveShadow = true; g.add(bib); }
     g.userData.update = t => { const L = Lb + keyAt(o.pull, t, 0); slab.scale.set(W, 0.36, L / 2); slab.position.set(0, 0.0, -L / 2);
-      if (bib) { const h = Math.max(0.2, keyAt(o.bib, t, 0.6)); bib.scale.set(W * 0.92, h / 2, 0.3); bib.position.set(0, h * 0.25, -L + 0.12); roll.scale.set(0.13, W * 0.46, 0.15); roll.position.set(0, h * 0.97, -L + 0.14); }
+      if (bib) { const h = Math.max(0.2, keyAt(o.bib, t, 0.6)); bib.scale.set(W * 0.92, h / 2, 0.3); bib.position.set(0, h * 0.25, -L + 0.12); roll.scale.set(0.17, W * 0.47, 0.34); roll.position.set(0, h * 0.95, -L + 0.12); }
       else { roll.scale.set(0.12, W * 0.48, 0.14); roll.position.set(0, 0.17, -L + 0.08); } };
     g.userData.update(0); return g;
   },
