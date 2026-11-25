@@ -183,8 +183,9 @@ HERO1 = [k(-0.4, look='camera'), k(0.0, toon={**HB1(KNOBI(A0)), 'face': HF1}, to
          k(LEAN1, toon={**HB1(KNOBI(0.68), lean=0.0), 'lay': [0.0, -0.06], 'sq': [0.95, 1.06, 0.95], 'face': {**HF1, 'lid': 0.1, 'brow': 0.5, 'gx': 0.6, 'gy': -0.4}}, toonDur=0.22, toonEase='out'),
          k(r(LEAN1 + 0.03), look=add(SQ1, [0, -0.1, 0]), lookDur=0.12),
          k(r(BRACE1 - 0.1), look='camera', lookDur=0.1),
-         k(BRACE1, toon={**HB1(KNOBI(0.62), lean=0.08), 'lay': [-0.04, 0.04], 'sq': [1.1, 0.88, 1.1], 'face': BRF1}, toonDur=0.14, toonEase='inOut'),
-         *[k(r(BRACE1 + 0.16 + 0.067 * j), toon={**HB1(KNOBI(r(0.56 - 0.04 * j)), lean=0.08), 'lay': [-0.04, 0.04 + (0.02 if j % 2 == 0 else -0.01)], 'sq': [1.12, 0.86, 1.12] if j % 2 == 0 else [1.08, 0.9, 1.08], 'face': BRF1}, toonDur=0.04) for j in range(2)],
+         # (round 3 fix) a visible brace: he sinks back away from the door, squashed wide and short, and trembles with effort while the leaf rattles
+         k(BRACE1, toon={**HB1(KNOBI(0.62), lean=0.08), 'lay': [-0.09, 0.05], 'sq': [1.17, 0.82, 1.17], 'face': BRF1}, toonDur=0.12, toonEase='inOut'),
+         *[k(r(BRACE1 + 0.13 + 0.05 * j), toon={**HB1(KNOBI(r(0.58 - 0.025 * j)), lean=0.08), 'lay': [-0.09, 0.05 + (0.025 if j % 2 == 0 else -0.015)], 'sq': [1.19, 0.8, 1.19] if j % 2 == 0 else [1.13, 0.85, 1.13], 'face': BRF1}, toonDur=0.035) for j in range(4)],
          k(r(TAKE1 - 0.06), look=add(SQ1, [0, -0.1, 0]), lookDur=0.06),
          *beat(TAKE1, HEAD1, antic={**HB1(KNOBI(0.8), lean=0.05), 'sq': [1.04, 0.95, 1.04], 'scl': {'head': [1.08, 0.92, 1.0]}, 'face': {**HF1, 'lid': 0.4, 'brow': 0.2}}, hold=0.24,
                over={**HB1(lean=0.0, neck=[0.0, 0.1, 0, 0.85, None]), 'sq': [1.06, 0.95, 1.06], 'scl': {'head': [1.1, 0.9, 1.0]}, 'face': {**HF1, 'lid': 0.1, 'brow': 0.6}},
@@ -202,7 +203,7 @@ HERO1 = [k(-0.4, look='camera'), k(0.0, toon={**HB1(KNOBI(A0)), 'face': HF1}, to
          k(r(LANG1 + 0.25), look='camera', lookDur=0.14),
          *life(r(LANG1 + 0.3), D1, DEAD, HB1(can=CANU1, lean=-0.03), blinks=[r(D1 - 0.08)])]
 st.shot('S01', 'grassland', setOpts=SET, actors=[act('mec', H1, RY1, 'stand', 'neutral', keys=HERO1)],
-        props=[*STREET(1), FACADE('maison1', swing=A1, rattle=[[r(BRACE1 + 0.12), 0.012, 42, 2.5], [r(ETAT1 + 0.25), 0.05, 20, 4], [r(LANG1), 0.04, 20, 4]], shut=False), CAN('burette1', 'mec', hand='R', off_=(0.0, -0.05, 0.06), s=0.92),
+        props=[*STREET(1), FACADE('maison1', swing=A1, rattle=[[0.12, 0.025, 30, 3.0], [r(BRACE1 + 0.04), 0.045, 40, 1.2], [r(ETAT1 + 0.25), 0.05, 20, 4], [r(LANG1), 0.04, 20, 4]], shut=False), CAN('burette1', 'mec', hand='R', off_=(0.0, -0.05, 0.06), s=0.92),
                SQUEAK('S01', 'grince1', SQ1, [r(GR1 + 0.04), r(ETAT1 + 0.25), LANG1], size=0.5, side=-1, amp=[1.0, 0.9, 1.0], top=True)],
         cams=[C1, C1B])
 st.cue('sfx:stretch', 'S01', r(TAKE1 + 0.02), 0.2)
@@ -356,7 +357,9 @@ H5 = [-0.1, FLOOR_IN, -0.3]; RY5 = 0
 G1P = [0.62, 0.14, 0.42]; RYG1 = -30
 G2P = [-0.68, 0.14, 0.45]; RYG2 = 30
 CAN0 = off(H5, RY5, 0.45, -0.2, 1.12)                                    # the can in his left mitten (its base)
-LIFT5 = [0.0, 1.62, 0.55]; BAG5 = [-0.36, 1.12, 0.8]
+# (round 3 fix) the open bag is held higher and further to his right, beside his hands instead of in front of them, its mouth near his shoulder; the
+#     can hangs over it beside his face, between the two gendarmes
+LIFT5 = [-0.2, 1.8, 0.6]; BAG5 = [-0.5, 1.4, 0.65]
 # (round 2 fix) the gendarme has the can by 0.45 s (he reaches from the first frames), lifts it over the open bag by 1.05 and lets it hang there,
 #     dangling, until « burette »; the hero's double take fills the wait (down at the mitten, a hold, up at us, a blank blink, the jaw drop)
 TAKE5 = 0.45; LIFTED5 = 1.05; DROP5 = r(BUR5 + 0.02); LAND5 = r(DROP5 + 0.22); SEAL5 = r(LAND5 + 0.04)
@@ -407,8 +410,9 @@ G2KS = [k(-0.4, look=LIFT5), k(0.0, toon={**BAGH(), 'face': GF}, toonDur=0.0), *
 st.shot('S05', 'grassland', setOpts=SET, actors=[act('mec', H5, RY5, 'stand', 'neutral', keys=HERO5), act('gendarme1', G1P, RYG1, 'stand', 'neutral', keys=G1KS), act('gendarme2', G2P, RYG2, 'stand', 'neutral', keys=G2KS)],
         props=[*STREET(5), FACADE('maison5', open_=1.25), KEPI('kepi5a', 'gendarme1'), KEPI('kepi5b', 'gendarme2'),
                P('burette5', 'grinOilCan', pos=CAN0, face='camera', faceFlat=True, opts={'s': 0.92}, keys=CANK5),
-               BAG('sachet5o', BAG5, open=True, can=False, keys=[k(SEAL5, scale=0.01, dur=0.0)], flat=[[0.0, 0.0], [r(LAND5 - 0.01), 0.0], [SEAL5, 1.0, 'lin']]), BAG('sachet5', BAG5, scale=0.01, keys=[k(SEAL5, scale=1.0, dur=0.0)],
-                   flat=[[0.0, 1.0], [r(SEAL5 + 0.1), 1.0], [r(SEAL5 + 0.2), -0.32], [r(SEAL5 + 0.28), 0.14], [r(SEAL5 + 0.36), -0.05], [r(SEAL5 + 0.44), 0.0]])],
+               # (round 3 fix) the seal squashes the bag by about 30 % (flat 0.48), not to a strip, so it reads as the same object
+               BAG('sachet5o', BAG5, open=True, can=False, keys=[k(SEAL5, scale=0.01, dur=0.0)], flat=[[0.0, 0.0], [r(LAND5 - 0.01), 0.0], [SEAL5, 0.48, 'lin']]), BAG('sachet5', BAG5, scale=0.01, keys=[k(SEAL5, scale=1.0, dur=0.0)],
+                   flat=[[0.0, 0.48], [r(SEAL5 + 0.1), 0.48], [r(SEAL5 + 0.2), -0.25], [r(SEAL5 + 0.28), 0.1], [r(SEAL5 + 0.36), -0.04], [r(SEAL5 + 0.44), 0.0]])],
         cams=[C5])
 st.cue('sfx:cuff', 'S05', TAKE5, 0.25); st.cue('thud', 'S05', LAND5, 0.2); st.cue('sfx:zip', 'S05', SEAL5, 0.22)
 
@@ -562,21 +566,28 @@ BHINGE = [r(BDOOR[0] - DW / 2), 1.95, -2.9]
 SQT8 = [r(NUIT8 + 0.05), r(PAR8 + 0.25)]
 A8 = [[0.0, 0.3], [r(SQT8[0] - 0.2), 0.32], [SQT8[0], 0.85, 'lin'], [r(SQT8[0] + 0.3), 0.55], [r(SQT8[1] - 0.12), 0.5], [SQT8[1], 1.05, 'lin'], [r(SQT8[1] + 0.35), 0.75], [D8, 0.8]]
 PULL8 = r(SOM8 + 0.05)
-BIB8 = [[0.0, 0.45], [PULL8, 0.45], [r(PULL8 + 0.22), 0.7, 'lin'], [r(PULL8 + 0.3), 0.66]]
+# (round 3 fix) the duvet is up to his chest from the first frame (only his collar and tie knot show over it), then up to his nose
+BIB8 = [[0.0, 0.82], [PULL8, 0.82], [r(PULL8 + 0.22), 1.02, 'lin'], [r(PULL8 + 0.3), 0.98]]
 DUV8 = [BEDX, 0.63, -0.95]; DUVL = 1.5                                    # the duvet from the foot of the bed to his waist (z -2.45)
 # (round 2 fix) his mittens grip the duvet's front face just under its edge (resting on top they made it read as a tray)
 def BIBTOP(h, sd): return [r(BEDX + 0.2 * sd), r(DUV8[1] + h - 0.05), r(DUV8[2] - DUVL + 0.2)]
 F8 = [-3.2, 1.8, 1.4]; L8 = [-2.0, 1.48, -2.52]
 C8 = cam(0.0, F8, add(F8, [0.03, -0.02, -0.2]), L8, add(L8, [0, -0.01, 0]), lens=48, ease='inOut')
+# (round 3 fix) a slight push in on his face for the first squeak (a quick glide in, then a slow drift)
+F8B = lerp3(add(F8, [0.01, -0.005, -0.06]), [BEDX, 1.85, -2.5], 0.12)
+L8B = add(L8, [-0.32, 0.08, 0.0])
+C8B = glide([cam(r(SQT8[0] - 0.02), F8B, add(F8B, [0.02, -0.01, -0.12]), L8B, add(L8B, [0, -0.01, 0]), lens=46, ease='out')], 0.12)
+chkc('S08', C8B, {'face': [BEDX, 1.85, -2.5], 'top': [BEDX, 2.15, -2.55], 'hingeSq': BHINGE, 'sqTip': add(BHINGE, [0.5, 0.2, 0]), 'doorTop': add(BDOOR, [0, 2.6, 0]), 'lamp': [-1.93, 0.9, -2.5]}, end=True)
 chkc('S08', C8, {'face': [BEDX, 1.85, -2.5], 'top': [BEDX, 2.15, -2.55], 'hingeSq': BHINGE, 'sqTip': add(BHINGE, [0.5, 0.2, 0]), 'doorTop': add(BDOOR, [0, 2.6, 0]), 'doorR': add(BDOOR, [0.6, 1.0, 0]), 'bib': BIBTOP(0.5, 0), 'nose': BIBTOP(1.12, 0), 'lamp': [-1.93, 0.9, -2.5], 'lampBase': [-1.93, 0.03, -2.3]})
 # (round 2 fix) the eyes rest at their plain size so that the bulge on the first squeak (eye 1.0, pinpoint pupils) reads as twice as big
 BEDF = {'expr': 'surprised', 'exprW': 1.0, 'lid': 0.0, 'eye': 0.0, 'mouth': 'line', 'brow': 0.6, 'noBlink': 1}
-HB8 = lambda h: {'reach': {'L': R5(BIBTOP(h, 1), 1, 0.0), 'R': R5(BIBTOP(h, -1), 1, 0.0)}, 'hands': {'L': 'grip', 'R': 'grip'}, 'hip': 0}
+HB8 = lambda h: {'reach': {'L': R5(BIBTOP(h + 0.3, 1), 1, 0.0), 'R': R5(BIBTOP(h + 0.3, -1), 1, 0.0)}, 'hands': {'L': 'grip', 'R': 'grip'}, 'hip': 0}
 # (round 1 fix) on the first squeak his eyes bulge to twice their size (a jolt up, stretched, held trembling, an overshoot); the second squeak only
 #     sends the pupils to the door; then he deflates under the duvet: the body sinks wide and short, the back rounds, the head drops, the duvet comes up
 #     to his nose and the hold breathes, squashed, the eyes still wide over the duvet
-BULGE = {**HB8(0.45), 'sq': [0.93, 1.1, 0.93], 'scl': {'head': [0.95, 1.08, 1.0]}, 'face': {**BEDF, 'eye': 1.0, 'pupilSize': -0.45, 'gx': -0.7, 'gy': -0.1, 'brow': 1.0, 'mouth': 'o'}}
-SAG8 = lambda q=0.0: {**HB8(0.66), 'sq': [r(1.1 + q, 3), r(0.87 - q, 3), r(1.1 + q, 3)], 'bend': {'neck': [-0.05, 0, 0, 0.85, None]}, 'face': {**BEDF, 'eye': 0.25, 'gx': -0.35, 'brow': 0.4}}
+# (round 3 fix) a bigger bulge: the eyes 2.5 times across (eye 1.5), pupils pinpoint, no lower lid (one eye read as a squint), held 7 frames
+BULGE = {**HB8(0.45), 'sq': [1.0, 1.0, 1.0], 'scl': {'head': [0.95, 1.14, 1.0]}, 'face': {**BEDF, 'eye': 1.5, 'low': 0.0, 'pupilSize': -0.5, 'gx': -0.6, 'gy': -0.1, 'brow': 1.0, 'mouth': 'o'}}
+SAG8 = lambda q=0.0: {**HB8(0.5), 'sq': [r(1.1 + q, 3), r(0.87 - q, 3), r(1.1 + q, 3)], 'bend': {'neck': [-0.05, 0, 0, 0.85, None]}, 'face': {**BEDF, 'eye': 0.25, 'gx': -0.35, 'brow': 0.4}}
 HERO8 = [k(-0.4, look=[-1.6, 1.8, 0.0]), k(0.0, toon={**HB8(0.45), 'face': {**BEDF, 'gx': -0.2}}, toonDur=0.0),
          *beat(r(SQT8[0] + 0.06), BULGE, antic={**HB8(0.45), 'sq': [1.05, 0.95, 1.05], 'face': {**BEDF, 'eye': 0.2, 'gx': -0.3}}, hold=0.24,
                over={**HB8(0.45), 'sq': [1.02, 0.98, 1.02], 'face': {**BEDF, 'eye': 0.3, 'gx': -0.5}}, settle={**HB8(0.45), 'face': {**BEDF, 'eye': 0.2, 'gx': -0.4}}),
@@ -598,7 +609,7 @@ st.shot('S08', 'whiteVoid', setOpts={'color': '#1C2234'}, look={'sun': 0.35, 'su
                P('lampe8', 'grinBedLamp', pos=[-1.93, 0.03, -2.5], opts={'power': 3.4, 'range': 4.0, 's': 0.95, 'pool': {'wall': [-0.1, 1.2, -0.44, 2.0], 'wallRy': 0.0, 'wallOp': 0.42, 'floor': [-0.2, 0.5, 1.8], 'halo': 0.9, 'op': 0.6}}),
                BEANIE('bonnet8', 'mecHiver'),
                SQUEAK('S08', 'grince8', BHINGE, SQT8, size=0.8, side=1, amp=[1.0, 1.15])],
-        cams=[C8])
+        cams=[C8, C8B])
 st.cue('sfx:cuff', 'S08', PULL8, 0.12)
 
 # 9: the whole country learns the squeak; compulsory at the bac. The exam hall: grown-up candidates in two columns of desks receding to the back wall,
@@ -611,7 +622,8 @@ CAND = []
 for rw, z in enumerate([-0.9, 0.45, 1.8]):
     for c, x in enumerate([-1.6, 0.0]): CAND.append((f'candidat{rw * 2 + c + 1}', [x, 0.0, r(z + 0.55)], [r(x + (0.28 if c == 0 else -0.28)), 0.72, r(z - 0.05)]))
 INV9 = [-0.8, 0.0, 3.5]; RYI9 = 180; DESK9 = [-0.8, 0.0, 3.0]
-BAG9 = [-1.15, 1.18, 3.0]
+# (round 3 fix) the sealed bag stands at the desk's corner beside her (screen right), not over her torso, between her and the candidates' heads
+BAG9 = [-1.25, 1.07, 2.88]
 F9 = [-0.85, 3.25, -3.35]; L9 = [-0.8, 1.45, 0.7]
 C9 = cam(0.0, F9, add(F9, [0.0, -0.05, 0.3]), L9, add(L9, [0, 0, 0.1]), lens=56, ease='inOut')
 pts9 = {n: add(p, [0, 1.85, 0]) for n, p, _ in CAND}
@@ -643,7 +655,7 @@ for b in BEATS9: INVK += [k(r(b - 0.36), toon={**IK(off(INV9, RYI9, 0.32, 0.6, 1
                           k(r(b + 0.3), toon=IK(off(INV9, RYI9, 0.4, 0.15, 1.15)), toonDur=0.2), *blink(r(b + 0.55), IF9, IK(off(INV9, RYI9, 0.4, 0.15, 1.15))) ]
 props9 = [P('fond9', 'tacheBox', pos=[0.0, 2.0, 4.0], opts={'w': 12.0, 'h': 4.0, 'd': 0.1, 'color': '#E9E1CC'}),
           P('tableau9', 'grinBoard', pos=[-0.8, 2.92, 3.92], ry=180, opts={'w': 3.0, 'h': 0.95, 'lines': ['BAC', 'ÉPREUVE DE GRINCEMENT']}),
-          P('bureau9', 'table', pos=DESK9, opts={'w': 1.3, 'd': 0.6, 'h': 0.76, 'color': '#7A5C3A', 'legs': '#5C4330'}), BAG('sachet9', BAG9, scale=1.3), P('baguette9', 'grinBaton', on={'actor': 'surveillante', 'hand': 'R', 'offset': [0.0, -0.03, 0.03]}, opts={'len': 0.7})]
+          P('bureau9', 'table', pos=DESK9, opts={'w': 1.3, 'd': 0.6, 'h': 0.76, 'color': '#7A5C3A', 'legs': '#5C4330'}), BAG('sachet9', BAG9, scale=1.0), P('baguette9', 'grinBaton', on={'actor': 'surveillante', 'hand': 'R', 'offset': [0.0, -0.03, 0.03]}, opts={'len': 0.7})]
 for i, (n, p, dp) in enumerate(CAND):
     RYD9 = 180 + (40 if dp[0] > p[0] else -40)
     props9.append(P(f'petiteporte9_{i}', 'grinMiniDoor', pos=dp, ry=RYD9, opts={'beats': BEATS9, 'amp': 1.25, 'color': ['#2F7F8C', '#B5402F', '#2F62B5', '#5E8C4A', '#C98A2E', '#7A4A8A'][i]}))
@@ -806,7 +818,8 @@ def VK(i):
         w = 0.25 if i == 1 else 0.13
         return {'reach': {'R': R5(add(g, [w, 0, 0]), 1, 0.0), 'L': R5(add(g, [-w, 0, 0]), 1, 0.0)}, 'hands': {'L': 'grip', 'R': 'grip'}, 'hip': 0}
     lo = add(LV[i], [0, -SINK, 0])
-    ks = [k(-0.4, look=BOOKC), k(0.0, to=lo, dur=0.0, glide=True, face=RYV[i]), k(0.0, toon={**keep(g_(BOOK0)), 'sq': [1.12, 0.86, 1.12], 'bend': {**KNEE, 'spine': [0.18, 0, 0, 1, None]}, 'face': STRAIN}, toonDur=0.0)]
+    # (round 3 fix) they look at a point over the book at head height: a look at the book below them rolled the sunk heads face down out of sight
+    ks = [k(-0.4, look=[0.0, 2.0, -0.5]), k(0.0, to=lo, dur=0.0, glide=True, face=RYV[i]), k(0.0, toon={**keep(g_(BOOK0)), 'sq': [1.12, 0.86, 1.12], 'bend': {**KNEE, 'spine': [0.18, 0, 0, 1, None]}, 'face': STRAIN}, toonDur=0.0)]
     for j in range(int(DIP12 / 0.067)):
         t_ = r(0.067 * (j + 1) + 0.015 * i); q = 0.022 if j % 2 == 0 else -0.012; sag = 0.03 * t_ / DIP12
         ks.append(k(t_, toon={**keep(g_(book_at(t_))), 'sq': [r(1.12 + q + sag, 3), r(0.86 - q - sag, 3), r(1.12 + q + sag, 3)], 'lay': [0, 0.025 if j % 2 == 0 else -0.02], 'bend': {**KNEE, 'spine': [0.18, 0, 0, 1, None]}, 'face': {**STRAIN, 'tremble': 1}}, toonDur=0.05))
@@ -896,9 +909,10 @@ LOOK15 = [[0.85, r(TVY + 0.3), -2.4], [-0.6, r(TVY + 0.45), -2.4], [0.0, r(TVY +
 POP15 = r(HUI15 - 0.1)
 # (round 3 fix) one full visible swing of the little door (open wide, a beat, shut) before the bubble, then the swing that pops it
 SWG15 = 0.42
-SW15 = [[0.0, 0.0], [0.12, 0.0], [SWG15, 1.15], [r(SWG15 + 0.18), 1.05], [r(SWG15 + 0.44), 0.08], [r(POP15 - 0.2), 0.05], [r(POP15), 0.95], [r(POP15 + 0.5), 0.3]]
+SW15 = [[0.0, 0.0], [0.08, 0.0], [SWG15, 1.15], [r(SWG15 + 0.1), 1.1], [r(SWG15 + 0.45), 0.06], [r(POP15 - 0.2), 0.03], [r(POP15), 0.95], [r(POP15 + 0.5), 0.3]]
 F15 = [0.0, 3.7, 3.0]; L15A = [0.0, 1.25, -2.1]
-C15 = cam(0.0, F15, add(F15, [0, -0.03, -0.2]), L15A, add(L15A, [0, 0.01, 0]), lens=46, ease='inOut')
+C15 = cam(0.0, F15, add(F15, [0, -0.04, -0.26]), L15A, add(L15A, [0, 0.03, 0]), lens=46, ease='linear')
+chkc('S15', C15, {'bezel': [0, TVY + TVH, -2.34], 'presTop': [0, r(2.35 - DY15), -3.0], 'pereTop': [-0.5, 2.08, 0.85], 'pereEar': [-0.38, 1.75, 0.85], 'mereTop': [0.5, 2.03, 0.85]}, end=True)
 F15B = [1.5, 1.45, -2.3]; L15B = [0.42, 1.42, 0.5]
 C15B = cam(r(A15 - 0.05), F15B, add(F15B, [-0.05, 0, 0.12]), L15B, add(L15B, [0, 0.01, 0]), lens=54, ease='out')
 chkc('S15', C15, {'tvTop': [0, TVY + TVH + 0.1, -2.4], 'tvBot': [0, TVY - 0.1, -2.4], 'tvL': [-0.85, TVY + 0.5, -2.4], 'tvR': [0.85, TVY + 0.5, -2.4], 'bezel': [0, TVY + TVH, -2.34], 'presTop': [0, r(2.35 - DY15), -3.0], 'deskTop': [0, r(TVY + 0.36 - DY15), -2.62], 'bubble': [0.55, TVY + 0.8 - DY15, -2.2],
