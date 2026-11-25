@@ -3081,3 +3081,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   Restent : le fer qui ne fait pas le tour de la tache dans le plan final (S16), la charge qui ne démarre qu'à la fin (S04), la remise de la
   planche en une image (S15), la boulette qui ne tombe pas (S01), le flacon de détachant illisible (S06). Passe finale lancée, puis brouillon
   de contrôle avant le rendu final.
+- 02 h 20 — « La tache » (93) passe finale faite (fer qui fait le tour de la tache, charge calée sur « chargé », remise de la planche
+  animée, boulette qui tombe, vrai vaporisateur, rouge constant) ; brouillon de contrôle propre (aucun creux). Place disque : cache du modèle
+  de transcription whisper-small supprimé (re-téléchargeable, inutilisé par le pipeline) et une copie identique du calque 3D du « Rayon »
+  retirée de out/. Rendu final 1080 lancé.
