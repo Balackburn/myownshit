@@ -974,7 +974,7 @@ st.cue('clack', 'S15', SLAP15, 0.35); st.cue('sfx:slideDown', 'S15', r(SLAP15 + 
 D16 = st.dur('S16')
 IN16A = [-0.22, 0.0, -1.18]; IN16B = [-0.52, 0.0, -1.18]
 HE16B = [0.22, 0.0, -1.12]
-ZC16 = -1.06; YC16 = -0.2
+ZC16 = -1.06; YC16 = -0.05
 # (review 1) the root (his knees) crawls from off the right edge to x 0.8, his head well ahead of it; he turns about to x 0.42 under the top
 HE16A = [1.75, YC16, ZC16]; HE16C = [0.8, YC16, ZC16]; HE16T = [0.42, YC16, -1.08]
 CRAWL16 = (0.08, 0.62); TURN16 = 0.62; BUMP16 = 0.76; SIT16 = 0.9
@@ -990,8 +990,9 @@ INSK16 = [k(0.0, look=[1.0, 0.7, -1.0]), k(0.0, clip='reclineBack'), k(0.0, toon
           k(r(BUMP16 + 0.02), toon={'sq': [1.04, 0.96, 1.04], 'hip': 0, 'face': {**IF3, 'mouth': 'line', 'lid': 0.9}}, toonDur=0.03), k(r(BUMP16 + 0.12), toon={'hip': 0, 'face': {**IF3, 'mouth': 'line', 'lid': 0.4}}, toonDur=0.08),
           k(0.95, look='camera', lookDur=0.15), *blink(1.1, {**IF3, 'mouth': 'line', 'lid': 0.4}, {'hip': 0})]
 HC16 = lambda t_: lerp3(HE16A, HE16C, min(1.0, max(0.0, (t_ - CRAWL16[0]) / (CRAWL16[1] - CRAWL16[0]))))
-WLAP = off(HE16B, 0, 0.34, -0.06, 0.36)
-CR16 = lambda kneel=1.0, **x: {'bend': {'spine': [1.05 * kneel, 0, 0, 1, None], 'neck': [-0.65 * kneel, 0, 0, 1, None]}, 'hip': 0, **x}
+WLAP = off(HE16B, 0, 0.36, -0.2, 0.24)
+# (stills r1fix) the bent spine alone kept him too tall for the space: the whole kneeling body tips forward over his knees (lay), the head up
+CR16 = lambda kneel=1.0, **x: {'lay': [0.42 * kneel, 0.0], 'bend': {'spine': [0.5 * kneel, 0, 0, 1, None], 'neck': [-1.0 * kneel, 0, 0, 1, None]}, 'hip': 0, **x}
 def HAND16(t_, side, j):
     p_ = HC16(t_); step = 0.12 if (j % 2 == 0) == (side == 'R') else -0.04
     return off([p_[0], 0.0, p_[2]], -90, r(0.62 + step), 0.16 if side == 'R' else -0.16, 0.06)
@@ -1000,21 +1001,20 @@ HEROK16 = [k(0.0, look='camera'), k(0.0, clip='kneel'),
            k(CRAWL16[0], to=HE16C, dur=r(CRAWL16[1] - CRAWL16[0]), glide=True, face=-90, ease='inOut'),
            *[k(r(CRAWL16[0] + 0.09 * j), toon={**CR16(), 'reach': {'R': R5(HAND16(r(CRAWL16[0] + 0.09 * j + 0.05), 'R', j), 1, 0.0), 'L': R5(HAND16(r(CRAWL16[0] + 0.09 * j + 0.05), 'L', j), 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'open'},
                                                   'sq': [1.03, 0.97, 1.03] if j % 2 else [0.98, 1.02, 0.98], 'face': {**GF16, 'gx': -0.4}}, toonDur=0.07) for j in range(6)],
-           # arrived: he turns to us, straightens and his head hits the underside of the top: it squashes flat, eyes shut
-           k(TURN16, to=HE16T, dur=0.1, glide=True, face=0, ease='out'),
-           k(TURN16, toon={**CR16(0.6), 'reach': {'R': R5(add(WLAP, [0.1, 0.1, 0.1]), 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'rest'}, 'face': GF16}, toonDur=0.08),
-           k(r(BUMP16 - 0.04), toon={**CR16(0.38), 'reach': {'R': R5(add(WLAP, [0.1, 0.2, 0.1]), 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'rest'}, 'sq': [0.95, 1.07, 0.95], 'face': {**GF16, 'lid': 0.2, 'brow': 0.3}}, toonDur=0.04, toonEase='out'),
-           k(BUMP16, toon={**CR16(0.38), 'reach': {'R': R5(add(WLAP, [0.1, 0.2, 0.1]), 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'rest'}, 'sq': [1.06, 0.92, 1.06], 'scl': {'head': [1.45, 0.48, 1.15]}, 'face': {'lid': 1.0, 'mouth': 'grimace', 'brow': -0.8}}, toonDur=0.033, toonEase='linear'),
-           k(r(BUMP16 + 0.08), toon={**CR16(0.38), 'reach': {'R': R5(add(WLAP, [0.1, 0.2, 0.1]), 1, 0.0)}, 'hands': {'R': 'grip', 'L': 'rest'}, 'sq': [1.03, 0.96, 1.03], 'scl': {'head': [1.38, 0.55, 1.13]}, 'face': {'lid': 0.9, 'mouth': 'wavy', 'brow': -0.6}}, toonDur=0.04),
-           k(SIT16, clip='reclineBack', blend=0.1), k(SIT16, to=HE16B, dur=0.1, glide=True, face=0, ease='out'),
+           # arrived: still low, he turns to us; then he sits back up into the nook and his head hits the underside of the top: it squashes
+           # flat (eyes shut, an impact), springs a little and settles in the squashed pose of line 17
+           k(TURN16, clip='reclineBack', blend=0.1), k(TURN16, to=HE16B, dur=0.12, glide=True, face=0, ease='out'),
+           k(TURN16, toon={'reach': {'R': R5(WLAP, 1, 0.0)}, 'hands': {'R': 'grip'}, 'scl': {'head': [1.12, 0.85, 1.05]}, 'sq': [0.95, 1.06, 0.95], 'hip': 0, 'face': {**GF16, 'lid': 0.2, 'brow': 0.3}}, toonDur=0.07, toonEase='out'),
+           k(BUMP16, toon={'reach': {'R': R5(WLAP, 1, 0.0)}, 'hands': {'R': 'grip'}, 'scl': {'head': [1.5, 0.45, 1.15]}, 'sq': [1.08, 0.9, 1.08], 'hip': 0, 'face': {'lid': 1.0, 'mouth': 'grimace', 'brow': -0.8}}, toonDur=0.033, toonEase='linear'),
+           k(r(BUMP16 + 0.08), toon={'reach': {'R': R5(WLAP, 1, 0.0)}, 'hands': {'R': 'grip'}, 'scl': {'head': [1.36, 0.58, 1.12]}, 'sq': [1.03, 0.96, 1.03], 'hip': 0, 'face': {'lid': 0.9, 'mouth': 'wavy', 'brow': -0.6}}, toonDur=0.04),
            k(SIT16, toon={'reach': {'R': R5(WLAP, 1, 0.0)}, 'hands': {'R': 'grip'}, 'scl': {'head': [1.25, 0.72, 1.1]}, 'bend': {'neck': [0.25, 0, 0, 1, None]}, 'sq': [1.04, 0.94, 1.04], 'hip': 0, 'face': {**GF16, 'lid': 0.6, 'mouth': 'wavy'}}, toonDur=0.1),
            k(r(SIT16 + 0.08), look='camera', lookDur=0.15), *life(r(SIT16 + 0.12), D16, {**GF16, 'lid': 0.5}, {'reach': {'R': R5(WLAP, 1, 0.0)}, 'hands': {'R': 'grip'}, 'scl': {'head': [1.25, 0.72, 1.1]}, 'bend': {'neck': [0.25, 0, 0, 1, None]}, 'hip': 0})]
-WM16 = [(r(CRAWL16[0] + 0.09 * j), add(HAND16(r(CRAWL16[0] + 0.09 * j + 0.05), 'R', j), [0.0, 0.1, 0.0]), 0.07, 'out') for j in range(6)] + [(TURN16, add(WLAP, [0.1, 0.1, 0.1]), 0.08, 'out'), (r(BUMP16 - 0.04), add(WLAP, [0.1, 0.2, 0.1]), 0.04, 'out'), (SIT16, WLAP, 0.1, 'out')]
+WM16 = [(r(CRAWL16[0] + 0.09 * j), add(HAND16(r(CRAWL16[0] + 0.09 * j + 0.05), 'R', j), [0.0, 0.1, 0.0]), 0.07, 'out') for j in range(6)] + [(TURN16, WLAP, 0.12, 'out')]
 UNDER = lambda n: [P(f'oreiller{n}', 'ttPillow', pos=[-0.15, 0.5, -1.6], rot=[-0.3, 0, 0], opts={'w': 1.3, 'h': 0.6, 'd': 0.24}), P(f'lampe{n}', 'ttNookLamp', pos=[-0.9, 0.0, -1.2], opts={'power': 1.6}),
                    P(f'tasse{n}', 'ttMug', pos=[0.62, 0.0, -0.8], opts={'r': 0.075}), P(f'lumiere{n}', 'ttFill', pos=[-0.15, 0.7, -0.25], opts={'I': 1.1, 'R': 1.9, 'color': '#FFE2B8'})]
 st.shot('S16', 'kitchenDay', setOpts=KSET, look={**LOOKK, 'sun': 1.6, 'exposure': 1.05}, actors=[act('inspecteur', IN16A, 0, 'reclineBack', 'neutral', scale=SI, keys=INSK16), act('mecGris', HE16A, -90, 'kneel', 'neutral', keys=HEROK16)],
         props=[TABLE('table16', open=[[0.0, 1.0]], sides=[True, False]), *UNDER(16), TAG('etiq16i', 'inspecteur', needle=7.0, dz=0.06), TAG('etiq16h', 'mecGris', needle=6.0),
-               P('choc16', 'ttImpact', pos=[HE16T[0], r(TH - 0.08), r(ZC16 + 0.12)], face='camera', opts={'at': BUMP16, 'r': 0.36}),
+               P('choc16', 'ttImpact', pos=[HE16B[0], r(TH - 0.08), r(HE16B[2] + 0.15)], face='camera', opts={'at': BUMP16, 'r': 0.36}),
                WATCH('chrono16', add(HAND16(0.0, 'R', 0), [0.0, 0.1, 0.0]), at_=0.0, rad=0.1, keys=MOVES(WM16))],
         cams=[C16])
 st.cue('sfx:stepSoft', 'S16', 0.3, 0.15); st.cue('sfx:stepSoft', 'S16', 0.5, 0.15); st.cue('thud', 'S16', BUMP16, 0.25); st.cue('sfx:boing', 'S16', r(BUMP16 + 0.02), 0.12)
