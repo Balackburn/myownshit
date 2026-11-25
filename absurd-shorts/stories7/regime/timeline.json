@@ -1,0 +1,920 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a changé de régime. Le président a fait ses valises.",
+   "hl": [
+    "régime.",
+    "valises."
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 3.285,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "changé",
+     "s": 0.619,
+     "e": 0.878
+    },
+    {
+     "w": "de",
+     "s": 0.915,
+     "e": 0.952
+    },
+    {
+     "w": "régime.",
+     "s": 0.989,
+     "e": 1.433
+    },
+    {
+     "w": "Le",
+     "s": 1.656,
+     "e": 1.73
+    },
+    {
+     "w": "président",
+     "s": 1.804,
+     "e": 2.248
+    },
+    {
+     "w": "a",
+     "s": 2.322,
+     "e": 2.396
+    },
+    {
+     "w": "fait",
+     "s": 2.47,
+     "e": 2.544
+    },
+    {
+     "w": "ses",
+     "s": 2.581,
+     "e": 2.619
+    },
+    {
+     "w": "valises.",
+     "s": 2.693,
+     "e": 3.285
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "L'armée a prêté serment au brocoli.",
+   "hl": [
+    "serment",
+    "brocoli."
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L02.k.wav",
+   "file_start": 3.385,
+   "speech_start": 3.385,
+   "speech_end": 5.459,
+   "words": [
+    {
+     "w": "L'armée",
+     "s": 3.385,
+     "e": 3.756
+    },
+    {
+     "w": "a",
+     "s": 3.83,
+     "e": 3.904
+    },
+    {
+     "w": "prêté",
+     "s": 3.941,
+     "e": 4.2
+    },
+    {
+     "w": "serment",
+     "s": 4.311,
+     "e": 4.57
+    },
+    {
+     "w": "au",
+     "s": 4.607,
+     "e": 4.644
+    },
+    {
+     "w": "brocoli.",
+     "s": 4.719,
+     "e": 5.459
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Couvre-feu à vingt heures. Pour le dessert.",
+   "hl": [
+    "Couvre-feu",
+    "dessert."
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L03.k.wav",
+   "file_start": 5.559,
+   "speech_start": 5.559,
+   "speech_end": 8.004,
+   "words": [
+    {
+     "w": "Couvre-feu",
+     "s": 5.559,
+     "e": 6.152
+    },
+    {
+     "w": "à",
+     "s": 6.226,
+     "e": 6.3
+    },
+    {
+     "w": "vingt",
+     "s": 6.374,
+     "e": 6.522
+    },
+    {
+     "w": "heures.",
+     "s": 6.559,
+     "e": 7.041
+    },
+    {
+     "w": "Pour",
+     "s": 7.078,
+     "e": 7.115
+    },
+    {
+     "w": "le",
+     "s": 7.189,
+     "e": 7.263
+    },
+    {
+     "w": "dessert.",
+     "s": 7.374,
+     "e": 8.004
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Les fromages de l'ancien régime ont fui à l'étranger.",
+   "hl": [
+    "fromages",
+    "l'étranger."
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L04.k.wav",
+   "file_start": 8.104,
+   "speech_start": 8.104,
+   "speech_end": 10.844,
+   "words": [
+    {
+     "w": "Les",
+     "s": 8.104,
+     "e": 8.252
+    },
+    {
+     "w": "fromages",
+     "s": 8.363,
+     "e": 8.622
+    },
+    {
+     "w": "de",
+     "s": 8.659,
+     "e": 8.696
+    },
+    {
+     "w": "l'ancien",
+     "s": 8.721,
+     "e": 8.993
+    },
+    {
+     "w": "régime",
+     "s": 9.067,
+     "e": 9.511
+    },
+    {
+     "w": "ont",
+     "s": 9.585,
+     "e": 9.733
+    },
+    {
+     "w": "fui",
+     "s": 9.77,
+     "e": 9.881
+    },
+    {
+     "w": "à",
+     "s": 9.956,
+     "e": 9.993
+    },
+    {
+     "w": "l'étranger.",
+     "s": 10.03,
+     "e": 10.844
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Pesée au conseil des ministres : le plus lourd a été allégé de ses fonctions.",
+   "hl": [
+    "lourd",
+    "allégé"
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L05.k.wav",
+   "file_start": 10.944,
+   "speech_start": 10.944,
+   "speech_end": 14.796,
+   "words": [
+    {
+     "w": "Pesée",
+     "s": 10.944,
+     "e": 11.241
+    },
+    {
+     "w": "au",
+     "s": 11.278,
+     "e": 11.315
+    },
+    {
+     "w": "conseil",
+     "s": 11.389,
+     "e": 11.611
+    },
+    {
+     "w": "des",
+     "s": 11.685,
+     "e": 11.759
+    },
+    {
+     "w": "ministres:",
+     "s": 11.833,
+     "e": 12.574
+    },
+    {
+     "w": "le",
+     "s": 12.611,
+     "e": 12.648
+    },
+    {
+     "w": "plus",
+     "s": 12.722,
+     "e": 12.796
+    },
+    {
+     "w": "lourd",
+     "s": 12.833,
+     "e": 13.167
+    },
+    {
+     "w": "a",
+     "s": 13.241,
+     "e": 13.278
+    },
+    {
+     "w": "été",
+     "s": 13.315,
+     "e": 13.463
+    },
+    {
+     "w": "allégé",
+     "s": 13.537,
+     "e": 13.833
+    },
+    {
+     "w": "de",
+     "s": 13.87,
+     "e": 13.907
+    },
+    {
+     "w": "ses",
+     "s": 13.981,
+     "e": 14.056
+    },
+    {
+     "w": "fonctions.",
+     "s": 14.13,
+     "e": 14.796
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "La résistance s'est organisée. Des éclairs circulent sous le manteau.",
+   "hl": [
+    "résistance",
+    "éclairs"
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L06.k.wav",
+   "file_start": 14.896,
+   "speech_start": 14.896,
+   "speech_end": 18.304,
+   "words": [
+    {
+     "w": "La",
+     "s": 14.896,
+     "e": 14.97
+    },
+    {
+     "w": "résistance",
+     "s": 15.081,
+     "e": 15.563
+    },
+    {
+     "w": "s'est",
+     "s": 15.612,
+     "e": 15.711
+    },
+    {
+     "w": "organisée.",
+     "s": 15.859,
+     "e": 16.575
+    },
+    {
+     "w": "Des",
+     "s": 16.625,
+     "e": 16.674
+    },
+    {
+     "w": "éclairs",
+     "s": 16.748,
+     "e": 17.044
+    },
+    {
+     "w": "circulent",
+     "s": 17.119,
+     "e": 17.489
+    },
+    {
+     "w": "sous",
+     "s": 17.514,
+     "e": 17.563
+    },
+    {
+     "w": "le",
+     "s": 17.637,
+     "e": 17.674
+    },
+    {
+     "w": "manteau.",
+     "s": 17.711,
+     "e": 18.304
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Les gendarmes ont démantelé une raclette clandestine.",
+   "hl": [
+    "raclette",
+    "clandestine."
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L07.k.wav",
+   "file_start": 18.404,
+   "speech_start": 18.404,
+   "speech_end": 21.07,
+   "words": [
+    {
+     "w": "Les",
+     "s": 18.404,
+     "e": 18.478
+    },
+    {
+     "w": "gendarmes",
+     "s": 18.552,
+     "e": 19.07
+    },
+    {
+     "w": "ont",
+     "s": 19.144,
+     "e": 19.219
+    },
+    {
+     "w": "démantelé",
+     "s": 19.256,
+     "e": 19.626
+    },
+    {
+     "w": "une",
+     "s": 19.663,
+     "e": 19.737
+    },
+    {
+     "w": "raclette",
+     "s": 19.848,
+     "e": 20.107
+    },
+    {
+     "w": "clandestine.",
+     "s": 20.181,
+     "e": 21.07
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Ce mec a perdu deux kilos. Le pays, un million de tonnes.",
+   "hl": [
+    "kilos.",
+    "tonnes."
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L08.k.wav",
+   "file_start": 21.17,
+   "speech_start": 21.17,
+   "speech_end": 24.726,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 21.17,
+     "e": 21.319
+    },
+    {
+     "w": "mec",
+     "s": 21.356,
+     "e": 21.541
+    },
+    {
+     "w": "a",
+     "s": 21.578,
+     "e": 21.615
+    },
+    {
+     "w": "perdu",
+     "s": 21.689,
+     "e": 21.985
+    },
+    {
+     "w": "deux",
+     "s": 22.022,
+     "e": 22.133
+    },
+    {
+     "w": "kilos.",
+     "s": 22.207,
+     "e": 22.775
+    },
+    {
+     "w": "Le",
+     "s": 22.825,
+     "e": 22.874
+    },
+    {
+     "w": "pays,",
+     "s": 22.911,
+     "e": 23.43
+    },
+    {
+     "w": "un",
+     "s": 23.467,
+     "e": 23.541
+    },
+    {
+     "w": "million",
+     "s": 23.615,
+     "e": 23.911
+    },
+    {
+     "w": "de",
+     "s": 23.985,
+     "e": 24.059
+    },
+    {
+     "w": "tonnes.",
+     "s": 24.133,
+     "e": 24.726
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Un soir, un carré de chocolat est apparu sur la table.",
+   "hl": [
+    "chocolat",
+    "apparu"
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L09.k.wav",
+   "file_start": 24.826,
+   "speech_start": 24.826,
+   "speech_end": 27.641,
+   "words": [
+    {
+     "w": "Un",
+     "s": 24.826,
+     "e": 24.9
+    },
+    {
+     "w": "soir,",
+     "s": 24.974,
+     "e": 25.493
+    },
+    {
+     "w": "un",
+     "s": 25.567,
+     "e": 25.641
+    },
+    {
+     "w": "carré",
+     "s": 25.715,
+     "e": 25.863
+    },
+    {
+     "w": "de",
+     "s": 25.9,
+     "e": 25.937
+    },
+    {
+     "w": "chocolat",
+     "s": 25.974,
+     "e": 26.307
+    },
+    {
+     "w": "est",
+     "s": 26.381,
+     "e": 26.456
+    },
+    {
+     "w": "apparu",
+     "s": 26.53,
+     "e": 26.752
+    },
+    {
+     "w": "sur",
+     "s": 26.826,
+     "e": 26.9
+    },
+    {
+     "w": "la",
+     "s": 26.937,
+     "e": 26.974
+    },
+    {
+     "w": "table.",
+     "s": 27.048,
+     "e": 27.641
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Il a craqué.",
+   "hl": [
+    "Il",
+    "craqué."
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L10.k.wav",
+   "file_start": 27.741,
+   "speech_start": 27.741,
+   "speech_end": 28.63,
+   "words": [
+    {
+     "w": "Il",
+     "s": 27.741,
+     "e": 27.815
+    },
+    {
+     "w": "a",
+     "s": 27.852,
+     "e": 27.889
+    },
+    {
+     "w": "craqué.",
+     "s": 27.963,
+     "e": 28.63
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Le régime est tombé.",
+   "hl": [
+    "régime",
+    "tombé."
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L11.k.wav",
+   "file_start": 28.73,
+   "speech_start": 28.73,
+   "speech_end": 29.915,
+   "words": [
+    {
+     "w": "Le",
+     "s": 28.73,
+     "e": 28.804
+    },
+    {
+     "w": "régime",
+     "s": 28.878,
+     "e": 29.174
+    },
+    {
+     "w": "est",
+     "s": 29.248,
+     "e": 29.322
+    },
+    {
+     "w": "tombé.",
+     "s": 29.396,
+     "e": 29.915
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le peuple a pris la boulangerie d'assaut.",
+   "hl": [
+    "boulangerie",
+    "d'assaut."
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L12.k.wav",
+   "file_start": 30.015,
+   "speech_start": 30.015,
+   "speech_end": 31.733,
+   "words": [
+    {
+     "w": "Le",
+     "s": 30.015,
+     "e": 30.089
+    },
+    {
+     "w": "peuple",
+     "s": 30.163,
+     "e": 30.385
+    },
+    {
+     "w": "a",
+     "s": 30.422,
+     "e": 30.459
+    },
+    {
+     "w": "pris",
+     "s": 30.496,
+     "e": 30.607
+    },
+    {
+     "w": "la",
+     "s": 30.644,
+     "e": 30.681
+    },
+    {
+     "w": "boulangerie",
+     "s": 30.756,
+     "e": 31.126
+    },
+    {
+     "w": "d'assaut.",
+     "s": 31.151,
+     "e": 31.719
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Les fromages sont rentrés d'exil. Le camembert a été porté en triomphe.",
+   "hl": [
+    "camembert",
+    "triomphe."
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L13.k.wav",
+   "file_start": 31.833,
+   "speech_start": 31.833,
+   "speech_end": 35.685,
+   "words": [
+    {
+     "w": "Les",
+     "s": 31.833,
+     "e": 31.981
+    },
+    {
+     "w": "fromages",
+     "s": 32.093,
+     "e": 32.352
+    },
+    {
+     "w": "sont",
+     "s": 32.389,
+     "e": 32.5
+    },
+    {
+     "w": "rentrés",
+     "s": 32.574,
+     "e": 32.796
+    },
+    {
+     "w": "d'exil.",
+     "s": 32.87,
+     "e": 33.463
+    },
+    {
+     "w": "Le",
+     "s": 33.537,
+     "e": 33.611
+    },
+    {
+     "w": "camembert",
+     "s": 33.685,
+     "e": 34.055
+    },
+    {
+     "w": "a",
+     "s": 34.13,
+     "e": 34.167
+    },
+    {
+     "w": "été",
+     "s": 34.204,
+     "e": 34.426
+    },
+    {
+     "w": "porté",
+     "s": 34.537,
+     "e": 34.722
+    },
+    {
+     "w": "en",
+     "s": 34.796,
+     "e": 34.87
+    },
+    {
+     "w": "triomphe.",
+     "s": 34.981,
+     "e": 35.685
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Le président est rentré aussi. Avec dix kilos de plus.",
+   "hl": [
+    "président",
+    "kilos"
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L14.k.wav",
+   "file_start": 35.785,
+   "speech_start": 35.785,
+   "speech_end": 38.748,
+   "words": [
+    {
+     "w": "Le",
+     "s": 35.785,
+     "e": 35.859
+    },
+    {
+     "w": "président",
+     "s": 35.933,
+     "e": 36.304
+    },
+    {
+     "w": "est",
+     "s": 36.341,
+     "e": 36.378
+    },
+    {
+     "w": "rentré",
+     "s": 36.452,
+     "e": 36.748
+    },
+    {
+     "w": "aussi.",
+     "s": 36.859,
+     "e": 37.341
+    },
+    {
+     "w": "Avec",
+     "s": 37.378,
+     "e": 37.637
+    },
+    {
+     "w": "dix",
+     "s": 37.674,
+     "e": 37.785
+    },
+    {
+     "w": "kilos",
+     "s": 37.859,
+     "e": 38.007
+    },
+    {
+     "w": "de",
+     "s": 38.081,
+     "e": 38.155
+    },
+    {
+     "w": "plus.",
+     "s": 38.304,
+     "e": 38.748
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Ce mec recommence lundi.",
+   "hl": [
+    "recommence",
+    "lundi."
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L15.k.wav",
+   "file_start": 38.848,
+   "speech_start": 38.848,
+   "speech_end": 40.404,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 38.848,
+     "e": 38.922
+    },
+    {
+     "w": "mec",
+     "s": 38.996,
+     "e": 39.218
+    },
+    {
+     "w": "recommence",
+     "s": 39.293,
+     "e": 39.663
+    },
+    {
+     "w": "lundi.",
+     "s": 39.7,
+     "e": 40.404
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Le président n'a pas défait ses valises.",
+   "hl": [
+    "défait",
+    "valises."
+   ],
+   "file": "/tmp/pipe/s7/regime/tts/L16.k.wav",
+   "file_start": 40.504,
+   "speech_start": 40.504,
+   "speech_end": 42.43,
+   "words": [
+    {
+     "w": "Le",
+     "s": 40.504,
+     "e": 40.652
+    },
+    {
+     "w": "président",
+     "s": 40.726,
+     "e": 41.096
+    },
+    {
+     "w": "n'a",
+     "s": 41.145,
+     "e": 41.244
+    },
+    {
+     "w": "pas",
+     "s": 41.318,
+     "e": 41.393
+    },
+    {
+     "w": "défait",
+     "s": 41.467,
+     "e": 41.689
+    },
+    {
+     "w": "ses",
+     "s": 41.726,
+     "e": 41.763
+    },
+    {
+     "w": "valises.",
+     "s": 41.837,
+     "e": 42.43
+    }
+   ]
+  }
+ ],
+ "total": 43.73
+}
