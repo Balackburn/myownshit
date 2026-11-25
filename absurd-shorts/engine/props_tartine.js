@@ -342,13 +342,23 @@ export const TARTINE_PROPS = {
   ttShine(o) {
     const w = o.w ?? 6, d = o.d ?? 6, N = 512, cv = canvas(N, Math.round(N * d / w)), c = cv.getContext('2d'), H = cv.height;
     if (o.tint) { c.fillStyle = o.tint; c.globalAlpha = o.tintA ?? 0.25; c.fillRect(0, 0, N, H); c.globalAlpha = 1; }
+    // o.refl {cam, origin: [x, z] of this prop, items: [[x, z, w, y0, y1, color], ...], alpha}: mirror images painted into the sheen for one
+    // camera (as ttMirror): each upright slab's image under the floor, where the camera ray to it meets the floor, fading from its contact line
+    if (o.refl) { const R = o.refl, C = R.cam, [ox, oz] = R.origin || [0, 0], cx = X => (X - ox + w / 2) / w * N, cz = Z => (Z - (oz - d / 2)) / d * H;
+      const q = (x, y, z) => { const k = C[1] / (C[1] + y); return [cx(C[0] + (x - C[0]) * k), cz(C[2] + (z - C[2]) * k)]; };
+      for (const [x, z, iw, y0, y1, col] of R.items || []) { const P0 = q(x - iw / 2, y0, z), P1 = q(x + iw / 2, y0, z), P2 = q(x + iw / 2, y1, z), P3 = q(x - iw / 2, y1, z);
+        const rgb = new THREE.Color(col), cs = `${Math.round(rgb.r * 255)},${Math.round(rgb.g * 255)},${Math.round(rgb.b * 255)}`, a0 = R.alpha ?? 0.55;
+        const gr = c.createLinearGradient((P0[0] + P1[0]) / 2, (P0[1] + P1[1]) / 2, (P2[0] + P3[0]) / 2, (P2[1] + P3[1]) / 2);
+        gr.addColorStop(0, `rgba(${cs},${a0})`); gr.addColorStop(0.5, `rgba(${cs},${a0 * 0.6})`); gr.addColorStop(1, `rgba(${cs},0)`);
+        c.fillStyle = gr; c.beginPath(); c.moveTo(...P0); c.lineTo(...P1); c.lineTo(...P2); c.lineTo(...P3); c.closePath(); c.fill(); } }
     const nS = o.n ?? 7, kS = o.k ?? 1;
     for (let i = 0; i < nS; i++) { const x = N * (i / (nS - 1)) + (hsh(i) - 0.5) * N * 0.1, gw = N * (0.04 + 0.05 * hsh(i + 2)) * (o.wide ?? 1);
       c.save(); c.translate(x, H / 2); c.rotate(0.5); const gr = c.createLinearGradient(-gw, 0, gw, 0); gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(0.5, `rgba(255,255,255,${Math.min(1, (0.35 + 0.25 * hsh(i + 5)) * kS)})`); gr.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = gr; c.fillRect(-gw, -H, 2 * gw, 2 * H); c.restore(); }
     for (let i = 0; i < (o.glints ?? 0); i++) { const x = N * hsh(i * 3.1 + 7), y = H * hsh(i * 5.7 + 2), r0 = N * (0.012 + 0.018 * hsh(i + 11)), gg = c.createRadialGradient(x, y, 0, x, y, r0 * 3);
       gg.addColorStop(0, 'rgba(255,255,255,1)'); gg.addColorStop(0.3, 'rgba(255,255,255,0.7)'); gg.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = gg; c.beginPath(); c.ellipse(x, y, r0 * 3.4, r0 * 1.6, 0.5, 0, TAU); c.fill(); }
-    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, d).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ map: tex(cv), transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -6, polygonOffsetUnits: -20 }));
-    m.position.y = o.y ?? 0.012; m.renderOrder = 1; return grp(m);
+    // o.under: drawn under the floor props (the butter splats keep their yellow): a smaller polygon offset, lower
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, d).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ map: tex(cv), transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: o.under ? -2 : -6, polygonOffsetUnits: o.under ? -6 : -20 }));
+    m.position.y = o.y ?? (o.under ? 0.008 : 0.012); m.renderOrder = o.under ? 0 : 1; return grp(m);
   },
 
   // ---------------------------------------------------------------- a white napkin tucked into a collar (pivot at its top edge, facing +Z): a
@@ -371,7 +381,7 @@ export const TARTINE_PROPS = {
 
   // ---------------------------------------------------------------- a café front (pivot at the foot of its wall, facing +Z): a cream wall o.w (6)
   // x o.h (4), a big window with a dark-green frame, a door, a striped red-and-white awning over both with a scalloped valance, a plain board
-  // reading o.sign ('CAFÉ'); o.awning color
+  // reading o.sign ('CAFÉ'; false: none); o.glass: a word painted on the window; o.awning color
   ttCafeFront(o) {
     const W = o.w ?? 6, Hh = o.h ?? 4, g = grp(), ac = o.awning || '#C8322A', fr = '#2E5A3E';
     g.add(at(box(W, Hh, 0.2, o.wall || '#EFE2C4'), 0, Hh / 2, -0.1), at(box(W, 0.5, 0.06, '#8E6A48'), 0, 0.25, 0.02));
@@ -388,6 +398,12 @@ export const TARTINE_PROPS = {
       if (/É/.test(o.sign || 'CAFÉ')) { const tw = x.measureText(word).width, ex = 128 + tw / 2 - x.measureText('E').width * 0.42;
         x.beginPath(); x.moveTo(ex - 9, 30); x.lineTo(ex + 5, 10); x.lineTo(ex + 16, 14); x.lineTo(ex - 1, 32); x.closePath(); x.fill(); }
       g.add(at(new THREE.Mesh(new THREE.PlaneGeometry(1.6, 0.6), L('#FFFFFF', { map: tex(sc) })), -0.9, 3.5, 0.05)); }
+    // o.glass: the word painted in gold on the window glass (cut-out letters with a dark edge, the accent its own stroke)
+    if (o.glass) { const gc = canvas(512, 160), x = gc.getContext('2d'), word = o.glass.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      x.font = '900 104px Arial'; x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.lineJoin = 'round'; x.strokeStyle = '#3A2410'; x.lineWidth = 14; x.strokeText(word, 256, 146); x.fillStyle = '#F4C44E'; x.fillText(word, 256, 146);
+      if (/É/.test(o.glass)) { const tw = x.measureText(word).width, ex = 256 + tw / 2 - x.measureText('E').width * 0.42, acc = () => { x.beginPath(); x.moveTo(ex - 17, 56); x.lineTo(ex + 9, 16); x.lineTo(ex + 31, 24); x.lineTo(ex - 1, 60); x.closePath(); };
+        acc(); x.stroke(); acc(); x.fill(); }
+      g.add(at(new THREE.Mesh(new THREE.PlaneGeometry(2.2, 0.69), L('#FFFFFF', { map: tex(gc), transparent: true, alphaTest: 0.4, emissive: '#5A4410', emissiveIntensity: 0.4 })), -0.9, 2.0, 0.065)); }
     return g;
   },
 
@@ -483,8 +499,8 @@ export const TARTINE_PROPS = {
     const q = (x, y, z) => { const k = C[1] / (C[1] + y); return [C[0] + (x - C[0]) * k, 0, C[2] + (z - C[2]) * k]; };
     for (const [x, z, w, y0, y1, col, mv] of o.items || []) {
       const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(12), 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute([0, 1, 1, 1, 1, 0, 0, 0], 2)); geo.setIndex([0, 2, 1, 0, 3, 2]);
-      const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: col, map: gt, transparent: true, opacity: o.alpha ?? 0.55, depthWrite: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -10 }));
-      m.position.y = o.y ?? 0.008; m.renderOrder = 0; g.add(m); its.push({ m, x, z, w, y0, y1, mv });
+      const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: col, map: gt, transparent: true, opacity: o.alpha ?? 0.55, depthWrite: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -5, polygonOffsetUnits: -18 }));
+      m.position.y = o.y ?? 0.012; m.renderOrder = 0; g.add(m); its.push({ m, x, z, w, y0, y1, mv });
     }
     g.userData.update = t => { for (const it of its) { const dx = it.mv ? keyAt(it.mv, t, 0) : 0, xa = it.x + dx - it.w / 2, xb = it.x + dx + it.w / 2;
       const P = [q(xa, it.y0, it.z), q(xb, it.y0, it.z), q(xb, it.y1, it.z), q(xa, it.y1, it.z)], a = it.m.geometry.attributes.position;
