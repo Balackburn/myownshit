@@ -57,10 +57,10 @@ function brassPlate(w, h, text) {
 function penneSticker(w) {
   const h = w * 0.5;
   const p = canvasPlane(w, h, (c, W, H) => {
-    c.clearRect(0, 0, W, H); c.fillStyle = '#D6C98F'; c.fillRect(W * 0.01, H * 0.02, W * 0.98, H * 0.96);
-    const gr = c.createRadialGradient(W * 0.4, H * 0.45, 0, W * 0.5, H * 0.5, W * 0.62); gr.addColorStop(0, 'rgba(250,240,200,0.25)'); gr.addColorStop(1, 'rgba(120,95,40,0.45)'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
+    c.clearRect(0, 0, W, H); c.fillStyle = '#EDE5C4'; c.beginPath(); c.moveTo(W * 0.02, H * 0.05); c.lineTo(W * 0.85, H * 0.02); c.lineTo(W * 0.99, H * 0.28); c.lineTo(W * 0.98, H * 0.97); c.lineTo(W * 0.03, H * 0.95); c.closePath(); c.fill();
+    const gr = c.createRadialGradient(W * 0.4, H * 0.45, 0, W * 0.5, H * 0.5, W * 0.62); gr.addColorStop(0, 'rgba(255,250,230,0.1)'); gr.addColorStop(1, 'rgba(150,125,70,0.35)'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
     c.fillStyle = 'rgba(110,85,40,0.18)'; for (let i = 0; i < 14; i++) { c.beginPath(); c.arc(W * hsh(i + 3), H * hsh(i + 9), H * (0.02 + 0.05 * hsh(i)), 0, TAU); c.fill(); }
-    c.fillStyle = '#5E5038'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitFont(c, 'EN PANNE', W * 0.78, Math.round(H * 0.42), 700); c.fillText('EN PANNE', W / 2, H * 0.53);
+    c.fillStyle = '#6A6250'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitFont(c, 'EN PANNE', W * 0.76, Math.round(H * 0.4), 600); c.fillText('EN PANNE', W / 2, H * 0.53);
     c.fillStyle = '#B9AB72'; c.beginPath(); c.moveTo(W * 0.99, H * 0.02); c.lineTo(W * 0.86, H * 0.02); c.lineTo(W * 0.99, H * 0.3); c.closePath(); c.fill();
     c.fillStyle = 'rgba(40,30,15,0.35)'; c.beginPath(); c.moveTo(W * 0.86, H * 0.02); c.lineTo(W * 0.99, H * 0.3); c.lineTo(W * 0.97, H * 0.33); c.lineTo(W * 0.83, H * 0.04); c.closePath(); c.fill();
   }, { res: 512, transparent: true });
@@ -82,14 +82,16 @@ export const DISTRIBUTEUR_PROPS = {
   drinkMachine(o) {
     const W = 1.0, H = 2.15, D = 0.8, FZ = D / 2, C = o.color || '#C9282B', CD = '#8E1B1E', IN = '#2C2E34';
     const GX0 = -0.45, GX1 = 0.12, GY0 = 0.72, GY1 = 1.98, GW = GX1 - GX0, GCX = (GX0 + GX1) / 2;
-    const SLOT = [0.25, 1.2, FZ + 0.012], FLAP = [-0.17, 0.44, FZ], STK = [0.385, 1.2, FZ + 0.0145];
+    const SLOT = [0.215, 1.2, FZ + 0.012], FLAP = [-0.17, 0.44, FZ], STK = [0.34, 1.2, FZ + 0.0145];
     const g = grp(), piv = grp(), body = grp(); g.add(piv); piv.add(body); piv.position.x = W / 2; body.position.x = -W / 2;
     // cabinet: back, sides, roof, plinth, the panel on the right, the band under the glass
     body.add(at(box(W, H, 0.04, IN, { pivot: 'bottom', outline: 0.01 }), 0, 0, -FZ + 0.02));
     for (const s of [-1, 1]) body.add(at(box(0.05, H, D, C, { pivot: 'bottom', outline: 0.01 }), s * (W / 2 - 0.025), 0, 0));
     body.add(at(box(W, 0.17, D, C, { outline: 0.01 }), 0, H - 0.085, 0), at(box(W - 0.02, 0.09, D - 0.02, CD, { pivot: 'bottom' }), 0, 0, 0));
     body.add(at(box(W / 2 - GX1 - 0.025, H - 0.17 - 0.09, 0.06, C, { pivot: 'bottom', outline: 0.008 }), (GX1 + W / 2 - 0.05) / 2 + 0.0125, 0.09, FZ - 0.03));
-    body.add(at(box(GW + 0.01, GY0 - 0.09, 0.06, C, { pivot: 'bottom', outline: 0.008 }), GCX, 0.09, FZ - 0.03));
+    // the band under the glass, cut round the flap's opening (x -0.42..0.08, y 0.30..0.58) so an arm can go in
+    body.add(at(box(GW + 0.01, 0.21, 0.06, C, { pivot: 'bottom', outline: 0.008 }), GCX, 0.09, FZ - 0.03), at(box(GW + 0.01, GY0 - 0.58, 0.06, C, { pivot: 'bottom', outline: 0.008 }), GCX, 0.58, FZ - 0.03));
+    body.add(at(box(0.04, 0.28, 0.06, C, { pivot: 'bottom' }), GX0 + 0.015, 0.3, FZ - 0.03), at(box(GX1 - 0.08 + 0.005, 0.28, 0.06, C, { pivot: 'bottom' }), (0.08 + GX1) / 2 + 0.0025, 0.3, FZ - 0.03));
     // header: a white drawn can and bubbles on a dark band (no words)
     const hdr = canvasPlane(W - 0.12, 0.13, (c, Wc, Hc) => { c.fillStyle = '#7A1517'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = 'rgba(255,255,255,0.9)';
       for (const x of [0.12, 0.88]) { const cx = Wc * x, w = Hc * 0.36, h = Hc * 0.72; c.fillRect(cx - w / 2, Hc * 0.14, w, h); c.fillStyle = '#7A1517'; c.fillRect(cx - w / 2, Hc * 0.42, w, Hc * 0.1); c.fillStyle = 'rgba(255,255,255,0.9)'; }
@@ -127,7 +129,7 @@ export const DISTRIBUTEUR_PROPS = {
     // the EN PANNE sticker on the glass, right edge, slot height
     // the panel: a glossy black plate (x 0.175..0.465, y 0.98..1.82) with a blank screen, a keypad high up, the slot low left and the small paper
     // EN PANNE sticker beside the slot, at its height; a coin return below
-    body.add(at(box(0.29, 0.84, 0.012, '#1E1F24'), 0.32, 1.40, FZ + 0.006), at(box(0.2, 0.08, 0.006, '#9CE8A0', { emissive: '#2E6A34', noGrain: true }), 0.32, 1.74, FZ + 0.013));
+    body.add(at(box(0.29, 0.84, 0.012, '#39404C'), 0.32, 1.40, FZ + 0.006), at(canvasPlane(0.29, 0.84, (c, Wc, Hc) => { const gr = c.createLinearGradient(0, 0, Wc, Hc); gr.addColorStop(0, 'rgba(255,255,255,0.0)'); gr.addColorStop(0.35, 'rgba(210,225,240,0.16)'); gr.addColorStop(0.5, 'rgba(255,255,255,0.0)'); gr.addColorStop(0.75, 'rgba(210,225,240,0.08)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); c.clearRect(0, 0, Wc, Hc); c.fillStyle = gr; c.fillRect(0, 0, Wc, Hc); }, { res: 256, transparent: true }), 0.32, 1.40, FZ + 0.0125), at(box(0.2, 0.08, 0.006, '#9CE8A0', { emissive: '#2E6A34', noGrain: true }), 0.32, 1.74, FZ + 0.013));
     const keys = []; for (let r = 0; r < 4; r++) for (let c = 0; c < 3; c++) keys.push([0.27 + c * 0.05, 1.64 - r * 0.052, FZ + 0.014]);
     body.add(inst(new THREE.BoxGeometry(0.034, 0.034, 0.01), mat('#E6E2D8'), keys));
     body.add(at(box(0.09, 0.13, 0.014, '#C9CCD1', { outline: 0.01 }), SLOT[0], SLOT[1], FZ + 0.007), at(box(0.012, 0.065, 0.01, '#141414'), SLOT[0], SLOT[1] + 0.01, FZ + 0.014));
@@ -167,7 +169,7 @@ export const DISTRIBUTEUR_PROPS = {
       const tl = kv(o.tilt, t, 0) * PI / 180; let sh = 0;
       for (const [a, b] of o.creak || []) if (t >= a && t <= b) sh = 0.006 * Math.sin(t * 61) + 0.004 * Math.sin(t * 37);
       piv.rotation.z = -tl + sh;
-      flap.rotation.x = -1.15 * kv(o.flapIn, t, 0);
+      flap.rotation.x = 1.25 * kv(o.flapIn, t, 0);   // the bottom swings in (an arm pushed through)
       door.rotation.y = -1.9 * kv(o.boxOpen, t, 0);
       // the can: wobble, drop, hide
       let cw = 0; for (const a of [].concat(o.canWobble ?? [])) { const u = t - a; if (u >= 0 && u < 0.6) cw += 0.22 * Math.sin(u * 30) * Math.exp(-u * 6); }
@@ -315,12 +317,15 @@ export const DISTRIBUTEUR_PROPS = {
     const r = o.r ?? 0.05, g = grp(), spin = grp(), tilt = grp(); g.add(tilt); tilt.add(spin);
     const c = cyl(r, r, r * 0.16, '#E8BE3E', 20, { unique: true, noGrain: true }); addOutline(c, 0.04); c.rotation.x = PI / 2; spin.add(c);
     spin.add(at(cyl(r * 0.7, r * 0.7, r * 0.17, '#D2A42E', 16, { noGrain: true }), 0, 0, 0, PI / 2, 0, 0));
-    const A = o.from || [0, 0], B = o.to || [1, 0], hd = Math.atan2(B[0] - A[0], B[1] - A[1]), L = Math.hypot(B[0] - A[0], B[1] - A[1]);
-    g.userData.update = t => { const t0 = o.t0 ?? 0, t1 = o.t1 ?? 1, u = clamp01((t - t0) / Math.max(0.01, t1 - t0)), d = L * (1 - (1 - u) * (1 - u));
-      g.visible = !(o.hidden && t < t0); g.position.set(A[0] + (B[0] - A[0]) * d / L, 0, A[1] + (B[1] - A[1]) * d / L); g.rotation.y = hd + PI / 2;
-      spin.rotation.z = -d / r; const fall = clamp01((t - t1) / 0.35), wob = (u > 0 && u < 1 ? 0.06 + 0.25 * u * u : 0) * Math.sin(t * 26);
-      tilt.rotation.x = wob + fall * fall * (PI / 2 - 0.02); const rat = t > t1 + 0.35 ? 0.03 * Math.sin((t - t1) * 70) * Math.exp(-(t - t1 - 0.35) * 9) : 0; tilt.rotation.z = rat;
-      tilt.position.y = r * Math.cos(tilt.rotation.x) + r * 0.08 * Math.sin(tilt.rotation.x); };
+    const A = o.from || [0, 0], B = o.to || [1, 0], L = Math.hypot(B[0] - A[0], B[1] - A[1]), ux = (B[0] - A[0]) / L, uz = (B[1] - A[1]) / L, cv = o.curve ?? 0.12, W0 = o.wob ?? 0.6;
+    const at_ = u => { const d = L * u, side = cv * Math.sin(u * PI); return [A[0] + ux * d - uz * side, A[1] + uz * d + ux * side]; };
+    g.userData.update = t => { const t0 = o.t0 ?? 0, t1 = o.t1 ?? 1, v = clamp01((t - t0) / Math.max(0.01, t1 - t0)), u = 1 - Math.pow(1 - v, 2.2);
+      g.visible = !(o.hidden && t < t0); const p = at_(u), q = at_(Math.min(1, u + 0.01)); g.position.set(p[0], 0, p[1]); g.rotation.y = Math.atan2(q[0] - p[0], q[1] - p[1]) + PI / 2;
+      spin.rotation.z = -u * L / r;
+      const w = t - t1; let tx = (v > 0 && v < 1 ? 0.05 + 0.12 * v * v : 0) * Math.sin(t * 22);
+      if (w > 0) { if (w < W0) { const k = w / W0, ph = 2 * PI * (2.5 * k + 1.8 * k * k); tx = (0.12 + 0.55 * k * k) * Math.sin(ph); } else { const f = clamp01((w - W0) / 0.14); tx = (PI / 2 - 0.02) * f * f; } }
+      tilt.rotation.x = tx; const rat = w > W0 + 0.14 ? 0.03 * Math.sin((w - W0) * 70) * Math.exp(-(w - W0 - 0.14) * 9) : 0; tilt.rotation.z = rat;
+      tilt.position.y = r * Math.cos(Math.abs(tilt.rotation.x)) + r * 0.08 * Math.sin(Math.abs(tilt.rotation.x)); };
     g.userData.update(-1); return g;
   },
 
@@ -380,10 +385,10 @@ export const DISTRIBUTEUR_PROPS = {
     g.add(at(new THREE.Mesh(new THREE.PlaneGeometry(W - 0.04, gh - 0.08), new THREE.MeshLambertMaterial({ color: '#DCEFF4', transparent: true, opacity: 0.18, depthWrite: false, side: THREE.DoubleSide })), 0, gy + 0.04 + (gh - 0.08) / 2, -0.05));
     g.add(at(box(W - 0.04, 0.035, 0.05, '#2A2C31'), -0.0, gy + 0.0175, -0.05));
     g.add(at(box(0.34, 0.012, 0.01, '#141416'), 0, gy + 0.042, -0.02));
-    const sheet = grp(); const sp = canvasPlane(0.24, 0.32, (c, W2, H2) => { c.fillStyle = '#FBFAF5'; c.fillRect(0, 0, W2, H2); c.fillStyle = '#B8BCC2'; for (let i = 0; i < 7; i++) c.fillRect(W2 * 0.12, H2 * (0.12 + i * 0.07), W2 * (0.76 - (i % 3) * 0.12), H2 * 0.022);
-      c.save(); c.translate(W2 / 2, H2 * 0.74); c.rotate(-0.18); c.strokeStyle = '#D21E1E'; c.lineWidth = H2 * 0.022; c.strokeRect(-W2 * 0.4, -H2 * 0.08, W2 * 0.8, H2 * 0.16); c.fillStyle = '#D21E1E'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitFont(c, 'REFUSÉ', W2 * 0.7, Math.round(H2 * 0.12)); c.fillText('REFUSÉ', 0, H2 * 0.005); c.restore(); }, { res: 256 });
-    sp.rotation.x = -PI / 2; sheet.add(sp, at(box(0.24, 0.002, 0.32, '#FBFAF5'), 0, -0.002, 0)); sheet.visible = false; g.add(sheet);
-    g.userData.update = t => { if (!o.sheetAt) return; const [a, b] = o.sheetAt, u = clamp01((t - a) / Math.max(0.01, b - a)); sheet.visible = t >= a; sheet.position.set(0, 1.035, -0.25 + 0.5 * smooth(u)); };
+    const sheet = grp(), sheetIn = grp(); sheet.add(sheetIn); const sp = canvasPlane(0.32, 0.42, (c, W2, H2) => { c.fillStyle = '#FBFAF5'; c.fillRect(0, 0, W2, H2); c.fillStyle = '#B8BCC2'; for (let i = 0; i < 7; i++) c.fillRect(W2 * 0.12, H2 * (0.12 + i * 0.07), W2 * (0.76 - (i % 3) * 0.12), H2 * 0.022);
+      c.save(); c.translate(W2 / 2, H2 * 0.7); c.rotate(-0.15); c.strokeStyle = '#D21E1E'; c.lineWidth = H2 * 0.03; c.strokeRect(-W2 * 0.45, -H2 * 0.12, W2 * 0.9, H2 * 0.24); c.fillStyle = '#D21E1E'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitFont(c, 'REFUSÉ', W2 * 0.82, Math.round(H2 * 0.2)); c.fillText('REFUSÉ', 0, H2 * 0.005); c.restore(); }, { res: 256 });
+    sp.rotation.x = -PI / 2; sp.position.z = -0.21; sheetIn.add(sp, at(box(0.32, 0.002, 0.42, '#FBFAF5'), 0, -0.002, -0.21)); sheetIn.position.z = 0.21; sheet.visible = false; g.add(sheet);
+    g.userData.update = t => { if (!o.sheetAt) return; const [a, b] = o.sheetAt, u = clamp01((t - a) / Math.max(0.01, b - a)); sheet.visible = t >= a; sheet.position.set(0, 1.04, -0.3 + 0.5 * smooth(u)); sheetIn.rotation.x = 0.7 * smooth((t - b) / 0.3); };   // once out it tips up toward the customer
     g.userData.update(-1); return g;
   },
 
@@ -411,10 +416,10 @@ export const DISTRIBUTEUR_PROPS = {
   // (o.alpha 0.3 drawn into the canvas: the material opacity alone did not show) and cooled toward the panel, with two soft diagonal sheen streaks across it; o.drift [dx, dy, t0, t1]: it slides a little (he
   // leans in); o.blinkAt [t...]: his reflected eyes close for 0.12 s
   glassGhost(o) {
-    const w = o.w ?? 0.1, h = w * 1.3;
+    const w = o.w ?? 0.1, h = w * (o.aspect ?? 1.3);
     const face = closed => (c, W, H) => { c.clearRect(0, 0, W, H); c.save(); c.translate(W, 0); c.scale(-1, 1);
       c.fillStyle = '#F2A868'; c.fillRect(W * 0.14, H * 0.18, W * 0.72, H * 0.8);
-      c.fillStyle = '#E39456'; c.fillRect(W * 0.06, H * 0.42, W * 0.08, H * 0.16); c.fillRect(W * 0.86, H * 0.42, W * 0.08, H * 0.16);
+      if (!o.box) { c.fillStyle = '#E39456'; c.fillRect(W * 0.06, H * 0.42, W * 0.08, H * 0.16); c.fillRect(W * 0.86, H * 0.42, W * 0.08, H * 0.16); }
       c.fillStyle = '#16141A'; c.fillRect(W * 0.1, H * 0.06, W * 0.8, H * 0.17); c.beginPath(); c.moveTo(W * 0.55, H * 0.08); c.lineTo(W * 0.92, H * 0.0); c.lineTo(W * 0.86, H * 0.14); c.fill();
       c.fillRect(W * 0.1, H * 0.2, W * 0.06, H * 0.14);
       c.strokeStyle = '#2A1E18'; c.lineWidth = H * 0.018; c.lineCap = 'round';
@@ -427,7 +432,7 @@ export const DISTRIBUTEUR_PROPS = {
       const sg = c.createLinearGradient(0, H, W, 0); sg.addColorStop(0.0, 'rgba(255,255,255,0)'); sg.addColorStop(0.42, 'rgba(255,255,255,0)'); sg.addColorStop(0.47, 'rgba(255,255,255,0.55)'); sg.addColorStop(0.52, 'rgba(255,255,255,0)'); sg.addColorStop(0.62, 'rgba(255,255,255,0)'); sg.addColorStop(0.64, 'rgba(255,255,255,0.35)'); sg.addColorStop(0.66, 'rgba(255,255,255,0)');
       c.globalCompositeOperation = 'source-atop'; c.fillStyle = sg; c.fillRect(0, 0, W, H);
       const kA = o.alpha ?? 0.3, im = c.getImageData(0, 0, W, H), d = im.data;
-      for (let i = 0; i < d.length; i += 4) { const px = (i / 4) % W, py = Math.floor(i / 4 / W), dx = (px / W - 0.5) / 0.5, dy = (py / H - 0.52) / 0.5, f = kA * Math.max(0, 1 - Math.pow(Math.hypot(dx * 0.95, dy * 0.85), 3)), gy = (d[i] + d[i + 1] + d[i + 2]) / 3;
+      for (let i = 0; i < d.length; i += 4) { const px = (i / 4) % W, py = Math.floor(i / 4 / W), dx = (px / W - 0.5) / 0.5, dy = (py / H - 0.52) / 0.5, f = kA * Math.max(0, 1 - Math.pow(Math.max(Math.abs(dx * 0.95), Math.abs(dy * 0.9)), 6)), gy = (d[i] + d[i + 1] + d[i + 2]) / 3;
         d[i] = (d[i] * 0.55 + gy * 0.45) * f; d[i + 1] = (d[i + 1] * 0.55 + gy * 0.45) * f; d[i + 2] = (d[i + 2] * 0.55 + gy * 0.45) * f; } c.putImageData(im, 0, 0); };   // dimmed, greyed and faded at the edges in the colour itself (added light)
     const mk = closed => { const q = canvasPlane(w, h, face(closed), { res: 256, transparent: true }); const map = q.material.map;
       q.material = new THREE.MeshBasicMaterial({ map, color: o.tint || '#B8CCDE', transparent: true, opacity: o.opacity ?? 1, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false });   // a reflection adds light to the black panel
