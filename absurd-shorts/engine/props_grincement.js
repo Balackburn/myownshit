@@ -323,8 +323,9 @@ export const GRINCEMENT_PROPS = {
     const F = o.flip || null, nF = F ? F[2] : 0, acc = F ? (F[3] ?? 2.4) : 1, pool = [];
     const starts = [], durs = [];
     if (F) { const dl = 0.055; for (let j = 0; j < nF; j++) { const q = nF > 1 ? j / (nF - 1) : 1; durs.push(lerp(0.3, dl, Math.pow(q, 0.8))); starts.push(F[0] + (F[1] - dl - F[0]) * Math.pow(q, 1 / acc)); } }
-    for (let i = 0; i < (F ? 18 : 0); i++) { const pv = grp(), sh = canvasPlane(pw, D - 0.05, (c, w, h) => { c.fillStyle = i % 2 ? '#F7EFDA' : '#FBF5E4'; c.fillRect(0, 0, w, h); c.strokeStyle = 'rgba(160,140,100,0.5)'; c.lineWidth = w * 0.01; c.strokeRect(1, 1, w - 2, h - 2); }, { res: 128 });
-      sh.material.transparent = true; sh.material.depthWrite = false; sh.rotation.x = -PI / 2; sh.position.x = pw / 2; pv.add(sh); pv.position.set(0, 0.085, 0); pv.visible = false; g.add(pv); pool.push([pv, sh]); }
+    for (let i = 0; i < (F ? 18 : 0); i++) { const pv = grp(), sh = canvasPlane(pw, D - 0.05, (c, w, h) => { c.fillStyle = i % 2 ? '#F7EFDA' : '#FBF5E4'; c.fillRect(0, 0, w, h); c.strokeStyle = 'rgba(160,140,100,0.5)'; c.lineWidth = w * 0.01; c.strokeRect(1, 1, w - 2, h - 2); }, { res: 128, emissive: 0.3 });
+      const mO = sh.material, mT = mO.clone(); mT.transparent = true; mT.depthWrite = false;
+      sh.rotation.x = -PI / 2; sh.position.x = pw / 2; pv.add(sh); pv.position.set(0, 0.085, 0); pv.visible = false; g.add(pv); pool.push([pv, sh, mO, mT]); }
     root.userData.update = t => {
       const showWord = !F || t >= F[1];
       if (F) {
@@ -332,8 +333,8 @@ export const GRINCEMENT_PROPS = {
         for (let j = 0; j < nF; j++) { const u = (t - starts[j]) / durs[j]; if (u < 0 || u > 1.6) continue;
           if (u <= 1) live.push([u, 1]);
           if (durs[j] < 0.15) for (const [lag, op] of [[0.16, 0.5], [0.32, 0.3], [0.48, 0.15]]) { const v = u - lag; if (v >= 0 && v <= 1) live.push([v, op]); } }
-        pool.forEach(([pv, sh], i) => { const e = live[i]; pv.visible = !!e; if (!e) return; const [u, op] = e, a = op < 1 ? u : smooth(u);
-          pv.rotation.z = PI * a; pv.position.y = 0.085 + 0.07 * Math.sin(PI * a) + i * 0.0004; sh.material.opacity = op; });
+        pool.forEach(([pv, sh, mO, mT], i) => { const e = live[i]; pv.visible = !!e; if (!e) return; const [u, op] = e, a = op < 1 ? u : smooth(u);
+          pv.rotation.z = PI * a; pv.position.y = 0.085 + 0.07 * Math.sin(PI * a) + i * 0.0004; sh.material = op < 1 ? mT : mO; mT.opacity = op; });
         const v = t - F[1], b = v > 0 && v < 0.6 ? Math.exp(-6.5 * v) * Math.cos(v * 26) : 0;
         g.scale.set(1 + 0.03 * b, 1 - 0.16 * b, 1 + 0.03 * b);
       }
@@ -414,14 +415,14 @@ export const GRINCEMENT_PROPS = {
   // the pillow by extra metres; o.bib [[t, h]]: for somebody sitting up, the top of the duvet rises as one rounded hump to h metres over the mattress
   // (he pulls it up to his nose)
   grinDuvet(o) {
-    const W = o.w ?? 1.05, Lb = o.len ?? 1.5, g = grp(), c = o.color || '#E8EEF6', fc = new THREE.Color(c).lerp(new THREE.Color(o.fold || '#F7F9FC'), 0.45).getStyle();
+    const W = o.w ?? 1.05, Lb = o.len ?? 1.5, g = grp(), c = o.color || '#E8EEF6', fc = new THREE.Color(c).lerp(new THREE.Color(o.fold || '#F7F9FC'), 0.18).getStyle();
     const cap = new THREE.CapsuleGeometry(0.5, 1, 6, 18); cap.rotateX(PI / 2);
     const slab = new THREE.Mesh(cap, mat(c, { unique: true })); slab.castShadow = slab.receiveShadow = true; g.add(slab);
     const bib = o.bib ? new THREE.Mesh(new THREE.CapsuleGeometry(0.5, 1, 6, 18), mat(c, { unique: true })) : null;
     const roll = new THREE.Mesh(new THREE.CapsuleGeometry(0.5, 1, 4, 14), mat(fc)); roll.rotation.z = PI / 2; g.add(roll);
     if (bib) { bib.castShadow = bib.receiveShadow = true; g.add(bib); }
     g.userData.update = t => { const L = Lb + keyAt(o.pull, t, 0); slab.scale.set(W, 0.36, L / 2); slab.position.set(0, 0.0, -L / 2);
-      if (bib) { const h = Math.max(0.2, keyAt(o.bib, t, 0.6)); bib.scale.set(W * 0.92, h / 2, 0.3); bib.position.set(0, h * 0.25, -L + 0.12); roll.scale.set(0.17, W * 0.47, 0.34); roll.position.set(0, h * 0.95, -L + 0.12); }
+      if (bib) { const h = Math.max(0.2, keyAt(o.bib, t, 0.6)); bib.scale.set(W * 0.92, h / 2, 0.3); bib.position.set(0, h * 0.25, -L + 0.12); roll.scale.set(0.16, W * 0.47, 0.26); roll.position.set(0, h * 0.93, -L + 0.12); }
       else { roll.scale.set(0.12, W * 0.48, 0.14); roll.position.set(0, 0.17, -L + 0.08); } };
     g.userData.update(0); return g;
   },
@@ -514,6 +515,22 @@ export const GRINCEMENT_PROPS = {
     for (const a of [-0.5, 0, 0.5]) g.add(at(box(0.01, 0.12, 0.006, new THREE.Color(c).multiplyScalar(0.8).getStyle()), a * W * 0.5, 0.05, Dd / 2 - 0.005 - 0.03 * Math.abs(a), -0.5, 0, -a * 0.6));
     const pom = sphere(0.065, o.pom || '#F4F1E8', 1); pom.position.y = 0.17; g.add(pom);
     return g;
+  },
+
+  // ---------------------------------------------------------------- (round 1 fix) a long white sage's beard (attach to the head joint at the chin,
+  // about [0, 0.04, 0.1]): one full tapered mass o.len (1.1) long from the jaw down past the belt, o.w (0.3) wide at the jaw, thick and rounded,
+  // a moustache bar, a pointed wavy tip and a few pale strand lines; it sways a little (o.wave [amp, rate]). Reads as a beard, not a jabot: it is
+  // long, narrows steadily to a point and keeps its volume.
+  grinBeard(o) {
+    const L = o.len ?? 1.1, w = o.w ?? 0.3, c = o.color || '#F2F2EE', sc = o.strand || '#C9CDD2', g = grp(), sw = grp(); g.add(sw);
+    const sh = new THREE.Shape([V2(-w / 2, 0), V2(w / 2, 0), V2(w * 0.42, -L * 0.3), V2(w * 0.28, -L * 0.7), V2(w * 0.1, -L * 0.93), V2(0, -L), V2(-w * 0.12, -L * 0.9), V2(-w * 0.3, -L * 0.68), V2(-w * 0.44, -L * 0.3)]);
+    const geo = new THREE.ExtrudeGeometry(sh, { depth: 0.06, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.025, bevelSegments: 2 }); geo.translate(0, 0, -0.03);
+    const m = new THREE.Mesh(geo, mat(c)); m.castShadow = true; sw.add(m);
+    const mI = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide })); mI.scale.set(1.04, 1.01, 1.12); m.add(mI);
+    g.add(at(box(w * 0.9, 0.05, 0.06, c, { outline: 0.006 }), 0, 0.03, 0.06));
+    for (const x of [-0.3, -0.1, 0.1, 0.3]) sw.add(at(box(0.008, L * 0.55, 0.004, sc), x * w, -L * 0.36, 0.07, 0, 0, x * 0.25));
+    g.userData.update = t => { const [amp, rate] = o.wave || [0.04, 3]; sw.rotation.z = amp * Math.sin(t * rate); sw.rotation.x = -(o.lift ?? 0.16) + 0.5 * amp * Math.sin(t * rate * 0.7 + 1); };
+    g.userData.update(0); return g;
   },
 
   // ---------------------------------------------------------------- (round 1 fix) the invigilator's conductor baton (attach to a hand): a long
