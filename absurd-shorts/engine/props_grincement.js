@@ -154,8 +154,8 @@ export const GRINCEMENT_PROPS = {
   },
 
   // ---------------------------------------------------------------- the oil can (pivot under its base, the spout toward +X): a classic burette
-  // (round 1 fix: the tall can with a loop handle read as a kettle): a squat wide red body with a yellow band and a white glint, a red cone shoulder,
-  // a short brass neck and one long thin spout angled up and out (about 34 deg), a small brass thumb pump at the back, no handle; about 0.42 m tall
+  // (round 1 fix: the tall can with a loop handle read as a kettle) (round 2: a drum base, a narrow waist and a slim cone, a brass neck and a big
+  // round thumb pump) one long thin spout angled up and out from the top of the neck, no handle; about 0.42 m tall
   // to the spout's tip (o.s scales it in place), o.flip: the spout toward -X. o.over: the bagged copy, drawn after the bag's film (transparent at
   // opacity 1, renderOrder 5).
   grinOilCan(o) {
@@ -164,17 +164,21 @@ export const GRINCEMENT_PROPS = {
     const mk = (geo, c, x, y, z, e) => { const m = new THREE.Mesh(geo, M(c, e)); m.position.set(x, y, z); m.castShadow = true; if (o.over) m.renderOrder = 5; b.add(m); return m; };
     const red = o.color || '#E0261C', inkM = new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide }); if (o.over) { inkM.transparent = true; inkM.opacity = 1; }
     const inked = (m, s = 1.07) => { const i = new THREE.Mesh(m.geometry, inkM); i.scale.setScalar(s); m.add(i); if (o.over) i.renderOrder = 4; return m; };
-    inked(mk(new THREE.CylinderGeometry(0.128, 0.138, 0.075, 18), red, 0, 0.0375, 0, '#3A0806'), 1.06);
-    inked(mk(new THREE.CylinderGeometry(0.032, 0.128, 0.085, 18), red, 0, 0.1175, 0, '#3A0806'), 1.07);
-    mk(new THREE.CylinderGeometry(0.14, 0.142, 0.028, 18), '#FFC414', 0, 0.04, 0, '#4A3000');
-    inked(mk(new THREE.CylinderGeometry(0.03, 0.034, 0.035, 10), '#D9A93A', 0, 0.175, 0, '#3A2A08'), 1.15);
-    const glint = mk(new THREE.BoxGeometry(0.018, 0.05, 0.01), '#FFFFFF', -0.06, 0.06, 0.115, '#FFFFFF'); glint.rotation.y = -0.45;
-    const glint2 = mk(new THREE.BoxGeometry(0.012, 0.06, 0.01), '#FFFFFF', -0.035, 0.12, 0.075, '#FFFFFF'); glint2.rotation.set(0.6, -0.45, 0);
-    const tip = [0.37, 0.43, 0]; const sp = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.017, 1, 6), M('#C9CED4', '#2A2E34')); const a = new THREE.Vector3(0.012, 0.19, 0), d = new THREE.Vector3(...tip).sub(a);
+    // (round 2 fix: the squat cone on a disc read as a bell or a spinning top) one turned profile: a straight drum base, a sharp step in to a narrow
+    // waist, a slim cone up to a brass neck; the spout leaves the top of the neck, and a big round thumb pump stands on the shoulder at the back
+    const prof = [[0.0, 0.0], [0.136, 0.0], [0.138, 0.012], [0.134, 0.062], [0.112, 0.074], [0.066, 0.086], [0.056, 0.104], [0.05, 0.13], [0.036, 0.172], [0.025, 0.196], [0.0, 0.2]].map(([x, y]) => V2(x, y));
+    inked(mk(new THREE.LatheGeometry(prof, 18), red, 0, 0, 0, '#3A0806'), 1.06);
+    mk(new THREE.CylinderGeometry(0.1395, 0.1395, 0.016, 18), '#FFC414', 0, 0.038, 0, '#4A3000');
+    inked(mk(new THREE.CylinderGeometry(0.022, 0.026, 0.05, 10), '#D9A93A', 0, 0.215, 0, '#3A2A08'), 1.15);
+    inked(mk(new THREE.CylinderGeometry(0.03, 0.03, 0.012, 10), '#D9A93A', 0, 0.242, 0, '#3A2A08'), 1.15);
+    const glint = mk(new THREE.BoxGeometry(0.016, 0.034, 0.01), '#FFFFFF', -0.07, 0.04, 0.118, '#FFFFFF'); glint.rotation.y = -0.5;
+    const glint2 = mk(new THREE.BoxGeometry(0.01, 0.05, 0.01), '#FFFFFF', -0.026, 0.13, 0.04, '#FFFFFF'); glint2.rotation.set(0.25, -0.45, 0);
+    const tip = [0.37, 0.43, 0]; const sp = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.016, 1, 6), M('#C9CED4', '#2A2E34')); const a = new THREE.Vector3(0.01, 0.238, 0), d = new THREE.Vector3(...tip).sub(a);
     sp.scale.y = d.length(); sp.position.copy(a).addScaledVector(d, 0.5); sp.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.clone().normalize()); sp.castShadow = true; if (o.over) sp.renderOrder = 5; b.add(sp);
-    const spI = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.017, 1, 6), inkM); spI.scale.set(2.0, 1.02, 2.0); sp.add(spI);
-    mk(new THREE.CylinderGeometry(0.018, 0.018, 0.045, 8), '#D9A93A', -0.075, 0.13, 0, '#3A2A08');
-    const lever = mk(new THREE.BoxGeometry(0.07, 0.012, 0.03), '#D9A93A', -0.09, 0.16, 0, '#3A2A08'); lever.rotation.z = 0.35;
+    const spI = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.016, 1, 6), inkM); spI.scale.set(2.0, 1.02, 2.0); sp.add(spI);
+    inked(mk(new THREE.CylinderGeometry(0.016, 0.02, 0.07, 8), '#D9A93A', -0.062, 0.135, 0, '#3A2A08'), 1.2).rotation.z = 0.35;
+    inked(mk(new THREE.CylinderGeometry(0.04, 0.04, 0.016, 12), '#E8B83C', -0.078, 0.172, 0, '#3A2A08'), 1.15).rotation.z = 0.35;
+    const lever = mk(new THREE.BoxGeometry(0.075, 0.012, 0.022), '#D9A93A', -0.04, 0.196, 0, '#3A2A08'); lever.rotation.z = 0.5;
     g.userData.tip = tip.map(v => v * (o.s ?? 1)); return g;
   },
 
@@ -187,7 +191,7 @@ export const GRINCEMENT_PROPS = {
     const W = o.w ?? 0.46, H = o.h ?? 0.62, root = grp(), g = grp(); root.add(g);
     const film = new THREE.Mesh(new THREE.BoxGeometry(W, H, 0.05), new THREE.MeshLambertMaterial({ color: '#EAF6FC', transparent: true, opacity: o.opacity ?? 0.16, depthWrite: false, emissive: '#22303A' })); film.renderOrder = 2; g.add(film);
     for (const [x, y, w, h] of [[-W / 2, 0, 0.022, H], [W / 2, 0, 0.022, H], [0, -H / 2, W, 0.022]]) g.add(at(box(w, h, 0.056, '#F6FAFC', { outline: 0.004 }), x, y, 0));
-    for (const [x, rz] of [[-W * 0.18, -0.5], [W * 0.26, -0.5]]) { const gl = new THREE.Mesh(new THREE.PlaneGeometry(0.025, H * 0.55), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.55, depthWrite: false })); gl.position.set(x, H * 0.12, 0.03); gl.rotation.z = rz; gl.renderOrder = 6; g.add(gl); }
+    for (const [x, y, l, rz] of [[-W * 0.33, H * 0.3, H * 0.2, -0.5], [-W * 0.22, H * 0.36, H * 0.11, -0.5]]) { const gl = new THREE.Mesh(new THREE.PlaneGeometry(0.012, l), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.5, depthWrite: false })); gl.position.set(x, y, 0.03); gl.rotation.z = rz; gl.renderOrder = 6; g.add(gl); }
     if (o.open) { for (const sd of [-1, 1]) g.add(at(box(W * 0.5, 0.035, 0.06, '#FFFFFF', { outline: 0.004 }), sd * W * 0.25, H / 2 + 0.02, sd * 0.03, 0.25 * sd)); }
     else { g.add(at(box(W + 0.02, 0.045, 0.07, '#FFFFFF', { outline: 0.004 }), 0, H / 2, 0)); for (let i = 0; i < 6; i++) g.add(at(box(W / 12, 0.047, 0.072, '#D8262C'), -W / 2 + (i + 0.5) * W / 6, H / 2, 0)); }
     const lab = canvasPlane(W * 0.9, H * 0.2, (c, w, h) => { c.fillStyle = '#C8202A'; c.fillRect(0, 0, w, h); c.fillStyle = '#FFFFFF'; c.textAlign = 'center'; c.textBaseline = 'middle';
@@ -355,11 +359,12 @@ export const GRINCEMENT_PROPS = {
 
   // ---------------------------------------------------------------- the television (pivot at the floor, facing +Z): a cabinet with a deep open
   // screen o.w (1.5) x o.h (0.95) whose bottom is at o.y (1.0) on a low stand; the picture is a little real scene inside it (a tiny actor set behind
-  // the bezel): a cream panelled backdrop, a warm light; o.on false: dark. The screen's middle is at userData.screen.
+  // the bezel): a cream panelled backdrop, a warm light; o.on false: dark. The screen's middle is at userData.screen. o.cabinet false (round 2):
+  // no brown cabinet under it, a thin dark post on a round foot.
   grinTV(o) {
     const W = o.w ?? 1.5, H = o.h ?? 0.95, Y = o.y ?? 1.0, Dp = o.depth ?? 0.9, g = grp(), C = o.color || '#2A2D33';
-    g.add(at(box(W + 0.6, 0.5, 0.7, '#7A5236', { pivot: 'bottom', outline: 0.008 }), 0, 0, -0.2));
-    g.add(at(box(0.3, Y - 0.5, 0.2, '#3A3D44', { pivot: 'bottom' }), 0, 0.5, -0.3));
+    if (o.cabinet === false) g.add(at(cyl(0.42, 0.46, 0.05, '#2A2D33', 16), 0, 0.025, -0.3), at(box(0.12, Y, 0.12, '#3A3D44', { pivot: 'bottom' }), 0, 0, -0.3));
+    else { g.add(at(box(W + 0.6, 0.5, 0.7, '#7A5236', { pivot: 'bottom', outline: 0.008 }), 0, 0, -0.2)); g.add(at(box(0.3, Y - 0.5, 0.2, '#3A3D44', { pivot: 'bottom' }), 0, 0.5, -0.3)); }
     const bz = 0.1;
     for (const [x, y, w, h] of [[-W / 2 - bz / 2, Y + H / 2, bz, H + 2 * bz], [W / 2 + bz / 2, Y + H / 2, bz, H + 2 * bz], [0, Y + H + bz / 2, W + 2 * bz, bz], [0, Y - bz / 2, W + 2 * bz, bz]]) g.add(at(box(w, h, 0.12, C, { outline: 0.008 }), x, y, 0));
     for (const sd of [-1, 1]) g.add(at(box(0.04, H, Dp, C), sd * (W / 2 + 0.02), Y + H / 2, -Dp / 2), at(box(W, 0.04, Dp, C), 0, sd > 0 ? Y + H + 0.02 : Y - 0.02, -Dp / 2));
@@ -413,16 +418,18 @@ export const GRINCEMENT_PROPS = {
   // mattress, lying along -Z toward the pillow): (round 1 fix: the slab, its fold and its stripes read as stairs) one soft rounded mass o.w (1.05) x
   // o.len (1.5), a capsule half sunk in the mattress, o.color, a pale rolled edge at the top; o.pull [[t, extra]]: the top edge slides further toward
   // the pillow by extra metres; o.bib [[t, h]]: for somebody sitting up, the top of the duvet rises as one rounded hump to h metres over the mattress
-  // (he pulls it up to his nose)
+  // (he pulls it up to his nose); o.drape (rad, round 2): the hump's top leans back onto his chest and the rolled edge, in the duvet's colour, sits on
+  // its front face under the top (a pale roll on top read as a tray lid)
   grinDuvet(o) {
     const W = o.w ?? 1.05, Lb = o.len ?? 1.5, g = grp(), c = o.color || '#E8EEF6', fc = new THREE.Color(c).lerp(new THREE.Color(o.fold || '#F7F9FC'), 0.18).getStyle();
     const cap = new THREE.CapsuleGeometry(0.5, 1, 6, 18); cap.rotateX(PI / 2);
     const slab = new THREE.Mesh(cap, mat(c, { unique: true })); slab.castShadow = slab.receiveShadow = true; g.add(slab);
     const bib = o.bib ? new THREE.Mesh(new THREE.CapsuleGeometry(0.5, 1, 6, 18), mat(c, { unique: true })) : null;
-    const roll = new THREE.Mesh(new THREE.CapsuleGeometry(0.5, 1, 4, 14), mat(fc)); roll.rotation.z = PI / 2; g.add(roll);
+    const roll = new THREE.Mesh(new THREE.CapsuleGeometry(0.5, 1, 4, 14), mat(o.drape ? new THREE.Color(c).lerp(new THREE.Color('#FFFFFF'), 0.08).getStyle() : fc)); roll.rotation.z = PI / 2; g.add(roll);
     if (bib) { bib.castShadow = bib.receiveShadow = true; g.add(bib); }
     g.userData.update = t => { const L = Lb + keyAt(o.pull, t, 0); slab.scale.set(W, 0.36, L / 2); slab.position.set(0, 0.0, -L / 2);
-      if (bib) { const h = Math.max(0.2, keyAt(o.bib, t, 0.6)); bib.scale.set(W * 0.92, h / 2, 0.3); bib.position.set(0, h * 0.25, -L + 0.12); roll.scale.set(0.16, W * 0.47, 0.26); roll.position.set(0, h * 0.93, -L + 0.12); }
+      if (bib) { const h = Math.max(0.2, keyAt(o.bib, t, 0.6)), dr = o.drape ?? 0; bib.scale.set(W * 0.92, h / 2, 0.3); bib.position.set(0, h * 0.25, -L + 0.12); bib.rotation.x = -dr;
+        if (dr) { roll.scale.set(0.09, W * 0.45, 0.12); roll.position.set(0, h * 0.62, -L + 0.12 + 0.14 - h * 0.37 * Math.sin(dr)); } else { roll.scale.set(0.16, W * 0.47, 0.26); roll.position.set(0, h * 0.93, -L + 0.12); } }
       else { roll.scale.set(0.12, W * 0.48, 0.14); roll.position.set(0, 0.17, -L + 0.08); } };
     g.userData.update(0); return g;
   },
@@ -519,16 +526,27 @@ export const GRINCEMENT_PROPS = {
 
   // ---------------------------------------------------------------- (round 1 fix) a long white sage's beard (attach to the head joint at the chin,
   // about [0, 0.04, 0.1]): one full tapered mass o.len (1.1) long from the jaw down past the belt, o.w (0.3) wide at the jaw, thick and rounded,
-  // a moustache bar, a pointed wavy tip and a few pale strand lines; it sways a little (o.wave [amp, rate]). Reads as a beard, not a jabot: it is
-  // long, narrows steadily to a point and keeps its volume.
+  // a pointed split tip and a few strand lines; it sways a little (o.wave [amp, rate]). Reads as a beard, not a jabot: it is long, narrows steadily
+  // to a point and keeps its volume.
   grinBeard(o) {
-    const L = o.len ?? 1.1, w = o.w ?? 0.3, c = o.color || '#F2F2EE', sc = o.strand || '#C9CDD2', g = grp(), sw = grp(); g.add(sw);
-    const sh = new THREE.Shape([V2(-w / 2, 0), V2(w / 2, 0), V2(w * 0.42, -L * 0.3), V2(w * 0.28, -L * 0.7), V2(w * 0.1, -L * 0.93), V2(0, -L), V2(-w * 0.12, -L * 0.9), V2(-w * 0.3, -L * 0.68), V2(-w * 0.44, -L * 0.3)]);
-    const geo = new THREE.ExtrudeGeometry(sh, { depth: 0.06, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.025, bevelSegments: 2 }); geo.translate(0, 0, -0.03);
-    const m = new THREE.Mesh(geo, mat(c)); m.castShadow = true; sw.add(m);
-    const mI = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide })); mI.scale.set(1.04, 1.01, 1.12); m.add(mI);
-    g.add(at(box(w * 0.9, 0.05, 0.06, c, { outline: 0.006 }), 0, 0.03, 0.06));
-    for (const x of [-0.3, -0.1, 0.1, 0.3]) sw.add(at(box(0.008, L * 0.55, 0.004, sc), x * w, -L * 0.36, 0.07, 0, 0, x * 0.25));
+    // (round 2 fix: the flat tapered plate read as an apron) the outline is scalloped in long wavy locks that narrow to a split tip, the front face is
+    // faceted (each lock's ridge stands out and catches the light), with a few wavy grey strand grooves and a small rounded jaw piece instead of a bar
+    const L = o.len ?? 1.1, w = o.w ?? 0.3, c = o.color || '#F2F2EE', sc = o.strand || '#B9BEC6', g = grp(), sw = grp(); g.add(sw);
+    const N = 10, half = u => w / 2 * Math.pow(1 - u, 0.75) + 0.012, R = [], Lf = [];
+    for (let i = 0; i <= N; i++) { const u = i / N, y = -L * u * (i === N ? 0.97 : 1), bump = (i % 2 ? 0.03 : -0.012) * (1 - 0.5 * u);
+      R.push(V2(half(u) + bump, y)); Lf.push(V2(-(half(u) + (i % 2 ? -0.012 : 0.028) * (1 - 0.5 * u)), -L * u * (i === N ? 1.0 : 1))); }
+    R[N] = V2(0.04, -L * 0.97); Lf[N] = V2(-0.03, -L);
+    const sh = new THREE.Shape([...R, V2(0.0, -L * 0.88), ...Lf.reverse()]);
+    const geo = new THREE.ExtrudeGeometry(sh, { depth: 0.07, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.02, bevelSegments: 1, curveSegments: 2 }); geo.translate(0, 0, -0.035);
+    const pos = geo.attributes.position;
+    for (let i = 0; i < pos.count; i++) { const x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i); if (z > 0.02) pos.setZ(i, z + 0.035 * Math.cos(x / w * 9.0 + y * 7.0) * (1 + y / L * 0.5)); }
+    geo.computeVertexNormals();
+    const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ color: c, flatShading: true })); m.castShadow = true; sw.add(m);
+    const mI = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide })); mI.scale.set(1.05, 1.01, 1.15); m.add(mI);
+    const jaw = new THREE.Mesh(new THREE.SphereGeometry(1, 8, 5), new THREE.MeshLambertMaterial({ color: c, flatShading: true })); jaw.scale.set(w * 0.5, 0.06, 0.07); jaw.position.set(0, 0.0, 0.05); g.add(jaw);
+    for (const x0 of [-0.24, 0.02, 0.26]) { let px = x0 * w, py = -L * 0.08;
+      for (let j = 0; j < 4; j++) { const ny = py - L * 0.17, nx = x0 * w * (1 - (j + 1) * 0.2) + (j % 2 ? 0.018 : -0.018), dx = nx - px, dy = ny - py, len = Math.hypot(dx, dy);
+        const st = at(box(0.01, len, 0.006, sc), (px + nx) / 2, (py + ny) / 2, 0.095, 0, 0, Math.atan2(-dx, dy)); sw.add(st); px = nx; py = ny; } }
     g.userData.update = t => { const [amp, rate] = o.wave || [0.04, 3]; sw.rotation.z = amp * Math.sin(t * rate); sw.rotation.x = -(o.lift ?? 0.16) + 0.5 * amp * Math.sin(t * rate * 0.7 + 1); };
     g.userData.update(0); return g;
   },
@@ -552,8 +570,8 @@ export const GRINCEMENT_PROPS = {
     g.add(at(box(Wv, Hb, Lv - 1.0, '#F4F2EC', { pivot: 'bottom', outline: 0.012 }), 0, y0, 0.5));
     g.add(at(box(Wv + 0.01, Hb - 0.1, 0.05, '#2A2D33'), 0, y0 + 0.05 + (Hb - 0.1) / 2, zb - 0.02));
     for (const [x, y, z, s] of [[-0.35, 0.0, zb - 0.4, 0.5], [0.3, 0.0, zb - 0.6, 0.6], [-0.2, 0.5, zb - 0.7, 0.45]]) g.add(at(box(s, s * 0.8, s, '#C49A66', { pivot: 'bottom', outline: 0.006 }), x, y0 + 0.06 + y, z));
-    for (const sd of [-1, 1]) { g.add(at(box(0.012, 0.16, Lv - 1.1, '#2F62B5'), sd * (Wv / 2 + 0.006), y0 + 0.5, 0.5));
-      const t = canvasPlane(Lv - 1.3, 0.34, (c, w, h) => { c.fillStyle = '#F4F2EC'; c.fillRect(0, 0, w, h); c.fillStyle = '#2F62B5'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitText(c, o.text || 'DÉMÉNAGEMENT', w / 2, h * 0.55, w * 0.94, h * 0.8); }, { res: 512 });
+    for (const sd of [-1, 1]) { g.add(at(box(0.012, 0.16, Lv - 1.1, '#2F62B5'), sd * (Wv / 2 + 0.006), y0 + 0.5, 0.5)); if (o.text === '') continue;
+      const t = canvasPlane(Lv - 1.3, 0.34, (c, w, h) => { c.fillStyle = '#F4F2EC'; c.fillRect(0, 0, w, h); c.fillStyle = '#2F62B5'; c.textAlign = 'center'; c.textBaseline = 'middle'; fitText(c, o.text ?? 'DÉMÉNAGEMENT', w / 2, h * 0.55, w * 0.94, h * 0.8); }, { res: 512 });
       t.rotation.y = sd * PI / 2; t.position.set(sd * (Wv / 2 + 0.008), y0 + 1.2, 0.5); g.add(t); }
     g.add(at(box(Wv - 0.06, 0.95, 1.0, C, { pivot: 'bottom', outline: 0.012 }), 0, y0, -Lv / 2 + 0.5), at(box(Wv - 0.06, 0.55, 0.75, C, { pivot: 'bottom', outline: 0.01 }), 0, y0 + 0.95, -Lv / 2 + 0.62));
     g.add(at(box(Wv - 0.2, 0.42, 0.03, '#33456E', { emissive: '#1A2238' }), 0, y0 + 1.22, -Lv / 2 + 0.24, -0.35, 0, 0));

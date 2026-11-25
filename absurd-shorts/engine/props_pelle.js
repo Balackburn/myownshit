@@ -139,7 +139,8 @@ export const PELLE_PROPS = {
       const ped = new THREE.Mesh(new THREE.ExtrudeGeometry(tri, { depth: 0.12, bevelEnabled: false }), mat(c2)); ped.position.set(0, y0 + H + 0.1, zl - 0.06); ped.castShadow = true; g.add(ped);
       const shell = grp(); for (let k = 0; k < 7; k++) shell.add(at(box(0.016, 0.09, 0.012, '#F4E8D0'), Math.sin((k - 3) * 0.32) * 0.03, 0.04 + Math.cos((k - 3) * 0.32) * 0.01, 0, 0, 0, -(k - 3) * 0.32));
       shell.position.set(0, y0 + H + 0.16, zl + 0.07); g.add(shell);
-      const steps = []; for (let i = 0; i < 3; i++) for (let j = -2 + i; j <= 2 - i; j++) steps.push([j * 0.1, y0 * 0.4 + bh * (i + 0.5), zl + 0.16 - i * 0.07, 0, 0, 0, 1, 1, 1]);
+      // (stills 1) two low rows of steps well in front of the opening: three rows close in hid his chin and mouth from a low camera
+      const steps = []; for (let i = 0; i < 2; i++) for (let j = -2 + i; j <= 2 - i; j++) steps.push([j * 0.1, 0.02 + bh * (i + 0.5), zl + 0.48 - i * 0.07, 0, 0, 0, 1, 1, 1]);
       g.add(inst(new THREE.BoxGeometry(0.095, bh * 0.95, 0.08), mat(c1), steps));
       return g;
     }
