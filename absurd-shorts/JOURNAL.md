@@ -3105,3 +3105,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 07 h 17 — « Le distributeur » (95) LIVRÉ et publié sur TikTok par sa session parallèle (1080x1920, 43,0 s, −16,0 LUFS, sans creux ;
   post cmwvshxrv0lz9pj07zd6je8b4). Revues 5,5/6,0 → 6,2/6,6 → 7,4/7,4, passe finale, brouillon de contrôle. Branche fusionnée, leçons au
   skill. La session reçoit « Le pneu » (97).
+- 08 h 10 — « Le chifoumi » (96) brouillon 3 et revue 3 : animation 7,6 (7,4), direction artistique 7,9 (7,4). Aucun drapeau, anneau,
+  emblème ni marque. Restent : la chute trop courte (S14), l'arbitre noir sur noir (S04), les ouvriers sans visage (S09b), la colonne de sacs
+  absente (S10), quelques temps morts (S07, S08, S13). Passe finale lancée, puis brouillon de contrôle avant le rendu final.
