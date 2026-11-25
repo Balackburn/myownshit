@@ -220,6 +220,14 @@ export const TARTINE_PROPS = {
   // stripe (pivot at its middle), o.w (0.75) x o.h (0.42) x o.d (0.2)
   ttPillow(o) {
     const w = o.w ?? 0.75, h = o.h ?? 0.42, d = o.d ?? 0.2;
+    // (review 3) o.puffy: a plump rounded cushion (a squashed ball with the blue ticking stripes and a button in its middle) instead of the box
+    if (o.puffy) {
+      const cv = canvas(64, 128), c = cv.getContext('2d'); c.fillStyle = '#F6F3EA'; c.fillRect(0, 0, 64, 128); c.fillStyle = '#7EA6D8';
+      for (const y of [0.3, 0.42, 0.58, 0.7]) c.fillRect(0, 128 * y - 4, 64, 8);
+      const geo = new THREE.SphereGeometry(0.5, 18, 12); geo.scale(w, h, d);
+      const m = new THREE.Mesh(geo, L('#FFFFFF', { map: tex(cv), flatShading: true })); m.castShadow = true; m.receiveShadow = true;
+      return grp(m, at(sphere(Math.min(w, h) * 0.06, '#5E86B8', 1), 0, 0, d * 0.47));
+    }
     return grp(at(box(w, h, d, '#F6F3EA', { outline: 0.012, taper: { x: 0.9, z: 0.7 } }), 0, 0, 0), at(box(w * 0.9, h * 0.1, d * 0.78, '#7EA6D8'), 0, h * 0.18, 0), at(box(w * 0.9, h * 0.1, d * 0.78, '#7EA6D8'), 0, -h * 0.18, 0));
   },
   // a small bedside lamp standing on the floor (pivot at the floor): a round base, a stem, a cream shade that glows, a warm point light (o.power 1.2)
@@ -437,6 +445,17 @@ export const TARTINE_PROPS = {
     c.fillStyle = o.bg || '#2E5A8A'; c.fillRect(0, 0, cv.width, cv.height); c.fillStyle = o.fg || '#F4EFE2'; c.textAlign = 'center'; c.textBaseline = 'middle';
     let fs = cv.height * 0.56; c.font = `900 ${fs}px Arial`; const tw = c.measureText(o.text || '').width; if (tw > cv.width * 0.9) { fs *= cv.width * 0.9 / tw; c.font = `900 ${fs}px Arial`; } c.fillText(o.text || '', cv.width / 2, cv.height * 0.54);
     return grp(at(box(W + 0.06, Hh + 0.06, 0.03, o.frame || '#C9A55A'), 0, 0, -0.016), new THREE.Mesh(new THREE.PlaneGeometry(W, Hh), L('#FFFFFF', { map: tex(cv) })));
+  },
+
+  // ---------------------------------------------------------------- the minister's office wall without its window and curtains (pivot at the
+  // floor in the middle, facing +Z): the same cream wall as grinOfficeWall, o.w (6) x o.h (4.8, tall enough that a pushed-in camera never sees
+  // over it), a dark wood dado with a gilt line, gilt-framed panels at o.panels [x...]; no flag, no emblem, no portrait
+  ttOfficeWall(o) {
+    const W = o.w ?? 6, Hh = o.h ?? 4.8, g = grp();
+    g.add(at(box(W, Hh, 0.1, o.wall || '#EDE3CC'), 0, Hh / 2, -0.05), at(box(W, 0.9, 0.06, '#6A4028', { outline: 0.004 }), 0, 0.45, 0.01), at(box(W, 0.06, 0.08, '#C9A55A'), 0, 0.92, 0.02));
+    for (const x of o.panels || [-2.2, 1.55, 2.9]) { g.add(at(box(1.1, 1.7, 0.03, '#E5D8BC', { outline: 0.004 }), x, 2.0, 0.01)); for (const [dx, dy, w, h] of [[-0.55, 0, 0.04, 1.7], [0.55, 0, 0.04, 1.7], [0, 0.85, 1.14, 0.04], [0, -0.85, 1.14, 0.04]]) g.add(at(box(w, h, 0.04, '#C9A55A'), x + dx, 2.0 + dy, 0.03)); }
+    g.add(at(box(W, 0.1, 0.1, '#C9A55A', { outline: 0.004 }), 0, 3.6, 0.03));
+    return g;
   },
 
   // ---------------------------------------------------------------- a section wall between two flats of a cut-away building (pivot at the floor
