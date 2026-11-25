@@ -3113,3 +3113,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   histoires livrées, leur son final restant commité). Rendu final 1080 lancé.
 
 10 h 25 — « Le chifoumi » (96) livrée : rendu final 1080×1920, −16 LUFS, 45,9 s, aucune image grise, planche de contrôle propre. Envoyée et publiée sur TikTok (Postiz). Revues 6,0/7,2 → 7,4/7,4 → 7,6/7,9, puis passe finale. Rendu 3D long (≈ 1 h 25 à 0,3 image/s pour 1377 images) ; HyperFrames 2 min 44. En parallèle : « Le grincement » (98), voix et placement faits (41,6 s), mise en scène lancée.
+
+11 h 40 — « Le grincement » (98) : mise en scène faite (16 plans, 23 accessoires nouveaux, caméras placées par recherche en grille), brouillon 1 sans gel ni image grise. Revue 1 : animation 5,5 (aucune déformation des personnages, actions clés sans anticipation, dictionnaire qui ne se lit pas), image 7,0 (porte du plan d'accroche absente, burette qui ressemble à une bouilloire, camion illisible, sprites sur les visages). Corrections lancées.
