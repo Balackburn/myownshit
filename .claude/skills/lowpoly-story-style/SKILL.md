@@ -2159,3 +2159,16 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 51) Une clé keepPose fait tomber le visage : une clé de respiration doit porter le visage et éviter les fenêtres de clignement.
 - (cycle 51) Outil pointu (fer à repasser) : le pointer dans le sens du déplacement, sinon son nez recouvre ce qu'il contourne.
 - (cycle 51) Animer un élément d'un accessoire d'une autre histoire : l'envelopper dans un accessoire de son histoire, sans toucher l'autre fichier.
+- (cycle 51) Une main qui repasse le bord proche d'une feuille posée, vue d'une caméra placée derrière, traverse toujours le milieu : placer
+  la marque clé haut sur la feuille et changer de main ou se décaler pour que chaque bras arrive de son côté.
+- (cycle 51) Vue à 40° : les parties en relief (fer, poing sur la poignée) montent à l'écran d'environ 1,2 fois leur hauteur ; garder cette marge.
+- (cycle 51) Soleil chaud + étalonnage chaud tuent le bleu d'un rouge : le repeindre plus froid (#D03A3C) et le mesurer sur l'image.
+- (cycle 51) Passer un accessoire de main en main : l'animer dans le monde aux mêmes instants et courbes que les deux reach ; permuter la
+  visibilité de deux copies attachées aux mains donne un saut.
+- (cycle 51) Couper le transfert de poids automatique dans les plans de jeu rapprochés avec `hip: 0` dans la première clé toon.
+- (cycle 51) Objet qui tombe devant la main qui le lâche : l'avant-bras le cache ; écarter la main au lâcher.
+- (cycle 51) Chute par gravité d'un accessoire : quatre clés `to` linéaires aux positions u² ; un ease-in cubique met toute la chute dans la
+  dernière image.
+- (cycle 51) Boucliers anti-émeute : reflets et poignée horizontale à embouts = cadran d'horloge ; face laiteuse unie, bord épais, poignée verticale.
+- (cycle 51) Bourrelets sur les quatre bords d'un tissu posé = plateau ou cadre ; bourrelets effilés sur les côtés seulement.
+- (cycle 51) Accessoire porté avec une étiquette par défaut (REGISTRE MARIAGES) : vérifier ses options de texte pour chaque histoire.

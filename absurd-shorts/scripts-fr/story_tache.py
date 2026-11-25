@@ -588,6 +588,9 @@ def AMBK(p, q, t0, j):
         ks += [k(r(t0 - 0.62), to=add(TAB14, [-0.65, 0, 0.55] if j == 1 else [-0.55, 0, 0.68]), dur=0.55, clip='walk', ease='inOut'), k(r(t0 - 0.05), look=add(TAB14, [0, 1.0, 0]), lookDur=0.12),
                k(t0, toon={'reach': {'R': sign}, 'hands': {'R': 'pinch'}, 'bend': {'spine': [0.35, 0, 0, 1, None]}, 'face': face}, toonDur=0.15),
                *[k(r(t0 + 0.18 + 0.09 * i), toon={'reach': {'R': R5(add(sign[:3], [0.04 * (i % 2), 0, 0]), 1, 0.04)}}, toonDur=0.07, keepPose=True) for i in range(4)]]
+        if j == 2:
+            # (round 3) he waits longer now (until the second one steps back): a moving hold, a blink and a glance at the flourish
+            ks += [*life(0.05, r(t0 - 0.66), face, ph=0.2, blinks=[0.6]), k(1.3, look=add(TAB14, [0, 1.3, 0]), lookDur=0.12)]
         if j == 1:
             ks += [*[k(t_, toon={'reach': {'R': R5(add(SIGN14, d_), 1, 0.04)}, 'face': {'lid': 0.3, 'mouth': 'smirk', 'brow': 0.5}}, toonDur=0.03, toonEase='linear', keepPose=True) for t_, d_ in FLOUR14],
                    k(r(FL14 + 0.16), toon={'reach': {'R': R5(add(SIGN14, [-0.04, 0.34, 0.1]), 1, 0.04)}, 'bend': {'spine': [0.12, 0, 0, 1, None]}, 'face': {'lid': 0.45, 'mouth': 'smirk', 'brow': 0.4}}, toonDur=0.12, keepPose=True),
