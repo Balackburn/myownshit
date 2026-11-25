@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a dit « pardon » dans la rue. Le président l'a gracié.",
+  "hl": [
+   "pardon",
+   "gracié."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Gracié de quoi ? Personne ne savait.",
+  "hl": [
+   "quoi",
+   "savait."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Problème : on ne gracie pas un innocent.",
+  "hl": [
+   "Problème",
+   "innocent."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Il a donc été jugé. Pour rien.",
+  "hl": [
+   "jugé.",
+   "rien."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Le procureur a requis la perpétuité, pour que la grâce vaille le coup.",
+  "hl": [
+   "perpétuité,",
+   "coup."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Condamné à midi. Gracié à midi une.",
+  "hl": [
+   "Condamné",
+   "une."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Depuis, chaque « pardon » vaut demande de grâce.",
+  "hl": [
+   "pardon",
+   "grâce."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Dans le métro : huit millions de procès par matin.",
+  "hl": [
+   "millions",
+   "procès"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Le président signe les grâces à la chaîne. Il n'a jamais été aussi populaire.",
+  "hl": [
+   "chaîne.",
+   "populaire."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Les détenus ont dit pardon en chœur. Les prisons se sont vidées.",
+  "hl": [
+   "chœur.",
+   "vidées."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Le directeur aussi. Il a éteint en partant.",
+  "hl": [
+   "directeur",
+   "éteint"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le ministre a interdit le mot.",
+  "hl": [
+   "interdit",
+   "mot."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "« Excusez-moi » : trois ans. « Oups » : six mois.",
+  "hl": [
+   "Excusez-moi",
+   "Oups"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "On se bouscule en silence. Les sacs à dos ont gagné.",
+  "hl": [
+   "silence.",
+   "gagné."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Le président, lui, n'a jamais dit pardon.",
+  "hl": [
+   "jamais",
+   "pardon."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "C'est lui qui avait bousculé ce mec.",
+  "hl": [
+   "lui",
+   "bousculé"
+  ]
+ }
+]

@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a perdu une dent. Sa mutuelle : « Quand les poules auront des dents. »",
+  "hl": [
+   "dent.",
+   "poules"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Le lendemain, sa poule avait une dent.",
+  "hl": [
+   "poule",
+   "dent."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Refusé : « des dents », c'est au pluriel.",
+  "hl": [
+   "Refusé",
+   "pluriel."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Le surlendemain, la poule en avait deux.",
+  "hl": [
+   "surlendemain,",
+   "deux."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Expertise : deux vraies dents. La mutuelle a payé.",
+  "hl": [
+   "vraies",
+   "payé."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Le pays a ressorti ses vieilles promesses. Même condition.",
+  "hl": [
+   "promesses.",
+   "condition."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Ce mec a eu son augmentation.",
+  "hl": [
+   "eu",
+   "augmentation."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Le ministre avait promis la retraite à cinquante ans.",
+  "hl": [
+   "retraite",
+   "cinquante"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Tout le pays a pris sa retraite. Le ministre en premier.",
+  "hl": [
+   "retraite.",
+   "premier."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Les retraités nourrissent la poule au grain. Elle préfère l'entrecôte.",
+  "hl": [
+   "grain.",
+   "l'entrecôte."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Un contrôleur a été mordu. La mutuelle refuse : « Les poules n'ont pas de dents. »",
+  "hl": [
+   "mordu.",
+   "dents."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le dentiste de ce mec a reconnu son travail.",
+  "hl": [
+   "dentiste",
+   "travail."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "C'étaient les dents de ce mec.",
+  "hl": [
+   "dents",
+   "mec."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Dents retrouvées : remboursement annulé. La retraite aussi.",
+  "hl": [
+   "annulé.",
+   "retraite"
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Nouvelle clause : « Quand les cochons voleront. »",
+  "hl": [
+   "cochons",
+   "voleront."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Ce mec a acheté un cochon. Et deux billets d'avion.",
+  "hl": [
+   "cochon.",
+   "d'avion."
+  ]
+ }
+]
