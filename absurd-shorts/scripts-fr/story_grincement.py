@@ -191,7 +191,7 @@ HERO1 = [k(-0.4, look='camera'), k(0.0, toon={**HB1(KNOBI(A0)), 'face': HF1}, to
          *life(r(LANG1 + 0.3), D1, DEAD, HB1(can=CANU1, lean=-0.03), blinks=[r(D1 - 0.08)])]
 st.shot('S01', 'grassland', setOpts=SET, actors=[act('mec', H1, RY1, 'stand', 'neutral', keys=HERO1)],
         props=[*STREET(1), FACADE('maison1', swing=A1, rattle=[[r(ETAT1 + 0.25), 0.05, 20, 4], [r(LANG1), 0.04, 20, 4]], shut=False), CAN('burette1', 'mec', hand='R', off_=(0.0, -0.05, 0.06), s=0.92),
-               SQUEAK('S01', 'grince1', SQ1, [r(GR1 + 0.04), r(ETAT1 + 0.25), LANG1], size=0.5, side=-1, amp=[1.2, 0.9, 1.0], top=True)],
+               SQUEAK('S01', 'grince1', SQ1, [r(GR1 + 0.04), r(ETAT1 + 0.25), LANG1], size=0.5, side=-1, amp=[1.0, 0.9, 1.0], top=True)],
         cams=[C1, C1B])
 st.cue('sfx:stretch', 'S01', r(TAKE1 + 0.02), 0.2)
 
