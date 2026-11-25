@@ -3088,3 +3088,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 02 h 19 — « Le faux numéro » (94) LIVRÉ et publié sur TikTok par sa session parallèle (1080x1920, −16,0 LUFS, sans creux ; post
   cmwvhtg5r0i2iqd07zu23s5wm). Revues 6,8/7,1 → 7,0/7,6 → 7,8/7,7, passe finale, brouillon de contrôle. Branche fusionnée, leçons au skill.
   La session reçoit « Le distributeur » (95).
+- 03 h 16 — « La tache » (93) LIVRÉE et publiée sur TikTok (1080x1920, 35,6 s, −16,0 LUFS, sans creux ; post cmwvjv27o0j0kqd07hqi3d4gn).
+  Revues 5,8/6,8 → 7,4/7,3 → 7,3/7,6, passe finale, brouillon de contrôle. Planche de 14 images : tout en français, aucun drapeau ni emblème.

@@ -1,0 +1,790 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a fait une tache sur sa chemise.",
+   "hl": [
+    "tache",
+    "chemise."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.952,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "fait",
+     "s": 0.619,
+     "e": 0.693
+    },
+    {
+     "w": "une",
+     "s": 0.767,
+     "e": 0.841
+    },
+    {
+     "w": "tache",
+     "s": 0.915,
+     "e": 1.063
+    },
+    {
+     "w": "sur",
+     "s": 1.137,
+     "e": 1.211
+    },
+    {
+     "w": "sa",
+     "s": 1.285,
+     "e": 1.359
+    },
+    {
+     "w": "chemise.",
+     "s": 1.433,
+     "e": 1.952
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "La tache a refusé de partir.",
+   "hl": [
+    "refusé",
+    "partir."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L02.k.wav",
+   "file_start": 2.052,
+   "speech_start": 2.052,
+   "speech_end": 3.756,
+   "words": [
+    {
+     "w": "La",
+     "s": 2.052,
+     "e": 2.126
+    },
+    {
+     "w": "tache",
+     "s": 2.274,
+     "e": 2.422
+    },
+    {
+     "w": "a",
+     "s": 2.496,
+     "e": 2.57
+    },
+    {
+     "w": "refusé",
+     "s": 2.681,
+     "e": 2.941
+    },
+    {
+     "w": "de",
+     "s": 2.978,
+     "e": 3.015
+    },
+    {
+     "w": "partir.",
+     "s": 3.126,
+     "e": 3.756
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Le juge a signé son expulsion.",
+   "hl": [
+    "signé",
+    "expulsion."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L03.k.wav",
+   "file_start": 3.856,
+   "speech_start": 3.856,
+   "speech_end": 5.707,
+   "words": [
+    {
+     "w": "Le",
+     "s": 3.856,
+     "e": 4.004
+    },
+    {
+     "w": "juge",
+     "s": 4.078,
+     "e": 4.226
+    },
+    {
+     "w": "a",
+     "s": 4.3,
+     "e": 4.374
+    },
+    {
+     "w": "signé",
+     "s": 4.485,
+     "e": 4.67
+    },
+    {
+     "w": "son",
+     "s": 4.744,
+     "e": 4.819
+    },
+    {
+     "w": "expulsion.",
+     "s": 4.93,
+     "e": 5.707
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Les gendarmes mobiles ont chargé la chemise.",
+   "hl": [
+    "gendarmes",
+    "mobiles"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L04.k.wav",
+   "file_start": 5.807,
+   "speech_start": 5.807,
+   "speech_end": 8.104,
+   "words": [
+    {
+     "w": "Les",
+     "s": 5.807,
+     "e": 5.881
+    },
+    {
+     "w": "gendarmes",
+     "s": 5.956,
+     "e": 6.326
+    },
+    {
+     "w": "mobiles",
+     "s": 6.4,
+     "e": 6.77
+    },
+    {
+     "w": "ont",
+     "s": 6.844,
+     "e": 6.919
+    },
+    {
+     "w": "chargé",
+     "s": 6.993,
+     "e": 7.215
+    },
+    {
+     "w": "la",
+     "s": 7.289,
+     "e": 7.363
+    },
+    {
+     "w": "chemise.",
+     "s": 7.437,
+     "e": 8.104
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "La tache s'est retranchée sous la poche.",
+   "hl": [
+    "tache",
+    "retranchée"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L05.k.wav",
+   "file_start": 8.204,
+   "speech_start": 8.204,
+   "speech_end": 10.204,
+   "words": [
+    {
+     "w": "La",
+     "s": 8.204,
+     "e": 8.278
+    },
+    {
+     "w": "tache",
+     "s": 8.426,
+     "e": 8.648
+    },
+    {
+     "w": "s'est",
+     "s": 8.685,
+     "e": 8.796
+    },
+    {
+     "w": "retranchée",
+     "s": 8.87,
+     "e": 9.241
+    },
+    {
+     "w": "sous",
+     "s": 9.315,
+     "e": 9.389
+    },
+    {
+     "w": "la",
+     "s": 9.463,
+     "e": 9.537
+    },
+    {
+     "w": "poche.",
+     "s": 9.611,
+     "e": 10.204
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Un char a tiré au détachant.",
+   "hl": [
+    "char",
+    "détachant."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L06.k.wav",
+   "file_start": 10.304,
+   "speech_start": 10.304,
+   "speech_end": 11.859,
+   "words": [
+    {
+     "w": "Un",
+     "s": 10.304,
+     "e": 10.452
+    },
+    {
+     "w": "char",
+     "s": 10.563,
+     "e": 10.674
+    },
+    {
+     "w": "a",
+     "s": 10.748,
+     "e": 10.822
+    },
+    {
+     "w": "tiré",
+     "s": 10.871,
+     "e": 11.044
+    },
+    {
+     "w": "au",
+     "s": 11.081,
+     "e": 11.119
+    },
+    {
+     "w": "détachant.",
+     "s": 11.156,
+     "e": 11.859
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Il a décoloré tout le quartier.",
+   "hl": [
+    "décoloré",
+    "quartier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L07.k.wav",
+   "file_start": 11.959,
+   "speech_start": 11.959,
+   "speech_end": 13.663,
+   "words": [
+    {
+     "w": "Il",
+     "s": 11.959,
+     "e": 12.033
+    },
+    {
+     "w": "a",
+     "s": 12.07,
+     "e": 12.107
+    },
+    {
+     "w": "décoloré",
+     "s": 12.181,
+     "e": 12.7
+    },
+    {
+     "w": "tout",
+     "s": 12.774,
+     "e": 12.848
+    },
+    {
+     "w": "le",
+     "s": 12.885,
+     "e": 12.922
+    },
+    {
+     "w": "quartier.",
+     "s": 12.959,
+     "e": 13.663
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Les maisons, les voitures, le maire.",
+   "hl": [
+    "maisons,",
+    "voitures,"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L08.k.wav",
+   "file_start": 13.763,
+   "speech_start": 13.763,
+   "speech_end": 16.059,
+   "words": [
+    {
+     "w": "Les",
+     "s": 13.763,
+     "e": 13.837
+    },
+    {
+     "w": "maisons,",
+     "s": 13.911,
+     "e": 14.467
+    },
+    {
+     "w": "les",
+     "s": 14.504,
+     "e": 14.578
+    },
+    {
+     "w": "voitures,",
+     "s": 14.615,
+     "e": 15.281
+    },
+    {
+     "w": "le",
+     "s": 15.319,
+     "e": 15.393
+    },
+    {
+     "w": "maire.",
+     "s": 15.467,
+     "e": 16.059
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "La tache, elle, est restée rouge.",
+   "hl": [
+    "tache,",
+    "restée"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L09.k.wav",
+   "file_start": 16.159,
+   "speech_start": 16.159,
+   "speech_end": 18.233,
+   "words": [
+    {
+     "w": "La",
+     "s": 16.159,
+     "e": 16.307
+    },
+    {
+     "w": "tache,",
+     "s": 16.344,
+     "e": 16.826
+    },
+    {
+     "w": "elle,",
+     "s": 16.974,
+     "e": 17.27
+    },
+    {
+     "w": "est",
+     "s": 17.307,
+     "e": 17.344
+    },
+    {
+     "w": "restée",
+     "s": 17.456,
+     "e": 17.641
+    },
+    {
+     "w": "rouge.",
+     "s": 17.715,
+     "e": 18.233
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Étirée, elle avait la forme exacte du pays.",
+   "hl": [
+    "Étirée,",
+    "exacte"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L10.k.wav",
+   "file_start": 18.333,
+   "speech_start": 18.333,
+   "speech_end": 20.926,
+   "words": [
+    {
+     "w": "Étirée,",
+     "s": 18.333,
+     "e": 19.037
+    },
+    {
+     "w": "elle",
+     "s": 19.074,
+     "e": 19.148
+    },
+    {
+     "w": "avait",
+     "s": 19.185,
+     "e": 19.296
+    },
+    {
+     "w": "la",
+     "s": 19.333,
+     "e": 19.37
+    },
+    {
+     "w": "forme",
+     "s": 19.444,
+     "e": 19.667
+    },
+    {
+     "w": "exacte",
+     "s": 19.741,
+     "e": 20.185
+    },
+    {
+     "w": "du",
+     "s": 20.259,
+     "e": 20.333
+    },
+    {
+     "w": "pays.",
+     "s": 20.37,
+     "e": 20.926
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Un décret présidentiel interdit de la laver.",
+   "hl": [
+    "présidentiel",
+    "interdit"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L11.k.wav",
+   "file_start": 21.026,
+   "speech_start": 21.026,
+   "speech_end": 23.47,
+   "words": [
+    {
+     "w": "Un",
+     "s": 21.026,
+     "e": 21.1
+    },
+    {
+     "w": "décret",
+     "s": 21.174,
+     "e": 21.396
+    },
+    {
+     "w": "présidentiel",
+     "s": 21.47,
+     "e": 22.211
+    },
+    {
+     "w": "interdit",
+     "s": 22.285,
+     "e": 22.656
+    },
+    {
+     "w": "de",
+     "s": 22.73,
+     "e": 22.767
+    },
+    {
+     "w": "la",
+     "s": 22.804,
+     "e": 22.878
+    },
+    {
+     "w": "laver.",
+     "s": 22.915,
+     "e": 23.47
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "La chemise a remplacé le drapeau.",
+   "hl": [
+    "chemise",
+    "remplacé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L12.k.wav",
+   "file_start": 23.57,
+   "speech_start": 23.57,
+   "speech_end": 25.499,
+   "words": [
+    {
+     "w": "La",
+     "s": 23.57,
+     "e": 23.644
+    },
+    {
+     "w": "chemise",
+     "s": 23.719,
+     "e": 24.237
+    },
+    {
+     "w": "a",
+     "s": 24.274,
+     "e": 24.311
+    },
+    {
+     "w": "remplacé",
+     "s": 24.385,
+     "e": 24.756
+    },
+    {
+     "w": "le",
+     "s": 24.793,
+     "e": 24.83
+    },
+    {
+     "w": "drapeau.",
+     "s": 24.867,
+     "e": 25.496
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Deux gardes la saluent jour et nuit.",
+   "hl": [
+    "gardes",
+    "saluent"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L13.k.wav",
+   "file_start": 25.599,
+   "speech_start": 25.599,
+   "speech_end": 27.525,
+   "words": [
+    {
+     "w": "Deux",
+     "s": 25.599,
+     "e": 25.747
+    },
+    {
+     "w": "gardes",
+     "s": 25.821,
+     "e": 26.118
+    },
+    {
+     "w": "la",
+     "s": 26.192,
+     "e": 26.266
+    },
+    {
+     "w": "saluent",
+     "s": 26.377,
+     "e": 26.636
+    },
+    {
+     "w": "jour",
+     "s": 26.71,
+     "e": 26.858
+    },
+    {
+     "w": "et",
+     "s": 26.895,
+     "e": 26.933
+    },
+    {
+     "w": "nuit.",
+     "s": 27.007,
+     "e": 27.525
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Les ambassades ont officiellement reconnu la tache.",
+   "hl": [
+    "ambassades",
+    "officiellement"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L14.k.wav",
+   "file_start": 27.625,
+   "speech_start": 27.625,
+   "speech_end": 29.921,
+   "words": [
+    {
+     "w": "Les",
+     "s": 27.625,
+     "e": 27.773
+    },
+    {
+     "w": "ambassades",
+     "s": 27.847,
+     "e": 28.218
+    },
+    {
+     "w": "ont",
+     "s": 28.292,
+     "e": 28.366
+    },
+    {
+     "w": "officiellement",
+     "s": 28.44,
+     "e": 28.884
+    },
+    {
+     "w": "reconnu",
+     "s": 28.958,
+     "e": 29.218
+    },
+    {
+     "w": "la",
+     "s": 29.255,
+     "e": 29.329
+    },
+    {
+     "w": "tache.",
+     "s": 29.403,
+     "e": 29.921
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "La chemise reste à ce mec. L'entretien aussi.",
+   "hl": [
+    "chemise",
+    "L'entretien"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L15.k.wav",
+   "file_start": 30.021,
+   "speech_start": 30.021,
+   "speech_end": 32.466,
+   "words": [
+    {
+     "w": "La",
+     "s": 30.021,
+     "e": 30.095
+    },
+    {
+     "w": "chemise",
+     "s": 30.17,
+     "e": 30.54
+    },
+    {
+     "w": "reste",
+     "s": 30.651,
+     "e": 30.762
+    },
+    {
+     "w": "à",
+     "s": 30.799,
+     "e": 30.836
+    },
+    {
+     "w": "ce",
+     "s": 30.91,
+     "e": 30.984
+    },
+    {
+     "w": "mec.",
+     "s": 31.021,
+     "e": 31.503
+    },
+    {
+     "w": "L'entretien",
+     "s": 31.528,
+     "e": 31.947
+    },
+    {
+     "w": "aussi.",
+     "s": 32.058,
+     "e": 32.466
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Il la repasse autour de la tache.",
+   "hl": [
+    "repasse",
+    "autour"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tache/tts/L16.k.wav",
+   "file_start": 32.566,
+   "speech_start": 32.566,
+   "speech_end": 34.27,
+   "words": [
+    {
+     "w": "Il",
+     "s": 32.566,
+     "e": 32.64
+    },
+    {
+     "w": "la",
+     "s": 32.714,
+     "e": 32.788
+    },
+    {
+     "w": "repasse",
+     "s": 32.862,
+     "e": 33.158
+    },
+    {
+     "w": "autour",
+     "s": 33.233,
+     "e": 33.381
+    },
+    {
+     "w": "de",
+     "s": 33.455,
+     "e": 33.492
+    },
+    {
+     "w": "la",
+     "s": 33.529,
+     "e": 33.603
+    },
+    {
+     "w": "tache.",
+     "s": 33.677,
+     "e": 34.27
+    }
+   ]
+  }
+ ],
+ "total": 35.57
+}

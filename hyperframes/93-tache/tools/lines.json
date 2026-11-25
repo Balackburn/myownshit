@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a fait une tache sur sa chemise.",
+  "hl": [
+   "tache",
+   "chemise."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "La tache a refusé de partir.",
+  "hl": [
+   "refusé",
+   "partir."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Le juge a signé son expulsion.",
+  "hl": [
+   "signé",
+   "expulsion."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Les gendarmes mobiles ont chargé la chemise.",
+  "hl": [
+   "gendarmes",
+   "mobiles"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "La tache s'est retranchée sous la poche.",
+  "hl": [
+   "tache",
+   "retranchée"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Un char a tiré au détachant.",
+  "hl": [
+   "char",
+   "détachant."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Il a décoloré tout le quartier.",
+  "hl": [
+   "décoloré",
+   "quartier."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Les maisons, les voitures, le maire.",
+  "hl": [
+   "maisons,",
+   "voitures,"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "La tache, elle, est restée rouge.",
+  "hl": [
+   "tache,",
+   "restée"
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Étirée, elle avait la forme exacte du pays.",
+  "hl": [
+   "Étirée,",
+   "exacte"
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Un décret présidentiel interdit de la laver.",
+  "hl": [
+   "présidentiel",
+   "interdit"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "La chemise a remplacé le drapeau.",
+  "hl": [
+   "chemise",
+   "remplacé"
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Deux gardes la saluent jour et nuit.",
+  "hl": [
+   "gardes",
+   "saluent"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Les ambassades ont officiellement reconnu la tache.",
+  "hl": [
+   "ambassades",
+   "officiellement"
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "La chemise reste à ce mec. L'entretien aussi.",
+  "hl": [
+   "chemise",
+   "L'entretien"
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Il la repasse autour de la tache.",
+  "hl": [
+   "repasse",
+   "autour"
+  ]
+ }
+]
