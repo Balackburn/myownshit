@@ -101,7 +101,7 @@ export const NOTICE_PROPS = {
   // the size, a few sheets thick, its panels zigzag like an accordion), 1 = open (above 1: bigger, the overshoot of a spring); o.fold [[t, f]]: the half on
   // local +Y folds about the middle crease toward +Z and over (1 = folded in half); o.bulge [[t, b]]: the folded sheet puffs up like a pillow; o.flap
   // [[t, a]]: the far edge ripples; o.curl (0.2): one corner curled; o.creases ([4, 3]); o.text: big bold lines printed at o.textY; o.offset: a polygon
-  // offset (lying on a floor)
+  // offset (lying on a floor); (review 1) o.ripple [[t, c]]: a hump o.rippleA (0.5 m) high runs across it (c: where along local Y, 0..1; below -0.5: none)
   noLeaflet(o) {
     const W = o.w ?? 1.4, H = o.h ?? 1.0, NX = o.nx ?? 28, NY = o.ny ?? 20, g = grp(), body = grp(); g.add(body);
     const geo = new THREE.PlaneGeometry(W, H, NX, NY), pos = geo.attributes.position, base = pos.array.slice();
@@ -119,6 +119,7 @@ export const NOTICE_PROPS = {
         const cx = clamp01((nx - 0.72) / 0.28), cy = clamp01((ny - 0.62) / 0.38);
         z += cu * H * s * 0.35 * Math.pow(cx * cy, 1.6);
         z += fl * W * s * 0.035 * Math.sin(t * (o.flapF ?? 16) + nx * 7 + ny * 3) * ny * ny;
+        if (o.ripple) { const rc = keyAt(o.ripple, t, -1); if (rc > -0.5) z += (o.rippleA ?? 0.5) * Math.exp(-Math.pow((ny - rc) / (o.rippleW ?? 0.07), 2)) * (0.7 + 0.3 * Math.sin(nx * 9 + t * 6)); }
         if (y > 0 && th > 0) { const yy = y, zz = z; y = yy * Math.cos(th) - zz * Math.sin(th); z = yy * Math.sin(th) + zz * Math.cos(th) + 0.004 * f; }
         if (b && y0 > 0) z += b * H * s * 0.2 * Math.sin(PI * nx) * Math.sin(PI * clamp01(y0 / (H / 2)));
         pos.setXYZ(i, x, y, z);
@@ -164,7 +165,7 @@ export const NOTICE_PROPS = {
   },
 
   // ---------------------------------------------------------------- the pill box (pivot at its middle, front +Z): a white brick-size box whose only marking
-  // is drawn on its front: one big white pill (a scored tablet, inked) and one big yellow sun: the dose, one a day. o.w (0.36) x o.h (0.24) x o.d (0.11);
+  // is drawn on its front: one big pill (a white and blue capsule, inked) and one big yellow sun: the dose, one a day. o.w (0.36) x o.h (0.24) x o.d (0.11);
   // o.open [[t, v]]: the top flap opens back (0..1), its dark opening shows
   noPillBox(o) {
     const W = o.w ?? 0.36, H = o.h ?? 0.24, D = o.d ?? 0.11, g = grp();
@@ -172,13 +173,16 @@ export const NOTICE_PROPS = {
     const cv = canvas(512, Math.round(512 * H / W)), c = cv.getContext('2d'), Wc = cv.width, Hc = cv.height;
     c.fillStyle = '#FAFAF6'; c.fillRect(0, 0, Wc, Hc);
     c.strokeStyle = '#C9D6E2'; c.lineWidth = Wc * 0.012; c.strokeRect(Wc * 0.03, Hc * 0.045, Wc * 0.94, Hc * 0.91);
-    // the pill: a big round scored tablet, white with a navy ink line and a soft grey shade
-    const px = Wc * 0.29, py = Hc * 0.5, pr = Hc * 0.34;
-    c.fillStyle = '#DDE2EA'; c.beginPath(); c.arc(px + pr * 0.08, py + pr * 0.1, pr, 0, TAU); c.fill();
-    c.fillStyle = '#FFFFFF'; c.beginPath(); c.arc(px, py, pr, 0, TAU); c.fill();
-    c.strokeStyle = '#24314F'; c.lineWidth = Wc * 0.022; c.beginPath(); c.arc(px, py, pr, 0, TAU); c.stroke();
-    c.lineWidth = Wc * 0.014; c.beginPath(); c.moveTo(px - pr * 0.62, py); c.lineTo(px + pr * 0.62, py); c.stroke();
-    c.fillStyle = 'rgba(160,172,190,0.35)'; c.beginPath(); c.arc(px, py, pr * 0.82, 0.2 * PI, 0.75 * PI); c.arc(px, py, pr * 0.62, 0.75 * PI, 0.2 * PI, true); c.fill();
+    // the pill: a big two-tone capsule lying at a slant, inked (review 1: a scored disc read as a no-entry sign at phone size)
+    const px = Wc * 0.28, py = Hc * 0.5, cl = Hc * 0.9, cw = Hc * 0.36, ang = -0.62;
+    const caps = (dx, dy) => { c.beginPath(); c.moveTo(-cl / 2 + cw / 2 + dx, -cw / 2 + dy); c.lineTo(cl / 2 - cw / 2 + dx, -cw / 2 + dy); c.arc(cl / 2 - cw / 2 + dx, dy, cw / 2, -PI / 2, PI / 2);
+      c.lineTo(-cl / 2 + cw / 2 + dx, cw / 2 + dy); c.arc(-cl / 2 + cw / 2 + dx, dy, cw / 2, PI / 2, 3 * PI / 2); c.closePath(); };
+    c.save(); c.translate(px, py); c.rotate(ang);
+    c.fillStyle = '#DDE2EA'; caps(cw * 0.1, cw * 0.14); c.fill();
+    c.save(); caps(0, 0); c.clip(); c.fillStyle = '#FFFFFF'; c.fillRect(-cl / 2, -cw, cl / 2, cw * 2); c.fillStyle = '#5E9BD6'; c.fillRect(0, -cw, cl / 2 + 2, cw * 2);
+    c.fillStyle = 'rgba(255,255,255,0.55)'; c.fillRect(-cl * 0.36, -cw * 0.3, cl * 0.6, cw * 0.14); c.restore();
+    c.strokeStyle = '#24314F'; c.lineWidth = Wc * 0.02; caps(0, 0); c.stroke();
+    c.lineWidth = Wc * 0.012; c.beginPath(); c.moveTo(0, -cw / 2); c.lineTo(0, cw / 2); c.stroke(); c.restore();
     // the sun: a yellow disc with an orange ink line and ten rays
     const sx = Wc * 0.73, sy = Hc * 0.5, sr = Hc * 0.2;
     c.fillStyle = '#FFB52E'; c.strokeStyle = '#D9761E'; c.lineWidth = Wc * 0.01;
@@ -271,9 +275,10 @@ export const NOTICE_PROPS = {
   noPaperCarpet(o) {
     const Wd = o.w ?? 2.2, R = o.r ?? 0.3, TILE = o.tile ?? 1.4, g = grp();
     const sgeo = new THREE.PlaneGeometry(Wd, 1, 1, 1).rotateX(-PI / 2).translate(0, 0, 0.5);
-    const sm = paperMats(Wd, TILE, { creases: [2, 1], seed: 11, repeat: [1, 1], res: 512, glow: 0.18, offset: true });
+    // (review 1) o.cols / o.res: more columns and a finer canvas for a carpet as wide as a road (2 columns over 9 m blurred into slabs)
+    const sm = paperMats(Wd, TILE, { creases: [2, 1], seed: 11, repeat: [1, 1], res: o.res ?? 512, cols: o.cols ?? 2, glow: 0.18, offset: true });
     const strip = new THREE.Mesh(sgeo, sm[0]); strip.position.y = 0.012; strip.receiveShadow = true; g.add(strip);
-    const rm = paperMats(Wd, TAU * R, { creases: [0, 0], seed: 12, cols: 2, res: 256, glow: 0.2 });
+    const rm = paperMats(Wd, TAU * R, { creases: [0, 0], seed: 12, cols: o.cols ?? 2, res: o.rollRes ?? 256, glow: 0.2, lh: o.rollLh });
     const roll = grp(), rc = new THREE.Mesh(new THREE.CylinderGeometry(R, R, Wd, 20, 1, true), rm[0]); rc.rotation.z = PI / 2; roll.add(rc);
     const cv = canvas(128, 128), c = cv.getContext('2d'); c.fillStyle = '#EEEBE2'; c.fillRect(0, 0, 128, 128); c.strokeStyle = '#9A9DA6'; c.lineWidth = 2.5; c.beginPath();
     for (let a = 0; a < TAU * 5; a += 0.1) { const rr = 4 + a * 1.9; c.lineTo(64 + Math.cos(a) * rr, 64 + Math.sin(a) * rr); } c.stroke();
@@ -440,7 +445,8 @@ export const NOTICE_PROPS = {
   noCliff(o) {
     const W = o.w ?? 60, H = o.h ?? 19, D = o.d ?? 40, g = grp();
     g.add(at(box(W, 0.5, D, '#7DB25A', { pivot: 'top' }), 0, 0.0, D / 2 - 0.3));
-    g.add(at(box(W, H, D, '#C4B294', { pivot: 'top' }), 0, 0, D / 2 + 0.4));
+    // (review 1) the rock's top face lay in the grass top's plane: under SwiftShader they fought, the ground strobing green / grey every few frames
+    g.add(at(box(W, H, D, '#C4B294', { pivot: 'top' }), 0, -0.15, D / 2 + 0.4));
     const cols = ['#B9A68A', '#C9B898', '#A89478', '#D3C4A6'];
     for (let i = 0; i < 70; i++) { const s = 0.8 + 2.2 * hsh(i + 9), x = (hsh(i) - 0.5) * W, y = -s - hsh(i + 50) * (H - s);
       g.add(at(facet(s * 1.3, s, s * 0.7, cols[i % 4], i + 3), x, y, 0.3 + 0.3 * hsh(i + 7))); }
@@ -481,6 +487,30 @@ export const NOTICE_PROPS = {
       pos.needsUpdate = true; geo.computeVertexNormals();
     };
     g.userData.update(0); return g;
+  },
+
+  // ---------------------------------------------------------------- a magnifying glass with the holder's eye huge in it (review 1: the cartoon read of « he
+  // peers through it »), pivot at the end of its handle, the lens up +Y facing +Z as magnifier (props_champagne): a dark handle, a brass ring, a big
+  // painted eye on the front of the lens (white, inked, lashes on top), its iris moving with o.gx / o.gy [[t, v]] (-1..1, gy > 0 = down), the back of the
+  // lens pale glass; o.r (0.07), o.iris colour, o.flip (hanging under the handle)
+  noLoupe(o) {
+    const R = o.r ?? 0.07, cy = 0.145 + R, g = grp(at(cyl(0.012, 0.014, 0.13, '#3B2A20', 8, { outline: 0.002 }), 0, 0.065, 0), at(cyl(0.015, 0.015, 0.02, '#B8902A', 8), 0, 0.135, 0));
+    g.add(at(ink(new THREE.Mesh(new THREE.TorusGeometry(R, 0.008, 6, 28), L('#C9A23A')), 0.004), 0, cy, 0));
+    const cv = canvas(256, 256), c = cv.getContext('2d');
+    c.fillStyle = '#D8ECF6'; c.fillRect(0, 0, 256, 256);
+    c.fillStyle = '#FFFFFF'; c.beginPath(); c.ellipse(128, 132, 118, 84, 0, 0, TAU); c.fill();
+    c.strokeStyle = INK; c.lineWidth = 9; c.beginPath(); c.ellipse(128, 132, 118, 84, 0, 0, TAU); c.stroke();
+    c.lineWidth = 7; for (let i = 0; i < 7; i++) { const a = PI + 0.35 + i * (PI - 0.7) / 6, x = 128 + Math.cos(a) * 118, y = 132 + Math.sin(a) * 84; c.beginPath(); c.moveTo(x, y); c.lineTo(x + Math.cos(a) * 26, y + Math.sin(a) * 30); c.stroke(); }
+    const t1 = tex(cv), disc = new THREE.Mesh(new THREE.CircleGeometry(R * 0.98, 32), B('#FFFFFF', { map: t1 })); disc.position.set(0, cy, 0.001); g.add(disc);
+    const back = new THREE.Mesh(new THREE.CircleGeometry(R * 0.98, 32), B('#DDF0FF', { side: THREE.BackSide })); back.position.set(0, cy, 0.0); g.add(back);
+    const iris = grp(new THREE.Mesh(new THREE.CircleGeometry(R * 0.36, 24), B(o.iris || '#6B4A2A')), at(new THREE.Mesh(new THREE.CircleGeometry(R * 0.19, 20), B('#111318')), 0, 0, 0.001),
+      at(new THREE.Mesh(new THREE.CircleGeometry(R * 0.08, 12), B('#FFFFFF')), R * 0.1, R * 0.1, 0.002));
+    g.add(iris);
+    // o.flip: the loupe hangs under its handle (rot z PI): the painted eye turned back upright
+    const sg = o.flip ? -1 : 1; if (o.flip) { disc.rotation.z = PI; iris.rotation.z = PI; }
+    const glint = new THREE.Mesh(new THREE.RingGeometry(R * 0.72, R * 0.84, 14, 1, 2.3, 0.7), B('#FFFFFF', { transparent: true, opacity: 0.8, side: THREE.DoubleSide, depthWrite: false })); glint.position.set(0, cy, 0.006); g.add(glint);
+    g.userData.update = t => { iris.position.set(sg * (clamp01(0.5 + 0.5 * keyAt(o.gx, t, 0)) * R * 0.7 - R * 0.35), cy + sg * (0.04 * R - keyAt(o.gy, t, 0) * R * 0.28), 0.003); };
+    g.userData.grip = [0, 0.05, 0]; g.userData.update(0); return g;
   },
 
   // ---------------------------------------------------------------- a plain pharmacy front (pivot at the foot of its middle, front +Z): a white wall o.w (6.4)
