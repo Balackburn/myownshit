@@ -2509,3 +2509,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 57) Un écrasé-regonflé doit montrer la crêpe 3-4 images à découvert, sinon il se lit comme « enseveli ».
 - (cycle 57) Un objet qu'on berce se couche en travers des deux bras, sinon il se lit comme un sac à dos.
 - (cycle 57) Les dormeurs d'un immeuble en coupe sont trop petits pour porter un gag d'accessoire : pousser la caméra jusqu'à la taille d'une tête.
+- (cycle 57, « La notice ») Le correctif « coupe juste sous l'image » de la poule ne fait rien : st.cut arrondit déjà à 4 décimales (53/30 → 1,7667, après l'image). Repartir de l'indice d'image : floor(round(t·30)/30·10⁴)/10⁴.
+- (cycle 57) Une fonction d'aide qui reçoit **o pour les opts avale aussi `keys` (la boîte ne bougeait jamais). Sortir `keys` en paramètre nommé dans chaque fabrique d'accessoire de l'histoire.
+- (cycle 57) Papier ou drapé posé sur le dessus d'un accessoire (falaise, dalle) : le décoller de 5 cm, sinon la couleur du dessous perce en grandes taches. Un texte lu « depuis le bord » doit courir vers −X pour une caméra côté mer : vérifier le sens sur une image.
+- (cycle 57) Têtes au bord du cadre : donner à fit() une marge de 0,12 à 0,2. La marge porte sur le centre de la tête, et 0,05 laisse la moitié du visage dehors.
