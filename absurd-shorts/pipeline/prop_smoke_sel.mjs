@@ -16,7 +16,9 @@ const CASES = [
   ['seAwning', {}], ['seLeekCrate', {}], ['seLeek', {}], ['seFruitBowl', {}], ['seCheese', {}], ['seRadish', {}],
   ['seScarecrow', { nod: [[0, 1]] }], ['seBoard', { draw: [[0, 0], [1, 1]], shudder: [0.5] }], ['seSteam', { on: [[0.1, 2]] }], ['seSteam', {}],
   ['seMill', {}], ['seLorry', {}], ['seLorry', { color: '#C8483A' }], ['seDining', { door: [[0, 0], [0.4, 1]], slam: 0.5 }], ['seDining', {}],
-  ['seWheat', { n: 400, wind: true }], ['seBib', {}], ['seChair', {}], ['seHideSet', { boxes: [[0, 1, 0, 1, 0, 1]] }], ['seFill', {}]];
+  ['seWheat', { n: 400, wind: true }], ['seBib', {}], ['seChair', {}], ['seHideSet', { boxes: [[0, 1, 0, 1, 0, 1]] }], ['seFill', {}],
+  ['seWildHair', {}], ['seGroundCut', { holes: [[-5, 5, 0, 9]] }], ['seScroll', { tail: true, empty: true, len: 1 }], ['seLorry', { mirrors: false }], ['seWheat', { n: 300, wind: true, gust: [[0.2, 1]] }],
+  ['seScarecrow', { nod: [[0, 1]], turn: [[0, 0], [0.5, 0.6]] }], ['seDining', { ceiling: false }]];
 let bad = 0; console.warn = (...a) => { bad++; console.log('WARN', ...a); };
 for (const [n, o] of CASES) { try { if (!m.PROP_NAMES.includes(n)) throw new Error('not registered'); const p = m.buildProp(n, o); for (const t of [0, 0.3, 0.55, 0.9, 1.5, 3]) p.userData.update?.(t);
   let nm = 0, nan = 0; p.traverse(c => { if (c.isMesh) { nm++; const a = c.geometry.attributes.position.array; for (let i = 0; i < a.length; i++) if (!Number.isFinite(a[i])) { nan++; break; } } });

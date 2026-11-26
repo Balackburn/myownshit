@@ -542,7 +542,8 @@ export const SEL_PROPS = {
       const cor = [[Rw - Lw, 0.1, 0.1, (Lw + Rw) / 2, Bk + 0.05, 0], [Rw - Lw, 0.1, 0.1, (Lw + Rw) / 2, Fr - 0.05, 0], [0.1, 0.1, Fr - Bk, Lw + 0.05, (Bk + Fr) / 2, 1], [0.1, 0.1, Fr - Bk, Rw - 0.05, (Bk + Fr) / 2, 1]];
       const cg = grp(ce); for (const [w_, h_, d_, x_, z_] of cor) cg.add(at(box(w_, h_, d_, '#F4EEE2', { outline: 0.006 }), x_, H - 0.05, z_));
       noShadow(cg); g.add(cg); }
-    g.userData.update = t => { piv.rotation.y = -1.65 * clamp01(keyAt(o.door, t, 0)) + rattle(o.slam ? [[o.slam, 0.08, 20, 5]] : null, t); };
+    // (round 1) o.doorOut: the door opens outward onto the garden (opened inward it stood across the room, in front of mamie's chair)
+    g.userData.update = t => { piv.rotation.y = (o.doorOut ? 1.65 : -1.65) * clamp01(keyAt(o.door, t, 0)) + rattle(o.slam ? [[o.slam, 0.08, 20, 5]] : null, t); };
     g.userData.update(0); return g;
   },
 

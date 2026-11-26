@@ -2550,3 +2550,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   - `centCoin` : imprime « 1 CENT ».
   - Cinq personnes qui lèvent toutes un bras tendu se lisent comme un salut : ne jamais faire lever le bras droit à l'unisson.
   - Un sceau rouge uni centré sur un certificat blanc se lit comme un drapeau.
+- (cycle 58, « Le sel ») Un sol de décor qui chevauche une route ou une allée à quelques millimètres clignote : percer le disque du sol sous les bandes (`seGroundCut` dans props_sel), plutôt que de déplacer les acteurs. Mesurer d'image en image sur une plage rendue à 30 i/s, en comparant chaque bloc à l'image d'avant et d'après.
+- (cycle 58) `lens` est un angle vertical, pas une focale : en 9:16, une scène large à trois personnages demande 55 à 70, ou un point d'appui symétrique dans `fit()` pour centrer l'accessoire.
+- (cycle 58) Une porte « ouverte » vers l'intérieur se dresse en travers de la pièce : avant de mettre en scène près d'elle, la faire ouvrir vers l'extérieur.
+- (cycle 58) Un genou à terre vu de face ressemble à des jambes droites : tourner le personnage d'environ 40°. Une chaise attachée au torse à la mauvaise hauteur cache le visage : vérifier chaque objet porté sur une image avant de juger la pose.
