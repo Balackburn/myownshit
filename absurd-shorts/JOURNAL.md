@@ -3369,3 +3369,22 @@ Conformité :
 - tricolore vert-blanc-orange évité ;
 - accoudoir en « T » supprimé.
 Leçons ajoutées au skill. Prochaine histoire pour la session parallèle : « Le spaghetti » (112).
+
+## 19 h 30 — Atelier 114-116 : « Cordialement », « Le tabouret », « Le pigeon »
+Trois auteurs (bureau ; ville et voisinage ; loisirs et corps) ont écrit deux histoires chacun. Les juges ont aussi jugé trois histoires de réserve.
+- Juge comédie : « Le tabouret » 8,5, « Cordialement » 8, « La pomme » 8.
+- Juge rétention : « Le pigeon » 8 (8,5 après corrections), « Le pot de départ » 8.
+- Juge fabrication : « Le pigeon » 7,5, « Cordialement » 7, « Le tabouret » 7.
+
+Retenues :
+- 114 « Cordialement » : un « Cordialement » sans le « bien », et l'ascenseur social pris au sens propre ;
+- 115 « Le tabouret » : un tabouret bancal, on rabote le sol, puis le pays, puis on cale la Terre avec un sous-bock ;
+- 116 « Le pigeon » : la ville emballée dans un filet, et le pigeon finit par poser des pics.
+
+La chute du « Pigeon », trop proche des « Moutons », a été retournée : nouveau gag récurrent, le pigeon emporte sa bande de pics partout comme un lit.
+Pièges du moteur relevés par la fabrication :
+- chiffres du panneau d'ascenseur, du bus et des plaques ;
+- petits drapeaux du décor de plage ;
+- tour Eiffel au bout de parisStreet ;
+- carte météo figée sur la France.
+Textes, lines.json, stubs, props.js et queue11.sh enregistrés ; le test des accessoires passe.
