@@ -599,7 +599,7 @@ F5, L5, LN5 = FIT([0.95, 1.85, 2.2], {'hc0': add(HC5[0], [0, 1.42, 0]), 'hc2': a
 C5 = cam(0.0, F5, add(F5, [0.0, -0.03, -0.12]), L5, L5, lens=LN5, ease='inOut')
 chkc('S05', C5, {'hc0': add(HC5[0], [0, 1.42, 0]), 'hc2': add(HC5[2], [0, 1.42, 0]), 'hcTray': add(HC5[1], [0, 0.98, 0]), 'cDtop': add(SEAT['cD'], [0, 1.95, 0]), 'cDchin': add(SEAT['cD'], [0, 1.35, 0]), 'cCtop': add(SEAT['cC'], [0, 1.95, 0])})
 BONNETS = ['#F2A8BC', '#9FD0F0', '#F4DC7A']
-def HCH(n, i, pop=None, bang=None): return P(f'chaiseHaute{n}_{i}', 'seHighChair', pos=HC5[i], ry=180, opts={'bonnet': BONNETS[i], 'seed': i, **({'pop': pop} if pop is not None else {}), **({'bang': bang} if bang else {})})
+def HCH(n, i, pop=None, bang=None, **o): return P(f'chaiseHaute{n}_{i}', 'seHighChair', pos=HC5[i], ry=180, opts={'bonnet': BONNETS[i], 'seed': i, **({'pop': pop} if pop is not None else {}), **({'bang': bang} if bang else {}), **o})
 def DINERK(who, D, blinks=(), startles=()):
     # a hop off the seat at each pop: up 0.17 m stretched with the hair up and the eyes wide, down onto a squash, then a settle
     p, ry_ = SEAT[who], RYS[who]; rk = RESTK(p, ry_); out = [SIT(), k(-0.5, look=lerp3(add(HC5[1], [0, 1.2, 0]), F5, 0.4)), k(0.0, toon={**rk, 'face': DF}, toonDur=0.0)]
@@ -622,7 +622,12 @@ D5b = st.dur('S05b'); TS5 = [0.2, 0.58, W('S05b', 'L05', 7)]
 XH5 = lambda t: hx_after(2) + sum(EZ['out'](min(1.0, max(0.0, (t - ts + 0.02) / 0.14))) for ts in TS5)
 # (round 2) the bonnets sat in the caption band: the frame holds the bibs of all three high chairs above 0.74
 F5b, L5b, LN5b = FIT([-2.3, 1.6, 0.3], {'hc2': add(HC5[2], [0, 1.3, 0]), 'hc0low': add(HC5[0], [0, 0.85, 0]), 'hc1low': add(HC5[1], [0, 0.85, 0]), 'hc2low': add(HC5[2], [0, 0.85, 0]), 'heroTop0': [hx_after(2), 2.0, 0.0], 'heroTop3': [hx_after(5), 2.0, 0.0], 'heroChin3': [hx_after(5), 1.3, 0.0], 'doorTop': [6.8, 2.75, 0.0]}, margin=0.18, top=0.12, bottom=0.73, lenses=range(16, 57))
-C5b = cam(0.0, F5b, add(F5b, [0.25, 0.0, 0.0]), L5b, L5b, lens=LN5b, ease='inOut')
+C5b = cam(0.0, F5b, add(F5b, [0.2, 0.0, 0.0]), L5b, L5b, lens=LN5b, ease='inOut')
+# (round 3) the hold after the third CLACK was dead: the camera keeps going, a push down the table toward him in the hallway (his reaction: a slow
+# blink, the eyes to us, a deflated sigh over the upright cutlery)
+HEAD5 = [hx_after(5), 1.75, 0.0]; T5P = r(TS5[2] + 0.12)
+F5bm = lerp3(F5b, add(F5b, [0.2, 0.0, 0.0]), EZ['inOut'](T5P / D5b))
+C5b2 = cam(T5P, F5bm, lerp3(F5bm, HEAD5, 0.42), L5b, lerp3(L5b, HEAD5, 0.55), lens=LN5b, ease='inOut')
 chkc('S05b', C5b, {'hc0': add(HC5[0], [0, 1.4, 0]), 'hc2': add(HC5[2], [0, 1.4, 0]), 'heroTop0': [hx_after(2), 2.0, 0.0], 'heroTop3': [hx_after(5), 2.0, 0.0], 'heroChin3': [hx_after(5), 1.3, 0.0], 'door': [6.8, 2.7, 0.95]})
 def KF5(t, **x): return KF([r(XH5(t)), 0, 0], RYH, **x)
 JOLT = lambda ts, j: [k(r(ts - 0.02 + 0.035 * q), toon={**KF5(r(ts + 0.035 * q)), 'sq': [[1.12, 0.88, 1.12], [0.9, 1.12, 0.9], [0.95, 1.06, 0.95], [1.02, 0.98, 1.02]][q], 'hairUp': [0.3, 1.0, 0.7, 0.4][q],
@@ -630,7 +635,12 @@ JOLT = lambda ts, j: [k(r(ts - 0.02 + 0.035 * q), toon={**KF5(r(ts + 0.035 * q))
 HK5b = [SIT(), k(-0.5, look='camera'), k(0.0, toon={**KF5(0), 'face': {**HF, 'mouth': 'line'}}, toonDur=0.0)]
 for j, ts in enumerate(TS5):
     HK5b += [k(r(ts - 0.02), to=[r(hx_after(3 + j)), 0, 0], dur=0.14, ease='out', glide=True, face='keep'), *JOLT(ts, j)]
-HK5b += [k(r(TS5[2] + 0.18), toon={**KF5(9), 'face': {**HF, 'lid': 0.2, 'mouth': 'line', 'brow': 0.3}}, toonDur=0.1), *life(r(TS5[2] + 0.3), D5b, {**HF, 'lid': 0.2, 'mouth': 'line', 'brow': 0.3}, KF5(9), blinks=[r(TS5[2] + 0.5)], period=0.5)]
+DEAD5 = {**HF, 'lid': 0.45, 'mouth': 'line', 'brow': -0.1}
+HK5b += [k(r(TS5[2] + 0.18), toon={**KF5(9), 'face': {**HF, 'lid': 0.2, 'mouth': 'line', 'brow': 0.3}}, toonDur=0.1),
+         k(r(TS5[2] + 0.3), toon={**KF5(9), 'face': {**HF, 'lid': 1.0, 'mouth': 'line', 'brow': 0.1}}, toonDur=0.12), k(r(TS5[2] + 0.5), look='camera', lookDur=0.1),
+         k(r(TS5[2] + 0.5), toon={**KF5(9), 'face': DEAD5}, toonDur=0.08),
+         k(r(TS5[2] + 0.62), toon={**KF5(9), 'sq': [1.06, 0.93, 1.06], 'bend': {'neck': [0.12, 0, 0, 0.85, None]}, 'face': {**DEAD5, 'mouth': 'o', 'jaw': 0.1}}, toonDur=0.12),
+         *life(r(TS5[2] + 0.78), D5b, DEAD5, {**KF5(9), 'bend': {'neck': [0.12, 0, 0, 0.85, None]}}, period=0.4)]
 def SK5(base):
     out = []
     for j, ts in enumerate(TS5): out.append(k(r(ts - 0.02), to=add(base, [1.0 * (j + 1), 0, 0]), dur=0.14, ease='out'))
@@ -642,8 +652,8 @@ st.shot('S05b', 'whiteVoid', setOpts=DSET, actors=[act('mec', [hx_after(2), 0, 0
         props=[DINING('5b'), MAINSEG('5b', chairs=NEARCH), *LEAVES('5b', 2), *LEAVES5,
                ENDSEG('5b', hx_after(2), SK5([r(hx_after(2) - 0.9), 0, 0])), ROAST('5b', hx_after(2), SK5([r(hx_after(2) - 0.72), TH, 0.0])), HCHAIR('5b', hx_after(2), SK5([r(hx_after(2) + 0.05), 0, 0])),
                UTENSIL('couteau5b', 'knife', ubase(KR5a), -90, keys=SK5(ubase(KR5a))), UTENSIL('fourchette5b', 'fork', ubase(KL5a), -90, keys=SK5(ubase(KL5a))),
-               *[HCH('5b', i, None, [[0.0, 9]]) for i in range(3)], SHAKER('sel5b', SHB4, 0.9), NOSHADOW('ns5b', ['mec'])],
-        cams=[C5b])
+               *[HCH('5b', i, None, [[0.0, 9]], twos=True, phase=[0.0, 0.11, 0.21][i], rate=[3.0, 3.6, 3.3][i]) for i in range(3)], SHAKER('sel5b', SHB4, 0.9), NOSHADOW('ns5b', ['mec'])],
+        cams=[C5b, C5b2])
 GAG('S05b', r(TS5[2] + 0.12), 'mec', 'out through the doorway')
 for ts in TS5: st.cue('clack', 'S05b', ts, 0.5); st.cue('whoosh', 'S05b', r(ts - 0.12), 0.1, 0.15, 600, 2400)
 

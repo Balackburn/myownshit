@@ -254,7 +254,12 @@ export const SEL_PROPS = {
     const spoon = grp(at(box(0.016, 0.16, 0.008, '#C9CED6', { noGrain: true, outline: 0.06 }), 0, 0.08, 0), at(sphere(0.03, '#C9CED6', 1), 0, 0.17, 0)); spoon.children[1].scale.set(1, 1.3, 0.4); spoon.position.set(0, 0.12, 0.11); arm.add(spoon);
     g.userData.update = t => {
       const b = inside(o.bang, t), ph = b >= 0 ? Math.max(0, Math.sin(b * TAU * (o.rate ?? 3.2))) : 0; arm.rotation.x = -1.2 * ph + 0.4; spoon.rotation.x = 0.3 * ph;
-      head.rotation.z = 0.12 * Math.sin(t * 2.3 + (o.seed ?? 0)); head.rotation.x = b >= 0 ? 0.06 * ph : 0;
+      head.rotation.z = 0.12 * Math.sin(t * 2.3 + (o.seed ?? 0)); head.rotation.x = b >= 0 ? 0.06 * ph : 0; head.position.y = 0.38;
+      // (round 3) o.twos: the banging drawn on twos (held two frames, 15 drawings a second), a raise, a slam and a rest per beat, o.phase (s) offsets
+      // the beat from chair to chair; the bonnet bobs on every hit (a dip and a nod)
+      if (o.twos && b >= 0) { const tq = Math.floor((t + 1e-4) * 15) / 15, bq = inside(o.bang, tq), u = (((Math.max(0, bq) + (o.phase ?? 0)) * (o.rate ?? 3.2)) % 1 + 1) % 1;
+        const up = u < 0.55 ? smooth(u / 0.55) : u < 0.7 ? 1 - (u - 0.55) / 0.15 : 0, bob = u >= 0.7 && u < 0.9 ? 1 - (u - 0.7) / 0.2 : 0;
+        arm.rotation.x = -1.5 * up + 0.4; spoon.rotation.x = 0.35 * up; head.rotation.x = 0.28 * bob; head.position.y = 0.38 - 0.035 * bob; }
       // (round 1) the pop: shoots up stretched (2 frames), squashes flat on landing, overshoots tall, settles (a squash and an overshoot that read at phone size)
       if (o.pop !== undefined) { const u = t - o.pop, K = [[0, 0.05, 0.05], [0.07, 0.72, 1.32], [0.13, 1.28, 0.66], [0.21, 0.9, 1.14], [0.29, 1.05, 0.95], [0.37, 1, 1]];
         let sx = 1, sy = 1; if (u < 0) { sx = sy = 0.01; } else if (u < 0.37) { let i = 0; while (u > K[i + 1][0]) i++; const v = smooth((u - K[i][0]) / (K[i + 1][0] - K[i][0])); sx = lerp(K[i][1], K[i + 1][1], v); sy = lerp(K[i][2], K[i + 1][2], v); }
