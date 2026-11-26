@@ -3151,3 +3151,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 00 h 35 — « La tartine » (102) passe finale faite (S13 corps suspendu horizontal, S09 graphique retourné en miroir avec flèche peinte, S12 trois corps en échelon, S11 grille de tartines, finition sous la table). Brouillon de contrôle 4 lancé.
 
 - 00 h 55 — « La poule » (104) corrections de revue 2 faites (mâchoire sans dents via `face.jawTeeth`, gag final caméra à hauteur des yeux avec sourire en ressort synchronisé, tir élastique resserré, bouffée opaque en anneau, plan de fin rapproché). Brouillon 3 lancé (file d'attente derrière le contrôle de la tartine).
+
+- 01 h 00 — « La tartine » (102) brouillon de contrôle 4 : 0 plan figé, pas de creux ; planche vérifiée, corrections lisibles (S13 corps horizontal, S09 flèche qui plonge, S12 trois corps en échelon). Un défaut reste : le carrelage disparaît sur 4 images de S01 (sol uni plus clair). Agent de diagnostic lancé avant la finale.
