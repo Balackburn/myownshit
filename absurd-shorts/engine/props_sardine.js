@@ -46,7 +46,7 @@ export const SARDINE_PROPS = {
     const body = grp(dome); k.add(body);
     for (const s of [-1, 1]) { const p = new THREE.Mesh(new THREE.TorusGeometry(1, 0.012, 4, 20, PI), mat('#3A3D44')); p.scale.set(W / 2 * 1.01, H * 1.01, 1); p.rotation.y = s * PI / 4; body.add(p); }
     const ds = new THREE.Shape(); ds.absarc(0, 0, 1, 0, PI, false); ds.closePath(); const door = new THREE.Mesh(new THREE.ShapeGeometry(ds), o.lit ? new THREE.MeshBasicMaterial({ color: '#FFE7A0' }) : mat(dkHex)); door.scale.set(W * 0.2, H * 0.62, 1); door.position.set(0, 0.01, W / 2 * 0.995); body.add(door);
-    const floor = at(cyl(W / 2, W / 2, 0.03, dkHex, 18), 0, 0.015, 0); k.add(floor);
+    const floor = at(cyl(W / 2, W / 2, 0.06, dkHex, 18, { outline: 0.01 }), 0, 0.03, 0); k.add(floor);   // (round 2) a real floor under the dome
     if (o.top === false) { body.visible = false; const wall = new THREE.Mesh(new THREE.CylinderGeometry(W / 2, W / 2, 0.22, 24, 1, true), mat('#' + C.getHexString(), { side: THREE.DoubleSide })); wall.position.y = 0.11; k.add(wall); floor.material = mat('#' + C.clone().lerp(new THREE.Color('#FFFFFF'), 0.35).getHexString()); }
     const corners = [0, 1, 2, 3].map(i => { const a = PI / 4 + i * PI / 2; return [Math.sin(a), Math.cos(a)]; });   // 0: front right, 1: back right, 2: back left, 3: front left
     const flaps = [], ropes = [], pegs = [];
@@ -65,7 +65,7 @@ export const SARDINE_PROPS = {
     g.userData.update = t => {
       const bl = kv(o.bulge, t), sg = kv(o.sag, t), wob = bl > 0.01 ? Math.sin(t * 11) * 0.06 * bl : 0;
       body.scale.set(1 + 0.3 * bl + wob, (1 + 0.12 * bl - wob) * (1 - 0.55 * sg), 1 + 0.3 * bl - wob);
-      const ly = kv(o.lift, t), tl = kv(o.tilt, t); k.position.y = ly; k.rotation.z = tl + (o.ropes === false || ly > 0.05 ? 0.06 * Math.sin(t * 3.1) : 0); k.rotation.x = (o.ropes === false || ly > 0.05) ? 0.05 * Math.sin(t * 2.3 + 1) : 0;
+      const ly = kv(o.lift, t), tl = kv(o.tilt, t); k.position.y = ly; k.rotation.z = tl + (o.ropes === false || ly > 0.05 ? 0.06 * Math.sin(t * 3.1) : 0); k.rotation.x = kv(o.tiltX, t) + ((o.ropes === false || ly > 0.05) ? 0.05 * Math.sin(t * 2.3 + 1) : 0); floor.scale.set(body.scale.x, 1, body.scale.z);   // o.tiltX [[t, rad]]: about X (+Z side up when negative)
       const fl = (o.flap || []).some(([a, b]) => t > a && t < b);
       flaps.forEach((f, i) => { if (f.userData.sw != null) { f.rotation.x = 0.5 + 0.15 * Math.sin(t * 6 + i); return; } f.rotation.x = o.loose && i === 3 && (o.looseUntil == null || t < o.looseUntil) ? 0.4 + 0.45 * Math.sin(t * 17) + (fl ? -0.6 : 0) : 0; });
       for (const r of ropes) { const { top, end, i: ri } = r.userData; const loose = o.loose && ri === 3 && (o.looseUntil == null || t < o.looseUntil); const e = loose ? tmp.set(top.x * 1.5, 0.03, top.z * 1.5).clone() : (ly > 0.05 ? new THREE.Vector3(end.x * 0.5, -ly + 0.05, end.z * 0.5) : (ri === 3 && o.ropeY != null ? new THREE.Vector3(end.x, o.ropeY, end.z) : end)); const tp = top.clone(); tp.x *= body.scale.x; tp.z *= body.scale.z; tp.y *= body.scale.y; setRope(r, tp, e); }
@@ -154,7 +154,7 @@ export const SARDINE_PROPS = {
   saScale(o) {
     const g = grp(at(box(0.3, 0.12, 0.26, '#E8E4DA', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0)), pan = grp(at(cyl(0.16, 0.13, 0.03, '#C8CED6', 14, { outline: 0.01 }), 0, 0, 0));
     g.add(at(box(0.12, 0.28, 0.12, '#E8E4DA', { pivot: 'bottom', outline: 0.01 }), 0, 0.12, -0.06)); const dial = new THREE.Mesh(new THREE.CircleGeometry(0.1, 20), mat('#FBFAF6')); dial.position.set(0, 0.3, 0.003); g.add(dial);
-    g.add(at(cyl(0.105, 0.105, 0.012, '#5E656D', 20), 0, 0.3, -0.001, PI / 2, 0, 0)); const nd = grp(at(box(0.008, 0.08, 0.004, '#C8202A'), 0, 0.04, 0)); nd.position.set(0, 0.3, 0.01); g.add(nd);
+    g.add(at(cyl(0.105, 0.105, 0.012, '#5E656D', 20), 0, 0.3, -0.001, PI / 2, 0, 0)); const nd = grp(at(box(0.008, 0.08, 0.004, '#1E2E5A'), 0, 0.04, 0)); nd.position.set(0, 0.3, 0.01); g.add(nd);
     pan.position.set(0, 0.42, -0.06); g.add(pan, at(box(0.03, 0.02, 0.03, '#5E656D'), 0, 0.41, -0.06));
     g.userData.update = t => { const u = o.weighAt == null ? 0 : clamp01((t - o.weighAt) / 0.1); const q = o.weighAt == null || t < o.weighAt ? 0 : Math.exp(-4 * (t - o.weighAt)) * Math.cos((t - o.weighAt) * 18); nd.rotation.z = -(1.1 * u + 0.5 * q); pan.position.y = 0.42 - 0.03 * u - 0.015 * q; };
     g.userData.update(0); return g;
@@ -180,7 +180,7 @@ export const SARDINE_PROPS = {
     return g;
   },
   // Flattened yellow rectangles of grass where tents stood (pivot at the ground): o.spots [[x, z, w, d, ry], ...]
-  saFlats(o) { const g = grp(); for (const [x, z, w, d, ry] of o.spots || [[0, 0, 1.6, 1.6, 0]]) { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, d), mat('#D8C878')); m.rotation.set(-PI / 2, 0, ry || 0); m.position.set(x, 0.008, z); g.add(m); } return g; },
+  saFlats(o) { const g = grp(); for (const [x, z, w, d, ry] of o.spots || [[0, 0, 1.6, 1.6, 0]]) { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, d), mat('#D8C878')); m.rotation.set(-PI / 2, 0, ry || 0); m.position.set(x, 0.035, z); m.material.polygonOffset = true; m.material.polygonOffsetFactor = -2; g.add(m); } return g; },
   // Rain as light streaks (pivot at the middle of the ground): o.w, o.d, o.h, o.n; they fall at o.v (9 m/s) slanted
   saRain(o) {
     const W = o.w ?? 8, D = o.d ?? 6, Hh = o.h ?? 5, n = o.n ?? 160, g = grp(), ds = [], m = new THREE.MeshBasicMaterial({ color: '#CFE0FF', transparent: true, opacity: 0.45, depthWrite: false });
@@ -247,4 +247,12 @@ export const SARDINE_PROPS = {
   saBlanket(o) { const W = o.w ?? 0.42, L = o.l ?? 1.25, g = grp(); const b = new THREE.Mesh(new THREE.CapsuleGeometry(W / 2, L - W, 4, 10), mat(o.color || '#3E6A9A')); b.rotation.x = PI / 2; b.scale.set(1.15, 1, 0.5); b.position.y = o.y ?? 0.36; addOutline(b, 0.012); g.add(b); return g; },
   // A wooden farm fence (pivot at the ground in the middle, along X): o.w (2.6) long, posts every 0.8 m, two rails
   saFence(o) { const W = o.w ?? 2.6, g = grp(); for (let x = -W / 2; x <= W / 2 + 1e-3; x += 0.8) g.add(at(box(0.08, 1.1, 0.08, '#8A6A45', { pivot: 'bottom', outline: 0.01 }), x, 0, 0)); for (const y of [0.45, 0.9]) g.add(at(box(W, 0.07, 0.04, '#A07A50', { outline: 0.01 }), 0, y, 0.05)); return g; },
+  // A display dome over the tin (pivot at its rim on the cushion): a pale blue, mostly opaque glass bell with a white highlight band at mid-height and a
+  // knob on top (never see-through over a body). o.r (0.22), o.h (0.4)
+  saDome(o) { const R = o.r ?? 0.22, H = o.h ?? 0.4, g = grp(), gm = new THREE.MeshLambertMaterial({ color: '#D8ECF6', transparent: true, opacity: 0.55, depthWrite: false });
+    const wall = new THREE.Mesh(new THREE.CylinderGeometry(R, R, H - R * 0.8, 20, 1, true), gm); wall.position.y = (H - R * 0.8) / 2; const cap = new THREE.Mesh(new THREE.SphereGeometry(R, 20, 8, 0, TAU, 0, PI / 2), gm); cap.position.y = H - R * 0.8; cap.scale.y = 0.8;
+    const hl = new THREE.Mesh(new THREE.CylinderGeometry(R * 1.005, R * 1.005, 0.05, 20, 1, true, -0.6, 1.2), new THREE.MeshBasicMaterial({ color: '#FFFFFF' })); hl.position.y = (H - R * 0.8) * 0.55;
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(R, 0.01, 4, 24), mat('#B8C4CC')); rim.rotation.x = PI / 2; g.add(wall, cap, hl, rim, at(sphere(0.025, '#B8C4CC', 1), 0, H - R * 0.8 + R * 0.8, 0)); return g; },
+  // A display plinth (pivot at the floor): a white-and-grey column o.h (0.95) high, o.w (0.45) square
+  saPlinth(o) { const W = o.w ?? 0.45, H = o.h ?? 0.95; return grp(at(box(W, H, W, '#F2EEE4', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(W + 0.06, 0.05, W + 0.06, '#C8CCD2'), 0, H, 0), at(box(W + 0.06, 0.06, W + 0.06, '#C8CCD2'), 0, 0.03, 0)); },
 };
