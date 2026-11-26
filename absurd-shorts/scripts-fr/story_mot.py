@@ -102,7 +102,7 @@ def BEDROOM(sid, o, lamp_wobble=None, curtain_flap=None):
             P(f'couette{sid}', 'moDuvet', pos=add(o, [-0.3, 0.6, -0.35]), opts={'w': 1.3, 'l': 1.15, 'flapAt': []}),
             P(f'lampe{sid}', 'moLamp', pos=add(o, [0.75, 0, -1.25]), opts={'wobble': lamp_wobble or []})]
 def BEDPOS(o): return add(o, [-0.3, 0.52, -0.45])   # his hips in bed (lying: head on the pillow; sitting: legs under the duvet)
-def BEDCAM(at, o, push=0.15): return cam(at, add(o, [1.05, 1.42, 1.75]), add(o, [1.05 - push * 0.5, 1.42, 1.75 - push]), add(o, [-0.35, 1.05, -0.75]), add(o, [-0.35, 1.06, -0.75]), lens=46)
+def BEDCAM(at, o, push=0.15): return cam(at, add(o, [1.75, 1.9, 0.95]), add(o, [1.75 - push * 0.6, 1.88, 0.95 - push * 0.6]), add(o, [-0.45, 0.95, -0.75]), add(o, [-0.45, 0.96, -0.75]), lens=48)   # from the bedside, a little above: lying or sitting he reads
 ASLEEP = {'lid': 1.0, 'mouth': 'line', 'brow': 0.0}
 WIDE = {'lid': 0.0, 'mouth': 'line', 'brow': 1.0, 'pop': 0.5}
 def LIE(t=0.0, face=ASLEEP): return [k(t, clip='lieBack'), TK(t, face=face, d=0.0)]
@@ -122,9 +122,9 @@ D1 = st.dur('S01'); UP1 = r(st.at('S01', 'L01', 2) - 0.02); CUT1 = r(st.at('S01'
 B1 = [0, 0, 0]
 C1 = BEDCAM(0.0, B1)
 HALL = [40.0, 0, 0.0]; HB1 = add(HALL, [0.55, 0, -1.4]); BOARD1 = add(HALL, [0.55, 1.6, -1.97])
-C1b = cam(CUT1, add(HALL, [-1.0, 1.55, 2.3]), add(HALL, [-0.95, 1.55, 2.1]), add(HALL, [0.0, 1.35, -1.2]), add(HALL, [0.0, 1.36, -1.2]), lens=50)
+C1b = cam(CUT1, add(HALL, [-0.7, 1.6, 2.9]), add(HALL, [-0.68, 1.6, 2.7]), add(HALL, [-0.05, 1.3, -1.2]), add(HALL, [-0.07, 1.31, -1.2]), lens=50)
 NOTE1 = [80.0, 1.6, 0.0]
-C1c = cam(CUT1b, add(NOTE1, [0.05, 0.02, 0.75]), add(NOTE1, [0.03, 0.01, 0.62]), NOTE1, NOTE1, lens=40)
+C1c = cam(CUT1b, add(NOTE1, [0.04, 0.02, 1.05]), add(NOTE1, [0.03, 0.01, 0.92]), NOTE1, NOTE1, lens=40)
 chk('S01', C1, {'heroTopSit': add(BEDPOS(B1), [0, 1.6, 0.05]), 'pillow': add(B1, [-0.3, 0.68, -1.32]), 'lamp': add(B1, [0.75, 0.95, -1.25]), 'feetDuvet': add(B1, [-0.3, 0.8, 0.6])})
 chk('S01b', C1b, {'heroTop': add(HB1, [0, 2.35, 0]), 'board': BOARD1, 'nb1': add(HALL, [-0.9, 2.1, -0.4]), 'nb1feet': add(HALL, [-0.9, 0, -0.4])})
 chk('S01c', C1c, {'noteL': add(NOTE1, [-0.21, 0, 0]), 'noteR': add(NOTE1, [0.21, 0, 0]), 'noteT': add(NOTE1, [0, 0.15, 0])})
@@ -139,7 +139,7 @@ kb1 = [k(0.0, visible=False), k(CUT1, visible=True), k(0.0, clip='stand'), k(0.0
        k(r(PIN1 + 0.45), face=150, turn=0.2), k(r(PIN1 + 0.45), look='camera', lookDur=0.15), TK(r(PIN1 + 0.5), face=SMUG, d=0.1, keep=True)]   # turns to us, pleased with himself
 nbs1 = []
 for i in range(2):
-    a, b = add(HALL, [-0.2 - 0.6 * i, 0, 0.7 - 0.25 * i]), add(HALL, [-2.9, 0, -0.9 - 0.25 * i]); t0 = r(CUT1 + 0.05 + 0.25 * i)
+    a, b = add(HALL, [0.2 - 0.75 * i, 0, -1.0 - 0.15 * i]), add(HALL, [-2.4, 0, -1.25 - 0.15 * i]); t0 = r(CUT1 + 0.02 + 0.15 * i)   # past him on the left, at his depth: nobody in front of him
     ks = [k(0.0, clip='walk'), k(0.0, visible=False), k(CUT1, visible=True), k(t0, to=b, dur=r(CUT1b - t0 + 0.1), clip='walk', ease='linear', params={'freq': 1.8}),
           k(0.0, look=HEAD(add(HALL, [-2.5, 0, -2.0]), 1.9)), k(r(PIN1 + 0.02), look=HEAD(HB1, 1.9), lookDur=0.1), TK(0.0, face=CALM, d=0.0), *blink(r(CUT1 + 0.5 + 0.2 * i), CALM)]
     nbs1.append(act(f'voisin{i + 1}', a, yaw(a, b), 'walk', 'neutral', keys=ks))
@@ -157,7 +157,7 @@ st.cue('engine', 'S01', 0.0, 0.25); st.cue('sfx:spring', 'S01', UP1, 0.3); st.cu
 #    the foreground brakes and does the same
 D2 = st.dur('S02')
 PS2 = [[-1.6, 0, -2.8], [-0.6, 0, -2.1], [0.4, 0, -1.4], [1.4, 0, -0.7]]
-CY0, CY1 = [-3.2, 0, 0.9], [-0.2, 0, 0.9]; BRAKE2 = 0.42
+CY0, CY1 = [-3.4, 0, 0.3], [-1.25, 0, 0.3]; BRAKE2 = 0.42
 C2 = cam(0.0, [0.9, 1.5, 4.6], [0.85, 1.5, 4.4], [-0.15, 1.35, -1.0], [-0.15, 1.35, -1.0], lens=48)
 chk('S02', C2, {**{f'p{i}': add(p, [0, 2.1, 0]) for i, p in enumerate(PS2)}, 'cy': add(CY1, [0, 2.0, 0]), 'cyF': add(CY1, [0.6, 0.3, 0])})
 pas2 = []
@@ -185,7 +185,7 @@ D3 = st.dur('S03'); ST3 = [0.45, 0.85, 1.3]
 OF3 = [0.6, 0, 0.5]; ORY3 = -70
 Q3 = [[-0.15, 0, 0.75], [-0.75, 0, 1.25], [-0.45, 0, 2.0], [-1.25, 0, 2.6]]
 SH3 = off(Q3[0], 70, 0.32, 0.0, 1.75)
-C3 = cam(0.0, [-2.2, 0.85, 4.6], [-2.1, 0.88, 4.35], [0.0, 1.7, 0.6], [0.0, 1.72, 0.6], lens=50)
+C3 = cam(0.0, [-1.9, 1.0, 6.2], [-1.85, 1.02, 5.95], [0.0, 1.55, 0.8], [0.0, 1.56, 0.8], lens=48)
 chk('S03', C3, {'offTop': add(OF3, [0, 2.15, 0]), 'pileTop': [1.25, 1.5, 0.35], 'sheet': SH3, **{f'q{i}': add(p, [0, 2.1, 0]) for i, p in enumerate(Q3)}, 'door': [0.6, 2.9, 0.0]})
 STAMP3 = off(OF3, ORY3, 0.32, 0.25, 1.45)
 ko3 = [k(0.0, clip='stand'), k(0.0, look=HEAD(Q3[0], 1.9)), TK(0.0, {'R': R5(add(STAMP3, [0, 0.35, 0.05])), 'L': R5(off(OF3, ORY3, 0.25, -0.3, 1.0))}, {'R': 'grip', 'L': 'rest'}, STERN, d=0.0)]
@@ -231,7 +231,7 @@ kn4 = [k(0.0, clip='stand'), k(0.0, look=HEAD(PF4, 1.9)), TK(0.0, {'R': R5(off(N
        TK(r(GIVE4 + 0.5), {'R': R5(off(NB4, 180, 0.4, 0.15, 1.25)), 'L': R5(off(NB4, 180, 0.4, -0.1, 1.2))}, d=0.15, keep=True), *blink(r(GIVE4 + 0.6), CALM), *blink(0.9, CALM), *BREATHE(0.3, D4, 0.45)]
 st.shot('S04', 'whiteVoid', setOpts={'color': '#E8E0D0'}, look={'sunDir': [0.3, 0.9, 0.8]},
         actors=[act('prefet', PF4, PRY4, 'stand', 'neutral', keys=kp4), act('voisin3', NB4, 180, 'stand', 'neutral', keys=kn4)],
-        props=[P('palier4', 'moRoom', pos=LD, opts={'w': 5, 'd': 3, 'h': 2.8, 'wall': '#E8D8C0', 'floor': '#B9A58A'}), P('porte4', 'moDoor', pos=DOOR4, opts={'open': [[0, 0], [OPEN4, 0], [r(OPEN4 + 0.3), 0.85]], 'color': '#7A5A3C'}),
+        props=[P('palier4', 'moRoom', pos=LD, opts={'w': 5, 'd': 3, 'h': 2.8, 'wall': '#E8D8C0', 'floor': '#B9A58A', 'doorX': 0.55}), P('interieur4', 'moRoom', pos=add(DOOR4, [0, 0, -1.55]), opts={'w': 3, 'd': 3, 'h': 2.8, 'wall': '#D9E4D0', 'floor': '#A8927A'}), P('porte4', 'moDoor', pos=DOOR4, opts={'open': [[0, 0], [OPEN4, 0], [r(OPEN4 + 0.3), 0.85]], 'color': '#7A5A3C'}),
                P('perceuse4', 'moDrill', pos=DR4, ry=-PRY4 + 90, keys=[k(r(GIVE4 + 0.14), attach='voisin3', hand='R', offset=[0.0, -0.06, 0.08], rot=[0, 1.5708, 0])]),
                DROP('goutte4', 'prefet', 0.3, (0.2, 0.42, 0.12))], cams=[C4])
 st.cue('sfx:bell', 'S04', RING4, 0.3); st.cue('sfx:squeak', 'S04', OPEN4, 0.2); st.cue('sfx:gasp', 'S04', r(GIVE4 + 0.2), 0.2)
@@ -240,9 +240,9 @@ st.cue('sfx:bell', 'S04', RING4, 0.3); st.cue('sfx:squeak', 'S04', OPEN4, 0.2); 
 # 5: a council room, straight benches, a plain coloured panel: instead of a gavel the speaker slowly raises one finger to his lips; the four
 #    councillors on the front bench copy him at once. SILENCE card
 D5 = st.dur('S05'); SH5 = r(st.at('S05', 'L05', 3) - 0.1); COPY5 = r(st.at('S05', 'L05', 7) - 0.15)
-SPK = [-2.2, 0, -1.35]; SRY5 = 30
-CO5 = [[-0.9, 0, -0.15], [-0.05, 0, -0.15], [0.8, 0, -0.15], [1.65, 0, -0.15]]
-C5 = cam(0.0, [-0.2, 1.75, 4.9], [-0.2, 1.75, 4.6], [-0.3, 1.25, -0.6], [-0.3, 1.26, -0.6], lens=46)
+SPK = [-1.75, 0, -1.3]; SRY5 = 30
+CO5 = [[-0.65, 0, -0.15], [0.1, 0, -0.15], [0.85, 0, -0.15], [1.6, 0, -0.15]]
+C5 = cam(0.0, [0.0, 1.8, 5.6], [0.0, 1.8, 5.3], [-0.05, 1.3, -0.6], [-0.05, 1.31, -0.6], lens=48)
 chk('S05', C5, {'spkTop': add(SPK, [0, 2.3, 0]), 'c0': add(CO5[0], [0, 1.6, 0]), 'c3': add(CO5[3], [0.3, 1.6, 0]), 'panel': [0, 3.3, -1.6], 'bench': [2.1, 0.9, 0.6]})
 LIP = lambda p, ry, y=1.68: off(p, ry, 0.33, 0.0, y)
 ks5 = [k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, HANDS(SPK, SRY5, 0.4, 0.25, 1.08, 0.4, -0.25, 1.08), {'R': 'rest', 'L': 'rest'}, GRAVE, d=0.0),
@@ -257,17 +257,17 @@ for i, p in enumerate(CO5):
     cs5.append(act(f'conseiller{i + 1}', p, 0, 'sit', 'neutral', keys=ks))
 st.shot('S05', 'whiteVoid', setOpts={'color': '#E8DCC8'}, look={'sunDir': [0.3, 0.9, 0.8]},
         actors=[act('orateur', SPK, SRY5, 'stand', 'neutral', keys=ks5), *cs5],
-        props=[P('salle5', 'moRoom', pos=[0, 0, -0.5], opts={'w': 8, 'd': 3.4, 'h': 3.8, 'wall': '#E8DCC8', 'floor': '#9C7B58'}), P('banc5', 'moCouncil', pos=[0.3, 0, 0], opts={'lecternX': -2.5, 'panel': '#3E6A9A'})], cams=[C5])
+        props=[P('salle5', 'moRoom', pos=[0, 0, -0.5], opts={'w': 8, 'd': 3.4, 'h': 3.8, 'wall': '#E8DCC8', 'floor': '#9C7B58'}), P('banc5', 'moCouncil', pos=[0.45, 0, 0], opts={'lecternX': -2.2, 'panel': '#3E6A9A'})], cams=[C5])
 st.cue('sfx:ticks', 'S05', 0.2, 0.15); st.card('S05', 'SILENCE', at=st.at('S05', 'L05', 7))
 
 # ================================================================= S06
 # 6: a street: a fire engine glides past, its roof siren wrapped in a big knitted striped tea cosy; two firemen ride its side step, finger to lips,
 #    mouthing « pin-pon »
 D6 = st.dur('S06'); PIN6 = r(st.at('S06', 'L06', 3) - 0.05)
-T0, T1 = [-3.6, 0, -0.6], [0.6, 0, -0.6]
+T0, T1 = [-1.6, 0, -0.6], [2.4, 0, -0.6]   # the firemen centred on « pin-pon »
 def tr6(t): return lerp3(T0, T1, min(1.0, t / D6))
 FM6 = [[-1.4, 0.55, 0.62], [-0.4, 0.55, 0.62]]   # on the side step, relative to the truck
-C6 = cam(0.0, [0.4, 1.6, 6.4], [0.3, 1.6, 6.1], [0.0, 1.6, -0.5], [0.0, 1.6, -0.5], lens=50)
+C6 = cam(0.0, [0.3, 1.8, 7.9], [0.3, 1.8, 7.6], [0.2, 1.95, -0.4], [0.2, 1.95, -0.4], lens=52)
 chk('S06', C6, {'cosy@pin': add(tr6(PIN6), [1.8, 3.0, 0]), 'fm0@pin': add(tr6(PIN6), [-1.4, 2.6, 1.25]), 'fm1@pin': add(tr6(PIN6), [-0.4, 2.6, 1.25]), 'cab@end': add(T1, [2.6, 1.0, 1.05])})
 fms6 = []
 for i, rel in enumerate(FM6):
@@ -280,7 +280,7 @@ for i, rel in enumerate(FM6):
 st.shot('S06', 'whiteVoid', setOpts={'color': SKY}, look={'sunDir': [0.4, 0.9, 0.8]},
         actors=fms6,
         props=[P('sol6', 'moGround', pos=[0, 0, 0], opts={'kerb': 1.2}), P('facade6', 'moFacade', pos=[0, 0, -3.4], opts={'w': 16, 'color': '#F2DCCB'}),
-               P('camion6', 'moFireTruck', pos=T0, opts={'speed': r(4.2 / D6)}, keys=[k(0.0, to=T1, dur=D6, ease='linear')])], cams=[C6])
+               P('camion6', 'moFireTruck', pos=T0, opts={'speed': r(4.0 / D6)}, keys=[k(0.0, to=T1, dur=D6, ease='linear')])], cams=[C6])
 st.cue('sfx:whistle', 'S06', PIN6, 0.08); st.cue('engine', 'S06', 0.0, 0.1)
 
 # ================================================================= S07
@@ -309,19 +309,19 @@ st.cue('sfx:stepSoft', 'S07', 0.3, 0.15); st.cue('sfx:stepSoft', 'S07', 1.2, 0.1
 #    the dome fogs up opaque white on each crow; the farmer gives one satisfied nod
 D8 = st.dur('S08'); DOWN8 = 0.42; CROW8 = [0.7, 1.15]
 POST = [0.0, 0, 0.0]; ROO = [0.0, 1.0, 0.0]; FA8 = [0.85, 0, -0.5]; FRY8 = -60
-DOME0, DOME1 = add(ROO, [0.15, 1.1, 0.1]), add(ROO, [0, 0.0, 0])
-C8 = cam(0.0, [0.3, 1.45, 3.0], [0.28, 1.45, 2.8], [0.25, 1.45, -0.2], [0.25, 1.46, -0.2], lens=46)
+DOME0, DOME1 = add(ROO, [0.15, 1.2, 0.1]), add(ROO, [0, 0.0, 0])
+C8 = cam(0.0, [0.25, 1.6, 3.5], [0.23, 1.6, 3.3], [0.3, 1.6, -0.2], [0.3, 1.61, -0.2], lens=46)
 chk('S08', C8, {'domeTop@end': add(ROO, [0, 0.75, 0]), 'rooster': add(ROO, [0, 0.4, 0]), 'farmer': add(FA8, [0, 2.15, 0]), 'post': [0, 0.3, 0]})
-kf8 = [k(0.0, clip='stand'), k(0.0, look=HEAD(ROO, 1.5)), TK(0.0, {'R': R5(add(DOME0, [-0.32, 0.25, 0])), 'L': R5(add(DOME0, [0.32, 0.25, 0]))}, {'R': 'grip', 'L': 'grip'}, CALM, d=0.0),
-       TK(DOWN8, {'R': R5(add(DOME1, [-0.4, 0.6, 0.05])), 'L': R5(add(DOME1, [0.4, 0.6, 0.05]))}, bend={'spine': SP(0.25)}, d=DOWN8, e='inOut', keep=True),   # down over it...
+kf8 = [k(0.0, clip='stand'), k(0.0, look=HEAD(ROO, 1.5)), TK(0.0, {'R': R5(add(DOME0, [-0.4, 0.35, 0])), 'L': R5(add(DOME0, [0.4, 0.35, 0]))}, {'R': 'grip', 'L': 'grip'}, CALM, d=0.0),
+       TK(DOWN8, {'R': R5(add(DOME1, [-0.5, 0.75, 0.05])), 'L': R5(add(DOME1, [0.5, 0.75, 0.05]))}, bend={'spine': SP(0.25)}, d=DOWN8, e='inOut', keep=True),   # down over it...
        TK(r(DOWN8 + 0.05), sq=(1.06, 0.94, 1.06), d=0.05, keep=True), TK(r(DOWN8 + 0.2), {'R': R5(off(FA8, FRY8, 0.25, 0.3, 1.0)), 'L': R5(off(FA8, FRY8, 0.25, -0.3, 1.0))}, {'R': 'rest', 'L': 'rest'}, sq=(1, 1, 1), bend={'spine': SP(0.0)}, d=0.18, keep=True),
        TK(r(CROW8[1] + 0.3), bend={'neck': SP(0.35)}, face=SMUG, d=0.1, keep=True), TK(r(CROW8[1] + 0.45), bend={'neck': SP(0.0)}, d=0.1, keep=True),   # one satisfied nod
        *blink(r(CROW8[0] + 0.1), CALM), *BREATHE(0.6, D8, 0.4)]
 st.shot('S08', 'whiteVoid', setOpts={'color': '#F4A25A'}, look={'sunDir': [-0.6, 0.4, 0.7]},
         actors=[act('fermier', FA8, FRY8, 'stand', 'neutral', keys=kf8)],
         props=[P('pre8', 'moGround', pos=[0, 0, 0], opts={'color': '#8CB060'}), P('grange8', 'moBarn', pos=[-2.6, 0, -4.0], ry=15), P('poteau8', 'moFence', pos=POST, opts={'h': 1.0, 'w': 5}),
-               P('coq8', 'moRooster', pos=ROO, ry=-20, scale=1.35, opts={'crow': CROW8}),
-               P('cloche8', 'moDome', pos=DOME0, opts={'r': 0.55, 'fog': [r(c + 0.08) for c in CROW8]}, keys=[k(0.0, to=DOME1, dur=DOWN8, ease='inOut'), k(DOWN8, squash=[1.08, 0.9, 1.08], dur=0.25)])], cams=[C8])
+               P('coq8', 'moRooster', pos=ROO, ry=-20, scale=1.0, opts={'crow': CROW8}),
+               P('cloche8', 'moDome', pos=DOME0, opts={'r': 0.72, 'fog': [r(c + 0.08) for c in CROW8]}, keys=[k(0.0, to=DOME1, dur=DOWN8, ease='inOut'), k(DOWN8, squash=[1.08, 0.9, 1.08], dur=0.25)])], cams=[C8])
 st.cue('sfx:clink', 'S08', DOWN8, 0.4); [st.cue('sfx:static', 'S08', c, 0.1) for c in CROW8]
 
 # ================================================================= S09
@@ -355,21 +355,21 @@ st.cue('sfx:paper', 'S09', SL9[0], 0.25); st.cue('sfx:paper', 'S09', SL9[1], 0.2
 # 10: a block of flats cut open on three flats, pale dawn blue, a warm lamp in each: both neighbours sleep in their pink earmuffs; in the middle he
 #     sleeps too... then (cut, the bedroom framed exactly as in line 1) he bolts upright the very same way
 D10 = st.dur('S10'); CUT10 = r(st.at('S10', 'L10', 7) - 0.12); UP10 = r(CUT10 + 0.1)
-CW = [0, 0, 0]; BEDS10 = [add(CW, [-2.6 - 0.35, 0.52, 0.15]), add(CW, [-0.35, 0.52, 0.15]), add(CW, [2.6 - 0.35, 0.52, 0.15])]
-C10 = cam(0.0, [0.0, 1.5, 7.4], [0.0, 1.5, 7.0], [0.0, 1.3, -0.3], [0.0, 1.3, -0.3], lens=50)
+FH10 = 2.85; CW = [0, FH10, 0]; BEDS10 = [add(CW, [0.25, FH10 + 0.52, -0.35]), add(CW, [0.25, 0.52, -0.35]), add(CW, [0.25, -FH10 + 0.52, -0.35])]   # three flats one above the other: neighbour, him, neighbour
+C10 = cam(0.0, [0.3, 4.3, 11.6], [0.3, 4.3, 11.1], [0.0, 4.25, -0.3], [0.0, 4.25, -0.3], lens=46)
 B10 = [40.0, 0, 0.0]; C10b = BEDCAM(CUT10, B10)
-chk('S10', C10, {'left': [-3.95, 2.7, 1.1], 'right': [3.95, 2.7, 1.1], 'bottom': [0, -0.2, 1.1], 'hero': add(BEDS10[1], [0, 0.4, -0.6])})
+chk('S10', C10, {'left': [-1.7, 4.2, 1.1], 'right': [1.7, 4.2, 1.1], 'top': [0, 8.55, 1.1], 'bottom': [0, 0, 1.1], 'hero': add(BEDS10[1], [0, 0.4, -0.6])})
 sl10 = []
 for i, (bp, nm) in enumerate([(BEDS10[0], 'voisin1'), (BEDS10[2], 'voisine2')]):
-    ks = [*LIE(0.0, {'lid': 1.0, 'mouth': 'smile', 'brow': 0.2}), *BREATHE(r(0.1 + 0.2 * i), D10, 0.7, 0.03), TK(0.0, {'R': R5(add(bp, [-0.3, 0.15, 0.3])), 'L': R5(add(bp, [0.3, 0.15, 0.3]))}, {'R': 'rest', 'L': 'rest'}, d=0.0, keep=True)]
-    sl10.append(act(nm, bp, 0, 'lieBack', 'neutral', keys=ks))
+    ks = [*LIE(0.0, {'lid': 1.0, 'mouth': 'smile', 'brow': 0.2}), *BREATHE(r(0.1 + 0.2 * i), D10, 0.7, 0.03), TK(0.0, {'R': R5(add(bp, [0.3, 0.15, 0.3])), 'L': R5(add(bp, [0.3, 0.15, -0.3]))}, {'R': 'rest', 'L': 'rest'}, d=0.0, keep=True)]
+    sl10.append(act(nm, bp, 90, 'lieBack', 'neutral', keys=ks))
 kh10 = [*LIE(0.0), *BREATHE(0.1, CUT10, 0.7, 0.03), k(CUT10, to=BEDPOS(B10), dur=0.01, clip='lieBack', face='keep'), BEDHANDS(B10, r(CUT10 + 0.02)), *SITUP(UP10),
         TK(r(UP10 + 0.3), {'R': R5(add(BEDPOS(B10), [-0.35, 0.35, 0.3])), 'L': R5(add(BEDPOS(B10), [0.35, 0.35, 0.3]))}, {'R': 'spread', 'L': 'spread'}, d=0.1, keep=True),
         *LOOKAROUND(r(UP10 + 0.45), B10, 3, 0.33), k(r(UP10 + 1.45), look='camera', lookDur=0.15), *blink(r(UP10 + 1.2), WIDE), *BREATHE(r(UP10 + 0.4), D10, 0.35)]
 st.shot('S10', 'whiteVoid', setOpts={'color': DAWN}, look={'sunDir': [0.3, 0.8, 0.8]},
-        actors=[*sl10, act('mecPyj', BEDS10[1], 0, 'lieBack', 'neutral', keys=kh10)],
-        props=[P('coupe10', 'moCutaway', pos=CW), P('couettes10', 'moDuvet', pos=add(CW, [-2.95, 0.6, 0.1]), opts={'w': 1.1, 'l': 1.0, 'color': '#C8A0C8'}), P('couettes10b', 'moDuvet', pos=add(CW, [2.25, 0.6, 0.1]), opts={'w': 1.1, 'l': 1.0, 'color': '#A8C890'}),
-               P('couettes10c', 'moDuvet', pos=add(CW, [-0.35, 0.6, 0.1]), opts={'w': 1.1, 'l': 1.0}),
+        actors=[*sl10, act('mecPyj', BEDS10[1], 90, 'lieBack', 'neutral', keys=kh10 + [k(CUT10, face=0, turn=0.01)])],
+        props=[P('coupe10', 'moCutaway', pos=CW), P('couettes10', 'moDuvet', pos=add(CW, [0.3, FH10 + 0.6, -0.35]), ry=90, opts={'w': 1.0, 'l': 0.9, 'color': '#C8A0C8'}), P('couettes10b', 'moDuvet', pos=add(CW, [0.3, -FH10 + 0.6, -0.35]), ry=90, opts={'w': 1.0, 'l': 0.9, 'color': '#A8C890'}),
+               P('couettes10c', 'moDuvet', pos=add(CW, [0.3, 0.6, -0.35]), ry=90, opts={'w': 1.0, 'l': 0.9}, keys=[k(CUT10, visible=False)]),
                *BEDROOM('S10', B10), MUFFS('cacheoreilles10_1', 'voisin1'), MUFFS('cacheoreilles10_2', 'voisine2')], cams=[C10, C10b])
 st.cue('engine', 'S10', r(CUT10 - 0.3), 0.2); st.cue('sfx:spring', 'S10', UP10, 0.3)
 
@@ -377,11 +377,11 @@ st.cue('engine', 'S10', r(CUT10 - 0.3), 0.2); st.cue('sfx:spring', 'S10', UP10, 
 # 11: a rooftop ridge, a big cat and a big pigeon in the foreground, his building behind: one rumbling snore rolls in; a TV aerial and a row of shutters
 #     rattle, and the cat's and the pigeon's heads turn together toward the building
 D11 = st.dur('S11'); SN11 = 0.35; TURN11 = r(st.at('S11', 'L11', 5) - 0.25)
-RF = [0, 0, 0]; CAT = [-0.35, 0.06, 0.0]; PIG = [0.45, 0.06, 0.05]
-C11 = cam(0.0, [0.2, 0.75, 2.6], [0.18, 0.76, 2.45], [0.4, 0.95, -1.0], [0.4, 0.96, -1.0], lens=48)
-chk('S11', C11, {'cat': add(CAT, [0, 0.8, 0]), 'pig': add(PIG, [0, 0.55, 0]), 'shut': [2.0, 2.0, -4.0], 'aer': [2.1, 1.4, 0.0]})
+RF = [0, 0, 0]; CAT = [-0.05, 0.06, 0.0]; PIG = [0.7, 0.06, 0.05]
+C11 = cam(0.0, [0.3, 0.85, 3.1], [0.28, 0.86, 2.95], [0.35, 1.25, -1.0], [0.35, 1.26, -1.0], lens=50)
+chk('S11', C11, {'cat': add(CAT, [0, 0.8, 0]), 'pig': add(PIG, [0, 0.55, 0]), 'shut': [2.0, 2.0, -4.0], 'aer': [1.2, 1.4, 0.0]})
 st.shot('S11', 'whiteVoid', setOpts={'color': '#C9DCEC'}, look={'sunDir': [0.3, 0.8, 0.7]}, actors=[],
-        props=[P('toit11', 'moRoof', pos=RF, opts={'len': 6, 'rattle': [r(SN11 + 0.1), r(SN11 + 0.5)]}), P('immeuble11', 'moFacade', pos=[3.6, -3.0, -5.0], ry=-30, opts={'w': 8, 'h': 9, 'lit': True}),
+        props=[P('toit11', 'moRoof', pos=RF, opts={'len': 4.2, 'rattle': [r(SN11 + 0.1), r(SN11 + 0.5)]}), P('immeuble11', 'moFacade', pos=[3.6, -3.0, -5.0], ry=-30, opts={'w': 8, 'h': 9, 'lit': True}),
                P('volets11', 'moShutters', pos=[3.4, 3.0, -4.75], ry=-30, opts={'n': 3, 'rattle': [r(SN11 + 0.15), r(SN11 + 0.55)]}),
                P('chat11', 'moCat', pos=CAT, scale=1.25, opts={'turn': [[0, 0.2], [TURN11, 0.2], [r(TURN11 + 0.18), -1.0]], 'flinch': [SN11]}),
                P('pigeon11', 'moPigeon', pos=PIG, scale=1.3, opts={'turn': [[0, -0.3], [TURN11, -0.3], [r(TURN11 + 0.18), -1.1]], 'flinch': [r(SN11 + 0.05)]})], cams=[C11])
@@ -393,7 +393,7 @@ st.cue('engine', 'S11', SN11, 0.4); st.cue('sfx:rattle', 'S11', r(SN11 + 0.1), 0
 D12 = st.dur('S12'); CUT12 = r(st.at('S12', 'L12', 12) - 0.12); FL12 = r(st.at('S12', 'L12', 11))
 TR12 = [-0.6, 0, 1.6]; WIN12 = [1.2, 3.9, -0.05]; NBW12 = [-0.8, 3.25, 0.3]
 TIP12 = [[0.0, [0.5, 1.8, 0.4]], [0.5, [0.8, 2.8, -0.6]], [r(FL12 - 0.2), [1.85, 4.1, -1.25]], [r(FL12 + 0.2), [1.75, 3.95, -1.3]]]   # truck coordinates: up past the shop floor to the window
-TECH12 = [[-2.2, 0, 2.5], [-1.4, 0, 3.0], [2.4, 0, 2.4]]
+TECH12 = [[-1.15, 0, 3.4], [-0.45, 0, 3.95], [1.45, 0, 3.6]]
 C12 = cam(0.0, [0.3, 1.6, 9.8], [0.3, 1.7, 9.4], [0.2, 2.9, 0.0], [0.2, 2.95, 0.0], lens=50)
 B12 = [40.0, 0, 0.0]; C12b = BEDCAM(CUT12, B12, 0.2)
 chk('S12', C12, {'win': WIN12, 'nbw': add(NBW12, [0, 2.0, 0]), **{f't{i}': add(p, [0, 2.15, 0]) for i, p in enumerate(TECH12)}, 'truck': add(TR12, [2.3, 0.5, 1.0])})
@@ -438,12 +438,14 @@ st.cue('sfx:spring', 'S13', UP13, 0.3)
 # 14: sitting up in bed he scratches his box head; behind him the technicians and the boom mic turn slowly to look at him. A beat, a sweat drop pops and
 #     he slowly points at himself
 D14 = st.dur('S14'); GUILT14 = r(st.at('S14', 'L14', 5) - 0.1)
-B14 = [0, 0, 0]; C14 = cam(0.0, add(B14, [0.55, 1.5, 2.6]), add(B14, [0.5, 1.5, 2.35]), add(B14, [-0.2, 1.45, -0.9]), add(B14, [-0.2, 1.46, -0.9]), lens=48)
-TK14 = [add(B14, [-1.7, 0, -1.2]), add(B14, [1.45, 0, -1.55]), add(B14, [1.85, 0, -0.6])]
+B14 = [0, 0, 0]; C14 = cam(0.0, add(B14, [0.6, 1.6, 3.6]), add(B14, [0.55, 1.6, 3.35]), add(B14, [-0.05, 1.4, -0.9]), add(B14, [-0.05, 1.41, -0.9]), lens=50)
+TK14 = [add(B14, [-1.25, 0, -1.45]), add(B14, [0.5, 0, -1.7]), add(B14, [0.95, 0, -0.95])]
 chk('S14', C14, {'heroTop': add(BEDPOS(B14), [0, 1.6, 0.05]), **{f't{i}': add(p, [0, 2.15, 0]) for i, p in enumerate(TK14)}})
-kh14 = [k(0.0, clip='sitFloor'), k(0.0, look='camera'), TK(0.0, face={'lid': 0.2, 'mouth': 'line', 'brow': 0.6}, d=0.0), k(0.08, clip='scratchHead', blend=0.12),
+HP14 = BEDPOS(B14)
+kh14 = [k(0.0, clip='sitFloor'), k(0.0, look='camera'), TK(0.0, {'R': R5(add(HP14, [-0.3, 0.12, 0.35])), 'L': R5(add(HP14, [0.3, 0.12, 0.35]))}, {'R': 'rest', 'L': 'rest'}, {'lid': 0.2, 'mouth': 'line', 'brow': 0.6}, d=0.0),
+        *[TK(r(0.1 + 0.12 * j), {'R': R5(add(HP14, [-0.12 + (0.05 if j % 2 else 0.0), 1.3 + (0.04 if j % 2 else 0.0), -0.02]))}, {'R': 'claw'}, d=0.1, keep=True) for j in range(int((GUILT14 - 0.25) / 0.12))],   # scratching his box head
         TK(r(GUILT14 - 0.2), face={'lid': 0.15, 'mouth': 'line', 'brow': 0.7}, d=0.15, keep=True),
-        k(GUILT14, clip='pointSelf', blend=0.25), TK(GUILT14, face={'lid': 0.0, 'mouth': 'O', 'brow': 1.0}, sq=(0.9, 1.1, 0.9), d=0.05, e='out', keep=True), TK(r(GUILT14 + 0.15), face={'lid': 0.1, 'mouth': 'line', 'brow': 0.9}, sq=(1, 1, 1), d=0.12, keep=True),
+        TK(r(GUILT14 + 0.05), {'R': R5(add(HP14, [-0.05, 1.25, 0.32]))}, {'R': 'point'}, d=0.35, keep=True),   # slowly, the finger on himself TK(GUILT14, face={'lid': 0.0, 'mouth': 'O', 'brow': 1.0}, sq=(0.9, 1.1, 0.9), d=0.05, e='out', keep=True), TK(r(GUILT14 + 0.15), face={'lid': 0.1, 'mouth': 'line', 'brow': 0.9}, sq=(1, 1, 1), d=0.12, keep=True),
         *blink(0.6, CALM), *BREATHE(0.2, D14, 0.4)]
 tks14 = []
 for i, p in enumerate(TK14):
@@ -461,7 +463,7 @@ st.cue('sfx:pop', 'S14', r(GUILT14 - 0.05), 0.2)
 # ================================================================= S15
 # 15: the landing in bright morning light: he opens his front door; one sheet is taped on it at eye level: « CERTAINS SE RECONNAÎTRONT. »
 D15 = st.dur('S15'); OPEN15 = 0.25; SEE15 = r(st.at('S15', 'L15', 6) - 0.05)
-LD15 = [0, 0, 0]; DOOR15 = add(LD15, [0.0, 0, -1.4]); HI15, HO15 = add(DOOR15, [0.05, 0, -0.55]), add(DOOR15, [0.3, 0, 0.35])
+LD15 = [0, 0, 0]; DOOR15 = add(LD15, [0.0, 0, -1.5]); HI15, HO15 = add(DOOR15, [0.05, 0, -0.55]), add(DOOR15, [0.3, 0, 0.35])
 C15 = cam(0.0, add(LD15, [0.9, 1.6, 2.6]), add(LD15, [0.85, 1.6, 2.4]), add(LD15, [0.05, 1.5, -1.3]), add(LD15, [0.05, 1.5, -1.3]), lens=46)
 chk('S15', C15, {'note': add(DOOR15, [0, 1.62, 0.05]), 'heroTop': add(HO15, [0, 2.35, 0]), 'door': add(DOOR15, [0, 2.2, 0])})
 kh15 = [k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, face={'lid': 0.35, 'mouth': 'line', 'brow': 0.1}, d=0.0),
@@ -471,7 +473,7 @@ kh15 = [k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, face={'lid': 0.35, 
         k(r(SEE15 + 0.4), look='camera', lookDur=0.2), *blink(r(SEE15 + 0.3), {'lid': 0.1, 'mouth': 'line', 'brow': 0.8}), *BREATHE(r(SEE15 + 0.2), D15, 0.4)]
 st.shot('S15', 'whiteVoid', setOpts={'color': '#F2EADA'}, look={'sunDir': [0.5, 0.9, 0.7]},
         actors=[act('mecPyj', HI15, 0, 'stand', 'neutral', keys=kh15)],
-        props=[P('palier15', 'moRoom', pos=LD15, opts={'w': 5, 'd': 3, 'h': 2.8, 'wall': '#F2E2C8', 'floor': '#B9A58A'}), P('porte15', 'moDoor', pos=DOOR15, opts={'open': [[0, 0], [OPEN15, 0], [r(OPEN15 + 0.35), 0.38]], 'note': True}),
+        props=[P('palier15', 'moRoom', pos=LD15, opts={'w': 5, 'd': 3, 'h': 2.8, 'wall': '#F2E2C8', 'floor': '#B9A58A', 'doorX': 0.0}), P('porte15', 'moDoor', pos=DOOR15, opts={'open': [[0, 0], [OPEN15, 0], [r(OPEN15 + 0.35), 0.38]], 'note': True}),
                P('interieur15', 'moRoom', pos=add(DOOR15, [0, 0, -1.6]), opts={'w': 3, 'd': 3, 'h': 2.8, 'wall': '#D9E4F0', 'floor': '#A8927A'})], cams=[C15])
 st.cue('sfx:squeak', 'S15', OPEN15, 0.25); st.cue('sfx:gasp', 'S15', SEE15, 0.15)
 
@@ -479,7 +481,7 @@ st.cue('sfx:squeak', 'S15', OPEN15, 0.25); st.cue('sfx:gasp', 'S15', SEE15, 0.15
 # 16: wider, the same landing: door, walls, stairs and ceiling papered with identical notes; more slide down the stairwell like an avalanche round his
 #     slippers; on top of the paper heap, big and tilted toward the camera, a pair of bright pink earmuffs with a bow. A deadpan beat
 D16 = st.dur('S16'); AV16 = 0.1; GIFT16 = 1.45
-LD16 = [0, 0, 0]; DOOR16 = add(LD16, [-0.6, 0, -1.45]); H16 = add(DOOR16, [0.3, 0, 0.35]); STAIR16 = add(LD16, [1.4, 0, -0.2]); HEAP16 = add(LD16, [0.45, 0, -0.35])
+LD16 = [0, 0, 0]; DOOR16 = add(LD16, [-0.6, 0, -1.6]); H16 = add(DOOR16, [0.3, 0, 0.35]); STAIR16 = add(LD16, [1.4, 0, -0.2]); HEAP16 = add(LD16, [0.45, 0, -0.35])
 C16 = cam(0.0, add(LD16, [0.3, 1.7, 4.4]), add(LD16, [0.25, 1.65, 3.9]), add(LD16, [0.0, 1.35, -1.0]), add(LD16, [0.05, 1.3, -0.8]), lens=48, ease='inOut')
 chk('S16', C16, {'ceiling': add(LD16, [0, 3.0, -1.0]), 'heroTop': add(H16, [0, 2.35, 0]), 'gift': add(HEAP16, [0, 0.55, 0.2]), 'stairTop': add(STAIR16, [0, 1.6, -2.0])})
 kh16 = [k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, face={'lid': 0.1, 'mouth': 'line', 'brow': 0.8}, d=0.0), k(0.15, look=HEAD(add(STAIR16, [0, 0, -1.5]), 2.2), lookDur=0.15),

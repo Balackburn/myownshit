@@ -42,11 +42,14 @@ function FLUFF(r, col = '#FF5FA8') { const g = grp(), core = new THREE.Mesh(new 
 
 export const MOT_PROPS = {
   // A plain room (pivot at the middle of its floor; back wall at z = -o.d/2, open toward +Z): floor, back and side walls, a skirting board;
-  // o.window { x, y, w, h, sky }: a window in the back wall showing a flat sky colour (pale dawn blue by default)
+  // o.window { x, y, w, h, sky }: a window in the back wall showing a flat sky colour (pale dawn blue by default); o.doorX: a doorway in it
   moRoom(o) {
     const W = o.w ?? 6, D = o.d ?? 5, H = o.h ?? 3, WC = o.wall || '#D9E4F0', g = grp(), bz = -D / 2;
     const fl = new THREE.Mesh(new THREE.PlaneGeometry(W, D), mat(o.floor || '#B9A58A')); fl.rotation.x = -PI / 2; fl.position.y = 0.025; fl.receiveShadow = true; g.add(fl);
-    g.add(at(box(W, H, 0.12, WC, { pivot: 'bottom' }), 0, 0, bz - 0.06), at(box(0.12, H, D, WC, { pivot: 'bottom' }), -W / 2, 0, 0), at(box(0.12, H, D, WC, { pivot: 'bottom' }), W / 2, 0, 0));
+    if (o.doorX != null) { const dx = o.doorX, a0 = dx - 0.55, a1 = dx + 0.55;   // o.doorX: an opening 1.1 x 2.2 m in the back wall (a door goes in it)
+      g.add(at(box(a0 + W / 2, H, 0.12, WC, { pivot: 'bottom' }), (a0 - W / 2) / 2, 0, bz - 0.06), at(box(W / 2 - a1, H, 0.12, WC, { pivot: 'bottom' }), (a1 + W / 2) / 2, 0, bz - 0.06), at(box(1.1, H - 2.2, 0.12, WC, { pivot: 'bottom' }), dx, 2.2, bz - 0.06)); }
+    else g.add(at(box(W, H, 0.12, WC, { pivot: 'bottom' }), 0, 0, bz - 0.06));
+    g.add(at(box(0.12, H, D, WC, { pivot: 'bottom' }), -W / 2, 0, 0), at(box(0.12, H, D, WC, { pivot: 'bottom' }), W / 2, 0, 0));
     g.add(at(box(W, 0.12, 0.03, o.trim || '#F4EEE2'), 0, 0.06, bz + 0.015));
     if (o.window) { const q = o.window, ww = q.w ?? 1.2, wh = q.h ?? 1.2, wx = q.x ?? 0, wy = q.y ?? 1.6;
       g.add(at(box(ww, wh, 0.02, q.sky || '#BFD8EE', { emissive: q.glow || '#5A7A9A', noGrain: true }), wx, wy, bz + 0.005));
@@ -125,14 +128,15 @@ export const MOT_PROPS = {
   moDrill(o) { return grp(at(box(0.34, 0.14, 0.11, '#F07A1E', { outline: 0.02 }), 0.08, 0.13, 0), at(box(0.09, 0.2, 0.09, '#F07A1E', { outline: 0.02 }), 0, 0, 0), at(box(0.14, 0.08, 0.13, '#2A2C31', { outline: 0.02 }), 0, -0.13, 0),
     at(cyl(0.04, 0.035, 0.08, '#2A2C31', 10), 0.29, 0.13, 0, 0, 0, PI / 2), at(cyl(0.012, 0.008, 0.16, '#C9CED4', 6), 0.41, 0.13, 0, 0, 0, PI / 2), at(box(0.05, 0.04, 0.02, '#2A2C31'), 0.04, 0.06, 0.05)); },
   // A flat front door in its frame on a landing wall (pivot at the floor in the middle, faces +Z): o.color leaf, a knob, a bell button beside it; o.open
-  // [[t, 0..1]]: it swings inward (away from +Z) hinged at its left; o.note: the note taped on its outer face at eye level
+  // [[t, 0..1]]: it swings inward (away from +Z) hinged at its left; o.note: the note taped on its outer face at eye level; the doorway is open
+  // (put a room behind it)
   moDoor(o) { const W = 0.95, H = 2.1, g = grp(), C = o.color || '#2F5E8C';
     g.add(at(box(0.1, H + 0.1, 0.14, '#F2EDE2', { outline: 0.006 }), -W / 2 - 0.05, (H + 0.1) / 2, 0), at(box(0.1, H + 0.1, 0.14, '#F2EDE2', { outline: 0.006 }), W / 2 + 0.05, (H + 0.1) / 2, 0), at(box(W + 0.2, 0.1, 0.14, '#F2EDE2', { outline: 0.006 }), 0, H + 0.05, 0));
-    g.add(at(box(W, H, 0.02, '#2A2C31'), 0, H / 2, -0.06), at(box(0.06, 0.1, 0.03, '#E8E2D2', { outline: 0.03 }), W / 2 + 0.25, 1.4, 0.03), at(cyl(0.018, 0.018, 0.02, '#C8322A', 8), W / 2 + 0.25, 1.42, 0.05, PI / 2, 0, 0));
+    g.add(at(box(0.06, 0.1, 0.03, '#E8E2D2', { outline: 0.03 }), W / 2 + 0.25, 1.4, 0.03), at(cyl(0.018, 0.018, 0.02, '#C8322A', 8), W / 2 + 0.25, 1.42, 0.05, PI / 2, 0, 0));
     const lf = grp(); lf.position.set(-W / 2, 0, 0); g.add(lf); lf.add(at(box(W, H, 0.05, C, { outline: 0.006 }), W / 2, H / 2, 0), at(sphere(0.035, '#E3C56A', 1), W - 0.1, 1.0, 0.04));
     for (const y of [0.55, 1.5]) lf.add(at(box(W - 0.2, 0.7, 0.01, C === '#2F5E8C' ? '#2A5480' : '#5A3E28'), W / 2, y, 0.03));
     if (o.note) { const n = canvasPlane(0.4, 0.29, paintNote, { res: 512 }); n.position.set(W / 2, 1.62, 0.04); lf.add(n); }
-    g.userData.update = t => { lf.rotation.y = -1.6 * kv(o.open, t, 0); }; g.userData.update(0); return g; },
+    g.userData.update = t => { lf.rotation.y = 1.6 * kv(o.open, t, 0); }; g.userData.update(0); return g; },
   // A council room front bench and lectern (pivot at the floor in the middle, faces +Z): a straight wooden bench with a desk front in a row, a plain
   // coloured hanging panel behind (no word, no emblem), a lectern at o.lecternX
   moCouncil(o) { const g = grp(at(box(4.2, 0.85, 0.5, '#8A6A45', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0.6), at(box(4.3, 0.06, 0.6, '#6A4A30', { outline: 0.01 }), 0, 0.88, 0.6), at(box(4.0, 0.45, 0.45, '#7A5A3C', { pivot: 'bottom' }), 0, 0, -0.1), at(box(4.0, 0.6, 0.08, '#6A4A30', { pivot: 'bottom' }), 0, 0.45, -0.32));
@@ -194,16 +198,16 @@ export const MOT_PROPS = {
   moCafeFront(o) { const w = o.w ?? 7, g = grp(at(box(w, 3.4, 0.3, '#E8D8B8', { pivot: 'bottom', outline: 0.005 }), 0, 0, -0.15));
     for (let i = 0; i < 12; i++) g.add(at(box(w / 12, 0.08, 1.1, i % 2 ? '#F4F1EA' : '#2E6A4A', { outline: 0.006 }), -w / 2 + (i + 0.5) * w / 12, 2.75, 0.45, -0.35, 0, 0));
     g.add(at(box(2.4, 1.6, 0.04, '#9FC6D8', { emissive: '#3E6A7A' }), -1.6, 1.3, 0.02), at(box(2.4, 1.6, 0.04, '#9FC6D8', { emissive: '#3E6A7A' }), 1.6, 1.3, 0.02), at(box(1.0, 2.2, 0.04, '#5A3E28', { outline: 0.006 }), 0, 1.1, 0.02)); return g; },
-  // A block of flats cut open on three flats side by side (pivot at the floor of the middle flat, faces +Z): three rooms 2.6 m wide with pale dawn walls,
-  // floors and slabs, a warm wall lamp and a dawn window in each, a bed in each (head at -Z); outer walls and a roof edge; no number
-  moCutaway(o) { const g = grp(), RW = 2.6, H = 2.6, D = 2.2, WC = o.walls || ['#CFDCEA', '#D9E4F0', '#D2DEEC'];
-    for (let i = -1; i <= 1; i++) { const x = i * RW;
-      g.add(at(box(RW, H, 0.1, WC[i + 1], { pivot: 'bottom' }), x, 0, -D / 2), at(box(RW, 0.08, D, '#B9A58A'), x, 0.0, 0), at(box(RW + 0.02, 0.25, D, '#B9AE9A', { outline: 0.004 }), x, H + 0.12, 0), at(box(RW + 0.02, 0.25, D, '#B9AE9A', { outline: 0.004 }), x, -0.12, 0));
-      g.add(at(box(0.8, 0.8, 0.02, '#CFE0F0', { emissive: '#6A88A8', noGrain: true }), x + 0.6, 1.6, -D / 2 + 0.06), at(box(0.9, 0.06, 0.05, '#F4EEE2'), x + 0.6, 2.03, -D / 2 + 0.08), at(box(0.9, 0.06, 0.05, '#F4EEE2'), x + 0.6, 1.17, -D / 2 + 0.08));
-      g.add(at(box(0.18, 0.12, 0.1, '#FFE0A0', { emissive: '#E8A040', noGrain: true }), x - 0.85, 1.9, -D / 2 + 0.1));   // the warm lamp
-      if (o.beds !== false) { const B = grp(at(box(1.1, 0.28, 1.9, '#5A3E28', { pivot: 'bottom' }), 0, 0.1, 0), at(box(1.0, 0.22, 1.8, '#F4F1EA'), 0, 0.48, 0), at(box(0.6, 0.12, 0.32, '#FBF8EE', { taper: 0.85 }), 0, 0.64, -0.68), at(box(1.14, 0.9, 0.08, '#5A3E28', { pivot: 'bottom', outline: 0.01 }), 0, 0, -0.98)); B.position.set(x - 0.35, 0, -0.05); g.add(B); } }
-    for (const sx of [-1, 1]) g.add(at(box(0.18, H + 0.5, D + 0.1, '#CFC6B4', { pivot: 'bottom', outline: 0.005 }), sx * (1.5 * RW + 0.09), -0.25, 0));
-    for (const sx of [-0.5, 0.5]) g.add(at(box(0.12, H, D, '#C4B9A6', { pivot: 'bottom' }), sx * RW, 0, 0));
+  // A block of flats cut open on three flats stacked one above the other (pivot at the floor of the middle flat, faces +Z): three rooms o.rw wide with
+  // pale dawn walls, floors and slabs, a warm wall lamp and a dawn window in each, a bed in each, side on (head at -X); outer walls; no number
+  moCutaway(o) { const g = grp(), RW = o.rw ?? 3.2, H = 2.6, D = 2.2, FH = H + 0.25, WC = o.walls || ['#CFDCEA', '#D9E4F0', '#D2DEEC'];
+    for (let i = -1; i <= 1; i++) { const y = i * FH;
+      g.add(at(box(RW, H, 0.1, WC[i + 1], { pivot: 'bottom' }), 0, y, -D / 2), at(box(RW + 0.02, 0.25, D, '#B9AE9A', { outline: 0.004 }), 0, y - 0.125, 0));
+      g.add(at(box(0.8, 0.8, 0.02, '#CFE0F0', { emissive: '#6A88A8', noGrain: true }), 0.75, y + 1.6, -D / 2 + 0.06), at(box(0.9, 0.06, 0.05, '#F4EEE2'), 0.75, y + 2.03, -D / 2 + 0.08), at(box(0.9, 0.06, 0.05, '#F4EEE2'), 0.75, y + 1.17, -D / 2 + 0.08));
+      g.add(at(box(0.18, 0.12, 0.1, '#FFE0A0', { emissive: '#E8A040', noGrain: true }), -1.15, y + 1.9, -D / 2 + 0.1));   // the warm lamp
+      if (o.beds !== false) { const B = grp(at(box(1.1, 0.28, 1.9, '#5A3E28', { pivot: 'bottom' }), 0, 0.1, 0), at(box(1.0, 0.22, 1.8, '#F4F1EA'), 0, 0.48, 0), at(box(0.6, 0.12, 0.32, '#FBF8EE', { taper: 0.85 }), 0, 0.64, -0.68), at(box(1.14, 0.9, 0.08, '#5A3E28', { pivot: 'bottom', outline: 0.01 }), 0, 0, -0.98)); B.position.set(0.0, y, -0.35); B.rotation.y = PI / 2; g.add(B); } }   // side on: the sleeper reads in profile
+    g.add(at(box(RW + 0.04, 0.25, D, '#B9AE9A', { outline: 0.004 }), 0, 2 * FH - 0.125, 0));
+    for (const sx of [-1, 1]) g.add(at(box(0.18, 3 * FH + 0.25, D + 0.1, '#CFC6B4', { pivot: 'bottom', outline: 0.005 }), sx * (RW / 2 + 0.09), -FH - 0.25, 0));
     return g; },
   // A rooftop ridge (pivot at the ridge's middle, ridge along X at y = 0): two tiled slopes going down, a chimney; o.aerial: a TV aerial on a mast that
   // rattles at o.rattle [t, ...]
@@ -257,7 +261,9 @@ export const MOT_PROPS = {
   // A landing papered with notes (pivot at the floor in the middle, faces +Z): a back wall o.w x o.h, side walls, a ceiling, all tiled with copies of the
   // note at slight angles (the wall seen through gaps), and a stair flight going up at the right, its steps covered too
   moPapered(o) { const W = o.w ?? 4.5, H = o.h ?? 3, D = o.d ?? 3, g = grp(), CW = '#E8E0D0';
-    g.add(at(box(W, H, 0.1, CW, { pivot: 'bottom' }), 0, 0, -D / 2), at(box(0.1, H, D, CW, { pivot: 'bottom' }), -W / 2, 0, 0), at(box(0.1, H, D, CW, { pivot: 'bottom' }), W / 2, 0, 0), at(box(W, 0.1, D, CW), 0, H, 0));
+    if (o.doorX != null) { const a0 = o.doorX - 0.55, a1 = o.doorX + 0.55; g.add(at(box(a0 + W / 2, H, 0.1, CW, { pivot: 'bottom' }), (a0 - W / 2) / 2, 0, -D / 2), at(box(W / 2 - a1, H, 0.1, CW, { pivot: 'bottom' }), (a1 + W / 2) / 2, 0, -D / 2), at(box(1.1, H - 2.2, 0.1, CW, { pivot: 'bottom' }), o.doorX, 2.2, -D / 2)); }
+    else g.add(at(box(W, H, 0.1, CW, { pivot: 'bottom' }), 0, 0, -D / 2));
+    g.add(at(box(0.1, H, D, CW, { pivot: 'bottom' }), -W / 2, 0, 0), at(box(0.1, H, D, CW, { pivot: 'bottom' }), W / 2, 0, 0), at(box(W, 0.1, D, CW), 0, H, 0));
     const tex = canvasPlane(0.42, 0.3, paintNote, { res: 256 }), geo = tex.geometry, m_ = tex.material;
     const put = (x, y, z, ry, rx, i) => { const n = new THREE.Mesh(geo, m_); n.position.set(x, y, z); n.rotation.set(rx, ry, 0.15 * (hsh(i) - 0.5)); g.add(n); };
     let i = 0; for (let y = 0.2; y < H; y += 0.27) for (let x = -W / 2 + 0.25; x < W / 2; x += 0.38) { if (o.doorX != null && Math.abs(x - o.doorX) < 0.55 && y < 2.2) continue; put(x + 0.04 * (hsh(i) - 0.5), y, -D / 2 + 0.06 + 0.002 * (i % 3), 0, 0, i++); }
