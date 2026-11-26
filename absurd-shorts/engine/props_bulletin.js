@@ -80,14 +80,20 @@ export const BULLETIN_PROPS = {
     g.add(at(sphere(0.07, C, 1, { outline: 0.02 }), 0.25, -0.2, 0.05));
     g.userData.update = t => { const a = 0.18 * Math.sin(t * 14); nl[0].rotation.z = a; nr[0].rotation.z = -a; piece.position.y = -0.06 - 0.01 * Math.abs(Math.sin(t * 7)); }; g.userData.update(0); return g;
   },
-  // The orange scarf (pivot at its start, in the world): a knitted band o.w (0.16) wide along the polyline o.pts [[x, y, z], ...] (world offsets from
-  // the pivot), with a rib texture; o.grow [[t, share]]: how much of it is there
+  // The orange scarf (pivot at its start, in the world): ONE continuous knitted band along a smooth curve through o.pts [[x, y, z], ...] (world offsets
+  // from the pivot), o.w (0.16) wide, a red-orange quite unlike her mustard twin-set, with dark ribs across it and a fringe at its end; o.grow [[t, share]]
   buScarf(o) {
-    const pts = (o.pts || [[0, 0, 0], [0, -0.5, 0.2]]).map(p => new THREE.Vector3(...p)), W = o.w ?? 0.16, g = grp(), segs = [];
-    const tex = canvasPlane(1, 1, (c, w, h) => { c.fillStyle = '#F07A1E'; c.fillRect(0, 0, w, h); c.strokeStyle = '#D0601A'; c.lineWidth = w * 0.03; for (let i = 0; i < 8; i++) { c.beginPath(); c.moveTo(0, (i + 0.5) * h / 8); c.lineTo(w, (i + 0.5) * h / 8); c.stroke(); } }, { res: 64 }).material;
-    for (let i = 0; i < pts.length - 1; i++) { const a = pts[i], b = pts[i + 1], d = b.clone().sub(a), L = d.length(); const m = new THREE.Mesh(new THREE.CapsuleGeometry(0.035, Math.max(0.001, L - 0.07), 3, 8), tex); m.geometry.rotateX(PI / 2); m.scale.set(W / 0.07, 1, 1); m.position.copy(a).addScaledVector(d, 0.5); m.lookAt(b.clone().add(g.position)); m.lookAt(b); addOutline(m, 0.01); g.add(m); segs.push({ m, L }); }
-    const tot = segs.reduce((s, x) => s + x.L, 0);
-    g.userData.update = t => { const sh = o.grow ? kv(o.grow, t) : 1; let acc = 0; for (const s of segs) { s.m.visible = acc < sh * tot; acc += s.L; } }; g.userData.update(0); return g;
+    const pts = (o.pts || [[0, 0, 0], [0, -0.5, 0.2]]).map(p => new THREE.Vector3(...p)), W = o.w ?? 0.16, g = grp();
+    const curve = new THREE.CatmullRomCurve3(pts, false, 'centripetal'), L = curve.getLength(), N = Math.max(8, Math.ceil(L / 0.03)), R = W * 0.32;
+    const tm = canvasPlane(1, 1, (c, w, h) => { c.fillStyle = '#E4521C'; c.fillRect(0, 0, w, h); c.fillStyle = '#A8340E'; c.fillRect(0, 0, w * 0.22, h); c.fillStyle = '#F07A3A'; c.fillRect(w * 0.5, 0, w * 0.12, h); }, { res: 64 }).material.clone();
+    if (tm.map) { tm.map = tm.map.clone(); tm.map.wrapS = THREE.RepeatWrapping; tm.map.repeat.set(L / 0.045, 1); tm.map.needsUpdate = true; }
+    const band = new THREE.Mesh(new THREE.TubeGeometry(curve, N, R, 8, false), tm); band.scale.set(1, 1, 1); g.add(band);
+    const ink = new THREE.Mesh(new THREE.TubeGeometry(curve, N, R + 0.009, 8, false), new THREE.MeshBasicMaterial({ color: '#1A1410', side: THREE.BackSide })); g.add(ink);
+    const end = curve.getPointAt(1), tg = curve.getTangentAt(1), fr = grp(); fr.position.copy(end); fr.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), tg);
+    for (let k = 0; k < 7; k++) { const a = k / 7 * TAU; fr.add(at(cyl(0.008, 0.006, 0.09, '#E4521C', 4, { pivot: 'bottom' }), Math.cos(a) * R * 0.8, 0, Math.sin(a) * R * 0.8, Math.sin(a) * 0.25, 0, -Math.cos(a) * 0.25)); }
+    g.add(fr);   // the fringe, splayed at the end
+    const cnt = band.geometry.index.count, per = 8 * 6;
+    g.userData.update = t => { const sh = o.grow ? kv(o.grow, t) : 1, n = Math.floor(sh * N) * per; band.geometry.setDrawRange(0, n); ink.geometry.setDrawRange(0, n); fr.visible = sh > 0.98; }; g.userData.update(0); return g;
   },
   // Short white curly perm (attach to the head: pivot at the crown's base): a cap of small white curls
   buPerm(o) { const g = grp(), S = o.s ?? 1; for (let i = 0; i < 26; i++) { const a = hsh(i) * TAU, b = hsh(i + 9) * PI * 0.45; g.add(at(sphere(0.055 * S, '#F4F2EC', 1, { outline: 0.02 }), Math.cos(a) * Math.cos(b) * 0.15 * S, Math.sin(b) * 0.1 * S, Math.sin(a) * Math.cos(b) * 0.13 * S)); } return g; },
@@ -185,7 +191,8 @@ export const BULLETIN_PROPS = {
   buBinders(o) { const g = grp(), n = o.n ?? 10, cols = ['#7A7E84', '#C8BCA0']; for (let i = 0; i < n; i++) g.add(at(box(0.38, 0.035, 0.3, cols[i % 2], { outline: 0.004 }), 0.015 * (hsh(i) - 0.5), 0.0175 + i * 0.036, 0.015 * (hsh(i + 3) - 0.5), 0, 0.06 * (hsh(i + 5) - 0.5), 0)); return g; },   // (round 2) thin flat slices only (no vertical bar that reads as a figure)
   // An oversized suit jacket for a child (attach to the torso: pivot at the collar; faces +Z): a big box jacket and two long empty sleeves hanging
   // past the hands; o.color
-  buBigJacket(o) { const C = o.color || '#3A4A6A', L = o.len ?? 1.0, D = o.depth ?? 0.42, g = grp(at(box(0.56, L, D, C, { outline: 0.01 }), 0, -L / 2, 0.04 + (D - 0.42) / 2), at(box(0.12, 0.2, 0.01, '#F4F1EA'), 0, -0.12, 0.155)); for (const s of [-1, 1]) g.add(at(box(0.13, 0.75 * Math.min(1, L + 0.2), 0.13, C, { pivot: 'top', outline: 0.01 }), s * 0.3, -0.05, 0.02, 0.15, 0, s * 0.12)); return g; },   // o.len: a shorter jacket (kids seated: it stops above the lap)
+  buBigJacket(o) { const C = o.color || '#3A4A6A', L = o.len ?? 1.0, D = o.depth ?? 0.42, F = 0.04 + D - 0.21 + 0.006, g = grp(at(box(0.56, L, D, C, { outline: 0.01 }), 0, -L / 2, 0.04 + (D - 0.42) / 2), at(box(0.16, 0.3, 0.01, '#F4F1EA'), 0, -0.16, F), at(box(0.05, 0.26, 0.012, '#B8202A', { outline: 0.004 }), 0, -0.18, F + 0.006));   // (round 3) a white shirt V and a red tie
+    for (const s of [-1, 1]) g.add(at(box(0.09, 0.34, 0.014, '#1E2430', { outline: 0.004 }), s * 0.1, -0.17, F + 0.004, 0, 0, s * 0.35)); for (const s of [-1, 1]) g.add(at(box(0.13, 0.75 * Math.min(1, L + 0.2), 0.13, C, { pivot: 'top', outline: 0.01 }), s * 0.355, -0.05, 0.04 + (D - 0.42) / 2 + 0.05, 0.15, 0, s * 0.12)); return g; },   // o.len: a shorter jacket (kids seated: it stops above the lap)   // and two dark lapels
   // A juice box (pivot at its bottom): a small coloured carton and a straw
   buJuice(o) { return grp(at(box(0.07, 0.11, 0.045, o.color || '#F2A030', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(cyl(0.004, 0.004, 0.08, '#FFFFFF', 4, { pivot: 'bottom' }), 0.02, 0.1, 0)); },
   // A pain au chocolat (pivot at its bottom): a puffed golden roll with two dark stripes
@@ -202,13 +209,15 @@ export const BULLETIN_PROPS = {
   // o.h): a fat red arrow that shoots up toward a smiling yellow sun, carries on over the top of the wall and across the ceiling; no digit, no letter
   buArrow(o) {
     const H = o.h ?? 3.0, W = o.w ?? 3.0, D = o.d ?? 2.0, g = grp();
-    const wall = canvasPlane(W, H, (c, w, h) => { c.clearRect(0, 0, w, h); c.strokeStyle = '#D02A2A'; c.fillStyle = '#D02A2A'; c.lineWidth = w * 0.045; c.lineCap = 'round'; c.lineJoin = 'round';
-      c.beginPath(); c.moveTo(w * 0.08, h * 0.92); c.lineTo(w * 0.22, h * 0.78); c.lineTo(w * 0.3, h * 0.84); c.lineTo(w * 0.42, h * 0.6); c.lineTo(w * 0.5, h * 0.66); c.lineTo(w * 0.62, h * 0.18); c.stroke();   // one stroke, going up
-      c.beginPath(); c.moveTo(w * 0.56, h * 0.2); c.lineTo(w * 0.66, h * 0.04); c.lineTo(w * 0.7, h * 0.24); c.closePath(); c.fill();   // its head, attached, pointing up
-      c.fillStyle = '#F2C230'; c.beginPath(); c.arc(w * 0.84, h * 0.2, w * 0.1, 0, TAU); c.fill(); c.strokeStyle = '#E09A20'; c.lineWidth = w * 0.015; for (let i = 0; i < 12; i++) { const a = i * TAU / 12; c.beginPath(); c.moveTo(w * 0.84 + Math.cos(a) * w * 0.12, h * 0.2 + Math.sin(a) * w * 0.12); c.lineTo(w * 0.84 + Math.cos(a) * w * 0.17, h * 0.2 + Math.sin(a) * w * 0.17); c.stroke(); }
-      c.strokeStyle = '#3A2A1A'; c.lineWidth = w * 0.01; c.beginPath(); c.arc(w * 0.84, h * 0.215, w * 0.05, 0.3, PI - 0.3); c.stroke(); c.fillStyle = '#3A2A1A'; c.beginPath(); c.arc(w * 0.81, h * 0.18, w * 0.01, 0, TAU); c.arc(w * 0.87, h * 0.18, w * 0.01, 0, TAU); c.fill(); }, { res: 768, transparent: true });
+    const wall = canvasPlane(W, H, (c, w, h) => { c.clearRect(0, 0, w, h); c.strokeStyle = '#D02A2A'; c.lineWidth = w * 0.045; c.lineCap = 'round'; c.lineJoin = 'round';
+      c.beginPath(); c.moveTo(w * 0.08, h * 0.92); c.lineTo(w * 0.22, h * 0.78); c.lineTo(w * 0.3, h * 0.84); c.lineTo(w * 0.42, h * 0.6); c.lineTo(w * 0.5, h * 0.66); c.quadraticCurveTo(w * 0.56, h * 0.3, w * 0.55, -h * 0.02); c.stroke(); }, { res: 768, transparent: true });   // (round 3) one stroke that climbs off the top of the wall
     wall.position.set(0, H / 2, 0.01); g.add(wall);
-    const ceil = canvasPlane(W, D, (c, w, h) => { c.clearRect(0, 0, w, h); }, { res: 64, transparent: true });
+    g.add(at(box(9, 0.02, D + 2.5, '#ECE6DA'), 0, H + 0.012, (D + 2.5) / 2 - 0.05));   // (round 3) a real ceiling over the room
+    const ceil = canvasPlane(W, D, (c, w, h) => { c.clearRect(0, 0, w, h); c.strokeStyle = '#D02A2A'; c.fillStyle = '#D02A2A'; c.lineWidth = w * 0.045; c.lineCap = 'round'; c.lineJoin = 'round';
+      c.beginPath(); c.moveTo(w * 0.55, h * 1.02); c.quadraticCurveTo(w * 0.54, h * 0.75, w * 0.5, h * 0.66); c.stroke();   // the same stroke, on across the ceiling
+      c.beginPath(); c.moveTo(w * 0.44, h * 0.68); c.lineTo(w * 0.5, h * 0.56); c.lineTo(w * 0.56, h * 0.68); c.closePath(); c.fill();   // its head, attached, pointing at the sun
+      const sx = w * 0.5, sy = h * 0.34, sr = w * 0.09; c.fillStyle = '#F2C230'; c.beginPath(); c.arc(sx, sy, sr, 0, TAU); c.fill(); c.strokeStyle = '#E09A20'; c.lineWidth = w * 0.015; for (let i = 0; i < 12; i++) { const a = i * TAU / 12; c.beginPath(); c.moveTo(sx + Math.cos(a) * sr * 1.2, sy + Math.sin(a) * sr * 1.2); c.lineTo(sx + Math.cos(a) * sr * 1.65, sy + Math.sin(a) * sr * 1.65); c.stroke(); }
+      c.strokeStyle = '#3A2A1A'; c.lineWidth = w * 0.01; c.beginPath(); c.arc(sx, sy + sr * 0.05, sr * 0.5, 0.3, PI - 0.3); c.stroke(); c.fillStyle = '#3A2A1A'; c.beginPath(); c.arc(sx - sr * 0.3, sy - sr * 0.25, w * 0.01, 0, TAU); c.arc(sx + sr * 0.3, sy - sr * 0.25, w * 0.01, 0, TAU); c.fill(); }, { res: 768, transparent: true });   // the smiling sun, whole, on the ceiling
     ceil.rotation.x = PI / 2; ceil.position.set(0, H - 0.01, D / 2); g.add(ceil); return g;
   },
   // A crumb (pivot at the table)
