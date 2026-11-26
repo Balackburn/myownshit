@@ -98,7 +98,21 @@ mid shots, S11 medium close, S11b lower and closer, S12c on the mother and the d
 bank, sheep riding its cab. The bubble's little man worsens at each appearance (state 0 to 4: a drop, leaning and two drops, tongue out and legs
 dragging, collapsed over the fence). S12 the bed drops onto the road then he bounces, blinks and looks at us; S04 eyes on stalks to the lens on the
 multiple-image frames; S03 rocking, throbbing hair and an echo bleat flinch; S01 the head propped up; S01b a warm lamp glow; S02 a window and a shelf.
-S09b and the S16 sheep fold their front legs."""
+S09b and the S16 sheep fold their front legs.
+Round 3 corrections (critics 7.4 / 7.2): one jump for S16, S16b and S16c (JUMP): the run ends in a 2-frame plant (a braking stride, the gait blending to a
+stand while he slides into it), a held crouch, the take-off from that pose leaning along the travel, facing the travel through all of it and turning
+to the lens only in the air; the landing squash is on at the contact frame (85 %, knees bent, the head squashed too), then a stretch into the trot; a
+low wide arc (the tucked feet just over the top rail, the travel half the frame's width); the runs are already under way at the first image
+(cruise), him in the frame. S16c: a long fence on a diagonal from the sheep to the horizon, a big low moon behind his head and chest at the last
+frame, a far moonlit sheet behind his legs, a moonlit rim on him (mtActorRim), no wool on his head; the sleeping sheep's shut eyes are white lid lines
+with lashes, its snot bubble glassy and stretched; S16 a burst of wool lumps at the take. S14 the head end to the lens, the upside-down face with both
+red-rimmed eyes big, the near front legs folded over the belly. S05 the wave and its crest travel with her (the lower steps bare), a wide broom
+sweep, her lean, a darker wall. S06b low and close, the cab mid-frame three quarters to us with two sheep landing on its roof (their hop targets in
+their own frame), the bench and the black sheep to the left. S07b the stallholder steps in: his hand takes the rope and gives the cup. S03 a jolt
+twice as high, a deeper landing squash, tighter framing; S03b full head tips with a hold. S04 eyes on stalks a head-width long, 4 crisp frames;
+S04b three fingers up. S08b a push in for the landing. S09 the push arrives by 60 % of the shot. S10 the ledger tipped to the lens (rules and a
+spine), no sleeve protectors. S11 the whole backdrop sheep in the free part of the frame, the desk edge, a full pencil arc. S11b from the seat up,
+the floor sheep across the bottom third. S13b a wide « no ». The black sheep's head peeks into S03, S03b, S04, S04b, S08, S08b, S11b, S12b (BKPEEK)."""
 
 from story_kit import *
 import math
@@ -1141,7 +1155,7 @@ def JUMP(t0, a, b, h=HJ, T=0.62, take=None, fc=TIRED, face=FACEJ, ex=2.0, vrun=2
     # into the trot. Returns (keys, the apex time, the landing time, the plant time); the run before must end at plant_point(a, b, vrun) at the plant time
     tp = r(t0 - 0.2); dv = [b[i] - a[i] for i in range(3)]; n_ = math.hypot(dv[0], dv[2]) or 1.0; dv = [dv[0] / n_, 0.0, dv[2] / n_]
     air = {'face': take or {**fc, 'lid': 0.0, 'brow': 0.9}, 'hip': 0, 'autoSq': 0, 'bend': TUCK, 'sq': [0.98, 1.03, 0.98], 'hairUp': 0.0, **ARMS}
-    CRK = {'legR': [-0.75, 0, 0, 1, None], 'shinR': [1.2, 0, 0, 1, None], 'legL': [-0.45, 0, 0, 1, None], 'shinL': [1.0, 0, 0, 1, None]}
+    CRK = {'legR': [-0.42, 0, 0, 1, None], 'shinR': [0.85, 0, 0, 1, None], 'legL': [-0.3, 0, 0, 1, None], 'shinL': [0.75, 0, 0, 1, None]}   # (bigger thigh bends slid him back half a metre in the crouch)
     BACKARMS = {'touch': {'R': ['torso', -0.42, 0.25, -0.32, 1, 0.0], 'L': ['torso', 0.42, 0.25, -0.32, 1, 0.0]}, 'hands': {'R': 'open', 'L': 'open'}}
     UPARMS = {'touch': {'R': ['torso', -0.3, 0.85, 0.6, 1, 0.0], 'L': ['torso', 0.3, 0.85, 0.6, 1, 0.0]}, 'hands': {'R': 'spread', 'L': 'spread'}}
     ftr = r(math.degrees(math.atan2(dv[0], dv[2])), 1)   # he keeps facing his travel through the plant, the crouch and the take-off (turning to the lens there read as a stop and a bow)
@@ -1204,10 +1218,10 @@ F16, L16, LN16 = [0.55, 0.95, 7.4], [0.5, 1.25, 0.0], 62   # (round 3) the trave
 C16 = CAM(F16, L16, LN16, 0.12)
 chk2('S16', C16, {'apexHead': APX(), 'apexFeet': [r((D0 + D1) / 2), HJ + 0.75, 0], 'fenceTop': [0, 0.62, 0], 'off': add(ALONG(D0), [0, HEADUP, 0]), 'land': add(ALONG(D1), [0, HEADUP, 0]), 'landFeet': ALONG(D1),
                   'bkHead': add(BK16a, [0, 0.9, 0.2]), 'bkL': add(BK16a, [-0.45, 0.6, 0])}, heads=('apexHead', 'land', 'bkHead'))
-HK16 = [k(-0.5, look='camera'), *RUN(0.0, [ALONG(-2.7), PLANT(ALONG(D0), ALONG(D1))], TP16, cruise=True), *JK16,
+HK16 = [k(-0.5, look='camera'), *RUN(0.0, [ALONG(-1.95), PLANT(ALONG(D0), ALONG(D1))], TP16, cruise=True), *JK16,
         *RUN(r(LD16 + 0.1), [[1.6, 0, -0.45], [0.25, 0, -0.95]], r(D16 - LD16 - 0.1 + 0.05))]   # he trots on, curves back behind the fence toward the start
 st.gag('S16', AP16, 'mec', 'apex take')
-st.shot('S16', 'grassland', setOpts=MSETN, look=NIGHT_OUT, actors=[act('mec', ALONG(-2.7), PATHY, 'stand', 'neutral', keys=HK16)],
+st.shot('S16', 'grassland', setOpts=MSETN, look=NIGHT_OUT, actors=[act('mec', ALONG(-1.95), PATHY, 'stand', 'neutral', keys=HK16)],
         props=[*FIELD(16, MOONBEHIND(F16, add(APX(), [0, -0.2, -0.3])), bk=BK16a), WOOL(16, r(AP16 + 0.02), burst=r(AP16 + 0.02)), HEROR(16),
                BKN('noir16', BK16a, r(yaw(BK16a, F16) - 25), clip=[[0, 'sit']], foldFront=0.9, nod=[r(AP16 + 0.02)], head=[[0, 0.55], [r(J16 - 0.1), 0.75]], chin=[[0, 0.2]], blinks=[1.25])], cams=[C16])
 st.cue('sfx:stepRun', 'S16', 0.05, 0.2); st.cue('sfx:stepRun', 'S16', 0.2, 0.2); st.cue('sfx:boing', 'S16', J16, 0.2); st.cue('sfx:spring', 'S16', r(AP16 + 0.02), 0.4); st.cue('thud', 'S16', LD16, 0.3)
@@ -1218,7 +1232,7 @@ D16b = st.dur('S16b')
 PANT = {**TIRED, 'mouth': 'O', 'jaw': 0.35, 'tongue': 0.7, 'lid': 0.3}
 J16b = 0.55
 JK16b, AP16b, LD16b, TP16b = JUMP(J16b, ALONG(D0), ALONG(D1), fc=PANT, face=34, T=0.6)   # more to the lens: from this side his raised arm hid half his head
-BK16b = [1.75, 0, 1.3]   # (round 3) the black sheep just past the landing, in the frame
+BK16b = [1.25, 0, 2.0]   # (round 3) the black sheep just past the landing, in the frame
 F16b, L16b, LN16b = [-0.5, 0.95, 7.0], [0.15, 1.25, 0.0], 60   # (round 3) the jump across half the frame, him in the frame from the first image
 C16b = CAM(F16b, L16b, LN16b, 0.15)
 chk2('S16b', C16b, {'apexHead': APX(), 'start': add(ALONG(-2.0, 0.25), [0, HEADUP, 0]), 'off': add(ALONG(D0), [0, HEADUP, 0]), 'land': add(ALONG(D1), [0, HEADUP, 0]), 'bkHead': add(BK16b, [0, 0.9, 0.2])}, heads=('apexHead', 'off', 'land', 'bkHead'))
