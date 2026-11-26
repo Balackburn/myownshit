@@ -570,6 +570,32 @@ export const NOTICE_PROPS = {
     g.userData.update(0); return g;
   },
 
+  // ---------------------------------------------------------------- (review 2) a crab's pincer over a mitten (attach to a hand joint with face: 'camera'; pivot
+  // at its hinge, the wrist): a fixed lower jaw and an upper jaw hinged on it, both tapered blocks the colour of the skin, inked, pointing along o.dir (+1:
+  // +X, -1: -X) and tipped up o.up (rad); o.open [[t, v]] 0..1 opens the upper jaw up to o.a (0.95 rad) and drops the lower one a third as far: the clack
+  // reads face-on at phone size whatever the hand does; o.s scales the whole claw (0.16 m jaws at 1)
+  noPincer(o) {
+    const S = o.s ?? 1, C = o.color || '#E2A878', DIR = o.dir ?? 1, g = grp(), root = grp(); g.add(root); root.scale.setScalar(S); root.rotation.z = DIR * (o.up ?? 0.5);
+    if (DIR < 0) root.scale.x = -S;
+    const jaw = (len, th) => { const p = grp(), b = box(len, th, 0.06, C, { outline: 0.012, taper: { x: 0.55, z: 0.8 }, taperAxis: 'x' }); b.position.x = len / 2; p.add(b);
+      const tip = box(0.05, th * 0.55, 0.055, C, { outline: 0.012 }); tip.position.set(len + 0.012, 0, 0); p.add(tip); return p; };
+    const lo = jaw(0.15, 0.055), hi = jaw(0.17, 0.07); lo.position.y = -0.028; hi.position.y = 0.028; root.add(lo, hi);
+    const knuckle = box(0.075, 0.11, 0.07, C, { outline: 0.012 }); knuckle.position.x = -0.01; root.add(knuckle);
+    g.userData.update = t => { const v = clamp01(keyAt(o.open, t, 0)), A = o.a ?? 0.95; hi.rotation.z = v * A; lo.rotation.z = -v * A * 0.35; };
+    g.userData.update(0); return g;
+  },
+
+  // ---------------------------------------------------------------- (review 2) a referee's shirt (attach to the torso joint; pivot at its collar, hangs -Y): a
+  // box tunic to the hips with o.n (9) black and white vertical stripes painted all round, a black collar band; nothing else on it (no badge, no number)
+  noRefShirt(o) {
+    const w = o.w ?? 0.6, d = o.d ?? 0.38, h = o.h ?? 0.72, n = o.n ?? 9, g = grp();
+    const plane = (W, H) => { const cv = canvas(256, 256), c = cv.getContext('2d'); for (let i = 0; i < n; i++) { c.fillStyle = i % 2 ? '#1C1D22' : '#F4F2EC'; c.fillRect(i * 256 / n, 0, 256 / n + 1, 256); }
+      c.fillStyle = '#1C1D22'; c.fillRect(0, 0, 256, 18); const t1 = tex(cv); return new THREE.Mesh(new THREE.PlaneGeometry(W, H), L('#FFFFFF', { map: t1 })); };
+    for (const [W, x, z, ry] of [[w, 0, d / 2, 0], [w, 0, -d / 2, PI], [d, w / 2, 0, PI / 2], [d, -w / 2, 0, -PI / 2]]) { const p = plane(W, h); p.position.set(x, -h / 2, z); p.rotation.y = ry; p.castShadow = true; g.add(p); }
+    g.add(at(box(w, 0.02, d, '#1C1D22'), 0, -0.01, 0)); g.add(at(box(w * 0.42, 0.05, 0.04, '#1C1D22', { outline: 0.006 }), 0, -0.02, d / 2 + 0.01));
+    return g;
+  },
+
   // ---------------------------------------------------------------- sleep letters (pivot where they rise from, above a sleeper's head): inked white Z sprites
   // that float up and sideways, growing then fading, from o.at, one every o.every (0.35) s
   noZzz(o) {
