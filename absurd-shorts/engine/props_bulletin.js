@@ -26,12 +26,12 @@ const bump = (ts, t, k = 9, f = 28) => (ts || []).reduce((s, t0) => { const u = 
 // THE stamp: « PEUT MIEUX FAIRE », red, tilted to the right, sized with measureText to the sheet's width, a big ink blot on the last letter. One
 // function for every report and sheet: they must all carry exactly the same mark
 function drawStamp(c, W, H, y0) {
-  c.save(); c.translate(W * 0.47, y0); c.rotate(-0.1); const txt = 'PEUT MIEUX FAIRE'; let fs = H * 0.12; c.font = `bold ${fs}px Arial Black, Arial`;
-  const tw = c.measureText(txt).width, target = W * 0.8; fs *= target / tw; c.font = `bold ${fs}px Arial Black, Arial`;
+  c.save(); c.translate(W * 0.45, y0); c.rotate(-0.1); const txt = 'PEUT MIEUX FAIRE'; let fs = H * 0.12; c.font = `bold ${fs}px Arial Black, Arial`;
+  const tw = c.measureText(txt).width, target = W * 0.7; fs *= target / tw; c.font = `bold ${fs}px Arial Black, Arial`;
   const w2 = c.measureText(txt).width; c.fillStyle = 'rgba(200,24,28,0.92)'; c.strokeStyle = 'rgba(200,24,28,0.92)'; c.lineWidth = fs * 0.09; c.textBaseline = 'middle';
   c.strokeRect(-w2 / 2 - fs * 0.25, -fs * 0.7, w2 + fs * 0.5, fs * 1.4); c.fillText(txt, -w2 / 2, fs * 0.04);
-  const lastW = c.measureText('E').width, bx = w2 / 2 - lastW * 0.45; c.beginPath(); c.arc(bx, fs * 0.1, fs * 0.42, 0, TAU); c.fill();   // the blot on the last letter
-  for (let i = 0; i < 5; i++) { c.beginPath(); c.arc(bx + Math.cos(i * 1.3) * fs * 0.55, fs * 0.1 + Math.sin(i * 1.3) * fs * 0.5, fs * (0.08 + 0.05 * (i % 2)), 0, TAU); c.fill(); }
+  const bx = w2 / 2 + fs * 0.42; c.beginPath(); c.arc(bx, fs * 0.25, fs * 0.36, 0, TAU); c.fill(); c.beginPath(); c.ellipse(bx - fs * 0.32, fs * 0.36, fs * 0.22, fs * 0.1, 0.3, 0, TAU); c.fill();   // the blot runs off the last letter, beside it (the E stays legible)
+  for (let i = 0; i < 5; i++) { c.beginPath(); c.arc(bx + fs * 0.1 + Math.cos(i * 1.3) * fs * 0.45, fs * 0.1 + Math.sin(i * 1.3) * fs * 0.5, fs * (0.08 + 0.05 * (i % 2)), 0, TAU); c.fill(); }
   c.restore();
 }
 function scribbleRows(c, W, H, n, y0, y1) { c.strokeStyle = 'rgba(110,110,110,0.75)'; c.lineWidth = H * 0.008; for (let r = 0; r < n; r++) { const y = y0 + (y1 - y0) * r / Math.max(1, n - 1); c.beginPath(); c.moveTo(W * 0.1, y); for (let x = W * 0.1; x < W * (0.62 + 0.25 * hsh(r)); x += W * 0.02) c.lineTo(x, y + Math.sin(x * 0.11 + r) * H * 0.006); c.stroke(); } }
@@ -53,7 +53,7 @@ export const BULLETIN_PROPS = {
     pl.position.z = 0.002; k.add(pl, at(box(W, H, 0.003, st === 'old' ? '#D8C898' : '#E8E4DA'), 0, 0, -0.001));
     const lines = [];
     if (o.write) for (const [i, txt] of ['Peut mieux', 'faire.'].entries()) {
-      const lw = W * 0.86, lh = H * 0.13, tx = canvasPlane(lw, lh, (c, w, h) => { c.fillStyle = '#1E4FC8'; c.font = `italic ${h * 0.8}px "Comic Sans MS", Georgia, cursive`; c.textBaseline = 'middle'; c.fillText(txt, w * 0.02, h * 0.55); }, { res: 768, transparent: true });
+      const lw = W * 0.8, lh = H * 0.14, tx = canvasPlane(lw, lh, (c, w, h) => { c.fillStyle = '#1E4FC8'; c.strokeStyle = '#1E4FC8'; c.lineJoin = 'round'; c.lineWidth = h * 0.06; let fs = h * 0.78; c.font = `${fs}px "Comic Sans MS", "Comic Neue", "Segoe Print", cursive`; const tw = c.measureText(txt).width; if (tw > w * 0.94) { fs *= w * 0.94 / tw; c.font = `${fs}px "Comic Sans MS", "Comic Neue", "Segoe Print", cursive`; } c.textBaseline = 'middle'; const x0 = (w - c.measureText(txt).width) / 2; c.strokeText(txt, x0, h * 0.55); c.fillText(txt, x0, h * 0.55); }, { res: 768, transparent: true });   // (round 1) round strokes, centred, inside safe margins
       const piv = grp(tx); tx.position.x = lw / 2; piv.position.set(-lw / 2, H * (0.04 - 0.16 * i), 0.005); k.add(piv); lines.push({ piv, tx, i });
     }
     g.userData.update = t => {
@@ -91,12 +91,12 @@ export const BULLETIN_PROPS = {
   // A tiny school chair (pivot at the floor, facing +Z): seat 0.32 high; o.color
   buTinyChair(o) { const C = o.color || '#2F62B5', g = grp(at(box(0.3, 0.03, 0.28, C, { outline: 0.01 }), 0, 0.32, 0), at(box(0.3, 0.22, 0.025, C, { outline: 0.01 }), 0, 0.5, -0.13)); for (const x of [-0.13, 0.13]) for (const z of [-0.12, 0.12]) g.add(at(box(0.025, 0.32, 0.025, '#6E726F', { pivot: 'bottom' }), x, 0, z)); return g; },
   // A tiny school desk (pivot at the floor, facing +Z): a top 0.52 high, a shelf under it
-  buTinyDesk(o) { const g = grp(at(box(0.62, 0.035, 0.42, '#C99A62', { outline: 0.01 }), 0, 0.52, 0), at(box(0.56, 0.02, 0.36, '#A87A4A'), 0, 0.38, 0)); for (const x of [-0.28, 0.28]) for (const z of [-0.18, 0.18]) g.add(at(box(0.03, 0.52, 0.03, '#6E726F', { pivot: 'bottom' }), x, 0, z)); return g; },
+  buTinyDesk(o) { const g = grp(at(box(0.62, 0.035, 0.42, '#C99A62', { outline: 0.01 }), 0, 0.52, 0), at(box(0.56, 0.02, 0.36, '#A87A4A'), 0, 0.38, 0)); if (o.panel) g.add(at(box(0.6, 0.5, 0.02, '#B08A5A', { outline: 0.008 }), 0, 0.27, 0.2)); for (const x of [-0.28, 0.28]) for (const z of [-0.18, 0.18]) g.add(at(box(0.03, 0.52, 0.03, '#6E726F', { pivot: 'bottom' }), x, 0, z)); return g; },   // o.panel: a front panel down to the floor
   // The attic (pivot at the floor in the middle, the open side +Z): plank floor, a sloping roof wall at the back-left with one dusty skylight shaft
   buAttic(o) {
     const g = grp(); g.add(at(box(6, 0.05, 5, '#9A7A58', { outline: 0.004 }), 0, -0.025, 0), at(box(6, 2.8, 0.1, '#C8B490', { pivot: 'bottom' }), 0, 0, -2.5));
     const roof = at(box(6, 0.08, 3.2, '#B89A70', { outline: 0.004 }), 0, 2.3, -1.4); roof.rotation.x = 0.6; g.add(roof);
-    g.add(at(box(0.7, 0.04, 0.6, '#BCD8EA', { emissive: '#4A6070' }), 0.6, 2.33, -1.38, 0.6, 0, 0)); const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.55, 2.4, 10, 1, true), new THREE.MeshBasicMaterial({ color: '#FFF4D0', transparent: true, opacity: 0.16, depthWrite: false, side: THREE.DoubleSide })); beam.position.set(0.5, 1.2, -0.7); beam.rotation.x = 0.35; g.add(beam);
+    g.add(at(box(0.7, 0.04, 0.6, '#BCD8EA', { emissive: '#4A6070' }), 0.6, 2.33, -1.38, 0.6, 0, 0)); const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.55, 2.4, 10, 1, true), new THREE.MeshBasicMaterial({ color: '#FFF4D0', transparent: true, opacity: 0.16, depthWrite: false, side: THREE.DoubleSide })); beam.position.set(0.5, 1.2, -0.7); beam.rotation.x = 0.35; if (o.beam) g.add(beam);
     for (let i = 0; i < 7; i++) g.add(at(box(6, 0.012, 0.004, '#7A5A3A'), 0, 0.002, -2.2 + i * 0.7));
     return g;
   },
@@ -115,6 +115,7 @@ export const BULLETIN_PROPS = {
     ck.position.set(2.2, 2.65, B + 0.08); g.add(ck);
     g.add(at(box(0.04, 1.3, 1.6, '#BCD8EA', { emissive: '#3A5060' }), -4.14, 1.75, B + 2.6), at(box(0.06, 1.4, 0.06, '#E8E2D4'), -4.12, 1.75, B + 2.6), at(box(0.12, 0.55, 1.3, '#E8E4DA', { pivot: 'bottom', outline: 0.008 }), -4.08, 0.2, B + 2.6));
     for (let i = 0; i < 8; i++) g.add(at(box(0.13, 0.5, 0.03, '#D8D4CA'), -4.0, 0.47, B + 2.05 + i * 0.16));
+    g.add(at(box(0.06, 2.1, 0.95, '#8A6A45', { pivot: 'bottom', outline: 0.008 }), -4.12, 0, B + 4.65, 0, 0.0, 0), at(box(0.04, 2.1, 0.1, '#3A2A1A', { pivot: 'bottom' }), -4.1, 0, B + 4.15));   // a door ajar on the left wall (the scarf runs out under it)
     return g;
   },
   // The gym (pivot at the floor in the middle, the back wall -Z): a wooden floor, a cream wall, wall bars, a long bench, a ceiling at o.ceil (4.2)
@@ -169,10 +170,10 @@ export const BULLETIN_PROPS = {
   buGate(o) { const W = o.w ?? 7, g = grp(); for (let x = -W / 2; x <= W / 2; x += 0.16) { if (Math.abs(x) < 0.7) continue; g.add(at(box(0.03, 1.5, 0.03, '#2E5E3E', { pivot: 'bottom' }), x, 0, 0)); } for (const y of [0.15, 1.4]) for (const s of [-1, 1]) g.add(at(box(W / 2 - 0.7, 0.05, 0.04, '#2E5E3E'), s * (W / 4 + 0.35), y, 0));
     for (const s of [-1, 1]) g.add(at(box(0.12, 1.8, 0.12, '#24482E', { pivot: 'bottom', outline: 0.008 }), s * 0.7, 0, 0)); return g; },
   // A stack of thick binders (pivot at the floor): o.n (4) coloured binders, flat
-  buBinders(o) { const g = grp(), n = o.n ?? 4, cols = ['#3E6A9A', '#5EAA4A', '#E8C030', '#8A5AB0']; for (let i = 0; i < n; i++) g.add(at(box(0.36, 0.08, 0.3, cols[i % 4], { outline: 0.008 }), 0.02 * (hsh(i) - 0.5), 0.04 + i * 0.08, 0.02 * (hsh(i + 3) - 0.5), 0, 0.1 * (hsh(i + 5) - 0.5), 0)); return g; },
+  buBinders(o) { const g = grp(), n = o.n ?? 4, cols = ['#5E656D', '#C8BCA0']; for (let i = 0; i < n; i++) g.add(at(box(0.36, 0.08, 0.3, cols[i % 2], { outline: 0.008 }), 0.02 * (hsh(i) - 0.5), 0.04 + i * 0.08, 0.02 * (hsh(i + 3) - 0.5), 0, 0.1 * (hsh(i + 5) - 0.5), 0)); return g; },
   // An oversized suit jacket for a child (attach to the torso: pivot at the collar; faces +Z): a big box jacket and two long empty sleeves hanging
   // past the hands; o.color
-  buBigJacket(o) { const C = o.color || '#3A4A6A', g = grp(at(box(0.5, 0.62, 0.3, C, { outline: 0.01 }), 0, -0.32, 0), at(box(0.12, 0.2, 0.01, '#F4F1EA'), 0, -0.12, 0.155)); for (const s of [-1, 1]) g.add(at(box(0.13, 0.75, 0.13, C, { pivot: 'top', outline: 0.01 }), s * 0.3, -0.05, 0.02, 0.15, 0, s * 0.12)); return g; },
+  buBigJacket(o) { const C = o.color || '#3A4A6A', g = grp(at(box(0.56, 1.0, 0.42, C, { outline: 0.01 }), 0, -0.5, 0.04), at(box(0.12, 0.2, 0.01, '#F4F1EA'), 0, -0.12, 0.155)); for (const s of [-1, 1]) g.add(at(box(0.13, 0.75, 0.13, C, { pivot: 'top', outline: 0.01 }), s * 0.3, -0.05, 0.02, 0.15, 0, s * 0.12)); return g; },
   // A juice box (pivot at its bottom): a small coloured carton and a straw
   buJuice(o) { return grp(at(box(0.07, 0.11, 0.045, o.color || '#F2A030', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(cyl(0.004, 0.004, 0.08, '#FFFFFF', 4, { pivot: 'bottom' }), 0.02, 0.1, 0)); },
   // A pain au chocolat (pivot at its bottom): a puffed golden roll with two dark stripes
@@ -189,11 +190,13 @@ export const BULLETIN_PROPS = {
   // o.h): a fat red arrow that shoots up toward a smiling yellow sun, carries on over the top of the wall and across the ceiling; no digit, no letter
   buArrow(o) {
     const H = o.h ?? 3.0, W = o.w ?? 3.0, D = o.d ?? 2.0, g = grp();
-    const wall = canvasPlane(W, H, (c, w, h) => { c.clearRect(0, 0, w, h); c.strokeStyle = '#D02A2A'; c.lineWidth = w * 0.04; c.lineCap = 'round'; c.beginPath(); c.moveTo(w * 0.1, h * 0.95); c.bezierCurveTo(w * 0.4, h * 0.8, w * 0.45, h * 0.4, w * 0.7, h * 0.0); c.stroke();
-      c.fillStyle = '#F2C230'; c.beginPath(); c.arc(w * 0.82, h * 0.3, w * 0.12, 0, TAU); c.fill(); c.strokeStyle = '#E09A20'; c.lineWidth = w * 0.015; for (let i = 0; i < 12; i++) { const a = i * TAU / 12; c.beginPath(); c.moveTo(w * 0.82 + Math.cos(a) * w * 0.14, h * 0.3 + Math.sin(a) * w * 0.14); c.lineTo(w * 0.82 + Math.cos(a) * w * 0.2, h * 0.3 + Math.sin(a) * w * 0.2); c.stroke(); }
-      c.strokeStyle = '#3A2A1A'; c.lineWidth = w * 0.01; c.beginPath(); c.arc(w * 0.82, h * 0.32, w * 0.06, 0.3, PI - 0.3); c.stroke(); c.fillStyle = '#3A2A1A'; c.beginPath(); c.arc(w * 0.78, h * 0.27, w * 0.012, 0, TAU); c.arc(w * 0.86, h * 0.27, w * 0.012, 0, TAU); c.fill(); }, { res: 768, transparent: true });
+    const wall = canvasPlane(W, H, (c, w, h) => { c.clearRect(0, 0, w, h); c.strokeStyle = '#D02A2A'; c.fillStyle = '#D02A2A'; c.lineWidth = w * 0.045; c.lineCap = 'round'; c.lineJoin = 'round';
+      c.beginPath(); c.moveTo(w * 0.08, h * 0.92); c.lineTo(w * 0.22, h * 0.78); c.lineTo(w * 0.3, h * 0.84); c.lineTo(w * 0.42, h * 0.6); c.lineTo(w * 0.5, h * 0.66); c.lineTo(w * 0.62, h * 0.18); c.stroke();   // one stroke, going up
+      c.beginPath(); c.moveTo(w * 0.56, h * 0.2); c.lineTo(w * 0.66, h * 0.04); c.lineTo(w * 0.7, h * 0.24); c.closePath(); c.fill();   // its head, attached, pointing up
+      c.fillStyle = '#F2C230'; c.beginPath(); c.arc(w * 0.84, h * 0.2, w * 0.1, 0, TAU); c.fill(); c.strokeStyle = '#E09A20'; c.lineWidth = w * 0.015; for (let i = 0; i < 12; i++) { const a = i * TAU / 12; c.beginPath(); c.moveTo(w * 0.84 + Math.cos(a) * w * 0.12, h * 0.2 + Math.sin(a) * w * 0.12); c.lineTo(w * 0.84 + Math.cos(a) * w * 0.17, h * 0.2 + Math.sin(a) * w * 0.17); c.stroke(); }
+      c.strokeStyle = '#3A2A1A'; c.lineWidth = w * 0.01; c.beginPath(); c.arc(w * 0.84, h * 0.215, w * 0.05, 0.3, PI - 0.3); c.stroke(); c.fillStyle = '#3A2A1A'; c.beginPath(); c.arc(w * 0.81, h * 0.18, w * 0.01, 0, TAU); c.arc(w * 0.87, h * 0.18, w * 0.01, 0, TAU); c.fill(); }, { res: 768, transparent: true });
     wall.position.set(0, H / 2, 0.01); g.add(wall);
-    const ceil = canvasPlane(W, D, (c, w, h) => { c.clearRect(0, 0, w, h); c.strokeStyle = '#D02A2A'; c.lineWidth = w * 0.04; c.lineCap = 'round'; c.beginPath(); c.moveTo(w * 0.7, 0); c.lineTo(w * 0.62, h * 0.85); c.stroke(); c.fillStyle = '#D02A2A'; c.beginPath(); c.moveTo(w * 0.52, h * 0.78); c.lineTo(w * 0.72, h * 0.8); c.lineTo(w * 0.6, h * 0.98); c.closePath(); c.fill(); }, { res: 512, transparent: true });
+    const ceil = canvasPlane(W, D, (c, w, h) => { c.clearRect(0, 0, w, h); }, { res: 64, transparent: true });
     ceil.rotation.x = PI / 2; ceil.position.set(0, H - 0.01, D / 2); g.add(ceil); return g;
   },
   // A crumb (pivot at the table)
@@ -202,4 +205,9 @@ export const BULLETIN_PROPS = {
   buFiles(o) { const g = grp(); for (let i = 0; i < (o.n ?? 6); i++) g.add(at(box(0.3, 0.025, 0.22, i % 2 ? '#F4F0E4' : '#E8E2D0', { outline: 0.004 }), 0, 0.0125 + i * 0.026, 0)); return g; },
   // An office desk with a monitor (pivot at the floor in the middle, the user's side +Z)
   buDesk(o) { return grp(at(box(1.3, 0.05, 0.7, '#B8BEC6', { outline: 0.006 }), 0, 0.74, 0), at(box(0.06, 0.74, 0.6, '#6E726F', { pivot: 'bottom' }), -0.6, 0, 0), at(box(0.06, 0.74, 0.6, '#6E726F', { pivot: 'bottom' }), 0.6, 0, 0), at(box(0.5, 0.32, 0.03, '#2A2C30', { outline: 0.006 }), 0, 1.0, -0.2), at(box(0.46, 0.28, 0.01, '#3A6A8A', { emissive: '#1A3A4A' }), 0, 1.0, -0.183), at(box(0.08, 0.1, 0.06, '#2A2C30'), 0, 0.82, -0.2)); },
+  // A gulp lump (pivot at its middle): a skin-coloured bulge o.r (0.05) seen in a throat
+  buLump(o) { const m = new THREE.Mesh(new THREE.SphereGeometry(o.r ?? 0.05, 10, 8), mat(o.color || '#E8B88A')); m.scale.set(1.2, 0.8, 0.9); addOutline(m, 0.02); return grp(m); },
+  // A red tie drooping over a desk's edge (pivot at its top): a knot and a blade hanging down; o.droop [[t, rad]]
+  buTie(o) { const g = grp(), k = grp(); g.add(k); k.add(at(box(0.07, 0.05, 0.03, '#C8202A', { outline: 0.01 }), 0, 0, 0)); const b = new THREE.Shape(); b.moveTo(-0.03, 0); b.lineTo(0.03, 0); b.lineTo(0.05, -0.32); b.lineTo(0, -0.38); b.lineTo(-0.05, -0.32); b.closePath(); const m = new THREE.Mesh(new THREE.ExtrudeGeometry(b, { depth: 0.015, bevelEnabled: false }), mat('#C8202A')); m.position.y = -0.02; addOutline(m, 0.02); k.add(m);
+    g.userData.update = t => { k.rotation.x = kv(o.droop, t); }; g.userData.update(0); return g; },
 };
