@@ -243,8 +243,11 @@ export const NOTICE_PROPS = {
     for (let f = 1; f <= F; f++) g.add(at(box(W + 0.24, 0.16, 0.24, '#EAE2D3', { outline: 0.006 }), 0, f * FH - 0.04, 0.1));
     g.add(at(box(W, 2.3, 1.9, '#7D8DA0', { pivot: 'bottom', taper: { x: 1, z: 0.3 }, outline: 0.01 }), 0, Ht + 0.04, -0.75));
     for (const [x, h] of [[-W * 0.3, 1.3], [W * 0.33, 1.5]]) { g.add(at(box(0.7, h, 0.55, '#C9785A', { pivot: 'bottom', outline: 0.008 }), x, Ht + 1.6, -1.0)); for (let k = 0; k < 3; k++) g.add(at(cyl(0.07, 0.08, 0.3, '#B5582E', 6, { pivot: 'bottom' }), x - 0.2 + 0.2 * k, Ht + 1.6 + h, -1.0)); }
-    const pm = paperMats(0.9, 1.3, { creases: [2, 2], seed: 9, cols: 1, res: 256, glow: 0.2, border: true });
-    const dg = new THREE.SphereGeometry(1, 14, 10, 0, TAU, 0, PI / 2); dg.rotateX(PI / 2);
+    const pm = paperMats(0.9, 1.3, { creases: [2, 2], seed: 9, cols: 1, res: 256, glow: 0.2, border: true, lh: 0.07, bar: 0.45 });
+    // the paper pushing out of the window: a crumpled wad (a jittered half icosphere, flat shaded), lined like the rest
+    const dg = new THREE.IcosahedronGeometry(1, 1), dp = dg.attributes.position;
+    for (let i = 0; i < dp.count; i++) { const x = dp.getX(i), y = dp.getY(i), z = dp.getZ(i), f = 1 + 0.14 * Math.sin(x * 9.1 + y * 7.3 + z * 5.7); dp.setXYZ(i, x * f, y * f, Math.max(-0.1, z) * f); }
+    dg.computeVertexNormals();
     const tg = new THREE.PlaneGeometry(0.95, 1.5, 6, 12), tp = tg.attributes.position;
     for (let i = 0; i < tp.count; i++) { const x = tp.getX(i), v = 0.5 - tp.getY(i) / 1.5; tp.setXYZ(i, x * (1 + 0.15 * v), -v * 1.25, 0.12 + 0.42 * Math.sin(v * PI * 0.62) + 0.05 * Math.sin(x * 9 + v * 6)); }
     tg.computeVertexNormals();
@@ -253,7 +256,7 @@ export const NOTICE_PROPS = {
       const x = (k - (C - 1) / 2) * W / C, y = f * FH + 0.55, ord = (o.order ?? 'down') === 'down' ? idx : (F - 1) * C - 1 - idx; idx++;
       g.add(at(box(1.05, 1.75, 0.06, '#2E3440', { pivot: 'bottom' }), x, y, 0.01), at(box(1.24, 0.1, 0.16, '#F7F2E8', { outline: 0.005 }), x, y, 0.07), at(box(1.24, 0.1, 0.1, '#F7F2E8'), x, y + 1.8, 0.05));
       g.add(at(box(1.36, 0.05, 0.05, '#20242C'), x, y + 0.52, 0.32)); for (let b = 0; b < 6; b++) g.add(at(box(0.025, 0.5, 0.025, '#20242C', { pivot: 'bottom' }), x - 0.62 + b * 0.248, y + 0.02, 0.32));
-      const pw = grp(), dome = new THREE.Mesh(dg, pm[0]); dome.scale.set(0.5, 0.86, 0.42); dome.position.set(0, 0.87, 0.02);
+      const pw = grp(), dome = new THREE.Mesh(dg, pm[0]); dome.scale.set(0.5, 0.82, 0.3); dome.position.set(0, 0.87, 0.02);
       const tongue = paperPair(tg, pm, false); tongue.position.set(0, 0.06, 0.02);
       pw.add(dome, tongue); pw.position.set(x, y, 0.05); g.add(pw);
       papers.push({ pw, tp: (o.pop ?? 0.1) + (o.stagger ?? 0.05) * ord, i: idx });
@@ -424,31 +427,33 @@ export const NOTICE_PROPS = {
     const W = o.w ?? 0.5, H = o.h ?? 0.34, g = grp(); g.add(box(W, H, 0.012, '#D3D8DE', { outline: 0.008 }));
     for (let r = 0; r < 2; r++) for (let k = 0; k < 4; k++) {
       const x = (k - 1.5) * W / 4.3, y = (r - 0.5) * H / 2.1;
-      const dome = new THREE.Mesh(new THREE.SphereGeometry(0.05, 14, 8, 0, TAU, 0, PI / 2), L('#DCEAF2', { emissive: '#3A4A54' })); dome.rotation.x = PI / 2; dome.scale.set(1, 1, 0.55); dome.position.set(x, y, 0.006); g.add(dome);
-      g.add(at(cyl(0.036, 0.036, 0.012, '#FFFFFF', 14, { outline: 0.004 }), x, y, 0.03, PI / 2, 0, 0));
+      const dome = new THREE.Mesh(new THREE.SphereGeometry(0.05, 14, 8, 0, TAU, 0, PI / 2), L('#9FC9E2', { emissive: '#2A4656' })); dome.rotation.x = PI / 2; dome.scale.set(1, 1, 0.55); dome.position.set(x, y, 0.006); g.add(dome);
+      g.add(at(ink(cyl(0.034, 0.034, 0.01, '#FFFFFF', 14, { emissive: '#606060' }), 0.12), x, y, 0.036, PI / 2, 0, 0));
       g.add(at(new THREE.Mesh(new THREE.CircleGeometry(0.009, 8), B('#FFFFFF')), x - 0.022, y + 0.02, 0.036));
     }
     return g;
   },
 
   // ---------------------------------------------------------------- a sea cliff (pivot at the middle of its top edge, y 0): a grass top running toward +Z o.d
-  // (40) deep, a pale rock face dropping o.h (19) toward the sea on -Z, faceted boulders on the face and at its foot, a foam line where it meets the water
+  // (40) deep, a pale rock face dropping o.h (19) toward the sea on -Z, faceted boulders on the face (kept under the rim) and at its foot, a foam line
+  // where it meets the water, grass tufts on the top (none within o.clearX ± 2.4 m of the rim, where the paper lies)
   noCliff(o) {
     const W = o.w ?? 60, H = o.h ?? 19, D = o.d ?? 40, g = grp();
-    g.add(at(box(W, 0.5, D, '#7DB25A', { pivot: 'top' }), 0, 0.02, D / 2 - 0.3));
+    g.add(at(box(W, 0.5, D, '#7DB25A', { pivot: 'top' }), 0, 0.0, D / 2 - 0.3));
     g.add(at(box(W, H, D, '#C4B294', { pivot: 'top' }), 0, 0, D / 2 + 0.4));
     const cols = ['#B9A68A', '#C9B898', '#A89478', '#D3C4A6'];
-    for (let i = 0; i < 70; i++) { const x = (hsh(i) - 0.5) * W, y = -hsh(i + 50) * H, s = 0.8 + 2.2 * hsh(i + 9);
+    for (let i = 0; i < 70; i++) { const s = 0.8 + 2.2 * hsh(i + 9), x = (hsh(i) - 0.5) * W, y = -s - hsh(i + 50) * (H - s);
       g.add(at(facet(s * 1.3, s, s * 0.7, cols[i % 4], i + 3), x, y, 0.3 + 0.3 * hsh(i + 7))); }
     for (let i = 0; i < 26; i++) g.add(at(facet(1 + hsh(i + 80) * 1.5, 0.8 + hsh(i + 81), 1 + hsh(i + 82), cols[(i + 1) % 4], i + 90), (hsh(i + 83) - 0.5) * W, -H + 0.3, -0.8 - hsh(i + 84) * 1.6));
     g.add(at(box(W, 0.06, 0.9, '#F4FBFF'), 0, -H + 0.08, -2.4));
-    for (let i = 0; i < 40; i++) g.add(at(cyl(0.0, 0.09, 0.28, i % 2 ? '#5E9A44' : '#8CC266', 4, { pivot: 'bottom' }), (hsh(i + 200) - 0.5) * 12, 0.02, 0.4 + hsh(i + 201) * 6));
+    for (let i = 0; i < 40; i++) { const x = (hsh(i + 200) - 0.5) * 14, z = 0.4 + hsh(i + 201) * 7; if (Math.abs(x - (o.clearX ?? 0.6)) < 2.4 && z < 4.5) continue; g.add(at(cyl(0.0, 0.09, 0.28, i % 2 ? '#5E9A44' : '#8CC266', 4, { pivot: 'bottom' }), x, 0.02, z)); }
     return g;
   },
 
   // ---------------------------------------------------------------- the corner of the giant leaflet hanging over an edge (pivot at the middle of the edge: the
   // flat part lies on the ground toward +Z, o.d (1.8) deep, the rest rounds the edge and hangs o.drop (1.6) down toward -Y), o.w (2.6) wide; the hanging
-  // part flaps in the wind (o.flap, o.flapF); o.text: the last line printed in big bold letters on the flat part, o.textAt m from the edge
+  // part flaps in the wind (o.flap, o.flapF); o.text: the last line printed in big bold letters on the flat part, o.textAt m from the edge, reading
+  // upright for somebody at the edge looking inland (from the sea side: the canvas runs toward -X)
   noDrape(o) {
     const W = o.w ?? 2.6, Dd = o.d ?? 1.8, Dr = o.drop ?? 1.6, RR = 0.1, Lt = Dd + RR * PI / 2 + Dr, NX = 24, NY = 40, g = grp();
     const ch = 1024, cw = Math.round(1024 * W / Lt), cvF = canvas(cw, ch), cF = cvF.getContext('2d');
@@ -457,7 +462,7 @@ export const NOTICE_PROPS = {
     const cvB = canvas(256, 256), cB = cvB.getContext('2d'); drawPaper(cB, 256, 256, { seed: 42, cols: 2 });
     const tF = tex(cvF), tB = tex(cvB);
     const P_ = [], U = [], I = [];
-    for (let j = 0; j <= NY; j++) for (let i = 0; i <= NX; i++) { P_.push(0, 0, 0); U.push(i / NX, 1 - j / NY); }
+    for (let j = 0; j <= NY; j++) for (let i = 0; i <= NX; i++) { P_.push(0, 0, 0); U.push(1 - i / NX, 1 - j / NY); }
     for (let j = 0; j < NY; j++) for (let i = 0; i < NX; i++) { const a = j * (NX + 1) + i, b = a + 1, c = a + NX + 1, d = c + 1; I.push(a, b, c, b, d, c); }
     const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(P_, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(U, 2)); geo.setIndex(I);
     const mf = new THREE.Mesh(geo, L('#FFFFFF', { map: tF, emissive: '#FFFFFF', emissiveMap: tF, emissiveIntensity: o.glow ?? 0.22, side: THREE.FrontSide, ...OFF }));
@@ -467,10 +472,10 @@ export const NOTICE_PROPS = {
     g.userData.update = t => {
       for (let j = 0; j <= NY; j++) for (let i = 0; i <= NX; i++) {
         const n = j * (NX + 1) + i, x = (i / NX - 0.5) * W, s = j / NY * Lt; let y, z;
-        if (s < Dd) { y = 0.02 + 0.012 * Math.sin(x * 3 + s * 2); z = Dd - s; if (s > Dd - 0.5) y += (o.lip ?? 0.05) * Math.sin(t * (o.flapF ?? 9) + x * 2) * Math.pow((s - (Dd - 0.5)) / 0.5, 2); }
-        else if (s < Dd + RR * PI / 2) { const a = (s - Dd) / RR; y = 0.02 - RR * (1 - Math.cos(a)); z = -RR * Math.sin(a); }
+        if (s < Dd) { y = 0.065 + 0.012 * Math.sin(x * 3 + s * 2); z = Dd - s; if (s > Dd - 0.5) y += (o.lip ?? 0.05) * Math.sin(t * (o.flapF ?? 9) + x * 2) * Math.pow((s - (Dd - 0.5)) / 0.5, 2); }
+        else if (s < Dd + RR * PI / 2) { const a = (s - Dd) / RR; y = 0.065 - RR * (1 - Math.cos(a)); z = -RR * Math.sin(a); }
         else { const h = s - Dd - RR * PI / 2, k = h / Dr, w = (o.flap ?? 0.5) * (0.6 + 0.4 * Math.sin(t * (o.flapF ?? 9) + x * 1.7 + h * 2.2));
-          y = 0.02 - RR - h * Math.cos(w * k * 0.9); z = -RR - h * Math.sin(w * k * 0.9) - 0.08 * k * Math.sin(t * 13 + x * 3); }
+          y = 0.065 - RR - h * Math.cos(w * k * 0.9); z = -RR - h * Math.sin(w * k * 0.9) - 0.08 * k * Math.sin(t * 13 + x * 3); }
         pos.setXYZ(n, x, y, z);
       }
       pos.needsUpdate = true; geo.computeVertexNormals();
