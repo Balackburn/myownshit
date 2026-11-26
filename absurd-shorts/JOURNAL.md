@@ -3155,3 +3155,9 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 01 h 00 — « La tartine » (102) brouillon de contrôle 4 : 0 plan figé, pas de creux ; planche vérifiée, corrections lisibles (S13 corps horizontal, S09 flèche qui plonge, S12 trois corps en échelon). Un défaut reste : le carrelage disparaît sur 4 images de S01 (sol uni plus clair). Agent de diagnostic lancé avant la finale.
 
 - 01 h 10 — « Le pardon » (103), session 87 : revues 5,5/6,4 → 6,6/7,0 → 7,1/7,4, passe finale, brouillon de contrôle, finale 1080x1920 à −16,0 LUFS ; publiée (cmwwtwatt16u4pj07dbxmflr8). Branche fusionnée, leçons ajoutées. « Le mot » (105) confié à la session 87.
+
+- 01 h 40 — Atelier 106-108 : trois auteurs (voyages ; famille et école ; sport, santé et science), trois juges. Scores comédie / rétention / fabrication :
+  - retenues : « Le composteur » 8,5/7,5/7,5 ; « La notice » 7,5/8/8 ; « La sardine » 7,5/7/7 ;
+  - en réserve : « Le sel » (8/7/6,5), écarté du lot car il double « La notice » (objet qui traverse le pays, salle d'attente) ; « Le bulletin » (7,5/7,5/6,5) ;
+  - écartée : « Le genou » (reprend la météo du « Torticolis »).
+  Le juge fabrication a repéré des décors qui enfreignent les règles par défaut (tableau chiffré, croix d'hôpital, amendes à « 135 € », billets « $ » et « 100 ») : ajoutés au skill. Finalisation lancée.
