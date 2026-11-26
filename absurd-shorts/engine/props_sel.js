@@ -218,7 +218,17 @@ export const SEL_PROPS = {
   },
 
   // ---------------------------------------------------------------- a cap of snow (pivot at its base): o.r (0.14), o.h (0.55) its height against its width
-  seSnowCap(o) { const g = grp(snowDome(o.r ?? 0.14, o.seed ?? 5, o.h ?? 0.55)); return g; },
+  seSnowCap(o) {
+    if (!o.slab) return grp(snowDome(o.r ?? 0.14, o.seed ?? 5, o.h ?? 0.55));
+    // (round 3) o.slab: a flat slab of snow that follows a box head (o.w x o.d, o.t thick), soft drips hanging over its edges, the same white and
+    // glow as the domes on the knife and the fork, no ink inside its outline (a dome with two inked facets read as a beret with eyes)
+    const W = o.w ?? 0.4, D = o.d ?? 0.34, T = o.t ?? 0.07, SO = { noGrain: true, emissive: '#7A8A96' }, g = grp();
+    g.add(box(W, T, D, '#FFFFFF', { pivot: 'bottom', ...SO }), at(box(W * 0.86, T * 0.6, D * 0.84, '#FFFFFF', { pivot: 'bottom', ...SO }), 0, T * 0.9, 0));
+    const drips = o.drips || [[-0.3, 1, 0.07], [0.05, 1, 0.1], [0.34, 1, 0.06], [1, -0.2, 0.08], [1, 0.3, 0.05], [-1, 0.1, 0.07], [-0.1, -1, 0.06]];
+    drips.forEach(([u, v, len], i) => { const dr = lump(0.03, len / 2 + 0.015, 0.03, '#FFFFFF', 30 + i, 0.08, 1, SO);
+      const x = Math.abs(u) === 1 ? u * W / 2 : u * W / 2, z = Math.abs(v) === 1 ? v * D / 2 : v * D / 2; dr.position.set(x, T * 0.5 - len / 2, z); g.add(dr); });
+    return g;
+  },
 
   // ---------------------------------------------------------------- a high chair seen from behind (pivot at the floor, the baby faces +Z): splayed legs, a seat at
   // 0.78 with a backrest, a tray in front; the baby is a pastel bonnet with a frill and a bow at the back, the ties of a white bib at the nape, a small
@@ -672,6 +682,46 @@ export const SEL_PROPS = {
     g.add(at(box(0.06, 0.06, 0.5, '#24272C'), 0, (o.wy ?? 0.4) - 0.15, 0.22, -0.55, 0, 0));
     const lt = new THREE.PointLight(o.lightColor || '#FFF0D8', o.I ?? 1.4, o.R ?? 2.6, 1.2); lt.position.set(0, Hh - 0.05, -D / 2); g.add(lt);
     g.userData.wheel = [0, o.wy ?? 0.4, 0]; return g;
+  },
+
+  // ---------------------------------------------------------------- (round 3) a stretched rubber arm drawn as one tapered, sagging sleeve (pivot at the world
+  // origin: place it at [0, 0, 0]): from o.from (the shoulder, off frame) to the mitten, whose world position follows o.track [[t, x, y, z], ...]
+  // (sampled at the frames, interpolated between them); the elbow sags by o.sag (0.14) of the length along o.sagDir ([0, -1, 0]); the upper arm is
+  // o.r0 (0.065) thick, the forearm tapers to o.r1 (0.032); a pale cuff at the wrist (o.cuff) and a mitten (o.hand) on the end; inked. A plain
+  // straight stretched limb of the rig read as a plank of wood
+  seSleeve(o) {
+    const g = grp(), A = new THREE.Vector3(...(o.from || [0, 1, 0])), TR = o.track || [[0, 0, 1, 0.5]], N = 26, RAD = 10, SAG = o.sag ?? 0.14;
+    const R0 = o.r0 ?? 0.065, R1 = o.r1 ?? 0.032, SD = new THREE.Vector3(...(o.sagDir || [0, -1, 0])).normalize();
+    const C1 = new THREE.Color(o.color || '#B48CD2'), C2 = new THREE.Color(o.cuff || '#F4EEE2');
+    const nV = (N + 1) * RAD, pos = new Float32Array(nV * 3), pos2 = new Float32Array(nV * 3), col = new Float32Array(nV * 3), idx = [];
+    for (let i = 0; i < N; i++) for (let j = 0; j < RAD; j++) { const a = i * RAD + j, b = i * RAD + (j + 1) % RAD, c = a + RAD, d = b + RAD; idx.push(a, c, b, b, c, d); }
+    for (let i = 0; i <= N; i++) { const cc = i / N > 0.9 ? C2 : C1; for (let j = 0; j < RAD; j++) { const q = (i * RAD + j) * 3; col[q] = cc.r; col[q + 1] = cc.g; col[q + 2] = cc.b; } }
+    const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setAttribute('color', new THREE.BufferAttribute(col, 3)); geo.setIndex(idx);
+    const geo2 = new THREE.BufferGeometry(); geo2.setAttribute('position', new THREE.BufferAttribute(pos2, 3)); geo2.setIndex(idx);
+    const tube = new THREE.Mesh(geo, L('#FFFFFF', { vertexColors: true })); tube.castShadow = true; tube.frustumCulled = false; g.add(tube);
+    const rim = new THREE.Mesh(geo2, new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide })); rim.frustumCulled = false; rim.castShadow = false; rim.name = 'outline'; g.add(rim);
+    const mit = grp(), palm = lump(0.06, 0.05, 0.045, o.hand || '#F2C9A6', 6, 0.08, 1), thumb = lump(0.022, 0.03, 0.02, o.hand || '#F2C9A6', 7, 0.08, 1);
+    ink(palm, 0.08); ink(thumb, 0.1); thumb.position.set(0.0, 0.04, 0.035); mit.add(palm, thumb); g.add(mit);
+    const B = new THREE.Vector3(), E = new THREE.Vector3(), Cq = new THREE.Vector3(), P = new THREE.Vector3(), T = new THREE.Vector3(), Nn = new THREE.Vector3(), Bn = new THREE.Vector3(), UP = new THREE.Vector3(0, 1, 0);
+    const at_ = t => { let i = 0; while (i < TR.length - 1 && TR[i + 1][0] <= t) i++; const a = TR[i], b = TR[Math.min(i + 1, TR.length - 1)], u = b[0] > a[0] ? clamp01((t - a[0]) / (b[0] - a[0])) : 0;
+      return B.set(lerp(a[1], b[1], u), lerp(a[2], b[2], u), lerp(a[3], b[3], u)); };
+    const curve = (u, out) => { const v = 1 - u; return out.set(v * v * A.x + 2 * v * u * Cq.x + u * u * B.x, v * v * A.y + 2 * v * u * Cq.y + u * u * B.y, v * v * A.z + 2 * v * u * Cq.z + u * u * B.z); };
+    const radius = u => u < 0.48 ? R0 * (1 - 0.12 * u) : lerp(R0 * 0.9, R1, smooth((u - 0.48) / 0.4));
+    g.userData.update = t => {
+      at_(t); const len = A.distanceTo(B); E.copy(A).lerp(B, 0.5).addScaledVector(SD, SAG * len); Cq.copy(E).multiplyScalar(2).addScaledVector(A, -0.5).addScaledVector(B, -0.5);
+      for (let i = 0; i <= N; i++) {
+        const u = i / N; curve(u, P); curve(Math.min(1, u + 0.01), T); if (u >= 1) { curve(0.99, T); T.subVectors(P, T); } else T.sub(P); T.normalize();
+        Nn.crossVectors(T, UP); if (Nn.lengthSq() < 1e-6) Nn.set(1, 0, 0); Nn.normalize(); Bn.crossVectors(Nn, T).normalize();
+        const rr = radius(u);
+        for (let j = 0; j < RAD; j++) { const a = j / RAD * TAU, cx = Math.cos(a), sy = Math.sin(a), q = (i * RAD + j) * 3;
+          const dx = Nn.x * cx + Bn.x * sy, dy = Nn.y * cx + Bn.y * sy, dz = Nn.z * cx + Bn.z * sy;
+          pos[q] = P.x + dx * rr; pos[q + 1] = P.y + dy * rr; pos[q + 2] = P.z + dz * rr;
+          pos2[q] = P.x + dx * (rr + 0.011); pos2[q + 1] = P.y + dy * (rr + 0.011); pos2[q + 2] = P.z + dz * (rr + 0.011); }
+      }
+      geo.attributes.position.needsUpdate = true; geo2.attributes.position.needsUpdate = true; geo.computeVertexNormals(); geo2.computeVertexNormals(); geo.computeBoundingSphere(); geo2.computeBoundingSphere();
+      curve(0.97, P); mit.position.copy(B); mit.lookAt(P); mit.rotateY(PI);
+    };
+    g.userData.update(0); return g;
   },
 
   // ---------------------------------------------------------------- a soft warm fill light on the faces (no visible source; pivot at the light): o.I (1.2), o.R (2.5)

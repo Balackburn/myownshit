@@ -187,7 +187,8 @@ def plate_at(sx, sd): return [r(sx), TH + 0.02, r(sd * (TW / 2 - 0.2))]   # the 
 def DINING(n, **o): return P(f'salle{n}', 'seDining', pos=[0, 0, 0], opts=o)
 def MAINSEG(n, **o): return P(f'table{n}', 'seTable', pos=[MAIN_C, 0, 0], opts={'len': MAIN_L, 'w': TW, 'places': PLACES_MAIN, 'chairs': CHAIRS_MAIN, **o})
 NEARCH = [c for c in CHAIRS_MAIN if c[1] < 0]   # only the far side's chairs (a camera on the +Z side has the near chairs in its face)
-def LEAFSEG(n, cx, keys=None, **o): return P(f'rallonge{n}', 'seLeaf', pos=[r(cx), TH - 0.03, 0], opts={'len': LEAF, 'w': TW, **o}, **({'keys': keys} if keys else {}))
+PALE = '#D8A262'                              # (round 3) every leaf is the pale one (S02, S04, S05b, S06, S12b, S16b): one colour for the gag object
+def LEAFSEG(n, cx, keys=None, **o): return P(f'rallonge{n}', 'seLeaf', pos=[r(cx), TH - 0.03, 0], opts={'len': LEAF, 'w': TW, 'wood': PALE, **o}, **({'keys': keys} if keys else {}))
 def ENDSEG(n, hx, keys=None): return P(f'bout{n}', 'seTable', pos=[r(hx - 0.9), 0, 0], opts={'len': END_L, 'w': TW, 'inset': 0.12}, **({'keys': keys} if keys else {}))
 def ROAST(n, hx, keys=None, snow=None, y=TH): return P(f'roti{n}', 'seRoast', pos=[r(hx - 0.72), y, 0.0], ry=-90, opts={'s': 1.0, **({'snow': snow} if snow is not None else {})}, **({'keys': keys} if keys else {}))
 def HCHAIR(n, hx, keys=None): return P(f'chaiseMec{n}', 'seChair', pos=[r(hx + 0.05), 0, 0], ry=-90, opts={'color': '#6A4430', 'cushion': '#B8544A'}, **({'keys': keys} if keys else {}))
@@ -532,7 +533,7 @@ st.shot('S04', 'whiteVoid', setOpts=DSET, actors=[act('mec', H4, RYH, 'sit', 'ne
         act('f1', B4a, 90, 'stand', 'neutral', keys=BRWALK('f1', B4a, WK4(LF4b, -BW4), 0.0, D4, -0.47, LF4a, LF4b)),
         act('f2', B4b, 90, 'stand', 'neutral', keys=BRWALK('f2', B4b, WK4(LF4b, BW4), 0.0, D4, 0.47, LF4a, LF4b))],
         props=[DINING(4), MAINSEG(4, chairs=[c for c in CHAIRS_MAIN if c != [1.45 - MAIN_C, -1]]), *LEAVES(4, 1), *HERO_END(4, 1), UTENSIL('couteau4', 'knife', ubase(KR4), yaw(KR4, F4)), UTENSIL('fourchette4', 'fork', ubase(KL4), yaw(KL4, F4)),
-               P('rallonge4x', 'seLeaf', pos=LF4a, rot=UPR, opts={'len': LEAF, 'w': TW}, keys=[k(0.0, to=LF4b, dur=D4, ease='linear')]), SHAKER('sel4', base_of(G2_3, 0.0), 0.9), NOSHADOW('ns4', ['mec', 'f1', 'f2'])],
+               P('rallonge4x', 'seLeaf', pos=LF4a, rot=UPR, opts={'len': LEAF, 'w': TW, 'wood': PALE}, keys=[k(0.0, to=LF4b, dur=D4, ease='linear')]), SHAKER('sel4', base_of(G2_3, 0.0), 0.9), NOSHADOW('ns4', ['mec', 'f1', 'f2'])],
         cams=[C4])
 st.card('S04', 'RALLONGE', at=0.05)
 for t_ in (0.1, 0.4, 0.7): st.cue('sfx:step', 'S04', t_, 0.15)
@@ -583,7 +584,7 @@ st.shot('S04b', 'whiteVoid', setOpts=DSET, actors=[act('mec', H4a, RYH, 'sit', '
         props=[DINING('4b'), MAINSEG('4b', chairs=[c for c in CHAIRS_MAIN if c != [1.45 - MAIN_C, -1]]), *LEAVES('4b', 1),
                ENDSEG('4b', hx_after(1), SK4([r(hx_after(1) - 0.9), 0, 0])), ROAST('4b', hx_after(1), SK4([r(hx_after(1) - 0.72), TH, 0.0])), HCHAIR('4b', hx_after(1), SK4([r(hx_after(1) + 0.05), 0, 0])),
                UTENSIL('couteau4b', 'knife', ubase(KR4a), -90, keys=SK4(ubase(KR4a))), UTENSIL('fourchette4b', 'fork', ubase(KL4a), -90, keys=SK4(ubase(KL4a))),
-               P('rallonge4bx', 'seLeaf', pos=LV4a, rot=UPR, opts={'len': LEAF, 'w': TW}, keys=[k(0.1, to=add(LV4a, [0, 0.15, 0]), dur=0.1, ease='out'), k(0.2, to=LV4b, dur=r(TS4 - 0.2), ease='in'), k(0.2, rotTo=[0, 0, 0], dur=r(TS4 - 0.2), ease='in'), k(TS4, squash=[1.0, 0.7, 1.0], dur=0.3)]),
+               P('rallonge4bx', 'seLeaf', pos=LV4a, rot=UPR, opts={'len': LEAF, 'w': TW, 'wood': PALE}, keys=[k(0.1, to=add(LV4a, [0, 0.15, 0]), dur=0.1, ease='out'), k(0.2, to=LV4b, dur=r(TS4 - 0.2), ease='in'), k(0.2, rotTo=[0, 0, 0], dur=r(TS4 - 0.2), ease='in'), k(TS4, squash=[1.0, 0.7, 1.0], dur=0.3)]),
                SHAKER('sel4b', SHB4, 0.9), NOSHADOW('ns4b', ['mec', 'f1', 'f2'])],
         cams=[C4b, C4p])
 GAG('S04b', r(TS4 + 0.1), 'mec', 'skids back again')
@@ -1040,41 +1041,47 @@ D12 = st.dur('S12'); Z12 = 4.5
 # empty dashed ring where a face should be (he taps it twice); cut to him: he looks up at us, an anticipation dip, the eyebrows pop, held to the cut
 SC12 = [3.2, 0.03, Z12]
 SCLEN12 = r(SC12[0] + 0.6); TAIL12 = r(SC12[0] - SCLEN12)
-GEN12 = [-0.45, -0.5, r(Z12 - 0.68)]; RYG12 = -40
-KNEEL = {'legL': [-1.5, 0, 0, 1, None], 'shinL': [1.5, 0, 0, 1, None], 'legR': [0.05, 0, 0, 1, None], 'shinR': [1.55, 0, 0, 1, None]}
+# (round 3) he read as a tall man standing cross-legged (a one-knee kneel seen from the front): now in profile to the first camera, facing down the scroll
+# (-X), the near knee up and its foot planted, the far knee down with its shin flat on the paper behind him, bent low over the tail, his head down by
+# his pointing mitten (the near one); a short push-in (0.45 s) that keeps his head in the frame, cut at 0.5 to a low three-quarter front: the head lift
+GEN12 = [0.2, 0.0, r(Z12 - 0.05)]; RYG12 = -90       # the engine's 'kneel' clip (root down 0.5, near knee up, far shin flat), as « Le composteur »
+KNEEL = {}
 KNS = lambda sp=0.45, nk=0.1: {**KNEEL, 'spine': [sp, 0, 0, 1, None], 'neck': [nk, 0, 0, 1, None]}
 FING = lambda x, dz=0.0: [r(x), 0.07, r(Z12 + dz)]
-RING12 = FING(r(TAIL12 - 0.09), 0.0)
-STOP12 = 0.62; CUT12 = 0.8
-F12, L12, LN12 = FIT([-0.35, 1.0, r(Z12 + 2.0)], {'genTop': add(GEN12, [0, 2.3, 0]), 'genChin': add(GEN12, [0, 1.7, 0]), 'fing0': FING(0.3), 'ring': RING12, 'tail': [r(TAIL12 - 0.3), 0.03, Z12]}, margin=0.13, top=0.13, bottom=0.76, lenses=range(24, 57))
-F12e, L12e, LN12e = FIT([r(TAIL12 + 0.05), 1.2, r(Z12 + 0.9)], {'ring': RING12, 'fingUp': add(RING12, [0.2, 0.3, -0.15]), 'tailEnd': [r(TAIL12 - 0.05), 0.03, Z12], 'body': [r(TAIL12 + 0.55), 0.03, Z12], 'ring2': [r(TAIL12 - 0.2), 0.03, r(Z12 - 0.2)]}, margin=0.14, top=0.3, bottom=0.72, lenses=range(24, 57))
+RING12 = FING(r(TAIL12 - 0.09), 0.08)
+STOP12 = 0.34; CUT12 = 0.5
+GHEAD = add(GEN12, [-0.4, 1.45, 0.0])      # his head bent low over the paper (the spine at 0.4)
+F12, L12, LN12 = FIT([0.1, 0.75, r(Z12 + 3.4)], {'head': add(GHEAD, [0, 0.35, 0]), 'chin': add(GHEAD, [0, -0.15, 0]), 'knee': add(GEN12, [-0.45, 0.55, 0.15]), 'heel': add(GEN12, [0.65, 0.1, 0]), 'fing0': FING(-0.1), 'ring': RING12, 'tail': [r(TAIL12 - 0.2), 0.03, Z12]}, margin=0.1, top=0.14, bottom=0.76, lenses=range(24, 57))
+F12e, L12e, LN12e = FIT([-0.35, 0.8, r(Z12 + 2.2)], {'head': add(GHEAD, [0, 0.33, 0]), 'chin': add(GHEAD, [0, -0.15, 0]), 'ring': RING12, 'tailEnd': [r(TAIL12 - 0.08), 0.03, Z12], 'hand': add(RING12, [0.25, 0.25, 0]), 'knee': add(GEN12, [-0.45, 0.95, 0.15])}, margin=0.12, top=0.14, bottom=0.74, lenses=range(24, 57))
 C12a = cam(0.0, F12, F12e, L12, L12e, lens=LN12, ease='inOut')
-F12b, L12b, LN12b = FIT([-0.75, 1.2, r(Z12 + 0.85)], {'genTop': add(GEN12, [0, 2.95, 0]), 'genChin': add(GEN12, [0, 1.7, 0]), 'chest': add(GEN12, [0, 1.15, 0]), 'hand': add(RING12, [0.1, 0.35, 0])}, margin=0.15, top=0.12, bottom=0.76, lenses=range(24, 57))
-C12b = cam(CUT12, F12b, add(F12b, [0.0, 0.0, -0.1]), L12b, L12b, lens=LN12b, ease='inOut')
-chkc('S12', C12a, {'genTop': add(GEN12, [0, 2.25, 0]), 'genChin': add(GEN12, [0, 1.65, 0]), 'ring': RING12})
-chkc('S12b-face', C12b, {'genTop': add(GEN12, [0, 2.3, 0]), 'genChin': add(GEN12, [0, 1.65, 0]), 'ring': RING12})
-LH12 = off([GEN12[0], 0, GEN12[2]], RYG12, 0.25, -0.32, 0.85)
-# (round 2) the back straight on one knee (the spine 0.18, the rubber arm reaches the paper); the take lifts the head up out of the collar
-GKH = lambda pt, sp=0.18, nk=0.12, pose='point': HAND(pt, LH12, pose, 'open', tipR=0.15, hose=0.2, bend=KNS(sp, nk))
+LN12a_end = LN12e
+GUP = add(GEN12, [-0.1, 1.85, 0.0])         # his head lifted (the spine back to 0.05)
+F12b, L12b, LN12b = FIT([-1.5, 1.2, r(Z12 + 1.45)], {'genTop': add(GUP, [0, 0.4, 0]), 'genChin': add(GUP, [0, -0.4, 0]), 'chest': add(GEN12, [-0.2, 1.0, 0]), 'knee': add(GEN12, [-0.5, 0.6, 0.2])}, margin=0.18, top=0.15, bottom=0.74, lenses=range(24, 57))
+C12b = cam(CUT12, F12b, add(F12b, [0.06, 0.0, -0.12]), L12b, L12b, lens=LN12b, ease='inOut')
+chkc('S12', C12a, {'head': add(GHEAD, [0, 0.35, 0]), 'chin': add(GHEAD, [0, -0.15, 0]), 'ring': RING12})
+chkc('S12', C12a, {'head': add(GHEAD, [0, 0.35, 0]), 'chin': add(GHEAD, [0, -0.15, 0]), 'ring': RING12}, end=True)
+chkc('S12b-face', C12b, {'genTop': add(GUP, [0, 0.35, 0]), 'genChin': add(GUP, [0, -0.4, 0]), 'ring': RING12})
+RH12 = off([GEN12[0], 0, GEN12[2]], RYG12, 0.48, 0.1, 0.62)   # the free mitten on the raised knee
+GKH = lambda pt, sp=0.34, nk=0.05, pose='point': {'reach': {'L': R5(pt, 1, 0.15), 'R': R5(RH12, 1)}, 'hands': {'L': pose, 'R': 'open'}, 'hip': 0, 'hose': 0.2, 'bend': KNS(sp, nk)}
 GF12 = {'lid': 0.3, 'mouth': 'line', 'brow': 0.3, 'gy': 0.7}
-GK12 = [k(-0.5, look=lerp3(add(RING12, [0.3, 1.2, 0.3]), F12, 0.5)), k(0.0, toon={**GKH(FING(0.3)), 'face': GF12}, toonDur=0.0)]
-for j in range(1, 10):
-    u = EZ['out'](j / 9); x_ = 0.3 + (RING12[0] - 0.3) * u
-    GK12.append(k(r(STOP12 * j / 9), toon={**GKH(FING(x_)), 'face': {**GF12, 'gx': -0.4}}, toonDur=r(STOP12 / 9 * 0.9)))
-GK12 += [k(r(STOP12 + 0.02), toon={**GKH(RING12), 'sq': [1.02, 0.98, 1.02], 'face': {**GF12, 'gx': -0.4, 'lid': 0.1, 'brow': 0.6}}, toonDur=0.03),
-         k(0.68, toon={**GKH(add(RING12, [0, 0.07, 0])), 'face': {**GF12, 'gx': -0.4, 'brow': 0.7}}, toonDur=0.03), k(0.71, toon={**GKH(RING12), 'face': {**GF12, 'gx': -0.4, 'brow': 0.7}}, toonDur=0.03),
-         k(0.75, toon={**GKH(add(RING12, [0, 0.07, 0])), 'face': {**GF12, 'gx': -0.4, 'brow': 0.8}}, toonDur=0.03), k(0.78, toon={**GKH(RING12), 'face': {**GF12, 'gx': -0.4, 'brow': 0.8}}, toonDur=0.03),
-         # the take: the head comes up to us, an anticipation dip, the eyebrows pop, held
-         k(0.88, look='camera', lookDur=0.12), k(0.88, toon={**GKH(RING12, 0.1, -0.1), 'face': {**GF12, 'gy': 0.0, 'gx': 0.0, 'brow': 0.4}}, toonDur=0.1),
-         k(0.98, toon={**GKH(RING12, 0.2, 0.08), 'sq': [1.1, 0.88, 1.1], 'face': {**GF12, 'gy': 0.0, 'gx': 0.0, 'brow': -0.5, 'lid': 0.55, 'mouth': 'line'}}, toonDur=0.06),
-         k(1.06, toon={**HAND(RING12, LH12, 'point', 'open', tipR=0.15, hose=0.2, bend={**KNEEL, 'spine': [-0.05, 0, 0, 1, None], 'neck': [-0.22, 0, 0, 2.0, None]}), 'sq': [0.93, 1.1, 0.93], 'hairUp': 0.6, 'auto': 0, 'face': {**GF12, 'gy': 0.0, 'gx': 0.0, 'brow': 1.0, 'browTilt': 12, 'eye': 0.5, 'lid': 0.0, 'mouth': 'o', 'jaw': 0.3}}, toonDur=0.035, toonEase='outBack'),
-         k(1.14, toon={**HAND(RING12, LH12, 'point', 'open', tipR=0.15, hose=0.2, bend={**KNEEL, 'spine': [0.0, 0, 0, 1, None], 'neck': [-0.15, 0, 0, 1.8, None]}), 'sq': [0.97, 1.05, 0.97], 'face': {**GF12, 'gy': 0.0, 'gx': 0.0, 'brow': 1.0, 'eye': 0.4, 'lid': 0.0, 'mouth': 'o', 'jaw': 0.2}}, toonDur=0.08),
-         *life(1.24, D12, {**GF12, 'gy': 0.0, 'gx': 0.0, 'brow': 1.0, 'eye': 0.38, 'lid': 0.0, 'mouth': 'o', 'jaw': 0.15}, HAND(RING12, LH12, 'point', 'open', tipR=0.15, hose=0.2, bend={**KNEEL, 'spine': [0.0, 0, 0, 1, None], 'neck': [-0.15, 0, 0, 1.8, None]}), period=0.36, amp=0.016)]
-st.shot('S12', 'cottageStreet', actors=[act('gen', GEN12, RYG12, 'stand', 'neutral', keys=GK12)],
+GK12 = [k(-0.5, look=add(RING12, [0.25, 0.55, 0.9])), k(0.0, toon={**GKH(FING(-0.05)), 'face': GF12}, toonDur=0.0)]
+for j in range(1, 7):
+    u = EZ['out'](j / 6); x_ = -0.05 + (RING12[0] + 0.05) * u
+    GK12.append(k(r(STOP12 * j / 6), toon={**GKH(FING(x_, 0.08 * u)), 'face': {**GF12, 'gx': 0.0}}, toonDur=r(STOP12 / 6 * 0.9)))
+UP12 = lambda sp, nk, st_=1.0: {'reach': {'L': R5(RING12, 1, 0.15), 'R': R5(RH12, 1)}, 'hands': {'L': 'point', 'R': 'open'}, 'hip': 0, 'hose': 0.2, 'bend': {**KNEEL, 'spine': [sp, 0, 0, 1, None], 'neck': [nk, 0, 0, st_, None]}}
+GK12 += [k(r(STOP12 + 0.02), toon={**GKH(RING12), 'sq': [1.02, 0.98, 1.02], 'face': {**GF12, 'lid': 0.1, 'brow': 0.6}}, toonDur=0.03),
+         k(0.4, toon={**GKH(add(RING12, [0, 0.07, 0])), 'face': {**GF12, 'brow': 0.7}}, toonDur=0.03), k(0.43, toon={**GKH(RING12), 'face': {**GF12, 'brow': 0.7}}, toonDur=0.03),
+         k(0.46, toon={**GKH(add(RING12, [0, 0.07, 0])), 'face': {**GF12, 'brow': 0.8}}, toonDur=0.03), k(0.49, toon={**GKH(RING12), 'face': {**GF12, 'brow': 0.8}}, toonDur=0.03),
+         # the take, on the new angle: an anticipation dip (lower still), then the head comes up to us, the eyebrows pop, held and breathing
+         k(0.54, look='camera', lookDur=0.1), k(0.54, toon={**UP12(0.5, 0.25), 'sq': [1.08, 0.9, 1.08], 'face': {**GF12, 'gy': 0.0, 'brow': -0.5, 'lid': 0.55}}, toonDur=0.06),
+         k(0.64, toon={**UP12(0.0, -0.25, 1.9), 'sq': [0.93, 1.1, 0.93], 'auto': 0, 'face': {**GF12, 'gy': 0.0, 'gx': 0.0, 'brow': 1.0, 'browTilt': 12, 'eye': 0.5, 'lid': 0.0, 'mouth': 'o', 'jaw': 0.3}}, toonDur=0.05, toonEase='outBack'),
+         k(0.74, toon={**UP12(0.05, -0.15, 1.7), 'sq': [0.97, 1.05, 0.97], 'face': {**GF12, 'gy': 0.0, 'gx': 0.0, 'brow': 1.0, 'eye': 0.4, 'lid': 0.0, 'mouth': 'o', 'jaw': 0.2}}, toonDur=0.08),
+         *life(0.84, D12, {**GF12, 'gy': 0.0, 'gx': 0.0, 'brow': 1.0, 'eye': 0.38, 'lid': 0.0, 'mouth': 'o', 'jaw': 0.15}, UP12(0.05, -0.15, 1.7), period=0.36, amp=0.016, blinks=[1.3])]
+st.shot('S12', 'cottageStreet', actors=[act('gen', GEN12, RYG12, 'kneel', 'neutral', keys=GK12)],
         props=[GCUT_STREET(12), P('arbre12', 'seScroll', pos=SC12, ry=-90, rot=[-PI / 2, -PI / 2, 0], rotOrder='YXZ', opts={'w': SCW, 'tail': True, 'empty': True, 'seed': 3, 'len': SCLEN12}), NOSHADOW('ns12', ['gen'])],
         cams=[C12a, C12b])
-GAG('S12', r(STOP12 + 0.1), 'gen', 'the last branch is bare'); GAG('S12', 1.08, 'gen', 'eyebrows pop')
-st.cue('sfx:paper', 'S12', 0.05, 0.12); st.cue('sfx:tick', 'S12', STOP12, 0.2); st.cue('sfx:tick', 'S12', 0.71, 0.12); st.cue('sfx:tick', 'S12', 0.78, 0.12); st.cue('sfx:boing', 'S12', 1.06, 0.12)
+GAG('S12', r(STOP12 + 0.04), 'gen', 'the last branch is bare'); GAG('S12', 0.68, 'gen', 'eyebrows pop')
+st.cue('sfx:paper', 'S12', 0.05, 0.12); st.cue('sfx:tick', 'S12', STOP12, 0.2); st.cue('sfx:tick', 'S12', 0.43, 0.12); st.cue('sfx:tick', 'S12', 0.49, 0.12); st.cue('sfx:boing', 'S12', 0.64, 0.12)
 
 # 12b: « La table s'est arrêtée. » An empty village street: two cousins carrying yet another leaf stop, look left, look right: nobody left to seat; a shrug;
 # (round 1) they hold it for real, flat between them by its two ends (four mittens on its corners), its weight sagging them; they look left, right,
@@ -1084,51 +1091,68 @@ st.cue('sfx:paper', 'S12', 0.05, 0.12); st.cue('sfx:tick', 'S12', STOP12, 0.2); 
 # (the top surface, in front of the hips); the weight sags them (knees in, a lean back, the leaf bobbing down on each step of the shrug); they let go
 # with open palms that stay at the leaf's height for two frames, the leaf drops in 0.12 s, CLACK, bounces once and settles; only then the shrug
 D12b = st.dur('S12b')
-LL12 = 1.3; XC12 = 0.97
-PA12 = [-XC12, 0.12, -1.75]; PC12 = [XC12, 0.12, -1.75]
-LY12 = 0.98; LV12 = [0.0, LY12, -1.62]; LREST12 = 0.2
-LOOKL, LOOKR, SHRUG, DROP12 = 0.1, 0.3, 0.46, 0.64
-LAND12 = r(DROP12 + 0.12)
-LM12 = [(0.0, [0.0, r(LY12 - 0.05), -1.62], 0.08, 'out'), (0.08, [0.0, r(LY12 - 0.02), -1.62], 0.1, 'inOut'), (r(SHRUG - 0.04), [0.0, r(LY12 + 0.05), -1.62], 0.07, 'out'), (r(SHRUG + 0.08), [0.0, r(LY12 - 0.04), -1.62], 0.07, 'in'),
-        (r(SHRUG + 0.15), [0.0, LY12, -1.62], 0.06, 'out')]
+# (round 3) the leaf read as a dark doormat: the PALE leaf of S02/S06/S16b, twice as long (2.7 m), lifted to chest height between two cousins standing
+# behind it at its two ends, in line with the stopped village-street table (its last segment ends 0.3 m short of the leaf: it never joins); they look
+# down the street left and right, let go (palms open at its height for two frames), it falls 1.2 m, squashes, bounces once and settles on the road;
+# then a real shrug: the head sinks between the shoulders (the neck squashed), the palms out at shoulder height, the head tilted, the brows up
+ZL12 = 4.0; LL12 = 2.7; XL12 = 0.4; LY12 = 1.25; LREST12 = 0.035; TEND12 = r(XL12 - LL12 / 2 - 0.3)
+PA12 = [r(XL12 - LL12 / 2 + 0.42), 0.0, r(ZL12 - 0.82)]; PC12 = [r(XL12 + LL12 / 2 - 0.42), 0.0, r(ZL12 - 0.82)]
+LV12 = [XL12, LY12, ZL12]
+LOOKL, LOOKR, SHRUG, DROP12 = 0.06, 0.2, 0.78, 0.4
+LAND12 = r(DROP12 + 0.2)
+LM12 = [(0.0, [XL12, r(LY12 - 0.04), ZL12], 0.08, 'out'), (0.08, [XL12, r(LY12 - 0.01), ZL12], 0.1, 'inOut'), (0.22, [XL12, r(LY12 - 0.04), ZL12], 0.08, 'inOut'), (0.32, [XL12, LY12, ZL12], 0.07, 'out')]
 LT12 = track(LV12, LM12)
-F12b, L12b, LN12b = FIT([3.1, 1.55, 2.0], {'aTop': add(PA12, [0, 2.4, 0]), 'cTop': add(PC12, [0, 2.35, 0]), 'aFeet': add(PA12, [0, 0.1, 0]), 'leafFlat': [0.0, LREST12, -1.12], 'cFeet': add(PC12, [0, 0.1, 0]), 'aSide': add(PA12, [-0.3, 1.2, 0]), 'cSide': add(PC12, [0.3, 1.2, 0])}, margin=0.1, top=0.13, bottom=0.76, lenses=range(24, 57))
-C12b = cam(0.0, F12b, add(F12b, [-0.1, 0.0, -0.12]), L12b, L12b, lens=LN12b, ease='inOut')
-chkc('S12b', C12b, {'aTop': add(PA12, [0, 2.35, 0]), 'aChin': add(PA12, [0, 1.75, 0]), 'cTop': add(PC12, [0, 2.3, 0]), 'leafHeld': [0.0, LY12, -1.12], 'leafFlat': [0.0, LREST12, -1.12]})
-def CUZ12(p, sd):
-    # sd: the side of the leaf's end he holds (-1: its -X end); the mittens on its front corner and the middle of its end, on the top surface
-    def grip(c): return [r(c[0] + sd * (LL12 / 2 - 0.06)), r(c[1] + 0.045), r(c[2] + 0.36)], [r(c[0] + sd * (LL12 / 2 - 0.04)), r(c[1] + 0.045), r(c[2] - 0.05)]
+F12b0 = [r(XL12 + 5.3 * math.cos(math.radians(30))), 2.1, r(ZL12 + 5.3 * math.sin(math.radians(30)))]   # 30 deg off the leaf's axis: its 2.7 m in depth, the figures large
+F12b, L12b, LN12b = FIT(F12b0, {'aTop': add(PA12, [0, 2.4, 0]), 'cTop': add(PC12, [0, 2.4, 0]), 'leafL': [r(XL12 - LL12 / 2), LY12, r(ZL12 + 0.5)], 'leafRb': [r(XL12 + LL12 / 2), LY12, r(ZL12 - 0.5)],
+                                  'landL': [r(XL12 - LL12 / 2), 0.03, r(ZL12 + 0.5)], 'landR': [r(XL12 + LL12 / 2), 0.03, r(ZL12 + 0.5)], 'tabEnd': [TEND12, TH, r(ZL12 + 0.5)]}, margin=0.09, top=0.14, bottom=0.79, lenses=range(24, 66))
+C12b = cam(0.0, F12b, add(F12b, [-0.12, 0.0, -0.14]), L12b, L12b, lens=LN12b, ease='inOut')
+chkc('S12b', C12b, {'aTop': add(PA12, [0, 2.35, 0]), 'aChin': add(PA12, [0, 1.75, 0]), 'cTop': add(PC12, [0, 2.35, 0]), 'leafHeldL': [r(XL12 - LL12 / 2), LY12, ZL12], 'leafHeldR': [r(XL12 + LL12 / 2), LY12, ZL12], 'leafFlatR': [r(XL12 + LL12 / 2), LREST12, r(ZL12 + 0.5)], 'tableEnd': [TEND12, TH, ZL12]})
+RYA12 = r(yaw(PA12, F12b) * 0.55 + 90 * 0.45, 1); RYC12 = r(yaw(PC12, F12b) * 0.55 - 90 * 0.45, 1)
+def CUZ12(p, sd, ry_):
+    # sd: the end he holds (-1: the -X end); his two mittens on the far long edge of the leaf, 0.12 and 0.62 m in from its end, on the top surface
+    ex = XL12 + sd * LL12 / 2
+    def grip(c): return [r(ex - sd * 0.12), r(c[1] + 0.045), r(c[2] - 0.42)], [r(ex - sd * 0.62), r(c[1] + 0.045), r(c[2] - 0.42)]
     def hold(t, pose='grip'):
-        a_, b_ = grip(LT12(t)); R_, L_ = (b_, a_) if sd < 0 else (a_, b_)
+        o_, i_ = grip(LT12(t)); R_, L_ = (o_, i_) if sd > 0 else (i_, o_)
         return HAND(R_, L_, pose, pose, hose=0.12)
-    SAG = {'spine': [-0.1, 0, 0, 1, None], 'legL': [0.08, 0.06 * sd, 0, 1, None], 'legR': [0.08, 0.06 * sd, 0, 1, None], 'shinL': [-0.12, 0, 0, 1, None], 'shinR': [-0.12, 0, 0, 1, None]}
-    f = {'lid': 0.3, 'mouth': 'line', 'brow': 0.4}; lk = lambda x: lerp3([x, 1.8, 2.0], F12b, 0.4)
-    out = [k(-0.5, look=lk(-6.0)), k(0.0, toon={**hold(0), 'sq': [1.05, 0.94, 1.05], 'bend': SAG, 'face': {**f, 'mouth': 'clench', 'brow': -0.2, 'puff': 0.3}}, toonDur=0.0)]
-    for j in range(1, 13):
+    SAG = {'spine': [-0.08, 0, 0, 1, None], 'shinL': [-0.1, 0, 0, 1, None], 'shinR': [-0.1, 0, 0, 1, None]}
+    f = {'lid': 0.3, 'mouth': 'line', 'brow': 0.4}
+    lk = lambda x: lerp3([x, 1.8, ZL12], F12b, 0.35)
+    out = [k(-0.5, look=lk(-8.0)), k(0.0, toon={**hold(0), 'sq': [1.04, 0.95, 1.04], 'bend': SAG, 'face': {**f, 'mouth': 'clench', 'brow': -0.2, 'puff': 0.3}}, toonDur=0.0)]
+    for j in range(1, 9):
         t = r(0.05 * j)
         if t >= DROP12: break
-        sq = [1.05, 0.94, 1.05] if t < 0.2 else ([0.97, 1.05, 0.97] if SHRUG - 0.05 <= t < SHRUG + 0.06 else ([1.06, 0.93, 1.06] if SHRUG + 0.06 <= t < SHRUG + 0.14 else [1.03, 0.97, 1.03]))
-        fc = {**f, 'gx': 0.8 if LOOKL <= t < LOOKR else (-0.8 if LOOKR <= t < SHRUG else 0.0), 'brow': 0.9 if t >= SHRUG - 0.05 else 0.3, 'mouth': 'smirk' if t >= SHRUG else 'clench'}
-        out.append(k(t, toon={**hold(t + 0.02), 'sq': sq, 'bend': SAG, 'face': fc}, toonDur=0.045))
-    a0, b0 = grip(LT12(DROP12)); R0, L0 = (b0, a0) if sd < 0 else (a0, b0)
-    up = lambda q, dy, dx=0.0: [r(q[0] + dx), r(q[1] + dy), q[2]]
-    out += [k(LOOKL, look=lk(-6.0), lookDur=0.08), k(LOOKR, look=lk(6.0), lookDur=0.08), k(r(SHRUG - 0.05), look='camera', lookDur=0.1),
-            # the let-go: the mittens open where they were (two frames), then rise a little, palms out; the leaf is already on the ground
-            k(DROP12, toon={**HAND(R0, L0, 'spread', 'spread', hose=0.12), 'sq': [0.98, 1.03, 0.98], 'face': {**f, 'brow': 1.0, 'mouth': 'o', 'lid': 0.0}}, toonDur=0.03),
-            k(r(DROP12 + 0.07), toon={**HAND(up(R0, 0.06, -sd * 0.04), up(L0, 0.06, -sd * 0.04), 'spread', 'spread', hose=0.12), 'sq': [0.97, 1.04, 0.97], 'face': {**f, 'brow': 1.0, 'mouth': 'o', 'lid': 0.0}}, toonDur=0.05),
-            *react(r(LAND12 + 0.01), 0.8, keep=STANDK(), look='camera', kind='startle'),
-            k(r(LAND12 + 0.3), toon={**HAND(off(p, 0, 0.3, 0.3, 1.3), off(p, 0, 0.3, -0.3, 1.3), 'spread', 'spread', hose=0.2), 'sq': [0.96, 1.05, 0.96], 'face': {**f, 'brow': 0.9, 'mouth': 'smirk'}}, toonDur=0.1, toonEase='outBack'),
-            *life(r(LAND12 + 0.45), D12b, {**f, 'brow': 0.6, 'mouth': 'smirk'}, STANDK(), period=0.4)]
+        fc = {**f, 'gx': -0.8 * sd if LOOKL <= t < LOOKR else (0.8 * sd if LOOKR <= t < 0.34 else 0.0), 'brow': 0.6 if t >= 0.3 else 0.2, 'mouth': 'clench' if t < 0.3 else 'line'}
+        out.append(k(t, toon={**hold(t + 0.02), 'sq': [1.04, 0.95, 1.04] if j % 2 else [1.02, 0.97, 1.02], 'bend': SAG, 'face': fc}, toonDur=0.045))
+    o0, i0 = grip(LT12(DROP12)); R0, L0 = (o0, i0) if sd > 0 else (i0, o0)
+    up = lambda q, dy: [q[0], r(q[1] + dy), r(q[2] + 0.05)]
+    sh = lambda dy=0.0: HAND(off(p, ry_, 0.22, 0.56, r(1.5 + dy)), off(p, ry_, 0.22, -0.56, r(1.5 + dy)), 'spread', 'spread', hose=0.15)
+    SHR = lambda nk, tilt: {'spine': [-0.04, 0, 0, 1, None], 'neck': [0.05, tilt, 0, nk, None]}
+    FS = {'lid': 0.15, 'mouth': 'smirk', 'brow': 1.0, 'browTilt': 8 * sd}
+    out += [k(LOOKL, look=lk(-8.0), lookDur=0.07), k(LOOKR, look=lk(8.0), lookDur=0.07), k(0.34, look='camera', lookDur=0.08),
+            # the let-go: the mittens open where they were for two frames (the leaf still between them), then rise a little, palms out
+            k(DROP12, toon={**HAND(R0, L0, 'spread', 'spread', hose=0.12), 'sq': [0.99, 1.02, 0.99], 'face': {**f, 'brow': 0.9, 'mouth': 'o', 'lid': 0.0}}, toonDur=0.03),
+            k(r(DROP12 + 0.07), toon={**HAND(up(R0, 0.04), up(L0, 0.04), 'spread', 'spread', hose=0.12), 'sq': [0.99, 1.02, 0.99], 'face': {**f, 'brow': 0.9, 'mouth': 'o', 'lid': 0.0}}, toonDur=0.05),
+            # the impact: a flinch (eyes shut, a small squash), no hair
+            k(LAND12, toon={**HAND(up(R0, -0.02), up(L0, -0.02), 'open', 'open', hose=0.12), 'sq': [1.04, 0.95, 1.04], 'face': {**f, 'lid': 1.0, 'brow': 0.6, 'mouth': 'clench'}}, toonDur=0.03),
+            k(r(LAND12 + 0.1), toon={**HAND(up(R0, 0.0), up(L0, 0.0), 'open', 'open', hose=0.12), 'sq': [1.0, 1.0, 1.0], 'face': {**f, 'lid': 0.3, 'brow': 0.5, 'mouth': 'line', 'gy': 0.6}}, toonDur=0.06),
+            k(r(LAND12 + 0.06), look=lerp3([XL12, 0.0, ZL12 + 0.3], F12b, 0.3), lookDur=0.06), k(r(SHRUG - 0.04), look='camera', lookDur=0.08),
+            # the shrug: an anticipation dip, then the shoulders up (the head sinks, the neck squashed), the palms out, the head tilted, held and breathing
+            k(r(SHRUG - 0.06), toon={**sh(-0.12), 'sq': [1.05, 0.94, 1.05], 'bend': SHR(1.0, 0.0), 'face': {**FS, 'brow': 0.4}}, toonDur=0.05),
+            k(SHRUG, toon={**sh(0.06), 'sq': [0.97, 1.05, 0.97], 'bend': SHR(0.45, r(0.28 * sd, 2)), 'auto': 0, 'face': FS}, toonDur=0.06, toonEase='outBack'),
+            k(r(SHRUG + 0.12), toon={**sh(0.02), 'sq': [1.0, 1.01, 1.0], 'bend': SHR(0.55, r(0.24 * sd, 2)), 'face': FS}, toonDur=0.08),
+            *life(r(SHRUG + 0.24), D12b, FS, {**sh(0.02), 'bend': SHR(0.55, r(0.24 * sd, 2))}, period=0.3, amp=0.015)]
     return out
-LG12 = [0.0, r(LY12 - 0.04), -1.62]
-LEAFK12 = [*MOVES(LM12), *MOVES(FALL(r(DROP12 + 0.01), LG12, [0.0, LREST12, -1.62], r(LAND12 - DROP12 - 0.01), n=3)),
-           k(LAND12, squash=[1.0, 0.6, 1.0], dur=0.22), k(r(LAND12 + 0.01), to=[0.0, r(LREST12 + 0.07), -1.62], dur=0.05, ease='out'), k(r(LAND12 + 0.06), to=[0.0, LREST12, -1.62], dur=0.05, ease='in'),
-           k(r(LAND12 + 0.01), rotTo=[0.06, 0, -0.05], dur=0.05, ease='out'), k(r(LAND12 + 0.06), rotTo=[-0.02, 0, 0.015], dur=0.05, ease='in'), k(r(LAND12 + 0.11), rotTo=[0, 0, 0], dur=0.06, ease='out')]
-st.shot('S12b', 'cottageStreet', actors=[act('cA', PA12, 0, 'stand', 'neutral', keys=CUZ12(PA12, -1)), act('cC', PC12, 0, 'stand', 'neutral', keys=CUZ12(PC12, 1))],
-        props=[GCUT_STREET('12b'), P('rallonge12b', 'seLeaf', pos=LV12, opts={'len': LL12, 'w': TW}, keys=LEAFK12)],
+LG12 = [XL12, LY12, ZL12]
+LEAFK12 = [*MOVES(LM12), *MOVES(FALL(r(DROP12 + 0.02), LG12, [XL12, LREST12, ZL12], r(LAND12 - DROP12 - 0.02), n=4)),
+           k(LAND12, squash=[1.0, 0.45, 1.0], dur=0.2), k(r(LAND12 + 0.01), to=[XL12, r(LREST12 + 0.14), ZL12], dur=0.07, ease='out'), k(r(LAND12 + 0.08), to=[XL12, LREST12, ZL12], dur=0.07, ease='in'),
+           k(r(LAND12 + 0.01), rotTo=[0.0, 0, 0.05], dur=0.07, ease='out'), k(r(LAND12 + 0.08), rotTo=[0.0, 0, -0.015], dur=0.07, ease='in'), k(r(LAND12 + 0.15), rotTo=[0, 0, 0], dur=0.06, ease='out')]
+st.shot('S12b', 'cottageStreet', actors=[act('cA', PA12, RYA12, 'stand', 'neutral', keys=CUZ12(PA12, -1, RYA12)), act('cC', PC12, RYC12, 'stand', 'neutral', keys=CUZ12(PC12, 1, RYC12))],
+        props=[GCUT_STREET('12b'), P('rallonge12b', 'seLeaf', pos=LV12, opts={'len': LL12, 'w': TW, 'wood': PALE}, keys=LEAFK12),
+               P('table12b', 'seTable', pos=[r(TEND12 - 2.5), 0, ZL12], opts={'len': 5.0, 'w': TW, 'places': [[-1.6, -1], [0.2, -1], [1.7, 1]], 'chairs': [[-1.6, -1], [0.2, -1]]}), NOSHADOW('ns12b', ['cA', 'cC'])],
         cams=[C12b])
-GAG('S12b', r(SHRUG + 0.05), 'cA', 'shrug'); GAG('S12b', LAND12, 'cC', 'the leaf drops')
-st.cue('sfx:slideDown', 'S12b', DROP12, 0.1); st.cue('clack', 'S12b', LAND12, 0.5); st.cue('sfx:tick', 'S12b', r(LAND12 + 0.11), 0.12)
+GAG('S12b', r(DROP12 + 0.1), 'cA', 'lets go'); GAG('S12b', LAND12, 'cC', 'the leaf drops'); GAG('S12b', r(SHRUG + 0.1), 'cA', 'shrug')
+st.cue('sfx:slideDown', 'S12b', DROP12, 0.1); st.cue('clack', 'S12b', LAND12, 0.5); st.cue('sfx:tick', 'S12b', r(LAND12 + 0.15), 0.12)
 # ============================== his end of the table on a flat snowy plain, far inland (the snow set; he faces +X, home is that way)
 HS = [-2.5, 0.0, 4.0]; RYS_ = 90
 def SNOWEND(n, roast_snow=1.0, shaker=None, fork_in_roast=False):
@@ -1163,13 +1187,15 @@ HK13 = [SIT(), k(-0.5, look=lerp3([r(HS[0] + 1.5), 1.3, HS[2]], F13, 0.6)), k(0.
 BK13 = [k(0.0, toon={**HOLDK(CB13, RYB13, SP13.grip(0.0), hose=0.1), 'face': CBF}, toonDur=0.0), *FOLLOW(CB13, RYB13, SP13.grip, 0.5, 0.95, CBF, hose=0.1),
         k(1.0, toon={**RESTK(CB13, RYB13), 'face': CBF}, toonDur=0.15)]
 HEADTOP = add(HS, [0.05, 1.9, 0.0])
+# (round 3) the cap on his head read as a beret with eyes (two inked facets of a dome): a flat slab that follows his box head, drips over its edges
+SLAB13 = {'slab': True, 'w': 0.42, 'd': 0.36, 't': 0.07}
 st.shot('S13', 'snow', actors=[act('mec', HS, RYS_, 'sit', 'neutral', keys=HK13), act('cB', CB13, RYB13, 'stand', 'neutral', keys=BK13)],
         props=[*SNOWEND(13), UTENSIL('couteau13', 'knife', ubase(KRS), yaw(KRS, F13), snow=1.0), UTENSIL('fourchette13', 'fork', ubase(KLS), yaw(KLS, F13), snow=1.0),
                SHAKER('sel13', SP13.pos0, EMPTY, keys=SP13.keys()),
-               P('neigeTete13', 'seSnowCap', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.53, 0.0]}, opts={'r': 0.17, 'h': 0.5}, keys=[k(0.0, visible=True), k(SLIDE13, visible=False)]),
-               P('neigeTombe13', 'seSnowCap', pos=HEADTOP, opts={'r': 0.17, 'h': 0.5}, keys=[k(0.0, visible=False), k(SLIDE13, visible=True), k(SLIDE13, to=add(HEADTOP, [0.0, -0.05, 0.28]), dur=0.12, ease='in'), k(SLIDE13, rotTo=[0.9, 0, 0], dur=0.14, ease='in'),
+               P('neigeTete13', 'seSnowCap', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.5, 0.0]}, opts=SLAB13, keys=[k(0.0, visible=True), k(SLIDE13, visible=False)]),
+               P('neigeTombe13', 'seSnowCap', pos=HEADTOP, ry=RYS_, opts=SLAB13, keys=[k(0.0, visible=False), k(SLIDE13, visible=True), k(SLIDE13, to=add(HEADTOP, [0.0, -0.05, 0.28]), dur=0.12, ease='in'), k(SLIDE13, rotTo=[0.9, 0, 0], dur=0.14, ease='in'),
                                                                                                  *MOVES(FALL(r(SLIDE13 + 0.12), add(HEADTOP, [0.0, -0.05, 0.28]), [HEADTOP[0], 0.02, r(HEADTOP[2] + 0.55)], 0.3)), k(r(SLIDE13 + 0.42), squash=[1.3, 0.6, 1.3], dur=0.3)]),
-               NOSHADOW('ns13', ['mec'])],
+               P('sansFlocon13', 'seSnowClear', pos=[0, 0, 0], opts={'near': 2.8}), NOSHADOW('ns13', ['mec'])],
         cams=[C13a, C13])
 GAG('S13', r(BEAM + 0.1), 'mec', 'beams')
 st.cue('gust', 'S13', 0.0, 0.18, 0.6); st.cue('sfx:stretch', 'S13', 0.55, 0.12); st.cue('clack', 'S13', 0.94, 0.25); st.cue('sfx:ding', 'S13', BEAM, 0.18); st.cue('sfx:slideDown', 'S13', SLIDE13, 0.12); st.cue('sfx:poof', 'S13', r(SLIDE13 + 0.42), 0.15)
@@ -1192,13 +1218,16 @@ BASE14 = add(G14b, [0, SH_GRIP + 0.005, 0])
 TAPF = lambda d: add(BASE14, [-0.02, r(KN_G + 0.012 + d), -0.03])
 FORKH = off(HS, RYS_, 0.42, -0.19, 0.93)
 F14 = [r(HS[0] + 2.05), 1.55, r(HS[2] + 0.95)]
-F14, L14, LN14 = FIT(F14, {'top': add(HS, [0, 2.2, 0]), 'chin': add(HS, [0, 1.28, 0]), 'shakerTop': add(G14a, [0, 0.3, 0]), 'capDown': add(G14b, [0, -0.28, 0]), 'fork': add(TAPF(0.13), [0, 0.0, 0])}, margin=0.16, top=0.2, bottom=0.74, lenses=range(24, 57))
+# (round 3) the whole empty glass in the frame in the peer and the take (it was half cut by the left edge): its two sides held with a margin
+GW14 = lambda q, dy=0.0: {f'{n}{i}': add(q, [dx, r(dy + yy), dz]) for i, (dx, dz) in enumerate([(0.1, 0.1), (-0.1, -0.1), (0.1, -0.1), (-0.1, 0.1)]) for n, yy in (('gT', 0.24), ('gB', -0.2))}
+F14, L14, LN14 = FIT(F14, {'top': add(HS, [0, 2.2, 0]), 'chin': add(HS, [0, 1.28, 0]), 'shakerTop': add(G14a, [0, 0.3, 0]), 'capDown': add(G14b, [0, -0.28, 0]), 'fork': add(TAPF(0.13), [0, 0.0, 0]), **GW14(G14c)}, margin=0.1, top=0.2, bottom=0.74, lenses=range(24, 57))
 TOPT = add(HS, [0, 2.95, 0])
-F14t, L14t, LN14t = FIT(add(F14, [0, 0.5, 0]), {'top': TOPT, 'chin': add(HS, [0, 1.75, 0]), 'jaw': add(HS, [0.2, 1.45, 0]), 'stalk': add(HS, [0.45, 2.45, 0])}, margin=0.16, top=0.07, bottom=0.74, lenses=range(LN14, LN14 + 1))
+F14t, L14t, LN14t = FIT(add(F14, [0, 0.5, 0]), {'top': TOPT, 'chin': add(HS, [0, 1.75, 0]), 'jaw': add(HS, [0.2, 1.45, 0]), 'stalk': add(HS, [0.45, 2.45, 0]), **GW14(add(G14c, [0.0, 0.52, 0.12]))}, margin=0.08, top=0.07, bottom=0.74, lenses=range(LN14, LN14 + 4))
 C14a = cam(0.0, F14, add(F14, [-0.04, 0.0, -0.03]), L14, L14, lens=LN14, ease='inOut')
 C14b = glide([cam(r(TAKE14 - 0.02), F14t, add(F14t, [-0.02, 0.0, -0.02]), L14t, L14t, lens=LN14t)], 0.06)
 C14c = glide([cam(r(SNAP14 + 0.01), F14, F14, L14, L14, lens=LN14)], 0.05)
 chkc('S14', C14a, {'top': add(HS, [0, 2.08, 0]), 'chin': add(HS, [0, 1.28, 0]), 'shakerUp': add(G14a, [0, 0.27, 0]), 'capDown': add(G14b, [0, -0.27, 0])})
+chkc('S14', C14a, GW14(G14c)); chk('S14-takeGlass', F14t, L14t, LN14t, GW14(add(G14c, [0.0, 0.52, 0.12])))
 chk('S14-take', F14t, L14t, LN14t, {'top': TOPT, 'eyes': add(HS, [0.3, 2.45, 0]), 'chinDropped': add(HS, [0.1, 1.4, 0])})
 KS = lambda q, tap=None, **x: HAND(q, tap or FORKH, 'grip', 'fist', **x)
 F14f = {**HF, 'brow': 0.5, 'mouth': 'smile', 'gx': 0.4, 'gy': 0.35}
@@ -1289,7 +1318,7 @@ HK15b = [SIT(), k(-0.5, look='camera'), k(0.0, toon={**KK(off(HS, RYS_, 0.35, -0
          k(r(TAP15 + 0.4), toon={**KK(off(HS, RYS_, 0.35, -0.2, 0.86), 'open'), 'face': FB}, toonDur=0.2), *blink(r(D15b - 0.3), FB, KK(off(HS, RYS_, 0.35, -0.2, 0.86), 'open'))]
 st.shot('S15b', 'snow', actors=[act('mec', HS, RYS_, 'sit', 'neutral', keys=HK15b)],
         props=[*SNOWEND('15b'), UTENSIL('couteau15b', 'knife', ubase(KRS), yaw(KRS, F15b), snow=1.0), UTENSIL('fourchette15b', 'fork', FORKR, 90, snow=1.0), SHAKER('sel15b', [r(HS[0] + 0.66), TH, r(HS[2] + 0.42)], EMPTY),
-               NOSHADOW('ns15b', ['mec'])],
+               P('sansFlocon15b', 'seSnowClear', pos=[0, 0, 0], opts={'near': 2.8}), NOSHADOW('ns15b', ['mec'])],
         cams=[C15b])
 GAG('S15b', r(TAP15 + 0.05), 'mec', 'taps his chest')
 st.cue('thud', 'S15b', TAP15, 0.2)
@@ -1323,7 +1352,7 @@ HK16 = [SIT(), k(-0.5, look='camera'), k(0.0, toon=ASK16(0.0, 0), toonDur=0.0), 
 for j, t_ in enumerate([0.12, 0.2, 0.28, 0.34, 0.4, 0.49, 0.58, 0.67, 0.76, 0.85]):
     HK16.append(k(t_, toon=ASK16(t_, j), toonDur=0.05 if t_ < 0.4 else 0.06, **({'toonEase': 'outBack'} if t_ == 0.12 else {})))
 st.shot('S16', 'snow', actors=[act('mec', HS, RYS_, 'sit', 'neutral', keys=HK16)],
-        props=[*SNOWEND(16), UTENSIL('couteau16', 'knife', ubase(KR16), yaw(KR16, F16), snow=1.0), UTENSIL('fourchette16', 'fork', FORKR, 90, snow=1.0), SHAKER('sel16', [r(HS[0] + 0.66), TH, r(HS[2] + 0.42)], EMPTY), NOSHADOW('ns16', ['mec'])],
+        props=[*SNOWEND(16), UTENSIL('couteau16', 'knife', ubase(KR16), yaw(KR16, F16), snow=1.0), UTENSIL('fourchette16', 'fork', FORKR, 90, snow=1.0), SHAKER('sel16', [r(HS[0] + 0.66), TH, r(HS[2] + 0.42)], EMPTY), P('sansFlocon16', 'seSnowClear', pos=[0, 0, 0], opts={'near': 2.8}), NOSHADOW('ns16', ['mec'])],
         cams=[C16])
 GAG('S16', 0.15, 'mec', 'the ask: dip, stretch, finger up')
 st.cue('sfx:boing', 'S16', 0.12, 0.12); st.cue('thud', 'S16', 0.34, 0.12)
@@ -1342,24 +1371,31 @@ O16 = [0.0, 0.0, 100.0]
 def o16(p): return [r(p[0] + O16[0]), r(p[1] + O16[1]), r(p[2] + O16[2])]
 MAMIE16 = o16([-3.25, 0, 0.0]); RYM16 = 90
 CE16 = o16([0.45, 0, 0.95]); RYE16 = -110
-GAPX = -1.35; LF16a = o16([GAPX + 0.95, TH - 0.03, 1.05]); LF16b = o16([GAPX, TH - 0.03, 0.0]); SLAM16 = 0.6
+GAPX = -1.35; LF16a = o16([GAPX + 0.95, TH - 0.03, 1.05]); LF16b = o16([GAPX, TH - 0.03, 0.0]); SLAM16 = 0.5
+# (round 3) the CLACK and the mill's jolt get frames of their own: the leaf is in and still at 0.5; the mill leaps (stretched), hangs two frames,
+# drops and squashes for three frames, settles, and only then is set down on the new leaf; the cut comes 0.13 s after
 MILLH = 0.95; MILLG = MILLH * 0.45
 MG0 = o16([-1.62, r(TH + MILLG), 0.1]); MG1 = o16([GAPX, r(TH + MILLG + 0.14), 0.1]); MGJ = add(MG1, [0.0, 0.12, 0.0]); MG2 = o16([GAPX, r(TH + MILLG), 0.1])
-MP16 = [(0.0, MG0, 0.0, 'linear'), (0.04, add(MG0, [0.0, 0.08, 0.0]), 0.08, 'out'), (0.12, MG1, 0.2, 'inOut'), (r(SLAM16 + 0.005), MGJ, 0.05, 'out'), (r(SLAM16 + 0.06), MG1, 0.06, 'in'),
-        (0.74, MG2, 0.1, 'inOut')]
+MP16 = [(0.0, MG0, 0.0, 'linear'), (0.04, add(MG0, [0.0, 0.08, 0.0]), 0.08, 'out'), (0.12, MG1, 0.2, 'inOut'), (r(SLAM16 + 0.005), add(MGJ, [0, 0.06, 0]), 0.05, 'out'), (r(SLAM16 + 0.1), MG1, 0.04, 'in'),
+        (0.72, MG2, 0.08, 'inOut')]
 MT16 = track(MG0, MP16)
-LM16 = [(0.0, LF16a, 0.0, 'linear'), (0.34, add(LF16a, [0.08, 0, 0.08]), 0.07, 'out'), (0.42, LF16b, r(SLAM16 - 0.42), 'in')]
+LM16 = [(0.0, LF16a, 0.0, 'linear'), (0.24, add(LF16a, [0.08, 0, 0.08]), 0.07, 'out'), (0.32, LF16b, r(SLAM16 - 0.32), 'in')]
 LT16 = track(LF16a, LM16)
 F16c, L16c, LN16c = FIT(o16([GAPX + 0.1, 1.25, 2.55]), {'millTop': add(MG1, [0, MILLH - MILLG + 0.12, 0]), 'millBase': add(MG1, [0, -MILLG, 0]), 'leafL': add(LF16b, [-0.5, 0, 0.5]), 'leafR': add(LF16b, [0.5, 0, 0.5])},
                         margin=0.06, top=0.13, bottom=0.68, lenses=range(22, 72))
 C16c = cam(0.0, F16c, lerp3(F16c, MG1, 0.05), L16c, L16c, lens=LN16c, ease='inOut')
-F16d, L16d, LN16d = FIT([-0.95, 1.35, 4.85], {'top': add(HS, [0.15, 2.15, 0]), 'chin': add(HS, [0.15, 1.3, 0]), 'finger': add(FINGER, [0, 0.3, 0]), 'pad': add(HS, [0.15, 1.7, 0.42])}, margin=0.2, top=0.14, bottom=0.76)
+# (round 3) the last hold tilted down and pulled back: his head at a third of the height, the shaker cap, the tie and the hands above the caption band
+F16d, L16d, LN16d = FIT([-1.3, 1.25, 4.9], {'top': add(HS, [0.15, 2.3, 0]), 'chin': add(HS, [0.15, 1.3, 0]), 'finger': add(FINGER, [0, 0.3, 0]), 'pad': add(HS, [0.15, 1.7, 0.42]), 'shakerBase': [r(HS[0] + 0.66), TH, r(HS[2] + 0.42)], 'tableEdge': [r(HS[0] + 0.5), r(TH - 0.12), r(HS[2] + 0.5)]}, margin=0.16, top=0.17, bottom=0.7)
 C16d = cam(CUT16, F16d, lerp3(F16d, add(HS, [0, 1.6, 0]), 0.12), L16d, L16d, lens=LN16d, ease='inOut')
 chkc('S16b', C16c, {'millTop': add(MG1, [0, MILLH - MILLG, 0]), 'millBase': add(MG1, [0, -MILLG, 0]), 'leafFront': add(LF16b, [0, 0, 0.5]), 'leafIn': add(LT16(0.48), [0, 0, 0.5]), 'mamie': add(MAMIE16, [0, 1.6, 0]), 'cE': add(CE16, [0, 1.9, 0])})
-chkc('S16b-hero', C16d, {'top': add(HS, [0, 2.15, 0]), 'chin': add(HS, [0, 1.3, 0]), 'finger': add(FINGER, [0, 0.2, 0])}, end=True)
+chkc('S16b-hero', C16d, {'top': add(HS, [0, 2.15, 0]), 'eyes': add(HS, [0.15, 1.8, 0]), 'chin': add(HS, [0, 1.3, 0]), 'finger': add(FINGER, [0, 0.2, 0]), 'shakerCap': [r(HS[0] + 0.66), r(TH + 0.36), r(HS[2] + 0.42)], 'tieEnd': add(HS, [0.25, 0.85, 0])}, end=True)
 MHAND16 = lambda t: add(MT16(t), [-0.1, 0.02, 0.05])   # her mitten on the near left side of the mill (centred on it, it vanished inside)
-MK16b = [SIT(), k(-0.5, look=lerp3(add(MG1, [0, 0.2, 0]), F16c, 0.3)), k(0.0, toon={**HOLDK(MAMIE16, RYM16, MHAND16(0.0), hose=0.15), 'face': {**MF, 'gx': 0.5, 'brow': 0.7}}, toonDur=0.0),
-         *FOLLOW(MAMIE16, RYM16, MHAND16, 0.04, 0.9, {**MF, 'brow': 0.7}, hose=0.15)]
+# (round 3) her own arm stays home (she is off frame); the arm that holds the mill is a sleeve prop (seSleeve) from her shoulder to a mitten on the
+# mill's grip: tapered (the forearm half the upper arm), sagging at the elbow, a pale cuff, the mitten on the end
+MK16b = [SIT(), k(-0.5, look=lerp3(add(MG1, [0, 0.2, 0]), F16c, 0.3)), k(0.0, toon={**RESTK(MAMIE16, RYM16), 'face': {**MF, 'gx': 0.5, 'brow': 0.7}}, toonDur=0.0)]
+SHOULDER16 = o16([-3.1, 1.12, 0.24])
+SLEEVE16 = P('bras16b', 'seSleeve', pos=[0, 0, 0], opts={'from': SHOULDER16, 'track': [[r(i / 30, 4), *MHAND16(r(i / 30, 4))] for i in range(int(D16b * 30) + 2)], 'sag': 0.2, 'sagDir': [0, -1, 0.3],
+                                                    'r0': 0.07, 'r1': 0.034, 'color': '#B48CD2', 'cuff': '#F4EEE2', 'hand': '#F2C9A6'})
 EF16 = {'lid': 0.2, 'mouth': 'bigsmile', 'brow': 0.8}
 def PUSH16(t):
     c = LT16(t); return HAND([r(c[0] + 0.3), TH + 0.03, r(c[2] + 0.5)], [r(c[0] - 0.3), TH + 0.03, r(c[2] + 0.5)], 'open', 'open', hose=0.06)
@@ -1367,29 +1403,36 @@ EK16b = [k(-0.5, look=lerp3(LF16b, F16c, 0.3)), k(0.0, toon={**PUSH16(0.0), 'ben
 for j in range(1, 20):
     t_ = r(0.04 * j)
     if t_ > 0.9: break
-    EK16b.append(k(t_, toon={**PUSH16(min(t_ + 0.02, SLAM16)), 'sq': [1.06, 0.94, 1.06] if t_ < 0.43 else ([0.94, 1.07, 0.94] if t_ < SLAM16 + 0.08 else [1.0, 1.0, 1.0]), 'bend': {'spine': [0.3 if t_ < 0.43 else 0.55, 0, 0, 1, None]}, 'face': {**EF16, 'mouth': 'open' if 0.43 <= t_ < 0.7 else 'bigsmile'}}, toonDur=0.035))
+    EK16b.append(k(t_, toon={**PUSH16(min(t_ + 0.02, SLAM16)), 'sq': [1.06, 0.94, 1.06] if t_ < 0.33 else ([0.94, 1.07, 0.94] if t_ < SLAM16 + 0.08 else [1.0, 1.0, 1.0]), 'bend': {'spine': [0.3 if t_ < 0.33 else 0.55, 0, 0, 1, None]}, 'face': {**EF16, 'mouth': 'open' if 0.33 <= t_ < 0.6 else 'bigsmile'}}, toonDur=0.035))
 FB16b = {**FB16, 'mouth': 'smile', 'brow': 0.8, 'eye': 0.25}
 HOLD16 = lambda wag=0.0: {**KK16(add(FINGER, [0, 0, wag]), 'point', tipL=0.15, hose=0.2), 'bend': {'neck': [0.0, 0.1, 0, 1, None]}}
+HOLD16w = lambda dy: {**KK16(add(FINGER, [0, dy, 0]), 'point', tipL=0.15, hose=0.2), 'bend': {'neck': [r(-dy * 1.5, 3), 0.1, 0, 1, None]}}
 HK16b = [SIT(), k(-0.5, look=F16d), k(0.0, toon={**HOLD16(), 'face': {**FB16, 'mouth': 'o', 'jaw': 0.25}}, toonDur=0.0)]
 for j, t_ in enumerate([0.1, 0.2, 0.3, 0.4, 0.5, 0.6]): HK16b.append(k(t_, toon={**HOLD16(0.04 if j % 2 else -0.04), 'face': {**FB16, 'mouth': MOUTHS[j % 6], 'jaw': 0.22 if MOUTHS[j % 6] in ('open', 'o') else 0.0}}, toonDur=0.06))
 HK16b += [k(0.7, toon={**HOLD16(), 'sq': [0.98, 1.03, 0.98], 'face': FB16b}, toonDur=0.1), k(r(CUT16 + 0.02), toon={**HOLD16(0.035), 'sq': [0.97, 1.04, 0.97], 'face': {**FB16b, 'brow': 0.95}}, toonDur=0.1),
           k(r(CUT16 + 0.16), toon={**HOLD16(-0.03), 'face': {**FB16b, 'brow': 0.9}}, toonDur=0.1), k(r(CUT16 + 0.3), toon={**HOLD16(0.02), 'face': {**FB16b, 'brow': 0.85}}, toonDur=0.1),
-          *life(r(CUT16 + 0.4), D16b, {**FB16b, 'brow': 0.85}, HOLD16(), blinks=[1.5], period=0.5, amp=0.016)]
+          # (round 3) the last second is not a still: two small hopeful bounces of the raised finger (a dip, a pop up), a breath, a blink, the brows lifting
+          *[k(t_, toon={**HOLD16w(dy), 'sq': sq_, 'face': {**FB16b, 'brow': br_}}, toonDur=d_, **({'toonEase': 'outBack'} if dy > 0.03 else {}))
+            for t_, dy, sq_, br_, d_ in [(r(CUT16 + 0.42), -0.04, [1.02, 0.98, 1.02], 0.85, 0.08), (r(CUT16 + 0.52), 0.07, [0.97, 1.04, 0.97], 1.0, 0.06), (r(CUT16 + 0.64), 0.0, [1.0, 1.0, 1.0], 0.9, 0.1),
+                                         (1.36, -0.03, [1.015, 0.985, 1.015], 0.85, 0.08), (1.46, 0.06, [0.975, 1.03, 0.975], 1.0, 0.06), (1.58, 0.0, [1.0, 1.0, 1.0], 0.9, 0.1),
+                                         (1.78, 0.02, [0.99, 1.015, 0.99], 0.95, 0.12)]],
+          *blink(1.66, {**FB16b, 'brow': 0.9}, HOLD16w(0.0))]
 LOOK16 = {'probeAt': [r(HS[0] + 1.0), 1.3, r(HS[2] + 0.6)], 'exposure': 0.86}
 MILL_O = {'h': MILLH, 'color': '#1E1C1C', 'glow': '#0A0A0C', 'ring': '#E8C25A', 'knob': '#E8C25A', 'ringW': 0.011}
 st.shot('S16b', 'snow', look=LOOK16, actors=[act('mamie', MAMIE16, RYM16, 'sit', 'neutral', keys=MK16b), act('cE', CE16, RYE16, 'stand', 'neutral', keys=EK16b), act('mec', HS, RYS_, 'sit', 'neutral', keys=HK16b)],
-        props=[P('salle16b', 'seDining', pos=O16, opts={'door': 0.0}), P('boutMamie16b', 'seTable', pos=o16([-2.5, 0, 0]), opts={'len': 1.3, 'w': TW, 'inset': 0.1}),
+        props=[P('salle16b', 'seDining', pos=O16, opts={'door': 0.0, 'sideX': 1.0}), P('boutMamie16b', 'seTable', pos=o16([-2.5, 0, 0]), opts={'len': 1.3, 'w': TW, 'inset': 0.1}),
                P('table16b', 'seTable', pos=o16([0.7, 0, 0]), opts={'len': 3.1, 'w': TW, 'places': [[-1.0, -1], [0.4, 1], [1.1, -1]], 'chairs': [[0.4, -1], [1.1, -1]]}),
                P('chaiseMamie16b', 'seChair', pos=add(MAMIE16, [-0.05, 0, 0]), ry=90, opts={'color': '#6A4430', 'cushion': '#8E5AA8'}),
                P('rallonge16b', 'seLeaf', pos=LF16a, opts={'len': LEAF, 'w': TW, 'wood': '#D8A262'}, keys=[*MOVES(LM16), k(SLAM16, squash=[1.0, 0.65, 1.0], dur=0.25)]),
                P('moulin16b', 'seMill', pos=add(MG0, [0, -MILLG, 0]), opts=MILL_O, keys=[*MOVES([(t0, add(g, [0, -MILLG, 0]), d, e) for t0, g, d, e in MP16]),
-                                                                                        k(r(SLAM16 + 0.005), rotTo=[0.0, 0.0, 0.16], dur=0.05, ease='out'), k(r(SLAM16 + 0.06), rotTo=[0.0, 0.0, -0.06], dur=0.06, ease='inOut'), k(r(SLAM16 + 0.13), rotTo=[0, 0, 0], dur=0.08, ease='out')]),
-               P('lampe16b', 'seFill', pos=o16([GAPX, 1.9, 1.3]), opts={'I': 1.4, 'R': 3.0, 'color': '#FFE6C0'}),
+                                                                                        k(r(SLAM16 + 0.005), rotTo=[0.0, 0.0, 0.16], dur=0.05, ease='out'), k(r(SLAM16 + 0.1), rotTo=[0.0, 0.0, -0.05], dur=0.04, ease='in'), k(r(SLAM16 + 0.2), rotTo=[0, 0, 0], dur=0.08, ease='out'),
+                                                                                        k(SLAM16, squash=[0.82, 1.22, 0.82], dur=0.1), k(r(SLAM16 + 0.14), squash=[1.3, 0.68, 1.3], dur=0.18)]),
+               SLEEVE16, P('lampe16b', 'seFill', pos=o16([GAPX, 1.9, 1.3]), opts={'I': 1.4, 'R': 3.0, 'color': '#FFE6C0'}),
                *SNOWEND('16b'), UTENSIL('couteau16b', 'knife', ubase(KR16), yaw(KR16, F16d), snow=1.0), UTENSIL('fourchette16b', 'fork', FORKR, 90, snow=1.0), SHAKER('sel16b', [r(HS[0] + 0.66), TH, r(HS[2] + 0.42)], EMPTY),
-               P('sansFlocon16b', 'seSnowClear', pos=[0, 0, 0], opts={'near': 2.2}), NOSHADOW('ns16b', ['mamie', 'cE', 'mec'])],
+               P('sansFlocon16b', 'seSnowClear', pos=[0, 0, 0], opts={'near': 2.8}), NOSHADOW('ns16b', ['mamie', 'cE', 'mec'])],
         cams=[C16c, C16d], fx=[{'type': 'shake', 'at': SLAM16, 'dur': 0.2, 'amount': 0.025}])
 GAG('S16b', 0.3, 'mamie', 'the pepper mill, a new leaf: it starts again'); GAG('S16b', 1.2, 'mec', 'hopeful, finger up')
-st.cue('sfx:stretch', 'S16b', 0.06, 0.12); st.cue('whoosh', 'S16b', 0.43, 0.1, 0.2, 500, 2000); st.cue('clack', 'S16b', SLAM16, 0.5); st.cue('sfx:boing', 'S16b', r(SLAM16 + 0.02), 0.1); st.cue('sfx:bell', 'S16b', r(CUT16 + 0.3), 0.08)
+st.cue('sfx:stretch', 'S16b', 0.06, 0.12); st.cue('whoosh', 'S16b', 0.33, 0.1, 0.2, 500, 2000); st.cue('clack', 'S16b', SLAM16, 0.5); st.cue('sfx:boing', 'S16b', r(SLAM16 + 0.02), 0.1); st.cue('thud', 'S16b', r(SLAM16 + 0.14), 0.15); st.cue('sfx:bell', 'S16b', r(CUT16 + 0.3), 0.08)
 print('\n'.join(CHECKS))
 TOON = {'breathe': 1.7, 'holdLife': 1.6}
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
