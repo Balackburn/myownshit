@@ -59,6 +59,7 @@ export const SARDINE_PROPS = {
       const rope = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 1, 4), mat('#E8E2D0')); rope.userData = { top, end, loose, i }; k.add(rope); ropes.push(rope);
       if (!loose && o.pegs !== false) { const pg = grp(at(cyl(0.022, 0.022, 0.16, CHROME, 6, { outline: 0.02 }), 0, 0.02, 0), at(box(0.09, 0.02, 0.03, CHROME, { outline: 0.02 }), 0, 0.1, 0)); pg.position.set(px, 0, pz); k.add(pg); pegs.push(pg); }
     });
+    if (o.ropes === false && o.trail) corners.forEach(([x, z], i) => { const r = at(cyl(0.008, 0.008, 0.9, '#E8E2D0', 4, { pivot: 'top' }), x * W / 2 * 0.95, 0.05, z * W / 2 * 0.95, 0.5 * z, 0, -0.5 * x); r.userData.sw = i; k.add(r); flaps.push(r); });   // (round 1) o.trail: four ropes trail down and back
     const tmp = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0);
     const setRope = (r, a, b) => { tmp.subVectors(b, a); const L = tmp.length(); r.position.copy(a).addScaledVector(tmp, 0.5); r.scale.set(1, L, 1); r.quaternion.setFromUnitVectors(up, tmp.normalize()); };
     g.userData.update = t => {
@@ -66,8 +67,8 @@ export const SARDINE_PROPS = {
       body.scale.set(1 + 0.3 * bl + wob, (1 + 0.12 * bl - wob) * (1 - 0.55 * sg), 1 + 0.3 * bl - wob);
       const ly = kv(o.lift, t), tl = kv(o.tilt, t); k.position.y = ly; k.rotation.z = tl + (o.ropes === false || ly > 0.05 ? 0.06 * Math.sin(t * 3.1) : 0); k.rotation.x = (o.ropes === false || ly > 0.05) ? 0.05 * Math.sin(t * 2.3 + 1) : 0;
       const fl = (o.flap || []).some(([a, b]) => t > a && t < b);
-      flaps.forEach((f, i) => { f.rotation.x = o.loose && i === 3 && (o.looseUntil == null || t < o.looseUntil) ? 0.4 + 0.45 * Math.sin(t * 17) + (fl ? -0.6 : 0) : 0; });
-      for (const r of ropes) { const { top, end, i: ri } = r.userData; const loose = o.loose && ri === 3 && (o.looseUntil == null || t < o.looseUntil); const e = loose ? tmp.set(top.x * 1.5, 0.03, top.z * 1.5).clone() : (ly > 0.05 ? new THREE.Vector3(end.x * 0.5, -ly + 0.05, end.z * 0.5) : end); const tp = top.clone(); tp.x *= body.scale.x; tp.z *= body.scale.z; tp.y *= body.scale.y; setRope(r, tp, e); }
+      flaps.forEach((f, i) => { if (f.userData.sw != null) { f.rotation.x = 0.5 + 0.15 * Math.sin(t * 6 + i); return; } f.rotation.x = o.loose && i === 3 && (o.looseUntil == null || t < o.looseUntil) ? 0.4 + 0.45 * Math.sin(t * 17) + (fl ? -0.6 : 0) : 0; });
+      for (const r of ropes) { const { top, end, i: ri } = r.userData; const loose = o.loose && ri === 3 && (o.looseUntil == null || t < o.looseUntil); const e = loose ? tmp.set(top.x * 1.5, 0.03, top.z * 1.5).clone() : (ly > 0.05 ? new THREE.Vector3(end.x * 0.5, -ly + 0.05, end.z * 0.5) : (ri === 3 && o.ropeY != null ? new THREE.Vector3(end.x, o.ropeY, end.z) : end)); const tp = top.clone(); tp.x *= body.scale.x; tp.z *= body.scale.z; tp.y *= body.scale.y; setRope(r, tp, e); }
       for (const p of pegs) p.visible = ly < 0.05;
     };
     g.userData.update(0); return g;
@@ -75,10 +76,10 @@ export const SARDINE_PROPS = {
   // The stolen tent peg (pivot at its grip, a third from the hook; the shaft along +Z, the hook end at -Z): a fat chrome rod with a hooked top and a
   // glint every 1.3 s. o.len (0.42), o.glint false
   saPeg(o) {
-    const L = o.len ?? 0.42, g = grp(); const sh = new THREE.Mesh(new THREE.CylinderGeometry(0.026, 0.018, L, 8), mat(CHROME, { emissive: '#30343A' })); sh.rotation.x = PI / 2; sh.position.z = L * 0.2; addOutline(sh, 0.03); g.add(sh);
+    const L = o.len ?? 0.5, g = grp(); const sh = new THREE.Mesh(new THREE.CylinderGeometry(0.036, 0.024, L, 8), mat('#AEB8C4', { emissive: '#22262C' })); g.add(at(box(0.012, 0.012, L * 0.85, '#FFFFFF', { emissive: '#FFFFFF' }), 0.022, 0.024, L * 0.2)); sh.rotation.x = PI / 2; sh.position.z = L * 0.2; addOutline(sh, 0.03); g.add(sh);
     const tip = new THREE.Mesh(new THREE.ConeGeometry(0.018, 0.06, 8), mat(CHROME)); tip.rotation.x = PI / 2; tip.position.z = L * 0.7 + 0.03; g.add(tip);
-    const hk = new THREE.Mesh(new THREE.TorusGeometry(0.045, 0.02, 6, 10, PI * 1.2), mat(CHROME, { emissive: '#30343A' })); hk.rotation.y = PI / 2; hk.position.set(0, 0.04, -L * 0.3); addOutline(hk, 0.03); g.add(hk);
-    const gl = glint(0.09, 1.3, o.ph ?? 0); gl.position.set(0.03, 0.05, L * 0.1); if (o.glint !== false) g.add(gl);
+    const hk = new THREE.Mesh(new THREE.TorusGeometry(0.055, 0.026, 6, 10, PI * 1.2), mat('#AEB8C4', { emissive: '#22262C' })); hk.rotation.y = PI / 2; hk.position.set(0, 0.04, -L * 0.3); addOutline(hk, 0.03); g.add(hk);
+    const gl = glint(0.16, 1.1, o.ph ?? 0); gl.position.set(0.03, 0.05, L * 0.1); if (o.glint !== false) g.add(gl);
     g.userData.update = t => { gl.userData.tick(t); }; g.userData.update(0); return g;
   },
   // A wooden mallet (pivot at the grip's end, the head toward -Y)
@@ -96,7 +97,7 @@ export const SARDINE_PROPS = {
     g.userData.update(0); return g;
   },
   // A big glistening sardine (pivot at its middle, head toward +Z): a blue-grey back, a silver belly, a forked tail, a round eye and a moving glint.
-  // o.len (0.34); o.stretch [[t, v]]: pulled out like a worm (longer, thinner); o.wiggle: it wriggles
+  // o.len (0.34); o.stretch [[t, v]]: pulled out like a worm (longer, thinner); o.squash [[t, v]]: squashed along its length (fatter); o.wiggle
   saSardine(o) {
     const L = o.len ?? 0.34, g = grp(), k = grp(); g.add(k);
     const belly = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 8), mat('#DCE4EC', { emissive: '#3A4654' })); belly.scale.set(L * 0.13, L * 0.17, L * 0.5); addOutline(belly, 0.02); k.add(belly);
@@ -105,7 +106,7 @@ export const SARDINE_PROPS = {
     const tm = new THREE.Mesh(new THREE.ShapeGeometry(tail), mat('#5A7A98', { side: THREE.DoubleSide })); tm.rotation.x = -PI / 2; tm.position.z = -L * 0.45; tm.rotation.z = PI / 2; tm.rotation.y = PI / 2; addOutline(tm, 0.02); k.add(tm);
     for (const s of [-1, 1]) k.add(at(sphere(L * 0.035, '#FFFFFF', 0), s * L * 0.1, L * 0.03, L * 0.34), at(sphere(L * 0.02, '#14161A', 0), s * L * 0.115, L * 0.03, L * 0.35));
     const sh = at(box(0.006, L * 0.03, L * 0.5, '#FFFFFF', { emissive: '#FFFFFF' }), L * 0.12, L * 0.02, 0); k.add(sh);
-    g.userData.update = t => { const s = kv(o.stretch, t); k.scale.set(1 - 0.35 * s, 1 - 0.35 * s, 1 + 1.4 * s); k.rotation.y = o.wiggle ? 0.25 * Math.sin(t * 14) : 0; sh.position.z = L * 0.15 * Math.sin(t * 3); };
+    g.userData.update = t => { const s = kv(o.stretch, t), q = kv(o.squash, t); k.scale.set((1 - 0.35 * s) * (1 + 0.6 * q), (1 - 0.35 * s) * (1 + 0.6 * q), (1 + 1.4 * s) * (1 - 0.55 * q)); k.rotation.y = o.wiggle ? 0.25 * Math.sin(t * 14) : 0; sh.position.z = L * 0.15 * Math.sin(t * 3); };
     g.userData.update(0); return g;
   },
   // A clean fish skeleton lying on the ground (pivot at its middle, along X): a white spine, ribs, a skull and a tail fin. o.len (0.8)
@@ -119,7 +120,8 @@ export const SARDINE_PROPS = {
     return g;
   },
   // A hole in the ground (pivot at the ground): a dark disc in a ring of turned soil. o.r (0.12)
-  saHole(o) { const R = o.r ?? 0.12, g = grp(); const d = new THREE.Mesh(new THREE.CircleGeometry(R, 16), mat('#1E140C')); d.rotation.x = -PI / 2; d.position.y = 0.012; const rg = new THREE.Mesh(new THREE.RingGeometry(R, R * 1.8, 16), mat('#6A4A2C')); rg.rotation.x = -PI / 2; rg.position.y = 0.01; g.add(d, rg); return g; },
+  saHole(o) { const R = o.r ?? 0.12, g = grp(); const d = new THREE.Mesh(new THREE.CircleGeometry(R, 18), mat('#1E140C')); d.rotation.x = -PI / 2; d.position.y = 0.09; const rg = new THREE.Mesh(new THREE.CylinderGeometry(R * 1.05, R * 1.9, 0.12, 18, 1, true), mat('#6A4A2C', { side: THREE.DoubleSide })); rg.position.y = 0.06; addOutline(rg, 0.01);
+    const top = new THREE.Mesh(new THREE.RingGeometry(R, R * 1.15, 18), mat('#7A5A3A')); top.rotation.x = -PI / 2; top.position.y = 0.121; g.add(d, rg, top); return g; },   // (round 1) a raised collar of soil (a flat disc flickered against the grass)
   // A round white belly to put on the seagull (pivot at its middle). o.r (0.12)
   saBelly(o) { const m = new THREE.Mesh(new THREE.SphereGeometry(o.r ?? 0.12, 12, 8), mat('#F6F4EE')); m.scale.set(1, 0.9, 1.1); addOutline(m, 0.02); return grp(m); },
   // A caravan (pivot at the floor in its middle, length along X, door toward +Z): a cream body, a plain blue band, two windows, one wheel, a drawbar
@@ -188,17 +190,17 @@ export const SARDINE_PROPS = {
   // A hillside / slope full of small plain dome tents seen from afar (pivot at the middle): o.n tents over o.w x o.d, on a ground that rises toward -Z
   // (o.rise); each tent a plain colour; o.glint: a glint at a corner of each (a fish tail)
   saTentField(o) {
-    const n = o.n ?? 60, W = o.w ?? 16, D = o.d ?? 12, rise = o.rise ?? 0.35, g = grp(), gl = [], cols = ['#F07A1E', '#3E8ACC', '#E8C030', '#5EAA4A', '#D0402A', '#8A5AB0'];
+    const n = o.n ?? 60, W = o.w ?? 16, D = o.d ?? 12, rise = o.rise ?? 0.35, g = grp(), gl = [], cols = ['#F07A1E', '#3E8ACC', '#E8C030', '#5EAA4A', '#E8913A', '#8A5AB0'];
     if (o.ground !== false) { const gm = new THREE.Mesh(new THREE.PlaneGeometry(W * 1.4, D * 1.4, 8, 8), mat(o.groundColor || '#7DBA5A')); gm.rotation.x = -PI / 2 + Math.atan(rise); gm.position.set(0, D * 0.0, 0); g.add(gm); }
     for (let i = 0; i < n; i++) { const x = (hsh(i) - 0.5) * W, z = (hsh(i + 33) - 0.5) * D, y = -z * rise; const c = new THREE.Color(cols[i % cols.length]);
-      const d = new THREE.Mesh(new THREE.SphereGeometry(0.4, 10, 5, 0, TAU, 0, PI / 2), mat('#' + c.getHexString())); d.scale.set(1, 0.7, 1); d.position.set(x, y, z); addOutline(d, 0.02); g.add(d);
+      const d = new THREE.Mesh(new THREE.SphereGeometry(0.4, 10, 5, 0, TAU, 0, PI / 2), mat('#' + c.getHexString())); d.scale.set(1, 0.7, 1); d.position.set(x, y, z); addOutline(d, 0.02); g.add(d); for (const s of [-1, 1]) g.add(at(box(0.012, 0.012, 0.55, '#F4F1EA'), x + s * 0.42, y + 0.12, z + 0.25, -0.45, s * 0.6, 0));
       if (o.glint) { const q = glint(0.12, 1.1, hsh(i + 5) * 1.1); q.position.set(x + 0.42, y + 0.08, z + 0.3); g.add(q); gl.push(q); } }
     g.userData.update = t => { for (const q of gl) q.userData.tick(t); }; g.userData.update(0); return g;
   },
   // A glint by itself (pivot at its middle): o.size (0.12), o.every (1.2)
   saGlint(o) { const g = grp(), q = glint(o.size ?? 0.12, o.every ?? 1.2, o.ph ?? 0); g.add(q); g.userData.update = t => q.userData.tick(t); g.userData.update(0); return g; },
   // A drop of drool hanging from a beak (pivot at its top): a thin string and a round drop that stretches down from o.at
-  saDrool(o) { const g = grp(), s = at(cyl(0.004, 0.004, 1, '#DDEEFF', 5, { pivot: 'top' }), 0, 0, 0), d = at(sphere(0.018, '#DDEEFF', 0), 0, 0, 0); g.add(s, d); g.userData.update = t => { const u = o.at == null ? 1 : smooth((t - o.at) / 0.5); const L = 0.01 + 0.12 * u + 0.01 * Math.sin(t * 5); s.scale.y = L; d.position.y = -L; g.visible = u > 0.01; }; g.userData.update(0); return g; },
+  saDrool(o) { const g = grp(), s = at(cyl(0.004, 0.004, 1, '#DDEEFF', 5, { pivot: 'top' }), 0, 0, 0), d = at(sphere(0.018, '#DDEEFF', 0), 0, 0, 0); g.add(s, d); g.userData.update = t => { const u = o.at == null ? 1 : smooth((t - o.at) / 0.5); const L = 0.01 + (o.len ?? 0.12) * u + 0.015 * Math.sin(t * 5); s.scale.y = L; d.position.y = -L; g.visible = u > 0.01; }; g.userData.update(0); return g; },
   // A sandwich (pivot at its middle): two bread slices, a lettuce and ham layer
   saSandwich(o) { return grp(at(box(0.16, 0.025, 0.1, '#E8C88A', { outline: 0.01 }), 0, 0.03, 0), at(box(0.17, 0.012, 0.11, '#7AB84A'), 0, 0.012, 0), at(box(0.16, 0.012, 0.1, '#E89A9A'), 0, 0.0, 0), at(box(0.16, 0.025, 0.1, '#E8C88A', { outline: 0.01 }), 0, -0.02, 0)); },
   // A flash of lightning in the sky (pivot at its top): a bright zigzag, visible for 0.12 s at each time of o.at
@@ -209,7 +211,7 @@ export const SARDINE_PROPS = {
   },
   // Plain shop shelves (pivot at the floor in the middle, front toward +Z): grey uprights, four shelves of blank coloured boxes, no word. o.w (2.4)
   saShelf(o) {
-    const W = o.w ?? 2.4, g = grp(), cols = ['#E8C030', '#3E8ACC', '#D0402A', '#5EAA4A', '#F2EEE2', '#8A5AB0'];
+    const W = o.w ?? 2.4, g = grp(), cols = ['#E8C030', '#3E8ACC', '#E8913A', '#5EAA4A', '#F2EEE2', '#8A5AB0'];
     g.add(at(box(W, 2.0, 0.05, '#C8CCD2', { pivot: 'bottom', outline: 0.006 }), 0, 0, -0.25));
     for (const x of [-W / 2, W / 2]) g.add(at(box(0.05, 2.0, 0.5, '#9AA0A6', { pivot: 'bottom' }), x, 0, 0));
     for (let j = 0; j < 4; j++) { const y = 0.15 + j * 0.5; g.add(at(box(W, 0.03, 0.5, '#B8BEC6'), 0, y, 0)); if (o.empty) continue;
@@ -218,7 +220,7 @@ export const SARDINE_PROPS = {
   },
   // A striped fishmonger's apron in two colours (attach to the torso; pivot at its top middle; faces +Z): o.w (0.5), o.h (0.8)
   saApron(o) {
-    const W = o.w ?? 0.5, H = o.h ?? 0.8, pl = canvasPlane(W, H, (c, w, h) => { const n = 9; for (let i = 0; i < n; i++) { c.fillStyle = i % 2 ? '#F4F1EA' : '#2E5E9E'; c.fillRect(i * w / n, 0, w / n + 1, h); } }, { res: 256 });
+    const W = o.w ?? 0.5, H = o.h ?? 0.8, pl = canvasPlane(W, H, (c, w, h) => { const n = 9; for (let i = 0; i < n; i++) { c.fillStyle = i % 2 ? '#F4F1EA' : '#1E2E5A'; c.fillRect(i * w / n, 0, w / n + 1, h); } }, { res: 256 });
     pl.position.y = -H / 2; const g = grp(pl); return g;
   },
   // A cow bell (pivot at its strap's top): a brass cup on a brown strap
@@ -236,4 +238,13 @@ export const SARDINE_PROPS = {
   saPaper(o) { const g = grp(), m = at(box(0.5, 0.004, 0.4, '#F6F4EE', { outline: 0.01 }), 0, 0, 0); g.add(m); g.userData.update = t => { const u = o.wrapAt == null ? 0 : smooth((t - o.wrapAt) / 0.3); m.scale.set(1 - 0.6 * u, 1 + 30 * u, 1 - 0.5 * u); }; g.userData.update(0); return g; },
   // A spotlight beam (pivot at its top): a soft pale cone o.h (1.6) long, unlit, half transparent
   saBeam(o) { const H = o.h ?? 1.6, c = new THREE.Mesh(new THREE.ConeGeometry(o.r ?? 0.45, H, 20, 1, true), new THREE.MeshBasicMaterial({ color: '#FFF6D8', transparent: true, opacity: 0.18, depthWrite: false, side: THREE.DoubleSide })); c.position.y = -H / 2; return grp(c); },
+  // A tent's floor seen from above with its top cut away (pivot at the floor in the middle): a rectangular floor o.w x o.d with a low wall rim
+  // (o.color '#F07A1E')
+  saTentCut(o) { const W = o.w ?? 2.6, D = o.d ?? 2.5, C = o.color || '#F07A1E', g = grp(); g.add(at(box(W, 0.03, D, '#F6C89A', { outline: 0.006 }), 0, 0.015, 0));
+    for (const [w, d, x, z] of [[W + 0.12, 0.08, 0, -D / 2], [W + 0.12, 0.08, 0, D / 2], [0.08, D, -W / 2, 0], [0.08, D, W / 2, 0]]) g.add(at(box(w, 0.28, d, C, { pivot: 'bottom', outline: 0.008 }), x, 0, z)); return g; },
+  // A sleeping-bag blanket over a lying body (pivot at its middle on the floor, its length along Z): o.w (0.42), o.l (1.25), o.color; a pale pillow
+  // at the head end (+Z) unless o.pillow false
+  saBlanket(o) { const W = o.w ?? 0.42, L = o.l ?? 1.25, g = grp(); const b = new THREE.Mesh(new THREE.CapsuleGeometry(W / 2, L - W, 4, 10), mat(o.color || '#3E6A9A')); b.rotation.x = PI / 2; b.scale.set(1.15, 1, 0.5); b.position.y = o.y ?? 0.36; addOutline(b, 0.012); g.add(b); return g; },
+  // A wooden farm fence (pivot at the ground in the middle, along X): o.w (2.6) long, posts every 0.8 m, two rails
+  saFence(o) { const W = o.w ?? 2.6, g = grp(); for (let x = -W / 2; x <= W / 2 + 1e-3; x += 0.8) g.add(at(box(0.08, 1.1, 0.08, '#8A6A45', { pivot: 'bottom', outline: 0.01 }), x, 0, 0)); for (const y of [0.45, 0.9]) g.add(at(box(W, 0.07, 0.04, '#A07A50', { outline: 0.01 }), 0, y, 0.05)); return g; },
 };

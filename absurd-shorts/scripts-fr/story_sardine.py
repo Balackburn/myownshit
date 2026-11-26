@@ -126,9 +126,9 @@ kh1 = [k(0.0, clip='kneel'), k(0.0, look=add(PEGS1[2], [0.3, 0, -0.3])), TK(0.0,
        k(r(CUT1 + 0.05), look=add(PEGS1[1], [0, 0, 0]), lookDur=0.12), TK(r(CUT1 + 0.05), face={**CALM, 'gx': -0.3}, d=0.08, keep=True),   # the three pegs...
        TK(r(CUT1 + 0.3), face={**CALM, 'gx': 0.8}, d=0.05, keep=True), k(r(CUT1 + 0.36), look=[-0.75, 0.15, 0.75], lookDur=0.14),   # ...the loose corner (the eyes lead)...
        TK(r(CUT1 + 0.62), face={**CALM, 'gx': -0.6}, d=0.05, keep=True), k(r(CUT1 + 0.66), look=PEGS1[1], lookDur=0.12),   # ...and back
-       TK(r(CUT1 + 0.9), face={'lid': 0.4, 'mouth': 'line', 'brow': -0.9, 'gx': 0.0}, sq=(1.02, 0.97, 1.02), d=0.08, keep=True), k(r(CUT1 + 0.95), look='camera', lookDur=0.15), *BREATHE(r(CUT1 + 1.0), D1, 0.45)]
+       TK(r(CUT1 + 0.9), face={'lid': 0.45, 'mouth': 'wavy', 'brow': -1.0, 'gx': 0.0}, sq=(1.04, 0.95, 1.04), d=0.06, keep=True), k(r(CUT1 + 0.95), look='camera', lookDur=0.15), *BREATHE(r(CUT1 + 1.0), D1, 0.45)]
 kg1 = [k(0.0, clip='fly'), k(0.0, to=G1b, dur=0.42, clip='fly', ease='out', face='keep'), k(0.42, clip='idle', blend=0.08), k(0.5, look=P4, lookDur=0.1),
-       k(r(SNATCH1 - 0.15), clip='peck', blend=0.06), k(r(SNATCH1 + 0.1), clip='hop', blend=0.05), k(r(SNATCH1 + 0.1), to=G1c, dur=0.4, clip='hop', ease='out', face='keep'),   # snatch, two hops back
+       k(r(SNATCH1 - 0.15), clip='peck', blend=0.06), k(r(SNATCH1 + 0.08), clip='hop', blend=0.04), k(r(SNATCH1 + 0.08), to=lerp3(G1b, G1c, 0.5), dur=0.22, clip='hop', ease='out', face='keep'), k(r(SNATCH1 + 0.32), to=G1c, dur=0.22, clip='hop', ease='out', face='keep'),   # hop, hop back   # snatch, two hops back
        k(r(SNATCH1 + 0.55), clip='idle', blend=0.1), k(r(SNATCH1 + 0.6), look='camera', lookDur=0.15)]
 st.shot('S01', 'grassland', setOpts=MEADOW, look={'sunDir': [0.4, 0.9, 0.8]},
         actors=[act('mec', HK1, HRY1, 'kneel', 'neutral', keys=kh1), GULL('mouette', G1a, 70, 'fly', keys=kg1)],
@@ -142,9 +142,9 @@ st.cue('thud', 'S01', 0.22, 0.2); st.cue('thud', 'S01', 0.54, 0.2); st.cue('thud
 # 2: ground-level close-up: he rolls open a flat silver tin (no label), pulls out one big glistening sardine by the tail and drives it head first into
 #    the ground with the mallet, bonk; he loops the guy rope round its tail. Behind him the seagull, peg in beak, stares at the fish
 D2 = st.dur('S02'); OPEN2 = 0.25; PULL2 = 0.85; BONK2 = r(st.at('S02', 'L02', 7) - 0.05); LOOP2 = r(BONK2 + 0.6)
-HK2 = add(SC, [0.75, 0, -0.05]); HRY2 = -60; TIN2 = add(SC, [0.35, 0.0, 0.32]); SARD_IN = add(SC, [0, 0.17, 0])
+HK2 = add(SC, [0.75, 0, -0.05]); HRY2 = -60; TIN2 = add(SC, [0.35, 0.0, 0.32]); SARD_IN = add(SC, [0, 0.2, 0])
 G2 = add(SC, [-0.75, 0, -0.75])
-C2 = fcam(0.0, [-0.45, 0.55, 3.0], {'sard': add(SC, [0, 0.35, 0]), 'tin': TIN2, 'heroT': add(HK2, [0, 1.8, 0]), 'gull': add(G2, [0, 0.8, 0]), 'gullF': G2}, top=0.12, bottom=0.76, push=0.15)
+C2 = fcam(0.0, [-0.6, 0.5, 2.6], {'sard': add(SC, [0, 0.35, 0]), 'tin': TIN2, 'heroT': add(HK2, [0, 1.8, 0]), 'gull': add(G2, [0, 0.8, 0]), 'gullF': G2}, top=0.12, bottom=0.76, push=0.15)
 kh2 = [k(0.0, clip='kneel'), k(0.0, look=TIN2), TK(0.0, {'R': R5(add(TIN2, [0.12, 0.08, 0])), 'L': R5(add(TIN2, [-0.1, 0.06, 0]))}, {'R': 'pinch', 'L': 'spread'}, CALM, bend={'spine': SP(0.35)}, d=0.0),
        TK(OPEN2, {'R': R5(add(TIN2, [-0.12, 0.08, 0]))}, d=0.4, keep=True),   # the key rolls the lid back
        TK(r(PULL2 - 0.12), {'L': R5(add(TIN2, [0.0, 0.06, 0]))}, {'L': 'pinch'}, d=0.1, keep=True), TK(PULL2, {'L': R5(add(TIN2, [0.0, 0.45, 0.05]))}, sq=(0.97, 1.04, 0.97), d=0.12, keep=True), k(PULL2, look=add(TIN2, [0, 0.45, 0]), lookDur=0.1),   # one big sardine, by the tail
@@ -155,8 +155,8 @@ kh2 = [k(0.0, clip='kneel'), k(0.0, look=TIN2), TK(0.0, {'R': R5(add(TIN2, [0.12
 kg2 = [k(0.0, clip='idle'), k(0.0, look=TIN2), k(PULL2, look=add(TIN2, [0, 0.45, 0]), lookDur=0.1), k(BONK2, look=SARD_IN, lookDur=0.1), k(r(BONK2 + 0.2), clip='walk', blend=0.05), k(r(BONK2 + 0.2), to=add(G2, [0.25, 0, 0.15]), dur=0.4, clip='walk', ease='out', face='keep'), k(r(BONK2 + 0.6), clip='idle', blend=0.1)]   # it stares, a step closer
 st.shot('S02', 'grassland', setOpts=MEADOW, look={'sunDir': [0.4, 0.9, 0.8]},
         actors=[act('mec', HK2, HRY2, 'kneel', 'neutral', keys=kh2), GULL('mouette', G2, 60, 'idle', keys=kg2)],
-        props=[TENT_('tente2', loose=True, looseUntil=LOOP2), P('boite2', 'saTin', pos=TIN2, ry=-20, opts={'openAt': OPEN2, 's': 1.4}),
-               P('sardine2', 'saSardine', pos=add(TIN2, [0, 0.06, 0]), rot=[0, 0, 0], opts={'len': 0.36}, keys=[k(PULL2, attach='mec', hand='L', offset=[0, -0.2, 0.0], rot=[-1.5708, 0, 0]), k(BONK2, detach=True), k(BONK2, to=SARD_IN, dur=0.01), k(BONK2, rotTo=[1.5708, 0, 0], dur=0.01)]),
+        props=[TENT_('tente2', loose=True, looseUntil=LOOP2, ropeY=0.36), P('boucle2', 'saRing', pos=add(SC, [0, 0.38, 0]), rot=[1.5708, 0, 0], scale=0.35, keys=[k(0.0, visible=False), k(LOOP2, visible=True)]), P('boite2', 'saTin', pos=TIN2, ry=-20, opts={'openAt': OPEN2, 's': 1.9}),
+               P('sardine2', 'saSardine', pos=add(TIN2, [0, 0.08, 0]), rot=[0, 0, 0], opts={'len': 0.44, 'squash': [[BONK2, 0], [r(BONK2 + 0.03), 1.0], [r(BONK2 + 0.14), 1.0], [r(BONK2 + 0.24), -0.35], [r(BONK2 + 0.34), 0.1], [r(BONK2 + 0.42), 0]]}, keys=[k(PULL2, attach='mec', hand='L', offset=[0, -0.2, 0.0], rot=[-1.5708, 0, 0]), k(BONK2, detach=True), k(BONK2, to=SARD_IN, dur=0.01), k(BONK2, rotTo=[1.5708, 0, 0], dur=0.01)]),
                P('maillet2', 'saMallet', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.04, 0]}), PEG('piquet2')], cams=[C2])
 st.cue('clack', 'S02', OPEN2, 0.2); st.cue('thud', 'S02', BONK2, 0.5); st.cue('pop', 'S02', BONK2, 0.2)
 
@@ -166,15 +166,15 @@ st.cue('clack', 'S02', OPEN2, 0.2); st.cue('thud', 'S02', BONK2, 0.5); st.cue('p
 #    the rain, peg in beak
 D3 = st.dur('S03'); TEAR3 = r(st.at('S03', 'L03', 4) - 0.05); FL3 = [0.35, r(TEAR3 + 0.1), 2.3]
 NB3 = [[-3.0, 0, -2.2], [2.9, 0, -2.6], [-0.4, 0, -4.2]]; NBC3 = ['#3E8ACC', '#E8C030', '#5EAA4A']
-C3 = fcam(0.0, [0.6, 1.1, 5.6], {'tent': [0, 1.9, 0], 'tentF': [0, 0, 0.9], 'nb0': add(NB3[0], [0, 1.1, 0]), 'nb1': add(NB3[1], [0, 1.1, 0]), 'sard': SC}, top=0.18, bottom=0.76, push=0.25)
+C3 = fcam(0.0, [0.4, 0.75, 4.4], {'tent': [0, 2.0, 0], 'tentF': [0, 0, 0.9], 'nb0': add(NB3[0], [0, 1.1, 0]), 'nb1': add(NB3[1], [0, 1.1, 0]), 'sard': SC, 'sky': [-1.5, 3.4, -2.5]}, top=0.1, bottom=0.76, push=0.25)   # (round 1) lower, the gull on the ridge bigger
 def fly3(p, i):   # torn off: up and away to the upper left, tumbling
     end = [r(p[0] - 2.2 + 1.6 * i), 4.2, r(p[2] - 1.5)]
-    return [k(0.0, to=p, dur=0.01), k(TEAR3, to=add(p, [0, 0.4, 0]), dur=0.15, ease='out'), k(r(TEAR3 + 0.15), to=end, dur=2.1, ease='inOut'), k(TEAR3, rotTo=[0.3, 0.4 * (i - 1), 0.8 * (1 - i)], dur=2.1)]
+    return [k(0.0, to=p, dur=0.01), k(r(TEAR3 - 0.3), to=add(p, [0.1, 0.05, 0]), dur=0.08), k(r(TEAR3 - 0.22), to=add(p, [-0.1, 0.0, 0]), dur=0.08), k(TEAR3, to=add(p, [0, 0.6, 0]), dur=0.1, ease='out'), k(r(TEAR3 + 0.15), to=end, dur=2.1, ease='inOut'), k(TEAR3, rotTo=[0.3, 0.4 * (i - 1), 0.8 * (1 - i)], dur=2.1)]
 CAMPER3 = NB3[0]
-kc3 = [k(0.0, clip='stand'), k(0.0, visible=False), k(TEAR3, visible=True), k(TEAR3, clip='superman', blend=0.05), k(TEAR3, to=add(CAMPER3, [0.6, 0.5, 0.3]), dur=0.15, clip='superman', face='keep'),
+kc3 = [k(0.0, clip='stand'), k(0.0, visible=False), k(TEAR3, visible=True), k(TEAR3, clip='superman', blend=0.05), TK(TEAR3, sq=(1.0, 0.8, 1.35), d=0.08, keep=True), k(TEAR3, to=add(CAMPER3, [0.6, 0.8, 0.3]), dur=0.15, clip='superman', face='keep'),
        k(r(TEAR3 + 0.15), to=[r(CAMPER3[0] - 1.6), 3.3, r(CAMPER3[2] - 1.2)], dur=2.1, clip='superman', ease='inOut', face='keep'), k(TEAR3, look=add(CAMPER3, [-1, 1.5, 0]), lookDur=0.1), TK(TEAR3, face={'lid': 0.0, 'mouth': 'O', 'brow': 1.0}, d=0.05, keep=True)]
 kg3 = [k(0.0, clip='sit'), k(0.0, look=add(SC, [0, 0.2, 0])), *[k(r(0.5 + 0.8 * j), look=add(SC, [0.1 * (j % 2), 0.2, 0]), lookDur=0.2) for j in range(4)]]
-st.shot('S03', 'grassland', setOpts={'grass': '#5E8C48', 'sky': ['#1E3C78', '#3A5A9A'], 'clouds': 0}, look={'sunDir': [0.3, 0.9, 0.6]}, **NIGHT, fx=[{'type': 'flash', 'at': t_, 'dur': 0.16} for t_ in FL3],
+st.shot('S03', 'grassland', setOpts={'grass': '#5E8C48', 'sky': ['#2A4C90', '#4A6AAA'], 'clouds': 0}, look={'sunDir': [0.3, 0.9, 0.6]}, dark=[[0.0, 0.45], *[x for t_ in FL3 for x in ([t_, 0.08, 0.01], [r(t_ + 0.14), 0.45, 0.1])]], darkFloor=0.62, darkTint='#7E9CEA',   # (round 1) lightning lights the set; never darker than the night
         actors=[act('campeur1', add(CAMPER3, [0.6, 0, 0.3]), -110, 'stand', 'neutral', keys=kc3), GULL('mouette', RIDGE, 20, 'sit', keys=kg3)],
         props=[TENT_('tente3'), *[P(f'voisine3_{i}', 'saTent', pos=p, opts={'color': NBC3[i]}, keys=fly3(p, i)) for i, p in enumerate(NB3)],
                P('sardine3', 'saSardine', pos=add(SC, [0, 0.17, 0]), rot=[1.5708, 0, 0], opts={'len': 0.36}), PEG('piquet3'),
@@ -185,8 +185,8 @@ st.cue('thunder', 'S03', FL3[0], 0.5); st.cue('thunder', 'S03', FL3[1], 0.6); st
 # 4: morning: four campers in shorts and sun hats kneel in a row at their tents, roll open sardine tins with the key in perfect sync, then hammer a
 #    sardine in each, bonk bonk bonk bonk
 D4 = st.dur('S04'); OPEN4 = 0.2; PULL4 = 0.75; BONKS4 = [r(1.3 + 0.24 * j) for j in range(4)]
-XS4 = [r(-1.75 + 1.15 * i) for i in range(4)]; KZ4 = 0.9; TC4 = ['#3E8ACC', '#E8C030', '#5EAA4A', '#D0402A']
-C4 = fcam(0.0, [0.3, 0.75, 3.4], {'h3': [XS4[3], 1.55, KZ4], 'h0': [XS4[0], 1.5, KZ4], 'tin3': [XS4[3] + 0.3, 0, KZ4 + 0.55], 'tent0': [XS4[0] - 0.3, 0.9, -0.5], 'gull': [XS4[3] + 1.0, 0.8, KZ4 + 0.6]}, top=0.14, bottom=0.76, push=0.2)
+XS4 = [r(-1.75 + 1.15 * i) for i in range(4)]; KZ4 = 0.9; TC4 = ['#3E8ACC', '#E8C030', '#5EAA4A', '#E8913A']
+C4 = fcam(0.0, [XS4[3] + 1.6, 0.6, 3.0], {'h3': [XS4[3], 1.6, KZ4], 'h0': [XS4[0], 1.5, KZ4], 'tin3': [XS4[3] + 0.3, 0, KZ4 + 0.55], 'tin0': [XS4[0] + 0.3, 0, KZ4 + 0.55], 'gull': [XS4[3] + 1.0, 0.8, KZ4 + 0.6]}, top=0.12, bottom=0.76, push=0.2)   # (round 1) a low three-quarter angle along the row
 cast4, props4 = [], []
 for i, x in enumerate(XS4):
     p = [x, 0, KZ4]; nm = f'campeur{i + 1}'; T = [r(x + 0.3), 0, r(KZ4 + 0.5)]; S_ = [r(x - 0.3), 0, r(KZ4 + 0.45)]
@@ -196,7 +196,7 @@ for i, x in enumerate(XS4):
     for j, b in enumerate(BONKS4): ks += [TK(b, {'R': R5(add(S_, [0.05, 0.4, 0]))}, sq=(1.05, 0.93, 1.05), d=0.05, e='in', keep=True), TK(r(b + 0.12), {'R': R5(add(S_, [0.12, 0.8, 0]))}, sq=(1, 1, 1), d=0.1, keep=True)]
     ks += [*blink(r(0.6 + 0.1 * i), CALM)]
     cast4.append(act(nm, p, 0, 'kneel', 'neutral', keys=ks))
-    props4 += [P(f'tente4_{i}', 'saTent', pos=[x, 0, -0.5], opts={'color': TC4[i], 'w': 1.05, 'h': 0.85, 'ropes': False}), P(f'boite4_{i}', 'saTin', pos=T, opts={'openAt': OPEN4, 's': 1.3}),
+    props4 += [P(f'tente4_{i}', 'saTent', pos=[r(x + 0.58), 0, -0.9], opts={'color': TC4[i], 'w': 1.05, 'h': 0.85, 'ropes': False}), P(f'boite4_{i}', 'saTin', pos=T, opts={'openAt': OPEN4, 's': 1.3}),
                P(f'sardine4_{i}', 'saSardine', pos=add(T, [0, 0.06, 0]), opts={'len': 0.3}, keys=[k(PULL4, attach=nm, hand='L', offset=[0, -0.18, 0], rot=[-1.5708, 0, 0]), k(BONKS4[0], detach=True), k(BONKS4[0], to=add(S_, [0, 0.13, 0]), dur=0.01), k(BONKS4[0], rotTo=[1.5708, 0, 0], dur=0.01)]),
                P(f'maillet4_{i}', 'saMallet', on={'actor': nm, 'hand': 'R', 'offset': [0, 0.04, 0]}), P(f'chapeau4_{i}', 'coHat', on={'actor': nm, 'joint': 'head', 'offset': [0, 0.4, 0]})]
 G4 = [XS4[3] + 1.05, 0, KZ4 + 0.55]
@@ -211,17 +211,17 @@ st.cue('clack', 'S04', OPEN4, 0.25)
 #    glinting at its corner. Cut: the same tents dotted on a green alpine slope under snowy peaks, each corner glinting
 D5 = st.dur('S05'); CUT5 = r(st.at('S05', 'L05', 4) - 0.1)
 F5 = [60.0, 0, 0]
-C5 = cam(0.0, add(F5, [-1.2, 1.6, 6.0]), add(F5, [-0.9, 1.75, 5.4]), add(F5, [0.5, 0.2, -3.0]), add(F5, [0.5, 0.2, -3.0]), lens=34)
+C5 = cam(0.0, add(F5, [-0.3, 2.2, 7.4]), add(F5, [-0.25, 2.1, 6.4]), add(F5, [0.2, 0.6, -2.0]), add(F5, [0.2, 0.7, -2.0]), lens=46)   # (round 1) a push-in
 F5b = [140.0, 0, 0]
 C5b = cam(CUT5, add(F5b, [0.0, 2.2, 9.0]), add(F5b, [0.3, 2.5, 8.2]), add(F5b, [0.0, 2.8, -4.0]), add(F5b, [0.0, 3.0, -4.0]), lens=36)
-FG5 = add(F5, [-1.5, 0, 3.4])
+FG5 = add(F5, [0.1, 0, 2.4])
 st.shot('S05', 'whiteVoid', setOpts={'color': '#9ED2F0'}, look={'sunDir': [0.4, 0.9, 0.8]}, actors=[],
-        props=[P('baie5', 'saTentField', pos=add(F5, [0, -0.6, 4.5]), opts={'n': 0, 'w': 60, 'd': 20, 'rise': 0.0, 'groundColor': '#3EC8C8'}),
-               P('colline5', 'saTentField', pos=add(F5, [0, 0, -2.0]), opts={'n': 70, 'w': 16, 'd': 12, 'rise': 0.32, 'groundColor': '#86BE5C'}),
-               P('tente5', 'saTent', pos=FG5, ry=20, opts={'color': '#D0402A', 'w': 1.3, 'h': 0.9}), P('queue5', 'saSardine', pos=add(FG5, [-0.72, 0.2, 0.55]), rot=[1.2, 0, 0], opts={'len': 0.42}),
-               P('eclat5', 'saGlint', pos=add(FG5, [-0.7, 0.35, 0.62]), opts={'size': 0.22, 'every': 0.8}),
+        props=[P('baie5', 'saTentField', pos=add(F5, [0, -0.35, 0.5]), opts={'n': 0, 'w': 60, 'd': 30, 'rise': 0.0, 'groundColor': '#2EC0C8'}),
+               P('colline5', 'saTentField', pos=add(F5, [0, 1.6, -6.5]), opts={'n': 70, 'w': 18, 'd': 10, 'rise': 0.35, 'groundColor': '#86BE5C'}),
+               P('tente5', 'saTent', pos=FG5, ry=20, opts={'color': '#E8913A', 'w': 1.3, 'h': 0.9}), P('sol5', 'saFlats', pos=FG5, opts={'spots': [[0, 0, 3.6, 2.6, 0]]}), P('queue5', 'saSardine', pos=add(FG5, [-0.55, 0.32, 0.75]), rot=[1.2, 0, 0], opts={'len': 0.7}),
+               P('eclat5', 'saGlint', pos=add(FG5, [-0.5, 0.6, 0.85]), opts={'size': 0.3, 'every': 0.7}),
                P('pente5', 'saTentField', pos=F5b, opts={'n': 60, 'w': 18, 'd': 16, 'rise': 0.45, 'groundColor': '#6EAE52', 'glint': True}),
-               P('sommets5', 'mountainRange', pos=add(F5b, [0, 4.0, -16.0]), opts={'n': 7, 'w': 50, 'h': 16})], cams=[C5, C5b])
+               P('sommets5', 'mountainRange', pos=add(F5b, [0, 5.0, -30.0]), opts={'n': 9, 'w': 70, 'h': 14})], cams=[C5, C5b])
 st.cue('gust', 'S05', 0.0, 0.2); st.cue('pop', 'S05', 0.4, 0.2); st.cue('pop', 'S05', r(CUT5 + 0.3), 0.2)
 
 # ================================================================= S06
@@ -229,11 +229,11 @@ st.cue('gust', 'S05', 0.0, 0.2); st.cue('pop', 'S05', 0.4, 0.2); st.cue('pop', '
 #    price tag; a shopkeeper in white gloves lifts the dome for a customer, who gulps (sweat drop). In the next aisle behind them a caravan with a giant
 #    tuna wedged under its wheel as a chock. PÉNURIE card
 D6 = st.dur('S06'); LIFT6 = 0.9; GULP6 = 1.45; TUNA6 = r(st.at('S06', 'L06', 7))
-PED6 = [0.0, 0, 0.3]; CUSH6 = add(PED6, [0, 1.0, 0]); SK6 = [0.75, 0, 0.2]; CU6 = [-0.75, 0, 0.6]
-CAR6 = [0.6, 0, -3.4]
-C6 = fcam(0.0, [0.2, 1.45, 4.4], {'sk': add(SK6, [0, 2.3, 0]), 'cu': add(CU6, [0, 2.3, 0]), 'cush': CUSH6, 'car': add(CAR6, [-1.6, 2.2, 0]), 'tuna': add(CAR6, [0.2, 0.2, 1.0]), 'skF': add(SK6, [0, 0.9, 0])}, top=0.22, bottom=0.76, push=0.2)
+PED6 = [0.0, 0, 0.6]; CUSH6 = add(PED6, [0, 1.0, 0]); SK6 = [0.85, 0, 0.1]; CU6 = [-0.85, 0, 0.35]
+CAR6 = [0.9, 0, -2.4]
+C6 = fcam(0.0, [0.0, 1.3, 3.6], {'sk': add(SK6, [0, 2.3, 0]), 'cu': add(CU6, [0, 2.3, 0]), 'cush': add(CUSH6, [0, -0.3, 0]), 'dome': add(CUSH6, [0, 0.55, 0]), 'tuna': add(CAR6, [0.2, 0.0, 1.2]), 'carT': add(CAR6, [0.6, 2.2, 0])}, top=0.2, bottom=0.76, push=0.2)   # (round 1) frontal on the dome
 ksk6 = [k(0.0, clip='stand'), k(0.0, look=CUSH6), TK(0.0, {'R': R5(add(CUSH6, [0.18, 0.12, 0])), 'L': R5(add(CUSH6, [-0.05, 0.3, 0.1]))}, {'R': 'spread', 'L': 'spread'}, {'lid': 0.45, 'mouth': 'line', 'brow': 0.2}, d=0.0),
-        TK(r(LIFT6 - 0.2), {'R': R5(add(CUSH6, [0.15, 0.3, 0])), 'L': R5(add(CUSH6, [-0.15, 0.3, 0]))}, {'R': 'pinch', 'L': 'pinch'}, d=0.15, keep=True), TK(LIFT6, {'R': R5(add(CUSH6, [0.15, 0.75, 0])), 'L': R5(add(CUSH6, [-0.15, 0.75, 0]))}, sq=(0.97, 1.04, 0.97), d=0.3, keep=True),   # the dome lifted
+        TK(r(LIFT6 - 0.2), {'R': R5(add(CUSH6, [0.15, 0.3, 0])), 'L': R5(add(CUSH6, [-0.15, 0.3, 0]))}, {'R': 'pinch', 'L': 'pinch'}, d=0.15, keep=True), TK(LIFT6, {'R': R5(add(CUSH6, [0.55, 0.85, -0.25])), 'L': R5(add(CUSH6, [0.35, 0.95, -0.25]))}, sq=(0.97, 1.04, 0.97), d=0.3, keep=True),   # the dome lifted
         k(r(LIFT6 + 0.3), look=HEAD(CU6, 1.95), lookDur=0.2), TK(r(LIFT6 + 0.4), sq=(1, 1, 1), d=0.1, keep=True), *blink(2.3, {'lid': 0.45, 'mouth': 'line', 'brow': 0.2}), *BREATHE(1.4, D6, 0.5)]
 kcu6 = [k(0.0, clip='stand'), k(0.0, look=CUSH6), TK(0.0, HANDS(CU6, 40), {'R': 'rest', 'L': 'rest'}, WORRY, d=0.0),
         TK(r(LIFT6 + 0.2), face={'lid': 0.0, 'mouth': 'O', 'brow': 1.0, 'pop': 0.7}, sq=(0.94, 1.08, 0.94), d=0.06, e='out', keep=True),   # eyes out
@@ -244,7 +244,7 @@ st.shot('S06', 'whiteVoid', setOpts={'color': '#EDE6D6'}, look={'sunDir': [0.3, 
         props=[P('rayonA6', 'saShelf', pos=[-1.8, 0, -0.8], opts={'w': 2.2}), P('rayonB6', 'saShelf', pos=[2.0, 0, -0.8], opts={'w': 2.0}),
                P('socle6', 'saShelf', pos=add(PED6, [0, -1.15, 0]), opts={'w': 0.5, 'empty': True}),
                P('coussin6', 'velvetCushion', pos=CUSH6, opts={'w': 0.38}), P('boite6', 'saTin', pos=add(CUSH6, [0, 0.08, 0]), ry=15),
-               P('cloche6', 'glassDome', pos=add(CUSH6, [0, 0.04, 0]), opts={'radius': 0.24, 'height': 0.42, 'base': False}, keys=[k(r(LIFT6 - 0.02), attach='commercant', hand='R', offset=[-0.12, -0.25, 0.0], rot=[0, 0, 0])]),
+               P('cloche6', 'glassDome', pos=add(CUSH6, [0, 0.04, 0]), opts={'radius': 0.24, 'height': 0.42, 'base': False, 'opacity': 0.4}, keys=[k(r(LIFT6 - 0.02), attach='commercant', hand='R', offset=[-0.12, -0.25, 0.0], rot=[0, 0, 0])]),
                P('faisceau6', 'saBeam', pos=add(CUSH6, [0, 1.9, 0]), opts={'h': 1.8, 'r': 0.4}),
                P('caravane6', 'saCaravan', pos=CAR6), P('thon6', 'saTuna', pos=add(CAR6, [0.2, 0.17, 1.15]), ry=10, opts={'len': 1.0}),
                DROP('goutte6', 'client', GULP6)], cams=[C6])
@@ -254,8 +254,8 @@ st.card('S06', 'PÉNURIE', at=st.at('S06', 'L06', 1)); st.cue('clang', 'S06', LI
 # 7: a fishmonger's stall on crushed ice: no fish left, only rows of wooden mallets laid out like fish and one rolled-up tent; the fishmonger in a
 #    striped apron weighs a mallet on a scale with a blank dial and wraps it in paper, deadpan
 D7 = st.dur('S07'); WEIGH7 = 0.55; WRAP7 = 1.15
-ST7 = [0.0, 0, 0.0]; FM7 = [0.15, 0, -0.85]; SCL7 = [-0.65, 0.98, 0.1]; PAP7 = [-0.2, 1.02, 0.25]
-C7 = fcam(0.0, [-0.2, 1.5, 2.3], {'fm': add(FM7, [0, 2.35, 0]), 'stallL': [-0.8, 0.9, 0.45], 'stallR': [0.7, 0.9, 0.45], 'scale': add(SCL7, [0, 0.45, 0])}, top=0.14, bottom=0.76, push=0.15)
+ST7 = [0.0, 0, 0.0]; FM7 = [0.15, 0, -0.85]; SCL7 = [-0.05, 1.04, 0.28]; PAP7 = [0.6, 1.06, 0.2]
+C7 = fcam(0.0, [-0.1, 1.15, 2.4], {'fm': add(FM7, [0, 2.35, 0]), 'stallL': [-0.7, 0.95, 0.45], 'stallR': [0.8, 0.95, 0.45], 'scale': add(SCL7, [0, 0.45, 0]), 'scaleB': add(SCL7, [0, -0.1, 0.2])}, top=0.12, bottom=0.62, push=0.12)   # (round 1) the counter higher in frame
 kf7 = [k(0.0, clip='stand'), k(0.0, look=[-0.3, 1.1, 0.1]), TK(0.0, {'R': R5([-0.25, 1.15, -0.05]), 'L': R5([0.3, 1.1, -0.1])}, {'R': 'grip', 'L': 'rest'}, DEAD, d=0.0),
        TK(0.15, {'R': R5([-0.3, 1.35, 0.0])}, d=0.15, keep=True), TK(r(WEIGH7 - 0.05), {'R': R5(add(SCL7, [0.0, 0.55, 0]))}, d=0.25, keep=True), k(r(WEIGH7 - 0.1), look=add(SCL7, [0, 0.35, 0]), lookDur=0.12),   # onto the scale
        TK(r(WEIGH7 + 0.3), {'R': R5(add(PAP7, [0.0, 0.12, 0]))}, d=0.2, keep=True), TK(WRAP7, {'R': R5(add(PAP7, [0.08, 0.1, 0])), 'L': R5(add(PAP7, [-0.12, 0.12, 0]))}, {'L': 'spread'}, d=0.15, keep=True), TK(r(WRAP7 + 0.2), {'R': R5(add(PAP7, [-0.05, 0.12, 0])), 'L': R5(add(PAP7, [0.1, 0.12, 0]))}, d=0.15, keep=True),   # wrapped
@@ -292,18 +292,18 @@ D9 = st.dur('S09'); PULLS9 = [0.5, 0.9, 1.3]; POPS9 = [r(t + 0.45) for t in PULL
 BG9 = [[-2.6, 0, -2.6], [-0.2, 0, -3.4], [2.3, 0, -2.8]]; BGC9 = ['#3E8ACC', '#E8C030', '#5EAA4A']
 H9 = [1.15, 0, 0.6]   # his tent, foreground right
 def cornerOf(p, w=1.3): return [r(p[0] - w / 2 * 1.55 * 0.707), 0, r(p[2] + w / 2 * 1.55 * 0.707)]
-C9 = fcam(0.0, [-0.4, 1.3, 5.6], {'h9': add(H9, [0, 2.1, 0]), 'h9R': add(H9, [0.95, 0.4, 0.2]), 'h9F': add(H9, [0, 0, 0.9]), 'bg0': add(BG9[0], [-0.7, 1.2, 0]), 'bg2': add(BG9[2], [0.7, 1.2, 0])}, top=0.14, bottom=0.76, push=0.25)
+C9 = fcam(0.0, [0.2, 0.9, 4.4], {'h9': add(H9, [0, 2.3, 0]), 'h9R': add(H9, [0.95, 0.4, 0.2]), 'h9F': add(H9, [0, 0, 0.9]), 'bg0': add(BG9[0], [-0.4, 1.1, 0]), 'bg1': add(BG9[1], [0, 1.4, 0])}, top=0.1, bottom=0.76, push=0.25)   # (round 1) closer, the horizon lower
 gulls9, sards9 = [], []
 for i, (p, t0, tp) in enumerate(zip(BG9, PULLS9, POPS9)):
     c = cornerOf(p); g = add(c, [-0.35, 0, 0.3]); nm = f'mouette{i + 2}'
-    gulls9.append(act(nm, g, 135, 'idle', 'neutral', scale=1.5, keys=[k(0.0, look=add(c, [0, 0.1, 0])), k(r(t0 - 0.15), clip='peck', blend=0.05), k(t0, clip='idle', blend=0.05), k(t0, to=add(g, [-0.25, 0, 0.25]), dur=0.45, ease='inOut', face='keep'), k(tp, clip='hop', blend=0.05), k(tp, to=add(g, [-0.6, 0, 0.55]), dur=0.4, clip='hop', face='keep')]))
+    gulls9.append(act(nm, g, 135, 'idle', 'neutral', scale=1.7, keys=[k(0.0, look=add(c, [0, 0.1, 0])), k(r(t0 - 0.15), clip='peck', blend=0.05), k(t0, clip='idle', blend=0.05), k(t0, to=add(g, [-0.25, 0, 0.25]), dur=0.45, ease='inOut', face='keep'), k(tp, clip='hop', blend=0.05), k(tp, to=add(g, [-0.6, 0, 0.55]), dur=0.4, clip='hop', face='keep')]))
     sards9.append(P(f'sardine9_{i}', 'saSardine', pos=add(c, [0, 0.12, 0]), rot=[-1.5708, 0, 0], opts={'len': 0.3, 'stretch': [[t0, 0], [r(tp - 0.05), 0.9], [r(tp + 0.05), 0]]}, keys=[k(tp, attach=nm, joint='head', offset=[0, -0.03, 0.14], rot=[0, 0, 0])]))
     sards9.append(P(f'tente9_{i}', 'saTent', pos=p, opts={'color': BGC9[i], 'w': 1.3, 'h': 0.95, 'lit': True, 'sag': [[tp, 0], [r(tp + 0.2), 0.6]], 'lift': [[r(tp + 0.2), 0], [r(tp + 1.4), 1.2]]}, inDark=True))
 SW9a, SW9b = [-1.5, 2.2, 2.6], [3.6, 3.4, 0.4]
 gulls9.append(act('mouette5', [-3.5, 2.0, 2.2], 80, 'fly', 'neutral', scale=1.5, keys=[k(0.0, clip='fly'), k(0.0, to=SW9a, dur=r(GUARD9 + 0.15), clip='fly', ease='inOut', face='keep'), k(r(GUARD9 + 0.15), to=SW9b, dur=0.7, clip='flee', ease='out', face='keep'), k(r(GUARD9 + 0.15), face=40, turn=0.15)]))   # swerves away
 st.shot('S09', 'grassland', setOpts={'grass': '#4E7A40', 'sky': ['#1E3C78', '#3A5A9A'], 'clouds': 0}, look={'sunDir': [0.3, 0.9, 0.6]}, **NIGHT,
-        actors=[*gulls9, GULL('mouette', add(H9, [0, 1.08, 0]), -20, 'idle', keys=[k(0.0, look=add(cornerOf(H9, 1.6), [0, 0.2, 0])), k(GUARD9, clip='angry', blend=0.05), k(GUARD9, look=[-1.5, 2.2, 2.6], lookDur=0.1), k(r(GUARD9 + 1.0), clip='idle', blend=0.15), k(r(GUARD9 + 1.05), look=add(cornerOf(H9, 1.6), [0, 0.2, 0]), lookDur=0.2)])],
-        props=[P('tente9', 'saTent', pos=H9, opts={'lit': True}, inDark=True), P('sardine9', 'saSardine', pos=add(cornerOf(H9, 1.6), [0, 0.17, 0]), rot=[1.5708, 0, 0], opts={'len': 0.36}), PEG('piquet9'), *sards9], cams=[C9])
+        actors=[*gulls9, GULL('mouette', add(H9, [0, 1.08, 0]), -20, 'idle', keys=[k(0.0, look=add(cornerOf(H9, 1.6), [0, 0.2, 0])), k(r(GUARD9 - 0.25), clip='sit', blend=0.06), k(GUARD9, clip='celebrate', blend=0.03), k(GUARD9, look=[-1.5, 2.2, 2.6], lookDur=0.1), k(r(GUARD9 + 1.0), clip='idle', blend=0.15), k(r(GUARD9 + 1.05), look=add(cornerOf(H9, 1.6), [0, 0.2, 0]), lookDur=0.2)])],
+        props=[P('tente9', 'saTent', pos=H9, opts={}, inDark=True), P('sardine9', 'saSardine', pos=add(cornerOf(H9, 1.6), [0, 0.17, 0]), rot=[1.5708, 0, 0], opts={'len': 0.36}), PEG('piquet9'), *sards9], cams=[C9])
 for t_ in POPS9: st.cue('pop', 'S09', t_, 0.3)
 st.cue('clack', 'S09', GUARD9, 0.4)
 
@@ -313,19 +313,19 @@ st.cue('clack', 'S09', GUARD9, 0.4)
 #     MIGRATION card
 D10 = st.dur('S10'); CAP10 = r(st.at('S10', 'L10', 7))
 FA10 = [1.3, 0, -0.6]; FRY10 = -20
-V10 = [[0, 0, 0], [-1.3, 0.35, -1.0], [1.3, 0.35, -1.0], [-2.6, 0.7, -2.0], [2.6, 0.7, -2.0]]; VC10 = ['#D0402A', '#3E8ACC', '#E8C030', '#5EAA4A', '#8A5AB0']
-VA, VB = [-9.0, 6.2, -6.0], [8.0, 5.0, -4.0]   # the lead's path (heading +X: the V points along its travel)
+V10 = [[0, 0, 0], [-1.3, 0.35, -1.0], [1.3, 0.35, -1.0], [-2.6, 0.7, -2.0], [2.6, 0.7, -2.0]]; VC10 = ['#E8913A', '#3E8ACC', '#E8C030', '#5EAA4A', '#8A5AB0']
+VA, VB = [6.5, 5.6, -5.0], [-7.5, 5.0, -4.0]   # (round 1) the lead's path: heading -X, the V's nose to the frame's left
 def vpos(o_, p):   # the V turned to fly along +X: its arms trail back (-X)
-    return [r(p[0] + o_[2] * 1.4), r(p[1] + o_[1]), r(p[2] + o_[0])]
-C10 = fcam(0.0, [0.6, 0.7, 4.6], {'fa': add(FA10, [0, 2.4, 0]), 'faF': FA10, 'v0': add(lerp3(VA, VB, 0.45), [0, 0.8, 0]), 'v3': add(vpos(V10[3], lerp3(VA, VB, 0.45)), [-1.0, 0, 0]), 'v4': add(vpos(V10[4], lerp3(VA, VB, 0.45)), [0, 0.9, 0])}, top=0.2, bottom=0.76, push=0.15)
+    return [r(p[0] - o_[2] * 1.4), r(p[1] + o_[1] * 0.3), r(p[2] + o_[0] * 1.2)]
+C10 = cam(0.0, [0.6, 0.5, 4.2], [0.6, 0.55, 3.95], [0.2, 3.6, -3.2], [0.0, 3.5, -3.2], lens=58)   # (round 1) low, looking up: the V seen from below
 kf10 = [k(0.0, clip='stand'), k(0.0, look=[-3.0, 4.5, -4.0]), TK(0.0, {'R': R5(off(FA10, FRY10, 0.35, 0.25, 1.25)), 'L': R5(off(FA10, FRY10, 0.45, -0.25, 1.15))}, {'R': 'grip', 'L': 'rest'}, CALM, bend={'spine': SP(0.15)}, d=0.0),
         k(0.5, look=[0.0, 5.0, -4.0], lookDur=1.5), TK(r(CAP10 - 0.3), {'L': R5(off(FA10, FRY10, 0.15, -0.1, 2.25))}, {'L': 'pinch'}, d=0.2, keep=True), TK(CAP10, {'L': R5(off(FA10, FRY10, 0.2, -0.15, 2.55))}, d=0.15, keep=True), TK(r(CAP10 + 0.45), {'L': R5(off(FA10, FRY10, 0.15, -0.1, 2.25))}, d=0.2, keep=True),   # he lifts his cap
         *blink(1.1, CALM), *BREATHE(0.2, D10, 0.5)]
 st.shot('S10', 'grassland', setOpts={'grass': '#9CC860'}, look={'sunDir': [0.4, 0.9, 0.8]},
         actors=[act('fermier', FA10, FRY10, 'stand', 'neutral', keys=kf10)],
-        props=[*[P(f'tente10_{i}', 'saTent', pos=vpos(o_, VA), ry=90, opts={'color': VC10[i], 'ropes': False, 'w': 1.3, 'h': 0.95}, keys=[k(0.0, to=vpos(o_, VB), dur=D10, ease='linear')]) for i, o_ in enumerate(V10)],
-               P('sac10', 'saBag', pos=add(VA, [0, -0.1, 0]), keys=[k(0.0, to=add(VB, [0, -0.1, 0]), dur=D10, ease='linear')]),
-               P('cloture10', 'saShelf', pos=[1.3, -1.25, -0.1], opts={'w': 2.6, 'empty': True}),
+        props=[*[P(f'tente10_{i}', 'saTent', pos=vpos(o_, VA), ry=90, opts={'color': VC10[i], 'ropes': False, 'trail': True, 'w': 1.3, 'h': 0.95}, keys=[k(0.0, to=vpos(o_, VB), dur=D10, ease='linear')]) for i, o_ in enumerate(V10)],
+               P('sac10', 'saBag', pos=add(VA, [0, -0.1, 0]), scale=0.75, keys=[k(0.0, to=add(VB, [0, -0.1, 0]), dur=D10, ease='linear')]),
+               P('cloture10', 'saFence', pos=[1.3, 0, -0.15], opts={'w': 3.2}),
                P('fourche10', 'pitchfork', on={'actor': 'fermier', 'hand': 'R', 'offset': [0, 0.0, 0.0]}), P('casquette10', 'coCap', on={'actor': 'fermier', 'hand': 'L', 'offset': [0, 0.02, 0.05]}, opts={'s': 0.8}, keys=[k(0.0, attach='fermier', joint='head', offset=[0, 0.42, 0]), k(r(CAP10 - 0.1), attach='fermier', hand='L', offset=[0, 0.02, 0.05]), k(r(CAP10 + 0.6), attach='fermier', joint='head', offset=[0, 0.42, 0])])], cams=[C10])
 st.card('S10', 'MIGRATION', at=st.at('S10', 'L10', 3)); st.cue('gust', 'S10', 0.0, 0.3)
 
@@ -355,17 +355,19 @@ st.cue('whoosh', 'S11', CATCH11, 0.3); st.cue('clack', 'S11', RING11, 0.35)
 #     it goes back to staring at the sardine corner, a drop of drool hanging from its beak
 D12 = st.dur('S12'); SPREAD12 = r(st.at('S12', 'L12', 9) - 0.15); DROOL12 = r(SPREAD12 + 1.1)
 CH12 = [0.95, 0, 1.15]; CRY12 = -25
-C12 = fcam(0.0, [-0.6, 1.25, 4.4], {'ridge': add(RIDGE, [0, 0.85, 0]), 'chairT': add(CH12, [0, 1.75, 0]), 'chairF': add(CH12, [0, 0, 0.3]), 'heroR': add(CH12, [0.55, 1.3, 0.2]), 'sard': SC, 'tentL': [-0.9, 0.5, 0]}, top=0.16, bottom=0.76, push=0.2)
-kh12 = [k(0.0, clip='sitSip'), k(0.0, look='camera'), TK(0.0, face={'lid': 0.4, 'mouth': 'line', 'brow': 0.1}, d=0.0), *blink(0.8, CALM), k(r(SPREAD12 + 0.2), look=[-3.0, 2.5, 1.0], lookDur=0.3), k(r(SPREAD12 + 1.0), look='camera', lookDur=0.3), *blink(2.6, CALM), *BREATHE(0.2, D12, 0.6)]
-GA12, GB12 = [[-5.0, 2.6, 0.6], [-5.5, 2.2, -0.6]], [[-2.4, 2.0, 0.8], [-2.8, 1.8, -0.4]]
-kgs12 = [act(f'mouette{i + 2}', GA12[i], 90, 'fly', 'neutral', scale=1.5, keys=[k(0.0, clip='fly'), k(0.0, to=GB12[i], dur=r(SPREAD12 + 0.1), clip='fly', ease='inOut', face='keep'), k(r(SPREAD12 + 0.1), clip='flee', blend=0.05), k(r(SPREAD12 + 0.1), face=-60, turn=0.12), k(r(SPREAD12 + 0.1), to=[-4.5, 3.6, -2.8 + 1.2 * i], dur=0.7, clip='flee', ease='out', face='keep')]) for i in range(2)]
-kg12 = [k(0.0, clip='idle'), k(0.0, look=add(SC, [0, 0.2, 0])), k(SPREAD12, clip='angry', blend=0.04), k(SPREAD12, look=[-2.4, 2.0, 0.6], lookDur=0.08), k(r(SPREAD12 + 0.9), clip='idle', blend=0.15), k(r(SPREAD12 + 0.95), look=add(SC, [0, 0.2, 0]), lookDur=0.2), k(r(SPREAD12 + 1.0), look=add(SC, [0.05, 0.15, 0.05]), lookDur=0.4)]
+GA12, GB12 = [[-3.6, 3.4, 1.4], [-4.0, 3.0, 0.6]], [[-1.3, 2.2, 1.2], [-1.7, 1.9, 0.5]]   # (round 1) they arc in, inside the frame
+C12 = fcam(0.0, [-0.6, 1.25, 4.6], {'ridge': add(RIDGE, [0, 1.0, 0]), 'chairT': add(CH12, [0, 1.75, 0]), 'chairF': add(CH12, [0, 0, 0.3]), 'heroR': add(CH12, [0.55, 1.3, 0.2]), 'sard': SC, 'gB': add(GB12[0], [0, 0.5, 0]), 'gA': [-2.4, 2.9, 1.3]}, top=0.12, bottom=0.76, push=0.25)
+MUG12, SIP12 = off(CH12, CRY12, 0.35, 0.18, 1.05), off(CH12, CRY12, 0.25, 0.08, 1.6)
+kh12 = [k(0.0, clip='sit'), k(0.0, look='camera'), TK(0.0, {'R': R5(MUG12), 'L': R5(off(CH12, CRY12, 0.3, -0.22, 0.85))}, {'R': 'grip', 'L': 'rest'}, {'lid': 0.4, 'mouth': 'line', 'brow': 0.1}, d=0.0),
+        TK(0.35, {'R': R5(SIP12)}, sq=(1.02, 1.03, 1.02), bend={'neck': SP(-0.2)}, d=0.3, keep=True), TK(0.75, face={'lid': 0.8, 'mouth': 'O', 'brow': 0.1}, d=0.08, keep=True), TK(1.15, {'R': R5(MUG12)}, sq=(1, 1, 1), face={'lid': 0.4, 'mouth': 'smile', 'brow': 0.2}, bend={'neck': SP(0.0)}, d=0.3, keep=True), *blink(0.8, CALM), k(r(SPREAD12 + 0.2), look=[-3.0, 2.5, 1.0], lookDur=0.3), k(r(SPREAD12 + 1.0), look='camera', lookDur=0.3), *blink(2.6, CALM), *BREATHE(0.2, D12, 0.6)]   # (round 1) a sip, a breath
+kgs12 = [act(f'mouette{i + 2}', GA12[i], 90, 'fly', 'neutral', scale=1.5, keys=[k(0.0, clip='fly'), k(0.4, to=GB12[i], dur=r(SPREAD12 - 0.3), clip='fly', ease='inOut', face='keep'), k(r(SPREAD12 + 0.1), clip='flee', blend=0.05), k(r(SPREAD12 + 0.1), face=-60, turn=0.12), k(r(SPREAD12 + 0.1), to=[-4.5, 3.6, -2.8 + 1.2 * i], dur=0.7, clip='flee', ease='out', face='keep')]) for i in range(2)]
+kg12 = [k(0.0, clip='idle'), k(0.0, look=add(SC, [0, 0.2, 0])), k(r(SPREAD12 - 0.6), look=GB12[0], lookDur=0.15), k(r(SPREAD12 - 0.3), clip='sit', blend=0.08), k(SPREAD12, clip='celebrate', blend=0.03), k(SPREAD12, look=[-2.4, 2.0, 0.6], lookDur=0.08), k(r(SPREAD12 + 0.75), clip='idle', blend=0.15), k(r(SPREAD12 + 0.95), look=add(SC, [0, 0.2, 0]), lookDur=0.2), k(r(SPREAD12 + 1.0), look=add(SC, [0.05, 0.15, 0.05]), lookDur=0.4)]   # (round 1) crouch... then the wings spread wide
 st.shot('S12', 'grassland', setOpts=MEADOW, look={'sunDir': [0.4, 0.9, 0.8]},
-        actors=[act('mec', CH12, CRY12, 'sitSip', 'neutral', keys=kh12), GULL('mouette', RIDGE, -40, 'idle', keys=kg12), *kgs12],
+        actors=[act('mec', CH12, CRY12, 'sit', 'neutral', keys=kh12), GULL('mouette', RIDGE, -40, 'idle', keys=kg12), *kgs12],
         props=[TENT_('tente12'), P('sardine12', 'saSardine', pos=add(SC, [0, 0.17, 0]), rot=[1.5708, 0, 0], opts={'len': 0.36}), PEG('piquet12'),
                P('chaise12', 'saChair', pos=CH12, ry=CRY12), P('tasse12', 'coMug', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.02, 0.06]}, opts={'steam': True}),
                P('herbe12', 'saFlats', pos=[0, 0, 0], opts={'spots': [[-3.2, -1.6, 1.6, 1.6, 0.2], [2.9, -2.2, 1.5, 1.5, -0.1], [-1.2, -3.8, 1.6, 1.6, 0.4], [3.4, 1.4, 1.4, 1.4, 0.1], [-3.6, 1.8, 1.5, 1.5, -0.3]]}),
-               P('bave12', 'saDrool', on={'actor': 'mouette', 'joint': 'head', 'offset': [0, -0.03, 0.1]}, opts={'at': DROOL12})], cams=[C12])
+               P('bave12', 'saDrool', on={'actor': 'mouette', 'joint': 'head', 'offset': [0, -0.03, 0.1]}, opts={'at': DROOL12, 'len': 0.32})], cams=[C12])
 st.cue('clack', 'S12', SPREAD12, 0.4); st.cue('pop', 'S12', 0.4, 0.15)
 
 # ================================================================= S13
@@ -373,12 +375,12 @@ st.cue('clack', 'S12', SPREAD12, 0.4); st.cue('pop', 'S12', 0.4, 0.15)
 #     Cut: the tent seen straight from above, its top cut away: five sleepers head to toe like sardines in a tin, the hero in the middle; all five blink
 D13 = st.dur('S13'); CUT13 = r(st.at('S13', 'L13', 6) - 0.1); PUSH13 = 0.55; IN13 = 1.1
 C13 = fcam(0.0, [1.5, 1.7, 4.6], {'tent': [0, 1.5, 0], 'tentF': [0, 0, 0.9], 'pushA': [-0.9, 2.3, 1.7], 'pushB': [0.6, 2.3, 1.9], 'gull': [1.45, 0.8, 1.0]}, top=0.12, bottom=0.76, push=0.2)
-C13b = cam(CUT13, [0.0, 6.4, 0.02], [0.0, 6.0, 0.02], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], lens=36)
+C13b = cam(CUT13, [0.0, 5.0, 0.42], [0.0, 4.7, 0.4], [0.0, 0.0, 0.35], [0.0, 0.0, 0.35], lens=54)   # (round 1) straight down, nearer; the floor in the upper part of the frame, every face above 75 %
 PA13, PB13, PC13 = [-0.8, 0, 1.45], [0.8, 0, 1.5], [0.0, 0, 1.35]
 kpush = lambda p, s: [k(0.0, clip='stand'), k(0.0, look=add(PC13, [0, 1.0, 0])), TK(0.0, {'R': R5(add(PC13, [s * 0.15, 1.0, 0.25])), 'L': R5(add(PC13, [s * 0.05, 0.9, 0.2]))}, {'R': 'spread', 'L': 'spread'}, {'lid': 0.2, 'mouth': 'line', 'brow': 0.5}, bend={'spine': SP(0.3)}, d=0.0),
                       TK(PUSH13, {'R': R5(add(PC13, [s * 0.1, 0.8, -0.3])), 'L': R5(add(PC13, [s * 0.02, 0.7, -0.35]))}, bend={'spine': SP(0.55)}, sq=(1.05, 0.93, 1.05), d=0.15, keep=True), TK(r(IN13 + 0.1), sq=(1, 1, 1), bend={'spine': SP(0.1)}, d=0.2, keep=True), k(r(IN13 + 0.2), look='camera', lookDur=0.2), k(CUT13, visible=False)]
-kc13 = [k(0.0, clip='diveIn'), k(0.0, to=add(PC13, [0, 0, 0.3]), dur=0.01), k(PUSH13, to=[0.0, 0, 0.55], dur=r(IN13 - PUSH13), clip='diveIn', ease='in', face='keep'), k(IN13, visible=False)]
-SLEEP13 = [[-0.92, 0.05, 0.0, 0], [-0.46, 0.05, 0.0, 180], [0.0, 0.05, 0.0, 0], [0.46, 0.05, 0.0, 180], [0.92, 0.05, 0.0, 0]]   # x, y, z, ry: head to toe
+kc13 = [TK(PUSH13, sq=(1.25, 0.75, 1.25), d=0.06, keep=True), TK(r(PUSH13 + 0.12), sq=(0.85, 1.25, 0.85), d=0.08, keep=True), k(0.0, clip='diveIn'), k(0.0, to=add(PC13, [0, 0, 0.3]), dur=0.01), k(PUSH13, to=[0.0, 0, 0.55], dur=r(IN13 - PUSH13), clip='diveIn', ease='in', face='keep'), k(IN13, visible=False)]
+SLEEP13 = [[-0.9, 0.05, 0.0, 0], [-0.45, 0.05, 0.0, 180], [0.0, 0.05, 0.0, 0], [0.45, 0.05, 0.0, 180], [0.9, 0.05, 0.0, 0]]   # x, y, z, ry: head to toe
 BLINKS13 = [r(CUT13 + 0.45), r(CUT13 + 1.15)]
 def ksleep(i):
     face = {'lid': 0.35, 'mouth': 'line', 'brow': 0.3}
@@ -387,9 +389,10 @@ sleepers = [act('mec' if i == 2 else f'dormeur{i + 1}', [s[0], s[1], s[2]], s[3]
 st.shot('S13', 'grassland', setOpts=MEADOW, look={'sunDir': [0.4, 0.9, 0.8]},
         actors=[act('campeur1', PA13, 160, 'stand', 'neutral', keys=kpush(PA13, 1)), act('campeur2', PB13, 200, 'stand', 'neutral', keys=kpush(PB13, -1)), act('campeur3', PC13, 180, 'diveIn', 'neutral', keys=kc13),
                 GULL('mouette', [1.5, 0, 1.0], -60, 'idle', keys=[k(0.0, look=add(SC, [0, 0.2, 0])), k(CUT13, visible=False)]), *sleepers],
-        props=[P('tente13', 'saTent', pos=TENT, opts={'bulge': [[0, 0.3], [0.3, 0.8], [0.5, 0.4], [0.8, 1.0], [IN13, 0.5], [r(IN13 + 0.15), 1.3], [r(IN13 + 0.4), 0.9], [CUT13, 1.0]]}, keys=[k(CUT13, visible=False)]),
+        props=[P('tente13', 'saTent', pos=TENT, opts={'bulge': [[0, 0.6], [0.25, 1.4], [0.45, 0.8], [0.7, 1.6], [IN13, 0.9], [r(IN13 + 0.12), 2.2], [r(IN13 + 0.3), 1.4], [r(IN13 + 0.5), 1.8], [CUT13, 1.6]]}, keys=[k(CUT13, visible=False)]),
                P('membres13', 'saLimbs', pos=[0, 0.0, 0.82], keys=[k(CUT13, visible=False)]), PEG('piquet13', keys=[k(CUT13, visible=False)]),
-               P('coupe13', 'saTent', pos=TENT, opts={'top': False, 'w': 2.7, 'ropes': False}, keys=[k(0.0, visible=False), k(CUT13, visible=True)])], cams=[C13, C13b])
+               P('coupe13', 'saTentCut', pos=TENT, opts={'w': 2.45, 'd': 2.5}, keys=[k(0.0, visible=False), k(CUT13, visible=True)]),
+               *[P(f'couverture13_{i}', 'saBlanket', pos=[s_[0], 0.05, r(0.32 if s_[3] == 0 else -0.32)], ry=s_[3], opts={'w': 0.46, 'l': 1.15, 'color': ['#3E6A9A', '#5EAA4A', '#8A5AB0', '#E8C030', '#3E8ACC'][i]}, keys=[k(0.0, visible=False), k(CUT13, visible=True)]) for i, s_ in enumerate(SLEEP13)]], cams=[C13, C13b])
 st.cue('pop', 'S13', 0.3, 0.3); st.cue('pop', 'S13', IN13, 0.4)
 
 # ================================================================= S14
@@ -410,13 +413,13 @@ st.cue('pop', 'S14', LICK14[0], 0.2); st.cue('pop', 'S14', 1.0, 0.3)
 # 15: the loose corner lifts and the whole bulging tent starts to rise, feet dangling out of the door; the hero, outside, jumps and grabs the guy rope
 #     with both mittens and gets pulled up onto tiptoe
 D15 = st.dur('S15'); RISE15 = 0.3; GRAB15 = r(st.at('S15', 'L15', 4) - 0.1)
-HP15 = [1.35, 0, 1.15]; HRY15 = -120; ROPE15 = [1.0, 1.55, 0.75]
+HP15 = [1.2, 0, 1.0]; HRY15 = -125; ROPE15 = [0.9, 1.7, 0.6]
 C15 = fcam(0.0, [0.4, 1.0, 4.6], {'tentT': [0, 2.9, 0], 'tentB': [-0.9, 0, 0.9], 'hero': add(HP15, [0, 2.6, 0]), 'heroF': HP15, 'heroR': add(HP15, [0.5, 1.4, 0]), 'gull': [-1.3, 0.8, 1.6]}, top=0.12, bottom=0.76, push=0.2)
 kh15 = [k(0.0, clip='stand'), k(0.0, look=[0, 1.0, 0]), TK(0.0, HANDS(HP15, HRY15), {'R': 'rest', 'L': 'rest'}, WORRY, d=0.0), k(RISE15, look=[0, 1.8, 0], lookDur=0.3),
         TK(r(RISE15 + 0.3), face={'lid': 0.0, 'mouth': 'O', 'brow': 1.0, 'pop': 0.8}, sq=(0.94, 1.08, 0.94), d=0.06, e='out', keep=True),
         TK(r(GRAB15 - 0.25), sq=(1.06, 0.9, 1.06), bend={'spine': SP(0.15)}, d=0.1, keep=True), k(r(GRAB15 - 0.12), clip='jump', blend=0.05),   # crouch, jump...
-        TK(GRAB15, {'R': R5(ROPE15), 'L': R5(add(ROPE15, [0.05, -0.15, 0.05]))}, {'R': 'grip', 'L': 'grip'}, sq=(0.9, 1.15, 0.9), bend={'spine': SP(0.0)}, d=0.1, keep=True), k(r(GRAB15 + 0.25), clip='onTiptoes', blend=0.08),   # ...grabs it, pulled up on tiptoe
-        k(r(GRAB15 + 0.25), look='camera', lookDur=0.15), TK(r(GRAB15 + 0.25), {'R': R5(add(ROPE15, [0, 0.15, 0])), 'L': R5(add(ROPE15, [0.05, 0.0, 0.05]))}, sq=(0.92, 1.12, 0.92), face={'lid': 0.2, 'mouth': 'line', 'brow': 0.7}, d=0.3, keep=True), *blink(r(GRAB15 + 0.6), WORRY)]
+        TK(GRAB15, {'R': R5(ROPE15), 'L': R5(add(ROPE15, [0.05, -0.15, 0.05]))}, {'R': 'grip', 'L': 'grip'}, sq=(0.9, 1.15, 0.9), bend={'spine': SP(0.0)}, d=0.1, keep=True), k(r(GRAB15 + 0.2), clip='onTiptoes', blend=0.08),   # ...grabs it, pulled up on tiptoe
+        k(r(GRAB15 + 0.25), look='camera', lookDur=0.15), TK(r(GRAB15 + 0.25), {'R': R5(add(ROPE15, [0, 0.35, 0])), 'L': R5(add(ROPE15, [0.05, 0.2, 0.05]))}, sq=(0.84, 1.22, 0.84), bend={'spine': [0, 0, 0, 1.25, None], 'armL': [0, 0, 0, 1.35, None], 'armR': [0, 0, 0, 1.35, None]}, face={'lid': 0.2, 'mouth': 'line', 'brow': 0.7}, d=0.3, keep=True), *blink(r(GRAB15 + 0.6), WORRY)]
 st.shot('S15', 'grassland', setOpts=MEADOW, look={'sunDir': [0.4, 0.9, 0.8]},
         actors=[act('mec', HP15, HRY15, 'stand', 'neutral', keys=kh15), GULL('mouette', [-1.3, 0, 1.6], 60, 'idle', keys=[k(0.0, look=[0, 1.0, 0]), k(RISE15, look=[0, 2.5, 0], lookDur=0.5)])],
         props=[P('tente15', 'saTent', pos=TENT, opts={'loose': True, 'flap': [[0.0, D15]], 'bulge': [[0, 0.9]], 'lift': [[RISE15, 0], [GRAB15, 0.9], [D15, 1.25]], 'tilt': [[RISE15, 0], [r(RISE15 + 0.4), -0.15], [D15, -0.05]]}),
@@ -428,21 +431,30 @@ st.cue('whoosh', 'S15', RISE15, 0.3); st.cue('pop', 'S15', GRAB15, 0.3)
 #     grass. At its corner the hero is planted chest-deep, tilted at 45 degrees like a peg, his red tie knotted to the guy rope and pulled taut; three
 #     heads peek out of the tent door. The seagull lands on the tent's ridge, never on his head, and drops the chrome peg in the grass right at his chest.
 #     He looks down at it. Hold one beat, deadpan
-D16 = st.dur('S16'); LAND16 = 0.9; DROP16 = r(st.at('S16', 'L16', 7) + 0.1); LOOK16 = r(DROP16 + 0.35)
-HP16 = [-1.2, -1.2, 1.15]; HRY16 = 25; PEGL16 = [-0.95, 0.03, 1.55]
-C16 = cam(0.0, [-0.85, 2.3, 5.3], [-0.85, 2.28, 5.15], [-0.6, 0.48, 0.6], [-0.6, 0.48, 0.6], lens=35)
-chk('S16', C16, {'hole': [-1.2, 0, 1.15], 'holeF': [-1.2, 0, 1.55], 'ridge': [0, 1.1, 0], 'head': [-1.0, 0.65, 1.35]})
-kh16 = [k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, {'R': R5(off(HP16, HRY16, 0.35, 0.3, 1.45)), 'L': R5(off(HP16, HRY16, 0.35, -0.3, 1.45))}, {'R': 'rest', 'L': 'rest'}, DEAD, bend={'spine': SP(0.45), 'neck': SP(-0.2)}, d=0.0),
-        *blink(1.2, DEAD), k(LOOK16, look=PEGL16, lookDur=0.25), TK(LOOK16, face={**DEAD, 'gx': 0.0}, d=0.2, keep=True), *blink(r(LOOK16 + 0.9), DEAD), k(r(LOOK16 + 1.4), look='camera', lookDur=0.3), *BREATHE(0.2, D16, 0.6, 0.008)]
-HEADS16 = [[-0.28, -1.72, 0.85], [0.0, -1.62, 0.88], [0.28, -1.7, 0.85]]
-kheads = lambda i: [k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, face={'lid': 0.3, 'mouth': 'line', 'brow': 0.3}, d=0.0), *blink(r(0.7 + 0.3 * i), {'lid': 0.3, 'mouth': 'line', 'brow': 0.3}), k(LOOK16, look=PEGL16, lookDur=0.3), *blink(r(LOOK16 + 0.9), {'lid': 0.3, 'mouth': 'line', 'brow': 0.3})]
-kg16 = [k(0.0, clip='fly'), k(0.0, to=RIDGE, dur=LAND16, clip='fly', ease='out', face='keep'), k(LAND16, clip='idle', blend=0.08), k(r(LAND16 + 0.1), look=PEGL16, lookDur=0.15), k(r(DROP16 - 0.15), clip='peck', blend=0.06), k(r(DROP16 + 0.15), clip='idle', blend=0.1), k(r(DROP16 + 0.4), look='camera', lookDur=0.2)]
+D16 = st.dur('S16'); LAND16 = 1.0; DROP16 = r(st.at('S16', 'L16', 7) + 0.1); HIT16 = r(DROP16 + 0.38); LOOK16 = r(HIT16 + 0.08)
+H16 = [-1.0, 0, 1.0]; TILT16 = 0.62; BUR16 = 1.03   # the hole; 45 degrees; his feet 1.03 m down and 1.03 m toward the tent: he crosses the ground at the hole
+HP16 = [r(H16[0] + BUR16), -BUR16, H16[2]]; HRY16 = 0
+HEAD16 = [r(H16[0] - 0.52), 0.55, r(H16[2] + 0.05)]; PEGL16 = [r(H16[0] - 0.05), 0.04, r(H16[2] + 0.5)]   # his head; the peg lands in front of his chest, in his eyeline
+TIE16 = [-0.3, 0.98, 0.3]   # the rope point high on the dome
+C16 = cam(0.0, [-1.0, 2.3, 7.4], [-1.0, 2.29, 7.25], [-1.0, 0.3, 0.8], [-1.0, 0.3, 0.8], lens=40)   # (round 1) about 17 degrees down; his head and the peg in the middle third
+chk('S16', C16, {'hole': H16, 'holeF': add(H16, [0, 0, 0.4]), 'ridge': [0, 1.95, 0], 'head': HEAD16, 'peg': PEGL16, 'tentR': [0.85, 0, 0.6]})
+PEND16 = {'hits': [-31.4], 'amp': TILT16, 'freq': 0.05, 'damp': 0.0, 'dir': 1}
+kh16 = [k(0.0, clip='statueRock', params=PEND16), k(0.0, look='camera'), TK(0.0, face=DEAD, d=0.0), *blink(1.3, DEAD),
+        TK(r(HIT16 + 0.02), face={**DEAD, 'lid': 0.0, 'pop': 0.9, 'brow': 0.9}, d=0.04, e='out', keep=True), TK(r(HIT16 + 0.28), face={**DEAD, 'gy': 0.8}, d=0.06, keep=True),   # a brief take as it lands; then the eyes go down first...
+        TK(r(LOOK16 + 0.2), bend={'neck': SP(0.25)}, d=0.3, keep=True), *blink(r(LOOK16 + 1.0), {**DEAD, 'gy': 0.8}), *BREATHE(0.2, D16, 0.6, 0.008)]   # ...then the head; held, one blink
+HEADS16 = [[0.0, -1.92, 0.97], [0.04, -1.67, 0.9], [-0.04, -1.42, 0.84]]   # three heads stacked in the door, the lowest in front (their bodies down in the ground)
+kheads = lambda i: [k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, face={'lid': 0.3, 'mouth': 'line', 'brow': 0.3}, d=0.0), k(r(LOOK16 + 0.1 + 0.05 * i), look=PEGL16, lookDur=0.3), *blink(r(LOOK16 + 1.0), {'lid': 0.3, 'mouth': 'line', 'brow': 0.3})]
+GA16 = [-3.4, 2.8, -1.8]; GB16 = [-0.35, 1.75, 0.15]
+kg16 = [k(0.0, clip='fly'), k(0.0, to=GB16, dur=r(LAND16 - 0.18), clip='fly', ease='out', face='keep'), k(r(LAND16 - 0.18), to=RIDGE, dur=0.18, ease='in', face='keep'), k(r(LAND16 - 0.05), clip='hop', blend=0.04), k(r(LAND16 + 0.15), clip='idle', blend=0.12),   # glide, settle, the wings fold
+        k(r(LAND16 + 0.25), look=PEGL16, lookDur=0.15), k(r(DROP16 - 0.12), clip='peck', blend=0.05), k(r(DROP16 + 0.15), clip='idle', blend=0.1), k(r(DROP16 + 0.5), look='camera', lookDur=0.2)]
 st.shot('S16', 'grassland', setOpts=MEADOW, look={'sunDir': [0.4, 0.9, 0.8]},
-        actors=[act('mec', HP16, HRY16, 'stand', 'neutral', keys=kh16), *[act(f'campeur{i + 1}', p, 0, 'stand', 'neutral', keys=kheads(i)) for i, p in enumerate(HEADS16)], GULL('mouette', [-3.0, 2.6, -1.5], 60, 'fly', keys=kg16)],
-        props=[TENT_('tente16', loose=True, looseUntil=0.0), P('trou16', 'saHole', pos=[-1.2, 0, 1.15], opts={'r': 0.36}),
-               P('cravate16', 'tieRope', on={'actor': 'mec', 'joint': 'torso', 'offset': [0, 0.45, 0.16]}, opts={'to': ROPE_TOP, 'w': 0.07}),
-               P('piquet16', 'saPeg', on={'actor': 'mouette', 'joint': 'head', 'offset': [0.02, -0.01, 0.1], 'rot': [0.1, 0.9, 0]}, keys=[k(DROP16, detach=True, fall=True, floor=0.03)])], cams=[C16])
-st.cue('whoosh', 'S16', 0.2, 0.3); st.cue('clang', 'S16', r(DROP16 + 0.3), 0.4)
+        actors=[act('mec', HP16, HRY16, 'statueRock', 'neutral', keys=kh16), *[act(f'campeur{i + 1}', p, 0, 'stand', 'neutral', keys=kheads(i)) for i, p in enumerate(HEADS16)], GULL('mouette', GA16, 120, 'fly', keys=kg16)],
+        props=[TENT_('tente16', loose=True, looseUntil=0.0, ropeY=0.3), P('trou16', 'saHole', pos=H16, opts={'r': 0.33}),
+               P('cravate16', 'tieRope', on={'actor': 'mec', 'joint': 'torso', 'offset': [0, 0.45, 0.16]}, opts={'to': TIE16, 'w': 0.075}),
+               P('piquet16', 'saPeg', on={'actor': 'mouette', 'joint': 'head', 'offset': [0.02, -0.01, 0.1], 'rot': [0.1, 0.9, 0]},
+                 keys=[k(DROP16, detach=True), k(DROP16, to=lerp3(RIDGE, PEGL16, 0.45), dur=0.2, ease='out'), k(r(DROP16 + 0.2), to=PEGL16, dur=0.18, ease='in'), k(DROP16, rotTo=[0, 1.2, 1.5708], dur=0.38),
+                       k(HIT16, to=add(PEGL16, [0.03, 0.12, 0.04]), dur=0.09, ease='out'), k(r(HIT16 + 0.09), to=add(PEGL16, [0.05, 0, 0.06]), dur=0.09, ease='in')])], cams=[C16])   # it falls and bounces in front of his chest
+st.cue('whoosh', 'S16', 0.2, 0.3); st.cue('clang', 'S16', HIT16, 0.4)
 
 for g_ in [('S01', SNATCH1, 'mouette', 'peg'), ('S02', BONK2, 'mec', 'sardine'), ('S03', TEAR3, 'campeur1', 'storm'), ('S04', BONKS4[0], 'campeur1', 'bonk'), ('S05', 0.4, None, 'coast'), ('S06', GULP6, 'client', 'gulp'),
            ('S07', WEIGH7, 'poissonnier', 'mallet'), ('S08', DROP8, 'randonneur', 'gulls'), ('S09', GUARD9, 'mouette', 'guard'), ('S10', CAP10, 'fermier', 'migration'), ('S11', RING11, 'savant2', 'ring'),
@@ -465,9 +477,9 @@ GUEST = lambda pr, seed, suit, **kw: {'preset': pr, 'seed': seed, 'hat': 'none',
 GULLC = {'type': 'creature', 'name': 'seagull', 'opts': {'seed': 4}}
 st.write("La sardine", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, extra_cast={
     'mec': MEC, 'mouette': GULLC, 'mouetteA': {**GULLC, 'opts': {'seed': 11}}, **{f'mouette{i}': {**GULLC, 'opts': {'seed': 20 + i}} for i in range(2, 7)},
-    **{f'campeur{i + 1}': GUEST(['sportif', 'tourist', 'fermier', 'madame'][i], 6200 + i, ['#E8C030', '#3E8ACC', '#5EAA4A', '#D0402A'][i]) for i in range(4)},
-    **{f'dormeur{i}': GUEST(['tourist', 'madame', 'sportif', 'fermier', 'worker', 'politique'][i], 6210 + i, ['#3E8ACC', '#D0402A', '#5EAA4A', '#E8C030', '#8A5AB0', '#F07A1E'][i]) for i in range(6)},
-    'commercant': GUEST('worker', 6220, '#2E5E9E', cuff='#FFFFFF'), 'client': GUEST('tourist', 6221, '#D9A23A'), 'poissonnier': GUEST('fermier', 6222, '#E8E4DA'),
+    **{f'campeur{i + 1}': GUEST(['sportif', 'tourist', 'fermier', 'madame'][i], 6200 + i, ['#E8C030', '#3E8ACC', '#5EAA4A', '#E8913A'][i]) for i in range(4)},
+    **{f'dormeur{i}': GUEST(['tourist', 'madame', 'sportif', 'fermier', 'worker', 'politique'][i], 6210 + i, ['#3E8ACC', '#E8913A', '#5EAA4A', '#E8C030', '#8A5AB0', '#F07A1E'][i]) for i in range(6)},
+    'commercant': GUEST('worker', 6220, '#2E5E9E', cuff='#FFFFFF'), 'client': GUEST('tourist', 6221, '#D9A23A'), 'poissonnier': GUEST('worker', 6222, '#F4F1EA', pants='#1E2E5A', shirt='#F4F1EA', lapel='#F4F1EA', tie='#1E2E5A', cuff='#F4F1EA'),
     'randonneur': GUEST('sportif', 6223, '#C8502A'), 'vache': {'type': 'creature', 'name': 'cow', 'opts': {'seed': 3}}, 'fermier': GUEST('fermier', 6224, '#6A7A4A'),
     'savant1': GUEST('worker', 6225, '#B8A070', pants='#8A7A50'), 'savant2': GUEST('madame', 6226, '#B8A070', pants='#8A7A50'),
 })
