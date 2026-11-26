@@ -1,0 +1,940 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a dit « pardon » dans la rue. Le président l'a gracié.",
+   "hl": [
+    "pardon",
+    "gracié."
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 3.063,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "dit",
+     "s": 0.619,
+     "e": 0.693
+    },
+    {
+     "w": "pardon",
+     "s": 0.767,
+     "e": 1.137
+    },
+    {
+     "w": "dans",
+     "s": 1.162,
+     "e": 1.211
+    },
+    {
+     "w": "la",
+     "s": 1.285,
+     "e": 1.359
+    },
+    {
+     "w": "rue.",
+     "s": 1.396,
+     "e": 1.73
+    },
+    {
+     "w": "Le",
+     "s": 1.878,
+     "e": 1.952
+    },
+    {
+     "w": "président",
+     "s": 2.026,
+     "e": 2.396
+    },
+    {
+     "w": "l'a",
+     "s": 2.421,
+     "e": 2.47
+    },
+    {
+     "w": "gracié.",
+     "s": 2.544,
+     "e": 3.063
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Gracié de quoi ? Personne ne savait.",
+   "hl": [
+    "quoi",
+    "savait."
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L02.k.wav",
+   "file_start": 3.163,
+   "speech_start": 3.163,
+   "speech_end": 5.311,
+   "words": [
+    {
+     "w": "Gracié",
+     "s": 3.163,
+     "e": 3.533
+    },
+    {
+     "w": "de",
+     "s": 3.607,
+     "e": 3.681
+    },
+    {
+     "w": "quoi?",
+     "s": 3.793,
+     "e": 4.299
+    },
+    {
+     "w": "Personne",
+     "s": 4.397,
+     "e": 4.57
+    },
+    {
+     "w": "ne",
+     "s": 4.607,
+     "e": 4.644
+    },
+    {
+     "w": "savait.",
+     "s": 4.719,
+     "e": 5.311
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Problème : on ne gracie pas un innocent.",
+   "hl": [
+    "Problème",
+    "innocent."
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L03.k.wav",
+   "file_start": 5.411,
+   "speech_start": 5.411,
+   "speech_end": 7.633,
+   "words": [
+    {
+     "w": "Problème:",
+     "s": 5.411,
+     "e": 6.177
+    },
+    {
+     "w": "on",
+     "s": 6.201,
+     "e": 6.226
+    },
+    {
+     "w": "ne",
+     "s": 6.3,
+     "e": 6.374
+    },
+    {
+     "w": "gracie",
+     "s": 6.411,
+     "e": 6.744
+    },
+    {
+     "w": "pas",
+     "s": 6.819,
+     "e": 6.893
+    },
+    {
+     "w": "un",
+     "s": 6.93,
+     "e": 6.967
+    },
+    {
+     "w": "innocent.",
+     "s": 7.041,
+     "e": 7.633
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Il a donc été jugé. Pour rien.",
+   "hl": [
+    "jugé.",
+    "rien."
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L04.k.wav",
+   "file_start": 7.733,
+   "speech_start": 7.733,
+   "speech_end": 9.659,
+   "words": [
+    {
+     "w": "Il",
+     "s": 7.733,
+     "e": 7.807
+    },
+    {
+     "w": "a",
+     "s": 7.844,
+     "e": 7.881
+    },
+    {
+     "w": "donc",
+     "s": 7.956,
+     "e": 8.104
+    },
+    {
+     "w": "été",
+     "s": 8.215,
+     "e": 8.326
+    },
+    {
+     "w": "jugé.",
+     "s": 8.437,
+     "e": 8.956
+    },
+    {
+     "w": "Pour",
+     "s": 8.993,
+     "e": 9.067
+    },
+    {
+     "w": "rien.",
+     "s": 9.141,
+     "e": 9.659
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Le procureur a requis la perpétuité, pour que la grâce vaille le coup.",
+   "hl": [
+    "perpétuité,",
+    "coup."
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L05.k.wav",
+   "file_start": 9.759,
+   "speech_start": 9.759,
+   "speech_end": 13.241,
+   "words": [
+    {
+     "w": "Le",
+     "s": 9.759,
+     "e": 9.907
+    },
+    {
+     "w": "procureur",
+     "s": 10.019,
+     "e": 10.426
+    },
+    {
+     "w": "a",
+     "s": 10.5,
+     "e": 10.574
+    },
+    {
+     "w": "requis",
+     "s": 10.648,
+     "e": 10.796
+    },
+    {
+     "w": "la",
+     "s": 10.87,
+     "e": 10.944
+    },
+    {
+     "w": "perpétuité,",
+     "s": 11.019,
+     "e": 11.796
+    },
+    {
+     "w": "pour",
+     "s": 11.833,
+     "e": 11.907
+    },
+    {
+     "w": "que",
+     "s": 11.944,
+     "e": 11.981
+    },
+    {
+     "w": "la",
+     "s": 12.056,
+     "e": 12.13
+    },
+    {
+     "w": "grâce",
+     "s": 12.204,
+     "e": 12.426
+    },
+    {
+     "w": "vaille",
+     "s": 12.463,
+     "e": 12.574
+    },
+    {
+     "w": "le",
+     "s": 12.648,
+     "e": 12.722
+    },
+    {
+     "w": "coup.",
+     "s": 12.796,
+     "e": 13.241
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Condamné à midi. Gracié à midi une.",
+   "hl": [
+    "Condamné",
+    "une."
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L06.k.wav",
+   "file_start": 13.341,
+   "speech_start": 13.341,
+   "speech_end": 16.013,
+   "words": [
+    {
+     "w": "Condamné",
+     "s": 13.341,
+     "e": 13.711
+    },
+    {
+     "w": "à",
+     "s": 13.785,
+     "e": 13.822
+    },
+    {
+     "w": "midi.",
+     "s": 13.859,
+     "e": 14.452
+    },
+    {
+     "w": "Gracié",
+     "s": 14.526,
+     "e": 15.044
+    },
+    {
+     "w": "à",
+     "s": 15.081,
+     "e": 15.119
+    },
+    {
+     "w": "midi",
+     "s": 15.193,
+     "e": 15.415
+    },
+    {
+     "w": "une.",
+     "s": 15.489,
+     "e": 16.007
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Depuis, chaque « pardon » vaut demande de grâce.",
+   "hl": [
+    "pardon",
+    "grâce."
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L07.k.wav",
+   "file_start": 16.113,
+   "speech_start": 16.113,
+   "speech_end": 18.706,
+   "words": [
+    {
+     "w": "Depuis,",
+     "s": 16.113,
+     "e": 16.78
+    },
+    {
+     "w": "chaque",
+     "s": 16.854,
+     "e": 17.002
+    },
+    {
+     "w": "pardon",
+     "s": 17.076,
+     "e": 17.373
+    },
+    {
+     "w": "vaut",
+     "s": 17.447,
+     "e": 17.595
+    },
+    {
+     "w": "demande",
+     "s": 17.706,
+     "e": 17.854
+    },
+    {
+     "w": "de",
+     "s": 17.891,
+     "e": 17.965
+    },
+    {
+     "w": "grâce.",
+     "s": 18.039,
+     "e": 18.706
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Dans le métro : huit millions de procès par matin.",
+   "hl": [
+    "millions",
+    "procès"
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L08.k.wav",
+   "file_start": 18.806,
+   "speech_start": 18.806,
+   "speech_end": 21.399,
+   "words": [
+    {
+     "w": "Dans",
+     "s": 18.806,
+     "e": 18.954
+    },
+    {
+     "w": "le",
+     "s": 18.991,
+     "e": 19.028
+    },
+    {
+     "w": "métro:",
+     "s": 19.065,
+     "e": 19.72
+    },
+    {
+     "w": "huit",
+     "s": 19.744,
+     "e": 19.843
+    },
+    {
+     "w": "millions",
+     "s": 19.917,
+     "e": 20.213
+    },
+    {
+     "w": "de",
+     "s": 20.25,
+     "e": 20.287
+    },
+    {
+     "w": "procès",
+     "s": 20.361,
+     "e": 20.658
+    },
+    {
+     "w": "par",
+     "s": 20.732,
+     "e": 20.806
+    },
+    {
+     "w": "matin.",
+     "s": 20.917,
+     "e": 21.399
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Le président signe les grâces à la chaîne. Il n'a jamais été aussi populaire.",
+   "hl": [
+    "chaîne.",
+    "populaire."
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L09.k.wav",
+   "file_start": 21.499,
+   "speech_start": 21.499,
+   "speech_end": 25.424,
+   "words": [
+    {
+     "w": "Le",
+     "s": 21.499,
+     "e": 21.647
+    },
+    {
+     "w": "président",
+     "s": 21.758,
+     "e": 22.091
+    },
+    {
+     "w": "signe",
+     "s": 22.165,
+     "e": 22.387
+    },
+    {
+     "w": "les",
+     "s": 22.461,
+     "e": 22.536
+    },
+    {
+     "w": "grâces",
+     "s": 22.61,
+     "e": 22.832
+    },
+    {
+     "w": "à",
+     "s": 22.857,
+     "e": 22.881
+    },
+    {
+     "w": "la",
+     "s": 22.906,
+     "e": 22.98
+    },
+    {
+     "w": "chaîne.",
+     "s": 23.054,
+     "e": 23.61
+    },
+    {
+     "w": "Il",
+     "s": 23.647,
+     "e": 23.721
+    },
+    {
+     "w": "n'a",
+     "s": 23.77,
+     "e": 23.869
+    },
+    {
+     "w": "jamais",
+     "s": 23.943,
+     "e": 24.165
+    },
+    {
+     "w": "été",
+     "s": 24.276,
+     "e": 24.387
+    },
+    {
+     "w": "aussi",
+     "s": 24.461,
+     "e": 24.61
+    },
+    {
+     "w": "populaire.",
+     "s": 24.684,
+     "e": 25.424
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Les détenus ont dit pardon en chœur. Les prisons se sont vidées.",
+   "hl": [
+    "chœur.",
+    "vidées."
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L10.k.wav",
+   "file_start": 25.524,
+   "speech_start": 25.524,
+   "speech_end": 28.784,
+   "words": [
+    {
+     "w": "Les",
+     "s": 25.524,
+     "e": 25.673
+    },
+    {
+     "w": "détenus",
+     "s": 25.747,
+     "e": 26.043
+    },
+    {
+     "w": "ont",
+     "s": 26.117,
+     "e": 26.191
+    },
+    {
+     "w": "dit",
+     "s": 26.265,
+     "e": 26.339
+    },
+    {
+     "w": "pardon",
+     "s": 26.413,
+     "e": 26.71
+    },
+    {
+     "w": "en",
+     "s": 26.784,
+     "e": 26.858
+    },
+    {
+     "w": "chœur.",
+     "s": 26.895,
+     "e": 27.413
+    },
+    {
+     "w": "Les",
+     "s": 27.45,
+     "e": 27.524
+    },
+    {
+     "w": "prisons",
+     "s": 27.599,
+     "e": 27.895
+    },
+    {
+     "w": "se",
+     "s": 27.969,
+     "e": 28.043
+    },
+    {
+     "w": "sont",
+     "s": 28.092,
+     "e": 28.191
+    },
+    {
+     "w": "vidées.",
+     "s": 28.302,
+     "e": 28.784
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Le directeur aussi. Il a éteint en partant.",
+   "hl": [
+    "directeur",
+    "éteint"
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L11.k.wav",
+   "file_start": 28.884,
+   "speech_start": 28.884,
+   "speech_end": 31.476,
+   "words": [
+    {
+     "w": "Le",
+     "s": 28.884,
+     "e": 28.958
+    },
+    {
+     "w": "directeur",
+     "s": 29.032,
+     "e": 29.402
+    },
+    {
+     "w": "aussi.",
+     "s": 29.476,
+     "e": 30.069
+    },
+    {
+     "w": "Il",
+     "s": 30.106,
+     "e": 30.143
+    },
+    {
+     "w": "a",
+     "s": 30.217,
+     "e": 30.291
+    },
+    {
+     "w": "éteint",
+     "s": 30.365,
+     "e": 30.661
+    },
+    {
+     "w": "en",
+     "s": 30.736,
+     "e": 30.81
+    },
+    {
+     "w": "partant.",
+     "s": 30.921,
+     "e": 31.476
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le ministre a interdit le mot.",
+   "hl": [
+    "interdit",
+    "mot."
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L12.k.wav",
+   "file_start": 31.576,
+   "speech_start": 31.576,
+   "speech_end": 33.28,
+   "words": [
+    {
+     "w": "Le",
+     "s": 31.576,
+     "e": 31.65
+    },
+    {
+     "w": "ministre",
+     "s": 31.724,
+     "e": 32.169
+    },
+    {
+     "w": "a",
+     "s": 32.206,
+     "e": 32.243
+    },
+    {
+     "w": "interdit",
+     "s": 32.317,
+     "e": 32.687
+    },
+    {
+     "w": "le",
+     "s": 32.761,
+     "e": 32.836
+    },
+    {
+     "w": "mot.",
+     "s": 32.947,
+     "e": 33.28
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "« Excusez-moi » : trois ans. « Oups » : six mois.",
+   "hl": [
+    "Excusez-moi",
+    "Oups"
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L13.k.wav",
+   "file_start": 33.38,
+   "speech_start": 33.38,
+   "speech_end": 36.195,
+   "words": [
+    {
+     "w": "Excusez-moi:",
+     "s": 33.38,
+     "e": 34.244
+    },
+    {
+     "w": "trois",
+     "s": 34.294,
+     "e": 34.417
+    },
+    {
+     "w": "ans.",
+     "s": 34.491,
+     "e": 34.886
+    },
+    {
+     "w": "Oups:",
+     "s": 34.911,
+     "e": 35.491
+    },
+    {
+     "w": "six",
+     "s": 35.528,
+     "e": 35.602
+    },
+    {
+     "w": "mois.",
+     "s": 35.676,
+     "e": 36.195
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "On se bouscule en silence. Les sacs à dos ont gagné.",
+   "hl": [
+    "silence.",
+    "gagné."
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L14.k.wav",
+   "file_start": 36.295,
+   "speech_start": 36.295,
+   "speech_end": 39.036,
+   "words": [
+    {
+     "w": "On",
+     "s": 36.295,
+     "e": 36.369
+    },
+    {
+     "w": "se",
+     "s": 36.443,
+     "e": 36.517
+    },
+    {
+     "w": "bouscule",
+     "s": 36.554,
+     "e": 36.887
+    },
+    {
+     "w": "en",
+     "s": 36.961,
+     "e": 37.036
+    },
+    {
+     "w": "silence.",
+     "s": 37.11,
+     "e": 37.751
+    },
+    {
+     "w": "Les",
+     "s": 37.801,
+     "e": 37.85
+    },
+    {
+     "w": "sacs",
+     "s": 37.887,
+     "e": 37.999
+    },
+    {
+     "w": "à",
+     "s": 38.073,
+     "e": 38.11
+    },
+    {
+     "w": "dos",
+     "s": 38.147,
+     "e": 38.221
+    },
+    {
+     "w": "ont",
+     "s": 38.295,
+     "e": 38.369
+    },
+    {
+     "w": "gagné.",
+     "s": 38.406,
+     "e": 39.036
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Le président, lui, n'a jamais dit pardon.",
+   "hl": [
+    "jamais",
+    "pardon."
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L15.k.wav",
+   "file_start": 39.136,
+   "speech_start": 39.136,
+   "speech_end": 41.58,
+   "words": [
+    {
+     "w": "Le",
+     "s": 39.136,
+     "e": 39.21
+    },
+    {
+     "w": "président,",
+     "s": 39.284,
+     "e": 39.876
+    },
+    {
+     "w": "lui,",
+     "s": 39.913,
+     "e": 40.321
+    },
+    {
+     "w": "n'a",
+     "s": 40.395,
+     "e": 40.543
+    },
+    {
+     "w": "jamais",
+     "s": 40.617,
+     "e": 40.839
+    },
+    {
+     "w": "dit",
+     "s": 40.913,
+     "e": 40.987
+    },
+    {
+     "w": "pardon.",
+     "s": 41.111,
+     "e": 41.58
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "C'est lui qui avait bousculé ce mec.",
+   "hl": [
+    "lui",
+    "bousculé"
+   ],
+   "file": "/tmp/pipe/s7/pardon/tts/L16.k.wav",
+   "file_start": 41.68,
+   "speech_start": 41.68,
+   "speech_end": 43.458,
+   "words": [
+    {
+     "w": "C'est",
+     "s": 41.68,
+     "e": 41.828
+    },
+    {
+     "w": "lui",
+     "s": 41.865,
+     "e": 42.05
+    },
+    {
+     "w": "qui",
+     "s": 42.124,
+     "e": 42.199
+    },
+    {
+     "w": "avait",
+     "s": 42.236,
+     "e": 42.421
+    },
+    {
+     "w": "bousculé",
+     "s": 42.47,
+     "e": 42.791
+    },
+    {
+     "w": "ce",
+     "s": 42.865,
+     "e": 42.939
+    },
+    {
+     "w": "mec.",
+     "s": 43.038,
+     "e": 43.458
+    }
+   ]
+  }
+ ],
+ "total": 44.76
+}
