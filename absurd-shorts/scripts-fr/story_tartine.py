@@ -1216,8 +1216,8 @@ INSK17 = [k(0.0, look='camera'), k(0.0, clip='reclineBack'), k(0.0, toon={**IN17
 HK17 = {'reach': {'R': R5(WLAP, 1, 0.0)}, 'hands': {'R': 'grip'}, 'scl': {'head': [1.55, 0.5, 1.18]}, 'bend': {'neck': [0.2, 0, 0, 1, None]}, 'hip': 0}
 HF17 = {**SQF, 'lid': 0.75}
 HEROK17 = [k(0.0, look='camera'), k(0.0, clip='reclineBack'), k(0.0, toon={**HK17, 'face': HF17}, toonDur=0.0),
-           # (review 3) the glance at the tag aimed between head height and the lens (a target under his head tipped the squashed head back like a lid)
-           k(r(FLIP17[1] - 0.05), look=lerp3([IN16B[0], r(HE16B[1] + 0.95), r(IN16B[2] + 0.4)], F17, 0.4), lookDur=0.12), k(r(FLIP17[1]), toon={**HK17, 'face': {**HF17, 'lid': 0.45, 'gx': 0.6, 'gy': 0.4}}, toonDur=0.1),
+           # (review 3) the glance at the tag with the eyes alone, the squashed head kept square to us (a look target tipped it back like a lid)
+           k(r(FLIP17[1] - 0.05), look='camera', lookDur=0.12), k(r(FLIP17[1]), toon={**HK17, 'face': {**HF17, 'lid': 0.45, 'gx': 0.6, 'gy': 0.4}}, toonDur=0.1),
            k(r(SEC17 + 0.2), look='camera', lookDur=0.15), k(r(SEC17 + 0.2), toon={**HK17, 'face': HF17}, toonDur=0.1),
            k(r(UP17 + 0.1), look='camera', lookDur=0.2), k(r(UP17 + 0.1), toon={**HK17, 'face': {**HF17, **UPF, 'lid': 0.0, 'low': 0.0, 'eye': 0.85, 'pupilSize': 0.3}}, toonDur=0.25),
            *hold_sblink(r(UP17 + 0.4), D17, BLH17, {**HF17, **UPF, 'lid': 0.0, 'low': 0.0, 'eye': 0.85, 'pupilSize': 0.3}, HK17)]

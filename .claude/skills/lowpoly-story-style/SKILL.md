@@ -2461,3 +2461,12 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   du souffleur caché.
 - (cycle 56) Plan final 9:16 avec hublot, cochon et héros : ≈ 1,8 m de largeur (caméra 4,5-5 m, focale 40) ; avancer le hublot
   vers la caméra pour qu'il soit à côté de la tête du cochon.
+- (cycle 56, « La tartine ») Corps suspendu en l'air vu d'une caméra haute de face : un lacet toon d'environ 0,7 et une bascule au-delà du plat (≈ −1,86) le rendent horizontal à l'écran ; ajouter une ombre de contact et garder aussi les images de chute en lacet.
+- (cycle 56) Retourner un graphique montant de 180° garde sa pente : le mettre aussi en miroir pendant qu'il tourne, et peindre une pointe de flèche dans le tableau.
+- (cycle 56) Plusieurs corps qui glissent en 9:16 : des diagonales parallèles en échelon, trouvées par une recherche d'écarts, se lisent séparées ; des couloirs dans l'axe de la caméra se fondent.
+- (cycle 56) La place pour séparer des objets au sol dépend de la hauteur de caméra : objectif bas, les rangées en profondeur s'écrasent sur une seule bande.
+- (cycle 56) Les reflets au sol d'objets proches de l'objectif bavent en bas du cadre : réserver les éléments réfléchis au fond du décor.
+- (cycle 56) Une bande brune en haut d'un plan rapproché vient d'un mur trop bas : rehausser le mur.
+- (cycle 56) Une cible de regard sous une tête écrasée la fait basculer comme un couvercle : ne bouger que les yeux (gx/gy).
+- (cycle 56) Un scintillement du sol d'une image à l'autre dans un rendu séquentiel peut ne pas apparaître sur des vues fixes : le mesurer sur les images du brouillon.
+- (cycle 56) Un bras élastique qui arme en visant au-delà d'un autre acteur laisse un coude à angle droit sur son corps : armer au-dessus de la cible, de son propre côté.
