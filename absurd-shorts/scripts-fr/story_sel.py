@@ -380,7 +380,7 @@ KR2a, KL2a = hero_hands(H2a, RYH)
 UKM2 = [k(r(TS2 - 0.02), to=ubase(add(hero_hands(H2b, RYH)[0], [0, 0, 0])), dur=0.14, ease='out')]
 UFM2 = [k(r(TS2 - 0.02), to=ubase(hero_hands(H2b, RYH)[1]), dur=0.14, ease='out')]
 DK2 = [SIT(), k(-0.5, look=add(G2_1, [0, 0.2, 0])), *FOLLOW(CD, RYD2, SP2.grip, 0.0, 0.4, DF), k(0.45, toon={**RESTK(CD, RYD2), 'face': DF}, toonDur=0.12),
-       k(0.5, look=add(H2a, [0, 1.7, 0]), lookDur=0.2), *react(r(TS2 + 0.02), 0.8, keep=RESTK(CD, RYD2), look=add(H2b, [0, 1.7, 0])), *life(r(TS2 + 0.6), D2, DF, RESTK(CD, RYD2), blinks=[1.9], period=0.6)]
+       k(0.5, look=add(H2a, [0, 1.7, 0]), lookDur=0.2), *react(r(TS2 + 0.02), 0.8, keep=RESTK(CD, RYD2), look=add(H2b, [0, 1.7, 0]), kind='wince'), *life(r(TS2 + 0.6), D2, DF, RESTK(CD, RYD2), blinks=[1.9], period=0.6)]
 CF2 = {'lid': 0.3, 'mouth': 'smile', 'brow': 0.4}
 REACH2 = add(H2b, [-0.7, 1.12, -0.18])
 CK2 = [SIT(), k(-0.5, look=add(G2_0, [0, 0.2, 0])), k(0.0, toon={**RESTK(CC, RYC2), 'face': CF2}, toonDur=0.0),
@@ -526,7 +526,7 @@ for t_ in (0.1, 0.4, 0.7): st.cue('sfx:step', 'S04', t_, 0.15)
 D4b = st.dur('S04b'); TS4 = 0.5
 H4a = [hx_after(1), 0, 0]; H4b = [hx_after(2), 0, 0]
 SHB4 = base_of(G2_3, 0.0)
-F4b, L4b, LN4b = FIT([-0.4, 1.25, 0.2], {'shakerTop': add(SHB4, [0, SH_H + 0.05, 0]), 'shakerBase': add(SHB4, [0, 0.0, 0]), 'heroTop1': add(H4b, [0, 2.0, 0]), 'heroTop0': add(H4a, [0, 2.0, 0]), 'f1': [2.55, 2.3, -0.95], 'f2': [3.65, 2.3, -0.95]}, back=True, inside=ROOM, margin=0.12, top=0.12, bottom=0.78, lenses=range(28, 60))
+F4b, L4b, LN4b = FIT([-0.4, 1.25, 0.2], {'shakerTop': add(SHB4, [0, SH_H + 0.05, 0]), 'shakerBase': add(SHB4, [0, 0.0, 0]), 'heroTop1': add(H4b, [0, 2.0, 0]), 'heroTop0': add(H4a, [0, 2.0, 0]), 'f1': [2.45, 2.45, -1.35], 'f2': [3.75, 2.45, -1.35]}, back=True, inside=ROOM, margin=0.12, top=0.12, bottom=0.78, lenses=range(28, 60))
 C4b = cam(0.0, F4b, add(F4b, [-0.06, 0.0, 0.0]), L4b, L4b, lens=LN4b, ease='inOut')
 chkc('S04b', C4b, {'shakerTop': add(SHB4, [0, SH_H + 0.05, 0]), 'heroTop0': add(H4a, [0, 2.0, 0]), 'heroTop1': add(H4b, [0, 2.0, 0]), 'heroChin1': add(H4b, [0, 1.3, 0]), 'f1top': [2.55, 2.3, -0.95], 'f2top': [3.65, 2.3, -0.95]})
 LV4a = [3.1, 1.25, -0.95]; LV4b = [3.1, TH - 0.03, 0.0]
@@ -540,7 +540,7 @@ def BRK4(i):
             k(0.1, toon={**hold(add(LV4a, [0, 0.15, 0])), 'sq': [0.95, 1.06, 0.95], 'face': {**BF, 'brow': 0.9}}, toonDur=0.08),
             k(r(TS4 - 0.12), toon={**flat(add(LV4b, [0, 0.25, 0])), 'sq': [1.04, 0.96, 1.04], 'bend': {'spine': [0.35, 0, 0, 1, None]}, 'face': {**BF, 'lid': 0.6, 'mouth': 'line'}}, toonDur=0.1),
             k(r(TS4 - 0.02), toon={**flat(LV4b), 'sq': [1.1, 0.9, 1.1], 'bend': {'spine': [0.5, 0, 0, 1, None]}, 'face': {**BF, 'lid': 0.7, 'mouth': 'line'}}, toonDur=0.03),
-            *react(r(TS4 + 0.06), 0.9, keep=STANDK(), look=add(H4b, [0, 1.6, 0])),
+            *react(r(TS4 + 0.06), 0.9, keep=STANDK(), look=add(H4b, [0, 1.6, 0]), kind='wince'),
             k(r(TS4 + 0.55), toon={**HAND(off(p, ry_, 0.3, 0.12, 1.15), off(p, ry_, 0.3, -0.12, 1.12), 'open', 'open'), 'face': {**BF, 'mouth': 'smile'}}, toonDur=0.1),
             k(r(TS4 + 0.68), toon={**HAND(off(p, ry_, 0.3, 0.05, 1.18), off(p, ry_, 0.3, -0.05, 1.1), 'open', 'open'), 'face': {**BF, 'mouth': 'smile'}}, toonDur=0.06),
             k(r(TS4 + 0.8), toon={**HAND(off(p, ry_, 0.3, 0.12, 1.15), off(p, ry_, 0.3, -0.12, 1.12), 'open', 'open'), 'face': {**BF, 'mouth': 'smile'}}, toonDur=0.06),
@@ -575,7 +575,7 @@ BONNETS = ['#F2A8BC', '#9FD0F0', '#F4DC7A']
 def HCH(n, i, pop=None, bang=None): return P(f'chaiseHaute{n}_{i}', 'seHighChair', pos=HC5[i], ry=180, opts={'bonnet': BONNETS[i], 'seed': i, **({'pop': pop} if pop is not None else {}), **({'bang': bang} if bang else {})})
 def DINERK(who, D, blinks=(), startles=()):
     p, ry_ = SEAT[who], RYS[who]; out = [SIT(), k(-0.5, look=lerp3(add(HC5[1], [0, 1.2, 0]), F5, 0.4)), k(0.0, toon={**RESTK(p, ry_), 'face': DF}, toonDur=0.0)]
-    for t_ in startles: out += react(t_, 0.6, keep=RESTK(p, ry_))
+    for t_ in startles: out += react(t_, 0.6, keep=RESTK(p, ry_), kind='wince')
     return out + life(r(max(startles or [0]) + 0.55), D, DF, RESTK(p, ry_), blinks=list(blinks), period=0.6)
 st.shot('S05', 'whiteVoid', setOpts=DSET, actors=[act('cD', SEAT['cD'], RYS['cD'], 'sit', 'neutral', keys=DINERK('cD', D5, startles=[0.08, 0.32, 0.56])), act('cC', SEAT['cC'], RYS['cC'], 'sit', 'neutral', keys=DINERK('cC', D5, startles=[0.1, 0.34, 0.58]))],
         props=[DINING(5), MAINSEG(5, chairs=NEARCH), *LEAVES(5, 2), *HERO_END(5, 2), *[HCH(5, i, POP5[i], [[r(POP5[i] + 0.3), 9]]) for i in range(3)], SHAKER('sel5', SHB4, 0.9), NOSHADOW('ns5', ['cD', 'cC'])],
@@ -634,7 +634,7 @@ def CUZ6(p, ry_, sd):
     return [k(-0.5, look=lerp3(LV6(TH), F6, 0.35)), k(0.0, toon={**LEAFK6(p, ry_, 1.05, sd), 'face': CF6}, toonDur=0.0),
             k(0.08, toon={**LEAFK6(p, ry_, 1.12, sd), 'sq': [0.96, 1.05, 0.96], 'face': {**CF6, 'brow': 0.8}}, toonDur=0.06),
             k(r(TS6 - 0.1), toon={**LEAFK6(p, ry_, TH + 0.05, sd), 'sq': [1.06, 0.94, 1.06], 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'face': {**CF6, 'lid': 0.6, 'mouth': 'line'}}, toonDur=0.1),
-            *react(r(TS6 + 0.04), 0.8, keep=STANDK(), look=F6),
+            *react(r(TS6 + 0.04), 0.8, keep=STANDK(), look=F6, kind='wince'),
             k(r(TS6 + 0.55), toon={**HAND(off(p, ry_, 0.3, 0.12, 1.15), off(p, ry_, 0.3, -0.12, 1.12), 'open', 'open'), 'face': {**CF6, 'mouth': 'smile'}}, toonDur=0.1),
             k(r(TS6 + 0.68), toon={**HAND(off(p, ry_, 0.3, 0.04, 1.18), off(p, ry_, 0.3, -0.04, 1.1), 'open', 'open'), 'face': {**CF6, 'mouth': 'smile'}}, toonDur=0.06),
             k(r(TS6 + 0.8), toon={**HAND(off(p, ry_, 0.3, 0.12, 1.15), off(p, ry_, 0.3, -0.12, 1.12), 'open', 'open'), 'face': {**CF6, 'mouth': 'smile'}}, toonDur=0.06),
@@ -979,7 +979,7 @@ def CUZ12(p, sd):
             k(r(SHRUG - 0.04), toon={**hold, 'sq': [1.04, 0.96, 1.04], 'face': {**f, 'gx': 0}}, toonDur=0.04), k(r(SHRUG - 0.04), look='camera', lookDur=0.1),
             k(SHRUG, toon={**shr, 'sq': [0.95, 1.06, 0.95], 'face': {**f, 'brow': 0.9, 'mouth': 'smirk'}}, toonDur=0.07, toonEase='outBack'),
             k(LEAN12, toon={**lean, 'bend': {'spine': [0.25, 0, 0, 1, None]}, 'face': {**f, 'brow': 0.5}}, toonDur=0.12),
-            *react(r(SLIDE12 + 0.15), 0.7, keep=STANDK(), look='camera'), *life(r(SLIDE12 + 0.45), D12b, {**f, 'brow': 0.6}, STANDK(), period=0.4)]
+            *react(r(SLIDE12 + 0.15), 0.7, keep=STANDK(), look='camera', kind='wince'), *life(r(SLIDE12 + 0.45), D12b, {**f, 'brow': 0.6}, STANDK(), period=0.4)]
 st.shot('S12b', 'cottageStreet', actors=[act('cA', PA12, 0, 'stand', 'neutral', keys=CUZ12(PA12, -1)), act('cC', PC12, 0, 'stand', 'neutral', keys=CUZ12(PC12, 1))],
         props=[P('rallonge12b', 'seLeaf', pos=LV12, opts={'len': LEAF, 'w': TW}, keys=[k(LEAN12, to=LV12w, dur=0.14, ease='inOut'), k(LEAN12, rotTo=[1.25, 0, 0], dur=0.14, ease='inOut'), k(SLIDE12, to=LV12f, dur=0.15, ease='in'), k(SLIDE12, rotTo=[0, 0, 0], dur=0.15, ease='in'), k(r(SLIDE12 + 0.15), squash=[1.0, 0.75, 1.0], dur=0.3)])],
         cams=[C12b])
