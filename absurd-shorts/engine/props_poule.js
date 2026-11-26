@@ -773,7 +773,8 @@ export const POULE_PROPS = {
   // ---------------------------------------------------------------- (story 104, final pass) one cartoon dust cloud (pivot at its root, where it bursts out from; it
   // billows up and out toward +Y and along X): o.n (7) inked grey-beige lumps packed into ONE irregular mass that swells from nothing, then shrinks away
   // to nothing (never transparent, never a row of balls: the row of white puffs read as eggs), plus o.wisps (2) small lumps that curl off sideways and
-  // up and vanish; o.at [t0, ...], o.dur (0.75), o.r (0.22) the cloud's radius at its fullest, o.w (1) its spread along X against its height, o.color
+  // up and vanish (shrinking, the lumps draw in to the core: spread apart they read as balls again); o.at [t0, ...], o.dur (0.75), o.r (0.22) the
+  // cloud's radius at its fullest, o.w (1) its spread along X against its height, o.color
   poDustCloud(o) {
     const g = grp(), R = o.r ?? 0.22, D = o.dur ?? 0.75, N = o.n ?? 7, NW = o.wisps ?? 2, C = o.color || '#CBC2B0', C2 = o.color2 || '#B9AF9C', Q = [];
     for (let i = 0; i < N + NW; i++) { const wsp = i >= N, m = ink(new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), L(i % 3 === 1 ? C2 : C, { emissive: o.emissive || '#3E3A32', flatShading: true })), wsp ? 0.07 : 0.045);
@@ -785,7 +786,8 @@ export const POULE_PROPS = {
     g.userData.update = t => { let d = -1; for (const t0 of o.at || []) if (t >= t0 && t < t0 + D) d = t - t0;
       for (const q of Q) { q.m.visible = d >= 0; if (d < 0) continue; const u = d / D;
         if (!q.wsp) { const grow = 1 - Math.pow(1 - Math.min(1, u / 0.3), 3), shrink = u < 0.5 ? 1 : Math.max(0, 1 - (u - 0.5) / 0.5), lift = 1 + 0.35 * u;
-          q.m.position.set(q.home[0] * R * (0.35 + 0.65 * grow) * (1 + 0.25 * u), (q.home[1] * R * (0.3 + 0.7 * grow)) * lift, q.home[2] * R);
+          const pull = 0.4 + 0.6 * shrink;
+          q.m.position.set(q.home[0] * R * (0.35 + 0.65 * grow) * (1 + 0.25 * u) * pull, (q.home[1] * R * (0.3 + 0.7 * grow)) * lift * (0.6 + 0.4 * shrink), q.home[2] * R * pull);
           q.m.scale.setScalar(Math.max(0.001, R * q.sz * grow * Math.pow(shrink, 0.8) * (1 + 0.06 * Math.sin(d * 19 + q.ph * 6)))); }
         else { const v = Math.max(0, (u - 0.15) / 0.85), sd = q.home[0], s = Math.sin(PI * Math.min(1, v * 1.3));
           q.m.position.set(sd * R * (0.7 + 1.6 * v), R * (0.55 + 1.3 * v), R * 0.15 + 0.05 * Math.sin(v * 7));
