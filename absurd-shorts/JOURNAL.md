@@ -3261,3 +3261,14 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - passe finale, brouillon de contrôle, finale 1080x1920 à −16,0 LUFS ; publiée (cmwxbzpgp1d5bqd07i5440rnt).
   - Branche fusionnée, leçons ajoutées. « La sardine » (108) confiée à la session 87.
 - 09 h 50 — Atelier 111-113 lancé (trois auteurs : nature et animaux ; objets du quotidien ; cuisine et restaurants), car il ne reste qu'un texte prêt (110 « Le bulletin »). « Le sel » (109) : brouillon 1 en rendu ; « La notice » (107) : passe finale.
+- 10 h 25 — « Le sel » (109) revue 1 : anim 7,1 / art 7,4.
+  - Défauts relevés :
+    - le sol clignote entre route et pelouse (S12, S15) ;
+    - plusieurs tableaux larges et figés ;
+    - des accessoires flottent hors des mains ;
+    - la salière « vide » garde un disque blanc ;
+    - le double take est trop proche de l'épisode précédent ;
+    - la salle à manger n'a pas de plafond ;
+    - le dernier plan quitte le héros.
+  - Je tranche : fin sur le héros dans la neige, le moulin à poivre et la nouvelle rallonge en court insert.
+  - Corrections lancées.
