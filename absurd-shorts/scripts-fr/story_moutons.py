@@ -901,7 +901,7 @@ chk2('S12', C12, {'face': add(BED12a, [0, 1.05, -0.62]), 'faceB': add(BED12b, [0
 BLANKET = [{'kind': 'layer', 'x': [-9, 9], 'z': [-1.5, 12], 'y': 0.1, 'n': 260, 's': [0.8, 1.2], 'h': 0.55}, {'kind': 'heap', 'c': [0.4, 0, 4.2], 'r': 1.3, 'h': 0.55, 'n': 26, 's': [0.8, 1.0]}]
 NEAR10 = [[r(-1.2 + 0.55 * (i % 5)), 0.6, r(5.6 + 0.9 * (i // 5))] for i in range(10)]
 HB12 = lambda b: add(b, [0, 0.52, 0.2])
-HH12 = lambda b: HAND(add(HB12(b), [-0.34, 0.06, 0.05]), add(HB12(b), [0.34, 0.06, 0.05]))
+HH12 = lambda b: {**HAND(add(HB12(b), [-0.34, 0.06, 0.05]), add(HB12(b), [0.34, 0.06, 0.05])), 'bend': {'neck': [0.5, 0, 0, 1, None], 'spine': [0.12, 0, 0, 1, None]}}   # the head propped up: from the foot end his face reads
 WIDE12 = {**EYE1, 'eye': 0.85, 'gy': 0.0, 'brow': 1.0}
 HK12 = [k(0.0, clip='lieBack'), k(-0.5, look=None), k(0.0, toon={**HH12(BED12a), 'face': {**EYE1, 'gy': 0.2}}, toonDur=0.0),
         *[k(r(DROP12 + 0.06 * j), to=HB12(lerp3(BED12a, BED12b, ((j + 1) / 4) ** 2)), dur=0.06, glide=True, ease='linear', face=0, auto=0) for j in range(4)]]
