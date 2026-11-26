@@ -2530,3 +2530,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 58) Le helper de remise d'objet ajoutait sa propre clé à 0 s et écrasait la pose d'ouverture (bras levé au-dessus de la tête) : vérifier la première image de chaque plan avec remise.
 - (cycle 58) Des yeux exorbités en disques noirs se lisent comme des lunettes de soleil : grands blancs, petites pupilles.
 - (cycle 58) Ne pas lancer build.sh des critiques pendant qu'un brouillon rend : la construction des images fixes échoue en silence et les critiques jugent sans elles. Vérifier que frame_s*.jpg existent avant de lancer les critiques.
+- (cycle 58, « Le sel ») En 9:16, deux personnages à angle droit (lui en bout de table, un convive sur le côté) ne tiennent pas ensemble de près : filmer dans l'axe de la table, ou tourner un peu le convive vers l'objectif.
+- (cycle 58) Une bouffée blanche opaque qui passe devant un visage se lit comme des yeux exorbités : rien de blanc et rond à hauteur de visage.
+- (cycle 58) Une salière qu'on incline doit tourner autour de la prise, pas autour de sa base : calculer la base à partir de la prise et de l'angle, puis guider la main sur la prise.
+- (cycle 58) Depuis l'intérieur, une porte ouverte réduit le champ à son embrasure : tout ce qui se penche hors de la file se penche du côté libre, jamais derrière le battant.
