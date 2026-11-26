@@ -1,0 +1,985 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec n'arrivait pas à dormir. Il a compté les moutons.",
+   "hl": [
+    "dormir.",
+    "moutons."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.841,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "n'arrivait",
+     "s": 0.495,
+     "e": 0.841
+    },
+    {
+     "w": "pas",
+     "s": 0.878,
+     "e": 0.915
+    },
+    {
+     "w": "à",
+     "s": 0.952,
+     "e": 0.989
+    },
+    {
+     "w": "dormir.",
+     "s": 1.026,
+     "e": 1.507
+    },
+    {
+     "w": "Il",
+     "s": 1.73,
+     "e": 1.804
+    },
+    {
+     "w": "a",
+     "s": 1.841,
+     "e": 1.878
+    },
+    {
+     "w": "compté",
+     "s": 1.952,
+     "e": 2.174
+    },
+    {
+     "w": "les",
+     "s": 2.211,
+     "e": 2.248
+    },
+    {
+     "w": "moutons.",
+     "s": 2.322,
+     "e": 2.841
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Au matin, ils étaient quatre mille dans sa chambre.",
+   "hl": [
+    "quatre",
+    "chambre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L02.k.wav",
+   "file_start": 2.941,
+   "speech_start": 2.941,
+   "speech_end": 5.311,
+   "words": [
+    {
+     "w": "Au",
+     "s": 2.941,
+     "e": 3.015
+    },
+    {
+     "w": "matin,",
+     "s": 3.126,
+     "e": 3.533
+    },
+    {
+     "w": "ils",
+     "s": 3.607,
+     "e": 3.681
+    },
+    {
+     "w": "étaient",
+     "s": 3.756,
+     "e": 3.978
+    },
+    {
+     "w": "quatre",
+     "s": 4.015,
+     "e": 4.2
+    },
+    {
+     "w": "mille",
+     "s": 4.274,
+     "e": 4.422
+    },
+    {
+     "w": "dans",
+     "s": 4.459,
+     "e": 4.57
+    },
+    {
+     "w": "sa",
+     "s": 4.644,
+     "e": 4.719
+    },
+    {
+     "w": "chambre.",
+     "s": 4.756,
+     "e": 5.311
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Les bêlements ont réveillé l'immeuble. Alors l'immeuble a compté les moutons.",
+   "hl": [
+    "bêlements",
+    "l'immeuble."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L03.k.wav",
+   "file_start": 5.411,
+   "speech_start": 5.411,
+   "speech_end": 9.041,
+   "words": [
+    {
+     "w": "Les",
+     "s": 5.411,
+     "e": 5.485
+    },
+    {
+     "w": "bêlements",
+     "s": 5.559,
+     "e": 5.93
+    },
+    {
+     "w": "ont",
+     "s": 6.004,
+     "e": 6.078
+    },
+    {
+     "w": "réveillé",
+     "s": 6.152,
+     "e": 6.448
+    },
+    {
+     "w": "l'immeuble.",
+     "s": 6.497,
+     "e": 7.152
+    },
+    {
+     "w": "Alors",
+     "s": 7.189,
+     "e": 7.411
+    },
+    {
+     "w": "l'immeuble",
+     "s": 7.633,
+     "e": 7.93
+    },
+    {
+     "w": "a",
+     "s": 8.004,
+     "e": 8.078
+    },
+    {
+     "w": "compté",
+     "s": 8.115,
+     "e": 8.3
+    },
+    {
+     "w": "les",
+     "s": 8.337,
+     "e": 8.374
+    },
+    {
+     "w": "moutons.",
+     "s": 8.411,
+     "e": 9.041
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Plus ils comptent, moins ils dorment. Moins ils dorment, plus ils comptent.",
+   "hl": [
+    "comptent,",
+    "dorment."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L04.k.wav",
+   "file_start": 9.141,
+   "speech_start": 9.141,
+   "speech_end": 12.627,
+   "words": [
+    {
+     "w": "Plus",
+     "s": 9.141,
+     "e": 9.289
+    },
+    {
+     "w": "ils",
+     "s": 9.363,
+     "e": 9.437
+    },
+    {
+     "w": "comptent,",
+     "s": 9.511,
+     "e": 10.03
+    },
+    {
+     "w": "moins",
+     "s": 10.067,
+     "e": 10.178
+    },
+    {
+     "w": "ils",
+     "s": 10.252,
+     "e": 10.326
+    },
+    {
+     "w": "dorment.",
+     "s": 10.363,
+     "e": 10.919
+    },
+    {
+     "w": "Moins",
+     "s": 10.956,
+     "e": 11.067
+    },
+    {
+     "w": "ils",
+     "s": 11.141,
+     "e": 11.215
+    },
+    {
+     "w": "dorment,",
+     "s": 11.252,
+     "e": 11.733
+    },
+    {
+     "w": "plus",
+     "s": 11.807,
+     "e": 11.881
+    },
+    {
+     "w": "ils",
+     "s": 11.956,
+     "e": 12.03
+    },
+    {
+     "w": "comptent.",
+     "s": 12.104,
+     "e": 12.622
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Les moutons ont rempli l'escalier. Puis la rue.",
+   "hl": [
+    "l'escalier.",
+    "rue."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L05.k.wav",
+   "file_start": 12.727,
+   "speech_start": 12.727,
+   "speech_end": 15.32,
+   "words": [
+    {
+     "w": "Les",
+     "s": 12.727,
+     "e": 12.876
+    },
+    {
+     "w": "moutons",
+     "s": 12.95,
+     "e": 13.246
+    },
+    {
+     "w": "ont",
+     "s": 13.32,
+     "e": 13.394
+    },
+    {
+     "w": "rempli",
+     "s": 13.505,
+     "e": 13.69
+    },
+    {
+     "w": "l'escalier.",
+     "s": 13.727,
+     "e": 14.505
+    },
+    {
+     "w": "Puis",
+     "s": 14.542,
+     "e": 14.653
+    },
+    {
+     "w": "la",
+     "s": 14.727,
+     "e": 14.802
+    },
+    {
+     "w": "rue.",
+     "s": 14.839,
+     "e": 15.32
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "En une semaine, la ville était blanche.",
+   "hl": [
+    "semaine,",
+    "blanche."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L06.k.wav",
+   "file_start": 15.42,
+   "speech_start": 15.42,
+   "speech_end": 17.642,
+   "words": [
+    {
+     "w": "En",
+     "s": 15.42,
+     "e": 15.568
+    },
+    {
+     "w": "une",
+     "s": 15.642,
+     "e": 15.716
+    },
+    {
+     "w": "semaine,",
+     "s": 15.79,
+     "e": 16.346
+    },
+    {
+     "w": "la",
+     "s": 16.383,
+     "e": 16.457
+    },
+    {
+     "w": "ville",
+     "s": 16.531,
+     "e": 16.679
+    },
+    {
+     "w": "était",
+     "s": 16.79,
+     "e": 16.902
+    },
+    {
+     "w": "blanche.",
+     "s": 16.976,
+     "e": 17.642
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "La laine ne vaut plus rien. Une tisane vaut un troupeau.",
+   "hl": [
+    "laine",
+    "tisane"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L07.k.wav",
+   "file_start": 17.742,
+   "speech_start": 17.742,
+   "speech_end": 20.631,
+   "words": [
+    {
+     "w": "La",
+     "s": 17.742,
+     "e": 17.89
+    },
+    {
+     "w": "laine",
+     "s": 17.927,
+     "e": 18.113
+    },
+    {
+     "w": "ne",
+     "s": 18.15,
+     "e": 18.187
+    },
+    {
+     "w": "vaut",
+     "s": 18.261,
+     "e": 18.409
+    },
+    {
+     "w": "plus",
+     "s": 18.483,
+     "e": 18.557
+    },
+    {
+     "w": "rien.",
+     "s": 18.816,
+     "e": 19.125
+    },
+    {
+     "w": "Une",
+     "s": 19.175,
+     "e": 19.224
+    },
+    {
+     "w": "tisane",
+     "s": 19.298,
+     "e": 19.594
+    },
+    {
+     "w": "vaut",
+     "s": 19.668,
+     "e": 19.742
+    },
+    {
+     "w": "un",
+     "s": 19.816,
+     "e": 19.89
+    },
+    {
+     "w": "troupeau.",
+     "s": 19.927,
+     "e": 20.631
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Seuls les bergers dormaient. Debout. Ils ont l'habitude.",
+   "hl": [
+    "bergers",
+    "l'habitude."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L08.k.wav",
+   "file_start": 20.731,
+   "speech_start": 20.731,
+   "speech_end": 23.771,
+   "words": [
+    {
+     "w": "Seuls",
+     "s": 20.731,
+     "e": 20.953
+    },
+    {
+     "w": "les",
+     "s": 21.027,
+     "e": 21.102
+    },
+    {
+     "w": "bergers",
+     "s": 21.213,
+     "e": 21.472
+    },
+    {
+     "w": "dormaient.",
+     "s": 21.509,
+     "e": 22.139
+    },
+    {
+     "w": "Debout.",
+     "s": 22.213,
+     "e": 22.805
+    },
+    {
+     "w": "Ils",
+     "s": 22.854,
+     "e": 22.953
+    },
+    {
+     "w": "ont",
+     "s": 22.99,
+     "e": 23.027
+    },
+    {
+     "w": "l'habitude.",
+     "s": 23.052,
+     "e": 23.768
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Le pays entier comptait. Personne ne connaissait la suite.",
+   "hl": [
+    "pays",
+    "suite."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L09.k.wav",
+   "file_start": 23.871,
+   "speech_start": 23.871,
+   "speech_end": 27.057,
+   "words": [
+    {
+     "w": "Le",
+     "s": 23.871,
+     "e": 24.019
+    },
+    {
+     "w": "pays",
+     "s": 24.057,
+     "e": 24.316
+    },
+    {
+     "w": "entier",
+     "s": 24.39,
+     "e": 24.76
+    },
+    {
+     "w": "comptait.",
+     "s": 24.797,
+     "e": 25.526
+    },
+    {
+     "w": "Personne",
+     "s": 25.624,
+     "e": 25.797
+    },
+    {
+     "w": "ne",
+     "s": 25.871,
+     "e": 25.945
+    },
+    {
+     "w": "connaissait",
+     "s": 25.982,
+     "e": 26.242
+    },
+    {
+     "w": "la",
+     "s": 26.316,
+     "e": 26.39
+    },
+    {
+     "w": "suite.",
+     "s": 26.686,
+     "e": 27.057
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Un comptable a trouvé : compter à rebours.",
+   "hl": [
+    "comptable",
+    "rebours."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L10.k.wav",
+   "file_start": 27.157,
+   "speech_start": 27.157,
+   "speech_end": 29.675,
+   "words": [
+    {
+     "w": "Un",
+     "s": 27.157,
+     "e": 27.305
+    },
+    {
+     "w": "comptable",
+     "s": 27.342,
+     "e": 27.601
+    },
+    {
+     "w": "a",
+     "s": 27.675,
+     "e": 27.712
+    },
+    {
+     "w": "trouvé:",
+     "s": 27.749,
+     "e": 28.367
+    },
+    {
+     "w": "compter",
+     "s": 28.391,
+     "e": 28.712
+    },
+    {
+     "w": "à",
+     "s": 28.86,
+     "e": 28.934
+    },
+    {
+     "w": "rebours.",
+     "s": 29.008,
+     "e": 29.675
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "À la télé, le pays a compté : trois, deux, un…",
+   "hl": [
+    "télé,",
+    "trois,"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L11.k.wav",
+   "file_start": 29.775,
+   "speech_start": 29.775,
+   "speech_end": 33.701,
+   "words": [
+    {
+     "w": "À",
+     "s": 29.775,
+     "e": 29.812
+    },
+    {
+     "w": "la",
+     "s": 29.849,
+     "e": 29.923
+    },
+    {
+     "w": "télé,",
+     "s": 29.997,
+     "e": 30.442
+    },
+    {
+     "w": "le",
+     "s": 30.516,
+     "e": 30.59
+    },
+    {
+     "w": "pays",
+     "s": 30.664,
+     "e": 30.812
+    },
+    {
+     "w": "a",
+     "s": 30.886,
+     "e": 30.96
+    },
+    {
+     "w": "compté:",
+     "s": 31.034,
+     "e": 31.664
+    },
+    {
+     "w": "trois,",
+     "s": 31.701,
+     "e": 32.368
+    },
+    {
+     "w": "deux,",
+     "s": 32.442,
+     "e": 33.034
+    },
+    {
+     "w": "un…",
+     "s": 33.108,
+     "e": 33.701
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Plus un seul mouton. Ni dans les fermes, ni dans les pulls.",
+   "hl": [
+    "mouton.",
+    "pulls."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L12.k.wav",
+   "file_start": 33.801,
+   "speech_start": 33.801,
+   "speech_end": 36.927,
+   "words": [
+    {
+     "w": "Plus",
+     "s": 33.801,
+     "e": 33.949
+    },
+    {
+     "w": "un",
+     "s": 34.097,
+     "e": 34.171
+    },
+    {
+     "w": "seul",
+     "s": 34.245,
+     "e": 34.394
+    },
+    {
+     "w": "mouton.",
+     "s": 34.431,
+     "e": 35.06
+    },
+    {
+     "w": "Ni",
+     "s": 35.097,
+     "e": 35.134
+    },
+    {
+     "w": "dans",
+     "s": 35.208,
+     "e": 35.282
+    },
+    {
+     "w": "les",
+     "s": 35.357,
+     "e": 35.431
+    },
+    {
+     "w": "fermes,",
+     "s": 35.542,
+     "e": 35.949
+    },
+    {
+     "w": "ni",
+     "s": 36.023,
+     "e": 36.097
+    },
+    {
+     "w": "dans",
+     "s": 36.134,
+     "e": 36.208
+    },
+    {
+     "w": "les",
+     "s": 36.245,
+     "e": 36.319
+    },
+    {
+     "w": "pulls.",
+     "s": 36.394,
+     "e": 36.912
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Sauf le mouton noir. Il n'en fait qu'à sa tête.",
+   "hl": [
+    "noir.",
+    "tête."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L13.k.wav",
+   "file_start": 37.027,
+   "speech_start": 37.027,
+   "speech_end": 39.546,
+   "words": [
+    {
+     "w": "Sauf",
+     "s": 37.027,
+     "e": 37.25
+    },
+    {
+     "w": "le",
+     "s": 37.324,
+     "e": 37.398
+    },
+    {
+     "w": "mouton",
+     "s": 37.447,
+     "e": 37.62
+    },
+    {
+     "w": "noir.",
+     "s": 37.694,
+     "e": 38.287
+    },
+    {
+     "w": "Il",
+     "s": 38.324,
+     "e": 38.361
+    },
+    {
+     "w": "n'en",
+     "s": 38.398,
+     "e": 38.509
+    },
+    {
+     "w": "fait",
+     "s": 38.583,
+     "e": 38.657
+    },
+    {
+     "w": "qu'à",
+     "s": 38.694,
+     "e": 38.805
+    },
+    {
+     "w": "sa",
+     "s": 38.879,
+     "e": 38.953
+    },
+    {
+     "w": "tête.",
+     "s": 38.99,
+     "e": 39.546
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Lui non plus n'arrivait pas à dormir.",
+   "hl": [
+    "Lui",
+    "dormir."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L14.k.wav",
+   "file_start": 39.646,
+   "speech_start": 39.646,
+   "speech_end": 41.35,
+   "words": [
+    {
+     "w": "Lui",
+     "s": 39.646,
+     "e": 39.794
+    },
+    {
+     "w": "non",
+     "s": 39.868,
+     "e": 39.942
+    },
+    {
+     "w": "plus",
+     "s": 40.016,
+     "e": 40.164
+    },
+    {
+     "w": "n'arrivait",
+     "s": 40.189,
+     "e": 40.535
+    },
+    {
+     "w": "pas",
+     "s": 40.572,
+     "e": 40.609
+    },
+    {
+     "w": "à",
+     "s": 40.646,
+     "e": 40.683
+    },
+    {
+     "w": "dormir.",
+     "s": 40.72,
+     "e": 41.35
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Alors il a compté les mecs.",
+   "hl": [
+    "compté",
+    "mecs."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L15.k.wav",
+   "file_start": 41.45,
+   "speech_start": 41.45,
+   "speech_end": 43.005,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 41.45,
+     "e": 41.746
+    },
+    {
+     "w": "il",
+     "s": 41.968,
+     "e": 42.005
+    },
+    {
+     "w": "a",
+     "s": 42.042,
+     "e": 42.116
+    },
+    {
+     "w": "compté",
+     "s": 42.153,
+     "e": 42.338
+    },
+    {
+     "w": "les",
+     "s": 42.375,
+     "e": 42.413
+    },
+    {
+     "w": "mecs.",
+     "s": 42.487,
+     "e": 43.005
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Ce mec saute la barrière. Quatre mille fois par nuit.",
+   "hl": [
+    "barrière.",
+    "nuit."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moutons/tts/L16.k.wav",
+   "file_start": 43.105,
+   "speech_start": 43.105,
+   "speech_end": 45.994,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 43.105,
+     "e": 43.179
+    },
+    {
+     "w": "mec",
+     "s": 43.253,
+     "e": 43.475
+    },
+    {
+     "w": "saute",
+     "s": 43.513,
+     "e": 43.698
+    },
+    {
+     "w": "la",
+     "s": 43.735,
+     "e": 43.772
+    },
+    {
+     "w": "barrière.",
+     "s": 43.846,
+     "e": 44.538
+    },
+    {
+     "w": "Quatre",
+     "s": 44.562,
+     "e": 44.809
+    },
+    {
+     "w": "mille",
+     "s": 44.883,
+     "e": 45.031
+    },
+    {
+     "w": "fois",
+     "s": 45.105,
+     "e": 45.179
+    },
+    {
+     "w": "par",
+     "s": 45.253,
+     "e": 45.401
+    },
+    {
+     "w": "nuit.",
+     "s": 45.438,
+     "e": 45.994
+    }
+   ]
+  }
+ ],
+ "total": 47.29
+}
