@@ -59,7 +59,7 @@ export const SARDINE_PROPS = {
       const rope = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 1, 4), mat('#E8E2D0')); rope.userData = { top, end, loose, i }; k.add(rope); ropes.push(rope);
       if (!loose && o.pegs !== false) { const pg = grp(at(cyl(0.022, 0.022, 0.16, CHROME, 6, { outline: 0.02 }), 0, 0.02, 0), at(box(0.09, 0.02, 0.03, CHROME, { outline: 0.02 }), 0, 0.1, 0)); pg.position.set(px, 0, pz); k.add(pg); pegs.push(pg); }
     });
-    if (o.ropes === false && o.trail) corners.forEach(([x, z], i) => { const r = at(cyl(0.008, 0.008, 0.9, '#E8E2D0', 4, { pivot: 'top' }), x * W / 2 * 0.95, 0.05, z * W / 2 * 0.95, 0.5 * z, 0, -0.5 * x); r.userData.sw = i; k.add(r); flaps.push(r); });   // (round 1) o.trail: four ropes trail down and back
+    if (o.ropes === false && o.trail) corners.forEach(([x, z], i) => { const r = at(cyl(0.008, 0.008, o.trail === 'back' || o.trail === 'floor' ? 1.1 : 0.9, '#E8E2D0', 4, { pivot: 'top' }), x * W / 2 * 0.95, 0.05, z * W / 2 * 0.95, 0.5 * z, 0, -0.5 * x); r.userData.sw = i; k.add(r); flaps.push(r); });   // (round 1) o.trail: four ropes trail down and back
     const tmp = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0);
     const setRope = (r, a, b) => { tmp.subVectors(b, a); const L = tmp.length(); r.position.copy(a).addScaledVector(tmp, 0.5); r.scale.set(1, L, 1); r.quaternion.setFromUnitVectors(up, tmp.normalize()); };
     g.userData.update = t => {
@@ -67,7 +67,7 @@ export const SARDINE_PROPS = {
       body.scale.set(1 + 0.3 * bl + wob, (1 + 0.12 * bl - wob) * (1 - 0.55 * sg), 1 + 0.3 * bl - wob);
       const ly = kv(o.lift, t), tl = kv(o.tilt, t); k.position.y = ly; k.rotation.z = tl + (o.ropes === false || ly > 0.05 ? 0.06 * Math.sin(t * 3.1) : 0); k.rotation.x = kv(o.tiltX, t) + ((o.ropes === false || ly > 0.05) ? 0.05 * Math.sin(t * 2.3 + 1) : 0); floor.scale.set(body.scale.x, 1, body.scale.z);   // o.tiltX [[t, rad]]: about X (+Z side up when negative)
       const fl = (o.flap || []).some(([a, b]) => t > a && t < b);
-      flaps.forEach((f, i) => { if (f.userData.sw != null) { f.rotation.x = 0.5 + 0.15 * Math.sin(t * 6 + i); return; } f.rotation.x = o.loose && i === 3 && (o.looseUntil == null || t < o.looseUntil) ? 0.4 + 0.45 * Math.sin(t * 17) + (fl ? -0.6 : 0) : 0; });
+      flaps.forEach((f, i) => { if (f.userData.sw != null) { if (o.trail === 'back') { f.rotation.set(-PI / 2 + 0.12 * Math.sin(t * 6 + i), 0.15 * Math.sin(t * 5 + i), 0); } else if (o.trail === 'floor') { f.rotation.set(0.12 * Math.sin(t * 6 + i), 0, 0.12 * Math.sin(t * 5 + i)); } else f.rotation.x = 0.5 + 0.15 * Math.sin(t * 6 + i); return; } f.rotation.x = o.loose && i === 3 && (o.looseUntil == null || t < o.looseUntil) ? 0.4 + 0.45 * Math.sin(t * 17) + (fl ? -0.6 : 0) : 0; });   // o.trail 'back': the ropes stream back along -Z
       for (const r of ropes) { const { top, end, i: ri } = r.userData; const loose = o.loose && ri === 3 && (o.looseUntil == null || t < o.looseUntil); const e = loose ? tmp.set(top.x * 1.5, 0.03, top.z * 1.5).clone() : (ly > 0.05 ? new THREE.Vector3(end.x * 0.5, -ly + 0.05, end.z * 0.5) : (ri === 3 && o.ropeY != null ? new THREE.Vector3(end.x, o.ropeY, end.z) : end)); const tp = top.clone(); tp.x *= body.scale.x; tp.z *= body.scale.z; tp.y *= body.scale.y; setRope(r, tp, e); }
       for (const p of pegs) p.visible = ly < 0.05;
     };

@@ -320,13 +320,13 @@ V10 = [[0, 0, 0], [-1.3, 0.35, -1.0], [1.3, 0.35, -1.0], [-2.6, 0.7, -2.0], [2.6
 VA, VB = [2.4, 4.6, -4.5], [-2.4, 4.5, -4.5]   # (round 2) the lead's path: heading -X, nose to the frame's left; whole V in frame
 def vpos(o_, p):   # the V turned to fly along +X: its arms trail back (-X)
     return [r(p[0] - o_[2] * 1.5), r(p[1] + o_[0] * 0.7), r(p[2] - abs(o_[0]) * 0.25)]   # (round 2) the V stands in a plane facing us: one arm up, one down
-C10 = cam(0.0, [0.4, 3.4, 7.4], [0.35, 3.4, 7.1], [-0.4, 2.6, -3.5], [-0.5, 2.6, -3.5], lens=54)   # (round 3) higher: the tents seen from the side, the V under the card
+C10 = cam(0.0, [0.3, 2.9, 7.6], [0.25, 2.9, 7.3], [-0.3, 2.8, -3.5], [-0.4, 2.8, -3.5], lens=54)   # (fix) level with the V: the tents lie on their sides, doors forward   # (round 3) higher: the tents seen from the side, the V under the card
 kf10 = [k(0.0, clip='stand'), k(0.0, look=[-3.0, 4.5, -4.0]), TK(0.0, {'R': R5(off(FA10, FRY10, 0.3, 0.36, 1.25)), 'L': R5(off(FA10, FRY10, 0.4, -0.25, 1.15))}, {'R': 'grip', 'L': 'rest'}, CALM, bend={'spine': SP(0.1)}, d=0.0),
         k(0.5, look=[0.0, 5.0, -4.0], lookDur=1.5), TK(r(CAP10 - 0.3), {'L': R5(off(FA10, FRY10, 0.15, -0.1, 2.25))}, {'L': 'pinch'}, d=0.2, keep=True), TK(CAP10, {'L': R5(off(FA10, FRY10, 0.2, -0.15, 2.55))}, d=0.15, keep=True), TK(r(CAP10 + 0.45), {'L': R5(off(FA10, FRY10, 0.15, -0.1, 2.25))}, d=0.2, keep=True),   # he lifts his cap
         *blink(1.1, CALM), *BREATHE(0.2, D10, 0.5)]
 st.shot('S10', 'grassland', setOpts={'grass': '#9CC860'}, look={'sunDir': [0.4, 0.9, 0.8]},
         actors=[act('fermier', FA10, FRY10, 'stand', 'neutral', keys=kf10)],
-        props=[*[P(f'tente10_{i}', 'saTent', pos=vpos(o_, VA), ry=25, opts={'color': VC10[i], 'ropes': False, 'trail': True, 'w': 1.3, 'h': 0.95}, keys=[k(0.0, to=vpos(o_, VB), dur=D10, ease='linear')]) for i, o_ in enumerate(V10)],
+        props=[*[P(f'tente10_{i}', 'saTent', pos=vpos(o_, VA), ry=0, rot=[0, 0, 1.5708], opts={'color': VC10[i], 'ropes': False, 'trail': 'floor', 'w': 1.3, 'h': 0.95}, keys=[k(0.0, to=vpos(o_, VB), dur=D10, ease='linear')]) for i, o_ in enumerate(V10)],
                P('sac10', 'saBag', pos=add(VA, [0, -0.1, 0]), scale=0.75, keys=[k(0.0, to=add(VB, [0, -0.1, 0]), dur=D10, ease='linear')]),
                P('cloture10', 'saFence', pos=[-0.8, 0, 0.55], opts={'w': 3.2}),
                P('fourche10', 'pitchfork', pos=off(FA10, FRY10, 0.3, 0.38, 0.85), opts={'len': 1.6}), P('casquette10', 'coCap', on={'actor': 'fermier', 'hand': 'L', 'offset': [0, 0.02, 0.05]}, opts={'s': 0.8}, keys=[k(0.0, attach='fermier', joint='head', offset=[0, 0.42, 0]), k(r(CAP10 - 0.1), attach='fermier', hand='L', offset=[0, 0.02, 0.05]), k(r(CAP10 + 0.6), attach='fermier', joint='head', offset=[0, 0.42, 0])])], cams=[C10])   # (round 2) upright, the tines up
@@ -456,10 +456,10 @@ st.cue('whoosh', 'S15', RISE15, 0.3); st.cue('pop', 'S15', GRAB15, 0.3)
 #     heads peek out of the tent door. The seagull lands on the tent's ridge, never on his head, and drops the chrome peg in the grass right at his chest.
 #     He looks down at it. Hold one beat, deadpan
 D16 = st.dur('S16'); LAND16 = 1.0; DROP16 = r(st.at('S16', 'L16', 7) + 0.1); HIT16 = r(DROP16 + 0.38); LOOK16 = r(HIT16 + 0.08)
-H16 = [-1.0, 0, 1.0]; TILT16 = 0.785; BUR16 = 1.0   # the hole; 45 degrees; his feet 1.03 m down and 1.03 m toward the tent: he crosses the ground at the hole
-HRY16 = -45; _rt = right(HRY16); HP16 = [r(H16[0] - BUR16 * _rt[0]), -BUR16, r(H16[2] - BUR16 * _rt[2])]   # (round 3) he faces the lens three-quarters; the tilt goes to his right, his feet the other way
+H16 = [-1.0, 0, 1.0]; TILT16 = 0.5; BUR16 = 0.72   # (fix) buried to the waist: shoulders, collar, tie and head stand clear of the ground, one block   # the hole; 45 degrees; his feet 1.03 m down and 1.03 m toward the tent: he crosses the ground at the hole
+HRY16 = -48; _rt = right(HRY16); HP16 = [r(H16[0] - BUR16 * _rt[0]), -BUR16, r(H16[2] - BUR16 * _rt[2])]   # (round 3) he faces the lens three-quarters; the tilt goes to his right, his feet the other way
 HEAD16 = [r(H16[0] - 0.42), 0.45, r(H16[2] + 0.05)]; PEGL16 = [r(H16[0] - 0.3), 0.04, r(H16[2] + 0.3)]   # his head; the peg lands in front of his chest, in his eyeline
-TIE16 = [-0.3, 0.98, 0.3]   # the rope point high on the dome
+TIE16 = [-0.52, 0.32, 0.52]   # (fix) the rope point at the tent's corner   # the rope point high on the dome
 C16 = cam(0.0, [-4.4, 2.3, 4.0], [-4.12, 2.25, 3.76], [2.68, -0.98, -2.25], [2.68, -0.98, -2.25], lens=39)   # (round 3) from the left and nearer: hero, tie and tent in one triangle, the whole gull and the three heads in frame; about 19 degrees down
 chk('S16', C16, {'hole': H16, 'holeF': add(H16, [0, 0, 0.4]), 'ridge': [0, 1.95, 0], 'head': HEAD16, 'peg': PEGL16, 'tentR': [0.85, 0, 0.6]})
 PEND16 = {'hits': [-31.4], 'amp': TILT16, 'freq': 0.05, 'damp': 0.0, 'dir': 1}
