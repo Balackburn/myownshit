@@ -3260,3 +3260,4 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - revues 4,5/5,4 → 5,6/5,8 → 6,3/6,3 ; scores plus bas que d'habitude, et au tour 3 les images fixes manquaient ;
   - passe finale, brouillon de contrôle, finale 1080x1920 à −16,0 LUFS ; publiée (cmwxbzpgp1d5bqd07i5440rnt).
   - Branche fusionnée, leçons ajoutées. « La sardine » (108) confiée à la session 87.
+- 09 h 50 — Atelier 111-113 lancé (trois auteurs : nature et animaux ; objets du quotidien ; cuisine et restaurants), car il ne reste qu'un texte prêt (110 « Le bulletin »). « Le sel » (109) : brouillon 1 en rendu ; « La notice » (107) : passe finale.
