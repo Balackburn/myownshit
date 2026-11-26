@@ -146,11 +146,20 @@ export const MOUTONS_PROPS = {
         const bag = new THREE.Mesh(new THREE.TorusGeometry(e.geometry.parameters.radius * 0.82, e.geometry.parameters.radius * 0.17, 5, 12, PI * 0.8), mat('#8E8E9A', { noGrain: true }));
         bag.rotation.z = PI + PI * 0.1; bag.position.set(0, -e.geometry.parameters.radius * 0.62, e.geometry.parameters.radius * 0.4); e.parent.add(bag); }
     }
+    // (round 3) the black sheep's shut eyes: the dark lid on a dark face read as goggles; the eyeball goes and a thick white lid line (a curve down) with
+    // three lashes stays in its place
+    const lidLines = [];
+    if (blk) for (const e of eyes) { const r0 = e.geometry.parameters.radius, ll = grp(); ll.position.copy(e.position); ll.position.z += r0 * 0.55; ll.visible = false; e.parent.add(ll);
+      const wm = new THREE.MeshBasicMaterial({ color: '#F4F6FA' }), arc = new THREE.Mesh(new THREE.TorusGeometry(r0 * 0.78, r0 * 0.17, 5, 14, PI * 0.8), wm); arc.rotation.z = -PI / 2 - PI * 0.4; arc.position.y = r0 * 0.38; ll.add(arc);
+      for (const a of [-0.32, 0, 0.32]) { const lsh = new THREE.Mesh(new THREE.BoxGeometry(r0 * 0.13, r0 * 0.42, r0 * 0.1), wm), aa = -PI / 2 + a * 1.25; lsh.position.set(Math.cos(aa) * r0 * 0.98, r0 * 0.38 + Math.sin(aa) * r0 * 0.98, 0); lsh.rotation.z = aa + PI / 2; ll.add(lsh); }
+      lidLines.push({ ll, e }); }
     // a mouth on the face (the creature has no jaw): a dark slot that opens
     const mouth = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.03, 0.02), mat('#7A1E22', { noGrain: true })); mouth.position.set(0, 0.045, 0.148); if (J.head) J.head.add(mouth);
     // the snot bubble at the nose
-    const snot = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 9), new THREE.MeshLambertMaterial({ color: '#BFE3F5', emissive: '#3A5A6A' })); const snHl = new THREE.Mesh(new THREE.SphereGeometry(0.22, 8, 6), new THREE.MeshBasicMaterial({ color: '#FFFFFF' })); snHl.position.set(-0.4, 0.45, 0.7); snot.add(snHl);
-    ink(snot, 0.06); snot.visible = false; if (J.head) J.head.add(snot);
+    // (round 3) a glassy snot bubble, not a ball: pale and partly see-through, stretched out of the nostril, a big window highlight and a small one
+    const snot = new THREE.Mesh(new THREE.SphereGeometry(1, 14, 10), new THREE.MeshLambertMaterial({ color: '#DDF2FF', emissive: '#4A6A80', transparent: true, opacity: 0.72, depthWrite: false })); const snHl = new THREE.Mesh(new THREE.SphereGeometry(0.3, 8, 6), new THREE.MeshBasicMaterial({ color: '#FFFFFF' })); snHl.scale.set(1, 0.6, 0.4); snHl.position.set(-0.42, 0.42, 0.78); snot.add(snHl);
+    const snHl2 = new THREE.Mesh(new THREE.SphereGeometry(0.12, 6, 5), new THREE.MeshBasicMaterial({ color: '#FFFFFF' })); snHl2.position.set(0.35, -0.3, 0.88); snot.add(snHl2);
+    ink(snot, 0.035); snot.visible = false; if (J.head) J.head.add(snot);
     const puff = puffBurst({ r: 0.2 * S, spread: 0.6 * S }); puff.position.y = 0.55 * S; g.add(puff);
     const HOPS = (o.hops || []).map(h => ({ t0: h[0], d: h[1], to: h[2], h: h[3] ?? 0.6 })); let p0 = o.p0 || [0, 0, 0];
     for (const h of HOPS) { h.from = p0; p0 = h.to; }
@@ -173,6 +182,7 @@ export const MOUTONS_PROPS = {
       eyeG.forEach((e, i) => { e.position.x *= EX; e.position.y = eyeY[i] + (blk ? 0.012 : 0.0); e.position.z += 0.01; });
       // shut eyes: the red rims go (two red rings on a shut black face read as angry open eyes)
       const shut = (ex || (snoring ? 'closed' : null)) === 'closed'; for (const rm of rims) rm.visible = !shut;
+      for (const { ll, e } of lidLines) { ll.visible = shut; e.visible = !shut; for (const ch of e.parent.children) if (ch.geometry?.type === 'TorusGeometry' && ch !== ll) ch.visible = ch.visible && !shut; }
       // the hop
       const hs = hopState(t); mv.position.set(hs.p[0], hs.p[1] + (o.bob ? o.bob * Math.sin(t * 5.2 + (o.bobPh ?? 0)) : 0), hs.p[2]);
       const ksq = keyAt(o.sq, t, [1, 1, 1]); const sy = hs.sq * ksq[1]; sqg.scale.set(ksq[0] / Math.sqrt(hs.sq), sy, ksq[2] / Math.sqrt(hs.sq));
@@ -204,7 +214,7 @@ export const MOUTONS_PROPS = {
           sqg.scale.multiply(new THREE.Vector3(1 + o.tapSq * b * 0.7, 1 - o.tapSq * b, 1 + o.tapSq * b * 0.7)); } }
       else { roll.rotation.z = 0; roll.position.set(0, 0, 0); }
       // the snot bubble
-      snot.visible = !!snoring; if (snoring) { const u = (t - snoring[0]) / (o.snorePer ?? 0.9), k = 0.3 + 0.7 * (0.5 - 0.5 * Math.cos(u * TAU)), R = (o.snoreR ?? 0.07) * k; snot.scale.setScalar(R); snot.position.set(0.03, 0.06, 0.16 + R); }
+      snot.visible = !!snoring; if (snoring) { const u = (t - snoring[0]) / (o.snorePer ?? 0.9), k = 0.3 + 0.7 * (0.5 - 0.5 * Math.cos(u * TAU)), R = (o.snoreR ?? 0.07) * k; snot.scale.set(R * (1 - 0.08 * k), R * (0.92 - 0.06 * k), R * (1.05 + 0.3 * k)); snot.position.set(0.03, 0.05 - 0.25 * R, 0.16 + R * 1.15); }
       // appear / vanish
       let sc = popK(o.appear, t, 0.12);
       if (o.vanish != null) { const v = t - o.vanish; if (v >= 0) sc = v < 0.06 ? 1 + 0.25 * (v / 0.06) : Math.max(0, 1.25 * (1 - (v - 0.06) / 0.07)); if (v > 0.06) sqg.scale.multiply(new THREE.Vector3(0.8, 1.3, 0.8)); }
@@ -388,8 +398,11 @@ export const MOUTONS_PROPS = {
     const g = grp(), k = grp(); g.add(k);
     const L_ = [[0, 0.12, 0, 0.2], [0.13, 0.08, 0.02, 0.15], [-0.13, 0.08, 0.02, 0.15], [0.07, 0.15, -0.09, 0.14], [-0.07, 0.15, -0.09, 0.14], [0.0, 0.05, 0.11, 0.12], [0.16, -0.02, -0.06, 0.11], [-0.16, -0.02, -0.06, 0.11]];
     L_.forEach(([x, y, z, s], i) => k.add(at(blobMesh(s, i + 2), x, y, z)));
+    // (round 3) o.burst t: lumps of wool fly off the tuft at t (a burst of fleece, not hair standing up)
+    const bur = o.burst != null ? [0, 1, 2, 3, 4, 5].map(i => { const m = blobMesh(0.11 + 0.03 * (i % 3), i + 20), a = i / 6 * TAU + 0.4; g.add(m); return { m, dx: Math.cos(a) * 0.5, dy: 0.25 + 0.3 * hsh(i + 7), dz: Math.sin(a) * 0.25 }; }) : [];
     g.userData.update = t => { let s = 0; if (o.pop != null) { const u = t - o.pop; s = u < 0 ? 0 : u < 0.06 ? 1.35 * u / 0.06 : u < 0.12 ? lerp(1.35, 0.9, (u - 0.06) / 0.06) : u < 0.2 ? lerp(0.9, 1.05, (u - 0.12) / 0.08) : u < 0.3 ? lerp(1.05, 1, (u - 0.2) / 0.1) : 1; } else s = 1;
-      const b = o.bob ? 1 + o.bob * Math.sin(t * 9) : 1; k.scale.set(Math.max(0.001, s), Math.max(0.001, s * b), Math.max(0.001, s)); k.visible = s > 0.001; };
+      const b = o.bob ? 1 + o.bob * Math.sin(t * 9) : 1; k.scale.set(Math.max(0.001, s), Math.max(0.001, s * b), Math.max(0.001, s)); k.visible = s > 0.001;
+      for (const q of bur) { const u = (t - o.burst) / 0.45, on = u >= 0 && u < 1; q.m.visible = on; if (on) { const e = 1 - (1 - u) * (1 - u); q.m.position.set(q.dx * e, 0.15 + q.dy * e - 0.35 * u * u, q.dz * e); q.m.scale.setScalar(Math.max(0.001, (0.11 + 0.03) * (u < 0.2 ? 0.6 + 2 * u : 1 - (u - 0.2) / 0.8))); } } };
     g.userData.update(0); return g;
   },
 
@@ -508,12 +521,15 @@ export const MOUTONS_PROPS = {
   mtLedger(o) {
     const Wp = o.w ?? 0.36, Dp = o.d ?? 0.5, g = grp();
     const ruled = (back) => { const cv = canvas(256, Math.round(256 * Dp / Wp)), c = cv.getContext('2d'); c.fillStyle = '#F6F0DC'; c.fillRect(0, 0, cv.width, cv.height);
-      c.strokeStyle = '#8FB0C8'; c.lineWidth = 2; for (let y = 24; y < cv.height; y += 16) { c.beginPath(); c.moveTo(10, y); c.lineTo(cv.width - 10, y); c.stroke(); }
-      c.strokeStyle = '#D07070'; c.lineWidth = 2.5; for (const x of back ? [60, 180] : [76, 196]) { c.beginPath(); c.moveTo(x, 10); c.lineTo(x, cv.height - 10); c.stroke(); } return texOf(cv); };
+      c.strokeStyle = '#3E6E9E'; c.lineWidth = 5; for (let y = 30; y < cv.height; y += 26) { c.beginPath(); c.moveTo(10, y); c.lineTo(cv.width - 10, y); c.stroke(); }
+      c.strokeStyle = '#C04040'; c.lineWidth = 6; for (const x of back ? [60, 180] : [76, 196]) { c.beginPath(); c.moveTo(x, 10); c.lineTo(x, cv.height - 10); c.stroke(); } return texOf(cv); };
     const tA = ruled(false), tB = ruled(true);
     for (const sx of [-1, 1]) { g.add(at(box(Wp + 0.03, 0.025, Dp + 0.04, '#24523A', { outline: 0.01 }), sx * (Wp / 2 + 0.01), 0.012, 0));
       g.add(at(box(Wp, 0.07, Dp, '#EDE5CC', { outline: 0.006 }), sx * Wp / 2, 0.06, 0));
       const pg = new THREE.Mesh(new THREE.PlaneGeometry(Wp - 0.01, Dp - 0.01), new THREE.MeshLambertMaterial({ map: sx < 0 ? tA : tB, ...OFF })); pg.rotation.x = -PI / 2; pg.position.set(sx * Wp / 2, 0.0955, 0); g.add(pg); }
+    // (round 3) the spine: a dark green rounded back between the two halves, with light head bands at both ends (the open book read as a white slab)
+    { const sp = cyl(0.045, 0.045, Dp + 0.05, '#1C4430', 8, { outline: 0.012 }); sp.rotation.x = PI / 2; sp.position.set(0, 0.045, 0); g.add(sp);
+      for (const sz of [-1, 1]) g.add(at(box(0.07, 0.03, 0.02, '#C8A848', { outline: 0.006 }), 0, 0.1, sz * (Dp / 2 + 0.005))); }
     const leaves = [], F = o.flip || [0, 0, 0.1];
     for (let i = 0; i < (F[1] || 0); i++) { const piv = grp(); piv.position.y = 0.1 + 0.002 * i; g.add(piv);
       const lf = new THREE.Mesh(new THREE.PlaneGeometry(Wp - 0.01, Dp - 0.01), new THREE.MeshLambertMaterial({ map: tA, side: THREE.DoubleSide })); lf.rotation.x = -PI / 2; lf.position.x = -(Wp - 0.01) / 2; piv.add(lf);
@@ -639,6 +655,27 @@ export const MOUTONS_PROPS = {
     [[100, 110, 14], [150, 95, 9], [140, 150, 18], [105, 160, 8]].forEach(([x, y, r]) => { c.beginPath(); c.arc(x, y, r, 0, TAU); c.fill(); });
     const m = new THREE.Mesh(new THREE.PlaneGeometry(R * 3.65, R * 3.65), new THREE.MeshBasicMaterial({ map: texOf(cv), transparent: true, depthWrite: false, toneMapped: false, fog: false })); m.renderOrder = -1;
     return grp(m);
+  },
+  // ---------------------------------------------------------------- (round 3) a moonlit rim round an actor (his navy suit against a navy sky measured 1.4:1):
+  // pale back-face shells that follow every mesh of the actor at render time (o.actor the cast id, o.color, o.k the thickness in metres, 0.03; o.maxL:
+  // only meshes darker than this luminance, 0.25). The shells belong to this prop, so they are gone in every shot without it (the cast is shared).
+  mtActorRim(o) {
+    const g = grp(), C = new THREE.Color(o.color || '#B8D0F8'), K = o.k ?? 0.03, ML = o.maxL ?? 0.25, M = new THREE.MeshBasicMaterial({ color: C, side: THREE.BackSide, fog: false, toneMapped: false });
+    let pairs = null; const tmp = new THREE.Matrix4(), sc = new THREE.Matrix4(), tr = new THREE.Matrix4();
+    const vis = n => { for (let p = n; p; p = p.parent) if (!p.visible) return false; return true; };
+    const find = () => { let root = g; while (root.parent) root = root.parent; if (root === g) return null; const a = root.getObjectByName(o.actor || 'mec'); if (!a) return null; const out = [];
+      a.traverse(m => { if (!m.isMesh || m.name === 'outline' || m.name === 'rim' || !m.geometry || m.material?.transparent) return; for (let p = m; p && p !== a; p = p.parent) if (p.userData.isSceneProp) return;
+        const c = m.material?.color; if (!c || (0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b) > ML) return;
+        if (!m.geometry.boundingBox) m.geometry.computeBoundingBox(); const bb = m.geometry.boundingBox, sz = bb.getSize(new THREE.Vector3()), ce = bb.getCenter(new THREE.Vector3());
+        if (Math.max(sz.x, sz.y, sz.z) < 0.03) return;
+        const r = new THREE.Mesh(m.geometry, M); r.name = 'rim'; r.frustumCulled = false; r.castShadow = r.receiveShadow = false; r.matrixAutoUpdate = false; r.userData.noAO = true;
+        const ws = m.getWorldScale(new THREE.Vector3()), s3 = [1 + 2 * K / Math.max(1e-3, sz.x * ws.x), 1 + 2 * K / Math.max(1e-3, sz.y * ws.y), 1 + 2 * K / Math.max(1e-3, sz.z * ws.z)];
+        const local = new THREE.Matrix4().makeTranslation(ce.x, ce.y, ce.z).multiply(sc.clone().makeScale(...s3)).multiply(tr.clone().makeTranslation(-ce.x, -ce.y, -ce.z));
+        r.onBeforeRender = () => { r.matrixWorld.multiplyMatrices(m.matrixWorld, local); };
+        g.add(r); out.push({ m, r }); });
+      return out; };
+    g.userData.update = t => { if (!pairs) pairs = find(); if (!pairs) return; for (const { m, r } of pairs) r.visible = vis(m); };
+    g.userData.update(0); return g;
   },
   // ---------------------------------------------------------------- a milk pail (pivot at its foot): a metal bucket with a handle, white milk inside (the
   // spill is mtMilk)

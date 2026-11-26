@@ -1,0 +1,9992 @@
+{
+ "version": 3,
+ "title": "La minuterie",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   },
+   "toon": {
+    "breathe": 1.7,
+    "holdLife": 1.6
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "voisine": {
+   "preset": "mamie",
+   "seed": 11301,
+   "suit": "#7B4F9E",
+   "lapel": "#E9DDF2",
+   "hair": "bun",
+   "hairColor": "#BDBDBA",
+   "glasses": true,
+   "skin": "#E9C9A6",
+   "cloth": 0,
+   "build": {
+    "height": 0.84,
+    "width": 0.95,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "proprio": {
+   "preset": "boss",
+   "seed": 11303,
+   "suit": "#8E9398",
+   "lapel": "#7C8186",
+   "tie": "#D9A520",
+   "shirt": "#F4F1E8",
+   "hair": "receding",
+   "hairColor": "#6A6660",
+   "facial": "mustache",
+   "glasses": true,
+   "build": {
+    "width": 0.8,
+    "belly": 0.0,
+    "headWidth": 1.15,
+    "height": 1.03
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "a1": {
+   "preset": "sportif",
+   "seed": 11304,
+   "suit": "#F2C24A",
+   "pants": "#F2C24A",
+   "lapel": "#F2C24A",
+   "shirt": "#F2C24A",
+   "cuff": "#F2C24A",
+   "hair": "curly",
+   "hairColor": "#2A1E18",
+   "skin": "#9A6A45",
+   "facial": "none",
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "a2": {
+   "preset": "sportif",
+   "seed": 11305,
+   "suit": "#5FB0A8",
+   "pants": "#5FB0A8",
+   "lapel": "#5FB0A8",
+   "shirt": "#5FB0A8",
+   "cuff": "#5FB0A8",
+   "hair": "bun",
+   "hairColor": "#C9822E",
+   "lipstick": true,
+   "facial": "none",
+   "build": {
+    "height": 0.95,
+    "width": 0.9
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "a3": {
+   "preset": "sportif",
+   "seed": 11306,
+   "suit": "#E8775F",
+   "pants": "#E8775F",
+   "lapel": "#E8775F",
+   "shirt": "#E8775F",
+   "cuff": "#E8775F",
+   "hair": "spiky",
+   "hairColor": "#5A3A28",
+   "facial": "none",
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "c1": {
+   "preset": "sportif",
+   "seed": 11307,
+   "suit": "#9CC85A",
+   "pants": "#9CC85A",
+   "lapel": "#9CC85A",
+   "shirt": "#9CC85A",
+   "cuff": "#9CC85A",
+   "hair": "slick",
+   "hairColor": "#6A4A2A",
+   "facial": "none",
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "c2": {
+   "preset": "sportif",
+   "seed": 11308,
+   "suit": "#E58FB0",
+   "pants": "#E58FB0",
+   "lapel": "#E58FB0",
+   "shirt": "#E58FB0",
+   "cuff": "#E58FB0",
+   "hair": "long",
+   "hairColor": "#1E1A18",
+   "lipstick": true,
+   "facial": "none",
+   "build": {
+    "height": 0.95,
+    "width": 0.9
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "coach": {
+   "preset": "sportif",
+   "seed": 11302,
+   "suit": "#3E6A9A",
+   "pants": "#3E6A9A",
+   "lapel": "#3E6A9A",
+   "shirt": "#3E6A9A",
+   "cuff": "#3E6A9A",
+   "hair": "buzz",
+   "hairColor": "#3A2A20",
+   "facial": "mustache",
+   "glasses": false,
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      5.62,
+      0.02,
+      -1.0
+     ],
+     "ry": -55,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          5.309,
+          2.47,
+          -1.27,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ],
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.23,
+       "toon": {
+        "reach": {
+         "R": [
+          5.1,
+          1.47,
+          -1.32,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "hip": 0,
+        "hose": 0.1,
+        "sq": [
+         1.03,
+         0.98,
+         1.03
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": 0.1
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "reach": {
+         "R": [
+          5.05,
+          1.35,
+          -1.37,
+          1,
+          0.1
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "hip": 0,
+        "sq": [
+         1.14,
+         0.86,
+         1.14
+        ],
+        "hairUp": 0.9,
+        "face": {
+         "lid": 0.0,
+         "mouth": "o",
+         "brow": 0.9,
+         "eye": 0.4
+        }
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.4,
+       "toon": {
+        "reach": {
+         "R": [
+          5.05,
+          1.35,
+          -1.37,
+          1,
+          0.1
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ],
+        "hairUp": 0.4,
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.52,
+       "toon": {
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ],
+        "hip": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "sq": [
+         1.16,
+         0.82,
+         1.16
+        ],
+        "hip": 0,
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "auto": 0
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.6,
+       "face": -68,
+       "turn": 0.08
+      },
+      {
+       "at": 0.74,
+       "to": [
+        1.2,
+        0.02,
+        0.75
+       ],
+       "dur": 0.34,
+       "ease": "linear",
+       "clip": "run",
+       "face": -68
+      },
+      {
+       "at": 0.74,
+       "toon": {
+        "sq": [
+         0.86,
+         1.2,
+         0.86
+        ],
+        "hip": 0,
+        "bend": {
+         "spine": [
+          0.4,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "smear": 0.7
+       },
+       "toonDur": 0.05
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cage1",
+     "name": "mnStairwell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "lit": [
+       [
+        0,
+        0
+       ],
+       [
+        0.3,
+        1
+       ]
+      ],
+      "top": 2
+     }
+    },
+    {
+     "id": "boutons1",
+     "name": "mnButtons",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "press": [
+       [
+        0,
+        0.3
+       ]
+      ],
+      "floors": [
+       0,
+       1,
+       2
+      ]
+     },
+     "inDark": true
+    },
+    {
+     "id": "traits1",
+     "name": "mnDarkLines",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "top": 2
+     },
+     "inDark": true,
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": true
+      },
+      {
+       "at": 0.3,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "mallette1",
+     "name": "briefcase",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "hang": true
+     }
+    },
+    {
+     "id": "trou1",
+     "name": "mnGhost",
+     "pos": [
+      5.62,
+      0.02,
+      -1.0
+     ],
+     "ry": 0,
+     "opts": {
+      "at": 0.8,
+      "dir": -1,
+      "dur": 0.6
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.75,
+      0.9,
+      2.95
+     ],
+     "to": [
+      3.87,
+      0.95,
+      2.8
+     ],
+     "lookAt": [
+      7.52,
+      0.964,
+      -6.312
+     ],
+     "lens": 49,
+     "ease": "inOut",
+     "lookAt2": [
+      7.52,
+      0.964,
+      -6.312
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.5,
+   "setOpts": {
+    "color": "#E7E1D3"
+   },
+   "look": {
+    "exposure": 1.0
+   },
+   "dark": [
+    [
+     0,
+     1,
+     0.0
+    ],
+    [
+     0.3,
+     0,
+     0.0
+    ]
+   ],
+   "darkFloor": 0.42,
+   "darkTint": "#5F86E0",
+   "darkEyes": 2.4,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S01b",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "cage1b",
+     "name": "mnStairwell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "front": true
+     }
+    },
+    {
+     "id": "boutons1b",
+     "name": "mnButtons",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "glow": 0.55,
+      "size": 0.85
+     },
+     "inDark": true
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.9,
+      1.15,
+      0.38
+     ],
+     "to": [
+      -0.9,
+      1.55,
+      0.38
+     ],
+     "lookAt": [
+      2.37,
+      10.49,
+      -1.08
+     ],
+     "lens": 56,
+     "ease": "inOut",
+     "lookAt2": [
+      2.37,
+      10.89,
+      -0.83
+     ]
+    }
+   ],
+   "start": 1.5,
+   "duration": 1.7,
+   "setOpts": {
+    "color": "#E7E1D3"
+   },
+   "look": {
+    "exposure": 1.0
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.6,
+      11.2,
+      1.05
+     ],
+     "ry": -90,
+     "clip": "run",
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         2.6,
+         11.2,
+         1.05
+        ],
+        [
+         1.45,
+         11.2,
+         0.97
+        ],
+        [
+         -1.35,
+         12.649999999999999,
+         0.97
+        ],
+        [
+         -2.05,
+         12.6,
+         0.4
+        ],
+        [
+         -2.0,
+         12.6,
+         -0.75
+        ],
+        [
+         -1.35,
+         12.649999999999999,
+         -0.97
+        ],
+        [
+         1.45,
+         14.0,
+         -0.97
+        ],
+        [
+         2.35,
+         14.0,
+         -0.55
+        ]
+       ],
+       "dur": 1.085,
+       "clip": "run",
+       "ease": "linear",
+       "speed": 1.6
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hip": 0,
+        "autoSq": 0.3,
+        "smear": 0.6,
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.085,
+       "clip": "skidStop",
+       "blend": 0.03
+      },
+      {
+       "at": 1.085,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.12,
+         0.88,
+         1.12
+        ],
+        "hairUp": 0.6,
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.3
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 1.105,
+       "face": 8,
+       "turn": 0.08
+      },
+      {
+       "at": 0.785,
+       "look": "camera",
+       "lookDur": 0.1
+      },
+      {
+       "at": 1.205,
+       "toon": {
+        "hip": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "o",
+         "brow": 0.7,
+         "eye": 0.6
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.355,
+       "toon": {
+        "hip": 0,
+        "face": {
+         "lid": 1.0,
+         "mouth": "o",
+         "brow": 0.7,
+         "eye": 0.6
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.455,
+       "toon": {
+        "hip": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "o",
+         "brow": 0.7,
+         "eye": 0.6
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.585,
+       "toon": {
+        "hip": 0,
+        "face": {
+         "lid": 1.0,
+         "mouth": "o",
+         "brow": 0.7,
+         "eye": 0.6
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.685,
+       "toon": {
+        "hip": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "o",
+         "brow": 0.7,
+         "eye": 0.6
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "voisine",
+     "pos": [
+      1.8,
+      8.399999999999999,
+      0.62
+     ],
+     "ry": -18,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        0.807,
+        11.74,
+        8.41
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          1.962,
+          9.305,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.05,
+       "toon": {
+        "reach": {
+         "L": [
+          1.962,
+          9.305,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "sq": [
+         0.9948,
+         1.013,
+         0.9948
+        ],
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.56,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.4,
+       "toon": {
+        "reach": {
+         "L": [
+          1.962,
+          9.305,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "sq": [
+         1.0039,
+         0.9922,
+         1.0039
+        ],
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.56,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.75,
+       "toon": {
+        "reach": {
+         "L": [
+          1.962,
+          9.305,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "sq": [
+         0.9948,
+         1.013,
+         0.9948
+        ],
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.56,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "reach": {
+         "L": [
+          1.962,
+          9.305,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 1.0,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "reach": {
+         "L": [
+          1.962,
+          9.305,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.185,
+       "toon": {
+        "reach": {
+         "R": [
+          1.38,
+          10.12,
+          0.31,
+          1,
+          0.15
+         ],
+         "L": [
+          1.962,
+          9.305,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "point",
+         "L": "grip"
+        },
+        "hip": 0,
+        "hose": 0.12,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.16,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.385,
+       "toon": {
+        "reach": {
+         "R": [
+          1.26,
+          10.2,
+          0.23,
+          1,
+          0.15
+         ],
+         "L": [
+          1.962,
+          9.305,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "point",
+         "L": "grip"
+        },
+        "hip": 0,
+        "hose": 0.12,
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.525,
+       "toon": {
+        "reach": {
+         "R": [
+          1.26,
+          10.2,
+          0.23,
+          1,
+          0.15
+         ],
+         "L": [
+          1.962,
+          9.305,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "point",
+         "L": "grip"
+        },
+        "hip": 0,
+        "hose": 0.12,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.625,
+       "toon": {
+        "reach": {
+         "R": [
+          1.38,
+          10.12,
+          0.31,
+          1,
+          0.15
+         ],
+         "L": [
+          1.962,
+          9.305,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "point",
+         "L": "grip"
+        },
+        "hip": 0,
+        "hose": 0.12,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.905,
+       "toon": {
+        "reach": {
+         "L": [
+          1.962,
+          9.305,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cage2",
+     "name": "mnStairwell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "lit": [
+       [
+        0,
+        1
+       ],
+       [
+        1.185,
+        0
+       ]
+      ],
+      "from": 2
+     }
+    },
+    {
+     "id": "boutons2",
+     "name": "mnButtons",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "floors": [
+       3,
+       4,
+       5,
+       6
+      ],
+      "big": false,
+      "press": [
+       [
+        3,
+        1.405
+       ]
+      ]
+     },
+     "inDark": true
+    },
+    {
+     "id": "traits2",
+     "name": "mnDarkLines",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "from": 2
+     },
+     "inDark": true,
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 1.185,
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "mallette2",
+     "name": "briefcase",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "hang": true
+     }
+    },
+    {
+     "id": "caddie2",
+     "name": "mnTrolley",
+     "pos": [
+      2.259,
+      8.4,
+      0.243
+     ],
+     "ry": 129.4,
+     "rot": [
+      -0.32,
+      0,
+      0
+     ],
+     "rotOrder": "YXZ",
+     "opts": {}
+    },
+    {
+     "id": "vitesse2",
+     "name": "speedLines",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.2,
+       -0.5
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": true
+      },
+      {
+       "at": 1.085,
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.381,
+      12.4,
+      11.749
+     ],
+     "to": [
+      0.381,
+      12.65,
+      11.449
+     ],
+     "lookAt": [
+      0.243,
+      11.34,
+      1.806
+     ],
+     "lens": 59,
+     "ease": "inOut",
+     "lookAt2": [
+      0.243,
+      11.59,
+      1.806
+     ]
+    }
+   ],
+   "start": 3.2,
+   "duration": 1.7666,
+   "setOpts": {
+    "color": "#E7E1D3"
+   },
+   "look": {
+    "exposure": 1.0
+   },
+   "dark": [
+    [
+     0,
+     0,
+     0.0
+    ],
+    [
+     1.185,
+     1,
+     0.0
+    ]
+   ],
+   "darkFloor": 0.42,
+   "darkTint": "#5F86E0",
+   "darkEyes": 2.4,
+   "darkPool": {
+    "actor": "voisine",
+    "joint": "torso",
+    "r": 1.2,
+    "k": 1.0,
+    "tint": "#FFD9A0"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02b",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "coach",
+     "pos": [
+      2.8,
+      0.02,
+      0.45
+     ],
+     "ry": 38,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        3.95,
+        1.56,
+        2.8
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          3.293,
+          1.8,
+          0.496,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "rest"
+        },
+        "hip": 0,
+        "hose": 0.2,
+        "face": {
+         "lid": 0.2,
+         "mouth": "whistle",
+         "brow": -0.4,
+         "puff": 0.2
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.08,
+       "toon": {
+        "reach": {
+         "R": [
+          3.293,
+          1.8,
+          0.496,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "rest"
+        },
+        "hip": 0,
+        "hose": 0.2,
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "face": {
+         "lid": 0.6,
+         "mouth": "whistle",
+         "brow": -0.4,
+         "puff": 1.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.42,
+       "toon": {
+        "reach": {
+         "R": [
+          3.293,
+          1.8,
+          0.496,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "rest"
+        },
+        "hip": 0,
+        "hose": 0.2,
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ],
+        "face": {
+         "lid": 0.2,
+         "mouth": "whistle",
+         "brow": -0.4,
+         "puff": 0.15
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "reach": {
+         "R": [
+          3.293,
+          1.8,
+          0.496,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "rest"
+        },
+        "hip": 0,
+        "hose": 0.2,
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "face": {
+         "lid": 0.6,
+         "mouth": "whistle",
+         "brow": -0.4,
+         "puff": 1.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "reach": {
+         "R": [
+          3.293,
+          1.8,
+          0.496,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "rest"
+        },
+        "hip": 0,
+        "hose": 0.2,
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ],
+        "face": {
+         "lid": 0.2,
+         "mouth": "whistle",
+         "brow": -0.4,
+         "puff": 0.15
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "reach": {
+         "R": [
+          3.293,
+          1.76,
+          0.496,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "rest"
+        },
+        "hip": 0,
+        "hose": 0.2,
+        "sq": [
+         1.02,
+         0.98,
+         1.02
+        ],
+        "face": {
+         "lid": 0.2,
+         "mouth": "smirk",
+         "brow": -0.4,
+         "puff": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.25,
+       "toon": {
+        "reach": {
+         "R": [
+          3.293,
+          1.8,
+          0.496,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "rest"
+        },
+        "hip": 0,
+        "hose": 0.2,
+        "face": {
+         "lid": 1.0,
+         "mouth": "smirk",
+         "brow": -0.4
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.35,
+       "toon": {
+        "reach": {
+         "R": [
+          3.293,
+          1.8,
+          0.496,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "rest"
+        },
+        "hip": 0,
+        "hose": 0.2,
+        "face": {
+         "lid": 0.2,
+         "mouth": "smirk",
+         "brow": -0.4
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      4.3,
+      0.02,
+      -0.3
+     ],
+     "ry": -28,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "autoSq": 0
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.04,
+       "to": [
+        4.3,
+        0.36,
+        -0.3
+       ],
+       "dur": 0.13,
+       "ease": "out",
+       "face": "keep"
+      },
+      {
+       "at": 0.17,
+       "to": [
+        4.3,
+        0.02,
+        -0.3
+       ],
+       "dur": 0.13,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 0.36,
+       "to": [
+        4.3,
+        0.36,
+        -0.3
+       ],
+       "dur": 0.13,
+       "ease": "out",
+       "face": "keep"
+      },
+      {
+       "at": 0.49,
+       "to": [
+        4.3,
+        0.02,
+        -0.3
+       ],
+       "dur": 0.13,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 0.68,
+       "to": [
+        4.3,
+        0.36,
+        -0.3
+       ],
+       "dur": 0.13,
+       "ease": "out",
+       "face": "keep"
+      },
+      {
+       "at": 0.81,
+       "to": [
+        4.3,
+        0.02,
+        -0.3
+       ],
+       "dur": 0.13,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 1.0,
+       "to": [
+        4.3,
+        0.36,
+        -0.3
+       ],
+       "dur": 0.13,
+       "ease": "out",
+       "face": "keep"
+      },
+      {
+       "at": 1.13,
+       "to": [
+        4.3,
+        0.02,
+        -0.3
+       ],
+       "dur": 0.13,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 1.32,
+       "to": [
+        4.3,
+        0.36,
+        -0.3
+       ],
+       "dur": 0.13,
+       "ease": "out",
+       "face": "keep"
+      },
+      {
+       "at": 1.45,
+       "to": [
+        4.3,
+        0.02,
+        -0.3
+       ],
+       "dur": 0.13,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 1.64,
+       "to": [
+        4.3,
+        0.36,
+        -0.3
+       ],
+       "dur": 0.13,
+       "ease": "out",
+       "face": "keep"
+      },
+      {
+       "at": 1.77,
+       "to": [
+        4.3,
+        0.02,
+        -0.3
+       ],
+       "dur": 0.13,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 0.04,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         0.955,
+         1.062,
+         0.955
+        ],
+        "hairUp": 0.6,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.03,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.07,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ],
+        "hairUp": 0.3,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.22,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         1.22,
+         0.76,
+         1.22
+        ],
+        "hairUp": 0.0,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.02,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.36,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         0.955,
+         1.062,
+         0.955
+        ],
+        "hairUp": 0.6,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.03,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.39,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ],
+        "hairUp": 0.3,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.54,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         1.22,
+         0.76,
+         1.22
+        ],
+        "hairUp": 0.0,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.02,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.68,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         0.955,
+         1.062,
+         0.955
+        ],
+        "hairUp": 0.6,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.03,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.71,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ],
+        "hairUp": 0.3,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.86,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.94,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         1.22,
+         0.76,
+         1.22
+        ],
+        "hairUp": 0.0,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.02,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         0.955,
+         1.062,
+         0.955
+        ],
+        "hairUp": 0.6,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.03,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.03,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ],
+        "hairUp": 0.3,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.18,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.26,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         1.22,
+         0.76,
+         1.22
+        ],
+        "hairUp": 0.0,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.02,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.32,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         0.955,
+         1.062,
+         0.955
+        ],
+        "hairUp": 0.6,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.03,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.35,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ],
+        "hairUp": 0.3,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.5,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.58,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         1.22,
+         0.76,
+         1.22
+        ],
+        "hairUp": 0.0,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.02,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.64,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         0.955,
+         1.062,
+         0.955
+        ],
+        "hairUp": 0.6,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.03,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.67,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ],
+        "hairUp": 0.3,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.82,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.9,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ],
+         "L": [
+          "torso",
+          0.44,
+          0.3,
+          0.3,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "tieHide": 1,
+        "sq": [
+         1.22,
+         0.76,
+         1.22
+        ],
+        "hairUp": 0.0,
+        "autoSq": 0,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.02,
+       "toonEase": "out"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cage2b",
+     "name": "mnStairwell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "top": 1
+     }
+    },
+    {
+     "id": "boutons2b",
+     "name": "mnButtons",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "floors": [
+       0,
+       1
+      ]
+     },
+     "inDark": true
+    },
+    {
+     "id": "corde2b",
+     "name": "mnTieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.3,
+       0.3
+      ]
+     },
+     "opts": {
+      "half": 0.44,
+      "r": 1.26,
+      "spin": 3.125,
+      "t0": 0.0,
+      "a0": -3.338
+     }
+    },
+    {
+     "id": "lest2bL",
+     "name": "mnAnkleWeight",
+     "on": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0,
+       0.0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "lest2bR",
+     "name": "mnAnkleWeight",
+     "on": {
+      "actor": "mec",
+      "joint": "footR",
+      "offset": [
+       0,
+       0.0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "sifflet2b",
+     "name": "whistle",
+     "on": {
+      "actor": "coach",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.1,
+       0.13
+      ],
+      "rot": [
+       0,
+       1.5708,
+       0
+      ]
+     },
+     "scale": 2.6
+    },
+    {
+     "id": "chrono2b",
+     "name": "stopwatch",
+     "on": {
+      "actor": "coach",
+      "hand": "R",
+      "face": "camera"
+     },
+     "scale": 2.3
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.6,
+      1.3,
+      5.9
+     ],
+     "to": [
+      3.6,
+      1.3,
+      5.7
+     ],
+     "lookAt": [
+      3.462,
+      0.887,
+      -4.091
+     ],
+     "lens": 45,
+     "ease": "inOut",
+     "lookAt2": [
+      3.462,
+      0.887,
+      -4.091
+     ]
+    }
+   ],
+   "start": 4.9666,
+   "duration": 1.3667,
+   "setOpts": {
+    "color": "#E7E1D3"
+   },
+   "look": {
+    "exposure": 1.0
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      5.52,
+      0.02,
+      -0.98
+     ],
+     "ry": -48,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          5.165,
+          2.47,
+          -1.225,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ],
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.07,
+       "toon": {
+        "reach": {
+         "R": [
+          5.05,
+          1.35,
+          -1.37,
+          1,
+          0.1
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "hip": 0,
+        "sq": [
+         1.14,
+         0.86,
+         1.14
+        ],
+        "hairUp": 0.9,
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.3
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.17,
+       "toon": {
+        "sq": [
+         1.18,
+         0.8,
+         1.18
+        ],
+        "hip": 0,
+        "bend": {
+         "spine": [
+          0.4,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "auto": 0
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.17,
+       "face": -70,
+       "turn": 0.06
+      },
+      {
+       "at": 0.3,
+       "to": [
+        1.0,
+        0.02,
+        0.8
+       ],
+       "dur": 0.3,
+       "ease": "linear",
+       "clip": "run",
+       "face": -70
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "sq": [
+         0.84,
+         1.22,
+         0.84
+        ],
+        "hip": 0,
+        "bend": {
+         "spine": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "smear": 0.8
+       },
+       "toonDur": 0.04
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cage3",
+     "name": "mnStairwell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "lit": [
+       [
+        0,
+        0
+       ],
+       [
+        0.07,
+        1
+       ]
+      ],
+      "top": 2
+     }
+    },
+    {
+     "id": "boutons3",
+     "name": "mnButtons",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "press": [
+       [
+        0,
+        0.07
+       ]
+      ],
+      "floors": [
+       0,
+       1,
+       2
+      ]
+     },
+     "inDark": true
+    },
+    {
+     "id": "traits3",
+     "name": "mnDarkLines",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "top": 2
+     },
+     "inDark": true,
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": true
+      },
+      {
+       "at": 0.07,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "mallette3",
+     "name": "briefcase",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "hang": true
+     }
+    },
+    {
+     "id": "trou3",
+     "name": "mnGhost",
+     "pos": [
+      5.52,
+      0.02,
+      -0.98
+     ],
+     "ry": 0,
+     "opts": {
+      "at": 0.35,
+      "dir": -1,
+      "dur": 0.45
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.3,
+      0.62,
+      1.75
+     ],
+     "to": [
+      4.36,
+      0.62,
+      1.67
+     ],
+     "lookAt": [
+      7.565,
+      2.632,
+      -7.486
+     ],
+     "lens": 50,
+     "ease": "inOut",
+     "lookAt2": [
+      7.565,
+      2.632,
+      -7.486
+     ]
+    }
+   ],
+   "start": 6.3333,
+   "duration": 0.7333,
+   "setOpts": {
+    "color": "#E7E1D3"
+   },
+   "look": {
+    "exposure": 1.0
+   },
+   "dark": [
+    [
+     0,
+     1,
+     0.0
+    ],
+    [
+     0.07,
+     0,
+     0.0
+    ]
+   ],
+   "darkFloor": 0.42,
+   "darkTint": "#5F86E0",
+   "darkEyes": 2.4,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03b",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.95,
+      19.599999999999998,
+      -0.88
+     ],
+     "ry": 90,
+     "clip": "run",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        3.2,
+        21.599999999999998,
+        0.2
+       ]
+      },
+      {
+       "at": 0.0,
+       "to": [
+        1.95,
+        19.599999999999998,
+        -0.95
+       ],
+       "dur": 0.36,
+       "ease": "out",
+       "glide": true,
+       "face": 90
+      },
+      {
+       "at": 0.0,
+       "clip": "skidStop"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.05,
+         0.95,
+         1.05
+        ],
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "auto": 0
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.08,
+       "toon": {
+        "reach": {
+         "L": [
+          2.54,
+          20.65,
+          -1.35,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "pinch"
+        },
+        "hip": 0,
+        "hose": 0.0,
+        "sq": [
+         0.92,
+         1.08,
+         0.92
+        ],
+        "bend": {
+         "spine": [
+          -0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.3
+        },
+        "auto": 0
+       },
+       "toonDur": 0.08,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "reach": {
+         "L": [
+          2.54,
+          20.65,
+          -1.35,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "pinch"
+        },
+        "hip": 0,
+        "sq": [
+         1.12,
+         0.88,
+         1.12
+        ],
+        "hairUp": 0.5,
+        "face": {
+         "lid": 0.0,
+         "mouth": "smirk",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "auto": 0
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.46,
+       "face": 10,
+       "turn": 0.12
+      },
+      {
+       "at": 0.48,
+       "look": "camera",
+       "lookDur": 0.1
+      },
+      {
+       "at": 0.52,
+       "toon": {
+        "reach": {
+         "R": [
+          1.627,
+          21.55,
+          -0.71,
+          1,
+          0.0
+         ],
+         "L": [
+          2.336,
+          21.55,
+          -0.835,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "hose": 0.25,
+        "sq": [
+         1.1,
+         0.9,
+         1.1
+        ],
+        "face": {
+         "lid": 0.0,
+         "mouth": "bigsmile",
+         "brow": 0.8,
+         "eye": 0.25
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.64,
+       "toon": {
+        "reach": {
+         "R": [
+          1.627,
+          21.92,
+          -0.71,
+          1,
+          0.0
+         ],
+         "L": [
+          2.336,
+          21.92,
+          -0.835,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "hose": 0.25,
+        "sq": [
+         0.92,
+         1.1,
+         0.92
+        ],
+        "hairUp": 0.4,
+        "face": {
+         "lid": 0.0,
+         "mouth": "bigsmile",
+         "brow": 0.8,
+         "eye": 0.25
+        }
+       },
+       "toonDur": 0.07,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.84,
+       "toon": {
+        "reach": {
+         "R": [
+          1.627,
+          21.65,
+          -0.71,
+          1,
+          0.0
+         ],
+         "L": [
+          2.336,
+          21.65,
+          -0.835,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "hose": 0.25,
+        "sq": [
+         1.06,
+         0.95,
+         1.06
+        ],
+        "hairUp": 0.1,
+        "face": {
+         "lid": 0.0,
+         "mouth": "bigsmile",
+         "brow": 0.8,
+         "eye": 0.25
+        }
+       },
+       "toonDur": 0.07,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 1.04,
+       "toon": {
+        "reach": {
+         "R": [
+          1.627,
+          21.92,
+          -0.71,
+          1,
+          0.0
+         ],
+         "L": [
+          2.336,
+          21.92,
+          -0.835,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "hose": 0.25,
+        "sq": [
+         0.92,
+         1.1,
+         0.92
+        ],
+        "hairUp": 0.4,
+        "face": {
+         "lid": 0.0,
+         "mouth": "bigsmile",
+         "brow": 0.8,
+         "eye": 0.25
+        }
+       },
+       "toonDur": 0.07,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 1.24,
+       "toon": {
+        "reach": {
+         "R": [
+          1.627,
+          21.65,
+          -0.71,
+          1,
+          0.0
+         ],
+         "L": [
+          2.336,
+          21.65,
+          -0.835,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "hose": 0.25,
+        "sq": [
+         1.06,
+         0.95,
+         1.06
+        ],
+        "hairUp": 0.1,
+        "face": {
+         "lid": 0.0,
+         "mouth": "bigsmile",
+         "brow": 0.8,
+         "eye": 0.25
+        }
+       },
+       "toonDur": 0.07,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 1.44,
+       "toon": {
+        "reach": {
+         "R": [
+          1.627,
+          21.92,
+          -0.71,
+          1,
+          0.0
+         ],
+         "L": [
+          2.336,
+          21.92,
+          -0.835,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "hose": 0.25,
+        "sq": [
+         0.92,
+         1.1,
+         0.92
+        ],
+        "hairUp": 0.4,
+        "face": {
+         "lid": 0.0,
+         "mouth": "bigsmile",
+         "brow": 0.8,
+         "eye": 0.25
+        }
+       },
+       "toonDur": 0.07,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 1.458,
+       "toon": {
+        "reach": {
+         "R": [
+          1.627,
+          21.85,
+          -0.71,
+          1,
+          0.0
+         ],
+         "L": [
+          2.336,
+          21.85,
+          -0.835,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "hose": 0.25,
+        "face": {
+         "lid": 0.0,
+         "mouth": "bigsmile",
+         "brow": 0.8,
+         "eye": 0.25
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.638,
+       "toon": {
+        "reach": {
+         "R": [
+          1.627,
+          21.85,
+          -0.71,
+          1,
+          0.0
+         ],
+         "L": [
+          2.336,
+          21.85,
+          -0.835,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "hose": 0.25,
+        "face": {
+         "lid": 1.0,
+         "mouth": "bigsmile",
+         "brow": 0.8,
+         "eye": 0.25
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.738,
+       "toon": {
+        "reach": {
+         "R": [
+          1.627,
+          21.85,
+          -0.71,
+          1,
+          0.0
+         ],
+         "L": [
+          2.336,
+          21.85,
+          -0.835,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "fist",
+         "L": "fist"
+        },
+        "hip": 0,
+        "hose": 0.25,
+        "face": {
+         "lid": 0.0,
+         "mouth": "bigsmile",
+         "brow": 0.8,
+         "eye": 0.25
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cage3b",
+     "name": "mnStairwell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "lit": [
+       [
+        0,
+        1
+       ],
+       [
+        1.418,
+        0
+       ]
+      ],
+      "topH": 3.6,
+      "hall": false,
+      "from": 6
+     }
+    },
+    {
+     "id": "boutons3b",
+     "name": "mnButtons",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "floors": [
+       6,
+       7
+      ],
+      "big": false
+     },
+     "inDark": true
+    },
+    {
+     "id": "traits3b",
+     "name": "mnDarkLines",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "from": 6
+     },
+     "inDark": true,
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 1.418,
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "mallette3b",
+     "name": "briefcase",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "hang": true
+     }
+    },
+    {
+     "id": "cle3b",
+     "name": "mnKey",
+     "pos": [
+      2.54,
+      20.65,
+      -1.38
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.24,
+       "visible": true
+      }
+     ],
+     "opts": {
+      "turn": [
+       [
+        0,
+        0
+       ],
+       [
+        0.29,
+        0
+       ],
+       [
+        0.36,
+        1.4
+       ]
+      ]
+     },
+     "inDark": true
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.697,
+      20.85,
+      3.83
+     ],
+     "to": [
+      3.597,
+      20.85,
+      3.63
+     ],
+     "lookAt": [
+      0.054,
+      20.922,
+      -5.483
+     ],
+     "lens": 57,
+     "ease": "inOut",
+     "lookAt2": [
+      0.054,
+      20.922,
+      -5.483
+     ]
+    }
+   ],
+   "start": 7.0666,
+   "duration": 1.8334,
+   "setOpts": {
+    "color": "#E7E1D3"
+   },
+   "look": {
+    "exposure": 1.0
+   },
+   "dark": [
+    [
+     0,
+     0,
+     0.0
+    ],
+    [
+     1.418,
+     1,
+     0.0
+    ]
+   ],
+   "darkFloor": 0.42,
+   "darkTint": "#5F86E0",
+   "darkEyes": 2.4,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "proprio",
+     "pos": [
+      2.62,
+      0.02,
+      -0.92
+     ],
+     "ry": -62,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        0.706,
+        1.482,
+        -0.173
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          2.37,
+          1.34,
+          -0.538,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.1,
+       "toon": {
+        "reach": {
+         "R": [
+          2.25,
+          1.5,
+          -1.34,
+          1,
+          0.08
+         ],
+         "L": [
+          2.37,
+          1.34,
+          -0.538,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "pinch",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.32,
+       "toon": {
+        "reach": {
+         "R": [
+          1.93,
+          1.5,
+          -1.2,
+          1,
+          0.08
+         ],
+         "L": [
+          2.37,
+          1.34,
+          -0.538,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "pinch",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.14
+      },
+      {
+       "at": 0.45,
+       "toon": {
+        "reach": {
+         "L": [
+          2.37,
+          1.34,
+          -0.538,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "bend": {
+         "spine": [
+          0.18,
+          0,
+          0,
+          1,
+          null
+         ],
+         "neck": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.5,
+         "mouth": "line",
+         "brow": -0.8,
+         "gx": -0.6
+        }
+       },
+       "toonDur": 0.16
+      },
+      {
+       "at": 0.95,
+       "look": "camera",
+       "lookDur": 0.12
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "reach": {
+         "L": [
+          2.37,
+          1.34,
+          -0.538,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "sq": [
+         1.02,
+         0.98,
+         1.02
+        ],
+        "face": {
+         "lid": 0.4,
+         "mouth": "line",
+         "brow": -0.9
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.33,
+       "toon": {
+        "reach": {
+         "R": [
+          2.37,
+          1.44,
+          -0.478,
+          1,
+          0.15
+         ],
+         "L": [
+          2.37,
+          1.34,
+          -0.538,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "point",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5,
+         "gy": 0.6
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.45,
+       "toon": {
+        "reach": {
+         "R": [
+          2.4,
+          1.38,
+          -0.488,
+          1,
+          0.15
+         ],
+         "L": [
+          2.37,
+          1.34,
+          -0.538,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "point",
+         "L": "grip"
+        },
+        "hip": 0,
+        "sq": [
+         1.03,
+         0.97,
+         1.03
+        ],
+        "face": {
+         "lid": 0.35,
+         "mouth": "smirk",
+         "brow": -0.5,
+         "gy": 0.6
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.65,
+       "toon": {
+        "reach": {
+         "L": [
+          2.37,
+          1.34,
+          -0.538,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "smirk",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "voisine",
+     "pos": [
+      5.0,
+      0.02,
+      0.05
+     ],
+     "ry": -78,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        1.2,
+        1.7,
+        0.9
+       ]
+      },
+      {
+       "at": 0.05,
+       "to": [
+        1.78,
+        0.02,
+        0.72
+       ],
+       "dur": 1.55,
+       "clip": "walk",
+       "ease": "linear",
+       "speed": 0.85
+      },
+      {
+       "at": 1.62,
+       "face": -40,
+       "turn": 0.2
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "touch": {
+         "L": [
+          "torso",
+          0.24,
+          0.12,
+          -0.36,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "rest"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cage4",
+     "name": "mnStairwell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "top": 1,
+      "front": true
+     }
+    },
+    {
+     "id": "boutons4",
+     "name": "mnButtons",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "floors": [
+       0,
+       1
+      ]
+     },
+     "inDark": true
+    },
+    {
+     "id": "minuterie4",
+     "name": "mnTimerBox",
+     "pos": [
+      2.05,
+      1.5,
+      -1.5
+     ],
+     "opts": {
+      "hand": 1.0,
+      "open": [
+       [
+        0,
+        0
+       ],
+       [
+        0.22,
+        1.0
+       ]
+      ]
+     }
+    },
+    {
+     "id": "bloc4",
+     "name": "mnClipboard",
+     "on": {
+      "actor": "proprio",
+      "hand": "L",
+      "face": "camera"
+     },
+     "opts": {
+      "tick": [
+       1.45
+      ]
+     }
+    },
+    {
+     "id": "caddie4",
+     "name": "mnTrolley",
+     "pos": [
+      5.489,
+      0.02,
+      -0.054
+     ],
+     "ry": 102,
+     "rot": [
+      -0.32,
+      0,
+      0
+     ],
+     "rotOrder": "YXZ",
+     "opts": {},
+     "keys": [
+      {
+       "at": 0.12,
+       "to": [
+        2.269,
+        0.02,
+        0.616
+       ],
+       "dur": 1.55,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.791,
+      1.45,
+      2.292
+     ],
+     "to": [
+      -1.641,
+      1.45,
+      2.192
+     ],
+     "lookAt": [
+      6.733,
+      1.305,
+      -2.936
+     ],
+     "lens": 59,
+     "ease": "inOut",
+     "lookAt2": [
+      6.733,
+      1.305,
+      -2.936
+     ]
+    }
+   ],
+   "start": 8.9,
+   "duration": 1.9333,
+   "setOpts": {
+    "color": "#E7E1D3"
+   },
+   "look": {
+    "exposure": 1.0
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04b",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "proprio",
+     "pos": [
+      2.55,
+      0.02,
+      -0.75
+     ],
+     "ry": -110,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        2.05,
+        1.5,
+        -1.5
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          2.15,
+          1.43,
+          -1.23,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "R": "pinch",
+         "L": "rest"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.12,
+       "toon": {
+        "reach": {
+         "R": [
+          2.05,
+          1.52,
+          -1.3,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "R": "pinch",
+         "L": "rest"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.38,
+       "toon": {
+        "reach": {
+         "R": [
+          2.02,
+          1.53,
+          -1.3,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "R": "pinch",
+         "L": "rest"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.67,
+       "toon": {
+        "reach": {
+         "R": [
+          2.17,
+          1.38,
+          -1.15,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cage4b",
+     "name": "mnStairwell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "top": 1
+     }
+    },
+    {
+     "id": "minuterie4b",
+     "name": "mnTimerBox",
+     "pos": [
+      2.05,
+      1.5,
+      -1.5
+     ],
+     "opts": {
+      "hand": [
+       [
+        0,
+        1.0
+       ],
+       [
+        0.34,
+        0.92
+       ],
+       [
+        0.42,
+        0.5,
+        "step"
+       ]
+      ],
+      "open": 1.0,
+      "click": [
+       0.42
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.78,
+      1.66,
+      -0.32
+     ],
+     "to": [
+      1.74,
+      1.66,
+      -0.4
+     ],
+     "lookAt": [
+      2.05,
+      1.54,
+      -1.38
+     ],
+     "lens": 34,
+     "ease": "inOut",
+     "lookAt2": [
+      2.05,
+      1.54,
+      -1.38
+     ]
+    }
+   ],
+   "start": 10.8333,
+   "duration": 0.9667,
+   "setOpts": {
+    "color": "#E7E1D3"
+   },
+   "look": {
+    "exposure": 1.0
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      3.0,
+      5.6,
+      0.3
+     ],
+     "ry": -60,
+     "clip": "run",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "to": [
+        1.95,
+        5.6,
+        0.95
+       ],
+       "dur": 0.06,
+       "clip": "run",
+       "ease": "linear",
+       "face": -60,
+       "speed": 1.5
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hip": 0,
+        "autoSq": 0.3,
+        "smear": 0.6,
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.06,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.2,
+         0.78,
+         1.2
+        ],
+        "bend": {
+         "spine": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "auto": 0
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.06,
+       "clip": "stand",
+       "blend": 0.05
+      },
+      {
+       "at": 0.16,
+       "to": [
+        1.65,
+        6.049,
+        0.95
+       ],
+       "dur": 0.032,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.192,
+       "to": [
+        1.35,
+        6.416,
+        0.95
+       ],
+       "dur": 0.032,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.225,
+       "to": [
+        1.05,
+        6.71,
+        0.95
+       ],
+       "dur": 0.032,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.257,
+       "to": [
+        0.75,
+        6.939,
+        0.95
+       ],
+       "dur": 0.032,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.289,
+       "to": [
+        0.45,
+        7.112,
+        0.95
+       ],
+       "dur": 0.032,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.322,
+       "to": [
+        0.15,
+        7.244,
+        0.95
+       ],
+       "dur": 0.032,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.354,
+       "to": [
+        -0.15,
+        7.352,
+        0.95
+       ],
+       "dur": 0.032,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.386,
+       "to": [
+        -0.45,
+        7.436,
+        0.95
+       ],
+       "dur": 0.032,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.418,
+       "to": [
+        -0.75,
+        7.477,
+        0.95
+       ],
+       "dur": 0.032,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.451,
+       "to": [
+        -1.05,
+        7.464,
+        0.95
+       ],
+       "dur": 0.032,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.483,
+       "to": [
+        -1.35,
+        7.386,
+        0.95
+       ],
+       "dur": 0.032,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.515,
+       "to": [
+        -1.65,
+        7.233,
+        0.95
+       ],
+       "dur": 0.032,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.548,
+       "to": [
+        -1.95,
+        7.0,
+        0.95
+       ],
+       "dur": 0.032,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.16,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.88,
+         1.16,
+         0.88
+        ],
+        "bend": {
+         "legR": [
+          -1.3,
+          0,
+          0,
+          1.75,
+          null
+         ],
+         "shinR": [
+          0.15,
+          0,
+          0,
+          1.3,
+          null
+         ],
+         "legL": [
+          1.15,
+          0,
+          0,
+          1.75,
+          null
+         ],
+         "shinL": [
+          0.35,
+          0,
+          0,
+          1.3,
+          null
+         ],
+         "armR": [
+          0.9,
+          0,
+          0,
+          1.2,
+          null
+         ],
+         "armL": [
+          -1.0,
+          0,
+          0,
+          1.2,
+          null
+         ]
+        },
+        "hairUp": 0.7,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "auto": 0
+       },
+       "toonDur": 0.06,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.52,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ],
+        "bend": {
+         "legR": [
+          -0.5,
+          0,
+          0,
+          1.2,
+          null
+         ],
+         "shinR": [
+          0.15,
+          0,
+          0,
+          1.3,
+          null
+         ],
+         "legL": [
+          0.4,
+          0,
+          0,
+          1.2,
+          null
+         ],
+         "shinL": [
+          0.35,
+          0,
+          0,
+          1.3,
+          null
+         ],
+         "armR": [
+          0.9,
+          0,
+          0,
+          1.2,
+          null
+         ],
+         "armL": [
+          -1.0,
+          0,
+          0,
+          1.2,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "auto": 0
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.58,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.38,
+         0.64,
+         1.38
+        ],
+        "hairUp": 0.0,
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "auto": 0
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.71,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.92,
+         1.1,
+         0.92
+        ],
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "auto": 0
+       },
+       "toonDur": 0.06,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.82,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ],
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.833,
+       "to": [
+        -2.0,
+        7.0,
+        -0.7
+       ],
+       "dur": 0.4,
+       "clip": "run",
+       "ease": "in",
+       "speed": 1.5
+      },
+      {
+       "at": 0.833,
+       "toon": {
+        "hip": 0,
+        "autoSq": 0.3,
+        "smear": 0.6,
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cage5",
+     "name": "mnStairwell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "top": 4,
+      "hall": false,
+      "from": 1
+     }
+    },
+    {
+     "id": "boutons5",
+     "name": "mnButtons",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "floors": [
+       1,
+       2,
+       3,
+       4
+      ],
+      "big": false
+     },
+     "inDark": true
+    },
+    {
+     "id": "mallette5",
+     "name": "briefcase",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "hang": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.059,
+      7.4,
+      10.449
+     ],
+     "to": [
+      -0.191,
+      7.5,
+      10.449
+     ],
+     "lookAt": [
+      0.427,
+      6.928,
+      0.467
+     ],
+     "lens": 59,
+     "ease": "inOut",
+     "lookAt2": [
+      0.177,
+      7.028,
+      0.467
+     ]
+    }
+   ],
+   "start": 11.8,
+   "duration": 1.1333,
+   "setOpts": {
+    "color": "#E7E1D3"
+   },
+   "look": {
+    "exposure": 1.0
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05b",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.6,
+      8.399999999999999,
+      0.55
+     ],
+     "ry": -60,
+     "clip": "run",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "to": [
+        1.95,
+        8.399999999999999,
+        0.95
+       ],
+       "dur": 0.02,
+       "clip": "run",
+       "ease": "linear",
+       "face": -60,
+       "speed": 1.5
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hip": 0,
+        "autoSq": 0.3,
+        "smear": 0.6,
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.02,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.2,
+         0.78,
+         1.2
+        ],
+        "bend": {
+         "spine": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "auto": 0
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.02,
+       "clip": "stand",
+       "blend": 0.05
+      },
+      {
+       "at": 0.12,
+       "to": [
+        1.625,
+        8.883,
+        0.95
+       ],
+       "dur": 0.033,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.153,
+       "to": [
+        1.3,
+        9.27,
+        0.95
+       ],
+       "dur": 0.033,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.187,
+       "to": [
+        0.975,
+        9.573,
+        0.95
+       ],
+       "dur": 0.033,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.22,
+       "to": [
+        0.65,
+        9.803,
+        0.95
+       ],
+       "dur": 0.033,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.253,
+       "to": [
+        0.325,
+        9.972,
+        0.95
+       ],
+       "dur": 0.033,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.287,
+       "to": [
+        0.0,
+        10.1,
+        0.95
+       ],
+       "dur": 0.033,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.32,
+       "to": [
+        -0.325,
+        10.206,
+        0.95
+       ],
+       "dur": 0.033,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.353,
+       "to": [
+        -0.65,
+        10.269,
+        0.95
+       ],
+       "dur": 0.033,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.387,
+       "to": [
+        -0.975,
+        10.273,
+        0.95
+       ],
+       "dur": 0.033,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.42,
+       "to": [
+        -1.3,
+        10.204,
+        0.95
+       ],
+       "dur": 0.033,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.453,
+       "to": [
+        -1.625,
+        10.049,
+        0.95
+       ],
+       "dur": 0.033,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.487,
+       "to": [
+        -1.95,
+        9.8,
+        0.95
+       ],
+       "dur": 0.033,
+       "ease": "linear",
+       "glide": true,
+       "face": -60
+      },
+      {
+       "at": 0.12,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.88,
+         1.16,
+         0.88
+        ],
+        "bend": {
+         "legR": [
+          -1.3,
+          0,
+          0,
+          1.75,
+          null
+         ],
+         "shinR": [
+          0.15,
+          0,
+          0,
+          1.3,
+          null
+         ],
+         "legL": [
+          1.15,
+          0,
+          0,
+          1.75,
+          null
+         ],
+         "shinL": [
+          0.35,
+          0,
+          0,
+          1.3,
+          null
+         ],
+         "armR": [
+          0.9,
+          0,
+          0,
+          1.2,
+          null
+         ],
+         "armL": [
+          -1.0,
+          0,
+          0,
+          1.2,
+          null
+         ]
+        },
+        "hairUp": 0.7,
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "auto": 0
+       },
+       "toonDur": 0.06,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.46,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ],
+        "bend": {
+         "legR": [
+          -0.5,
+          0,
+          0,
+          1.2,
+          null
+         ],
+         "shinR": [
+          0.15,
+          0,
+          0,
+          1.3,
+          null
+         ],
+         "legL": [
+          0.4,
+          0,
+          0,
+          1.2,
+          null
+         ],
+         "shinL": [
+          0.35,
+          0,
+          0,
+          1.3,
+          null
+         ],
+         "armR": [
+          0.9,
+          0,
+          0,
+          1.2,
+          null
+         ],
+         "armL": [
+          -1.0,
+          0,
+          0,
+          1.2,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "auto": 0
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.52,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.38,
+         0.64,
+         1.38
+        ],
+        "hairUp": 0.0,
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "auto": 0
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.65,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.92,
+         1.1,
+         0.92
+        ],
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        },
+        "auto": 0
+       },
+       "toonDur": 0.06,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.76,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ],
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.05,
+       "to": [
+        -2.0,
+        9.799999999999999,
+        -0.7
+       ],
+       "dur": 0.4,
+       "clip": "run",
+       "ease": "in",
+       "speed": 1.5
+      },
+      {
+       "at": 1.05,
+       "toon": {
+        "hip": 0,
+        "autoSq": 0.3,
+        "smear": 0.6,
+        "face": {
+         "lid": 0.0,
+         "mouth": "line",
+         "brow": -0.5,
+         "eye": 0.2
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "voisine",
+     "pos": [
+      1.78,
+      5.6,
+      0.78
+     ],
+     "ry": -55,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        0.807,
+        8.12,
+        6.971
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          1.816,
+          6.505,
+          0.938,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.24,
+       "toon": {
+        "reach": {
+         "L": [
+          1.816,
+          6.505,
+          0.938,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "sq": [
+         1.06,
+         0.94,
+         1.06
+        ],
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.32,
+       "to": [
+        1.24,
+        5.7749999999999995,
+        0.92
+       ],
+       "dur": 0.2,
+       "ease": "inOut",
+       "glide": true,
+       "face": -55
+      },
+      {
+       "at": 0.32,
+       "toon": {
+        "reach": {
+         "L": [
+          1.816,
+          6.505,
+          0.938,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "sq": [
+         0.96,
+         1.06,
+         0.96
+        ],
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.54,
+       "toon": {
+        "reach": {
+         "L": [
+          1.816,
+          6.505,
+          0.938,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "sq": [
+         1.05,
+         0.95,
+         1.05
+        ],
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.64,
+       "toon": {
+        "reach": {
+         "L": [
+          1.816,
+          6.505,
+          0.938,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.73,
+       "toon": {
+        "reach": {
+         "R": [
+          1.38,
+          7.32,
+          0.31,
+          1,
+          0.15
+         ],
+         "L": [
+          1.816,
+          6.505,
+          0.938,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "point",
+         "L": "grip"
+        },
+        "hip": 0,
+        "hose": 0.12,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.16,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.93,
+       "toon": {
+        "reach": {
+         "R": [
+          1.26,
+          7.4,
+          0.23,
+          1,
+          0.15
+         ],
+         "L": [
+          1.816,
+          6.505,
+          0.938,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "point",
+         "L": "grip"
+        },
+        "hip": 0,
+        "hose": 0.12,
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.07,
+       "toon": {
+        "reach": {
+         "R": [
+          1.26,
+          7.4,
+          0.23,
+          1,
+          0.15
+         ],
+         "L": [
+          1.816,
+          6.505,
+          0.938,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "point",
+         "L": "grip"
+        },
+        "hip": 0,
+        "hose": 0.12,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.17,
+       "toon": {
+        "reach": {
+         "R": [
+          1.38,
+          7.32,
+          0.31,
+          1,
+          0.15
+         ],
+         "L": [
+          1.816,
+          6.505,
+          0.938,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "point",
+         "L": "grip"
+        },
+        "hip": 0,
+        "hose": 0.12,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.45,
+       "toon": {
+        "reach": {
+         "L": [
+          1.816,
+          6.505,
+          0.938,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cage5b",
+     "name": "mnStairwell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "top": 5,
+      "hall": false,
+      "from": 1
+     }
+    },
+    {
+     "id": "boutons5b",
+     "name": "mnButtons",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "floors": [
+       1,
+       2,
+       3,
+       4,
+       5
+      ],
+      "big": false,
+      "press": [
+       [
+        2,
+        0.95
+       ]
+      ]
+     },
+     "inDark": true
+    },
+    {
+     "id": "mallette5b",
+     "name": "briefcase",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "hang": true
+     }
+    },
+    {
+     "id": "caddie5b",
+     "name": "mnTrolley",
+     "pos": [
+      2.2,
+      5.6,
+      0.95
+     ],
+     "ry": 88.2,
+     "rot": [
+      -0.32,
+      0,
+      0
+     ],
+     "rotOrder": "YXZ",
+     "opts": {}
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.159,
+      8.6,
+      11.098
+     ],
+     "to": [
+      0.159,
+      8.95,
+      10.898
+     ],
+     "lookAt": [
+      0.127,
+      8.182,
+      1.107
+     ],
+     "lens": 58,
+     "ease": "inOut",
+     "lookAt2": [
+      0.127,
+      8.632,
+      1.107
+     ]
+    }
+   ],
+   "start": 12.9333,
+   "duration": 1.4,
+   "setOpts": {
+    "color": "#E7E1D3"
+   },
+   "look": {
+    "exposure": 1.0
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "voisine",
+     "pos": [
+      1.76,
+      11.2,
+      0.64
+     ],
+     "ry": -15,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        3.716,
+        12.79,
+        4.205
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          1.913,
+          12.105,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "reach": {
+         "L": [
+          1.913,
+          12.105,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "wind": [
+         -9,
+         2,
+         0
+        ],
+        "sq": [
+         1.03,
+         0.97,
+         1.03
+        ],
+        "face": {
+         "lid": 0.6,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.78,
+       "toon": {
+        "reach": {
+         "L": [
+          1.913,
+          12.105,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "wind": [
+         0,
+         0,
+         0
+        ],
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 0.84,
+       "toon": {
+        "reach": {
+         "L": [
+          1.913,
+          12.105,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "wind": [
+         -9,
+         2,
+         0
+        ],
+        "sq": [
+         1.03,
+         0.97,
+         1.03
+        ],
+        "face": {
+         "lid": 0.6,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "reach": {
+         "L": [
+          1.913,
+          12.105,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "wind": [
+         0,
+         0,
+         0
+        ],
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 1.06,
+       "toon": {
+        "reach": {
+         "L": [
+          1.913,
+          12.105,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "wind": [
+         -9,
+         2,
+         0
+        ],
+        "sq": [
+         1.03,
+         0.97,
+         1.03
+        ],
+        "face": {
+         "lid": 0.6,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.22,
+       "toon": {
+        "reach": {
+         "L": [
+          1.913,
+          12.105,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "wind": [
+         0,
+         0,
+         0
+        ],
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 1.2,
+       "toon": {
+        "reach": {
+         "R": [
+          1.38,
+          12.92,
+          0.31,
+          1,
+          0.15
+         ],
+         "L": [
+          1.913,
+          12.105,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "point",
+         "L": "grip"
+        },
+        "hip": 0,
+        "hose": 0.12,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.16,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.4,
+       "toon": {
+        "reach": {
+         "R": [
+          1.26,
+          13.0,
+          0.23,
+          1,
+          0.15
+         ],
+         "L": [
+          1.913,
+          12.105,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "point",
+         "L": "grip"
+        },
+        "hip": 0,
+        "hose": 0.12,
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.54,
+       "toon": {
+        "reach": {
+         "R": [
+          1.26,
+          13.0,
+          0.23,
+          1,
+          0.15
+         ],
+         "L": [
+          1.913,
+          12.105,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "point",
+         "L": "grip"
+        },
+        "hip": 0,
+        "hose": 0.12,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.64,
+       "toon": {
+        "reach": {
+         "R": [
+          1.38,
+          12.92,
+          0.31,
+          1,
+          0.15
+         ],
+         "L": [
+          1.913,
+          12.105,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "point",
+         "L": "grip"
+        },
+        "hip": 0,
+        "hose": 0.12,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.92,
+       "toon": {
+        "reach": {
+         "L": [
+          1.913,
+          12.105,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.8,
+       "toon": {
+        "reach": {
+         "L": [
+          1.913,
+          12.105,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 1.0,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.9,
+       "toon": {
+        "reach": {
+         "L": [
+          1.913,
+          12.105,
+          0.487,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.45,
+         "mouth": "line",
+         "brow": 0.0
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "a1",
+     "pos": [
+      0.2,
+      10.879999999999999,
+      -0.97
+     ],
+     "ry": 90,
+     "clip": "run",
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         0.2,
+         10.879999999999999,
+         -0.97
+        ],
+        [
+         1.6,
+         11.2,
+         -0.92
+        ],
+        [
+         2.45,
+         11.2,
+         -0.05
+        ],
+        [
+         2.25,
+         11.2,
+         0.55
+        ],
+        [
+         1.3,
+         11.299999999999999,
+         1.05
+        ],
+        [
+         -0.3,
+         12.1,
+         1.0
+        ],
+        [
+         -1.6,
+         12.649999999999999,
+         0.9
+        ]
+       ],
+       "dur": 1.0,
+       "clip": "run",
+       "ease": "linear",
+       "speed": 1.4
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hip": 0,
+        "autoSq": 0.3,
+        "smear": 0.6,
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.6
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
+       "visible": true
+      },
+      {
+       "at": 1.0,
+       "visible": false
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "a2",
+     "pos": [
+      0.2,
+      10.879999999999999,
+      -0.97
+     ],
+     "ry": 90,
+     "clip": "run",
+     "keys": [
+      {
+       "at": 0.22,
+       "path": [
+        [
+         0.2,
+         10.879999999999999,
+         -0.97
+        ],
+        [
+         1.6,
+         11.2,
+         -0.92
+        ],
+        [
+         2.45,
+         11.2,
+         -0.05
+        ],
+        [
+         2.25,
+         11.2,
+         0.55
+        ],
+        [
+         1.3,
+         11.299999999999999,
+         1.05
+        ],
+        [
+         -0.3,
+         12.1,
+         1.0
+        ],
+        [
+         -1.6,
+         12.649999999999999,
+         0.9
+        ]
+       ],
+       "dur": 1.0,
+       "clip": "run",
+       "ease": "linear",
+       "speed": 1.4
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hip": 0,
+        "autoSq": 0.3,
+        "smear": 0.6,
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.6
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.22,
+       "visible": true
+      },
+      {
+       "at": 1.22,
+       "visible": false
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "a3",
+     "pos": [
+      0.2,
+      10.879999999999999,
+      -0.97
+     ],
+     "ry": 90,
+     "clip": "run",
+     "keys": [
+      {
+       "at": 0.44,
+       "path": [
+        [
+         0.2,
+         10.879999999999999,
+         -0.97
+        ],
+        [
+         1.6,
+         11.2,
+         -0.92
+        ],
+        [
+         2.45,
+         11.2,
+         -0.05
+        ],
+        [
+         2.25,
+         11.2,
+         0.55
+        ],
+        [
+         1.3,
+         11.299999999999999,
+         1.05
+        ],
+        [
+         -0.3,
+         12.1,
+         1.0
+        ],
+        [
+         -1.6,
+         12.649999999999999,
+         0.9
+        ]
+       ],
+       "dur": 1.0,
+       "clip": "run",
+       "ease": "linear",
+       "speed": 1.4
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hip": 0,
+        "autoSq": 0.3,
+        "smear": 0.6,
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "clench",
+         "brow": -0.6
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.44,
+       "visible": true
+      },
+      {
+       "at": 1.44,
+       "visible": false
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cage6",
+     "name": "mnStairwell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "top": 5,
+      "hall": false,
+      "from": 3
+     }
+    },
+    {
+     "id": "boutons6",
+     "name": "mnButtons",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "floors": [
+       3,
+       4,
+       5
+      ],
+      "big": false,
+      "press": [
+       [
+        4,
+        1.42
+       ]
+      ]
+     },
+     "inDark": true
+    },
+    {
+     "id": "caddie6",
+     "name": "mnTrolley",
+     "pos": [
+      2.184,
+      11.2,
+      0.215
+     ],
+     "ry": 135.1,
+     "rot": [
+      -0.32,
+      0,
+      0
+     ],
+     "rotOrder": "YXZ",
+     "opts": {}
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.554,
+      12.7,
+      5.733
+     ],
+     "to": [
+      4.354,
+      12.7,
+      5.483
+     ],
+     "lookAt": [
+      -0.852,
+      11.851,
+      -2.637
+     ],
+     "lens": 58,
+     "ease": "inOut",
+     "lookAt2": [
+      -0.852,
+      11.851,
+      -2.637
+     ]
+    }
+   ],
+   "start": 14.3333,
+   "duration": 2.0,
+   "setOpts": {
+    "color": "#E7E1D3"
+   },
+   "look": {
+    "exposure": 1.0
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06b",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "proprio",
+     "pos": [
+      1.95,
+      0.02,
+      0.9
+     ],
+     "ry": 58,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        3.045,
+        1.635,
+        3.135
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          2.402,
+          1.34,
+          0.97,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.26,
+       "toon": {
+        "reach": {
+         "R": [
+          2.452,
+          1.22,
+          1.02,
+          1,
+          0.0
+         ],
+         "L": [
+          2.402,
+          1.34,
+          0.97,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "pinch",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.42,
+       "toon": {
+        "reach": {
+         "R": [
+          2.652,
+          1.19,
+          1.15,
+          1,
+          0.0
+         ],
+         "L": [
+          2.402,
+          1.34,
+          0.97,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "pinch",
+         "L": "grip"
+        },
+        "hip": 0,
+        "sq": [
+         1.03,
+         0.97,
+         1.03
+        ],
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.64,
+       "toon": {
+        "reach": {
+         "L": [
+          2.402,
+          1.34,
+          0.97,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 1.04,
+       "toon": {
+        "reach": {
+         "R": [
+          2.452,
+          1.22,
+          1.02,
+          1,
+          0.0
+         ],
+         "L": [
+          2.402,
+          1.34,
+          0.97,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "pinch",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.2,
+       "toon": {
+        "reach": {
+         "R": [
+          2.652,
+          1.19,
+          1.15,
+          1,
+          0.0
+         ],
+         "L": [
+          2.402,
+          1.34,
+          0.97,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "pinch",
+         "L": "grip"
+        },
+        "hip": 0,
+        "sq": [
+         1.03,
+         0.97,
+         1.03
+        ],
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.42,
+       "toon": {
+        "reach": {
+         "L": [
+          2.402,
+          1.34,
+          0.97,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.87,
+       "toon": {
+        "reach": {
+         "L": [
+          2.402,
+          1.34,
+          0.97,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "face": {
+         "lid": 0.35,
+         "mouth": "smirk",
+         "brow": 0.3
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.87,
+       "look": "camera",
+       "lookDur": 0.1
+      },
+      {
+       "at": 1.65,
+       "toon": {
+        "reach": {
+         "L": [
+          2.402,
+          1.34,
+          0.97,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "rest",
+         "L": "grip"
+        },
+        "hip": 0,
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "face": {
+         "lid": 0.5,
+         "mouth": "smirk",
+         "brow": 0.5
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "a1",
+     "pos": [
+      2.8,
+      0.02,
+      0.62
+     ],
+     "ry": -72,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        2.486,
+        1.732,
+        2.8
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hip": 0,
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.07,
+         0.95
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.11,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.22,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.07,
+         0.95
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.33,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.44,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.07,
+         0.95
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.66,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.07,
+         0.95
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.77,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "hip": 0,
+        "bend": {
+         "legL": [
+          0.55,
+          0,
+          0,
+          1.1,
+          null
+         ],
+         "legR": [
+          -0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ],
+         "spine": [
+          0.25,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.02,
+         0.97,
+         1.02
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "reach": {
+         "R": [
+          2.462,
+          1.32,
+          0.94,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "pinch",
+         "L": "rest"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.87,
+       "toon": {
+        "hip": 0,
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "a2",
+     "pos": [
+      3.5,
+      0.02,
+      0.32
+     ],
+     "ry": -66,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        2.486,
+        1.732,
+        2.8
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hip": 0,
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.1,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.07,
+         0.95
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.21,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.32,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.07,
+         0.95
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.43,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.54,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.07,
+         0.95
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.65,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.76,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.07,
+         0.95
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.87,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.05,
+       "toon": {
+        "hip": 0,
+        "bend": {
+         "legL": [
+          0.55,
+          0,
+          0,
+          1.1,
+          null
+         ],
+         "legR": [
+          -0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ],
+         "spine": [
+          0.25,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.02,
+         0.97,
+         1.02
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "a3",
+     "pos": [
+      4.2,
+      0.02,
+      0.02
+     ],
+     "ry": -60,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        2.486,
+        1.732,
+        2.8
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hip": 0,
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.05,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.07,
+         0.95
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.16,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.27,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.07,
+         0.95
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.38,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.49,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.07,
+         0.95
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.71,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.95,
+         1.07,
+         0.95
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.82,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "hip": 0,
+        "bend": {
+         "legL": [
+          0.55,
+          0,
+          0,
+          1.1,
+          null
+         ],
+         "legR": [
+          -0.35,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ],
+         "spine": [
+          0.25,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.02,
+         0.97,
+         1.02
+        ],
+        "face": {
+         "lid": 0.1,
+         "mouth": "line",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cage6b",
+     "name": "mnStairwell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "top": 1
+     }
+    },
+    {
+     "id": "boutons6b",
+     "name": "mnButtons",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "floors": [
+       0,
+       1
+      ]
+     },
+     "inDark": true
+    },
+    {
+     "id": "rouleau6b",
+     "name": "mnTicketRoll",
+     "pos": [
+      2.402,
+      1.34,
+      0.97
+     ],
+     "ry": 58,
+     "opts": {
+      "tear": [
+       0.42,
+       1.2
+      ]
+     }
+    },
+    {
+     "id": "piece6b0",
+     "name": "mnCoins",
+     "pos": [
+      2.481,
+      1.32,
+      0.934
+     ],
+     "opts": {
+      "n": 1,
+      "r": 0.07
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.62,
+       "visible": true
+      },
+      {
+       "at": 0.62,
+       "to": [
+        1.983,
+        1.64,
+        1.074
+       ],
+       "dur": 0.24,
+       "ease": "inOut"
+      },
+      {
+       "at": 0.88,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "piece6b1",
+     "name": "mnCoins",
+     "pos": [
+      3.216,
+      1.32,
+      0.665
+     ],
+     "opts": {
+      "n": 1,
+      "r": 0.07
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 1.4,
+       "visible": true
+      },
+      {
+       "at": 1.4,
+       "to": [
+        1.983,
+        1.64,
+        1.074
+       ],
+       "dur": 0.24,
+       "ease": "inOut"
+      },
+      {
+       "at": 1.66,
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.289,
+      1.45,
+      5.649
+     ],
+     "to": [
+      3.439,
+      1.45,
+      5.399
+     ],
+     "lookAt": [
+      2.721,
+      0.311,
+      -4.27
+     ],
+     "lens": 58,
+     "ease": "inOut",
+     "lookAt2": [
+      2.721,
+      0.311,
+      -4.27
+     ]
+    }
+   ],
+   "start": 16.3333,
+   "duration": 1.9,
+   "setOpts": {
+    "color": "#E7E1D3"
+   },
+   "look": {
+    "exposure": 1.0
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "proprio",
+     "pos": [
+      2.2,
+      2.8,
+      0.95
+     ],
+     "ry": -35,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        3.831,
+        4.475,
+        2.662
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          2.233,
+          4.0,
+          1.339,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "smile",
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.15,
+       "toon": {
+        "reach": {
+         "R": [
+          2.45,
+          4.55,
+          1.552,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "spread",
+         "L": "rest"
+        },
+        "hip": 0,
+        "hose": 0.2,
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "face": {
+         "lid": 0.35,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.45,
+       "toon": {
+        "reach": {
+         "R": [
+          2.528,
+          4.35,
+          1.79,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "spread",
+         "L": "rest"
+        },
+        "hip": 0,
+        "hose": 0.2,
+        "face": {
+         "lid": 0.35,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.25,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.5,
+       "look": [
+        0.0,
+        4.8,
+        1.0
+       ],
+       "lookDur": 0.2
+      },
+      {
+       "at": 0.85,
+       "look": "camera",
+       "lookDur": 0.15
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "reach": {
+         "R": [
+          2.528,
+          4.35,
+          1.79,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "spread",
+         "L": "rest"
+        },
+        "hip": 0,
+        "hose": 0.2,
+        "face": {
+         "lid": 0.2,
+         "mouth": "smile",
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "c1",
+     "pos": [
+      3.05,
+      2.8,
+      0.2
+     ],
+     "ry": -45,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        0.5,
+        4.4,
+        0.9
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hip": 0,
+        "face": {
+         "lid": 0.2,
+         "mouth": "o",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.4,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.96,
+         1.05,
+         0.96
+        ],
+        "face": {
+         "lid": 0.2,
+         "mouth": "o",
+         "brow": 0.9,
+         "eye": 0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.85,
+       "toon": {
+        "hip": 0,
+        "face": {
+         "lid": 1.0,
+         "mouth": "o",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "hip": 0,
+        "face": {
+         "lid": 0.2,
+         "mouth": "o",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "c2",
+     "pos": [
+      3.45,
+      2.8,
+      0.95
+     ],
+     "ry": -38,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        0.5,
+        4.0,
+        1.2
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hip": 0,
+        "face": {
+         "lid": 0.2,
+         "mouth": "o",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.96,
+         1.05,
+         0.96
+        ],
+        "face": {
+         "lid": 0.2,
+         "mouth": "o",
+         "brow": 0.9,
+         "eye": 0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.7,
+       "look": "camera",
+       "lookDur": 0.15
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cage7",
+     "name": "mnStairwell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "top": 2,
+      "hall": false
+     }
+    },
+    {
+     "id": "boutons7",
+     "name": "mnButtons",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "floors": [
+       0,
+       1,
+       2
+      ],
+      "big": false
+     },
+     "inDark": true
+    },
+    {
+     "id": "serviette7",
+     "name": "mnTowel",
+     "pos": [
+      1.28,
+      3.7699999999999996,
+      0.3
+     ],
+     "ry": 90,
+     "opts": {
+      "sway": true
+     }
+    },
+    {
+     "id": "gourde7",
+     "name": "mnBottle",
+     "pos": [
+      1.3,
+      2.9749999999999996,
+      1.25
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.612,
+      4.25,
+      5.124
+     ],
+     "to": [
+      4.512,
+      4.25,
+      4.824
+     ],
+     "lookAt": [
+      -0.037,
+      2.77,
+      -3.605
+     ],
+     "lens": 58,
+     "ease": "inOut",
+     "lookAt2": [
+      -0.037,
+      2.77,
+      -3.605
+     ]
+    }
+   ],
+   "start": 18.2333,
+   "duration": 1.1333,
+   "setOpts": {
+    "color": "#E7E1D3"
+   },
+   "look": {
+    "exposure": 1.0
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07b",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "c1",
+     "pos": [
+      1.85,
+      2.8,
+      1.0
+     ],
+     "ry": -70,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": "camera"
+      },
+      {
+       "at": 0.05,
+       "to": [
+        1.22,
+        2.9749999999999996,
+        1.0
+       ],
+       "dur": 0.16,
+       "ease": "out",
+       "glide": true,
+       "face": -70
+      },
+      {
+       "at": 0.05,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.93,
+         1.1,
+         0.93
+        ],
+        "bend": {
+         "legR": [
+          -0.8,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.2,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.27,
+       "to": [
+        1.85,
+        2.8,
+        1.0
+       ],
+       "dur": 0.16,
+       "ease": "in",
+       "glide": true,
+       "face": -70
+      },
+      {
+       "at": 0.27,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.06,
+         0.95,
+         1.06
+        ],
+        "face": {
+         "lid": 0.2,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.53,
+       "to": [
+        1.22,
+        2.9749999999999996,
+        1.0
+       ],
+       "dur": 0.16,
+       "ease": "out",
+       "glide": true,
+       "face": -70
+      },
+      {
+       "at": 0.53,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.93,
+         1.1,
+         0.93
+        ],
+        "bend": {
+         "legR": [
+          -0.8,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.2,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.75,
+       "to": [
+        1.85,
+        2.8,
+        1.0
+       ],
+       "dur": 0.16,
+       "ease": "in",
+       "glide": true,
+       "face": -70
+      },
+      {
+       "at": 0.75,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.06,
+         0.95,
+         1.06
+        ],
+        "face": {
+         "lid": 0.2,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.01,
+       "to": [
+        1.22,
+        2.9749999999999996,
+        1.0
+       ],
+       "dur": 0.16,
+       "ease": "out",
+       "glide": true,
+       "face": -70
+      },
+      {
+       "at": 1.01,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.93,
+         1.1,
+         0.93
+        ],
+        "bend": {
+         "legR": [
+          -0.8,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.2,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.23,
+       "to": [
+        1.85,
+        2.8,
+        1.0
+       ],
+       "dur": 0.16,
+       "ease": "in",
+       "glide": true,
+       "face": -70
+      },
+      {
+       "at": 1.23,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.06,
+         0.95,
+         1.06
+        ],
+        "face": {
+         "lid": 0.2,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "c2",
+     "pos": [
+      2.6,
+      2.8,
+      0.3
+     ],
+     "ry": -25,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": "camera"
+      },
+      {
+       "at": 0.03,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "bend": {
+         "legL": [
+          -1.2,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.3,
+          0,
+          0,
+          1,
+          null
+         ],
+         "armL": [
+          0.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "armR": [
+          -0.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.24,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "bend": {
+         "legR": [
+          -1.2,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.3,
+          0,
+          0,
+          1,
+          null
+         ],
+         "armL": [
+          -0.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "armR": [
+          0.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.45,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "bend": {
+         "legL": [
+          -1.2,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.3,
+          0,
+          0,
+          1,
+          null
+         ],
+         "armL": [
+          0.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "armR": [
+          -0.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.66,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "bend": {
+         "legR": [
+          -1.2,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.3,
+          0,
+          0,
+          1,
+          null
+         ],
+         "armL": [
+          -0.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "armR": [
+          0.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.87,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "bend": {
+         "legL": [
+          -1.2,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.3,
+          0,
+          0,
+          1,
+          null
+         ],
+         "armL": [
+          0.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "armR": [
+          -0.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.08,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "bend": {
+         "legR": [
+          -1.2,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          1.3,
+          0,
+          0,
+          1,
+          null
+         ],
+         "armL": [
+          -0.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "armR": [
+          0.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.29,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "bend": {
+         "legL": [
+          -1.2,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.3,
+          0,
+          0,
+          1,
+          null
+         ],
+         "armL": [
+          0.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "armR": [
+          -0.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "mouth": "smile",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "proprio",
+     "pos": [
+      3.35,
+      2.8,
+      0.85
+     ],
+     "ry": -50,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          2.959,
+          4.0,
+          0.851,
+          1,
+          0.0
+         ],
+         "L": [
+          3.281,
+          4.0,
+          1.234,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "hip": 0,
+        "face": {
+         "lid": 0.35,
+         "mouth": "smile",
+         "brow": 0.5
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "reach": {
+         "R": [
+          2.696,
+          4.35,
+          0.615,
+          1,
+          0.0
+         ],
+         "L": [
+          3.468,
+          4.35,
+          1.535,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "spread",
+         "L": "spread"
+        },
+        "hip": 0,
+        "hose": 0.2,
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ],
+        "face": {
+         "lid": 0.0,
+         "mouth": "bigsmile",
+         "brow": 0.9
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 1.2,
+       "toon": {
+        "reach": {
+         "R": [
+          2.696,
+          4.35,
+          0.615,
+          1,
+          0.0
+         ],
+         "L": [
+          3.468,
+          4.35,
+          1.535,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "spread",
+         "L": "spread"
+        },
+        "hip": 0,
+        "hose": 0.2,
+        "face": {
+         "lid": 1.0,
+         "mouth": "bigsmile",
+         "brow": 0.9
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "reach": {
+         "R": [
+          2.696,
+          4.35,
+          0.615,
+          1,
+          0.0
+         ],
+         "L": [
+          3.468,
+          4.35,
+          1.535,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "spread",
+         "L": "spread"
+        },
+        "hip": 0,
+        "hose": 0.2,
+        "face": {
+         "lid": 0.35,
+         "mouth": "bigsmile",
+         "brow": 0.9
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cage7b",
+     "name": "mnStairwell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "top": 2,
+      "hall": false
+     }
+    },
+    {
+     "id": "boutons7b",
+     "name": "mnButtons",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "floors": [
+       0,
+       1,
+       2
+      ],
+      "big": false
+     },
+     "inDark": true
+    },
+    {
+     "id": "serviette7b",
+     "name": "mnTowel",
+     "pos": [
+      1.28,
+      3.7699999999999996,
+      0.3
+     ],
+     "ry": 90,
+     "opts": {
+      "sway": true
+     }
+    },
+    {
+     "id": "gourde7b",
+     "name": "mnBottle",
+     "pos": [
+      1.3,
+      2.9749999999999996,
+      1.25
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.185,
+      4.15,
+      5.981
+     ],
+     "to": [
+      3.985,
+      4.15,
+      5.781
+     ],
+     "lookAt": [
+      0.493,
+      3.353,
+      -3.278
+     ],
+     "lens": 57,
+     "ease": "inOut",
+     "lookAt2": [
+      0.493,
+      3.353,
+      -3.278
+     ]
+    }
+   ],
+   "start": 19.3666,
+   "duration": 1.5667,
+   "setOpts": {
+    "color": "#E7E1D3"
+   },
+   "look": {
+    "exposure": 1.0
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07c",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "c1",
+     "pos": [
+      1.9,
+      2.8,
+      -0.55
+     ],
+     "ry": 35,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        2.705,
+        3.201,
+        0.914
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hip": 0,
+        "face": {
+         "lid": 0.2,
+         "mouth": "o",
+         "brow": 0.6,
+         "gy": 0.5
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.579,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.05,
+         0.95,
+         1.05
+        ],
+        "face": {
+         "lid": 0.2,
+         "mouth": "o",
+         "brow": 0.6,
+         "gy": 0.5
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.639,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.9,
+         1.14,
+         0.9
+        ],
+        "hairUp": 0.6,
+        "face": {
+         "lid": 0.0,
+         "mouth": "open",
+         "mouthW": 0.55,
+         "mouthH": -0.25,
+         "jaw": 0.35,
+         "eye": 0.45,
+         "brow": 1.0,
+         "gy": 0.5
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.989,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.96,
+         1.05,
+         0.96
+        ],
+        "hairUp": 0.3,
+        "face": {
+         "lid": 0.0,
+         "mouth": "open",
+         "mouthW": 0.55,
+         "mouthH": -0.25,
+         "jaw": 0.35,
+         "eye": 0.45,
+         "brow": 1.0,
+         "gy": 0.0
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.989,
+       "look": "camera",
+       "lookDur": 0.1
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "c2",
+     "pos": [
+      2.4,
+      2.8,
+      -0.1
+     ],
+     "ry": 15,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        2.969,
+        3.201,
+        0.914
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hip": 0,
+        "face": {
+         "lid": 0.2,
+         "mouth": "o",
+         "brow": 0.6,
+         "gy": 0.5
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.639,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         1.05,
+         0.95,
+         1.05
+        ],
+        "face": {
+         "lid": 0.2,
+         "mouth": "o",
+         "brow": 0.6,
+         "gy": 0.5
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.699,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.9,
+         1.14,
+         0.9
+        ],
+        "hairUp": 0.6,
+        "face": {
+         "lid": 0.0,
+         "mouth": "open",
+         "mouthW": 0.55,
+         "mouthH": -0.25,
+         "jaw": 0.35,
+         "eye": 0.45,
+         "brow": 1.0,
+         "gy": 0.5
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 1.049,
+       "toon": {
+        "hip": 0,
+        "sq": [
+         0.96,
+         1.05,
+         0.96
+        ],
+        "hairUp": 0.3,
+        "face": {
+         "lid": 0.0,
+         "mouth": "open",
+         "mouthW": 0.55,
+         "mouthH": -0.25,
+         "jaw": 0.35,
+         "eye": 0.45,
+         "brow": 1.0,
+         "gy": 0.0
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.049,
+       "look": "camera",
+       "lookDur": 0.1
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "proprio",
+     "pos": [
+      3.85,
+      2.8,
+      -0.55
+     ],
+     "ry": -105,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.5,
+       "look": [
+        3.14,
+        2.8339999999999996,
+        -1.12
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          3.19,
+          3.284,
+          -1.02,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "pinch",
+         "L": "rest"
+        },
+        "hip": 0,
+        "bend": {
+         "spine": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "reach": {
+         "R": [
+          3.14,
+          3.054,
+          -1.07,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "pinch",
+         "L": "rest"
+        },
+        "hip": 0,
+        "bend": {
+         "spine": [
+          0.6,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.35,
+         "mouth": "line",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 0.65,
+       "toon": {
+        "reach": {
+         "R": [
+          3.24,
+          3.334,
+          -0.92,
+          1,
+          0.0
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "rest"
+        },
+        "hip": 0,
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.35,
+         "mouth": "smirk",
+         "brow": -0.5
+        }
+       },
+       "toonDur": 0.2
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cage7c",
+     "name": "mnStairwell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "top": 2,
+      "hall": false
+     }
+    },
+    {
+     "id": "boutons7c",
+     "name": "mnButtons",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "floors": [
+       1,
+       2
+      ],
+      "big": false
+     },
+     "inDark": true
+    },
+    {
+     "id": "paillasson7c",
+     "name": "mnDoormat",
+     "pos": [
+      2.9,
+      2.8,
+      -1.12
+     ]
+    },
+    {
+     "id": "tas7c1",
+     "name": "mnCoins",
+     "pos": [
+      2.66,
+      2.8339999999999996,
+      -1.12
+     ],
+     "opts": {
+      "n": 7
+     }
+    },
+    {
+     "id": "tas7c2",
+     "name": "mnCoins",
+     "pos": [
+      3.14,
+      2.8339999999999996,
+      -1.12
+     ],
+     "opts": {
+      "n": 7,
+      "count": [
+       [
+        0,
+        0
+       ],
+       [
+        0.3,
+        1
+       ],
+       [
+        0.35,
+        2
+       ],
+       [
+        0.4,
+        3
+       ],
+       [
+        0.45,
+        4
+       ],
+       [
+        0.5,
+        5
+       ],
+       [
+        0.55,
+        6
+       ],
+       [
+        0.6,
+        7
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.761,
+      3.65,
+      3.4
+     ],
+     "to": [
+      2.761,
+      3.6,
+      3.2
+     ],
+     "lookAt": [
+      2.312,
+      4.032,
+      -6.583
+     ],
+     "lens": 57,
+     "ease": "inOut",
+     "lookAt2": [
+      2.312,
+      4.032,
+      -6.583
+     ]
+    }
+   ],
+   "start": 20.9333,
+   "duration": 1.3,
+   "setOpts": {
+    "color": "#E7E1D3"
+   },
+   "look": {
+    "exposure": 1.0
+   },
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 44.38,
+ "look": "natural",
+ "gags": [
+  {
+   "t": 11.533,
+   "prop": "minuterie4b",
+   "name": "the dial halved",
+   "sid": "S04b"
+  },
+  {
+   "t": 21.733,
+   "prop": "tas7c2",
+   "name": "two stacks",
+   "sid": "S07c"
+  },
+  {
+   "t": 0.3,
+   "who": "mec",
+   "name": "slaps the front-door button",
+   "sid": "S01"
+  },
+  {
+   "t": 0.64,
+   "who": "mec",
+   "name": "crouch, determined",
+   "sid": "S01"
+  },
+  {
+   "t": 2.0,
+   "who": "mec",
+   "name": "the telescope of landings",
+   "sid": "S01b"
+  },
+  {
+   "t": 4.485,
+   "who": "mec",
+   "name": "only his eyes in the dark",
+   "sid": "S02"
+  },
+  {
+   "t": 4.605,
+   "who": "voisine",
+   "name": "presses her button in her own light",
+   "sid": "S02"
+  },
+  {
+   "t": 5.467,
+   "who": "mec",
+   "name": "skips with his tie",
+   "sid": "S02b"
+  },
+  {
+   "t": 5.067,
+   "who": "coach",
+   "name": "whistle",
+   "sid": "S02b"
+  },
+  {
+   "t": 6.533,
+   "who": "mec",
+   "name": "slap and crouch",
+   "sid": "S03"
+  },
+  {
+   "t": 7.307,
+   "who": "mec",
+   "name": "rubber arm to the lock",
+   "sid": "S03b"
+  },
+  {
+   "t": 8.017,
+   "who": "mec",
+   "name": "victory pumps",
+   "sid": "S03b"
+  },
+  {
+   "t": 8.605,
+   "who": "mec",
+   "name": "grin in the dark",
+   "sid": "S03b"
+  },
+  {
+   "t": 10.0,
+   "who": "proprio",
+   "name": "frowns at the dial, then at us",
+   "sid": "S04"
+  },
+  {
+   "t": 10.5,
+   "who": "voisine",
+   "name": "crosses toward the stairs",
+   "sid": "S04"
+  },
+  {
+   "t": 12.17,
+   "who": "mec",
+   "name": "the whole flight in one stride",
+   "sid": "S05"
+  },
+  {
+   "t": 12.43,
+   "who": "mec",
+   "name": "landing squash",
+   "sid": "S05"
+  },
+  {
+   "t": 13.253,
+   "who": "mec",
+   "name": "next stride",
+   "sid": "S05b"
+  },
+  {
+   "t": 13.883,
+   "who": "voisine",
+   "name": "one step, one button",
+   "sid": "S05b"
+  },
+  {
+   "t": 15.083,
+   "who": "voisine",
+   "name": "champions sprint past her",
+   "sid": "S06"
+  },
+  {
+   "t": 15.753,
+   "who": "voisine",
+   "name": "presses, deadpan",
+   "sid": "S06"
+  },
+  {
+   "t": 16.833,
+   "who": "proprio",
+   "name": "tears a ticket",
+   "sid": "S06b"
+  },
+  {
+   "t": 17.283,
+   "who": "proprio",
+   "name": "coin in the pocket, smirk",
+   "sid": "S06b"
+  },
+  {
+   "t": 18.733,
+   "who": "proprio",
+   "name": "shows the stairs like a gym",
+   "sid": "S07"
+  },
+  {
+   "t": 19.967,
+   "who": "proprio",
+   "name": "voilà",
+   "sid": "S07b"
+  },
+  {
+   "t": 19.667,
+   "who": "c1",
+   "name": "step class on the stairs",
+   "sid": "S07b"
+  },
+  {
+   "t": 21.652,
+   "who": "c1",
+   "name": "gasp",
+   "sid": "S07c"
+  }
+ ],
+ "cardTimes": [
+  7.617
+ ],
+ "rig": "toon",
+ "fingers": false,
+ "cloth": true,
+ "idleShift": 1.6,
+ "holdLife": 1,
+ "limbSmear": 1,
+ "follow": 1,
+ "pupil": 0.5,
+ "hairRest": 0.07
+}

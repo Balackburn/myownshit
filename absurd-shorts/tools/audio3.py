@@ -159,6 +159,12 @@ def sfx(name, seed=0):
         t = np.arange(int(0.4 * SR)) / SR; return ((np.sin(2 * np.pi * 3100 * t) + 0.6 * np.sin(2 * np.pi * 4700 * t)) * np.exp(-t * 14) * 0.3).astype(np.float32)
     if name == 'pour': return bp(noise(0.9, seed), 500, 3000) * (0.6 + 0.4 * np.sin(np.linspace(0, 40, int(0.9 * SR)))).astype(np.float32) * 0.35
     if name == 'tick': return bp(noise(0.012, seed), 2500, 7000) * 0.6
+    if name == 'clank':  # (story 113) a shopping trolley's wheels bumping up one stair: a dull knock, then a tinny rattle of the metal frame, 0.32 s
+        t = np.arange(int(0.32 * SR)) / SR
+        knock = np.sin(2 * np.pi * (140 - 60 * t) * t) * np.exp(-t * 30) * 0.7
+        ring = (np.sin(2 * np.pi * 1730 * t) + 0.7 * np.sin(2 * np.pi * 2610 * t)) * np.exp(-t * 18) * 0.12
+        rat = bp(noise(0.32, seed), 1800, 6000) * (np.sin(2 * np.pi * 38 * t) > 0.2) * np.exp(-t * 11) * 0.35
+        return (knock + ring + rat).astype(np.float32)
     if name == 'ticks':  # fast clock ticking (time passing)
         out = np.zeros(int(1.5 * SR), np.float32)
         for i in range(30): st = int(i * 0.05 * SR); seg = sfx('tick', i); out[st:st + len(seg)] += seg
