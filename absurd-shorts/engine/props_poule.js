@@ -626,11 +626,12 @@ export const POULE_PROPS = {
 
   // ---------------------------------------------------------------- an aeroplane cabin row (pivot at the floor between the two seats, seats facing +Z): a cream side
   // wall at x -o.wx (0.95) with an oval window (white frame, a blue sky with clouds sliding past toward -Z at o.speed), two blue fabric seats with white
-  // headrest covers and armrests, a carpet, the overhead bin; o.s (1.25) the seats' scale (the hero is 2.3 m tall)
+  // headrest covers and armrests, a carpet, the overhead bin; o.s (1.25) the seats' scale (the hero is 2.3 m tall); o.wall the side wall's colour
   poCabin(o) {
     const s = o.s ?? 1.25, g = grp(), wx = o.wx ?? 0.95, seatW = 0.62 * s;
     g.add(at(box(3.2, 0.03, 4, '#3A4A72'), 0, 0.0, 0));
-    const wall = grp(at(box(0.12, 2.6, 4, '#EDE7DA', { pivot: 'bottom' }), 0, 0, 0)); wall.position.x = -wx - 0.06; g.add(wall);
+    // (story 104, final pass) o.wall: the side wall's colour (a white wing must stand out on it)
+    const wall = grp(at(box(0.12, 2.6, 4, o.wall || '#EDE7DA', { pivot: 'bottom' }), 0, 0, 0)); wall.position.x = -wx - 0.06; g.add(wall);
     g.add(at(box(0.6, 0.4, 4, '#E4DDCB', { outline: 0.005 }), -wx + 0.25, 2.75, 0), at(box(0.04, 0.04, 4, '#BFB8A6'), -wx + 0.0, 2.5, 0));
     const cv = canvas(512, 256), c = cv.getContext('2d'), gg = c.createLinearGradient(0, 0, 0, 256); gg.addColorStop(0, '#5FA8E0'); gg.addColorStop(1, '#CFE8F6'); c.fillStyle = gg; c.fillRect(0, 0, 512, 256);
     c.fillStyle = '#FFFFFF'; for (let i = 0; i < 6; i++) { const x = i * 90 + 20, y = 70 + 90 * hsh(i * 3); for (let j = 0; j < 4; j++) { c.beginPath(); c.arc(x + j * 22, y - (j % 2) * 12, 22, 0, TAU); c.fill(); } }
@@ -758,6 +759,37 @@ export const POULE_PROPS = {
       rim.scale.setScalar(1.3); rim.position.z = -0.002; st.add(f, rim); g.add(st); S.push(st); }
     g.userData.update = t => { const on = !o.on || inside(o.on, t) >= 0; S.forEach((st, i) => { st.visible = on; if (!on) return; const a = t * TAU * (o.speed ?? 1.4) + i * TAU / n;
       st.position.set(Math.cos(a) * R, (o.y ?? 0.08) + Math.sin(a) * R * 0.4, Math.sin(a) * 0.04); st.rotation.z = t * 4 + i; st.scale.setScalar(sz * (0.85 + 0.3 * Math.sin(t * 15 + i * 2))); }); };
+    g.userData.update(0); return g;
+  },
+
+  // ---------------------------------------------------------------- (story 104, final pass) a plain wall panel (pivot at the floor under its middle, front +Z): o.w (5)
+  // x o.h (3.2), colour o.color, a skirting o.trim; a pale flat ground behind a gesture that must read (a stretched arm against light)
+  poBackdrop(o) {
+    const W = o.w ?? 5, H = o.h ?? 3.2, g = grp(at(box(W, H, 0.1, o.color || '#DCE6EE', { pivot: 'bottom' }), 0, 0, -0.05));
+    g.add(at(box(W, 0.12, 0.04, o.trim || '#F4EEE2'), 0, 0.06, 0.02));
+    return noShadow(g);
+  },
+
+  // ---------------------------------------------------------------- (story 104, final pass) one cartoon dust cloud (pivot at its root, where it bursts out from; it
+  // billows up and out toward +Y and along X): o.n (7) inked grey-beige lumps packed into ONE irregular mass that swells from nothing, then shrinks away
+  // to nothing (never transparent, never a row of balls: the row of white puffs read as eggs), plus o.wisps (2) small lumps that curl off sideways and
+  // up and vanish; o.at [t0, ...], o.dur (0.75), o.r (0.22) the cloud's radius at its fullest, o.w (1) its spread along X against its height, o.color
+  poDustCloud(o) {
+    const g = grp(), R = o.r ?? 0.22, D = o.dur ?? 0.75, N = o.n ?? 7, NW = o.wisps ?? 2, C = o.color || '#CBC2B0', C2 = o.color2 || '#B9AF9C', Q = [];
+    for (let i = 0; i < N + NW; i++) { const wsp = i >= N, m = ink(new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), L(i % 3 === 1 ? C2 : C, { emissive: o.emissive || '#3E3A32', flatShading: true })), wsp ? 0.07 : 0.045);
+      m.castShadow = m.receiveShadow = false; g.add(m);
+      // a lump's place in the cloud at its fullest: spread along X (o.w), up in Y, a little in Z; the first lump is the core
+      const a = (i / N) * TAU + hsh(i + 3) * 0.7, sw = o.w ?? 1;
+      const home = wsp ? [(i - N) % 2 ? 1 : -1, 0.85, 0.15] : (i === 0 ? [0, 0.45, 0] : [Math.cos(a) * 0.62 * sw, 0.5 + Math.sin(a) * 0.42, 0.2 * Math.sin(a * 1.7)]);
+      Q.push({ m, wsp, home, sz: wsp ? 0.32 : (i === 0 ? 0.78 : 0.5 + 0.22 * hsh(i * 5)), ph: hsh(i * 11) }); }
+    g.userData.update = t => { let d = -1; for (const t0 of o.at || []) if (t >= t0 && t < t0 + D) d = t - t0;
+      for (const q of Q) { q.m.visible = d >= 0; if (d < 0) continue; const u = d / D;
+        if (!q.wsp) { const grow = 1 - Math.pow(1 - Math.min(1, u / 0.3), 3), shrink = u < 0.5 ? 1 : Math.max(0, 1 - (u - 0.5) / 0.5), lift = 1 + 0.35 * u;
+          q.m.position.set(q.home[0] * R * (0.35 + 0.65 * grow) * (1 + 0.25 * u), (q.home[1] * R * (0.3 + 0.7 * grow)) * lift, q.home[2] * R);
+          q.m.scale.setScalar(Math.max(0.001, R * q.sz * grow * Math.pow(shrink, 0.8) * (1 + 0.06 * Math.sin(d * 19 + q.ph * 6)))); }
+        else { const v = Math.max(0, (u - 0.15) / 0.85), sd = q.home[0], s = Math.sin(PI * Math.min(1, v * 1.3));
+          q.m.position.set(sd * R * (0.7 + 1.6 * v), R * (0.55 + 1.3 * v), R * 0.15 + 0.05 * Math.sin(v * 7));
+          q.m.scale.set(Math.max(0.001, R * q.sz * s * 1.5), Math.max(0.001, R * q.sz * s * 0.75), Math.max(0.001, R * q.sz * s)); q.m.rotation.z = sd * (0.4 + v * 1.5); } } };
     g.userData.update(0); return g;
   },
 
