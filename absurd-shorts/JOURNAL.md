@@ -3308,3 +3308,14 @@ Prochaine histoire pour la session parallèle : « Le bulletin » (110).
 ## 14 h 30 — « Le sel » (109) brouillon 3, « Les moutons » (111) mis en scène
 « Le sel » : les corrections de la revue 2 sont faites et vérifiées sur des images fixes aux instants cités par les critiques. Le « carré blanc » de S14 était un flocon collé à l'objectif, la rallonge de S04 était cachée derrière la tête du héros, et la feuille de S12b tombe maintenant sous des paumes encore ouvertes. Brouillon 3 en rendu, consignes de la revue 3 prêtes.
 « Les moutons » : 32 plans, 47,3 s, accessoires préfixés mt, un bêlement ajouté au mixeur. Le mouton noir ne se lit la nuit qu'avec la lune derrière la tête. Brouillon 1 en file derrière celui du « Sel ».
+
+## 15 h 00 — « Le sel » (109) revue 3 : anim 7,7 / art 7,8
+Les meilleures notes de ses trois tours (7,1/7,4 → 7,3/7,4 → 7,7/7,8). À garder : la prise de vue de S14 (yeux sur tiges, mâchoire jusqu'au torse), la calotte de neige qui glisse en S13, les cousins rouges comme des bouilloires en S15, le gag récurrent de la pincée de sel volée, chaque fois différent.
+Passe finale lancée sur :
+- S12b, où la rallonge se lit comme un paillasson ;
+- S12, l'agenouillement ;
+- S14, la salière coupée par le bord ;
+- S13, la calotte de neige qui ressemble à un béret ;
+- S16b, le bras de mamie en planche, et le plan final figé ;
+- S09, trop large ;
+- les poses tenues mortes de S05b, S08 et S03.
