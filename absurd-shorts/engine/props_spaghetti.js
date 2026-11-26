@@ -41,24 +41,31 @@ function tube(pts3, r, color, ink = true) {
 // o.fall [t0, t1, floorY, floorZ]: from t0 it slithers down, drops and lands flat on the floor floorY below the line, floorZ out from the wall (by t1)
 export const SPAGHETTI_PROPS = {
   sgStrand(o) {
-    const R = 0.015, g = grp(), base = (o.shape === 'S' ? SCURVE : CURVE).map(([x, y]) => new THREE.Vector3(x, y, R + 0.006));
-    let body = tube(base, R, YEL); g.add(body);
+    const R = 0.015, g = grp(), SG = o.sag ?? 0;
+    // (round 1) o.sag 0..1: the curve sags a little more at each callback (the far ends droop, the loops flatten), it does not only go down
+    const shape = (o.shape === 'S' ? SCURVE : CURVE).map(([x, y]) => [x, y - SG * (0.22 * Math.pow(Math.abs(x) / 0.5, 1.3) + 0.12 * Math.max(0, -y) / 0.4)]);
+    const base = shape.map(([x, y]) => new THREE.Vector3(x, y, R + 0.006));
+    const body0 = grp(); g.add(body0); let body = tube(base, R, YEL); body0.add(body);
     let drip = null;
-    if (o.shape === 'S') { const e = base[base.length - 1]; drip = grp(at(sphere(0.022, YEL, 1, { outline: 0.012 }), 0, 0, 0)); drip.children[0].scale.set(0.9, 1.25, 0.9); drip.position.set(e.x, e.y - 0.04, e.z); g.add(drip); }
+    if (o.shape === 'S') { const e = base[base.length - 1]; drip = grp(at(sphere(0.035, YEL, 1, { outline: 0.014 }), 0, 0, 0)); drip.children[0].scale.set(0.9, 1.35, 0.9); drip.position.set(e.x, e.y - 0.06, e.z + 0.01); g.add(drip); }
+    // (round 1) o.splat t: it flies in as a clump from the lens side, lands at t with a squash and recoils
+    const fly = o.splat != null ? grp(at(sphere(0.05, YEL, 1, { outline: 0.012 }), 0, 0, 0)) : null; if (fly) g.add(fly);
     const F = o.fall; let lastU = -1;
     g.userData.update = t => {
       const d = kv(o.drop, t, 0);
+      if (fly) { const T = o.splat, u = clamp01((t - (T - 0.12)) / 0.12); fly.visible = t >= T - 0.12 && t < T; fly.position.set(0.1, -0.15 + 0.15 * u, 1.4 * (1 - u)); body0.visible = t >= T; if (drip) drip.visible = t >= T;
+        const v = t - T; if (v >= 0) { const sq = v < 0.06 ? 1 - v / 0.06 : 0, osc = v >= 0.06 ? Math.exp(-7 * (v - 0.06)) * Math.sin((v - 0.06) * 26) : 0; body0.scale.set(1 + 0.3 * sq - 0.12 * osc, 1 - 0.4 * sq + 0.15 * osc, 1); } }
       if (!F) { g.position.y = -d; return; }
       const u = clamp01((t - F[0]) / Math.max(0.01, F[1] - F[0]));
-      if (u <= 0) { g.position.y = -d; if (lastU !== 0) { lastU = 0; } return; }
+      if (u <= 0) { g.position.y = -d; return; }
       g.position.y = 0; const q = Math.round(u * 40) / 40; if (q === lastU) return; lastU = q;
       // slither (first 45 %): down the wall to the floor line; then the drop and the flop: each point lerps to its place on the floor
       const fy = F[2], fz = F[3], slide = smooth(q / 0.45), fl = clamp01((q - 0.45) / 0.55), fe = fl * fl;
       const pts = base.map((p, i) => { const fp = FLOOR[Math.min(FLOOR.length - 1, Math.floor(i * FLOOR.length / base.length))];
         const wy = p.y - d - slide * (fy - 0.35 - d) * (0.6 + 0.4 * i / base.length), wz = p.z;
-        return new THREE.Vector3(p.x + (fp[0] - p.x) * fe, wy + (-fy + R - wy) * fe, wz + (fp[1] * fz / 0.3 - wz) * fe); });
-      g.remove(body); body.traverse(n => n.geometry?.dispose()); body = tube(pts, R, YEL); g.add(body);
-      if (drip) { const e = pts[pts.length - 1]; drip.position.set(e.x, Math.max(-fy + 0.02, e.y - 0.04), e.z); }
+        return new THREE.Vector3(p.x + (fp[0] * 1.3 - p.x) * fe, wy + (-fy + R - wy) * fe, wz + (fp[1] * fz / 0.3 - wz) * fe); });
+      body0.remove(body); body.traverse(n => n.geometry?.dispose()); body = tube(pts, R * 1.1, YEL); body0.add(body);
+      if (drip) { const e = pts[pts.length - 1]; drip.position.set(e.x, Math.max(-fy + 0.03, e.y - 0.06), e.z); }
     };
     g.userData.update(0); return g;
   },
@@ -66,9 +73,11 @@ export const SPAGHETTI_PROPS = {
   sgForkStrand(o) {
     const g = grp(), fk = grp(at(cyl(0.008, 0.008, 0.16, '#C8CCD2', 6, { pivot: 'bottom' }), 0, 0, 0));
     for (const x of [-0.015, -0.005, 0.005, 0.015]) fk.add(at(cyl(0.003, 0.003, 0.05, '#C8CCD2', 4, { pivot: 'bottom' }), x, 0.16, 0));
-    fk.rotation.x = -0.9; g.add(fk);
-    if (o.strand !== false) { const top = new THREE.Vector3(0, 0.17, 0.12); g.add(tube([new THREE.Vector3(-0.05, 0.02, 0.14), new THREE.Vector3(-0.03, 0.13, 0.13), top, new THREE.Vector3(0.03, 0.13, 0.13), new THREE.Vector3(0.06, -0.02, 0.15)], 0.015, YEL)); }
-    g.userData.update = t => { const v = o.hide == null || t < o.hide; g.children.slice(1).forEach(c => { c.visible = v; }); }; g.userData.update(0); return g;
+    fk.rotation.x = -0.5; g.add(fk);
+    // (round 1) the strand is draped over the tines (fork frame) and hangs down both sides, a long end and a short one
+    const st = o.strand !== false ? tube([new THREE.Vector3(-0.02, 0.1, 0.06), new THREE.Vector3(-0.012, 0.17, 0.03), new THREE.Vector3(0, 0.205, 0.0), new THREE.Vector3(0.012, 0.18, -0.03), new THREE.Vector3(0.02, 0.08, -0.08), new THREE.Vector3(0.03, -0.04, -0.1)], 0.015, YEL) : null;
+    if (st) fk.add(st);
+    g.userData.update = t => { if (st) st.visible = o.hide == null || t < o.hide; }; g.userData.update(0); return g;
   },
   // The dry strand (pivot at its middle, along X): pale and straight; at o.snap it breaks in two halves that jump apart (a crisp crack)
   sgDryStrand(o) {
@@ -84,14 +93,15 @@ export const SPAGHETTI_PROPS = {
     const p = canvasPlane(W, H, (c, w, h) => { c.clearRect(0, 0, w, h); c.lineCap = 'round'; c.lineJoin = 'round'; const sx = x => w * (0.5 + x / 1.1), sy = y => h * (0.12 - y / 0.55);
       const path = () => { c.beginPath(); CURVE.forEach(([x, y], i) => { if (i === 0) c.moveTo(sx(x), sy(y)); else { const [px, py] = CURVE[i - 1]; c.quadraticCurveTo(sx(px), sy(py), (sx(px) + sx(x)) / 2, (sy(py) + sy(y)) / 2); } }); c.stroke(); };
       c.strokeStyle = INK; c.lineWidth = w * 0.06; path(); c.strokeStyle = YEL; c.lineWidth = w * 0.045; path(); c.strokeStyle = 'rgba(255,240,180,0.9)'; c.lineWidth = w * 0.012; path(); }, { res: 512, transparent: true });
-    g.add(p); g.userData.update = t => { p.position.y = -kv(o.slide, t, 0); g.visible = o.at == null || t >= o.at; }; g.userData.update(0); return g;
+    g.add(p); g.userData.update = t => { const y = kv(o.slide, t, 0), y2 = kv(o.slide, t + 0.05, 0), v = Math.abs(y2 - y) / 0.05; p.position.y = -y; p.scale.set(1 - Math.min(0.06, v * 0.6), 1 + Math.min(0.12, v * 1.2), 1); g.visible = o.at == null || t >= o.at; }; g.userData.update(0); return g;   // (round 1) it stretches a little as it slides
   },
   // ---------------------------------------------------------------- the tiles
   // A removable panel of mid-blue square tiles, 20 cm, dark grout (pivot at its bottom middle, faces +Z): o.cols (12) x o.rows (8)
   sgTiles(o) {
     const C = o.cols ?? 12, Rw = o.rows ?? 8, W = C * TILE, H = Rw * TILE, g = grp(at(box(W, H, 0.05, '#2A3442', { pivot: 'bottom' }), 0, 0, -0.025));
     const face = canvasPlane(W, H, (c, w, h) => { c.fillStyle = GROUT; c.fillRect(0, 0, w, h); const tw = w / C, th = h / Rw, gw = Math.max(3, tw * 0.07);
-      for (let i = 0; i < C; i++) for (let j = 0; j < Rw; j++) { c.fillStyle = BLUE; c.fillRect(i * tw + gw / 2, j * th + gw / 2, tw - gw, th - gw); c.fillStyle = 'rgba(255,255,255,0.13)'; c.fillRect(i * tw + gw, j * th + gw, (tw - gw) * 0.45, (th - gw) * 0.2); } }, { res: 1024 });
+      for (let i = 0; i < C; i++) for (let j = 0; j < Rw; j++) { c.fillStyle = BLUE; c.fillRect(i * tw + gw / 2, j * th + gw / 2, tw - gw, th - gw); c.fillStyle = 'rgba(255,255,255,0.13)'; c.fillRect(i * tw + gw, j * th + gw, (tw - gw) * 0.45, (th - gw) * 0.2); }
+      const ry = (Rw - (o.refRow ?? 6)) * th; c.fillStyle = GROUT; c.fillRect(0, ry - gw * 1.3, w, gw * 2.6); }, { res: 1024 });   // (round 1) the reference grout line, a little thicker
     face.position.set(0, H / 2, 0.006); g.add(face);
     if (o.strand) { const S = o.strand, st = SPAGHETTI_PROPS.sgStrand(S), holder = grp(st); holder.position.set(S.x ?? 0, (S.ref ?? 6) * TILE, 0.006); g.add(holder); g.userData.update = t => st.userData.update(t); }
     return g;
@@ -120,18 +130,18 @@ export const SPAGHETTI_PROPS = {
   // and a hob under the tiles. o.open: no back wall (the kitchen opens onto the street: the street is the sgStreet prop); o.night: a dark-blue window
   sgKitchen(o) {
     const B = o.back ?? -1.6, g = grp(), WC = o.night ? '#C9BFA8' : '#F1E6CC';
-    const fl = new THREE.Mesh(new THREE.BoxGeometry(7, 0.04, 6), mat('#FFFFFF')); const ft = canvasPlane(1, 1, (c, w, h) => { const n = 14; for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { c.fillStyle = (i + j) % 2 ? '#F2E4C8' : '#D98C5F'; c.fillRect(i * w / n, j * h / n, w / n + 1, h / n + 1); } }, { res: 512 }).material;
-    fl.material = [mat('#D98C5F'), mat('#D98C5F'), ft, mat('#D98C5F'), mat('#D98C5F'), mat('#D98C5F')]; fl.position.set(0, -0.02, B + 3.0); fl.receiveShadow = true; g.add(fl);
+    const fl = new THREE.Mesh(new THREE.BoxGeometry(7, 0.04, 8), mat('#FFFFFF')); const ft = canvasPlane(1, 1, (c, w, h) => { const n = 14; for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { c.fillStyle = (i + j) % 2 ? '#F2E4C8' : '#D98C5F'; c.fillRect(i * w / n, j * h / n, w / n + 1, h / n + 1); } }, { res: 512 }).material;
+    fl.material = [mat('#D98C5F'), mat('#D98C5F'), ft, mat('#D98C5F'), mat('#D98C5F'), mat('#D98C5F')]; fl.position.set(0, -0.02, B + 4.0); fl.receiveShadow = true; g.add(fl);
     if (!o.open) {
-      // back wall in pieces round the window opening (x -2.2..-1.2, y 1.0..2.2) and the doorway (x 2.0..2.9, y 0..2.2)
-      for (const [x0, x1, y0, y1] of [[-3.5, 2.0, 0, 1.0], [2.9, 3.5, 0, 1.0], [-3.5, -2.2, 1.0, 2.2], [-1.2, 2.0, 1.0, 2.2], [2.9, 3.5, 1.0, 2.2], [-3.5, 3.5, 2.2, 3.1]]) g.add(at(box(x1 - x0, y1 - y0, 0.12, WC, { pivot: 'bottom' }), (x0 + x1) / 2, y0, B - 0.06));
-      g.add(at(box(1.1, 0.08, 0.2, '#FFFFFF', { outline: 0.006 }), -1.7, 0.98, B), at(box(1.1, 0.06, 0.14, '#FFFFFF'), -1.7, 2.22, B), at(box(0.06, 1.24, 0.14, '#FFFFFF'), -2.23, 1.6, B), at(box(0.06, 1.24, 0.14, '#FFFFFF'), -1.17, 1.6, B));
-      g.add(at(box(1.6, 1.6, 0.02, o.night ? '#1E2E5A' : '#BFE2F2', { emissive: o.night ? '#0E1630' : '#6A8CA0' }), -1.7, 1.6, B - 1.2));
+      // back wall in pieces round the window opening (x 0.9..1.8, y 1.0..2.2) and the doorway (x 2.0..2.9, y 0..2.2)
+      for (const [x0, x1, y0, y1] of [[-3.5, 2.0, 0, 1.0], [2.9, 3.5, 0, 1.0], [-3.5, 0.9, 1.0, 2.2], [1.8, 2.0, 1.0, 2.2], [2.9, 3.5, 1.0, 2.2], [-3.5, 3.5, 2.2, 3.1]]) g.add(at(box(x1 - x0, y1 - y0, 0.12, WC, { pivot: 'bottom' }), (x0 + x1) / 2, y0, B - 0.06));
+      g.add(at(box(1.0, 0.08, 0.2, '#FFFFFF', { outline: 0.006 }), 1.35, 0.98, B), at(box(1.0, 0.06, 0.14, '#FFFFFF'), 1.35, 2.22, B), at(box(0.06, 1.24, 0.14, '#FFFFFF'), 0.87, 1.6, B), at(box(0.06, 1.24, 0.14, '#FFFFFF'), 1.83, 1.6, B));
+      g.add(at(box(1.6, 1.6, 0.02, o.night ? '#1E2E5A' : '#BFE2F2', { emissive: o.night ? '#0E1630' : '#6A8CA0' }), 1.35, 1.6, B - 1.2));
       g.add(at(box(0.06, 2.24, 0.14, '#FFFFFF'), 1.97, 1.12, B), at(box(0.06, 2.24, 0.14, '#FFFFFF'), 2.93, 1.12, B), at(box(1.0, 0.06, 0.14, '#FFFFFF'), 2.45, 2.22, B));
       g.add(at(box(1.2, 2.4, 0.04, o.night ? '#3A3A48' : '#C8B898'), 2.45, 1.2, B - 0.7), at(box(0.04, 2.4, 0.7, o.night ? '#454556' : '#D4C6A8'), 1.95, 1.2, B - 0.35), at(box(0.04, 2.4, 0.7, o.night ? '#454556' : '#D4C6A8'), 2.95, 1.2, B - 0.35));
     }
-    // left and right walls
-    g.add(at(box(0.12, 3.1, 6, WC, { pivot: 'bottom' }), -3.5, 0, B + 3.0), at(box(0.12, 3.1, 6, WC, { pivot: 'bottom' }), 3.5, 0, B + 3.0));
+    // left and right walls, a ceiling
+    g.add(at(box(0.12, 3.1, 8, WC, { pivot: 'bottom' }), -3.5, 0, B + 4.0), at(box(0.12, 3.1, 8, WC, { pivot: 'bottom' }), 3.5, 0, B + 4.0), at(box(7.2, 0.08, o.open ? 6.5 : 8, o.night ? '#B8AE98' : '#F6EEDC'), 0, 3.14, B + (o.open ? 4.75 : 4.0)));
     // the counter and the hob under the tiles
     g.add(at(box(2.6, 0.9, 0.6, '#7FB0A8', { pivot: 'bottom', outline: 0.008 }), 0.2, 0, B + 0.32), at(box(2.7, 0.05, 0.66, '#F4EEE0', { outline: 0.006 }), 0.2, 0.925, B + 0.35));
     g.add(at(box(0.62, 0.02, 0.5, '#26282C', { outline: 0.004 }), -0.3, 0.96, B + 0.36), at(cyl(0.12, 0.12, 0.012, '#4A4C52', 16), -0.3, 0.975, B + 0.36));
@@ -146,7 +156,7 @@ export const SPAGHETTI_PROPS = {
     for (const s of [-1, 1]) g.add(at(box(0.09, 0.025, 0.04, '#2A2C30', { outline: 0.006 }), s * 0.25, 0.24, 0));
     const w = at(cyl(0.185, 0.185, 0.01, '#CFE6EE', 16), 0, 0.255, 0); g.add(w);
     const bub = []; for (let i = 0; i < 9; i++) { const b = sphere(0.022 + 0.012 * hsh(i), '#F4FAFC', 1); g.add(b); bub.push(b); }
-    if (o.strands !== false) for (let i = 0; i < 3; i++) g.add(at(cyl(0.012, 0.012, 0.3, YEL, 6, { outline: 0.008 }), -0.08 + 0.07 * i, 0.32, -0.06, 0.25, 0, -0.5 + 0.4 * i));
+    if (o.strands !== false) for (let i = 0; i < 2; i++) { const a = 0.6 + 1.9 * i; g.add(tube([new THREE.Vector3(Math.cos(a) * 0.1, 0.25, Math.sin(a) * 0.1), new THREE.Vector3(Math.cos(a) * 0.19, 0.33, Math.sin(a) * 0.19), new THREE.Vector3(Math.cos(a) * 0.23, 0.26, Math.sin(a) * 0.23), new THREE.Vector3(Math.cos(a) * 0.235, 0.17, Math.sin(a) * 0.235)], 0.011, YEL)); }   // (round 1) two soft ends over the rim
     g.userData.update = t => { bub.forEach((b, i) => { const ph = (t * (1.6 + hsh(i + 3)) + hsh(i)) % 1, a = hsh(i + 7) * TAU, r = 0.15 * Math.sqrt(hsh(i + 11)); b.position.set(Math.cos(a) * r, 0.262 + 0.02 * Math.sin(ph * PI), Math.sin(a) * r); b.scale.setScalar(0.4 + 0.8 * Math.sin(ph * PI)); }); w.position.y = 0.255 + 0.004 * Math.sin(t * 17); };
     g.userData.update(0); return g;
   },
@@ -179,6 +189,7 @@ export const SPAGHETTI_PROPS = {
     g.add(at(box(12, 3.6, 0.12, W, { pivot: 'bottom' }), 0, 0, B - 0.06), at(box(12, 0.12, 0.03, N ? '#2E3C66' : '#CFC8BA'), 0, 0.06, B + 0.015));
     g.add(at(box(0.12, 3.6, 8, W, { pivot: 'bottom' }), -6, 0, B + 4.0), at(box(0.12, 3.6, 8, W, { pivot: 'bottom' }), 6, 0, B + 4.0));
     if (N) g.add(at(box(1.2, 1.6, 0.02, '#9AB6F0', { emissive: '#3A5296' }), -4.2, 1.9, B + 0.01));
+    g.add(at(box(12.2, 0.08, 8, N ? '#3E5088' : '#F8F7F3'), 0, 3.64, B + 4.0));
     return g;
   },
   // A plain room (pivot at the floor middle, back wall at z o.back (-1.6)): a floor, a back wall and a left wall in o.wall, o.floor; nothing on them
@@ -194,6 +205,10 @@ export const SPAGHETTI_PROPS = {
     g.add(at(box(0.12, 3.2, 6, W, { pivot: 'bottom' }), -4, 0, B + 3)); return g; },
   // A glass of water (attach to the hand: pivot at its bottom)
   sgGlass(o) { const g = grp(), gl = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.03, 0.11, 10, 1, true), new THREE.MeshBasicMaterial({ color: '#DDEEF4', transparent: true, opacity: 0.45, side: THREE.DoubleSide })); gl.position.y = 0.055; g.add(gl, at(cyl(0.032, 0.029, 0.07, '#BFDDEA', 10), 0, 0.036, 0)); return g; },
+  // A painter's smock (attach to the torso: pivot at the collar; faces +Z): a loose pale-blue overall with a few paint dabs
+  sgSmock(o) { const g = grp(at(box(0.5, 0.8, 0.34, '#BFD4E6', { outline: 0.01, taper: 1.15 }), 0, -0.4, 0.02)); [['#F2662A', -0.1, -0.3], ['#F2B300', 0.12, -0.5], ['#3C7BC4', 0.05, -0.2]].forEach(([c, x, y]) => g.add(at(sphere(0.03, c, 0), x, y, 0.19))); return g; },
+  // A spoon (attach to the hand)
+  sgSpoon(o) { return grp(at(box(0.012, 0.13, 0.006, '#C8CCD2'), 0, 0.06, 0), at(sphere(0.022, '#C8CCD2', 1), 0, 0.13, 0)); },
   // A plain wooden chair (pivot at the floor, faces +Z)
   sgChair(o) { const C = o.color || '#8A5A36', g = grp(at(box(0.46, 0.05, 0.44, C, { outline: 0.008 }), 0, 0.46, 0), at(box(0.46, 0.5, 0.05, C, { outline: 0.008 }), 0, 0.73, -0.2));
     for (const x of [-0.2, 0.2]) for (const z of [-0.19, 0.19]) g.add(at(box(0.04, 0.46, 0.04, C, { pivot: 'bottom' }), x, 0, z)); return g; },
@@ -233,20 +248,22 @@ export const SPAGHETTI_PROPS = {
   sgSauce(o) {
     const g = grp(), sh = new THREE.Shape(); for (let i = 0; i <= 24; i++) { const a = i / 24 * TAU, r = 0.2 * (1 + 0.18 * Math.sin(a * 5) + 0.08 * Math.cos(a * 3)); const x = Math.cos(a) * r, y = Math.sin(a) * r * 0.85; if (i === 0) sh.moveTo(x, y); else sh.lineTo(x, y); }
     const blob = new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: 0.02, bevelEnabled: true, bevelSize: 0.012, bevelThickness: 0.012, bevelSegments: 2 }), mat('#F2662A')); addOutline(blob, 0.015); g.add(blob);
-    for (let i = 0; i < 5; i++) { const x = -0.14 + 0.07 * i, L = 0.18 + 0.12 * hsh(i); g.add(tube([new THREE.Vector3(x, -0.02, 0.045), new THREE.Vector3(x + 0.02, -0.08 - L * 0.4, 0.05), new THREE.Vector3(x - 0.01, -0.1 - L, 0.05)], 0.012, YEL)); }
-    g.userData.update = t => { const u = o.at == null ? 1 : clamp01((t - o.at) / 0.18); g.visible = u > 0; const s = u < 1 ? 1.25 * u : 1; g.scale.set(s, u < 1 ? 0.7 + 0.3 * u : 1, 1); }; g.userData.update(0); return g;
+    const sts = []; for (let i = 0; i < 5; i++) { const x = -0.14 + 0.07 * i, L = 0.18 + 0.12 * hsh(i), st = grp(tube([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0.02, -L * 0.4, 0.005), new THREE.Vector3(-0.01, -L, 0.005)], 0.012, YEL)); st.position.set(x, -0.02, 0.045); g.add(st); sts.push(st); }
+    g.userData.update = t => { const v = o.at == null ? 9 : t - o.at, u = clamp01(v / 0.12); g.visible = v >= 0; const sq = v < 0.12 ? 1 + 0.35 * (1 - u) : 1 + 0.08 * Math.exp(-8 * (v - 0.12)) * Math.sin((v - 0.12) * 24); blob.scale.set(u * sq, u * (2 - sq), 1); sts.forEach((st, i) => { st.scale.y = clamp01((v - 0.08 - 0.05 * i) / 0.45); st.visible = st.scale.y > 0.02; }); }; g.userData.update(0); return g;   // (round 1) it grows at the impact, squashes and wobbles; the strands run down after
   },
   // One short strand hanging from a nose (attach to the head: pivot at the nose tip): it slaps on at o.at and swings
-  sgNoseStrand(o) { const g = grp(), s = tube([new THREE.Vector3(-0.06, 0.03, 0.02), new THREE.Vector3(0, 0, 0.03), new THREE.Vector3(0.03, -0.1, 0.03), new THREE.Vector3(0.0, -0.2, 0.03)], 0.013, YEL); g.add(s);
+  sgNoseStrand(o) { const g = grp(), s = tube([new THREE.Vector3(-0.07, 0.04, 0.0), new THREE.Vector3(0, 0, 0.02), new THREE.Vector3(0.03, -0.12, 0.03), new THREE.Vector3(-0.01, -0.26, 0.03)], 0.016, YEL); g.add(s);
     g.userData.update = t => { const u = o.at == null ? 1 : t - o.at; g.visible = u >= 0; g.rotation.z = u > 0 ? 0.35 * Math.exp(-4 * u) * Math.sin(u * 14) : 0; }; g.userData.update(0); return g; },
   // A fat paintbrush (attach to the hand: pivot at the grip): a short blue handle, a ferrule, a soft rounded tuft; flies off from o.throw along
   // o.path [x, y, z] (hand-local) and spins
   sgBrush(o) { const g = grp(), b = grp(at(cyl(0.02, 0.022, 0.2, '#3A7AC8', 8, { outline: 0.008 }), 0, 0.05, 0), at(cyl(0.026, 0.022, 0.05, '#C8CCD2', 8), 0, 0.17, 0), at(sphere(0.032, '#F2D9A0', 1, { outline: 0.008 }), 0, 0.22, 0)); b.children[2].scale.set(1, 1.4, 0.8); g.add(b);
     g.userData.update = t => { const u = o.throw == null ? 0 : clamp01((t - o.throw) / 0.5); const p = o.path || [0.6, 0.8, -1.5]; b.position.set(p[0] * u, p[1] * u + 0.4 * Math.sin(PI * u), p[2] * u); b.rotation.x = -6 * u; b.visible = u < 1; }; g.userData.update(0); return g; },
   // A colander full of cooked pasta (attach to the hand: pivot at the handle)
-  sgColander(o) { const g = grp(), bowl = new THREE.Mesh(new THREE.SphereGeometry(0.16, 14, 8, 0, TAU, PI / 2, PI / 2), mat('#C8CCD2', { side: THREE.DoubleSide })); addOutline(bowl, 0.01); bowl.position.set(0.18, 0.12, 0); g.add(bowl);
-    for (let i = 0; i < 7; i++) { const a = hsh(i) * TAU; g.add(at(cyl(0.011, 0.011, 0.22, YEL, 6, { outline: 0.006 }), 0.18 + Math.cos(a) * 0.06, 0.13, Math.sin(a) * 0.06, 1.4 + 0.3 * hsh(i + 2), a, 0)); }
-    g.add(at(box(0.14, 0.02, 0.03, '#C8CCD2', { outline: 0.006 }), 0.04, 0.12, 0)); return g; },
+  sgColander(o) { const R = 0.19, g = grp(), bowl = new THREE.Mesh(new THREE.SphereGeometry(R, 16, 8, 0, TAU, PI / 2, PI / 2), mat('#9EA6B0', { side: THREE.DoubleSide })); addOutline(bowl, 0.012); g.add(bowl);
+    for (let i = 0; i < 26; i++) { const a = (i % 13) / 13 * TAU + (i < 13 ? 0 : 0.24), el = i < 13 ? 0.45 : 0.9; const hole = sphere(0.014, '#2A2E34', 0); hole.position.set(Math.cos(a) * Math.cos(el) * R * 1.01, -Math.sin(el) * R * 1.01, Math.sin(a) * Math.cos(el) * R * 1.01); g.add(hole); }
+    g.add(at(new THREE.Mesh(new THREE.TorusGeometry(R, 0.012, 5, 20), mat('#8A929C')), 0, 0, 0, PI / 2), at(box(0.1, 0.02, 0.04, '#8A929C', { outline: 0.006 }), R + 0.05, 0, 0), at(box(0.1, 0.02, 0.04, '#8A929C', { outline: 0.006 }), -R - 0.05, 0, 0));
+    for (let i = 0; i < 6; i++) { const a = hsh(i) * TAU; g.add(tube([new THREE.Vector3(Math.cos(a) * 0.12, -0.03, Math.sin(a) * 0.12), new THREE.Vector3(Math.cos(a + 1) * 0.05, 0.02, Math.sin(a + 1) * 0.05), new THREE.Vector3(Math.cos(a + 2) * 0.13, -0.01, Math.sin(a + 2) * 0.13)], 0.011, YEL, false)); }
+    return g; },   // (round 1) a perforated steel bowl with two handles, a heap of pasta in it
   // A handful of pasta flying (pivot at the start): o.at, o.to [x, y, z]; a few strands in a clump
   sgFling(o) { const g = grp(), c = grp(); for (let i = 0; i < 5; i++) c.add(at(cyl(0.012, 0.012, 0.22, YEL, 6, { outline: 0.006 }), 0.03 * (hsh(i) - 0.5), 0, 0.03 * (hsh(i + 4) - 0.5), hsh(i + 1) * 2, hsh(i + 2) * 2, hsh(i + 3) * 2)); g.add(c);
     g.userData.update = t => { const u = o.at == null ? 0 : clamp01((t - o.at) / (o.dur ?? 0.3)); const p = o.to || [0, 0, -1]; c.position.set(p[0] * u, p[1] * u + 0.25 * Math.sin(PI * u), p[2] * u); c.visible = (o.at == null || t >= o.at) && u < 1; c.rotation.z = 5 * u; }; g.userData.update(0); return g; },
@@ -260,7 +277,7 @@ export const SPAGHETTI_PROPS = {
     const eye2 = grp(at(sphere(0.06, '#FFFFFF', 1, { outline: 0.008 }), 0, 0, 0), at(sphere(0.03, '#1A1A1A', 0), -0.01, 0.01, 0.05)); eye2.position.set(-0.12, 0.9, 0.07); g.add(eye2);
     g.add(at(box(0.3, 0.04, 0.03, '#C8402A', { outline: 0.006 }), 0.05, 0.45, 0.07, 0, 0, 0.3));
     g.userData.update = t => { rv.forEach((r, i) => { const [x, y, z] = r.userData.p0; let px = x, py = y, rz = 0.25 * (hsh(i) - 0.5);
-      if (o.slip != null && i === rv.length - 1) { const u = clamp01((t - o.slip) / 0.4); py -= 0.08 * u; rz += 0.4 * u; }
+      if (o.slip != null && i >= rv.length - 2) { const u = clamp01((t - o.slip - 0.25 * (rv.length - 1 - i)) / 0.5); py -= (i === rv.length - 1 ? 0.3 : 0.14) * u; rz += 0.7 * u; }
       if (o.fall != null) { const u = clamp01((t - o.fall - 0.03 * hsh(i + 9) * 4) / 0.5); const hx = (hsh(i + 1) - 0.5) * 0.7, hy = -0.0 + 0.05 * Math.floor(hsh(i + 2) * 3); px += (hx - px) * u * u; py += (hy - 0.0 - py) * u * u; rz += 2 * u * (hsh(i + 5) - 0.5); }
       r.position.set(px, py, z + (o.fall != null && t > o.fall ? 0.15 * clamp01((t - o.fall) / 0.5) : 0)); r.rotation.z = rz; });
       const fu = o.fall == null ? 0 : clamp01((t - o.fall) / 0.4); eye.position.y = 0.95 - 0.95 * fu * fu; eye2.position.y = 0.9 - 0.9 * fu * fu; };
@@ -279,7 +296,7 @@ export const SPAGHETTI_PROPS = {
     const sl = []; for (let i = 0; i < 3; i++) { const d = new THREE.Mesh(geo, mat('#F6C21A')); d.position.set(-0.25 + 0.05 * i, H * 0.72, 0.035); sheet.add(d); sl.push(d); }
     const heap = grp(); for (let i = 0; i < 40; i++) { const d = new THREE.Mesh(geo, mat(['#4E9A4A', '#7FB8E8', '#F6C21A'][i % 3])); d.position.set((hsh(i) - 0.5) * 0.6, 0.02 + 0.08 * hsh(i + 3) * (1 - Math.abs(hsh(i) - 0.5) * 2), 0.15 + 0.15 * hsh(i + 5)); d.rotation.set(hsh(i + 1) * 3, hsh(i + 2) * 3, 0); heap.add(d); }
     heap.position.y = -(o.floor ?? 0.6); g.add(heap);
-    g.userData.update = t => { sl.forEach((d, i) => { const u = o.slide == null ? 0 : clamp01((t - o.slide - 0.15 * i) / 0.6); d.position.y = H * 0.72 - 0.25 * u * (1 + 0.3 * i); });
+    g.userData.update = t => { sl.forEach((d, i) => { const u = o.slide == null ? 0 : clamp01((t - o.slide - 0.15 * i) / 0.6); d.position.y = H * 0.72 - 0.45 * u * (1 + 0.3 * i); d.scale.setScalar(1.6); });
       const u = o.fall == null ? 0 : clamp01((t - o.fall) / 0.45); sheet.position.y = -((o.floor ?? 0.6) + H * 0.5) * u * u; sheet.position.z = 0.12 * u; sheet.visible = u < 0.98; heap.visible = u >= 0.98; };
     g.userData.update(0); return g;
   },
@@ -329,6 +346,6 @@ export const SPAGHETTI_PROPS = {
     for (const s of [-1, 1]) g.add(at(cyl(0.013, 0.013, 0.21, DRY, 8, { outline: 0.01 }), s * 0.11, 0.05, 0.0, 0, 0, PI / 2 + s * 0.06));
     g.userData.update = t => { g.visible = o.hide == null || t < o.hide; }; return g; },
   // The two dry halves falling into the pot (pivot at the pot's rim): from o.at they drop in o.dur (0.25) and vanish into the water
-  sgHalves(o) { const g = grp(); for (const s of [-1, 1]) g.add(at(cyl(0.013, 0.013, 0.21, DRY, 8, { outline: 0.01 }), s * 0.05, 0, 0, 0.6, 0, PI / 2 + s * 0.4));
-    g.userData.update = t => { const u = o.at == null ? 0 : clamp01((t - o.at) / (o.dur ?? 0.25)); g.position.y = (o.h ?? 0.3) * (1 - u) - 0.05 * u; g.visible = u < 1; }; g.userData.update(0); return g; },
+  sgHalves(o) { const g = grp(), hs = [-1, 1].map(s => { const h = grp(at(cyl(0.013, 0.013, 0.21, DRY, 8, { outline: 0.01 }), 0, 0, 0, 0, 0, PI / 2)); h.userData.s = s; g.add(h); return h; });
+    g.userData.update = t => { const u = o.at == null ? 0 : clamp01((t - o.at) / (o.dur ?? 0.35)); hs.forEach(h => { const s = h.userData.s, ud = Math.max(0, u - (s > 0 ? 0.12 : 0)) / 0.88; h.position.set(s * 0.06 * (1 - ud), (o.h ?? 0.3) * (1 - ud * ud) - 0.06 * ud, 0.02 * s); h.rotation.set(2.5 * ud * s, 0.4 * s, 1.4 * ud); h.visible = ud < 1; }); }; g.userData.update(0); return g; },   // (round 1) they tumble in, one after the other
 };
