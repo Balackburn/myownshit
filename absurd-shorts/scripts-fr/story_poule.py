@@ -265,7 +265,7 @@ HEROK1c = [k(0.0, look=LKH1c), k(0.0, toon={**HKC(add(APC, [0, -0.06, 0])), 'sq'
                                     'face': {'lid': r(0.15 + 0.06 * j), 'mouth': 'smile' if j < 2 else 'line', 'brow': r(0.9 - 0.22 * j), 'browTilt': r(5 * j)}}, toonDur=0.13, toonEase='inOut') for j in range(5)],
            k(r(DENTS1c - 0.06), look='camera', lookDur=0.08),
            # the jaw drops as a block on « dents », held to the cut; the hand opens and the apple slips out
-           *take(r(DENTS1c + 0.03), 'jaw', keep={**HKC(add(AP_LOW, [0.06, 0.04, 0.05]), hr='open'), 'face': {'brow': 1.0, 'jawBlock': 1, 'jawFwd': 0.4, 'mouth': 'O'}}, hold=0.42)]
+           *take(r(DENTS1c + 0.03), 'jaw', keep={**HKC(add(AP_LOW, [0.06, 0.04, 0.05]), hr='open'), 'face': {'brow': 1.0, 'jawBlock': 1, 'jawFwd': 0.4, 'jawTeeth': 0, 'mouth': 'O'}}, hold=0.42)]
 APM1c = [(0.08, add(APC, [0, 0.05, 0]), 0.08, 'out'), (0.24, APC, 0.1, 'inOut'), (1.1, AP_LOW, 0.75, 'inOut'), *FALL(r(DENTS1c + 0.06), AP_LOW, AP_FLOOR, 0.3)]
 st.shot('S01c', 'whiteVoid', setOpts=CSET, actors=[act('guichet', CL1c, RYC1c, 'stand', 'neutral', keys=CLK1c), act('mec', HC1c, RYH1c, 'stand', 'neutral', keys=HEROK1c)],
         props=[COUNTER('1c', signX=-0.35, signW=1.45), P('form1c', 'poForm', pos=FA1c, rot=[-PI / 2, 0, 0.3], opts={'w': 0.3}, keys=MOVES(FM1c)),
@@ -518,50 +518,68 @@ st.cue('sfx:paper', 'S06b', 0.05, 0.3); st.cue('sfx:ding', 'S06b', 0.3, 0.15)
 #    pulls, the boss hangs on: a tug of war held about eight frames, the boss's rubber arm stretched across the desk, the envelope stretched between them,
 #    jerking back and forth; the boss lets go: his arm snaps back past his shoulder with a squash; the hero flies back with a squash and a closed-mouth smile
 D7 = st.dur('S07'); AUG7 = W('S07', 'L07', 5)
-DESK7 = [0.15, 0.0, -0.45]
-B7 = [0.62, 0.0, -1.15]; RYB7 = -28
-H7 = [-0.66, 0.0, 0.1]; RYH7 = 28
-F7 = [-0.4, 1.62, 4.15]; L7 = [-0.2, 1.45, -0.45]
-C7 = cam(0.0, F7, add(F7, [0.0, 0.0, -0.15]), L7, L7, lens=40, ease='inOut')
-EV7A = [0.42, 0.82, -0.66]; EV7B = [-0.32, 0.82, -0.25]; EV7C = off(H7, RYH7, 0.42, -0.1, 1.25)
-EV7T = [-0.25, 1.34, -0.36]
-GRAB7, TUG7, LET7 = 0.4, 0.58, r(AUG7 + 0.12)
-chkc('S07', C7, {'bossTop': add(B7, [0, 2.3, 0]), 'heroTop': add(H7, [0, 2.35, 0]), 'heroChin': add(H7, [0, 1.62, 0]), 'bossChin': add(B7, [0, 1.6, 0]), 'envB': EV7B, 'envT': EV7T, 'envC': EV7C, 'heroFeet': H7})
-EVM7 = [(0.04, EV7B, 0.3, 'out'), (r(GRAB7 + 0.04), EV7T, r(TUG7 - GRAB7 - 0.04), 'out'),
-        # the tug: the envelope jerks toward one, then the other
-        (r(TUG7 + 0.06), add(EV7T, [0.08, 0.02, -0.05]), 0.06, 'inOut'), (r(TUG7 + 0.13), add(EV7T, [-0.04, 0.0, 0.03]), 0.06, 'inOut'),
-        (r(TUG7 + 0.21), add(EV7T, [0.07, 0.01, -0.04]), 0.06, 'inOut'), (r(LET7 - 0.06), add(EV7T, [0.0, 0.0, 0.0]), 0.05, 'inOut'),
-        (LET7, EV7C, 0.1, 'out')]
+# (review 2) framed tight on the desk, the pull ACROSS the frame: the boss behind the desk on the right, the hero at its front-left corner, both hands
+# of the hero and the boss's right hand on the envelope; the hero yanks it to his chest, the boss leans back and his arm stretches to about twice its
+# length (held 4 frames, the envelope taut, a tremble), he lets go: the hero squashes back, the boss's arm whips home past his shoulder and wobbles; a
+# 2-frame shake on the release (the reframe of the last pass read as a glitch)
+DESK7 = [0.1, 0.0, -0.55]
+B7 = [0.55, 0.0, -1.08]; RYB7 = -32
+H7 = [-0.42, 0.0, -0.12]; RYH7 = 38
+F7 = [0.05, 1.5, 2.75]; L7 = [0.02, 1.28, -0.55]
+C7 = cam(0.0, F7, add(F7, [0.0, 0.0, -0.1]), L7, L7, lens=40, ease='inOut')
+EV7A = [0.36, 0.82, -0.72]; EV7B = [0.02, 0.82, -0.5]
+EV7G = [0.0, 1.06, -0.52]; EV7P = [-0.24, 1.2, -0.36]; EV7C = off(H7, RYH7, 0.4, 0.0, 1.22)
+GRAB7, YANK7, LET7 = 0.3, 0.55, r(AUG7 + 0.12)
+BSH7 = off(B7, RYB7, 0.0, 0.25, 1.5)
+chkc('S07', C7, {'bossTop': add(B7, [0, 2.3, 0]), 'heroTop': add(H7, [0, 2.35, 0]), 'heroChin': add(H7, [0, 1.62, 0]), 'bossChin': add(B7, [0, 1.6, 0]), 'heroL': off(H7, RYH7, 0, 0.35, 1.4),
+                  'envA': EV7A, 'envP': EV7P, 'bossShoulder': BSH7, 'deskL': add(DESK7, [-0.6, 0.76, 0.33]), 'deskR': add(DESK7, [0.6, 0.76, 0.33])})
+chkc('S07', C7, {'bossTop': add(B7, [0, 2.3, 0]), 'heroTop': add(H7, [0, 2.35, 0]), 'heroL': off(H7, RYH7, 0, 0.35, 1.4), 'envP': EV7P}, end=True)
+EVM7 = [(0.04, EV7B, 0.24, 'out'), (r(GRAB7 + 0.02), EV7G, 0.16, 'out'),
+        # a first little tug each way, then the yank to his chest (the stretch), held taut with a tremble
+        (r(GRAB7 + 0.18), add(EV7G, [0.05, 0.0, -0.02]), 0.05, 'inOut'), (r(GRAB7 + 0.23), add(EV7G, [-0.04, 0.02, 0.02]), 0.05, 'inOut'),
+        (YANK7, EV7P, 0.12, 'out'), (r(YANK7 + 0.14), add(EV7P, [0.025, 0.0, -0.01]), 0.04, 'inOut'), (r(YANK7 + 0.19), add(EV7P, [-0.02, 0.0, 0.01]), 0.04, 'inOut'),
+        (r(YANK7 + 0.24), EV7P, 0.04, 'inOut'), (LET7, EV7C, 0.07, 'out')]
 EVT7 = track(EV7A, EVM7)
 BF7 = {'lid': 0.5, 'mouth': 'frown', 'brow': -0.7}
-BG = lambda p: add(p, [0.15, 0.06, 0.0])
+BG = lambda p: add(p, [0.17, 0.0, -0.02])
 TUGS = [r(GRAB7 + 0.04 * q) for q in range(int((LET7 - GRAB7) / 0.04))]
+BREST7 = off(B7, RYB7, 0.32, 0.22, 1.05); BBACK7 = off(B7, RYB7, -0.28, 0.3, 1.62)
+def BSP(t_): return r(max(-0.34, 0.25 - 2.4 * max(0.0, t_ - GRAB7)))
 BOSSK7 = [k(0.0, look=add(H7, [0, 1.95, 0])), k(0.0, toon={**HAND(add(EV7A, [0.1, 0.06, 0.0])), 'face': BF7}, toonDur=0.0),
-          k(0.04, toon={**HAND(BG(EVT7(0.34))), 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'face': BF7}, toonDur=0.3, toonEase='out'),
-          # he hangs on: the arm follows the envelope across the desk and stretches like rubber, he leans back, teeth clenched
-          *[k(t_, toon={**HAND(BG(EVT7(r(t_ + 0.03)))), 'hose': 0.3, 'bend': {'spine': [r(max(-0.32, 0.25 - 2.2 * (t_ - GRAB7))), 0, 0, 1, None]}, 'sq': [0.95, 1.07, 0.95],
+          k(0.04, toon={**HAND(BG(EVT7(0.3))), 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'face': BF7}, toonDur=0.26, toonEase='out'),
+          # he hangs on: the hand stays on the envelope, he leans back, teeth clenched; the arm stretches as the envelope goes (a rubber hose)
+          *[k(t_, toon={**HAND(BG(EVT7(r(t_ + 0.03)))), 'hose': 0.12, 'bend': {'spine': [BSP(t_), 0, 0, 1, None]}, 'sq': [0.95, 1.07, 0.95],
                          'face': {**BF7, 'mouth': 'clench', 'brow': -1.0, 'lid': 0.3}}, toonDur=0.04) for t_ in TUGS],
-          # he lets go: the arm snaps back past his shoulder (the overshoot), a squash, then the settle
-          k(LET7, toon={**HAND(off(B7, RYB7, -0.12, -0.3, 1.5), hr='open'), 'sq': [1.12, 0.88, 1.12], 'bend': {'spine': [-0.2, 0, 0, 1, None]}, 'face': {**BF7, 'lid': 0.0, 'eye': 0.35, 'brow': 0.6, 'mouth': 'o'}}, toonDur=0.04, toonEase='out'),
-          k(r(LET7 + 0.12), toon={**HAND(off(B7, RYB7, 0.3, -0.22, 1.1), hr='open'), 'sq': [0.95, 1.06, 0.95], 'bend': {'spine': [0.04, 0, 0, 1, None]}, 'face': {**BF7, 'lid': 0.2, 'brow': 0.3}}, toonDur=0.08, toonEase='out'),
-          k(r(LET7 + 0.26), toon={**HAND(None), 'sq': [1.02, 0.98, 1.02], 'face': BF7}, toonDur=0.15),
-          *life(r(LET7 + 0.42), D7, BF7, HAND(None), blinks=[r(D7 - 0.25)], period=0.6)]
+          # he lets go: the arm whips home past his shoulder (the overshoot), then wobbles about its rest (two swings), a squash, then the settle
+          k(LET7, toon={**HAND(BBACK7, hr='open'), 'hose': 0.2, 'sq': [1.12, 0.88, 1.12], 'bend': {'spine': [-0.2, 0, 0, 1, None]}, 'wave': {'foreR': [0.05, 1.5, 0.0, 1, 0]},
+                        'face': {**BF7, 'lid': 0.0, 'eye': 0.35, 'brow': 0.6, 'mouth': 'o'}}, toonDur=0.05, toonEase='out'),
+          k(r(LET7 + 0.1), toon={**HAND(off(BREST7, RYB7, 0.18, -0.06, 0.12), hr='open'), 'hose': 0.2, 'sq': [0.95, 1.06, 0.95], 'bend': {'spine': [0.04, 0, 0, 1, None]}, 'wave': {'foreR': [0.04, 1.5, 1.0, 1, 0]},
+                                 'face': {**BF7, 'lid': 0.2, 'brow': 0.3}}, toonDur=0.07, toonEase='inOut'),
+          k(r(LET7 + 0.19), toon={**HAND(off(BREST7, RYB7, -0.08, 0.03, -0.05), hr='open'), 'hose': 0.15, 'sq': [1.03, 0.97, 1.03], 'wave': {'foreR': [0.02, 1.5, 2.0, 1, 0]}, 'face': {**BF7, 'lid': 0.3}}, toonDur=0.07, toonEase='inOut'),
+          k(r(LET7 + 0.27), toon={**HAND(off(BREST7, RYB7, 0.04, 0.0, 0.02), hr='open'), 'hose': 0.1, 'face': BF7}, toonDur=0.07, toonEase='inOut'),
+          k(r(LET7 + 0.36), toon={**HAND(None), 'sq': [1.02, 0.98, 1.02], 'face': BF7}, toonDur=0.15),
+          *life(r(LET7 + 0.52), D7, BF7, HAND(None), blinks=[r(D7 - 0.25)], period=0.6)]
 LK7 = lerp3(F7, add(B7, [0, 1.9, 0]), 0.45)
-HG = lambda p: add(p, [-0.15, 0.06, 0.0])
+# both his hands on the envelope's near half, along its width (it faces the lens)
+HG2 = lambda p, **x: HAND(add(p, [-0.2, -0.02, 0.03]), add(p, [-0.09, 0.0, 0.0]), 'grip', 'grip', **x)
+HSP = lambda t_: r(max(-0.28, 0.2 - 2.2 * max(0.0, t_ - YANK7)) if t_ >= YANK7 else 0.2)
+SMILE7 = {'lid': 0.45, 'mouth': 'smile', 'brow': 0.5}
 HEROK7 = [k(0.0, look=LK7), k(0.0, toon={**HAND(None), 'face': {**HF, 'brow': 0.6}}, toonDur=0.0),
-          k(r(GRAB7 - 0.08), toon={**HAND(None, HG(EV7B), hr='rest', hl='grip'), 'hose': 0.12, 'bend': {'spine': [0.25, 0, 0, 1, None]}, 'face': {**HF, 'brow': 0.8, 'lid': 0.1}}, toonDur=0.08, toonEase='out'),
-          *[k(t_, toon={**HAND(None, HG(EVT7(r(t_ + 0.03))), hr='rest', hl='grip'), 'hose': 0.15, 'bend': {'spine': [r(max(-0.15, 0.2 - 1.5 * (t_ - GRAB7))), 0, 0, 1, None]}, 'sq': [0.96, 1.05, 0.96],
-                         'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.5, 'puff': 0.5}}, toonDur=0.04) for t_ in TUGS],
-          k(LET7, toon={**HAND(None, add(EV7C, [0.0, -0.04, 0.0]), hr='rest', hl='grip'), 'sq': [1.14, 0.86, 1.14], 'bend': {'spine': [-0.15, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'line', 'brow': 0.9}}, toonDur=0.04, toonEase='out'),
+          k(r(GRAB7 - 0.08), toon={**HG2(EV7B), 'hose': 0.1, 'bend': {'spine': [0.22, 0, 0, 1, None]}, 'face': {**HF, 'brow': 0.8, 'lid': 0.1}}, toonDur=0.08, toonEase='out'),
+          *[k(t_, toon={**HG2(EVT7(r(t_ + 0.03))), 'hose': 0.1, 'bend': {'spine': [HSP(t_), 0, 0, 1, None]}, 'sq': [0.96, 1.05, 0.96],
+                         'face': {'lid': 0.3, 'mouth': 'line', 'brow': -0.5, 'puff': 0.6}}, toonDur=0.04) for t_ in TUGS],
+          # the snap: he flies back with a squash, the envelope clutched to his chest
+          k(LET7, toon={**HG2(EV7C), 'sq': [1.16, 0.85, 1.16], 'bend': {'spine': [-0.3, 0, 0, 1, None], 'neck': [-0.15, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'line', 'brow': 0.9}}, toonDur=0.04, toonEase='out'),
+          k(r(LET7 + 0.12), toon={**HG2(EV7C), 'sq': [0.95, 1.06, 0.95], 'bend': {'spine': [0.05, 0, 0, 1, None]}, 'face': {'lid': 0.2, 'mouth': 'line', 'brow': 0.7}}, toonDur=0.07, toonEase='out'),
           k(r(LET7 + 0.1), look='camera', lookDur=0.12),
-          k(r(LET7 + 0.14), toon={**HAND(None, add(EV7C, [0.0, -0.04, 0.0]), hr='rest', hl='grip'), 'sq': [0.97, 1.04, 0.97], 'face': {'lid': 0.45, 'mouth': 'smile', 'brow': 0.5}}, toonDur=0.1),
-          *life(r(LET7 + 0.3), D7, {'lid': 0.45, 'mouth': 'smile', 'brow': 0.5}, HAND(None, add(EV7C, [0.0, -0.04, 0.0]), hr='rest', hl='grip'), blinks=[r(D7 - 0.3)])]
+          k(r(LET7 + 0.22), toon={**HG2(EV7C), 'sq': [1.02, 0.98, 1.02], 'face': SMILE7}, toonDur=0.1),
+          *life(r(LET7 + 0.36), D7, SMILE7, HG2(EV7C), blinks=[r(D7 - 0.3)])]
 st.shot('S07', 'office', setOpts={'door': False, 'printer': False, 'carpet': False}, actors=[act('patron', B7, RYB7, 'stand', 'neutral', keys=BOSSK7), act('mec', H7, RYH7, 'stand', 'neutral', keys=HEROK7)],
-        props=[P('bureau7', 'desk', pos=DESK7, ry=0, opts={'w': 1.3, 'd': 0.7}), P('enveloppe7', 'plEnvelope', pos=EV7A, ry=r(yaw(EV7A, F7)), rot=[-0.9, 0, 0], opts={'w': 0.36, 'fat': 0.1},
-                                                                                     keys=[*MOVES(EVM7), k(r(GRAB7 + 0.04), rotTo=[-0.3, 0.0, 0.0], dur=0.12), k(r(GRAB7 + 0.06), squash=[1.35, 0.85, 1.0], dur=0.9),
-                                                                                           k(LET7, rotTo=[0.0, 0.0, 0.0], dur=0.12), k(LET7, squash=[0.8, 1.2, 1.0], dur=0.4)])],
-        cams=[C7])
-st.cue('sfx:paper', 'S07', 0.04, 0.2); st.cue('sfx:stretch', 'S07', r(GRAB7 + 0.06), 0.2); st.cue('sfx:stretch', 'S07', r(TUG7 + 0.13), 0.12); st.cue('sfx:twang', 'S07', LET7, 0.3); st.cue('sfx:kaching', 'S07', r(LET7 + 0.12), 0.18)
+        props=[P('bureau7', 'desk', pos=DESK7, ry=0, opts={'w': 1.2, 'd': 0.65}), P('enveloppe7', 'plEnvelope', pos=EV7A, ry=r(yaw(EV7A, F7)), rot=[-0.9, 0, 0], opts={'w': 0.36, 'fat': 0.1},
+                                                                                     keys=[*MOVES(EVM7), k(r(GRAB7 + 0.02), rotTo=[-0.15, 0.0, 0.0], dur=0.12), k(YANK7, squash=[1.45, 0.82, 1.0], dur=0.12),
+                                                                                           k(LET7, rotTo=[0.0, 0.0, 0.0], dur=0.08), k(LET7, squash=[0.8, 1.2, 1.0], dur=0.35)])],
+        cams=[C7], fx=[{'type': 'shake', 'at': LET7, 'dur': 0.07, 'amount': 0.018}])
+st.cue('sfx:paper', 'S07', 0.04, 0.2); st.cue('sfx:stretch', 'S07', YANK7, 0.22); st.cue('sfx:twang', 'S07', LET7, 0.3); st.cue('sfx:boing', 'S07', r(LET7 + 0.1), 0.1); st.cue('sfx:kaching', 'S07', r(LET7 + 0.2), 0.18)
 
 # 8: « Le ministre avait promis la retraite à cinquante ans. » A plain official room (wood panels, plain drapes, no flag): the minister stands
 #    proud behind his lectern; on it a framed photo of him smiling on a deckchair; he glances at it, back at us, double take (head snapping back to it,
@@ -858,24 +876,41 @@ st.cue('sfx:ding', 'S12', r(REC12 + 0.04), 0.3); st.cue('sfx:ding', 'S12', r(REC
 #     the same crate, its teeth above the caption band), both faces level, both grin at the lens: his mouth without a single tooth (the second and last time
 #     we see it), hers full, the gold tooth gleaming; the grins spring open together, and they blink at the same time
 D13 = st.dur('S13'); DENTS13 = W('S13', 'L13', 2)
-CR13 = [0.5, 0.0, -0.22]; HEN13 = [0.3, 0.5, -0.3]; HEAP13 = [0.78, 0.5, -0.12]
-H13 = [-0.3, 0.0, -0.05]; RYHH13 = 12
-F13 = [-0.6, 1.22, 3.6]; L13 = [0.2, 1.2, 0.2]
-C13 = cam(0.0, F13, add(F13, [0.03, 0.0, -0.14]), L13, L13, lens=40, ease='out')
-RYH13 = r(yaw(HEN13, F13))
-GR13 = 0.12; BL13 = r(DENTS13 + 0.45)
-chkc('S13', C13, {'henComb': add(HEN13, [0, 1.18, 0]), 'henBeak': hen_beak(HEN13, RYH13), 'heroTop': add(H13, [0, 2.2, 0]), 'heroMouth': add(H13, [0, 1.6, 0.15]),
-                  'heapL': add(HEAP13, [-0.25, 0.12, 0.05]), 'heapR': add(HEAP13, [0.28, 0.12, 0]), 'heapTop': add(HEAP13, [0, 0.33, 0]), 'crateBottom': add(CR13, [0, 0.0, 0.35])})
-TF = {'lid': 0.25, 'mouth': 'line', 'brow': 0.8}
-HEROK13 = [k(0.0, look='camera'), k(0.0, clip='kneel'), k(0.0, toon={'hip': 0, 'sq': [1.06, 0.95, 1.06], 'face': TF}, toonDur=0.0),
-           k(GR13, toon={'hip': 0, 'sq': [0.94, 1.08, 0.94], 'face': {**TF, 'brow': 1.0}}, toonDur=0.06, toonEase='outBack'),
-           k(r(GR13 + 0.2), toon={'hip': 0, 'face': TF}, toonDur=0.12), *life(0.5, D13, TF, {'hip': 0}, blinks=[BL13])]
+# (review 2) both faces in, the hero's head and shoulders whole: the crate and the heap drawn in toward the hen (the heap compact: eight apples, one more
+# than in S10, none on the wings), the camera at eye height a little above the hen's eyes (from below her open beak and teeth hid her eyes)
+CR13 = [0.35, 0.0, -0.17]; HEN13 = [0.3, 0.5, -0.36]; HEAP13 = [0.42, 0.5, 0.0]
+H13 = [-0.2, 0.0, 0.32]; RYHH13 = 14
+F13 = [0.08, 1.6, 3.5]; L13 = [0.1, 1.12, 0.0]
+C13 = cam(0.0, F13, add(F13, [0.0, 0.0, -0.12]), L13, L13, lens=44, ease='out')
+RYH13 = r(yaw(HEN13, F13) - 4)
+GR13 = r(DENTS13 + 0.0); BL13 = r(DENTS13 + 0.5)
+chkc('S13', C13, {'henComb': add(HEN13, [0, 1.18, 0]), 'henBeak': hen_beak(HEN13, RYH13), 'heroTop': add(H13, [0, 1.85, 0]), 'heroL': add(H13, [-0.36, 1.3, 0]), 'heroChin': add(H13, [0, 1.3, 0.15]),
+                  'heapL': add(HEAP13, [-0.3, 0.12, 0.05]), 'heapR': add(HEAP13, [0.3, 0.12, 0]), 'heapTop': add(HEAP13, [0, 0.42, 0]), 'crateBottom': add(CR13, [0, 0.0, 0.35])})
+chkc('S13', C13, {'henComb': add(HEN13, [0, 1.18, 0]), 'heroTop': add(H13, [0, 1.85, 0]), 'heroL': add(H13, [-0.36, 1.3, 0]), 'heapR': add(HEAP13, [0.3, 0.12, 0])}, end=True)
+TF0 = {'lid': 0.25, 'mouth': 'smile', 'brow': 0.6}
+TF = {'lid': 0.25, 'mouth': 'line', 'brow': 0.9}
+def BLINK2(t, face, keep):
+    # a blink held two frames shut (a 0.1 s blink falls between the frames of a strip): both faces close on the same frames
+    return [k(t, toon={**keep, 'face': {**face, 'lid': 1.0}}, toonDur=0.04), k(r(t + 0.14), toon={**keep, 'face': face}, toonDur=0.05)]
+HK13 = {'hip': 0}
+HEROK13 = [k(0.0, look='camera'), k(0.0, clip='kneel'), k(0.0, toon={**HK13, 'face': TF0}, toonDur=0.0),
+           *life(0.05, r(GR13 - 0.2), TF0, HK13, period=0.5),
+           # the shared grin: a squash (3 frames), then the spring open with a stretch, the overshoot, the settle
+           k(r(GR13 - 0.12), toon={**HK13, 'sq': [1.08, 0.92, 1.08], 'bend': {'neck': [0.1, 0, 0, 1, None]}, 'face': {**TF0, 'lid': 0.45}}, toonDur=0.06, toonEase='out'),
+           k(GR13, toon={**HK13, 'sq': [0.92, 1.1, 0.92], 'bend': {'neck': [-0.08, 0, 0, 1, None]}, 'face': {**TF, 'brow': 1.0, 'lid': 0.1}}, toonDur=0.05, toonEase='outBack'),
+           k(r(GR13 + 0.12), toon={**HK13, 'sq': [1.03, 0.97, 1.03], 'face': TF}, toonDur=0.08),
+           k(r(GR13 + 0.22), toon={**HK13, 'face': TF}, toonDur=0.1),
+           *life(r(GR13 + 0.34), D13, TF, HK13, period=0.5, blinks=()), *BLINK2(BL13, TF, HK13)]
+HSQ13 = [[0, 1, 1, 1], [r(GR13 - 0.2), 1, 1, 1], [r(GR13 - 0.08), 1.1, 0.88, 1.1], [GR13, 0.9, 1.14, 0.9], [r(GR13 + 0.12), 1.04, 0.96, 1.04], [r(GR13 + 0.24), 1, 1, 1]]
 st.shot('S13', 'grassland', setOpts=GSET, look=LOOKG, actors=[act('mec', H13, RYHH13, 'kneel', 'neutral', keys=HEROK13)],
-        props=[*GARDEN(13), P('caisse13', 'poCrate', pos=CR13, opts={'w': 1.1, 'h': 0.5, 'd': 0.7}), P('tas13', 'poApplePile', pos=HEAP13, ry=r(yaw(HEAP13, F13)), opts={'n': 7, 'gold': 4, 'r': 0.085, 'spark': [r(DENTS13 + 0.25)]}),
-               HEN('poule13', HEN13, RYH13, teeth=[[0, 6]], gold=GOLD, open=[[0, 0.2], [GR13, 1.0]], spark=[r(DENTS13 + 0.02)], squint=[[0, 0.5]], brow=[[0, 0.7]], blinks=[BL13], sq=[[0, 1.06, 0.95, 1.06], [GR13, 0.94, 1.08, 0.94], [r(GR13 + 0.2), 1, 1, 1]]),
-               GRIN('sourire13', 'none', [[0.0, 0.2], [GR13, 1.15], [r(GR13 + 0.08), 1.0]])],
+        props=[*GARDEN(13), P('caisse13', 'poCrate', pos=CR13, opts={'w': 1.0, 'h': 0.5, 'd': 0.75}),
+               P('tas13', 'poApplePile', pos=HEAP13, ry=r(yaw(HEAP13, F13)), opts={'n': 8, 'pick': [0, 1, 2, 3, 4, 7, 8, 9], 'gold': 4, 'r': 0.085, 'spark': [r(GR13 + 0.3)]}),
+               HEN('poule13', HEN13, RYH13, teeth=[[0, 6]], gold=GOLD, open=[[0, 0.0], [r(GR13 - 0.03), 0.0], [r(GR13 + 0.04), 1.15], [r(GR13 + 0.12), 0.92], [r(GR13 + 0.2), 1.0]],
+                   spark=[r(GR13 + 0.1)], squint=[[0, 0.15], [r(GR13 - 0.08), 0.5], [GR13, 0.0], [r(GR13 + 0.2), 0.1]], brow=[[0, 0.5], [GR13, 1.0], [r(GR13 + 0.2), 0.7]],
+                   pitch=[[0, 0.1], [r(GR13 - 0.08), 0.18], [GR13, 0.02], [r(GR13 + 0.2), 0.08]], yaw=[[0, 0.0]], gaze=[[0, 0, 0]], blinks=[BL13, r(BL13 + 0.05)], sq=HSQ13),
+               GRIN('sourire13', 'none', [[0.0, 0.0], [r(GR13 - 0.03), 0.0], [r(GR13 + 0.04), 1.2], [r(GR13 + 0.12), 0.9], [r(GR13 + 0.2), 1.0]])],
         cams=[C13])
-st.cue('sfx:ding', 'S13', r(DENTS13 + 0.04), 0.3); st.cue('sfx:boing', 'S13', GR13, 0.1)
+st.cue('sfx:ding', 'S13', r(GR13 + 0.1), 0.3); st.cue('sfx:boing', 'S13', GR13, 0.12)
 
 # 14: « Dents retrouvées : remboursement annulé. » The lobby of the office building: the retirees file back in through the glass door with their
 #     folded deckchairs under their arms, glum and slumped, the minister last with his fishing rod drooping

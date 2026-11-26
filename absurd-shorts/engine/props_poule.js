@@ -259,7 +259,8 @@ export const POULE_PROPS = {
   poApplePile(o) {
     const r = o.r ?? 0.1, g = grp(), A = [];
     const N = Math.min(PILE.length, Math.max(o.n ?? 1, ...(o.add || []).map(q => q[1])));
-    for (let i = 0; i < N; i++) { const [x, lv, z] = PILE[i], d = [(hsh(i * 3.3) - 0.5) * 0.7 + x * 1.2, 0.55 + 0.25 * hsh(i * 5.1), 1.0];
+    // (story 104, review 2) o.pick [index...]: which places of PILE the apples take, in order (a compact heap: no apple out on the wings)
+    for (let i = 0; i < N; i++) { const [x, lv, z] = PILE[o.pick ? (o.pick[i] ?? i) : i], d = [(hsh(i * 3.3) - 0.5) * 0.7 + x * 1.2, 0.55 + 0.25 * hsh(i * 5.1), 1.0];
       const a = appleMesh(r, d, i === o.gold ? 'gold' : 'white', false, i + 2); a.rotation.y = (hsh(i * 7.7) - 0.5) * 0.4; const y0 = r * 0.9 + lv * r * 1.45; a.position.set(x, y0, z); g.add(a); A.push({ a, y0 }); }
     const sp = starSprite('#FFF6D0'); g.add(sp);
     g.userData.update = t => {
@@ -756,6 +757,16 @@ export const POULE_PROPS = {
   // that grow, rise and fade in o.dur (0.75) s (soft translucent puffs, o.n of them); o.r (0.35)
   poPuff(o) {
     const g = grp(), R = o.r ?? 0.35, D = o.dur ?? 0.75, NP = o.n ?? 10, P_ = [];
+    // (story 104, review 2) o.ring: an opaque cartoon puff instead of the translucent cloud: inked white balls that burst out flat along the floor of the
+    // pivot in a ring, swell, then shrink away to nothing (never transparent: a translucent cloud over a body reads as a ghost); o.rise (m) how high they lift
+    if (o.ring) {
+      for (let i = 0; i < NP; i++) { const m = ink(new THREE.Mesh(new THREE.IcosahedronGeometry(0.05, 1), L(i % 2 ? '#FFFFFF' : '#F1ECE0', { emissive: '#5A564E' })), 0.1); m.castShadow = m.receiveShadow = false; g.add(m); P_.push(m); }
+      g.userData.update = t => { let d = -1; for (const t0 of o.at || []) if (t >= t0 && t < t0 + D) d = t - t0;
+        P_.forEach((m, i) => { m.visible = d >= 0; if (d < 0) return; const u = d / D, a = i / NP * TAU + hsh(i) * 0.3, k = 1 - Math.pow(1 - Math.min(1, u * 1.6), 3), rr = R * (0.25 + 0.75 * k) * (0.85 + 0.3 * hsh(i * 2));
+          const sz = Math.sin(PI * Math.min(1, u * 1.15)) * (0.75 + 0.5 * hsh(i * 5)); m.position.set(Math.cos(a) * rr, 0.035 + (o.rise ?? 0.05) * k * hsh(i * 7), Math.sin(a) * rr * (o.flat ?? 0.6));
+          m.scale.setScalar(Math.max(0.01, (o.size ?? 1) * sz)); }); };
+      g.userData.update(0); return g;
+    }
     for (let i = 0; i < NP; i++) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(0.05, 1), new THREE.MeshLambertMaterial({ color: i % 2 ? '#FBF8F0' : '#F0EADC', emissive: '#4A463E', transparent: true, opacity: 0.4, depthWrite: false })); m.castShadow = m.receiveShadow = false; g.add(m); P_.push(m); }
     g.userData.update = t => { let d = -1; for (const t0 of o.at || []) if (t >= t0 && t < t0 + D) d = t - t0;
       P_.forEach((m, i) => { m.visible = d >= 0; if (d < 0) return; const u = d / D, a = i / NP * TAU + hsh(i) * 0.6, k = smooth(Math.min(1, u * 1.7)), rr = R * k * (0.7 + 0.5 * hsh(i * 2));

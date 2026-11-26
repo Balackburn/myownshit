@@ -263,7 +263,8 @@ function headOverlays(head, hm, dim, skin) {
     // instead of through it
     const blk = Math.max(0, Math.min(1, f.jawBlock || 0)), jf = f.jawFwd != null ? Math.round(f.jawFwd * 500) / 500 : null, fw = jf ?? Math.min(0.055, drop * 0.5);
     deform?.(Math.round(drop * 500) / 500, Math.round(blk * 20) / 20, jf, Math.round(Math.max(0, Math.min(1.4, f.swell || 0)) * 50) / 50);   // (pass 2 of 64) face.swell: the cheeks blown out
-    cavity.visible = blk > 0.5 && drop > 0.01; teeth[0].visible = teeth[1].visible = cavity.visible;
+    // (story 104, review 2) face.jawTeeth 0: the block jaw opens on an empty dark cavity, no rows of teeth (a toothless or a mouth not to be shown again)
+    cavity.visible = blk > 0.5 && drop > 0.01; teeth[0].visible = teeth[1].visible = cavity.visible && (f.jawTeeth ?? 1) > 0.5;
     if (cavity.visible) { const top = 0.3 * hh, bot = 0.24 * hh - drop, tilt = -Math.atan2(fw, top - bot), th = 0.07 * hh, zAt = y => hd / 2 + fw * (top - y) / (top - bot);
       cavity.position.set(0, top, hd / 2 + 0.007); cavity.rotation.x = tilt; cavity.scale.set(hw * 0.56, Math.max(0.001, Math.hypot(top - bot, fw)), 1);
       [0.28 * hh - th / 2, 0.28 * hh - drop + th / 2].forEach((y, i) => { teeth[i].position.set(0, y, zAt(y) + 0.011); teeth[i].rotation.x = tilt; teeth[i].scale.set(hw * 0.5, th, 1); }); }
