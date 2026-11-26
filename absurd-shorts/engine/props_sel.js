@@ -557,7 +557,7 @@ export const SEL_PROPS = {
     for (let i = 0; i < N * 3 && k < N; i++) { const x = (hsh(i * 1.7) - 0.5) * W, z = (hsh(i * 2.9 + 5) - 0.5) * D; if (x > cl[0] && x < cl[1] && z > cl[2] && z < cl[3]) continue; base.push([x, z, hsh(i * 4.1) * TAU, 0.85 + hsh(i * 6.3) * 0.4]); k++; }
     ms.count = me.count = base.length;
     // (round 1) o.gust [[t0, dur], ...]: a front of wind crosses the field along o.gustDir at o.gustV m/s and bows every stalk it reaches by up to o.gustA rad
-    const gd = o.gustDir || [0, 1], gl = Math.hypot(gd[0], gd[1]) || 1, gx = gd[0] / gl, gz = gd[1] / gl, Qb = new THREE.Quaternion(), AX = new THREE.Vector3(gz, 0, -gx), d0 = -Math.max(W, D) / 2;
+    const gd = o.gustDir || [0, 1], gl = Math.hypot(gd[0], gd[1]) || 1, gx = gd[0] / gl, gz = gd[1] / gl, Qb = new THREE.Quaternion(), AX = new THREE.Vector3(gz, 0, -gx), d0 = o.gustD0 ?? -Math.max(W, D) / 2;
     const bow = (t, x, z) => { let a = 0; for (const [t0, du] of o.gust || []) { const u = (t - t0 - (x * gx + z * gz - d0) / (o.gustV ?? 14)) / du; if (u > 0 && u < 1) a += Math.sin(PI * u) * (1 + 0.25 * Math.sin(u * 19 + x)); } return a * (o.gustA ?? 0.6); };
     const place = t => { base.forEach(([x, z, ph, s], i) => { E.set(0.12 * Math.sin(t * 2 + x * 0.4 + ph * 0.3), ph, 0.1 * Math.sin(t * 1.7 + z * 0.5)); Q.setFromEuler(E); const b = o.gust ? bow(t, x, z) : 0; if (b) { Qb.setFromAxisAngle(AX, b); Q.premultiply(Qb); } Sv.set(s, s, s); Pv.set(x, 0.04, z); M.compose(Pv, Q, Sv); ms.setMatrixAt(i, M); me.setMatrixAt(i, M); });
       ms.instanceMatrix.needsUpdate = true; me.instanceMatrix.needsUpdate = true; };

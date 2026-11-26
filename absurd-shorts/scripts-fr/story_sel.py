@@ -146,7 +146,9 @@ def TALK(t0, t1, face, keep=None, step=0.1, nod=0.05, tilt=0.0):
         t_ += step; i += 1
     return out
 def NOSHADOW(pid, who): return P(pid, 'poNoShadow', pos=[0, 0, 0], opts={'who': who})
-
+# (round 1) the ground disc of a set gets holes under its own flat strips (the road 4 mm over the lawn flickered green in S12 and S15): seGroundCut
+def GCUT_STREET(n): return P(f'solRue{n}', 'seGroundCut', pos=[0, 0, 0], opts={'color': '#8DBB5E', 'holes': [[-160.0, 160.0, 0.06, 8.94]]})
+def GCUT_GARDEN(n): return P(f'solJardin{n}', 'seGroundCut', pos=[0, 0, 0], opts={'color': '#8FAE7A', 'holes': [[0.4, 1.54, -4.0, 2.1], [-29.9, 29.9, 2.43, 4.77], [-29.9, 29.9, 5.05, 12.95]]})
 # ============================== the shaker, the heaps, the cutlery
 SH_H = 0.36; SH_GRIP = 0.13                  # the shaker (seShaker): its height, and where a mitten holds it above its base
 FULL, Q3, HALF, EMPTY = 1.0, 0.75, 0.5, 0.0  # the running gag's four states (S01c a notch under full, S07b three quarters, S10c half, S14 empty)
@@ -400,7 +402,7 @@ EK2 = [k(-0.5, look=[2.1, TH, -0.5]), k(0.0, toon={**EH2(LEAFP0[2]), 'bend': {'s
        k(r(TS2 + 0.5), look='camera', lookDur=0.2), *life(r(TS2 + 0.6), D2, {**EF2, 'mouth': 'smile'}, RESTK(CE2, RYE2, y=1.0), blinks=[r(D2 - 0.5)], period=0.6)]
 st.shot('S02', 'whiteVoid', setOpts=DSET,
         actors=[act('mec', H2a, RYH, 'sit', 'neutral', keys=HK2), act('cD', CD, RYD2, 'sit', 'neutral', keys=DK2), act('cC', CC, RYC2, 'sit', 'neutral', keys=CK2), act('cE', CE2, RYE2, 'stand', 'neutral', keys=EK2)],
-        props=[DINING(2), MAINSEG(2), ENDSEG(2, hx_after(0), ENDK2), ROAST(2, hx_after(0), ROK2), HCHAIR(2, hx_after(0), HCK2),
+        props=[DINING(2, ceiling=False), MAINSEG(2), ENDSEG(2, hx_after(0), ENDK2), ROAST(2, hx_after(0), ROK2), HCHAIR(2, hx_after(0), HCK2),
                UTENSIL('couteau2', 'knife', ubase(KR2a), 0, keys=UKM2), UTENSIL('fourchette2', 'fork', ubase(KL2a), 0, keys=UFM2),
                LEAFSEG('2', LEAFP0[0], keys=[k(0.0, to=LEAFP0, dur=0.0), k(r(TS2 - 0.3), to=add(LEAFP0, [0, 0, -0.14]), dur=0.12, ease='out'), k(r(TS2 - 0.06), to=LEAFP1, dur=0.08, ease='in')]),
                SHAKER('sel2', SP2.pos0, 0.9, keys=SP2.keys()), HEAP('tas2', plate_at(-2.2, -1)), NOSHADOW('ns2', ['mec', 'cD', 'cC', 'cE'])],
@@ -491,26 +493,32 @@ UPR = [PI / 2, 0.0, 0.0]
 # 4: « Rallonge. » Two of the brothers march in carrying a big leaf upright like a door, along the far side of the table toward his end; he follows it with his
 #    eyes, knife and fork still upright, one slow blink (RALLONGE stamps)
 D4 = st.dur('S04'); H4 = [hx_after(1), 0, 0]
-LF4a = [1.15, 1.25, -1.45]; LF4b = [2.3, 1.25, -1.45]
-WK4 = lambda p, dx: [r(p[0] + dx), 0.0, -1.45]
-F4, L4, LN4 = FIT([1.75, 1.55, 2.6], {'f1top0': [r(LF4a[0] - 0.62), 2.3, -1.45], 'f2top1': [r(LF4b[0] + 0.62), 2.3, -1.45], 'leafLow': add(LF4a, [-0.5, -0.5, 0]), 'f1feet': [r(LF4a[0] - 0.62), 0.2, -1.45]}, back=True, inside=ROOM, margin=0.12, top=0.22, bottom=0.78)
-C4 = cam(0.0, F4, add(F4, [0.05, 0.0, -0.06]), L4, L4, lens=LN4, ease='inOut')
-chkc('S04', C4, {'heroTop': add(H4, [0, 2.0, 0]), 'heroChin': add(H4, [0, 1.3, 0]), 'f1top': [r(LF4a[0] - 0.62), 2.3, -1.45], 'f2top': [r(LF4b[0] + 0.62), 2.3, -1.45], 'leafTop': add(LF4b, [0, 0.52, 0])})
+# (round 1) he is in the foreground, three-quarter and close; the brothers march the upright leaf along the far side BEHIND him; his eyes follow it
+# (the head a little, the pupils the rest), then one slow blink; the camera pushes in
+LZ4 = -2.15
+LF4a = [2.75, 1.25, LZ4]; LF4b = [5.05, 1.25, LZ4]
+WK4 = lambda p, dx: [r(p[0] + dx), 0.0, LZ4]
+KR4, KL4 = hero_hands(H4, RYH)
+F4, L4, LN4 = FIT([2.0, 1.35, 2.35], {'heroTop': add(H4, [0, 2.02, 0]), 'heroChin': add(H4, [0, 1.25, 0]), 'knife': add(KR4, [0, 0.44, 0]), 'heroBack': add(H4, [0.35, 1.5, 0.0]), 'leafL': [3.3, 1.6, LZ4], 'f2top1': [r(LF4b[0] + 0.62), 2.3, LZ4]}, back=True, inside=ROOM, margin=0.1, top=0.21, bottom=0.78)
+C4 = cam(0.0, F4, lerp3(F4, add(H4, [0, 1.6, 0]), 0.12), L4, L4, lens=LN4, ease='inOut')
+chkc('S04', C4, {'heroTop': add(H4, [0, 2.0, 0]), 'heroChin': add(H4, [0, 1.3, 0]), 'f1top0': [r(LF4a[0] - 0.62), 2.3, LZ4], 'f2top1': [r(LF4b[0] + 0.62), 2.3, LZ4], 'leafTop1': add(LF4b, [0, 0.52, 0])})
 def CARRY(t0, t1, p0, p1, dx, face, step=0.1):
     # a brother carrying the upright leaf by its end (both hands on its edge) while he walks
     out, t_ = [], t0
     while t_ <= t1 + 1e-6:
-        u = min(1.0, (t_ - t0) / max(0.01, t1 - t0)); c = lerp3(p0, p1, u); sd = 1 if dx < 0 else -1
-        out.append(k(r(t_), toon={**HAND([r(c[0] + dx), r(c[1] + 0.2), r(c[2] + 0.06)], [r(c[0] + dx), r(c[1] - 0.25), r(c[2] + 0.06)], 'grip', 'grip'), 'face': face}, toonDur=r(step * 0.9))); t_ += step
+        u = min(1.0, (t_ - t0) / max(0.01, t1 - t0)); c = lerp3(p0, p1, u)
+        out.append(k(r(t_), toon={**HAND([r(c[0] + dx), r(c[1] + 0.2), r(c[2] + 0.06)], [r(c[0] + dx), r(c[1] - 0.25), r(c[2] + 0.06)], 'grip', 'grip'), 'sq': [1.0, r(1.0 + 0.025 * math.sin(t_ * 22)), 1.0], 'face': face}, toonDur=r(step * 0.9))); t_ += step
     return out
 def BRWALK(who, p0, p1, t0, t1, dx, lp0, lp1):
-    return [k(-0.5, look=F4), k(t0, to=p1, dur=r(t1 - t0), clip='walk', ease='linear', face=90), *CARRY(0.0, t1, lp0, lp1, dx, BF)]
+    return [k(-0.5, look=lerp3(add(p0, [1.0, 1.9, 0]), F4, 0.6)), k(t0, to=p1, dur=r(t1 - t0), clip='walk', ease='linear', face=90), *CARRY(0.0, t1, lp0, lp1, dx, {**BF, 'brow': 0.8})]
 B4a = WK4(LF4a, -0.62); B4b = WK4(LF4a, 0.62)
-HK4 = [SIT(), k(-0.5, look=add(LF4a, [0, 0.2, 0])), k(0.0, toon={**KF(H4, RYH), 'face': HF}, toonDur=0.0),
-       k(0.1, toon={**KF(H4, RYH), 'sq': [0.96, 1.04, 0.96], 'face': {**HF, 'lid': 0.0, 'eye': 0.3, 'brow': 0.9, 'mouth': 'line'}}, toonDur=0.06, toonEase='outBack'),
-       k(0.1, look=add(LF4b, [0, 0.2, 0]), lookDur=0.6), *blink(0.6, {**HF, 'lid': 0.1, 'brow': 0.7, 'mouth': 'line'}, KF(H4, RYH)),
-       k(0.75, toon={**KF(H4, RYH), 'face': {**HF, 'lid': 0.1, 'brow': 0.7, 'mouth': 'line'}}, toonDur=0.1)]
-KR4, KL4 = hero_hands(H4, RYH)
+F4f = {**HF, 'lid': 0.05, 'eye': 0.25, 'brow': 0.8, 'mouth': 'line'}
+HK4 = [SIT(), k(-0.5, look=lerp3(add(LF4a, [0, 0.3, 0]), F4, 0.55)), k(0.0, toon={**KF(H4, RYH), 'face': {**F4f, 'gx': -0.45, 'eye': 0.1}}, toonDur=0.0),
+       k(0.06, toon={**KF(H4, RYH), 'sq': [0.95, 1.05, 0.95], 'face': {**F4f, 'gx': -0.5}}, toonDur=0.06, toonEase='outBack'),
+       k(0.12, look=lerp3(add(LF4b, [0, 0.3, 0]), F4, 0.5), lookDur=0.62),
+       k(0.2, toon={**KF(H4, RYH), 'face': {**F4f, 'gx': -0.7}}, toonDur=0.12), k(0.4, toon={**KF(H4, RYH), 'face': {**F4f, 'gx': -0.95}}, toonDur=0.14),
+       # one slow blink (lids down over 4 frames, shut 2, up over 4)
+       k(0.58, toon={**KF(H4, RYH), 'face': {**F4f, 'gx': -0.95, 'lid': 1.0}}, toonDur=0.12), k(0.76, toon={**KF(H4, RYH), 'sq': [1.0, 1.015, 1.0], 'face': {**F4f, 'gx': -0.9, 'lid': 0.15}}, toonDur=0.13)]
 st.shot('S04', 'whiteVoid', setOpts=DSET, actors=[act('mec', H4, RYH, 'sit', 'neutral', keys=HK4),
         act('f1', B4a, 90, 'stand', 'neutral', keys=BRWALK('f1', B4a, WK4(LF4b, -0.62), 0.0, D4, -0.5, LF4a, LF4b)),
         act('f2', B4b, 90, 'stand', 'neutral', keys=BRWALK('f2', B4b, WK4(LF4b, 0.62), 0.0, D4, 0.5, LF4a, LF4b))],
@@ -519,7 +527,6 @@ st.shot('S04', 'whiteVoid', setOpts=DSET, actors=[act('mec', H4, RYH, 'sit', 'ne
         cams=[C4])
 st.card('S04', 'RALLONGE', at=0.05)
 for t_ in (0.1, 0.4, 0.7): st.cue('sfx:step', 'S04', t_, 0.15)
-
 # 4b: « Entre le sel et ce mec. » Low behind the shaker standing on the runner (big in the foreground): the brothers swing the leaf down flat into the table
 #     right in front of his plate, CLACK: he skids back a metre again, chair, roast and all, and shrinks into the distance; they spring back, dust their
 #     mittens; he blinks at us over his upright knife and fork
@@ -568,22 +575,28 @@ st.cue('whoosh', 'S04b', 0.2, 0.12, 0.3, 500, 2000); st.cue('clack', 'S04b', TS4
 # 5: « Puis trois bébés. » From behind three high chairs that pop in one after another along the near side of the table (a squash, an overshoot): three
 #    bonnets, the ties of three bibs, three spoons that start banging on the trays; across the table two cousins jump at each pop
 D5 = st.dur('S05'); HC5 = [[0.0, 0.0, 0.95], [0.9, 0.0, 0.95], [1.8, 0.0, 0.95]]; POP5 = [0.06, 0.3, 0.54]
-F5, L5, LN5 = FIT([0.9, 2.15, 3.55], {'hc0': add(HC5[0], [0, 1.4, 0]), 'hc2': add(HC5[2], [0, 1.4, 0]), 'hcBase': add(HC5[1], [0, 0.2, 0]), 'cDtop': add(SEAT['cD'], [0, 1.95, 0]), 'cCtop': add(SEAT['cC'], [0, 1.95, 0])}, margin=0.13, top=0.13, bottom=0.78)
-C5 = cam(0.0, F5, add(F5, [0.0, -0.05, -0.12]), L5, L5, lens=LN5, ease='inOut')
-chkc('S05', C5, {'hc0': add(HC5[0], [0, 1.4, 0]), 'hc2': add(HC5[2], [0, 1.4, 0]), 'cDtop': add(SEAT['cD'], [0, 1.95, 0]), 'cDchin': add(SEAT['cD'], [0, 1.35, 0]), 'cCtop': add(SEAT['cC'], [0, 1.95, 0])})
+# (round 1) lower and closer: the bonnets and the bib ties fill the bottom third, the two cousins across the table above them, each pop a stretch,
+# a squash, an overshoot and a settle (seHighChair pop), each cousin hopping off his seat at each pop
+F5, L5, LN5 = FIT([0.95, 1.85, 2.2], {'hc0': add(HC5[0], [0, 1.42, 0]), 'hc2': add(HC5[2], [0, 1.42, 0]), 'hcSeat': add(HC5[1], [0, 0.95, 0]), 'cDtop': add(SEAT['cD'], [0, 2.1, 0]), 'cCtop': add(SEAT['cC'], [0, 2.1, 0])}, margin=0.1, top=0.12, bottom=0.78, lenses=range(22, 57))
+C5 = cam(0.0, F5, add(F5, [0.0, -0.03, -0.12]), L5, L5, lens=LN5, ease='inOut')
+chkc('S05', C5, {'hc0': add(HC5[0], [0, 1.42, 0]), 'hc2': add(HC5[2], [0, 1.42, 0]), 'hcTray': add(HC5[1], [0, 0.98, 0]), 'cDtop': add(SEAT['cD'], [0, 1.95, 0]), 'cDchin': add(SEAT['cD'], [0, 1.35, 0]), 'cCtop': add(SEAT['cC'], [0, 1.95, 0])})
 BONNETS = ['#F2A8BC', '#9FD0F0', '#F4DC7A']
 def HCH(n, i, pop=None, bang=None): return P(f'chaiseHaute{n}_{i}', 'seHighChair', pos=HC5[i], ry=180, opts={'bonnet': BONNETS[i], 'seed': i, **({'pop': pop} if pop is not None else {}), **({'bang': bang} if bang else {})})
 def DINERK(who, D, blinks=(), startles=()):
-    p, ry_ = SEAT[who], RYS[who]; out = [SIT(), k(-0.5, look=lerp3(add(HC5[1], [0, 1.2, 0]), F5, 0.4)), k(0.0, toon={**RESTK(p, ry_), 'face': DF}, toonDur=0.0)]
-    for t_ in startles: out += react(t_, 0.6, keep=RESTK(p, ry_), kind='wince')
-    return out + life(r(max(startles or [0]) + 0.55), D, DF, RESTK(p, ry_), blinks=list(blinks), period=0.6)
-st.shot('S05', 'whiteVoid', setOpts=DSET, actors=[act('cD', SEAT['cD'], RYS['cD'], 'sit', 'neutral', keys=DINERK('cD', D5, startles=[0.08, 0.32, 0.56])), act('cC', SEAT['cC'], RYS['cC'], 'sit', 'neutral', keys=DINERK('cC', D5, startles=[0.1, 0.34, 0.58]))],
+    # a hop off the seat at each pop: up 0.17 m stretched with the hair up and the eyes wide, down onto a squash, then a settle
+    p, ry_ = SEAT[who], RYS[who]; rk = RESTK(p, ry_); out = [SIT(), k(-0.5, look=lerp3(add(HC5[1], [0, 1.2, 0]), F5, 0.4)), k(0.0, toon={**rk, 'face': DF}, toonDur=0.0)]
+    for t_ in startles:
+        out += [k(r(t_), to=add(p, [0, 0.17, 0]), dur=0.06, ease='out', glide=True, face='keep'), k(r(t_ + 0.09), to=list(p), dur=0.07, ease='in', glide=True, face='keep'),
+                k(r(t_), toon={**rk, 'sq': [0.88, 1.16, 0.88], 'hairUp': 0.7, 'auto': 0, 'face': {**DF, 'lid': 0.0, 'eye': 0.35, 'brow': 1.0, 'mouth': 'o', 'jaw': 0.2}}, toonDur=0.04, toonEase='out'),
+                k(r(t_ + 0.16), toon={**rk, 'sq': [1.1, 0.9, 1.1], 'auto': 0, 'face': {**DF, 'lid': 0.1, 'eye': 0.2, 'brow': 0.8, 'mouth': 'line'}}, toonDur=0.03),
+                k(r(t_ + 0.22), toon={**rk, 'face': {**DF, 'brow': 0.6, 'eye': 0.1}}, toonDur=0.06)]
+    return out + life(r(max(startles or [0]) + 0.3), D, {**DF, 'brow': 0.5}, rk, blinks=list(blinks), period=0.5)
+st.shot('S05', 'whiteVoid', setOpts=DSET, actors=[act('cD', SEAT['cD'], RYS['cD'], 'sit', 'neutral', keys=DINERK('cD', D5, startles=[0.08, 0.32, 0.56], blinks=[0.98])), act('cC', SEAT['cC'], RYS['cC'], 'sit', 'neutral', keys=DINERK('cC', D5, startles=[0.1, 0.34, 0.58], blinks=[1.04]))],
         props=[DINING(5), MAINSEG(5, chairs=NEARCH), *LEAVES(5, 2), *HERO_END(5, 2), *[HCH(5, i, POP5[i], [[r(POP5[i] + 0.3), 9]]) for i in range(3)], SHAKER('sel5', SHB4, 0.9), NOSHADOW('ns5', ['cD', 'cC'])],
         cams=[C5])
 GAG('S05', 0.6, 'cD', 'babies pop')
 for t_ in POP5: st.cue('sfx:pop', 'S05', t_, 0.25)
 for t_ in (0.4, 0.62, 0.84, 1.0): st.cue('sfx:clink', 'S05', t_, 0.08)
-
 # 5b: « Trois chaises hautes. Trois rallonges. » Down the whole table from mamie's end, long lens: the three high chairs in a row, spoons banging; three
 #     leaves slam in one after the other from the side, CLACK, CLACK, CLACK, and each time he skids further back; the third shoots him out through the
 #     doorway into the hall, where he comes to rest, knife and fork upright, and blinks
@@ -641,7 +654,7 @@ def CUZ6(p, ry_, sd):
             *life(r(TS6 + 0.95), D6, {**CF6, 'mouth': 'smile'}, STANDK(), blinks=[r(D6 - 0.3)], period=0.5)]
 TABLE_O = {'w': TW, 'flutter': True}
 st.shot('S06', 'pavillon', setOpts=GSET6, actors=[act('cB', CB6, 55, 'stand', 'neutral', keys=CUZ6(CB6, 55, 1)), act('cD', CD6, -60, 'stand', 'neutral', keys=CUZ6(CD6, -60, -1))],
-        props=[P('table6a', 'seTable', pos=SEGA6, ry=90, opts={**TABLE_O, 'len': 2.5, 'places': [[-0.8, 1], [0.0, -1], [0.7, 1]], 'chairs': [[-0.8, 1], [0.0, -1], [0.7, 1], [-0.6, -1]]}),
+        props=[GCUT_GARDEN(6), P('table6a', 'seTable', pos=SEGA6, ry=90, opts={**TABLE_O, 'len': 2.5, 'places': [[-0.8, 1], [0.0, -1], [0.7, 1]], 'chairs': [[-0.8, 1], [0.0, -1], [0.7, 1], [-0.6, -1]]}),
                P('table6b', 'seTable', pos=SEGB6, ry=90, opts={**TABLE_O, 'len': 2.0, 'places': [[0.4, -1], [-0.3, 1]], 'chairs': [[0.4, -1], [-0.3, 1], [0.6, 1]]}),
                P('rallonge6', 'seLeaf', pos=LV6(1.05), ry=90, opts={'len': LEAF, 'w': TW}, keys=[k(0.08, to=LV6(1.12), dur=0.06, ease='out'), k(r(TS6 - 0.1), to=LV6(TH - 0.03), dur=0.1, ease='in'), k(TS6, squash=[1.0, 0.7, 1.0], dur=0.3)])],
         cams=[C6])
@@ -667,7 +680,7 @@ HK6b = [SIT(), k(-0.5, look='camera'), k(0.0, to=add(H6, [r(-V6 * D6b * 1.4), 0,
         k(0.62, look='camera', lookDur=0.12)]
 HK6b += blink(0.78, {**HF, 'mouth': 'line'}, KF(HMOVE6(0.8), RY6))
 st.shot('S06b', 'cottageStreet', actors=[act('mec', H6, RY6, 'sit', 'neutral', keys=HK6b)],
-        props=[P('table6b', 'seTable', pos=[r(X60 + 3.9), 0, Z6], opts={'len': 7.0, 'w': TW, 'places': [[-2.6, 1], [-1.4, -1], [0.0, 1], [1.4, -1], [2.8, 1]], 'chairs': [[-1.4, -1], [0.0, 1], [2.8, 1]]}, keys=GO6([r(X60 + 3.9), 0, Z6])),
+        props=[GCUT_STREET('6b'), P('table6b', 'seTable', pos=[r(X60 + 3.9), 0, Z6], opts={'len': 7.0, 'w': TW, 'places': [[-2.6, 1], [-1.4, -1], [0.0, 1], [1.4, -1], [2.8, 1]], 'chairs': [[-1.4, -1], [0.0, 1], [2.8, 1]]}, keys=GO6([r(X60 + 3.9), 0, Z6])),
                P('roti6b', 'seRoast', pos=[r(X60 + 0.72), TH, Z6], ry=90, keys=GO6([r(X60 + 0.72), TH, Z6])), P('chaise6b', 'seChair', pos=[r(X60 - 0.05), 0, Z6], ry=90, keys=GO6([r(X60 - 0.05), 0, Z6])),
                UTENSIL('couteau6b', 'knife', ubase(KR6), 90, keys=GO6(ubase(KR6))), UTENSIL('fourchette6b', 'fork', ubase(KL6), 90, keys=GO6(ubase(KL6))), NOSHADOW('ns6b', ['mec'])],
         cams=[C6b])
@@ -678,22 +691,23 @@ st.cue('sfx:rattle', 'S06b', 0.0, 0.12)
 #    weighs a leek in her mitten (it bobs, she squints); the trader leans in rubbing his mittens, all grin
 D7 = st.dur('S07'); Z7 = 4.5
 MAR = [0.35, 0.0, 3.62]; CLI = [-1.15, 0.0, 3.9]; RYCL = 35
-F7, L7, LN7 = FIT([1.6, 1.55, 8.4], {'awTop': [0.0, 2.75, Z7], 'awL': [-1.1, 2.6, Z7 + 0.6], 'awR': [1.1, 2.6, Z7 + 0.6], 'marTop': add(MAR, [0, 2.35, 0]), 'cliTop': add(CLI, [0, 2.2, 0]), 'table': [0.0, TH, Z7 + 0.5]}, margin=0.12, top=0.12, bottom=0.78)
-C7 = cam(0.0, F7, add(F7, [-0.1, 0.0, -0.2]), L7, L7, lens=LN7, ease='inOut')
-chkc('S07', C7, {'awTop': [0.0, 2.75, Z7], 'marTop': add(MAR, [0, 2.35, 0]), 'marChin': add(MAR, [0, 1.75, 0]), 'cliTop': add(CLI, [0, 2.2, 0]), 'cliChin': add(CLI, [0, 1.6, 0])})
+# (round 1) closer: a medium shot of the customer weighing the leek (a big bob, a squint) and the trader leaning in rubbing his mittens, all grin
+F7, L7, LN7 = FIT([-0.35, 1.5, 6.55], {'marTop': add(MAR, [0, 2.4, 0]), 'cliTop': add(CLI, [0, 2.25, 0]), 'marChin': add(MAR, [0, 1.65, 0]), 'cliChin': add(CLI, [0, 1.55, 0]), 'leek': off(CLI, RYCL, 0.6, -0.2, 1.3), 'crate': [0.42, TH + 0.2, Z7 + 0.12]}, margin=0.12, top=0.12, bottom=0.78, lenses=range(22, 57))
+C7 = cam(0.0, F7, add(F7, [0.05, 0.0, -0.18]), L7, L7, lens=LN7, ease='inOut')
+chkc('S07', C7, {'marTop': add(MAR, [0, 2.35, 0]), 'marChin': add(MAR, [0, 1.75, 0]), 'cliTop': add(CLI, [0, 2.2, 0]), 'cliChin': add(CLI, [0, 1.6, 0]), 'leek': off(CLI, RYCL, 0.6, -0.2, 1.3)})
 def MARKET(n):
     return [P(f'table{n}', 'seTable', pos=[0.0, 0, Z7], opts={'len': 4.0, 'w': TW, 'places': [[-1.7, 1], [1.7, 1]], 'chairs': [[1.7, 1]]}), P(f'auvent{n}', 'seAwning', pos=[0.0, 0, Z7], opts={'w': 2.3, 'd': 1.55, 'h': 2.6}),
             P(f'poireau{n}a', 'seLeekCrate', pos=[-0.1, TH, Z7 - 0.12], ry=8), P(f'poireau{n}b', 'seLeekCrate', pos=[0.42, TH, Z7 + 0.12], ry=-12),
             P(f'fruits{n}', 'seFruitBowl', pos=[-0.75, TH, Z7 + 0.15]), P(f'fromage{n}', 'seCheese', pos=[0.95, TH, Z7 + 0.15])]
-LEEK7 = lambda u: off(CLI, RYCL, 0.38, -0.2, r(1.32 + 0.06 * math.sin(u)))
-CK7 = [k(-0.5, look=lerp3(LEEK7(0), F7, 0.3)), *[k(r(0.08 * j), toon={**HAND(off(CLI, RYCL, 0.25, 0.25, 1.05), LEEK7(j * 1.9), 'rest', 'grip'), 'sq': [1.0, r(1.0 + 0.02 * math.sin(j * 1.9)), 1.0], 'face': {'lid': 0.55, 'low': 0.3, 'mouth': 'pout', 'brow': -0.2 + 0.4 * (j % 2), 'gy': 0.4}}, toonDur=0.06) for j in range(int(D7 / 0.08) + 1)]]
+LEEK7 = lambda u: off(CLI, RYCL, 0.38, -0.2, r(1.32 + 0.13 * math.sin(u)))
+CK7 = [k(-0.5, look=lerp3(LEEK7(0), F7, 0.3)), *[k(r(0.08 * j), toon={**HAND(off(CLI, RYCL, 0.25, 0.25, 1.05), LEEK7(j * 1.9), 'rest', 'grip'), 'sq': [1.0, r(1.0 + 0.03 * math.sin(j * 1.9)), 1.0], 'bend': {'neck': [r(0.1 + 0.06 * math.sin(j * 1.9)), 0.12, 0, 1, None]}, 'face': {'lid': 0.55, 'low': 0.35, 'lowR': 0.5, 'mouth': 'pout', 'brow': -0.2 + 0.4 * (j % 2), 'browR': -0.5, 'gy': 0.5}}, toonDur=0.06) for j in range(int(D7 / 0.08) + 1)]]
 MF7 = {'lid': 0.2, 'mouth': 'smile', 'brow': 0.6}
-RUB = lambda j: HAND(off(MAR, 0, 0.32, 0.06 + 0.04 * (j % 2), 1.18), off(MAR, 0, 0.32, -0.06 + 0.04 * (j % 2), 1.18), 'open', 'open')
-MK7 = [k(-0.5, look=lerp3(add(CLI, [0, 1.8, 0]), F7, 0.5)), k(0.0, toon={**RUB(0), 'bend': {'spine': [0.12, 0, 0, 1, None]}, 'face': MF7}, toonDur=0.0),
-       *[k(r(0.06 + 0.07 * j), toon={**RUB(j), 'bend': {'spine': [0.18, 0, 0, 1, None], 'neck': [0.08, 0, 0, 1, None]}, 'sq': [0.98, 1.02, 0.98], 'face': {**MF7, 'brow': 0.8}}, toonDur=0.05) for j in range(int((D7 - 0.06) / 0.07))]]
-LEEKP7 = [k(r(0.08 * j), to=add(LEEK7(j * 1.9), [0.0, -0.02, 0.0]), dur=0.07) for j in range(int(D7 / 0.08) + 1)]
+RUB = lambda j: HAND(off(MAR, -25, 0.34, 0.09 * (1 if j % 2 else -1), 1.2), off(MAR, -25, 0.34, -0.09 * (1 if j % 2 else -1), 1.15), 'open', 'open')
+MK7 = [k(-0.5, look=lerp3(add(CLI, [0, 1.8, 0]), F7, 0.45)), k(0.0, toon={**RUB(0), 'bend': {'spine': [0.12, 0, 0, 1, None]}, 'face': MF7}, toonDur=0.0),
+       *[k(r(0.06 + 0.07 * j), toon={**RUB(j), 'bend': {'spine': [r(0.18 + 0.08 * min(1, j / 4)), 0.1, 0, 1, None], 'neck': [0.1, 0, 0, 1, None]}, 'sq': [0.98, 1.02, 0.98], 'face': {**MF7, 'mouth': 'bigsmile' if j % 4 < 2 else 'smile', 'mouthW': 0.3, 'brow': 0.6 + 0.3 * (j % 2), 'lid': 0.3}}, toonDur=0.05) for j in range(int((D7 - 0.06) / 0.07))]]
+LEEKP7 = [q for j in range(int(D7 / 0.08) + 1) for q in (k(r(0.08 * j), to=add(LEEK7(j * 1.9), [0.0, -0.02, 0.0]), dur=0.07), k(r(0.08 * j), rotTo=[0, 0, r(0.5 + 0.3 * math.sin(j * 1.9 + 0.6), 3)], dur=0.07))]
 st.shot('S07', 'cottageStreet', actors=[act('marchand', MAR, 0, 'stand', 'neutral', keys=MK7), act('cliente', CLI, RYCL, 'stand', 'neutral', keys=CK7)],
-        props=[*MARKET(7), P('poireau7', 'seLeek', pos=LEEK7(0), ry=r(RYCL - 90), rot=[0, 0, 0.5], keys=LEEKP7)], cams=[C7])
+        props=[GCUT_STREET(7), *MARKET(7), P('poireau7', 'seLeek', pos=LEEK7(0), ry=r(RYCL - 90), rot=[0, 0, 0.5], keys=LEEKP7)], cams=[C7])
 GAG('S07', 0.5, 'cliente', 'weighs a leek')
 st.cue('sfx:squeak', 'S07', 0.1, 0.08)
 
@@ -721,7 +735,7 @@ CBK7b = [SIT(), k(-0.5, look=add(G7_1, [0, 0.2, 0])), k(0.0, toon={**RESTK(CB7, 
          k(1.2, toon={**HOLDK(CB7, 0, [1.2, TH + SH_GRIP + 0.04, Z7 - 0.12]), 'sq': [0.96, 1.04, 0.96], 'face': {**CBF, 'brow': 0.7}}, toonDur=0.15), k(1.2, look=[1.2, TH + 0.2, Z7], lookDur=0.15)]
 CLK7b = [k(-0.5, look=lerp3(add(MAR, [0, 1.8, 0]), F7b, 0.4)), k(0.0, toon={**HAND(off(CLI, RYCL, 0.25, 0.25, 1.05), LEEK7(0), 'rest', 'grip'), 'face': {'lid': 0.4, 'mouth': 'smile', 'brow': 0.3}}, toonDur=0.0), *life(0.05, D7b, {'lid': 0.4, 'mouth': 'smile', 'brow': 0.3}, HAND(off(CLI, RYCL, 0.25, 0.25, 1.05), LEEK7(0), 'rest', 'grip'), blinks=[0.9], period=0.6)]
 st.shot('S07b', 'cottageStreet', actors=[act('marchand', MAR, 0, 'stand', 'neutral', keys=MK7b), act('cB', CB7, 0, 'sit', 'neutral', keys=CBK7b), act('cliente', CLI, RYCL, 'stand', 'neutral', keys=CLK7b)],
-        props=[*MARKET('7b'), P('poireau7b', 'seLeek', pos=LEEK7(0), ry=r(RYCL - 90), rot=[0, 0, 0.5]), P('radis7b', 'seRadish', pos=RAD7, opts={'s': 1.6}), HEAP('tas7b', add(RAD7, [0, 0.05, 0]), [[0, 0], [0.6, 0], [0.88, 0.6]], r_=0.025),
+        props=[GCUT_STREET('7b'), *MARKET('7b'), P('poireau7b', 'seLeek', pos=LEEK7(0), ry=r(RYCL - 90), rot=[0, 0, 0.5]), P('radis7b', 'seRadish', pos=RAD7, opts={'s': 1.6}), HEAP('tas7b', add(RAD7, [0, 0.05, 0]), [[0, 0], [0.6, 0], [0.88, 0.6]], r_=0.025),
                P('chaiseCB7b', 'seChair', pos=[CB7[0], 0, r(CB7[2] - 0.05)]), SHAKER('sel7b', SP7.pos0, [[0, 0.9], [0.72, 0.9], [0.86, Q3]], keys=SP7.keys(), settle=[0.86]),
                GRAINS('grains7b', CAP7, [[0.56, 0.86]], r(CAP7[1] - RAD7[1] - 0.06))],
         cams=[C7b])
@@ -732,75 +746,96 @@ st.cue('sfx:slideDown', 'S07b', 0.0, 0.1); PINCH('S07b', 0.56); st.cue('whoosh',
 #    enormous family-tree scroll; he lets the roll go: it drops, bounces and unrolls along the floor, out of the door and down the garden path; mamie
 #    watches it go, eyebrows up
 D8 = st.dur('S08')
-GEN = [-2.75, 0.0, 1.05]; RYG = 25
-SCT = off(GEN, RYG, 0.32, 0.0, 1.6)
-F8, L8, LN8 = FIT([-0.55, 1.55, 3.6], {'genTop': add(GEN, [0, 2.3, 0]), 'mamieTop': add(MAMIE, [0, 1.85, 0]), 'scrollTop': add(SCT, [0, 0.05, 0]), 'floorRoll': [-4.6, 0.2, r(SCT[2])], 'mamieChin': add(MAMIE, [0, 1.25, 0])}, back=True, inside=ROOM, margin=0.13, top=0.12, bottom=0.78)
-C8 = cam(0.0, F8, add(F8, [-0.06, 0.0, -0.1]), L8, L8, lens=LN8, ease='inOut')
-chkc('S08', C8, {'genTop': add(GEN, [0, 2.3, 0]), 'genChin': add(GEN, [0, 1.7, 0]), 'mamieTop': add(MAMIE, [0, 1.85, 0]), 'mamieChin': add(MAMIE, [0, 1.25, 0]), 'scrollTop': SCT, 'door': [-4.2, 2.6, 0.0]})
-SCW = 0.62; SCH = SCW * 1.25
+# (round 1) re-staged: three-quarter on the genealogist standing at the corner of the table, mamie on the left turned to us, the scroll held up between
+# them (narrower, its paper turned to the camera) so nothing crosses her face; on release the roll DROPS past her face line to the floor (she follows it
+# down, eyebrows up), bounces and unrolls along the floor in front of her chair and out of the door
+GEN = [-3.45, 0.0, -0.38]; RYG = 15; RYM8 = 30
+SCW, SCW8 = 0.62, 0.5; SCH8 = SCW8 * 1.25
+SCT = [-3.68, 2.12, 0.22]; RYSC = 35
+SCU = [math.cos(math.radians(RYSC)), 0.0, -math.sin(math.radians(RYSC))]; SCN = [math.sin(math.radians(RYSC)), 0.0, math.cos(math.radians(RYSC))]
+def scp(u, dy, n=0.03): return [r(SCT[0] + SCU[0] * u + SCN[0] * n), r(SCT[1] + dy), r(SCT[2] + SCU[2] * u + SCN[2] * n)]
+FLOOR8 = [-3.68, 0.03, 0.22]; RYF8 = -90
+HANG8 = r(SCT[1] - SCH8 - 0.08)
+F8, L8, LN8 = FIT([-1.45, 1.45, 3.35], {'genTop': add(GEN, [0, 2.32, 0]), 'genChin': add(GEN, [0, 1.7, 0]), 'mamieTop': add(MAMIE, [0, 1.85, 0]), 'mamieChin': add(MAMIE, [0, 1.2, 0]), 'scrollTop': add(SCT, [0, 0.06, 0]), 'roll': [SCT[0], 0.15, SCT[2]]}, back=True, inside=ROOM, margin=0.12, top=0.12, bottom=0.78, lenses=range(22, 57))
+C8 = cam(0.0, F8, add(F8, [0.06, 0.0, -0.1]), L8, L8, lens=LN8, ease='inOut')
+chkc('S08', C8, {'genTop': add(GEN, [0, 2.3, 0]), 'genChin': add(GEN, [0, 1.7, 0]), 'mamieTop': add(MAMIE, [0, 1.85, 0]), 'mamieChin': add(MAMIE, [0, 1.25, 0]), 'scrollTop': SCT, 'scrollL': scp(-0.25, -0.6), 'scrollR': scp(0.25, -0.6), 'door': [-4.2, 2.6, 0.0]})
 GF = {'lid': 0.3, 'mouth': 'smile', 'brow': 0.5}
-SCROLLHOLD = lambda dy=0.0: HAND(add(off(SCT, RYG, -0.03, 0.24, 0), [0, r(dy - 0.02), 0]), add(off(SCT, RYG, -0.03, -0.24, 0), [0, r(dy - 0.02), 0]), 'grip', 'grip')
-GK8 = [k(-0.5, look=lerp3([-4.2, 0.3, 0.0], F8, 0.45)), k(0.0, toon={**SCROLLHOLD(), 'face': GF}, toonDur=0.0),
-       k(0.08, toon={**SCROLLHOLD(0.08), 'sq': [0.95, 1.06, 0.95], 'face': {**GF, 'brow': 0.9, 'mouth': 'open', 'jaw': 0.2}}, toonDur=0.07),
-       k(0.2, toon={**SCROLLHOLD(-0.04), 'sq': [1.05, 0.95, 1.05], 'face': {**GF, 'brow': 0.6}}, toonDur=0.06),
-       *[k(r(0.35 + 0.14 * j), toon={**SCROLLHOLD(0.02 * (j % 2)), 'face': {**GF, 'gx': -0.6, 'gy': 0.5}}, toonDur=0.1) for j in range(int((D8 - 0.4) / 0.14))],
-       k(r(D8 - 0.35), look='camera', lookDur=0.15)]
-MK8 = [SIT(), k(-0.5, look=lerp3(add(GEN, [0, 1.9, 0]), F8, 0.5)), k(0.0, toon={**RESTK(MAMIE, RYM1c), 'face': MF}, toonDur=0.0),
-       k(0.25, toon={**RESTK(MAMIE, RYM1c), 'sq': [0.97, 1.03, 0.97], 'face': {**MF, 'brow': 0.9, 'lid': 0.0, 'gx': 0.6, 'gy': 0.6}}, toonDur=0.08),
-       *life(0.4, D8, {**MF, 'brow': 0.8, 'gx': 0.6, 'gy': 0.5}, RESTK(MAMIE, RYM1c), blinks=[1.1], period=0.6)]
-ROLL8 = [-4.6, 0.0, 0.0]
-st.shot('S08', 'whiteVoid', setOpts=DSET, actors=[act('gen', GEN, RYG, 'stand', 'neutral', keys=GK8), act('mamie', MAMIE, RYM1c, 'sit', 'neutral', keys=MK8)],
-        props=[DINING(8, door=1.0), MAINSEG(8), MCHAIR(8),                P('arbre8', 'seScroll', pos=SCT, ry=RYG, opts={'w': SCW, 'head': True, 'len': r(SCT[1] - SCH - 0.03), 'seed': 1}, keys=[k(0.08, to=add(SCT, [0, 0.08, 0]), dur=0.07), k(0.2, to=add(SCT, [0, -0.04, 0]), dur=0.06)]),
-               P('arbreSol8', 'seScroll', pos=[r(SCT[0] - 0.02), 0.03, r(SCT[2])], ry=-90, rot=[-PI / 2, -PI / 2, 0], rotOrder='YXZ', opts={'w': SCW, 'roll': True, 'seed': 2, 'shift': 0.37, 'len': [[0, 0.02], [0.22, 0.05], [0.45, 1.3], [D8, r(1.3 + (D8 - 0.45) * 6.0), 'lin']]}),
+BAR8 = lambda dy=0.0: HAND(scp(-0.2, r(dy - 0.03)), scp(0.2, r(dy - 0.03)), 'grip', 'grip', hose=0.1)
+DROP8 = 0.2
+GK8 = [k(-0.5, look=lerp3(add(SCT, [0, -0.6, 0]), F8, 0.5)), k(0.0, toon={**BAR8(), 'face': GF}, toonDur=0.0),
+       k(0.06, toon={**BAR8(0.07), 'sq': [0.95, 1.06, 0.95], 'face': {**GF, 'brow': 0.9, 'mouth': 'open', 'jaw': 0.2}}, toonDur=0.06),
+       k(DROP8, toon={**BAR8(-0.03), 'sq': [1.05, 0.95, 1.05], 'face': {**GF, 'brow': 0.6, 'mouth': 'smirk'}}, toonDur=0.05),
+       k(0.3, look=lerp3([SCT[0], 0.3, SCT[2]], F8, 0.45), lookDur=0.2),
+       *life(0.4, r(D8 - 0.42), {**GF, 'mouth': 'smirk', 'gy': 0.5}, BAR8(), period=0.5),
+       k(r(D8 - 0.4), look='camera', lookDur=0.15), k(r(D8 - 0.38), toon={**BAR8(), 'bend': {'neck': [0.18, 0, 0, 1, None]}, 'face': {**GF, 'mouth': 'smile', 'brow': 0.8}}, toonDur=0.1),
+       k(r(D8 - 0.25), toon={**BAR8(), 'bend': {'neck': [-0.05, 0, 0, 1, None]}, 'face': {**GF, 'mouth': 'smile', 'brow': 0.7}}, toonDur=0.1)]
+MAF = {**MF, 'brow': 1.0, 'lid': 0.0, 'eye': 0.3, 'mouth': 'o'}
+MK8 = [SIT(), k(-0.5, look=lerp3(add(SCT, [0, -0.3, 0]), F8, 0.4)), k(0.0, toon={**RESTK(MAMIE, RYM8), 'face': {**MF, 'gx': -0.3, 'gy': -0.4}}, toonDur=0.0),
+       k(r(DROP8 + 0.04), toon={**RESTK(MAMIE, RYM8), 'sq': [0.95, 1.06, 0.95], 'face': {**MAF, 'gx': -0.3, 'gy': 0.1}}, toonDur=0.05, toonEase='outBack'),
+       k(r(DROP8 + 0.14), toon={**RESTK(MAMIE, RYM8), 'face': {**MAF, 'gx': -0.3, 'gy': 0.8}}, toonDur=0.1),
+       k(r(DROP8 + 0.18), look=lerp3([SCT[0], 0.6, SCT[2]], F8, 0.4), lookDur=0.15),
+       k(0.62, toon={**RESTK(MAMIE, RYM8), 'face': {**MAF, 'gx': -0.8, 'gy': 0.7}}, toonDur=0.25),
+       *life(0.9, D8, {**MAF, 'mouth': 'o', 'gx': -0.85, 'gy': 0.6}, RESTK(MAMIE, RYM8), blinks=[1.25], period=0.5)]
+LEN8 = [[0, 0.02], [DROP8, 0.02], [r(DROP8 + 0.07), 0.22, 'lin'], [r(DROP8 + 0.13), 0.75, 'lin'], [r(DROP8 + 0.19), HANG8, 'lin'], [r(DROP8 + 0.25), r(HANG8 - 0.07)], [r(DROP8 + 0.31), HANG8]]
+FL8 = r(DROP8 + 0.31)
+SCROLL8 = lambda n, keys=None, lnk=None: P(f'arbre{n}', 'seScroll', pos=SCT, ry=RYSC, opts={'w': SCW8, 'head': True, 'roll': True, 'len': lnk if lnk is not None else HANG8, 'seed': 1, 'rollR': 0.06}, **({'keys': keys} if keys else {}))
+FLOORSC = lambda n, lnk: P(f'arbreSol{n}', 'seScroll', pos=FLOOR8, ry=RYF8, rot=[-PI / 2, -PI / 2, 0], rotOrder='YXZ', opts={'w': SCW8, 'roll': True, 'seed': 2, 'shift': 0.37, 'len': lnk, 'rollR': 0.06})
+st.shot('S08', 'whiteVoid', setOpts=DSET, actors=[act('gen', GEN, RYG, 'stand', 'neutral', keys=GK8), act('mamie', MAMIE, RYM8, 'sit', 'neutral', keys=MK8)],
+        props=[DINING(8, door=1.0), MAINSEG(8), MCHAIR(8), SCROLL8(8, keys=[k(0.06, to=add(SCT, [0, 0.07, 0]), dur=0.06), k(DROP8, to=add(SCT, [0, -0.03, 0]), dur=0.05), k(0.32, to=SCT, dur=0.1)], lnk=LEN8),
+               FLOORSC(8, [[0, 0.001], [FL8, 0.001], [r(FL8 + 0.25), 0.9], [D8, r(0.9 + (D8 - FL8 - 0.25) * 4.0), 'lin']]),
                NOSHADOW('ns8', ['gen', 'mamie'])],
         cams=[C8])
-GAG('S08', 0.6, 'gen', 'the scroll unrolls')
-st.cue('sfx:paper', 'S08', 0.08, 0.3); st.cue('thud', 'S08', 0.24, 0.2); st.cue('sfx:rattle', 'S08', 0.45, 0.1)
+GAG('S08', r(DROP8 + 0.2), 'gen', 'the scroll drops and unrolls'); GAG('S08', 0.5, 'mamie', 'eyebrows up')
+st.cue('sfx:paper', 'S08', 0.06, 0.3); st.cue('sfx:slideDown', 'S08', DROP8, 0.15); st.cue('thud', 'S08', r(DROP8 + 0.19), 0.2); st.cue('sfx:rattle', 'S08', r(FL8 + 0.05), 0.1)
 
 # 8b: « tout le pays descend de mamie. » Close: the top of the scroll held up beside mamie, her drawn portrait at the top of the tree (white bun, round
 #     glasses), every branch running down from it; the genealogist taps the portrait twice; on « mamie » she gives one modest nod, blushing, and dabs her
 #     bun
 D8b = st.dur('S08b'); MAM8b = W('S08b', 'L08', 9)
-F8b, L8b, LN8b = FIT([-1.55, 1.6, 2.4], {'mamieTop': add(MAMIE, [0, 1.88, 0]), 'mamieChin': add(MAMIE, [0, 1.22, 0]), 'portrait': add(SCT, [0, -0.25, 0]), 'portraitL': add(SCT, [0, -0.6, 0]), 'genTop': add(GEN, [0, 2.4, 0])}, back=True, inside=ROOM, margin=0.14, top=0.13, bottom=0.78)
-C8b = cam(0.0, F8b, add(F8b, [0.05, 0.0, -0.08]), L8b, L8b, lens=LN8b, ease='inOut')
-chkc('S08b', C8b, {'mamieTop': add(MAMIE, [0, 1.88, 0]), 'mamieChin': add(MAMIE, [0, 1.22, 0]), 'portraitTop': SCT, 'portraitMid': add(SCT, [0, -0.35, 0]), 'genTop': add(GEN, [0, 2.3, 0]), 'genChin': add(GEN, [0, 1.7, 0])})
-TAP8 = lambda pt: HAND(pt, add(off(SCT, RYG, -0.03, -0.24, 0), [0, -0.02, 0]), 'point', 'grip', tipR=0.15)
-PTR = off(SCT, RYG, 0.02, 0.0, -0.3)
-GK8b = [k(-0.5, look=lerp3(add(MAMIE, [0, 1.6, 0]), F8b, 0.5)), k(0.0, toon={**SCROLLHOLD(), 'face': GF}, toonDur=0.0),
-        k(0.1, toon={**TAP8(add(PTR, [0, 0.0, 0.12])), 'face': {**GF, 'brow': 0.8}}, toonDur=0.1),
-        k(0.25, toon={**TAP8(PTR), 'face': {**GF, 'brow': 0.9, 'mouth': 'open', 'jaw': 0.2}}, toonDur=0.04), k(0.36, toon={**TAP8(add(PTR, [0, 0.0, 0.12])), 'face': GF}, toonDur=0.06),
-        k(0.48, toon={**TAP8(PTR), 'face': {**GF, 'brow': 0.9, 'mouth': 'open', 'jaw': 0.2}}, toonDur=0.04), k(0.6, toon={**TAP8(add(PTR, [0, 0.0, 0.12])), 'face': GF}, toonDur=0.06),
-        k(0.8, toon={**SCROLLHOLD(), 'face': {**GF, 'brow': 0.7}}, toonDur=0.15), k(0.9, look='camera', lookDur=0.2), *life(1.0, D8b, {**GF, 'brow': 0.6}, SCROLLHOLD(), blinks=[1.4], period=0.5)]
+F8b, L8b, LN8b = FIT([-2.1, 1.45, 2.4], {'mamieTop': add(MAMIE, [0, 1.88, 0]), 'mamieChin': add(MAMIE, [0, 1.2, 0]), 'portrait': add(SCT, [0, -0.3, 0]), 'portraitL': scp(-0.25, -0.62), 'genTop': add(GEN, [0, 2.35, 0]), 'genChin': add(GEN, [0, 1.7, 0])}, back=True, inside=ROOM, margin=0.13, top=0.12, bottom=0.78, lenses=range(22, 57))
+C8b = cam(0.0, F8b, add(F8b, [0.05, 0.0, -0.1]), L8b, L8b, lens=LN8b, ease='inOut')
+chkc('S08b', C8b, {'mamieTop': add(MAMIE, [0, 1.88, 0]), 'mamieChin': add(MAMIE, [0, 1.22, 0]), 'portraitTop': SCT, 'portraitMid': add(SCT, [0, -0.3, 0]), 'genTop': add(GEN, [0, 2.3, 0]), 'genChin': add(GEN, [0, 1.7, 0])})
+PTR = scp(0.0, r(-SCH8 * 0.36), 0.04)
+TAP8 = lambda pt: HAND(pt, scp(0.2, -0.03), 'point', 'grip', tipR=0.15)
+GK8b = [k(-0.5, look=lerp3(add(MAMIE, [0, 1.5, 0]), F8b, 0.5)), k(0.0, toon={**BAR8(), 'face': GF}, toonDur=0.0),
+        k(0.1, toon={**TAP8(scp(0.0, r(-SCH8 * 0.36), 0.18)), 'face': {**GF, 'brow': 0.8}}, toonDur=0.1),
+        k(0.25, toon={**TAP8(PTR), 'face': {**GF, 'brow': 0.9, 'mouth': 'open', 'jaw': 0.2}}, toonDur=0.04), k(0.36, toon={**TAP8(scp(0.0, r(-SCH8 * 0.36), 0.18)), 'face': GF}, toonDur=0.06),
+        k(0.48, toon={**TAP8(PTR), 'face': {**GF, 'brow': 0.9, 'mouth': 'open', 'jaw': 0.2}}, toonDur=0.04), k(0.6, toon={**TAP8(scp(0.0, r(-SCH8 * 0.36), 0.18)), 'face': GF}, toonDur=0.06),
+        k(0.8, toon={**BAR8(), 'face': {**GF, 'brow': 0.7}}, toonDur=0.15), k(0.9, look='camera', lookDur=0.2), *life(1.0, D8b, {**GF, 'brow': 0.6}, BAR8(), blinks=[1.4], period=0.5)]
 NOD8 = r(MAM8b + 0.03)
-MK8b = [SIT(), k(-0.5, look=lerp3(add(SCT, [0, -0.3, 0]), F8b, 0.45)), k(0.0, toon={**RESTK(MAMIE, RYM1c), 'face': {**MF, 'gx': 0.5}}, toonDur=0.0),
-        k(0.3, toon={**RESTK(MAMIE, RYM1c), 'face': {**MF, 'gx': 0.5, 'blush': 0.4, 'brow': 0.6}}, toonDur=0.2), k(0.7, look='camera', lookDur=0.2),
-        k(r(NOD8 - 0.05), toon={**RESTK(MAMIE, RYM1c), 'bend': {'neck': [-0.08, 0, 0, 1, None]}, 'face': {**MF, 'blush': 0.8, 'lid': 0.5}}, toonDur=0.06),
-        k(NOD8, toon={**RESTK(MAMIE, RYM1c), 'sq': [1.04, 0.96, 1.04], 'bend': {'neck': [0.38, 0, 0, 1, None]}, 'face': {**MF, 'blush': 0.9, 'lid': 0.8, 'mouth': 'smile'}}, toonDur=0.08),
-        k(r(NOD8 + 0.18), toon={**HAND(off(MAMIE, RYM1c, 0.0, 0.18, 1.85), rest_hands(MAMIE, RYM1c)[1], 'open', 'open'), 'bend': {'neck': [0.0, 0.1, 0, 1, None]}, 'face': {**MF, 'blush': 0.9, 'lid': 0.4}}, toonDur=0.12),
-        *life(r(NOD8 + 0.35), D8b, {**MF, 'blush': 0.8, 'lid': 0.35}, HAND(off(MAMIE, RYM1c, 0.0, 0.18, 1.85), rest_hands(MAMIE, RYM1c)[1], 'open', 'open'), blinks=[r(D8b - 0.35)], period=0.5)]
-st.shot('S08b', 'whiteVoid', setOpts=DSET, actors=[act('gen', GEN, RYG, 'stand', 'neutral', keys=GK8b), act('mamie', MAMIE, RYM1c, 'sit', 'neutral', keys=MK8b)],
-        props=[DINING('8b', door=1.0), MAINSEG('8b'), MCHAIR('8b'), P('arbre8b', 'seScroll', pos=SCT, ry=RYG, opts={'w': SCW, 'head': True, 'len': r(SCT[1] - SCH - 0.03), 'seed': 1}), NOSHADOW('ns8b', ['gen', 'mamie'])],
+MK8b = [SIT(), k(-0.5, look=lerp3(add(SCT, [0, -0.3, 0]), F8b, 0.45)), k(0.0, toon={**RESTK(MAMIE, RYM8), 'face': {**MAF, 'mouth': 'smile', 'gx': -0.2, 'gy': -0.3}}, toonDur=0.0),
+        k(0.3, toon={**RESTK(MAMIE, RYM8), 'face': {**MAF, 'mouth': 'smile', 'gx': -0.2, 'gy': -0.3, 'blush': 0.4}}, toonDur=0.2), k(0.7, look='camera', lookDur=0.2),
+        k(r(NOD8 - 0.05), toon={**RESTK(MAMIE, RYM8), 'bend': {'neck': [-0.08, 0, 0, 1, None]}, 'face': {**MF, 'blush': 0.8, 'lid': 0.5}}, toonDur=0.06),
+        k(NOD8, toon={**RESTK(MAMIE, RYM8), 'sq': [1.04, 0.96, 1.04], 'bend': {'neck': [0.38, 0, 0, 1, None]}, 'face': {**MF, 'blush': 0.9, 'lid': 0.8, 'mouth': 'smile'}}, toonDur=0.08),
+        k(r(NOD8 + 0.18), toon={**HAND(off(MAMIE, RYM8, 0.0, 0.18, 1.85), rest_hands(MAMIE, RYM8)[1], 'open', 'open'), 'bend': {'neck': [0.0, 0.1, 0, 1, None]}, 'face': {**MF, 'blush': 0.9, 'lid': 0.4}}, toonDur=0.12),
+        *life(r(NOD8 + 0.35), D8b, {**MF, 'blush': 0.8, 'lid': 0.35}, HAND(off(MAMIE, RYM8, 0.0, 0.18, 1.85), rest_hands(MAMIE, RYM8)[1], 'open', 'open'), blinks=[r(D8b - 0.35)], period=0.5)]
+st.shot('S08b', 'whiteVoid', setOpts=DSET, actors=[act('gen', GEN, RYG, 'stand', 'neutral', keys=GK8b), act('mamie', MAMIE, RYM8, 'sit', 'neutral', keys=MK8b)],
+        props=[DINING('8b', door=1.0), MAINSEG('8b'), MCHAIR('8b'), SCROLL8('8b'), FLOORSC('8b', 4.6), NOSHADOW('ns8b', ['gen', 'mamie'])],
         cams=[C8b])
 GAG('S08b', NOD8, 'mamie', 'modest nod')
 st.cue('sfx:tick', 'S08b', 0.25, 0.15); st.cue('sfx:tick', 'S08b', 0.48, 0.15)
-
 # 9: « Et quand on est de la famille, » A street of narrow terraced houses: five front doors bang open at the same instant like a drill, and five strangers step
 #    out together, each with a dining chair under one arm and a napkin tucked into the collar, chins up (FAMILLE stamps)
 D9 = st.dur('S09'); FAM9 = W('S09', 'L09', 6)
 RW9 = 1.6; ROW9 = [0.0, 0.0, 0.0]; OPEN9 = 0.06
 SX9 = [r((i - 2) * RW9) for i in range(5)]
 S9a = [[x, 0.12, -0.55] for x in SX9]; S9b = [[x, 0.12, 0.9] for x in SX9]
-F9, L9, LN9 = FIT([4.6, 2.2, 6.0], {'top0': [SX9[0], 2.4, 0.9], 'top4': [SX9[4], 2.4, 0.9], 'feet0': [SX9[0], 0.3, 0.9], 'feet4': [SX9[4], 0.3, 0.9]}, margin=0.1, top=0.22, bottom=0.78, lenses=range(28, 60))
+# (round 1) lower and more frontal: the five step out of their doors TOWARD us, chins up, napkins on their chests, each chair tucked under the left arm
+F9, L9, LN9 = FIT([2.6, 1.3, 6.2], {'top0': [SX9[0], 2.45, 0.9], 'top4': [SX9[4], 2.45, 0.9], 'chin0': [SX9[0], 1.7, 0.9], 'chin4': [SX9[4], 1.7, 0.9], 'chair4': [r(SX9[4] + 0.75), 0.6, 0.9]}, margin=0.05, top=0.22, bottom=0.78, lenses=range(24, 60))
 C9 = cam(0.0, F9, add(F9, [-0.15, 0.0, -0.15]), L9, L9, lens=LN9, ease='inOut')
 chkc('S09', C9, {f'top{i}': [SX9[i], 2.4, 0.9] for i in range(5)})
 SFS = [{'lid': 0.2, 'mouth': 'smile', 'brow': 0.6}, {'lid': 0.4, 'mouth': 'smirk', 'brow': 0.3}, {'lid': 0.2, 'mouth': 'open', 'jaw': 0.2, 'brow': 0.7}, {'lid': 0.3, 'mouth': 'smile', 'brow': 0.5}, {'lid': 0.35, 'mouth': 'smile', 'brow': 0.4}]
+# (round 1) the chair is carried for real: upright at his left side, its back under his armpit, his left mitten on the seat (elbow bent, a touch in the
+# frame of his torso, so it follows the walk); it was attached at head height and hid every face behind a chair back
+CHT = {'touch': {'L': ['torso', 0.47, 0.13, 0.12, 1]}, 'hands': {'L': 'grip'}}
+def STK(**x): return STANDK(**CHT, **x)
 def STRK9(i):
-    return [k(-0.5, look=F9), k(0.0, toon={**STANDK(), 'face': SFS[i]}, toonDur=0.0), k(r(OPEN9 + 0.04), to=S9b[i], dur=0.55, clip='walk', then='stand', ease='linear', face=0),
-            k(r(OPEN9 + 0.04), toon={**STANDK(), 'sq': [0.95, 1.06, 0.95], 'face': {**SFS[i], 'brow': 0.9}}, toonDur=0.05),
-            k(0.65, toon={**STANDK(), 'sq': [1.04, 0.96, 1.04], 'bend': {'neck': [-0.15, 0, 0, 1, None]}, 'face': SFS[i]}, toonDur=0.06),
-            k(0.75, toon={**STANDK(), 'sq': [0.97, 1.04, 0.97], 'bend': {'neck': [-0.12, 0, 0, 1, None]}, 'face': SFS[i]}, toonDur=0.08), *life(0.9, D9, SFS[i], STANDK(bend={'neck': [-0.12, 0, 0, 1, None]}), blinks=[r(1.0 + 0.03 * i)], period=0.5)]
+    return [k(-0.5, look=F9), k(0.0, toon={**STK(), 'face': SFS[i]}, toonDur=0.0), k(r(OPEN9 + 0.04), to=S9b[i], dur=0.55, clip='walk', then='stand', ease='linear', face=0),
+            k(r(OPEN9 + 0.04), toon={**STK(), 'sq': [0.95, 1.06, 0.95], 'face': {**SFS[i], 'brow': 0.9}}, toonDur=0.05),
+            k(0.65, toon={**STK(), 'sq': [1.04, 0.96, 1.04], 'bend': {'neck': [-0.2, 0, 0, 1, None]}, 'face': SFS[i]}, toonDur=0.06),
+            k(0.75, toon={**STK(), 'sq': [0.97, 1.04, 0.97], 'bend': {'neck': [-0.18, 0, 0, 1, None]}, 'face': SFS[i]}, toonDur=0.08), *life(0.9, D9, SFS[i], STK(bend={'neck': [-0.18, 0, 0, 1, None]}), blinks=[r(1.0 + 0.03 * i)], period=0.5)]
 def CARRYPROPS(n, who, colors):
-    return [P(f'chaise{n}_{who}', 'seChair', on={'actor': who, 'joint': 'torso', 'offset': [0.4, 0.12, 0.0], 'rot': [0.0, PI / 2, 0.15]}, opts={'color': colors[0], 'cushion': colors[1]}),
+    return [P(f'chaise{n}_{who}', 'seChair', on={'actor': who, 'joint': 'torso', 'offset': [0.5, -0.42, 0.0], 'rot': [0.0, PI / 2, 0.0]}, opts={'color': colors[0], 'cushion': colors[1]}),
             P(f'serviette{n}_{who}', 'seBib', on={'actor': who, 'joint': 'torso', 'offset': [0.0, 0.5, 0.18]}, opts={'s': 0.9})]
 CH9 = [['#6A4430', '#C9483A'], ['#8A5A34', '#3E7A9A'], ['#5A3A26', '#E8B83A'], ['#7A5236', '#4E8A5A'], ['#6A4430', '#B48CD2']]
 STR = ['s1', 's2', 's3', 's4', 's5']
@@ -823,47 +858,55 @@ chkc('S09b', C9b, {f'top{i}': add(COL9[i], [MARCH * D9b, 2.3, 0]) for i in range
 def MARCHK(i):
     p = COL9[i]
     return [k(-0.5, look=add(p, [6.0, 2.0, 0.0])), k(0.0, to=add(p, [r(MARCH * D9b * 1.6), 0, 0]), dur=r(D9b * 1.6), clip='walk', ease='linear', face=90, cruise=True),
-            k(0.0, toon={**STANDK(), 'bend': {'neck': [-0.15, 0, 0, 1, None]}, 'face': SFS[i]}, toonDur=0.0),
-            *[k(r(0.1 + 0.18 * j), toon={**STANDK(), 'bend': {'neck': [-0.15, 0, 0, 1, None]}, 'sq': [1.0, 1.03 if j % 2 else 0.98, 1.0], 'face': SFS[i]}, toonDur=0.08) for j in range(int(D9b / 0.18))],
+            k(0.0, toon={**STK(), 'bend': {'neck': [-0.18, 0, 0, 1, None]}, 'face': SFS[i]}, toonDur=0.0),
+            *[k(r(0.1 + 0.18 * j), toon={**STK(), 'bend': {'neck': [-0.18, 0, 0, 1, None]}, 'sq': [1.0, 1.03 if j % 2 else 0.98, 1.0], 'face': SFS[i]}, toonDur=0.08) for j in range(int(D9b / 0.18))],
             k(0.55, look='camera', lookDur=0.15)]
 st.shot('S09b', 'grassland', actors=[act(STR[i], COL9[i], 90, 'walk', 'neutral', keys=MARCHK(i)) for i in range(5)],
         props=[P('rangee9b', 'poRowHouses', pos=ROW9, opts={**ROWO, 'open': [[0, 1.0]]}), P('route9b', 'roadStrip', pos=[0, 0, 6.0], ry=90, opts={'len': 60, 'w': 5}),
                *[q for i in range(5) for q in CARRYPROPS('9b', STR[i], CH9[i])]],
         cams=[C9b])
 for j in range(int(D9b / 0.27) + 1): st.cue('sfx:stepHeavy', 'S09b', r(0.05 + 0.27 * j), 0.18)
-
 # 10: « La table a traversé le pays. » A wheat field to the edges of the frame: a segment of table crosses it, empty chairs, napkins flapping; a scarecrow sits
 #     at one place with his napkin tucked in; a gust: the wheat bows, the napkins flap, the scarecrow's head lolls and turns to us
 D10 = st.dur('S10')
-SCR = [-0.9, 0.0, -0.75]
-F10, L10, LN10 = FIT([-4.4, 1.5, 0.9], {'scrTop': add(SCR, [0, 2.0, 0]), 'tableFar': [3.0, TH, 0.0], 'tableNear': [-2.9, TH, 0.4], 'scrSeat': add(SCR, [0, 0.4, 0])}, margin=0.14, top=0.16, bottom=0.78)
-C10 = cam(0.0, F10, add(F10, [0.25, 0.0, -0.1]), L10, L10, lens=LN10, ease='inOut')
+# (round 1) closer, a medium shot on the scarecrow at his place: a gust sweeps across from the left (the wheat bows in a wave, leaves fly through, the
+# napkins flap), his head lolls and turns to us
+SCR = [-0.9, 0.0, -0.8]; RYSC10 = 20
+GDIR10 = [0.865, 0.502]
+F10, L10, LN10 = FIT([-2.55, 1.35, 1.9], {'scrTop': add(SCR, [0, 2.1, 0]), 'scrSeat': add(SCR, [0, 0.3, 0]), 'tableNear': [-1.9, TH, 0.4], 'wheatBack': [-1.4, 1.1, -2.2]}, margin=0.12, top=0.16, bottom=0.78, lenses=range(22, 57))
+C10 = cam(0.0, F10, lerp3(F10, add(SCR, [0, 1.5, 0]), 0.15), L10, L10, lens=LN10, ease='inOut')
 chkc('S10', C10, {'scrTop': add(SCR, [0, 2.0, 0]), 'scrFace': add(SCR, [0, 1.6, 0]), 'tableFar': [3.0, TH, 0.0], 'tableNear': [-2.9, TH, 0.4]})
 st.shot('S10', 'grassland', setOpts={'grass': '#C9A84E'},
-        props=[P('ble10', 'seWheat', pos=[0, 0, 0], opts={'w': 40, 'd': 40, 'clear': [-9.0, 3.4, -1.45, 1.6], 'wind': True, 'n': 5500}),
+        props=[P('ble10', 'seWheat', pos=[0, 0, 0], opts={'w': 40, 'd': 40, 'clear': [-9.0, 3.4, -1.45, 3.2], 'wind': True, 'n': 5500, 'gust': [[0.12, 0.95]], 'gustDir': GDIR10, 'gustD0': -4.5, 'gustV': 11, 'gustA': 0.7}),
                P('table10', 'seTable', pos=[0.0, 0, 0.0], opts={'len': 6.0, 'w': TW, 'flutter': True, 'places': [[-2.2, 1], [-0.9, -1], [0.4, 1], [1.6, -1], [2.5, 1]], 'chairs': [[-2.2, 1], [0.4, 1], [1.6, -1], [2.5, 1], [-2.0, -1]]}),
-               P('epouvantail10', 'seScarecrow', pos=[SCR[0], 0, -0.8], ry=-25, opts={'nod': [[0.05, 1.3]]})],
+               P('epouvantail10', 'seScarecrow', pos=[SCR[0], 0, -0.8], ry=RYSC10, opts={'nod': [[0.3, 1.25]], 'loll': 0.32, 'turn': [[0, 0.15], [0.55, 0.15], [0.85, -0.85]]}),
+               P('feuilles10', 'leafGust', pos=[-3.7, 0.0, -1.9], ry=-30, opts={'n': 16, 'w': 6.5, 'h': 1.9, 'd': 1.6, 'startAt': 0.22, 'dur': 0.95})],
         cams=[C10])
-st.cue('gust', 'S10', 0.0, 0.3, 1.6); st.cue('sfx:squeak', 'S10', 0.25, 0.1)
+st.cue('gust', 'S10', 0.0, 0.3, 1.6); st.cue('sfx:squeak', 'S10', 0.6, 0.1); st.cue('whoosh', 'S10', 0.3, 0.1, 0.6, 400, 1600)
 
 # 10b: « Les camions s'arrêtent » A country road: two lorries stopped nose to nose on either side of a table segment that crosses the tarmac; one driver
 #      leans out of his window on his elbow and waits, drumming his fingers, a slow blink
+# (round 1) close outside his window: the forearm on the sill, the mitten drumming on the door fast, the head turning from the table to us, a slow blink
 D10b = st.dur('S10b'); LS = 1.4
 LA = [-1.5, 0.0, 6.6]; LB = [1.5, 0.0, -6.6]
 DRV = add(LA, [r(-0.55 * LS), r(1.21 * LS - 0.48), r(0.25 * LS)])
-ELB = add(LA, [r(-1.22 * LS), r(1.66 * LS), r(0.05 * LS)])
-F10b, L10b, LN10b = FIT([-7.0, 4.2, 8.0], {'drvTop': add(DRV, [0, 1.9, 0]), 'elbow': ELB, 'table': [0.0, TH, 0.0], 'lbCab': [1.5, 4.0, -5.4]}, margin=0.12, top=0.12, bottom=0.78, lenses=range(28, 60))
-C10b = cam(0.0, F10b, add(F10b, [0.15, 0.0, -0.1]), L10b, L10b, lens=LN10b, ease='inOut')
-chkc('S10b', C10b, {'drvTop': add(DRV, [0, 1.9, 0]), 'drvChin': add(DRV, [0, 1.33, 0]), 'elbow': ELB, 'table': [0.0, TH, 0.0], 'lbRoof': add(LB, [0, 3.4, 0])})
+SILL = add(LA, [r(-1.2 * LS), r(1.6 * LS), r(0.1 * LS)])
+DRUM = lambda j: add(SILL, [r(-0.1 - 0.02 * (j % 2)), r(-0.12 + 0.07 * (j % 2)), r(-0.18 + 0.03 * ((j // 2) % 2))])
+F10b, L10b, LN10b = FIT([-4.9, 2.8, 5.0], {'drvTop': add(DRV, [0, 1.95, 0]), 'drvChin': add(DRV, [0, 1.3, 0]), 'drum': DRUM(0), 'sillLow': add(SILL, [0, -0.5, 0]), 'cab': add(LA, [-1.6, 3.4, 1.2])}, margin=0.13, top=0.13, bottom=0.78, lenses=range(22, 57))
+C10b = cam(0.0, F10b, lerp3(F10b, add(DRV, [0, 1.6, 0]), 0.1), L10b, L10b, lens=LN10b, ease='inOut')
+chkc('S10b', C10b, {'drvTop': add(DRV, [0, 1.9, 0]), 'drvChin': add(DRV, [0, 1.33, 0]), 'drum': DRUM(0), 'table': [0.0, TH, 0.0]})
 DRF = {'lid': 0.55, 'mouth': 'line', 'brow': -0.1}
-DRK = [SIT(), k(-0.5, look=lerp3([0.0, 1.0, 0.0], F10b, 0.5)), *[k(r(0.08 * j), toon={**HAND(add(DRV, [0.25, 1.05, -0.35]), add(ELB, [0.0, r(0.02 * (j % 2)), 0.0]), 'open', 'open', hose=0.2), 'face': {**DRF, 'gx': -0.4}}, toonDur=0.06) for j in range(int(D10b / 0.08) + 1)]]
-DRK += blink(0.45, {**DRF, 'lid': 0.6}, HAND(add(DRV, [0.25, 1.05, -0.35]), ELB, 'open', 'open', hose=0.2))
+DRH = lambda j: HAND(add(DRV, [0.25, 1.05, -0.35]), DRUM(j), 'open', 'fist', hose=0.15)
+LIDB = lambda t: 0.8 if 0.56 <= t < 0.6 else 1.0 if 0.6 <= t < 0.74 else 0.72 if 0.74 <= t < 0.8 else 0.55
+DRK = [SIT(), k(-0.5, look=lerp3([-0.6, 1.0, 0.0], F10b, 0.35)), *[k(r(0.065 * j), toon={**DRH(j), 'face': {**DRF, 'lid': LIDB(0.065 * j), 'gx': -0.3 if 0.065 * j < 0.38 else 0.0, 'mouth': 'line' if j % 4 else 'pout'}}, toonDur=0.045) for j in range(int(D10b / 0.065) + 1)],
+       k(0.38, look='camera', lookDur=0.16)]
 st.shot('S10b', 'grassland', actors=[act('chauffeur', DRV, 180, 'sit', 'neutral', keys=DRK)],
         props=[P('route10b', 'roadStrip', pos=[0, 0, 0], opts={'len': 120, 'w': 7}), P('table10b', 'seTable', pos=[0.0, 0, 0.0], opts={'len': 7.0, 'w': TW, 'places': [[-2.4, 1], [-0.8, -1], [0.8, 1], [2.4, -1]], 'chairs': [[-2.4, 1], [0.8, 1], [2.4, -1]]}),
-               P('camionA', 'seLorry', pos=LA, ry=180, scale=LS, opts={'color': '#3E7AB8'}), P('camionB', 'seLorry', pos=LB, ry=0, scale=LS, opts={'color': '#C8483A'})],
+               P('camionA', 'seLorry', pos=LA, ry=180, scale=LS, opts={'color': '#3E7AB8', 'mirrors': False}), P('camionB', 'seLorry', pos=LB, ry=0, scale=LS, opts={'color': '#C8483A', 'mirrors': False})],
         cams=[C10b])
-st.cue('sfx:brake', 'S10b', 0.0, 0.2); st.cue('sfx:tick', 'S10b', 0.2, 0.08); st.cue('sfx:tick', 'S10b', 0.36, 0.08); st.cue('sfx:tick', 'S10b', 0.52, 0.08)
-
+GAG('S10b', 0.45, 'chauffeur', 'drums, turns to us')
+st.cue('sfx:brake', 'S10b', 0.0, 0.2)
+for j in range(0, int(D10b / 0.065), 2): st.cue('sfx:tick', 'S10b', r(0.065 * j + 0.03), 0.06)
 # 10c: « pour laisser passer le sel. » Close at the table over the road, a red lorry's grille behind: one cousin passes the shaker to the next; she tips it
 #      over her own plate: a trickle, a heap, the salt drops to half; her eyes dart left and right, a guilty grin at us
 D10c = st.dur('S10c')
@@ -886,7 +929,7 @@ FK10 = [SIT(), k(-0.5, look=add(G10_1, [0, 0.2, 0])), k(0.0, toon={**RESTK(CF10,
         *FOLLOW(CF10, 0, SP10.grip, 0.9, r(D10c - 0.02), {**FKF, 'mouth': 'smirk', 'brow': 0.5})]
 st.shot('S10c', 'grassland', actors=[act('cE', CE10, 0, 'sit', 'neutral', keys=EK10), act('cF', CF10, 0, 'sit', 'neutral', keys=FK10)],
         props=[P('route10c', 'roadStrip', pos=[0, 0, 0], opts={'len': 120, 'w': 7}), P('table10c', 'seTable', pos=[0.0, 0, 0.0], opts={'len': 7.0, 'w': TW, 'places': [[-0.55, -1], [0.45, -1], [-1.5, 1]], 'chairs': [[-0.55, -1], [0.45, -1]]}),
-               P('camionB10c', 'seLorry', pos=[0.6, 0.0, -4.2], ry=0, scale=LS, opts={'color': '#C8483A'}),
+               P('camionB10c', 'seLorry', pos=[0.6, 0.0, -4.2], ry=0, scale=LS, opts={'color': '#C8483A', 'mirrors': False}),
                SHAKER('sel10c', SP10.pos0, [[0, Q3], [0.66, Q3], [0.82, HALF]], keys=SP10.keys(), settle=[0.82]), GRAINS('grains10c', CAP10, [[0.5, 0.86]], r(CAP10[1] - PL10[1] - 0.03)), HEAP('tas10c', PL10, [[0, 0], [0.52, 0], [0.86, 1.0]]),
                HEAP('tas10cE', [-0.55, TH + 0.02, -0.3], None), NOSHADOW('ns10c', ['cE', 'cF'])],
         cams=[C10c])
@@ -911,7 +954,7 @@ for j in range(int(D11 / 0.09)):
     u, v = DRAWPATH[j % len(DRAWPATH)]
     MK11.append(k(r(0.09 * j), toon={**HAND(BOARDPT(u + 0.02 * math.sin(j), v + 0.02 * math.cos(j * 1.3)), off(MAT, RYMAT, 0.15, -0.28, 1.0), 'pinch', 'rest', hose=0.2), 'sq': [1.0, r(1.0 + 0.015 * math.sin(j * 2.1)), 1.0], 'face': {**MTF, 'gx': 0.7, 'brow': r(-0.3 + 0.3 * (j % 2))}}, toonDur=0.07))
 st.shot('S11', 'lab', actors=[act('math', MAT, RYMAT, 'stand', 'neutral', keys=MK11)],
-        props=[LABHIDE, P('tableau11', 'seBoard', pos=BOARD, opts={'draw': [[0, 0.04], [D11, 0.84, 'lin']]})], cams=[C11])
+        props=[LABHIDE, P('cheveux11', 'seWildHair', on={'actor': 'math', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}), P('tableau11', 'seBoard', pos=BOARD, opts={'draw': [[0, 0.04], [D11, 0.84, 'lin']]})], cams=[C11])
 GAG('S11', 0.7, 'math', 'draws'); st.text('S11', 1.2, 'tableau11', 'looping arrow')
 for j in range(4): st.cue('sfx:scratch', 'S11', r(0.05 + 0.35 * j), 0.18)
 
@@ -932,60 +975,89 @@ SHAKE0 = r(JAM + 0.12)
 for j in range(int((D11b - SHAKE0) / 0.067)):
     MK11b.append(k(r(SHAKE0 + 0.067 * j), toon={**HAND(add(TAPPT, [0.1, -0.05, 0.25]), off(MAT, RYMAT, 0.15, -0.28, 1.0), 'pinch', 'rest', hose=0.2), 'bend': {'neck': [0.06, 0, r(0.32 * math.sin(2 * PI * 1.4 * 0.067 * j)), 1, None]}, 'face': {**MTF, 'lid': 1.0, 'brow': -0.5, 'mouth': 'line'}}, toonDur=0.06))
 st.shot('S11b', 'lab', actors=[act('math', MAT, RYMAT, 'stand', 'neutral', keys=MK11b)],
-        props=[LABHIDE, P('tableau11b', 'seBoard', pos=BOARD, opts={'draw': [[0, 0.84], [0.45, 1.0, 'lin']], 'shudder': [r(JAM - 0.38), JAM]})], cams=[C11b])
+        props=[LABHIDE, P('cheveux11b', 'seWildHair', on={'actor': 'math', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}), P('tableau11b', 'seBoard', pos=BOARD, opts={'draw': [[0, 0.84], [0.45, 1.0, 'lin']], 'shudder': [r(JAM - 0.38), JAM]})], cams=[C11b])
 GAG('S11b', r(JAM + 0.3), 'math', 'never: head shake')
 st.cue('sfx:scratch', 'S11b', 0.05, 0.18); st.cue('sfx:tick', 'S11b', r(JAM - 0.38), 0.3); st.cue('sfx:tick', 'S11b', JAM, 0.4)
 
 # 12: « Puis on a manqué de cousins. » Down at road level at the far end of the scroll: the genealogist kneels and runs his index along the tree to its very end:
 #     the last branch is bare, no face on it; his finger stops, his eyebrows climb, he looks up at us
 D12 = st.dur('S12'); Z12 = 4.5
+# (round 1) he kneels for real (one knee down, the other foot planted: bends on the standing rig, the root lowered, the lesson of « La pizza » and « La
+# notice »), leaning over the tail of the scroll on the road; the camera pushes in on his index sliding to the very end, the last branch bare with an
+# empty dashed ring where a face should be (he taps it twice); cut to him: he looks up at us, an anticipation dip, the eyebrows pop, held to the cut
 SC12 = [3.2, 0.03, Z12]
-GEN12 = [0.25, -0.22, r(Z12 + 0.58)]; RYG12 = -100
-F12, L12, LN12 = FIT([-2.7, 0.95, r(Z12 + 0.15)], {'genTop': add(GEN12, [0, 2.25, 0]), 'genChin': add(GEN12, [0, 1.65, 0]), 'tail': [-1.25, 0.05, Z12], 'tailFar': [-0.4, 0.05, r(Z12 - 0.35)]}, margin=0.15, top=0.13, bottom=0.76)
-C12 = cam(0.0, F12, add(F12, [0.1, -0.03, 0.0]), L12, L12, lens=LN12, ease='inOut')
-chkc('S12', C12, {'genTop': add(GEN12, [0, 2.25, 0]), 'genChin': add(GEN12, [0, 1.65, 0]), 'tail': [-1.2, 0.05, Z12], 'bare': [-0.95, 0.05, r(Z12 - 0.1)]})
-FING = lambda x: [r(x), 0.08, r(Z12 + 0.02)]
-GK12 = [k(-0.5, look=lerp3(FING(-0.6), F12, 0.3)), k(0.0, clip='kneel')]
-for j in range(14):
-    x_ = 0.15 - 1.0 * min(1.0, j / 11)
-    GK12.append(k(r(0.07 * j), toon={**HAND(FING(x_), off(GEN12, RYG12, 0.3, -0.3, 0.9), 'point', 'open', tipR=0.15, hose=0.2), 'bend': {'spine': [0.25, 0, 0, 1, None]}, 'face': {**GF, 'gy': 0.6, 'gx': 0.2, 'mouth': 'line', 'brow': 0.3}}, toonDur=0.06))
-STOP12 = 0.84
-GK12 += [k(STOP12, toon={**HAND(FING(-0.88), off(GEN12, RYG12, 0.3, -0.3, 0.9), 'point', 'open', tipR=0.15, hose=0.2), 'sq': [0.97, 1.04, 0.97], 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'face': {**GF, 'gy': 0.6, 'mouth': 'o', 'brow': 1.0, 'eye': 0.3, 'lid': 0.0}}, toonDur=0.05, toonEase='outBack'),
-         k(r(STOP12 + 0.25), look='camera', lookDur=0.15),
-         *life(r(STOP12 + 0.3), D12, {**GF, 'mouth': 'line', 'brow': 0.9, 'lid': 0.0, 'eye': 0.2}, HAND(FING(-0.88), off(GEN12, RYG12, 0.3, -0.3, 0.9), 'point', 'open', tipR=0.15, hose=0.2, bend={'spine': [0.15, 0, 0, 1, None]}), blinks=[r(D12 - 0.3)], period=0.5)]
-st.shot('S12', 'cottageStreet', actors=[act('gen', GEN12, RYG12, 'kneel', 'neutral', keys=GK12)],
-        props=[P('arbre12', 'seScroll', pos=SC12, ry=-90, rot=[-PI / 2, -PI / 2, 0], rotOrder='YXZ', opts={'w': SCW, 'tail': True, 'seed': 3, 'len': r(SC12[0] + 0.6)}), NOSHADOW('ns12', ['gen'])],
-        cams=[C12])
-GAG('S12', r(STOP12 + 0.1), 'gen', 'the last branch is bare')
-st.cue('sfx:paper', 'S12', 0.05, 0.12); st.cue('sfx:tick', 'S12', STOP12, 0.2)
+SCLEN12 = r(SC12[0] + 0.6); TAIL12 = r(SC12[0] - SCLEN12)
+GEN12 = [-0.55, -0.5, r(Z12 - 0.66)]; RYG12 = 0
+KNEEL = {'legL': [-1.5, 0, 0, 1, None], 'shinL': [1.5, 0, 0, 1, None], 'legR': [0.05, 0, 0, 1, None], 'shinR': [1.55, 0, 0, 1, None]}
+KNS = lambda sp=0.45, nk=0.1: {**KNEEL, 'spine': [sp, 0, 0, 1, None], 'neck': [nk, 0, 0, 1, None]}
+FING = lambda x, dz=0.0: [r(x), 0.07, r(Z12 + dz)]
+RING12 = FING(r(TAIL12 - 0.09), 0.0)
+STOP12 = 0.62; CUT12 = 0.8
+F12, L12, LN12 = FIT([-0.35, 1.0, r(Z12 + 2.0)], {'genTop': add(GEN12, [0, 2.3, 0]), 'genChin': add(GEN12, [0, 1.7, 0]), 'fing0': FING(0.3), 'ring': RING12, 'tail': [r(TAIL12 - 0.3), 0.03, Z12]}, margin=0.13, top=0.13, bottom=0.76, lenses=range(24, 57))
+F12e, L12e, LN12e = FIT([r(TAIL12 + 0.05), 1.2, r(Z12 + 0.9)], {'ring': RING12, 'fingUp': add(RING12, [0.2, 0.3, -0.15]), 'tailEnd': [r(TAIL12 - 0.05), 0.03, Z12], 'body': [r(TAIL12 + 0.55), 0.03, Z12], 'ring2': [r(TAIL12 - 0.2), 0.03, r(Z12 - 0.2)]}, margin=0.14, top=0.3, bottom=0.72, lenses=range(24, 57))
+C12a = cam(0.0, F12, F12e, L12, L12e, lens=LN12, ease='inOut')
+F12b, L12b, LN12b = FIT([-0.5, 1.05, r(Z12 + 1.55)], {'genTop': add(GEN12, [0, 2.45, 0]), 'genChin': add(GEN12, [0, 1.6, 0]), 'ring': RING12, 'hand': add(RING12, [0.1, 0.1, 0])}, margin=0.15, top=0.12, bottom=0.76, lenses=range(24, 57))
+C12b = cam(CUT12, F12b, add(F12b, [0.0, 0.0, -0.1]), L12b, L12b, lens=LN12b, ease='inOut')
+chkc('S12', C12a, {'genTop': add(GEN12, [0, 2.25, 0]), 'genChin': add(GEN12, [0, 1.65, 0]), 'ring': RING12})
+chkc('S12b-face', C12b, {'genTop': add(GEN12, [0, 2.3, 0]), 'genChin': add(GEN12, [0, 1.65, 0]), 'ring': RING12})
+LH12 = off([GEN12[0], 0, GEN12[2]], RYG12, 0.25, -0.32, 0.85)
+GKH = lambda pt, sp=0.45, nk=0.1, pose='point': HAND(pt, LH12, pose, 'open', tipR=0.15, hose=0.15, bend=KNS(sp, nk))
+GF12 = {'lid': 0.3, 'mouth': 'line', 'brow': 0.3, 'gy': 0.7}
+GK12 = [k(-0.5, look=lerp3(add(RING12, [0.3, 1.2, 0.3]), F12, 0.5)), k(0.0, toon={**GKH(FING(0.3)), 'face': GF12}, toonDur=0.0)]
+for j in range(1, 10):
+    u = EZ['out'](j / 9); x_ = 0.3 + (RING12[0] - 0.3) * u
+    GK12.append(k(r(STOP12 * j / 9), toon={**GKH(FING(x_)), 'face': {**GF12, 'gx': -0.4}}, toonDur=r(STOP12 / 9 * 0.9)))
+GK12 += [k(r(STOP12 + 0.02), toon={**GKH(RING12), 'sq': [1.02, 0.98, 1.02], 'face': {**GF12, 'gx': -0.4, 'lid': 0.1, 'brow': 0.6}}, toonDur=0.03),
+         k(0.68, toon={**GKH(add(RING12, [0, 0.07, 0])), 'face': {**GF12, 'gx': -0.4, 'brow': 0.7}}, toonDur=0.03), k(0.71, toon={**GKH(RING12), 'face': {**GF12, 'gx': -0.4, 'brow': 0.7}}, toonDur=0.03),
+         k(0.75, toon={**GKH(add(RING12, [0, 0.07, 0])), 'face': {**GF12, 'gx': -0.4, 'brow': 0.8}}, toonDur=0.03), k(0.78, toon={**GKH(RING12), 'face': {**GF12, 'gx': -0.4, 'brow': 0.8}}, toonDur=0.03),
+         # the take: the head comes up to us, an anticipation dip, the eyebrows pop, held
+         k(0.88, look='camera', lookDur=0.12), k(0.88, toon={**GKH(RING12, 0.3, -0.1), 'face': {**GF12, 'gy': 0.0, 'gx': 0.0, 'brow': 0.4}}, toonDur=0.1),
+         k(0.98, toon={**GKH(RING12, 0.36, -0.05), 'sq': [1.08, 0.9, 1.08], 'face': {**GF12, 'gy': 0.0, 'gx': 0.0, 'brow': -0.5, 'lid': 0.55, 'mouth': 'line'}}, toonDur=0.06),
+         k(1.06, toon={**GKH(RING12, 0.25, -0.15), 'sq': [0.94, 1.09, 0.94], 'face': {**GF12, 'gy': 0.0, 'gx': 0.0, 'brow': 1.0, 'eye': 0.4, 'lid': 0.0, 'mouth': 'o', 'jaw': 0.15}}, toonDur=0.04, toonEase='outBack'),
+         k(1.14, toon={**GKH(RING12, 0.26, -0.15), 'sq': [0.97, 1.05, 0.97], 'face': {**GF12, 'gy': 0.0, 'gx': 0.0, 'brow': 1.0, 'eye': 0.35, 'lid': 0.0, 'mouth': 'o', 'jaw': 0.1}}, toonDur=0.08),
+         *life(1.24, D12, {**GF12, 'gy': 0.0, 'gx': 0.0, 'brow': 1.0, 'eye': 0.33, 'lid': 0.0, 'mouth': 'o', 'jaw': 0.1}, GKH(RING12, 0.26, -0.15), period=0.36, amp=0.016)]
+st.shot('S12', 'cottageStreet', actors=[act('gen', GEN12, RYG12, 'stand', 'neutral', keys=GK12)],
+        props=[GCUT_STREET(12), P('arbre12', 'seScroll', pos=SC12, ry=-90, rot=[-PI / 2, -PI / 2, 0], rotOrder='YXZ', opts={'w': SCW, 'tail': True, 'empty': True, 'seed': 3, 'len': SCLEN12}), NOSHADOW('ns12', ['gen'])],
+        cams=[C12a, C12b])
+GAG('S12', r(STOP12 + 0.1), 'gen', 'the last branch is bare'); GAG('S12', 1.08, 'gen', 'eyebrows pop')
+st.cue('sfx:paper', 'S12', 0.05, 0.12); st.cue('sfx:tick', 'S12', STOP12, 0.2); st.cue('sfx:tick', 'S12', 0.71, 0.12); st.cue('sfx:tick', 'S12', 0.78, 0.12); st.cue('sfx:boing', 'S12', 1.06, 0.12)
 
 # 12b: « La table s'est arrêtée. » An empty village street: two cousins carrying yet another leaf stop, look left, look right: nobody left to seat; a shrug;
-#      they lean the leaf against the fence and it slides down flat on the pavement, CLACK
+# (round 1) they hold it for real, flat between them by its two ends (four mittens on its corners), its weight sagging them; they look left, right,
+# shrug with it, let go: it drops flat on the pavement, CLACK, bounces once and settles; they hop back
 D12b = st.dur('S12b')
-PA12 = [-0.75, 0.12, -1.75]; PC12 = [0.75, 0.12, -1.75]
-LV12 = [0.0, 1.0, -1.75]; LV12w = [0.0, 0.6, -2.62]; LV12f = [0.0, 0.17, -2.2]
-F12b, L12b, LN12b = FIT([2.4, 1.5, 3.5], {'aTop': add(PA12, [0, 2.35, 0]), 'cTop': add(PC12, [0, 2.3, 0]), 'aFeet': add(PA12, [0, 0.1, 0]), 'fence': [0.0, 1.05, -2.9], 'leafFlat': LV12f}, margin=0.14, top=0.13, bottom=0.78)
-C12b = cam(0.0, F12b, add(F12b, [-0.1, 0.0, -0.1]), L12b, L12b, lens=LN12b, ease='inOut')
-chkc('S12b', C12b, {'aTop': add(PA12, [0, 2.35, 0]), 'aChin': add(PA12, [0, 1.75, 0]), 'cTop': add(PC12, [0, 2.3, 0]), 'leafFlat': LV12f})
-LOOKL, LOOKR, SHRUG, LEAN12, SLIDE12 = 0.05, 0.28, 0.52, 0.72, 0.92
+PA12 = [-0.78, 0.12, -1.75]; PC12 = [0.78, 0.12, -1.75]
+LY12 = 1.08; LV12 = [0.0, LY12, -1.75]; LREST12 = 0.2
+LOOKL, LOOKR, SHRUG, DROP12 = 0.1, 0.3, 0.48, 0.64
+LAND12 = r(DROP12 + 0.2)
+LM12 = [(0.0, [0.0, r(LY12 - 0.06), -1.75], 0.08, 'out'), (0.08, [0.0, r(LY12 - 0.02), -1.75], 0.1, 'inOut'), (r(SHRUG - 0.04), [0.0, r(LY12 + 0.06), -1.75], 0.07, 'out'), (r(SHRUG + 0.08), [0.0, r(LY12 - 0.01), -1.75], 0.07, 'in')]
+LT12 = track(LV12, LM12)
+F12b, L12b, LN12b = FIT([2.2, 1.45, 3.6], {'aTop': add(PA12, [0, 2.4, 0]), 'cTop': add(PC12, [0, 2.35, 0]), 'aFeet': add(PA12, [0, 0.1, 0]), 'leafFlat': [0.0, LREST12, -1.75], 'cFeet': add(PC12, [0, 0.1, 0])}, margin=0.13, top=0.13, bottom=0.78, lenses=range(24, 57))
+C12b = cam(0.0, F12b, add(F12b, [-0.1, 0.0, -0.12]), L12b, L12b, lens=LN12b, ease='inOut')
+chkc('S12b', C12b, {'aTop': add(PA12, [0, 2.35, 0]), 'aChin': add(PA12, [0, 1.75, 0]), 'cTop': add(PC12, [0, 2.3, 0]), 'leafFlat': [0.0, LREST12, -1.75]})
 def CUZ12(p, sd):
-    hold = HAND([r(LV12[0] + sd * 0.42), LV12[1], -1.98], [r(LV12[0] + sd * 0.42), LV12[1], -1.52], 'grip', 'grip')
-    shr = HAND(off(p, 0, 0.25, 0.42, 1.4), off(p, 0, 0.25, -0.42, 1.4), 'open', 'open')
-    lean = HAND([r(LV12w[0] + sd * 0.42), 1.05, -2.48], [r(LV12w[0] + sd * 0.3), 0.8, -2.45], 'open', 'open')
-    f = {'lid': 0.3, 'mouth': 'line', 'brow': 0.4}
-    return [k(-0.5, look=lerp3([-6.0, 1.8, 2.0], F12b, 0.4)), k(0.0, toon={**hold, 'face': f}, toonDur=0.0),
-            k(LOOKL, look=lerp3([-6.0, 1.8, 2.0], F12b, 0.4), lookDur=0.08), k(LOOKR, look=lerp3([6.0, 1.8, 2.0], F12b, 0.4), lookDur=0.08),
-            k(r(LOOKL + 0.04), toon={**hold, 'face': {**f, 'gx': 0.8}}, toonDur=0.05), k(r(LOOKR + 0.04), toon={**hold, 'face': {**f, 'gx': -0.8}}, toonDur=0.05),
-            k(r(SHRUG - 0.04), toon={**hold, 'sq': [1.04, 0.96, 1.04], 'face': {**f, 'gx': 0}}, toonDur=0.04), k(r(SHRUG - 0.04), look='camera', lookDur=0.1),
-            k(SHRUG, toon={**shr, 'sq': [0.95, 1.06, 0.95], 'face': {**f, 'brow': 0.9, 'mouth': 'smirk'}}, toonDur=0.07, toonEase='outBack'),
-            k(LEAN12, toon={**lean, 'bend': {'spine': [0.25, 0, 0, 1, None]}, 'face': {**f, 'brow': 0.5}}, toonDur=0.12),
-            *react(r(SLIDE12 + 0.15), 0.7, keep=STANDK(), look='camera', kind='wince'), *life(r(SLIDE12 + 0.45), D12b, {**f, 'brow': 0.6}, STANDK(), period=0.4)]
+    def hold(t):
+        c = LT12(t); return HAND([r(c[0] + sd * 0.47), r(c[1] - 0.04), -1.97], [r(c[0] + sd * 0.47), r(c[1] - 0.04), -1.53], 'grip', 'grip', hose=0.1)
+    f = {'lid': 0.3, 'mouth': 'line', 'brow': 0.4}; lk = lambda x: lerp3([x, 1.8, 2.0], F12b, 0.4)
+    out = [k(-0.5, look=lk(-6.0)), k(0.0, toon={**hold(0), 'sq': [1.05, 0.94, 1.05], 'face': {**f, 'mouth': 'clench', 'brow': -0.2}}, toonDur=0.0)]
+    for j in range(1, 12):
+        t = r(0.05 * j)
+        if t >= DROP12: break
+        sq = [1.04, 0.95, 1.04] if t < 0.2 else ([0.97, 1.05, 0.97] if SHRUG - 0.05 <= t < SHRUG + 0.1 else [1.02, 0.98, 1.02])
+        fc = {**f, 'gx': 0.8 if LOOKL <= t < LOOKR else (-0.8 if LOOKR <= t < SHRUG else 0.0), 'brow': 0.9 if t >= SHRUG - 0.05 else 0.3, 'mouth': 'smirk' if t >= SHRUG else 'line'}
+        out.append(k(t, toon={**hold(t + 0.02), 'sq': sq, 'face': fc}, toonDur=0.045))
+    out += [k(LOOKL, look=lk(-6.0), lookDur=0.08), k(LOOKR, look=lk(6.0), lookDur=0.08), k(r(SHRUG - 0.05), look='camera', lookDur=0.1),
+            k(DROP12, toon={**HAND(off(p, 0, 0.3, 0.3, 1.45), off(p, 0, 0.3, -0.3, 1.45), 'spread', 'spread', hose=0.2), 'sq': [0.95, 1.06, 0.95], 'face': {**f, 'brow': 1.0, 'mouth': 'o', 'lid': 0.0}}, toonDur=0.05, toonEase='out'),
+            *react(r(LAND12 + 0.01), 0.8, keep=STANDK(), look='camera', kind='startle'), *life(r(LAND12 + 0.4), D12b, {**f, 'brow': 0.6, 'mouth': 'smirk'}, STANDK(), period=0.4)]
+    return out
+LEAFK12 = [*MOVES(LM12), *MOVES(FALL(DROP12, [0.0, r(LY12 - 0.01), -1.75], [0.0, LREST12, -1.75], r(LAND12 - DROP12))),
+           k(LAND12, squash=[1.0, 0.6, 1.0], dur=0.25), k(r(LAND12 + 0.01), to=[0.0, r(LREST12 + 0.07), -1.75], dur=0.07, ease='out'), k(r(LAND12 + 0.08), to=[0.0, LREST12, -1.75], dur=0.07, ease='in'),
+           k(r(LAND12 + 0.01), rotTo=[0.06, 0, -0.05], dur=0.07, ease='out'), k(r(LAND12 + 0.08), rotTo=[-0.02, 0, 0.015], dur=0.07, ease='in'), k(r(LAND12 + 0.15), rotTo=[0, 0, 0], dur=0.1, ease='out')]
 st.shot('S12b', 'cottageStreet', actors=[act('cA', PA12, 0, 'stand', 'neutral', keys=CUZ12(PA12, -1)), act('cC', PC12, 0, 'stand', 'neutral', keys=CUZ12(PC12, 1))],
-        props=[P('rallonge12b', 'seLeaf', pos=LV12, opts={'len': LEAF, 'w': TW}, keys=[k(LEAN12, to=LV12w, dur=0.14, ease='inOut'), k(LEAN12, rotTo=[1.25, 0, 0], dur=0.14, ease='inOut'), k(SLIDE12, to=LV12f, dur=0.15, ease='in'), k(SLIDE12, rotTo=[0, 0, 0], dur=0.15, ease='in'), k(r(SLIDE12 + 0.15), squash=[1.0, 0.75, 1.0], dur=0.3)])],
+        props=[GCUT_STREET('12b'), P('rallonge12b', 'seLeaf', pos=LV12, opts={'len': LEAF, 'w': TW}, keys=LEAFK12)],
         cams=[C12b])
-GAG('S12b', r(SHRUG + 0.05), 'cA', 'shrug')
-st.cue('sfx:slideDown', 'S12b', SLIDE12, 0.15); st.cue('clack', 'S12b', r(SLIDE12 + 0.15), 0.5)
-
+GAG('S12b', r(SHRUG + 0.05), 'cA', 'shrug'); GAG('S12b', LAND12, 'cC', 'the leaf drops')
+st.cue('sfx:slideDown', 'S12b', DROP12, 0.12); st.cue('clack', 'S12b', LAND12, 0.5); st.cue('sfx:tick', 'S12b', r(LAND12 + 0.15), 0.12)
 # ============================== his end of the table on a flat snowy plain, far inland (the snow set; he faces +X, home is that way)
 HS = [-2.5, 0.0, 4.0]; RYS_ = 90
 def SNOWEND(n, roast_snow=1.0, shaker=None, fork_in_roast=False):
@@ -1035,33 +1107,54 @@ st.cue('gust', 'S13', 0.0, 0.18, 0.6); st.cue('sfx:stretch', 'S13', 0.55, 0.12);
 #     upside down and taps its bottom with his fork: nothing, the inked glass empty, not one grain; then the take: his eyes snap out, his head stretches,
 #     his hair stands up, held
 D14 = st.dur('S14')
-SHHAND = off(HS, RYS_, 0.48, 0.3, 1.32)
-TAKE14 = 0.74
-SP14 = SHP(SHHAND, 0.0, [(0.0, add(SHHAND, [0.05, 0.06, 0]), -0.6, 0.06, 'out'), (0.08, add(SHHAND, [0.05, -0.04, 0]), 0.6, 0.06, 'inOut'), (0.16, add(SHHAND, [0.05, 0.06, 0]), -0.6, 0.06, 'inOut'), (0.24, add(SHHAND, [0.05, -0.04, 0]), 0.6, 0.06, 'inOut'),
-                         (0.36, add(SHHAND, [0.0, 0.12, 0]), PI, 0.12, 'inOut')])
-F14, L14, LN14 = FIT([-0.75, 1.75, 5.05], {'top': add(HS, [0, 2.25, 0]), 'chin': add(HS, [0, 1.25, 0]), 'shakerUp': add(SHHAND, [0, 0.36, 0]), 'shakerDown': add(SHHAND, [0, -0.26, 0]), 'pad': add(HS, [0, 1.6, -0.45])}, margin=0.15, top=0.12, bottom=0.76)
-C14 = cam(0.0, F14, add(F14, [-0.06, 0.0, -0.06]), L14, L14, lens=LN14, ease='inOut')
-chkc('S14', C14, {'top': add(HS, [0, 2.25, 0]), 'chin': add(HS, [0, 1.25, 0]), 'shakerUp': add(SHHAND, [0, 0.36, 0]), 'shakerCap': add(SHHAND, [0, -0.26, 0])})
+# (round 1) the tap is staged in profile (a camera at his side, his silhouette, the shaker held out over the roast, against the sky); he shakes it, turns it upside
+# down and taps its bottom twice with the handle of his fork; a beat of NOTHING (the clear empty glass, the empty air between the cap and the roast,
+# his eyes on it, then on us); then a new take (not the eyes on stalks of the last episode): his head shoots up out of his collar, one eye swells,
+# the other shrinks, his jaw drops down onto the roast; held; snapped back in two frames
+G14a = off(HS, RYS_, 0.6, 0.06, 1.38); G14b = off(HS, RYS_, 0.66, 0.04, 1.56)
+TAKE14 = 0.8; SNAP14 = 1.05
+SP14 = SHP(G14a, 0.0, [(0.0, add(G14a, [0, 0.06, 0.03]), -0.55, 0.06, 'out'), (0.08, add(G14a, [0, -0.03, -0.03]), 0.55, 0.06, 'inOut'), (0.16, add(G14a, [0, 0.06, 0.03]), -0.55, 0.06, 'inOut'), (0.24, add(G14a, [0, -0.03, -0.03]), 0.55, 0.06, 'inOut'),
+                    (0.33, G14b, PI, 0.11, 'inOut')])
+BASE14 = add(G14b, [0, SH_GRIP + 0.005, 0])
+TAPF = lambda d: add(BASE14, [-0.02, r(KN_G + 0.012 + d), 0.0])
 FORKH = off(HS, RYS_, 0.42, -0.19, 0.93)
-TAPF = lambda d: add(SHHAND, [0.02, r(0.3 + d), 0.0])
+F14, L14, LN14 = FIT([r(HS[0] + 0.4), 1.45, r(HS[2] + 2.55)], {'top': add(HS, [0, 2.08, 0]), 'chin': add(HS, [0, 1.28, 0]), 'shakerTop': add(BASE14, [0, 0.3, 0]), 'cap': add(G14b, [0, -0.3, 0]), 'roast': [r(HS[0] + 0.72), TH + 0.05, HS[2]]}, margin=0.14, top=0.12, bottom=0.76, lenses=range(24, 57))
+C14a = cam(0.0, F14, add(F14, [-0.05, 0.0, -0.06]), L14, L14, lens=LN14, ease='inOut')
+F14b, L14b, LN14b = FIT([-0.45, 1.75, 5.35], {'top': add(HS, [0, 2.75, 0]), 'chin': add(HS, [0, 1.6, 0]), 'roast': [r(HS[0] + 0.72), TH, HS[2]], 'shaker': add(BASE14, [0, 0.2, 0]), 'pad': add(HS, [0, 2.2, 0.55])}, margin=0.14, top=0.11, bottom=0.76, lenses=range(24, 57))
+C14b = cam(r(TAKE14 - 0.07), F14b, add(F14b, [-0.03, 0.03, -0.03]), L14b, L14b, lens=LN14b, ease='inOut')
+chkc('S14', C14a, {'top': add(HS, [0, 2.08, 0]), 'chin': add(HS, [0, 1.25, 0]), 'shakerBase': BASE14, 'cap': add(G14b, [0, -0.26, 0]), 'roast': [r(HS[0] + 0.72), TH, HS[2]]})
+chkc('S14-take', C14b, {'top': add(HS, [0, 2.75, 0]), 'jaw': [r(HS[0] + 0.45), 1.0, HS[2]], 'roast': [r(HS[0] + 0.72), TH, HS[2]]})
 KS = lambda q, tap=None, **x: HAND(q, tap or FORKH, 'grip', 'fist', **x)
-HK14 = [SIT(), k(-0.5, look=add(SHHAND, [0, 0.1, 0])), k(0.0, toon={**KS(SHHAND), 'face': {**HF, 'brow': 0.6, 'mouth': 'smile', 'gx': 0.4, 'gy': 0.2}}, toonDur=0.0),
-        *FOLLOW(HS, RYS_, SP14.grip, 0.0, 0.32, {**HF, 'brow': 0.6, 'mouth': 'smile', 'gx': 0.4}, other=FORKH),
-        k(0.36, toon={**KS(add(SHHAND, [0.0, 0.12, 0]), TAPF(0.12)), 'face': {**HF, 'brow': 0.3, 'mouth': 'line', 'gx': 0.4, 'gy': -0.2}}, toonDur=0.1),
-        k(0.5, toon={**KS(add(SHHAND, [0.0, 0.12, 0]), TAPF(0.05)), 'face': {**HF, 'brow': 0.3, 'mouth': 'line', 'gx': 0.4, 'gy': -0.3}}, toonDur=0.04),
-        k(0.58, toon={**KS(add(SHHAND, [0.0, 0.12, 0]), TAPF(0.12)), 'face': {**HF, 'brow': 0.2, 'mouth': 'line', 'gx': 0.4, 'gy': -0.3}}, toonDur=0.04),
-        k(0.64, toon={**KS(add(SHHAND, [0.0, 0.12, 0]), TAPF(0.05)), 'face': {**HF, 'brow': 0.2, 'mouth': 'line', 'gx': 0.4, 'gy': -0.3}}, toonDur=0.04),
-        k(r(TAKE14 - 0.02), look='camera', lookDur=0.06),
-        *take(TAKE14, 'stalks', keep={**KS(add(SHHAND, [0.0, 0.12, 0]), FORKH), 'face': {'brow': 1.0, 'mouth': 'line'}}, hold=0.38, s=1.1)]
-UF14 = [k(0.36, to=ubase(TAPF(0.12)), dur=0.1), k(0.5, to=ubase(TAPF(0.05)), dur=0.04), k(0.58, to=ubase(TAPF(0.12)), dur=0.04), k(0.64, to=ubase(TAPF(0.05)), dur=0.04), k(r(TAKE14), to=ubase(FORKH), dur=0.08)]
+F14f = {**HF, 'brow': 0.5, 'mouth': 'smile', 'gx': -0.4, 'gy': 0.1}
+TK14 = {'sq': [0.95, 1.08, 0.95], 'bend': {'neck': [0.12, 0, 0, 5.5, None], 'spine': [0.3, 0, 0, 1, None]}, 'auto': 0,
+        'face': {'eyeL': 1.2, 'eyeR': -0.4, 'browL': 1.0, 'browR': -0.4, 'lid': 0.0, 'jaw': 1.0, 'jawLen': 2.0, 'mouth': 'O', 'gx': 0.0, 'gy': 0.25}}
+HK14 = [SIT(), k(-0.5, look=add(G14a, [0, 0.1, 0])), k(0.0, toon={**KS(G14a), 'face': F14f}, toonDur=0.0),
+        *FOLLOW(HS, RYS_, SP14.grip, 0.0, 0.42, F14f, other=FORKH),
+        k(0.36, look=lerp3(add(BASE14, [0, -0.2, 0]), F14, 0.5), lookDur=0.1),
+        k(0.44, toon={**KS(G14b, TAPF(0.13)), 'face': {**F14f, 'mouth': 'line', 'gy': -0.3, 'brow': 0.3}}, toonDur=0.04),
+        k(0.48, toon={**KS(G14b, TAPF(0.0)), 'face': {**F14f, 'mouth': 'line', 'gy': -0.3, 'brow': 0.3}}, toonDur=0.03),
+        k(0.53, toon={**KS(G14b, TAPF(0.13)), 'face': {**F14f, 'mouth': 'line', 'gy': -0.3, 'brow': 0.2}}, toonDur=0.04),
+        k(0.58, toon={**KS(G14b, TAPF(0.0)), 'face': {**F14f, 'mouth': 'line', 'gy': -0.3, 'brow': 0.2}}, toonDur=0.03),
+        # the beat of nothing: his eyes drop to the empty air under the cap, then come to us
+        k(0.62, toon={**KS(G14b, TAPF(0.06)), 'face': {**F14f, 'mouth': 'line', 'gy': 0.55, 'gx': -0.5, 'brow': 0.1, 'lid': 0.25}}, toonDur=0.06),
+        k(0.72, toon={**KS(G14b, TAPF(0.06)), 'face': {**F14f, 'mouth': 'line', 'gy': 0.0, 'gx': 0.0, 'brow': 0.0, 'lid': 0.3}}, toonDur=0.04), k(0.71, look='camera', lookDur=0.06),
+        # the take
+        k(r(TAKE14 - 0.07), toon={**KS(G14b, TAPF(0.06)), 'sq': [1.1, 0.86, 1.1], 'bend': {'neck': [-0.1, 0, 0, 0.8, None]}, 'auto': 0, 'face': {**F14f, 'mouth': 'line', 'gy': 0.0, 'gx': 0.0, 'brow': -0.5, 'lid': 0.6}}, toonDur=0.05),
+        k(TAKE14, toon={**KS(G14b, TAPF(0.06)), **TK14}, toonDur=0.035, toonEase='out')]
+for j in range(1, 7):
+    q = dict(TK14); s_ = 1 + (0.025 if j % 2 else -0.025); q['sq'] = [r(0.95 / math.sqrt(s_)), r(1.08 * s_), r(0.95 / math.sqrt(s_))]
+    q['bend'] = {'neck': [0.12, 0, 0, r(5.5 + (0.25 if j % 2 else -0.25)), None], 'spine': [0.3, 0, 0, 1, None]}
+    HK14.append(k(r(TAKE14 + 0.035 * j), toon={**KS(G14b, TAPF(0.06)), **q}, toonDur=0.03))
+HK14 += [k(SNAP14, toon={**KS(G14b, TAPF(0.06)), 'sq': [1.12, 0.88, 1.12], 'auto': 0, 'face': {**F14f, 'mouth': 'line', 'gx': 0.0, 'gy': 0.0, 'brow': 0.6, 'eye': 0.15, 'lid': 0.0}}, toonDur=0.035, toonEase='in'),
+         k(r(SNAP14 + 0.06), toon={**KS(G14b, TAPF(0.06)), 'sq': [0.97, 1.03, 0.97], 'face': {**F14f, 'mouth': 'line', 'gx': 0.0, 'gy': 0.0, 'brow': 0.5, 'lid': 0.1}}, toonDur=0.05)]
+UF14 = [k(0.36, to=ubase(TAPF(0.13)), dur=0.08), k(0.44, to=ubase(TAPF(0.13)), dur=0.04), k(0.48, to=ubase(TAPF(0.0)), dur=0.03), k(0.53, to=ubase(TAPF(0.13)), dur=0.04), k(0.58, to=ubase(TAPF(0.0)), dur=0.03), k(0.62, to=ubase(TAPF(0.06)), dur=0.06)]
 st.shot('S14', 'snow', actors=[act('mec', HS, RYS_, 'sit', 'neutral', keys=HK14)],
-        props=[*SNOWEND(14), P('couteauPose14', 'seUtensil', pos=[r(HS[0] + 0.35), TH + 0.02, r(HS[2] - 0.32)], ry=90, rot=[-PI / 2, r(PI / 2, 4), 0], rotOrder='YXZ', opts={'kind': 'knife', 'len': KN_L, 'snow': 1.0}),
+        props=[*SNOWEND(14), P('couteauPose14', 'seUtensil', pos=[r(HS[0] + 0.35), TH + 0.02, r(HS[2] + 0.32)], ry=90, rot=[-PI / 2, r(PI / 2, 4), 0], rotOrder='YXZ', opts={'kind': 'knife', 'len': KN_L, 'snow': 1.0}),
                UTENSIL('fourchette14', 'fork', ubase(FORKH), yaw(FORKH, F14), keys=UF14, snow=1.0), SHAKER('sel14', SP14.pos0, EMPTY, keys=SP14.keys()), NOSHADOW('ns14', ['mec'])],
-        cams=[C14])
-GAG('S14', r(TAKE14 + 0.15), 'mec', 'the take'); st.text('S14', 0.45, 'sel14', 'empty')
+        cams=[C14a, C14b])
+GAG('S14', r(TAKE14 + 0.1), 'mec', 'the take: head up out of the collar, one eye big, jaw on the roast'); st.text('S14', 0.66, 'sel14', 'empty')
 for t_ in (0.02, 0.1, 0.18, 0.26): st.cue('sfx:rattleShort', 'S14', t_, 0.06)
-st.cue('sfx:tick', 'S14', 0.5, 0.2); st.cue('sfx:tick', 'S14', 0.64, 0.2); st.cue('sfx:boing', 'S14', TAKE14, 0.25)
-
+st.cue('sfx:tick', 'S14', 0.48, 0.2); st.cue('sfx:tick', 'S14', 0.58, 0.2); st.cue('sfx:stretch', 'S14', TAKE14, 0.2); st.cue('thud', 'S14', r(TAKE14 + 0.05), 0.15); st.cue('sfx:boing', 'S14', SNAP14, 0.15)
 # 15: « Tout le pays fait de la tension. » The village-street table: four cousins in a row behind their plates, each with a big white heap of salt, faces
 #     tomato red, cheeks puffed; steam bursts from their ears like kettles (inked, opaque puffs), a whistle; they tremble
 D15 = st.dur('S15'); Z15 = 4.5
@@ -1080,7 +1173,7 @@ def REDK(i):
     return out
 STEAM = lambda n, who, i: P(f'vapeur{n}_{who}', 'seSteam', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={'on': [[r(0.06 + 0.03 * i), 9]], 'ear': [0.15, 0.27], 's': 1.1, 'rate': 2.4 + 0.3 * i})
 st.shot('S15', 'cottageStreet', actors=[act(COUS[i], P15[i], 0, 'sit', 'neutral', keys=REDK(i)) for i in range(4)],
-        props=[P('table15', 'seTable', pos=[0.0, 0, Z15], opts={'len': 5.0, 'w': TW, 'places': [[P15[i][0], -1] for i in range(4)], 'chairs': [[P15[i][0], -1] for i in range(4)]}),
+        props=[GCUT_STREET(15), P('table15', 'seTable', pos=[0.0, 0, Z15], opts={'len': 5.0, 'w': TW, 'places': [[P15[i][0], -1] for i in range(4)], 'chairs': [[P15[i][0], -1] for i in range(4)]}),
                *[HEAP(f'tas15_{i}', [P15[i][0], TH + 0.02, r(Z15 - 0.3)], None, r_=0.07) for i in range(4)], *[STEAM(15, COUS[i], i) for i in range(4)], NOSHADOW('ns15', COUS)],
         cams=[C15])
 GAG('S15', 0.6, 'cB', 'red, steaming')
@@ -1113,53 +1206,88 @@ st.cue('thud', 'S15b', TAP15, 0.2)
 
 # 16: « Il vient de demander » Still at his snowy end: he raises one finger (a little hop of hope) and asks (lip flaps), eyes bright
 D16 = st.dur('S16'); DEM16 = W('S16', 'L16', 3)
-FINGER = off(HS, RYS_, 0.4, -0.32, 1.6)
-F16, L16, LN16 = FIT([-0.9, 1.35, 4.9], {'top': add(HS, [0.15, 2.15, 0]), 'chin': add(HS, [0.15, 1.3, 0]), 'finger': add(FINGER, [0, 0.2, 0]), 'pad': add(HS, [0.15, 1.7, 0.42])}, margin=0.2, top=0.13, bottom=0.76)
+# (round 1) the ask, with a real anticipation: a dip (squashed, the mitten pulled to his chest), a stretch up off the chair with the index up and the eyes
+# bright, a squash on landing, a settle; lip flaps through the whole line, the finger wagging
+FINGER = off(HS, RYS_, 0.4, -0.32, 1.62)
+F16, L16, LN16 = FIT([-0.9, 1.35, 4.9], {'top': add(HS, [0.15, 2.32, 0]), 'chin': add(HS, [0.15, 1.3, 0]), 'finger': add(FINGER, [0, 0.35, 0]), 'pad': add(HS, [0.15, 1.7, 0.42])}, margin=0.2, top=0.13, bottom=0.76)
 C16 = cam(0.0, F16, add(F16, [-0.08, 0.0, -0.08]), L16, L16, lens=LN16, ease='inOut')
 chkc('S16', C16, {'top': add(HS, [0, 2.15, 0]), 'chin': add(HS, [0, 1.3, 0]), 'finger': off(HS, RYS_, 0.35, -0.3, 2.05)})
-HK16 = [SIT(), k(-0.5, look='camera'), k(0.0, toon={**KK(off(HS, RYS_, 0.35, -0.2, 0.86), 'open'), 'face': FB}, toonDur=0.0),
-        k(0.04, toon={**KK(off(HS, RYS_, 0.4, -0.25, 1.1)), 'sq': [1.05, 0.95, 1.05], 'face': {**FB, 'brow': 0.6}}, toonDur=0.04),
-        k(0.12, toon={**KK(FINGER, 'point', tipL=0.15), 'sq': [0.94, 1.08, 0.94], 'face': {**HF, 'lid': 0.0, 'brow': 1.0, 'eye': 0.25, 'mouth': 'smile'}}, toonDur=0.06, toonEase='outBack'),
-        *[q for j, q in enumerate(TALK(r(DEM16 - 0.04), r(D16 - 0.05), {**HF, 'lid': 0.0, 'brow': 0.9, 'eye': 0.2}, keep=KK(FINGER, 'point', tipL=0.15, hose=0.25), step=0.09))]]
-HK16 = [q if not (isinstance(q.get('toon'), dict) and q['at'] > DEM16 - 0.05) else {**q, 'toon': {**q['toon'], **KK(add(FINGER, [0.0, 0.0, r(0.05 * (1 if int(q['at'] / 0.09) % 2 else -1))]), 'point', tipL=0.15, hose=0.25)}} for q in HK16]
+CHEST16 = off(HS, RYS_, 0.32, -0.22, 1.12)
+FB16 = {**HF, 'lid': 0.0, 'brow': 0.9, 'eye': 0.3, 'pupil': 1.2, 'mouth': 'smile', 'mouthW': 0.25}
+MOUTHS = ['open', 'o', 'line', 'open', 'smirk', 'o']
+def ASK16(t, j):
+    # the body state at t (the dip, the stretch up, the squash, the settle) with the j-th lip flap
+    wag = 0.04 * (1 if j % 2 else -1)
+    if t < 0.03: b = {**KK(off(HS, RYS_, 0.35, -0.2, 0.86), 'open'), 'face': {**FB, 'brow': 0.5}}
+    elif t < 0.12: b = {**KK(CHEST16), 'sq': [1.13, 0.84, 1.13], 'auto': 0, 'face': {**FB, 'lid': 0.5, 'brow': -0.3, 'mouth': 'line'}}
+    elif t < 0.28: b = {**KK(add(FINGER, [0, 0.12, 0]), 'point', tipL=0.15), 'sq': [0.87, 1.2, 0.87], 'hairUp': 0.35, 'auto': 0, 'face': dict(FB16)}
+    elif t < 0.4: b = {**KK(FINGER, 'point', tipL=0.15), 'sq': [1.1, 0.9, 1.1], 'auto': 0, 'face': dict(FB16)}
+    else: b = {**KK(add(FINGER, [0, 0, wag]), 'point', tipL=0.15, hose=0.2), 'sq': [0.98, 1.02, 0.98], 'face': dict(FB16)}
+    if t >= 0.12: b['face'] = {**b['face'], 'mouth': MOUTHS[j % 6], 'jaw': 0.25 if MOUTHS[j % 6] in ('open', 'o') else 0.0}
+    return b
+HK16 = [SIT(), k(-0.5, look='camera'), k(0.0, toon=ASK16(0.0, 0), toonDur=0.0), k(0.03, toon=ASK16(0.05, 0), toonDur=0.05),
+        k(0.12, to=add(HS, [0, 0.14, 0]), dur=0.08, ease='out', glide=True, face='keep'), k(0.26, to=list(HS), dur=0.08, ease='in', glide=True, face='keep')]
+for j, t_ in enumerate([0.12, 0.2, 0.28, 0.34, 0.4, 0.49, 0.58, 0.67, 0.76, 0.85]):
+    HK16.append(k(t_, toon=ASK16(t_, j), toonDur=0.05 if t_ < 0.4 else 0.06, **({'toonEase': 'outBack'} if t_ == 0.12 else {})))
 st.shot('S16', 'snow', actors=[act('mec', HS, RYS_, 'sit', 'neutral', keys=HK16)],
         props=[*SNOWEND(16), UTENSIL('couteau16', 'knife', ubase(KRS), yaw(KRS, F16), snow=1.0), UTENSIL('fourchette16', 'fork', FORKR, 90, snow=1.0), SHAKER('sel16', [r(HS[0] + 0.66), TH, r(HS[2] + 0.42)], EMPTY), NOSHADOW('ns16', ['mec'])],
         cams=[C16])
-GAG('S16', 0.4, 'mec', 'asks again')
-st.cue('sfx:boing', 'S16', 0.12, 0.1)
+GAG('S16', 0.15, 'mec', 'the ask: dip, stretch, finger up')
+st.cue('sfx:boing', 'S16', 0.12, 0.12); st.cue('thud', 'S16', 0.34, 0.12)
 
-# 16b: « le poivre. » Home, the far end: mamie picks up a big wooden pepper mill and hands it to her left; at that very moment the front door behind her opens on
-#      a new cousin with a table leaf under his arm, all smiles; a beat: they all look at us
-D16b = st.dur('S16b'); OPEN16 = 0.62
-MILL0 = [-2.48, TH, -0.1]; MILLG0 = add(MILL0, [0, 0.18, 0])
-MP16 = [(0.08, add(MILLG0, [0.02, 0.24, 0.0]), 0.2, 'out'), (0.36, [-2.28, 1.08, -0.42], 0.2, 'inOut')]
-MT16 = track(MILLG0, MP16)
-CE16 = [-5.0, 0.0, 0.05]
-F16b, L16b, LN16b = FIT([-0.45, 1.6, 0.85], {'mamieTop': add(MAMIE, [0, 1.85, 0]), 'mamieChin': add(MAMIE, [0, 1.22, 0]), 'cAtop': add(CA, [0, 1.95, 0]), 'ceTop': add(CE16, [0, 2.3, 0]), 'doorTop': [-4.2, 2.65, 0.0], 'mill': add(MILLG0, [0, 0.3, 0])}, back=True, inside=ROOM, margin=0.14, top=0.13, bottom=0.78)
-C16b = cam(0.0, F16b, add(F16b, [0.08, 0.0, 0.0]), L16b, add(L16b, [0.0, 0.0, 0.0]), lens=LN16b, ease='inOut')
-chkc('S16b', C16b, {'mamieTop': add(MAMIE, [0, 1.85, 0]), 'mamieChin': add(MAMIE, [0, 1.22, 0]), 'cAtop': add(CA, [0, 1.95, 0]), 'cAchin': add(CA, [0, 1.35, 0]), 'ceTop': add(CE16, [0, 2.3, 0]), 'ceChin': add(CE16, [0, 1.7, 0])})
-MK16b = [SIT(), k(-0.5, look=lerp3(add(MILLG0, [0, 0.3, 0]), F16b, 0.6)), k(0.0, toon={**RESTK(MAMIE, RYM1c), 'face': {**MF, 'gx': 0.5, 'gy': 0.4}}, toonDur=0.0),
-         *FOLLOW(MAMIE, RYM1c, MT16, 0.04, 0.6, {**MF, 'gx': 0.5, 'gy': 0.3}),
-         k(0.62, toon={**RESTK(MAMIE, RYM1c), 'face': MF}, toonDur=0.12), k(0.75, look='camera', lookDur=0.2),
-         *life(0.85, D16b, MF, RESTK(MAMIE, RYM1c), blinks=[1.1], period=0.6)]
-AK16b = [SIT(), k(-0.5, look=add(MILLG0, [0, 0.3, 0])), k(0.0, toon={**RESTK(CA, RYA), 'face': AF}, toonDur=0.0),
-         *FOLLOW(CA, RYA, MT16, 0.36, 0.8, {**AF, 'brow': 0.6}), k(0.9, toon={**HOLDK(CA, RYA, MT16(0.8)), 'face': {**AF, 'mouth': 'smirk'}}, toonDur=0.1), k(0.85, look='camera', lookDur=0.2),
-         *life(1.0, D16b, {**AF, 'mouth': 'smirk'}, HOLDK(CA, RYA, MT16(0.8)), blinks=[1.3], period=0.6)]
-EF16 = {'lid': 0.2, 'mouth': 'smile', 'brow': 0.8}
-LEAFARM = HAND(off(CE16, 90, 0.05, 0.42, 1.0), off(CE16, 90, 0.2, -0.3, 1.0), 'grip', 'rest')
-EK16b = [k(-0.5, look=F16b), k(0.0, toon={**LEAFARM, 'face': EF16}, toonDur=0.0),
-         k(r(OPEN16 + 0.12), toon={**LEAFARM, 'sq': [0.93, 1.1, 0.93], 'face': {**EF16, 'lid': 0.0, 'brow': 1.0, 'mouth': 'open', 'jaw': 0.3}}, toonDur=0.05, toonEase='outBack'),
-         *WAVEK(CE16, 90, r(OPEN16 + 0.3), r(D16b - 0.6), EF16, side=1, step=0.12, other=off(CE16, 90, 0.05, 0.42, 1.0)),
-         k(r(D16b - 0.6), toon={**LEAFARM, 'face': EF16}, toonDur=0.12), *blink(r(D16b - 0.45), EF16, LEAFARM)]
-st.shot('S16b', 'whiteVoid', setOpts=DSET, actors=[act('mamie', MAMIE, RYM1c, 'sit', 'neutral', keys=MK16b), act('cA', CA, RYA, 'sit', 'neutral', keys=AK16b), act('cE', CE16, 90, 'stand', 'neutral', keys=EK16b)],
-        props=[DINING('16b', door=[[0, 0], [OPEN16, 0], [r(OPEN16 + 0.14), 1.0, 'lin']], slam=r(OPEN16 + 0.14)), MAINSEG('16b', chairs=NEARCH), MCHAIR('16b'), HEAP('tas16b', plate_at(-2.2, -1)),
-               P('moulin16b', 'seMill', pos=MILL0, keys=MOVES([(t0, add(g, [0, -0.18, 0]), d, e) for t0, g, d, e in MP16])),
-               P('rallonge16b', 'seLeaf', on={'actor': 'cE', 'joint': 'torso', 'offset': [-0.42, -0.05, 0.05], 'rot': [PI / 2, PI / 2, 0.0]}, opts={'len': LEAF, 'w': TW}),
-               NOSHADOW('ns16b', ['mamie', 'cA', 'cE'])],
-        cams=[C16b])
-GAG('S16b', r(OPEN16 + 0.3), 'cE', 'a new cousin with a leaf')
-st.cue('sfx:tick', 'S16b', 0.1, 0.1); st.cue('thud', 'S16b', r(OPEN16 + 0.14), 0.35); st.cue('sfx:squeak', 'S16b', OPEN16, 0.12); st.cue('sfx:bell', 'S16b', r(OPEN16 + 0.2), 0.1)
-
+# 16b: « le poivre. » (round 1) the film ends on him at his snowy end. It opens on a two-thirds-of-a-second cut-in of the far end of the dining room (the
+# room is a prop, built here a hundred metres behind him on the snow set): « poivre » lands on a big pepper mill that mamie passes, lit and centred,
+# while a new cousin shoves another leaf into the gap with rubber arms, CLACK; then back to him for the last 1.3 s: finger still up, hopeful, finishing
+# « poivre », breathing, a blink, eyes on us at the last frame
+D16b = st.dur('S16b'); CUT16 = FL(20 / 30)
+O16 = [0.0, 0.0, 100.0]
+def o16(p): return [r(p[0] + O16[0]), r(p[1] + O16[1]), r(p[2] + O16[2])]
+MAMIE16 = o16([-2.95, 0, 0.0]); RYM16 = 55
+CA16 = o16([-1.0, 0, -0.75]); CE16 = o16([-2.05, 0, -1.6])
+GAPX = -2.05; LF16a = o16([GAPX, TH - 0.03, -1.25]); LF16b = o16([GAPX, TH - 0.03, 0.0]); SLAM16 = 0.36
+MILLH = 0.95; MILLG = MILLH * 0.45
+MG0 = o16([-2.6, 1.12, 0.3]); MG1 = o16([-1.35, 1.1, -0.25])
+MP16 = [(0.0, MG0, 0.0, 'linear'), (0.04, MG1, 0.42, 'inOut')]
+MT16 = track(MG0, MP16)
+F16c, L16c, LN16c = FIT(o16([-2.05, 1.4, 3.6]), {'mamieTop': add(MAMIE16, [0, 1.85, 0]), 'mamieChin': add(MAMIE16, [0, 1.2, 0]), 'ceTop': add(CE16, [0, 2.3, 0]), 'millTop': add(MT16(0.25), [0, 0.85, 0]), 'millLow': add(MT16(0.25), [0, -0.25, 0]), 'leaf': add(LF16b, [0, 0, 0.5])}, margin=0.1, top=0.13, bottom=0.78, lenses=range(22, 72))
+C16c = cam(0.0, F16c, lerp3(F16c, MT16(0.25), 0.08), L16c, L16c, lens=LN16c, ease='inOut')
+F16d, L16d, LN16d = FIT([-0.95, 1.35, 4.85], {'top': add(HS, [0.15, 2.15, 0]), 'chin': add(HS, [0.15, 1.3, 0]), 'finger': add(FINGER, [0, 0.3, 0]), 'pad': add(HS, [0.15, 1.7, 0.42])}, margin=0.2, top=0.14, bottom=0.76)
+C16d = cam(CUT16, F16d, lerp3(F16d, add(HS, [0, 1.6, 0]), 0.12), L16d, L16d, lens=LN16d, ease='inOut')
+chkc('S16b', C16c, {'mamieTop': add(MAMIE16, [0, 1.85, 0]), 'mamieChin': add(MAMIE16, [0, 1.22, 0]), 'caTop': add(CA16, [0, 1.95, 0]), 'ceTop': add(CE16, [0, 2.3, 0]), 'ceChin': add(CE16, [0, 1.7, 0]), 'mill': MT16(0.25)})
+chkc('S16b-hero', C16d, {'top': add(HS, [0, 2.15, 0]), 'chin': add(HS, [0, 1.3, 0]), 'finger': add(FINGER, [0, 0.2, 0])}, end=True)
+MK16b = [SIT(), k(-0.5, look=lerp3(add(MT16(0.2), [0, 0.2, 0]), F16c, 0.5)), k(0.0, toon={**HOLDK(MAMIE16, RYM16, MG0), 'face': {**MF, 'gx': 0.5, 'brow': 0.7}}, toonDur=0.0),
+         *FOLLOW(MAMIE16, RYM16, MT16, 0.04, 0.32, {**MF, 'gx': 0.5, 'brow': 0.7}),
+         k(0.36, toon={**RESTK(MAMIE16, RYM16), 'face': {**MF, 'brow': 0.8, 'lid': 0.0}}, toonDur=0.1), k(0.4, look='camera', lookDur=0.15),
+         *life(0.5, D16b, MF, RESTK(MAMIE16, RYM16), period=0.6)]
+AK16b = [SIT(), k(-0.5, look=add(MT16(0.3), [0, 0.2, 0])), k(0.0, toon={**HOLDK(CA16, 0, add(MT16(0.2), [0.15, 0, 0])), 'face': {**AF, 'brow': 0.8, 'lid': 0.0}}, toonDur=0.0),
+         *FOLLOW(CA16, 0, MT16, 0.3, 0.62, {**AF, 'brow': 0.8, 'mouth': 'smirk'}), *life(0.64, D16b, {**AF, 'mouth': 'smirk'}, HOLDK(CA16, 0, MT16(0.6)), period=0.6)]
+EF16 = {'lid': 0.2, 'mouth': 'bigsmile', 'brow': 0.8}
+PUSH16 = lambda z: HAND([r(GAPX - 0.32), TH + 0.02, r(z - 0.5)], [r(GAPX + 0.32), TH + 0.02, r(z - 0.5)], 'open', 'open', hose=0.0)
+EK16b = [k(-0.5, look=lerp3(LF16b, F16c, 0.6)), k(0.0, toon={**PUSH16(LF16a[2]), 'bend': {'spine': [0.4, 0, 0, 1, None]}, 'face': EF16}, toonDur=0.0),
+         k(0.08, toon={**PUSH16(r(LF16a[2] - 0.12)), 'sq': [1.08, 0.92, 1.08], 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'face': {**EF16, 'lid': 0.5}}, toonDur=0.08),
+         k(r(SLAM16 - 0.02), toon={**PUSH16(LF16b[2]), 'sq': [0.94, 1.06, 0.94], 'bend': {'spine': [0.55, 0, 0, 1, None]}, 'face': {**EF16, 'lid': 0.0, 'brow': 1.0, 'mouth': 'open', 'jaw': 0.3}}, toonDur=0.06, toonEase='out'),
+         k(r(SLAM16 + 0.2), toon={**RESTK(CE16, 0, y=1.05), 'sq': [1.03, 0.97, 1.03], 'face': EF16}, toonDur=0.15, toonEase='inOut'), k(0.45, look='camera', lookDur=0.15)]
+FB16b = {**FB16, 'mouth': 'smile', 'brow': 0.8, 'eye': 0.25}
+HOLD16 = lambda wag=0.0: {**KK(add(FINGER, [0, 0, wag]), 'point', tipL=0.15, hose=0.2), 'bend': {'neck': [0.0, 0.1, 0, 1, None]}}
+HK16b = [SIT(), k(-0.5, look=F16d), k(0.0, toon={**HOLD16(), 'face': {**FB16, 'mouth': 'o', 'jaw': 0.25}}, toonDur=0.0)]
+for j, t_ in enumerate([0.1, 0.2, 0.3, 0.4, 0.5, 0.6]): HK16b.append(k(t_, toon={**HOLD16(0.04 if j % 2 else -0.04), 'face': {**FB16, 'mouth': MOUTHS[j % 6], 'jaw': 0.22 if MOUTHS[j % 6] in ('open', 'o') else 0.0}}, toonDur=0.06))
+HK16b += [k(0.7, toon={**HOLD16(), 'sq': [0.98, 1.03, 0.98], 'face': FB16b}, toonDur=0.1), k(0.88, toon={**HOLD16(0.035), 'face': FB16b}, toonDur=0.12), k(1.0, toon={**HOLD16(-0.02), 'face': {**FB16b, 'brow': 0.9}}, toonDur=0.12),
+          *life(1.12, D16b, {**FB16b, 'brow': 0.85}, HOLD16(), blinks=[1.38], period=0.5, amp=0.016)]
+LOOK16 = {'probeAt': [r(HS[0] + 1.0), 1.3, r(HS[2] + 0.6)], 'exposure': 0.86}
+st.shot('S16b', 'snow', look=LOOK16, actors=[act('mamie', MAMIE16, RYM16, 'sit', 'neutral', keys=MK16b), act('cA', CA16, 0, 'sit', 'neutral', keys=AK16b), act('cE', CE16, 0, 'stand', 'neutral', keys=EK16b),
+                                           act('mec', HS, RYS_, 'sit', 'neutral', keys=HK16b)],
+        props=[P('salle16b', 'seDining', pos=O16, opts={'door': 1.0}), P('boutMamie16b', 'seTable', pos=o16([-2.75, 0, 0]), opts={'len': 0.4, 'w': TW, 'inset': 0.06}),
+               P('table16b', 'seTable', pos=o16([0.05, 0, 0]), opts={'len': 3.1, 'w': TW, 'places': [[-1.05, -1], [0.4, 1], [1.1, -1]], 'chairs': [[0.4, 1], [1.1, -1]]}),
+               P('chaiseCA16b', 'seChair', pos=add(CA16, [0, 0, -0.05])), P('chaiseMamie16b', 'seChair', pos=add(MAMIE16, [-0.05, 0, 0]), ry=90, opts={'color': '#6A4430', 'cushion': '#8E5AA8'}),
+               HEAP('tas16b', o16([-1.0, TH + 0.02, -0.3])),
+               P('rallonge16b', 'seLeaf', pos=LF16a, opts={'len': LEAF, 'w': TW}, keys=[k(0.08, to=add(LF16a, [0, 0, -0.12]), dur=0.08, ease='out'), k(0.16, to=LF16b, dur=r(SLAM16 - 0.16), ease='in'), k(SLAM16, squash=[1.0, 0.7, 1.0], dur=0.25)]),
+               P('moulin16b', 'seMill', pos=add(MG0, [0, -MILLG, 0]), opts={'h': MILLH}, keys=MOVES([(t0, add(g, [0, -MILLG, 0]), d, e) for t0, g, d, e in MP16])),
+               P('lampe16b', 'seFill', pos=o16([-1.7, 1.9, 1.0]), opts={'I': 1.6, 'R': 3.2, 'color': '#FFE6C0'}),
+               *SNOWEND('16b'), UTENSIL('couteau16b', 'knife', ubase(KRS), yaw(KRS, F16d), snow=1.0), UTENSIL('fourchette16b', 'fork', FORKR, 90, snow=1.0), SHAKER('sel16b', [r(HS[0] + 0.66), TH, r(HS[2] + 0.42)], EMPTY),
+               NOSHADOW('ns16b', ['mamie', 'cA', 'cE', 'mec'])],
+        cams=[C16c, C16d])
+GAG('S16b', 0.2, 'mamie', 'the pepper mill, a new leaf: it starts again'); GAG('S16b', 1.0, 'mec', 'hopeful, finger up')
+st.cue('sfx:tick', 'S16b', 0.05, 0.1); st.cue('clack', 'S16b', SLAM16, 0.4); st.cue('sfx:stretch', 'S16b', 0.08, 0.1); st.cue('sfx:bell', 'S16b', r(CUT16 + 0.3), 0.08)
 print('\n'.join(CHECKS))
 TOON = {'breathe': 1.7, 'holdLife': 1.6}
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
@@ -1185,7 +1313,8 @@ st.write("Le sel", rig='toon', fingers=False, cloth=True, idleShift=1.6, holdLif
     'f3': {'preset': 'boss', 'seed': 10910, 'suit': '#8E5AA8', 'lapel': '#7A4A94', 'tie': '#F2F2EE', 'hair': 'crew', 'hairColor': '#2A2420', 'facial': 'mustache', 'glasses': False, 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': EX},
     # the genealogist (tweed, grey beard, glasses) and the mathematician (wild white hair, lab coat)
     'gen': {'preset': 'proviseur', 'seed': 10911, 'suit': '#8A6A48', 'lapel': '#6E5236', 'tie': '#3E6A4A', 'hair': 'receding', 'hairColor': '#A8A49C', 'facial': 'beard', 'beardColor': '#A8A49C', 'glasses': True, 'build': {'belly': 0.1}, 'toon': EX},
-    'math': {'preset': 'savant', 'seed': 10912, 'hair': 'afro', 'hairColor': '#F2F2EE', 'facial': 'mustache', 'glasses': True, 'build': {'width': 0.9, 'headWidth': 1.15, 'height': 1.02}, 'toon': EX},
+    # (round 1) bald crown, the wild white hair is a prop of jagged inked tufts (seWildHair): the afro block read as a chef's toque
+    'math': {'preset': 'savant', 'seed': 10912, 'hair': 'bald', 'hairColor': '#F2F2EE', 'facial': 'mustache', 'glasses': True, 'build': {'width': 0.9, 'headWidth': 1.15, 'height': 1.02}, 'toon': EX},
     # the market trader (a beanie, a beard) and his customer
     'marchand': {'preset': 'fermier', 'seed': 10913, 'hat': 'beanie', 'hatColor': '#3E6A4A', 'toon': EX},
     'cliente': {'preset': 'madame', 'seed': 10914, 'suit': '#5E8CB8', 'lapel': '#F4EEE2', 'hair': 'curly', 'hairColor': '#8A5A3A', 'toon': EX},
