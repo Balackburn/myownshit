@@ -87,7 +87,19 @@ both eyes to the lens, a big drumming tap; the bubble's sheep a third of the bub
 shading, a curl pattern, cool white, a thin slate outline, the rigged sheep's bodies included. S01 the fence pops up out of the blanket at his feet;
 S01b the white sheep leave before the black one lands. S03 the block by night with facades, lit windows and a roof, a 2-frame jolt with an overshoot.
 S04 / S10 a multiple-image frame (buzz under a short shutter) and eyes out for 2-3 frames. S07 the stallholder in front of his stall, the flock coming
-toward the lens. S12b one lead action (the last sheep vanishes beside the pail). S12c clean white shirts appear, neutral puffs thrown sideways."""
+toward the lens. S12b one lead action (the last sheep vanishes beside the pail). S12c clean white shirts appear, neutral puffs thrown sideways.
+Round 2 corrections (critics 7.0 / 7.4): S16 one even arc (a `to` key per frame: uniform horizontal travel, height 1 - |2u - 1|^2.5, the top half a body
+over the fence), a real tuck (thighs forward: bend leg first number negative), arms forward, a landing in the clear short of the black sheep, the trot
+back behind the fence; S16c low and close behind the sleeping sheep (about half the frame), the fence at 55 degrees, the last frame tucked over it;
+the meadow's 9 km ground plane replaced by a finer disc (seGroundCut plane) so the moonlit pools never pop, pale pools under the black sheep (2.6:1),
+grass tufts (mtTufts). S14 seen from its side 30 degrees off the top view, the bubble above the head end and tilted to the lens, a squash and rebound
+of the belly on each tap. S15 a real push in, a taller bubble, the drawn sheep twice as big with a hard nod. The middle act pushed in (S05, S07, S07b
+mid shots, S11 medium close, S11b lower and closer, S12c on the mother and the daughter), S06b the plough three quarters to us, blade angled, a fleece
+bank, sheep riding its cab. The bubble's little man worsens at each appearance (state 0 to 4: a drop, leaning and two drops, tongue out and legs
+dragging, collapsed over the fence). S12 the bed drops onto the road then he bounces, blinks and looks at us; S04 eyes on stalks to the lens on the
+multiple-image frames; S03 rocking, throbbing hair and an echo bleat flinch; S01 the head propped up; S01b a warm lamp glow; S02 a window and a shelf.
+S09b and the S16 sheep fold their front legs."""
+
 from story_kit import *
 import math
 
@@ -579,7 +591,7 @@ st.shot('S06b', 'cottageStreet', setOpts=WSET, actors=[],
         props=[GCUT('6b', WHITE), SNOWLAYER('6b', xs=(-14, 14), zs=(-2, 6.5), cnt=150), P('chasse6b', 'mtPlough', pos=PL6a, ry=PLRY, keys=[k(0.0, to=PL6b, dur=D6b, ease='linear')], opts={'speed': 3.0, 'bank': True, 'bladeYaw': 0.4}),
                CABHOP(0, 0.1, side=-0.3), CABHOP(1, 0.42, side=0.35), OVER6, P('banc6b', 'bench', pos=BEN6, ry=-15),
                BLACK('noir6b', BK6, r(yaw(BK6, F6b) - 35), s=0.78, clip=[[0, 'sit']], head=[[0, 0.55]], blinks=[0.5]),
-               BUBBLE('bulle6b', add(BK6, [-0.15, 1.05 + BUBH * 1.5, 0.0]), F6b, w=1.15, state=2, t0=0.1, tail=[0.15, -0.7])], cams=[C6b])
+               BUBBLE('bulle6b', add(BK6, [-0.15, 1.15 + BUBH * 1.5, 0.0]), F6b, w=1.4, state=2, t0=0.1, tail=[0.15, -0.8])], cams=[C6b])
 st.cue('engine', 'S06b', 0.0, 0.18, D6b); [st.cue('sfx:boing', 'S06b', t_, 0.12) for t_ in (0.1, 0.42, 0.75)]
 
 # ============================== the market stall in the white street
@@ -960,7 +972,7 @@ def FAMK2(n):
     while t < D12c - 0.04:
         ks.append(k(t, toon={**HUG, 'face': COLD, 'sq': [r(1.02 + 0.015 * (i % 2)), r(0.97 - 0.01 * (i % 2)), 1.02], 'bend': {'neck': [0.05, r(0.06 * (1 if i % 2 else -1)), 0, 1, None]}}, toonDur=0.04)); t = r(t + 0.07); i += 1
     return ks
-BK12c = BLACK('noir12c', [0.62, -0.95, -2.62], -25, s=0.72, keys=[k(BKUP, to=[0.62, 0.0, -2.62], dur=0.1, ease='out')], blinks=[0.9], chin=[[0, 0.15]])   # (round 1) up onto the floor: its head sat in the caption band
+BK12c = BLACK('noir12c', [0.62, -0.95, -2.74], -25, s=0.68, keys=[k(BKUP, to=[0.62, 0.0, -2.74], dur=0.1, ease='out')], blinks=[0.9], chin=[[0, 0.4]])   # (round 1) up onto the floor: its head sat in the caption band
 st.shot('S12c', 'livingRoom', setOpts=LSET, look={'sun': 0.9, 'fill': 1.0, 'exposure': 1.1}, actors=[act(n, FAM[n], 0, 'sit', 'neutral', keys=FAMK2(n), **({'scale': KID[n]} if n in KID else {})) for n in FAM],
         props=[*JUMPERS('12c', POPS), BK12c], cams=[C12c])
 for n in FAM: st.cue('sfx:poof', 'S12c', POPS[n], 0.3)
@@ -1116,7 +1128,7 @@ C16 = CAM(F16, L16, LN16, 0.15)
 chk2('S16', C16, {'apexHead': APX(), 'apexFeet': [r((D0 + D1) / 2), HJ + 0.3, 0], 'fenceTop': [0, 0.62, 0], 'off': add(ALONG(D0), [0, HEADUP, 0]), 'land': add(ALONG(D1), [0, HEADUP, 0]), 'landFeet': ALONG(D1),
                   'bkHead': add(BK16, [0, 0.9, 0.2]), 'bkL': add(BK16, [-0.45, 0.6, 0])}, heads=('apexHead', 'land', 'bkHead'))
 HK16 = [k(-0.5, look='camera'), *RUN(0.0, [ALONG(-2.55), ALONG(D0)], r(J16 - 0.13)), *JK16,
-        *RUN(r(LD16 + 0.1), [[1.5, 0, -0.5], [0.4, 0, -1.35]], r(D16 - LD16 - 0.1 + 0.05))]   # he trots on, curves back behind the fence toward the start
+        *RUN(r(LD16 + 0.1), [[1.5, 0, -0.45], [0.25, 0, -0.95]], r(D16 - LD16 - 0.1 + 0.05))]   # he trots on, curves back behind the fence toward the start
 st.gag('S16', AP16, 'mec', 'apex take')
 st.shot('S16', 'grassland', setOpts=MSETN, look=NIGHT_OUT, actors=[act('mec', ALONG(-2.55), PATHY, 'stand', 'neutral', keys=HK16)],
         props=[*FIELD(16, MOONBEHIND(F16, add(APX(), [0, 0, -0.3]))), WOOL(16, r(AP16 + 0.02)),
@@ -1134,7 +1146,7 @@ F16b, L16b, LN16b = FIT([-0.6, 1.3, 6.6], {'top': add(APX(), [0, 0.45, 0]), 'off
 C16b = CAM(F16b, L16b, LN16b, 0.15)
 chk2('S16b', C16b, {'apexHead': APX(), 'off': add(ALONG(D0), [0, HEADUP, 0]), 'land': add(ALONG(D1), [0, HEADUP, 0]), 'bkHead': add(BK16, [0, 0.9, 0.2])}, heads=('apexHead', 'off', 'land', 'bkHead'))
 HK16b = [k(-0.5, look='camera'), *RUN(0.0, [ALONG(-3.0, 0.4), ALONG(D0)], r(J16b - 0.13), PANT), *JK16b,
-         *RUN(r(LD16b + 0.1), [[1.5, 0, -0.5], [0.4, 0, -1.35]], r(D16b - LD16b - 0.1 + 0.1), PANT)]
+         *RUN(r(LD16b + 0.1), [[1.5, 0, -0.45], [0.25, 0, -0.95]], r(D16b - LD16b - 0.1 + 0.1), PANT)]
 st.gag('S16b', AP16b, 'mec', 'second jump')
 st.shot('S16b', 'grassland', setOpts=MSETN, look=NIGHT_OUT, actors=[act('mec', ALONG(-3.0, 0.4), PATHY, 'stand', 'neutral', keys=HK16b)],
         props=[*FIELD('16b', MOONBEHIND(F16b, add(APX(), [0, 0, -0.3]))), WOOL('16b'), SWEAT('16b'),
