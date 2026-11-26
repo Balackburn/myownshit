@@ -107,10 +107,11 @@ export const SEL_PROPS = {
   // two white glints. o.r (0.075) the glass radius; at each level step the salt top settles with a small bounce (o.settle [t...])
   seShaker(o) {
     const H = o.h ?? 0.36, R = o.r ?? 0.075, BH = H * 0.72, g = grp();
-    const foot = cyl(R * 1.06, R * 1.1, 0.025, '#D8EAF2', 28, { pivot: 'bottom', noGrain: true }); foot.material = L('#D8EAF2', { emissive: '#4A6A7A', emissiveIntensity: 0.35 }); ink(foot, 0.04); g.add(foot);
-    const glass = new THREE.Mesh(new THREE.CylinderGeometry(R, R * 1.03, BH, 40, 1, true), glassShader(o.tint, o.edge ?? 0.8, o.alpha ?? 0.1)); glass.position.y = 0.025 + BH / 2; glass.renderOrder = 4; glass.castShadow = false; g.add(glass);
+    // (round 1) the foot is clear glass like the rest (a pale opaque foot read as a white disc of salt left in an empty shaker)
+    const foot = new THREE.Mesh(new THREE.CylinderGeometry(R * 1.06, R * 1.1, 0.025, 28).translate(0, 0.0125, 0), glassShader(o.tint || '#C4E4F4', 0.8, 0.16)); foot.renderOrder = 4; foot.castShadow = false; g.add(foot);
+    const glass = new THREE.Mesh(new THREE.CylinderGeometry(R, R * 1.03, BH, 40, 1, true), glassShader(o.tint || '#C4E4F4', o.edge ?? 0.8, o.alpha ?? 0.16)); glass.position.y = 0.025 + BH / 2; glass.renderOrder = 4; glass.castShadow = false; g.add(glass);
     // the rims: an ink ring at the shoulder and at the foot
-    for (const y of [0.026, 0.025 + BH]) { const rr = new THREE.Mesh(new THREE.TorusGeometry(R * 1.02, 0.0055, 5, 32), new THREE.MeshBasicMaterial({ color: INK })); rr.rotation.x = PI / 2; rr.position.y = y; g.add(rr); }
+    for (const y of [0.002, 0.026, 0.025 + BH]) { const rr = new THREE.Mesh(new THREE.TorusGeometry(R * 1.02, 0.0055, 5, 32), new THREE.MeshBasicMaterial({ color: INK })); rr.rotation.x = PI / 2; rr.position.y = y; g.add(rr); }
     // the salt: an opaque white column with a lumpy top; scaled in y by the fill level
     const saltG = grp(); saltG.position.y = 0.027; g.add(saltG);
     const sh = BH - 0.012, col = cyl(R * 0.9, R * 0.9, 1, '#FFFFFF', 28, { pivot: 'bottom', noGrain: true }); col.material = L('#FFFFFF', { emissive: '#B9B9B9' }); ink(col, 0.035); saltG.add(col);
@@ -244,8 +245,10 @@ export const SEL_PROPS = {
     g.userData.update = t => {
       const b = inside(o.bang, t), ph = b >= 0 ? Math.max(0, Math.sin(b * TAU * (o.rate ?? 3.2))) : 0; arm.rotation.x = -1.2 * ph + 0.4; spoon.rotation.x = 0.3 * ph;
       head.rotation.z = 0.12 * Math.sin(t * 2.3 + (o.seed ?? 0)); head.rotation.x = b >= 0 ? 0.06 * ph : 0;
-      if (o.pop !== undefined) { const u = t - o.pop, s = u < 0 ? 0 : u < 0.1 ? u / 0.1 * 1.25 : u < 0.22 ? lerp(1.25, 0.92, (u - 0.1) / 0.12) : u < 0.32 ? lerp(0.92, 1, (u - 0.22) / 0.1) : 1;
-        inner.visible = s > 0.01; inner.scale.set(Math.max(0.01, s * (u < 0.1 ? 0.85 : 1)), Math.max(0.01, s), Math.max(0.01, s)); }
+      // (round 1) the pop: shoots up stretched (2 frames), squashes flat on landing, overshoots tall, settles (a squash and an overshoot that read at phone size)
+      if (o.pop !== undefined) { const u = t - o.pop, K = [[0, 0.05, 0.05], [0.07, 0.72, 1.32], [0.13, 1.28, 0.66], [0.21, 0.9, 1.14], [0.29, 1.05, 0.95], [0.37, 1, 1]];
+        let sx = 1, sy = 1; if (u < 0) { sx = sy = 0.01; } else if (u < 0.37) { let i = 0; while (u > K[i + 1][0]) i++; const v = smooth((u - K[i][0]) / (K[i + 1][0] - K[i][0])); sx = lerp(K[i][1], K[i + 1][1], v); sy = lerp(K[i][2], K[i + 1][2], v); }
+        inner.visible = u >= 0; inner.scale.set(Math.max(0.01, sx), Math.max(0.01, sy), Math.max(0.01, sx)); }
     };
     g.userData.update(0); return g;
   },
@@ -289,6 +292,9 @@ export const SEL_PROPS = {
     let tailH = 0; const tail = o.tail ? paintPlane(W, W * 0.9, (c, Wc, Hc) => { border(c, Wc, Hc); c.strokeStyle = BR; c.lineCap = 'round'; c.lineWidth = Wc * 0.05; c.beginPath(); c.moveTo(Wc / 2, 0); c.lineTo(Wc / 2, Hc * 0.55); c.stroke();
       c.lineWidth = Wc * 0.025; c.beginPath(); c.moveTo(Wc / 2, Hc * 0.45); c.quadraticCurveTo(Wc / 2 + Wc * 0.15, Hc * 0.42, Wc / 2 + Wc * 0.26, Hc * 0.3); c.stroke();
       c.lineWidth = Wc * 0.012; c.beginPath(); c.moveTo(Wc / 2 + Wc * 0.26, Hc * 0.3); c.lineTo(Wc / 2 + Wc * 0.3, Hc * 0.22); c.moveTo(Wc / 2 + Wc * 0.26, Hc * 0.3); c.lineTo(Wc / 2 + Wc * 0.34, Hc * 0.31); c.stroke();
+      if (o.empty) { c.lineWidth = Wc * 0.022; c.setLineDash([Wc * 0.035, Wc * 0.03]); c.beginPath(); c.arc(Wc / 2 + Wc * 0.3, Hc * 0.16, Wc * 0.1, 0, TAU); c.stroke(); c.setLineDash([]);
+        c.lineWidth = Wc * 0.03; c.beginPath(); c.moveTo(Wc / 2, Hc * 0.62); c.quadraticCurveTo(Wc / 2 - Wc * 0.15, Hc * 0.6, Wc / 2 - Wc * 0.22, Hc * 0.5); c.stroke();
+        c.setLineDash([Wc * 0.03, Wc * 0.03]); c.lineWidth = Wc * 0.018; c.beginPath(); c.arc(Wc / 2 - Wc * 0.25, Hc * 0.38, Wc * 0.08, 0, TAU); c.stroke(); c.setLineDash([]); }
       c.fillStyle = '#E6D6B0'; c.fillRect(Wc * 0.06, Hc * 0.92, Wc * 0.88, Hc * 0.08); }, { res: RES, emissive: 0.22, double: true, offset: true }) : null;
     if (tail) { tailH = W * 0.9; g.add(tail); }
     const R0 = o.rollR ?? 0.07, roll = o.roll ? grp() : null;
@@ -380,7 +386,8 @@ export const SEL_PROPS = {
     face.position.set(0, 0.16, 0.15); head.add(face);
     head.add(ink(at(cyl(0.3, 0.3, 0.025, '#E8C25A', 14), 0, 0.31, 0), 0.03), ink(at(cyl(0.14, 0.17, 0.14, '#E8C25A', 10, { pivot: 'bottom' }), 0, 0.32, 0), 0.03), at(cyl(0.172, 0.172, 0.035, '#C9483A', 10), 0, 0.35, 0));
     const nap = SEL_PROPS.seBib({ s: 0.8 }); nap.position.set(0, 0.5, 0.145); body.add(nap);
-    g.userData.update = t => { const n = inside(o.nod, t); head.rotation.z = (n >= 0 ? 0.18 : 0.06) * Math.sin(t * (n >= 0 ? 6 : 2)); head.rotation.x = 0.05 * Math.sin(t * 3.1); };
+    g.userData.update = t => { const n = inside(o.nod, t); head.rotation.z = (n >= 0 ? (o.loll ?? 0.18) * Math.min(1, n / 0.15) : 0.06) * Math.sin(t * (n >= 0 ? 6 : 2)); head.rotation.x = 0.05 * Math.sin(t * 3.1); head.rotation.y = keyAt(o.turn, t, 0);
+      for (const [nap_, k_] of [[nap, 1]]) nap_.rotation.x = n >= 0 ? -0.5 * k_ * (0.6 + 0.4 * Math.sin(t * 17)) : 0; };
     g.userData.update(0); return g;
   },
 
@@ -466,7 +473,7 @@ export const SEL_PROPS = {
     for (let i = 0; i < 4; i++) g.add(at(box(1.9, 0.04, 0.04, '#B8BEC4', { noGrain: true }), 0, 0.66 + i * 0.11, 0.99));
     g.add(at(box(2.36, 0.24, 0.2, '#1C1E22', { outline: 0.008 }), 0, 0.45, 1.0));
     for (const sd of [-1, 1]) { const hl = cyl(0.14, 0.14, 0.05, '#FFF3C2', 14); hl.rotation.x = PI / 2; hl.position.set(sd * 0.85, 0.85, 1.0); hl.material = new THREE.MeshBasicMaterial({ color: '#FFF6D6' }); ink(hl, 0.08); g.add(hl);
-      g.add(at(box(0.05, 0.05, 0.45, D), sd * 1.28, 1.95, 0.7), at(box(0.06, 0.34, 0.2, D, { outline: 0.006 }), sd * 1.42, 1.85, 0.62)); }
+      if (o.mirrors !== false) g.add(at(box(0.05, 0.05, 0.45, D), sd * 1.28, 1.95, 0.7), at(box(0.06, 0.34, 0.2, D, { outline: 0.006 }), sd * 1.42, 1.85, 0.62)); }
     g.add(at(box(2.5, 2.8, 4.6, o.box || '#EDE8DC', { pivot: 'bottom', outline: 0.012 }), 0, 0.6, -3.35));
     g.add(at(box(2.2, 0.24, 6.4, '#3C3F44'), 0, 0.42, -2.3));
     for (const z of [0.25, -3.4, -4.6]) for (const sd of [-1, 1]) { const w = cyl(0.5, 0.5, 0.36, '#22252A', 16); w.rotation.z = PI / 2; w.position.set(sd * 1.08, 0.5, z); g.add(w); g.add(at(cyl(0.22, 0.22, 0.38, '#9AA0A8', 10), sd * 1.08, 0.5, z, 0, 0, PI / 2)); }
@@ -530,6 +537,11 @@ export const SEL_PROPS = {
     for (let i = 0; i < 4; i++) g.add(at(box(0.05, 0.05, 0.12, '#3A2A20'), Rw + 3.35, 1.75, -0.8 + i * 0.5), at(box(0.06, 0.55, 0.3, ['#B5402F', '#3E6A9A', '#E8C25A', '#5A7A4A'][i], { pivot: 'top', outline: 0.01 }), Rw + 3.3, 1.72, -0.8 + i * 0.5));
     // the front wall (for reverse shots)
     panel(Rw - Lw, H, (Lw + Rw) / 2, H / 2, Fr, PI); wain(Rw - Lw, (Lw + Rw) / 2, Fr - 0.025, PI);
+    // (round 1) the ceiling: blue sky and a cloud showed over the wallpaper; it casts no shadow, so the light in the room does not change
+    if (o.ceiling !== false) { const ce = new THREE.Mesh(new THREE.PlaneGeometry(Rw - Lw + 0.2, Fr - Bk + 0.2), L(o.ceilColor || '#F2ECDD', { side: THREE.DoubleSide })); ce.rotation.x = PI / 2; ce.position.set((Lw + Rw) / 2, H, (Bk + Fr) / 2);
+      const cor = [[Rw - Lw, 0.1, 0.1, (Lw + Rw) / 2, Bk + 0.05, 0], [Rw - Lw, 0.1, 0.1, (Lw + Rw) / 2, Fr - 0.05, 0], [0.1, 0.1, Fr - Bk, Lw + 0.05, (Bk + Fr) / 2, 1], [0.1, 0.1, Fr - Bk, Rw - 0.05, (Bk + Fr) / 2, 1]];
+      const cg = grp(ce); for (const [w_, h_, d_, x_, z_] of cor) cg.add(at(box(w_, h_, d_, '#F4EEE2', { outline: 0.006 }), x_, H - 0.05, z_));
+      noShadow(cg); g.add(cg); }
     g.userData.update = t => { piv.rotation.y = -1.65 * clamp01(keyAt(o.door, t, 0)) + rattle(o.slam ? [[o.slam, 0.08, 20, 5]] : null, t); };
     g.userData.update(0); return g;
   },
@@ -544,7 +556,10 @@ export const SEL_PROPS = {
     const base = []; let k = 0;
     for (let i = 0; i < N * 3 && k < N; i++) { const x = (hsh(i * 1.7) - 0.5) * W, z = (hsh(i * 2.9 + 5) - 0.5) * D; if (x > cl[0] && x < cl[1] && z > cl[2] && z < cl[3]) continue; base.push([x, z, hsh(i * 4.1) * TAU, 0.85 + hsh(i * 6.3) * 0.4]); k++; }
     ms.count = me.count = base.length;
-    const place = t => { base.forEach(([x, z, ph, s], i) => { E.set(0.12 * Math.sin(t * 2 + x * 0.4 + ph * 0.3), ph, 0.1 * Math.sin(t * 1.7 + z * 0.5)); Q.setFromEuler(E); Sv.set(s, s, s); Pv.set(x, 0.04, z); M.compose(Pv, Q, Sv); ms.setMatrixAt(i, M); me.setMatrixAt(i, M); });
+    // (round 1) o.gust [[t0, dur], ...]: a front of wind crosses the field along o.gustDir at o.gustV m/s and bows every stalk it reaches by up to o.gustA rad
+    const gd = o.gustDir || [0, 1], gl = Math.hypot(gd[0], gd[1]) || 1, gx = gd[0] / gl, gz = gd[1] / gl, Qb = new THREE.Quaternion(), AX = new THREE.Vector3(gz, 0, -gx), d0 = -Math.max(W, D) / 2;
+    const bow = (t, x, z) => { let a = 0; for (const [t0, du] of o.gust || []) { const u = (t - t0 - (x * gx + z * gz - d0) / (o.gustV ?? 14)) / du; if (u > 0 && u < 1) a += Math.sin(PI * u) * (1 + 0.25 * Math.sin(u * 19 + x)); } return a * (o.gustA ?? 0.6); };
+    const place = t => { base.forEach(([x, z, ph, s], i) => { E.set(0.12 * Math.sin(t * 2 + x * 0.4 + ph * 0.3), ph, 0.1 * Math.sin(t * 1.7 + z * 0.5)); Q.setFromEuler(E); const b = o.gust ? bow(t, x, z) : 0; if (b) { Qb.setFromAxisAngle(AX, b); Q.premultiply(Qb); } Sv.set(s, s, s); Pv.set(x, 0.04, z); M.compose(Pv, Q, Sv); ms.setMatrixAt(i, M); me.setMatrixAt(i, M); });
       ms.instanceMatrix.needsUpdate = true; me.instanceMatrix.needsUpdate = true; };
     place(0); ms.castShadow = false; me.castShadow = false; ms.receiveShadow = true; g.add(ms, me);
     if (o.wind) g.userData.update = t => place(t);
@@ -575,6 +590,33 @@ export const SEL_PROPS = {
           bb.setFromObject(m); bb.getCenter(c); for (const b of o.boxes || []) if (c.x > b[0] && c.x < b[1] && c.y > b[2] && c.y < b[3] && c.z > b[4] && c.z < b[5]) { m.visible = false; break; } } });
       set.traverse(m => { if (!m.isMesh) return; bb.setFromObject(m); bb.getCenter(c); for (const b of o.boxes || []) if (c.x > b[0] && c.x < b[1] && c.y > b[2] && c.y < b[3] && c.z > b[4] && c.z < b[5]) { m.visible = false; break; } });
       done = true; };
+    return g;
+  },
+
+  // ---------------------------------------------------------------- (round 1) wild white hair (attach to the head joint: offsets in its frame, the head 0.5 high
+  // from the chin): jagged inked tufts sticking out sideways and up from both temples, a bald crown between (a smooth white block read as a chef's
+  // toque); o.hw the half width of the head (0.24), o.y the height of the temples (0.36), o.color, o.s (1) the tufts' length
+  seWildHair(o) {
+    const g = grp(), HW = o.hw ?? 0.24, Y = o.y ?? 0.36, C = o.color || '#F4F4F0', S = o.s ?? 1;
+    const T = [[0.0, 0.17, 0.0, 0.25], [0.06, 0.21, 0.04, 0.6], [0.12, 0.19, -0.03, 0.95], [0.17, 0.15, 0.05, 1.3], [-0.06, 0.16, -0.05, 0.4], [0.2, 0.12, -0.06, 1.6], [0.1, 0.14, 0.09, 0.8], [-0.02, 0.13, 0.08, 1.1]];
+    for (const sd of [-1, 1]) T.forEach(([dy, len, dz, a], i) => { const tf = box(0.075, len * S, 0.07, C, { pivot: 'bottom', taper: { x: 0.12, z: 0.25 }, noGrain: true, outline: 0.09 });
+      tf.position.set(sd * (HW - 0.03), Y + dy, dz); tf.rotation.set((i % 3 - 1) * 0.25, 0, -sd * (a + 0.12 * Math.sin(i * 2.7))); g.add(tf); });
+    for (let i = 0; i < 3; i++) { const tf = box(0.06, 0.1 * S, 0.06, C, { pivot: 'bottom', taper: { x: 0.12, z: 0.2 }, noGrain: true, outline: 0.09 }); tf.position.set((i - 1) * 0.1, 0.5, -0.06); tf.rotation.set(-0.3, 0, (1 - i) * 0.5); g.add(tf); }
+    return g;
+  },
+
+  // ---------------------------------------------------------------- (round 1) the set's ground disc with holes where its own flat strips lie (a road or a path
+  // a few millimetres over a 170 m disc fought it for depth: lawn flashed through the asphalt one frame in three). o.holes [[x0, x1, z0, z1], ...] in
+  // world metres, each strictly inside a strip that covers it; o.color the ground's colour (to find it), o.r its radius (170)
+  seGroundCut(o) {
+    const g = grp(); let done = false, tries = 0;
+    g.userData.update = () => { if (done || tries++ > 3) return; let rt = g; while (rt.parent) rt = rt.parent; if (rt === g) return;
+      const col = new THREE.Color(o.color || '#8DBB5E'); let gm = null;
+      rt.traverse(n => { if (gm || !n.isMesh || n.geometry?.type !== 'CircleGeometry' || !n.material?.color) return; if (n.material.color.getHexString() === col.getHexString()) gm = n; });
+      if (!gm) return; const R = o.r ?? 170, sh = new THREE.Shape(); sh.absarc(0, 0, R, 0, TAU, false);
+      for (const [x0, x1, z0, z1] of o.holes || []) { const h = new THREE.Path(); h.moveTo(x0, -z0); h.lineTo(x0, -z1); h.lineTo(x1, -z1); h.lineTo(x1, -z0); h.closePath(); sh.holes.push(h); }
+      const geo = new THREE.ShapeGeometry(sh, 48).rotateX(-PI / 2), uv = geo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) / 8, uv.getY(i) / 8);
+      gm.geometry.dispose(); gm.geometry = geo; done = true; };
     return g;
   },
 
