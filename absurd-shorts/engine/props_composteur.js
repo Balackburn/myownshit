@@ -43,9 +43,9 @@ function paintTicket(c, W, H) { c.fillStyle = '#F4E6A0'; c.fillRect(0, 0, W, H);
 function capMesh(s = 1, col = '#1E2A44') { const g = grp(at(box(0.46, 0.14, 0.46, col, { outline: 0.02, taper: 1.14 }), 0, 0.11, 0), at(box(0.42, 0.07, 0.42, '#14182A', { outline: 0.02 }), 0, 0.035, 0), at(box(0.38, 0.025, 0.2, '#14161A', { outline: 0.02 }), 0, 0.0, 0.27, 0.22, 0, 0)); g.scale.setScalar(s); return g; }
 // a big chrome ticket punch (pivot at the hinge, jaws toward +Y): two chrome jaws, black handles; returns {g, A, B}
 function punchMesh(s = 1) { const g = grp(), A = grp(), B = grp(), ch = mat('#D8DDE4', { emissive: '#3A4048' });
-  for (const [G, sg] of [[A, 1], [B, -1]]) { const j = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.2, 0.06), ch); j.position.set(sg * 0.025, 0.1, 0); addOutline(j, 0.03); G.add(j, at(box(0.04, 0.2, 0.05, '#7A8088', { outline: 0.02 }), sg * 0.035, -0.11, 0), at(box(0.09, 0.04, 0.065, '#E8ECF0', { emissive: '#4A5058' }), sg * 0.01, 0.2, 0)); g.add(G); }
+  for (const [G, sg] of [[A, 1], [B, -1]]) { const j = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.2, 0.06), ch); j.position.set(sg * 0.025, 0.1, 0); addOutline(j, 0.03); const hb = new THREE.Mesh(new THREE.BoxGeometry(0.035, 0.26, 0.045), ch); hb.position.set(sg * 0.045, -0.13, 0); hb.rotation.z = sg * 0.12; addOutline(hb, 0.03); G.add(j, hb, at(box(0.045, 0.06, 0.05, '#2A2C31', { outline: 0.02 }), sg * 0.06, -0.26, 0), at(box(0.09, 0.04, 0.065, '#E8ECF0', { emissive: '#4A5058' }), sg * 0.01, 0.2, 0)); g.add(G); }
   g.add(at(cyl(0.025, 0.025, 0.07, '#8A9098', 8), 0, 0, 0, PI / 2, 0, 0)); g.scale.setScalar(s); return { g, A, B }; }
-function punchUpdate(A, B, snaps, t) { let open = 0.3; for (const t0 of snaps || []) { const u = t - t0; if (u >= -0.05 && u < 0) open = Math.min(open, 0.3 * (-u / 0.05)); else if (u >= 0 && u < 0.2) open = Math.min(open, 0.3 * (u / 0.2)); } A.rotation.z = -open; B.rotation.z = open; }
+function punchUpdate(A, B, snaps, t) { let open = 0.42; for (const t0 of snaps || []) { const u = t - t0; if (u >= -0.05 && u < 0) open = Math.min(open, 0.42 * (-u / 0.05)); else if (u >= 0 && u < 0.2) open = Math.min(open, 0.42 * (u / 0.2)); } A.rotation.z = -open; B.rotation.z = open; }
 // a leafy cluster of low-poly spheres (green), for the bush stages
 function leafBall(r, n, seed, col = '#4E9A3A') { const g = grp(); for (let i = 0; i < n; i++) { const a = hsh(seed + i) * TAU, b = (hsh(seed + i + 40) - 0.3) * PI * 0.8, rr = r * (0.55 + 0.35 * hsh(seed + i + 80));
     const s = new THREE.Mesh(new THREE.IcosahedronGeometry(r * (0.38 + 0.2 * hsh(seed + i + 9)), 0), mat(i % 3 ? col : '#62B046')); s.position.set(Math.cos(a) * Math.cos(b) * rr, Math.sin(b) * rr, Math.sin(a) * Math.cos(b) * rr); addOutline(s, 0.02); g.add(s); } return g; }
@@ -87,7 +87,7 @@ export const COMPOSTEUR_PROPS = {
   coGardens(o) { const n = o.n ?? 4, gw = o.gw ?? 1.6, D = o.d ?? 4, g = grp(), lawn = new THREE.Mesh(new THREE.PlaneGeometry(n * gw + 8, D + 6), mat('#7FB85A')); lawn.rotation.x = -PI / 2; lawn.position.y = 0.012; g.add(lawn);
     for (let i = 0; i < n; i++) { const x = (i - (n - 1) / 2) * gw; g.add(at(box(gw - 0.05, 2.8, 0.3, ['#EFE2C8', '#E8D4C0', '#E4E0CC', '#EEDACA'][i % 4], { pivot: 'bottom', outline: 0.004 }), x, 0, -D / 2), at(box(0.7, 0.7, 0.05, '#BFD8EA', { outline: 0.006 }), x + 0.2, 1.5, -D / 2 + 0.16));
       const soil = new THREE.Mesh(new THREE.PlaneGeometry(gw * 0.7, 0.7), mat('#7A5434')); soil.rotation.x = -PI / 2; soil.position.set(x, 0.018, -0.1); g.add(soil); }
-    for (let i = 0; i <= n; i++) { const x = (i - n / 2) * gw; for (let z = -D / 2 + 0.3; z < D / 2 - 0.5; z += 0.45) g.add(at(box(0.06, 0.6, 0.06, '#A8845A', { pivot: 'bottom', outline: 0.01 }), x, 0, z)); g.add(at(box(0.04, 0.07, D - 0.6, '#B8946A', { outline: 0.006 }), x, 0.45, -0.3)); }
+    for (let i = 0; i <= n; i++) { const x = (i - n / 2) * gw; for (let z = -D / 2 + 0.3; z < -0.6; z += 0.45) g.add(at(box(0.06, 0.6, 0.06, '#A8845A', { pivot: 'bottom', outline: 0.01 }), x, 0, z)); g.add(at(box(0.04, 0.07, D / 2 - 0.9, '#B8946A', { outline: 0.006 }), x, 0.45, -D / 4 - 0.45)); }
     return g; },
   // A wooden compost bin full of peelings (pivot at its floor middle, faces +Z): slatted plank walls, a heap of peelings in green, orange and brown;
   // o.pat [t, ...]: the heap squashes (patted down)
@@ -154,21 +154,25 @@ export const COMPOSTEUR_PROPS = {
     g.userData.update(0); return g; },
   // A big squirrel (pivot at its feet, faces +Z): a russet body, a huge bushy tail curled up behind, a head with ears and black eyes; o.hop [[t0, t1], ...]:
   // it bounces while it moves; o.dig [[t0, t1], ...]: it digs (head down, fast paws); o.cheeks [t0, t1]: cheeks puffed; o.startle t: it leaps back
-  coSquirrel(o) {   // (round 1) a squirrel (pivot at its feet, faces +Z): russet body sitting up, a cream belly, a round head with tufted ears, a snout, big black eyes, a huge plume tail curling up behind; o.hop [[t0, t1]]: it bounces; o.dig [[t0, t1]]: head down, paws fast; o.cheeks [t0, t1]; o.startle t: it leaps back up with a stretch, hangs, lands with a squash (in place)
+  coSquirrel(o) {   // (round 2) a squirrel (pivot at its feet, faces +Z): russet body sitting up, cream belly, round head with tufted ears, snout, big black eyes (o.popAt: they bulge), a tall flat plume tail standing up behind (never a croissant); o.hop, o.dig, o.cheeks [t0, t1] (a note in its mouth just before), o.startle t: leap with a stretch, a hang, a squash on landing, in place
     const g = grp(), k = grp(), C = '#A8562A', D = '#7A3A1A', L = '#F0D8B0'; g.add(k);
     const body = new THREE.Mesh(new THREE.SphereGeometry(0.11, 12, 8), mat(C)); body.scale.set(0.9, 1.25, 0.85); body.position.set(0, 0.15, 0); addOutline(body, 0.03); k.add(body); k.add(at(sphere(0.07, L, 1), 0, 0.14, 0.06));
-    const tail = grp(); tail.position.set(0, 0.08, -0.08); k.add(tail); const tc = new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0.1, -0.12), new THREE.Vector3(0, 0.3, -0.16), new THREE.Vector3(0, 0.42, -0.06), new THREE.Vector3(0, 0.4, 0.04)]);
-    for (let i = 0; i < 9; i++) { const u = i / 8, p = tc.getPoint(u), s = new THREE.Mesh(new THREE.SphereGeometry(0.06 + 0.06 * Math.sin(u * PI), 10, 7), mat(i % 2 ? C : '#C06A36')); s.position.copy(p); s.scale.set(0.85, 1, 1); addOutline(s, 0.03); tail.add(s); }
-    const hd = grp(); hd.position.set(0, 0.31, 0.03); k.add(hd); hd.add(at(sphere(0.075, C, 1, { outline: 0.03 }), 0, 0, 0)); const sn = at(sphere(0.035, L, 1), 0, -0.02, 0.06); hd.add(sn, at(sphere(0.012, '#2A1A14', 0), 0, -0.01, 0.095));
+    const tail = grp(); tail.position.set(0, 0.06, -0.1); k.add(tail); const tl = new THREE.Mesh(new THREE.SphereGeometry(0.16, 12, 9), mat(C)); tl.scale.set(0.45, 1.5, 0.75); tl.position.set(0, 0.24, -0.06); tl.rotation.x = -0.25; addOutline(tl, 0.03); tail.add(tl);
+    const tt = new THREE.Mesh(new THREE.SphereGeometry(0.1, 10, 7), mat('#D07A40')); tt.scale.set(0.5, 0.9, 0.8); tt.position.set(0, 0.48, 0.02); addOutline(tt, 0.03); tail.add(tt);
+    const hd = grp(); hd.position.set(0, 0.31, 0.03); k.add(hd); hd.add(at(sphere(0.075, C, 1, { outline: 0.03 }), 0, 0, 0)); hd.add(at(sphere(0.035, L, 1), 0, -0.02, 0.06), at(sphere(0.012, '#2A1A14', 0), 0, -0.01, 0.095));
     const ch = [-1, 1].map(sx => { const c = at(sphere(0.035, '#C06A36', 1, { outline: 0.03 }), sx * 0.05, -0.03, 0.04); hd.add(c); return c; });
-    for (const sx of [-1, 1]) hd.add(at(new THREE.Mesh(new THREE.ConeGeometry(0.025, 0.07, 4), mat(D)), sx * 0.04, 0.085, 0), at(sphere(0.017, '#14161A', 0), sx * 0.035, 0.015, 0.06), at(sphere(0.006, '#FFFFFF', 0), sx * 0.032, 0.022, 0.075));
+    const eyes = []; for (const sx of [-1, 1]) { hd.add(at(new THREE.Mesh(new THREE.ConeGeometry(0.025, 0.07, 4), mat(D)), sx * 0.04, 0.085, 0)); const e = grp(at(sphere(0.019, '#14161A', 0), 0, 0, 0), at(sphere(0.007, '#FFFFFF', 0), -0.004, 0.007, 0.016)); e.position.set(sx * 0.036, 0.015, 0.06); hd.add(e); eyes.push(e); }
+    const note = noteMesh(0.16, 0.08, false); note.position.set(0, -0.03, 0.11); hd.add(note);
     const paws = [-1, 1].map(sx => { const p = at(box(0.03, 0.06, 0.03, D, { outline: 0.03 }), sx * 0.045, 0.14, 0.08); k.add(p); return p; });
     for (const sx of [-1, 1]) k.add(at(box(0.04, 0.03, 0.08, D, { outline: 0.03 }), sx * 0.05, 0.015, 0.03));
+    const dirt = []; for (let i = 0; i < 6; i++) { const d = at(sphere(0.025, '#6A4A2C', 0), 0, 0, 0); g.add(d); dirt.push(d); }
     g.userData.update = t => { let y = 0, dig = 0; for (const [a, b] of o.hop || []) if (t > a && t < b) y = Math.abs(Math.sin((t - a) * 14)) * 0.1; for (const [a, b] of o.dig || []) if (t > a && t < b) dig = 1;
       const st = o.startle != null ? t - o.startle : -1; let sy = 0, sx = 1, syy = 1;
-      if (st > 0 && st < 0.12) { sy = 0.25 * st / 0.12; syy = 1.35; sx = 0.8; } else if (st >= 0.12 && st < 0.32) { sy = 0.25 + 0.03 * Math.sin((st - 0.12) * 15); syy = 1.1; sx = 0.92; } else if (st >= 0.32 && st < 0.42) { sy = 0.25 * (1 - (st - 0.32) / 0.1); } else if (st >= 0.42 && st < 0.7) { const q = Math.exp(-9 * (st - 0.42)) * Math.cos((st - 0.42) * 28); syy = 1 - 0.35 * q; sx = 1 + 0.3 * q; }
+      if (st > 0 && st < 0.1) { sy = 0.3 * st / 0.1; syy = 1.4; sx = 0.78; } else if (st >= 0.1 && st < 0.34) { sy = 0.3 + 0.03 * Math.sin((st - 0.1) * 15); syy = 1.1; sx = 0.92; } else if (st >= 0.34 && st < 0.44) { sy = 0.3 * (1 - (st - 0.34) / 0.1); } else if (st >= 0.44 && st < 0.75) { const q = Math.exp(-9 * (st - 0.44)) * Math.cos((st - 0.44) * 28); syy = 1 - 0.4 * q; sx = 1 + 0.32 * q; }
       k.position.set(0, y + sy, 0); k.scale.set(sx, syy, sx); hd.rotation.x = dig ? 0.6 : 0.1 * Math.sin(t * 4); for (const [i, p] of paws.entries()) p.position.y = 0.14 + (dig ? 0.04 * Math.sin(t * 40 + i * PI) - 0.07 : 0);
-      tail.rotation.x = 0.12 * Math.sin(t * 3) + (st > 0 && st < 0.42 ? 0.5 : 0); const cp = o.cheeks && t > o.cheeks[0] && t < o.cheeks[1]; for (const c of ch) c.scale.setScalar(cp ? 1.8 : 1); };
+      tail.rotation.x = 0.1 * Math.sin(t * 3) + (st > 0 && st < 0.44 ? 0.35 : 0); const cp = o.cheeks && t > o.cheeks[0] && t < o.cheeks[1]; for (const c of ch) c.scale.setScalar(cp ? 1.9 : 1);
+      note.visible = !!o.cheeks && t < o.cheeks[0]; const pop = o.popAt != null && t > o.popAt && t < o.popAt + 0.8 ? 2.2 : 1; for (const e of eyes) e.scale.setScalar(pop);
+      dirt.forEach((d, i) => { d.visible = !!dig; if (dig) { const u = (t * 3 + i / 6) % 1; d.position.set((hsh(i) - 0.5) * 0.3, 0.05 + 0.3 * Math.sin(u * PI), 0.15 + 0.25 * u); } }); };
     g.userData.update(0); return g; },
   // A railway platform seen from the platform (pivot at the edge in the middle, the track toward +Z): grey slab, a yellow edge line, a plain wall behind
   // with a plain colour band where a sign would be, a clock with hands only (no figures) on a post, a bench; no name, number or timetable
@@ -176,19 +180,21 @@ export const COMPOSTEUR_PROPS = {
     g.add(at(box(L, 1.0, D, '#B9B2A6', { outline: 0.006 }), 0, -0.49, -D / 2), at(box(L, 0.012, 0.16, '#F2C230'), 0, 0.016, -0.25), at(box(L, 0.4, 3.0, '#2A2C30'), 0, -1.2, 1.5));
     g.add(at(box(L, 3.6, 0.2, '#E8E2D4', { pivot: 'bottom', outline: 0.004 }), 0, 0, -D), at(box(L, 0.5, 0.06, '#3E6A9A', { outline: 0.006 }), 0, 2.6, -D + 0.12));
     const ck = grp(); ck.position.set(o.clockX ?? -2.5, 0, o.clockZ ?? -1.6); g.add(ck); ck.add(at(cyl(0.05, 0.05, 2.4, '#3A3D44', 8, { pivot: 'bottom', outline: 0.02 }), 0, 0, 0), at(cyl(0.32, 0.32, 0.08, '#F4F1EA', 20, { outline: 0.03 }), 0, 2.6, 0, PI / 2, 0, 0));
-    const hh = at(box(0.03, 0.17, 0.02, '#14161A'), 0, 0.07, 0), mh = at(box(0.02, 0.26, 0.02, '#14161A'), 0, 0.11, 0), hg = grp(hh), mg = grp(mh); hg.position.set(0, 2.6, 0.05); mg.position.set(0, 2.6, 0.06); hg.rotation.z = -2.1; ck.add(hg, mg);
+    const hh = at(box(0.03, 0.17, 0.02, '#14161A'), 0, 0.07, 0), mh = at(box(0.02, 0.26, 0.02, '#14161A'), 0, 0.11, 0), hg = grp(hh), mg = grp(mh); hg.position.set(0, 2.6, 0.05); mg.position.set(0, 2.6, 0.06); hg.rotation.z = -2.1; ck.add(hg, mg); const hb = hg.clone(), mb = mg.clone(); hb.position.z = -0.05; mb.position.z = -0.06; hb.rotation.z = 2.1; ck.add(hb, mb);
     g.add(at(box(1.6, 0.08, 0.45, '#8A6A45', { outline: 0.01 }), o.benchX ?? 2.5, 0.45, -D + 0.6), at(box(1.6, 0.4, 0.06, '#8A6A45', { outline: 0.01 }), o.benchX ?? 2.5, 0.75, -D + 0.38));
-    g.userData.update = t => { mg.rotation.z = -0.3 - t * 0.05; }; g.userData.update(0); return g; },
+    g.userData.update = t => { mg.rotation.z = -0.3 - t * 0.05; mb.rotation.z = -mg.rotation.z; }; g.userData.update(0); return g; },
   // A mainline carriage seen from outside (pivot at the floor in its middle, length along X, side toward +Z): a blue-and-white body, a row of windows
   // showing empty seats, a cab at the +X end with a window (the driver behind it); no logo, number or name; o.len
   coTrain(o) {   // (round 1) a carriage seen from outside (pivot at the floor in its middle, length along X, side toward +Z): big windows painted with the empty interior (rows of blue seats, nobody), a cab at +X whose driver leans out of the side; no logo, number or name; o.len
     const L = o.len ?? 9, g = grp(), C = '#F2F0EA', B = '#2E5E9E';
     g.add(at(box(L, 2.6, 2.8, C, { pivot: 'bottom', outline: 0.004 }), 0, 0.3, 0), at(box(L, 0.25, 2.82, B), 0, 0.75, 0), at(box(L, 0.12, 2.82, B), 0, 2.75, 0));
-    const win = canvasPlane(1.5, 1.0, (c, W, H) => { c.fillStyle = '#E8E4D8'; c.fillRect(0, 0, W, H); c.fillStyle = '#D8D2C2'; c.fillRect(0, H * 0.78, W, H * 0.22); for (const x of [0.08, 0.55]) { c.fillStyle = '#2F5C9E'; c.fillRect(W * x, H * 0.3, W * 0.36, H * 0.42); c.fillStyle = '#3E6CB0'; c.fillRect(W * x, H * 0.24, W * 0.36, H * 0.1); c.fillStyle = '#24487E'; c.fillRect(W * x, H * 0.66, W * 0.36, H * 0.1); }
+    const win = canvasPlane(1.5, 1.0, (c, W, H) => { c.fillStyle = '#F2EEE4'; c.fillRect(0, 0, W, H); c.fillStyle = '#B8B2A4'; c.fillRect(0, H * 0.8, W, H * 0.2); c.fillStyle = '#9AA0A6'; c.fillRect(0, H * 0.08, W, H * 0.05);
+      for (const x of [0.06, 0.38, 0.7]) { c.fillStyle = '#2F5C9E'; c.fillRect(W * x, H * 0.36, W * 0.2, H * 0.3); c.fillStyle = '#4A7AC0'; c.fillRect(W * x + W * 0.03, H * 0.3, W * 0.14, H * 0.09); c.fillStyle = '#24487E'; c.fillRect(W * x - W * 0.01, H * 0.64, W * 0.22, H * 0.06); c.fillStyle = '#5A5A5A'; c.fillRect(W * x + W * 0.09, H * 0.7, W * 0.02, H * 0.1); }
       c.strokeStyle = '#9AA0A6'; c.lineWidth = H * 0.04; c.strokeRect(0, 0, W, H); }, { res: 256, emissive: 0.25 });
     for (let x = -L / 2 + 1.0; x < L / 2 - 0.6; x += 1.75) { const m = new THREE.Mesh(win.geometry, win.material); m.position.set(x, 1.75, 1.415); g.add(m); }
     g.add(at(box(1.5, 2.5, 2.8, B, { pivot: 'bottom', outline: 0.004 }), L / 2 + 0.75, 0.3, 0), at(box(0.8, 0.75, 0.02, '#CFE6F4', { emissive: '#4A6A80' }), L / 2 + 1.2, 1.9, 1.41), at(box(0.6, 0.85, 0.02, '#1E2A33'), L / 2 + 0.5, 1.85, 1.41));
-    for (let x = -L / 2 + 1; x < L / 2 + 1; x += 2.2) g.add(at(cyl(0.35, 0.35, 0.25, '#1E2024', 12), x, 0.35, 1.3, PI / 2, 0, 0));
+    if (o.door !== false) g.add(at(box(1.0, 1.35, 0.08, B, { pivot: 'bottom', outline: 0.006 }), L / 2 + 0.5, 0.0, 1.9), at(box(0.08, 1.35, 0.5, B, { pivot: 'bottom', outline: 0.006 }), L / 2 + 0.04, 0.0, 1.65), at(box(0.08, 1.35, 0.5, B, { pivot: 'bottom', outline: 0.006 }), L / 2 + 0.96, 0.0, 1.65));   // (round 2) the cab's open half door: the driver stands in it, legs hidden
+    if (o.wheels !== false) for (let x = -L / 2 + 1; x < L / 2 + 1; x += 2.2) g.add(at(cyl(0.35, 0.35, 0.25, '#1E2024', 12), x, 0.35, 1.3, PI / 2, 0, 0));
     return g; },
   // A ticket window (pivot at the floor in the middle, faces +Z): a wall with a glass hatch (the clerk is behind it), a counter with a slot; nothing written
   coHatch(o) { const g = grp(), W = o.w ?? 4;
@@ -213,7 +219,7 @@ export const COMPOSTEUR_PROPS = {
     const tex = canvasPlane(1, 1, (c, Wc, Hc) => { c.fillStyle = '#C9B3E6'; c.fillRect(0, 0, Wc, Hc); for (let i = 0; i < 40; i++) { c.save(); c.translate(hsh(i) * Wc, hsh(i + 1) * Hc); c.rotate(hsh(i + 2) * PI); c.fillStyle = i % 2 ? '#DCCDF0' : '#B49CD6'; c.fillRect(-Wc * 0.07, -Hc * 0.035, Wc * 0.14, Hc * 0.07); c.restore(); } }, { res: 128 }).material;
     const crowns = []; const n = o.n ?? 160; for (let i = 0; i < n; i++) { const x = (hsh(i) - 0.5) * W * 0.9, z = (hsh(i + 7) - 0.5) * D * 0.9, y = hz(x, z), s = 0.8 + 0.5 * hsh(i + 3);
       g.add(at(cyl(0.12 * s, 0.16 * s, 1.0 * s, '#7A5434', 5, { pivot: 'bottom' }), x, y, z)); const c = new THREE.Mesh(new THREE.IcosahedronGeometry(1.0 * s, 1), tex); c.position.set(x, y + 1.6 * s, z); addOutline(c, 0.015); g.add(c); crowns.push({ c, x, z, y: y + 1.6 * s }); }
-    g.userData.update = t => { for (const C of crowns) { const w = Math.sin(t * 2.2 - C.x * 0.35 - C.z * 0.15); C.c.position.y = C.y + 0.12 * w; C.c.rotation.z = 0.08 * w; } }; g.userData.update(0); return g; },
+    g.userData.update = t => { for (const C of crowns) { const w = Math.sin(t * 2.6 - C.x * 0.9 - C.z * 0.2); C.c.position.y = C.y + 0.2 * w; C.c.rotation.z = 0.16 * w; C.c.rotation.x = 0.06 * w; } }; g.userData.update(0); return g; },
   // A forest path (pivot at the middle): a dirt strip through grass, a few money trees either side
   coPath(o) { const g = grp(), gr = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), mat('#7FB85A')); gr.rotation.x = -PI / 2; gr.position.y = 0.01; g.add(gr); const p = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 20), mat('#B8946A')); p.rotation.x = -PI / 2; p.position.y = 0.015; g.add(p); return g; },
   // An autumn street (pivot at the middle of the pavement, houses behind at -Z): a row of plain house fronts with windows and doors, a pavement; no sign
@@ -234,7 +240,7 @@ export const COMPOSTEUR_PROPS = {
   coBonfire(o) {   // (round 1) a bonfire on a heap of brown notes (pivot at the middle on the ground): rounded flame tongues (teardrops, red outside, yellow inside) that lick and sway, sparks rising; o.r; never a cone, a disc or a halo
     const R = o.r ?? 0.9, g = grp(), fl = []; g.add(COMPOSTEUR_PROPS.coHeap({ h: 0.6, r: R, n: 90 }));
     const tear = (h, r) => { const pts = []; for (let i = 0; i <= 12; i++) { const u = i / 12, y = u * h, x = r * Math.sin(Math.min(1, u * 1.4) * PI * 0.62) * (1 - u) ** 0.8 * 1.6; pts.push(new THREE.Vector2(Math.max(0.001, x), y)); } return new THREE.LatheGeometry(pts, 10); };
-    for (let i = 0; i < 7; i++) { const a = i / 7 * TAU + 0.3, rr = i === 0 ? 0 : R * 0.4, H = 0.8 + 0.5 * hsh(i + 1), t = grp(); t.position.set(Math.cos(a) * rr, 0.35, Math.sin(a) * rr); g.add(t);
+    for (let i = 0; i < 7; i++) { const a = i / 7 * TAU + 0.3, rr = i === 0 ? 0 : R * 0.42, H = (o.flame ?? 1) * (0.5 + 0.3 * hsh(i + 1)), t = grp(); t.position.set(Math.cos(a) * rr, 0.35, Math.sin(a) * rr); g.add(t);
       const outer = new THREE.Mesh(tear(H, 0.22 + 0.06 * hsh(i)), mat('#E8642A', { emissive: '#B03A10', noGrain: true })), inn = new THREE.Mesh(tear(H * 0.62, 0.13), mat('#F8D850', { emissive: '#D09020', noGrain: true })); inn.position.z = 0.06; t.add(outer, inn); fl.push({ t, ph: hsh(i + 3) * TAU }); }
     const sp = []; for (let i = 0; i < 8; i++) { const s = at(box(0.03, 0.03, 0.03, '#F8D86A', { emissive: '#E09020', noGrain: true }), 0, 0, 0); g.add(s); sp.push(s); }
     g.userData.update = t => { for (const F of fl) { const w = Math.sin(t * 11 + F.ph); F.t.scale.set(1 - 0.1 * w, 1 + 0.18 * w, 1 - 0.1 * w); F.t.rotation.z = 0.15 * Math.sin(t * 6 + F.ph); F.t.rotation.x = 0.1 * Math.sin(t * 5 + F.ph * 2); }
@@ -258,12 +264,12 @@ export const COMPOSTEUR_PROPS = {
     g.userData.update(0); return g; },
   // The hero's pyjamas (attach to the torso joint; pivot at the collar, hangs -Y): a loose pale blue top with a white collar and piping and big buttons;
   // o.w / o.d / o.h (painted: the rig ignores outfit colours)
-  coPyjama(o) { const w = o.w ?? 0.62, d = o.d ?? 0.42, h = o.h ?? 0.95, g = grp();
-    const tex = (W, H, front) => canvasPlane(W, H, (c, Wc, Hc) => { c.fillStyle = '#A8C8E8'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#8EB2D8'; for (let i = 0; i < 6; i++) c.fillRect(i * Wc / 6 + Wc / 24, 0, Wc / 36, Hc);
-      if (front) { c.fillStyle = '#F4F4F0'; c.beginPath(); c.moveTo(Wc * 0.2, 0); c.lineTo(Wc * 0.5, Hc * 0.18); c.lineTo(Wc * 0.8, 0); c.lineTo(Wc * 0.68, 0); c.lineTo(Wc * 0.5, Hc * 0.1); c.lineTo(Wc * 0.32, 0); c.fill(); c.fillRect(Wc * 0.48, Hc * 0.15, Wc * 0.04, Hc * 0.85);
-        c.fillStyle = '#F4F4F0'; for (let i = 0; i < 4; i++) { c.beginPath(); c.arc(Wc * 0.56, Hc * (0.3 + i * 0.17), Wc * 0.03, 0, TAU); c.fill(); } } }, { res: 128 });
+  coPyjama(o) {   // (round 2) striped pyjamas (attach to the torso joint, offset o.off; pivot at the collar, hangs -Y): a loose top with vertical blue-and-white stripes, a round neck, no lapel, big white buttons; o.w / o.d / o.h (painted: the rig ignores patterns)
+    const w = o.w ?? 0.62, d = o.d ?? 0.42, h = o.h ?? 0.95, g = grp();
+    const tex = (W, H, front) => canvasPlane(W, H, (c, Wc, Hc) => { c.fillStyle = '#F2F4F8'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#6A9AD0'; for (let i = 0; i < 8; i++) c.fillRect((i + 0.25) * Wc / 8, 0, Wc / 16, Hc);
+      if (front) { c.fillStyle = '#6A9AD0'; c.beginPath(); c.ellipse(Wc / 2, 0, Wc * 0.16, Hc * 0.08, 0, 0, TAU); c.fill(); c.fillStyle = '#F4F4F0'; for (let i = 0; i < 4; i++) { c.beginPath(); c.arc(Wc * 0.5, Hc * (0.2 + i * 0.18), Wc * 0.035, 0, TAU); c.fill(); c.strokeStyle = '#5A7AA0'; c.lineWidth = 2; c.stroke(); } } }, { res: 128 });
     for (const [W, x, z, ry, f] of [[w, 0, d / 2, 0, true], [w, 0, -d / 2, PI, false], [d, w / 2, 0, PI / 2, false], [d, -w / 2, 0, -PI / 2, false]]) { const p = tex(W, h, f); p.position.set(x, -h / 2, z); p.rotation.y = ry; g.add(p); }
-    g.add(at(box(w, 0.02, d, '#A8C8E8'), 0, -0.01, 0)); return g; },
+    g.add(at(box(w, 0.02, d, '#F2F4F8'), 0, -0.01, 0)); return g; },
   // A mug (pivot at its base, the handle at +X): a plain white mug, steam wisps
   coMug(o) { const g = grp(at(cyl(0.06, 0.055, 0.12, '#F4F1EA', 12, { pivot: 'bottom', outline: 0.02 }), 0, 0, 0), at(cyl(0.05, 0.05, 0.005, '#5A3A22', 12), 0, 0.11, 0)); const hd = new THREE.Mesh(new THREE.TorusGeometry(0.035, 0.012, 6, 10, PI), mat('#F4F1EA')); hd.position.set(0.06, 0.06, 0); hd.rotation.z = -PI / 2; g.add(hd); return g; },
   // A navy peaked cap, no badge (attach to the head joint; pivot at its band's bottom); o.s its size

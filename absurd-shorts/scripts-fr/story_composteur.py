@@ -95,11 +95,13 @@ def DROP(pid, actor, t0, offset=(-0.24, 0.42, 0.0), scale=0.75):
     """a sweat drop that pops on his temple at t0, clear of the eye"""
     return P(pid, 'sweatDrop', on={'actor': actor, 'joint': 'head', 'offset': list(offset)}, scale=scale, keys=[k(0.0, visible=False), k(t0, visible=True), k(t0, squash=[1.6, 0.5, 1.6], dur=0.3)])
 def CAP(pid, actor, y=0.42, s=0.8): return P(pid, 'coCap', on={'actor': actor, 'joint': 'head', 'offset': [0, y, 0]}, opts={'s': s})
-def PYJ(pid, actor='mecPyj'): return P(pid, 'coPyjama', on={'actor': actor, 'joint': 'torso', 'offset': [0, 0.62, 0]}, opts={'w': 0.56, 'd': 0.4, 'h': 0.95})
+def PYJ(pid, actor='mecPyj'): return P(pid, 'coPyjama', on={'actor': actor, 'joint': 'torso', 'offset': PYJ_OFF}, opts={'w': 0.52, 'd': 0.34, 'h': 0.85})
+PYJ_OFF = [0, 0.62, 0]
+def PUNCH(pid, actor='controleur', snap=(), s=1.3): return P(pid, 'coPunch', on={'actor': actor, 'hand': 'R', 'offset': [0, -0.12, 0.04], 'face': 'camera'}, opts={'snap': list(snap), 's': s})   # (round 2) turned flat to the lens, jaws up: a pair of pliers, never a gun
 SHH = None
 
 # the hero's garden (one layout for S02, S03, S08, S12-S16): the compost bin, the money tree growing out of it, the capped shoot beside the trunk
-G0 = [0, 0, 0]; CB = [0.6, 0, -1.1]; SHT = [-0.85, 0, -0.55]
+G0 = [0, 0, 0]; CB = [0.55, 0, -1.35]; SHT = [-0.6, 0, -0.8]
 def GARDEN(sid, lawn='#7FB85A', wall='#EFE2C8'): return [P(f'jardin{sid}', 'coGarden', pos=G0, opts={'w': 7, 'd': 6, 'lawn': lawn, 'wall': wall}), P(f'compost{sid}', 'coCompost', pos=CB)]
 
 # the inspector's punch-and-hand-over (S01 and S16, the same gesture and the same framing relative to him): the slip in his left mitten, the punch in
@@ -110,8 +112,9 @@ def INSP_CAM(at, P_, ry, push=0.12):
     return cam(at, f, [r(f[i] + d[i] / n * push) for i in range(3)], l, l, lens=46)
 def TWO_CAM(at, P_, ry, push=0.1):
     """(round 1) the S01 / S16 two-shot: three-quarters on the inspector, the hero (1.6 m in front of him) side on in silhouette: the slump and the hand-over read"""
-    f, l = off(P_, ry, 1.4, -4.6, 1.6), off(P_, ry, 0.8, 0.0, 1.35); d = [l[i] - f[i] for i in range(3)]; n = math.sqrt(sum(v * v for v in d))
+    f, l = off(P_, ry, DGAP / 2, -3.7, 1.55), off(P_, ry, DGAP / 2, 0.0, 1.32); d = [l[i] - f[i] for i in range(3)]; n = math.sqrt(sum(v * v for v in d))
     return cam(at, f, [r(f[i] + d[i] / n * push) for i in range(3)], l, l, lens=46)
+DGAP, DHAND = 1.25, 0.68   # the inspector and the hero: 1.25 m apart; the slip held out 0.68 m in front of him
 def INSP_KEYS(t0, P_, ry, HAND):
     SL = off(P_, ry, 0.38, -0.12, 1.25)
     return [TK(max(0.0, r(t0 - 0.4)), {'R': R5(off(P_, ry, 0.3, 0.22, 1.2)), 'L': R5(SL)}, {'R': 'grip', 'L': 'pinch'}, STERN, d=0.0),
@@ -125,38 +128,38 @@ def INSP_KEYS(t0, P_, ry, HAND):
 # 1: two cuts. A mainline carriage, fields scrolling past: the inspector (navy uniform, plain navy cap) holds the hero's ticket right up to the lens and
 #    taps its empty dotted circle with his big chrome punch, shaking his head. Cut: he punches a blank pink slip, clack, and hands it over; the hero
 #    takes it and his shoulders sag
-D1 = st.dur('S01'); TAP1 = r(st.at('S01', 'L01', 4)); CUT1 = r(st.at('S01', 'L01', 9) - 0.1); PN1 = r(CUT1 + 0.25)
-HS1 = [-0.75, 0, -0.65]; HRY1 = 90; P1 = [0.55, 0, 0.3]; IRY1 = yaw(P1, HS1)
-HAND1 = off(P1, IRY1, 0.85, -0.05, 1.3)
-TK1 = off(P1, IRY1, 0.6, -0.04, 1.7)   # the ticket held up to the lens
+D1 = st.dur('S01'); TAP1 = r(st.at('S01', 'L01', 4)); CUT1 = r(st.at('S01', 'L01', 9) - 0.1); PN1 = r(CUT1 + 0.1)
+HS1 = [-0.75, 0, -0.65]; HRY1 = 90; P1 = add(HS1, [r(DGAP * 0.807), 0, r(DGAP * 0.59)]); IRY1 = yaw(P1, HS1)
+HAND1 = off(P1, IRY1, DHAND, -0.05, 1.3)
+TK1 = off(P1, IRY1, 0.55, -0.04, 1.66)   # the ticket held up to the lens
 TAPP = off(TK1, IRY1, 0.03, -0.055, 0.0)   # the dotted circle (to his left, our right)
-C1 = cam(0.0, off(P1, IRY1, 1.55, 0.0, 1.45), off(P1, IRY1, 1.45, 0.0, 1.47), off(P1, IRY1, 0.0, 0.0, 1.95), off(P1, IRY1, 0.0, 0.0, 1.95), lens=50)   # from his eyes
+C1 = cam(0.0, off(P1, IRY1, 1.45, 0.0, 1.64), off(P1, IRY1, 1.35, 0.0, 1.64), off(P1, IRY1, 0.0, 0.0, 1.66), off(P1, IRY1, 0.0, 0.0, 1.66), lens=46)   # from his eyes
 C1b = TWO_CAM(CUT1, P1, IRY1)
 chk('S01', C1, {'ticket': TK1, 'head': off(P1, IRY1, 0, 0, 2.3)}); chk('S01b', C1b, {'head': off(P1, IRY1, 0, 0, 2.45), 'slip': off(P1, IRY1, 0.38, -0.12, 1.25), 'hand': HAND1, 'hero': add(HS1, [0, 1.65, 0])})
 ki1 = [k(0.0, clip='stand'), k(0.0, look=HEAD(HS1, 1.3)), TK(0.0, {'R': R5(off(P1, IRY1, 0.3, 0.22, 1.2)), 'L': R5(add(TK1, [0.0, -0.08, -0.02]))}, {'R': 'grip', 'L': 'pinch'}, STERN, d=0.0),
-       TK(r(TAP1 - 0.15), {'R': R5(add(off(TAPP, IRY1, 0.06, 0, 0), [0, -0.24, 0]))}, d=0.12, keep=True), TK(TAP1, {'R': R5(add(TAPP, [0, -0.27, 0]))}, sq=(1.03, 0.97, 1.03), d=0.05, e='in', keep=True),   # tap...
-       TK(r(TAP1 + 0.12), {'R': R5(add(off(TAPP, IRY1, 0.06, 0, 0), [0, -0.24, 0]))}, sq=(1, 1, 1), d=0.06, keep=True), TK(r(TAP1 + 0.22), {'R': R5(add(TAPP, [0, -0.27, 0]))}, d=0.05, e='in', keep=True),   # ...tap, in the circle
+       TK(r(TAP1 - 0.15), {'R': R5(add(off(TAPP, IRY1, 0.07, 0, 0), [0, 0.06, 0]))}, d=0.12, keep=True), TK(TAP1, {'R': R5(TAPP)}, sq=(1.03, 0.97, 1.03), d=0.05, e='in', keep=True),   # tap...
+       TK(r(TAP1 + 0.12), {'R': R5(add(off(TAPP, IRY1, 0.07, 0, 0), [0, 0.06, 0]))}, sq=(1, 1, 1), d=0.06, keep=True), TK(r(TAP1 + 0.24), {'R': R5(TAPP)}, d=0.05, e='in', keep=True),   # ...tap, in the circle
        TK(r(TAP1 + 0.4), {'R': R5(off(P1, IRY1, 0.3, 0.22, 1.2))}, d=0.15, keep=True),
-       *[k(r(TAP1 + 0.45 + 0.16 * j), look=HEAD(off(P1, IRY1, 1.0, 0.45 if j % 2 == 0 else -0.45, 0), 1.3), lookDur=0.1) for j in range(4)], k(r(TAP1 + 1.15), look=HEAD(HS1, 1.3), lookDur=0.1),   # he shakes his head
+       *[k(r(TAP1 + 0.45 + 0.15 * j), look=HEAD(off(P1, IRY1, 1.0, 0.9 if j % 2 == 0 else -0.9, 0), 1.45), lookDur=0.07) for j in range(4)], k(r(TAP1 + 1.1), look='camera', lookDur=0.1),   # he shakes his head
        TK(r(TAP1 + 0.45), face={**STERN, 'brow': -0.8}, d=0.1, keep=True), *blink(0.45, STERN), *blink(r(CUT1 + 0.1), STERN), *blink(r(D1 - 0.3), STERN)]
 ki1 += [k(CUT1, toon={'reach': {'R': R5(off(P1, IRY1, 0.3, 0.22, 1.2)), 'L': R5(off(P1, IRY1, 0.38, -0.12, 1.25))}}, toonDur=0.0, keepPose=True), *INSP_KEYS(PN1, P1, IRY1, HAND1)]
 kh1 = [k(0.0, visible=False), k(CUT1, visible=True), k(0.0, clip='sit'), k(0.0, look=HEAD(P1, 2.0)), TK(0.0, {'R': R5(off(HS1, HRY1, 0.4, 0.2, 0.75)), 'L': R5(off(HS1, HRY1, 0.4, -0.2, 0.75))}, {'R': 'rest', 'L': 'rest'}, WORRY, d=0.0),
        TK(r(PN1 + 0.3), {'R': R5(add(HAND1, [0.0, -0.02, 0.0]))}, {'R': 'pinch'}, d=0.2, keep=True),   # he takes it...
-       TK(r(PN1 + 0.75), {'R': R5(off(HS1, HRY1, 0.4, 0.15, 0.78))}, face=SAD, d=0.2, keep=True), TK(r(PN1 + 0.85), sq=(1.06, 0.9, 1.06), bend={'spine': SP(0.3), 'neck': SP(0.25)}, d=0.25, keep=True),   # ...and sags
+       TK(r(PN1 + 0.62), sq=(1.06, 0.9, 1.06), bend={'spine': SP(0.3), 'neck': SP(0.2)}, face=SAD, d=0.22, keep=True), k(r(PN1 + 0.65), look='camera', lookDur=0.15),   # ...and sags, to us
        *blink(r(PN1 + 1.1), SAD), *BREATHE(0.2, D1, 0.5)]
 st.shot('S01', 'whiteVoid', setOpts={'color': SKY}, look={'sunDir': [0.4, 0.9, 0.8]},
         actors=[act('controleur', P1, IRY1, 'stand', 'neutral', keys=ki1), act('mec', HS1, HRY1, 'sit', 'neutral', keys=kh1)],
         props=[P('wagon1', 'coCarriage', pos=[0, 0, 0], opts={'len': 8, 'scroll': 5}),
                P('billet1', 'coTicket', on={'actor': 'controleur', 'hand': 'L', 'offset': [0.0, 0.1, 0.06], 'face': 'camera'}, keys=[k(CUT1, visible=False)]),
                P('amende1', 'coFine', on={'actor': 'controleur', 'hand': 'L', 'offset': [0.0, 0.12, 0.06], 'face': 'camera'}, opts={'punchAt': PN1}, keys=[k(0.0, visible=False), k(CUT1, visible=True), k(r(PN1 + 0.52), attach='mec', hand='R', offset=[0.0, 0.12, 0.05], rot=[0, 0, 0])]),
-               P('poincon1', 'coPunch', on={'actor': 'controleur', 'hand': 'R', 'offset': [0, 0.05, 0.04]}, opts={'snap': [TAP1, r(TAP1 + 0.22), PN1], 's': 1.3}),
+               PUNCH('poincon1', snap=[TAP1, r(TAP1 + 0.24), PN1], s=0.85),
                CAP('casquette1', 'controleur')], cams=[C1, C1b])
 st.cue('sfx:tick', 'S01', TAP1, 0.25); st.cue('clack', 'S01', PN1, 0.5); st.cue('engine', 'S01', 0.0, 0.12)
 
 # ================================================================= S02
 # 2: his back garden, low camera: a wooden compost bin full of peelings. He drops the ticket in, then the pink slip, covers them with a spadeful of
 #    peelings and pats it down; a worm pops its head up, looks at us and goes back in
-D2 = st.dur('S02'); DT2 = r(st.at('S02', 'L02', 3)); DF2 = r(st.at('S02', 'L02', 6)); SP2 = r(DF2 + 0.45)
+D2 = st.dur('S02'); DT2 = 0.55; DF2 = 1.25; SP2 = 1.75
 HB2 = add(CB, [-0.1, 0, -0.8]); HRY2 = 0; TOP2 = add(CB, [0, 0.95, 0])   # behind the bin, facing us: his face reads
 C2 = fcam(0.0, [1.6, 0.55, 2.6], {'heroTop': add(HB2, [0, 2.35, 0]), 'heroFeet': HB2, 'bin': add(CB, [0.5, 0, 0.5]), 'binL': add(CB, [-0.5, 0.9, 0.5]), 'worm': add(CB, [-0.2, 0.4, 0.75])}, top=0.1, bottom=0.88)
 chk('S02', C2, {'heroTop': add(HB2, [0, 2.35, 0]), 'bin': add(CB, [0, 0.8, 0])})
@@ -182,6 +185,7 @@ st.cue('sfx:paper', 'S02', DT2, 0.25); st.cue('sfx:paper', 'S02', DF2, 0.25); st
 #    one and holds it up to the light: the oval is empty. Beside the trunk, at the lens' height in this low shot, a bright-green shoot in a navy cap
 D3 = st.dur('S03'); GROW3 = r(st.at('S03', 'L03', 3) - 0.3); JAW3 = r(st.at('S03', 'L03', 9) - 0.05); PICK3 = r(st.at('S03', 'L03', 10) - 0.15)
 HB3 = add(CB, [-1.5, 0, -0.35]); HRY3 = 25; LEAF3 = add(CB, [-0.9, 1.8, 0.3]); UP3 = off(HB3, HRY3, 0.25, 0.05, 2.25)
+C3b = cam(r(JAW3 - 0.12), off(HB3, HRY3, 1.7, -0.2, 1.75), off(HB3, HRY3, 1.6, -0.2, 1.75), off(HB3, HRY3, 0, 0, 1.75), off(HB3, HRY3, 0, 0, 1.75), lens=46)   # (round 2) close on the take
 C3 = fcam(0.0, [0.4, 0.6, 2.6], {'crown': add(CB, [-0.3, 2.6, 0]), 'shoot': add(SHT, [0, 0.4, 0]), 'shootB': SHT, 'heroTop': add(HB3, [0, 2.45, 0]), 'heroL': add(HB3, [-0.3, 1.2, 0]), 'heroF': add(HB3, [0, 0.3, 0])}, top=0.07, bottom=0.76, push=0.25)
 chk('S03', C3, {'crown': add(CB, [0, 3.0, 0]), 'shoot': add(SHT, [0, 0.25, 0]), 'heroTop': add(HB3, [0, 2.35, 0])})
 kh3 = [k(0.0, clip='stand'), k(0.0, look=add(CB, [0, 0.8, 0])), TK(0.0, HANDS(HB3, HRY3), {'R': 'rest', 'L': 'rest'}, CALM, d=0.0),
@@ -195,14 +199,14 @@ st.shot('S03', 'whiteVoid', setOpts={'color': '#B4DCF2'}, look={'sunDir': [0.4, 
         actors=[act('mec', HB3, HRY3, 'stand', 'neutral', keys=kh3)],
         props=[*GARDEN('S03', lawn='#86C460'), P('arbre3', 'coMoneyTree', pos=add(CB, [0, 0.35, 0]), opts={'grow': [[0, 0.0], [GROW3, 0.0], [r(GROW3 + 0.25), 0.35], [r(GROW3 + 0.9), 1.05], [r(GROW3 + 1.1), 1.0]]}),
                P('pousse3', 'coShoot', pos=SHT, scale=1.8, opts={'stage': 1}),
-               P('billetb3', 'coNote', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, 0.1, 0.05], 'face': 'camera'}, keys=[k(0.0, visible=False), k(r(PICK3 + 0.05), visible=True)])], cams=[C3])
+               P('billetb3', 'coNote', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, 0.1, 0.05], 'face': 'camera'}, keys=[k(0.0, visible=False), k(r(PICK3 + 0.05), visible=True)])], cams=[C3, C3b])
 st.cue('sfx:stretch', 'S03', GROW3, 0.25); st.cue('sfx:gasp', 'S03', JAW3, 0.2)
 
 # ================================================================= S04
 # 4: back gardens over low fences: three neighbours kneel in a row, each burying a yellow ticket with a trowel, patting the soil in sync; in the next
 #    garden the hero does the same (a young money tree and the capped shoot beside him). Four people
 D4 = st.dur('S04'); GW4 = 1.25; XS4 = [r((i - 1.5) * GW4) for i in range(4)]
-C4 = fcam(0.0, [XS4[3] + 2.0, 1.3, 2.1], {'hero': [XS4[3], 1.5, 0.15], 'heroT': [XS4[3] + 0.4, 1.6, -0.9], 'shoot': [XS4[3] - 0.15, 0.5, -0.75], 'n1': [XS4[1], 1.5, 0.15], 'n0': [XS4[0], 1.5, 0.15], 'hands': [XS4[3] + 0.1, 0.0, 0.62]}, top=0.12, bottom=0.8, push=0.2)   # (round 1) along the row, the hero nearest, low on the hands
+C4 = fcam(0.0, [XS4[3] + 1.8, 0.85, 1.9], {'hero': [XS4[3], 1.5, 0.15], 'shoot': [XS4[3] - 0.15, 0.5, -0.75], 'n1': [XS4[1], 1.5, 0.15], 'n0': [XS4[0], 1.4, 0.15], 'hands': [XS4[3] - 0.2, 0.0, 0.75], 'heroT': [XS4[3] + 0.4, 1.3, -0.9]}, top=0.2, bottom=0.8, push=0.2)   # (round 2) low, under the fence rails
 kn4 = []
 for i, x in enumerate(XS4):
     p = [x, 0, 0.15]; ry = 0; nm = 'mec' if i == 3 else f'voisin{i + 1}'; T = add(p, [0.1, 0.06, 0.45])
@@ -214,7 +218,7 @@ for i, x in enumerate(XS4):
     kn4.append(act(nm, p, ry, 'kneel', 'neutral', keys=ks))
 st.shot('S04', 'whiteVoid', setOpts={'color': SKY}, look={'sunDir': [0.4, 0.9, 0.8]},
         actors=kn4,
-        props=[P('jardins4', 'coGardens', pos=[0, 0, 0], opts={'n': 4, 'gw': GW4, 'd': 4}), *[P(f'billet4_{i}', 'coTicket', pos=[x - 0.15, 0.03, 0.6], rot=[-1.5708, 0, 0.2], opts={'w': 0.34, 'h': 0.17}) for i, x in enumerate(XS4)],
+        props=[P('jardins4', 'coGardens', pos=[0, 0, 0], opts={'n': 4, 'gw': GW4, 'd': 4}), *[P(f'billet4_{i}', 'coTicket', pos=[x - 0.15, 0.04, 0.62], rot=[-1.2, 0, 0.2], opts={'w': 0.42, 'h': 0.21}) for i, x in enumerate(XS4)],
                *[P(f'truelle4_{i}', 'coTrowel', on={'actor': 'mec' if i == 3 else f'voisin{i + 1}', 'hand': 'R', 'offset': [0, 0.04, 0]}) for i in range(4)],
                P('arbre4', 'coMoneyTree', pos=[XS4[3] + 0.4, 0, -0.9], opts={'s': 0.55, 'n': 70}), P('pousse4', 'coShoot', pos=[XS4[3] - 0.15, 0, -0.75], scale=1.8, opts={'stage': 1})], cams=[C4])
 for j in range(int((D4 - 0.2) / 0.48)): st.cue('sfx:stepSoft', 'S04', r(0.43 + 0.48 * j), 0.1)
@@ -222,23 +226,23 @@ for j in range(int((D4 - 0.2) / 0.48)): st.cue('sfx:stepSoft', 'S04', r(0.43 + 0
 # ================================================================= S05
 # 5: a station platform (the sign hidden under a plain band, a clock with hands only), shot from the platform: the carriage slides past, every seat empty;
 #    the driver waves out of his cab at nobody, a lone pigeon on the platform watches it go. COMPLET card
-D5 = st.dur('S05'); TR0, TR1 = [-2.4, 0, 1.6], [7.2, 0, 1.6]   # turned round (its windows face the platform): the windows of empty seats first, then the cab and its waving driver
+D5 = st.dur('S05'); TR0, TR1 = [-3.4, 0, 1.6], [5.6, 0, 1.6]   # turned round (its windows face the platform): the windows of empty seats first, then the cab and its waving driver
 def tr5(t): return lerp3(TR0, TR1, min(1.0, t / D5))
-C5 = cam(0.0, [0.4, 1.7, -3.6], [0.4, 1.7, -3.4], [0.4, 1.85, 1.4], [0.4, 1.85, 1.4], lens=50)
+C5 = fcam(0.0, [-1.7, 1.65, -2.5], {'clock': [-0.9, 2.95, -0.7], 'clockB': [-0.9, 0.3, -0.7], 'edge': [1.5, 0.0, 0.0], 'winT': [1.0, 2.3, 0.2], 'cabT': [0.6, 2.8, 0.2]}, top=0.15, bottom=0.8, push=0.15, lenses=range(20, 61))   # (round 2) three-quarters from the platform
 chk('S05', C5, {'win': [0.4, 1.75, 1.42], 'roof': [0.4, 2.9, 1.6], 'drv': add(add(TR0, [5.0, -0.25, 1.35]), [0, 2.3, 0])})
-DRV = [-5.0, -0.25, -1.35]   # he leans out of the cab's side window
-kd5 = [k(0.0, clip='wave'), k(0.0, to=add(TR1, DRV), dur=D5, clip='wave', ease='linear', face='keep'), k(0.0, look='camera'), TK(0.0, face=HAPPY, d=0.0), *blink(0.5, HAPPY)]
+DRV = [-5.0, 0.05, -1.62]   # he leans out of the cab's side window
+kd5 = [k(0.0, clip='wave'), k(0.0, to=add(TR1, DRV), dur=r(D5 - 0.8), clip='wave', ease='out', face='keep'), k(0.0, look='camera'), TK(0.0, face=HAPPY, d=0.0), *blink(0.5, HAPPY)]
 st.shot('S05', 'whiteVoid', setOpts={'color': SKY}, look={'sunDir': [0.4, 0.9, 0.8]},
         actors=[act('conducteur', add(TR0, DRV), 180, 'wave', 'neutral', keys=kd5)],
-        props=[P('quai5', 'coPlatform', pos=[0, 0, 0], opts={'len': 20, 'clockX': -0.9, 'clockZ': -0.7, 'benchX': -4.0}), P('train5', 'coTrain', pos=TR0, ry=180, opts={'len': 9}, keys=[k(0.0, to=TR1, dur=D5, ease='linear')])], cams=[C5])
+        props=[P('quai5', 'coPlatform', pos=[0, 0, 0], opts={'len': 20, 'clockX': -0.9, 'clockZ': -0.7, 'benchX': -4.0}), P('train5', 'coTrain', pos=TR0, ry=180, opts={'len': 9, 'wheels': False}, keys=[k(0.0, to=TR1, dur=r(D5 - 0.8), ease='out')])], cams=[C5])
 st.cue('engine', 'S05', 0.0, 0.3); st.card('S05', 'COMPLET', at=st.at('S05', 'L05', 3))
 
 # ================================================================= S06
 # 6: a ticket window, a wall with a glass hatch: behind the glass the clerk swaps a small blank red price tag for a bigger one, then a huge one that slaps
 #    over the whole glass; the customer in front beams and pushes a whole leafy lilac money branch through the slot
 D6 = st.dur('S06'); SW6a = r(st.at('S06', 'L06', 4) - 0.2); SW6b = r(st.at('S06', 'L06', 5)); PUSH6 = r(st.at('S06', 'L06', 9) - 0.3)
-CK6 = [0.0, 0, -0.55]; CU6 = [0.62, 0, 0.7]; CURY6 = 215
-C6 = fcam(0.0, [-0.9, 1.6, 3.0], {'glassT': [0, 2.3, 0.06], 'glassL': [-0.75, 1.1, 0.06], 'cuTop': add(CU6, [0, 2.3, 0]), 'cuF': CU6, 'ckTop': add(CK6, [0, 2.3, 0])}, top=0.12, bottom=0.88)
+CK6 = [0.0, 0, -0.55]; CU6 = [0.42, 0, 0.75]; CURY6 = 215
+C6 = fcam(0.0, [-0.9, 1.6, 3.0], {'glassT': [0, 2.3, 0.06], 'glassL': [-0.75, 1.1, 0.06], 'cuTop': add(CU6, [0, 2.4, 0]), 'cuR': add(CU6, [0.4, 1.9, 0]), 'cuF': CU6, 'ckTop': add(CK6, [0, 2.3, 0])}, top=0.12, bottom=0.88)
 kc6 = [k(0.0, clip='stand'), k(0.0, look=HEAD(CU6, 1.9)), TK(0.0, {'R': R5([0.25, 1.62, 0.0]), 'L': R5(off(CK6, 0, 0.25, -0.3, 1.0))}, {'R': 'pinch', 'L': 'rest'}, GRAVE, d=0.0),
        TK(r(SW6a - 0.15), {'R': R5([0.2, 1.55, -0.02])}, d=0.1, keep=True), TK(SW6a, {'R': R5([0.15, 1.7, 0.0])}, d=0.08, keep=True),   # swap...
        TK(r(SW6b - 0.25), {'R': R5([0.0, 2.15, -0.1])}, sq=(0.85, 1.22, 0.85), bend={'spine': SP(-0.15)}, d=0.15, keep=True), TK(SW6b, {'R': R5([0.0, 1.75, 0.0])}, sq=(1.15, 0.85, 1.15), bend={'spine': SP(0.12)}, d=0.05, e='in', keep=True),   # (round 1) a stretch up... and SNAP
@@ -263,7 +267,7 @@ D7 = st.dur('S07'); CUT7 = r(st.at('S07', 'L07', 6) - 0.1); LIFT7 = r(CUT7 + 0.5
 F7 = [100.0, 0, 0]
 C7 = cam(0.0, add(F7, [-9.0, 13.0, 15.0]), add(F7, [-6.5, 11.5, 11.0]), add(F7, [0.0, 0.0, -2.0]), add(F7, [0.5, 0.0, -3.0]), lens=46, ease='inOut')
 HK7a, HK7 = [0.0, 0, -1.6], [0.0, 0, 0.0]; HRY7 = 0
-C7b = fcam(CUT7, [1.4, 1.3, 3.2], {'top': add(HK7, [0, 2.35, 0]), 'feet': HK7, 'foot': off(HK7, HRY7, 0.3, 0.12, 0.5)}, top=0.1, bottom=0.86)
+C7b = fcam(CUT7, [1.4, 1.3, 3.2], {'top': add(HK7, [0, 2.35, 0]), 'foot': off(HK7, HRY7, 0.3, 0.12, 0.45)}, top=0.12, bottom=0.66)
 FOOT7 = off(HK7, HRY7, 0.32, 0.12, 0.5)
 kk7 = [k(0.0, clip='walk'), k(0.0, visible=False), k(CUT7, visible=True), k(CUT7, to=HK7, dur=0.45, clip='walk', ease='out', params={'freq': 1.8}), k(r(CUT7 + 0.45), clip='stand', blend=0.08),
        k(0.0, look='camera'), TK(0.0, HANDS(HK7a, 0), {'R': 'rest', 'L': 'rest'}, CALM, d=0.0),
@@ -285,14 +289,14 @@ st.cue('gust', 'S07', 0.0, 0.3); st.cue('sfx:paper', 'S07', PEEL7, 0.3)
 #    the squirrel leaps back
 D8 = st.dur('S08'); CUT8 = r(st.at('S08', 'L08', 6) - 0.1); POP8 = r(CUT8 - 0.35); CLK8 = r(st.at('S08', 'L08', 8) + 0.1)
 SQ8a, SQ8 = [-1.9, 0, 0.6], [-1.15, 0, 0.35]; SAP8 = [-1.45, 0, -0.35]
-SQ8c0, SQ8c = [-1.4, 0, 0.4], add(SHT, [-0.55, 0, 0.45])   # (round 1) on the punch side, clear of the bin
+SQ8c0, SQ8c = [0.4, 0, 0.5], add(SHT, [0.55, 0, 0.42])   # (round 1) on the punch side, clear of the bin
 C8 = fcam(0.0, [-0.6, 0.6, 1.9], {'sq': add(SQ8, [0, 0.7, 0]), 'sqF': SQ8, 'sap': add(SAP8, [0, 1.2, 0]), 'sapF': SAP8}, top=0.12, bottom=0.8, push=0.15)
-C8b = fcam(CUT8, [0.2, 0.55, 1.9], {'bush': add(SHT, [0, 0.85, 0]), 'bushB': add(SHT, [-0.3, 0.0, 0]), 'punch': add(SHT, [-0.6, 0.75, 0.15]), 'sqTop': add(SQ8c, [0, 1.1, 0]), 'sqF': add(SQ8c, [0.1, 0, 0.1])}, top=0.12, bottom=0.8, push=0.1)
+C8b = fcam(CUT8, [-0.2, 0.6, 2.0], {'bush': add(SHT, [0, 0.85, 0]), 'bushB': add(SHT, [-0.3, 0.0, 0]), 'punch': add(SHT, [-0.65, 0.75, 0.15]), 'sqTop': add(SQ8c, [0, 1.0, 0]), 'sqF': add(SQ8c, [0.2, 0, 0.1])}, top=0.14, bottom=0.8, push=0.1)
 st.shot('S08', 'whiteVoid', setOpts={'color': '#B4DCF2'}, look={'sunDir': [0.4, 0.9, 0.8]}, actors=[],
         props=[*GARDEN('S08', lawn='#86C460'), P('arbre8', 'coMoneyTree', pos=add(CB, [0, 0.35, 0])), P('buisson8', 'coShoot', pos=SHT, opts={'stage': 2, 'snap': [CLK8], 'twitch': [r(CLK8 - 0.35)]}),
                P('pousse8', 'coMoneyTree', pos=SAP8, opts={'n': 50, 'grow': [[0, 0], [POP8, 0], [r(POP8 + 0.12), 0.4], [r(POP8 + 0.22), 0.3], [r(POP8 + 0.3), 0.33]]}), P('etincelle8', 'coSparkle', pos=add(SAP8, [0, 0.5, 0.2]), opts={'at': POP8}),
-               P('ecureuil8', 'coSquirrel', pos=SQ8a, ry=60, scale=1.1, opts={'hop': [[0.0, 0.45], [r(CUT8), r(CUT8 + 0.35)]], 'dig': [[0.75, r(POP8 - 0.05)], [r(CUT8 + 0.45), r(CLK8 - 0.1)]], 'cheeks': [0.2, 0.75], 'startle': r(CLK8 + 0.06)},
-                 keys=[k(0.0, to=SQ8, dur=0.45, ease='out'), k(0.5, rotTo=[0, -0.4, 0], dur=0.2), k(CUT8, to=SQ8c0, dur=0.01), k(r(CUT8 + 0.02), to=SQ8c, dur=0.33, ease='out'), k(r(CUT8 + 0.02), rotTo=[0, -1.2, 0], dur=0.1)])], cams=[C8, C8b])
+               P('ecureuil8', 'coSquirrel', pos=SQ8a, ry=60, scale=1.1, opts={'hop': [[0.0, 0.45], [r(CUT8), r(CUT8 + 0.35)]], 'dig': [[0.75, r(POP8 - 0.05)], [r(CUT8 + 0.45), r(CLK8 - 0.1)]], 'cheeks': [0.45, 0.85], 'startle': r(CLK8 + 0.06), 'popAt': r(CLK8 + 0.04)},
+                 keys=[k(0.0, to=SQ8, dur=0.45, ease='out'), k(0.5, rotTo=[0, -0.4, 0], dur=0.2), k(CUT8, to=SQ8c0, dur=0.01), k(r(CUT8 + 0.02), to=SQ8c, dur=0.33, ease='out'), k(r(CUT8 + 0.02), rotTo=[0, -0.35, 0], dur=0.1)])], cams=[C8, C8b])
 st.cue('sfx:scratch', 'S08', 0.8, 0.2); st.cue('sfx:pop', 'S08', POP8, 0.3); st.cue('clack', 'S08', CLK8, 0.5); st.cue('sfx:squeak', 'S08', r(CLK8 + 0.05), 0.25)
 
 # ================================================================= S09
@@ -300,13 +304,13 @@ st.cue('sfx:scratch', 'S08', 0.8, 0.2); st.cue('sfx:pop', 'S08', POP8, 0.3); st.
 #    vanishes beneath the pile, only his hat showing on top. KRACH card
 D9 = st.dur('S09'); FALL9 = r(st.at('S09', 'L09', 5) - 0.15); KR9 = st.at('S09', 'L09', 6); POP9 = r(FALL9 + 1.0)
 T9a, T9b = [-1.1, 0, -0.9], [1.5, 0, -1.6]; PA9a, PA9 = [-2.6, 0, -0.4], [-0.95, 0, -0.35]
-C9 = fcam(0.0, [0.0, 1.5, 5.4], {'crownA': add(T9a, [0, 3.0, 0]), 'crownB': add(T9b, [0, 3.0, 0]), 'heapL': add(PA9, [-0.9, 0, 0.3]), 'heapT': add(PA9, [0, 2.5, 0]), 'pa0': add(PA9a, [-0.3, 2.3, 0]), 'heapR': add(T9b, [1.2, 0, 0.5])}, top=0.22, bottom=0.78)
+C9 = fcam(0.0, [0.0, 1.2, 5.0], {'crownA': add(T9a, [0, 2.6, 0]), 'heapL': add(PA9, [-0.9, 0, 0.3]), 'heapR': add(PA9, [0.9, 0, 0.3]), 'popTop': add(PA9, [0, 3.75, 0]), 'treeB': add(T9b, [0.6, 2.2, 0])}, top=0.22, bottom=0.8)
 kp9 = [k(0.0, clip='walk'), k(0.0, to=PA9, dur=r(FALL9 - 0.3), clip='walk', ease='out', params={'freq': 1.8}), k(r(FALL9 - 0.3), clip='stand', blend=0.1), k(0.0, look='camera'), TK(0.0, face=CALM, d=0.0),
        *WALKHANDS(0.0, r(FALL9 - 0.3), [PA9a, PA9], {'R': (0.1, 0.25, 1.0), 'L': (0.1, -0.25, 1.0)}),
        k(r(FALL9 - 0.1), look=add(T9a, [0, 2.4, 0]), lookDur=0.1), TK(r(FALL9 + 0.05), face={'lid': 0.0, 'mouth': 'O', 'brow': 1.0}, sq=(0.92, 1.1, 0.92), d=0.05, e='out', keep=True),
        k(r(FALL9 + 0.6), visible=False), k(POP9, visible=True), k(POP9, to=add(PA9, [0, 1.25, 0.05]), dur=0.01, clip='stand', face='keep'), k(POP9, look='camera', lookDur=0.0),
        TK(POP9, face={'lid': 0.4, 'mouth': 'line', 'brow': 0.3}, sq=(0.8, 1.3, 0.8), d=0.04, e='out', keep=True), TK(r(POP9 + 0.12), sq=(1.12, 0.88, 1.12), d=0.07, keep=True), TK(r(POP9 + 0.25), sq=(1, 1, 1), d=0.1, keep=True), *blink(r(POP9 + 0.4), CALM)]   # (round 1) POP: out of the pile, hat on
-st.shot('S09', 'whiteVoid', setOpts={'color': '#C8D8E4'}, look={'sunDir': [-0.5, 0.7, 0.7]},
+st.shot('S09', 'whiteVoid', setOpts={'color': '#EBCB9C'}, look={'sunDir': [0.3, 0.8, -0.5]},
         actors=[act('passant', PA9a, 90, 'walk', 'neutral', keys=kp9)],
         props=[P('rue9', 'coStreet', pos=[0, 0, 0], opts={'w': 14}), P('arbre9a', 'coMoneyTree', pos=T9a, opts={'brown': True, 'dropAt': FALL9}), P('arbre9b', 'coMoneyTree', pos=T9b, opts={'brown': True, 'dropAt': r(FALL9 + 0.02)}),
                P('tas9', 'coHeap', pos=add(PA9, [0, 0, 0.05]), opts={'h': 2.25, 'r': 0.85, 'n': 150, 'growAt': [r(FALL9 + 0.15), r(FALL9 + 0.55)]}),
@@ -320,8 +324,8 @@ st.cue('gust', 'S09', r(FALL9 - 0.2), 0.3); st.cue('thud', 'S09', r(FALL9 + 0.5)
 D10 = st.dur('S10'); CUT10 = r(st.at('S10', 'L10', 5) - 0.1)
 HP10 = [0.0, 0, -0.4]; GD10 = [[-1.4, 0, 0.1], [1.4, 0, 0.0], [0.3, 0, 1.25]]
 C10 = fcam(0.0, [0.6, 1.9, 5.0], {**{f'g{i}': add(p, [0, 2.3, 0]) for i, p in enumerate(GD10)}, **{f'f{i}': p for i, p in enumerate(GD10)}, 'heap': add(HP10, [0, 1.0, 0])}, top=0.12, bottom=0.82)
-WARM = [[-1.1, 0, 0.1], [1.1, 0, 0.05], [0.15, 0, -1.35]]   # the third behind the fire, facing us: the flames stay in sight
-C10b = fcam(CUT10, [0.5, 1.7, 4.6], {**{f'w{i}': add(p, [0, 2.3, 0]) for i, p in enumerate(WARM)}, 'fire': add(HP10, [0, 1.7, 0]), 'f0': WARM[0], 'f1': WARM[1]}, top=0.12, bottom=0.76)
+WARM = [[-1.3, 0, 0.3], [1.3, 0, 0.45], [2.3, 0, -0.6]]   # (round 2) nobody behind the fire: all three on the sides, a clear gap
+C10b = fcam(CUT10, [0.5, 1.7, 4.6], {**{f'w{i}': add(p, [0, 2.3, 0]) for i, p in enumerate(WARM)}, 'fire': add(HP10, [0, 1.7, 0]), 'f0': WARM[0], 'f1': WARM[1], 'f2': WARM[2]}, top=0.12, bottom=0.76)
 gd10 = []
 for i, (p, w) in enumerate(zip(GD10, WARM)):
     ry = yaw(p, HP10); ryw = yaw(w, HP10); orange = {'lid': 0.3, 'mouth': 'line', 'brow': 0.2}
@@ -339,7 +343,7 @@ for i, (p, w) in enumerate(zip(GD10, WARM)):
 st.shot('S10', 'whiteVoid', setOpts={'color': '#C8D8E4'}, look={'sunDir': [-0.4, 0.8, 0.7]},
         actors=gd10,
         props=[P('parc10', 'coPath', pos=[0, 0, -2.5]), *[P(f'arbre10_{i}', 'coMoneyTree', pos=p, opts={'brown': True, 'dropAt': -5, 'n': 90}) for i, p in enumerate([[-2.4, 0, -2.6], [2.2, 0, -3.0]])],
-               P('tas10', 'coHeap', pos=HP10, opts={'h': 0.9, 'r': 0.95, 'n': 120}, keys=[k(CUT10, visible=False)]), P('feu10', 'coBonfire', pos=HP10, opts={'r': 0.9}, keys=[k(0.0, visible=False), k(CUT10, visible=True)]),
+               P('tas10', 'coHeap', pos=HP10, opts={'h': 0.9, 'r': 0.95, 'n': 120}, keys=[k(CUT10, visible=False)]), P('feu10', 'coBonfire', pos=HP10, opts={'r': 0.9, 'flame': 0.8}, keys=[k(0.0, visible=False), k(CUT10, visible=True)]),
                P('rateau10a', 'coRake', on={'actor': 'jardinier1', 'hand': 'R', 'offset': [0, 0.05, 0], 'rot': [0.6, 0, 0]}, keys=[k(CUT10, visible=False)]), P('rateau10b', 'coRake', on={'actor': 'jardinier2', 'hand': 'R', 'offset': [0, 0.05, 0], 'rot': [0.6, 0, 0]}, keys=[k(CUT10, visible=False)]),
                P('souffleur10', 'coBlower', on={'actor': 'jardinier3', 'hand': 'R', 'offset': [0, 0.0, 0.05]}, opts={'on': True}, keys=[k(CUT10, visible=False)]),
                P('saucisse10', 'coSausage', on={'actor': 'jardinier3', 'hand': 'R', 'offset': [0, 0.03, 0.03], 'rot': [1.0, 0, 0]}, keys=[k(0.0, visible=False), k(CUT10, visible=True)])], cams=[C10, C10b])
@@ -350,7 +354,7 @@ st.cue('sfx:scratch', 'S10', 0.1, 0.2); st.cue('gust', 'S10', 0.2, 0.25); st.cue
 #    trees with one finger, nods, and slides a single yellow ticket across the counter, very dignified
 D11 = st.dur('S11'); TRK0, TRK1 = [5.6, 0, 2.0], [2.0, 0, 2.0]; CNT11 = [r(st.at('S11', 'L11', 5) + 0.1 + 0.35 * j) for j in range(3)]; NOD11 = r(CNT11[2] + 0.4); SLIDE11 = r(st.at('S11', 'L11', 12) - 0.2)
 CK11 = CK6
-C11 = dict(C6)   # (round 1) the S06 framing
+C11 = fcam(0.0, [-0.9, 2.1, 6.2], {'ckTop': add(CK6, [0, 2.35, 0]), 'glassL': [-0.75, 1.0, 0.06], 'treeA': add(TRK1, [-1.6, 3.5, -0.3]), 'treeC': add(TRK1, [0.5, 3.5, 0.3]), 'cab': add(TRK1, [2.5, 2.2, 1.0]), 'truckF': add(TRK1, [-2.2, 0, 1.0])}, top=0.1, bottom=0.82)   # (round 2) wide: the three whole trees behind the window
 C11b = cam(r(SLIDE11 - 0.3), [0.25, 1.75, 1.3], [0.25, 1.65, 1.1], [0.05, 1.12, 0.15], [0.05, 1.12, 0.25], lens=40)   # close on the single ticket
 TKT11 = [0.0, 1.13, -0.05]
 kc11 = [k(0.0, clip='stand'), k(0.0, look=add(TRK0, [0, 2.0, 0])), TK(0.0, HANDS(CK11, 0), {'R': 'rest', 'L': 'rest'}, GRAVE, d=0.0),
@@ -367,78 +371,88 @@ st.shot('S11', 'whiteVoid', setOpts={'color': '#E8DCC8'}, look={'sunDir': [0.3, 
 for t in [0.3, 0.75, 1.2, 1.65, 2.1]: st.cue('sfx:beep', 'S11', t, 0.2)
 
 # ================================================================= S12
-# 12: the hero's garden at dawn: in pyjamas, mug in hand, he stands before the bush by the compost bin, now man-sized and shaped like a man in uniform
-#    (a leafy shell, eyes painted shut), a navy cap on top, one branch ending in the chrome punch
-D12 = st.dur('S12'); HP12 = add(SHT, [0.35, 0, 1.55]); HRY12 = yaw(HP12, SHT)
-DAWN_LAWN, DAWN_WALL = '#6E9A62', '#D8D4D8'
-C12 = fcam(0.0, add(SHT, [-1.7, 1.55, -0.1]), {'bushTop': add(SHT, [0, 2.4, 0]), 'heroTop': add(HP12, [0, 2.35, 0]), 'heroF': HP12, 'heroL': add(HP12, [-0.45, 1.2, 0]), 'heroR': add(HP12, [0.45, 1.2, 0]), 'mug': off(HP12, HRY12, 0.3, 0.15, 1.3)}, top=0.12, bottom=0.8, push=0.15)   # (round 1) from behind the bush: he faces us three-quarters
-MUG = {'R': R5(off(HP12, HRY12, 0.3, 0.15, 1.25))}
-kh12 = [k(0.0, clip='stand'), k(0.0, look=off(HP12, HRY12, 0.4, 0.2, 1.2)), TK(0.0, {**MUG, 'L': R5(off(HP12, HRY12, 0.15, -0.28, 1.0))}, {'R': 'grip', 'L': 'rest'}, {'lid': 0.55, 'mouth': 'line', 'brow': 0.1}, d=0.0),
-        TK(0.8, {'R': R5(off(HP12, HRY12, 0.22, 0.08, 1.75))}, d=0.3, keep=True), TK(1.15, face={'lid': 0.6, 'mouth': 'O', 'brow': 0.1}, d=0.1, keep=True), TK(1.4, {**MUG}, face={'lid': 0.5, 'mouth': 'line', 'brow': 0.1}, d=0.3, keep=True),   # a sip
-        k(1.9, look=add(SHT, [0, 1.95, 0.2]), lookDur=0.9), TK(r(st.at('S12', 'L12', 6)), face={'lid': 0.3, 'mouth': 'line', 'brow': 0.5}, d=0.15, keep=True),   # a slow look up at the bush
-        *blink(0.5, {'lid': 0.55, 'mouth': 'line', 'brow': 0.1}), *blink(2.6, {'lid': 0.3, 'mouth': 'line', 'brow': 0.5}), *BREATHE(0.2, D12, 0.5)]
-st.shot('S12', 'whiteVoid', setOpts={'color': '#C8D4E4'}, look={'sunDir': [0.6, 0.35, 0.7]},
+# 12: the hero's garden at dawn (the same cream wall, the compost bin, the money tree): in striped pyjamas, mug in hand, he stands beside the bush by
+#    the trunk, now man-sized and shaped like a man in uniform (a leafy shell, eyes painted shut, a navy cap, a branch ending in the chrome punch): a sip,
+#    a breath, a slow look up at it
+D12 = st.dur('S12'); IRYE = -60; HP12 = off(SHT, IRYE, 1.3, 0, 0); HRY12 = 25   # (round 2) he stands to the left of the bush, three-quarters to us
+DAWN_LAWN, DAWN_WALL = '#78AE58', '#EADCC2'
+C12 = fcam(0.0, [-0.6, 1.6, 3.9], {'bushTop': add(SHT, [0, 2.45, 0]), 'bushF': add(SHT, [0.3, 0, 0.2]), 'heroTop': add(HP12, [0, 2.35, 0]), 'heroF': HP12, 'heroL': add(HP12, [-0.4, 1.2, 0]), 'bin': add(CB, [0.55, 0.9, 0.5])}, top=0.12, bottom=0.8, push=0.15)
+MUG = {'R': R5(off(HP12, HRY12, 0.3, 0.15, 1.3))}
+SIP = {'R': R5(off(HP12, HRY12, 0.22, 0.06, 1.78))}
+kh12 = [k(0.0, clip='stand'), k(0.0, look=off(HP12, HRY12, 0.4, 0.15, 1.25)), TK(0.0, {**MUG, 'L': R5(off(HP12, HRY12, 0.15, -0.28, 1.0))}, {'R': 'grip', 'L': 'rest'}, {'lid': 0.55, 'mouth': 'line', 'brow': 0.1}, d=0.0),
+        TK(0.55, SIP, bend={'neck': SP(-0.15)}, d=0.3, keep=True), TK(0.9, face={'lid': 0.75, 'mouth': 'O', 'brow': 0.1}, d=0.1, keep=True), TK(1.25, MUG, face={'lid': 0.5, 'mouth': 'line', 'brow': 0.1}, bend={'neck': SP(0.0)}, d=0.3, keep=True),   # a sip
+        TK(1.55, sq=(1.03, 0.98, 1.03), d=0.3, keep=True), TK(1.9, sq=(1, 1, 1), d=0.3, keep=True),   # a breath out
+        k(1.7, look=add(SHT, [0, 1.95, 0.15]), lookDur=1.0), TK(2.3, face={'lid': 0.25, 'mouth': 'line', 'brow': 0.5}, d=0.2, keep=True),   # a slow look up at the bush
+        *blink(0.3, {'lid': 0.55, 'mouth': 'line', 'brow': 0.1}), *blink(2.8, {'lid': 0.25, 'mouth': 'line', 'brow': 0.5}), *BREATHE(0.2, D12, 0.5, 0.02)]
+st.shot('S12', 'whiteVoid', setOpts={'color': '#C8D4E4'}, look={'sunDir': [0.6, 0.5, 0.7]},
         actors=[act('mecPyj', HP12, HRY12, 'stand', 'neutral', keys=kh12)],
-        props=[*GARDEN('S12', lawn=DAWN_LAWN, wall=DAWN_WALL), P('arbre12', 'coMoneyTree', pos=add(CB, [0, 0.35, 0])), P('buisson12', 'coShoot', pos=SHT, opts={'stage': 3}),
+        props=[*GARDEN('S12', lawn=DAWN_LAWN, wall=DAWN_WALL), P('arbre12', 'coMoneyTree', pos=add(CB, [0, 0.35, 0])), P('buisson12', 'coShoot', pos=SHT, ry=20, opts={'stage': 3}), PYJ('pyjama12'),
                P('tasse12', 'coMug', on={'actor': 'mecPyj', 'hand': 'R', 'offset': [0, 0.02, 0.06]})], cams=[C12])
-st.cue('sfx:gulp', 'S12', 1.2, 0.2)
+st.cue('sfx:gulp', 'S12', 0.95, 0.2)
 
 # ================================================================= S13
 # 13: close: the painted eyes open; the leafy shell bursts into a puff of leaves and the inspector of line one stands in its place, identical
-D13 = st.dur('S13'); OPEN13 = 0.12; BURST13 = 0.42; IRY13 = yaw(SHT, HP12)
+D13 = st.dur('S13'); OPEN13 = 0.12; BURST13 = 0.42; IRY13 = IRYE
 C13 = cam(0.0, off(SHT, IRY13, 2.5, -0.2, 1.8), off(SHT, IRY13, 2.35, -0.19, 1.8), add(SHT, [0, 1.7, 0]), add(SHT, [0, 1.7, 0]), lens=42)
 chk('S13', C13, {'top': add(SHT, [0, 2.45, 0]), 'chest': add(SHT, [0, 1.2, 0])})
 ki13 = [k(0.0, visible=False), k(BURST13, visible=True), k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, {'R': R5(off(SHT, IRY13, 0.3, 0.22, 1.2)), 'L': R5(off(SHT, IRY13, 0.2, -0.3, 1.0))}, {'R': 'grip', 'L': 'rest'}, STERN, d=0.0),
         TK(BURST13, sq=(0.9, 1.12, 0.9), d=0.04, e='out', keep=True), TK(r(BURST13 + 0.12), sq=(1.04, 0.97, 1.04), d=0.06, keep=True), TK(r(BURST13 + 0.24), sq=(1, 1, 1), d=0.08, keep=True), *blink(0.85, STERN)]
-st.shot('S13', 'whiteVoid', setOpts={'color': '#C8D4E4'}, look={'sunDir': [0.6, 0.35, 0.7]},
+st.shot('S13', 'whiteVoid', setOpts={'color': '#C8D4E4'}, look={'sunDir': [0.6, 0.5, 0.7]},
         actors=[act('controleur', SHT, IRY13, 'stand', 'neutral', keys=ki13)],
         props=[*GARDEN('S13', lawn=DAWN_LAWN, wall=DAWN_WALL), P('arbre13', 'coMoneyTree', pos=add(CB, [0, 0.35, 0])), P('buisson13', 'coShoot', pos=SHT, ry=IRY13, opts={'stage': 3, 'openAt': OPEN13, 'burstAt': BURST13}),
-               CAP('casquette13', 'controleur'), P('poincon13', 'coPunch', on={'actor': 'controleur', 'hand': 'R', 'offset': [0, 0.05, 0.04]}, opts={'s': 1.3})], cams=[C13])
+               CAP('casquette13', 'controleur'), PUNCH('poincon13')], cams=[C13])
 st.cue('sfx:pop', 'S13', OPEN13, 0.2); st.cue('whoosh', 'S13', BURST13, 0.4)
 
 # ================================================================= S14
-# 14: « Billet, s'il vous plaît. »: he holds out his mitten to the hero, the punch raised in the other one, lip flaps
-D14 = st.dur('S14'); IRY14 = IRY13
-C14 = cam(0.0, off(SHT, IRY14, 1.95, 0.05, 1.62), off(SHT, IRY14, 1.8, 0.05, 1.62), off(SHT, IRY14, 0.0, 0.0, 1.62), off(SHT, IRY14, 0.0, 0.0, 1.62), lens=46)   # (round 1) from the hero's eyes: the mitten comes to the lens
-ki14 = [k(0.0, clip='stand'), k(0.0, look=HEAD(HP12, 2.0)), TK(0.0, {'R': R5(off(SHT, IRY14, 0.3, 0.22, 1.2)), 'L': R5(off(SHT, IRY14, 0.2, -0.3, 1.0))}, {'R': 'grip', 'L': 'rest'}, STERN, d=0.0),
-        TK(0.08, {'L': R5(off(SHT, IRY14, 0.72, -0.05, 1.42)), 'R': R5(off(SHT, IRY14, 0.25, 0.3, 1.6))}, {'L': 'open', 'R': 'grip'}, bend={'spine': SP(0.12)}, d=0.2, keep=True),   # the mitten out to us, the punch up
-        *TALK(0.05, STERN, 2, 0.09), *TALK(0.62, STERN, 2, 0.08), TK(1.1, face=STERN, d=0.06, keep=True), *blink(1.15, STERN), *BREATHE(0.4, D14, 0.4)]
-st.shot('S14', 'whiteVoid', setOpts={'color': '#C8D4E4'}, look={'sunDir': [0.6, 0.35, 0.7]},
+# 14: « Billet, s'il vous plaît. »: from the hero's eyes: he holds out his mitten to us, the punch raised beside him, lip flaps
+D14 = st.dur('S14'); IRY14 = IRYE
+C14 = cam(0.0, off(SHT, IRY14, 1.95, 0.05, 1.62), off(SHT, IRY14, 1.8, 0.05, 1.62), off(SHT, IRY14, 0.0, 0.0, 1.55), off(SHT, IRY14, 0.0, 0.0, 1.55), lens=48)
+TLK = {**STERN, 'jaw': 0.35}
+ki14 = [k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, {'R': R5(off(SHT, IRY14, 0.3, 0.22, 1.2)), 'L': R5(off(SHT, IRY14, 0.2, -0.3, 1.0))}, {'R': 'grip', 'L': 'rest'}, STERN, d=0.0),
+        TK(0.06, {'L': R5(off(SHT, IRY14, 0.62, -0.08, 1.48)), 'R': R5(off(SHT, IRY14, 0.15, 0.32, 1.65))}, {'L': 'open', 'R': 'grip'}, bend={'spine': SP(0.15)}, d=0.18, keep=True),   # the arm out to the lens, the punch up at his side
+        *[TK(r(0.05 + 0.17 * j), face=TLK if j % 2 == 0 else STERN, d=0.04, keep=True) for j in range(6)], TK(1.1, face=STERN, d=0.06, keep=True), *blink(1.15, STERN), *BREATHE(0.4, D14, 0.4)]
+st.shot('S14', 'whiteVoid', setOpts={'color': '#C8D4E4'}, look={'sunDir': [0.6, 0.5, 0.7]},
         actors=[act('controleur', SHT, IRY14, 'stand', 'neutral', keys=ki14)],
-        props=[*GARDEN('S14', lawn=DAWN_LAWN, wall=DAWN_WALL), P('arbre14', 'coMoneyTree', pos=add(CB, [0, 0.35, 0])), CAP('casquette14', 'controleur'), P('poincon14', 'coPunch', on={'actor': 'controleur', 'hand': 'R', 'offset': [0, 0.05, 0.04]}, opts={'s': 1.3, 'snap': [0.9]})], cams=[C14])
+        props=[*GARDEN('S14', lawn=DAWN_LAWN, wall=DAWN_WALL), P('arbre14', 'coMoneyTree', pos=add(CB, [0, 0.35, 0])), CAP('casquette14', 'controleur'), PUNCH('poincon14', snap=[0.9], s=0.85)], cams=[C14])
 st.cue('clack', 'S14', 0.9, 0.25)
 
 # ================================================================= S15
-# 15: the hero pats his pyjama pockets: empty. He turns his head slowly toward the compost bin; a sweat drop pops on his temple
-D15 = st.dur('S15'); TURN15 = r(st.at('S15', 'L15', 4) - 0.1); DROP15 = r(TURN15 + 0.55)
-C15 = cam(0.0, off(HP12, HRY12, 2.2, -0.45, 1.6), off(HP12, HRY12, 2.05, -0.43, 1.6), off(HP12, HRY12, 0.0, 0.0, 1.45), off(HP12, HRY12, 0.0, 0.0, 1.45), lens=42)   # (round 1) three-quarters front
-kh15 = [k(0.0, clip='patPockets'), k(0.0, look='camera'), TK(0.0, face={'lid': 0.2, 'mouth': 'line', 'brow': 0.5}, d=0.0),
-        k(r(TURN15 - 0.1), clip='stand', blend=0.2), TK(r(TURN15 - 0.15), face={'lid': 0.15, 'mouth': 'line', 'brow': 0.7, 'gx': -0.9}, d=0.06, keep=True),   # the eyes go first...
-        k(TURN15, look=add(CB, [0, 0.9, 0]), lookDur=0.6), TK(r(TURN15 + 0.4), face={'lid': 0.15, 'mouth': 'line', 'brow': 0.7}, d=0.2, keep=True),   # ...then, slowly, the head, to the compost
-        TK(DROP15, face={'lid': 0.05, 'mouth': 'wavy', 'brow': 0.9}, sq=(1.08, 0.86, 1.08), bend={'neck': SP(0.2)}, d=0.08, e='out', keep=True), TK(r(DROP15 + 0.25), sq=(1.05, 0.9, 1.05), d=0.15, keep=True), *blink(r(DROP15 + 0.4), {'lid': 0.05, 'mouth': 'wavy', 'brow': 0.9}), *BREATHE(0.2, D15, 0.45)]   # the drop pops: he shrinks
-st.shot('S15', 'whiteVoid', setOpts={'color': '#C8D4E4'}, look={'sunDir': [0.6, 0.35, 0.7]},
-        actors=[act('mecPyj', HP12, HRY12, 'patPockets', 'neutral', keys=kh15)],
-        props=[*GARDEN('S15', lawn=DAWN_LAWN, wall=DAWN_WALL), P('arbre15', 'coMoneyTree', pos=add(CB, [0, 0.35, 0])), DROP('goutte15', 'mecPyj', DROP15)], cams=[C15])
+# 15: he pats his pyjama pockets twice: empty. His eyes slide to the compost bin, then slowly his head follows, held; a sweat drop pops on his temple and
+#    he shrinks a little
+D15 = st.dur('S15'); TURN15 = r(st.at('S15', 'L15', 4) - 0.25); DROP15 = r(TURN15 + 1.0)
+C15 = fcam(0.0, [-0.9, 1.6, 2.8], {'top': add(HP12, [0, 2.35, 0]), 'hips': add(HP12, [0, 0.7, 0]), 'heroL': add(HP12, [-0.4, 1.2, 0]), 'bin': add(CB, [0.55, 0.9, 0.5]), 'binB': add(CB, [0.0, 0.0, 0.5])}, top=0.15, bottom=0.8, push=0.15)
+POCK = lambda dy: {'R': ['torso', -0.28, 0.0 + dy, 0.12, 1, 0.0], 'L': ['torso', 0.28, 0.0 + dy, 0.12, 1, 0.0]}
+kh15 = [k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, face={'lid': 0.2, 'mouth': 'line', 'brow': 0.5}, d=0.0),
+        TK(0.1, touch=POCK(0.08), hands={'R': 'spread', 'L': 'spread'}, d=0.12, keep=True), TK(0.28, touch=POCK(0.0), sq=(1.03, 0.97, 1.03), d=0.06, e='in', keep=True), TK(0.42, touch=POCK(0.08), sq=(1, 1, 1), d=0.08, keep=True), TK(0.56, touch=POCK(0.0), sq=(1.03, 0.97, 1.03), d=0.06, e='in', keep=True),   # pat, pat: empty
+        TK(0.8, touch=POCK(0.05), sq=(1, 1, 1), face={'lid': 0.2, 'mouth': 'wavy', 'brow': 0.6}, d=0.1, keep=True),
+        TK(r(TURN15 - 0.25), face={'lid': 0.15, 'mouth': 'wavy', 'brow': 0.7, 'gx': 0.9}, d=0.06, keep=True),   # the eyes go first...
+        k(TURN15, look=add(CB, [0, 0.9, 0]), lookDur=1.0), TK(r(TURN15 + 0.9), face={'lid': 0.15, 'mouth': 'wavy', 'brow': 0.7}, d=0.2, keep=True),   # ...then, slowly (1 s), the head
+        TK(DROP15, face={'lid': 0.05, 'mouth': 'wavy', 'brow': 0.9}, sq=(1.08, 0.86, 1.08), bend={'neck': SP(0.2)}, d=0.08, e='out', keep=True), TK(r(DROP15 + 0.25), sq=(1.05, 0.9, 1.05), d=0.15, keep=True), *BREATHE(0.9, D15, 0.45, 0.02)]   # the drop pops: he shrinks
+st.shot('S15', 'whiteVoid', setOpts={'color': '#C8D4E4'}, look={'sunDir': [0.6, 0.5, 0.7]},
+        actors=[act('mecPyj', HP12, HRY12, 'stand', 'neutral', keys=kh15)],
+        props=[*GARDEN('S15', lawn=DAWN_LAWN, wall=DAWN_WALL), P('arbre15', 'coMoneyTree', pos=add(CB, [0, 0.35, 0])), PYJ('pyjama15'), DROP('goutte15', 'mecPyj', DROP15, offset=(0.3, 0.22, 0.05))], cams=[C15])
 st.cue('sfx:pop', 'S15', DROP15, 0.2)
 
 # ================================================================= S16
-# 16: « Amende. »: S01 again: the same framing, the same punch, clack, the same hand-over of a blank pink slip. Cut: he looks at the slip, at the compost
-#    bin, at the slip. Deadpan
-D16 = st.dur('S16'); PN16 = 0.2; CUT16 = r(PN16 + 0.85); IRY16 = IRY13
-HAND16 = off(SHT, IRY16, 0.85, -0.05, 1.3); HP16 = off(SHT, IRY16, 1.61, 0, 0); HRY16 = yaw(HP16, SHT)   # where the hero was seated in S01, standing
+# 16: « Amende. »: S01 again: the same two-shot at the same scale and the same timing, the same punch, clack, the same hand-over of a blank pink slip.
+#    Cut: three-quarters on him, the compost bin in the frame: the slip, the bin, the slip. Deadpan
+D16 = st.dur('S16'); IRY16 = IRYE; PN16 = r(PN1 - CUT1)
+HAND16 = off(SHT, IRY16, DHAND, -0.05, 1.3); HP16 = off(SHT, IRY16, DGAP, 0, 0); HRY16 = yaw(HP16, SHT)
+CUT16 = r(PN16 + 0.85)
 C16 = TWO_CAM(0.0, SHT, IRY16)
-C16b = cam(CUT16, off(HP16, HRY16, 2.4, -0.85, 1.7), off(HP16, HRY16, 2.25, -0.82, 1.7), off(HP16, HRY16, 0.0, 0.05, 1.62), off(HP16, HRY16, 0.0, 0.05, 1.62), lens=42)   # three-quarters front, over the inspector's shoulder
-ki16 = [k(0.0, clip='stand'), k(0.0, look=HEAD(HP16, 1.9)), *INSP_KEYS(PN16, SHT, IRY16, HAND16), *blink(0.6, STERN), *blink(1.5, STERN)]
-SLIPV = off(HP16, HRY16, 0.38, 0.1, 1.35)
+C16b = fcam(CUT16, [-1.2, 1.6, 2.6], {'top': add(HP16, [0, 2.35, 0]), 'hand': off(HP16, 20, 0.38, 0.1, 1.35), 'hips': add(HP16, [0, 0.7, 0]), 'bin': add(CB, [0.55, 0.9, 0.5])}, top=0.15, bottom=0.78, push=0.1)
+ki16 = [k(0.0, clip='stand'), k(0.0, look=HEAD(HP16, 1.9)), *INSP_KEYS(PN16, SHT, IRY16, HAND16), *blink(0.6, STERN), *blink(1.5, STERN), k(CUT16, visible=False)]
+SLIPV = off(HP16, 20, 0.38, 0.1, 1.35)
 kh16 = [k(0.0, clip='stand'), k(0.0, look=HEAD(SHT, 2.0)), TK(0.0, HANDS(HP16, HRY16), {'R': 'rest', 'L': 'rest'}, {'lid': 0.15, 'mouth': 'wavy', 'brow': 0.8}, d=0.0),
-        TK(r(PN16 + 0.3), {'R': R5(add(HAND16, [0.0, -0.02, 0.0]))}, {'R': 'pinch'}, d=0.2, keep=True), TK(r(PN16 + 0.75), {'R': R5(SLIPV)}, d=0.2, keep=True),
-        k(r(CUT16 + 0.05), look=SLIPV, lookDur=0.12), TK(r(CUT16 + 0.05), face=DEAD, d=0.1, keep=True), k(r(CUT16 + 0.4), look=add(CB, [0, 0.9, 0]), lookDur=0.15), k(r(CUT16 + 0.75), look=SLIPV, lookDur=0.15),   # slip, compost, slip
-        *blink(r(D16 - 0.25), DEAD), *BREATHE(r(CUT16 + 0.1), D16, 0.4), k(r(CUT16 + 0.4), face=r(HRY16 + 25), turn=0.2), k(r(CUT16 + 0.75), face=HRY16, turn=0.2)]
-st.shot('S16', 'whiteVoid', setOpts={'color': '#C8D4E4'}, look={'sunDir': [0.6, 0.35, 0.7]},
+        TK(r(PN16 + 0.3), {'R': R5(add(HAND16, [0.0, -0.02, 0.0]))}, {'R': 'pinch'}, d=0.2, keep=True), TK(r(PN16 + 0.62), sq=(1.05, 0.92, 1.05), bend={'spine': SP(0.2)}, d=0.2, keep=True),   # the same sag
+        k(CUT16, face=20, turn=0.01), TK(CUT16, {'R': R5(SLIPV)}, sq=(1, 1, 1), bend={'spine': SP(0.05)}, face=DEAD, d=0.0, keep=True),
+        k(r(CUT16 + 0.05), look=SLIPV, lookDur=0.12), k(r(CUT16 + 0.4), look=add(CB, [0, 0.9, 0]), lookDur=0.15), k(r(CUT16 + 0.75), look=SLIPV, lookDur=0.15),   # slip, compost, slip
+        *blink(r(D16 - 0.25), DEAD), *BREATHE(r(CUT16 + 0.1), D16, 0.4, 0.02)]
+st.shot('S16', 'whiteVoid', setOpts={'color': '#C8D4E4'}, look={'sunDir': [0.6, 0.5, 0.7]},
         actors=[act('controleur', SHT, IRY16, 'stand', 'neutral', keys=ki16), act('mecPyj', HP16, HRY16, 'stand', 'neutral', keys=kh16)],
-        props=[*GARDEN('S16', lawn=DAWN_LAWN, wall=DAWN_WALL), P('arbre16', 'coMoneyTree', pos=add(CB, [0, 0.35, 0])), CAP('casquette16', 'controleur'),
+        props=[*GARDEN('S16', lawn=DAWN_LAWN, wall=DAWN_WALL), P('arbre16', 'coMoneyTree', pos=add(CB, [0, 0.35, 0])), CAP('casquette16', 'controleur'), PYJ('pyjama16'),
                P('amende16', 'coFine', on={'actor': 'controleur', 'hand': 'L', 'offset': [0.0, 0.12, 0.06], 'face': 'camera'}, opts={'punchAt': PN16}, keys=[k(r(PN16 + 0.52), attach='mecPyj', hand='R', offset=[0.0, 0.12, 0.05], rot=[0, 0, 0])]),
-               P('poincon16', 'coPunch', on={'actor': 'controleur', 'hand': 'R', 'offset': [0, 0.05, 0.04]}, opts={'snap': [PN16], 's': 1.3})], cams=[C16, C16b])
+               PUNCH('poincon16', snap=[PN16], s=0.85)], cams=[C16, C16b])
 st.cue('clack', 'S16', PN16, 0.5)
 
 for g_ in [('S01', PN1, 'controleur', 'fine'), ('S02', DF2, 'mec', 'compost'), ('S03', JAW3, 'mec', 'tree'), ('S04', 1.0, 'mec', 'bury'), ('S05', 0.85, 'conducteur', 'empty'), ('S06', SW6b, 'guichetier', 'price'),
