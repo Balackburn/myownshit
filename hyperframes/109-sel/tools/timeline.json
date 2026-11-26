@@ -1,0 +1,985 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Au repas de famille, ce mec a demandé le sel. Mamie l'a fait passer.",
+   "hl": [
+    "sel.",
+    "passer."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 3.73,
+   "words": [
+    {
+     "w": "Au",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "repas",
+     "s": 0.322,
+     "e": 0.47
+    },
+    {
+     "w": "de",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "famille,",
+     "s": 0.594,
+     "e": 1.137
+    },
+    {
+     "w": "ce",
+     "s": 1.211,
+     "e": 1.285
+    },
+    {
+     "w": "mec",
+     "s": 1.322,
+     "e": 1.433
+    },
+    {
+     "w": "a",
+     "s": 1.507,
+     "e": 1.544
+    },
+    {
+     "w": "demandé",
+     "s": 1.581,
+     "e": 1.878
+    },
+    {
+     "w": "le",
+     "s": 1.952,
+     "e": 2.026
+    },
+    {
+     "w": "sel.",
+     "s": 2.174,
+     "e": 2.507
+    },
+    {
+     "w": "Mamie",
+     "s": 2.693,
+     "e": 2.915
+    },
+    {
+     "w": "l'a",
+     "s": 2.952,
+     "e": 3.026
+    },
+    {
+     "w": "fait",
+     "s": 3.063,
+     "e": 3.137
+    },
+    {
+     "w": "passer.",
+     "s": 3.211,
+     "e": 3.73
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Mais la table grandit plus vite que le sel n'avance.",
+   "hl": [
+    "table",
+    "n'avance."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L02.k.wav",
+   "file_start": 3.83,
+   "speech_start": 3.83,
+   "speech_end": 6.422,
+   "words": [
+    {
+     "w": "Mais",
+     "s": 3.83,
+     "e": 3.904
+    },
+    {
+     "w": "la",
+     "s": 3.978,
+     "e": 4.052
+    },
+    {
+     "w": "table",
+     "s": 4.126,
+     "e": 4.348
+    },
+    {
+     "w": "grandit",
+     "s": 4.422,
+     "e": 4.719
+    },
+    {
+     "w": "plus",
+     "s": 4.793,
+     "e": 4.941
+    },
+    {
+     "w": "vite",
+     "s": 5.015,
+     "e": 5.163
+    },
+    {
+     "w": "que",
+     "s": 5.2,
+     "e": 5.237
+    },
+    {
+     "w": "le",
+     "s": 5.311,
+     "e": 5.385
+    },
+    {
+     "w": "sel",
+     "s": 5.496,
+     "e": 5.607
+    },
+    {
+     "w": "n'avance.",
+     "s": 5.681,
+     "e": 6.422
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Le cousin Thierry a présenté sa fiancée. Et ses onze frères.",
+   "hl": [
+    "Thierry",
+    "frères."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L03.k.wav",
+   "file_start": 6.522,
+   "speech_start": 6.522,
+   "speech_end": 10.159,
+   "words": [
+    {
+     "w": "Le",
+     "s": 6.522,
+     "e": 6.67
+    },
+    {
+     "w": "cousin",
+     "s": 6.719,
+     "e": 6.893
+    },
+    {
+     "w": "Thierry",
+     "s": 6.967,
+     "e": 7.411
+    },
+    {
+     "w": "a",
+     "s": 7.448,
+     "e": 7.485
+    },
+    {
+     "w": "présenté",
+     "s": 7.633,
+     "e": 7.856
+    },
+    {
+     "w": "sa",
+     "s": 7.93,
+     "e": 8.004
+    },
+    {
+     "w": "fiancée.",
+     "s": 8.041,
+     "e": 8.794
+    },
+    {
+     "w": "Et",
+     "s": 8.844,
+     "e": 8.893
+    },
+    {
+     "w": "ses",
+     "s": 9.004,
+     "e": 9.115
+    },
+    {
+     "w": "onze",
+     "s": 9.189,
+     "e": 9.337
+    },
+    {
+     "w": "frères.",
+     "s": 9.411,
+     "e": 10.152
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Rallonge. Entre le sel et ce mec.",
+   "hl": [
+    "Rallonge.",
+    "mec."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L04.k.wav",
+   "file_start": 10.259,
+   "speech_start": 10.259,
+   "speech_end": 12.777,
+   "words": [
+    {
+     "w": "Rallonge.",
+     "s": 10.259,
+     "e": 11.074
+    },
+    {
+     "w": "Entre",
+     "s": 11.185,
+     "e": 11.296
+    },
+    {
+     "w": "le",
+     "s": 11.37,
+     "e": 11.444
+    },
+    {
+     "w": "sel",
+     "s": 11.518,
+     "e": 11.814
+    },
+    {
+     "w": "et",
+     "s": 11.889,
+     "e": 11.963
+    },
+    {
+     "w": "ce",
+     "s": 12.037,
+     "e": 12.111
+    },
+    {
+     "w": "mec.",
+     "s": 12.148,
+     "e": 12.777
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Puis trois bébés. Trois chaises hautes. Trois rallonges.",
+   "hl": [
+    "bébés.",
+    "rallonges."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L05.k.wav",
+   "file_start": 12.877,
+   "speech_start": 12.877,
+   "speech_end": 15.84,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 12.877,
+     "e": 13.026
+    },
+    {
+     "w": "trois",
+     "s": 13.174,
+     "e": 13.359
+    },
+    {
+     "w": "bébés.",
+     "s": 13.396,
+     "e": 13.989
+    },
+    {
+     "w": "Trois",
+     "s": 14.026,
+     "e": 14.137
+    },
+    {
+     "w": "chaises",
+     "s": 14.211,
+     "e": 14.433
+    },
+    {
+     "w": "hautes.",
+     "s": 14.47,
+     "e": 14.952
+    },
+    {
+     "w": "Trois",
+     "s": 14.989,
+     "e": 15.1
+    },
+    {
+     "w": "rallonges.",
+     "s": 15.174,
+     "e": 15.84
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "La table a traversé le jardin. Puis le village.",
+   "hl": [
+    "jardin.",
+    "village."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L06.k.wav",
+   "file_start": 15.94,
+   "speech_start": 15.94,
+   "speech_end": 18.533,
+   "words": [
+    {
+     "w": "La",
+     "s": 15.94,
+     "e": 16.014
+    },
+    {
+     "w": "table",
+     "s": 16.163,
+     "e": 16.311
+    },
+    {
+     "w": "a",
+     "s": 16.348,
+     "e": 16.385
+    },
+    {
+     "w": "traversé",
+     "s": 16.459,
+     "e": 16.829
+    },
+    {
+     "w": "le",
+     "s": 16.866,
+     "e": 16.903
+    },
+    {
+     "w": "jardin.",
+     "s": 16.977,
+     "e": 17.57
+    },
+    {
+     "w": "Puis",
+     "s": 17.619,
+     "e": 17.718
+    },
+    {
+     "w": "le",
+     "s": 17.755,
+     "e": 17.792
+    },
+    {
+     "w": "village.",
+     "s": 17.866,
+     "e": 18.533
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Le marché se tient entre la poire et le fromage.",
+   "hl": [
+    "poire",
+    "fromage."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L07.k.wav",
+   "file_start": 18.633,
+   "speech_start": 18.633,
+   "speech_end": 21.077,
+   "words": [
+    {
+     "w": "Le",
+     "s": 18.633,
+     "e": 18.707
+    },
+    {
+     "w": "marché",
+     "s": 18.781,
+     "e": 19.077
+    },
+    {
+     "w": "se",
+     "s": 19.152,
+     "e": 19.226
+    },
+    {
+     "w": "tient",
+     "s": 19.263,
+     "e": 19.448
+    },
+    {
+     "w": "entre",
+     "s": 19.559,
+     "e": 19.67
+    },
+    {
+     "w": "la",
+     "s": 19.707,
+     "e": 19.744
+    },
+    {
+     "w": "poire",
+     "s": 19.818,
+     "e": 20.114
+    },
+    {
+     "w": "et",
+     "s": 20.189,
+     "e": 20.263
+    },
+    {
+     "w": "le",
+     "s": 20.3,
+     "e": 20.337
+    },
+    {
+     "w": "fromage.",
+     "s": 20.448,
+     "e": 21.077
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Un généalogiste est formel : tout le pays descend de mamie.",
+   "hl": [
+    "généalogiste",
+    "mamie."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L08.k.wav",
+   "file_start": 21.177,
+   "speech_start": 21.177,
+   "speech_end": 24.363,
+   "words": [
+    {
+     "w": "Un",
+     "s": 21.177,
+     "e": 21.252
+    },
+    {
+     "w": "généalogiste",
+     "s": 21.326,
+     "e": 21.918
+    },
+    {
+     "w": "est",
+     "s": 21.992,
+     "e": 22.066
+    },
+    {
+     "w": "formel:",
+     "s": 22.177,
+     "e": 22.782
+    },
+    {
+     "w": "tout",
+     "s": 22.807,
+     "e": 22.881
+    },
+    {
+     "w": "le",
+     "s": 22.955,
+     "e": 23.029
+    },
+    {
+     "w": "pays",
+     "s": 23.066,
+     "e": 23.326
+    },
+    {
+     "w": "descend",
+     "s": 23.437,
+     "e": 23.622
+    },
+    {
+     "w": "de",
+     "s": 23.659,
+     "e": 23.696
+    },
+    {
+     "w": "mamie.",
+     "s": 23.77,
+     "e": 24.363
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Et quand on est de la famille, on vient au repas.",
+   "hl": [
+    "famille,",
+    "repas."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L09.k.wav",
+   "file_start": 24.463,
+   "speech_start": 24.463,
+   "speech_end": 26.611,
+   "words": [
+    {
+     "w": "Et",
+     "s": 24.463,
+     "e": 24.537
+    },
+    {
+     "w": "quand",
+     "s": 24.574,
+     "e": 24.685
+    },
+    {
+     "w": "on",
+     "s": 24.759,
+     "e": 24.833
+    },
+    {
+     "w": "est",
+     "s": 24.87,
+     "e": 24.907
+    },
+    {
+     "w": "de",
+     "s": 24.932,
+     "e": 24.956
+    },
+    {
+     "w": "la",
+     "s": 24.981,
+     "e": 25.055
+    },
+    {
+     "w": "famille,",
+     "s": 25.092,
+     "e": 25.648
+    },
+    {
+     "w": "on",
+     "s": 25.685,
+     "e": 25.722
+    },
+    {
+     "w": "vient",
+     "s": 25.796,
+     "e": 25.944
+    },
+    {
+     "w": "au",
+     "s": 25.981,
+     "e": 26.018
+    },
+    {
+     "w": "repas.",
+     "s": 26.129,
+     "e": 26.611
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "La table a traversé le pays. Les camions s'arrêtent pour laisser passer le sel.",
+   "hl": [
+    "pays.",
+    "camions"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L10.k.wav",
+   "file_start": 26.711,
+   "speech_start": 26.711,
+   "speech_end": 30.414,
+   "words": [
+    {
+     "w": "La",
+     "s": 26.711,
+     "e": 26.785
+    },
+    {
+     "w": "table",
+     "s": 26.933,
+     "e": 27.081
+    },
+    {
+     "w": "a",
+     "s": 27.155,
+     "e": 27.229
+    },
+    {
+     "w": "traversé",
+     "s": 27.266,
+     "e": 27.649
+    },
+    {
+     "w": "le",
+     "s": 27.699,
+     "e": 27.748
+    },
+    {
+     "w": "pays.",
+     "s": 27.785,
+     "e": 28.303
+    },
+    {
+     "w": "Les",
+     "s": 28.34,
+     "e": 28.414
+    },
+    {
+     "w": "camions",
+     "s": 28.489,
+     "e": 28.711
+    },
+    {
+     "w": "s'arrêtent",
+     "s": 28.748,
+     "e": 29.155
+    },
+    {
+     "w": "pour",
+     "s": 29.229,
+     "e": 29.303
+    },
+    {
+     "w": "laisser",
+     "s": 29.328,
+     "e": 29.526
+    },
+    {
+     "w": "passer",
+     "s": 29.6,
+     "e": 29.748
+    },
+    {
+     "w": "le",
+     "s": 29.785,
+     "e": 29.822
+    },
+    {
+     "w": "sel.",
+     "s": 29.896,
+     "e": 30.414
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Un mathématicien l'a prouvé : le sel n'arrivera jamais.",
+   "hl": [
+    "mathématicien",
+    "jamais."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L11.k.wav",
+   "file_start": 30.514,
+   "speech_start": 30.514,
+   "speech_end": 33.626,
+   "words": [
+    {
+     "w": "Un",
+     "s": 30.514,
+     "e": 30.589
+    },
+    {
+     "w": "mathématicien",
+     "s": 30.663,
+     "e": 31.181
+    },
+    {
+     "w": "l'a",
+     "s": 31.23,
+     "e": 31.329
+    },
+    {
+     "w": "prouvé:",
+     "s": 31.378,
+     "e": 31.971
+    },
+    {
+     "w": "le",
+     "s": 31.996,
+     "e": 32.07
+    },
+    {
+     "w": "sel",
+     "s": 32.144,
+     "e": 32.44
+    },
+    {
+     "w": "n'arrivera",
+     "s": 32.514,
+     "e": 32.959
+    },
+    {
+     "w": "jamais.",
+     "s": 33.033,
+     "e": 33.626
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Puis on a manqué de cousins. La table s'est arrêtée.",
+   "hl": [
+    "cousins.",
+    "arrêtée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L12.k.wav",
+   "file_start": 33.726,
+   "speech_start": 33.726,
+   "speech_end": 36.466,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 33.726,
+     "e": 33.948
+    },
+    {
+     "w": "on",
+     "s": 34.096,
+     "e": 34.17
+    },
+    {
+     "w": "a",
+     "s": 34.207,
+     "e": 34.244
+    },
+    {
+     "w": "manqué",
+     "s": 34.318,
+     "e": 34.54
+    },
+    {
+     "w": "de",
+     "s": 34.577,
+     "e": 34.614
+    },
+    {
+     "w": "cousins.",
+     "s": 34.664,
+     "e": 35.281
+    },
+    {
+     "w": "La",
+     "s": 35.318,
+     "e": 35.355
+    },
+    {
+     "w": "table",
+     "s": 35.429,
+     "e": 35.652
+    },
+    {
+     "w": "s'est",
+     "s": 35.689,
+     "e": 35.8
+    },
+    {
+     "w": "arrêtée.",
+     "s": 35.874,
+     "e": 36.466
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Hier, le sel est arrivé.",
+   "hl": [
+    "Hier,",
+    "arrivé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L13.k.wav",
+   "file_start": 36.566,
+   "speech_start": 36.566,
+   "speech_end": 38.499,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 36.566,
+     "e": 37.233
+    },
+    {
+     "w": "le",
+     "s": 37.307,
+     "e": 37.381
+    },
+    {
+     "w": "sel",
+     "s": 37.455,
+     "e": 37.603
+    },
+    {
+     "w": "est",
+     "s": 37.677,
+     "e": 37.752
+    },
+    {
+     "w": "arrivé.",
+     "s": 37.9,
+     "e": 38.492
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Vide.",
+   "hl": [
+    "Vide.",
+    "Vide."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L14.k.wav",
+   "file_start": 38.599,
+   "speech_start": 38.599,
+   "speech_end": 39.265,
+   "words": [
+    {
+     "w": "Vide.",
+     "s": 38.599,
+     "e": 39.265
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Tout le pays fait de la tension. Ce mec a une santé de fer.",
+   "hl": [
+    "tension.",
+    "fer."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L15.k.wav",
+   "file_start": 39.365,
+   "speech_start": 39.365,
+   "speech_end": 42.476,
+   "words": [
+    {
+     "w": "Tout",
+     "s": 39.365,
+     "e": 39.439
+    },
+    {
+     "w": "le",
+     "s": 39.513,
+     "e": 39.587
+    },
+    {
+     "w": "pays",
+     "s": 39.624,
+     "e": 39.81
+    },
+    {
+     "w": "fait",
+     "s": 39.884,
+     "e": 39.958
+    },
+    {
+     "w": "de",
+     "s": 39.995,
+     "e": 40.032
+    },
+    {
+     "w": "la",
+     "s": 40.069,
+     "e": 40.106
+    },
+    {
+     "w": "tension.",
+     "s": 40.143,
+     "e": 40.847
+    },
+    {
+     "w": "Ce",
+     "s": 40.921,
+     "e": 40.995
+    },
+    {
+     "w": "mec",
+     "s": 41.032,
+     "e": 41.217
+    },
+    {
+     "w": "a",
+     "s": 41.254,
+     "e": 41.291
+    },
+    {
+     "w": "une",
+     "s": 41.365,
+     "e": 41.439
+    },
+    {
+     "w": "santé",
+     "s": 41.476,
+     "e": 41.736
+    },
+    {
+     "w": "de",
+     "s": 41.81,
+     "e": 41.884
+    },
+    {
+     "w": "fer.",
+     "s": 42.069,
+     "e": 42.476
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Il vient de demander le poivre.",
+   "hl": [
+    "demander",
+    "poivre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sel/tts/L16.k.wav",
+   "file_start": 42.576,
+   "speech_start": 42.576,
+   "speech_end": 44.132,
+   "words": [
+    {
+     "w": "Il",
+     "s": 42.576,
+     "e": 42.65
+    },
+    {
+     "w": "vient",
+     "s": 42.724,
+     "e": 42.873
+    },
+    {
+     "w": "de",
+     "s": 42.947,
+     "e": 43.021
+    },
+    {
+     "w": "demander",
+     "s": 43.058,
+     "e": 43.317
+    },
+    {
+     "w": "le",
+     "s": 43.391,
+     "e": 43.465
+    },
+    {
+     "w": "poivre.",
+     "s": 43.502,
+     "e": 44.132
+    }
+   ]
+  }
+ ],
+ "total": 45.43
+}

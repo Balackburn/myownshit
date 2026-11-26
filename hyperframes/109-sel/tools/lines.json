@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Au repas de famille, ce mec a demandé le sel. Mamie l'a fait passer.",
+  "hl": [
+   "sel.",
+   "passer."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Mais la table grandit plus vite que le sel n'avance.",
+  "hl": [
+   "table",
+   "n'avance."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Le cousin Thierry a présenté sa fiancée. Et ses onze frères.",
+  "hl": [
+   "Thierry",
+   "frères."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Rallonge. Entre le sel et ce mec.",
+  "hl": [
+   "Rallonge.",
+   "mec."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Puis trois bébés. Trois chaises hautes. Trois rallonges.",
+  "hl": [
+   "bébés.",
+   "rallonges."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "La table a traversé le jardin. Puis le village.",
+  "hl": [
+   "jardin.",
+   "village."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Le marché se tient entre la poire et le fromage.",
+  "hl": [
+   "poire",
+   "fromage."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Un généalogiste est formel : tout le pays descend de mamie.",
+  "hl": [
+   "généalogiste",
+   "mamie."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Et quand on est de la famille, on vient au repas.",
+  "hl": [
+   "famille,",
+   "repas."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "La table a traversé le pays. Les camions s'arrêtent pour laisser passer le sel.",
+  "hl": [
+   "pays.",
+   "camions"
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Un mathématicien l'a prouvé : le sel n'arrivera jamais.",
+  "hl": [
+   "mathématicien",
+   "jamais."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Puis on a manqué de cousins. La table s'est arrêtée.",
+  "hl": [
+   "cousins.",
+   "arrêtée."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Hier, le sel est arrivé.",
+  "hl": [
+   "Hier,",
+   "arrivé."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Vide.",
+  "hl": [
+   "Vide.",
+   "Vide."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Tout le pays fait de la tension. Ce mec a une santé de fer.",
+  "hl": [
+   "tension.",
+   "fer."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Il vient de demander le poivre.",
+  "hl": [
+   "demander",
+   "poivre."
+  ]
+ }
+]
