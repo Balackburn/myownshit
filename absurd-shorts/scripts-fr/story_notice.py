@@ -533,7 +533,7 @@ st.cue('sfx:pop', 'S06', r(OP6 + 0.08), 0.25); st.cue('whoosh', 'S06', OP6, 0.12
 # 6b: « Couvert, avec des petits caractères. » She points up at the sky with a rubber arm that stretches up into it and pumps (never still), squinting
 #     at the small print and saying it; the camera tilts up to the paper ceiling, tiny grey lines, its curled edge flapping over the roofs
 D6b = st.dur('S06b'); PET6 = W('S06b', 'L06', 7)
-F6b = add(F6, [-0.25, 0.0, -0.3]); L6bA = add(L6, [0.0, 0.1, 0.0]); L6bB = [-1.2, DECK + 6.5, -18.0]
+F6b = add(F6, [-0.9, -0.25, -0.55]); L6bA = add(L6, [0.0, 0.15, 0.0]); L6bB = [-1.2, DECK + 6.5, -18.0]
 C6b = cam(0.0, F6b, add(F6b, [0.1, -0.15, 0.25]), L6bA, L6bB, lens=LN6, ease='inOut')
 PT6 = off(MET, RYM, 0.45, -0.35, 4.6)
 chkc('S06b', C6b, {'top': add(MET, [0, 2.25, 0]), 'chin': add(MET, [0, 1.7, 0]), 'finger': PT6, 'umbTop': add(UMB, [0, 1.25, 0])})
@@ -923,7 +923,7 @@ CARD12 = off(REF, RYR, 0.22, -0.32, 2.05)
 F12c, L12c, LN12c = FIT(F12c0, {'phTop': add(PH12c, [0, 2.35, 0]), 'palm': PALM, 'refTop': add(REF, [0, 2.3, 0]), 'cardTop': add(CARD12, [0, 0.55, 0]), 'phW': add(PH12c, [0, 1.0, 0]), 'refL': off(REF, RYR, 0, 0.45, 2.0)}, back=True, top=0.1, bottom=0.76, margin=0.16)
 C12c = cam(0.0, F12c, add(F12c, [0.08, 0.0, 0.08]), L12c, L12c, lens=LN12c, ease='inOut')
 chkc('S12c', C12c, {'phTop': add(PH12c, [0, 2.35, 0]), 'phChin': add(PH12c, [0, 1.75, 0]), 'palm': PALM, 'refTop': add(REF, [0, 2.3, 0]), 'card': add(CARD12, [0, 0.35, 0]), 'cardTop': add(CARD12, [0, 0.55, 0]), 'sign': [8.27, 3.7, 1.92]})
-SQ12 = add(PALM, [0.0, 0.035, 0.0])
+SQ12 = add(PALM, [0.0, 0.07, 0.0])
 PHK12c = [k(-0.5, look='camera'), k(0.0, toon={**HAND(add(PALM, [0.0, -0.04, 0.0]), off(PH12c, RYP12c, 0.1, -0.2, 0.95), 'open', 'rest'), 'face': {**PHF, 'mouth': 'smirk'}}, toonDur=0.0),
           k(0.08, toon={**HAND(add(PALM, [0.0, -0.08, 0.0]), off(PH12c, RYP12c, 0.1, -0.2, 0.95), 'open', 'rest'), 'sq': [1.04, 0.96, 1.04], 'face': {**PHF, 'mouth': 'smirk'}}, toonDur=0.04),
           k(0.18, toon={**HAND(add(PALM, [0.0, -0.04, 0.0]), off(PH12c, RYP12c, 0.1, -0.2, 0.95), 'open', 'rest'), 'face': {**PHF, 'mouth': 'smirk'}}, toonDur=0.08),
@@ -937,7 +937,7 @@ RFK = [k(-0.5, look='camera'), k(0.0, toon={**CARDH(-0.25), 'face': REFF}, toonD
        k(r(REC12 - 0.04), toon={**CARDH(0.08), 'sq': [0.94, 1.08, 0.94], 'face': {**REFF, 'puff': 1.0, 'cheeks': 1.0, 'swell': 1.4, 'lid': 0.7}}, toonDur=0.04, toonEase='out'),
        *[k(r(REC12 + 0.12 + 0.12 * j), toon={**CARDH(0.08 - 0.06 * (j % 2)), 'face': {**REFF, 'puff': 1.0 - 0.3 * (j % 2), 'cheeks': 1.0, 'swell': 1.4 - 0.3 * (j % 2), 'lid': 0.7}}, toonDur=0.08) for j in range(int((D12c - REC12 - 0.15) / 0.12))]]
 st.shot('S12c', 'parisStreet', setOpts={**SSET, 'clear': [-14, 8], 'clearL': [-14, 8]}, actors=[act('pharmacien', PH12c, RYP12c, 'stand', 'neutral', keys=PHK12c), act('arbitre', REF, RYR, 'stand', 'neutral', keys=RFK)],
-        props=[PHARMACY('12c'), SPEC('12c'), P('carre12c', 'noLeaflet', pos=add(SQ12, [0.0, 0.25, 0.0]), ry=RYP12c, rot=[-PI / 2, r(math.radians(RYP12c)), 0], rotOrder='YXZ', opts={'w': 1.5, 'h': 1.0, 'unfold': 0.0, 'fsize': 0.13, 'shadow': False},
+        props=[PHARMACY('12c'), SPEC('12c'), P('carre12c', 'noLeaflet', pos=add(SQ12, [0.0, 0.25, 0.0]), ry=RYP12c, rot=[-PI / 2, r(math.radians(RYP12c)), 0], rotOrder='YXZ', opts={'w': 1.5, 'h': 1.0, 'unfold': 0.0, 'fsize': 0.17, 'shadow': False, 'glow': 0.35},
                  keys=[k(0.0, to=SQ12, dur=0.08, ease='in'), k(0.08, squash=[1.25, 0.7, 1.25], dur=0.35)]),
                P('carton12c', 'noLaurelCard', pos=add(CARD12, [0.0, -0.25, 0.0]), ry=yaw(CARD12, F12c), scale=1.15,
                  keys=[*[k(r(0.1 + 0.16 * j), to=add(CARD12, [0.0, 0.0 if j % 2 == 0 else -0.12, 0.0]), dur=0.1, ease='inOut') for j in range(int((REC12 - 0.2) / 0.16))], k(r(REC12 - 0.04), to=add(CARD12, [0, 0.08, 0]), dur=0.04),
