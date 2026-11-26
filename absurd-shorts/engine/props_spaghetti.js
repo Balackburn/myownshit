@@ -49,12 +49,12 @@ export const SPAGHETTI_PROPS = {
     let drip = null;
     if (o.shape === 'S') { const e = base[base.length - 1]; drip = grp(at(sphere(0.035, YEL, 1, { outline: 0.014 }), 0, 0, 0)); drip.children[0].scale.set(0.9, 1.35, 0.9); drip.position.set(e.x, e.y - 0.06, e.z + 0.01); g.add(drip); }
     // (round 1) o.splat t: it flies in as a clump from the lens side, lands at t with a squash and recoils
-    const fly = o.splat != null ? grp(at(sphere(0.05, YEL, 1, { outline: 0.012 }), 0, 0, 0)) : null; if (fly) g.add(fly);
+    const fly = o.splat != null ? grp(tube([new THREE.Vector3(-0.12, 0.03, 0), new THREE.Vector3(0, -0.02, 0.02), new THREE.Vector3(0.12, 0.04, 0)], 0.016, YEL)) : null; if (fly) g.add(fly);
     const F = o.fall; let lastU = -1;
     g.userData.update = t => {
       const d = kv(o.drop, t, 0);
-      if (fly) { const T = o.splat, u = clamp01((t - (T - 0.12)) / 0.12); fly.visible = t >= T - 0.12 && t < T; fly.position.set(0.1, -0.15 + 0.15 * u, 1.4 * (1 - u)); body0.visible = t >= T; if (drip) drip.visible = t >= T;
-        const v = t - T; if (v >= 0) { const sq = v < 0.06 ? 1 - v / 0.06 : 0, osc = v >= 0.06 ? Math.exp(-7 * (v - 0.06)) * Math.sin((v - 0.06) * 26) : 0; body0.scale.set(1 + 0.3 * sq - 0.12 * osc, 1 - 0.4 * sq + 0.15 * osc, 1); } }
+      if (fly) { const T = o.splat, u = clamp01((t - (T - 0.22)) / 0.22); fly.visible = t >= T - 0.22 && t < T; fly.position.set(0.05, -0.12 + 0.12 * u, 1.6 * (1 - u)); fly.rotation.z = 4 * u; body0.visible = t >= T; if (drip) drip.visible = t >= T;
+        const v = t - T; if (v >= 0) { const sq = v < 0.1 ? 1 : 0, ov = v >= 0.1 && v < 0.2 ? 1 : 0, osc = v >= 0.2 ? Math.exp(-6 * (v - 0.2)) * Math.sin((v - 0.2) * 24) : 0; body0.scale.set(1 + 0.5 * sq - 0.15 * ov - 0.08 * osc, 1 - 0.7 * sq + 0.25 * ov + 0.1 * osc, 1); } }   // (round 2) a flat impact (3 frames), an overshoot, a wobble
       if (!F) { g.position.y = -d; return; }
       const u = clamp01((t - F[0]) / Math.max(0.01, F[1] - F[0]));
       if (u <= 0) { g.position.y = -d; return; }
@@ -82,8 +82,8 @@ export const SPAGHETTI_PROPS = {
   // The dry strand (pivot at its middle, along X): pale and straight; at o.snap it breaks in two halves that jump apart (a crisp crack)
   sgDryStrand(o) {
     const L = o.len ?? 0.5, g = grp(), a = grp(), b = grp(); g.add(a, b);
-    a.add(at(cyl(0.014, 0.014, L / 2, DRY, 8, { outline: 0.012 }), -L / 4, 0, 0, 0, 0, PI / 2)); b.add(at(cyl(0.014, 0.014, L / 2, DRY, 8, { outline: 0.012 }), L / 4, 0, 0, 0, 0, PI / 2));
-    g.userData.update = t => { const s = o.snap == null ? 0 : clamp01((t - o.snap) / 0.15); a.position.set(-0.03 * s, -0.02 * s, 0); a.rotation.z = 0.35 * s; b.position.set(0.03 * s, -0.03 * s, 0); b.rotation.z = -0.45 * s; };
+    a.add(at(cyl(0.02, 0.02, L / 2, DRY, 8, { outline: 0.014 }), -L / 4, 0, 0, 0, 0, PI / 2)); b.add(at(cyl(0.02, 0.02, L / 2, DRY, 8, { outline: 0.014 }), L / 4, 0, 0, 0, 0, PI / 2));
+    g.userData.update = t => { const s = o.snap == null ? 0 : clamp01((t - o.snap) / 0.15); a.position.set(-0.07 * s, -0.03 * s, 0); a.rotation.z = 0.5 * s; b.position.set(0.07 * s, -0.05 * s, 0); b.rotation.z = -0.6 * s; };
     g.userData.update(0); return g;
   },
   // The strand stuck on the lens (put it just in front of the camera, facing it): the signature curve as a flat decal, o.w wide, sliding down by
@@ -129,8 +129,8 @@ export const SPAGHETTI_PROPS = {
   // checked floor (one textured box, no coplanar tiles), cream walls, a window in the back wall left of the tiles, a doorway in the right wall, a counter
   // and a hob under the tiles. o.open: no back wall (the kitchen opens onto the street: the street is the sgStreet prop); o.night: a dark-blue window
   sgKitchen(o) {
-    const B = o.back ?? -1.6, g = grp(), WC = o.night ? '#C9BFA8' : '#F1E6CC';
-    const fl = new THREE.Mesh(new THREE.BoxGeometry(7, 0.04, 8), mat('#FFFFFF')); const ft = canvasPlane(1, 1, (c, w, h) => { const n = 14; for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { c.fillStyle = (i + j) % 2 ? '#F2E4C8' : '#D98C5F'; c.fillRect(i * w / n, j * h / n, w / n + 1, h / n + 1); } }, { res: 512 }).material;
+    const B = o.back ?? -1.6, g = grp(), WC = o.night ? '#3E5088' : '#F1E6CC';
+    const fl = new THREE.Mesh(new THREE.BoxGeometry(7, 0.04, 8), mat('#FFFFFF')); const ft = canvasPlane(1, 1, (c, w, h) => { const n = 14; for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { c.fillStyle = (i + j) % 2 ? (o.night ? '#8A96B4' : '#F2E4C8') : (o.night ? '#4E5A80' : '#D98C5F'); c.fillRect(i * w / n, j * h / n, w / n + 1, h / n + 1); } }, { res: 512 }).material;
     fl.material = [mat('#D98C5F'), mat('#D98C5F'), ft, mat('#D98C5F'), mat('#D98C5F'), mat('#D98C5F')]; fl.position.set(0, -0.02, B + 4.0); fl.receiveShadow = true; g.add(fl);
     if (!o.open) {
       // back wall in pieces round the window opening (x 0.9..1.8, y 1.0..2.2) and the doorway (x 2.0..2.9, y 0..2.2)
@@ -141,22 +141,23 @@ export const SPAGHETTI_PROPS = {
       g.add(at(box(1.2, 2.4, 0.04, o.night ? '#3A3A48' : '#C8B898'), 2.45, 1.2, B - 0.7), at(box(0.04, 2.4, 0.7, o.night ? '#454556' : '#D4C6A8'), 1.95, 1.2, B - 0.35), at(box(0.04, 2.4, 0.7, o.night ? '#454556' : '#D4C6A8'), 2.95, 1.2, B - 0.35));
     }
     // left and right walls, a ceiling
-    g.add(at(box(0.12, 3.1, 8, WC, { pivot: 'bottom' }), -3.5, 0, B + 4.0), at(box(0.12, 3.1, 8, WC, { pivot: 'bottom' }), 3.5, 0, B + 4.0), at(box(7.2, 0.08, o.open ? 6.5 : 8, o.night ? '#B8AE98' : '#F6EEDC'), 0, 3.14, B + (o.open ? 4.75 : 4.0)));
+    g.add(at(box(0.12, 3.1, 8, WC, { pivot: 'bottom' }), -3.5, 0, B + 4.0), at(box(0.12, 3.1, 8, WC, { pivot: 'bottom' }), 3.5, 0, B + 4.0), at(box(7.2, 0.08, o.open ? 6.5 : 8, o.night ? '#2A3866' : '#F6EEDC'), 0, 3.14, B + (o.open ? 4.75 : 4.0)));
     // the counter and the hob under the tiles
     g.add(at(box(2.6, 0.9, 0.6, '#7FB0A8', { pivot: 'bottom', outline: 0.008 }), 0.2, 0, B + 0.32), at(box(2.7, 0.05, 0.66, '#F4EEE0', { outline: 0.006 }), 0.2, 0.925, B + 0.35));
     g.add(at(box(0.62, 0.02, 0.5, '#26282C', { outline: 0.004 }), -0.3, 0.96, B + 0.36), at(cyl(0.12, 0.12, 0.012, '#4A4C52', 16), -0.3, 0.975, B + 0.36));
     for (const x of [-0.45, -0.15]) g.add(at(cyl(0.02, 0.02, 0.03, '#E8E4DA', 8), x, 0.45, B + 0.63, PI / 2));
-    if (o.lamp !== false) g.add(at(cyl(0.012, 0.012, 0.6, '#3A3A3A', 4, { pivot: 'bottom' }), 0, 2.5, B + 1.5), at(cyl(0.05, 0.22, 0.18, o.night ? '#F6E7A8' : '#E8C25A', 12, { emissive: o.night ? '#F2D46A' : undefined }), 0, 2.45, B + 1.5));
+    if (o.night) { const pool = new THREE.Mesh(new THREE.CircleGeometry(0.95, 28).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: '#FFD98A', transparent: true, opacity: 0.24, depthWrite: false })); pool.position.set(o.poolX ?? 0.6, 0.008, B + 1.5); g.add(pool); }   // a warm pool under the lamp
+    if (o.lamp !== false) g.add(at(cyl(0.012, 0.012, 0.6, '#3A3A3A', 4, { pivot: 'bottom' }), o.poolX ?? 0, 2.5, B + 1.5), at(cyl(0.05, 0.22, 0.18, o.night ? '#F6E7A8' : '#E8C25A', 12, { emissive: o.night ? '#F2D46A' : undefined }), o.poolX ?? 0, 2.45, B + 1.5));
     return g;
   },
   // A big pot of boiling water (pivot at its bottom middle): a steel pot, two handles, the water's surface heaving with bubbles, a few spaghetti
   // ends sticking out over the rim; o.water [[t, 0/1]] (on: bubbles)
   sgPot(o) {
     const g = grp(at(cyl(0.2, 0.18, 0.28, '#B8BEC6', 16, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(cyl(0.205, 0.205, 0.02, '#D4D8DE', 16), 0, 0.28, 0));
-    for (const s of [-1, 1]) g.add(at(box(0.09, 0.025, 0.04, '#2A2C30', { outline: 0.006 }), s * 0.25, 0.24, 0));
+    for (const s of [-1, 1]) g.add(at(box(0.09, 0.03, 0.05, '#1E2024', { outline: 0.006 }), s * 0.25, 0.24, 0));
     const w = at(cyl(0.185, 0.185, 0.01, '#CFE6EE', 16), 0, 0.255, 0); g.add(w);
     const bub = []; for (let i = 0; i < 9; i++) { const b = sphere(0.022 + 0.012 * hsh(i), '#F4FAFC', 1); g.add(b); bub.push(b); }
-    if (o.strands !== false) for (let i = 0; i < 2; i++) { const a = 0.6 + 1.9 * i; g.add(tube([new THREE.Vector3(Math.cos(a) * 0.1, 0.25, Math.sin(a) * 0.1), new THREE.Vector3(Math.cos(a) * 0.19, 0.33, Math.sin(a) * 0.19), new THREE.Vector3(Math.cos(a) * 0.23, 0.26, Math.sin(a) * 0.23), new THREE.Vector3(Math.cos(a) * 0.235, 0.17, Math.sin(a) * 0.235)], 0.011, YEL)); }   // (round 1) two soft ends over the rim
+    if (o.strands === true) for (let i = 0; i < 2; i++) { const a = 0.6 + 1.9 * i; g.add(tube([new THREE.Vector3(Math.cos(a) * 0.1, 0.25, Math.sin(a) * 0.1), new THREE.Vector3(Math.cos(a) * 0.19, 0.33, Math.sin(a) * 0.19), new THREE.Vector3(Math.cos(a) * 0.23, 0.26, Math.sin(a) * 0.23), new THREE.Vector3(Math.cos(a) * 0.235, 0.17, Math.sin(a) * 0.235)], 0.011, YEL)); }   // (round 1) two soft ends over the rim
     g.userData.update = t => { bub.forEach((b, i) => { const ph = (t * (1.6 + hsh(i + 3)) + hsh(i)) % 1, a = hsh(i + 7) * TAU, r = 0.15 * Math.sqrt(hsh(i + 11)); b.position.set(Math.cos(a) * r, 0.262 + 0.02 * Math.sin(ph * PI), Math.sin(a) * r); b.scale.setScalar(0.4 + 0.8 * Math.sin(ph * PI)); }); w.position.y = 0.255 + 0.004 * Math.sin(t * 17); };
     g.userData.update(0); return g;
   },
@@ -188,7 +189,7 @@ export const SPAGHETTI_PROPS = {
     const fl = box(12, 0.04, 8, F); fl.position.set(0, -0.02, B + 4.0); fl.receiveShadow = true; g.add(fl);
     g.add(at(box(12, 3.6, 0.12, W, { pivot: 'bottom' }), 0, 0, B - 0.06), at(box(12, 0.12, 0.03, N ? '#2E3C66' : '#CFC8BA'), 0, 0.06, B + 0.015));
     g.add(at(box(0.12, 3.6, 8, W, { pivot: 'bottom' }), -6, 0, B + 4.0), at(box(0.12, 3.6, 8, W, { pivot: 'bottom' }), 6, 0, B + 4.0));
-    if (N) g.add(at(box(1.2, 1.6, 0.02, '#9AB6F0', { emissive: '#3A5296' }), -4.2, 1.9, B + 0.01));
+    if (N) g.add(at(box(1.2, 1.6, 0.02, '#BCD2FA', { emissive: '#6A86C8' }), o.winX ?? -4.2, 1.9, B + 0.01), at(box(1.3, 0.06, 0.06, '#E8ECF4'), o.winX ?? -4.2, 1.1, B + 0.03));   // a pale window: the cap pops against it
     g.add(at(box(12.2, 0.08, 8, N ? '#3E5088' : '#F8F7F3'), 0, 3.64, B + 4.0));
     return g;
   },
@@ -265,22 +266,24 @@ export const SPAGHETTI_PROPS = {
     for (let i = 0; i < 6; i++) { const a = hsh(i) * TAU; g.add(tube([new THREE.Vector3(Math.cos(a) * 0.12, -0.03, Math.sin(a) * 0.12), new THREE.Vector3(Math.cos(a + 1) * 0.05, 0.02, Math.sin(a + 1) * 0.05), new THREE.Vector3(Math.cos(a + 2) * 0.13, -0.01, Math.sin(a + 2) * 0.13)], 0.011, YEL, false)); }
     return g; },   // (round 1) a perforated steel bowl with two handles, a heap of pasta in it
   // A handful of pasta flying (pivot at the start): o.at, o.to [x, y, z]; a few strands in a clump
-  sgFling(o) { const g = grp(), c = grp(); for (let i = 0; i < 5; i++) c.add(at(cyl(0.012, 0.012, 0.22, YEL, 6, { outline: 0.006 }), 0.03 * (hsh(i) - 0.5), 0, 0.03 * (hsh(i + 4) - 0.5), hsh(i + 1) * 2, hsh(i + 2) * 2, hsh(i + 3) * 2)); g.add(c);
-    g.userData.update = t => { const u = o.at == null ? 0 : clamp01((t - o.at) / (o.dur ?? 0.3)); const p = o.to || [0, 0, -1]; c.position.set(p[0] * u, p[1] * u + 0.25 * Math.sin(PI * u), p[2] * u); c.visible = (o.at == null || t >= o.at) && u < 1; c.rotation.z = 5 * u; }; g.userData.update(0); return g; },
+  sgFling(o) { const g = grp(), c = grp(); for (let i = 0; i < 6; i++) { const a = i / 6 * TAU, L = 0.22; c.add(tube([new THREE.Vector3(-L * 0.5, 0.03 * Math.sin(a), 0.03 * Math.cos(a)), new THREE.Vector3(-L * 0.15, 0.05 + 0.02 * i, 0.02), new THREE.Vector3(L * 0.15, -0.03 - 0.01 * i, -0.02), new THREE.Vector3(L * 0.5, 0.04 * Math.cos(a), 0.03 * Math.sin(a))], 0.012, YEL)); } g.add(c);
+    g.userData.update = t => { const u = o.at == null ? 0 : clamp01((t - o.at) / (o.dur ?? 0.3)); const p = o.to || [0, 0, -1]; c.position.set(p[0] * u, p[1] * u + 0.35 * Math.sin(PI * u), p[2] * u); c.visible = (o.at == null || t >= o.at) && u < 1; c.rotation.set(0.6 * Math.sin(u * 6), 0, 1.2 * Math.sin(u * 3)); c.scale.set(1 + 0.25 * Math.sin(u * 9), 1, 1); }; g.userData.update(0); return g; },   // (round 2) a soft handful of spaghetti, wriggling in flight
   // A cubist face of square raviolis (pivot at the canvas' bottom middle, faces +Z): a canvas, raviolis stacked into a face with one eye on its side;
   // o.slip [t]: the corner ravioli slips; o.fall [t0]: they all drop into a heap under the canvas
   sgRavioli(o) {
     const W = o.w ?? 1.2, H = o.h ?? 1.4, g = grp(at(box(W, H, 0.04, '#FBF6EA', { outline: 0.008 }), 0, H / 2, 0)), rv = [];
-    const cells = []; for (let i = 0; i < 5; i++) for (let j = 0; j < 6; j++) { const x = -0.4 + 0.2 * i + (j % 2) * 0.05, y = 0.25 + 0.18 * j; if (Math.hypot((x) / 0.5, (y - 0.7) / 0.6) < 1.05) cells.push([x, y]); }
-    cells.forEach(([x, y], i) => { const r = grp(at(box(0.16, 0.16, 0.04, '#EFCB78', { outline: 0.008 }), 0, 0, 0), at(box(0.1, 0.1, 0.012, '#F6DC98'), 0, 0, 0.022)); r.userData.p0 = [x, y, 0.04]; r.rotation.z = 0.25 * (hsh(i) - 0.5); g.add(r); rv.push(r); });
-    const eye = grp(at(sphere(0.06, '#FFFFFF', 1, { outline: 0.008 }), 0, 0, 0), at(sphere(0.03, '#1A1A1A', 0), 0.01, 0, 0.05)); eye.position.set(0.42, 0.95, 0.07); eye.rotation.z = PI / 2; g.add(eye);
-    const eye2 = grp(at(sphere(0.06, '#FFFFFF', 1, { outline: 0.008 }), 0, 0, 0), at(sphere(0.03, '#1A1A1A', 0), -0.01, 0.01, 0.05)); eye2.position.set(-0.12, 0.9, 0.07); g.add(eye2);
-    g.add(at(box(0.3, 0.04, 0.03, '#C8402A', { outline: 0.006 }), 0.05, 0.45, 0.07, 0, 0, 0.3));
-    g.userData.update = t => { rv.forEach((r, i) => { const [x, y, z] = r.userData.p0; let px = x, py = y, rz = 0.25 * (hsh(i) - 0.5);
-      if (o.slip != null && i >= rv.length - 2) { const u = clamp01((t - o.slip - 0.25 * (rv.length - 1 - i)) / 0.5); py -= (i === rv.length - 1 ? 0.3 : 0.14) * u; rz += 0.7 * u; }
-      if (o.fall != null) { const u = clamp01((t - o.fall - 0.03 * hsh(i + 9) * 4) / 0.5); const hx = (hsh(i + 1) - 0.5) * 0.7, hy = -0.0 + 0.05 * Math.floor(hsh(i + 2) * 3); px += (hx - px) * u * u; py += (hy - 0.0 - py) * u * u; rz += 2 * u * (hsh(i + 5) - 0.5); }
+    // (round 2) a cubist face in angular planes, not a grid: each plane a block of raviolis turned its own way, offset from the next
+    const planes = [[-0.08, 1.12, 0.28, 3, 1, 0.15], [-0.3, 0.8, -0.35, 2, 2, 0.15], [0.26, 0.66, 0.42, 2, 2, 0.15], [0.14, 0.92, 0.65, 1, 3, 0.1], [-0.06, 0.38, -0.5, 2, 1, 0.13], [0.06, 0.18, 0.15, 1, 1, 0.13]];
+    const add1 = (x, y, rz, sz, k) => { const r = grp(at(box(sz, sz, 0.04, k % 3 ? '#EFCB78' : '#E4B85E', { outline: 0.008 }), 0, 0, 0), at(box(sz * 0.62, sz * 0.62, 0.012, '#F6DC98'), 0, 0, 0.022)); r.userData.p0 = [x, y, 0.04 + 0.012 * (k % 3)]; r.userData.rz = rz; g.add(r); rv.push(r); };
+    let k = 0; for (const [cx, cy, rz, nx, ny, sz] of planes) for (let a = 0; a < nx; a++) for (let b = 0; b < ny; b++) { const lx = (a - (nx - 1) / 2) * sz * 1.05, ly = (b - (ny - 1) / 2) * sz * 1.05; add1(cx + lx * Math.cos(rz) - ly * Math.sin(rz), cy + lx * Math.sin(rz) + ly * Math.cos(rz), rz, sz, k++); }
+    const eye = grp(at(sphere(0.065, '#FFFFFF', 1, { outline: 0.01 }), 0, 0, 0), at(sphere(0.032, '#1A1A1A', 0), 0, 0, 0.055)); eye.position.set(-0.3, 0.97, 0.09); g.add(eye);   // the eye seen from the front
+    const side = grp(); const al = new THREE.Mesh(new THREE.CircleGeometry(0.075, 12, -PI / 2, PI), mat('#FFFFFF')); addOutline(al, 0.02); side.add(al, at(sphere(0.022, '#1A1A1A', 0), 0.05, 0, 0.01)); side.position.set(0.36, 1.0, 0.09); side.rotation.z = 0.3; g.add(side);   // the eye in profile
+    g.add(at(box(0.26, 0.04, 0.03, '#C8402A', { outline: 0.006 }), -0.06, 0.38, 0.09, 0, 0, -0.5));
+    g.userData.update = t => { rv.forEach((r, i) => { const [x, y, z] = r.userData.p0; let px = x, py = y, rz = r.userData.rz;
+      if (o.slip != null && i >= rv.length - 3) { const u = clamp01((t - o.slip - 0.2 * (rv.length - 1 - i)) / 0.5); py -= (i === rv.length - 1 ? 0.3 : 0.15) * u; rz += 0.8 * u; }
+      if (o.fall != null) { const u = clamp01((t - o.fall - 0.12 * hsh(i + 9)) / 0.5); const hx = (hsh(i + 1) - 0.5) * 0.7, hy = 0.05 * Math.floor(hsh(i + 2) * 3); px += (hx - px) * u * u; py += (hy - py) * u * u; rz += 2 * u * (hsh(i + 5) - 0.5); }
       r.position.set(px, py, z + (o.fall != null && t > o.fall ? 0.15 * clamp01((t - o.fall) / 0.5) : 0)); r.rotation.z = rz; });
-      const fu = o.fall == null ? 0 : clamp01((t - o.fall) / 0.4); eye.position.y = 0.95 - 0.95 * fu * fu; eye2.position.y = 0.9 - 0.9 * fu * fu; };
+      const fu = o.fall == null ? 0 : clamp01((t - o.fall) / 0.4); eye.position.y = 0.97 - 0.95 * fu * fu; side.position.y = 1.0 - 0.98 * fu * fu; };
     g.userData.update(0); return g;
   },
   // A pointillist landscape of coquillette dots (pivot at the canvas' bottom middle, faces +Z): green hills, a blue sky, a yellow sun, all in dots;
@@ -312,15 +315,15 @@ export const SPAGHETTI_PROPS = {
   },
   // ---------------------------------------------------------------- objects
   // A plain pasta packet (attach to the hand: pivot at its bottom): a pale-blue box with a clear window showing yellow sticks; no brand, no word
-  sgPacket(o) { const g = grp(at(box(0.09, 0.26, 0.05, '#7FA8D8', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(box(0.05, 0.16, 0.004, '#F2D27A'), 0, 0.13, 0.027)); return g; },
+  sgPacket(o) { const g = grp(at(box(0.11, 0.36, 0.035, '#7FA8D8', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(box(0.075, 0.24, 0.004, '#EAF4FA'), 0, 0.17, 0.019)); for (let i = 0; i < 7; i++) g.add(at(cyl(0.004, 0.004, 0.22, YEL, 4), -0.03 + 0.01 * i, 0.17, 0.022)); g.add(at(box(0.11, 0.04, 0.03, '#5E86B8'), 0, 0.37, 0)); return g; },   // (round 2) a long pouch with a clear window full of spaghetti, no word
   // A key ring (attach to the hand): the engine's keyRing
   sgKeys(o) { return buildProp('keyRing', {}); },
   // A small grey safe (pivot at its bottom, faces +Z), its door ajar, a packet inside
-  sgSafe(o) { const g = grp(at(box(0.36, 0.34, 0.34, '#6A6E76', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(box(0.3, 0.28, 0.02, '#2A2C30'), 0, 0.17, 0.171));
-    const dr = grp(at(box(0.3, 0.28, 0.04, '#7A7E86', { outline: 0.008 }), 0.15, 0, 0), at(cyl(0.03, 0.03, 0.02, '#C8CCD2', 10), 0.22, 0, 0.03, PI / 2)); dr.position.set(-0.15, 0.17, 0.19); dr.rotation.y = -1.0; g.add(dr);
-    g.add(at(SPAGHETTI_PROPS.sgPacket({}), 0, 0.04, 0.05)); return g; },
+  sgSafe(o) { const g = grp(at(box(0.4, 0.34, 0.34, '#6A6E76', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(box(0.34, 0.28, 0.02, '#1E2024'), 0, 0.17, 0.161));
+    const dr = grp(at(box(0.34, 0.28, 0.04, '#7A7E86', { outline: 0.008 }), 0.17, 0, 0), at(cyl(0.03, 0.03, 0.02, '#C8CCD2', 10), 0.24, 0, 0.03, PI / 2)); dr.position.set(-0.17, 0.17, 0.19); dr.rotation.y = -1.7; g.add(dr);
+    const pk = SPAGHETTI_PROPS.sgPacket({}); pk.rotation.set(0, 0, PI / 2); pk.position.set(0.2, 0.09, 0.2); g.add(pk); return g; },   // (round 2) the door wide open, the packet lying in it, its end sticking out
   // A bowl of plain white rice (pivot at its bottom)
-  sgRice(o) { const b = new THREE.Mesh(new THREE.SphereGeometry(0.08, 12, 6, 0, TAU, PI / 2, PI / 2), mat('#E8E4DA', { side: THREE.DoubleSide })); b.rotation.x = PI; b.position.y = 0.08; addOutline(b, 0.012);
+  sgRice(o) { const b = new THREE.Mesh(new THREE.SphereGeometry(0.08, 12, 6, 0, TAU, PI / 2, PI / 2), mat('#F4F2EC', { side: THREE.DoubleSide })); b.position.y = 0.08; addOutline(b, 0.012);
     const rice = sphere(0.075, '#FBFAF6', 1); rice.scale.set(1, 0.4, 1); rice.position.y = 0.085; return grp(b, rice); },
   // A dining table (pivot at the floor middle; o.len along X)
   sgTable(o) { const L = o.len ?? 1.6, g = grp(at(box(L, 0.05, 0.9, '#8A5A36', { outline: 0.008 }), 0, 0.74, 0)); for (const x of [-L / 2 + 0.08, L / 2 - 0.08]) for (const z of [-0.37, 0.37]) g.add(at(box(0.06, 0.72, 0.06, '#6A4226', { pivot: 'bottom' }), x, 0, z)); return g; },
@@ -339,13 +342,13 @@ export const SPAGHETTI_PROPS = {
   // A wooden rubber stamp (attach to the hand): a handle knob and a block; no ink, no text
   sgStamp(o) { return grp(at(sphere(0.035, '#8A5A36', 1, { outline: 0.008 }), 0, 0.09, 0), at(cyl(0.012, 0.012, 0.06, '#8A5A36', 6), 0, 0.05, 0), at(box(0.08, 0.025, 0.05, '#5A3A22', { outline: 0.006 }), 0, 0.012, 0)); },
   // Tweezers (attach to the hand: pivot at the grip, the tips along +Y): two thin steel blades, small
-  sgTweezers(o) { return grp(at(box(0.006, 0.11, 0.004, '#C8CCD2', { pivot: 'bottom' }), -0.006, 0, 0, 0, 0, 0.05), at(box(0.006, 0.11, 0.004, '#C8CCD2', { pivot: 'bottom' }), 0.006, 0, 0, 0, 0, -0.05)); },
+  sgTweezers(o) { return grp(at(box(0.012, 0.16, 0.008, '#2A2C30', { pivot: 'bottom', outline: 0.004 }), -0.01, 0, 0, 0, 0, 0.06), at(box(0.012, 0.16, 0.008, '#2A2C30', { pivot: 'bottom', outline: 0.004 }), 0.01, 0, 0, 0, 0, -0.06)); },   // (round 2) dark and big enough to read
   // A velvet-lined case (attach to the hand: pivot at its middle; the lid open): dark-blue shell, red velvet, the two dry halves inside
-  sgCase(o) { const g = grp(at(box(0.5, 0.06, 0.18, '#1E2A4A', { outline: 0.01 }), 0, 0, 0), at(box(0.46, 0.012, 0.15, '#B8202A'), 0, 0.032, 0));
-    const lid = grp(at(box(0.5, 0.18, 0.03, '#1E2A4A', { outline: 0.01 }), 0, 0.09, 0), at(box(0.46, 0.15, 0.01, '#B8202A'), 0, 0.09, 0.02)); lid.position.set(0, 0.03, -0.09); lid.rotation.x = -0.35; g.add(lid);
-    for (const s of [-1, 1]) g.add(at(cyl(0.013, 0.013, 0.21, DRY, 8, { outline: 0.01 }), s * 0.11, 0.05, 0.0, 0, 0, PI / 2 + s * 0.06));
-    g.userData.update = t => { g.visible = o.hide == null || t < o.hide; }; return g; },
+  sgCase(o) { const g = grp(at(box(0.6, 0.08, 0.24, '#1E2A4A', { outline: 0.01 }), 0, 0, 0), at(box(0.56, 0.012, 0.2, '#C8202A'), 0, 0.042, 0));
+    const lid = grp(at(box(0.6, 0.24, 0.03, '#1E2A4A', { outline: 0.01 }), 0, 0.12, 0), at(box(0.56, 0.2, 0.01, '#C8202A'), 0, 0.12, 0.02)); lid.position.set(0, 0.04, -0.12); g.add(lid);
+    for (const s of [-1, 1]) g.add(at(cyl(0.02, 0.02, 0.24, DRY, 8, { outline: 0.012 }), s * 0.13, 0.065, 0.0, 0, 0, PI / 2 + s * 0.05));
+    g.userData.update = t => { lid.rotation.x = -1.6 * kv(o.open, t, 1); g.visible = o.hide == null || t < o.hide; }; g.userData.update(0); return g; },   // (round 2) bigger; the lid opens away from the lens: cream halves on red velvet
   // The two dry halves falling into the pot (pivot at the pot's rim): from o.at they drop in o.dur (0.25) and vanish into the water
-  sgHalves(o) { const g = grp(), hs = [-1, 1].map(s => { const h = grp(at(cyl(0.013, 0.013, 0.21, DRY, 8, { outline: 0.01 }), 0, 0, 0, 0, 0, PI / 2)); h.userData.s = s; g.add(h); return h; });
-    g.userData.update = t => { const u = o.at == null ? 0 : clamp01((t - o.at) / (o.dur ?? 0.35)); hs.forEach(h => { const s = h.userData.s, ud = Math.max(0, u - (s > 0 ? 0.12 : 0)) / 0.88; h.position.set(s * 0.06 * (1 - ud), (o.h ?? 0.3) * (1 - ud * ud) - 0.06 * ud, 0.02 * s); h.rotation.set(2.5 * ud * s, 0.4 * s, 1.4 * ud); h.visible = ud < 1; }); }; g.userData.update(0); return g; },   // (round 1) they tumble in, one after the other
+  sgHalves(o) { const g = grp(), sp = grp(); for (let i = 0; i < 10; i++) { const d = sphere(0.018, '#F4FAFC', 1); d.userData.a = i / 10 * TAU; sp.add(d); } g.add(sp); const hs = [-1, 1].map(s => { const h = grp(at(cyl(0.02, 0.02, 0.26, DRY, 8, { outline: 0.012 }), 0, 0, 0, 0, 0, PI / 2)); h.userData.s = s; g.add(h); return h; });
+    g.userData.update = t => { const u = o.at == null ? 0 : clamp01((t - o.at) / (o.dur ?? 0.35)); hs.forEach(h => { const s = h.userData.s, ud = Math.max(0, u - (s > 0 ? 0.12 : 0)) / 0.88; h.position.set(s * 0.06 * (1 - ud), (o.h ?? 0.3) * (1 - ud * ud) - 0.06 * ud, 0.02 * s); h.rotation.set(2.5 * ud * s, 0.4 * s, 1.4 * ud); h.visible = ud < 1; }); const sv = o.at == null ? -1 : (t - o.at - (o.dur ?? 0.35) * 0.85) / 0.35; sp.visible = sv > 0 && sv < 1; sp.children.forEach(d => { const a = d.userData.a; d.position.set(Math.cos(a) * 0.12 * sv, -0.05 + 0.2 * Math.sin(PI * Math.min(1, sv)), Math.sin(a) * 0.12 * sv); }); }; g.userData.update(0); return g; },   // (round 2) a splash as they go in   // (round 1) they tumble in, one after the other
 };

@@ -114,7 +114,7 @@ def CUTAT(t): return _dn(t)
 # reference grout line a little above the middle; dx slides it sideways only
 def LOCKCAM(t, PP, dx=0.0, push=0.1):
     cx, cy, z = PP[0] + dx, PP[1] + 1.0, PP[2]
-    return cam(t, [r(cx), r(cy + 0.1), r(z + 4.27)], [r(cx), r(cy + 0.1), r(z + 4.27 - push)], [r(cx), r(cy), r(z)], [r(cx), r(cy), r(z)], lens=64)
+    return cam(t, [r(cx), r(cy + 0.1), r(z + 5.4)], [r(cx), r(cy + 0.1), r(z + 5.4 - push)], [r(cx), r(cy), r(z)], [r(cx), r(cy), r(z)], lens=64)
 def LOCKGAZE(a, gx=None, gy=None, lid=None):
     """the eyes keep where they are told on every toon key: gx/gy forced; exprW 0.4 makes the face 'strong' (no idle darts, no own blink: the blinks
     are keyed). Nobody ever looks at the strand"""
@@ -133,12 +133,12 @@ SPECS = lambda id_: P(f'{id_}_lunettes', 'sgSpecs', on={'actor': id_, 'joint': '
 def STEAM(pid, pos, drift=(0.25, 0.1)): return P(pid, 'softWisp', pos=pos, opts={'color': '#F4F4F2', 'opacity': 0.85, 'n': 10, 'rise': 0.7, 'life': 1.4, 's0': 0.05, 's1': 0.16, 'drift': list(drift)})
 POT = [-0.3, 0.97, -1.24]; TIMER = [0.35, 0.95, -1.32]; HOB = [0.3, 0, -0.62]
 CRIT = ['critique1', 'critique2', 'critique3']
-CF = {'lid': 0.45, 'mouth': 'line', 'brow': -0.5}   # the critics' face
+CF = {'lid': 0.22, 'mouth': 'line', 'brow': -0.4}   # the critics' face (round eyes)
 def CRITIC(i, p, ry, look, D, tilt_t=None, tilt=0.0, nod=False, ph=0.0):
     """a critic, chin in hand, the other arm across the chest, breathing and blinking; the gaze up into the distance (never at the strand)"""
     ks = [k(0.0, clip='stand'), k(0.0, look=look), TK(0.0, touch=CHIN('R'), reach={'L': R5(off(p, ry, 0.22, -0.05, 1.12))}, hands={'L': 'grip', 'R': 'rest'}, face=CF, d=0.0),
-          *BREATHE(0.1, D, 0.6, 0.018), *BLINKS(r(0.5 + ph), D, CF, every=1.9)]
-    if tilt_t is not None: ks.append(TK(tilt_t, bend=TILT(tilt), d=0.25, e='out', keep=True))
+          *BREATHE(0.1, D, 0.55, 0.03), *BLINKS(r(0.5 + ph), D, CF, every=1.6), TK(r(0.9 + ph), face={**CF, 'gx': 0.3}, d=0.2, keep=True)]
+    if tilt_t is not None: ks += [TK(tilt_t, bend=TILT(tilt), d=0.3, e='out', keep=True), *blink(r(tilt_t + 0.32), CF)]
     if nod: ks += [TK(r(tilt_t + 0.4 + 0.3 * j), bend={'neck': [0.22 if j % 2 == 0 else 0.0, tilt, 0, 1, None]}, d=0.2, keep=True) for j in range(4)]
     return LOCKGAZE(act(CRIT[i], p, ry, 'stand', 'neutral', keys=ks), gx=0.0, gy=-0.4)
 
@@ -155,7 +155,7 @@ kh1 = [k(0.0, clip='stand'), k(0.0, look=add(POT, [0, 0.1, 0])), TK(0.0, {'R': R
        k(1.15, look=add(POT, [0.35, 0.62, 0.42]), lookDur=0.3), *blink(0.85, CALM), *blink(1.85, CALM),
        k(C1, look=[-0.05, 2.0, -1.55], lookDur=0.08), TK(C1, {'R': R5([0.48, 1.78, -0.5])}, face=DARTF, bend={'spine': SP(-0.05)}, d=0.05, keep=True),   # the darts player's cocked wrist by his ear
        TK(r(FLICK1 - 0.25), {'R': R5([0.5, 1.84, -0.38])}, sq=(1.03, 0.97, 1.03), face=DARTF, d=0.15, keep=True),   # wind-up
-       TK(FLICK1, {'R': R5([0.15, 1.85, -1.25])}, bend={'spine': SP(0.18), 'armR': [0, 0, 0, 1.45, None], 'foreR': [0, 0, 0, 1.4, None]}, sq=(0.97, 1.04, 0.97), d=0.05, e='out', keep=True),   # the arm stretches toward the tiles
+       TK(FLICK1, {'R': R5([0.15, 1.85, -1.25])}, bend={'spine': SP(0.18), 'armR': [0, 0, 0, 1.8, 0.7], 'foreR': [0, 0, 0, 1.9, 0.6]}, sq=(0.95, 1.06, 0.95), d=0.05, e='out', keep=True), TK(r(FLICK1 + 0.1), bend={'armR': [0, 0, 0, 1.4, None], 'foreR': [0, 0, 0, 1.35, None]}, d=0.05, keep=True),   # a 3-frame smear   # the arm stretches toward the tiles
        TK(r(FLICK1 + 0.18), bend={'spine': SP(0.1), 'armR': [0, 0, 0, 1.0, None], 'foreR': [0, 0, 0, 1.0, None]}, sq=(1, 1, 1), face={'lid': 0.2, 'mouth': 'smile', 'brow': 0.5}, d=0.12, keep=True)]
 st.shot('S01', 'whiteVoid', setOpts={'color': '#F1E6CC'}, look={'sunDir': [0.4, 0.9, 0.5]},
         actors=[act('mec', HOB, -75, 'stand', 'neutral', keys=kh1 + [k(r(C1 - 0.02), face=-165, turn=0.02)])],
@@ -173,7 +173,7 @@ NB2 = [1.35, 0, -1.72]
 CB2 = cam(C2, [0.6, 1.75, 1.6], [0.6, 1.75, 1.47], [0.6, 1.65, -1.55], [0.6, 1.65, -1.55], lens=66)
 NF = {'lid': 0.0, 'mouth': 'O', 'brow': 1.0}
 kv2 = [k(0.0, visible=False), k(C2, visible=True), k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, bend={'spine': SP(0.3)}, face=NF, d=0.0),
-       TK(r(C2 + 0.05), touch={'R': ['face', -0.3, 0.42, 0.02, 1, 0.02], 'L': ['face', 0.3, 0.42, 0.02, 1, 0.02]}, hands={'R': 'spread', 'L': 'spread'}, face={**NF, 'jaw': 0.5}, sq=(1.04, 0.96, 1.04), d=0.1, keep=True),
+       TK(r(C2 + 0.05), touch={'R': ['face', -0.3, 0.42, 0.02, 1, 0.02], 'L': ['face', 0.3, 0.42, 0.02, 1, 0.02]}, hands={'R': 'spread', 'L': 'spread'}, face={**NF, 'jaw': 0.5, 'pop': 1.0}, sq=(0.92, 1.1, 0.92), d=0.08, e='out', keep=True), TK(r(C2 + 0.6), face={**NF, 'pop': 0.0}, d=0.15, keep=True),   # the take, eyes out on stalks
        *TALK(r(C2 + 0.2), NF, n=4), TK(r(C2 + 0.55), sq=(1, 1, 1), d=0.1, keep=True),
        TK(r(SHOT2 - 0.3), {'R': R5(off(NB2, 0, 0.35, -0.42, 1.65))}, {'R': 'grip'}, face={'lid': 0.1, 'mouth': 'smile', 'brow': 0.8}, d=0.15, keep=True), *blink(r(SHOT2 + 0.25), HAPPY), *BREATHE(C2, D2, 0.5, 0.02)]
 st.shot('S02', 'whiteVoid', setOpts={'color': '#F1E6CC'}, look={'sunDir': [0.4, 0.9, 0.5]},
@@ -190,16 +190,16 @@ st.card('S02', "CHEF-D'ŒUVRE", at=r(st.at('S02', 'L02', 9) - 0.05))
 # 3: the same kitchen at night, the callback framing slid right: three critics in black turtlenecks and tiny round glasses stand right of the strand,
 #    three-quarters to us, chins in hand, gazing up into the distance; the hero in his pyjamas peeks round the doorway. Half a tile lower; nobody looks
 D3 = st.dur('S03')
-CR3 = [[1.2, 0, -0.75], [1.68, 0, -0.55], [2.12, 0, -0.8]]
+CR3 = [[0.9, 0, -0.8], [1.3, 0, -0.6], [1.7, 0, -0.85]]
 C3 = LOCKCAM(0.0, KP, dx=1.6)
 crit3 = [CRITIC(i, p, -25, [r(p[0] - 1.2), 2.7, 1.6], D3, ph=0.35 * i, tilt_t=r(1.0 + 0.25 * i), tilt=0.15 * (1 if i % 2 else -1)) for i, p in enumerate(CR3)]
-DOOR3 = [2.3, 0, -1.85]
+DOOR3 = [2.45, 0, -1.85]
 PJF = {'lid': 0.0, 'mouth': 'O', 'brow': 0.8}
-kh3 = [k(0.0, clip='stand'), k(0.0, look=[1.0, 1.7, -0.4]), TK(0.0, {'L': R5([2.0, 1.4, -1.62])}, {'L': 'grip'}, face=PJF, bend={'spine': SP(0.0, -0.25)}, d=0.0), *BLINKS(0.8, D3, PJF, every=1.4), *BREATHE(0.0, D3, 0.5, 0.02),
-       TK(1.5, face={**PJF, 'gx': -0.5}, bend={'spine': SP(0.0, -0.35)}, d=0.2, keep=True)]
-st.shot('S03', 'whiteVoid', setOpts={'color': '#1E2A4A'}, look={'sunDir': [0.3, 0.9, 0.6]},
+kh3 = [k(0.0, clip='stand'), k(0.0, to=[3.15, 0, -1.85], dur=0.01), k(0.3, to=DOOR3, dur=0.3, clip='stand', ease='out'), k(r(D3 - 0.55), to=[3.15, 0, -1.85], dur=0.25, clip='stand', ease='in'), k(0.0, look=[1.0, 1.7, -0.4]),
+       TK(0.0, {'L': R5([2.0, 1.4, -1.62])}, {'L': 'grip'}, face=PJF, bend={'spine': SP(0.0, -0.3)}, d=0.0), *blink(0.95, PJF), *blink(1.55, PJF), *BREATHE(0.0, D3, 0.5, 0.02), TK(1.2, face={**PJF, 'gx': -0.5}, d=0.15, keep=True)]   # the peek
+st.shot('S03', 'whiteVoid', setOpts={'color': '#1E2A4A'}, look={'sunDir': [-0.3, 0.9, 0.3]},
         actors=[*crit3, act('mecpj', DOOR3, 0, 'stand', 'neutral', keys=kh3)],
-        props=[P('cuisine3', 'sgKitchen', pos=[0, 0, 0], opts={'night': True}), TILES('carreaux3', KP, strand=STRAND('S03', D3)), P('casserole3', 'sgPot', pos=POT, opts={'strands': False}),
+        props=[P('cuisine3', 'sgKitchen', pos=[0, 0, 0], opts={'night': True, 'poolX': 1.3}), TILES('carreaux3', KP, strand=STRAND('S03', D3)), P('casserole3', 'sgPot', pos=POT, opts={'strands': False}),
                *[SPECS(c) for c in CRIT], *[P(f'verre3_{i}', 'sgGlass', on={'actor': c, 'hand': 'L', 'offset': [0, 0.0, 0.02]}) for i, c in enumerate(CRIT)]], cams=[C3])
 
 # ================================================================= S04
@@ -222,41 +222,42 @@ def MOVER(id_, side):   # each mover holds one end of the panel, walking with it
     return LOCKGAZE(act(id_, [r(p0[0] + side * 1.45), 0, r(p0[2] + 0.6)], -90 * side, 'stand', 'neutral', keys=ks), gx=0.0, gy=-0.2)
 CA4 = LOCKCAM(0.0, KP, dx=0.0, push=0.06)
 STREET4 = [0, 0, -8.0]
-HE4 = [-0.95, 0, -0.72]
-CB4 = cam(C4, [0.0, 1.55, 2.6], [0.02, 1.55, 2.48], [-0.35, 1.3, -1.2], [-0.33, 1.3, -1.2], lens=52)
-PASS4A, PASS4B = [-2.2, 0, -4.3], [-0.2, 0, -4.3]
-kp4 = [k(0.0, visible=False), k(C4, visible=True), k(C4, clip='walk'), k(C4, to=PASS4B, dur=0.75, clip='walk', face='keep'), k(r(C4 + 0.75), clip='stand', blend=0.1), k(r(C4 + 0.75), face=200, turn=0.25), k(C4, look=[-0.9, 1.6, -0.7], lookDur=0.2), *blink(r(C4 + 1.1), CALM)]
+HE4 = [-0.35, 0, -0.45]
+CB4 = cam(C4, [0.4, 1.55, 2.9], [0.42, 1.55, 2.76], [0.6, 1.3, -1.2], [0.62, 1.3, -1.2], lens=56)
+PASS4A, PASS4B = [4.2, 0, -4.6], [2.3, 0, -4.6]
+kp4 = [k(0.0, visible=False), k(C4, visible=True), k(C4, clip='walk'), k(C4, to=PASS4B, dur=0.75, clip='walk', face='keep'), k(r(C4 + 0.75), clip='stand', blend=0.1), k(r(C4 + 0.75), face=160, turn=0.25), k(C4, look=[-0.9, 1.6, -0.7], lookDur=0.2), *blink(r(C4 + 1.1), CALM)]
 HF4 = {'lid': 0.3, 'mouth': 'line', 'brow': 0.6}
-kh4 = [k(0.0, visible=False), k(C4, visible=True), k(0.0, clip='stand'), k(0.0, look=[2.4, 1.5, -0.6]), TK(0.0, {'R': R5(add(POT, [-0.26, 0.24, 0.0]))}, {'R': 'grip'}, face=HF4, d=0.0),
-       *BLINKS(r(C4 + 0.4), D4, HF4, every=1.0), *BREATHE(C4, D4, 0.5, 0.02), k(r(C4 + 0.9), look=[3.0, 1.4, -1.6], lookDur=0.5), TK(r(C4 + 0.9), face={**HF4, 'gx': 0.5}, d=0.15, keep=True)]
+kh4 = [k(0.0, visible=False), k(C4, visible=True), k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, {'R': R5(off(HE4, 15, 0.36, 0.25, 1.2)), 'L': R5(off(HE4, 15, 0.36, -0.25, 1.2))}, {'R': 'grip', 'L': 'grip'}, face=HF4, d=0.0),
+       *BLINKS(r(C4 + 0.3), D4, HF4, every=0.9), *BREATHE(C4, D4, 0.5, 0.025), TK(r(C4 + 0.6), face={**HF4, 'gx': 0.8}, d=0.1, keep=True), k(r(C4 + 0.75), look=[3.2, 1.5, -2.5], lookDur=0.45), TK(r(C4 + 1.3), face={**HF4, 'gx': 0.3, 'brow': 0.8}, d=0.2, keep=True)]   # the eyes lead, the head follows the wall out
 st.shot('S04', 'whiteVoid', setOpts={'color': '#BFE0F0'}, look={'sunDir': [0.4, 0.9, 0.5]},
-        actors=[MOVER('demenageur1', -1), MOVER('demenageur2', 1), act('passant', PASS4A, 90, 'walk', 'neutral', keys=kp4), act('mec', HE4, 30, 'stand', 'neutral', keys=kh4)],
+        actors=[MOVER('demenageur1', -1), MOVER('demenageur2', 1), act('passant', PASS4A, -90, 'walk', 'neutral', keys=kp4), act('mec', HE4, 15, 'stand', 'neutral', keys=kh4)],
         props=[P('cuisine4', 'sgKitchen', pos=[0, 0, 0], keys=[k(C4, visible=False)]), P('cuisine4b', 'sgKitchen', pos=[0, 0, 0], opts={'open': True}, keys=[k(0.0, visible=False), k(C4, visible=True)]),
                P('rue4', 'sgStreet', pos=STREET4, opts={'roadZ': 0.0}, keys=[k(0.0, visible=False), k(C4, visible=True)]),
                P('carreaux4', 'sgTiles', pos=KP, opts={'strand': STRAND('S04', D4)}, keys=[*[k(t, to=PANEL4(t), dur=0.1, ease='linear') for t in TS4], k(C4, visible=False)]),
-               P('casserole4', 'sgPot', pos=POT), P('minuteur4', 'sgTimer', pos=TIMER, ry=-20), STEAM('vapeur4', add(POT, [0, 0.3, 0]), (-0.45, 0.05))], cams=[CA4, CB4])
+               P('casserole4', 'sgPot', pos=POT, keys=[k(C4, visible=False)]), P('casserole4b', 'sgPot', on={'actor': 'mec', 'joint': 'torso', 'offset': [0, 0.28, 0.32]}, scale=0.85, keys=[k(0.0, visible=False), k(C4, visible=True)]), P('minuteur4', 'sgTimer', pos=TIMER, ry=-20), STEAM('vapeur4', add(POT, [0, 0.3, 0]), (-0.45, 0.05)),
+               P('vapeur4b', 'softWisp', on={'actor': 'mec', 'joint': 'torso', 'offset': [0, 0.6, 0.32]}, opts={'color': '#F4F4F2', 'opacity': 0.85, 'n': 10, 'rise': 0.7, 'life': 1.4, 's0': 0.05, 's1': 0.16, 'drift': [0.3, 0.1], 'at': C4})], cams=[CA4, CB4])
 
 # ================================================================= S05
 # 5: the museum, the callback framing: the panel in its huge gilt frame, the strand one and a half tiles below the line, a third of the frame wide;
 #    left of it the three critics, three-quarters to us, chins in hand, tilt their heads the same way at the same moment; a red rope on brass posts,
 #    the guard dozing right of the frame, a small blank label
 D5 = st.dur('S05'); TILT5 = r(D5 * 0.5)
-CR5 = [[-1.4, 0, -0.05], [-0.95, 0, 0.15], [-0.5, 0, -0.05]]
+CR5 = [[-1.6, 0, -0.05], [-1.15, 0, 0.15], [-0.7, 0, -0.05]]
 C5 = LOCKCAM(0.0, MP)
-GARDE = [1.75, 0, -0.95]
+GARDE = [1.5, 0, -0.95]
 def GUARD(D, wake=None, at_=None):
     p = at_ or GARDE
     ks = [k(0.0, clip='sit'), k(0.0, look=add(p, [-0.3, 0.6, 0.9])), TK(0.0, face={'lid': 1.0, 'mouth': 'line', 'brow': 0.0}, bend={'neck': SP(0.45), 'spine': SP(0.1)}, d=0.0), *BREATHE(0.0, D, 0.9, 0.03)]
     if wake is not None: ks += [TK(wake, face={'lid': 0.0, 'mouth': 'O', 'brow': 1.0, 'pop': 0.9}, bend={'neck': SP(-0.25), 'spine': SP(-0.12)}, sq=(0.9, 1.15, 0.9), d=0.05, e='out', keep=True),
                                 TK(r(wake + 0.25), d=0.01, keep=True), TK(r(wake + 0.35), sq=(1, 1, 1), face={'lid': 0.0, 'mouth': 'O', 'brow': 0.8, 'pop': 0.3}, d=0.1, keep=True), k(r(wake + 0.05), look='camera', lookDur=0.08)]   # (round 1) the take held 7 frames
     return act('gardien', p, -25, 'sit', 'neutral', keys=ks)
-def MUSEUM(n, strand=None, night=False, morning=False, frame=True, cap=None, guard=True, gp=None):
-    out = [P(f'musee{n}', 'sgMuseum', pos=[0, 0, 0], opts={'night': night, 'morning': morning}), P(f'cartel{n}', 'sgLabel', pos=[-1.65, 1.35, -1.43]), P(f'cordon{n}', 'sgRope', pos=[0.0, 0, -0.55], opts={'len': 3.0})]
+def MUSEUM(n, strand=None, night=False, morning=False, frame=True, cap=None, guard=True, gp=None, winX=None):
+    out = [P(f'musee{n}', 'sgMuseum', pos=[0, 0, 0], opts={'night': night, 'morning': morning, **({'winX': winX} if winX is not None else {})}), P(f'cartel{n}', 'sgLabel', pos=[1.62, 1.72, -1.43]), P(f'cordon{n}', 'sgRope', pos=[0.0, 0, -0.55], opts={'len': 3.0})]
     if frame: out += [TILES(f'carreaux{n}', MP, strand=strand), P(f'cadre{n}', 'sgGilt', pos=MP, opts={'w': 2.4, 'h': 1.6, 'b': 0.28})]
     if guard: out += [P(f'chaise{n}', 'sgChair', pos=gp or GARDE, ry=-25), P(f'casquette{n}', 'sgCap', on={'actor': 'gardien', 'joint': 'head', 'offset': [0, 0.47, 0.0]}, opts=cap or {})]
     return out
 st.shot('S05', 'whiteVoid', setOpts={'color': '#F4F3EF'}, look={'sunDir': [0.3, 0.9, 0.6]},
-        actors=[*[CRITIC(i, p, 25, [r(p[0] + 1.3), 2.7, 2.2], D5, tilt_t=TILT5, tilt=0.32, ph=0.4 * i) for i, p in enumerate(CR5)], GUARD(D5)],
+        actors=[*[CRITIC(i, p, 25, [r(p[0] + 1.3), 2.7, 2.2], D5, tilt_t=TILT5, tilt=0.3, ph=0.4 * i) for i, p in enumerate(CR5)], GUARD(D5)],
         props=[*MUSEUM(5, STRAND('S05', D5)), *[SPECS(c) for c in CRIT]], cams=[C5])
 
 # ================================================================= S06
@@ -291,7 +292,7 @@ stud7 = []
 for i, p in enumerate(ST7):
     SF = {'lid': 0.3, 'mouth': 'line', 'brow': 0.3}
     ks = [k(0.0, clip='stand'), k(0.0, look=add(PROF7, [0, 1.8, 0])), TK(0.0, {'L': R5(off(p, 25, 0.38, -0.12, 1.08))}, {'L': 'grip'}, face=SF, d=0.0),
-          *BLINKS(r(0.4 + 0.3 * i), D7, SF, every=1.5), *BREATHE(0.1, D7, 0.6, 0.02), k(r(THROW7 + 0.1), look=[-1.5, 3.2, -2.0], lookDur=0.4), TK(r(THROW7 + 0.1), face={'lid': 0.0, 'mouth': 'O', 'brow': 0.9}, d=0.1, keep=True)]
+          *BLINKS(r(0.4 + 0.3 * i), D7, SF, every=1.5), *BREATHE(0.1, D7, 0.6, 0.02), k(r(THROW7 + 0.1), look=[-1.5, 3.2, -2.0], lookDur=0.4), TK(r(THROW7 + 0.15 + 0.08 * (2 - i)), face={'lid': 0.0, 'mouth': 'O', 'brow': 0.9}, sq=(1.1, 0.82, 1.1), bend={'spine': SP(0.45), 'neck': SP(0.3)}, d=0.12, e='out', keep=True), TK(r(THROW7 + 0.7 + 0.08 * (2 - i)), sq=(1, 1, 1), bend={'spine': SP(0.0), 'neck': SP(-0.2)}, d=0.25, keep=True)]   # they duck
     stud7.append(act(f'etudiant{i + 1}', p, 25, 'stand', 'neutral', keys=ks))
 PF = {'lid': 0.3, 'mouth': 'line', 'brow': -0.4}
 kprof7 = [k(0.0, clip='stand'), k(0.0, look='camera'), TK(0.0, {'R': R5(off(PROF7, -40, 0.3, 0.2, 1.4))}, {'R': 'grip'}, face=PF, d=0.0),
@@ -333,20 +334,21 @@ def DOORSTEP(p, ry, side):
             TK(SHAKE9, {'R': R5(add(MIDS, [0, 0, 0.02 * side]))}, {'R': 'grip'}, d=0.25, keep=True), *[TK(r(SHAKE9 + 0.25 + 0.12 * j), {'R': R5(add(MIDS, [0, 0.05 * (1 if j % 2 else -1), 0.02 * side]))}, d=0.1, keep=True) for j in range(4)],
             *BLINKS(0.4 if side > 0 else 0.9, C9, F, every=1.3), k(C9, visible=False)]
 FAM9 = [[-0.65, 0, -0.5], [0.0, 0, -0.5], [0.65, 0, -0.5]]
-CB9 = cam(C9, [0.75, 1.55, 3.1], [0.73, 1.55, 2.96], [0.55, 1.1, -0.7], [0.55, 1.1, -0.7], lens=50)
+CB9 = cam(C9, [0.45, 1.6, 3.7], [0.43, 1.6, 3.55], [0.4, 1.05, -0.7], [0.4, 1.05, -0.7], lens=54)
 fam9 = []
 for i, (nm, p) in enumerate(zip(['pere', 'mere', 'fils'], FAM9)):
     bowl = add(p, [0, 0.8, 0.42])
-    ks = [k(0.0, visible=False), k(C9, visible=True), k(0.0, clip='sit'), k(0.0, look=bowl), TK(0.0, {'R': R5(add(bowl, [0.06, 0.06, 0.0]))}, {'R': 'pinch'}, SAD, bend={'neck': SP(0.25)}, d=0.0),
+    FAMF = {'lid': 0.1, 'mouth': 'line', 'brow': 0.7}
+    ks = [k(0.0, visible=False), k(C9, visible=True), k(0.0, clip='sit'), k(0.0, look=bowl), TK(0.0, {'R': R5(add(bowl, [0.06, 0.06, 0.0]))}, {'R': 'pinch'}, FAMF, bend={'neck': SP(0.2)}, d=0.0),
           *[TK(r(C9 + 0.2 + 0.4 * j + 0.13 * i), {'R': R5(add(p, [0.06, 1.25 if j % 2 == 0 else 0.86, 0.22 if j % 2 == 0 else 0.42]))}, d=0.2, keep=True) for j in range(4)],
-          TK(r(C9 + 0.9 + 0.2 * i), sq=(1.05, 0.92, 1.05), bend={'neck': SP(0.4)}, face={'lid': 0.7, 'mouth': 'line', 'brow': 0.6}, d=0.25, keep=True), TK(r(C9 + 1.25 + 0.2 * i), sq=(1, 1, 1), bend={'neck': SP(0.25)}, face=SAD, d=0.3, keep=True),   # a sigh
-          *blink(r(C9 + 0.5 + 0.3 * i), SAD)]
+          TK(r(C9 + 0.9 + 0.2 * i), sq=(1.06, 0.9, 1.06), bend={'neck': SP(0.35)}, face={'lid': 0.15, 'mouth': 'O', 'brow': 0.8}, d=0.25, keep=True), TK(r(C9 + 1.25 + 0.2 * i), sq=(1, 1, 1), bend={'neck': SP(0.2)}, face=FAMF, d=0.3, keep=True),   # a sigh
+          *blink(r(C9 + 0.5 + 0.3 * i), FAMF)]
     fam9.append(act(nm, p, 0, 'sit', 'neutral', keys=ks, **({'scale': 0.72} if nm == 'fils' else {})))
 st.shot('S09', 'whiteVoid', setOpts={'color': '#BFE0F0'}, look={'sunDir': [0.4, 0.9, 0.5]},
         actors=[act('vendeuse', VEN9, -135, 'stand', 'neutral', keys=DOORSTEP(VEN9, -135, 1)), act('proprio', PRO9, 45, 'stand', 'neutral', keys=DOORSTEP(PRO9, 45, -1)), *fam9],
         props=[P('rue9', 'sgStreet', pos=[0, 0, 0], opts={'roadZ': 7.0, 'cottages': []}, keys=[k(C9, visible=False)]), P('maison9', 'cottage', pos=[-0.4, 0, -4.4], opts={'w': 6.4, 'd': 7, 'h': 2.7, 'rh': 1.6, 'color': '#F0C6CF', 'roof': '#5E83C6', 'door': '#2F5E8C'}, keys=[k(C9, visible=False)]),
                P('paquet9', 'sgPacket', on={'actor': 'vendeuse', 'hand': 'L', 'offset': [0, -0.05, 0.03]}, keys=[k(EX9, attach='proprio', hand='L', offset=[0, -0.05, 0.03]), k(C9, visible=False)]),
-               P('cles9', 'sgKeys', on={'actor': 'proprio', 'hand': 'L', 'offset': [0, -0.02, 0.04]}, scale=2.4, keys=[k(EX9, attach='vendeuse', hand='L', offset=[0, -0.02, 0.04]), k(C9, visible=False)]),
+               P('cles9', 'sgKeys', on={'actor': 'proprio', 'hand': 'L', 'offset': [0, -0.02, 0.04]}, scale=3.6, keys=[k(EX9, attach='vendeuse', hand='L', offset=[0, -0.02, 0.04]), k(C9, visible=False)]),
                P('salle9', 'sgDining', pos=[0, 0, 0], keys=[k(0.0, visible=False), k(C9, visible=True)]), P('table9', 'sgTable', pos=[0, 0, 0], opts={'len': 2.0}, keys=[k(0.0, visible=False), k(C9, visible=True)]),
                *[P(f'chaise9_{i}', 'sgChair', pos=add(p, [0, 0, -0.05]), keys=[k(0.0, visible=False), k(C9, visible=True)]) for i, p in enumerate(FAM9)],
                *[P(f'riz9_{i}', 'sgRice', pos=add(p, [0, 0.765, 0.42]), keys=[k(0.0, visible=False), k(C9, visible=True)]) for i, p in enumerate(FAM9)],
@@ -358,32 +360,33 @@ st.shot('S09', 'whiteVoid', setOpts={'color': '#BFE0F0'}, look={'sunDir': [0.4, 
 #     his clipboard (a squash); behind him the strand halfway down the tiles in a drooping S, an opaque drop under it. He never looks at it. The guard
 #     dozes at the back. Two people
 D10 = st.dur('S10'); MEAS10 = 0.25; NOD10 = 1.55; STAMP10 = 2.35
-AS10 = [-0.9, 0, -0.25]; GP10 = [1.75, 0, -0.95]
-C10 = LOCKCAM(0.0, MP, push=0.12)
+AS10 = [-1.05, 0, -0.25]; GP10 = [1.5, 0, -0.95]
+C10 = LOCKCAM(0.0, MP, push=0.12); INS10 = [0.45, 1.25]
+C10b = cam(INS10[0], [-0.75, 0.95, -0.35], [-0.35, 0.95, -0.35], [-0.6, 0.6, -1.25], [0.45, 0.6, -1.25], lens=48); C10c = LOCKCAM(INS10[1], MP, push=0.08)   # the insert: along the tape
 AF = {'lid': 0.45, 'mouth': 'line', 'brow': -0.4}
-ka10 = [k(0.0, clip='stand'), k(0.0, look=[-1.45, 0.3, -1.3]), TK(0.0, {'R': R5([-1.42, 0.62, -1.08]), 'L': R5(off(AS10, 120, 0.3, -0.18, 1.1))}, {'R': 'grip', 'L': 'grip'}, face=AF, bend={'spine': SP(0.5)}, d=0.0),
+ka10 = [k(0.0, clip='stand'), k(0.0, look=[-1.45, 0.3, -1.3]), TK(0.0, {'R': R5([-1.4, 0.72, -1.1]), 'L': R5(off(AS10, 120, 0.3, -0.18, 1.1))}, {'R': 'grip', 'L': 'grip'}, face=AF, bend={'spine': SP(0.5)}, d=0.0),
         k(MEAS10, look=[0.9, 0.3, -1.3], lookDur=0.7),   # his eye runs along the frame's bottom edge (never up at the strand)
         TK(1.1, {'R': R5(off(AS10, 120, 0.3, 0.22, 1.05))}, bend={'spine': SP(0.0)}, d=0.3, keep=True), k(1.1, look=[-1.45, 2.5, -1.3], lookDur=0.3),
         *[TK(r(NOD10 + 0.15 * j), bend={'neck': SP(0.35 if j % 2 == 0 else 0.0)}, d=0.12, keep=True) for j in range(4)],
         k(r(STAMP10 - 0.35), look=off(AS10, 120, 0.35, -0.18, 1.1), lookDur=0.2), TK(r(STAMP10 - 0.2), {'R': R5(off(AS10, 120, 0.35, -0.16, 1.4))}, sq=(1.03, 0.97, 1.03), d=0.15, keep=True),
-        TK(STAMP10, {'R': R5(off(AS10, 120, 0.35, -0.16, 1.13))}, sq=(1.08, 0.9, 1.08), d=0.05, e='in', keep=True), TK(r(STAMP10 + 0.2), sq=(1, 1, 1), d=0.12, keep=True),
+        TK(STAMP10, {'R': R5(off(AS10, 120, 0.35, -0.16, 1.13))}, sq=(1.12, 0.85, 1.12), d=0.04, e='in', keep=True), TK(r(STAMP10 + 0.2), sq=(1, 1, 1), d=0.12, keep=True),
         *BLINKS(0.7, D10, AF, every=1.6), *BREATHE(0.0, D10, 0.6, 0.015)]
 st.shot('S10', 'whiteVoid', setOpts={'color': '#F4F3EF'}, look={'sunDir': [0.3, 0.9, 0.6]},
         actors=[LOCKGAZE(act('assureur', AS10, 120, 'stand', 'neutral', keys=ka10)), GUARD(D10, at_=GP10)],
-        props=[*MUSEUM(10, STRAND('S10', D10, shape='S'), gp=GP10), P('metre10', 'sgTape', pos=[-1.3, 0.28, -1.22], ry=0, scale=1.6, opts={'len': [[0.0, 0.05], [MEAS10, 0.05], [1.05, 1.6], [r(NOD10 + 0.55), 1.6], [r(NOD10 + 0.7), 0.05]]}),
-               P('bloc10', 'sgClipboard', on={'actor': 'assureur', 'hand': 'L', 'offset': [0, 0.05, 0.05], 'rot': [-1.2, 0, 0]}),
-               P('tampon10', 'sgStamp', on={'actor': 'assureur', 'hand': 'R', 'offset': [0, -0.02, 0]}, scale=1.4, keys=[k(0.0, visible=False), k(r(NOD10 + 0.7), visible=True), k(STAMP10, squash=[1.3, 0.6, 1.3], dur=0.15)])], cams=[C10])
-st.cue('thud', 'S10', STAMP10, 0.3)
+        props=[*MUSEUM(10, STRAND('S10', D10, shape='S'), gp=GP10), P('metre10', 'sgTape', pos=[-1.3, 0.6, -1.24], ry=0, scale=1.6, opts={'len': [[0.0, 0.05], [INS10[0], 0.05], [r(INS10[1] - 0.05), 1.75], [r(NOD10 + 0.55), 1.75], [r(NOD10 + 0.7), 0.05]]}),
+               P('bloc10', 'sgClipboard', on={'actor': 'assureur', 'hand': 'L', 'offset': [0, 0.05, 0.05], 'rot': [-1.2, 0, 0]}, scale=1.5, keys=[k(STAMP10, squash=[1.25, 0.6, 1.25], dur=0.2)]),
+               P('tampon10', 'sgStamp', on={'actor': 'assureur', 'hand': 'R', 'offset': [0, -0.02, 0]}, scale=2.2, keys=[k(0.0, visible=False), k(r(NOD10 + 0.7), visible=True), k(STAMP10, squash=[1.3, 0.6, 1.3], dur=0.15)])], cams=[C10, C10b, C10c])
+st.cue('thud', 'S10', STAMP10, 0.4)
 
 # ================================================================= S11
 # 11: the museum at night, deep blue, never black, the guard asleep near the frame: the strand slithers down the last tiles and drops to the floor,
 #     flop, whole in frame and big. The guard jerks awake (a take held 7 frames) and his cap pops off
-D11 = st.dur('S11'); FALL11 = [0.12, 0.72]; WAKE11 = r(FALL11[1] + 0.04)
-GP11 = [-0.85, 0, -0.75]
-C11 = cam(0.0, [0.0, 1.05, 2.6], [0.0, 1.03, 2.5], [0.05, 0.62, -0.9], [0.05, 0.62, -0.9], lens=56)
+D11 = st.dur('S11'); FALL11 = [0.08, 0.62]; WAKE11 = r(FALL11[1] + 0.06)
+GP11 = [-0.75, 0, -0.85]
+C11 = cam(0.0, [0.1, 1.15, 2.9], [0.1, 1.13, 2.8], [0.15, 0.75, -0.9], [0.15, 0.75, -0.9], lens=60)
 st.shot('S11', 'whiteVoid', setOpts={'color': '#24305A'}, look={'sunDir': [0.3, 0.9, 0.6]},
         actors=[GUARD(D11, wake=WAKE11, at_=GP11)],
-        props=[*MUSEUM(11, {**STRAND('S10', 0.0, shape='S', fall=[FALL11[0], FALL11[1], r(MP[1] + REF * TILE), 0.4]), 'drop': 0.4}, night=True, cap={'pop': r(WAKE11 + 0.02), 'land': [0.3, -1.3, 0.3]}, gp=GP11)], cams=[C11])
+        props=[*MUSEUM(11, {**STRAND('S10', 0.0, shape='S', fall=[FALL11[0], FALL11[1], r(MP[1] + REF * TILE), 0.4]), 'drop': 0.4}, night=True, cap={'pop': r(WAKE11 + 0.02), 'land': [0.3, -1.3, 0.3]}, gp=GP11, winX=GP11[0])], cams=[C11])
 st.cue('thud', 'S11', FALL11[1], 0.35); st.cue('pop', 'S11', WAKE11, 0.3)
 
 # ================================================================= S12
@@ -391,12 +394,12 @@ st.cue('thud', 'S11', FALL11[1], 0.35); st.cue('pop', 'S11', WAKE11, 0.3)
 #     bites the end: it snaps in two big dry pieces with a crisp crack, she squashes and stretches with it and pulls a sour face. Behind her the three
 #     critics freeze, chins in hand. Four people
 D12 = st.dur('S12'); BITE12 = 0.85; SNAP12 = 0.95
-RS12 = [0.25, 0, 0.25]; CR12 = [[-0.9, 0, -0.45], [-0.15, 0, -0.6], [0.75, 0, -0.5]]
-C12 = cam(0.0, [0.3, 1.65, 3.5], [0.3, 1.65, 3.36], [0.1, 1.55, -0.5], [0.1, 1.55, -0.5], lens=46)
+RS12 = [-0.45, 0, -0.55]; CR12 = [[0.55, 0, -0.25], [1.05, 0, -0.4], [1.55, 0, -0.2]]
+C12 = cam(0.0, [-0.1, 1.62, 3.0], [-0.42, 1.66, 1.75], [-0.3, 1.58, -0.6], [-0.5, 1.68, -0.6], lens=48, ease='inOut')   # (round 2) a push-in on the bite
 RF = {'lid': 0.3, 'mouth': 'line', 'brow': 0.2}
-kr12 = [k(0.0, clip='stand'), k(0.0, look=off(RS12, 0, 0.4, 0.3, 1.75)), TK(0.0, {'R': R5(off(RS12, 0, 0.4, 0.3, 1.72))}, {'R': 'pinch'}, face=RF, d=0.0),
-        TK(r(BITE12 - 0.25), {'R': R5(off(RS12, 0, 0.25, 0.12, 1.8))}, face={'lid': 0.4, 'mouth': 'O', 'brow': 0.2, 'jaw': 0.4}, d=0.2, keep=True), TK(BITE12, face={'lid': 0.5, 'mouth': 'line', 'brow': -0.2}, sq=(1.08, 0.9, 1.08), d=0.05, keep=True),
-        TK(SNAP12, {'R': R5(off(RS12, 0, 0.4, 0.32, 1.65))}, face={'lid': 0.8, 'mouth': 'zigzag', 'brow': 0.9}, sq=(0.9, 1.14, 0.9), d=0.06, e='out', keep=True), TK(r(SNAP12 + 0.15), sq=(1.04, 0.97, 1.04), d=0.08, keep=True), TK(r(SNAP12 + 0.3), sq=(1, 1, 1), d=0.1, keep=True),
+kr12 = [k(0.0, clip='stand'), k(0.0, look=off(RS12, 0, 0.4, 0.42, 1.65)), TK(0.0, {'R': R5(off(RS12, 0, 0.35, 0.42, 1.62))}, {'R': 'pinch'}, face=RF, d=0.0),
+        TK(r(BITE12 - 0.25), {'R': R5(off(RS12, 0, 0.27, 0.14, 1.77))}, face={'lid': 0.3, 'mouth': 'O', 'brow': 0.2, 'jaw': 0.5}, d=0.2, keep=True), k(r(BITE12 - 0.25), look=off(RS12, 0, 0.4, 0.2, 1.75), lookDur=0.15), TK(BITE12, face={'lid': 0.5, 'mouth': 'clench', 'brow': -0.2}, sq=(1.1, 0.9, 1.1), d=0.05, keep=True),
+        TK(SNAP12, {'R': R5(off(RS12, 0, 0.38, 0.42, 1.6))}, sq=(0.72, 1.55, 0.72), face={'lid': 0.0, 'mouth': 'O', 'brow': 1.0, 'pop': 0.6}, d=0.04, e='out', keep=True), TK(r(SNAP12 + 0.1), sq=(1.32, 0.68, 1.32), d=0.05, e='in', keep=True), TK(r(SNAP12 + 0.2), sq=(1, 1, 1), face={'lid': 0.75, 'mouth': 'pout', 'brow': -0.7}, d=0.08, keep=True),   # stretch 2x, hard squash, a sour pout held to the end
         k(r(SNAP12 + 0.1), look='camera', lookDur=0.15), *[TK(r(SNAP12 + 0.35 + 0.15 * j), bend={'neck': [0, 0.18 * (1 if j % 2 else -1), 0, 1, None]}, d=0.12, keep=True) for j in range(4)], *blink(0.4, RF)]
 st.shot('S12', 'whiteVoid', setOpts={'color': '#F6F0E4'}, look={'sunDir': [0.5, 0.8, 0.5]},
         actors=[act('restauratrice', RS12, 0, 'stand', 'neutral', keys=kr12), *[CRITIC(i, p, 0, [r(p[0] * 0.5), 2.0, 3.0], D12, ph=0.3 * i) for i, p in enumerate(CR12)]],
@@ -425,9 +428,9 @@ st.card('S13', 'SCANDALE', at=r(C13b + 0.05))
 #     their heads together the other way, nodding gravely
 D14 = st.dur('S14'); TILT14 = 0.7
 CR14 = [[-1.6, 0, 0.45], [0.75, 0, 0.75], [1.75, 0, 0.45]]; RY14 = [30, -15, -30]
-C14 = cam(0.0, [0.0, 2.6, 5.4], [0.0, 2.58, 5.25], [0.0, 1.4, -0.9], [0.0, 1.4, -0.9], lens=56)
+C14 = cam(0.0, [0.0, 2.75, 6.1], [0.0, 2.73, 5.95], [0.0, 1.3, -0.9], [0.0, 1.3, -0.9], lens=62)
 st.shot('S14', 'whiteVoid', setOpts={'color': '#F4F3EF'}, look={'sunDir': [0.3, 0.9, 0.6]},
-        actors=[CRITIC(i, p, RY14[i], [r(p[0] * 0.6), 2.9, 3.0], D14, tilt_t=TILT14, tilt=-0.32, nod=True, ph=0.3 * i) for i, p in enumerate(CR14)],
+        actors=[CRITIC(i, p, RY14[i], [r(p[0] * 0.6), 2.9, 3.0], D14, tilt_t=TILT14, tilt=-0.45, nod=True, ph=0.3 * i) for i, p in enumerate(CR14)],
         props=[P('musee14', 'sgMuseum', pos=[0, 0, 0]), P('cadre14', 'sgGilt', pos=MP, opts={'w': 2.4, 'h': 1.6, 'b': 0.28, 'empty': True}), P('cartel14', 'sgLabel', pos=[-1.65, 1.35, -1.43]), P('cordon14', 'sgRope', pos=[0.0, 0, -0.55], opts={'len': 3.0}), *[SPECS(c) for c in CRIT]], cams=[C14])
 
 # ================================================================= S15
@@ -435,7 +438,7 @@ st.shot('S14', 'whiteVoid', setOpts={'color': '#F4F3EF'}, look={'sunDir': [0.3, 
 #     hero, on the hob, the pot still boils and steams, the red egg timer beside it, exactly as in line 1
 D15 = st.dur('S15'); GIVE15 = 0.7
 HE15 = [0.45, 0, -0.35]; CO15 = [1.25, 0, 0.35]
-C15 = cam(0.0, [-0.45, 1.55, 3.2], [-0.4, 1.55, 3.06], [0.5, 1.25, -0.5], [0.5, 1.25, -0.5], lens=56)
+C15 = cam(0.0, [-0.2, 1.75, 3.3], [-0.15, 1.73, 3.15], [0.75, 1.15, -0.3], [0.75, 1.15, -0.3], lens=58)
 MID15 = lerp3(add(HE15, [0, 1.12, 0]), add(CO15, [0, 1.12, 0]), 0.5)
 CO_F = GRAVE; HE_F = {'lid': 0.2, 'mouth': 'line', 'brow': 0.6}
 kc15 = [k(0.0, clip='stand'), k(0.0, look=add(HE15, [0, 1.8, 0])), TK(0.0, {'R': R5(add(MID15, [0.05, 0, 0.05])), 'L': R5(add(MID15, [0.25, 0, 0.05]))}, {'R': 'grip', 'L': 'grip'}, CO_F, d=0.0),
@@ -444,9 +447,9 @@ kh15 = [k(0.0, clip='stand'), k(0.0, look=add(MID15, [0, -0.05, 0])), TK(0.0, {'
         TK(GIVE15, {'R': R5(add(MID15, [-0.1, 0, 0.05])), 'L': R5(add(MID15, [-0.25, 0, 0.08]))}, {'R': 'grip', 'L': 'grip'}, face={'lid': 0.2, 'mouth': 'O', 'brow': 0.7}, d=0.25, keep=True), k(r(GIVE15 + 0.45), look='camera', lookDur=0.2),
         *BLINKS(r(GIVE15 + 0.7), D15, HE_F, every=1.0), *BREATHE(0.0, D15, 0.5)]
 st.shot('S15', 'whiteVoid', setOpts={'color': '#BFE0F0'}, look={'sunDir': [0.4, 0.9, 0.5]},
-        actors=[act('coursier', CO15, -110, 'stand', 'neutral', keys=kc15), act('mec', HE15, 60, 'stand', 'neutral', keys=kh15)],
+        actors=[act('coursier', CO15, -110, 'stand', 'neutral', keys=kc15), act('mec', HE15, 35, 'stand', 'neutral', keys=kh15)],
         props=[P('cuisine15', 'sgKitchen', pos=[0, 0, 0], opts={'open': True}), P('rue15', 'sgStreet', pos=STREET4, opts={'roadZ': 0.0}), P('casserole15', 'sgPot', pos=POT), P('minuteur15', 'sgTimer', pos=TIMER, ry=-20),
-               STEAM('vapeur15', add(POT, [0, 0.3, 0]), (-0.35, 0.05)), P('ecrin15', 'sgCase', on={'actor': 'mec', 'hand': 'R', 'offset': [-0.1, 0.03, 0.06]}, keys=[k(0.0, attach='coursier', hand='R', offset=[-0.1, 0.03, 0.06]), k(GIVE15, attach='mec', hand='R', offset=[0.1, 0.03, 0.06])])], cams=[C15])
+               STEAM('vapeur15', add(POT, [0, 0.3, 0]), (-0.35, 0.05)), P('ecrin15', 'sgCase', pos=add(MID15, [0.0, -0.02, 0.1]), rot=[0.45, round(math.radians(yaw(MID15, [-0.2, 1.75, 3.3])), 3), 0], scale=1.25, opts={'open': [[0.0, 0.0], [r(GIVE15 - 0.1), 0.0], [r(GIVE15 + 0.35), 1.0]]})], cams=[C15])
 
 # ================================================================= S16
 # 16: two cuts. Close on the pot and the timer: the two halves tumble into the boiling water; he gives the red egg timer a tiny twist, tick tick. Cut:
@@ -475,7 +478,7 @@ kh16 = [k(0.0, clip='stand'), k(0.0, look=add(POT, [0, 0.1, 0])), TK(0.0, {'R': 
 st.shot('S16', 'whiteVoid', setOpts={'color': '#BFE0F0'}, look={'sunDir': [0.4, 0.9, 0.5]},
         actors=[act('mec', HE16a, -120, 'stand', 'neutral', keys=[*kh16, k(C16, to=HE16, dur=0.01, clip='stand'), k(C16, face=180, turn=0.01), k(TURN16, face=5, turn=0.25)])],
         props=[P('cuisine16', 'sgKitchen', pos=[0, 0, 0], opts={'open': True}), P('rue16', 'sgStreet', pos=STREET4, opts={'roadZ': 0.0}), P('casserole16', 'sgPot', pos=POT),
-               P('minuteur16', 'sgTimer', pos=TIMER, ry=-20, scale=1.3, opts={'turn': [[0.0, 0.0], [r(TWIST16 - 0.02), 0.0], [r(TWIST16 + 0.25), 0.7]]}),
+               P('minuteur16', 'sgTimer', pos=TIMER, ry=-20, scale=1.3, opts={'turn': [[0.0, 0.0], [r(TWIST16 - 0.02), 0.0], [r(TWIST16 + 0.25), 1.571]]}),
                STEAM('vapeur16', add(POT, [0, 0.3, 0]), (0.25, -0.1)), P('moities16', 'sgHalves', pos=add(POT, [0.0, 0.26, 0.0]), opts={'at': DROP16, 'dur': 0.4, 'h': 0.3}),
                P('fourchette16', 'sgForkStrand', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0, 0]}, opts={'hide': r(FLICK16 + 0.03)}, keys=[k(0.0, visible=False), k(C16, visible=True)]),
                P('objectif16', 'sgLensStrand', pos=LENS16, ry=LRY16, opts={'w': 0.12, 'at': r(FLICK16 + 0.08), 'slide': [[r(FLICK16 + 0.2), 0.0], [r(FLICK16 + 1.2), 0.032]]})], cams=[CA16, CB16])
@@ -507,8 +510,8 @@ st.write("Le spaghetti", rig='toon', fingers=True, cloth=True, idleShift=1.6, ho
     'critique1': TURTLE(7102, '#3A3A40', '#8A8A8A'), 'critique2': TURTLE(7103, '#4A4038', '#2A2420'), 'critique3': TURTLE(7104, '#2E3A4A', '#C8C4BC'),
     'demenageur1': GUEST('worker', 7105, '#8A8E94', pants='#6A6E74', gloves='#FFFFFF'), 'demenageur2': GUEST('worker', 7106, '#8A8E94', pants='#6A6E74', gloves='#FFFFFF'),
     'passant': GUEST('politique', 7107, '#2E4A7A', pants='#3A3D44'), 'gardien': GUEST('politique', 7108, '#22305A', pants='#22305A'),
-    'peintre': GUEST('worker', 7109, '#BFD4E6', pants='#5A6A8A', shirt='#F4F1EA'), 'etudiant1': GUEST('madame', 7110, '#2E3A5A'), 'etudiant2': GUEST('politique', 7111, '#6A6E74'), 'etudiant3': GUEST('sportif', 7112, '#6A4A32'),
+    'peintre': GUEST('worker', 7109, '#BFD4E6', pants='#5A6A8A', shirt='#F4F1EA'), 'etudiant1': GUEST('madame', 7110, '#2E3A5A', hair='long', hairColor='#6A4A32'), 'etudiant2': GUEST('politique', 7111, '#6A6E74'), 'etudiant3': GUEST('sportif', 7112, '#6A4A32'),
     'prof': GUEST('politique', 7113, '#C8A030', pants='#4A4A50'), 'vendeuse': GUEST('femme', 7114, '#C8D8EA', lapel='#F2EDE4', hair='long', hairColor='#5A3A28'), 'proprio': GUEST('politique', 7115, '#6A6E74'),
-    'pere': GUEST('politique', 7116, '#4A5A6A'), 'mere': GUEST('madame', 7117, '#8A6A7A'), 'fils': GUEST('sportif', 7118, '#3A6A8A', build={'width': 1.0, 'headWidth': 1.3, 'headScale': 1.3}),
-    'assureur': GUEST('politique', 7119, '#6A6E74', pants='#5A5E64'), 'restauratrice': GUEST('madame', 7120, '#F4F4F2', pants='#E8E8E4', gloves='#FFFFFF'), 'coursier': GUEST('worker', 7121, '#2E4A6A', gloves='#FFFFFF'),
+    'pere': GUEST('politique', 7116, '#4A5A6A', hair='crew', hairColor='#5A3A24'), 'mere': GUEST('madame', 7117, '#8A6A7A', hair='long', hairColor='#B4562C'), 'fils': GUEST('sportif', 7118, '#3A6A8A', hair='spiky', hairColor='#9A7040', build={'width': 1.0, 'headWidth': 1.3, 'headScale': 1.3}),
+    'assureur': GUEST('politique', 7119, '#6A6E74', pants='#5A5E64'), 'restauratrice': GUEST('madame', 7120, '#F4F4F2', pants='#E8E8E4', gloves='#FFFFFF', hair='curly', hairColor='#8A5A3A'), 'coursier': GUEST('worker', 7121, '#2E4A6A', gloves='#FFFFFF'),
 })
