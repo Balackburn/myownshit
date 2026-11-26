@@ -3283,3 +3283,4 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - fichiers de travail de 4 histoires publiées dans /tmp/pipe ;
   - brouillons dépassés et images de revue.
   Finale lancée.
+- 12 h 35 — « La notice » (107) : le calque 3D de la finale est rendu (118 min), mais HyperFrames a refusé la composition faute de place (0,9 Go pour 1 Go requis). J'ai libéré le doublon du calque et le dossier de rendu, puis relancé seulement la composition (1,1 Go libres). Leçon ajoutée au skill.
