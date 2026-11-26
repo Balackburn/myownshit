@@ -13,6 +13,7 @@ for l in TL['lines']:
         m = []
         for d in disp:
             if m and d in ('!', '?', ':', ';'): m[-1] += '\u00a0' + d
+            elif m and d in ('.', ',', '\u2026'): m[-1] += d   # (story 105) a closing quote removed before a full stop (\u00ab pin-pon \u00bb.) leaves a lone "." / ",": it joins the word before it, no space
             else: m.append(d)
         disp = m
     assert len(disp) == len(words), l['id']

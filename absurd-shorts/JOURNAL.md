@@ -3201,3 +3201,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - finale 1080x1920, 44,7 s, −16,1 LUFS, crête −3,7 dBFS, HyperFrames 0 erreur, pas de creux ;
   - carrelage stable sur toutes les images.
 - 04 h 05 — Disque : suppression des images et vidéos intermédiaires des histoires livrées dans le dossier de travail (voix gardées) et des fichiers de travail de la tartine ; 1,3 Go libres. Finale de « La poule » (104) lancée. « La notice » (107) en mise en scène.
+
+- 04 h 58 — « Le mot » (105), session 87 : revues 5,8/6,8 → 6,6/7,3 → 7,0/7,4, passe finale, brouillon de contrôle, finale 1080x1920 à −16,0 LUFS ; publiée (cmwx2v5cs19t8pj07z4bykctq). Branche fusionnée, leçons ajoutées. Bogue de `build_hf.py` (point isolé après un guillemet fermant) corrigé dans le skill. « Le composteur » (106) confié à la session 87.

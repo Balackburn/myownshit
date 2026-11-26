@@ -2501,3 +2501,11 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 56) Écraser tout le corps (`sq`) enfonce la tête dans le col : écraser aussi la tête (`scl head`), allonger le cou (étirement de `bend neck`) et le pencher vers l'avant pour garder le visage vers nous.
 - (cycle 56) Allonger le cou d'un personnage filmé de face le fait monter, pas suivre un objet qui vient vers la caméra : déplacer l'objet en travers du cadre, sinon renoncer.
 - (cycle 56) Cheveux bouclés rendus comme une plaque plate au-dessus de la tête : passer à une coiffure plaquée (`slick`) et vérifier la bande de la carte de titre sur ce plan.
+- (cycle 57, session 87, « Le mot ») `build_hf.py` cassait sur un point après un guillemet fermant (« pin-pon ».) : corrigé, le « . » ou la « , » isolés se rattachent au mot précédent. Si un autre signe casse, le mettre dans les guillemets dans le texte.
+- (cycle 57) Le helper de placement des mains ajoutait deux fois la hauteur du sol de l'acteur : tout personnage sur une estrade ou un plateau de camion levait les mains. Vérifier les mains d'un acteur surélevé.
+- (cycle 57) Un « chut » ne se lit qu'avec l'index vertical en travers du milieu de la bouche, visage vers la caméra : près de l'oreille, c'est un téléphone ; levé, c'est un vote.
+- (cycle 57) Rayures multicolores sur un accessoire : à éviter (lecture de drapeau ou de symbole) ; un cône orange et blanc se lit comme un plot de signalisation.
+- (cycle 57) Une goutte de sueur sous une visière, devant l'œil, se lit comme un monocle : la poser sur la tempe, détachée.
+- (cycle 57) Un écrasé-regonflé doit montrer la crêpe 3-4 images à découvert, sinon il se lit comme « enseveli ».
+- (cycle 57) Un objet qu'on berce se couche en travers des deux bras, sinon il se lit comme un sac à dos.
+- (cycle 57) Les dormeurs d'un immeuble en coupe sont trop petits pour porter un gag d'accessoire : pousser la caméra jusqu'à la taille d'une tête.
