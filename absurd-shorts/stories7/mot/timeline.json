@@ -1,0 +1,935 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Un bruit réveille ce mec chaque nuit. Il a affiché : « Certains se reconnaîtront. »",
+   "hl": [
+    "bruit",
+    "reconnaîtront."
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 4.248,
+   "words": [
+    {
+     "w": "Un",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "bruit",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "réveille",
+     "s": 0.544,
+     "e": 0.841
+    },
+    {
+     "w": "ce",
+     "s": 0.915,
+     "e": 0.989
+    },
+    {
+     "w": "mec",
+     "s": 1.063,
+     "e": 1.211
+    },
+    {
+     "w": "chaque",
+     "s": 1.285,
+     "e": 1.507
+    },
+    {
+     "w": "nuit.",
+     "s": 1.544,
+     "e": 2.026
+    },
+    {
+     "w": "Il",
+     "s": 2.063,
+     "e": 2.1
+    },
+    {
+     "w": "a",
+     "s": 2.174,
+     "e": 2.223
+    },
+    {
+     "w": "affiché:",
+     "s": 2.273,
+     "e": 2.989
+    },
+    {
+     "w": "Certains",
+     "s": 3.063,
+     "e": 3.285
+    },
+    {
+     "w": "se",
+     "s": 3.359,
+     "e": 3.433
+    },
+    {
+     "w": "reconnaîtront.",
+     "s": 3.507,
+     "e": 4.248
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Tout le pays s'est reconnu.",
+   "hl": [
+    "pays",
+    "reconnu."
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L02.k.wav",
+   "file_start": 4.348,
+   "speech_start": 4.348,
+   "speech_end": 5.756,
+   "words": [
+    {
+     "w": "Tout",
+     "s": 4.348,
+     "e": 4.496
+    },
+    {
+     "w": "le",
+     "s": 4.57,
+     "e": 4.644
+    },
+    {
+     "w": "pays",
+     "s": 4.681,
+     "e": 4.941
+    },
+    {
+     "w": "s'est",
+     "s": 4.978,
+     "e": 5.089
+    },
+    {
+     "w": "reconnu.",
+     "s": 5.163,
+     "e": 5.756
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Soixante millions d'aveux au commissariat.",
+   "hl": [
+    "millions",
+    "d'aveux"
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L03.k.wav",
+   "file_start": 5.856,
+   "speech_start": 5.856,
+   "speech_end": 7.93,
+   "words": [
+    {
+     "w": "Soixante",
+     "s": 5.856,
+     "e": 6.3
+    },
+    {
+     "w": "millions",
+     "s": 6.374,
+     "e": 6.67
+    },
+    {
+     "w": "d'aveux",
+     "s": 6.695,
+     "e": 6.967
+    },
+    {
+     "w": "au",
+     "s": 7.004,
+     "e": 7.041
+    },
+    {
+     "w": "commissariat.",
+     "s": 7.115,
+     "e": 7.93
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Même le préfet s'est reconnu. Il a rendu la perceuse du voisin.",
+   "hl": [
+    "préfet",
+    "perceuse"
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L04.k.wav",
+   "file_start": 8.03,
+   "speech_start": 8.03,
+   "speech_end": 11.067,
+   "words": [
+    {
+     "w": "Même",
+     "s": 8.03,
+     "e": 8.178
+    },
+    {
+     "w": "le",
+     "s": 8.252,
+     "e": 8.326
+    },
+    {
+     "w": "préfet",
+     "s": 8.437,
+     "e": 8.696
+    },
+    {
+     "w": "s'est",
+     "s": 8.733,
+     "e": 8.844
+    },
+    {
+     "w": "reconnu.",
+     "s": 8.919,
+     "e": 9.462
+    },
+    {
+     "w": "Il",
+     "s": 9.486,
+     "e": 9.511
+    },
+    {
+     "w": "a",
+     "s": 9.585,
+     "e": 9.622
+    },
+    {
+     "w": "rendu",
+     "s": 9.659,
+     "e": 9.844
+    },
+    {
+     "w": "la",
+     "s": 9.881,
+     "e": 9.956
+    },
+    {
+     "w": "perceuse",
+     "s": 10.03,
+     "e": 10.326
+    },
+    {
+     "w": "du",
+     "s": 10.363,
+     "e": 10.4
+    },
+    {
+     "w": "voisin.",
+     "s": 10.437,
+     "e": 11.067
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Trop de coupables : l'État a interdit le bruit. Partout.",
+   "hl": [
+    "coupables",
+    "Partout."
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L05.k.wav",
+   "file_start": 11.167,
+   "speech_start": 11.167,
+   "speech_end": 14.5,
+   "words": [
+    {
+     "w": "Trop",
+     "s": 11.167,
+     "e": 11.315
+    },
+    {
+     "w": "de",
+     "s": 11.352,
+     "e": 11.389
+    },
+    {
+     "w": "coupables:",
+     "s": 11.463,
+     "e": 12.229
+    },
+    {
+     "w": "l'État",
+     "s": 12.253,
+     "e": 12.574
+    },
+    {
+     "w": "a",
+     "s": 12.648,
+     "e": 12.722
+    },
+    {
+     "w": "interdit",
+     "s": 12.796,
+     "e": 13.167
+    },
+    {
+     "w": "le",
+     "s": 13.204,
+     "e": 13.241
+    },
+    {
+     "w": "bruit.",
+     "s": 13.315,
+     "e": 13.833
+    },
+    {
+     "w": "Partout.",
+     "s": 13.944,
+     "e": 14.5
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Les pompiers chuchotent « pin-pon ».",
+   "hl": [
+    "chuchotent",
+    "pin-pon"
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L06.k.wav",
+   "file_start": 14.6,
+   "speech_start": 14.6,
+   "speech_end": 16.452,
+   "words": [
+    {
+     "w": "Les",
+     "s": 14.6,
+     "e": 14.748
+    },
+    {
+     "w": "pompiers",
+     "s": 14.785,
+     "e": 15.119
+    },
+    {
+     "w": "chuchotent",
+     "s": 15.156,
+     "e": 15.637
+    },
+    {
+     "w": "pin-pon.",
+     "s": 15.748,
+     "e": 16.452
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Les éboueurs sortent les poubelles sur la pointe des pieds.",
+   "hl": [
+    "éboueurs",
+    "pieds."
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L07.k.wav",
+   "file_start": 16.552,
+   "speech_start": 16.552,
+   "speech_end": 19.219,
+   "words": [
+    {
+     "w": "Les",
+     "s": 16.552,
+     "e": 16.7
+    },
+    {
+     "w": "éboueurs",
+     "s": 16.774,
+     "e": 17.144
+    },
+    {
+     "w": "sortent",
+     "s": 17.219,
+     "e": 17.441
+    },
+    {
+     "w": "les",
+     "s": 17.515,
+     "e": 17.589
+    },
+    {
+     "w": "poubelles",
+     "s": 17.638,
+     "e": 17.885
+    },
+    {
+     "w": "sur",
+     "s": 17.959,
+     "e": 18.033
+    },
+    {
+     "w": "la",
+     "s": 18.107,
+     "e": 18.181
+    },
+    {
+     "w": "pointe",
+     "s": 18.256,
+     "e": 18.441
+    },
+    {
+     "w": "des",
+     "s": 18.478,
+     "e": 18.626
+    },
+    {
+     "w": "pieds.",
+     "s": 18.663,
+     "e": 19.219
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Les coqs ont été mis sous cloche.",
+   "hl": [
+    "coqs",
+    "cloche."
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L08.k.wav",
+   "file_start": 19.319,
+   "speech_start": 19.319,
+   "speech_end": 20.948,
+   "words": [
+    {
+     "w": "Les",
+     "s": 19.319,
+     "e": 19.467
+    },
+    {
+     "w": "coqs",
+     "s": 19.541,
+     "e": 19.689
+    },
+    {
+     "w": "ont",
+     "s": 19.763,
+     "e": 19.837
+    },
+    {
+     "w": "été",
+     "s": 19.948,
+     "e": 20.059
+    },
+    {
+     "w": "mis",
+     "s": 20.133,
+     "e": 20.207
+    },
+    {
+     "w": "sous",
+     "s": 20.256,
+     "e": 20.356
+    },
+    {
+     "w": "cloche.",
+     "s": 20.43,
+     "e": 20.948
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "On ne se parle plus que par petits mots.",
+   "hl": [
+    "parle",
+    "mots."
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L09.k.wav",
+   "file_start": 21.048,
+   "speech_start": 21.048,
+   "speech_end": 22.9,
+   "words": [
+    {
+     "w": "On",
+     "s": 21.048,
+     "e": 21.122
+    },
+    {
+     "w": "ne",
+     "s": 21.159,
+     "e": 21.196
+    },
+    {
+     "w": "se",
+     "s": 21.27,
+     "e": 21.344
+    },
+    {
+     "w": "parle",
+     "s": 21.381,
+     "e": 21.567
+    },
+    {
+     "w": "plus",
+     "s": 21.641,
+     "e": 21.789
+    },
+    {
+     "w": "que",
+     "s": 21.863,
+     "e": 21.937
+    },
+    {
+     "w": "par",
+     "s": 22.011,
+     "e": 22.085
+    },
+    {
+     "w": "petits",
+     "s": 22.159,
+     "e": 22.307
+    },
+    {
+     "w": "mots.",
+     "s": 22.381,
+     "e": 22.9
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Le pays dort enfin. Sauf ce mec, réveillé chaque nuit à la même heure.",
+   "hl": [
+    "Sauf",
+    "heure."
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L10.k.wav",
+   "file_start": 23.0,
+   "speech_start": 23.0,
+   "speech_end": 27.0,
+   "words": [
+    {
+     "w": "Le",
+     "s": 23.0,
+     "e": 23.074
+    },
+    {
+     "w": "pays",
+     "s": 23.148,
+     "e": 23.444
+    },
+    {
+     "w": "dort",
+     "s": 23.519,
+     "e": 23.741
+    },
+    {
+     "w": "enfin.",
+     "s": 23.815,
+     "e": 24.407
+    },
+    {
+     "w": "Sauf",
+     "s": 24.444,
+     "e": 24.63
+    },
+    {
+     "w": "ce",
+     "s": 24.667,
+     "e": 24.704
+    },
+    {
+     "w": "mec,",
+     "s": 24.778,
+     "e": 25.222
+    },
+    {
+     "w": "réveillé",
+     "s": 25.296,
+     "e": 25.667
+    },
+    {
+     "w": "chaque",
+     "s": 25.704,
+     "e": 25.889
+    },
+    {
+     "w": "nuit",
+     "s": 25.963,
+     "e": 26.111
+    },
+    {
+     "w": "à",
+     "s": 26.148,
+     "e": 26.185
+    },
+    {
+     "w": "la",
+     "s": 26.222,
+     "e": 26.259
+    },
+    {
+     "w": "même",
+     "s": 26.333,
+     "e": 26.481
+    },
+    {
+     "w": "heure.",
+     "s": 26.593,
+     "e": 27.0
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Dans ce silence, on a entendu le bruit.",
+   "hl": [
+    "silence,",
+    "bruit."
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L11.k.wav",
+   "file_start": 27.1,
+   "speech_start": 27.1,
+   "speech_end": 29.248,
+   "words": [
+    {
+     "w": "Dans",
+     "s": 27.1,
+     "e": 27.248
+    },
+    {
+     "w": "ce",
+     "s": 27.322,
+     "e": 27.396
+    },
+    {
+     "w": "silence,",
+     "s": 27.47,
+     "e": 28.063
+    },
+    {
+     "w": "on",
+     "s": 28.1,
+     "e": 28.137
+    },
+    {
+     "w": "a",
+     "s": 28.211,
+     "e": 28.248
+    },
+    {
+     "w": "entendu",
+     "s": 28.285,
+     "e": 28.581
+    },
+    {
+     "w": "le",
+     "s": 28.656,
+     "e": 28.73
+    },
+    {
+     "w": "bruit.",
+     "s": 28.767,
+     "e": 29.248
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Des micros géants l'ont suivi jusqu'à l'immeuble de ce mec. Son étage. Son lit.",
+   "hl": [
+    "micros",
+    "lit."
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L12.k.wav",
+   "file_start": 29.348,
+   "speech_start": 29.348,
+   "speech_end": 33.941,
+   "words": [
+    {
+     "w": "Des",
+     "s": 29.348,
+     "e": 29.422
+    },
+    {
+     "w": "micros",
+     "s": 29.496,
+     "e": 29.83
+    },
+    {
+     "w": "géants",
+     "s": 29.867,
+     "e": 30.089
+    },
+    {
+     "w": "l'ont",
+     "s": 30.163,
+     "e": 30.311
+    },
+    {
+     "w": "suivi",
+     "s": 30.348,
+     "e": 30.607
+    },
+    {
+     "w": "jusqu'à",
+     "s": 30.681,
+     "e": 30.904
+    },
+    {
+     "w": "l'immeuble",
+     "s": 30.953,
+     "e": 31.274
+    },
+    {
+     "w": "de",
+     "s": 31.348,
+     "e": 31.422
+    },
+    {
+     "w": "ce",
+     "s": 31.459,
+     "e": 31.496
+    },
+    {
+     "w": "mec.",
+     "s": 31.57,
+     "e": 32.126
+    },
+    {
+     "w": "Son",
+     "s": 32.163,
+     "e": 32.237
+    },
+    {
+     "w": "étage.",
+     "s": 32.311,
+     "e": 33.089
+    },
+    {
+     "w": "Son",
+     "s": 33.126,
+     "e": 33.274
+    },
+    {
+     "w": "lit.",
+     "s": 33.57,
+     "e": 33.941
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Ce mec ronfle. Il s'est réveillé lui-même.",
+   "hl": [
+    "ronfle.",
+    "lui-même."
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L13.k.wav",
+   "file_start": 34.041,
+   "speech_start": 34.041,
+   "speech_end": 36.633,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 34.041,
+     "e": 34.189
+    },
+    {
+     "w": "mec",
+     "s": 34.263,
+     "e": 34.485
+    },
+    {
+     "w": "ronfle.",
+     "s": 34.633,
+     "e": 35.226
+    },
+    {
+     "w": "Il",
+     "s": 35.263,
+     "e": 35.3
+    },
+    {
+     "w": "s'est",
+     "s": 35.374,
+     "e": 35.448
+    },
+    {
+     "w": "réveillé",
+     "s": 35.522,
+     "e": 35.819
+    },
+    {
+     "w": "lui-même.",
+     "s": 35.856,
+     "e": 36.633
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Le seul qui ne s'était pas reconnu.",
+   "hl": [
+    "seul",
+    "reconnu."
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L14.k.wav",
+   "file_start": 36.733,
+   "speech_start": 36.733,
+   "speech_end": 38.437,
+   "words": [
+    {
+     "w": "Le",
+     "s": 36.733,
+     "e": 36.807
+    },
+    {
+     "w": "seul",
+     "s": 36.956,
+     "e": 37.178
+    },
+    {
+     "w": "qui",
+     "s": 37.252,
+     "e": 37.326
+    },
+    {
+     "w": "ne",
+     "s": 37.363,
+     "e": 37.4
+    },
+    {
+     "w": "s'était",
+     "s": 37.437,
+     "e": 37.696
+    },
+    {
+     "w": "pas",
+     "s": 37.733,
+     "e": 37.77
+    },
+    {
+     "w": "reconnu.",
+     "s": 37.844,
+     "e": 38.437
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Ce matin, il y avait un mot sur sa porte.",
+   "hl": [
+    "mot",
+    "porte."
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L15.k.wav",
+   "file_start": 38.537,
+   "speech_start": 38.537,
+   "speech_end": 40.839,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 38.537,
+     "e": 38.685
+    },
+    {
+     "w": "matin,",
+     "s": 38.796,
+     "e": 39.278
+    },
+    {
+     "w": "il",
+     "s": 39.315,
+     "e": 39.352
+    },
+    {
+     "w": "y",
+     "s": 39.426,
+     "e": 39.475
+    },
+    {
+     "w": "avait",
+     "s": 39.525,
+     "e": 39.648
+    },
+    {
+     "w": "un",
+     "s": 39.685,
+     "e": 39.722
+    },
+    {
+     "w": "mot",
+     "s": 39.796,
+     "e": 39.944
+    },
+    {
+     "w": "sur",
+     "s": 40.019,
+     "e": 40.093
+    },
+    {
+     "w": "sa",
+     "s": 40.167,
+     "e": 40.241
+    },
+    {
+     "w": "porte.",
+     "s": 40.389,
+     "e": 40.833
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Soixante millions de mots.",
+   "hl": [
+    "Soixante",
+    "mots."
+   ],
+   "file": "/tmp/pipe/s7/mot/tts/L16.k.wav",
+   "file_start": 40.939,
+   "speech_start": 40.939,
+   "speech_end": 42.643,
+   "words": [
+    {
+     "w": "Soixante",
+     "s": 40.939,
+     "e": 41.457
+    },
+    {
+     "w": "millions",
+     "s": 41.606,
+     "e": 41.976
+    },
+    {
+     "w": "de",
+     "s": 42.05,
+     "e": 42.124
+    },
+    {
+     "w": "mots.",
+     "s": 42.198,
+     "e": 42.643
+    }
+   ]
+  }
+ ],
+ "total": 43.94
+}
