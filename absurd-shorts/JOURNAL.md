@@ -3298,3 +3298,9 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - rallonge invisible en S04 ;
   - cabine du camion.
   Corrections lancées, avec une vérification exigée aux instants cités par les critiques. « Les moutons » (111) : mise en scène en cours.
+
+## 13 h 45 — « La sardine » (108) publiée par la session parallèle
+Notes anim/art : 5,0/5,4 au premier tour, 6,4/6,0 au deuxième, 6,9/6,4 au troisième. Finale : -16,1 LUFS, aucune chute de luminosité, post Postiz programmé à 13 h 45. Fusionnée, entrée ajoutée au registre.
+Conformité : un seul rouge à l'écran, la cravate du héros. Le tablier tricolore est devenu marine et blanc, et la fourche est tenue verticale. En S16, le héros est enterré jusqu'à la taille : sa tête posée seule au bord du trou se lisait comme coupée.
+Leçons ajoutées au skill : tête coupée, tricolore involontaire, fourche-fusil, tentes-méduses, éclairs plein cadre, figurant sosie du héros.
+Prochaine histoire pour la session parallèle : « Le bulletin » (110).
