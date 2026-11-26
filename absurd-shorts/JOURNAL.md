@@ -3278,3 +3278,8 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - écartée : « La pépite » (banque nationale, quatrième histoire d'argent).
   Nouveaux pièges de décors ajoutés au skill (tableau du labo, tableau du bureau, guichets, distributeur en anglais, médaille tricolore, globe à drapeau, parachutistes militaires, afficheur d'ascenseur, pièce « 1 CENT », bras levés à l'unisson). Finalisation lancée.
 - 11 h 20 — 111 « Les moutons », 112 « Le spaghetti » et 113 « La minuterie » finalisés et enregistrés (stubs, props.js, queue11.sh, test de fumée). Cartes renommées pour éviter les doublons : KRACH devient SCANDALE (déjà dans 106), RECORD devient VICTOIRE (déjà dans 107).
+- 11 h 45 — « La notice » (107) : brouillon de contrôle propre (0 figé, pas de creux), planche vérifiée. Disque libéré sans toucher aux livrables :
+  - voix en cache de 83 histoires publiées (leur mixage est déjà dans hyperframes/NNN/assets/audio.wav) ;
+  - fichiers de travail de 4 histoires publiées dans /tmp/pipe ;
+  - brouillons dépassés et images de revue.
+  Finale lancée.
