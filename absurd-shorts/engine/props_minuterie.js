@@ -11,7 +11,7 @@
 //   floor height 2.8; floor landing k at y 2.8 k, x 1.4 .. 3.8 (the ground floor hall runs on to x 7.0); half landing k at y 2.8 k + 1.4, x -2.8 .. -1.4;
 //   flight A_k (front, z 0.45 .. 1.5) climbs from the floor landing (x 1.4) to the half landing (x -1.4), flight B_k (back, z -1.5 .. -0.45) from the half
 //   landing to floor landing k + 1; 8 risers of 0.175, treads of 0.35; the well z -0.45 .. 0.45; the newel column x 1.12 .. 1.4, z -0.14 .. 0.14 (its
-//   front face carries the buttons at 1.8 above each landing); the back wall's face at z -1.5; each floor's door at x 2.9; the front door of the hall
+//   front face carries the buttons at 2.05 above each landing: out of reach, she goes on tiptoe); the back wall's face at z -1.5; each floor's door at x 2.9; the front door of the hall
 //   at x 6.0, its big button at x 5.05, 1.35 high.
 import * as THREE from 'three';
 import { box, cyl, sphere, mat, addOutline } from './style.js';
@@ -48,7 +48,7 @@ const OFF = { polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: 
 
 // the stairwell's numbers (see the header)
 const FH = 2.8, ZB = -1.5, ZF = 1.5, XL = -2.8, XR = 3.8, XH = 7.0, XW = 1.4, RISE = 0.175, RUN = 0.35, NST = 8;
-const ZA0 = 0.45, ZB1 = -0.45, COLX0 = 1.12, COLZ = 0.14, BH = 1.8, DOORX = 2.9;
+const ZA0 = 0.45, ZB1 = -0.45, COLX0 = 1.12, COLZ = 0.14, BH = 2.05, DOORX = 2.9;
 const C = { wall: '#EFE6D3', dado: '#BFD3C0', floor: '#D69A78', hall: '#D8B08E', step: '#E6CFA8', nose: '#8A5A3A', wood: '#7A4A2E', col: '#E9DECB', slab: '#E2D6BE', door: '#6F8FB2', frame: '#F4EEE0', dot: '#5A3E2E', end: '#E8DDC8' };
 
 // a box placed by its bounds (x0..x1, y0..y1, z0..z1)
@@ -141,7 +141,7 @@ export const MINUTERIE_PROPS = {
     return g;
   },
 
-  // ---------------------------------------------------------------- the timer buttons (the running gag): one on the newel column's front face at 1.8 above
+  // ---------------------------------------------------------------- the timer buttons (the running gag): one on the newel column's front face at 2.05 above
   // each floor landing in o.floors ([0..7]), and the big one beside the hall's front door (o.big, true). Each a pale plate, an orange ring and a glowing
   // orange cap, and a soft orange glow that faces the camera (it reads as an orange dot from anywhere, and in the dark: give the prop inDark).
   // o.press [[floor, t], ...] (0: the big one): the cap goes in, the glow flares; o.glow (1): the glow's strength, a number or keys; o.dots: bigger glows
@@ -295,10 +295,10 @@ export const MINUTERIE_PROPS = {
   },
 
   // ---------------------------------------------------------------- a three-step podium (pivot at the floor under the middle block): the middle block highest
-  // (gold), the left lower (silver), the right lowest (bronze); colours and heights only, no figure
+  // (gold), the left lower (silver), the right lowest (bronze); colours and heights only, no figure; o.w [l, m, r] widths, o.h heights
   mnPodium(o) {
-    const g = grp(), W = 0.85, D = o.d ?? 0.8, H = [0.6, 0.95, 0.4], X = [-W, 0, W], Cc = ['#C9D2DA', '#E8C25A', '#C98A5A'], Tc = ['#E4EAF0', '#F6DC86', '#DDA678'];
-    for (let i = 0; i < 3; i++) g.add(ink(at(box(W, H[i], D, Cc[i], { pivot: 'bottom' }), X[i], 0, 0), 0.008), at(box(W + 0.04, 0.05, D + 0.04, Tc[i]), X[i], H[i] + 0.02, 0));
+    const g = grp(), Wd = o.w || [0.85, 0.85, 0.85], D = o.d ?? 0.8, H = o.h || [0.6, 0.95, 0.4], X = [-(Wd[0] + Wd[1]) / 2, 0, (Wd[1] + Wd[2]) / 2], Cc = ['#C9D2DA', '#E8C25A', '#C98A5A'], Tc = ['#E4EAF0', '#F6DC86', '#DDA678'];
+    for (let i = 0; i < 3; i++) g.add(ink(at(box(Wd[i], H[i], D, Cc[i], { pivot: 'bottom' }), X[i], 0, 0), 0.008), at(box(Wd[i] + 0.04, 0.05, D + 0.04, Tc[i]), X[i], H[i] + 0.02, 0));
     g.userData.tops = H.map((h, i) => [X[i], h + 0.045, 0]); return g;
   },
 

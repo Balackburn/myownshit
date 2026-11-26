@@ -195,7 +195,7 @@ export const MOUTONS_PROPS = {
       // head: turn, chin, nods, the slow « no », the bleat
       let hy = keyAt(o.head, t, 0), hx = -keyAt(o.chin, t, 0), mo = 0;
       for (const n of o.nod || []) { const u = (t - n) / 0.26; if (u >= 0 && u < 1) hx += 0.42 * Math.sin(u * PI); }
-      const shk = within(o.shake, t); if (shk) { const u = t - shk[0], w = smooth(u / 0.15) * smooth((shk[1] - t) / 0.15); hy += 0.42 * Math.sin(u * TAU * (o.shakeHz ?? 1.6)) * w; }
+      const shk = within(o.shake, t); if (shk) { const u = t - shk[0], w = smooth(u / 0.15) * smooth((shk[1] - t) / 0.15), sv = Math.sin(u * TAU * (o.shakeHz ?? 1.6)) * w; hy += (o.shakeAmp ?? 0.42) * sv; turn.rotation.y -= 0.12 * (o.shakeAmp ?? 0.42) * sv; }   // (round 3) o.shakeAmp: a wider « no » (rad), the body countering a little
       let bsq = 1; for (const b of o.bleat || []) { const u = (t - b) / 0.36; if (u >= 0 && u < 1) { const e = Math.sin(u * PI); hx -= 0.4 * e; mo = Math.max(mo, e); bsq = Math.min(bsq, 1 - 0.1 * e); } }
       const chw = within(o.chew, t); if (chw) mo = Math.max(mo, 0.5 + 0.5 * Math.sin((t - chw[0]) * 26));
       if (J.head) { J.head.rotation.y += hy; J.head.rotation.x += hx; }
