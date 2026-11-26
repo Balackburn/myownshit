@@ -3347,3 +3347,15 @@ Corrections lancées. « Le sel » est en passe finale en parallèle.
 - les plans du milieu trop larges ;
 - le petit homme de la bulle, qui ne s'essouffle pas d'une apparition à l'autre.
 Corrections lancées.
+
+## 18 h 00 — « Le sel » (109) LIVRÉE et publiée sur TikTok
+Revues anim/art 7,1/7,4 → 7,3/7,4 → 7,7/7,8, puis une passe finale :
+- S12b : rallonge claire qui tombe, puis haussement d'épaules ;
+- S12 : agenouillement lisible ;
+- S14 : salière entière dans le cadre ;
+- S13 : calotte de neige en dalle ;
+- S16b : manche effilée pour le bras de mamie, et dernier plan vivant ;
+- S09 : plan moyen sur trois portes ;
+- S05b, S08 et S03 : poses tenues ranimées.
+Brouillon de contrôle : aucun gel, aucune chute. Finale : 1080x1920, 45,4 s, -16,0 LUFS (crête -3,5), aucune chute de luminosité. Post Postiz cmwxuxqxh06lol107gpusxkai.
+La composition HyperFrames a été relancée deux fois : la première faute de fond musical (effacé par erreur, puis restauré depuis le dépôt), la seconde faute de place (dossier de travail du rendu 3D supprimé).
