@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a fabriqué un tabouret bancal. Il a refusé qu'on le cale.",
+  "hl": [
+   "tabouret",
+   "cale."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il a scié le pied trop long. Puis tous les autres.",
+  "hl": [
+   "scié",
+   "autres."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Sans pieds, toujours bancal. Le problème, c'était le sol.",
+  "hl": [
+   "bancal.",
+   "sol."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Il a raboté le parquet. Jusque dans la soupe du voisin du dessous.",
+  "hl": [
+   "parquet.",
+   "soupe"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "L'immeuble penchait. Il l'a calé au cric.",
+  "hl": [
+   "L'immeuble",
+   "cric."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "La rue penchait. Il l'a rabotée. Puis la colline.",
+  "hl": [
+   "rue",
+   "colline."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Les montagnes, c'étaient des pieds trop longs. Il les a sciées.",
+  "hl": [
+   "montagnes,",
+   "sciées."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Les copeaux ont fait une montagne. Il l'a rabotée. Encore des copeaux.",
+  "hl": [
+   "copeaux",
+   "rabotée."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Le pays est plat comme une table.",
+  "hl": [
+   "plat",
+   "table."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Les rivières se sont arrêtées. Elles ne savent plus de quel côté couler.",
+  "hl": [
+   "rivières",
+   "couler."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Les cyclistes du dimanche pleurent de joie. Les skieurs, moins.",
+  "hl": [
+   "cyclistes",
+   "skieurs,"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "De la capitale, on voit la mer. Des deux côtés.",
+  "hl": [
+   "mer.",
+   "côtés."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Ce mec s'est rassis sur son tabouret.",
+  "hl": [
+   "rassis",
+   "tabouret."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Toujours bancal.",
+  "hl": [
+   "Toujours",
+   "bancal."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Le problème, c'était la Terre. Elle est ronde.",
+  "hl": [
+   "Terre.",
+   "ronde."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Il l'a calée avec un sous-bock.",
+  "hl": [
+   "calée",
+   "sous-bock."
+  ]
+ }
+]

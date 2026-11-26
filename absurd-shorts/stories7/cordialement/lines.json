@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a fini son courriel par « Bien cordialement ».",
+  "hl": [
+   "courriel",
+   "cordialement"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Réponse de sa collègue : « Cordialement. » Sans le « bien ».",
+  "hl": [
+   "Réponse",
+   "Cordialement."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il l'a pris comme une gifle. Il a répondu : « Très bien cordialement. »",
+  "hl": [
+   "gifle.",
+   "Très"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "« Cordialement. » Glacial.",
+  "hl": [
+   "Cordialement.",
+   "Glacial."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Il lui a envoyé des fleurs. Puis un poème. Puis un orchestre.",
+  "hl": [
+   "fleurs.",
+   "orchestre."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "« Cordialement. » Pas même un « bonne journée ».",
+  "hl": [
+   "Cordialement.",
+   "journée"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Tout le bureau a pris parti. À la cantine, les « bien » mangent à part.",
+  "hl": [
+   "cantine,",
+   "part."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Un chef, on lui écrit « Bien cordialement ». Il a pris l'ascenseur social.",
+  "hl": [
+   "chef,",
+   "social."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Chef. Directeur. Patron. Il a racheté la tour.",
+  "hl": [
+   "Patron.",
+   "tour."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "« Cordialement. » À son patron.",
+  "hl": [
+   "Cordialement.",
+   "patron."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Il a racheté le quartier. Puis tous les fleuristes de France.",
+  "hl": [
+   "quartier.",
+   "fleuristes"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Tout le pays lui écrit « Votre Excellence ». Elle : « Cordialement. »",
+  "hl": [
+   "Excellence",
+   "Cordialement."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Alors il a repris l'ascenseur social. Dans l'autre sens.",
+  "hl": [
+   "l'ascenseur",
+   "sens."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Le bureau de sa collègue était vide. En vacances depuis un mois.",
+  "hl": [
+   "vide.",
+   "vacances"
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Lundi, elle est rentrée. Il lui a tendu la main : « Bien cordialement. »",
+  "hl": [
+   "Lundi,",
+   "main"
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Réponse, en personne : « Cordialement. » Sans le « bien ».",
+  "hl": [
+   "personne",
+   "bien"
+  ]
+ }
+]
