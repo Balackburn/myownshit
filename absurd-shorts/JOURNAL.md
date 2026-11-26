@@ -3149,3 +3149,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 00 h 20 — « La poule » (104) revue 2 : anim 7,3 / art 7,6 (contre 6,8 / 7,2 en revue 1). Défauts : dents visibles dans la mâchoire qui tombe (S01c), yeux de la poule masqués au gag final (S13), tir élastique mou (S07), bouffée de poussière translucide « fantôme » (S14b), plan de fin trop petit avec une aile qui semble pousser au héros (S16b). Agent de corrections lancé.
 
 - 00 h 35 — « La tartine » (102) passe finale faite (S13 corps suspendu horizontal, S09 graphique retourné en miroir avec flèche peinte, S12 trois corps en échelon, S11 grille de tartines, finition sous la table). Brouillon de contrôle 4 lancé.
+
+- 00 h 55 — « La poule » (104) corrections de revue 2 faites (mâchoire sans dents via `face.jawTeeth`, gag final caméra à hauteur des yeux avec sourire en ressort synchronisé, tir élastique resserré, bouffée opaque en anneau, plan de fin rapproché). Brouillon 3 lancé (file d'attente derrière le contrôle de la tartine).
