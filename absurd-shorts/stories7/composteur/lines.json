@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec n'avait pas composté son billet de train. Amende.",
+  "hl": [
+   "composté",
+   "Amende."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Alors il l'a composté. Au fond du jardin. Avec l'amende.",
+  "hl": [
+   "jardin.",
+   "l'amende."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Au printemps, un arbre a poussé. Un arbre à billets. De banque.",
+  "hl": [
+   "billets.",
+   "banque."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Ses voisins ont acheté des billets de train. Pour les enterrer.",
+  "hl": [
+   "voisins",
+   "enterrer."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Les trains partent complets. Et vides.",
+  "hl": [
+   "complets.",
+   "vides."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Le prix du billet a triplé. Personne ne râle : ça rapporte.",
+  "hl": [
+   "triplé.",
+   "rapporte."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Tout le pays s'y est mis. L'argent pousse enfin sur les arbres.",
+  "hl": [
+   "L'argent",
+   "arbres."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Les écureuils enterrent les billets pour l'hiver. Ça repousse.",
+  "hl": [
+   "écureuils",
+   "repousse."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "En automne, les billets sont tombés. Tous en même temps.",
+  "hl": [
+   "automne,",
+   "tombés."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "On les ratisse par milliards. On se chauffe avec.",
+  "hl": [
+   "milliards.",
+   "chauffe"
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Seul le billet de train vaut encore quelque chose. Un aller simple : une forêt.",
+  "hl": [
+   "Seul",
+   "forêt."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Ce matin, au fond du jardin, l'amende aussi avait poussé.",
+  "hl": [
+   "l'amende",
+   "poussé."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Un contrôleur.",
+  "hl": [
+   "Un",
+   "contrôleur."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "« Billet, s'il vous plaît. »",
+  "hl": [
+   "Billet,",
+   "plaît."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Ce mec avait composté tous ses billets.",
+  "hl": [
+   "composté",
+   "billets."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Amende.",
+  "hl": [
+   "Amende.",
+   "Amende."
+  ]
+ }
+]

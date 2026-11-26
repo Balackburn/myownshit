@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec voulait vérifier la dose. Il a déplié la notice.",
+  "hl": [
+   "dose.",
+   "notice."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Impossible de la replier. Elle a recouvert la cuisine.",
+  "hl": [
+   "Impossible",
+   "cuisine."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Puis l'immeuble. Puis la rue.",
+  "hl": [
+   "l'immeuble.",
+   "rue."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Les passants ont lu : « Peut provoquer des démangeaisons. » Toute la rue s'est grattée.",
+  "hl": [
+   "démangeaisons.",
+   "grattée."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Toute la ville a lu : « Somnolence. » Endormie à midi.",
+  "hl": [
+   "Somnolence.",
+   "midi."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "La météo a annoncé : « Couvert, avec des petits caractères. »",
+  "hl": [
+   "Couvert,",
+   "caractères."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Tout le pays l'a lue. « Fringale. » Les boulangeries ont été dévalisées.",
+  "hl": [
+   "Fringale.",
+   "dévalisées."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "« Effet très rare : marcher en crabe. » Même le ministre de la Santé.",
+  "hl": [
+   "crabe.",
+   "ministre"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Les médecins débordent : le pays entier est malade.",
+  "hl": [
+   "médecins",
+   "malade."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Zéro comprimé avalé. Ils l'avaient juste lue.",
+  "hl": [
+   "Zéro",
+   "lue."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Dernière ligne : « Demandez conseil à votre pharmacien. »",
+  "hl": [
+   "Dernière",
+   "pharmacien."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le pharmacien de ce mec a tout replié. Deux secondes. Record du monde.",
+  "hl": [
+   "replié.",
+   "Record"
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le pays a guéri d'un coup. Sans ordonnance.",
+  "hl": [
+   "guéri",
+   "ordonnance."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Ce mec a enfin demandé la dose. Réponse : « Un par jour. »",
+  "hl": [
+   "dose.",
+   "jour."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Dessiné sur la boîte. En gros.",
+  "hl": [
+   "Dessiné",
+   "gros."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Il a déplié la notice. Pour vérifier.",
+  "hl": [
+   "déplié",
+   "vérifier."
+  ]
+ }
+]
