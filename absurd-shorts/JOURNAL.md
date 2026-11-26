@@ -3242,3 +3242,10 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 08 h 10 — 109 « Le sel » et 110 « Le bulletin » finalisés et enregistrés (stubs, props.js, queue11.sh, test de fumée) :
   - « Le sel » : plus de falaise ni de salle d'attente, qui doublaient « La notice » ; les trains deviennent des camions ; le tour absurde arrive dès la ligne 2.
   - « Le bulletin » : la chaîne d'imitation devient un marché du travail ; deux plans d'enfants au plus ; tableau vierge.
+- 08 h 50 — « La notice » (107), corrections de revue 2 faites :
+  - « guéri » en plan moyen à trois personnages, figés sur la même image, têtes qui tournent en décalé, regards caméra sur « ordonnance » ;
+  - marche en crabe venant des jambes, avec des pinces qui claquent ;
+  - ministre en costume vert sauge, différent du héros ;
+  - le bras de la présentatrice tape le ciel de papier, abaissé pour ce plan ;
+  - double take du héros sur « Un par jour », soleil dessiné dégagé.
+  - Brouillon 3 lancé.
