@@ -3161,3 +3161,16 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - en réserve : « Le sel » (8/7/6,5), écarté du lot car il double « La notice » (objet qui traverse le pays, salle d'attente) ; « Le bulletin » (7,5/7,5/6,5) ;
   - écartée : « Le genou » (reprend la météo du « Torticolis »).
   Le juge fabrication a repéré des décors qui enfreignent les règles par défaut (tableau chiffré, croix d'hôpital, amendes à « 135 € », billets « $ » et « 100 ») : ajoutés au skill. Finalisation lancée.
+
+- 02 h 05 — « La poule » (104) :
+  - Brouillon 3 : 0 plan figé, pas de creux.
+  - Revue 3 : anim 7,6 / art 7,6.
+  - Restent :
+    - tir élastique qui se lit comme une poignée de main (S07) ;
+    - bouffée en boules qui se lit comme des œufs (S14b, dans une histoire de poule) ;
+    - cochon coupé par le bord du cadre (S16b) ;
+    - « crêpe » qui semble décapitée (S11).
+  - Mâchoire de S01c : je tranche pour la bouche fermée avec menton étiré (la bouche n'est montrée que deux fois).
+  - Passe finale lancée.
+- Atelier 106-108 enregistré : 106 « Le composteur », 107 « La notice », 108 « La sardine » (stubs, props.js, queue11.sh, test de fumée).
+- Disque : environ 540 Mo libres après nettoyage des images de revue des histoires livrées. Les finales attendent l'accord de l'utilisateur sur les anciens rendus du tornado.
