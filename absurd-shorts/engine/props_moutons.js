@@ -179,6 +179,8 @@ export const MOUTONS_PROPS = {
       if (hs.air > 0.01 && J.legFL) { const a = hs.air; J.legFL.rotation.x -= 0.9 * a; J.legFR.rotation.x -= 0.8 * a; J.legBL.rotation.x += 0.9 * a; J.legBR.rotation.x += 1.0 * a;
         J.kneeFL.rotation.x += 0.9 * a; J.kneeFR.rotation.x += 0.9 * a; J.kneeBL.rotation.x -= 0.6 * a; J.kneeBR.rotation.x -= 0.6 * a; }
       if (J.body) J.body.rotation.x += hs.pitch;
+      // (round 2) o.foldFront (rad): sitting, the front legs folded back under the chest (two straight black legs in front read as loose pillars)
+      if (o.foldFront && J.legFL) { const f = o.foldFront; J.legFL.rotation.x += f; J.legFR.rotation.x += f; J.kneeFL.rotation.x -= f * 1.7; J.kneeFR.rotation.x -= f * 1.7; }
       turn.rotation.y = keyAt(o.yaw, t, 0);
       // head: turn, chin, nods, the slow « no », the bleat
       let hy = keyAt(o.head, t, 0), hx = -keyAt(o.chin, t, 0), mo = 0;
@@ -195,8 +197,11 @@ export const MOUTONS_PROPS = {
       if (back > 0.001) { roll.rotation.z = PI * back; roll.position.set(0, lerp(cy, 0.36 * S, back) - cy * Math.cos(PI * back), 0);
         if (J.head) J.head.rotation.x += (o.backHead ?? 1.2) * back; if (J.neck) J.neck.rotation.x += 0.35 * back;
         for (const lg of ['legFL', 'legFR', 'legBL', 'legBR']) if (J[lg]) J[lg].rotation.z += (lg.endsWith('L') ? 0.18 : -0.18) * back;
-        for (const tp of o.tap || []) { const u = (t - tp) / 0.22; if (u >= 0 && u < 1 && J.legFR) { const e = Math.sin(u * PI); J.legFR.rotation.x += (o.tapAmp ?? 1.3) * e; J.legFR.rotation.z += (o.tapZ ?? 0) * e; J.kneeFR.rotation.x -= 0.6 * e;
-          if (o.tapSq) { const b = u > 0.5 ? Math.sin((u - 0.5) * 2 * PI) : 0; sqg.scale.multiply(new THREE.Vector3(1 + o.tapSq * b, 1 - o.tapSq * b, 1 + o.tapSq * b)); } } } }
+        const BL = o.backLegs; if (BL) for (const lg of ['FL', 'FR', 'BL', 'BR']) { const f = lg[0] === 'F', kn = J['knee' + lg], up = J['leg' + lg]; if (kn) kn.rotation.x += (f ? BL[0] : BL[1]) * back; if (up) up.rotation.x += (f ? (BL[2] ?? 0) : (BL[3] ?? 0)) * back; }
+        for (const tp of o.tap || []) { const u = (t - tp) / 0.22; if (u >= 0 && u < 1 && J.legFR) { const e = Math.sin(u * PI); J.legFR.rotation.x += (o.tapAmp ?? 1.3) * e; J.legFR.rotation.z += (o.tapZ ?? 0) * e; J.kneeFR.rotation.x -= 0.6 * e; } }
+        // (round 2) each tap lands on the belly at mid-tap: the body squashes, rebounds taller, settles (o.tapSq the squash, 0.1)
+        if (o.tapSq) { let b = 0; for (const tp of o.tap || []) { const v = t - (tp + 0.11); if (v >= 0 && v < 0.4) b += Math.exp(-v / 0.09) * Math.cos(v * TAU / 0.2); }
+          sqg.scale.multiply(new THREE.Vector3(1 + o.tapSq * b * 0.7, 1 - o.tapSq * b, 1 + o.tapSq * b * 0.7)); } }
       else { roll.rotation.z = 0; roll.position.set(0, 0, 0); }
       // the snot bubble
       snot.visible = !!snoring; if (snoring) { const u = (t - snoring[0]) / (o.snorePer ?? 0.9), k = 0.3 + 0.7 * (0.5 - 0.5 * Math.cos(u * TAU)), R = (o.snoreR ?? 0.07) * k; snot.scale.setScalar(R); snot.position.set(0.03, 0.06, 0.16 + R); }
@@ -269,8 +274,7 @@ export const MOUTONS_PROPS = {
 
   // ---------------------------------------------------------------- the black sheep's thought bubble (pivot at its middle, faces +Z, unlit so it stays white by
   // night): a scalloped cloud with an ink border and three little circles trailing down toward o.tail [x, y] (bubble plane, metres); inside, a 2D loop: a
-  // tiny box-headed man in a dark suit and a red tie runs and hops a little white fence. o.w (1.1); o.state 0 plain, 1 leaning forward, 2 panting (tongue
-  // out, sweat, a lower, slower hop), or [[t, state]]; o.night: a moonlit meadow inside; o.sheep: a black sheep in the left corner (o.sheepW of the width, 0.3) nods at each hop;
+  // tiny box-headed man in a dark suit and a red tie runs and hops a little white fence. o.w (1.1); o.state 0 plain, 1 a sweat drop, 2 leaning forward and two drops, 3 tongue out and legs dragging, 4 collapsed over the fence (round 2), or [[t, state]]; o.night: a moonlit meadow inside; o.sheep: a black sheep in the left corner (o.sheepW of the width, 0.3) nods at each hop;
   // o.period (s, 0.9), o.t0 (the phase); o.pop t: it pops in; o.res (512)
   mtBubble(o) {
     const W = o.w ?? 1.1, H = W * (o.aspect ?? 0.72), g = grp(), k = grp(); g.add(k);
@@ -288,61 +292,84 @@ export const MOUTONS_PROPS = {
     const PER = o.period ?? 0.9, T0 = o.t0 ?? 0;
     let last = -999;
     const draw = (t, st) => {
-      const w = cv.width, h = cv.height, night = !!o.night;
+      const w = cv.width, h = cv.height, night = !!o.night, U = w * 0.72;
       const sky = cx.createLinearGradient(0, 0, 0, h); if (night) { sky.addColorStop(0, '#16224A'); sky.addColorStop(1, '#30477A'); } else { sky.addColorStop(0, '#CFE8FA'); sky.addColorStop(1, '#EAF6FF'); }
       cx.fillStyle = sky; cx.fillRect(0, 0, w, h);
-      const gy = h * 0.74;
-      if (night) { cx.fillStyle = '#F6F0D2'; cx.beginPath(); cx.arc(w * 0.78, h * 0.24, h * 0.1, 0, TAU); cx.fill(); cx.fillStyle = '#E2DAB4'; cx.beginPath(); cx.arc(w * 0.76, h * 0.22, h * 0.025, 0, TAU); cx.fill();
-        cx.fillStyle = '#FFF6D8'; for (let i = 0; i < 14; i++) cx.fillRect(w * hsh(i + 1), h * 0.5 * hsh(i + 7), w * 0.006, w * 0.006); }
+      const gy = h * (o.groundY ?? 0.74);
+      if (night) { cx.fillStyle = '#F6F0D2'; cx.beginPath(); cx.arc(w * 0.78, gy * 0.32, U * 0.1, 0, TAU); cx.fill(); cx.fillStyle = '#E2DAB4'; cx.beginPath(); cx.arc(w * 0.76, gy * 0.3, U * 0.025, 0, TAU); cx.fill();
+        cx.fillStyle = '#FFF6D8'; for (let i = 0; i < 14; i++) cx.fillRect(w * hsh(i + 1), gy * 0.68 * hsh(i + 7), w * 0.006, w * 0.006); }
       cx.fillStyle = night ? '#2A4E5A' : '#8CCB62'; cx.fillRect(0, gy, w, h - gy); cx.strokeStyle = INK; cx.lineWidth = w * 0.008; cx.beginPath(); cx.moveTo(0, gy); cx.lineTo(w, gy); cx.stroke();
       // the fence
-      const fx = w * 0.52, fh = h * 0.17, fw = w * 0.15;
+      const fx = w * 0.52, fh = U * 0.17, fw = w * 0.15;
       cx.lineWidth = w * 0.007; cx.fillStyle = '#FBFAF4';
       for (let i = 0; i < 4; i++) { const x = fx - fw / 2 + i * fw / 3 - w * 0.012; cx.beginPath(); cx.moveTo(x, gy); cx.lineTo(x, gy - fh); cx.lineTo(x + w * 0.012, gy - fh - w * 0.015); cx.lineTo(x + w * 0.024, gy - fh); cx.lineTo(x + w * 0.024, gy); cx.closePath(); cx.fill(); cx.stroke(); }
-      cx.fillRect(fx - fw / 2 - w * 0.02, gy - fh * 0.75, fw + w * 0.04, h * 0.025); cx.strokeRect(fx - fw / 2 - w * 0.02, gy - fh * 0.75, fw + w * 0.04, h * 0.025);
-      // the little man: runs left to right, hops the fence, runs out, comes back in
-      const per = st >= 2 ? PER * 1.2 : PER, u = (((t - T0) / per) % 1 + 1) % 1, x0 = o.sheep ? w * 0.36 : w * 0.14, x1 = w * 0.92;
-      const xm = lerp(x0, x1, u), ju = clamp01((u - 0.32) / 0.4), hop = Math.sin(ju * PI) * h * (st >= 2 ? 0.2 : 0.27) * (ju > 0 && ju < 1 ? 1 : 0);
-      const S_ = h * 0.2, lean = st >= 1 ? 0.32 : 0.08, run = Math.sin(u * TAU * 4);
-      cx.save(); cx.translate(xm, gy - hop); cx.rotate(lean);
+      cx.fillRect(fx - fw / 2 - w * 0.02, gy - fh * 0.75, fw + w * 0.04, U * 0.025); cx.strokeRect(fx - fw / 2 - w * 0.02, gy - fh * 0.75, fw + w * 0.04, U * 0.025);
+      // (round 2) the little man gets worse at each appearance (o.state): 0 plain; 1 a sweat drop; 2 leaning forward, two drops; 3 tongue out, three
+      // drops, legs dragging, a low scraping hop; 4 he shuffles in, barely gets onto the fence and collapses over it, hanging there heaving
+      const sI = Math.max(0, Math.min(4, st | 0)), per = PER * [1, 1, 1.1, 1.3, 1.7][sI], u = (((t - T0) / per) % 1 + 1) % 1;
+      const x0 = o.sheep && o.sheepY == null ? w * 0.36 : w * 0.14, x1 = w * 0.92, S_ = U * 0.2 * (o.man ?? 1.3), run = Math.sin(u * TAU * (sI >= 3 ? 3 : 4));
+      const nDrops = [0, 1, 2, 3, 3][sI], tongue = sI >= 3;
       cx.lineWidth = w * 0.006; cx.strokeStyle = INK; cx.lineJoin = 'round';
-      const inAir = ju > 0 && ju < 1;
-      // legs
-      cx.fillStyle = '#232838';
-      const leg = (a, dx) => { cx.save(); cx.translate(dx, -S_ * 0.42); cx.rotate(a); cx.fillRect(-S_ * 0.06, 0, S_ * 0.12, S_ * 0.42); cx.strokeRect(-S_ * 0.06, 0, S_ * 0.12, S_ * 0.42); cx.restore(); };
-      if (inAir) { leg(-1.0, -S_ * 0.06); leg(0.9, S_ * 0.06); } else { leg(0.6 * run, -S_ * 0.05); leg(-0.6 * run, S_ * 0.05); }
-      // body: a navy jacket, a white shirt V, a red tie
-      cx.fillStyle = '#26324F'; cx.fillRect(-S_ * 0.2, -S_ * 0.95, S_ * 0.4, S_ * 0.55); cx.strokeRect(-S_ * 0.2, -S_ * 0.95, S_ * 0.4, S_ * 0.55);
-      cx.fillStyle = '#F4F2EC'; cx.beginPath(); cx.moveTo(-S_ * 0.09, -S_ * 0.95); cx.lineTo(S_ * 0.09, -S_ * 0.95); cx.lineTo(0, -S_ * 0.72); cx.closePath(); cx.fill();
-      cx.fillStyle = '#D02A2E'; cx.beginPath(); cx.moveTo(-S_ * 0.03, -S_ * 0.93); cx.lineTo(S_ * 0.03, -S_ * 0.93); cx.lineTo(S_ * 0.04, -S_ * 0.62); cx.lineTo(0, -S_ * 0.55); cx.lineTo(-S_ * 0.04, -S_ * 0.62); cx.closePath(); cx.fill();
-      if (inAir || st >= 1) { cx.save(); cx.translate(S_ * 0.3, -S_ * 0.82); cx.rotate(-0.6); cx.fillStyle = '#D02A2E'; cx.fillRect(0, -S_ * 0.03, S_ * 0.2, S_ * 0.06); cx.restore(); }
-      // arms
-      cx.fillStyle = '#26324F';
-      const arm = a => { cx.save(); cx.translate(0, -S_ * 0.9); cx.rotate(a); cx.fillRect(-S_ * 0.05, 0, S_ * 0.1, S_ * 0.38); cx.strokeRect(-S_ * 0.05, 0, S_ * 0.1, S_ * 0.38); cx.restore(); };
-      if (inAir) { arm(-2.4); arm(2.4); } else { arm(0.8 * run); arm(-0.8 * run); }
-      // the box head: skin, black hair on top, two dot eyes, a mouth
-      cx.fillStyle = '#E9B78E'; cx.fillRect(-S_ * 0.17, -S_ * 1.32, S_ * 0.34, S_ * 0.37); cx.strokeRect(-S_ * 0.17, -S_ * 1.32, S_ * 0.34, S_ * 0.37);
-      cx.fillStyle = '#1A1A1E'; cx.fillRect(-S_ * 0.18, -S_ * 1.36, S_ * 0.36, S_ * 0.09);
-      cx.fillRect(-S_ * 0.08, -S_ * 1.2, S_ * 0.04, S_ * 0.06); cx.fillRect(S_ * 0.05, -S_ * 1.2, S_ * 0.04, S_ * 0.06);
-      if (st >= 2) { cx.fillStyle = '#5A1A1E'; cx.beginPath(); cx.arc(S_ * 0.02, -S_ * 1.04, S_ * 0.05, 0, PI); cx.fill(); cx.fillStyle = '#E06A7A'; cx.fillRect(S_ * 0.0, -S_ * 1.03, S_ * 0.05, S_ * 0.1);
-        cx.fillStyle = '#9FD3E8'; for (let i = 0; i < 2; i++) { const yy = -S_ * (1.3 - ((t * 1.6 + i * 0.5) % 1) * 0.3); cx.beginPath(); cx.arc(-S_ * 0.26 - i * S_ * 0.06, yy, S_ * 0.035, 0, TAU); cx.fill(); cx.stroke(); } }
-      else { cx.fillStyle = '#1A1A1E'; cx.fillRect(-S_ * 0.05, -S_ * 1.04, S_ * 0.1, S_ * 0.02); }
-      cx.restore();
-      // (round 1) the black sheep in the corner: a clear silhouette about a third of the bubble wide (a dark fleece of round lobes with a pale moonlit
-      // rim, black legs, a black head with big white red-rimmed eyes), its head nodding hard at each hop (down at the top of the hop, back up after)
-      if (o.sheep) { const nod = Math.sin(clamp01((u - 0.4) / 0.32) * PI), SW = w * (o.sheepW ?? 0.3), sx = w * 0.04 + SW * 0.5, sy = gy - SW * 0.3, R = SW * 0.2;
+      const seg = (x, y, a, len, wd, col) => { cx.save(); cx.translate(x, y); cx.rotate(a); cx.fillStyle = col; cx.fillRect(-wd / 2, 0, wd, len); cx.strokeRect(-wd / 2, 0, wd, len); cx.restore(); };
+      const drops = (hx, hy) => { cx.fillStyle = '#9FD3E8';
+        for (let i = 0; i < nDrops; i++) { const ph = (t * 1.5 + i * 0.37) % 1, dx = (i % 2 ? 1 : -1) * S_ * (0.3 + 0.07 * i), yy = hy - S_ * 0.12 + ph * S_ * 0.4, r0 = S_ * 0.075;
+          cx.beginPath(); cx.moveTo(hx + dx, yy - r0 * 2.3); cx.quadraticCurveTo(hx + dx + r0 * 1.2, yy - r0 * 0.4, hx + dx + r0, yy); cx.arc(hx + dx, yy, r0, 0, PI); cx.quadraticCurveTo(hx + dx - r0 * 1.2, yy - r0 * 0.4, hx + dx, yy - r0 * 2.3); cx.fill(); cx.stroke(); } };
+      const head = (sh) => {
+        cx.fillStyle = '#E9B78E'; cx.fillRect(-S_ * 0.17, -S_ * 1.32, S_ * 0.34, S_ * 0.37); cx.strokeRect(-S_ * 0.17, -S_ * 1.32, S_ * 0.34, S_ * 0.37);
+        cx.fillStyle = '#1A1A1E'; cx.fillRect(-S_ * 0.18, -S_ * 1.36, S_ * 0.36, S_ * 0.09);
+        if (sh) { cx.fillRect(-S_ * 0.1, -S_ * 1.19, S_ * 0.07, S_ * 0.02); cx.fillRect(S_ * 0.04, -S_ * 1.19, S_ * 0.07, S_ * 0.02); }
+        else { cx.fillRect(-S_ * 0.08, -S_ * 1.2, S_ * 0.04, S_ * 0.06); cx.fillRect(S_ * 0.05, -S_ * 1.2, S_ * 0.04, S_ * 0.06); }
+        if (tongue) { cx.fillStyle = '#5A1A1E'; cx.beginPath(); cx.arc(S_ * 0.02, -S_ * 1.04, S_ * 0.06, 0, PI); cx.fill(); cx.fillStyle = '#E06A7A'; cx.fillRect(S_ * 0.0, -S_ * 1.03, S_ * 0.07, S_ * 0.16); cx.strokeRect(S_ * 0.0, -S_ * 1.03, S_ * 0.07, S_ * 0.16); }
+        else if (sI >= 1) { cx.fillStyle = '#1A1A1E'; cx.beginPath(); cx.arc(S_ * 0.0, -S_ * 1.03, S_ * 0.035, 0, TAU); cx.fill(); }
+        else { cx.fillStyle = '#1A1A1E'; cx.fillRect(-S_ * 0.05, -S_ * 1.04, S_ * 0.1, S_ * 0.02); }
+        drops(0, -S_ * 1.14); };
+      const upright = (xm, ym, lean, inAir, drag) => {
+        cx.save(); cx.translate(xm, ym); cx.rotate(lean);
+        cx.fillStyle = '#232838';
+        const leg = (a, dx) => seg(dx, -S_ * 0.42, a, S_ * 0.42, S_ * 0.12, '#232838');
+        if (drag) { if (inAir) { leg(1.15, -S_ * 0.06); leg(1.4, S_ * 0.06); } else { leg(0.45 + 0.22 * run, -S_ * 0.05); leg(0.45 - 0.22 * run, S_ * 0.05); } }
+        else if (inAir) { leg(-1.0, -S_ * 0.06); leg(0.9, S_ * 0.06); } else { leg(0.6 * run, -S_ * 0.05); leg(-0.6 * run, S_ * 0.05); }
+        cx.fillStyle = '#26324F'; cx.fillRect(-S_ * 0.2, -S_ * 0.95, S_ * 0.4, S_ * 0.55); cx.strokeRect(-S_ * 0.2, -S_ * 0.95, S_ * 0.4, S_ * 0.55);
+        cx.fillStyle = '#F4F2EC'; cx.beginPath(); cx.moveTo(-S_ * 0.09, -S_ * 0.95); cx.lineTo(S_ * 0.09, -S_ * 0.95); cx.lineTo(0, -S_ * 0.72); cx.closePath(); cx.fill();
+        cx.fillStyle = '#D02A2E'; cx.beginPath(); cx.moveTo(-S_ * 0.03, -S_ * 0.93); cx.lineTo(S_ * 0.03, -S_ * 0.93); cx.lineTo(S_ * 0.04, -S_ * 0.62); cx.lineTo(0, -S_ * 0.55); cx.lineTo(-S_ * 0.04, -S_ * 0.62); cx.closePath(); cx.fill();
+        if (inAir || sI >= 2) { cx.save(); cx.translate(S_ * 0.3, -S_ * 0.82); cx.rotate(-0.6); cx.fillStyle = '#D02A2E'; cx.fillRect(0, -S_ * 0.03, S_ * 0.2, S_ * 0.06); cx.restore(); }
+        const arm = a => seg(0, -S_ * 0.9, a, S_ * 0.38, S_ * 0.1, '#26324F');
+        if (drag) { arm(-0.25 + 0.1 * run); arm(0.15 - 0.1 * run); }
+        else if (inAir) { arm(-2.4); arm(2.4); } else { arm(0.8 * run); arm(-0.8 * run); }
+        head(false); cx.restore(); };
+      if (sI < 4) {
+        const ju = clamp01((u - 0.32) / 0.4), inAir = ju > 0 && ju < 1, hop = inAir ? Math.sin(ju * PI) * U * [0.27, 0.27, 0.24, 0.14][sI] : 0;
+        upright(lerp(x0, x1, u), gy - hop, [0.08, 0.14, 0.32, 0.5][sI], inAir, sI >= 3);
+      } else {
+        const top = gy - fh, ru = clamp01(u / 0.36), hu = clamp01((u - 0.36) / 0.12);
+        if (u < 0.48) { const xm = lerp(x0, fx - fw / 2 - S_ * 0.3, ru) + hu * S_ * 0.3; upright(xm, gy - Math.sin(hu * PI / 2) * (fh + S_ * 0.05), 0.55 + 0.5 * hu, false, true); }
+        else {
+          const br = Math.sin(t * 9) * 0.035 * S_, px = fx - S_ * 0.05, py = top - S_ * 0.05 + br, ta = -0.55, dx = -Math.sin(ta), dy = Math.cos(ta), sw = 0.08 * Math.sin(t * 4.5);
+          seg(px, py, 0.42 + sw, S_ * 0.42, S_ * 0.12, '#232838'); seg(px - S_ * 0.04, py, 0.7 - sw, S_ * 0.42, S_ * 0.12, '#232838');
+          seg(px, py, ta, S_ * 0.55, S_ * 0.4, '#26324F');
+          const shx = px + dx * S_ * 0.48, shy = py + dy * S_ * 0.48;
+          seg(shx - S_ * 0.08, shy, 0.12 + sw, S_ * 0.38, S_ * 0.1, '#26324F'); seg(shx + S_ * 0.06, shy, -0.08 - sw, S_ * 0.38, S_ * 0.1, '#26324F');
+          seg(px + dx * S_ * 0.1, py + dy * S_ * 0.1, ta, S_ * 0.4, S_ * 0.05, '#D02A2E');
+          cx.save(); cx.translate(px + dx * S_ * 0.55, py + dy * S_ * 0.55); cx.rotate(ta + PI); cx.translate(0, S_ * 0.95); head(true); cx.restore();
+        }
+      }
+      // (round 1) the black sheep in the corner: a clear silhouette (a dark fleece of round lobes with a pale moonlit rim, black legs, a black head with big
+      // white red-rimmed eyes), its head nodding hard at each hop. (round 2) o.sheepY: its feet on that line (a fraction of the height: in the meadow's
+      // foreground, below the man's run), o.nodAmp how far the head drops (0.85); the body dips with each nod
+      if (o.sheep) { const nod = Math.sin(clamp01((u - 0.4) / 0.32) * PI), SW = w * (o.sheepW ?? 0.3), sx = w * 0.04 + SW * 0.5, feet = o.sheepY != null ? h * o.sheepY : gy, R = SW * 0.2, dip = 1 - 0.08 * nod;
+        cx.save(); cx.translate(0, feet); cx.scale(1, dip); cx.translate(0, -feet); const sy = feet - SW * 0.3;
         const lobes = [[0, 0, 1.25], [-0.85, 0.15, 0.9], [0.85, 0.1, 0.95], [-0.45, -0.55, 0.85], [0.45, -0.6, 0.85], [-0.4, 0.62, 0.8], [0.4, 0.6, 0.8], [-1.15, -0.25, 0.65], [1.1, -0.3, 0.7]];
         cx.fillStyle = '#141418'; for (const dx of [-0.75, -0.3, 0.35, 0.8]) { cx.fillRect(sx + dx * R - R * 0.14, sy + R * 0.5, R * 0.28, SW * 0.3 - R * 0.2 + h * 0.005); }
         cx.fillStyle = '#B9CCF2'; for (const [lx, ly, lr] of lobes) { cx.beginPath(); cx.arc(sx + lx * R, sy + ly * R, lr * R + w * 0.009, 0, TAU); cx.fill(); }
         cx.fillStyle = '#4E5262'; for (const [lx, ly, lr] of lobes) { cx.beginPath(); cx.arc(sx + lx * R, sy + ly * R, lr * R, 0, TAU); cx.fill(); }
         cx.fillStyle = '#5E6274'; for (const [lx, ly, lr] of lobes.slice(0, 3)) { cx.beginPath(); cx.arc(sx + lx * R - lr * R * 0.2, sy + ly * R - lr * R * 0.25, lr * R * 0.5, 0, TAU); cx.fill(); }
-        cx.save(); cx.translate(sx + R * 1.55, sy - R * 0.55); cx.rotate(0.15 + 0.85 * nod); const HW = R * 0.95, HH = R * 1.25;
+        cx.save(); cx.translate(sx + R * 1.55, sy - R * 0.55 + R * 0.45 * nod); cx.rotate(0.15 + (o.nodAmp ?? 0.85) * nod); const HW = R * 0.95, HH = R * 1.25;
         cx.fillStyle = '#B9CCF2'; cx.beginPath(); cx.ellipse(HW * 0.35, HH * 0.15, HW * 0.62 + w * 0.009, HH * 0.6 + w * 0.009, 0.25, 0, TAU); cx.fill();
         cx.fillStyle = '#141418'; cx.beginPath(); cx.ellipse(HW * 0.35, HH * 0.15, HW * 0.62, HH * 0.6, 0.25, 0, TAU); cx.fill();
         cx.beginPath(); cx.ellipse(HW * -0.1, -HH * 0.25, HW * 0.32, HH * 0.14, -0.5, 0, TAU); cx.fill();
         for (const ex of [0.1, 0.62]) { cx.fillStyle = '#FFFFFF'; cx.strokeStyle = '#D2333C'; cx.lineWidth = w * 0.007; cx.beginPath(); cx.arc(HW * ex, -HH * 0.05, HW * 0.2, 0, TAU); cx.fill(); cx.stroke();
           cx.fillStyle = '#111111'; cx.beginPath(); cx.arc(HW * ex + HW * 0.04, -HH * 0.02 + HW * 0.06 * nod, HW * 0.07, 0, TAU); cx.fill(); }
-        cx.restore(); cx.strokeStyle = INK; cx.lineWidth = w * 0.006; }
+        cx.restore(); cx.restore(); cx.strokeStyle = INK; cx.lineWidth = w * 0.006; }
       tx.needsUpdate = true;
     };
     g.userData.update = t => {
@@ -382,10 +409,14 @@ export const MOUTONS_PROPS = {
     [[0.0, 0.25, 0.0], [0.08, 0.6, -0.25], [0.2, 0.92, -0.5]].forEach(([x, y, rz]) => BL.add(at(box(0.1, 0.38, 2.6, '#E8C23A', { outline: 0.012 }), x, y, 0, 0, 0, rz)));
     for (const z of [-1.3, 1.3]) BL.add(at(box(0.6, 1.0, 0.06, '#E8C23A', { pivot: 'bottom', outline: 0.012 }), -0.1, 0.05, z));
     for (const z of [-0.5, 0.5]) g.add(at(box(0.7, 0.12, 0.12, '#3A3D44'), 1.25, 0.65, z));
-    let roll = null; if (o.roll !== false) { roll = grp(); roll.position.set(o.rollX ?? 2.45, o.rollR ?? 0.75, 0); g.add(roll); const RR = o.rollR ?? 0.75, LL = o.rollLen ?? 2.4;
+    // (round 2) o.bladeYaw: the blade angled across the road (rad); o.bank: a bank of fleece piled against the blade instead of the roll, bobbing
+    if (o.bladeYaw) BL.rotation.y = o.bladeYaw;
+    const bank = []; if (o.bank) for (let i = 0; i < 22; i++) { const z = -1.25 + 2.5 * hsh(i * 1.9 + 4), x = 0.35 + 0.35 * hsh(i * 2.7) + 0.25 * (1 - Math.abs(z) / 1.3), y = 0.25 + 0.75 * hsh(i * 3.1) * (1 - 0.5 * Math.abs(z) / 1.3);
+      const b = at(blobMesh(0.42 + 0.22 * hsh(i * 5.3), (i % 5) + 1), x, y, z); BL.add(b); bank.push([b, y, i]); }
+    let roll = null; if (o.roll !== false && !o.bank) { roll = grp(); roll.position.set(o.rollX ?? 2.45, o.rollR ?? 0.75, 0); g.add(roll); const RR = o.rollR ?? 0.75, LL = o.rollLen ?? 2.4;
       for (let i = 0; i < 26; i++) { const a = i / 26 * TAU * 2.0, z = -LL / 2 + (i % 13) / 12 * LL; roll.add(at(blobMesh(0.55 + 0.12 * hsh(i), (i % 5) + 1), Math.cos(a) * RR * 0.62, Math.sin(a) * RR * 0.62, z)); }
       roll.add(at(cyl(RR * 0.8, RR * 0.8, LL * 0.95, WOOL, 10, { noGrain: true, emissive: '#3A3E48' }), 0, 0, 0, PI / 2, 0, 0)); }
-    g.userData.update = t => { lamp.rotation.y = t * 8; if (roll) roll.rotation.z = -(o.speed ?? 2.0) * t / (o.rollR ?? 0.75); drv.rotation.z = 0.03 * Math.sin(t * 7); };
+    g.userData.update = t => { lamp.rotation.y = t * 8; if (roll) roll.rotation.z = -(o.speed ?? 2.0) * t / (o.rollR ?? 0.75); drv.rotation.z = 0.03 * Math.sin(t * 7); for (const [b, y, i] of bank) b.position.y = y + 0.04 * Math.sin(t * 11 + i * 1.3); };
     g.userData.update(0); return g;
   },
 
@@ -638,7 +669,35 @@ export const MOUTONS_PROPS = {
     const cv = canvas(128, 128), c = cv.getContext('2d'), gr = c.createRadialGradient(64, 64, 4, 64, 64, 64), col = new THREE.Color(o.color || '#7FA6C8'), rgb = `${Math.round(col.r * 255)},${Math.round(col.g * 255)},${Math.round(col.b * 255)}`;
     gr.addColorStop(0, `rgba(${rgb},${o.a ?? 0.55})`); gr.addColorStop(0.55, `rgba(${rgb},${(o.a ?? 0.55) * 0.6})`); gr.addColorStop(1, `rgba(${rgb},0)`); c.fillStyle = gr; c.fillRect(0, 0, 128, 128);
     const m = new THREE.Mesh(new THREE.CircleGeometry(o.r ?? 1.6, 32), new THREE.MeshBasicMaterial({ map: texOf(cv), transparent: true, depthWrite: false, toneMapped: false, ...OFF }));
-    m.rotation.x = -PI / 2; m.position.y = 0.03; m.renderOrder = 1; return grp(m);
+    m.rotation.x = -PI / 2; m.position.y = o.y ?? 0.06; m.renderOrder = 1; return grp(m);
+  },
+  // ---------------------------------------------------------------- (round 2) wall features for a room packed with fleece (pivot at the wall, faces +Z): a
+  // window (white frame, cross bars, a pale sky pane) at o.win [x, y] (o.winW, o.winH) and a shelf at o.shelf [x, y] (o.shelfW) with a few plain boxes, a
+  // jar and a little pot plant; no lettering
+  mtWallBits(o) {
+    const g = grp();
+    if (o.win) { const [x, y] = o.win, w = o.winW ?? 1.0, h = o.winH ?? 0.8, F = '#F4F2EA';
+      g.add(at(box(w, h, 0.02, o.pane || '#E8F6FF', { emissive: o.paneGlow || '#9ACCEE', noGrain: true }), x, y, 0.02));
+      for (const [bx, by, bw, bh] of [[0, h / 2, w + 0.1, 0.08], [0, -h / 2, w + 0.16, 0.1], [-w / 2, 0, 0.08, h], [w / 2, 0, 0.08, h], [0, 0, 0.05, h], [0, 0, w, 0.05]]) g.add(at(box(bw, bh, 0.07, F, { outline: 0.02 }), x + bx, y + by, 0.05)); }
+    if (o.shelf) { const [x, y] = o.shelf, w = o.shelfW ?? 1.2;
+      g.add(at(box(w, 0.05, 0.26, '#B08A64', { outline: 0.02 }), x, y, 0.13));
+      for (const sx of [-0.4, 0.4]) g.add(at(box(0.04, 0.14, 0.2, '#8A6A44', { outline: 0.02 }), x + sx * w, y - 0.08, 0.1));
+      const items = [[-0.42, 0.11, 0.22, '#C8463A'], [-0.33, 0.1, 0.19, '#4A7AC8'], [-0.25, 0.12, 0.24, '#E8B83A'], [-0.17, 0.09, 0.17, '#5E9A4A']];
+      for (const [ix, iw, ih, c] of items) g.add(at(box(iw * 0.6, ih, 0.18, c, { pivot: 'bottom', outline: 0.02 }), x + ix * w, y + 0.025, 0.13));
+      g.add(at(cyl(0.06, 0.06, 0.14, '#9FC8D8', 8, { pivot: 'bottom', outline: 0.03 }), x + 0.12 * w, y + 0.025, 0.13));
+      g.add(at(cyl(0.07, 0.055, 0.1, '#C9744A', 8, { pivot: 'bottom', outline: 0.03 }), x + 0.36 * w, y + 0.025, 0.13), at(sphere(0.1, '#4E8A4A'), x + 0.36 * w, y + 0.2, 0.13)); }
+    return g;
+  },
+  // ---------------------------------------------------------------- (round 2) grass tufts on a meadow (pivot at the floor): o.n tufts of five thin blades
+  // scattered over a ring o.r0..o.r (m) around the pivot, none within the o.clear discs [[x, z, r]]; o.color, o.h (blade height, 0.22), o.seed
+  mtTufts(o) {
+    const g = grp(), N = o.n ?? 60, Hb = o.h ?? 0.22, geo = new THREE.ConeGeometry(0.03, Hb, 4).translate(0, Hb / 2, 0), pts = [];
+    const M = new THREE.InstancedMesh(geo, new THREE.MeshLambertMaterial({ color: o.color || '#3E6E6E', emissive: o.emissive || '#16303A' }), N * 5), ob = new THREE.Object3D();
+    let i = 0, tries = 0;
+    while (pts.length < N && tries++ < N * 20) { const a = hsh(tries * 1.7 + (o.seed ?? 1) * 9.1) * TAU, d = lerp(o.r0 ?? 0, o.r ?? 4, Math.sqrt(hsh(tries * 3.3 + (o.seed ?? 1)))), x = Math.cos(a) * d, z = Math.sin(a) * d;
+      if ((o.clear || []).some(([cx_, cz, cr]) => Math.hypot(x - cx_, z - cz) < cr)) continue; pts.push([x, z]); }
+    for (const [x, z] of pts) for (let b = 0; b < 5; b++) { const a = b / 5 * TAU + hsh(i) * 0.6, s = 0.7 + 0.6 * hsh(i * 2.1); ob.position.set(x + Math.cos(a) * 0.03, 0, z + Math.sin(a) * 0.03); ob.rotation.set(Math.sin(a) * 0.35, 0, -Math.cos(a) * 0.35); ob.scale.set(1, s, 1); ob.updateMatrix(); M.setMatrixAt(i++, ob.matrix); }
+    M.count = i; M.castShadow = false; g.add(M); return g;
   },
   // ---------------------------------------------------------------- (round 1) the outside of a block of flats cut open, by night (pivot at the floor in the
   // middle of the cut, faces +Z): two facade strips either side of the cut (o.cw wide, 3.6) with warm lit windows, a cornice, a pitched roof with a
