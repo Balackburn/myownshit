@@ -645,51 +645,73 @@ st.cue('sfx:boing', 'S06b', 0.16, 0.18); st.cue('gust', 'S06b', 0.0, 0.1, D6b); 
 
 # ============================== the bakery (bakeryFront on the right-hand pavement, its door at z ~2.5)
 BAK = [8.6, 0.0, -0.9]; DOOR7 = [8.45, 0.0, 0.96]
-# (review 2: a dense tangle of backs) from down the street: the five spaced out along the pavement with gaps, in a line toward the door; p2 and p4
-# turned to the shop, in profile to us, so their bellies swell as silhouettes on « Fringale »
-C7P = {'p1': [7.15, 0.0, -4.6], 'p2': [7.25, 0.0, -3.4], 'p3': [7.15, 0.0, -2.2], 'p4': [7.25, 0.0, -1.0], 'dame': [7.15, 0.0, 0.15]}
-F7, L7, LN7 = FIT([-1.0, 1.9, -8.0], {**{n: [p[0], 2.25, p[2]] for n, p in C7P.items()}, **{n + 'k': [p[0], 0.9, p[2]] for n, p in C7P.items()}, 'sign': [8.55, 3.1, -1.0], 'door': [8.45, 2.45, 1.3]},
-                 margin=0.1, top=0.12, bottom=0.8, lenses=range(20, 75))
-C7 = cam(0.0, F7, add(F7, [0.1, 0.0, 0.14]), L7, L7, lens=LN7, ease='inOut')
-PROF7 = r(math.degrees(math.atan2(0.8, -0.6)))
-RY7 = {n: (PROF7 if n in ('p2', 'p4') else r(yaw(p, F7) * 0.75)) for n, p in C7P.items()}
+# (review 3: a thin band of tiny customers over half a frame of grey road) low and close, cropped at the knees: four customers in a row that recedes toward
+# the door, three-quarter to us, bent over one long strip of the giant sheet they hold at hip height like a lectern (its lined face toward the lens);
+# the PAIN sign in the top third above their heads (the shop front built taller for this shot: the sign at 3.7 m clears their heads); the bellies
+# balloon at 55-65 % of the height and fill the frame; the balloon is held 4 frames trembling, the heads snap to the door, then the dash
+C7P = {'p1': [6.2, 0.0, -2.5], 'p2': [6.5, 0.0, -1.8], 'p3': [6.8, 0.0, -1.1], 'p4': [7.1, 0.0, -0.4]}
+F7, L7, LN7 = [3.2, 1.15, -3.6], [8.2, 1.85, -0.75], 44
+C7 = cam(0.0, F7, add(F7, [0.12, 0.0, 0.1]), L7, L7, lens=LN7, ease='inOut')
+RY7 = {n: r(yaw(p, F7) * 0.7) for n, p in C7P.items()}
 FACE7 = {'p1': PF['p1'], 'p2': PF['p2'], 'p3': PF['p3'], 'p4': PF['p4'], 'dame': DF}
 BAKERY = lambda n: P(f'boulangerie{n}', 'bakeryFront', pos=BAK, ry=-90, opts={'w': 6, 'h': 12, 'sign': 'PAIN'})
+# the strip: along the row, 0.45 m in front of it (toward the lens), at hip height, tilted 40 degrees off flat: its top edge (local +Y) toward the readers
+DIR7 = [C7P['p4'][0] - C7P['p1'][0], C7P['p4'][2] - C7P['p1'][2]]; NL7d = math.hypot(*DIR7); DIR7 = [DIR7[0] / NL7d, DIR7[1] / NL7d]
+YAW7 = math.atan2(-DIR7[1], DIR7[0]); TOWARD7 = [math.sin(YAW7), math.cos(YAW7)]   # local +Z of the strip in the world (toward the lens)
+MID7 = lerp3(C7P['p1'], C7P['p4'], 0.5); TILT7 = -0.87; SW7, SH7, SY7 = r(NL7d + 1.3), 0.6, 0.86
+STRIP7 = [r(MID7[0] + 0.45 * TOWARD7[0]), SY7, r(MID7[2] + 0.45 * TOWARD7[1])]
+def edge7(p, ds):
+    # a point of the strip's top edge level with the customer p, ds metres along the row
+    u = (p[0] - STRIP7[0]) * DIR7[0] + (p[2] - STRIP7[2]) * DIR7[1] + ds; ey, ez = math.cos(TILT7) * SH7 / 2, -math.sin(TILT7) * SH7 / 2   # local +Y after the tilt: up, and away from the lens
+    return [r(STRIP7[0] + DIR7[0] * u - TOWARD7[0] * ez), r(SY7 + ey), r(STRIP7[2] + DIR7[1] * u - TOWARD7[1] * ez)]
+CHECKS.append(f'S07 strip at {STRIP7}, yaw {r(math.degrees(YAW7), 1)}, the edge at p1 {edge7(C7P["p1"], 0)}')
 
-# 7: « Tout le pays l'a lue. « Fringale. » » Five customers bent over the paper on the pavement in front of the bakery; on « Fringale » their bellies
-#    balloon with a growl and tremble, their heads snap to the door, and they dash in one after the other
+# 7: « Tout le pays l'a lue. « Fringale. » » Four customers bent over the giant sheet in front of the bakery; on « Fringale » their bellies balloon with a
+#    growl and tremble, their heads snap to the door, and they dash in one after the other
 D7 = st.dur('S07'); FRI7 = W('S07', 'L07', 5)
-chkc('S07', C7, {**{f'{n}': add(p, [0, 2.25, 0]) for n, p in C7P.items()}, 'sign': [8.55, 2.94, -1.0], 'door': add(DOOR7, [0, 2.0, 0]), 'feet': C7P['p1']})
+chkc('S07', C7, {**{f'{n}': add(p, [0, 2.3, 0]) for n, p in C7P.items()}, **{f'{n}bel': add(p, [0, 1.3, 0]) for n, p in C7P.items()}, **{f'{n}kn': add(p, [0, 0.55, 0]) for n, p in C7P.items()},
+                 'signTL': [8.55, 4.05, -1.8], 'signBR': [8.55, 3.3, 0.0], 'door': [8.55, 3.0, 0.96], 'stripL': edge7(C7P['p1'], -0.65), 'stripR': edge7(C7P['p4'], 0.65)})
 act7 = []
 # (review 2) the reading is a nod-scan down the page, not S04's carriage: each line the eyes flick across and the head ticks down a notch, out of step,
 # so the heads go down the sheet in steps until « Fringale »
 NL7 = 6
-ORDER7 = sorted(C7P, key=lambda n: -C7P[n][2])   # the one nearest the door goes first
+ORDER7 = sorted(C7P, key=lambda n: math.hypot(DOOR7[0] - C7P[n][0], DOOR7[2] - C7P[n][2]))   # the one nearest the door goes first
+SNAP7 = r(FRI7 + 0.2)   # the balloon at FRI7 (2 frames), held trembling 4 frames, then the heads snap to the door
+GO7 = {n: r(SNAP7 + 0.12 + 0.06 * ORDER7.index(n)) for n in C7P}; DROP7 = r(min(GO7.values()) - 0.02)
 for i, (n, p) in enumerate(C7P.items()):
-    ry = RY7[n]; f = FACE7[n]; hk = HAND(off(p, ry, 0.12, 0.2, 0.95), off(p, ry, 0.12, -0.2, 0.95), 'rest', 'rest')
-    j7 = ORDER7.index(n); dist = math.hypot(DOOR7[0] - p[0], DOOR7[2] - p[2])
-    tb, td = r(FRI7 + 0.02 + 0.02 * i), r(FRI7 + 0.36 + 0.07 * j7); dd = r(min(D7 - td - 0.03, 0.16 + 0.07 * dist))
-    ks = [k(-0.5, look=off(p, ry, 0.7, 0.0, 0.2)), k(0.0, toon={**hk, 'bend': BENT(0.0, s=0.45, n=0.2), 'face': {**f, 'gx': -0.6}}, toonDur=0.0)]
+    ry = RY7[n]; f = FACE7[n]; hk = HAND(edge7(p, 0.2), edge7(p, -0.2), 'grip', 'grip')
+    hfree = HAND(off(p, ry, 0.15, 0.32, 1.0), off(p, ry, 0.15, -0.32, 1.0), 'spread', 'spread')
+    dist = math.hypot(DOOR7[0] - p[0], DOOR7[2] - p[2]); td = GO7[n]; dd = r(min(D7 - td - 0.03, 0.14 + 0.06 * dist))
+    ks = [k(-0.5, look=edge7(p, 0.0)), k(0.0, toon={**hk, 'bend': BENT(0.0, s=0.45, n=0.2), 'face': {**f, 'gx': -0.6, 'gy': 0.6}}, toonDur=0.0)]
     t_ = r(0.06 + 0.025 * i)
     for L_ in range(NL7):
         nk = r(0.2 + 0.075 * L_); per = r((FRI7 - 0.12 - 0.06) / NL7)
-        ks += [k(t_, toon={**hk, 'bend': BENT(0.12, s=0.45, n=nk), 'face': {**f, 'gx': 0.7, 'gy': 0.5, 'lid': 0.35}}, toonDur=r(per * 0.6), toonEase='linear'),
-               k(r(t_ + per * 0.65), toon={**hk, 'sq': [1.02, 0.98, 1.02], 'bend': BENT(-0.12, s=0.45, n=r(nk + 0.075)), 'face': {**f, 'gx': -0.7, 'gy': 0.6, 'lid': 0.35}}, toonDur=0.05, toonEase='out')]
+        ks += [k(t_, toon={**hk, 'bend': BENT(0.12, s=0.45, n=nk), 'face': {**f, 'gx': 0.7, 'gy': 0.7, 'lid': 0.35}}, toonDur=r(per * 0.6), toonEase='linear'),
+               k(r(t_ + per * 0.65), toon={**hk, 'sq': [1.02, 0.98, 1.02], 'bend': BENT(-0.12, s=0.45, n=r(nk + 0.075)), 'face': {**f, 'gx': -0.7, 'gy': 0.8, 'lid': 0.35}}, toonDur=0.05, toonEase='out')]
         t_ = r(t_ + per)
-    ks += [  # « Fringale »: up out of the page, the belly balloons with a growl, trembling, the eyes wide
-          k(tb, toon={**hk, 'bend': {'spine': [-0.08, 0, 0, 1, 2.0], 'neck': [0.05, 0, 0, 1, None]}, 'face': {**f, 'lid': 0.0, 'eye': 0.4, 'brow': 1.0, 'mouth': 'wavy'}}, toonDur=0.06, toonEase='outBack'),
-          *[k(r(tb + 0.08 + 0.067 * j), toon={**hk, 'bend': {'spine': [-0.08, 0, 0, 1, 1.85 + 0.2 * (j % 2)], 'neck': [0.05, 0, 0, 1, None]}, 'face': {**f, 'lid': 0.0, 'eye': 0.4, 'brow': 1.0, 'mouth': 'wavy', 'gx': -0.6}}, toonDur=0.05) for j in range(4)],
-          k(r(tb + 0.2), look=add(DOOR7, [0, 1.8, 0]), lookDur=0.06),
+    tb = r(FRI7 + 0.033 * (i % 2))
+    BALL = lambda fat, **x: {**hk, 'bend': {'spine': [-0.1, 0, 0, 1.03, fat], 'neck': [-0.02, 0, 0, 1, None]}, 'face': {**f, 'lid': 0.0, 'eye': 0.45, 'brow': 1.0, 'mouth': 'wavy', 'gy': -0.2}, **x}
+    ks += [  # « Fringale »: up out of the page, the belly balloons with a growl in 2 frames, held trembling 4 frames, the eyes wide
+          k(r(tb - 0.04), look='camera', lookDur=0.05),
+          k(tb, toon=BALL(2.2, sq=[1.06, 0.96, 1.06]), toonDur=0.066, toonEase='outBack'),
+          *[k(r(tb + 0.07 + 0.033 * j), toon=BALL(2.05 if j % 2 else 2.3, sq=[1.05, 0.97, 1.05] if j % 2 else [1.08, 0.95, 1.08]), toonDur=0.025) for j in range(4)],
+          # the heads snap to the door (2 frames), the eyes first
+          k(r(SNAP7 - 0.03), toon=BALL(2.2, sq=[1.06, 0.96, 1.06], face={**f, 'lid': 0.0, 'eye': 0.4, 'brow': 1.0, 'mouth': 'wavy', 'gx': -0.9}), toonDur=0.03),
+          k(SNAP7, look=add(DOOR7, [0, 1.8, 0]), lookDur=0.06),
           # the dash: a crouch, then gone through the door one after the other, the nearest the door first
-          k(r(td - 0.06), toon={**hk, 'sq': [1.1, 0.88, 1.1], 'bend': {'spine': [0.2, 0, 0, 1, 1.7]}, 'face': {**f, 'lid': 0.0, 'eye': 0.3, 'mouth': 'open', 'jaw': 0.3}}, toonDur=0.04),
+          k(r(td - 0.06), toon={**hfree, 'sq': [1.1, 0.88, 1.1], 'bend': {'spine': [0.2, 0, 0, 1, 1.9]}, 'face': {**f, 'lid': 0.0, 'eye': 0.3, 'mouth': 'open', 'jaw': 0.3, 'gx': -0.9}}, toonDur=0.04),
           k(td, to=DOOR7, dur=dd, clip='run', ease='in', face=yaw(p, DOOR7)),
           k(td, toon={'hip': 0, 'sq': [0.86, 1.15, 0.86], 'bend': {'spine': [0.35, 0, 0, 1, 1.7]}, 'face': {**f, 'lid': 0.0, 'eye': 0.3, 'mouth': 'open', 'jaw': 0.3}, 'autoSq': 0.3}, toonDur=0.05),
           k(r(td + dd), visible=False)]
     act7.append(act(n, p, ry, 'stand', 'neutral', keys=sorted(ks, key=lambda x: x['at'])))
+ROT7 = [r(TILT7, 4), r(YAW7, 4), 0.0]
 st.shot('S07', 'parisStreet', setOpts={**SSET, 'clear': [-14, 8], 'clearL': [-14, 8]}, actors=act7,
-        props=[BAKERY(7), FLOORPAPER('papier7', [7.2, 0.0, -2.2], 2.2, 7.6, ry=0), SKYK('7', len=140)], cams=[C7])
-st.cue('sfx:rattle', 'S07', r(FRI7 + 0.04), 0.3); st.cue('sfx:stretch', 'S07', r(FRI7 + 0.02), 0.15)
-for i in range(5): st.cue('sfx:stepRun', 'S07', r(FRI7 + 0.38 + 0.07 * i), 0.15)
+        props=[P('boulangerie7', 'bakeryFront', pos=BAK, ry=-90, opts={'w': 6, 'h': 15, 'sign': 'PAIN'}),
+               P('papier7', 'noLeaflet', pos=STRIP7, rot=ROT7, rotOrder='YXZ', opts={'w': SW7, 'h': SH7, 'cols': 7, 'lh': 0.075, 'bar': 0.45, 'creases': [5, 1], 'res': 1024, 'curl': 0.1},
+                 keys=[k(DROP7, to=[STRIP7[0], 0.04, STRIP7[2]], dur=0.13, ease='in'), k(DROP7, rotTo=[r(-PI / 2, 4), r(YAW7, 4), 0.0], dur=0.13)]),
+               SKYK('7', len=140)], cams=[C7])
+st.cue('sfx:rattle', 'S07', r(FRI7 + 0.04), 0.3); st.cue('sfx:stretch', 'S07', r(FRI7 + 0.02), 0.15); st.cue('sfx:paper', 'S07', DROP7, 0.2)
+for n in C7P: st.cue('sfx:stepRun', 'S07', GO7[n], 0.15)
 for L_ in range(NL7): st.cue('sfx:tick', 'S07', r(0.06 + (FRI7 - 0.18) / NL7 * (L_ + 0.65)), 0.06)
 
 # 7b: « Les boulangeries ont été dévalisées. » Close on the door: they burst out of it one after the other, each hugging an armful of baguettes, cheeks
