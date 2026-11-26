@@ -40,6 +40,16 @@ function FLUFF(r, col = '#FF5FA8') { const g = grp(), core = new THREE.Mesh(new 
   for (let i = 0; i < 14; i++) { const a = hsh(i) * TAU, b = (hsh(i + 9) - 0.5) * PI, s = new THREE.Mesh(new THREE.SphereGeometry(r * (0.32 + 0.12 * hsh(i + 3)), 7, 5), mat(i % 3 ? col : '#FF86BE')); s.position.set(Math.cos(a) * Math.cos(b) * r * 0.85, Math.sin(b) * r * 0.85, Math.sin(a) * Math.cos(b) * r * 0.85); g.add(s); }
   return g; }
 
+// (round 2) a boom mic in a furry windshield (long axis along +X, pivot at its middle): a pale grey furry cylinder with rounded ends, a dark grille
+// band at the back and a black pistol grip and handle going back toward -X (a fluffy ball read as a grey rock)
+function MICHEAD(r = 0.22, L = 0.75) { const g = grp(), C = '#B4B9C0', D = '#7E858E';
+  const core = new THREE.Mesh(new THREE.CylinderGeometry(r, r, L, 16), mat(C)); core.rotation.z = PI / 2; addOutline(core, 0.02); g.add(core);
+  for (const sx of [-1, 1]) { const c = new THREE.Mesh(new THREE.SphereGeometry(r, 14, 10), mat(C)); c.position.x = sx * L / 2; addOutline(c, 0.02); g.add(c); }
+  for (let i = 0; i < 90; i++) { const a = hsh(i) * TAU, x = (hsh(i + 5) - 0.5) * (L + r), f = new THREE.Mesh(new THREE.ConeGeometry(0.018, 0.09 + 0.05 * hsh(i + 2), 4), mat(i % 3 ? C : D));
+    const rr = Math.abs(x) > L / 2 ? Math.sqrt(Math.max(0.0001, r * r - (Math.abs(x) - L / 2) ** 2)) : r; f.position.set(x, Math.cos(a) * rr, Math.sin(a) * rr); f.lookAt(x * 1.0, Math.cos(a) * rr * 3, Math.sin(a) * rr * 3); f.rotateX(PI / 2); g.add(f); }   // the fur
+  g.add(at(cyl(r * 0.75, r * 0.75, 0.05, '#2A2C31', 14), -L / 2 - r * 0.7, 0, 0, 0, 0, PI / 2), at(cyl(0.035, 0.035, 0.45, '#1E2024', 8), -L / 2 - r - 0.22, 0, 0, 0, 0, PI / 2), at(box(0.05, 0.16, 0.05, '#1E2024', { outline: 0.03 }), -L / 2 - r - 0.08, -0.1, 0));
+  return g; }
+
 export const MOT_PROPS = {
   // A plain room (pivot at the middle of its floor; back wall at z = -o.d/2, open toward +Z): floor, back and side walls, a skirting board;
   // o.window { x, y, w, h, sky }: a window in the back wall showing a flat sky colour (pale dawn blue by default); o.doorX: a doorway in it
@@ -73,7 +83,9 @@ export const MOT_PROPS = {
     return g; },
   // The note « CERTAINS SE RECONNAÎTRONT. » (pivot at its middle, faces +Z): a sheet o.w x o.h; o.pinAt: it is slapped up (pops from flat, a squash)
   moNote(o) { const w = o.w ?? 0.42, h = o.h ?? 0.3, g = grp(), k = grp(); g.add(k); k.add(canvasPlane(w, h, paintNote, { res: 512 }), at(box(w, h, 0.004, '#E8E2D2'), 0, 0, -0.004));
-    g.userData.update = t => { const u = o.pinAt != null ? t - o.pinAt : 1; const q = u < 0 ? 0 : Math.exp(-10 * u) * Math.cos(u * 30); k.scale.set(1 + 0.15 * q, 1 - 0.15 * q, 1); k.visible = u >= 0; };
+    // (round 2) o.flutter: a draught lifts it a little, now and then (the insert held dead)
+    g.userData.update = t => { const u = o.pinAt != null ? t - o.pinAt : 1; const q = u < 0 ? 0 : Math.exp(-10 * u) * Math.cos(u * 30); k.scale.set(1 + 0.15 * q, 1 - 0.15 * q, 1); k.visible = u >= 0;
+      k.rotation.x = o.flutter ? -0.12 * Math.max(0, Math.sin(t * 2.6)) ** 2 * (1 + 0.3 * Math.sin(t * 17)) : 0; k.rotation.z = o.flutter ? 0.015 * Math.sin(t * 3.1) : 0; };
     g.userData.update(0); return g; },
   // A cork board (pivot at its middle, faces +Z): a framed cork panel with three small blank cards pinned
   moCork(o) { const w = o.w ?? 1.1, h = o.h ?? 0.8; return grp(at(box(w + 0.08, h + 0.08, 0.03, '#7A5A3C', { outline: 0.01 }), 0, 0, -0.02), at(box(w, h, 0.03, '#C49A66'), 0, 0, 0),
@@ -159,10 +171,10 @@ export const MOT_PROPS = {
     for (let i = 0; i < 6; i++) g.add(at(box(0.04, 0.06, 0.6, '#C9CED4'), 0.0 + i * 0.3, 2.08, 0)); for (const z of [-0.3, 0.3]) g.add(at(box(1.6, 0.06, 0.05, '#C9CED4'), 0.75, 2.08, z));
     // (round 1) the siren and its knitted tea cosy sit over the side step, above the firemen (o.cosyX), big: the gag is in the middle of the frame
     const cx = o.cosyX ?? -1.0, cy = o.cosyY ?? 2.5, cosy = grp(); cosy.position.set(cx, cy, 0.2); g.add(cosy, at(box(0.7, 0.12, 0.7, '#3A3D44', { outline: 0.02 }), cx, 2.06, 0.2), at(cyl(0.08, 0.08, cy - 2.06, '#8A8F96', 8, { pivot: 'bottom', outline: 0.02 }), cx, 2.06, 0.2), at(box(0.62, 0.08, 0.62, '#3A3D44', { outline: 0.02 }), cx, cy - 0.02, 0.2));
-    for (let i = 0; i < 6; i++) { const r0 = 0.42 - i * 0.05, b = new THREE.Mesh(new THREE.CylinderGeometry(r0 - 0.045, r0, 0.12, 16), mat(['#E8742A', '#F2C94C', '#3E7FB6', '#5E8C4A', '#C86A8A', '#E8742A'][i])); b.position.y = 0.06 + i * 0.12; addOutline(b, 0.02); cosy.add(b); }
+    for (let i = 0; i < 6; i++) { const r0 = 0.42 - i * 0.05, b = new THREE.Mesh(new THREE.CylinderGeometry(r0 - 0.045, r0, 0.12, 16), mat(i % 2 ? '#F4EEE2' : '#E8742A')); b.position.y = 0.06 + i * 0.12; addOutline(b, 0.02); cosy.add(b); }
     cosy.add(at(sphere(0.13, '#F4F1EA', 1, { outline: 0.03 }), 0, 0.82, 0));
     for (const x of [-2.0, 1.8]) for (const z of [-1.05, 1.05]) { const w_ = grp(at(cyl(0.48, 0.48, 0.3, '#1E2024', 14), 0, 0, 0, PI / 2, 0, 0), at(cyl(0.22, 0.22, 0.32, '#C9CED4', 8), 0, 0, 0, PI / 2, 0, 0), at(box(0.3, 0.06, 0.33, '#8A8F96'), 0, 0, 0)); w_.position.set(x, 0.48, z); g.add(w_); wh.push(w_); }
-    g.userData.update = t => { for (const w_ of wh) w_.rotation.z = -t * (o.speed ?? 3) / 0.48; cosy.rotation.z = 0.05 * Math.sin(t * 9); cosy.scale.y = 1 + 0.04 * Math.sin(t * 18); }; g.userData.update(0); return g; },
+    g.userData.update = t => { for (const w_ of wh) w_.rotation.z = -t * (o.speed ?? 3) / 0.48; cosy.rotation.z = 0.08 * Math.sin(t * 9); cosy.rotation.x = 0.05 * Math.sin(t * 7.3); cosy.scale.y = 1 + 0.06 * Math.sin(t * 18); }; g.userData.update(0); return g; },   // (round 2) it jiggles
   // A wheelie bin (pivot at its bottom middle, faces +Z): a dark green tapered tub, a lid, two wheels at the back; o.lid [[t, 0..1]]: the lid lifts
   moBin(o) { const C = o.color || '#5E6A74', LC = o.lidColor || '#F2C94C', g = grp(at(box(0.6, 0.95, 0.7, C, { pivot: 'bottom', outline: 0.01, taper: 1.12 }), 0, 0.05, 0)), lid = grp(at(box(0.7, 0.06, 0.8, LC, { outline: 0.01 }), 0, 0, 0.38)); lid.position.set(0, 1.03, -0.38); g.add(lid);
     for (const sx of [-1, 1]) g.add(at(cyl(0.1, 0.1, 0.06, '#1E2024', 10), sx * 0.3, 0.1, -0.32, 0, 0, PI / 2)); g.add(at(box(0.5, 0.05, 0.05, '#3A3D44'), 0, 0.98, -0.42));
@@ -234,51 +246,61 @@ export const MOT_PROPS = {
     g.userData.update(0); return g; },
   // A rooftop ridge (pivot at the ridge's middle, ridge along X at y = 0): two tiled slopes going down, a chimney; o.aerial: a TV aerial on a mast that
   // rattles at o.rattle [t, ...]
-  moRoof(o) { const L = o.len ?? 6, g = grp(), ae = grp();
+  moRoof(o) { const L = o.len ?? 6, g = grp(), ae = grp(), sm = [];
     for (const sz of [-1, 1]) { const s = new THREE.Mesh(new THREE.BoxGeometry(L, 0.08, 2.4), mat('#B5652E')); s.position.set(0, -0.6, sz * 1.05); s.rotation.x = sz * 0.55; addOutline(s, 0.006); g.add(s);
       for (let i = 0; i < 5; i++) g.add(at(box(L, 0.03, 0.04, '#8A4A22'), 0, -0.15 - i * 0.24, sz * (0.25 + i * 0.42), sz * 0.55, 0, 0)); }
     g.add(at(box(L + 0.1, 0.12, 0.18, '#8A4A22', { outline: 0.01 }), 0, 0, 0), at(box(0.5, 0.9, 0.5, '#B9AE9A', { pivot: 'bottom', outline: 0.008 }), -L / 2 + 0.8, -0.2, 0));
-    ae.position.set(L / 2 - 0.9, 0, 0); g.add(ae); ae.add(at(cyl(0.025, 0.025, 1.4, '#6E757C', 6, { pivot: 'bottom' }), 0, 0, 0), at(box(0.9, 0.03, 0.03, '#6E757C'), 0, 1.1, 0), at(box(0.03, 0.03, 0.6, '#6E757C'), 0, 1.3, 0));
-    for (let i = 0; i < 5; i++) ae.add(at(box(0.02, 0.02, 0.4 - i * 0.05, '#6E757C'), -0.35 + i * 0.17, 1.1, 0));
-    g.userData.update = t => { ae.rotation.z = shake(o.rattle, t, 0.12, 45, 4); ae.rotation.x = shake(o.rattle, t, 0.06, 37, 4); }; g.userData.update(0); return g; },
+    // (round 2) a thicker aerial (two thin lines did not read) that shakes hard, with white speed lines beside its tip while it does
+    ae.position.set(L / 2 - 0.9, 0, 0); g.add(ae); ae.add(at(cyl(0.05, 0.05, 1.4, '#5E656D', 8, { pivot: 'bottom', outline: 0.02 }), 0, 0, 0), at(box(1.0, 0.06, 0.06, '#5E656D', { outline: 0.02 }), 0, 1.1, 0), at(box(0.06, 0.06, 0.7, '#5E656D', { outline: 0.02 }), 0, 1.32, 0));
+    for (let i = 0; i < 5; i++) ae.add(at(box(0.04, 0.04, 0.45 - i * 0.05, '#5E656D', { outline: 0.02 }), -0.4 + i * 0.2, 1.1, 0));
+    for (const sx of [-1, 1]) for (let j = 0; j < 2; j++) { const b = box(0.035, 0.3, 0.035, '#FFFFFF', { emissive: '#B8C4D4', noGrain: true, outline: 0.03 }); b.position.set(L / 2 - 0.9 + sx * (0.65 + 0.12 * j), 1.15 + 0.1 * j, 0); g.add(b); sm.push(b); }
+    g.userData.update = t => { const a = shake(o.rattle, t, 0.3, 45, 3.5); ae.rotation.z = a; ae.rotation.x = shake(o.rattle, t, 0.12, 37, 3.5); for (const b of sm) b.visible = Math.abs(a) > 0.08; }; g.userData.update(0); return g; },
   // A row of shutters on a facade (pivot at the middle, faces +Z): o.n pairs of slatted blue shutters on dark windows; o.rattle [t, ...]: they rattle
-  moShutters(o) { const n = o.n ?? 4, g = grp(), ps = [];
-    for (let i = 0; i < n; i++) { const x = (i - (n - 1) / 2) * 1.6; g.add(at(box(0.8, 1.2, 0.02, '#3A4450'), x, 0, 0)); for (const sx of [-1, 1]) { const p = grp(); p.position.set(x + sx * 0.4, 0, 0.03); g.add(p); p.add(at(box(0.38, 1.2, 0.04, '#5F8FB0', { outline: 0.02 }), -sx * 0.19, 0, 0)); for (let s = 0; s < 6; s++) p.add(at(box(0.36, 0.02, 0.05, '#4A7896'), -sx * 0.19, -0.5 + s * 0.2, 0.01)); ps.push({ p, sx, i }); } }
-    g.userData.update = t => { for (const { p, sx, i } of ps) p.rotation.y = sx * (0.12 + shake(o.rattle, t - i * 0.03, 0.18, 38, 5)); }; g.userData.update(0); return g; },
+  moShutters(o) { const n = o.n ?? 4, g = grp(), ps = [], sm = [];
+    for (let i = 0; i < n; i++) { const x = (i - (n - 1) / 2) * 1.6; g.add(at(box(0.8, 1.2, 0.02, '#3A4450'), x, 0, 0)); for (const sx of [-1, 1]) { const p = grp(); p.position.set(x + sx * 0.4, 0, 0.03); g.add(p); p.add(at(box(0.38, 1.2, 0.04, '#5F8FB0', { outline: 0.02 }), -sx * 0.19, 0, 0)); for (let s = 0; s < 6; s++) p.add(at(box(0.36, 0.02, 0.05, '#4A7896'), -sx * 0.19, -0.5 + s * 0.2, 0.01)); ps.push({ p, sx, i });
+      for (let j = 0; j < 2; j++) { const b = box(0.04, 0.9, 0.04, '#FFFFFF', { emissive: '#B8C4D4', noGrain: true, outline: 0.03 }); b.position.set(x + sx * (0.9 + 0.12 * j), 0, 0.12); g.add(b); sm.push({ b, i }); } } }
+    // (round 2) they bang hard (0.45 rad) with white speed lines beside them while they do
+    g.userData.update = t => { for (const { p, sx, i } of ps) p.rotation.y = sx * (0.12 + shake(o.rattle, t - i * 0.03, 0.45, 38, 4)); for (const { b, i } of sm) b.visible = Math.abs(shake(o.rattle, t - i * 0.03, 0.45, 38, 4)) > 0.12; }; g.userData.update(0); return g; },
   // A big cat sitting (pivot at its feet, faces +Z): a grey tabby box body, a round head with ears, a curled tail; o.turn [[t, yaw]]: the head turns
-  moCat(o) { const g = grp(), C = o.color || '#8A8F96', D = '#5E656D', hd = grp();
-    g.add(at(box(0.36, 0.42, 0.5, C, { pivot: 'bottom', outline: 0.02, taper: 0.85 }), 0, 0, -0.05), at(box(0.38, 0.06, 0.52, D), 0, 0.2, -0.05), at(box(0.38, 0.06, 0.52, D), 0, 0.32, -0.05));
+  moCat(o) { const g = grp(), C = o.color || '#8A8F96', D = '#5E656D', W = '#F2EEE6', hd = grp(), bd = grp(); g.add(bd);
+    bd.add(at(box(0.36, 0.42, 0.5, C, { pivot: 'bottom', outline: 0.02, taper: 0.85 }), 0, 0, -0.05), at(box(0.38, 0.06, 0.52, D), 0, 0.2, -0.05), at(box(0.38, 0.06, 0.52, D), 0, 0.32, -0.05), at(box(0.2, 0.22, 0.04, W), 0, 0.2, 0.2));
     const tl = at(new THREE.Mesh(new THREE.TorusGeometry(0.2, 0.04, 6, 12, PI * 1.2), mat(C)), 0.1, 0.08, -0.25, 0, PI / 2, 0); addOutline(tl, 0.04); g.add(tl);
-    hd.position.set(0, 0.52, 0.12); g.add(hd); hd.add(at(box(0.3, 0.26, 0.26, C, { outline: 0.02 }), 0, 0, 0));
-    for (const sx of [-1, 1]) hd.add(at(new THREE.Mesh(new THREE.ConeGeometry(0.06, 0.12, 4), mat(C)), sx * 0.09, 0.17, 0), at(box(0.06, 0.07, 0.02, '#C8E06A', { emissive: '#4A6020' }), sx * 0.07, 0.03, 0.135), at(box(0.015, 0.05, 0.021, '#14161A'), sx * 0.07, 0.03, 0.137));
-    hd.add(at(box(0.05, 0.03, 0.02, '#E8A0A0'), 0, -0.04, 0.135));
-    g.userData.update = t => { hd.rotation.y = kv(o.turn, t, 0); hd.rotation.x = shake(o.flinch, t, 0.2, 30, 6); }; g.userData.update(0); return g; },
+    // (round 2) a face that reads from three quarters: big eyes that wrap round the sides of the head, a white muzzle, stripes on the sides; o.eyes
+    // [[t, -1..1]]: the pupils lead the head turn (+ = toward +X)
+    hd.position.set(0, 0.52, 0.12); bd.add(hd); hd.add(at(box(0.3, 0.26, 0.26, C, { outline: 0.02 }), 0, 0, 0), at(box(0.16, 0.09, 0.03, W), 0, -0.06, 0.135));
+    for (const sx of [-1, 1]) { hd.add(at(new THREE.Mesh(new THREE.ConeGeometry(0.06, 0.12, 4), mat(C)), sx * 0.09, 0.17, 0), at(box(0.09, 0.09, 0.02, '#C8E06A', { emissive: '#4A6020' }), sx * 0.075, 0.035, 0.135), at(box(0.02, 0.09, 0.07, '#C8E06A', { emissive: '#4A6020' }), sx * 0.152, 0.035, 0.08));
+      for (let j = 0; j < 2; j++) hd.add(at(box(0.012, 0.03, 0.14, D), sx * 0.152, 0.09 - j * 0.11, -0.04)); }
+    const pu = [-1, 1].map(sx => { const q = at(box(0.025, 0.07, 0.021, '#14161A'), sx * 0.075, 0.035, 0.147); hd.add(q); return { q, sx }; });
+    hd.add(at(box(0.05, 0.03, 0.02, '#E8A0A0'), 0, -0.035, 0.152));
+    g.userData.update = t => { hd.rotation.y = kv(o.turn, t, 0); hd.rotation.x = shake(o.flinch, t, 0.2, 30, 6); const e = kv(o.eyes, t, 0); for (const { q, sx } of pu) q.position.x = sx * 0.075 + 0.03 * e;
+      tl.rotation.z = 0.25 * Math.sin(t * 2.3); bd.scale.set(1 + 0.015 * Math.sin(t * 3), 1 - 0.01 * Math.sin(t * 3), 1); }; g.userData.update(0); return g; },
   // A big pigeon (pivot at its feet, faces +Z): a grey body, a green-violet neck, a small head with an orange eye; o.turn [[t, yaw]]: the head turns
   moPigeon(o) { const g = grp(), hd = grp(), body = new THREE.Mesh(new THREE.SphereGeometry(0.16, 12, 8), mat('#8E959E')); body.scale.set(0.9, 0.85, 1.3); body.position.y = 0.2; addOutline(body, 0.03); g.add(body);
     g.add(at(box(0.12, 0.05, 0.2, '#5E656D', { outline: 0.03 }), 0, 0.2, -0.22, 0.3, 0, 0), at(cyl(0.08, 0.1, 0.12, '#5E8C7A', 8), 0, 0.32, 0.08));
     for (const sx of [-1, 1]) g.add(at(cyl(0.01, 0.01, 0.1, '#D86A6A', 4, { pivot: 'bottom' }), sx * 0.05, 0, 0.02));
     hd.position.set(0, 0.42, 0.1); g.add(hd); hd.add(at(sphere(0.07, '#8E959E', 1, { outline: 0.04 }), 0, 0, 0), at(new THREE.Mesh(new THREE.ConeGeometry(0.018, 0.05, 5), mat('#3A3D44')), 0, -0.01, 0.08, PI / 2, 0, 0));
-    for (const sx of [-1, 1]) hd.add(at(sphere(0.016, '#E8742A', 0), sx * 0.045, 0.015, 0.045));
-    g.userData.update = t => { hd.rotation.y = kv(o.turn, t, 0); hd.position.y = 0.42 + shake(o.flinch, t, 0.04, 30, 6); }; g.userData.update(0); return g; },
+    for (const sx of [-1, 1]) hd.add(at(sphere(0.02, '#E8742A', 0), sx * 0.05, 0.015, 0.045));
+    // (round 2) the head bobs now and then (no dead hold)
+    g.userData.update = t => { hd.rotation.y = kv(o.turn, t, 0); const bob = Math.max(0, Math.sin(t * 5.5)) ** 6 * 0.03; hd.position.y = 0.42 + shake(o.flinch, t, 0.04, 30, 6); hd.position.z = 0.1 + bob; }; g.userData.update(0); return g; },
   // A small truck with a crane boom and a giant boom microphone (pivot at the floor in the truck's middle, faces +X): a white cab and flatbed, a turret,
   // a telescopic boom from the turret to the mic; o.tip [[t, [x, y, z]], ...]: where the mic is (truck coordinates), eased between keys; the mic a big
   // grey fluffy windshield on a short handle
   moMicTruck(o) { const g = grp(), C = '#F4F1EA';
-    g.add(at(box(3.2, 0.9, 1.9, C, { pivot: 'bottom', outline: 0.005 }), -0.4, 0.45, 0), at(box(1.3, 1.6, 1.9, C, { pivot: 'bottom', outline: 0.005 }), 1.7, 0.45, 0), at(box(0.9, 0.7, 1.92, '#9FC6D8', { emissive: '#3E6A7A' }), 1.9, 1.5, 0), at(box(3.2, 0.12, 1.92, '#3E7FB6'), -0.4, 1.0, 0));
+    g.add(at(box(3.2, 0.9, 1.9, C, { pivot: 'bottom', outline: 0.005 }), -0.4, 0.45, 0), at(box(1.3, 1.6, 1.9, C, { pivot: 'bottom', outline: 0.005 }), 1.7, 0.45, 0), at(box(0.9, 0.7, 1.98, '#9FC6D8', { emissive: '#3E6A7A' }), 1.9, 1.5, 0), at(box(3.26, 0.12, 1.98, '#3E7FB6'), -0.4, 1.0, 0));   // (round 2) the stripe stands proud of the body on every face (coplanar ends flickered)
     for (const x of [-1.4, 1.6]) for (const z of [-0.95, 0.95]) g.add(at(cyl(0.4, 0.4, 0.26, '#1E2024', 12), x, 0.4, z, PI / 2, 0, 0));
     const base = [-0.8, 1.6, 0]; g.add(at(cyl(0.35, 0.4, 0.3, '#8A8F96', 12, { outline: 0.01 }), base[0], 1.5, 0));
     const boom = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.1, 1, 8), mat('#E8B030')); addOutline(boom, 0.03); g.add(boom);
-    const mic = grp(FLUFF(0.32, '#9AA0A6')); mic.children[0].scale.set(1.8, 1, 1); g.add(mic); mic.add(at(cyl(0.05, 0.05, 0.6, '#2A2C31', 6), -0.62, 0, 0, 0, 0, PI / 2));
+    const mic = grp(MICHEAD(0.26, 0.85)); g.add(mic);
     const T = o.tip || [[0, [0.5, 4, 0]]];
     const tipAt = t => { if (t <= T[0][0]) return T[0][1]; for (let i = 0; i < T.length - 1; i++) { const [a, pa] = T[i], [b, pb] = T[i + 1]; if (t < b) { const u = smooth((t - a) / (b - a)); return pa.map((v, j) => v + (pb[j] - v) * u); } } return T[T.length - 1][1]; };
     const A = new THREE.Vector3(...base), B = new THREE.Vector3(), E = new THREE.Vector3(), Y = new THREE.Vector3(0, 1, 0), X = new THREE.Vector3(1, 0, 0);
     // (round 1) the boom runs from the turret right into the mic's handle (it stopped short and the mic floated): the mic is turned along the boom
-    g.userData.update = t => { const p = tipAt(t); B.set(p[0], p[1], p[2]); const dn = B.clone().sub(A).normalize(); E.copy(B).addScaledVector(dn, -0.85); const d = E.clone().sub(A), L = d.length();
+    g.userData.update = t => { const p = tipAt(t); B.set(p[0], p[1], p[2]); const dn = B.clone().sub(A).normalize(); E.copy(B).addScaledVector(dn, -1.05); const d = E.clone().sub(A), L = d.length();
       boom.position.copy(A).addScaledVector(d, 0.5); boom.scale.set(1, Math.max(0.1, L), 1); boom.quaternion.setFromUnitVectors(Y, d.clone().normalize());
       mic.position.copy(B); mic.quaternion.setFromUnitVectors(X, dn); mic.rotateX(0.06 * Math.sin(t * 7)); };
     g.userData.update(0); return g; },
   // A giant boom microphone alone (pivot at its middle, points along +X): a big grey fluffy windshield on a pole going back toward -X; o.sway: it hovers
-  moMic(o) { const g = grp(), m = FLUFF(o.r ?? 0.32, '#9AA0A6'); m.children[0].scale.set(1.8, 1, 1); g.add(m, at(cyl(0.05, 0.05, o.pole ?? 2.5, '#2A2C31', 6), -(o.pole ?? 2.5) / 2 - 0.3, 0, 0, 0, 0, PI / 2));
+  moMic(o) { const g = grp(), m = MICHEAD(o.r ?? 0.22, o.len ?? 0.75); g.add(m, at(cyl(0.05, 0.05, o.pole ?? 2.5, '#2A2C31', 6), -(o.pole ?? 2.5) / 2 - 0.75, 0, 0, 0, 0, PI / 2));
     g.userData.update = t => { m.position.y = 0.03 * Math.sin(t * 3); g.rotation.z = shake(o.jolt, t, 0.15, 30, 5); }; g.userData.update(0); return g; },
   // Big studio headphones (attach to the head joint; pivot at the middle of the head): two dark cups on a band over the top; o.span, o.top
   moPhones(o) { const S = o.span ?? 0.24, T = o.top ?? 0.3, g = grp(); for (const sx of [-1, 1]) g.add(at(cyl(0.12, 0.12, 0.08, '#2A2C31', 14, { outline: 0.03 }), sx * S, 0, 0, 0, 0, PI / 2), at(cyl(0.09, 0.09, 0.02, '#C8322A', 12), sx * (S + 0.045), 0, 0, 0, 0, PI / 2));
@@ -299,7 +321,7 @@ export const MOT_PROPS = {
   // to a heap at the pivot, staggered from o.at over o.dur; the heap stays
   moAvalanche(o) { const n = o.n ?? 60, g = grp(), F = o.from || [0.8, 1.6, -1.2], t0 = o.at ?? 0, dur = o.dur ?? 1.0, tex = canvasPlane(0.42, 0.3, paintNote, { res: 256 }), sh = [], M = o.mound;
     // (round 1) o.mound {h, r}: the sheets land on a mound round the pivot (the man under it is buried); o.burst t: they fly out to a low ring round it
-    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(tex.geometry, tex.material); let end, ring = null;
+    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(tex.geometry, tex.material); m.rotation.order = 'YXZ'; let end, ring = null;   // (round 2) laid flat, then spun about the vertical: the text always faces up, never mirrored
       if (M) { const a = hsh(i) * TAU, rr = Math.sqrt(hsh(i + 2)) * M.r, top = M.h * (1 - (rr / M.r) ** 2); end = [Math.cos(a) * rr, 0.04 + Math.min(top, M.h * (0.12 + 0.88 * i / n)), Math.sin(a) * rr];
         const R2 = M.r * 1.25 + 0.35 * hsh(i + 6); ring = [Math.cos(a) * R2, 0.04 + 0.16 * hsh(i + 8) * (1 - Math.min(1, (R2 - M.r) / 0.6)), Math.sin(a) * R2]; }
       else end = [(hsh(i) - 0.5) * 1.6, 0.04 + Math.floor(i / 12) * 0.05 + 0.1 * hsh(i + 4) * (1 - Math.floor(i / 12) / 6), (hsh(i + 2) - 0.3) * 1.1];
@@ -340,4 +362,6 @@ export const MOT_PROPS = {
       for (let i = 0; i <= n; i++) { const x = x0 + (x1 - x0) * i / n, z = z0 + (z1 - z0) * i / n; g.add(at(cyl(0.03, 0.03, 0.95, '#C9CED4', 8, { pivot: 'bottom', outline: 0.02 }), x, 0, z), at(cyl(0.13, 0.15, 0.04, '#5E656D', 12), x, 0.02, z)); }
       const b = at(box(L, 0.06, 0.012, o.color || '#C8322A', { outline: 0.02 }), (x0 + x1) / 2, 0.88, (z0 + z1) / 2); b.rotation.y = -Math.atan2(z1 - z0, x1 - x0); g.add(b); }
     return g; },
+  moBlock(o) {   // (round 2) a plain block (pivot at its bottom middle): o.w x o.h x o.d of o.color; a dais, a step
+    return grp(at(box(o.w ?? 1, o.h ?? 0.25, o.d ?? 1, o.color || '#7A5A3C', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0)); },
 };
