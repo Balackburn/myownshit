@@ -2475,3 +2475,10 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 56) En 9:16, le cadre ne tient pas trois éléments en ligne (hublot, cochon, héros) à 50 % de la hauteur : ramener le décor derrière le sujet (glisser le hublot le long de la paroi) au lieu d'élargir ; vérifier avec `fit()` avant de rendre.
 - (cycle 56) Un nuage translucide devant un corps se lit comme un fantôme : des bouffées opaques et cernées, au ras du meuble, qui rétrécissent jusqu'à rien au lieu de s'effacer.
 - (cycle 56) Mâchoire qui tombe quand la bouche ne doit plus montrer de dents (gag de dents qui compte les apparitions) : `face.jawTeeth: 0` ouvre une cavité vide.
+- (cycle 56, session 87, « Le pardon ») Le rig cartoon ignore les rayures et couleurs de tenue : un costume rayé est un accessoire peint posé sur le torse, sinon les détenus sortent en costume.
+- (cycle 56) Des clés « path » avec rotation le long du chemin ne déplacent plus l'acteur après le premier segment : enchaîner des clés « to » avec leurs rotations.
+- (cycle 56) Twist « c'est lui » : le corps caché du coupable a la même silhouette que le personnage révélé (corps rond, tête détournée), jamais un torse générique.
+- (cycle 56) Un flash « doux » en halo devient un disque gris plat : petits rayons blancs au bord du cadre, jamais devant un visage.
+- (cycle 56) Les cibles de main d'un acteur qui tombe restent en l'air si elles ne descendent pas avec lui (les bras se lisent comme des jambes) ; une chute qui finit à pleine vitesse donne une image « tête au sol ».
+- (cycle 56) Une carte de titre peut couvrir le gag précis (le cran d'une horloge) : vérifier la bande de la carte sur l'image du gag et recadrer.
+- (cycle 56) Jambes assises qui traversent une cloison de box : reculer l'acteur dans un box plus profond.

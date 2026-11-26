@@ -3153,3 +3153,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 00 h 55 — « La poule » (104) corrections de revue 2 faites (mâchoire sans dents via `face.jawTeeth`, gag final caméra à hauteur des yeux avec sourire en ressort synchronisé, tir élastique resserré, bouffée opaque en anneau, plan de fin rapproché). Brouillon 3 lancé (file d'attente derrière le contrôle de la tartine).
 
 - 01 h 00 — « La tartine » (102) brouillon de contrôle 4 : 0 plan figé, pas de creux ; planche vérifiée, corrections lisibles (S13 corps horizontal, S09 flèche qui plonge, S12 trois corps en échelon). Un défaut reste : le carrelage disparaît sur 4 images de S01 (sol uni plus clair). Agent de diagnostic lancé avant la finale.
+
+- 01 h 10 — « Le pardon » (103), session 87 : revues 5,5/6,4 → 6,6/7,0 → 7,1/7,4, passe finale, brouillon de contrôle, finale 1080x1920 à −16,0 LUFS ; publiée (cmwwtwatt16u4pj07dbxmflr8). Branche fusionnée, leçons ajoutées. « Le mot » (105) confié à la session 87.
