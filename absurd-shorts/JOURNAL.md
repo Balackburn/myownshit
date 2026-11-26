@@ -3289,3 +3289,12 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - revues 6,8/7,4 → 7,5/7,8 → 7,6/8,0, passe finale, brouillon de contrôle ;
   - finale 1080x1920, 51 s, −16,1 LUFS, crête −2,7 dBFS, HyperFrames 0 erreur, pas de creux ;
   - composition relancée seule après le refus pour manque de place.
+- 13 h 20 — « Le sel » (109) revue 2 : anim 7,3 / art 7,4, scores stables. À reprendre :
+  - double take sur « Vide » ;
+  - rallonge qui flotte en S12b, alors que la passe précédente la disait corrigée ;
+  - insert du poivre illisible ;
+  - prémisse en S02 ;
+  - tension en S15 ;
+  - rallonge invisible en S04 ;
+  - cabine du camion.
+  Corrections lancées, avec une vérification exigée aux instants cités par les critiques. « Les moutons » (111) : mise en scène en cours.
