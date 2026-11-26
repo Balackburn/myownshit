@@ -85,21 +85,28 @@ export const MOT_PROPS = {
   moEarmuffs(o) { const r = o.r ?? 0.16, S = o.span ?? 0.24, T = o.top ?? 0.3, g = grp(), k = grp(); g.add(k);
     for (const sx of [-1, 1]) { const c = FLUFF(r); c.position.set(sx * S, 0, 0); c.scale.set(0.75, 1, 1); k.add(c); }
     const band = new THREE.Mesh(new THREE.TorusGeometry(S, 0.035, 6, 18, PI), mat('#E8448E')); band.position.y = 0; band.scale.set(1, T / S, 1); addOutline(band, 0.04); k.add(band);
-    if (o.bow) { k.add(at(box(2 * S + 0.1, 0.06, 0.02, '#F2C94C', { outline: 0.03 }), 0, T * 0.55, 0.06));
-      for (const sx of [-1, 1]) k.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.08, 0.025, 6, 12), mat('#F2C94C')), sx * 0.085, T + 0.06, 0.02, 0, 0, sx * 0.6));
-      k.add(at(sphere(0.035, '#E0B030', 1), 0, T + 0.05, 0.03)); }
-    g.userData.update = t => { const u = o.pop != null ? t - o.pop : 1; const s = u < 0 ? 0.001 : 1 + 0.25 * Math.exp(-8 * u) * Math.sin(u * 25); k.scale.setScalar(s); };
+    if (o.bow) { const RC = o.ribbon || '#E8B020', rm = mat(RC);   // (round 1) a looped ribbon bow on the band: two big loops, a knot, two tails (a bar across read as a key)
+      for (const sx of [-1, 1]) { const lp = new THREE.Mesh(new THREE.TorusGeometry(0.1, 0.03, 6, 16), rm); lp.scale.set(1.5, 0.8, 1); lp.position.set(sx * 0.14, T + 0.08, 0); lp.rotation.set(0, 0, sx * 0.35); addOutline(lp, 0.04); k.add(lp);
+        k.add(at(box(0.07, 0.22, 0.025, RC, { outline: 0.04 }), sx * 0.08, T - 0.07, 0.04, 0, 0, sx * 0.45)); }
+      k.add(at(sphere(0.05, RC, 1, { outline: 0.04 }), 0, T + 0.07, 0.02)); }
+    const H0 = o.dropH ?? 0;   // (round 1) o.dropAt: it falls from H0 m above and lands at its place with a squash and a wobble
+    g.userData.update = t => { let s = 1, y = 0, q = 0;
+      if (o.pop != null) { const u = t - o.pop; s = u < 0 ? 0.001 : 1 + 0.25 * Math.exp(-8 * u) * Math.sin(u * 25); }
+      if (o.dropAt != null) { const u = t - o.dropAt; if (u < 0) s = 0.001; else if (u < 0.3) y = H0 * (1 - (u / 0.3) ** 2); else q = Math.exp(-9 * (u - 0.3)) * Math.cos((u - 0.3) * 28); }
+      k.scale.set(s * (1 + 0.18 * q), s * (1 - 0.22 * q), s * (1 + 0.18 * q)); k.position.y = y; };
     g.userData.update(0); return g; },
   // A puffy duvet over the legs of a man sitting/lying in bed (pivot at the middle of its top end, lies along +Z): a soft wide box, o.color; o.flapAt []: it
   // jumps (the man bolting upright under it)
-  moDuvet(o) { const g = grp(), d = new THREE.Mesh(new THREE.BoxGeometry(o.w ?? 1.25, 0.22, o.l ?? 1.25), mat(o.color || '#8FB8D8')); d.position.set(0, 0.11, (o.l ?? 1.25) / 2); addOutline(d, 0.01); g.add(d);
-    const fold = at(box((o.w ?? 1.25) + 0.02, 0.24, 0.16, '#F4F1EA', { outline: 0.02 }), 0, 0.12, 0.08); g.add(fold);
+  moDuvet(o) { const T = o.h ?? 0.22, g = grp(), d = new THREE.Mesh(new THREE.BoxGeometry(o.w ?? 1.25, T, o.l ?? 1.25), mat(o.color || '#8FB8D8')); d.position.set(0, T / 2, (o.l ?? 1.25) / 2); addOutline(d, 0.01); g.add(d);   // (round 1) o.h its thickness
+    const fold = at(box((o.w ?? 1.25) + 0.02, T + 0.02, 0.16, '#F4F1EA', { outline: 0.02 }), 0, T / 2 + 0.01, 0.08); g.add(fold);
     g.userData.update = t => { const s = shake(o.flapAt, t, 0.15, 30, 7); d.scale.y = 1 + s; fold.scale.y = 1 + s; }; g.userData.update(0); return g; },
   // A bedside lamp on a small table (pivot at the floor): a warm glowing shade; o.wobble [t, ...]: it rocks and the light flickers
   moLamp(o) { const g = grp(at(box(0.45, 0.55, 0.4, '#8A6A45', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0)), l = grp(); l.position.y = 0.55; g.add(l);
-    const shadeM = mat('#FFE0A0', { emissive: '#E8A040', noGrain: true, unique: true });
-    l.add(at(cyl(0.05, 0.08, 0.04, '#3A3D44', 10), 0, 0.02, 0), at(cyl(0.015, 0.015, 0.3, '#3A3D44', 6, { pivot: 'bottom' }), 0, 0.03, 0), at(new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.17, 0.2, 12, 1, true), shadeM), 0, 0.38, 0));
-    g.userData.update = t => { const s = shake(o.wobble, t, 0.25, 34, 6); l.rotation.z = s; shadeM.emissive.setRGB(0.91, 0.63, 0.25).multiplyScalar(1 - Math.min(0.7, Math.abs(s) * 3)); };
+    const shadeM = mat('#FFE6A8', { emissive: '#F0A040', noGrain: true, unique: true });   // (round 1) a bigger shade and a real warm light: the lamp is on in every bedroom shot
+    l.add(at(cyl(0.07, 0.1, 0.05, '#3A3D44', 10), 0, 0.025, 0), at(cyl(0.018, 0.018, 0.3, '#3A3D44', 6, { pivot: 'bottom' }), 0, 0.03, 0), at(new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.24, 0.3, 14, 1, true), shadeM), 0, 0.44, 0));
+    const P0 = o.power ?? 2.4, bulb = new THREE.PointLight('#FFB060', P0, 3.4, 1.4); bulb.position.y = 0.42; bulb.castShadow = false; l.add(bulb);
+    g.userData.update = t => { const s = shake(o.wobble, t, 0.25, 34, 6), p = o.pulse ? 0.8 + 0.2 * Math.sin(t * TAU * o.pulse) : 1, k = (1 - Math.min(0.7, Math.abs(s) * 3)) * p;
+      l.rotation.z = s; shadeM.emissive.setRGB(0.94, 0.63, 0.25).multiplyScalar(k); bulb.intensity = P0 * k; };
     g.userData.update(0); return g; },
   // A window with curtains (pivot at its middle, in a back wall, faces +Z): a pale dawn pane, two cloth curtains; o.flap [t, ...]: the curtains billow in
   moCurtains(o) { const w = o.w ?? 1.1, h = o.h ?? 1.3, g = grp(at(box(w, h, 0.02, '#CFE0F0', { emissive: '#7090B0', noGrain: true }), 0, 0, 0), at(box(w + 0.12, 0.08, 0.06, '#F4EEE2', { outline: 0.01 }), 0, h / 2 + 0.06, 0.03));
@@ -139,24 +146,28 @@ export const MOT_PROPS = {
     g.userData.update = t => { lf.rotation.y = 1.6 * kv(o.open, t, 0); }; g.userData.update(0); return g; },
   // A council room front bench and lectern (pivot at the floor in the middle, faces +Z): a straight wooden bench with a desk front in a row, a plain
   // coloured hanging panel behind (no word, no emblem), a lectern at o.lecternX
-  moCouncil(o) { const g = grp(at(box(4.2, 0.85, 0.5, '#8A6A45', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0.6), at(box(4.3, 0.06, 0.6, '#6A4A30', { outline: 0.01 }), 0, 0.88, 0.6), at(box(4.0, 0.45, 0.45, '#7A5A3C', { pivot: 'bottom' }), 0, 0, -0.1), at(box(4.0, 0.6, 0.08, '#6A4A30', { pivot: 'bottom' }), 0, 0.45, -0.32));
-    g.add(at(box(2.6, 1.3, 0.04, o.panel || '#3E6A9A', { outline: 0.006 }), 0, 2.6, -1.6), at(box(2.7, 0.08, 0.06, '#C9A24A'), 0, 3.28, -1.58));
-    const lx = o.lecternX ?? 0; g.add(at(box(0.7, 1.05, 0.45, '#8A6A45', { pivot: 'bottom', outline: 0.006 }), lx, 0, -1.0), at(box(0.8, 0.06, 0.55, '#6A4A30'), lx, 1.08, -1.0)); return g; },
+  moCouncil(o) { const W = o.w ?? 4.2, g = grp(at(box(W, 0.85, 0.5, '#8A6A45', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0.6), at(box(W + 0.1, 0.06, 0.6, '#6A4A30', { outline: 0.01 }), 0, 0.88, 0.6), at(box(W - 0.2, 0.45, 0.45, '#7A5A3C', { pivot: 'bottom' }), 0, 0, -0.1), at(box(W - 0.2, 0.6, 0.08, '#6A4A30', { pivot: 'bottom' }), 0, 0.45, -0.32));
+    if (o.riser) g.add(at(box(W + 0.3, o.riser, 1.7, '#7A5A3C', { pivot: 'bottom', outline: 0.006 }), 0, -o.riser, 0.15));   // (round 1) a step: a second straight row behind and above
+    if (o.panel !== false) g.add(at(box(o.panelW ?? 2.6, 1.3, 0.04, o.panel || '#3E6A9A', { outline: 0.006 }), o.panelX ?? 0, o.panelY ?? 2.6, -1.6), at(box((o.panelW ?? 2.6) + 0.1, 0.08, 0.06, '#C9A24A'), o.panelX ?? 0, (o.panelY ?? 2.6) + 0.68, -1.58));
+    const lx = o.lecternX ?? 0; if (o.lecternX !== null) g.add(at(box(0.7, 1.05, 0.45, '#8A6A45', { pivot: 'bottom', outline: 0.006 }), lx, 0, o.lecternZ ?? -1.0), at(box(0.8, 0.06, 0.55, '#6A4A30'), lx, 1.08, o.lecternZ ?? -1.0)); return g; },
   // A fire engine (pivot at the floor in its middle, faces +X, length along X): a red body and cab with a window, a white stripe, a ladder on the
   // roof, the roof siren wrapped in a big knitted striped tea cosy with a pompom; turning wheels at o.speed; no cross, crest or number
   moFireTruck(o) { const g = grp(), R = '#C8322A', wh = [];
     g.add(at(box(4.4, 1.5, 2.1, R, { pivot: 'bottom', outline: 0.005 }), -0.5, 0.5, 0), at(box(1.6, 1.9, 2.1, R, { pivot: 'bottom', outline: 0.005 }), 1.8, 0.5, 0), at(box(4.4, 0.12, 2.12, '#F4F1EA'), -0.5, 1.2, 0));
     for (const z of [-1.06, 1.06]) g.add(at(box(0.9, 0.7, 0.02, '#9FC6D8', { emissive: '#3E6A7A' }), 1.9, 1.85, z));
     g.add(at(box(1.0, 0.75, 2.12, '#9FC6D8', { emissive: '#3E6A7A' }), 2.55, 1.85, 0), at(box(0.2, 0.3, 2.0, '#3A3D44'), 2.65, 0.65, 0));
-    for (let i = 0; i < 9; i++) g.add(at(box(0.04, 0.06, 0.6, '#C9CED4'), -2.4 + i * 0.4, 2.08, 0)); for (const z of [-0.3, 0.3]) g.add(at(box(3.6, 0.06, 0.05, '#C9CED4'), -0.8, 2.08, z));
-    const cosy = grp(); cosy.position.set(1.8, 2.4, 0); g.add(cosy);
-    for (let i = 0; i < 5; i++) { const r0 = 0.32 - i * 0.045, b = new THREE.Mesh(new THREE.CylinderGeometry(r0 - 0.04, r0, 0.1, 14), mat(['#E8742A', '#F2C94C', '#3E7FB6', '#5E8C4A', '#C86A8A'][i])); b.position.y = i * 0.1; addOutline(b, 0.02); cosy.add(b); }
-    cosy.add(at(sphere(0.1, '#F4F1EA', 1, { outline: 0.03 }), 0, 0.55, 0));
+    for (let i = 0; i < 6; i++) g.add(at(box(0.04, 0.06, 0.6, '#C9CED4'), 0.0 + i * 0.3, 2.08, 0)); for (const z of [-0.3, 0.3]) g.add(at(box(1.6, 0.06, 0.05, '#C9CED4'), 0.75, 2.08, z));
+    // (round 1) the siren and its knitted tea cosy sit over the side step, above the firemen (o.cosyX), big: the gag is in the middle of the frame
+    const cx = o.cosyX ?? -1.0, cy = o.cosyY ?? 2.5, cosy = grp(); cosy.position.set(cx, cy, 0.2); g.add(cosy, at(box(0.7, 0.12, 0.7, '#3A3D44', { outline: 0.02 }), cx, 2.06, 0.2), at(cyl(0.08, 0.08, cy - 2.06, '#8A8F96', 8, { pivot: 'bottom', outline: 0.02 }), cx, 2.06, 0.2), at(box(0.62, 0.08, 0.62, '#3A3D44', { outline: 0.02 }), cx, cy - 0.02, 0.2));
+    for (let i = 0; i < 6; i++) { const r0 = 0.42 - i * 0.05, b = new THREE.Mesh(new THREE.CylinderGeometry(r0 - 0.045, r0, 0.12, 16), mat(['#E8742A', '#F2C94C', '#3E7FB6', '#5E8C4A', '#C86A8A', '#E8742A'][i])); b.position.y = 0.06 + i * 0.12; addOutline(b, 0.02); cosy.add(b); }
+    cosy.add(at(sphere(0.13, '#F4F1EA', 1, { outline: 0.03 }), 0, 0.82, 0));
     for (const x of [-2.0, 1.8]) for (const z of [-1.05, 1.05]) { const w_ = grp(at(cyl(0.48, 0.48, 0.3, '#1E2024', 14), 0, 0, 0, PI / 2, 0, 0), at(cyl(0.22, 0.22, 0.32, '#C9CED4', 8), 0, 0, 0, PI / 2, 0, 0), at(box(0.3, 0.06, 0.33, '#8A8F96'), 0, 0, 0)); w_.position.set(x, 0.48, z); g.add(w_); wh.push(w_); }
-    g.userData.update = t => { for (const w_ of wh) w_.rotation.z = -t * (o.speed ?? 3) / 0.48; cosy.rotation.z = 0.04 * Math.sin(t * 9); }; g.userData.update(0); return g; },
+    g.userData.update = t => { for (const w_ of wh) w_.rotation.z = -t * (o.speed ?? 3) / 0.48; cosy.rotation.z = 0.05 * Math.sin(t * 9); cosy.scale.y = 1 + 0.04 * Math.sin(t * 18); }; g.userData.update(0); return g; },
   // A wheelie bin (pivot at its bottom middle, faces +Z): a dark green tapered tub, a lid, two wheels at the back; o.lid [[t, 0..1]]: the lid lifts
-  moBin(o) { const g = grp(at(box(0.6, 0.95, 0.7, '#2E6A4A', { pivot: 'bottom', outline: 0.01, taper: 1.12 }), 0, 0.05, 0)), lid = grp(at(box(0.7, 0.06, 0.8, '#245A3E', { outline: 0.01 }), 0, 0, 0.38)); lid.position.set(0, 1.03, -0.38); g.add(lid);
-    for (const sx of [-1, 1]) g.add(at(cyl(0.1, 0.1, 0.06, '#1E2024', 10), sx * 0.3, 0.1, -0.32, 0, 0, PI / 2)); g.add(at(box(0.5, 0.05, 0.05, '#245A3E'), 0, 0.98, -0.42));
+  moBin(o) { const C = o.color || '#5E6A74', LC = o.lidColor || '#F2C94C', g = grp(at(box(0.6, 0.95, 0.7, C, { pivot: 'bottom', outline: 0.01, taper: 1.12 }), 0, 0.05, 0)), lid = grp(at(box(0.7, 0.06, 0.8, LC, { outline: 0.01 }), 0, 0, 0.38)); lid.position.set(0, 1.03, -0.38); g.add(lid);
+    for (const sx of [-1, 1]) g.add(at(cyl(0.1, 0.1, 0.06, '#1E2024', 10), sx * 0.3, 0.1, -0.32, 0, 0, PI / 2)); g.add(at(box(0.5, 0.05, 0.05, '#3A3D44'), 0, 0.98, -0.42));
+    // (round 1) o.blanket: swaddled like a baby in a pale blue blanket with a white fold (a bare green tub read as a box)
+    if (o.blanket) g.add(at(box(0.74, 0.62, 0.84, o.blanket === true ? '#BFD8F0' : o.blanket, { pivot: 'bottom', outline: 0.012, taper: 1.06 }), 0, 0.12, 0), at(box(0.78, 0.1, 0.88, '#F4F1EA', { outline: 0.012 }), 0, 0.76, 0));
     g.userData.update = t => { lid.rotation.x = -1.2 * kv(o.lid, t, 0); }; g.userData.update(0); return g; },
   // A big rooster (pivot at its feet, faces +X, side on): a white-and-russet body, a dark green tail fan, a red comb and wattle, a yellow beak and legs;
   // o.crow [t, ...]: the head throws back, the beak gapes, the comb shakes (silent)
@@ -176,12 +187,20 @@ export const MOT_PROPS = {
   // A glass dome (pivot at its rim's centre, the dome rises along +Y): no glass fill (a translucent pane in front of a body reads badly): a metal rim,
   // a knob, a few bright edge highlights; o.fog [t, ...]: an OPAQUE white mist fills the dome at each time and clears (never semi-transparent);
   // o.r its radius
-  moDome(o) { const R = o.r ?? 0.6, g = grp(), mist = grp(); g.add(mist);
-    g.add(at(new THREE.Mesh(new THREE.TorusGeometry(R, 0.035, 6, 28), mat('#B9BEC4')), 0, 0.01, 0, PI / 2, 0, 0), at(sphere(0.06, '#B9BEC4', 1, { outline: 0.04 }), 0, R * 1.15 + 0.04, 0));
-    for (let i = 0; i < 3; i++) { const a = new THREE.Mesh(new THREE.TorusGeometry(R, 0.012, 4, 24, PI * 0.35), new THREE.MeshBasicMaterial({ color: '#FFFFFF' })); a.rotation.set(0, -0.5 + i * 0.25, PI * 0.35 + i * 0.05); a.scale.y = 1.15; g.add(a); }   // edge highlights
-    const m = new THREE.Mesh(new THREE.SphereGeometry(R * 0.99, 18, 12, 0, TAU, 0, PI / 2), new THREE.MeshLambertMaterial({ color: '#FFFFFF', emissive: '#C8CCD2' })); m.scale.y = 1.15; mist.add(m);
-    for (let i = 0; i < 6; i++) mist.add(at(sphere(R * 0.28, '#F2F4F6', 1), Math.cos(i) * R * 0.55, R * (0.3 + 0.12 * (i % 3)), Math.sin(i * 1.7) * R * 0.3 + R * 0.62));
-    g.userData.update = t => { let f = 0; for (const t0 of o.fog || []) { const u = t - t0; if (u > 0 && u < 0.7) f = Math.max(f, u < 0.1 ? u / 0.1 : 1 - (u - 0.1) / 0.6); } mist.visible = f > 0.25; mist.scale.setScalar(0.85 + 0.15 * f); };
+  moDome(o) { const R = o.r ?? 0.6, Hh = o.h ?? R * 1.15, sy = Hh / R, g = grp(), body = grp(), mist = grp(); g.add(body); body.add(mist);
+    body.add(at(new THREE.Mesh(new THREE.TorusGeometry(R, 0.04, 6, 28), mat('#B9BEC4')), 0, 0.01, 0, PI / 2, 0, 0), at(sphere(0.07, '#B9BEC4', 1, { outline: 0.04 }), 0, Hh + 0.05, 0));
+    // (round 1) the glass reads: a fresnel shell, clear in the middle and white at the silhouette (floating rings alone read as hoops)
+    const glassM = new THREE.ShaderMaterial({ transparent: true, depthWrite: false,
+      vertexShader: 'varying vec3 vN; varying vec3 vV; void main() { vec4 mv = modelViewMatrix * vec4(position, 1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }',
+      fragmentShader: 'varying vec3 vN; varying vec3 vV; void main() { float f = 1.0 - abs(dot(normalize(vN), normalize(vV))); gl_FragColor = vec4(0.9, 0.96, 1.0, 0.03 + 0.8 * pow(f, 2.5)); }' });
+    const shell = new THREE.Mesh(new THREE.SphereGeometry(R, 28, 16, 0, TAU, 0, PI / 2), glassM); shell.scale.y = sy; shell.renderOrder = 2; body.add(shell);
+    for (let i = 0; i < 2; i++) { const a = new THREE.Mesh(new THREE.TorusGeometry(R * 0.98, 0.014, 4, 24, PI * 0.3), new THREE.MeshBasicMaterial({ color: '#FFFFFF' })); a.rotation.set(0, -0.6 + i * 0.22, PI * 0.38 + i * 0.06); a.scale.y = sy; body.add(a); }   // two glints
+    const m = new THREE.Mesh(new THREE.SphereGeometry(R * 0.99, 18, 12, 0, TAU, 0, PI / 2), new THREE.MeshLambertMaterial({ color: '#FFFFFF', emissive: '#C8CCD2' })); m.scale.y = sy; mist.add(m);
+    for (let i = 0; i < 6; i++) mist.add(at(sphere(R * 0.28, '#F2F4F6', 1), Math.cos(i) * R * 0.55, Hh * (0.3 + 0.12 * (i % 3)), Math.sin(i * 1.7) * R * 0.3 + R * 0.62));
+    // o.fog [t, ...]: an OPAQUE white mist fills it in 0.06 s, holds, then wipes down to the rim and the glass is clear again (never see-through)
+    g.userData.update = t => { let f = 0; for (const t0 of o.fog || []) { const u = t - t0; if (u > 0 && u < 0.5) f = Math.max(f, u < 0.06 ? u / 0.06 : u < 0.2 ? 1 : 1 - (u - 0.2) / 0.3); }
+      mist.visible = f > 0.03; mist.scale.set(1, Math.max(0.03, f), 1);
+      const q = (o.squash || []).reduce((a, t0) => { const u = t - t0; return u > 0 && u < 0.6 ? a + Math.exp(-9 * u) * Math.cos(u * 30) : a; }, 0); body.scale.set(1 + 0.1 * q, 1 - 0.13 * q, 1 + 0.1 * q); };
     g.userData.update(0); return g; },
   // A wooden fence post with two rails (pivot at the floor, rails along X): the post top at o.h (1.0)
   moFence(o) { const h = o.h ?? 1.0, g = grp(at(box(0.18, h, 0.18, '#8A6A45', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0)); for (const y of [0.4, 0.8]) g.add(at(box(o.w ?? 4, 0.1, 0.06, '#9A7A55', { outline: 0.008 }), 0, y * h, -0.1)); return g; },
@@ -200,15 +219,19 @@ export const MOT_PROPS = {
     g.add(at(box(2.4, 1.6, 0.04, '#9FC6D8', { emissive: '#3E6A7A' }), -1.6, 1.3, 0.02), at(box(2.4, 1.6, 0.04, '#9FC6D8', { emissive: '#3E6A7A' }), 1.6, 1.3, 0.02), at(box(1.0, 2.2, 0.04, '#5A3E28', { outline: 0.006 }), 0, 1.1, 0.02)); return g; },
   // A block of flats cut open on three flats stacked one above the other (pivot at the floor of the middle flat, faces +Z): three rooms o.rw wide with
   // pale dawn walls, floors and slabs, a warm wall lamp and a dawn window in each, a bed in each, side on (head at -X); outer walls; no number
-  moCutaway(o) { const g = grp(), RW = o.rw ?? 3.2, H = 2.6, D = 2.2, FH = H + 0.25, WC = o.walls || ['#CFDCEA', '#D9E4F0', '#D2DEEC'];
+  moCutaway(o) { const g = grp(), RW = o.rw ?? 3.2, H = 2.6, D = 2.2, FH = H + 0.25, WC = o.walls || ['#CFDCEA', '#D9E4F0', '#D2DEEC'], lamps = [];
     for (let i = -1; i <= 1; i++) { const y = i * FH;
       g.add(at(box(RW, H, 0.1, WC[i + 1], { pivot: 'bottom' }), 0, y, -D / 2), at(box(RW + 0.02, 0.25, D, '#B9AE9A', { outline: 0.004 }), 0, y - 0.125, 0));
       g.add(at(box(0.8, 0.8, 0.02, '#CFE0F0', { emissive: '#6A88A8', noGrain: true }), 0.75, y + 1.6, -D / 2 + 0.06), at(box(0.9, 0.06, 0.05, '#F4EEE2'), 0.75, y + 2.03, -D / 2 + 0.08), at(box(0.9, 0.06, 0.05, '#F4EEE2'), 0.75, y + 1.17, -D / 2 + 0.08));
-      g.add(at(box(0.18, 0.12, 0.1, '#FFE0A0', { emissive: '#E8A040', noGrain: true }), -1.15, y + 1.9, -D / 2 + 0.1));   // the warm lamp
+      // (round 1) a bigger bedside lamp with a real warm light in each flat; o.pulse (Hz): the middle one (his) pulses
+      const lm = mat('#FFE6A8', { emissive: '#F0A040', noGrain: true, unique: true }), lt = new THREE.PointLight('#FFB060', 1.6, 3.0, 1.4); lt.position.set(-1.0, y + 1.1, -0.3); lt.castShadow = false;
+      g.add(at(box(0.36, 0.5, 0.3, '#8A6A45', { pivot: 'bottom', outline: 0.01 }), -1.15, y, -0.75), at(new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.2, 0.24, 12, 1, true), lm), -1.15, y + 0.78, -0.75), at(cyl(0.015, 0.015, 0.2, '#3A3D44', 6, { pivot: 'bottom' }), -1.15, y + 0.5, -0.75), lt);
+      lamps.push({ lm, lt, mid: i === 0 });
       if (o.beds !== false) { const B = grp(at(box(1.1, 0.28, 1.9, '#5A3E28', { pivot: 'bottom' }), 0, 0.1, 0), at(box(1.0, 0.22, 1.8, '#F4F1EA'), 0, 0.48, 0), at(box(0.6, 0.12, 0.32, '#FBF8EE', { taper: 0.85 }), 0, 0.64, -0.68), at(box(1.14, 0.9, 0.08, '#5A3E28', { pivot: 'bottom', outline: 0.01 }), 0, 0, -0.98)); B.position.set(0.0, y, -0.35); B.rotation.y = PI / 2; g.add(B); } }   // side on: the sleeper reads in profile
     g.add(at(box(RW + 0.04, 0.25, D, '#B9AE9A', { outline: 0.004 }), 0, 2 * FH - 0.125, 0));
     for (const sx of [-1, 1]) g.add(at(box(0.18, 3 * FH + 0.25, D + 0.1, '#CFC6B4', { pivot: 'bottom', outline: 0.005 }), sx * (RW / 2 + 0.09), -FH - 0.25, 0));
-    return g; },
+    g.userData.update = t => { for (const { lm, lt, mid } of lamps) { const p = mid && o.pulse ? 0.65 + 0.35 * Math.sin(t * TAU * o.pulse) : 1; lm.emissive.setRGB(0.94, 0.63, 0.25).multiplyScalar(p); lt.intensity = 1.6 * p; } };
+    g.userData.update(0); return g; },
   // A rooftop ridge (pivot at the ridge's middle, ridge along X at y = 0): two tiled slopes going down, a chimney; o.aerial: a TV aerial on a mast that
   // rattles at o.rattle [t, ...]
   moRoof(o) { const L = o.len ?? 6, g = grp(), ae = grp();
@@ -240,17 +263,19 @@ export const MOT_PROPS = {
   // A small truck with a crane boom and a giant boom microphone (pivot at the floor in the truck's middle, faces +X): a white cab and flatbed, a turret,
   // a telescopic boom from the turret to the mic; o.tip [[t, [x, y, z]], ...]: where the mic is (truck coordinates), eased between keys; the mic a big
   // grey fluffy windshield on a short handle
-  moMicTruck(o) { const g = grp(), C = '#F4F1EA', wh = [];
+  moMicTruck(o) { const g = grp(), C = '#F4F1EA';
     g.add(at(box(3.2, 0.9, 1.9, C, { pivot: 'bottom', outline: 0.005 }), -0.4, 0.45, 0), at(box(1.3, 1.6, 1.9, C, { pivot: 'bottom', outline: 0.005 }), 1.7, 0.45, 0), at(box(0.9, 0.7, 1.92, '#9FC6D8', { emissive: '#3E6A7A' }), 1.9, 1.5, 0), at(box(3.2, 0.12, 1.92, '#3E7FB6'), -0.4, 1.0, 0));
     for (const x of [-1.4, 1.6]) for (const z of [-0.95, 0.95]) g.add(at(cyl(0.4, 0.4, 0.26, '#1E2024', 12), x, 0.4, z, PI / 2, 0, 0));
     const base = [-0.8, 1.6, 0]; g.add(at(cyl(0.35, 0.4, 0.3, '#8A8F96', 12, { outline: 0.01 }), base[0], 1.5, 0));
     const boom = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.1, 1, 8), mat('#E8B030')); addOutline(boom, 0.03); g.add(boom);
-    const mic = grp(FLUFF(0.32, '#9AA0A6')); mic.children[0].scale.set(1.8, 1, 1); g.add(mic); mic.add(at(cyl(0.05, 0.05, 0.5, '#2A2C31', 6), -0.7, 0, 0, 0, 0, PI / 2));
+    const mic = grp(FLUFF(0.32, '#9AA0A6')); mic.children[0].scale.set(1.8, 1, 1); g.add(mic); mic.add(at(cyl(0.05, 0.05, 0.6, '#2A2C31', 6), -0.62, 0, 0, 0, 0, PI / 2));
     const T = o.tip || [[0, [0.5, 4, 0]]];
     const tipAt = t => { if (t <= T[0][0]) return T[0][1]; for (let i = 0; i < T.length - 1; i++) { const [a, pa] = T[i], [b, pb] = T[i + 1]; if (t < b) { const u = smooth((t - a) / (b - a)); return pa.map((v, j) => v + (pb[j] - v) * u); } } return T[T.length - 1][1]; };
-    const A = new THREE.Vector3(...base), B = new THREE.Vector3(), Y = new THREE.Vector3(0, 1, 0);
-    g.userData.update = t => { const p = tipAt(t); B.set(p[0], p[1], p[2]); const d = B.clone().sub(A), L = d.length(); boom.position.copy(A).addScaledVector(d, 0.5 - 0.9 / Math.max(1, L)); boom.scale.set(1, Math.max(0.1, L - 0.9), 1); boom.quaternion.setFromUnitVectors(Y, d.clone().normalize());
-      mic.position.copy(B); mic.rotation.y = Math.atan2(-d.z, d.x); mic.rotation.z = 0.05 * Math.sin(t * 7); };
+    const A = new THREE.Vector3(...base), B = new THREE.Vector3(), E = new THREE.Vector3(), Y = new THREE.Vector3(0, 1, 0), X = new THREE.Vector3(1, 0, 0);
+    // (round 1) the boom runs from the turret right into the mic's handle (it stopped short and the mic floated): the mic is turned along the boom
+    g.userData.update = t => { const p = tipAt(t); B.set(p[0], p[1], p[2]); const dn = B.clone().sub(A).normalize(); E.copy(B).addScaledVector(dn, -0.85); const d = E.clone().sub(A), L = d.length();
+      boom.position.copy(A).addScaledVector(d, 0.5); boom.scale.set(1, Math.max(0.1, L), 1); boom.quaternion.setFromUnitVectors(Y, d.clone().normalize());
+      mic.position.copy(B); mic.quaternion.setFromUnitVectors(X, dn); mic.rotateX(0.06 * Math.sin(t * 7)); };
     g.userData.update(0); return g; },
   // A giant boom microphone alone (pivot at its middle, points along +X): a big grey fluffy windshield on a pole going back toward -X; o.sway: it hovers
   moMic(o) { const g = grp(), m = FLUFF(o.r ?? 0.32, '#9AA0A6'); m.children[0].scale.set(1.8, 1, 1); g.add(m, at(cyl(0.05, 0.05, o.pole ?? 2.5, '#2A2C31', 6), -(o.pole ?? 2.5) / 2 - 0.3, 0, 0, 0, 0, PI / 2));
@@ -272,11 +297,47 @@ export const MOT_PROPS = {
     return g; },
   // An avalanche of notes sliding down (pivot at the floor where it lands, spreads toward +Z): o.n sheets that slide from o.from (local [x, y, z]) down
   // to a heap at the pivot, staggered from o.at over o.dur; the heap stays
-  moAvalanche(o) { const n = o.n ?? 60, g = grp(), F = o.from || [0.8, 1.6, -1.2], t0 = o.at ?? 0, dur = o.dur ?? 1.0, tex = canvasPlane(0.42, 0.3, paintNote, { res: 256 }), sh = [];
-    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(tex.geometry, tex.material); const end = [(hsh(i) - 0.5) * 1.6, 0.04 + Math.floor(i / 12) * 0.05 + 0.1 * hsh(i + 4) * (1 - Math.floor(i / 12) / 6), (hsh(i + 2) - 0.3) * 1.1]; g.add(m); sh.push({ m, end, ts: t0 + dur * (i / n), r: hsh(i + 7) }); }
-    g.userData.update = t => { for (const { m, end, ts, r } of sh) { const u = clamp01((t - ts) / 0.45); m.visible = t >= ts - 0.01 || o.preset; const p = o.preset ? 1 : u; m.position.set(F[0] + (end[0] - F[0]) * p, F[1] + (end[1] - F[1]) * p + 0.3 * Math.sin(p * PI), F[2] + (end[2] - F[2]) * p); m.rotation.set(-PI / 2 + 0.6 * (r - 0.5) + (1 - p) * 2 * r, r * TAU, 0.3 * (r - 0.5) * (1 - p)); } };
+  moAvalanche(o) { const n = o.n ?? 60, g = grp(), F = o.from || [0.8, 1.6, -1.2], t0 = o.at ?? 0, dur = o.dur ?? 1.0, tex = canvasPlane(0.42, 0.3, paintNote, { res: 256 }), sh = [], M = o.mound;
+    // (round 1) o.mound {h, r}: the sheets land on a mound round the pivot (the man under it is buried); o.burst t: they fly out to a low ring round it
+    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(tex.geometry, tex.material); let end, ring = null;
+      if (M) { const a = hsh(i) * TAU, rr = Math.sqrt(hsh(i + 2)) * M.r, top = M.h * (1 - (rr / M.r) ** 2); end = [Math.cos(a) * rr, 0.04 + Math.min(top, M.h * (0.12 + 0.88 * i / n)), Math.sin(a) * rr];
+        const R2 = M.r * 1.25 + 0.35 * hsh(i + 6); ring = [Math.cos(a) * R2, 0.04 + 0.16 * hsh(i + 8) * (1 - Math.min(1, (R2 - M.r) / 0.6)), Math.sin(a) * R2]; }
+      else end = [(hsh(i) - 0.5) * 1.6, 0.04 + Math.floor(i / 12) * 0.05 + 0.1 * hsh(i + 4) * (1 - Math.floor(i / 12) / 6), (hsh(i + 2) - 0.3) * 1.1];
+      g.add(m); sh.push({ m, end, ring, ts: t0 + dur * (i / n), r: hsh(i + 7) }); }
+    g.userData.update = t => { const b = o.burst != null ? smooth((t - o.burst) / 0.25) : 0;
+      for (const { m, end, ring, ts, r } of sh) { const u = clamp01((t - ts) / 0.45); m.visible = t >= ts - 0.01 || o.preset; const p = o.preset ? 1 : u;
+        let x = F[0] + (end[0] - F[0]) * p, y = F[1] + (end[1] - F[1]) * p + 0.3 * Math.sin(p * PI), z = F[2] + (end[2] - F[2]) * p;
+        if (ring && b > 0) { x += (ring[0] - end[0]) * b; y += (ring[1] - end[1]) * b + 0.45 * Math.sin(b * PI); z += (ring[2] - end[2]) * b; }
+        m.position.set(x, y, z); m.rotation.set(-PI / 2 + 0.6 * (r - 0.5) + (1 - p) * 2 * r + b * (1 - b) * 4 * r, r * TAU, 0.3 * (r - 0.5) * (1 - p)); } };
     g.userData.update(0); return g; },
   // A stair flight going up (pivot at the bottom step's front middle, rises toward -Z and +Y): o.n steps of o.w, a handrail
   moStairs(o) { const n = o.n ?? 8, w = o.w ?? 1.1, g = grp(); for (let i = 0; i < n; i++) g.add(at(box(w, 0.18, 0.3, i % 2 ? '#B9A58A' : '#C4B096', { pivot: 'bottom', outline: 0.006 }), 0, i * 0.18, -i * 0.28));
     g.add(at(box(0.05, 0.05, n * 0.3, '#5A3E28'), w / 2, 0.95 + n * 0.09, -n * 0.14, Math.atan2(0.18, 0.28), 0, 0)); return g; },
+  moSmear(o) {   // (round 1) speed lines behind a fast rise (pivot at the bottom middle, lines along +Y): at each o.at time five white lines show for o.dur (0.13) s, shoot up and shrink; o.h, o.w
+    const g = grp(), H = o.h ?? 1.0, W = o.w ?? 0.6, D = o.dur ?? 0.13, ls = [];
+    for (let i = 0; i < 5; i++) { const b = box(0.04, 1, 0.04, o.color || '#FFFFFF', { pivot: 'bottom', outline: 0.03, emissive: '#B8C4D4', noGrain: true }); b.position.set((i / 4 - 0.5) * W, 0, (hsh(i) - 0.5) * 0.15); g.add(b); ls.push({ b, l: H * (0.6 + 0.4 * hsh(i + 3)) }); }
+    g.userData.update = t => { let u = -1; for (const t0 of o.at || []) { const v = (t - t0) / D; if (v >= 0 && v < 1) u = v; }
+      for (const { b, l } of ls) { b.visible = u >= 0; if (u >= 0) { b.position.y = H * 0.5 * u; b.scale.y = Math.max(0.02, l * (1 - u)); } } };
+    g.userData.update(0); return g; },
+  moSnore(o) {   // (round 1) snore lines (pivot at the mouth): three wavy strokes rise and fan out at each o.at time, for 0.6 s; o.big: the index of a bigger one (no letters)
+    const g = grp(), ws = [];
+    for (let i = 0; i < 3; i++) { const pts = []; for (let j = 0; j <= 16; j++) { const u = j / 16; pts.push(new THREE.Vector3(Math.sin(u * TAU * 1.5) * 0.05, u * 0.32, 0)); }
+      const tb = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 24, 0.016, 5), mat(o.color || '#3A4A6A')); g.add(tb); ws.push({ tb, i }); }
+    g.userData.update = t => { let u = -1, big = 1; (o.at || []).forEach((t0, j) => { const v = (t - t0) / 0.6; if (v >= 0 && v < 1) { u = v; big = j === o.big ? 1.5 : 1; } });
+      for (const { tb, i } of ws) { tb.visible = u >= 0; if (u >= 0) { const s = (0.5 + 0.9 * u) * big; tb.position.set((i - 1) * 0.12 * (1 + u) * big, 0.05 + 0.35 * u * big, 0); tb.rotation.z = -(i - 1) * 0.4; tb.scale.setScalar(s); } } };
+    g.userData.update(0); return g; },
+  moHat(o) {   // (round 1) a farmer's straw hat (attach to the head joint; pivot at the brim): o.nod [t, ...]: it lifts and flaps a beat after each nod (overlap)
+    const g = grp(), h = grp(); g.add(h);
+    h.add(at(cyl(0.4, 0.4, 0.03, '#E8C878', 18, { outline: 0.02 }), 0, 0, 0), at(cyl(0.2, 0.23, 0.2, '#E8C878', 14, { pivot: 'bottom', outline: 0.02 }), 0, 0.01, 0), at(cyl(0.235, 0.235, 0.05, '#8A4A2E', 14), 0, 0.05, 0));
+    g.userData.update = t => { let y = 0, rx = 0; for (const t0 of o.nod || []) { const u = t - t0 - 0.08; if (u > 0 && u < 0.8) { const e = Math.exp(-6 * u); y += 0.09 * e * Math.max(0, Math.sin(Math.min(1, u / 0.1) * PI / 2)); rx += -0.35 * e * Math.sin(u * 16); } } h.position.y = y; h.rotation.x = rx; };
+    g.userData.update(0); return g; },
+  moCap(o) {   // (round 1) a plain peaked cap (attach to the head joint; pivot at its band's bottom): a dark crown, a band, a black peak; no badge, no braid
+    const C = o.color || '#1E2A44';
+    return grp(at(box(0.46, 0.14, 0.46, C, { outline: 0.02, taper: 1.14 }), 0, 0.11, 0), at(box(0.42, 0.07, 0.42, '#14182A', { outline: 0.02 }), 0, 0.035, 0), at(box(0.38, 0.025, 0.2, '#14161A', { outline: 0.02 }), 0, 0.0, 0.27, 0.22, 0, 0)); },
+  moBarrier(o) {   // (round 1) queue barriers (pivot at the floor): o.lines [[x0, z0, x1, z1], ...]: chrome posts with a red belt between them, a zigzag lane
+    const g = grp();
+    for (const [x0, z0, x1, z1] of o.lines || []) { const L = Math.hypot(x1 - x0, z1 - z0), n = Math.max(1, Math.round(L / 0.9));
+      for (let i = 0; i <= n; i++) { const x = x0 + (x1 - x0) * i / n, z = z0 + (z1 - z0) * i / n; g.add(at(cyl(0.03, 0.03, 0.95, '#C9CED4', 8, { pivot: 'bottom', outline: 0.02 }), x, 0, z), at(cyl(0.13, 0.15, 0.04, '#5E656D', 12), x, 0.02, z)); }
+      const b = at(box(L, 0.06, 0.012, o.color || '#C8322A', { outline: 0.02 }), (x0 + x1) / 2, 0.88, (z0 + z1) / 2); b.rotation.y = -Math.atan2(z1 - z0, x1 - x0); g.add(b); }
+    return g; },
 };
