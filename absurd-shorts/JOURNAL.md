@@ -3174,3 +3174,13 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - Passe finale lancée.
 - Atelier 106-108 enregistré : 106 « Le composteur », 107 « La notice », 108 « La sardine » (stubs, props.js, queue11.sh, test de fumée).
 - Disque : environ 540 Mo libres après nettoyage des images de revue des histoires livrées. Les finales attendent l'accord de l'utilisateur sur les anciens rendus du tornado.
+
+- 03 h 00 — « La poule » (104) passe finale faite :
+  - S07 : tir élastique étiré environ 2,5 fois, maintenu 7 images, mur clair derrière le bras. Le plan taille était incompatible avec l'étirement en 9:16.
+  - S16b : cochon entier, ailes sur une paroi gris-bleu, battement sur « avion ».
+  - S14b : nuage de poussière opaque, canne à pêche identique à S09b.
+  - S11 : crêpe avec la tête gardée.
+  - S01c : bouche fermée, menton étiré.
+  - Ministre : cheveux plaqués.
+  - Brouillon de contrôle 4 lancé.
+- « La tartine » (102) : clignotement du sol corrigé (conflit de profondeur entre le carrelage et le grand sol de kitchenDay, prop `ttTileOffset` sur les 14 plans cuisine). Finale prête, en attente de place disque.
