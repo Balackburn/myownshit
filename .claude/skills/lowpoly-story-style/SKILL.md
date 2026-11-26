@@ -2538,3 +2538,15 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 57) Un panneau lointain passe sous les têtes proches dès que la caméra descend : vérifier la hauteur du panneau avec `project()`, monter la façade pour ce plan si besoin.
 - (cycle 57) Rapprocher un objet de la caméra le long de l'axe de visée ne le déplace pas dans l'image : pour qu'un geste « vers l'objectif » se lise, le décaler aussi en travers ou en hauteur.
 - (cycle 57) Les épis de cheveux viennent du vent apparent d'un saut ou d'une course, pas d'une clé : pour un personnage dont la silhouette compte, mettre `cloth` à 0 ou 0,12 dans son casting.
+- (cycle 58, atelier 111) Autres pièges des décors et accessoires existants dont le contenu par défaut enfreint les règles :
+  - Décor `lab` : le tableau affiche toujours « C10H15N », « 99,1 % » et « T 80°C / 4 h », sans option pour l'enlever. Le masquer avec un accessoire (comme seHideSet dans props_sel) ou poser un tableau à soi devant.
+  - Décor `office` : le tableau affiche « OBJECTIFS Q3 » et « +12% ».
+  - `poste` : affiche « GUICHET 1/2/3 » et un ticket « 4000 ».
+  - Décor `bank` : le distributeur affiche « INSERT CARD », en anglais.
+  - `medal` : ruban bleu-blanc-rouge.
+  - `globe` : petit drapeau rouge au sommet.
+  - `parachute` et `parachuteSky` : parachutistes militaires olive.
+  - `elevator` : afficheur d'étage chiffré.
+  - `centCoin` : imprime « 1 CENT ».
+  - Cinq personnes qui lèvent toutes un bras tendu se lisent comme un salut : ne jamais faire lever le bras droit à l'unisson.
+  - Un sceau rouge uni centré sur un certificat blanc se lit comme un drapeau.
