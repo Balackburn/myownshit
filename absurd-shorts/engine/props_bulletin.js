@@ -53,8 +53,16 @@ export const BULLETIN_PROPS = {
     pl.position.z = 0.002; k.add(pl, at(box(W, H, 0.003, st === 'old' ? '#D8C898' : '#E8E4DA'), 0, 0, -0.001));
     const lines = [];
     if (o.write) for (const [i, txt] of ['Peut mieux', 'faire.'].entries()) {
-      const lw = W * 0.8, lh = H * 0.14, tx = canvasPlane(lw, lh, (c, w, h) => { c.fillStyle = '#1E4FC8'; c.strokeStyle = '#1E4FC8'; c.lineJoin = 'round'; c.lineWidth = h * 0.06; let fs = h * 0.78; c.font = `${fs}px "Comic Sans MS", "Comic Neue", "Segoe Print", cursive`; const tw = c.measureText(txt).width; if (tw > w * 0.94) { fs *= w * 0.94 / tw; c.font = `${fs}px "Comic Sans MS", "Comic Neue", "Segoe Print", cursive`; } c.textBaseline = 'middle'; const x0 = (w - c.measureText(txt).width) / 2; c.strokeText(txt, x0, h * 0.55); c.fillText(txt, x0, h * 0.55); }, { res: 768, transparent: true });   // (round 1) round strokes, centred, inside safe margins
-      const piv = grp(tx); tx.position.x = lw / 2; piv.position.set(-lw / 2, H * (0.04 - 0.16 * i), 0.005); k.add(piv); lines.push({ piv, tx, i });
+      const lw = W * 0.8, lh = H * 0.14, tx = canvasPlane(lw, lh, (c, w, h) => { c.fillStyle = '#1E4FC8'; c.strokeStyle = '#1E4FC8'; c.lineJoin = 'round'; c.lineCap = 'round';
+        let fs = h * 0.72; const F = s_ => `italic ${s_}px "DejaVu Sans", Verdana, sans-serif`; c.font = F(fs); let tw = c.measureText(txt).width * 1.12; if (tw > w * 0.9) { fs *= w * 0.9 / tw; c.font = F(fs); tw = c.measureText(txt).width * 1.12; }
+        c.lineWidth = fs * 0.075; c.textBaseline = 'alphabetic'; let x = (w - tw) / 2; const by = h * 0.7; let prev = null;   // hand-drawn: letters a little tilted and bobbing, joined at the baseline by round strokes
+        for (let i = 0; i < txt.length; i++) { const ch = txt[i], cw = c.measureText(ch).width * 1.12; if (ch === ' ') { prev = null; x += cw; continue; }
+          const dy = Math.sin(i * 1.7) * fs * 0.04, rot = Math.sin(i * 2.3) * 0.06;
+          if (prev && /[a-z]/.test(ch)) { c.beginPath(); c.moveTo(prev[0], prev[1]); c.quadraticCurveTo((prev[0] + x) / 2, by + fs * 0.08, x + cw * 0.12, by - fs * 0.18 + dy); c.stroke(); }
+          c.save(); c.translate(x + cw / 2, by + dy); c.rotate(rot); c.strokeText(ch, -cw / 2.24, 0); c.fillText(ch, -cw / 2.24, 0); c.restore();
+          prev = /[a-z]/.test(ch) ? [x + cw * 0.86, by - fs * 0.05 + dy] : null; x += cw; }
+      }, { res: 768, transparent: true });   // (round 1) round strokes, centred, inside safe margins
+      const piv = grp(tx); tx.position.x = lw / 2; piv.position.set(-lw / 2, H * (-0.08 - 0.16 * i), 0.005); k.add(piv); lines.push({ piv, tx, i });
     }
     g.userData.update = t => {
       if (o.write) { const [a, b] = o.write, m = (a + b) / 2; for (const L of lines) { const u = L.i === 0 ? clamp01((t - a) / (m - a)) : clamp01((t - m) / (b - m)); L.piv.scale.x = Math.max(0.001, u); L.tx.material.map.repeat.x = Math.max(0.001, u); L.tx.material.map.offset.x = 0; L.tx.visible = u > 0.001; } }
@@ -77,7 +85,7 @@ export const BULLETIN_PROPS = {
   buScarf(o) {
     const pts = (o.pts || [[0, 0, 0], [0, -0.5, 0.2]]).map(p => new THREE.Vector3(...p)), W = o.w ?? 0.16, g = grp(), segs = [];
     const tex = canvasPlane(1, 1, (c, w, h) => { c.fillStyle = '#F07A1E'; c.fillRect(0, 0, w, h); c.strokeStyle = '#D0601A'; c.lineWidth = w * 0.03; for (let i = 0; i < 8; i++) { c.beginPath(); c.moveTo(0, (i + 0.5) * h / 8); c.lineTo(w, (i + 0.5) * h / 8); c.stroke(); } }, { res: 64 }).material;
-    for (let i = 0; i < pts.length - 1; i++) { const a = pts[i], b = pts[i + 1], d = b.clone().sub(a), L = d.length(); const m = new THREE.Mesh(new THREE.BoxGeometry(W, 0.025, L), tex); m.position.copy(a).addScaledVector(d, 0.5); m.lookAt(b.clone().add(g.position)); m.lookAt(b); addOutline(m, 0.01); g.add(m); segs.push({ m, L }); }
+    for (let i = 0; i < pts.length - 1; i++) { const a = pts[i], b = pts[i + 1], d = b.clone().sub(a), L = d.length(); const m = new THREE.Mesh(new THREE.CapsuleGeometry(0.035, Math.max(0.001, L - 0.07), 3, 8), tex); m.geometry.rotateX(PI / 2); m.scale.set(W / 0.07, 1, 1); m.position.copy(a).addScaledVector(d, 0.5); m.lookAt(b.clone().add(g.position)); m.lookAt(b); addOutline(m, 0.01); g.add(m); segs.push({ m, L }); }
     const tot = segs.reduce((s, x) => s + x.L, 0);
     g.userData.update = t => { const sh = o.grow ? kv(o.grow, t) : 1; let acc = 0; for (const s of segs) { s.m.visible = acc < sh * tot; acc += s.L; } }; g.userData.update(0); return g;
   },
@@ -109,13 +117,14 @@ export const BULLETIN_PROPS = {
     const bb = canvasPlane(2.6, 1.1, (c, w, h) => { c.fillStyle = '#2F4A3A'; c.fillRect(0, 0, w, h); c.strokeStyle = 'rgba(245,245,235,0.9)'; c.lineWidth = h * 0.025; c.beginPath(); c.arc(w * 0.5, h * 0.5, h * 0.18, 0, TAU); c.stroke();
       for (let i = 0; i < 10; i++) { const a = i * TAU / 10; c.beginPath(); c.moveTo(w * 0.5 + Math.cos(a) * h * 0.25, h * 0.5 + Math.sin(a) * h * 0.25); c.lineTo(w * 0.5 + Math.cos(a) * h * 0.36, h * 0.5 + Math.sin(a) * h * 0.36); c.stroke(); }
       c.beginPath(); c.arc(w * 0.5 - h * 0.06, h * 0.46, h * 0.02, 0, TAU); c.arc(w * 0.5 + h * 0.06, h * 0.46, h * 0.02, 0, TAU); c.stroke(); c.beginPath(); c.arc(w * 0.5, h * 0.52, h * 0.08, 0.2, PI - 0.2); c.stroke(); }, { res: 512 });
-    g.add(at(box(2.76, 1.26, 0.05, '#6B4A2E', { outline: 0.006 }), 0.4, 1.75, B + 0.07), at(bb, 0.4, 1.75, B + 0.105));
+    const BX = o.boardX ?? 0.4; g.add(at(box(2.76, 1.26, 0.05, '#6B4A2E', { outline: 0.006 }), BX, 1.75, B + 0.07), at(bb, BX, 1.75, B + 0.105));   // o.boardX: the board along the back wall
     for (const [x, col] of [[-2.4, '#F2E27A'], [2.9, '#9FC6D4']]) g.add(at(box(0.8, 0.55, 0.02, col, { outline: 0.006 }), x, 1.85, B + 0.06));
     const ck = grp(at(cyl(0.22, 0.22, 0.04, '#2A2C30', 20), 0, 0, 0, PI / 2), at(cyl(0.19, 0.19, 0.045, '#F8F5EC', 20), 0, 0, 0.004, PI / 2), at(box(0.014, 0.11, 0.008, '#2A2C30', { pivot: 'bottom' }), 0, 0, 0.03, 0, 0, -2.0), at(box(0.01, 0.16, 0.008, '#2A2C30', { pivot: 'bottom' }), 0, 0, 0.034, 0, 0, 0.4));
     ck.position.set(2.2, 2.65, B + 0.08); g.add(ck);
     g.add(at(box(0.04, 1.3, 1.6, '#BCD8EA', { emissive: '#3A5060' }), -4.14, 1.75, B + 2.6), at(box(0.06, 1.4, 0.06, '#E8E2D4'), -4.12, 1.75, B + 2.6), at(box(0.12, 0.55, 1.3, '#E8E4DA', { pivot: 'bottom', outline: 0.008 }), -4.08, 0.2, B + 2.6));
     for (let i = 0; i < 8; i++) g.add(at(box(0.13, 0.5, 0.03, '#D8D4CA'), -4.0, 0.47, B + 2.05 + i * 0.16));
-    g.add(at(box(0.06, 2.1, 0.95, '#8A6A45', { pivot: 'bottom', outline: 0.008 }), -4.12, 0, B + 4.65, 0, 0.0, 0), at(box(0.04, 2.1, 0.1, '#3A2A1A', { pivot: 'bottom' }), -4.1, 0, B + 4.15));   // a door ajar on the left wall (the scarf runs out under it)
+    if (o.doorOpen) { const dp = grp(at(box(0.05, 2.1, 0.95, '#8A6A45', { pivot: 'bottom', outline: 0.008 }), 0, 0, -0.475), at(sphere(0.035, '#D8C060', 1), 0.05, 1.0, -0.82)); dp.position.set(-4.1, 0, B + 5.12); dp.rotation.y = -1.15; g.add(dp, at(box(0.02, 2.1, 0.95, '#2E2A26', { pivot: 'bottom' }), -4.14, 0, B + 4.65), at(box(0.08, 0.08, 1.1, '#E8E2D4', { pivot: 'bottom' }), -4.12, 2.1, B + 4.65)); }   // o.doorOpen: the door wide open into the room, a dark corridor beyond
+    else g.add(at(box(0.06, 2.1, 0.95, '#8A6A45', { pivot: 'bottom', outline: 0.008 }), -4.12, 0, B + 4.65, 0, 0.0, 0), at(box(0.04, 2.1, 0.1, '#3A2A1A', { pivot: 'bottom' }), -4.1, 0, B + 4.15));   // a door ajar on the left wall (the scarf runs out under it)
     return g;
   },
   // The gym (pivot at the floor in the middle, the back wall -Z): a wooden floor, a cream wall, wall bars, a long bench, a ceiling at o.ceil (4.2)
@@ -139,8 +148,8 @@ export const BULLETIN_PROPS = {
   // stamp; o.out [[t, metres]]
   buDrawer(o) {
     const g = grp(), d = grp(); g.add(d); const N = o.n ?? 26, W = 0.5;
-    for (let i = 0; i < N; i++) { const s = grp(at(box(W, 0.14, 0.12, '#8A5A32', { outline: 0.006 }), 0, 0, 0), at(box(W - 0.06, 0.1, 0.11, '#F4F0E4'), 0, 0.03, 0)); s.position.z = -i * 0.12; d.add(s);
-      const mk = at(box(0.2, 0.006, 0.05, '#C8181C'), 0.05, 0.081, 0.0, 0, 0.12, 0); s.add(mk); }
+    for (let i = 0; i < N; i++) { const s = grp(at(box(W, 0.14, 0.12, '#8A5A32', { outline: 0.006 }), 0, 0, 0)); const nj = 3 + Math.floor(hsh(i * 11) * 4); for (let j = 0; j < nj; j++) s.add(at(box(W - 0.06 - 0.06 * hsh(i * 13 + j), 0.012 + 0.02 * hsh(i * 17 + j), 0.15 + 0.05 * hsh(i * 19 + j), ['#F4F0E4', '#E8E2D0', '#EFE6C8', '#DCD6C6'][(i + j) % 4], { outline: 0.004 }), 0.08 * (hsh(i * 7 + j) - 0.5), 0.07 + 0.026 * j + 0.03 * hsh(i), 0.06 * (hsh(i * 3 + j) - 0.5), 0.35 * (hsh(i * 23 + j) - 0.5), 0.3 * (hsh(i * 5 + j) - 0.5), 0.12 * (hsh(i * 29 + j) - 0.5))); s.position.z = -i * 0.12; d.add(s);   // (round 2) uneven heaps of sheets, tilted and overlapping, never a keyboard
+      const mk = at(box(0.14, 0.005, 0.04, '#C8181C'), 0.05, 0.095 + 0.026 * (nj - 1) + 0.03 * hsh(i), 0.0, 0, 0.12, 0); s.add(mk); }
     d.add(at(box(W + 0.04, 0.18, 0.03, '#6A4A2E', { outline: 0.008 }), 0, 0, 0.07), at(box(0.12, 0.03, 0.03, '#C8A030'), 0, 0, 0.1));
     g.userData.update = t => { d.position.z = kv(o.out, t); }; g.userData.update(0); return g;
   },
@@ -155,7 +164,7 @@ export const BULLETIN_PROPS = {
     return g;
   },
   // A fountain pen (pivot at its middle, along Y): a dark body, a gold clip and nib; o.cap false: uncapped
-  buPen(o) { const g = grp(at(cyl(0.011, 0.011, 0.15, '#1E2E5A', 8, { outline: 0.02 }), 0, 0, 0), at(box(0.004, 0.06, 0.006, '#C8A030'), 0.012, 0.04, 0)); if (o.cap !== false) g.add(at(cyl(0.012, 0.012, 0.06, '#1E2E5A', 8), 0, 0.06, 0)); else g.add(at(new THREE.Mesh(new THREE.ConeGeometry(0.009, 0.03, 6), mat('#C8A030')), 0, -0.09, 0, PI, 0, 0)); return g; },
+  buPen(o) { const S = o.s ?? 1, g0 = grp(), g = grp(); g0.add(g); g.scale.setScalar(S); g.add(at(cyl(0.011, 0.011, 0.15, o.color || '#1E2E5A', 8, { outline: 0.02 }), 0, 0, 0), at(box(0.004, 0.06, 0.006, '#C8A030'), 0.012, 0.04, 0)); if (o.cap !== false) g.add(at(cyl(0.012, 0.012, 0.06, '#1E2E5A', 8), 0, 0.06, 0)); else g.add(at(new THREE.Mesh(new THREE.ConeGeometry(0.009, 0.03, 6), mat('#C8A030')), 0, -0.09, 0, PI, 0, 0)); return g0; },
   // A grey moustache (attach to the head; faces +Z)
   buMoustache(o) { const g = grp(); for (const s of [-1, 1]) { const m = new THREE.Mesh(new THREE.SphereGeometry(0.04, 8, 6), mat(o.color || '#9A9A9A')); m.scale.set(1.3, 0.45, 0.6); m.position.set(s * 0.04, 0, 0); m.rotation.z = s * 0.25; addOutline(m, 0.02); g.add(m); } return g; },
   // A hair cap of another colour and cut (attach to the head: pivot at the crown's base): o.color, o.kind 'flat' (slicked) | 'bald' (a fringe ring)
@@ -168,12 +177,15 @@ export const BULLETIN_PROPS = {
   buDisc(o) { const g = grp(at(cyl(0.02, 0.02, 1.4, '#E8E4DA', 6, { pivot: 'bottom' }), 0, -0.3, 0)); const d = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 0.03, 24), mat(o.color || '#F2C230')); d.rotation.x = PI / 2; d.position.y = 1.35; addOutline(d, 0.015); g.add(d, at(new THREE.Mesh(new THREE.TorusGeometry(0.27, 0.025, 4, 24), mat('#FFFFFF')), 0, 1.35, 0.017)); return g; },
   // A school gate (pivot at the ground in the middle, along X): plain green railings both sides of an open gate, no lettering, no flag
   buGate(o) { const W = o.w ?? 7, g = grp(); for (let x = -W / 2; x <= W / 2; x += 0.16) { if (Math.abs(x) < 0.7) continue; g.add(at(box(0.03, 1.5, 0.03, '#2E5E3E', { pivot: 'bottom' }), x, 0, 0)); } for (const y of [0.15, 1.4]) for (const s of [-1, 1]) g.add(at(box(W / 2 - 0.7, 0.05, 0.04, '#2E5E3E'), s * (W / 4 + 0.35), y, 0));
-    for (const s of [-1, 1]) g.add(at(box(0.12, 1.8, 0.12, '#24482E', { pivot: 'bottom', outline: 0.008 }), s * 0.7, 0, 0)); return g; },
+    for (const s of [-1, 1]) g.add(at(box(0.42, 2.1, 0.42, '#D8C8A8', { pivot: 'bottom', outline: 0.01 }), s * 0.85, 0, 0), at(box(0.5, 0.12, 0.5, '#B8A888', { pivot: 'bottom', outline: 0.008 }), s * 0.85, 2.1, 0)); return g; },   // (round 2) two stone pillars
+  // A plain school front (pivot at the floor in its middle, faces +Z): a long cream wall, a row of windows, a double door, a grey roof; no lettering
+  buFacade(o) { const W = o.w ?? 12, H = o.h ?? 4.2, g = grp(at(box(W, H, 0.8, '#EADBB8', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(box(W + 0.4, 0.3, 1.1, '#7A7E86', { pivot: 'bottom', outline: 0.008 }), 0, H, 0), at(box(1.4, 2.0, 0.05, '#7A5A3A', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0.41), at(box(0.03, 2.0, 0.06, '#4A3420', { pivot: 'bottom' }), 0, 0, 0.43));
+    for (const y of [1.0, 2.7]) for (let x = -W / 2 + 0.9; x < W / 2 - 0.5; x += 1.5) { if (y < 2 && Math.abs(x) < 1.0) continue; g.add(at(box(0.9, 1.0, 0.05, '#9CC4DC', { outline: 0.006 }), x, y + 0.5, 0.41), at(box(1.0, 0.08, 0.1, '#F6F0E0'), x, y - 0.02, 0.43)); } return g; },
   // A stack of thick binders (pivot at the floor): o.n (4) coloured binders, flat
-  buBinders(o) { const g = grp(), n = o.n ?? 4, cols = ['#5E656D', '#C8BCA0']; for (let i = 0; i < n; i++) g.add(at(box(0.36, 0.08, 0.3, cols[i % 2], { outline: 0.008 }), 0.02 * (hsh(i) - 0.5), 0.04 + i * 0.08, 0.02 * (hsh(i + 3) - 0.5), 0, 0.1 * (hsh(i + 5) - 0.5), 0)); return g; },
+  buBinders(o) { const g = grp(), n = o.n ?? 10, cols = ['#7A7E84', '#C8BCA0']; for (let i = 0; i < n; i++) g.add(at(box(0.38, 0.035, 0.3, cols[i % 2], { outline: 0.004 }), 0.015 * (hsh(i) - 0.5), 0.0175 + i * 0.036, 0.015 * (hsh(i + 3) - 0.5), 0, 0.06 * (hsh(i + 5) - 0.5), 0)); return g; },   // (round 2) thin flat slices only (no vertical bar that reads as a figure)
   // An oversized suit jacket for a child (attach to the torso: pivot at the collar; faces +Z): a big box jacket and two long empty sleeves hanging
   // past the hands; o.color
-  buBigJacket(o) { const C = o.color || '#3A4A6A', g = grp(at(box(0.56, 1.0, 0.42, C, { outline: 0.01 }), 0, -0.5, 0.04), at(box(0.12, 0.2, 0.01, '#F4F1EA'), 0, -0.12, 0.155)); for (const s of [-1, 1]) g.add(at(box(0.13, 0.75, 0.13, C, { pivot: 'top', outline: 0.01 }), s * 0.3, -0.05, 0.02, 0.15, 0, s * 0.12)); return g; },
+  buBigJacket(o) { const C = o.color || '#3A4A6A', L = o.len ?? 1.0, D = o.depth ?? 0.42, g = grp(at(box(0.56, L, D, C, { outline: 0.01 }), 0, -L / 2, 0.04 + (D - 0.42) / 2), at(box(0.12, 0.2, 0.01, '#F4F1EA'), 0, -0.12, 0.155)); for (const s of [-1, 1]) g.add(at(box(0.13, 0.75 * Math.min(1, L + 0.2), 0.13, C, { pivot: 'top', outline: 0.01 }), s * 0.3, -0.05, 0.02, 0.15, 0, s * 0.12)); return g; },   // o.len: a shorter jacket (kids seated: it stops above the lap)
   // A juice box (pivot at its bottom): a small coloured carton and a straw
   buJuice(o) { return grp(at(box(0.07, 0.11, 0.045, o.color || '#F2A030', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(cyl(0.004, 0.004, 0.08, '#FFFFFF', 4, { pivot: 'bottom' }), 0.02, 0.1, 0)); },
   // A pain au chocolat (pivot at its bottom): a puffed golden roll with two dark stripes
@@ -182,8 +194,8 @@ export const BULLETIN_PROPS = {
   buTable(o) { const L = o.len ?? 3.6, g = grp(at(box(L, 0.06, 1.1, '#6A4A2E', { outline: 0.006 }), 0, 0.74, 0)); for (const x of [-L / 2 + 0.3, L / 2 - 0.3]) g.add(at(box(0.12, 0.72, 0.7, '#4A3420', { pivot: 'bottom' }), x, 0, 0)); return g; },
   // A wall clock with hands only (pivot at its middle, faces +Z): o.time [[t, hour (0-12)]]: the hands go there; a click at each change
   buClock(o) {
-    const g = grp(at(cyl(0.3, 0.3, 0.05, '#2A2C30', 20), 0, 0, 0, PI / 2), at(cyl(0.26, 0.26, 0.055, '#F8F5EC', 20), 0, 0, 0.004, PI / 2)), hh = grp(at(box(0.02, 0.13, 0.01, '#2A2C30', { pivot: 'bottom' }), 0, 0, 0)), mh = grp(at(box(0.013, 0.2, 0.01, '#2A2C30', { pivot: 'bottom' }), 0, 0, 0));
-    hh.position.z = 0.035; mh.position.z = 0.04; g.add(hh, mh);
+    const g = grp(at(cyl(0.3, 0.3, 0.05, '#2A2C30', 20), 0, 0, 0, PI / 2), at(cyl(0.26, 0.26, 0.055, '#F8F5EC', 20), 0, 0, 0.004, PI / 2)), hh = grp(at(box(0.045, 0.14, 0.012, '#1A1C20', { pivot: 'bottom' }), 0, -0.02, 0)), mh = grp(at(box(0.026, 0.235, 0.012, '#1A1C20', { pivot: 'bottom' }), 0, -0.02, 0), at(cyl(0.03, 0.03, 0.02, '#C83A2A', 10), 0, 0, 0.004, PI / 2));   // (round 2) bold hands, longer minute hand
+    hh.position.z = 0.04; mh.position.z = 0.05; g.add(hh, mh); for (let i = 0; i < 12; i++) { const a = i * PI / 6; g.add(at(cyl(0.012, 0.012, 0.01, '#8A8C90', 6), Math.sin(a) * 0.235, Math.cos(a) * 0.235, 0.033, PI / 2)); }   // small grey dots, never a bar
     g.userData.update = t => { let h = 4; for (const [a, v] of o.time || [[0, 4.4]]) if (t >= a) h = v; hh.rotation.z = -h / 12 * TAU; mh.rotation.z = -(h % 1) * TAU; }; g.userData.update(0); return g;
   },
   // A crayon drawing on the wall and the ceiling (pivot at the wall's middle bottom; the wall plane faces +Z, the ceiling part bends out toward +Z at
