@@ -179,6 +179,12 @@ def sfx(name, seed=0):
         out = np.zeros(int(0.6 * SR), np.float32)
         for i, f in enumerate((780, 820, 900)): seg = (tone(f, 0.06, 'square') * decay(int(0.06 * SR), 6) * 0.25); st = int(i * 0.14 * SR); out[st:st + len(seg)] += seg
         return bp(out, 400, 3000)
+    if name == 'baa':
+        # (cycle 59, « Les moutons ») a sheep's bleat: a nasal sawtooth near 470 Hz with a fast tremolo (the « bêêê »), falling a little at the end
+        d = 0.72; t = np.arange(int(d * SR)) / SR; f0 = 470 * (1 + 0.05 * r.uniform(-1, 1)) * (1 - 0.14 * t / d)
+        ph = np.cumsum(f0) / SR; saw = (2 * (ph % 1) - 1).astype(np.float32)
+        trem = 0.5 + 0.5 * np.abs(np.sin(2 * np.pi * 12 * t)); env = np.minimum(1, t / 0.035) * np.minimum(1, (d - t) / 0.12) * np.exp(-t * 0.9)
+        return (bp(saw, 350, 3400) * trem * env * 0.42).astype(np.float32)
     if name == 'gasp': return bp(noise(0.4, seed), 800, 5000) * np.sin(np.linspace(0, np.pi, int(0.4 * SR))).astype(np.float32) * 0.4
     if name == 'cash':
         return np.concatenate([bp(noise(0.08, seed), 1000, 6000) * decay(int(0.08 * SR), 6) * 0.5, A1.sfx('ding') * 0.5])

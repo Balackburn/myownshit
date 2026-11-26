@@ -436,10 +436,20 @@ export const SEL_PROPS = {
     const g = grp(), N = 4, E = o.ear || [0.16, 0.27], S = o.s ?? 1, P_ = [];
     for (const sd of [-1, 1]) for (let i = 0; i < N; i++) { const pf = grp(); for (let j = 0; j < 3; j++) { const m = lump(1, 1, 1, '#FFFFFF', 61 + i * 3 + j + (sd > 0 ? 20 : 0), 0.1, 1, { emissive: '#8A949E', noGrain: true }); ink(m, 0.12); m.castShadow = m.receiveShadow = false;
         m.position.set((j - 1) * 0.55, j === 1 ? 0.35 : 0, (j - 1) * 0.1); m.scale.setScalar(j === 1 ? 0.75 : 0.6); pf.add(m); } g.add(pf); P_.push({ pf, sd, i }); }
+    // (round 2) o.pop: each puff squash-pops out of the ear (an overshoot to 1.4, a squash, a settle) instead of swelling smoothly; o.burst [t, ...]:
+    // a big puff on each side pops at that time (a whistle), squashes, rises and shrinks to nothing in 0.7 s
+    const popK = u => u < 0.1 ? 1.4 * u / 0.1 : u < 0.18 ? 1.4 - 0.55 * (u - 0.1) / 0.08 : u < 0.26 ? 0.85 + 0.2 * (u - 0.18) / 0.08 : 1.05;
+    const popSq = u => (u >= 0.1 && u < 0.18) ? 1 - 0.3 * Math.sin(PI * (u - 0.1) / 0.08) : 1;
+    const B_ = []; for (const tb of o.burst || []) for (const sd of [-1, 1]) { const pf = grp(); for (let j = 0; j < 3; j++) { const m = lump(1, 1, 1, '#FFFFFF', 91 + j + (sd > 0 ? 7 : 0) + B_.length, 0.1, 1, { emissive: '#8A949E', noGrain: true }); ink(m, 0.12); m.castShadow = m.receiveShadow = false;
+        m.position.set((j - 1) * 0.55, j === 1 ? 0.35 : 0, (j - 1) * 0.1); m.scale.setScalar(j === 1 ? 0.75 : 0.6); pf.add(m); } pf.visible = false; g.add(pf); B_.push({ pf, sd, tb }); }
     g.userData.update = t => { const on = !o.on || inside(o.on, t) >= 0, rate = o.rate ?? 2.6;
       for (const { pf, sd, i } of P_) { const q = ((t * rate / N) + i / N + (sd > 0 ? 0.13 : 0)) % 1; pf.visible = on; if (!on) continue;
-        const grow = Math.min(1, q / 0.35), shrink = q < 0.6 ? 1 : Math.max(0, 1 - (q - 0.6) / 0.4), sz = S * 0.045 * (0.35 + 1.3 * grow) * shrink;
-        pf.position.set(sd * (E[0] + 0.05 * S + q * 0.2 * S), E[1] + q * 0.32 * S, 0.0); pf.scale.setScalar(Math.max(0.0005, sz)); pf.rotation.z = sd * q * 1.2; pf.visible = sz > 0.001; } };
+        const grow = o.pop ? popK(q / 1.0) : Math.min(1, q / 0.35), shrink = q < 0.6 ? 1 : Math.max(0, 1 - (q - 0.6) / 0.4), sz = S * 0.045 * (o.pop ? 1.3 * grow : 0.35 + 1.3 * grow) * shrink;
+        pf.position.set(sd * (E[0] + 0.05 * S + q * 0.2 * S), E[1] + q * 0.32 * S, 0.0); pf.scale.setScalar(Math.max(0.0005, sz)); if (o.pop) { const k_ = popSq(q); pf.scale.x *= 2 - k_; pf.scale.y *= k_; }
+        pf.rotation.z = sd * q * 1.2; pf.visible = sz > 0.001; }
+      for (const { pf, sd, tb } of B_) { const u = (t - tb) / 0.7; pf.visible = u >= 0 && u < 1; if (!pf.visible) continue;
+        const sz = S * 0.085 * popK(u) * (u < 0.55 ? 1 : Math.max(0, 1 - (u - 0.55) / 0.45)), k_ = popSq(u);
+        pf.position.set(sd * (E[0] + 0.08 * S + u * 0.16 * S), E[1] + 0.03 + u * 0.3 * S, 0.0); pf.scale.set(Math.max(0.0005, sz * (2 - k_)), Math.max(0.0005, sz * k_), Math.max(0.0005, sz)); pf.rotation.z = sd * u * 0.8; } };
     g.userData.update(0); return g;
   },
 
@@ -447,9 +457,10 @@ export const SEL_PROPS = {
   // knob on top; o.h (0.4)
   seMill(o) {
     const Hh = o.h ?? 0.4, g = grp(), prof = [[0, 0], [0.06, 0], [0.065, 0.02], [0.05, 0.05], [0.042, 0.14], [0.058, 0.26], [0.06, 0.32], [0.045, 0.36], [0.05, 0.4], [0.035, 0.43], [0, 0.44]];
-    const geo = new THREE.LatheGeometry(prof.map(([x, y]) => new THREE.Vector2(x * Hh / 0.44 * 1.15, y * Hh / 0.44)), 18), m = new THREE.Mesh(geo, mat('#6A3A22', { emissive: '#1A0A04' })); m.castShadow = true; ink(m, 0.04); g.add(m);
-    for (const y of [0.05, 0.31, 0.36]) g.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.05 * Hh / 0.44 * 1.15, 0.006, 4, 18), mat('#E2B95A', { noGrain: true })), 0, y * Hh / 0.44, 0, PI / 2));
-    g.add(ink(at(sphere(0.026 * Hh / 0.44 * 1.3, '#3A1E10', 1), 0, Hh + 0.012, 0), 0.06));
+    // (round 2) o.color / o.ring / o.knob: a mill that stands out from the dark wood around it (black lacquer and brass on a pale cloth)
+    const geo = new THREE.LatheGeometry(prof.map(([x, y]) => new THREE.Vector2(x * Hh / 0.44 * 1.15, y * Hh / 0.44)), 18), m = new THREE.Mesh(geo, mat(o.color || '#6A3A22', { emissive: o.glow || '#1A0A04' })); m.castShadow = true; ink(m, o.inkW ?? 0.04); g.add(m);
+    for (const y of [0.05, 0.31, 0.36]) g.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.05 * Hh / 0.44 * 1.15, o.ringW ? o.ringW * Hh / 0.44 : 0.006, 4, 18), mat(o.ring || '#E2B95A', { noGrain: true })), 0, y * Hh / 0.44, 0, PI / 2));
+    g.add(ink(at(sphere(0.026 * Hh / 0.44 * 1.3, o.knob || '#3A1E10', 1), 0, Hh + 0.012, 0), 0.06));
     g.userData.grip = [0, Hh * 0.45, 0]; return g;
   },
 
@@ -619,6 +630,48 @@ export const SEL_PROPS = {
       const geo = new THREE.ShapeGeometry(sh, 48).rotateX(-PI / 2), uv = geo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) / 8, uv.getY(i) / 8);
       gm.geometry.dispose(); gm.geometry = geo; done = true; };
     return g;
+  },
+
+  // ---------------------------------------------------------------- (round 2) no snowflake near the lens: the snow set's falling flakes are square points, and
+  // one that drifts within a metre or two of a close camera reads as a pale translucent square floating in the frame. While this prop is in the shot,
+  // every Points cloud of the scene drops (in its vertex shader, so in the very frame drawn) the flakes nearer than o.near (2.6 m) to the camera
+  seSnowClear(o) {
+    const g = grp(), NEAR = o.near ?? 2.6; let hooked = false;
+    const live = () => { for (let p = g; p; p = p.parent) { if (!p.visible) return false; if (!p.parent) return p.type === 'Scene' || p !== g; } return false; };
+    g.userData.update = () => { if (hooked) return; let rt = g; while (rt.parent) rt = rt.parent; if (rt === g) return; let found = 0;
+      rt.traverse(n => { if (!n.isPoints || !n.material || Array.isArray(n.material)) return; found++; if (n.userData.seClear) return; const U = { value: 0 }; n.userData.seClear = U;
+        const m = n.material, prevC = m.onBeforeCompile;
+        m.onBeforeCompile = (sh, r) => { prevC?.(sh, r); sh.uniforms.uSeNear = U; const v = sh.vertexShader, e = v.lastIndexOf('}');
+          sh.vertexShader = v.slice(0, e).replace('void main() {', 'uniform float uSeNear;\nvoid main() {') + '  if (-mvPosition.z < uSeNear) gl_Position = vec4(2.0, 2.0, 2.0, 1.0);\n}\n'; };
+        m.customProgramCacheKey = () => 'seSnowClear'; m.needsUpdate = true;
+        const prev = n.onBeforeRender; n.onBeforeRender = function (...q) { U.value = live() ? NEAR : 0; return prev?.apply(this, q); }; });
+      hooked = found > 0; };
+    return g;
+  },
+
+  // ---------------------------------------------------------------- (round 2) a French letterbox on a gate pillar (pivot at the floor under the pillar, front +Z):
+  // a pale rendered pillar with a cap, a dark green metal box on its front with a slot under a little hood, a lock and a nameplate left blank
+  // (no lettering, no emblem); o.color the box, o.h (1.25) the pillar
+  seLetterbox(o) {
+    const g = grp(), H = o.h ?? 1.25, C = o.color || '#2F5E4A';
+    g.add(at(box(0.42, H, 0.42, o.pillar || '#E8DCC4', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(box(0.5, 0.08, 0.5, '#CDBFA4', { outline: 0.012 }), 0, H + 0.04, 0));
+    const b = grp(at(box(0.34, 0.4, 0.16, C, { outline: 0.02 }), 0, 0, 0), at(box(0.36, 0.04, 0.05, C, { outline: 0.03 }), 0, 0.12, 0.09), at(box(0.24, 0.02, 0.01, '#14181C'), 0, 0.095, 0.082),
+      at(box(0.1, 0.05, 0.01, '#E8E4D8'), 0, -0.04, 0.082), at(cyl(0.018, 0.018, 0.012, '#C9B26A', 8), 0.11, -0.12, 0.085, PI / 2));
+    b.position.set(0, H * 0.72, 0.29); g.add(b);
+    return g;
+  },
+
+  // ---------------------------------------------------------------- (round 2) the inside of a lorry cab seen through its open side window (pivot at the floor of
+  // the cab under the steering wheel, the driver looks along +Z): a pale lining on the back wall and the roof (the cab read as a black hole), a big
+  // steering wheel high enough to show over the sill (the lorry's own sits under it), its column, and a small warm cab light; o.ry its facing
+  seCab(o) {
+    const g = grp(), W = o.w ?? 1.9, Hh = o.h ?? 1.1, D = o.d ?? 1.0;
+    g.add(at(box(W, Hh, 0.03, o.lining || '#C9C2B4'), 0, Hh / 2 + 0.05, -D), at(box(W, 0.03, D + 0.2, '#D6D0C2'), 0, Hh + 0.08, -D / 2));
+    const wh = grp(at(new THREE.Mesh(new THREE.TorusGeometry(o.wr ?? 0.24, 0.032, 6, 20), mat('#24272C')), 0, 0, 0), at(box(0.04, (o.wr ?? 0.24) * 2, 0.03, '#2E3238'), 0, 0, 0), at(cyl(0.05, 0.05, 0.05, '#3A3E46', 10), 0, 0, 0.0, PI / 2));
+    ink(wh.children[0], 0.06); wh.position.set(0, o.wy ?? 0.4, 0); wh.rotation.x = o.wTilt ?? -0.55; g.add(wh);
+    g.add(at(box(0.06, 0.06, 0.5, '#24272C'), 0, (o.wy ?? 0.4) - 0.15, 0.22, -0.55, 0, 0));
+    const lt = new THREE.PointLight(o.lightColor || '#FFF0D8', o.I ?? 1.4, o.R ?? 2.6, 1.2); lt.position.set(0, Hh - 0.05, -D / 2); g.add(lt);
+    g.userData.wheel = [0, o.wy ?? 0.4, 0]; return g;
   },
 
   // ---------------------------------------------------------------- a soft warm fill light on the faces (no visible source; pivot at the light): o.I (1.2), o.R (2.5)
