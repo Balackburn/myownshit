@@ -295,9 +295,9 @@
     "shift": 2.4,
     "breathe": 1.8
    },
-   "tie": "#3A3D44",
+   "tie": "#3A4A6A",
    "pants": "#3A4A6A",
-   "shirt": "#F4F1EA"
+   "shirt": "#3A4A6A"
   },
   "enfant2": {
    "preset": "sportif",
@@ -315,9 +315,9 @@
     "shift": 2.4,
     "breathe": 1.8
    },
-   "tie": "#3A3D44",
+   "tie": "#5A5A5A",
    "pants": "#5A5A5A",
-   "shirt": "#F4F1EA"
+   "shirt": "#5A5A5A"
   },
   "enfant3": {
    "preset": "madame",
@@ -335,12 +335,12 @@
     "shift": 2.4,
     "breathe": 1.8
    },
-   "tie": "#3A3D44",
+   "tie": "#4A3A2A",
    "pants": "#4A3A2A",
-   "shirt": "#F4F1EA"
+   "shirt": "#4A3A2A"
   },
   "enfant4": {
-   "preset": "worker",
+   "preset": "politique",
    "seed": 6323,
    "hat": "none",
    "suit": "#2E4A5A",
@@ -355,12 +355,12 @@
     "shift": 2.4,
     "breathe": 1.8
    },
-   "tie": "#3A3D44",
+   "tie": "#2E4A5A",
    "pants": "#2E4A5A",
-   "shirt": "#F4F1EA"
+   "shirt": "#2E4A5A"
   },
   "enfant5": {
-   "preset": "fermier",
+   "preset": "politique",
    "seed": 6324,
    "hat": "none",
    "suit": "#5A4A6A",
@@ -375,9 +375,9 @@
     "shift": 2.4,
     "breathe": 1.8
    },
-   "tie": "#3A3D44",
+   "tie": "#5A4A6A",
    "pants": "#5A4A6A",
-   "shirt": "#F4F1EA"
+   "shirt": "#5A4A6A"
   }
  },
  "scenes": [
@@ -1072,6 +1072,21 @@
      "keys": [
       {
        "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.7,
+         "mouth": "line",
+         "brow": 0.1,
+         "gy": 1.0,
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
        "clip": "sit"
       },
       {
@@ -1110,7 +1125,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         },
         "bend": {
          "neck": [
@@ -1167,7 +1184,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -1215,7 +1234,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -1263,7 +1284,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -1311,7 +1334,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -1359,7 +1384,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -1407,7 +1434,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -1455,7 +1484,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -1503,7 +1534,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -1551,7 +1584,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -1599,7 +1634,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -1647,7 +1684,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -1695,7 +1734,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -1743,7 +1784,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -1791,7 +1834,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -1833,7 +1878,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -1874,7 +1926,14 @@
          1,
          1,
          1
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -1915,7 +1974,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -1956,7 +2022,14 @@
          1,
          1,
          1
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -1997,7 +2070,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -2038,7 +2118,14 @@
          1,
          1,
          1
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -2079,7 +2166,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -2126,7 +2220,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.05
@@ -2173,7 +2269,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.06
@@ -2220,7 +2318,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.05
@@ -2267,7 +2367,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.06
@@ -3132,6 +3234,21 @@
      "keys": [
       {
        "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.7,
+         "mouth": "line",
+         "brow": 0.1,
+         "gy": 1.0,
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
        "clip": "sit"
       },
       {
@@ -3170,7 +3287,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         },
         "bend": {
          "neck": [
@@ -3227,7 +3346,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -3275,7 +3396,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -3323,7 +3446,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -3371,7 +3496,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -3419,7 +3546,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -3467,7 +3596,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -3515,7 +3646,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -3563,7 +3696,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -3611,7 +3746,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -3659,7 +3796,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -3707,7 +3846,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -3755,7 +3896,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -3803,7 +3946,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -3851,7 +3996,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -3893,7 +4040,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -3934,7 +4088,14 @@
          1,
          1,
          1
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -3975,7 +4136,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -4016,7 +4184,14 @@
          1,
          1,
          1
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -4057,7 +4232,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -4098,7 +4280,14 @@
          1,
          1,
          1
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -4139,7 +4328,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -4186,7 +4382,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.05
@@ -4233,7 +4431,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.06
@@ -4280,7 +4480,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.05
@@ -4327,7 +4529,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.06
@@ -4645,6 +4849,21 @@
      "keys": [
       {
        "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.7,
+         "mouth": "line",
+         "brow": 0.1,
+         "gy": 1.0,
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
        "clip": "sit"
       },
       {
@@ -4683,7 +4902,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         },
         "bend": {
          "neck": [
@@ -4740,7 +4961,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -4788,7 +5011,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -4836,7 +5061,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -4884,7 +5111,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -4932,7 +5161,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -4980,7 +5211,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -5028,7 +5261,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -5076,7 +5311,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -5124,7 +5361,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -5172,7 +5411,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -5220,7 +5461,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -5268,7 +5511,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -5316,7 +5561,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -5364,7 +5611,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -5406,7 +5655,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -5447,7 +5703,14 @@
          1,
          1,
          1
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -5488,7 +5751,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -5529,7 +5799,14 @@
          1,
          1,
          1
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -5570,7 +5847,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -5611,7 +5895,14 @@
          1,
          1,
          1
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -5652,7 +5943,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -5699,7 +5997,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.05
@@ -5746,7 +6046,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.06
@@ -5793,7 +6095,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.05
@@ -5840,7 +6144,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.06
@@ -5882,7 +6188,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.0,
@@ -5930,7 +6238,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.1,
@@ -5978,7 +6288,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.1,
@@ -6026,7 +6338,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.04,
@@ -6074,7 +6388,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.2,
@@ -11832,7 +12148,7 @@
     },
     {
      "id": "fauteuil10_0",
-     "name": "officeChair",
+     "name": "buOfficeChair",
      "pos": [
       -1.2,
       0,
@@ -11854,7 +12170,7 @@
     },
     {
      "id": "fauteuil10_1",
-     "name": "officeChair",
+     "name": "buOfficeChair",
      "pos": [
       0.0,
       0,
@@ -11876,7 +12192,7 @@
     },
     {
      "id": "fauteuil10_2",
-     "name": "officeChair",
+     "name": "buOfficeChair",
      "pos": [
       1.2,
       0,
@@ -11898,7 +12214,7 @@
     },
     {
      "id": "fauteuil10_3",
-     "name": "officeChair",
+     "name": "buOfficeChair",
      "pos": [
       -0.6,
       0,
@@ -11920,7 +12236,7 @@
     },
     {
      "id": "fauteuil10_4",
-     "name": "officeChair",
+     "name": "buOfficeChair",
      "pos": [
       0.6,
       0,
@@ -11952,10 +12268,12 @@
        0
       ]
      },
+     "scale": 0.72,
      "opts": {
       "color": "#3A4A6A",
-      "len": 0.8,
-      "depth": 0.75
+      "len": 1.05,
+      "depth": 0.8,
+      "cz": 0.33
      }
     },
     {
@@ -11970,10 +12288,12 @@
        0
       ]
      },
+     "scale": 0.72,
      "opts": {
       "color": "#5A5A5A",
-      "len": 0.8,
-      "depth": 0.75
+      "len": 1.05,
+      "depth": 0.8,
+      "cz": 0.33
      }
     },
     {
@@ -11988,10 +12308,12 @@
        0
       ]
      },
+     "scale": 0.72,
      "opts": {
       "color": "#4A3A2A",
-      "len": 0.8,
-      "depth": 0.75
+      "len": 1.05,
+      "depth": 0.8,
+      "cz": 0.33
      }
     },
     {
@@ -12006,10 +12328,12 @@
        0
       ]
      },
+     "scale": 0.72,
      "opts": {
       "color": "#2E4A5A",
-      "len": 0.8,
-      "depth": 0.75
+      "len": 1.05,
+      "depth": 0.8,
+      "cz": 0.33
      }
     },
     {
@@ -12024,10 +12348,12 @@
        0
       ]
      },
+     "scale": 0.72,
      "opts": {
       "color": "#5A4A6A",
-      "len": 0.8,
-      "depth": 0.75
+      "len": 1.05,
+      "depth": 0.8,
+      "cz": 0.33
      }
     },
     {
@@ -12415,7 +12741,7 @@
     },
     {
      "id": "fauteuil11_0",
-     "name": "officeChair",
+     "name": "buOfficeChair",
      "pos": [
       -1.2,
       0,
@@ -12425,7 +12751,7 @@
     },
     {
      "id": "fauteuil11_1",
-     "name": "officeChair",
+     "name": "buOfficeChair",
      "pos": [
       0.0,
       0,
@@ -12435,7 +12761,7 @@
     },
     {
      "id": "fauteuil11_2",
-     "name": "officeChair",
+     "name": "buOfficeChair",
      "pos": [
       1.2,
       0,
@@ -12445,7 +12771,7 @@
     },
     {
      "id": "fauteuil11_3",
-     "name": "officeChair",
+     "name": "buOfficeChair",
      "pos": [
       -0.6,
       0,
@@ -12455,7 +12781,7 @@
     },
     {
      "id": "fauteuil11_4",
-     "name": "officeChair",
+     "name": "buOfficeChair",
      "pos": [
       0.6,
       0,
@@ -12524,6 +12850,21 @@
      "keys": [
       {
        "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.7,
+         "mouth": "line",
+         "brow": 0.1,
+         "gy": 1.0,
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
        "clip": "sit"
       },
       {
@@ -12562,7 +12903,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         },
         "bend": {
          "neck": [
@@ -12619,7 +12962,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -12667,7 +13012,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -12715,7 +13062,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -12763,7 +13112,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -12811,7 +13162,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -12859,7 +13212,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -12907,7 +13262,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -12955,7 +13312,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -13003,7 +13362,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -13051,7 +13412,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -13099,7 +13462,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -13147,7 +13512,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -13195,7 +13562,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -13243,7 +13612,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.12,
@@ -13285,7 +13656,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -13326,7 +13704,14 @@
          1,
          1,
          1
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -13367,7 +13752,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -13408,7 +13800,14 @@
          1,
          1,
          1
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -13449,7 +13848,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -13490,7 +13896,14 @@
          1,
          1,
          1
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -13531,7 +13944,14 @@
          0.992,
          1.016,
          0.992
-        ]
+        ],
+        "face": {
+         "lid": 0.7,
+         "gx": 0.0,
+         "gy": 1.0,
+         "expr": "neutral",
+         "exprW": 0.4
+        }
        },
        "toonDur": 0.54,
        "toonEase": "inOut"
@@ -13578,7 +13998,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.05
@@ -13625,7 +14047,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.06
@@ -13672,7 +14096,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.05
@@ -13719,7 +14145,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.06
@@ -13766,7 +14194,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.15,
@@ -13814,7 +14244,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.15,
@@ -13862,7 +14294,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.1,
@@ -13910,7 +14344,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.04,
@@ -13958,7 +14394,9 @@
          "mouth": "line",
          "brow": 0.1,
          "gy": 1.0,
-         "gx": 0.0
+         "gx": 0.0,
+         "expr": "neutral",
+         "exprW": 0.4
         }
        },
        "toonDur": 0.2,
@@ -15111,7 +15549,7 @@
      ],
      "to": [
       2.3,
-      1.75,
+      1.95,
       -0.15
      ],
      "lookAt": [
@@ -15119,12 +15557,12 @@
       0.55,
       -1.38
      ],
-     "lens": 60,
+     "lens": 64,
      "ease": "linear",
      "lookAt2": [
       -1.5,
-      1.2,
-      0.15
+      1.62,
+      0.2
      ]
     },
     {
@@ -16681,26 +17119,26 @@
     {
      "at": 0.6,
      "from": [
-      0.079,
+      0.398,
       1.45,
-      -0.223
+      0.162
      ],
      "to": [
-      -0.046,
-      1.409,
-      -0.374
+      0.271,
+      1.426,
+      0.009
      ],
      "lookAt": [
-      -6.166,
-      -0.584,
-      -7.764
+      -5.957,
+      0.255,
+      -7.466
      ],
      "lens": 57,
      "ease": "linear",
      "lookAt2": [
-      -6.166,
-      -0.584,
-      -7.764
+      -5.957,
+      0.255,
+      -7.466
      ]
     },
     {
@@ -17150,10 +17588,19 @@
       0,
       0
      ],
-     "ry": 0,
      "opts": {
       "color": "#2F62B5"
-     }
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 1.3666,
+       "visible": true
+      }
+     ]
     },
     {
      "id": "pupitre16",

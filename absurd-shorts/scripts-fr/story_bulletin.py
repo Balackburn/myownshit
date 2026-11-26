@@ -109,10 +109,22 @@ KNITLOOK = add(TCH, [0, 0.55, 0.45])
 HC = [0.55, 0, 0.35]; HRY = 210   # his tiny chair, facing her
 DOWN = {'lid': 0.7, 'mouth': 'line', 'brow': 0.1, 'gy': 1.0, 'gx': 0.0}   # her face: eyes down on the needles
 CLASS = {'color': '#EDE3C8'}
+def LOCKEYES(a):
+    """(round 3b) her eyes never leave the needles: on every toon key heavy lids (>= 0.7), pupils down, gx 0; exprW 0.4 makes the face 'strong', which
+    turns off the engine's idle eye darts and its own blinks (only the keyed blinks, lid 1, remain)"""
+    for kk in a['keys']:
+        tn = kk.get('toon')
+        if tn is None: continue
+        f = dict(tn.get('face') or {})
+        if f.get('lid', 0) >= 0.99: f.update({'gx': 0.0, 'gy': 1.0, 'expr': 'neutral', 'exprW': 0.4})
+        else: f.update({'lid': max(0.7, f.get('lid', 0)), 'gx': 0.0, 'gy': 1.0, 'expr': 'neutral', 'exprW': 0.4})
+        tn['face'] = f
+    a['keys'].insert(0, k(0.0, toon={'face': {**DOWN, 'expr': 'neutral', 'exprW': 0.4}}, toonDur=0.0, keepPose=True))
+    return a
 def KNITTER(id_, pos, ry, keys_extra=(), clip='sit', freeL=None):
     ks = [k(0.0, clip=clip), k(0.0, look=add(pos, [0, 0.5, 0.45])), TK(0.0, {'R': R5(add(pos, [0.08, 0.66, 0.32])), 'L': R5(add(pos, [-0.08, 0.66, 0.32]))}, {'R': 'pinch', 'L': 'pinch'}, DOWN, bend={'neck': SP(0.35)}, d=0.0),
           *[TK(r(0.2 + 0.25 * j), {'R': R5(add(pos, [0.08 + 0.02 * (j % 2), 0.67, 0.33])), **({} if freeL and freeL[0] - 0.3 <= 0.2 + 0.25 * j <= freeL[1] else {'L': R5(add(pos, [-0.08 + 0.02 * (j % 2), 0.66, 0.32]))})}, face=DOWN, d=0.12, keep=True) for j in range(14)], *BREATHE(0.1, 4.0, 0.6, 0.016), *blink(1.1, DOWN), *blink(4.3, DOWN), *keys_extra]   # (round 2) she breathes and blinks, eyes still down
-    return act(id_, pos, ry, clip, 'neutral', keys=ks)
+    return LOCKEYES(act(id_, pos, ry, clip, 'neutral', keys=ks))
 def KNIT(pid, actor='maitresse'): return P(pid, 'buKnit', on={'actor': actor, 'hand': 'R', 'offset': [-0.08, 0.0, 0.04]})
 def SCARF(pid, pts): return P(pid, 'buScarf', pos=pts[0], opts={'pts': [[r(p[0] - pts[0][0]), r(p[1] - pts[0][1]), r(p[2] - pts[0][2])] for p in pts]})
 def LOOKS(id_): return [P(f'{id_}_lunettes', 'buHalfMoon', on={'actor': id_, 'joint': 'head', 'offset': [0, 0.34, 0.13]}, scale=1.4)]
@@ -315,8 +327,8 @@ for i, p in enumerate(SEATS10):
 st.shot('S10', 'whiteVoid', setOpts={'color': '#D8D2C8'}, look={'sunDir': [0.3, 0.9, 0.6]},
         actors=kids10,
         props=[P('salle10', 'buOffice', pos=[0, 0, 0.9], opts={'desk': False}), P('table10', 'buTable', pos=[0, 0, 0], opts={'len': 3.6}), P('horloge10', 'buClock', pos=[0.0, 2.1, -1.85], scale=1.4, opts={'time': [[0.0, 4.45], [CLICK10, 4.5]]}),
-               *[P(f'fauteuil10_{i}', 'officeChair', pos=p, ry=0 if p[2] < 0 else 180, keys=[k(r(DASH10 + 0.1), rotTo=[0, 12.0, 0], dur=2.0, ease='out')]) for i, p in enumerate(SEATS10)],
-               *[P(f'veste10_{i}', 'buBigJacket', on={'actor': f'enfant{i + 1}', 'joint': 'torso', 'offset': [0, 0.42, 0]}, opts={'color': ['#3A4A6A', '#5A5A5A', '#4A3A2A', '#2E4A5A', '#5A4A6A'][i], 'len': 0.8, 'depth': 0.75}) for i in range(5)],
+               *[P(f'fauteuil10_{i}', 'buOfficeChair', pos=p, ry=0 if p[2] < 0 else 180, keys=[k(r(DASH10 + 0.1), rotTo=[0, 12.0, 0], dur=2.0, ease='out')]) for i, p in enumerate(SEATS10)],
+               *[P(f'veste10_{i}', 'buBigJacket', on={'actor': f'enfant{i + 1}', 'joint': 'torso', 'offset': [0, 0.42, 0]}, scale=0.72, opts={'color': ['#3A4A6A', '#5A5A5A', '#4A3A2A', '#2E4A5A', '#5A4A6A'][i], 'len': 1.05, 'depth': 0.8, 'cz': 0.33}) for i in range(5)],
                *[P(f'jus10_{i}', 'buJuice', pos=[-1.65, 0.77, r(-0.25 + 0.5 * (i % 2))], opts={'color': ['#F2A030', '#5EAA4A', '#E86AA0'][i % 3]}, keys=[k(SNACK10, to=[r(-1.2 + 0.6 * i), 0.77, r(-0.25 + 0.5 * (i % 2))], dur=0.45, ease='out')]) for i in range(5)],
                *[P(f'pain10_{i}', 'buPain', pos=[1.65, 0.77, r(0.25 - 0.5 * (i % 2))], keys=[k(SNACK10, to=[r(1.2 - 0.6 * i), 0.77, r(0.25 - 0.5 * (i % 2))], dur=0.45, ease='out')]) for i in range(5)]], cams=[C10], fx=[{'type': 'shake', 'at': CLICK10, 'dur': 0.15, 'amount': 0.012}])
 st.cue('clack', 'S10', CLICK10, 0.4); st.cue('whoosh', 'S10', SNACK10, 0.25); st.cue('whoosh', 'S10', DASH10, 0.4)
@@ -328,7 +340,7 @@ D11 = st.dur('S11')
 C11 = cam(0.0, [0.0, 1.3, 3.6], [0.0, 1.45, 2.3], [0.0, 1.65, -1.9], [0.0, 3.2, -1.15], lens=60, ease='inOut')   # (round 3) the push tilts up after the arrow onto the ceiling, the sun whole
 st.shot('S11', 'whiteVoid', setOpts={'color': '#D8D2C8'}, look={'sunDir': [0.3, 0.9, 0.6]}, actors=[],
         props=[P('salle11', 'buOffice', pos=[0, 0, 0.9], opts={'desk': False}), P('table11', 'buTable', pos=[0, 0, 0], opts={'len': 3.6}), P('dessin11', 'buArrow', pos=[0.2, 0, -1.83], opts={'h': 3.0, 'w': 3.0, 'd': 2.4}), P('horloge11', 'buClock', pos=[-1.5, 2.3, -1.85], opts={'time': [[0.0, 4.5]]}),
-               *[P(f'dossiers11_{i}', 'buFiles', pos=[r(-1.2 + 0.8 * i), 0.77, 0.0]) for i in range(4)], P('miette11', 'buCrumb', pos=[0.35, 0.77, 0.3]), *[P(f'fauteuil11_{i}', 'officeChair', pos=p, ry=0 if p[2] < 0 else 180) for i, p in enumerate(SEATS10)]], cams=[C11])
+               *[P(f'dossiers11_{i}', 'buFiles', pos=[r(-1.2 + 0.8 * i), 0.77, 0.0]) for i in range(4)], P('miette11', 'buCrumb', pos=[0.35, 0.77, 0.3]), *[P(f'fauteuil11_{i}', 'buOfficeChair', pos=p, ry=0 if p[2] < 0 else 180) for i, p in enumerate(SEATS10)]], cams=[C11])
 
 # ================================================================= S12
 # 12: the classroom: the minister walks up and hands in a perfectly blank sheet; the teacher, eyes on her knitting, the scarf now coiled in heaps round
@@ -359,7 +371,7 @@ st.cue('thud', 'S12', THUNK12, 0.5)
 #     each with the same stamp; on top a thick bundle of memos held by a big plain red wax seal. He lifts the bundle up to the camera
 D13 = st.dur('S13'); PULL13 = 0.5; LIFT13 = r(st.at('S13', 'L13', 9))
 MN13 = [-1.5, 0, -0.55]; DRW13 = add(TD, [0, 0.55, 0.42])
-C13 = cam(0.0, [-0.75, 0.95, -0.6], [2.3, 1.75, -0.15], add(DRW13, [0, 0, 0.1]), [-1.5, 1.2, 0.15], lens=60)   # (round 3) on the drawer front leaving the desk, then along with it
+C13 = cam(0.0, [-0.75, 0.95, -0.6], [2.3, 1.95, -0.15], add(DRW13, [0, 0, 0.1]), [-1.5, 1.62, 0.2], lens=64)   # (round 3) on the drawer front leaving the desk, then along with it
 C13b = cam(r(LIFT13 + 0.2), add(MN13, [0.15, 1.58, -0.35]), add(MN13, [0.15, 1.58, -0.25]), add(MN13, [0.0, 1.58, 0.92]), add(MN13, [0.0, 1.58, 0.92]), lens=34)   # (round 1) from the board side: the bundle fills the lens, his face over it
 km13 = [k(0.0, clip='stand'), k(0.0, look=[0.6, 1.25, 1.2]), TK(0.0, {'R': R5(add(DRW13, [0.05, 0.05, 0.12]))}, {'R': 'grip'}, CALM, bend={'spine': SP(0.15), 'neck': SP(0.0)}, d=0.0),
         k(PULL13, to=add(MN13, [0, 0, 1.4]), dur=1.0, ease='out', face='keep'), TK(PULL13, {'R': R5(add(DRW13, [0.05, 0.05, 1.5]))}, bend={'spine': SP(0.1), 'neck': SP(0.0)}, d=1.0, keep=True), k(r(PULL13 + 0.5), look='camera', lookDur=0.4),   # out and out, his face three-quarters to us
@@ -392,7 +404,7 @@ st.cue('pop', 'S14', r(PEN14 + 0.15), 0.25)
 #     forward, hopeful, eyes huge
 D15 = st.dur('S15'); DOOR15 = 0.6; DOWN15 = 0.75; GLASS15 = 1.15; READ15 = 1.5; CUT15 = r(st.at('S15', 'L15', 10) - 0.1)
 C15a = fcam(0.0, [-1.6, 1.9, 2.4], {'doorT': [-4.12, 2.15, 1.45], 'doorB': [-4.12, 0.0, 0.95], 'scarf': [-2.7, 0.0, -0.85], 'desk': [-1.8, 0.0, -1.4]}, top=0.1, bottom=0.76, push=0.1)   # (round 2) the scarf runs across the floor and out of the open door
-C15 = fcam(DOOR15, [-0.4, 1.45, -0.8], {'tch': add(TCH, [0, 2.0, 0]), 'tchF': add(TCH, [0, 0.3, 0.5]), 'tchR': add(TCH, [0.5, 1.4, 0.4]), 'tchL': add(TCH, [-0.5, 1.0, 0.4])}, top=0.1, bottom=0.76, push=0.2)   # (round 1) the teacher, bigger, reading
+C15 = fcam(DOOR15, [-0.4, 1.45, -0.8], {'tch': add(TCH, [0, 2.25, 0]), 'tchF': add(TCH, [0, 0.3, 0.5]), 'tchR': add(TCH, [0.5, 1.4, 0.4]), 'tchL': add(TCH, [-0.5, 1.0, 0.4])}, top=0.15, bottom=0.76, push=0.2)   # (round 1) the teacher, bigger, reading
 C15b = cam(CUT15, off(HC, HRY, 1.75, -0.4, 1.3), off(HC, HRY, 1.62, -0.38, 1.3), add(HC, [0, 1.42, 0]), add(HC, [0, 1.44, 0]), lens=50)   # (round 3) his hopeful face, wider, three-quarters
 SH15 = add(TCH, [0.0, 1.35, 0.45])
 kt15 = [k(0.0, clip='sit'), k(0.0, look=KNITLOOK), TK(0.0, {'R': R5(add(TCH, [0.08, 0.66, 0.32])), 'L': R5(add(TCH, [-0.08, 0.66, 0.32]))}, {'R': 'pinch', 'L': 'pinch'}, DOWN, bend={'neck': SP(0.35)}, d=0.0),
@@ -424,7 +436,7 @@ st.shot('S16', 'whiteVoid', setOpts=CLASS, look={'sunDir': [0.3, 0.9, 0.6]},
         actors=[act('mec', HD16, 0, 'sitFloor', 'neutral', keys=kh16)],
         props=[P('copie16', 'buReport', pos=[0.0, 1.0, 0.0], opts={'state': 'stars', 'w': 0.42, 'write': WR16}, keys=[k(CUT16, visible=False)]),
                P('stylo16', 'buPen', pos=[-0.12, 1.08, 0.05], rot=[0, 0, -0.6], opts={'cap': False}, keys=[*[k(r(WR16[0] + (WR16[1] - WR16[0]) * j / 6), to=[r(-0.15 + 0.06 * (j % 3)), r(1.08 - 0.07 * (j // 3)), 0.05], dur=r((WR16[1] - WR16[0]) / 6)) for j in range(6)], k(r(WR16[1] + 0.05), to=[0.25, 1.25, 0.1], dur=0.2), k(CUT16, visible=False)]),
-               P('classe16', 'buClass', pos=[0, 0, 2.6], keys=[k(0.0, visible=False), k(CUT16, visible=True)]), P('cravate16', 'buTie', pos=[0.0, 0.565, 0.66], scale=0.65, opts={'droop': [[0.0, -1.3], [r(CUT16 + 0.42), -1.3], [r(CUT16 + 0.5), 0.25], [r(CUT16 + 0.56), -0.12], [r(CUT16 + 0.62), 0.0]]}, keys=[k(0.0, visible=False), k(r(CUT16 + 0.4), visible=True)]), TINY('chaise16', [0, 0, 0], 0), P('pupitre16', 'buTinyDesk', pos=[0, 0, 0.42], ry=0, opts={'panel': True}, keys=[k(0.0, visible=False), k(CUT16, visible=True)])], cams=[C16, C16b, C16c])
+               P('classe16', 'buClass', pos=[0, 0, 2.6], keys=[k(0.0, visible=False), k(CUT16, visible=True)]), P('cravate16', 'buTie', pos=[0.0, 0.565, 0.66], scale=0.65, opts={'droop': [[0.0, -1.3], [r(CUT16 + 0.42), -1.3], [r(CUT16 + 0.5), 0.25], [r(CUT16 + 0.56), -0.12], [r(CUT16 + 0.62), 0.0]]}, keys=[k(0.0, visible=False), k(r(CUT16 + 0.4), visible=True)]), P('chaise16', 'buTinyChair', pos=[0, 0, 0], opts={'color': '#2F62B5'}, keys=[k(0.0, visible=False), k(CUT16, visible=True)]), P('pupitre16', 'buTinyDesk', pos=[0, 0, 0.42], ry=0, opts={'panel': True}, keys=[k(0.0, visible=False), k(CUT16, visible=True)])], cams=[C16, C16b, C16c])
 st.cue('clack', 'S16', r(CUT16 + 0.05), 0.2)
 
 for g_ in [('S01', CUT1, 'mec', 'report'), ('S02', 1.6, 'mec', 'school'), ('S03', SLAP3, 'mec', 'stars'), ('S04', THUNK4, 'maitresse', 'stamp'), ('S05', POINT5, 'patron', 'fired'), ('S06', GULP6, 'patron', 'gulp'),
@@ -452,5 +464,5 @@ st.write("Le bulletin", rig='toon', fingers=True, cloth=True, idleShift=1.6, hol
     'ministre': GUEST('politique', 6307, '#22252C', pants='#22252C', hair='slick', hairColor='#B8B8B8', glasses=False, facial='none'),
     'adulte1': GUEST('worker', 6308, '#2E3A5A'), 'adulte2': GUEST('madame', 6309, '#7A2E3A'), 'adulte3': GUEST('politique', 6310, '#6A6E74'), 'adulte4': GUEST('fermier', 6311, '#8A6A45'),
     'dame': GUEST('madame', 6312, '#F2D030', pants='#2E5E9E'),
-    **{f'enfant{i + 1}': GUEST(['politique', 'sportif', 'madame', 'worker', 'fermier'][i], 6320 + i, ['#3A4A6A', '#5A5A5A', '#4A3A2A', '#2E4A5A', '#5A4A6A'][i], pants=['#3A4A6A', '#5A5A5A', '#4A3A2A', '#2E4A5A', '#5A4A6A'][i], shirt='#F4F1EA', build={'width': 1.0, 'headWidth': 1.45, 'headScale': 2.05}) for i in range(5)},
+    **{f'enfant{i + 1}': GUEST(['politique', 'sportif', 'madame', 'politique', 'politique'][i], 6320 + i, ['#3A4A6A', '#5A5A5A', '#4A3A2A', '#2E4A5A', '#5A4A6A'][i], pants=['#3A4A6A', '#5A5A5A', '#4A3A2A', '#2E4A5A', '#5A4A6A'][i], shirt=['#3A4A6A', '#5A5A5A', '#4A3A2A', '#2E4A5A', '#5A4A6A'][i], tie=['#3A4A6A', '#5A5A5A', '#4A3A2A', '#2E4A5A', '#5A4A6A'][i], build={'width': 1.0, 'headWidth': 1.45, 'headScale': 2.05}) for i in range(5)},
 })
