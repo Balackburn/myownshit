@@ -101,11 +101,11 @@ export const NOTICE_PROPS = {
   // the size, a few sheets thick, its panels zigzag like an accordion), 1 = open (above 1: bigger, the overshoot of a spring); o.fold [[t, f]]: the half on
   // local +Y folds about the middle crease toward +Z and over (1 = folded in half); o.bulge [[t, b]]: the folded sheet puffs up like a pillow; o.flap
   // [[t, a]]: the far edge ripples; o.curl (0.2): one corner curled; o.creases ([4, 3]); o.text: big bold lines printed at o.textY; o.offset: a polygon
-  // offset (lying on a floor); (review 1) o.ripple [[t, c]]: a hump o.rippleA (0.5 m) high runs across it (c: where along local Y, 0..1; below -0.5: none)
+  // offset (lying on a floor); (review 2) o.ink / o.bar: the colour and the thickness of its grey bars; (review 1) o.ripple [[t, c]]: a hump o.rippleA (0.5 m) high runs across it (c: where along local Y, 0..1; below -0.5: none)
   noLeaflet(o) {
     const W = o.w ?? 1.4, H = o.h ?? 1.0, NX = o.nx ?? 28, NY = o.ny ?? 20, g = grp(), body = grp(); g.add(body);
     const geo = new THREE.PlaneGeometry(W, H, NX, NY), pos = geo.attributes.position, base = pos.array.slice();
-    body.add(paperPair(geo, paperMats(W, H, { creases: o.creases ?? [4, 3], seed: o.seed ?? 1, cols: o.cols ?? 2, lh: o.lh, text: o.text, textY: o.textY, textH: o.textH, offset: o.offset, glow: o.glow, res: o.res, border: true }), o.shadow !== false));
+    body.add(paperPair(geo, paperMats(W, H, { creases: o.creases ?? [4, 3], seed: o.seed ?? 1, cols: o.cols ?? 2, lh: o.lh, ink: o.ink, bar: o.bar, text: o.text, textY: o.textY, textH: o.textH, offset: o.offset, glow: o.glow, res: o.res, border: true }), o.shadow !== false));
     const stack = box(1, 1, 1, '#ECE9E0', { outline: 0.004 }); stack.castShadow = false; body.add(stack);
     const PAN = o.panels ?? 6;
     g.userData.update = t => {
