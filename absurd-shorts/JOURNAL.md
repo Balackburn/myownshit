@@ -3272,3 +3272,8 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
     - le dernier plan quitte le héros.
   - Je tranche : fin sur le héros dans la neige, le moulin à poivre et la nouvelle rallonge en court insert.
   - Corrections lancées.
+- 10 h 55 — Atelier 111-113 jugé (comédie / rétention / fabrication) :
+  - retenues : « Les moutons » 8,5/8/6,5 ; « Le spaghetti » 8/7,5/7 ; « La minuterie » 7/7,5/7,5 ;
+  - en réserve : « La pomme » (8/7,5/7), écartée du lot car elle double les pommes de « La poule » et finit en Bourse ; « La monnaie » (7,5/8/6,5) ;
+  - écartée : « La pépite » (banque nationale, quatrième histoire d'argent).
+  Nouveaux pièges de décors ajoutés au skill (tableau du labo, tableau du bureau, guichets, distributeur en anglais, médaille tricolore, globe à drapeau, parachutistes militaires, afficheur d'ascenseur, pièce « 1 CENT », bras levés à l'unisson). Finalisation lancée.
