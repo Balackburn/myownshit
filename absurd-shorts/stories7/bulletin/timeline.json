@@ -1,0 +1,980 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a retrouvé son bulletin de primaire : « Peut mieux faire. »",
+   "hl": [
+    "bulletin",
+    "faire."
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 3.137,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "retrouvé",
+     "s": 0.619,
+     "e": 0.915
+    },
+    {
+     "w": "son",
+     "s": 0.989,
+     "e": 1.063
+    },
+    {
+     "w": "bulletin",
+     "s": 1.174,
+     "e": 1.359
+    },
+    {
+     "w": "de",
+     "s": 1.396,
+     "e": 1.433
+    },
+    {
+     "w": "primaire:",
+     "s": 1.47,
+     "e": 2.273
+    },
+    {
+     "w": "Peut",
+     "s": 2.297,
+     "e": 2.396
+    },
+    {
+     "w": "mieux",
+     "s": 2.433,
+     "e": 2.619
+    },
+    {
+     "w": "faire.",
+     "s": 2.656,
+     "e": 3.137
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Trente ans après, il est retourné à l'école. Pour mieux faire.",
+   "hl": [
+    "Trente",
+    "l'école."
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L02.k.wav",
+   "file_start": 3.237,
+   "speech_start": 3.237,
+   "speech_end": 6.274,
+   "words": [
+    {
+     "w": "Trente",
+     "s": 3.237,
+     "e": 3.459
+    },
+    {
+     "w": "ans",
+     "s": 3.496,
+     "e": 3.533
+    },
+    {
+     "w": "après,",
+     "s": 3.607,
+     "e": 4.126
+    },
+    {
+     "w": "il",
+     "s": 4.163,
+     "e": 4.2
+    },
+    {
+     "w": "est",
+     "s": 4.274,
+     "e": 4.348
+    },
+    {
+     "w": "retourné",
+     "s": 4.422,
+     "e": 4.669
+    },
+    {
+     "w": "à",
+     "s": 4.694,
+     "e": 4.719
+    },
+    {
+     "w": "l'école.",
+     "s": 4.756,
+     "e": 5.385
+    },
+    {
+     "w": "Pour",
+     "s": 5.422,
+     "e": 5.459
+    },
+    {
+     "w": "mieux",
+     "s": 5.533,
+     "e": 5.681
+    },
+    {
+     "w": "faire.",
+     "s": 5.756,
+     "e": 6.274
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Vingt sur vingt partout. Même en sport.",
+   "hl": [
+    "Vingt",
+    "sport."
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L03.k.wav",
+   "file_start": 6.374,
+   "speech_start": 6.374,
+   "speech_end": 8.67,
+   "words": [
+    {
+     "w": "Vingt",
+     "s": 6.374,
+     "e": 6.522
+    },
+    {
+     "w": "sur",
+     "s": 6.596,
+     "e": 6.744
+    },
+    {
+     "w": "vingt",
+     "s": 6.819,
+     "e": 7.041
+    },
+    {
+     "w": "partout.",
+     "s": 7.152,
+     "e": 7.707
+    },
+    {
+     "w": "Même",
+     "s": 7.744,
+     "e": 7.856
+    },
+    {
+     "w": "en",
+     "s": 7.893,
+     "e": 7.93
+    },
+    {
+     "w": "sport.",
+     "s": 8.004,
+     "e": 8.67
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Appréciation : « Peut mieux faire. »",
+   "hl": [
+    "Appréciation",
+    "faire."
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L04.k.wav",
+   "file_start": 8.77,
+   "speech_start": 8.77,
+   "speech_end": 10.696,
+   "words": [
+    {
+     "w": "Appréciation:",
+     "s": 8.77,
+     "e": 9.758
+    },
+    {
+     "w": "Peut",
+     "s": 9.782,
+     "e": 9.881
+    },
+    {
+     "w": "mieux",
+     "s": 9.931,
+     "e": 10.03
+    },
+    {
+     "w": "faire.",
+     "s": 10.104,
+     "e": 10.696
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Son patron l'a lu. Licencié.",
+   "hl": [
+    "patron",
+    "Licencié."
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L05.k.wav",
+   "file_start": 10.796,
+   "speech_start": 10.796,
+   "speech_end": 12.796,
+   "words": [
+    {
+     "w": "Son",
+     "s": 10.796,
+     "e": 10.944
+    },
+    {
+     "w": "patron",
+     "s": 11.019,
+     "e": 11.241
+    },
+    {
+     "w": "l'a",
+     "s": 11.315,
+     "e": 11.389
+    },
+    {
+     "w": "lu.",
+     "s": 11.5,
+     "e": 11.907
+    },
+    {
+     "w": "Licencié.",
+     "s": 12.019,
+     "e": 12.796
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Puis il a retrouvé le sien. Il l'a mangé.",
+   "hl": [
+    "sien.",
+    "mangé."
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L06.k.wav",
+   "file_start": 12.896,
+   "speech_start": 12.896,
+   "speech_end": 15.341,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 12.896,
+     "e": 13.119
+    },
+    {
+     "w": "il",
+     "s": 13.193,
+     "e": 13.267
+    },
+    {
+     "w": "a",
+     "s": 13.341,
+     "e": 13.378
+    },
+    {
+     "w": "retrouvé",
+     "s": 13.415,
+     "e": 13.711
+    },
+    {
+     "w": "le",
+     "s": 13.748,
+     "e": 13.785
+    },
+    {
+     "w": "sien.",
+     "s": 13.859,
+     "e": 14.378
+    },
+    {
+     "w": "Il",
+     "s": 14.452,
+     "e": 14.526
+    },
+    {
+     "w": "l'a",
+     "s": 14.575,
+     "e": 14.674
+    },
+    {
+     "w": "mangé.",
+     "s": 14.748,
+     "e": 15.341
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Les entreprises ont exigé les bulletins. Personne n'avait fait mieux.",
+   "hl": [
+    "entreprises",
+    "mieux."
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L07.k.wav",
+   "file_start": 15.441,
+   "speech_start": 15.441,
+   "speech_end": 18.626,
+   "words": [
+    {
+     "w": "Les",
+     "s": 15.441,
+     "e": 15.589
+    },
+    {
+     "w": "entreprises",
+     "s": 15.737,
+     "e": 16.107
+    },
+    {
+     "w": "ont",
+     "s": 16.181,
+     "e": 16.256
+    },
+    {
+     "w": "exigé",
+     "s": 16.33,
+     "e": 16.626
+    },
+    {
+     "w": "les",
+     "s": 16.663,
+     "e": 16.7
+    },
+    {
+     "w": "bulletins.",
+     "s": 16.774,
+     "e": 17.367
+    },
+    {
+     "w": "Personne",
+     "s": 17.515,
+     "e": 17.737
+    },
+    {
+     "w": "n'avait",
+     "s": 17.811,
+     "e": 18.033
+    },
+    {
+     "w": "fait",
+     "s": 18.107,
+     "e": 18.181
+    },
+    {
+     "w": "mieux.",
+     "s": 18.256,
+     "e": 18.626
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Tout le pays a repris le cartable. Le ministre, au fond près du radiateur.",
+   "hl": [
+    "cartable.",
+    "radiateur."
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L08.k.wav",
+   "file_start": 18.726,
+   "speech_start": 18.726,
+   "speech_end": 22.726,
+   "words": [
+    {
+     "w": "Tout",
+     "s": 18.726,
+     "e": 18.874
+    },
+    {
+     "w": "le",
+     "s": 18.948,
+     "e": 19.022
+    },
+    {
+     "w": "pays",
+     "s": 19.059,
+     "e": 19.319
+    },
+    {
+     "w": "a",
+     "s": 19.356,
+     "e": 19.393
+    },
+    {
+     "w": "repris",
+     "s": 19.467,
+     "e": 19.689
+    },
+    {
+     "w": "le",
+     "s": 19.726,
+     "e": 19.763
+    },
+    {
+     "w": "cartable.",
+     "s": 19.837,
+     "e": 20.504
+    },
+    {
+     "w": "Le",
+     "s": 20.541,
+     "e": 20.578
+    },
+    {
+     "w": "ministre,",
+     "s": 20.652,
+     "e": 21.294
+    },
+    {
+     "w": "au",
+     "s": 21.344,
+     "e": 21.393
+    },
+    {
+     "w": "fond",
+     "s": 21.43,
+     "e": 21.615
+    },
+    {
+     "w": "près",
+     "s": 21.652,
+     "e": 21.763
+    },
+    {
+     "w": "du",
+     "s": 21.8,
+     "e": 21.837
+    },
+    {
+     "w": "radiateur.",
+     "s": 21.948,
+     "e": 22.726
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "En maternelle, pas de bulletin. Ils ont pris les bureaux.",
+   "hl": [
+    "maternelle,",
+    "bureaux."
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L09.k.wav",
+   "file_start": 22.826,
+   "speech_start": 22.826,
+   "speech_end": 25.567,
+   "words": [
+    {
+     "w": "En",
+     "s": 22.826,
+     "e": 22.9
+    },
+    {
+     "w": "maternelle,",
+     "s": 23.011,
+     "e": 23.641
+    },
+    {
+     "w": "pas",
+     "s": 23.715,
+     "e": 23.789
+    },
+    {
+     "w": "de",
+     "s": 23.814,
+     "e": 23.838
+    },
+    {
+     "w": "bulletin.",
+     "s": 23.863,
+     "e": 24.481
+    },
+    {
+     "w": "Ils",
+     "s": 24.505,
+     "e": 24.604
+    },
+    {
+     "w": "ont",
+     "s": 24.641,
+     "e": 24.678
+    },
+    {
+     "w": "pris",
+     "s": 24.752,
+     "e": 24.826
+    },
+    {
+     "w": "les",
+     "s": 24.9,
+     "e": 24.974
+    },
+    {
+     "w": "bureaux.",
+     "s": 25.023,
+     "e": 25.567
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Les réunions finissent à seize heures trente. Avec goûter.",
+   "hl": [
+    "réunions",
+    "goûter."
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L10.k.wav",
+   "file_start": 25.667,
+   "speech_start": 25.667,
+   "speech_end": 28.333,
+   "words": [
+    {
+     "w": "Les",
+     "s": 25.667,
+     "e": 25.741
+    },
+    {
+     "w": "réunions",
+     "s": 25.815,
+     "e": 26.185
+    },
+    {
+     "w": "finissent",
+     "s": 26.259,
+     "e": 26.481
+    },
+    {
+     "w": "à",
+     "s": 26.556,
+     "e": 26.63
+    },
+    {
+     "w": "seize",
+     "s": 26.667,
+     "e": 26.741
+    },
+    {
+     "w": "heures",
+     "s": 26.778,
+     "e": 26.926
+    },
+    {
+     "w": "trente.",
+     "s": 26.963,
+     "e": 27.519
+    },
+    {
+     "w": "Avec",
+     "s": 27.556,
+     "e": 27.741
+    },
+    {
+     "w": "goûter.",
+     "s": 27.778,
+     "e": 28.333
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Le pays n'a jamais été aussi bien géré.",
+   "hl": [
+    "jamais",
+    "géré."
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L11.k.wav",
+   "file_start": 28.433,
+   "speech_start": 28.433,
+   "speech_end": 30.507,
+   "words": [
+    {
+     "w": "Le",
+     "s": 28.433,
+     "e": 28.581
+    },
+    {
+     "w": "pays",
+     "s": 28.619,
+     "e": 28.804
+    },
+    {
+     "w": "n'a",
+     "s": 28.841,
+     "e": 29.026
+    },
+    {
+     "w": "jamais",
+     "s": 29.1,
+     "e": 29.322
+    },
+    {
+     "w": "été",
+     "s": 29.433,
+     "e": 29.544
+    },
+    {
+     "w": "aussi",
+     "s": 29.619,
+     "e": 29.767
+    },
+    {
+     "w": "bien",
+     "s": 29.804,
+     "e": 29.989
+    },
+    {
+     "w": "géré.",
+     "s": 30.026,
+     "e": 30.507
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le ministre a rendu copie blanche. Appréciation : « Peut mieux faire. »",
+   "hl": [
+    "ministre",
+    "blanche."
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L12.k.wav",
+   "file_start": 30.607,
+   "speech_start": 30.607,
+   "speech_end": 34.311,
+   "words": [
+    {
+     "w": "Le",
+     "s": 30.607,
+     "e": 30.681
+    },
+    {
+     "w": "ministre",
+     "s": 30.756,
+     "e": 31.126
+    },
+    {
+     "w": "a",
+     "s": 31.2,
+     "e": 31.274
+    },
+    {
+     "w": "rendu",
+     "s": 31.385,
+     "e": 31.57
+    },
+    {
+     "w": "copie",
+     "s": 31.644,
+     "e": 31.793
+    },
+    {
+     "w": "blanche.",
+     "s": 31.867,
+     "e": 32.496
+    },
+    {
+     "w": "Appréciation:",
+     "s": 32.533,
+     "e": 33.397
+    },
+    {
+     "w": "Peut",
+     "s": 33.422,
+     "e": 33.496
+    },
+    {
+     "w": "mieux",
+     "s": 33.533,
+     "e": 33.644
+    },
+    {
+     "w": "faire.",
+     "s": 33.719,
+     "e": 34.311
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Il a ouvert le tiroir de la maîtresse : quarante ans de copies jamais lues.",
+   "hl": [
+    "tiroir",
+    "lues."
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L13.k.wav",
+   "file_start": 34.411,
+   "speech_start": 34.411,
+   "speech_end": 38.041,
+   "words": [
+    {
+     "w": "Il",
+     "s": 34.411,
+     "e": 34.485
+    },
+    {
+     "w": "a",
+     "s": 34.522,
+     "e": 34.559
+    },
+    {
+     "w": "ouvert",
+     "s": 34.633,
+     "e": 34.856
+    },
+    {
+     "w": "le",
+     "s": 34.93,
+     "e": 35.004
+    },
+    {
+     "w": "tiroir",
+     "s": 35.053,
+     "e": 35.3
+    },
+    {
+     "w": "de",
+     "s": 35.337,
+     "e": 35.374
+    },
+    {
+     "w": "la",
+     "s": 35.411,
+     "e": 35.448
+    },
+    {
+     "w": "maîtresse:",
+     "s": 35.485,
+     "e": 36.288
+    },
+    {
+     "w": "quarante",
+     "s": 36.312,
+     "e": 36.559
+    },
+    {
+     "w": "ans",
+     "s": 36.633,
+     "e": 36.707
+    },
+    {
+     "w": "de",
+     "s": 36.744,
+     "e": 36.781
+    },
+    {
+     "w": "copies",
+     "s": 36.856,
+     "e": 37.152
+    },
+    {
+     "w": "jamais",
+     "s": 37.226,
+     "e": 37.448
+    },
+    {
+     "w": "lues.",
+     "s": 37.522,
+     "e": 38.041
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Ordre du ministère. Signé sans lire, lui aussi.",
+   "hl": [
+    "ministère.",
+    "lire,"
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L14.k.wav",
+   "file_start": 38.141,
+   "speech_start": 38.141,
+   "speech_end": 41.326,
+   "words": [
+    {
+     "w": "Ordre",
+     "s": 38.141,
+     "e": 38.437
+    },
+    {
+     "w": "du",
+     "s": 38.474,
+     "e": 38.511
+    },
+    {
+     "w": "ministère.",
+     "s": 38.585,
+     "e": 39.4
+    },
+    {
+     "w": "Signé",
+     "s": 39.511,
+     "e": 39.77
+    },
+    {
+     "w": "sans",
+     "s": 39.993,
+     "e": 40.141
+    },
+    {
+     "w": "lire,",
+     "s": 40.178,
+     "e": 40.585
+    },
+    {
+     "w": "lui",
+     "s": 40.622,
+     "e": 40.733
+    },
+    {
+     "w": "aussi.",
+     "s": 40.844,
+     "e": 41.326
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Pour la première fois, la maîtresse a lu une copie. Celle de ce mec.",
+   "hl": [
+    "première",
+    "mec."
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L15.k.wav",
+   "file_start": 41.426,
+   "speech_start": 41.426,
+   "speech_end": 44.759,
+   "words": [
+    {
+     "w": "Pour",
+     "s": 41.426,
+     "e": 41.5
+    },
+    {
+     "w": "la",
+     "s": 41.574,
+     "e": 41.648
+    },
+    {
+     "w": "première",
+     "s": 41.722,
+     "e": 41.944
+    },
+    {
+     "w": "fois,",
+     "s": 42.019,
+     "e": 42.414
+    },
+    {
+     "w": "la",
+     "s": 42.438,
+     "e": 42.463
+    },
+    {
+     "w": "maîtresse",
+     "s": 42.537,
+     "e": 42.833
+    },
+    {
+     "w": "a",
+     "s": 42.87,
+     "e": 42.907
+    },
+    {
+     "w": "lu",
+     "s": 42.981,
+     "e": 43.056
+    },
+    {
+     "w": "une",
+     "s": 43.093,
+     "e": 43.13
+    },
+    {
+     "w": "copie.",
+     "s": 43.204,
+     "e": 43.821
+    },
+    {
+     "w": "Celle",
+     "s": 43.845,
+     "e": 43.944
+    },
+    {
+     "w": "de",
+     "s": 44.019,
+     "e": 44.093
+    },
+    {
+     "w": "ce",
+     "s": 44.13,
+     "e": 44.167
+    },
+    {
+     "w": "mec.",
+     "s": 44.241,
+     "e": 44.759
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "« Peut mieux faire. »",
+   "hl": [
+    "Peut",
+    "faire."
+   ],
+   "file": "/tmp/pipe/s7/bulletin/tts/L16.k.wav",
+   "file_start": 44.859,
+   "speech_start": 44.859,
+   "speech_end": 45.822,
+   "words": [
+    {
+     "w": "Peut",
+     "s": 44.859,
+     "e": 45.007
+    },
+    {
+     "w": "mieux",
+     "s": 45.056,
+     "e": 45.156
+    },
+    {
+     "w": "faire.",
+     "s": 45.23,
+     "e": 45.822
+    }
+   ]
+  }
+ ],
+ "total": 47.12
+}
