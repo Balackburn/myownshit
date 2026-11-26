@@ -3359,3 +3359,13 @@ Revues anim/art 7,1/7,4 → 7,3/7,4 → 7,7/7,8, puis une passe finale :
 - S05b, S08 et S03 : poses tenues ranimées.
 Brouillon de contrôle : aucun gel, aucune chute. Finale : 1080x1920, 45,4 s, -16,0 LUFS (crête -3,5), aucune chute de luminosité. Post Postiz cmwxuxqxh06lol107gpusxkai.
 La composition HyperFrames a été relancée deux fois : la première faute de fond musical (effacé par erreur, puis restauré depuis le dépôt), la seconde faute de place (dossier de travail du rendu 3D supprimé).
+
+## 19 h 00 — « Le bulletin » (110) publiée par la session parallèle
+Notes anim/art : 4,9/5,0, puis 5,4/5,6, puis 6,2/6,3. Finale 1080x1920, 47,1 s, -16,1 LUFS, check sans erreur ni avertissement. Post cmwxwt8tj07m7l1073onxobzm, programmé à 18 h 54. Fusionnée, entrée ajoutée au registre.
+Conformité :
+- décors refaits sans aucune inscription ;
+- bulletins sans chiffre ;
+- jambes et classeurs qui se lisaient « 11 » ou « II » corrigés ;
+- tricolore vert-blanc-orange évité ;
+- accoudoir en « T » supprimé.
+Leçons ajoutées au skill. Prochaine histoire pour la session parallèle : « Le spaghetti » (112).
