@@ -93,22 +93,27 @@ export const SARDINE_PROPS = {
     const lid = at(box(0.26, 0.006, 0.15, '#DDE2E8', { pivot: 'bottom', outline: 0.01, emissive: '#2A2E34' }), 0, 0.045, 0), roll = at(cyl(0.012, 0.012, 0.15, '#DDE2E8', 8), 0.13, 0.055, 0, PI / 2, 0, 0);
     const key = grp(at(box(0.05, 0.004, 0.012, '#B8BEC6'), 0.025, 0, 0), new THREE.Mesh(new THREE.TorusGeometry(0.014, 0.004, 4, 8), mat('#B8BEC6'))); key.children[1].position.x = 0.055; key.children[1].rotation.x = PI / 2; key.position.set(0.13, 0.055, 0.08);
     k.add(lid, roll, key);
-    g.userData.update = t => { const u = o.openAt == null ? 0 : smooth((t - o.openAt) / 0.4); lid.scale.x = 1 - 0.92 * u; roll.position.x = 0.13 - 0.24 * u; key.position.x = 0.13 - 0.24 * u; roll.scale.set(1 + 2 * u, 1, 1 + 2 * u); lid.position.x = -0.12 * u; };
+    g.userData.update = t => { const u = o.openAt == null ? 0 : smooth((t - o.openAt) / (o.openDur ?? 0.4)); lid.scale.x = 1 - 0.92 * u; roll.position.x = 0.13 - 0.24 * u; key.position.x = 0.13 - 0.24 * u; roll.scale.set(1 + 2 * u, 1, 1 + 2 * u); lid.position.x = -0.12 * u; };
     g.userData.update(0); return g;
   },
   // A big glistening sardine (pivot at its middle, head toward +Z): a blue-grey back, a silver belly, a forked tail, a round eye and a moving glint.
   // o.len (0.34); o.stretch [[t, v]]: pulled out like a worm (longer, thinner); o.squash [[t, v]]: squashed along its length (fatter); o.wiggle
-  saSardine(o) {
+  saSardine(o) {   // (round 3) a real fish silhouette: a slim silver body, a blue-green back, a dark gill line, a big eye, a forked tail fin and a dorsal fin standing up (+Y), an oily highlight
     const L = o.len ?? 0.34, g = grp(), k = grp(); g.add(k);
-    const belly = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 8), mat('#DCE4EC', { emissive: '#3A4654' })); belly.scale.set(L * 0.13, L * 0.17, L * 0.5); addOutline(belly, 0.02); k.add(belly);
-    const back = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 6, 0, TAU, 0, PI * 0.42), mat('#4E6E8E')); back.scale.set(L * 0.135, L * 0.175, L * 0.5); k.add(back);
-    const tail = new THREE.Shape(); tail.moveTo(0, 0); tail.lineTo(-L * 0.12, -L * 0.2); tail.lineTo(0, -L * 0.13); tail.lineTo(L * 0.12, -L * 0.2); tail.closePath();
-    const tm = new THREE.Mesh(new THREE.ShapeGeometry(tail), mat('#5A7A98', { side: THREE.DoubleSide })); tm.rotation.x = -PI / 2; tm.position.z = -L * 0.45; tm.rotation.z = PI / 2; tm.rotation.y = PI / 2; addOutline(tm, 0.02); k.add(tm);
-    for (const s of [-1, 1]) k.add(at(sphere(L * 0.035, '#FFFFFF', 0), s * L * 0.1, L * 0.03, L * 0.34), at(sphere(L * 0.02, '#14161A', 0), s * L * 0.115, L * 0.03, L * 0.35));
-    const sh = at(box(0.006, L * 0.03, L * 0.5, '#FFFFFF', { emissive: '#FFFFFF' }), L * 0.12, L * 0.02, 0); k.add(sh);
-    g.userData.update = t => { const s = kv(o.stretch, t), q = kv(o.squash, t); k.scale.set((1 - 0.35 * s) * (1 + 0.6 * q), (1 - 0.35 * s) * (1 + 0.6 * q), (1 + 1.4 * s) * (1 - 0.55 * q)); k.rotation.y = o.wiggle ? 0.25 * Math.sin(t * 14) : 0; sh.position.z = L * 0.15 * Math.sin(t * 3); };
+    const belly = new THREE.Mesh(new THREE.SphereGeometry(1, 16, 10), mat('#E2E8EE', { emissive: '#4A5664' })); belly.scale.set(L * 0.1, L * 0.16, L * 0.46); addOutline(belly, 0.025); k.add(belly);
+    const back = new THREE.Mesh(new THREE.SphereGeometry(1, 16, 6, 0, TAU, 0, PI * 0.38), mat('#2E7A86', { emissive: '#0E2A30' })); back.scale.set(L * 0.103, L * 0.163, L * 0.465); k.add(back);
+    for (const sx of [-1, 1]) { const gl = new THREE.Mesh(new THREE.TorusGeometry(L * 0.13, L * 0.008, 4, 10, PI * 0.8), mat('#5A6470')); gl.rotation.set(0, sx * PI / 2, PI * 0.6); gl.position.set(sx * L * 0.085, 0, L * 0.22); k.add(gl);
+      k.add(at(sphere(L * 0.05, '#FFFFFF', 0), sx * L * 0.08, L * 0.035, L * 0.33), at(sphere(L * 0.028, '#14161A', 0), sx * L * 0.1, L * 0.035, L * 0.345)); }
+    const tl = new THREE.Shape(); tl.moveTo(0, 0); tl.lineTo(-L * 0.2, L * 0.15); tl.lineTo(-L * 0.12, 0); tl.lineTo(-L * 0.2, -L * 0.15); tl.closePath();   // the forked tail, in the fish's vertical plane
+    const tail = grp(); const tm = new THREE.Mesh(new THREE.ShapeGeometry(tl), mat('#3E8A96', { side: THREE.DoubleSide })); tm.rotation.y = PI / 2; addOutline(tm, 0.025); tail.add(tm); tail.position.z = -L * 0.42; k.add(tail);
+    const df = new THREE.Shape(); df.moveTo(0, 0); df.lineTo(L * 0.12, 0); df.lineTo(0.0, L * 0.08); df.closePath(); const dm = new THREE.Mesh(new THREE.ShapeGeometry(df), mat('#2E7A86', { side: THREE.DoubleSide })); dm.rotation.y = -PI / 2; dm.position.set(0, L * 0.14, -L * 0.05); k.add(dm);
+    const sh = at(box(0.006, L * 0.035, L * 0.55, '#FFFFFF', { emissive: '#FFFFFF' }), L * 0.095, L * 0.02, 0); k.add(sh);
+    g.userData.update = t => { const s = kv(o.stretch, t), q = kv(o.squash, t); k.scale.set((1 - 0.35 * s) * (1 + 0.6 * q), (1 - 0.35 * s) * (1 + 0.6 * q), (1 + 1.4 * s) * (1 - 0.55 * q));
+      const wg = o.wiggle || (o.wiggleAt && t > o.wiggleAt[0] && t < o.wiggleAt[1]); tail.rotation.y = wg ? 0.6 * Math.sin(t * 26) : 0.12 * Math.sin(t * 3); k.rotation.y = wg ? 0.12 * Math.sin(t * 26 + 1) : 0; sh.position.z = L * 0.12 * Math.sin(t * 3); };
     g.userData.update(0); return g;
   },
+  // A patch of dark turned soil (pivot at the ground): o.r (0.45)
+  saSoil(o) { const m = new THREE.Mesh(new THREE.CircleGeometry(o.r ?? 0.45, 20), mat('#4A3020')); m.rotation.x = -PI / 2; m.position.y = 0.03; m.material.polygonOffset = true; m.material.polygonOffsetFactor = -2; return grp(m); },
   // A clean fish skeleton lying on the ground (pivot at its middle, along X): a white spine, ribs, a skull and a tail fin. o.len (0.8)
   saBones(o) {
     const L = o.len ?? 0.8, g = grp(), W = '#F6F4EE';
@@ -193,8 +198,9 @@ export const SARDINE_PROPS = {
     const n = o.n ?? 60, W = o.w ?? 16, D = o.d ?? 12, rise = o.rise ?? 0.35, g = grp(), gl = [], cols = ['#F07A1E', '#3E8ACC', '#E8C030', '#5EAA4A', '#E8913A', '#8A5AB0'];
     if (o.ground !== false) { const gm = new THREE.Mesh(new THREE.PlaneGeometry(W * 1.4, D * 1.4, 8, 8), mat(o.groundColor || '#7DBA5A')); gm.rotation.x = -PI / 2 + Math.atan(rise); gm.position.set(0, D * 0.0, 0); g.add(gm); }
     for (let i = 0; i < n; i++) { const x = (hsh(i) - 0.5) * W, z = (hsh(i + 33) - 0.5) * D, y = -z * rise; const c = new THREE.Color(cols[i % cols.length]);
-      const d = new THREE.Mesh(new THREE.SphereGeometry(0.4, 10, 5, 0, TAU, 0, PI / 2), mat('#' + c.getHexString())); d.scale.set(1, 0.7, 1); d.position.set(x, y, z); addOutline(d, 0.02); g.add(d); for (const s of [-1, 1]) g.add(at(box(0.012, 0.012, 0.55, '#F4F1EA'), x + s * 0.42, y + 0.12, z + 0.25, -0.45, s * 0.6, 0));
-      if (o.glint) { const q = glint(0.12, 1.1, hsh(i + 5) * 1.1); q.position.set(x + 0.42, y + 0.08, z + 0.3); g.add(q); gl.push(q); } }
+      const d = new THREE.Mesh(new THREE.SphereGeometry(0.4, 10, 5, 0, TAU, 0, PI / 2), mat('#' + c.getHexString())); d.scale.set(1, o.domeH ?? 0.7, 1); d.position.set(x, y, z); addOutline(d, 0.02); g.add(d); for (const s of [-1, 1]) g.add(at(box(0.012, 0.012, 0.55, '#F4F1EA'), x + s * 0.42, y + 0.12, z + 0.25, -0.45, s * 0.6, 0));
+      if (o.tails) { const tf = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.22, 4), mat('#D8E0E8', { emissive: '#606870' })); tf.position.set(x + 0.38, y + 0.11, z + 0.3); tf.rotation.z = PI; addOutline(tf, 0.02); g.add(tf); }
+      if (o.glint) { const q = glint(0.16, 1.1, hsh(i + 5) * 1.1); q.position.set(x + 0.4, y + 0.2, z + 0.32); g.add(q); gl.push(q); } }
     g.userData.update = t => { for (const q of gl) q.userData.tick(t); }; g.userData.update(0); return g;
   },
   // A glint by itself (pivot at its middle): o.size (0.12), o.every (1.2)
