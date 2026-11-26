@@ -3284,3 +3284,8 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - brouillons dépassés et images de revue.
   Finale lancée.
 - 12 h 35 — « La notice » (107) : le calque 3D de la finale est rendu (118 min), mais HyperFrames a refusé la composition faute de place (0,9 Go pour 1 Go requis). J'ai libéré le doublon du calque et le dossier de rendu, puis relancé seulement la composition (1,1 Go libres). Leçon ajoutée au skill.
+
+- 12 h 40 — « La notice » (107) LIVRÉE et publiée sur TikTok (cmwxjeeud003uoc07d1ni3s3a) :
+  - revues 6,8/7,4 → 7,5/7,8 → 7,6/8,0, passe finale, brouillon de contrôle ;
+  - finale 1080x1920, 51 s, −16,1 LUFS, crête −2,7 dBFS, HyperFrames 0 erreur, pas de creux ;
+  - composition relancée seule après le refus pour manque de place.

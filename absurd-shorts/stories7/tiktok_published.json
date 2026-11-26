@@ -898,5 +898,14 @@
   "status": "scheduled",
   "date": "2026-11-26T09:11:26Z",
   "at": "2026-11-26 09:10"
+ },
+ "107-notice": {
+  "title": "La notice",
+  "via": "postiz",
+  "post_id": "cmwxjeeud003uoc07d1ni3s3a",
+  "status": "scheduled",
+  "date": "2026-11-26T12:38:47Z",
+  "media": "https://uploads.postiz.com/dgqwoo3Xx5.mp4",
+  "at": "2026-11-26 12:36"
  }
 }
