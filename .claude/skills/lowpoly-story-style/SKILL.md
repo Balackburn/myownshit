@@ -2562,3 +2562,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 59) Des dômes vus d'en dessous avec des cordes pendantes se lisent comme des méduses ou des parachutes : faire voler les tentes de côté, cordes traînant derrière.
 - (cycle 59) Des éclairs nocturnes plein cadre déclenchent le contrôle des chutes de luminosité : éclaircir brièvement la nuit à la place.
 - (cycle 59) Un figurant à tête carrée et cheveux noirs passe pour le héros : donner aux figurants un chapeau et d'autres couleurs.
+- (cycle 58, histoire 109) Un « carré translucide » dans un plan enneigé peut être un flocon à quelques centimètres de l'objectif. Déplacer les points dans `onBeforeRender` arrive une image trop tard : les écarter de la caméra dans le vertex shader (seSnowClear).
+- (cycle 58) Un objet porté flotte quand les mains le lâchent avant qu'il tombe, pas parce que la cible des mains est fausse : garder les paumes ouvertes à sa hauteur deux images, puis une chute de moins de 0,15 s, un claquement et un rebond.
+- (cycle 58) Avant de retoucher un objet que le critique dit « invisible », projeter sa position à l'écran : la rallonge de S04 était là depuis le début, cachée derrière la tête du héros.
+- (cycle 58) Un camion se reconnaît à trois signes vus ensemble : un bout de pare-brise, l'arche de roue et l'intérieur éclairé de la cabine. Un volant sous le rebord de la vitre ne se voit pas : le remonter.

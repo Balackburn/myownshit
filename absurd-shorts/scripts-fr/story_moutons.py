@@ -259,14 +259,14 @@ st.cue('sfx:baa', 'S01b', 0.35, 0.25); st.cue('sfx:boing', 'S01b', HOP2, 0.15); 
 D2 = st.dur('S02')
 TOP2 = 2.6                                    # the top of the fleece
 H2 = [-2.45, r(TOP2 - 1.9), -1.55]            # him standing buried: only the head above the wool
-BK2 = [-1.15, r(TOP2 - 0.42), -2.35]          # the black sheep buried to the chin, behind him on the right
+BK2 = [-1.75, r(TOP2 - 0.42), -2.5]           # the black sheep buried to the chin, behind him on the right
 FL2 = [{'kind': 'box', 'x': [-4.4, 1.2], 'y': [0.2, TOP2 - 0.75], 'z': [-2.9, 0.9], 'n': 260, 's': [0.8, 1.15]},
        {'kind': 'layer', 'x': [-4.4, 1.2], 'z': [-2.9, 0.9], 'y': TOP2 - 0.8, 'n': 110, 's': [0.75, 1.05], 'h': 0.12},
        {'kind': 'box', 'x': [-4.4, -3.6], 'y': [0.3, 2.4], 'z': [-1.4, 0.2], 'n': 14, 's': [0.8, 1.0]}]
-F2, L2, LN2 = FIT([-1.55, 5.0, 1.9], {'head': add(H2, [0, 2.32, 0]), 'chin': add(H2, [0, 1.8, 0]), 'sheep': [-1.2, TOP2 + 0.9, -1.0], 'bk': add(BK2, [0, 0.8, 0]), 'win': [-4.45, 2.4, -0.6],
-                                      'wallTop': [-2.5, 3.6, -3.0], 'woolF': [-2.2, TOP2, 0.6]}, margin=0.1, top=0.12, bottom=0.8, lenses=range(36, 72))
+F2, L2, LN2 = FIT([-1.55, 3.95, 0.75], {'head': add(H2, [0, 2.32, 0]), 'chin': add(H2, [0, 1.8, 0]), 'sheep': [-1.95, TOP2 + 0.9, -1.15], 'bk': add(BK2, [0, 0.8, 0]), 'backTop': [-2.6, 3.4, -3.0]},
+              margin=0.12, top=0.12, bottom=0.78, lenses=range(36, 72))
 C2 = CAM(F2, L2, LN2, 0.15)
-chk2('S02', C2, {'head': add(H2, [0, 2.3, 0]), 'chin': add(H2, [0, 1.8, 0]), 'sheep': [-1.2, TOP2 + 0.8, -1.0]}, heads=('head', 'chin'))
+chk2('S02', C2, {'head': add(H2, [0, 2.3, 0]), 'chin': add(H2, [0, 1.8, 0]), 'sheep': [-1.95, TOP2 + 0.8, -1.15], 'bk': add(BK2, [0, 0.8, 0])}, heads=('head', 'chin', 'bk'))
 POPS2 = 0.18
 HOLES2 = [[H2[0], H2[2], 0.1, r(H2[1] + 1.82)], [BK2[0], BK2[2], 0.12, r(BK2[1] + 0.5)]]
 HK2 = [k(0.0, clip='stand'), k(-0.5, look='camera'), k(0.0, toon={'face': {**HF, 'lid': 0.35}, 'hip': 0}, toonDur=0.0),
@@ -275,7 +275,7 @@ HK2 = [k(0.0, clip='stand'), k(-0.5, look='camera'), k(0.0, toon={'face': {**HF,
        k(0.1, toon={'face': {**HF, 'lid': 0.0, 'eye': 0.5, 'brow': 0.9}, 'sq': [0.92, 1.1, 0.92], 'hip': 0, 'autoSq': 0}, toonDur=0.04, toonEase='out'),
        k(0.3, toon={'face': {**HF, 'lid': 0.35}, 'sq': [1.06, 0.95, 1.06], 'hip': 0, 'autoSq': 0}, toonDur=0.06),
        *life(0.5, D2, {**HF, 'lid': 0.35}, {'hip': 0}, blinks=[0.7], period=0.5, glance=0.4)]
-SH2 = SHEEP('mouton2', [-1.2, r(TOP2 - 0.9), -1.0], 20, s=0.8, hops=[HOP(POPS2, 0.45, [0.4, 0.62, 0.2], 0.55)], bleat=[r(POPS2 + 0.05)], blinks=[0.8])
+SH2 = SHEEP('mouton2', [-1.95, r(TOP2 - 0.9), -1.15], 20, s=0.8, hops=[HOP(POPS2, 0.45, [0.25, 0.62, 0.2], 0.55)], bleat=[r(POPS2 + 0.05)], blinks=[0.8])
 st.shot('S02', 'chambre', setOpts=ROOM_D, look={'sun': 1.2, 'fill': 1.1, 'exposure': 1.15}, actors=[act('mec', H2, 0, 'stand', 'neutral', keys=HK2)],
         props=[FLEECE('laine2', FL2, keys=[k(0.06, squash=[1.03, 1.1, 1.03], dur=0.55)], bob=0.02, seed=2, holes=HOLES2), SH2, BLACK('noir2', BK2, r(yaw(BK2, add(H2, [0, 2.0, 0]))), s=0.8, blinks=[0.5])], cams=[C2])
 st.cue('sfx:baa', 'S02', 0.06, 0.45); st.cue('sfx:baa', 'S02', 0.12, 0.3); st.cue('sfx:pop', 'S02', POPS2, 0.2)
@@ -670,11 +670,10 @@ st.cue('sfx:tick', 'S09', 0.15, 0.12); st.cue('sfx:tick', 'S09', 0.42, 0.12); st
 #     drooping and snapping back up, bubble on: the little man leans forward
 D9b = st.dur('S09b')
 RIDGE = [0, 6.0, 0]; BK9 = add(RIDGE, [0.25, 0.07, 0.0])
-F9b, L9b, LN9b = FIT([0.75, 6.45, 2.6], {'bk': add(BK9, [0, 1.0, 0]), 'bkF': add(BK9, [0, 0.05, 0.3]), 'bubT': add(BK9, [0, 1.0 + BUBH * 1.3 + 0.36, 0]), 'bubL': add(BK9, [-0.5, 1.0 + BUBH * 1.3, 0]),
-                                         'bubR': add(BK9, [0.5, 1.0 + BUBH * 1.3, 0])}, margin=0.12, top=0.12, bottom=0.78, lenses=range(30, 66))
+F9b, L9b, LN9b = [0.55, 5.35, 2.7], [0.2, 6.95, 0.0], 50   # low on the front slope, looking up: the sheep against the sky and the moon
 C9b = CAM(F9b, L9b, LN9b, 0.12)
 chk2('S09b', C9b, {'bkHead': add(BK9, [0, 0.9, 0.15]), 'bub': add(BK9, [0, 1.05 + BUBH * 1.55, 0])}, heads=('bkHead',))
-MOON9b = [r(F9b[0] + (BK9[0] - 0.1 - F9b[0]) * 6.0), r(F9b[1] + (BK9[1] + 0.8 - F9b[1]) * 6.0), r(F9b[2] + (BK9[2] - F9b[2]) * 6.0)]   # right behind its head as seen from the camera
+MOON9b = [r(F9b[0] + (BK9[0] - F9b[0]) * 7.0), r(F9b[1] + (BK9[1] + 0.85 - F9b[1]) * 7.0), r(F9b[2] + (BK9[2] - F9b[2]) * 7.0)]   # right behind its head as seen from the camera
 DROOP = [[0, 0.1], [0.08, 0.1], [0.42, -0.55], [0.5, 0.25], [0.62, 0.05], [0.95, 0.05], [1.25, -0.6], [1.32, 0.28], [1.45, 0.08]]
 st.shot('S09b', 'grassland', setOpts=NSET, look=NIGHT_OUT, actors=[],
         props=[P('toit9b', 'moRoof', pos=RIDGE, opts={'len': 4.2}), BLACK('noir9b', BK9, r(yaw(BK9, F9b) - 30), s=0.8, clip=[[0, 'sit']], chin=DROOP, blinks=[0.75], expr=[[0, 'sleepy'], [0.5, 'neutral'], [1.25, 'sleepy'], [1.32, 'neutral']],
@@ -932,7 +931,7 @@ st.shot('S15', 'grassland', setOpts=MSETN, look=NIGHT_OUT, actors=[],
 for t in NOD15: st.cue('sfx:boing', 'S15', r(t - 0.15), 0.1)
 
 # ============================== the last fence, for real (the meadow by night; he runs diagonally toward us, the fence across his path)
-PATHY = 51.0
+PATHY = 32.0
 def ALONG(d, side=0.0): return [r(math.sin(math.radians(PATHY)) * d + math.cos(math.radians(PATHY)) * side), 0.0, r(math.cos(math.radians(PATHY)) * d - math.sin(math.radians(PATHY)) * side)]
 FEN16 = [0.0, 0, 0.0]; BK16 = [-1.15, 0, 0.95]
 TIRED = {'lid': 0.15, 'eye': 0.35, 'mouth': 'line', 'brow': 0.6, 'bags': 1.0}
@@ -965,7 +964,7 @@ def FIELD(n): return [FENCE(f'barriere{n}', FEN16, PATHY, len=1.7, h=0.62), *NIG
 #     white fleece bursts out of his head, eyes wide with pinpoint pupils; he lands
 D16 = st.dur('S16'); J16 = 0.36
 JK16, AP16, LD16 = JUMP(J16, -1.15, 1.2, take=TAKE)
-F16, L16, LN16 = FIT([2.2, 1.6, 5.0], {'top': [0, 3.05, 0], 'start': add(ALONG(-2.5), [0, 2.3, 0]), 'end': add(ALONG(1.6), [0, 2.3, 0]), 'feet': ALONG(-1.15), 'bk': add(BK16, [0, 1.0, 0]), 'bkF': add(BK16, [0, 0.0, 0.4])},
+F16, L16, LN16 = FIT([1.0, 1.55, 5.2], {'top': [0, 3.05, 0], 'start': add(ALONG(-2.4), [0, 2.3, 0]), 'end': add(ALONG(1.55, 0.7), [0, 2.3, 0]), 'end2': add(ALONG(1.2), [0.3, 0.2, 0.3]), 'feet': ALONG(-1.15), 'bk': add(BK16, [0, 1.0, 0]), 'bkF': add(BK16, [0, 0.0, 0.4])},
                 margin=0.14, top=0.12, bottom=0.78, lenses=range(30, 60))
 C16 = CAM(F16, L16, LN16, 0.15)
 chk2('S16', C16, {'apexHead': [0, 2.05 + 0.82, 0], 'start': add(ALONG(-2.5), [0, 2.0, 0]), 'land': add(ALONG(1.2), [0, 2.0, 0]), 'bkHead': add(BK16, [0, 0.9, 0.2])}, heads=('apexHead', 'land', 'bkHead'))
@@ -1003,7 +1002,7 @@ LOOP2 = [ALONG(1.2, 1.7), ALONG(0.0, 2.0), ALONG(-1.5, 1.4), ALONG(-1.75, 0.3), 
 J16c = 0.62
 JK16c, AP16c, LD16c = JUMP(J16c, -1.15, 1.2, fc=PANT)
 F16c, L16c, LN16c = FIT([-1.75, 0.95, 3.9], {'bk': add(BK16, [0, 1.05, 0]), 'bkF': add(BK16, [0, 0.1, 0.45]), 'apex': [0, 2.95, 0], 'fen': [0.6, 0.3, -0.5], 'fenB': [-0.6, 0.3, 0.5]},
-                  margin=0.12, top=0.2, bottom=0.76, lenses=range(30, 62))
+                  margin=0.12, top=0.24, bottom=0.76, lenses=range(30, 62))
 C16c = CAM(F16c, L16c, LN16c, 0.1)
 chk2('S16c', C16c, {'bkHead': add(BK16, [0, 0.9, 0.2]), 'apexHead': [0, 3.1, 0]}, heads=('bkHead', 'apexHead'))
 HK16c = [k(0.0, clip='run'), k(-0.5, look='camera'), *RUN(0.0, LOOP2, r(J16c - 0.02), PANT), *JK16c, *RUN(r(LD16c + 0.1), [ALONG(1.2), ALONG(1.55, 0.7), ALONG(1.35, 1.5)], r(D16c - LD16c - 0.1 + 0.5), PANT)]

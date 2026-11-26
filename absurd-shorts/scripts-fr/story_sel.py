@@ -1182,12 +1182,12 @@ D14 = st.dur('S14')
 # height with the empty glass big to camera beside him (never over his face); a beat of NOTHING (0.28 s: his eyes on the glass, then on us); an
 # anticipation squash; then THE take: the head stays vertical and shoots straight up out of the collar (the neck x6), the eyes out on stalks, the
 # chin dropped as a block under a dark open mouth, the hair up, held 0.38 s with a shiver, snapped back in two frames. The camera booms up with the
-# head (a glide, not a cut). The knife is parked out of the shot (it lay through his waist); the flakes near the lens are cleared (seSnowClear)
+# head (a glide, not a cut); both arms fly up with it (the empty shaker and the fork held high, out of the caption band). The knife is parked out of the shot (it lay through his waist); the flakes near the lens are cleared (seSnowClear)
 SHK14, FLIP14, TAPA14, TAPB14, NOTH14, ANT14, TAKE14, SNAP14 = 0.0, 0.22, 0.32, 0.4, 0.44, 0.66, 0.72, 1.1
 G14a = off(HS, RYS_, 0.42, 0.55, 1.14); G14b = off(HS, RYS_, 0.42, 0.55, 1.16); G14c = off(HS, RYS_, 0.46, 0.6, 1.26)
 SP14 = SHP(G14a, 0.0, [(0.0, add(G14a, [0.03, 0.05, 0]), -0.5, 0.05, 'out'), (0.055, add(G14a, [-0.03, -0.03, 0]), 0.5, 0.05, 'inOut'), (0.11, add(G14a, [0.03, 0.05, 0]), -0.5, 0.05, 'inOut'),
                     (0.165, add(G14a, [-0.02, -0.02, 0]), 0.4, 0.05, 'inOut'), (FLIP14, G14b, PI, 0.08, 'inOut'), (NOTH14, G14c, PI, 0.12, 'inOut'),
-                    (TAKE14, add(G14c, [0.0, 0.1, 0.0]), r(PI - 0.25, 4), 0.04, 'out'), (r(TAKE14 + 0.06), G14c, PI, 0.08, 'inOut')])
+                    (TAKE14, add(G14c, [0.0, 0.55, 0.12]), r(PI - 0.25, 4), 0.04, 'out'), (r(TAKE14 + 0.06), add(G14c, [0.0, 0.5, 0.12]), PI, 0.08, 'inOut'), (SNAP14, G14c, PI, 0.04, 'in')])
 BASE14 = add(G14b, [0, SH_GRIP + 0.005, 0])
 TAPF = lambda d: add(BASE14, [-0.02, r(KN_G + 0.012 + d), -0.03])
 FORKH = off(HS, RYS_, 0.42, -0.19, 0.93)
@@ -1217,16 +1217,16 @@ HK14 = [SIT(), k(-0.5, look='camera'), k(0.0, toon={**KS(G14a), 'face': F14f}, t
         # the anticipation: he sinks into his collar, eyes screwed up
         k(ANT14, toon={**KS(G14c), 'sq': [1.12, 0.85, 1.12], 'bend': {'neck': [0.0, 0, 0, 0.6, None]}, 'auto': 0, 'face': {**NOF, 'brow': -0.6, 'lid': 0.7, 'mouth': 'clench'}}, toonDur=0.05),
         # the take
-        k(TAKE14, toon={**KS(add(G14c, [0, 0.1, 0]), add(FORKH, [0, 0.12, 0])), **TK14}, toonDur=0.035, toonEase='outBack')]
+        k(TAKE14, toon={**KS(add(G14c, [0, 0.55, 0.12]), add(FORKH, [0.05, 0.62, -0.12])), **TK14}, toonDur=0.035, toonEase='outBack')]
 for j in range(1, 11):
     q = {**TK14}; s_ = 1 + (0.03 if j % 2 else -0.03); q['sq'] = [r(0.94 / math.sqrt(s_)), r(1.1 * s_), r(0.94 / math.sqrt(s_))]
     q['bend'] = {'neck': [0.0, 0, 0, r(6.0 + (0.3 if j % 2 else -0.3)), None], 'spine': [-0.05, 0, 0, 1.06, None]}
     if r(TAKE14 + 0.035 * j) >= SNAP14: break
-    HK14.append(k(r(TAKE14 + 0.035 * j), toon={**KS(G14c, add(FORKH, [0, 0.12, 0])), **q}, toonDur=0.03))
+    HK14.append(k(r(TAKE14 + 0.035 * j), toon={**KS(add(G14c, [0, 0.5, 0.12]), add(FORKH, [0.05, 0.58, -0.12])), **q}, toonDur=0.03))
 HK14 += [k(SNAP14, toon={**KS(G14c), 'sq': [1.14, 0.86, 1.14], 'auto': 0, 'face': {**NOF, 'brow': 0.7, 'eye': 0.2, 'lid': 0.0}}, toonDur=0.035, toonEase='in'),
          k(r(SNAP14 + 0.04), toon={**KS(G14c), 'sq': [0.97, 1.03, 0.97], 'face': {**NOF, 'brow': 0.5, 'lid': 0.1}}, toonDur=0.03)]
 UF14 = [k(0.24, to=ubase(TAPF(0.13)), dur=0.08), k(TAPA14, to=ubase(TAPF(0.13)), dur=0.02), k(r(TAPA14 + 0.04), to=ubase(TAPF(0.0)), dur=0.03), k(TAPB14, to=ubase(TAPF(0.13)), dur=0.03), k(r(TAPB14 + 0.035), to=ubase(TAPF(0.0)), dur=0.03),
-        k(NOTH14, to=ubase(FORKH), dur=0.12), k(TAKE14, to=ubase(add(FORKH, [0, 0.12, 0])), dur=0.035), k(SNAP14, to=ubase(FORKH), dur=0.035)]
+        k(NOTH14, to=ubase(FORKH), dur=0.12), k(TAKE14, to=ubase(add(FORKH, [0.05, 0.62, -0.12])), dur=0.035), k(r(TAKE14 + 0.06), to=ubase(add(FORKH, [0.05, 0.58, -0.12])), dur=0.06), k(SNAP14, to=ubase(FORKH), dur=0.035)]
 st.shot('S14', 'snow', actors=[act('mec', HS, RYS_, 'sit', 'neutral', keys=HK14)],
         props=[*SNOWEND(14), UTENSIL('fourchette14', 'fork', ubase(FORKH), yaw(FORKH, F14), keys=UF14, snow=1.0), SHAKER('sel14', SP14.pos0, EMPTY, keys=SP14.keys()), P('sansFlocon14', 'seSnowClear', pos=[0, 0, 0], opts={'near': 2.8}), NOSHADOW('ns14', ['mec'])],
         cams=[C14a, C14b, C14c])
