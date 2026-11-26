@@ -43,7 +43,7 @@ function paintTicket(c, W, H) { c.fillStyle = '#F4E6A0'; c.fillRect(0, 0, W, H);
 function capMesh(s = 1, col = '#1E2A44') { const g = grp(at(box(0.46, 0.14, 0.46, col, { outline: 0.02, taper: 1.14 }), 0, 0.11, 0), at(box(0.42, 0.07, 0.42, '#14182A', { outline: 0.02 }), 0, 0.035, 0), at(box(0.38, 0.025, 0.2, '#14161A', { outline: 0.02 }), 0, 0.0, 0.27, 0.22, 0, 0)); g.scale.setScalar(s); return g; }
 // a big chrome ticket punch (pivot at the hinge, jaws toward +Y): two chrome jaws, black handles; returns {g, A, B}
 function punchMesh(s = 1) { const g = grp(), A = grp(), B = grp(), ch = mat('#D8DDE4', { emissive: '#3A4048' });
-  for (const [G, sg] of [[A, 1], [B, -1]]) { const j = new THREE.Mesh(new THREE.BoxGeometry(0.035, 0.16, 0.05), ch); j.position.set(sg * 0.02, 0.08, 0); addOutline(j, 0.03); G.add(j, at(box(0.045, 0.2, 0.05, '#1E2024', { outline: 0.02 }), sg * 0.03, -0.11, 0), at(box(0.07, 0.03, 0.055, '#D8DDE4'), sg * 0.008, 0.165, 0)); g.add(G); }
+  for (const [G, sg] of [[A, 1], [B, -1]]) { const j = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.2, 0.06), ch); j.position.set(sg * 0.025, 0.1, 0); addOutline(j, 0.03); G.add(j, at(box(0.04, 0.2, 0.05, '#7A8088', { outline: 0.02 }), sg * 0.035, -0.11, 0), at(box(0.09, 0.04, 0.065, '#E8ECF0', { emissive: '#4A5058' }), sg * 0.01, 0.2, 0)); g.add(G); }
   g.add(at(cyl(0.025, 0.025, 0.07, '#8A9098', 8), 0, 0, 0, PI / 2, 0, 0)); g.scale.setScalar(s); return { g, A, B }; }
 function punchUpdate(A, B, snaps, t) { let open = 0.3; for (const t0 of snaps || []) { const u = t - t0; if (u >= -0.05 && u < 0) open = Math.min(open, 0.3 * (-u / 0.05)); else if (u >= 0 && u < 0.2) open = Math.min(open, 0.3 * (u / 0.2)); } A.rotation.z = -open; B.rotation.z = open; }
 // a leafy cluster of low-poly spheres (green), for the bush stages
@@ -103,10 +103,12 @@ export const COMPOSTEUR_PROPS = {
   coTrowel(o) { return grp(at(cyl(0.02, 0.02, 0.12, '#A8845A', 6, { outline: 0.02 }), 0, -0.06, 0), at(box(0.07, 0.13, 0.012, '#9AA0A6', { outline: 0.02 }), 0, -0.19, 0)); },
   // A big pink earthworm (pivot at the hole in the soil): o.up [[t0, t1], ...]: it pops up, looks round (to the camera) and goes back down; a ring of
   // dark soil round the hole
-  coWorm(o) { const g = grp(), w = grp(); g.add(w); const ring = new THREE.Mesh(new THREE.RingGeometry(0.03, 0.12, 12), mat('#5A3A22')); ring.rotation.x = -PI / 2; ring.position.y = 0.02; g.add(ring);
-    for (let i = 0; i < 6; i++) w.add(at(sphere(0.045, i % 2 ? '#E8909A' : '#F0A0AA', 1, { outline: 0.03 }), 0, 0.04 + i * 0.06, 0));
-    for (const sx of [-1, 1]) w.add(at(sphere(0.016, '#FFFFFF', 0), sx * 0.022, 0.36, 0.035), at(sphere(0.008, '#14161A', 0), sx * 0.022, 0.36, 0.05));
-    g.userData.update = t => { let h = 0; for (const [a, b] of o.up || []) { if (t > a && t < b) h = Math.max(h, Math.min(1, (t - a) / 0.15, (b - t) / 0.15)); } w.position.y = -0.42 * (1 - h); w.visible = h > 0.02; w.rotation.y = 0.5 * Math.sin(t * 3) * h; w.rotation.z = 0.15 * Math.sin(t * 6); }; g.userData.update(0); return g; },
+  coWorm(o) {   // (round 1) a big pink earthworm (pivot at the hole): o.up [[t0, t1]]: it pops up with a stretch, looks round to the camera, blinks, goes back down; a ring of dark soil; o.s
+    const g = grp(), w = grp(), S = o.s ?? 1; g.add(w); const ring = new THREE.Mesh(new THREE.RingGeometry(0.05 * S, 0.2 * S, 12), mat('#5A3A22')); ring.rotation.x = -PI / 2; ring.position.y = 0.02; g.add(ring);
+    for (let i = 0; i < 6; i++) w.add(at(sphere(0.07 * S, i % 2 ? '#E8909A' : '#F0A0AA', 1, { outline: 0.03 }), 0, (0.06 + i * 0.09) * S, 0));
+    const lids = []; for (const sx of [-1, 1]) { w.add(at(sphere(0.026 * S, '#FFFFFF', 0), sx * 0.035 * S, 0.54 * S, 0.055 * S), at(sphere(0.013 * S, '#14161A', 0), sx * 0.035 * S, 0.54 * S, 0.078 * S)); const l = at(box(0.06 * S, 0.06 * S, 0.01, '#E8909A'), sx * 0.035 * S, 0.54 * S, 0.084 * S); w.add(l); lids.push(l); }
+    g.userData.update = t => { let h = 0, u0 = -1; for (const [a, b] of o.up || []) { if (t > a && t < b) { h = Math.max(h, Math.min(1, (t - a) / 0.15, (b - t) / 0.15)); u0 = t - a; } } w.position.y = -0.62 * S * (1 - h); w.visible = h > 0.02;
+      w.scale.set(1, 1 + (u0 > 0 && u0 < 0.2 ? 0.25 * Math.sin(u0 / 0.2 * PI) : 0), 1); w.rotation.y = u0 > 0.25 ? 0 : 0.6 * Math.sin(t * 5); for (const l of lids) l.visible = u0 > 0.6 && u0 < 0.7; }; g.userData.update(0); return g; },
   // A money tree (pivot at the foot of the trunk): a brown trunk, a round crown of generic lilac banknote leaves that flutter; o.s its size; o.grow
   // [[t, s], ...]: it grows (a sapling popping up); o.brown: the autumn notes (brown, curled); o.dropAt: every note falls at once to a ring of heap on
   // the ground round the trunk (opaque), the crown left bare; o.n leaves
@@ -134,8 +136,8 @@ export const COMPOSTEUR_PROPS = {
       for (const sx of [-1, 1]) { const l = new THREE.Mesh(new THREE.SphereGeometry(0.06, 8, 6), mat('#6ACC44')); l.scale.set(1.6, 0.35, 0.8); l.position.set(sx * 0.08, 0.18, 0); l.rotation.z = -sx * 0.4; addOutline(l, 0.03); k.add(l); }
       k.add(at(capMesh(0.34), 0, 0.22, 0)); }
     if (st === 2) { const b = leafBall(0.26, 16, 7); b.position.y = 0.32; k.add(b); k.add(at(capMesh(0.42), 0, 0.56, 0.02));
-      arm = grp(); arm.position.set(0.2, 0.36, 0.05); k.add(arm); arm.add(at(cyl(0.015, 0.02, 0.3, '#5E8A3A', 5, { pivot: 'bottom', outline: 0.02 }), 0, 0, 0, 0, 0, -0.9));
-      const p = punchMesh(0.7); p.g.position.set(0.25, 0.18, 0); p.g.rotation.z = -0.9; arm.add(p.g); A = p.A; B = p.B; }
+      arm = grp(); arm.position.set(-0.2, 0.36, 0.12); k.add(arm); arm.add(at(cyl(0.015, 0.02, 0.32, '#5E8A3A', 5, { pivot: 'bottom', outline: 0.02 }), 0, 0, 0, 0, 0, 0.9));
+      const p = punchMesh(0.9); p.g.position.set(-0.27, 0.2, 0); p.g.rotation.z = 0.9; arm.add(p.g); A = p.A; B = p.B; }
     if (st === 3) { shell = grp(); k.add(shell); const C = '#4E9A3A';
       const parts = [[0, 1.25, 0, 0.3, 14], [0, 0.95, 0, 0.3, 12], [-0.12, 0.45, 0, 0.16, 8], [0.12, 0.45, 0, 0.16, 8], [-0.12, 0.15, 0, 0.14, 7], [0.12, 0.15, 0, 0.14, 7], [-0.34, 1.1, 0, 0.13, 6], [0.34, 1.1, 0, 0.13, 6], [-0.38, 0.8, 0.03, 0.12, 6], [0, 1.85, 0, 0.24, 10]];
       parts.forEach(([x, y, z, r, nn], i) => { const b = leafBall(r, nn, 30 + i * 13, C); b.position.set(x, y, z); b.scale.y = i === 0 || i === 1 ? 1.25 : 1; shell.add(b); });
@@ -144,25 +146,29 @@ export const COMPOSTEUR_PROPS = {
       arm = grp(); arm.position.set(0.36, 1.15, 0.05); shell.add(arm); arm.add(at(cyl(0.02, 0.025, 0.4, '#5E8A3A', 5, { pivot: 'bottom', outline: 0.02 }), 0, 0, 0, 0, 0, -0.5));
       const p = punchMesh(1.0); p.g.position.set(0.2, 0.36, 0); p.g.rotation.z = -0.4; arm.add(p.g); A = p.A; B = p.B;
       for (let i = 0; i < 40; i++) { const l = new THREE.Mesh(new THREE.IcosahedronGeometry(0.07 + 0.04 * hsh(i), 0), mat(i % 3 ? '#4E9A3A' : '#62B046')); addOutline(l, 0.02); l.visible = false; g.add(l);
-        const a = hsh(i + 1) * TAU, y = 0.2 + 1.9 * hsh(i + 2); puff.push({ l, p0: [0.3 * Math.cos(a), y, 0.2 * Math.sin(a)], v: [Math.cos(a) * (1.2 + hsh(i + 3)), 1.5 + 1.5 * hsh(i + 4), Math.sin(a) * (1.2 + hsh(i + 3)) * 0.6 + 0.5] }); } }
+        const a = hsh(i + 1) * TAU, y = 0.2 + 1.9 * hsh(i + 2); puff.push({ l, p0: [0.3 * Math.cos(a), y, 0.2 * Math.sin(a)], v: [Math.sign(Math.cos(a) || 1) * (2.2 + 1.5 * hsh(i + 3)), 1.2 + 1.5 * hsh(i + 4), -0.6 - 0.8 * hsh(i + 5)] }); } }
     g.userData.update = t => { k.rotation.z = 0.04 * Math.sin(t * 2.2); if (A) { punchUpdate(A, B, o.snap, t); if (arm) arm.rotation.z = shake(o.snap, t, 0.25, 30, 6) + shake(o.twitch, t, 0.12, 40, 6); }
       if (eyes) { const op = o.openAt != null && t >= o.openAt; for (const e of eyes) { e.shut.visible = !op; e.open.visible = op; } }
       if (shell) { const u = o.burstAt != null ? t - o.burstAt : -1; shell.visible = u < 0; if (u < 0 && o.openAt != null) { const q = bump([o.openAt], t); shell.scale.set(1 + 0.05 * q, 1 - 0.04 * q, 1); }
-        for (const L of puff) { L.l.visible = u >= 0 && u < 0.9; if (L.l.visible) { L.l.position.set(L.p0[0] + L.v[0] * u, L.p0[1] + L.v[1] * u - 4.5 * u * u, L.p0[2] + L.v[2] * u); L.l.rotation.set(u * 9, u * 7, 0); L.l.scale.setScalar(1 - 0.6 * u); } } } };
+        for (const L of puff) { L.l.visible = u >= 0 && u < 0.5; if (L.l.visible) { L.l.position.set(L.p0[0] + L.v[0] * u, L.p0[1] + L.v[1] * u - 4.5 * u * u, L.p0[2] + L.v[2] * u); L.l.rotation.set(u * 9, u * 7, 0); L.l.scale.setScalar(1 - 0.6 * u); } } } };
     g.userData.update(0); return g; },
   // A big squirrel (pivot at its feet, faces +Z): a russet body, a huge bushy tail curled up behind, a head with ears and black eyes; o.hop [[t0, t1], ...]:
   // it bounces while it moves; o.dig [[t0, t1], ...]: it digs (head down, fast paws); o.cheeks [t0, t1]: cheeks puffed; o.startle t: it leaps back
-  coSquirrel(o) { const g = grp(), k = grp(), C = '#B8642E', D = '#8A4A22'; g.add(k);
-    const body = new THREE.Mesh(new THREE.SphereGeometry(0.14, 12, 8), mat(C)); body.scale.set(0.9, 1.1, 1.2); body.position.set(0, 0.16, 0); addOutline(body, 0.03); k.add(body);
-    const tail = grp(); tail.position.set(0, 0.14, -0.14); k.add(tail); for (let i = 0; i < 7; i++) { const s = new THREE.Mesh(new THREE.SphereGeometry(0.09 + 0.03 * Math.sin(i * 0.6), 10, 7), mat(i % 2 ? C : '#C8743A')); const a = i * 0.42; s.position.set(0, 0.08 + Math.sin(a) * 0.3, -0.06 - (1 - Math.cos(a)) * 0.2 + i * 0.01); addOutline(s, 0.03); tail.add(s); }
-    const hd = grp(); hd.position.set(0, 0.32, 0.1); k.add(hd); hd.add(at(sphere(0.09, C, 1, { outline: 0.03 }), 0, 0, 0), at(sphere(0.05, '#F2E2C8', 1), 0, -0.03, 0.06));
-    const ch = [-1, 1].map(sx => { const c = at(sphere(0.05, '#C8743A', 1, { outline: 0.03 }), sx * 0.06, -0.02, 0.04); hd.add(c); return c; });
-    for (const sx of [-1, 1]) hd.add(at(new THREE.Mesh(new THREE.ConeGeometry(0.03, 0.08, 4), mat(D)), sx * 0.05, 0.1, -0.01), at(sphere(0.018, '#14161A', 0), sx * 0.045, 0.02, 0.075));
-    const paws = [-1, 1].map(sx => { const p = at(box(0.04, 0.08, 0.04, D, { outline: 0.03 }), sx * 0.06, 0.12, 0.14); k.add(p); return p; });
-    g.userData.update = t => { let y = 0, dig = 0; for (const [a, b] of o.hop || []) if (t > a && t < b) y = Math.abs(Math.sin((t - a) * 14)) * 0.12; for (const [a, b] of o.dig || []) if (t > a && t < b) dig = 1;
-      const st = o.startle != null ? t - o.startle : -1; let sy = 0, sz = 0; if (st > 0 && st < 0.5) { sy = Math.sin(st / 0.5 * PI) * 0.35; sz = -0.3 * Math.min(1, st / 0.4); } else if (st >= 0.5) sz = -0.3;
-      k.position.set(0, y + sy, sz); hd.rotation.x = dig ? 0.6 : 0.1 * Math.sin(t * 4); for (const [i, p] of paws.entries()) p.position.y = 0.12 + (dig ? 0.04 * Math.sin(t * 40 + i * PI) : 0) - (dig ? 0.06 : 0);
-      tail.rotation.x = 0.15 * Math.sin(t * 3) + (st > 0 && st < 0.5 ? 0.6 : 0); const cp = o.cheeks && t > o.cheeks[0] && t < o.cheeks[1]; for (const c of ch) c.scale.setScalar(cp ? 1.7 : 1); k.scale.set(1, 1 + (st > 0 && st < 0.15 ? 0.3 : 0), 1); };
+  coSquirrel(o) {   // (round 1) a squirrel (pivot at its feet, faces +Z): russet body sitting up, a cream belly, a round head with tufted ears, a snout, big black eyes, a huge plume tail curling up behind; o.hop [[t0, t1]]: it bounces; o.dig [[t0, t1]]: head down, paws fast; o.cheeks [t0, t1]; o.startle t: it leaps back up with a stretch, hangs, lands with a squash (in place)
+    const g = grp(), k = grp(), C = '#A8562A', D = '#7A3A1A', L = '#F0D8B0'; g.add(k);
+    const body = new THREE.Mesh(new THREE.SphereGeometry(0.11, 12, 8), mat(C)); body.scale.set(0.9, 1.25, 0.85); body.position.set(0, 0.15, 0); addOutline(body, 0.03); k.add(body); k.add(at(sphere(0.07, L, 1), 0, 0.14, 0.06));
+    const tail = grp(); tail.position.set(0, 0.08, -0.08); k.add(tail); const tc = new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0.1, -0.12), new THREE.Vector3(0, 0.3, -0.16), new THREE.Vector3(0, 0.42, -0.06), new THREE.Vector3(0, 0.4, 0.04)]);
+    for (let i = 0; i < 9; i++) { const u = i / 8, p = tc.getPoint(u), s = new THREE.Mesh(new THREE.SphereGeometry(0.06 + 0.06 * Math.sin(u * PI), 10, 7), mat(i % 2 ? C : '#C06A36')); s.position.copy(p); s.scale.set(0.85, 1, 1); addOutline(s, 0.03); tail.add(s); }
+    const hd = grp(); hd.position.set(0, 0.31, 0.03); k.add(hd); hd.add(at(sphere(0.075, C, 1, { outline: 0.03 }), 0, 0, 0)); const sn = at(sphere(0.035, L, 1), 0, -0.02, 0.06); hd.add(sn, at(sphere(0.012, '#2A1A14', 0), 0, -0.01, 0.095));
+    const ch = [-1, 1].map(sx => { const c = at(sphere(0.035, '#C06A36', 1, { outline: 0.03 }), sx * 0.05, -0.03, 0.04); hd.add(c); return c; });
+    for (const sx of [-1, 1]) hd.add(at(new THREE.Mesh(new THREE.ConeGeometry(0.025, 0.07, 4), mat(D)), sx * 0.04, 0.085, 0), at(sphere(0.017, '#14161A', 0), sx * 0.035, 0.015, 0.06), at(sphere(0.006, '#FFFFFF', 0), sx * 0.032, 0.022, 0.075));
+    const paws = [-1, 1].map(sx => { const p = at(box(0.03, 0.06, 0.03, D, { outline: 0.03 }), sx * 0.045, 0.14, 0.08); k.add(p); return p; });
+    for (const sx of [-1, 1]) k.add(at(box(0.04, 0.03, 0.08, D, { outline: 0.03 }), sx * 0.05, 0.015, 0.03));
+    g.userData.update = t => { let y = 0, dig = 0; for (const [a, b] of o.hop || []) if (t > a && t < b) y = Math.abs(Math.sin((t - a) * 14)) * 0.1; for (const [a, b] of o.dig || []) if (t > a && t < b) dig = 1;
+      const st = o.startle != null ? t - o.startle : -1; let sy = 0, sx = 1, syy = 1;
+      if (st > 0 && st < 0.12) { sy = 0.25 * st / 0.12; syy = 1.35; sx = 0.8; } else if (st >= 0.12 && st < 0.32) { sy = 0.25 + 0.03 * Math.sin((st - 0.12) * 15); syy = 1.1; sx = 0.92; } else if (st >= 0.32 && st < 0.42) { sy = 0.25 * (1 - (st - 0.32) / 0.1); } else if (st >= 0.42 && st < 0.7) { const q = Math.exp(-9 * (st - 0.42)) * Math.cos((st - 0.42) * 28); syy = 1 - 0.35 * q; sx = 1 + 0.3 * q; }
+      k.position.set(0, y + sy, 0); k.scale.set(sx, syy, sx); hd.rotation.x = dig ? 0.6 : 0.1 * Math.sin(t * 4); for (const [i, p] of paws.entries()) p.position.y = 0.14 + (dig ? 0.04 * Math.sin(t * 40 + i * PI) - 0.07 : 0);
+      tail.rotation.x = 0.12 * Math.sin(t * 3) + (st > 0 && st < 0.42 ? 0.5 : 0); const cp = o.cheeks && t > o.cheeks[0] && t < o.cheeks[1]; for (const c of ch) c.scale.setScalar(cp ? 1.8 : 1); };
     g.userData.update(0); return g; },
   // A railway platform seen from the platform (pivot at the edge in the middle, the track toward +Z): grey slab, a yellow edge line, a plain wall behind
   // with a plain colour band where a sign would be, a clock with hands only (no figures) on a post, a bench; no name, number or timetable
@@ -175,10 +181,13 @@ export const COMPOSTEUR_PROPS = {
     g.userData.update = t => { mg.rotation.z = -0.3 - t * 0.05; }; g.userData.update(0); return g; },
   // A mainline carriage seen from outside (pivot at the floor in its middle, length along X, side toward +Z): a blue-and-white body, a row of windows
   // showing empty seats, a cab at the +X end with a window (the driver behind it); no logo, number or name; o.len
-  coTrain(o) { const L = o.len ?? 9, g = grp(), C = '#F2F0EA', B = '#2E5E9E';
-    g.add(at(box(L, 2.6, 2.8, C, { pivot: 'bottom', outline: 0.004 }), 0, 0.3, 0), at(box(L, 0.3, 2.82, B), 0, 0.8, 0), at(box(L, 0.12, 2.82, B), 0, 2.5, 0));
-    for (let x = -L / 2 + 0.9; x < L / 2 - 1.6; x += 1.3) { g.add(at(box(1.0, 0.8, 0.02, '#CFE6F4', { emissive: '#4A6A80' }), x, 1.75, 1.41)); g.add(at(box(0.5, 0.45, 0.1, '#2F5C9E', { outline: 0.01 }), x - 0.15, 1.6, 1.32), at(box(0.5, 0.12, 0.1, '#3E6CB0'), x - 0.15, 1.88, 1.32)); }
-    const cab = at(box(1.4, 2.4, 2.8, B, { pivot: 'bottom', outline: 0.004, taper: 0.92 }), L / 2 + 0.6, 0.3, 0); g.add(cab, at(box(0.7, 0.7, 0.02, '#CFE6F4', { emissive: '#4A6A80' }), L / 2 + 0.55, 1.85, 1.41));
+  coTrain(o) {   // (round 1) a carriage seen from outside (pivot at the floor in its middle, length along X, side toward +Z): big windows painted with the empty interior (rows of blue seats, nobody), a cab at +X whose driver leans out of the side; no logo, number or name; o.len
+    const L = o.len ?? 9, g = grp(), C = '#F2F0EA', B = '#2E5E9E';
+    g.add(at(box(L, 2.6, 2.8, C, { pivot: 'bottom', outline: 0.004 }), 0, 0.3, 0), at(box(L, 0.25, 2.82, B), 0, 0.75, 0), at(box(L, 0.12, 2.82, B), 0, 2.75, 0));
+    const win = canvasPlane(1.5, 1.0, (c, W, H) => { c.fillStyle = '#E8E4D8'; c.fillRect(0, 0, W, H); c.fillStyle = '#D8D2C2'; c.fillRect(0, H * 0.78, W, H * 0.22); for (const x of [0.08, 0.55]) { c.fillStyle = '#2F5C9E'; c.fillRect(W * x, H * 0.3, W * 0.36, H * 0.42); c.fillStyle = '#3E6CB0'; c.fillRect(W * x, H * 0.24, W * 0.36, H * 0.1); c.fillStyle = '#24487E'; c.fillRect(W * x, H * 0.66, W * 0.36, H * 0.1); }
+      c.strokeStyle = '#9AA0A6'; c.lineWidth = H * 0.04; c.strokeRect(0, 0, W, H); }, { res: 256, emissive: 0.25 });
+    for (let x = -L / 2 + 1.0; x < L / 2 - 0.6; x += 1.75) { const m = new THREE.Mesh(win.geometry, win.material); m.position.set(x, 1.75, 1.415); g.add(m); }
+    g.add(at(box(1.5, 2.5, 2.8, B, { pivot: 'bottom', outline: 0.004 }), L / 2 + 0.75, 0.3, 0), at(box(0.8, 0.75, 0.02, '#CFE6F4', { emissive: '#4A6A80' }), L / 2 + 1.2, 1.9, 1.41), at(box(0.6, 0.85, 0.02, '#1E2A33'), L / 2 + 0.5, 1.85, 1.41));
     for (let x = -L / 2 + 1; x < L / 2 + 1; x += 2.2) g.add(at(cyl(0.35, 0.35, 0.25, '#1E2024', 12), x, 0.35, 1.3, PI / 2, 0, 0));
     return g; },
   // A ticket window (pivot at the floor in the middle, faces +Z): a wall with a glass hatch (the clerk is behind it), a counter with a slot; nothing written
@@ -189,8 +198,14 @@ export const COMPOSTEUR_PROPS = {
     const room = new THREE.Mesh(new THREE.BoxGeometry(W, 3, 0.1), mat('#E8DCC4')); room.position.set(0, 1.5, -1.6); g.add(room);
     return g; },
   // A blank red price tag (pivot at its middle, faces +Z): a red card with a white string hole; o.w; o.slapAt: it lands with a squash
-  coTag(o) { const w = o.w ?? 0.2, h = w * 0.6, g = grp(), k = grp(); g.add(k); k.add(at(box(w, h, 0.01, '#D8322A', { outline: 0.02 }), 0, 0, 0), at(cyl(w * 0.06, w * 0.06, 0.012, '#F4F1EA', 10), -w * 0.38, 0, 0.006, PI / 2, 0, 0));
-    g.userData.update = t => { const q = o.slapAt != null ? bump([o.slapAt], t) : 0; k.scale.set(1 + 0.12 * q, 1 - 0.15 * q, 1); k.visible = o.slapAt == null || t >= o.slapAt - 0.02; }; g.userData.update(0); return g; },
+  coTag(o) {   // (round 1) a rounded red price tag (pivot at its middle, faces +Z): a darker rim, a small dark punched hole near the top left corner with a string loop; nothing written (a red field with a centred white disc read as a flag); o.w; o.slapAt
+    const w = o.w ?? 0.2, h = w * 0.62, rr = h * 0.25, g = grp(), k = grp(); g.add(k);
+    const sh = new THREE.Shape(); sh.moveTo(-w / 2 + rr, -h / 2); sh.lineTo(w / 2 - rr, -h / 2); sh.quadraticCurveTo(w / 2, -h / 2, w / 2, -h / 2 + rr); sh.lineTo(w / 2, h / 2 - rr); sh.quadraticCurveTo(w / 2, h / 2, w / 2 - rr, h / 2); sh.lineTo(-w / 2 + rr, h / 2); sh.quadraticCurveTo(-w / 2, h / 2, -w / 2, h / 2 - rr); sh.lineTo(-w / 2, -h / 2 + rr); sh.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + rr, -h / 2);
+    const mk = (s, col, z) => { const m = new THREE.Mesh(new THREE.ExtrudeGeometry(s, { depth: 0.008, bevelEnabled: false }), mat(col)); m.position.z = z; addOutline(m, 0.02); return m; };
+    k.add(mk(sh, '#B8282A', -0.004)); const inner = new THREE.Shape(sh.getPoints(16).map(p => new THREE.Vector2(p.x * 0.86, p.y * 0.8))); k.add(mk(inner, '#D8322A', 0.002));
+    k.add(at(cyl(w * 0.035, w * 0.035, 0.02, '#4A2A2A', 10), -w * 0.4, h * 0.3, 0.006, PI / 2, 0, 0));
+    const lp = new THREE.Mesh(new THREE.TorusGeometry(w * 0.07, 0.006, 4, 12), mat('#F4F1EA')); lp.position.set(-w * 0.46, h * 0.38, 0.01); k.add(lp);
+    g.userData.update = t => { const q = o.slapAt != null ? bump([o.slapAt], t) : 0; k.scale.set(1 + 0.14 * q, 1 - 0.18 * q, 1); k.visible = o.slapAt == null || t >= o.slapAt - 0.02; }; g.userData.update(0); return g; },
   // Rolling hills covered with money trees seen from the air (pivot at the middle): a wavy green ground, o.n round lilac crowns on trunks that sway in
   // waves like a sea; o.w x o.d
   coForest(o) { const W = o.w ?? 40, D = o.d ?? 40, g = grp(), hz = (x, z) => 1.2 * Math.sin(x * 0.25) * Math.cos(z * 0.2) + 0.6 * Math.sin(z * 0.37 + 1);
@@ -203,7 +218,7 @@ export const COMPOSTEUR_PROPS = {
   coPath(o) { const g = grp(), gr = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), mat('#7FB85A')); gr.rotation.x = -PI / 2; gr.position.y = 0.01; g.add(gr); const p = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 20), mat('#B8946A')); p.rotation.x = -PI / 2; p.position.y = 0.015; g.add(p); return g; },
   // An autumn street (pivot at the middle of the pavement, houses behind at -Z): a row of plain house fronts with windows and doors, a pavement; no sign
   coStreet(o) { const W = o.w ?? 14, g = grp(), gr = new THREE.Mesh(new THREE.PlaneGeometry(W + 8, 12), mat('#C8BCA8')); gr.rotation.x = -PI / 2; gr.position.y = 0.01; g.add(gr);
-    for (let i = 0; i < Math.ceil(W / 3.2); i++) { const x = -W / 2 + 1.6 + i * 3.2; g.add(at(box(3.1, 5 + (i % 2) * 0.8, 0.4, ['#E8C8A0', '#D8B890', '#ECD4B4', '#D4A888'][i % 4], { pivot: 'bottom', outline: 0.004 }), x, 0, -3.2), at(box(0.9, 1.9, 0.05, '#6A4A30', { pivot: 'bottom', outline: 0.006 }), x - 0.7, 0, -2.98));
+    for (let i = 0; i < Math.ceil(W / 3.2); i++) { const x = -W / 2 + 1.6 + i * 3.2; g.add(at(box(3.1, 5 + (i % 2) * 0.8, 0.4, ['#D8D4CC', '#C8CCD0', '#E0DCD4', '#CCC4BC'][i % 4], { pivot: 'bottom', outline: 0.004 }), x, 0, -3.2), at(box(0.9, 1.9, 0.05, '#6A4A30', { pivot: 'bottom', outline: 0.006 }), x - 0.7, 0, -2.98));
       for (const wx of [0.6]) for (const wy of [1.5, 3.3]) g.add(at(box(0.8, 1.0, 0.05, '#BFD0DA', { outline: 0.006 }), x + wx, wy, -2.98)); }
     return g; },
   // A mound of opaque brown banknote leaves (pivot at its middle on the ground): o.h, o.r; o.growAt [t0, t1]: it piles up from nothing (a man vanishes
@@ -216,10 +231,13 @@ export const COMPOSTEUR_PROPS = {
     g.userData.update(0); return g; },
   // A bonfire on a heap of brown notes (pivot at the middle on the ground): the heap, flame tongues (cones, opaque orange and yellow) that flicker, a few
   // sparks rising; o.r; never a disc or a glow halo
-  coBonfire(o) { const R = o.r ?? 0.9, g = grp(), fl = []; const heap = COMPOSTEUR_PROPS.coHeap({ h: 0.6, r: R, n: 90 }); g.add(heap);
-    for (let i = 0; i < 9; i++) { const a = i / 9 * TAU, rr = i === 0 ? 0 : R * 0.45, f = new THREE.Mesh(new THREE.ConeGeometry(0.18 + 0.06 * hsh(i), 0.9 + 0.5 * hsh(i + 1), 6), mat(i % 2 ? '#F2A030' : '#F2D04A', { emissive: i % 2 ? '#C05010' : '#C0901A', noGrain: true })); f.position.set(Math.cos(a) * rr, 0.75, Math.sin(a) * rr); g.add(f); fl.push({ f, ph: hsh(i + 3) * TAU, h0: 0.75 }); }
+  coBonfire(o) {   // (round 1) a bonfire on a heap of brown notes (pivot at the middle on the ground): rounded flame tongues (teardrops, red outside, yellow inside) that lick and sway, sparks rising; o.r; never a cone, a disc or a halo
+    const R = o.r ?? 0.9, g = grp(), fl = []; g.add(COMPOSTEUR_PROPS.coHeap({ h: 0.6, r: R, n: 90 }));
+    const tear = (h, r) => { const pts = []; for (let i = 0; i <= 12; i++) { const u = i / 12, y = u * h, x = r * Math.sin(Math.min(1, u * 1.4) * PI * 0.62) * (1 - u) ** 0.8 * 1.6; pts.push(new THREE.Vector2(Math.max(0.001, x), y)); } return new THREE.LatheGeometry(pts, 10); };
+    for (let i = 0; i < 7; i++) { const a = i / 7 * TAU + 0.3, rr = i === 0 ? 0 : R * 0.4, H = 0.8 + 0.5 * hsh(i + 1), t = grp(); t.position.set(Math.cos(a) * rr, 0.35, Math.sin(a) * rr); g.add(t);
+      const outer = new THREE.Mesh(tear(H, 0.22 + 0.06 * hsh(i)), mat('#E8642A', { emissive: '#B03A10', noGrain: true })), inn = new THREE.Mesh(tear(H * 0.62, 0.13), mat('#F8D850', { emissive: '#D09020', noGrain: true })); inn.position.z = 0.06; t.add(outer, inn); fl.push({ t, ph: hsh(i + 3) * TAU }); }
     const sp = []; for (let i = 0; i < 8; i++) { const s = at(box(0.03, 0.03, 0.03, '#F8D86A', { emissive: '#E09020', noGrain: true }), 0, 0, 0); g.add(s); sp.push(s); }
-    g.userData.update = t => { for (const F of fl) { const w = Math.sin(t * 13 + F.ph); F.f.scale.set(1 - 0.12 * w, 1 + 0.22 * w, 1 - 0.12 * w); F.f.rotation.z = 0.12 * Math.sin(t * 7 + F.ph); }
+    g.userData.update = t => { for (const F of fl) { const w = Math.sin(t * 11 + F.ph); F.t.scale.set(1 - 0.1 * w, 1 + 0.18 * w, 1 - 0.1 * w); F.t.rotation.z = 0.15 * Math.sin(t * 6 + F.ph); F.t.rotation.x = 0.1 * Math.sin(t * 5 + F.ph * 2); }
       sp.forEach((s, i) => { const u = (t * 0.7 + hsh(i)) % 1; s.position.set((hsh(i + 2) - 0.5) * R + 0.2 * Math.sin(t * 3 + i), 0.9 + 1.6 * u, (hsh(i + 4) - 0.5) * R * 0.6); s.visible = u < 0.85; }); };
     g.userData.update(0); return g; },
   // A leaf blower (pivot at the handle, the nozzle toward +Z): an orange motor box, a long grey tube; o.on: white gust lines stream from the nozzle
