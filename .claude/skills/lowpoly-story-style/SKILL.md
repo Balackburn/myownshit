@@ -2494,3 +2494,10 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   - Ajouter `P('carrelage', 'ttTileOffset')` (props_tartine) à chaque plan `kitchenDay` : 13 autres histoires utilisent ce décor.
   - Tout ce qui est posé à plat au sol prend un polygonOffset (ttSplat, ttShine).
   - Vérifier le sol image par image sur une plage rendue en continu, pas sur des images fixes isolées.
+- (cycle 56, « La poule », passe finale) En 9:16, un plan taille et un étirement en travers du cadre s'excluent : la largeur limite tout. Choisir l'étirement (plan large, mur clair derrière le bras) ou le plan taille, et le mesurer avec project() avant de rendre.
+- (cycle 56) Un étirement dans la profondeur vu d'une caméra haute ne gagne presque rien à l'écran (environ 1,3 fois) : il faut une vraie distance latérale entre l'épaule et la main.
+- (cycle 56) Un accessoire fin (une canne de 2 cm) disparaît à 8 m : l'agrandir pour le plan (`scale`), et le porter dans le monde plutôt qu'à la main quand la main sort du cadre.
+- (cycle 56) Une poussière faite de boules qui se dispersent redevient des boules en rétrécissant : la faire se resserrer vers son cœur en disparaissant.
+- (cycle 56) Écraser tout le corps (`sq`) enfonce la tête dans le col : écraser aussi la tête (`scl head`), allonger le cou (étirement de `bend neck`) et le pencher vers l'avant pour garder le visage vers nous.
+- (cycle 56) Allonger le cou d'un personnage filmé de face le fait monter, pas suivre un objet qui vient vers la caméra : déplacer l'objet en travers du cadre, sinon renoncer.
+- (cycle 56) Cheveux bouclés rendus comme une plaque plate au-dessus de la tête : passer à une coiffure plaquée (`slick`) et vérifier la bande de la carte de titre sur ce plan.
