@@ -2482,3 +2482,11 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 56) Les cibles de main d'un acteur qui tombe restent en l'air si elles ne descendent pas avec lui (les bras se lisent comme des jambes) ; une chute qui finit à pleine vitesse donne une image « tête au sol ».
 - (cycle 56) Une carte de titre peut couvrir le gag précis (le cran d'une horloge) : vérifier la bande de la carte sur l'image du gag et recadrer.
 - (cycle 56) Jambes assises qui traversent une cloison de box : reculer l'acteur dans un box plus profond.
+- (cycle 56, atelier 106) Pièges des décors et accessoires existants dont le contenu par défaut enfreint les règles :
+  - Décor salle de classe : le tableau affiche « 6 + 7 = 67 » par défaut, et une chaîne vide rétablit ce défaut. Mettre une espace ou un dessin.
+  - Décor hôpital : il accroche une croix rouge sauf avec `cross: false`.
+  - Avis et ticket d'amende : ils impriment « 135 € » (et « AMENDE »).
+  - Billets : `money` porte un « $ » et `banknote` imprime « 100 ». Faire des feuilles vertes unies ou à motifs.
+  - Croix de pharmacie : elle alterne avec une température en chiffres. Ne pas la réutiliser.
+  - Décor mairie : il a une banderole tricolore et un drapeau. Il ne peut pas servir de place de village.
+  - Vérifier les options par défaut de tout décor réutilisé avant le premier brouillon.
