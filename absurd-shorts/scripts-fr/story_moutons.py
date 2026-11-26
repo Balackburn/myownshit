@@ -16,21 +16,24 @@ counts him with nods until it falls asleep, smiling, a snot bubble at its nose. 
 n'arrivait pas à dormir » (S14), « Il a compté les moutons » (S01b) in « il a compté les mecs » (S15), « quatre mille » (S02b) in the last line.
 « Mouton noir » is only ever an animal: it is never rejected by the flock, no line reads it as a person.
 Staging (natural look; a cut every 0.9 to 2.4 s, long lines split into b/c shots on their words):
-S01 his bedroom by night, deep blue, the bedside lamp on: from the foot of the bed, high, he lies stiff, eyes wide on the ceiling; a twitch runs down
-him (a stretch, the eyes spring wider), his eyes dart left and right, a blink; a little white fence pops up at the foot of the bed and the first
-white sheep hops it; his eyes snap to it and he nods (count one). S01b over his shoulder from the bedside, his head lifted to watch: a second sheep
-hops, he nods; the last one is the black sheep: it lands, stops dead with a squash, turns to him three quarters to us and stares; the bubble pops
-above its head. S02 morning, the room seen from the open side: packed floor to the top of the frame with fleece blobs like a ball pit, the window
-side white; the whole mass heaves with a chorus bleat, a sheep bursts up out of it, his box head rides up and down on top. S02b close on his head
+S01 his bedroom by night, deep blue, the bedside lamp on: straight over the bed, his face the right way up, he lies stiff, arms down his sides, eyes
+wide on the ceiling; a twitch runs down him (a stretch, the eyes spring wider, no blink on it), his eyes dart left and right, a blink; a pop off screen
+at the foot of the bed (the fence): his eyes snap down, his head lifts and he nods (count one). S01b his point of view down the bed (the camera nods on
+each count): beyond the foot of the bed a little white fence stands at an angle; white sheep hop it toward him; the last one is the black sheep: it
+lands, stops dead with a squash, turns to him (to us) three quarters and stares; the bubble pops above its head. S02 morning, high over the room from
+its open side: packed to the top of the walls with fleece blobs like a ball pit; the whole mass heaves with a chorus bleat, a sheep bursts up out of
+it beside his box head, which rides up and down on top; the black sheep's head pokes out behind. S02b close on his head
 in the wool: grey rings under his eyes, a sheep sits down on his head (his head squashes under it) and chews; beyond, the only dark head, the black
 sheep, buried to the chin, stares at him, bubble on; he rolls his eyes up to the sheep, then to us, one slow blink. S03 a block of flats cut open on
 three flats stacked, a bed in each, feet toward us: three neighbours asleep; BÊÊ: all three spring up off their mattresses stiff as planks, stretched,
 eyes wide, and land sitting with a squash; the bottom one claps his hands over his ears, the top one's hair stands on end. S03b closer: the same
-three flat on their backs again; a fence pops up beside each bed and a sheep hops each; the three nod in sync on each hop, lips moving. S04 one
+three sitting up in bed; a fence pops up beside each bed and a sheep hops each; their eyes go to it and the three nod in sync on each count, lips
+moving (lying, seen from the foot of the beds, a nod did not read). S04 one
 neighbour's bedroom: a sheep hops the fence beside his bed and bleats; his eyes snap wider; he nods faster; a second sheep, a louder bleat, his eyes
 bigger, pinpoint pupils. S04b lower and closer: a third sheep, the loudest bleat; fleece blobs pop up round the bed, higher and higher, the bed
-squashes and sinks under the heap; only his hand sticks out, still pumping the count. S05 the stairwell, one flight from the side: a white wave of
-fleece slides down the steps like a conveyor, three sheep riding its front, the concierge surfing down on top of it, still sweeping with her broom.
+squashes and sinks under the heap; only his hand sticks out, still pumping the count. S05 the stairwell, one flight from the side, a blue-grey wall: a white wave
+of fleece slides down the steps like a conveyor (the lower steps still bare), three sheep riding its front, the concierge surfing down on top of it
+sideways, facing us, still sweeping with her broom.
 S05b the street: the building's door bursts open, a white tongue of fleece slides out with blobs bobbing on it, and his bed rides out on it like a
 raft, him still lying in it, eyes open, nodding. S06 high over the rooftops: a wave of fleece pops onto the roofs and the street from far to near,
 everything white; a snowplough far down the street. S06b street level: the plough passes behind pushing a big fleece roll; three sheep hop back over
@@ -41,8 +44,8 @@ herbal tea, sips: his eyelids drop shut at once and he sleeps standing, swaying;
 with fleece to the knees: a shepherd (cape, wide felt hat, crook) asleep standing up, leaning on his crook, smiling, a snot bubble swelling and
 shrinking; his chest swells and sinks with each snore. S08b three sheep hop over him in an arc, the last lands on his hat (the hat squashes, his head
 dips); he does not stir. S09 night over a street, every window lit: in the two nearest windows two big silhouettes in pyjamas count with nods, stop,
-frown at each other, start again (INSOMNIE). S09b on the nearest roof ridge, against a big moon, the black sheep sits, tired red-rimmed eyes, its head
-drooping and snapping back up, bubble on. S10 an accountant at his desk in his living room by lamplight (green eyeshade, sleeve protectors, grey rings
+frown at each other, start again (INSOMNIE). S09b low on the nearest roof, looking up: the black sheep sits on the ridge with the
+big moon right behind its head (a dark sheep reads only against it), tired red-rimmed eyes, its head drooping and snapping back up, bubble on. S10 an accountant at his desk in his living room by lamplight (green eyeshade, sleeve protectors, grey rings
 under the eyes), a little fence and one small sheep on the desk: he flips his thick ledger backwards, pages fanning back to front (ruled lines, no
 figures), and his eyes light up. S10b the sheep hops backwards over the fence in a reversed arc and vanishes in a puff; he points at us in triumph,
 then yawns enormously. S11 a TV studio (a plain desk, a blue backdrop with a big plain white sheep shape; no text, no figures): a presenter in a bow
@@ -53,8 +56,8 @@ the farm: the shepherd wakes with a start in an empty field, his crook alone in 
 drops his milk pail, the milk splashes. S12c the living room: the four jumpers pop off into nothing, four puffs, the family left in white shirts, arms
 crossed, shivering; on the last puff a black sheep's head pops up into the empty foreground. S13 the empty street, grey and green again: the black
 sheep alone in the middle of the road plants its hooves with a stomp, chin up. S13b closer: it shakes its head slowly, no, chin up, eyes red-rimmed,
-bubble on, the little man panting. S14 a meadow at night under a big moon: the black sheep lies on its back, hooves in the air, eyes wide on the
-stars (his pose of S01), tapping a hoof on its belly. S15 a push in on its bubble until it fills the frame: on a moonlit meadow the little man hops
+bubble on, the little man panting. S14 a meadow at night, seen from its side: the black sheep lies on its back, hooves in the air, eyes wide
+on the stars (his pose of S01), tapping a hoof on its belly. S15 a push in on its bubble until it fills the frame: on a moonlit meadow the little man hops
 the fence, runs round, hops again; the black sheep in the corner nods once at each hop. S16 the meadow, for real, the fence of S01: he runs in, in his
 suit, rings down to his chin, and jumps it clean (a crouch, a stretched take-off, legs tucked, the tie flying, a squash on landing); at the top he
 sees the black sheep nod (count one) and takes: BOING, a puff of white fleece bursts out of his head, eyes wide with pinpoint pupils; he lands. S16b
@@ -203,11 +206,11 @@ F1, L1, LN1 = FIT([-2.55, 3.35, -1.62], {'top': add(HEADL, [0, 0.05, -0.3]), 'fa
 C1 = CAM(F1, L1, LN1, 0.12)
 chk2('S01', C1, {'face': HEADL, 'top': add(HEADL, [0, 0.05, -0.28]), 'chin': add(HEADL, [0, -0.05, 0.25]), 'handR': add(HB, [-0.38, 0.06, 0.05])}, heads=('face', 'top'))
 POP1 = 0.92
-EYE1 = {**HF, 'eye': 0.65, 'brow': 1.0}
+EYE1 = {**HF, 'eye': 0.65, 'brow': 1.0, 'noBlink': 1}   # (a blink on the twitch read as eyes shutting)
 LYH = HAND(add(HB, [-0.34, 0.06, 0.05]), add(HB, [0.34, 0.06, 0.05]))   # stiff: his arms straight down his sides
-HK1 = [k(0.0, clip='lieBack'), k(-0.5, look=None), k(0.0, toon={**LYH, 'face': HF}, toonDur=0.0),
+HK1 = [k(0.0, clip='lieBack'), k(-0.5, look=None), k(0.0, toon={**LYH, 'face': {**HF, 'noBlink': 1}}, toonDur=0.0),
        # the twitch: a stretch down his length, the eyes spring wider
-       k(0.06, toon={**LYH, 'face': {**HF, 'lid': 0.3}, 'sq': [1.04, 0.95, 1.04]}, toonDur=0.04),
+       k(0.06, toon={**LYH, 'face': {**HF, 'lid': 0.3, 'noBlink': 1}, 'sq': [1.04, 0.95, 1.04]}, toonDur=0.04),
        k(0.12, toon={**LYH, 'face': EYE1, 'sq': [0.92, 1.12, 0.92], 'hairUp': 0.6}, toonDur=0.04, toonEase='out'),
        k(0.26, toon={**LYH, 'face': EYE1, 'sq': [1.03, 0.98, 1.03], 'hairUp': 0.2}, toonDur=0.08),
        # the eyes dart left, right, left
@@ -259,23 +262,22 @@ st.cue('sfx:baa', 'S01b', 0.35, 0.25); st.cue('sfx:boing', 'S01b', HOP2, 0.15); 
 D2 = st.dur('S02')
 TOP2 = 2.6                                    # the top of the fleece
 H2 = [-2.45, r(TOP2 - 1.9), -1.55]            # him standing buried: only the head above the wool
-BK2 = [-1.75, r(TOP2 - 0.42), -2.5]           # the black sheep buried to the chin, behind him on the right
+BK2 = [-2.0, r(TOP2 - 0.42), -2.65]           # the black sheep buried to the chin, behind him on the right
 FL2 = [{'kind': 'box', 'x': [-4.4, 1.2], 'y': [0.2, TOP2 - 0.75], 'z': [-2.9, 0.9], 'n': 260, 's': [0.8, 1.15]},
        {'kind': 'layer', 'x': [-4.4, 1.2], 'z': [-2.9, 0.9], 'y': TOP2 - 0.8, 'n': 110, 's': [0.75, 1.05], 'h': 0.12},
        {'kind': 'box', 'x': [-4.4, -3.6], 'y': [0.3, 2.4], 'z': [-1.4, 0.2], 'n': 14, 's': [0.8, 1.0]}]
-F2, L2, LN2 = FIT([-1.55, 3.95, 0.75], {'head': add(H2, [0, 2.32, 0]), 'chin': add(H2, [0, 1.8, 0]), 'sheep': [-1.95, TOP2 + 0.9, -1.15], 'bk': add(BK2, [0, 0.8, 0]), 'backTop': [-2.6, 3.4, -3.0]},
-              margin=0.12, top=0.12, bottom=0.78, lenses=range(36, 72))
+F2, L2, LN2 = [-2.3, 4.0, 0.95], [-2.5, 2.8, -1.75], 60   # high over the wool from the open side of the room: his head in the middle, the sheep bursting up beside it
 C2 = CAM(F2, L2, LN2, 0.15)
-chk2('S02', C2, {'head': add(H2, [0, 2.3, 0]), 'chin': add(H2, [0, 1.8, 0]), 'sheep': [-1.95, TOP2 + 0.8, -1.15], 'bk': add(BK2, [0, 0.8, 0])}, heads=('head', 'chin', 'bk'))
+chk2('S02', C2, {'head': add(H2, [0, 2.3, 0]), 'chin': add(H2, [0, 1.8, 0]), 'sheep': [-2.85, TOP2 + 0.75, -1.55], 'sheepL': [-3.2, TOP2 + 0.5, -1.55], 'bk': add(BK2, [0, 0.8, 0]), 'bkR': add(BK2, [0.35, 0.8, 0])}, heads=('head', 'chin', 'bk'))
 POPS2 = 0.18
-HOLES2 = [[H2[0], H2[2], 0.1, r(H2[1] + 1.82)], [BK2[0], BK2[2], 0.12, r(BK2[1] + 0.5)]]
+HOLES2 = [[H2[0], H2[2], 0.1, r(H2[1] + 1.82)], [BK2[0], BK2[2], 0.12, r(BK2[1] + 0.5)], [-3.2, -1.5, 0.15, r(TOP2 - 0.3)]]
 HK2 = [k(0.0, clip='stand'), k(-0.5, look='camera'), k(0.0, toon={'face': {**HF, 'lid': 0.35}, 'hip': 0}, toonDur=0.0),
        k(0.08, to=add(H2, [0, 0.22, 0]), dur=0.14, glide=True, ease='out', face=0, auto=0), k(0.24, to=add(H2, [0, -0.05, 0]), dur=0.18, glide=True, ease='inOut', face=0, auto=0),
        k(0.44, to=H2, dur=0.16, glide=True, ease='inOut', face=0, auto=0),
        k(0.1, toon={'face': {**HF, 'lid': 0.0, 'eye': 0.5, 'brow': 0.9}, 'sq': [0.92, 1.1, 0.92], 'hip': 0, 'autoSq': 0}, toonDur=0.04, toonEase='out'),
        k(0.3, toon={'face': {**HF, 'lid': 0.35}, 'sq': [1.06, 0.95, 1.06], 'hip': 0, 'autoSq': 0}, toonDur=0.06),
        *life(0.5, D2, {**HF, 'lid': 0.35}, {'hip': 0}, blinks=[0.7], period=0.5, glance=0.4)]
-SH2 = SHEEP('mouton2', [-1.95, r(TOP2 - 0.9), -1.15], 20, s=0.8, hops=[HOP(POPS2, 0.45, [0.25, 0.62, 0.2], 0.55)], bleat=[r(POPS2 + 0.05)], blinks=[0.8])
+SH2 = SHEEP('mouton2', [-3.2, r(TOP2 - 0.9), -1.5], 30, s=0.72, hops=[HOP(POPS2, 0.45, [0.0, 0.62, 0.1], 0.5)], bleat=[r(POPS2 + 0.05)], blinks=[0.8])
 st.shot('S02', 'chambre', setOpts=ROOM_D, look={'sun': 1.2, 'fill': 1.1, 'exposure': 1.15}, actors=[act('mec', H2, 0, 'stand', 'neutral', keys=HK2)],
         props=[FLEECE('laine2', FL2, keys=[k(0.06, squash=[1.03, 1.1, 1.03], dur=0.55)], bob=0.02, seed=2, holes=HOLES2), SH2, BLACK('noir2', BK2, r(yaw(BK2, add(H2, [0, 2.0, 0]))), s=0.8, blinks=[0.5])], cams=[C2])
 st.cue('sfx:baa', 'S02', 0.06, 0.45); st.cue('sfx:baa', 'S02', 0.12, 0.3); st.cue('sfx:pop', 'S02', POPS2, 0.2)
@@ -378,7 +380,7 @@ SITF = lambda fc, **x: {'face': fc, 'hip': 0, **x}
 #    bleats at him; his eyes snap wider; he nods faster; a second sheep, a louder bleat, his eyes bigger, pinpoint pupils
 D4 = st.dur('S04'); HA4, HB4 = 0.08, 0.92
 F4, L4, LN4 = FIT([-0.85, 2.0, 2.9], {'top': add(V2, [0, 1.75, 0]), 'chin': add(V2, [0, 1.15, 0]), 'fence': [FXV, 0.5, -1.2], 'sheepIn': [-0.7, 1.0, -1.4], 'landA': [-1.95, 0.9, -1.55], 'bedF': add(BED, [0.4, 0.6, 1.0])},
-              margin=0.14, top=0.13, bottom=0.76, lenses=range(30, 62), inside=(-4.3, 4.3, 0.3, 6, -2.8, 13))
+              margin=0.14, top=0.27, bottom=0.8, lenses=range(30, 62), inside=(-4.3, 4.3, 0.3, 6, -2.8, 13))
 C4 = CAM(F4, L4, LN4, 0.15)
 chk2('S04', C4, {'head': add(V2, [0, 1.45, 0]), 'top': add(V2, [0, 1.75, 0]), 'landA': [-1.95, 0.9, -1.55], 'fence': [FXV, 0.5, -1.2]}, heads=('head',))
 F4E = {**WIDE, 'mouth': 'line', 'jaw': 0, 'eye': 0.35, 'bags': 0.7}
@@ -430,9 +432,9 @@ def WAVE(u, up=0.55): p = STEP(u); return [p[0], r(p[1] + up), r(p[2] + 0.15)]
 # 5: « Les moutons ont rempli l'escalier. » The stairwell, one flight from the side: a white wave of fleece slides down the steps like a conveyor, three
 #    sheep riding its front, the concierge surfing down on top of it, sideways like a surfer, still sweeping with her broom
 D5 = st.dur('S05')
-CO0, CO1 = WAVE(0.92, 0.95), WAVE(0.12, 0.95)
-F5 = [5.4, 2.4, -1.4]
-L5a = add(CO0, [0, 0.6, 0.5]); L5b = add(CO1, [0, 0.6, 0.6])
+CO0, CO1 = WAVE(0.86, 0.62), WAVE(0.14, 0.62)
+F5 = [5.6, 2.3, -1.2]
+L5a = add(CO0, [0, 0.95, 0.6]); L5b = add(CO1, [0, 0.95, 0.5])
 C5 = cam(0.0, F5, add(F5, [0, -0.25, 0.3]), L5a, L5b, lens=46, ease='inOut')
 chk2('S05', C5, {'coHead0': add(CO0, [0, 2.0, 0]), 'coHead1': add(CO1, [0, 2.0, 0]), 'top': STEP(1.0), 'bot': STEP(0.0)}, heads=())
 CHECKS.append('S05 concierge head at start ' + str(project(F5, L5a, 46, add(CO0, [0, 2.0, 0]))) + ' at end ' + str(project(add(F5, [0, -0.25, 0.3]), L5b, 46, add(CO1, [0, 2.0, 0]))))
@@ -454,7 +456,7 @@ SH5 = [SHEEP(f'mouton5_{i}', WAVE(0.75 - 0.18 * i, 0.4), 180, s=0.62, keys=[k(0.
            bleat=[r(0.2 + 0.35 * i)], yaw=[[0, 0.7]], blinks=[0.6 + 0.2 * i]) for i in range(3)]
 st.shot('S05', 'whiteVoid', setOpts={'color': '#E6DCC8'}, look={'sunDir': [0.6, 0.9, 0.5]}, actors=[act(CON, CO0, 90, 'stand', 'neutral', keys=HK5)],
         props=[P('escalier5', 'moStairs', pos=[0, 0, 0], opts={'n': NS, 'w': 1.2}), WAVE5, *SH5,
-               P('mur5b', 'plainWall', pos=[-0.75, 0, -1.6], ry=90, opts={'w': 10, 'h': 6.5, 'color': '#EADFC0'}),
+               P('mur5b', 'plainWall', pos=[-0.75, 0, -1.6], ry=90, opts={'w': 10, 'h': 6.5, 'color': '#BFD0DE', 'foot': '#9FB2C4'}),
                P('balai5', 'broom', on={'actor': CON, 'hand': 'R', 'rot': [2.6, 0, 0]})], cams=[C5])
 st.cue('sfx:slideDown', 'S05', 0.05, 0.35); st.cue('sfx:baa', 'S05', 0.2, 0.25); st.cue('sfx:baa', 'S05', 0.55, 0.25); st.cue('sfx:baa', 'S05', 0.9, 0.25)
 
@@ -506,7 +508,7 @@ st.cue('sfx:pop', 'S06', 0.1, 0.2); st.cue('sfx:pop', 'S06', 0.3, 0.2); st.cue('
 #     captions, the black sheep sits on a bench, wide awake, bubble on: the little man leans forward
 D6b = st.dur('S06b')
 BEN6 = [0.9, 0.12, 10.9]; BK6 = add(BEN6, [0.0, 0.33, 0.0])
-PL6a, PL6b = [-6.5, 0, 4.6], [4.5, 0, 4.6]
+PL6a, PL6b = [-2.4, 0, 4.6], [1.8, 0, 4.6]   # its cab crosses the middle of the frame while the sheep hop it
 F6b = [-0.3, 1.25, 14.6]
 F6b, L6b, LN6b = FIT(F6b, {'bk': add(BK6, [0, 1.0, 0]), 'bkF': add(BK6, [0, 0.3, 0.3]), 'bub': add(BK6, [0, 1.05 + BUBH * 1.5 + 0.4, 0]), 'cab': [0, 2.4, 4.6], 'hop': [0, 4.2, 4.6]},
                      margin=0.14, top=0.12, bottom=0.76, lenses=range(30, 58))
@@ -679,7 +681,7 @@ st.shot('S09b', 'grassland', setOpts=NSET, look=NIGHT_OUT, actors=[],
         props=[P('toit9b', 'moRoof', pos=RIDGE, opts={'len': 4.2}), BLACK('noir9b', BK9, r(yaw(BK9, F9b) - 30), s=0.8, clip=[[0, 'sit']], chin=DROOP, blinks=[0.75], expr=[[0, 'sleepy'], [0.5, 'neutral'], [1.25, 'sleepy'], [1.32, 'neutral']],
                                                    sq=[[0, [1, 1, 1]], [0.5, [1, 1, 1]], [0.53, [0.92, 1.1, 0.92]], [0.66, [1, 1, 1]], [1.32, [1, 1, 1]], [1.35, [0.92, 1.1, 0.92]], [1.48, [1, 1, 1]]]),
                BUBBLE('bulle9b', add(BK9, [-0.1, 1.0 + BUBH * 1.3, 0.05]), F9b, w=0.95, state=1, t0=0.3, tail=[0.1, -0.58]),
-               P('lune9b', 'mtMoon', pos=MOON9b, ry=r(yaw(MOON9b, F9b)), opts={'r': 2.6}), NIGHTROW('9b'), P('lumiere9b', 'seFill', pos=add(BK9, [0.5, 1.0, 1.2]), opts={'I': 4.0, 'R': 3.2, 'color': '#D8E2FF'}),
+               P('lune9b', 'mtMoon', pos=MOON9b, ry=r(yaw(MOON9b, F9b)), opts={'r': 2.6}), P('lumiere9b', 'seFill', pos=add(BK9, [0.5, 1.0, 1.2]), opts={'I': 4.0, 'R': 3.2, 'color': '#D8E2FF'}),
                P('etoiles9b', 'stars', pos=[0, 0, -20], opts={'count': 260, 'radius': 120})], cams=[C9b])
 st.cue('sfx:boing', 'S09b', 0.5, 0.1); st.cue('sfx:boing', 'S09b', 1.32, 0.1)
 
@@ -787,8 +789,14 @@ F11b, L11b, LN11b = FIT([0.35, 1.55, 3.1], {'pTop': add(FAM['pere'], [-0.2, 2.15
 C11b = CAM(F11b, L11b, LN11b, 0.15)
 chk2('S11b', C11b, {f'{n}Head': add(FAM[n], [0, 1.25 * KID.get(n, 1.0) + 0.7, 0.1]) for n in FAM} | {'sh1': add(FLOORSH[1], [0, 0.6, 0])}, heads=tuple(f'{n}Head' for n in FAM))
 def FAMK(n, extra=()):
-    ks = [k(0.0, clip='sit'), k(-0.5, look='camera'), k(0.0, toon={'face': FAMF, 'hip': 0}, toonDur=0.0), *NODS([r(b + 0.02 * (hash(n) % 3)) for b in BEAT], {**FAMF, 'eye': 0.3, 'brow': 0.7}, {'hip': 0}, amt=0.36),
-          *blink(r(0.2 + 0.1 * list(FAM).index(n)), FAMF, {'hip': 0}), *extra]
+    i = list(FAM).index(n)
+    # (all together) they lean in toward the TV at once, eyes wide, then nod on each beat; breathing and a glance between the beats
+    ks = [k(0.0, clip='sit'), k(-0.5, look='camera'), k(0.0, toon={'face': FAMF, 'hip': 0}, toonDur=0.0),
+          k(0.08, toon={'face': {**FAMF, 'eye': 0.4, 'brow': 0.9, 'lid': 0.0}, 'hip': 0, 'sq': [0.95, 1.06, 0.95], 'bend': {'spine': [0.18, 0, 0, 1, None]}}, toonDur=0.06, toonEase='out'),
+          *NODS([r(b + 0.02 * i) for b in BEAT], {**FAMF, 'eye': 0.3, 'brow': 0.7}, {'hip': 0, 'bend': {'spine': [0.15, 0, 0, 1, None]}}, amt=0.36),
+          *life(r(BEAT[0] + 0.25), r(BEAT[1] - 0.06), {**FAMF, 'eye': 0.3, 'brow': 0.7}, {'hip': 0, 'bend': {'spine': [0.15, 0, 0, 1, None]}}, period=0.3, glance=0.4 * (1 if i % 2 else -1)),
+          *life(r(BEAT[1] + 0.25), r(BEAT[2] - 0.06), {**FAMF, 'eye': 0.3, 'brow': 0.7}, {'hip': 0, 'bend': {'spine': [0.15, 0, 0, 1, None]}}, period=0.3),
+          *life(r(BEAT[2] + 0.25), D11b, {**FAMF, 'eye': 0.3, 'brow': 0.7}, {'hip': 0, 'bend': {'spine': [0.15, 0, 0, 1, None]}}, period=0.3, blinks=[r(BEAT[2] + 0.4 + 0.05 * i)]), *extra]
     return ks
 st.shot('S11b', 'livingRoom', setOpts=LSET, look={'sun': 0.9, 'fill': 1.0, 'exposure': 1.1}, actors=[act(n, FAM[n], 0, 'sit', 'neutral', keys=FAMK(n), **({'scale': KID[n]} if n in KID else {})) for n in FAM],
         props=[*JUMPERS('11b'), *[SHEEP(f'mouton11b_{i}', FLOORSH[i], r(-25 + 25 * i), s=0.62, vanish=r(BEAT[i] + 0.02), blinks=[0.3 + 0.5 * i], head=[[0, 0.2 * (i - 1)]]) for i in range(3)]], cams=[C11b])
@@ -908,11 +916,11 @@ def NIGHTSKY(n): return [P(f'lune{n}', 'mtMoon', pos=[-9, 13, -40], ry=12, opts=
 #     stars (his pose of S01), tapping a hoof on its belly, bubble on
 D14 = st.dur('S14')
 BUB14 = [0.1, 1.55, -1.25]
-F14, L14, LN14 = FIT([0.25, 3.3, 1.25], {'bk': add(BK14, [0, 0.75, 0]), 'bkL': add(BK14, [-0.5, 0.3, 0]), 'bkR': add(BK14, [0.5, 0.3, 0]), 'bubT': add(BUB14, [0, 0.42, 0]), 'bubL': add(BUB14, [-0.62, 0, 0]),
+F14, L14, LN14 = FIT([1.75, 1.6, 1.3], {'bk': add(BK14, [0, 0.75, 0]), 'bkL': add(BK14, [-0.5, 0.3, 0]), 'bkR': add(BK14, [0.5, 0.3, 0]), 'bubT': add(BUB14, [0, 0.42, 0]), 'bubL': add(BUB14, [-0.62, 0, 0]),
                                          'bubR': add(BUB14, [0.62, 0, 0])}, margin=0.12, top=0.12, bottom=0.76, lenses=range(30, 72))
 C14 = CAM(F14, L14, LN14, 0.15)
 chk2('S14', C14, {'bkFace': add(BK14, [0, 0.55, 0.3]), 'bub': BUB14}, heads=('bkFace',))
-TAPS = [0.35, 0.7, 1.05, 1.4]
+TAPS = [0.1, 0.42, 0.74, 1.06, 1.38]
 st.shot('S14', 'grassland', setOpts=MSETN, look=NIGHT_OUT, actors=[],
         props=[BLACK('noir14', BK14, 180, s=0.85, back=[[0, 1.0]], tap=TAPS, blinks=[0.95], expr=[[0, 'surprised']]),
                BUBBLE('bulle14', BUB14, F14, w=1.25, state=2, t0=0.1, tail=[0.0, -0.75]), *NIGHTSKY(14)], cams=[C14])
@@ -953,8 +961,13 @@ def JUMP(t0, d0, d1, h=0.82, T=0.44, hang=0.1, take=None, fc=TIRED):
           k(r(t0 + T + hang), toon={'face': fc, 'hip': 0, 'autoSq': 0, 'sq': [1.2, 0.8, 1.2]}, toonDur=0.03, toonEase='out'),
           k(r(t0 + T + hang + 0.1), toon={'face': fc, 'hip': 0, 'autoSq': 0, 'sq': [0.96, 1.05, 0.96]}, toonDur=0.06)]
     return ks, r(t0 + T / 2), r(t0 + T + hang)
-def RUN(t0, pts, dur, fc=TIRED):
-    return [k(t0, path=[p_ for p_ in pts], dur=dur, clip='run', ease='linear'), k(t0, toon=RUNF(fc), toonDur=0.08)]
+def RUN(t0, pts, dur, fc=TIRED, p0=None):
+    # a run along points at a steady speed: chained `to` keys (a `path` key stops moving him after its first segment), the gait on every key, no idle between
+    chain = ([p0] if p0 else []) + list(pts); segs = list(zip(chain[:-1], chain[1:]))
+    L_ = [math.dist(a_, b_) for a_, b_ in segs]; tot = sum(L_) or 1.0; out, t = [k(t0, toon=RUNF(fc), toonDur=0.08)], t0
+    for j, ((a_, b_), l_) in enumerate(zip(segs, L_)):
+        d = r(dur * l_ / tot); out.append(k(r(t), to=b_, dur=max(0.02, d), clip='run', ease='linear', **({'blend': 0.001} if j else {}))); t += d
+    return out
 WOOL = lambda n, pop=None: P(f'laineTete{n}', 'mtWoolHair', on={'actor': 'mec', 'joint': 'head', 'offset': [0, 0.42, -0.02]}, opts={**({'pop': pop} if pop is not None else {}), 'bob': 0.04})
 SWEAT = lambda n: P(f'goutte{n}', 'sweatDrop', on={'actor': 'mec', 'joint': 'head', 'offset': [0.16, 0.32, 0.08]}, opts={'scale': 1.1})
 def FIELD(n): return [FENCE(f'barriere{n}', FEN16, PATHY, len=1.7, h=0.62), *NIGHTSKY(n)]
@@ -968,11 +981,11 @@ F16, L16, LN16 = FIT([1.0, 1.55, 5.2], {'top': [0, 3.05, 0], 'start': add(ALONG(
                 margin=0.14, top=0.12, bottom=0.78, lenses=range(30, 60))
 C16 = CAM(F16, L16, LN16, 0.15)
 chk2('S16', C16, {'apexHead': [0, 2.05 + 0.82, 0], 'start': add(ALONG(-2.5), [0, 2.0, 0]), 'land': add(ALONG(1.2), [0, 2.0, 0]), 'bkHead': add(BK16, [0, 0.9, 0.2])}, heads=('apexHead', 'land', 'bkHead'))
-HK16 = [k(0.0, clip='run'), k(-0.5, look='camera'), *RUN(0.0, [ALONG(-2.3), ALONG(-1.15)], J16), *JK16,
+HK16 = [k(-0.5, look='camera'), *RUN(0.0, [ALONG(-2.3), ALONG(-1.15)], J16), *JK16,
         k(r(AP16 - 0.04), look=add(BK16, [0, 0.8, 0]), lookDur=0.06), k(r(LD16 + 0.15), look='camera', lookDur=0.1),
         *RUN(r(LD16 + 0.12), [ALONG(1.2), ALONG(1.55, 0.7), ALONG(1.35, 1.5)], r(D16 - LD16 - 0.12 + 0.4))]
 st.gag('S16', AP16, 'mec', 'apex take')
-st.shot('S16', 'grassland', setOpts=MSETN, look=NIGHT_OUT, actors=[act('mec', ALONG(-2.3), PATHY, 'run', 'neutral', keys=HK16)],
+st.shot('S16', 'grassland', setOpts=MSETN, look=NIGHT_OUT, actors=[act('mec', ALONG(-2.3), PATHY, 'stand', 'neutral', keys=HK16)],
         props=[*FIELD(16), WOOL(16, r(AP16 + 0.02)), BLACK('noir16', BK16, r(yaw(BK16, F16) - 40), s=0.85, clip=[[0, 'sit']], nod=[r(AP16 - 0.04)], head=[[0, 0.2], [r(J16 - 0.1), 0.5]], blinks=[1.2])], cams=[C16])
 st.cue('sfx:stepRun', 'S16', 0.05, 0.2); st.cue('sfx:stepRun', 'S16', 0.2, 0.2); st.cue('sfx:boing', 'S16', J16, 0.2); st.cue('sfx:spring', 'S16', r(AP16 + 0.02), 0.4); st.cue('thud', 'S16', LD16, 0.3)
 
@@ -987,11 +1000,11 @@ F16b, L16b, LN16b = FIT([3.0, 2.3, 7.0], {'top': [0, 3.05, 0], 'loopR': add(ALON
                   margin=0.14, top=0.12, bottom=0.78, lenses=range(30, 60))
 C16b = CAM(F16b, L16b, LN16b, 0.15)
 chk2('S16b', C16b, {'apexHead': [0, 3.1, 0], 'loopR': add(ALONG(1.6, 1.4), [0, 2.0, 0]), 'loopL': add(ALONG(-1.6, 1.4), [0, 2.0, 0]), 'bkHead': add(BK16, [0, 0.9, 0.2])}, heads=('apexHead', 'loopR', 'loopL', 'bkHead'))
-HK16b = [k(0.0, clip='run'), k(-0.5, look='camera'), *RUN(0.0, LOOP, r(J16b - 0.02), PANT), *JK16b,
+HK16b = [k(-0.5, look='camera'), *RUN(0.0, LOOP, r(J16b - 0.02), PANT), *JK16b,
          k(r(AP16b - 0.04), look=add(BK16, [0, 0.8, 0]), lookDur=0.06), k(r(LD16b + 0.1), look='camera', lookDur=0.1),
          *RUN(r(LD16b + 0.1), [ALONG(1.2), ALONG(1.55, 0.7), ALONG(1.35, 1.5)], r(D16b - LD16b - 0.1 + 0.3), PANT)]
 st.gag('S16b', AP16b, 'mec', 'second jump')
-st.shot('S16b', 'grassland', setOpts=MSETN, look=NIGHT_OUT, actors=[act('mec', ALONG(1.4, 1.2), r(PATHY + 100), 'run', 'neutral', keys=HK16b)],
+st.shot('S16b', 'grassland', setOpts=MSETN, look=NIGHT_OUT, actors=[act('mec', ALONG(1.4, 1.2), r(PATHY + 100), 'stand', 'neutral', keys=HK16b)],
         props=[*FIELD('16b'), WOOL('16b'), SWEAT('16b'), BLACK('noir16b', BK16, r(yaw(BK16, F16b) - 40), s=0.85, clip=[[0, 'sit']], nod=[r(AP16b - 0.04)], head=[[0, 0.35]], blinks=[0.4],
                                                                    expr=[[0, 'neutral'], [0.55, 'sleepy']], chin=[[0, 0], [1.0, -0.2]])], cams=[C16b])
 st.cue('sfx:stepRun', 'S16b', 0.1, 0.15); st.cue('sfx:stepRun', 'S16b', 0.35, 0.15); st.cue('sfx:stepRun', 'S16b', 0.6, 0.15); st.cue('sfx:boing', 'S16b', J16b, 0.2); st.cue('thud', 'S16b', LD16b, 0.3)
@@ -1005,8 +1018,8 @@ F16c, L16c, LN16c = FIT([-1.75, 0.95, 3.9], {'bk': add(BK16, [0, 1.05, 0]), 'bkF
                   margin=0.12, top=0.24, bottom=0.76, lenses=range(30, 62))
 C16c = CAM(F16c, L16c, LN16c, 0.1)
 chk2('S16c', C16c, {'bkHead': add(BK16, [0, 0.9, 0.2]), 'apexHead': [0, 3.1, 0]}, heads=('bkHead', 'apexHead'))
-HK16c = [k(0.0, clip='run'), k(-0.5, look='camera'), *RUN(0.0, LOOP2, r(J16c - 0.02), PANT), *JK16c, *RUN(r(LD16c + 0.1), [ALONG(1.2), ALONG(1.55, 0.7), ALONG(1.35, 1.5)], r(D16c - LD16c - 0.1 + 0.5), PANT)]
-st.shot('S16c', 'grassland', setOpts=MSETN, look=NIGHT_OUT, actors=[act('mec', ALONG(1.2, 1.7), r(PATHY + 150), 'run', 'neutral', keys=HK16c)],
+HK16c = [k(-0.5, look='camera'), *RUN(0.0, LOOP2, r(J16c - 0.02), PANT), *JK16c, *RUN(r(LD16c + 0.1), [ALONG(1.2), ALONG(1.55, 0.7), ALONG(1.35, 1.5)], r(D16c - LD16c - 0.1 + 0.5), PANT)]
+st.shot('S16c', 'grassland', setOpts=MSETN, look=NIGHT_OUT, actors=[act('mec', ALONG(1.2, 1.7), r(PATHY + 150), 'stand', 'neutral', keys=HK16c)],
         props=[*FIELD('16c'), WOOL('16c'), SWEAT('16c'), BLACK('noir16c', BK16, r(yaw(BK16, F16c) - 35), s=0.85, clip=[[0, 'sit']], snore=[[0.0, D16c]], snoreR=0.08, chin=[[0, -0.15]],
                                                                    sq=[[0, [1, 1, 1]], [0.45, [1.03, 0.97, 1.03]], [0.9, [0.99, 1.02, 0.99]], [1.29, [1.03, 0.97, 1.03]]])], cams=[C16c])
 st.cue('sfx:sniff', 'S16c', 0.1, 0.15); st.cue('sfx:boing', 'S16c', J16c, 0.15); st.cue('thud', 'S16c', LD16c, 0.2); st.cue('sfx:sniff', 'S16c', 1.0, 0.15)
@@ -1026,7 +1039,7 @@ st.write("Les moutons", rig='toon', fingers=False, cloth=True, idleShift=1.6, ho
     'concierge': {'preset': 'mamie', 'seed': 11124, 'suit': '#8E5AA8', 'lapel': '#F2EDE4', 'toon': {**EX, 'cloth': 0.12}},
     'pyjama': PYJ(11125, '#7FA8D8', 'curly', hairColor='#B8642A', facial='mustache', skin='#F0C8A8'),
     'marchand': {'preset': 'fermier', 'seed': 11126, 'hat': 'none', 'suit': '#7A5A3A', 'pants': '#5A4632', 'hair': 'slick', 'hairColor': '#6A6A6A', 'facial': 'mustache', 'toon': EX},
-    'comptable': {'preset': 'boss', 'seed': 11128, 'suit': '#8A8E96', 'pants': '#6E727A', 'lapel': '#6E727A', 'tie': '#3E4450', 'hair': 'receding', 'hairColor': '#4A3A2E', 'facial': 'none', 'glasses': True, 'build': {'belly': 0.05}, 'toon': EX},
+    'comptable': {'preset': 'boss', 'seed': 11128, 'suit': '#8A8E96', 'pants': '#6E727A', 'lapel': '#6E727A', 'tie': '#3E4450', 'hair': 'receding', 'hairColor': '#4A3A2E', 'facial': 'none', 'glasses': True, 'build': {'belly': 0.05}, 'toon': {**EX, 'cloth': 0.0}},
     'presentateur': PYJ(11129, '#EFE4C8', 'slick', hairColor='#2A2420', facial='none', skin='#D9A877', build={'headScale': 1.0}),
     'pere': PYJ(11130, '#F4F4F0', 'crew', hairColor='#5A3A28', facial='beard', beardColor='#5A3A28', pants='#4A5A7A', build={'headScale': 1.0}),
     'mere': {'preset': 'pyjama', 'seed': 11131, 'suit': '#F4F4F0', 'pants': '#6A4A5A', 'cuff': '#F4F4F0', 'hair': 'bun', 'hairColor': '#8A4A28', 'facial': 'none', 'lipstick': True, 'skin': '#E8C09A', 'glasses': False, 'toon': EX},
