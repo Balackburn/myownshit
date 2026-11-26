@@ -3336,3 +3336,14 @@ Passe finale lancée sur :
 - les gags trop petits pour un téléphone.
 
 Corrections lancées. « Le sel » est en passe finale en parallèle.
+
+## 18 h 00 — « Le sel » (109) : finale 3D faite, composition relancée ; « Les moutons » (111) revue 2 : anim 7,0 / art 7,4
+« Le sel » : le calque 3D final est rendu (103 min, ralenti par un brouillon en parallèle). La création du projet a échoué au mixage : mon nettoyage du disque avait effacé le fond musical commun (scratchpad/mdx/instrumental.wav) en le prenant pour un fichier de brouillon. Je l'ai restauré depuis sa copie suivie dans le dépôt (pipeline/assets/instrumental.wav). Projet recréé et composition HyperFrames relancée seule. Leçon ajoutée : chercher qui lit un fichier avant de l'effacer.
+« Les moutons » revue 2 : la laine se lit enfin comme de la laine, et la silhouette du mouton noir sur le toit contre la lune reste le meilleur plan.
+À reprendre :
+- l'arc du saut final, qui retombe sur le mouton ;
+- la dernière image ;
+- la tache de lumière qui s'allume d'un coup en S14 ;
+- les plans du milieu trop larges ;
+- le petit homme de la bulle, qui ne s'essouffle pas d'une apparition à l'autre.
+Corrections lancées.
