@@ -223,7 +223,9 @@ export const POULE_PROPS = {
       const shown = jaw.rotation.x > 0.07;
       T1.forEach(m => { m.visible = n === 1 && shown; m.scale.setScalar(n === 1 && n0 < 1 ? Math.max(0.01, outBack(pop, 2.6)) : 1); });
       const p6 = n0 >= 2 ? n0 : 0;
-      T6.forEach((m, i) => { const on = n >= 2 && i < n; m.visible = on && shown; m.scale.setScalar(on && i >= p6 ? Math.max(0.01, outBack(pop, 2.6)) : 1); });
+      // (story 104, review 2) o.teethS: the full set drawn bigger (they read as a white bar at phone size)
+      const TS = o.teethS ?? 1;
+      T6.forEach((m, i) => { const on = n >= 2 && i < n; m.visible = on && shown; m.scale.setScalar(TS * (on && i >= p6 ? Math.max(0.01, outBack(pop, 2.6)) : 1)); });
       let si = o.sparkTooth ?? o.gold ?? 0; for (const [ts, ix] of o.sparks || []) if (t >= ts) si = ix;
       const sp = n === 1 ? LAYOUT1[0] : (LAYOUT6[si] || LAYOUT6[0]), sx = o.sparks ? Math.sign(sp[0]) * 0.035 : 0;
       spk.position.set(sp[0] + 0.012 + sx, 0.075, sp[1] + 0.02); sparkAt(spk, t, o.sparks ? [...(o.spark || []), ...o.sparks.map(q => q[0])] : o.spark, o.sparkSize ?? 0.16);
@@ -386,10 +388,11 @@ export const POULE_PROPS = {
       m.castShadow = false; m.receiveShadow = false; g.add(m); puffs.push(m); }
     g.userData.update = t => {
       const lv = keyAt(o.letter, t, 0); letter.visible = lv > 0.01; letter.position.y = lv * h * 0.95;
-      let d = -1; const DD = o.dustDur ?? 0.85; for (const t0 of o.dust || []) if (t >= t0 && t < t0 + DD) d = t - t0;
+      // (story 104, review 2) o.dustReach (1): how far the dust travels toward the lens; o.dustFade (1.6): how fast it thins (a thin late cloud that does not veil the faces behind)
+      let d = -1; const DD = o.dustDur ?? 0.85, DR = o.dustReach ?? 1, DF = o.dustFade ?? 1.6; for (const t0 of o.dust || []) if (t >= t0 && t < t0 + DD) d = t - t0;
       puffs.forEach((m, i) => { m.visible = d >= 0; if (d < 0) return; const u = d / DD, a = (i / NP - 0.5) * 2.4 + (hsh(i * 9) - 0.5) * 0.4, k = smooth(Math.min(1, u * 1.8));
-        m.position.set(Math.sin(a) * w * 0.85 * (0.3 + k), h * 0.1 + k * w * 0.12 * (hsh(i) - 0.3), 0.03 + k * w * 1.5 * (0.5 + hsh(i * 3)));
-        m.scale.setScalar(Math.max(0.01, (1.2 + 1.9 * k) * (0.7 + 0.6 * hsh(i * 5)))); m.material.opacity = 0.75 * Math.pow(1 - u, 1.6); });
+        m.position.set(Math.sin(a) * w * 0.85 * (0.3 + k), h * 0.1 + k * w * 0.12 * (hsh(i) - 0.3), 0.03 + k * w * 1.5 * DR * (0.5 + hsh(i * 3)));
+        m.scale.setScalar(Math.max(0.01, (1.2 + 1.9 * k * DR) * (0.7 + 0.6 * hsh(i * 5)))); m.material.opacity = 0.75 * Math.pow(1 - u, DF); });
     };
     g.userData.update(0); g.userData.grip = [0, 0, 0]; return g;
   },
@@ -552,8 +555,10 @@ export const POULE_PROPS = {
     const tip = grp(); tip.position.y = sl; par.add(tip);
     const LL = o.line ?? 0.45; tip.add(at(cyl(0.002, 0.002, LL, '#E8E8E8', 3, { pivot: 'top' }), 0, 0, 0), at(sphere(0.025, '#E23A3A', 1), 0, -LL, 0), at(sphere(0.018, '#FBFAF4', 1), 0, -LL + 0.03, 0));
     const AZ = o.axis === 'z';
-    g.userData.update = t => { const d = keyAt(o.droop, t, 0), w = rattle(o.wob, t); segs.forEach((sg, i) => { const v = i ? d / (NS - 1) : 0; if (AZ) sg.rotation.z = -v; else sg.rotation.x = v; });
-      if (AZ) tip.rotation.z = d + (o.tilt ?? 0) + w; else tip.rotation.x = -d - (o.tilt ?? 0) + w; };
+    // (story 104, review 2) o.dsign -1: the rod bends the other way about X (a rod leaning toward the lens droops toward it, its tip bouncing in the frame)
+    const DS = o.dsign ?? 1;
+    g.userData.update = t => { const d = keyAt(o.droop, t, 0), w = rattle(o.wob, t); segs.forEach((sg, i) => { const v = i ? d / (NS - 1) : 0; if (AZ) sg.rotation.z = -v; else sg.rotation.x = v * DS; });
+      if (AZ) tip.rotation.z = d + (o.tilt ?? 0) + w; else tip.rotation.x = -(d + (o.tilt ?? 0)) * DS + w; };
     g.userData.update(0); g.userData.grip = [0, 0, 0]; return g;
   },
 
@@ -673,7 +678,10 @@ export const POULE_PROPS = {
       rig.scale.set(s * keyAt(sq, t, 1), s * keyAt(sqy, t, 1) * (1 + 0.012 * Math.sin(t * 2.6)), s * keyAt(sq, t, 1));
       const wd = inside(o.wiggle, t); rig.rotation.z = wd >= 0 ? 0.13 * Math.sin(wd * TAU * 3.6) * Math.exp(-wd * 1.2) : 0; rig.position.y = wd >= 0 ? 0.035 * Math.abs(Math.sin(wd * TAU * 3.6)) * Math.exp(-wd * 1.2) : 0;
       head.rotation.set(keyAt(o.pitch, t, 0), keyAt(o.yaw, t, 0), keyAt(o.roll, t, 0) + 0.03 * Math.sin(t * 1.3));
-      const fd = inside(o.flap, t), fl = fd >= 0 ? 0.35 + 0.35 * Math.sin(fd * TAU * 6) : 0; for (const [wp, sd] of wings) wp.rotation.z = sd * fl;
+      // (story 104, review 2) o.wingRaise (rad, or [its right wing, its left wing]): the wings held raised in a V above the shoulders (clear of the body
+      // and of a neighbour beside it); the flutter then half as wide
+      const fd = inside(o.flap, t), fl = fd >= 0 ? 0.35 + 0.35 * Math.sin(fd * TAU * 6) : 0;
+      for (const [wp, sd] of wings) { const wr = Array.isArray(o.wingRaise) ? o.wingRaise[sd > 0 ? 1 : 0] : (o.wingRaise ?? 0); wp.rotation.z = sd * (wr + fl * (wr ? 0.5 : 1)); }
       const ed = inside(o.ears, t), ew = ed >= 0 ? 0.3 * Math.sin(ed * TAU * 5) : 0; for (const [ep, sd] of ears) ep.rotation.z = -sd * (0.45 + ew);
       const bl = pulse(o.blinks, t, 0.13), gx = keyAt(gzx, t, 0), gy = keyAt(gzy, t, 0);
       for (const E of eyes) { E.eg.scale.y = Math.max(0.07, 1 - 0.94 * bl); E.pup.position.set(gx * 0.016, gy * 0.014, 0.026); }

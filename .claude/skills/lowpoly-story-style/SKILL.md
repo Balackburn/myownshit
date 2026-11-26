@@ -2470,3 +2470,8 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 56) Une cible de regard sous une tête écrasée la fait basculer comme un couvercle : ne bouger que les yeux (gx/gy).
 - (cycle 56) Un scintillement du sol d'une image à l'autre dans un rendu séquentiel peut ne pas apparaître sur des vues fixes : le mesurer sur les images du brouillon.
 - (cycle 56) Un bras élastique qui arme en visant au-delà d'un autre acteur laisse un coude à angle droit sur son corps : armer au-dessus de la cible, de son propre côté.
+- (cycle 56, « La poule ») Deux personnages qui s'écrasent sur la même image se lisent comme un saut de caméra (un zoom) : décaler les impacts d'au moins deux images, ou n'écraser que celui qui encaisse.
+- (cycle 56) Une poule (un bec saillant) filmée d'en dessous cache ses yeux derrière le bec et les dents : caméra à hauteur des yeux ou un peu au-dessus, sans plisser les yeux sur la pose du sourire.
+- (cycle 56) En 9:16, le cadre ne tient pas trois éléments en ligne (hublot, cochon, héros) à 50 % de la hauteur : ramener le décor derrière le sujet (glisser le hublot le long de la paroi) au lieu d'élargir ; vérifier avec `fit()` avant de rendre.
+- (cycle 56) Un nuage translucide devant un corps se lit comme un fantôme : des bouffées opaques et cernées, au ras du meuble, qui rétrécissent jusqu'à rien au lieu de s'effacer.
+- (cycle 56) Mâchoire qui tombe quand la bouche ne doit plus montrer de dents (gag de dents qui compte les apparitions) : `face.jawTeeth: 0` ouvre une cavité vide.
