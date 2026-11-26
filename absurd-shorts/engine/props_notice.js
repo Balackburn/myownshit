@@ -110,7 +110,8 @@ export const NOTICE_PROPS = {
     const PAN = o.panels ?? 6;
     g.userData.update = t => {
       const u = keyAt(o.unfold, t, 1), f = clamp01(keyAt(o.fold, t, 0)), b = keyAt(o.bulge, t, 0), fl = keyAt(o.flap, t, 0), cu = o.curl ?? 0.2;
-      const fs = o.fsize ?? 0.09, s = fs + (1 - fs) * Math.max(0, u), acc = 1 - clamp01(u), th = f * PI * 0.985;
+      // (review 3) o.puffS: the pillow also grows in its own plane (1 + puffS * bulge); o.spread [[t, v]]: squashed flat it spreads (1 + v), the slam
+      const fs = o.fsize ?? 0.09, s = (fs + (1 - fs) * Math.max(0, u)) * (1 + (o.puffS ?? 0) * Math.max(0, b) + keyAt(o.spread, t, 0)), acc = 1 - clamp01(u), th = f * PI * 0.985;
       for (let i = 0; i < pos.count; i++) {
         const x0 = base[i * 3], y0 = base[i * 3 + 1], nx = x0 / W + 0.5, ny = y0 / H + 0.5;
         let x = x0 * s, y = y0 * s, z = 0;
@@ -509,8 +510,38 @@ export const NOTICE_PROPS = {
     // o.flip: the loupe hangs under its handle (rot z PI): the painted eye turned back upright
     const sg = o.flip ? -1 : 1; if (o.flip) { disc.rotation.z = PI; iris.rotation.z = PI; }
     const glint = new THREE.Mesh(new THREE.RingGeometry(R * 0.72, R * 0.84, 14, 1, 2.3, 0.7), B('#FFFFFF', { transparent: true, opacity: 0.8, side: THREE.DoubleSide, depthWrite: false })); glint.position.set(0, cy, 0.006); g.add(glint);
-    g.userData.update = t => { iris.position.set(sg * (clamp01(0.5 + 0.5 * keyAt(o.gx, t, 0)) * R * 0.7 - R * 0.35), cy + sg * (0.04 * R - keyAt(o.gy, t, 0) * R * 0.28), 0.003); };
+    // (review 3) o.grow [[t, s]]: the magnified eye grows in the glass (the white and the iris, s times); o.lid [[t, l]]: a skin-coloured lid comes down
+    // over it from the top (1 = shut), a blink in the glass
+    const lidG = grp(), lid = new THREE.Mesh(new THREE.CircleGeometry(R * 0.97, 32), B(o.skin || '#D9A877')); lidG.add(lid); lidG.position.set(0, cy, 0.0045); if (o.flip) lidG.rotation.z = PI;
+    const lidLine = new THREE.Mesh(new THREE.PlaneGeometry(R * 1.9, R * 0.08), B(INK)); lidG.add(lidLine); g.add(lidG);
+    g.userData.update = t => {
+      const gs = Math.max(0.2, keyAt(o.grow, t, 1)), lv = clamp01(keyAt(o.lid, t, 0));
+      t1.repeat.set(1 / gs, 1 / gs); t1.offset.set(0.5 - 0.5 / gs, 0.5 - 0.5 / gs); iris.scale.setScalar(gs);
+      iris.position.set(sg * (clamp01(0.5 + 0.5 * keyAt(o.gx, t, 0)) * R * 0.7 - R * 0.35) * gs, cy + sg * (0.04 * R - keyAt(o.gy, t, 0) * R * 0.28) * gs, 0.003);
+      lidG.visible = lv > 0.02; if (lidG.visible) { lid.scale.set(1, lv, 1); lid.position.y = R * 0.97 * (1 - lv); lidLine.position.y = R * 0.97 * (1 - 2 * lv) + R * 0.02; lidLine.scale.x = Math.sqrt(Math.max(0.05, 1 - Math.pow(1 - 2 * lv, 2))); }
+    };
     g.userData.grip = [0, 0.05, 0]; g.userData.update(0); return g;
+  },
+
+  // ---------------------------------------------------------------- (review 3) a round curly mop of small cubes (attach to the head joint at the crown,
+  // offset [0, 0.47, 0]): a dome o.rx (0.23) x o.ry (0.13) x o.rz (0.21) covered in cubes of o.s (0.075) m, slightly jittered, two shades of o.color, no
+  // point anywhere (the shock of hair standing in tufts read as two horse ears); it comes down over the temples and the back of the head, not the face
+  noCurlyMop(o) {
+    const RX = o.rx ?? 0.23, RY = o.ry ?? 0.13, RZ = o.rz ?? 0.21, S = o.s ?? 0.075, g = grp(), col = o.color || '#3A2A20';
+    const c2 = '#' + new THREE.Color(col).multiplyScalar(1.35).getHexString();
+    let i = 0;
+    for (let la = 0; la <= 4; la++) {
+      const ph = (la / 4) * PI * 0.62, ring = Math.max(1, Math.round(10 * Math.cos(ph)));
+      for (let j = 0; j < ring; j++) {
+        const th = (j + 0.5 * (la % 2)) / ring * TAU, cy = Math.sin(ph), cr = Math.cos(ph);
+        const x = RX * cr * Math.sin(th), z = RZ * cr * Math.cos(th) - 0.02, y = RY * cy - 0.02;
+        if (z > RZ * 0.55 && y < RY * 0.45) continue;   // the forehead stays clear
+        const k = 0.85 + 0.3 * hsh(i * 3.1 + 1), cb = box(S * k, S * k, S * k, i % 3 ? col : c2, { outline: 0.004 });
+        cb.position.set(x, y, z); cb.rotation.set(hsh(i + 7) * 0.8, hsh(i + 9) * 0.8, hsh(i + 11) * 0.8); g.add(cb); i++;
+      }
+    }
+    g.add(at(box(RX * 1.7, RY * 0.9, RZ * 1.6, col, { pivot: 'bottom' }), 0, -0.03, -0.02));
+    return g;
   },
 
   // ---------------------------------------------------------------- a plain pharmacy front (pivot at the foot of its middle, front +Z): a white wall o.w (6.4)
@@ -564,9 +595,15 @@ export const NOTICE_PROPS = {
 
   // ---------------------------------------------------------------- one chalk stroke drawn on a board (pivot at its top end, it grows down -Y): o.L (0.12),
   // o.draw [[t, v]] 0..1; o.tilt (rad); a chalk dust puff at its tip while it draws
+  // (review 3) o.color / o.emissive: a fresh stroke brighter than the old chalk; o.puff (t): a little burst of chalk dust off its foot as it is finished
   noChalkStroke(o) {
-    const Ls = o.L ?? 0.12, g = grp(), s = box(o.wd ?? 0.012, 1, 0.003, '#F0F0E8', { pivot: 'top', emissive: '#808078' }); s.castShadow = false; g.add(s); g.rotation.z = o.tilt ?? 0;
-    g.userData.update = t => { const v = clamp01(keyAt(o.draw, t, 0)); s.visible = v > 0.01; s.scale.y = Math.max(0.001, Ls * v); };
+    const Ls = o.L ?? 0.12, g = grp(), s = box(o.wd ?? 0.012, 1, 0.003, o.color || '#F0F0E8', { pivot: 'top', emissive: o.emissive || '#808078' }); s.castShadow = false; g.add(s); g.rotation.z = o.tilt ?? 0;
+    const dust = [];
+    if (o.puff != null) for (let i = 0; i < 7; i++) { const d = box(0.012, 0.012, 0.012, '#FFFFFF', { emissive: '#C8C8C0' }); d.castShadow = false; d.visible = false; g.add(d); dust.push({ d, a: -0.4 + i * (PI + 0.8) / 6 + 0.2 * hsh(i), sp: 0.25 + 0.2 * hsh(i + 5) }); }
+    g.userData.update = t => {
+      const v = clamp01(keyAt(o.draw, t, 0)); s.visible = v > 0.01; s.scale.y = Math.max(0.001, Ls * v);
+      for (const q of dust) { const u = t - o.puff; q.d.visible = u >= 0 && u < 0.3; if (!q.d.visible) continue; const r = q.sp * Math.min(u, 0.2) * 1.4; q.d.position.set(Math.cos(q.a) * r, -Ls - Math.sin(q.a) * r * 0.6 - 0.3 * u * u, 0.01); q.d.scale.setScalar(Math.max(0.01, 1.4 - u * 4)); }
+    };
     g.userData.update(0); return g;
   },
 
