@@ -3231,3 +3231,11 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - comprimé en gélule.
   - Brouillon 2 lancé.
   - Incident mineur : un rendu de débogage nommé dbg.json a écrasé out/work/dbg (sorties régénérables).
+- 07 h 50 — « La notice » (107) revue 2 : anim 7,5 / art 7,8 (contre 6,8 / 7,4). Reste à corriger :
+  - « guéri » trop large et figé ;
+  - plusieurs gags trop larges pour du 9:16 ;
+  - marche en crabe peu lisible, et ministre qui ressemble au héros ;
+  - présentatrice coincée au bord du cadre ;
+  - aucune réaction du héros sur « Un par jour » ;
+  - main du pharmacien qui cache le soleil dessiné.
+  Corrections lancées.
