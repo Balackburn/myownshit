@@ -225,7 +225,7 @@ export const SEL_PROPS = {
     const W = o.w ?? 0.4, D = o.d ?? 0.34, T = o.t ?? 0.07, SO = { noGrain: true, emissive: '#7A8A96' }, g = grp();
     g.add(box(W, T, D, '#FFFFFF', { pivot: 'bottom', ...SO }), at(box(W * 0.86, T * 0.6, D * 0.84, '#FFFFFF', { pivot: 'bottom', ...SO }), 0, T * 0.9, 0));
     const drips = o.drips || [[-0.3, 1, 0.07], [0.05, 1, 0.1], [0.34, 1, 0.06], [1, -0.2, 0.08], [1, 0.3, 0.05], [-1, 0.1, 0.07], [-0.1, -1, 0.06]];
-    drips.forEach(([u, v, len], i) => { const dr = lump(0.03, len / 2 + 0.015, 0.03, '#FFFFFF', 30 + i, 0.08, 1, SO);
+    const DR = o.dripR ?? 0.03; drips.forEach(([u, v, len], i) => { const dr = lump(DR, len / 2 + DR / 2, DR, '#FFFFFF', 30 + i, 0.08, 1, SO);
       const x = Math.abs(u) === 1 ? u * W / 2 : u * W / 2, z = Math.abs(v) === 1 ? v * D / 2 : v * D / 2; dr.position.set(x, T * 0.5 - len / 2, z); g.add(dr); });
     return g;
   },
@@ -268,6 +268,7 @@ export const SEL_PROPS = {
     g.userData.update(0); return g;
   },
 
+  // (round 3) o.shift may be keyed ([[t, v], ...]): the drawing slides along the paper (paper pulled through the hands by a roll running away)
   // ---------------------------------------------------------------- the family-tree scroll (pivot at its top edge, the paper in the local XY plane facing +Z, it
   // unrolls downward along -Y): o.w (0.7) wide, o.len [[t, L]] (or a number) unrolled length; o.head: the top shows mamie's portrait in a round frame
   // with the first branches; o.tail: the end shows a last bare branch (no face); o.roll: a paper roll at the bottom end that turns as it unrolls;
@@ -319,7 +320,7 @@ export const SEL_PROPS = {
       g.add(roll); }
     g.userData.update = t => {
       const Lb = Math.max(0.001, keyAt(o.len, t, 1)); body.scale.y = Lb; body.position.y = -headH;
-      bodyTex.repeat.set(1, Lb / TILE); bodyTex.offset.set(0, 1 - Lb / TILE + (o.shift ?? 0));
+      bodyTex.repeat.set(1, Lb / TILE); bodyTex.offset.set(0, 1 - Lb / TILE + keyAt(o.shift, t, 0));
       if (tail) tail.position.y = -headH - Lb - tailH / 2;
       if (roll) { roll.position.set(0, -headH - Lb - tailH - R0 * 0.3, R0); roll.rotation.x = -Lb / R0; }
     };
@@ -639,7 +640,10 @@ export const SEL_PROPS = {
     const g = grp(); let done = false, tries = 0;
     g.userData.update = () => { if (done || tries++ > 3) return; let rt = g; while (rt.parent) rt = rt.parent; if (rt === g) return;
       const col = new THREE.Color(o.color || '#8DBB5E'); let gm = null;
-      rt.traverse(n => { if (gm || !n.isMesh || n.geometry?.type !== 'CircleGeometry' || !n.material?.color) return; if (n.material.color.getHexString() === col.getHexString()) gm = n; });
+      // (round 3) o.plane: the set's ground is a huge two-triangle plane (grassland, 9 km): its depth drifts by centimetres under SwiftShader and it
+      // painted over a pavement 12 cm above it on some frames; it is matched too and replaced by the finer disc with its holes
+      const okType = ty => ty === 'CircleGeometry' || (o.plane && ty === 'PlaneGeometry');
+      rt.traverse(n => { if (gm || !n.isMesh || !okType(n.geometry?.type) || !n.material?.color) return; if (n.material.color.getHexString() === col.getHexString()) gm = n; });
       if (!gm) return; const R = o.r ?? 170, sh = new THREE.Shape(); sh.absarc(0, 0, R, 0, TAU, false);
       for (const [x0, x1, z0, z1] of o.holes || []) { const h = new THREE.Path(); h.moveTo(x0, -z0); h.lineTo(x0, -z1); h.lineTo(x1, -z1); h.lineTo(x1, -z0); h.closePath(); sh.holes.push(h); }
       const geo = new THREE.ShapeGeometry(sh, 48).rotateX(-PI / 2), uv = geo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) / 8, uv.getY(i) / 8);
