@@ -1,0 +1,975 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a lancé un spaghetti au mur. Pour voir s'il était cuit.",
+   "hl": [
+    "spaghetti",
+    "cuit."
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 3.359,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "lancé",
+     "s": 0.581,
+     "e": 0.841
+    },
+    {
+     "w": "un",
+     "s": 0.878,
+     "e": 0.915
+    },
+    {
+     "w": "spaghetti",
+     "s": 0.989,
+     "e": 1.507
+    },
+    {
+     "w": "au",
+     "s": 1.544,
+     "e": 1.581
+    },
+    {
+     "w": "mur.",
+     "s": 1.656,
+     "e": 2.1
+    },
+    {
+     "w": "Pour",
+     "s": 2.248,
+     "e": 2.396
+    },
+    {
+     "w": "voir",
+     "s": 2.47,
+     "e": 2.544
+    },
+    {
+     "w": "s'il",
+     "s": 2.581,
+     "e": 2.767
+    },
+    {
+     "w": "était",
+     "s": 2.878,
+     "e": 2.989
+    },
+    {
+     "w": "cuit.",
+     "s": 3.063,
+     "e": 3.359
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il est resté collé. Sa voisine a crié au chef-d'œuvre.",
+   "hl": [
+    "collé.",
+    "chef-d'œuvre."
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L02.k.wav",
+   "file_start": 3.459,
+   "speech_start": 3.459,
+   "speech_end": 6.422,
+   "words": [
+    {
+     "w": "Il",
+     "s": 3.459,
+     "e": 3.533
+    },
+    {
+     "w": "est",
+     "s": 3.57,
+     "e": 3.607
+    },
+    {
+     "w": "resté",
+     "s": 3.719,
+     "e": 3.904
+    },
+    {
+     "w": "collé.",
+     "s": 4.015,
+     "e": 4.496
+    },
+    {
+     "w": "Sa",
+     "s": 4.57,
+     "e": 4.644
+    },
+    {
+     "w": "voisine",
+     "s": 4.681,
+     "e": 4.941
+    },
+    {
+     "w": "a",
+     "s": 4.978,
+     "e": 5.015
+    },
+    {
+     "w": "crié",
+     "s": 5.089,
+     "e": 5.385
+    },
+    {
+     "w": "au",
+     "s": 5.459,
+     "e": 5.533
+    },
+    {
+     "w": "chef-d'œuvre.",
+     "s": 5.607,
+     "e": 6.422
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Le soir même, trois critiques étaient dans sa cuisine.",
+   "hl": [
+    "soir",
+    "critiques"
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L03.k.wav",
+   "file_start": 6.522,
+   "speech_start": 6.522,
+   "speech_end": 8.967,
+   "words": [
+    {
+     "w": "Le",
+     "s": 6.522,
+     "e": 6.596
+    },
+    {
+     "w": "soir",
+     "s": 6.67,
+     "e": 6.893
+    },
+    {
+     "w": "même,",
+     "s": 7.004,
+     "e": 7.337
+    },
+    {
+     "w": "trois",
+     "s": 7.411,
+     "e": 7.559
+    },
+    {
+     "w": "critiques",
+     "s": 7.67,
+     "e": 7.93
+    },
+    {
+     "w": "étaient",
+     "s": 7.967,
+     "e": 8.078
+    },
+    {
+     "w": "dans",
+     "s": 8.115,
+     "e": 8.226
+    },
+    {
+     "w": "sa",
+     "s": 8.3,
+     "e": 8.374
+    },
+    {
+     "w": "cuisine.",
+     "s": 8.497,
+     "e": 8.967
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Un musée a acheté le mur. Ce mec a gardé la casserole.",
+   "hl": [
+    "musée",
+    "casserole."
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L04.k.wav",
+   "file_start": 9.067,
+   "speech_start": 9.067,
+   "speech_end": 12.326,
+   "words": [
+    {
+     "w": "Un",
+     "s": 9.067,
+     "e": 9.141
+    },
+    {
+     "w": "musée",
+     "s": 9.289,
+     "e": 9.511
+    },
+    {
+     "w": "a",
+     "s": 9.585,
+     "e": 9.622
+    },
+    {
+     "w": "acheté",
+     "s": 9.659,
+     "e": 9.919
+    },
+    {
+     "w": "le",
+     "s": 9.956,
+     "e": 10.03
+    },
+    {
+     "w": "mur.",
+     "s": 10.104,
+     "e": 10.671
+    },
+    {
+     "w": "Ce",
+     "s": 10.721,
+     "e": 10.77
+    },
+    {
+     "w": "mec",
+     "s": 10.807,
+     "e": 11.067
+    },
+    {
+     "w": "a",
+     "s": 11.141,
+     "e": 11.215
+    },
+    {
+     "w": "gardé",
+     "s": 11.289,
+     "e": 11.474
+    },
+    {
+     "w": "la",
+     "s": 11.511,
+     "e": 11.585
+    },
+    {
+     "w": "casserole.",
+     "s": 11.622,
+     "e": 12.326
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Les critiques y voient la solitude de l'homme moderne.",
+   "hl": [
+    "solitude",
+    "moderne."
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L05.k.wav",
+   "file_start": 12.426,
+   "speech_start": 12.426,
+   "speech_end": 14.87,
+   "words": [
+    {
+     "w": "Les",
+     "s": 12.426,
+     "e": 12.574
+    },
+    {
+     "w": "critiques",
+     "s": 12.685,
+     "e": 12.944
+    },
+    {
+     "w": "y",
+     "s": 12.981,
+     "e": 13.019
+    },
+    {
+     "w": "voient",
+     "s": 13.056,
+     "e": 13.167
+    },
+    {
+     "w": "la",
+     "s": 13.241,
+     "e": 13.315
+    },
+    {
+     "w": "solitude",
+     "s": 13.389,
+     "e": 13.833
+    },
+    {
+     "w": "de",
+     "s": 13.87,
+     "e": 13.907
+    },
+    {
+     "w": "l'homme",
+     "s": 13.944,
+     "e": 14.13
+    },
+    {
+     "w": "moderne.",
+     "s": 14.204,
+     "e": 14.87
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Tous les artistes sont passés aux pâtes.",
+   "hl": [
+    "artistes",
+    "pâtes."
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L06.k.wav",
+   "file_start": 14.97,
+   "speech_start": 14.97,
+   "speech_end": 16.896,
+   "words": [
+    {
+     "w": "Tous",
+     "s": 14.97,
+     "e": 15.044
+    },
+    {
+     "w": "les",
+     "s": 15.119,
+     "e": 15.193
+    },
+    {
+     "w": "artistes",
+     "s": 15.267,
+     "e": 15.711
+    },
+    {
+     "w": "sont",
+     "s": 15.76,
+     "e": 15.859
+    },
+    {
+     "w": "passés",
+     "s": 15.97,
+     "e": 16.156
+    },
+    {
+     "w": "aux",
+     "s": 16.193,
+     "e": 16.23
+    },
+    {
+     "w": "pâtes.",
+     "s": 16.304,
+     "e": 16.896
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Les écoles d'art ont remplacé les pinceaux par des passoires.",
+   "hl": [
+    "pinceaux",
+    "passoires."
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L07.k.wav",
+   "file_start": 16.996,
+   "speech_start": 16.996,
+   "speech_end": 19.885,
+   "words": [
+    {
+     "w": "Les",
+     "s": 16.996,
+     "e": 17.144
+    },
+    {
+     "w": "écoles",
+     "s": 17.219,
+     "e": 17.441
+    },
+    {
+     "w": "d'art",
+     "s": 17.478,
+     "e": 17.737
+    },
+    {
+     "w": "ont",
+     "s": 17.811,
+     "e": 17.885
+    },
+    {
+     "w": "remplacé",
+     "s": 17.959,
+     "e": 18.33
+    },
+    {
+     "w": "les",
+     "s": 18.404,
+     "e": 18.478
+    },
+    {
+     "w": "pinceaux",
+     "s": 18.552,
+     "e": 18.848
+    },
+    {
+     "w": "par",
+     "s": 18.922,
+     "e": 18.996
+    },
+    {
+     "w": "des",
+     "s": 19.07,
+     "e": 19.144
+    },
+    {
+     "w": "passoires.",
+     "s": 19.256,
+     "e": 19.885
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Les raviolis ont réinventé le cubisme. Les coquillettes, le pointillisme.",
+   "hl": [
+    "cubisme.",
+    "pointillisme."
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L08.k.wav",
+   "file_start": 19.985,
+   "speech_start": 19.985,
+   "speech_end": 24.059,
+   "words": [
+    {
+     "w": "Les",
+     "s": 19.985,
+     "e": 20.059
+    },
+    {
+     "w": "raviolis",
+     "s": 20.133,
+     "e": 20.652
+    },
+    {
+     "w": "ont",
+     "s": 20.726,
+     "e": 20.8
+    },
+    {
+     "w": "réinventé",
+     "s": 20.874,
+     "e": 21.319
+    },
+    {
+     "w": "le",
+     "s": 21.356,
+     "e": 21.393
+    },
+    {
+     "w": "cubisme.",
+     "s": 21.467,
+     "e": 22.182
+    },
+    {
+     "w": "Les",
+     "s": 22.232,
+     "e": 22.281
+    },
+    {
+     "w": "coquillettes,",
+     "s": 22.356,
+     "e": 22.985
+    },
+    {
+     "w": "le",
+     "s": 23.022,
+     "e": 23.096
+    },
+    {
+     "w": "pointillisme.",
+     "s": 23.207,
+     "e": 24.059
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Un paquet de nouilles vaut un appartement. Le pays mange du riz.",
+   "hl": [
+    "nouilles",
+    "riz."
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L09.k.wav",
+   "file_start": 24.159,
+   "speech_start": 24.159,
+   "speech_end": 27.641,
+   "words": [
+    {
+     "w": "Un",
+     "s": 24.159,
+     "e": 24.233
+    },
+    {
+     "w": "paquet",
+     "s": 24.307,
+     "e": 24.53
+    },
+    {
+     "w": "de",
+     "s": 24.567,
+     "e": 24.604
+    },
+    {
+     "w": "nouilles",
+     "s": 24.678,
+     "e": 25.048
+    },
+    {
+     "w": "vaut",
+     "s": 25.085,
+     "e": 25.196
+    },
+    {
+     "w": "un",
+     "s": 25.233,
+     "e": 25.27
+    },
+    {
+     "w": "appartement.",
+     "s": 25.344,
+     "e": 26.134
+    },
+    {
+     "w": "Le",
+     "s": 26.184,
+     "e": 26.233
+    },
+    {
+     "w": "pays",
+     "s": 26.307,
+     "e": 26.678
+    },
+    {
+     "w": "mange",
+     "s": 26.715,
+     "e": 26.9
+    },
+    {
+     "w": "du",
+     "s": 26.974,
+     "e": 27.048
+    },
+    {
+     "w": "riz.",
+     "s": 27.307,
+     "e": 27.641
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "L'assureur a expertisé l'œuvre. Enfin, le cadre.",
+   "hl": [
+    "L'assureur",
+    "cadre."
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L10.k.wav",
+   "file_start": 27.741,
+   "speech_start": 27.741,
+   "speech_end": 30.852,
+   "words": [
+    {
+     "w": "L'assureur",
+     "s": 27.741,
+     "e": 28.259
+    },
+    {
+     "w": "a",
+     "s": 28.296,
+     "e": 28.333
+    },
+    {
+     "w": "expertisé",
+     "s": 28.407,
+     "e": 28.926
+    },
+    {
+     "w": "l'œuvre.",
+     "s": 28.963,
+     "e": 29.519
+    },
+    {
+     "w": "Enfin,",
+     "s": 29.593,
+     "e": 30.111
+    },
+    {
+     "w": "le",
+     "s": 30.185,
+     "e": 30.259
+    },
+    {
+     "w": "cadre.",
+     "s": 30.37,
+     "e": 30.852
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Hier, elle est tombée.",
+   "hl": [
+    "Hier,",
+    "tombée."
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L11.k.wav",
+   "file_start": 30.952,
+   "speech_start": 30.952,
+   "speech_end": 32.211,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 30.952,
+     "e": 31.47
+    },
+    {
+     "w": "elle",
+     "s": 31.507,
+     "e": 31.544
+    },
+    {
+     "w": "est",
+     "s": 31.619,
+     "e": 31.693
+    },
+    {
+     "w": "tombée.",
+     "s": 31.742,
+     "e": 32.211
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "On l'a goûtée : elle n'était pas cuite.",
+   "hl": [
+    "goûtée",
+    "cuite."
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L12.k.wav",
+   "file_start": 32.311,
+   "speech_start": 32.311,
+   "speech_end": 34.237,
+   "words": [
+    {
+     "w": "On",
+     "s": 32.311,
+     "e": 32.385
+    },
+    {
+     "w": "l'a",
+     "s": 32.423,
+     "e": 32.534
+    },
+    {
+     "w": "goûtée:",
+     "s": 32.571,
+     "e": 33.175
+    },
+    {
+     "w": "elle",
+     "s": 33.2,
+     "e": 33.274
+    },
+    {
+     "w": "n'était",
+     "s": 33.348,
+     "e": 33.497
+    },
+    {
+     "w": "pas",
+     "s": 33.571,
+     "e": 33.645
+    },
+    {
+     "w": "cuite.",
+     "s": 33.682,
+     "e": 34.237
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Puis les autres œuvres. Pas cuites non plus.",
+   "hl": [
+    "œuvres.",
+    "cuites"
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L13.k.wav",
+   "file_start": 34.337,
+   "speech_start": 34.337,
+   "speech_end": 36.411,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 34.337,
+     "e": 34.485
+    },
+    {
+     "w": "les",
+     "s": 34.56,
+     "e": 34.634
+    },
+    {
+     "w": "autres",
+     "s": 34.708,
+     "e": 34.93
+    },
+    {
+     "w": "œuvres.",
+     "s": 35.004,
+     "e": 35.448
+    },
+    {
+     "w": "Pas",
+     "s": 35.597,
+     "e": 35.671
+    },
+    {
+     "w": "cuites",
+     "s": 35.708,
+     "e": 35.893
+    },
+    {
+     "w": "non",
+     "s": 35.967,
+     "e": 36.041
+    },
+    {
+     "w": "plus.",
+     "s": 36.152,
+     "e": 36.411
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Les critiques y voient la chute de l'homme moderne.",
+   "hl": [
+    "chute",
+    "moderne."
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L14.k.wav",
+   "file_start": 36.511,
+   "speech_start": 36.511,
+   "speech_end": 38.882,
+   "words": [
+    {
+     "w": "Les",
+     "s": 36.511,
+     "e": 36.585
+    },
+    {
+     "w": "critiques",
+     "s": 36.66,
+     "e": 37.03
+    },
+    {
+     "w": "y",
+     "s": 37.104,
+     "e": 37.178
+    },
+    {
+     "w": "voient",
+     "s": 37.215,
+     "e": 37.326
+    },
+    {
+     "w": "la",
+     "s": 37.363,
+     "e": 37.4
+    },
+    {
+     "w": "chute",
+     "s": 37.548,
+     "e": 37.771
+    },
+    {
+     "w": "de",
+     "s": 37.845,
+     "e": 37.882
+    },
+    {
+     "w": "l'homme",
+     "s": 37.919,
+     "e": 38.067
+    },
+    {
+     "w": "moderne.",
+     "s": 38.178,
+     "e": 38.882
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Le musée a rendu le spaghetti à ce mec.",
+   "hl": [
+    "rendu",
+    "spaghetti"
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L15.k.wav",
+   "file_start": 38.982,
+   "speech_start": 38.982,
+   "speech_end": 41.056,
+   "words": [
+    {
+     "w": "Le",
+     "s": 38.982,
+     "e": 39.056
+    },
+    {
+     "w": "musée",
+     "s": 39.13,
+     "e": 39.352
+    },
+    {
+     "w": "a",
+     "s": 39.389,
+     "e": 39.426
+    },
+    {
+     "w": "rendu",
+     "s": 39.537,
+     "e": 39.685
+    },
+    {
+     "w": "le",
+     "s": 39.723,
+     "e": 39.797
+    },
+    {
+     "w": "spaghetti",
+     "s": 39.871,
+     "e": 40.241
+    },
+    {
+     "w": "à",
+     "s": 40.315,
+     "e": 40.352
+    },
+    {
+     "w": "ce",
+     "s": 40.389,
+     "e": 40.463
+    },
+    {
+     "w": "mec.",
+     "s": 40.5,
+     "e": 41.056
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Il l'a remis dans la casserole. Deux minutes de plus.",
+   "hl": [
+    "casserole.",
+    "plus."
+   ],
+   "file": "/tmp/pipe/s7/spaghetti/tts/L16.k.wav",
+   "file_start": 41.156,
+   "speech_start": 41.156,
+   "speech_end": 43.823,
+   "words": [
+    {
+     "w": "Il",
+     "s": 41.156,
+     "e": 41.23
+    },
+    {
+     "w": "l'a",
+     "s": 41.304,
+     "e": 41.378
+    },
+    {
+     "w": "remis",
+     "s": 41.452,
+     "e": 41.637
+    },
+    {
+     "w": "dans",
+     "s": 41.674,
+     "e": 41.748
+    },
+    {
+     "w": "la",
+     "s": 41.785,
+     "e": 41.823
+    },
+    {
+     "w": "casserole.",
+     "s": 41.86,
+     "e": 42.6
+    },
+    {
+     "w": "Deux",
+     "s": 42.637,
+     "e": 42.711
+    },
+    {
+     "w": "minutes",
+     "s": 42.86,
+     "e": 43.008
+    },
+    {
+     "w": "de",
+     "s": 43.045,
+     "e": 43.082
+    },
+    {
+     "w": "plus.",
+     "s": 43.156,
+     "e": 43.823
+    }
+   ]
+  }
+ ],
+ "total": 45.12
+}
