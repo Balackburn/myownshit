@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Un bruit réveille ce mec chaque nuit. Il a affiché : « Certains se reconnaîtront. »",
+  "hl": [
+   "bruit",
+   "reconnaîtront."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Tout le pays s'est reconnu.",
+  "hl": [
+   "pays",
+   "reconnu."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Soixante millions d'aveux au commissariat.",
+  "hl": [
+   "millions",
+   "d'aveux"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Même le préfet s'est reconnu. Il a rendu la perceuse du voisin.",
+  "hl": [
+   "préfet",
+   "perceuse"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Trop de coupables : l'État a interdit le bruit. Partout.",
+  "hl": [
+   "coupables",
+   "Partout."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Les pompiers chuchotent « pin-pon ».",
+  "hl": [
+   "chuchotent",
+   "pin-pon"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Les éboueurs sortent les poubelles sur la pointe des pieds.",
+  "hl": [
+   "éboueurs",
+   "pieds."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Les coqs ont été mis sous cloche.",
+  "hl": [
+   "coqs",
+   "cloche."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "On ne se parle plus que par petits mots.",
+  "hl": [
+   "parle",
+   "mots."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Le pays dort enfin. Sauf ce mec, réveillé chaque nuit à la même heure.",
+  "hl": [
+   "Sauf",
+   "heure."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Dans ce silence, on a entendu le bruit.",
+  "hl": [
+   "silence,",
+   "bruit."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Des micros géants l'ont suivi jusqu'à l'immeuble de ce mec. Son étage. Son lit.",
+  "hl": [
+   "micros",
+   "lit."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Ce mec ronfle. Il s'est réveillé lui-même.",
+  "hl": [
+   "ronfle.",
+   "lui-même."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Le seul qui ne s'était pas reconnu.",
+  "hl": [
+   "seul",
+   "reconnu."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Ce matin, il y avait un mot sur sa porte.",
+  "hl": [
+   "mot",
+   "porte."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Soixante millions de mots.",
+  "hl": [
+   "Soixante",
+   "mots."
+  ]
+ }
+]
