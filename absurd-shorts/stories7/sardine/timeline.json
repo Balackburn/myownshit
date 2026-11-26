@@ -1,0 +1,940 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a planté sa tente. Il manquait une sardine.",
+   "hl": [
+    "tente.",
+    "sardine."
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.767,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "planté",
+     "s": 0.656,
+     "e": 0.841
+    },
+    {
+     "w": "sa",
+     "s": 0.915,
+     "e": 0.989
+    },
+    {
+     "w": "tente.",
+     "s": 1.063,
+     "e": 1.507
+    },
+    {
+     "w": "Il",
+     "s": 1.656,
+     "e": 1.73
+    },
+    {
+     "w": "manquait",
+     "s": 1.804,
+     "e": 2.026
+    },
+    {
+     "w": "une",
+     "s": 2.063,
+     "e": 2.1
+    },
+    {
+     "w": "sardine.",
+     "s": 2.137,
+     "e": 2.767
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Alors il a planté une vraie sardine. À l'huile.",
+   "hl": [
+    "vraie",
+    "l'huile."
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L02.k.wav",
+   "file_start": 2.867,
+   "speech_start": 2.867,
+   "speech_end": 5.607,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 2.867,
+     "e": 3.163
+    },
+    {
+     "w": "il",
+     "s": 3.385,
+     "e": 3.459
+    },
+    {
+     "w": "a",
+     "s": 3.496,
+     "e": 3.533
+    },
+    {
+     "w": "planté",
+     "s": 3.607,
+     "e": 3.83
+    },
+    {
+     "w": "une",
+     "s": 3.904,
+     "e": 3.978
+    },
+    {
+     "w": "vraie",
+     "s": 4.052,
+     "e": 4.2
+    },
+    {
+     "w": "sardine.",
+     "s": 4.274,
+     "e": 4.904
+    },
+    {
+     "w": "À",
+     "s": 4.941,
+     "e": 4.966
+    },
+    {
+     "w": "l'huile.",
+     "s": 4.99,
+     "e": 5.607
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "La nuit, l'orage a emporté tout le camping. Sauf sa tente.",
+   "hl": [
+    "l'orage",
+    "Sauf"
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L03.k.wav",
+   "file_start": 5.707,
+   "speech_start": 5.707,
+   "speech_end": 9.041,
+   "words": [
+    {
+     "w": "La",
+     "s": 5.707,
+     "e": 5.781
+    },
+    {
+     "w": "nuit,",
+     "s": 5.856,
+     "e": 6.3
+    },
+    {
+     "w": "l'orage",
+     "s": 6.374,
+     "e": 6.67
+    },
+    {
+     "w": "a",
+     "s": 6.707,
+     "e": 6.744
+    },
+    {
+     "w": "emporté",
+     "s": 6.819,
+     "e": 7.189
+    },
+    {
+     "w": "tout",
+     "s": 7.263,
+     "e": 7.337
+    },
+    {
+     "w": "le",
+     "s": 7.374,
+     "e": 7.411
+    },
+    {
+     "w": "camping.",
+     "s": 7.522,
+     "e": 8.152
+    },
+    {
+     "w": "Sauf",
+     "s": 8.201,
+     "e": 8.3
+    },
+    {
+     "w": "sa",
+     "s": 8.374,
+     "e": 8.448
+    },
+    {
+     "w": "tente.",
+     "s": 8.522,
+     "e": 9.041
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Le lendemain, tout le camping a planté à l'huile.",
+   "hl": [
+    "camping",
+    "l'huile."
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L04.k.wav",
+   "file_start": 9.141,
+   "speech_start": 9.141,
+   "speech_end": 11.511,
+   "words": [
+    {
+     "w": "Le",
+     "s": 9.141,
+     "e": 9.215
+    },
+    {
+     "w": "lendemain,",
+     "s": 9.252,
+     "e": 9.881
+    },
+    {
+     "w": "tout",
+     "s": 9.956,
+     "e": 10.03
+    },
+    {
+     "w": "le",
+     "s": 10.067,
+     "e": 10.104
+    },
+    {
+     "w": "camping",
+     "s": 10.215,
+     "e": 10.474
+    },
+    {
+     "w": "a",
+     "s": 10.548,
+     "e": 10.622
+    },
+    {
+     "w": "planté",
+     "s": 10.733,
+     "e": 10.881
+    },
+    {
+     "w": "à",
+     "s": 10.919,
+     "e": 10.956
+    },
+    {
+     "w": "l'huile.",
+     "s": 10.993,
+     "e": 11.511
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Puis toute la côte. Puis la montagne.",
+   "hl": [
+    "côte.",
+    "montagne."
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L05.k.wav",
+   "file_start": 11.611,
+   "speech_start": 11.611,
+   "speech_end": 13.833,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 11.611,
+     "e": 11.833
+    },
+    {
+     "w": "toute",
+     "s": 11.981,
+     "e": 12.13
+    },
+    {
+     "w": "la",
+     "s": 12.167,
+     "e": 12.204
+    },
+    {
+     "w": "côte.",
+     "s": 12.278,
+     "e": 12.796
+    },
+    {
+     "w": "Puis",
+     "s": 12.944,
+     "e": 13.093
+    },
+    {
+     "w": "la",
+     "s": 13.13,
+     "e": 13.167
+    },
+    {
+     "w": "montagne.",
+     "s": 13.241,
+     "e": 13.833
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Les sardines passent au rayon camping. Le thon, au rayon caravanes.",
+   "hl": [
+    "thon,",
+    "caravanes."
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L06.k.wav",
+   "file_start": 13.933,
+   "speech_start": 13.933,
+   "speech_end": 17.563,
+   "words": [
+    {
+     "w": "Les",
+     "s": 13.933,
+     "e": 14.081
+    },
+    {
+     "w": "sardines",
+     "s": 14.119,
+     "e": 14.526
+    },
+    {
+     "w": "passent",
+     "s": 14.6,
+     "e": 14.748
+    },
+    {
+     "w": "au",
+     "s": 14.785,
+     "e": 14.822
+    },
+    {
+     "w": "rayon",
+     "s": 14.896,
+     "e": 15.044
+    },
+    {
+     "w": "camping.",
+     "s": 15.119,
+     "e": 15.859
+    },
+    {
+     "w": "Le",
+     "s": 15.933,
+     "e": 16.007
+    },
+    {
+     "w": "thon,",
+     "s": 16.119,
+     "e": 16.452
+    },
+    {
+     "w": "au",
+     "s": 16.489,
+     "e": 16.526
+    },
+    {
+     "w": "rayon",
+     "s": 16.6,
+     "e": 16.748
+    },
+    {
+     "w": "caravanes.",
+     "s": 16.822,
+     "e": 17.563
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Les poissonniers vendent des maillets.",
+   "hl": [
+    "poissonniers",
+    "maillets."
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L07.k.wav",
+   "file_start": 17.663,
+   "speech_start": 17.663,
+   "speech_end": 19.367,
+   "words": [
+    {
+     "w": "Les",
+     "s": 17.663,
+     "e": 17.811
+    },
+    {
+     "w": "poissonniers",
+     "s": 17.848,
+     "e": 18.33
+    },
+    {
+     "w": "vendent",
+     "s": 18.367,
+     "e": 18.626
+    },
+    {
+     "w": "des",
+     "s": 18.663,
+     "e": 18.7
+    },
+    {
+     "w": "maillets.",
+     "s": 18.811,
+     "e": 19.367
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Les mouettes ont suivi l'odeur. Jusqu'en montagne.",
+   "hl": [
+    "mouettes",
+    "l'odeur."
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L08.k.wav",
+   "file_start": 19.467,
+   "speech_start": 19.467,
+   "speech_end": 22.208,
+   "words": [
+    {
+     "w": "Les",
+     "s": 19.467,
+     "e": 19.541
+    },
+    {
+     "w": "mouettes",
+     "s": 19.615,
+     "e": 19.911
+    },
+    {
+     "w": "ont",
+     "s": 19.985,
+     "e": 20.059
+    },
+    {
+     "w": "suivi",
+     "s": 20.133,
+     "e": 20.356
+    },
+    {
+     "w": "l'odeur.",
+     "s": 20.381,
+     "e": 21.059
+    },
+    {
+     "w": "Jusqu'en",
+     "s": 21.096,
+     "e": 21.393
+    },
+    {
+     "w": "montagne.",
+     "s": 21.504,
+     "e": 22.207
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Chaque nuit, elles déplantent un camping entier. Sardine par sardine.",
+   "hl": [
+    "déplantent",
+    "Sardine"
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L09.k.wav",
+   "file_start": 22.308,
+   "speech_start": 22.308,
+   "speech_end": 26.011,
+   "words": [
+    {
+     "w": "Chaque",
+     "s": 22.308,
+     "e": 22.53
+    },
+    {
+     "w": "nuit,",
+     "s": 22.567,
+     "e": 22.9
+    },
+    {
+     "w": "elles",
+     "s": 22.974,
+     "e": 23.048
+    },
+    {
+     "w": "déplantent",
+     "s": 23.122,
+     "e": 23.419
+    },
+    {
+     "w": "un",
+     "s": 23.456,
+     "e": 23.493
+    },
+    {
+     "w": "camping",
+     "s": 23.567,
+     "e": 23.937
+    },
+    {
+     "w": "entier.",
+     "s": 24.011,
+     "e": 24.641
+    },
+    {
+     "w": "Sardine",
+     "s": 24.678,
+     "e": 25.122
+    },
+    {
+     "w": "par",
+     "s": 25.196,
+     "e": 25.271
+    },
+    {
+     "w": "sardine.",
+     "s": 25.308,
+     "e": 26.011
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Trente mille tentes migrent vers le sud. En V.",
+   "hl": [
+    "migrent",
+    "V."
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L10.k.wav",
+   "file_start": 26.111,
+   "speech_start": 26.111,
+   "speech_end": 29.0,
+   "words": [
+    {
+     "w": "Trente",
+     "s": 26.111,
+     "e": 26.333
+    },
+    {
+     "w": "mille",
+     "s": 26.408,
+     "e": 26.63
+    },
+    {
+     "w": "tentes",
+     "s": 26.729,
+     "e": 26.926
+    },
+    {
+     "w": "migrent",
+     "s": 27.0,
+     "e": 27.296
+    },
+    {
+     "w": "vers",
+     "s": 27.371,
+     "e": 27.445
+    },
+    {
+     "w": "le",
+     "s": 27.482,
+     "e": 27.519
+    },
+    {
+     "w": "sud.",
+     "s": 27.593,
+     "e": 28.185
+    },
+    {
+     "w": "En",
+     "s": 28.259,
+     "e": 28.408
+    },
+    {
+     "w": "V.",
+     "s": 28.519,
+     "e": 29.0
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Les ornithologues les baguent au passage.",
+   "hl": [
+    "ornithologues",
+    "baguent"
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L11.k.wav",
+   "file_start": 29.1,
+   "speech_start": 29.1,
+   "speech_end": 30.878,
+   "words": [
+    {
+     "w": "Les",
+     "s": 29.1,
+     "e": 29.248
+    },
+    {
+     "w": "ornithologues",
+     "s": 29.322,
+     "e": 29.767
+    },
+    {
+     "w": "les",
+     "s": 29.841,
+     "e": 29.915
+    },
+    {
+     "w": "baguent",
+     "s": 29.989,
+     "e": 30.112
+    },
+    {
+     "w": "au",
+     "s": 30.162,
+     "e": 30.211
+    },
+    {
+     "w": "passage.",
+     "s": 30.322,
+     "e": 30.878
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Il n'en reste qu'une debout : celle de ce mec. Les mouettes l'évitent.",
+   "hl": [
+    "debout",
+    "l'évitent."
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L12.k.wav",
+   "file_start": 30.978,
+   "speech_start": 30.978,
+   "speech_end": 34.533,
+   "words": [
+    {
+     "w": "Il",
+     "s": 30.978,
+     "e": 31.052
+    },
+    {
+     "w": "n'en",
+     "s": 31.126,
+     "e": 31.2
+    },
+    {
+     "w": "reste",
+     "s": 31.348,
+     "e": 31.496
+    },
+    {
+     "w": "qu'une",
+     "s": 31.533,
+     "e": 31.719
+    },
+    {
+     "w": "debout:",
+     "s": 31.83,
+     "e": 32.434
+    },
+    {
+     "w": "celle",
+     "s": 32.484,
+     "e": 32.571
+    },
+    {
+     "w": "de",
+     "s": 32.608,
+     "e": 32.682
+    },
+    {
+     "w": "ce",
+     "s": 32.719,
+     "e": 32.756
+    },
+    {
+     "w": "mec.",
+     "s": 32.83,
+     "e": 33.385
+    },
+    {
+     "w": "Les",
+     "s": 33.422,
+     "e": 33.496
+    },
+    {
+     "w": "mouettes",
+     "s": 33.571,
+     "e": 33.793
+    },
+    {
+     "w": "l'évitent.",
+     "s": 33.842,
+     "e": 34.533
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Tout le pays a dormi dedans. Serrés comme des sardines.",
+   "hl": [
+    "Serrés",
+    "sardines."
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L13.k.wav",
+   "file_start": 34.633,
+   "speech_start": 34.633,
+   "speech_end": 37.671,
+   "words": [
+    {
+     "w": "Tout",
+     "s": 34.633,
+     "e": 34.782
+    },
+    {
+     "w": "le",
+     "s": 34.856,
+     "e": 34.93
+    },
+    {
+     "w": "pays",
+     "s": 34.967,
+     "e": 35.226
+    },
+    {
+     "w": "a",
+     "s": 35.263,
+     "e": 35.3
+    },
+    {
+     "w": "dormi",
+     "s": 35.337,
+     "e": 35.596
+    },
+    {
+     "w": "dedans.",
+     "s": 35.671,
+     "e": 36.263
+    },
+    {
+     "w": "Serrés",
+     "s": 36.3,
+     "e": 36.633
+    },
+    {
+     "w": "comme",
+     "s": 36.671,
+     "e": 36.782
+    },
+    {
+     "w": "des",
+     "s": 36.856,
+     "e": 36.93
+    },
+    {
+     "w": "sardines.",
+     "s": 36.967,
+     "e": 37.671
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Au matin, sa sardine avait disparu.",
+   "hl": [
+    "sardine",
+    "disparu."
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L14.k.wav",
+   "file_start": 37.771,
+   "speech_start": 37.771,
+   "speech_end": 39.845,
+   "words": [
+    {
+     "w": "Au",
+     "s": 37.771,
+     "e": 37.845
+    },
+    {
+     "w": "matin,",
+     "s": 37.956,
+     "e": 38.437
+    },
+    {
+     "w": "sa",
+     "s": 38.511,
+     "e": 38.585
+    },
+    {
+     "w": "sardine",
+     "s": 38.659,
+     "e": 38.956
+    },
+    {
+     "w": "avait",
+     "s": 38.993,
+     "e": 39.104
+    },
+    {
+     "w": "disparu.",
+     "s": 39.215,
+     "e": 39.845
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "La tente a décollé. Il manquait une sardine.",
+   "hl": [
+    "décollé.",
+    "manquait"
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L15.k.wav",
+   "file_start": 39.945,
+   "speech_start": 39.945,
+   "speech_end": 42.389,
+   "words": [
+    {
+     "w": "La",
+     "s": 39.945,
+     "e": 40.019
+    },
+    {
+     "w": "tente",
+     "s": 40.167,
+     "e": 40.315
+    },
+    {
+     "w": "a",
+     "s": 40.352,
+     "e": 40.389
+    },
+    {
+     "w": "décollé.",
+     "s": 40.463,
+     "e": 41.179
+    },
+    {
+     "w": "Il",
+     "s": 41.229,
+     "e": 41.278
+    },
+    {
+     "w": "manquait",
+     "s": 41.352,
+     "e": 41.5
+    },
+    {
+     "w": "une",
+     "s": 41.574,
+     "e": 41.648
+    },
+    {
+     "w": "sardine.",
+     "s": 41.685,
+     "e": 42.389
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "On a planté la plus grosse sardine : ce mec.",
+   "hl": [
+    "grosse",
+    "mec."
+   ],
+   "file": "/tmp/pipe/s7/sardine/tts/L16.k.wav",
+   "file_start": 42.489,
+   "speech_start": 42.489,
+   "speech_end": 45.23,
+   "words": [
+    {
+     "w": "On",
+     "s": 42.489,
+     "e": 42.563
+    },
+    {
+     "w": "a",
+     "s": 42.637,
+     "e": 42.711
+    },
+    {
+     "w": "planté",
+     "s": 42.822,
+     "e": 43.008
+    },
+    {
+     "w": "la",
+     "s": 43.082,
+     "e": 43.156
+    },
+    {
+     "w": "plus",
+     "s": 43.267,
+     "e": 43.378
+    },
+    {
+     "w": "grosse",
+     "s": 43.415,
+     "e": 43.674
+    },
+    {
+     "w": "sardine:",
+     "s": 43.711,
+     "e": 44.538
+    },
+    {
+     "w": "ce",
+     "s": 44.588,
+     "e": 44.637
+    },
+    {
+     "w": "mec.",
+     "s": 44.674,
+     "e": 45.23
+    }
+   ]
+  }
+ ],
+ "total": 46.53
+}
