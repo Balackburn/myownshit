@@ -2490,3 +2490,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   - Croix de pharmacie : elle alterne avec une température en chiffres. Ne pas la réutiliser.
   - Décor mairie : il a une banderole tricolore et un drapeau. Il ne peut pas servir de place de village.
   - Vérifier les options par défaut de tout décor réutilisé avant le premier brouillon.
+- (cycle 56, « La tartine ») Ne jamais poser un plan décoratif quelques millimètres au-dessus du grand sol de 300 m sans polygonOffset. Exemple : le carrelage de `kitchenDay`, posé à 3 mm. Sous SwiftShader, la profondeur de cet immense quad découpé dérive de plusieurs millimètres, et le sol uni recouvre tout le carrelage environ une image sur dix, selon la caméra et la définition.
+  - Ajouter `P('carrelage', 'ttTileOffset')` (props_tartine) à chaque plan `kitchenDay` : 13 autres histoires utilisent ce décor.
+  - Tout ce qui est posé à plat au sol prend un polygonOffset (ttSplat, ttShine).
+  - Vérifier le sol image par image sur une plage rendue en continu, pas sur des images fixes isolées.

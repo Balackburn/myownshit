@@ -485,6 +485,16 @@ export const TARTINE_PROPS = {
       for (const n of names) { const a = rt.getObjectByName(n); if (a) a.traverse(c => { if (c.isMesh) { c.castShadow = false; c.receiveShadow = false; } }); } };
     return g; },
 
+  // ---------------------------------------------------------------- an empty prop that draws the set's floor tiles with a polygon offset (place
+  // it anywhere in a kitchenDay shot). The set lays its tiles (an InstancedMesh of planes) 3 mm over a single 300 m floor quad, with no offset:
+  // under SwiftShader the depth of that huge clipped quad is off by more than 3 mm on some frames (which ones depends on the camera and the frame
+  // size), and the whole floor came out plain beige for single frames (draft 4: S01 frames 0, 2, 35, S01b, S11, S17). o.color: the tiles' colour
+  ttTileOffset(o) { const g = grp(), col = new THREE.Color(o.color || '#E9B88E');
+    g.userData.update = () => { let rt = g; while (rt.parent) rt = rt.parent; if (rt === g) return;
+      rt.traverse(n => { if (!n.isInstancedMesh || n.userData.ttOffset || n.geometry?.type !== 'PlaneGeometry' || !n.material?.color?.equals(col)) return;
+        n.userData.ttOffset = true; n.material = n.material.clone(); n.material.polygonOffset = true; n.material.polygonOffsetFactor = o.factor ?? -4; n.material.polygonOffsetUnits = o.units ?? -16; }); };
+    return g; },
+
   // ---------------------------------------------------------------- impact lines round a landing (pivot on the floor at the impact, facing +Z):
   // short white strokes radiating out, popping at o.at for 0.3 s (o.r 0.5); o.ring: a full circle of o.n (12) strokes with a dark edge (an impact
 // all round a body that lands flat), o.dur (0.3 s)

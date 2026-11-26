@@ -1244,6 +1244,10 @@ GREY = {'suit': '#8A8E96', 'pants': '#7A7E86', 'lapel': '#6E727A', 'shirt': '#F2
 for sid in st.SH:
     if not any(s_['id'] == sid for s_ in st.scenes): st.shot(sid, 'whiteVoid', setOpts={'color': '#C9C6B6'}, cams=[cam(0.0, [0, 1.5, 6], [0, 1.5, 6], [0, 1.2, 0], lens=44)])
 st.scenes.sort(key=lambda s_: s_['start'])
+# (flicker fix) kitchenDay lays its tiles 3 mm over one 300 m floor quad with no offset: on single frames (draft 4: S01 0, 2, 35, S01b, S11, S17)
+# the whole floor came out plain beige; every kitchen shot draws the tiles with a polygon offset (ttTileOffset)
+for s_ in st.scenes:
+    if s_['set'] == 'kitchenDay': s_['props'].append(P('carrelage', 'ttTileOffset'))
 st.write("La tartine", rig='toon', fingers=False, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, extra_cast={
     'mec': MEC,
     'cons1': {'preset': 'boss', 'seed': 10202, 'suit': '#3E4A5C', 'tie': '#8A2E3A', 'hair': 'bald', 'facial': 'mustache', 'glasses': False, 'build': {'width': 1.05, 'headWidth': 1.2, 'belly': 0.12}, 'toon': EX},

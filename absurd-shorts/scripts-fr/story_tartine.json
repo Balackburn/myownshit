@@ -1880,6 +1880,10 @@
       1.112,
       -0.9
      ]
+    },
+    {
+     "id": "carrelage",
+     "name": "ttTileOffset"
     }
    ],
    "sfx": [],
@@ -3093,6 +3097,10 @@
        ]
       ]
      }
+    },
+    {
+     "id": "carrelage",
+     "name": "ttTileOffset"
     }
    ],
    "sfx": [],
@@ -3717,6 +3725,10 @@
        ]
       ]
      }
+    },
+    {
+     "id": "carrelage",
+     "name": "ttTileOffset"
     }
    ],
    "sfx": [],
@@ -4795,6 +4807,10 @@
        ]
       ]
      }
+    },
+    {
+     "id": "carrelage",
+     "name": "ttTileOffset"
     }
    ],
    "sfx": [],
@@ -6015,6 +6031,10 @@
        -0.1
       ]
      }
+    },
+    {
+     "id": "carrelage",
+     "name": "ttTileOffset"
     }
    ],
    "sfx": [],
@@ -17177,6 +17197,10 @@
      },
      "scale": 0.85,
      "ry": 0.0
+    },
+    {
+     "id": "carrelage",
+     "name": "ttTileOffset"
     }
    ],
    "sfx": [],
@@ -18008,6 +18032,10 @@
        ]
       ]
      }
+    },
+    {
+     "id": "carrelage",
+     "name": "ttTileOffset"
     }
    ],
    "sfx": [],
@@ -32115,6 +32143,10 @@
       ],
       "period": 1.7
      }
+    },
+    {
+     "id": "carrelage",
+     "name": "ttTileOffset"
     }
    ],
    "sfx": [],
@@ -36249,6 +36281,10 @@
       ],
       "period": 1.6
      }
+    },
+    {
+     "id": "carrelage",
+     "name": "ttTileOffset"
     }
    ],
    "sfx": [],
@@ -36591,6 +36627,10 @@
        0.7
       ]
      }
+    },
+    {
+     "id": "carrelage",
+     "name": "ttTileOffset"
     }
    ],
    "sfx": [],
@@ -37838,6 +37878,10 @@
        ]
       ]
      }
+    },
+    {
+     "id": "carrelage",
+     "name": "ttTileOffset"
     }
    ],
    "sfx": [],
@@ -38821,6 +38865,10 @@
        "ease": "out"
       }
      ]
+    },
+    {
+     "id": "carrelage",
+     "name": "ttTileOffset"
     }
    ],
    "sfx": [],
@@ -40145,6 +40193,10 @@
        "ease": "out"
       }
      ]
+    },
+    {
+     "id": "carrelage",
+     "name": "ttTileOffset"
     }
    ],
    "sfx": [],
@@ -41062,6 +41114,10 @@
       ]
      },
      "ry": 11.459
+    },
+    {
+     "id": "carrelage",
+     "name": "ttTileOffset"
     }
    ],
    "sfx": [],
