@@ -3210,3 +3210,14 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - planche vérifiée : bouche montrée deux fois seulement (S01b avec le trou, S13 sans dents), cochon entier dans l'image de fin.
 - « La notice » (107) : mise en scène faite (35 plans), brouillon 1 en rendu.
 - 05 h 55 — « La notice » (107) brouillon 1 : 1 zone figée de 0,67 s (S02b), pas de creux. Revue 1 lancée. Outils corrigés : le découpage de cards.txt cassait sur les cartes posées sur un plan à suffixe (S05b, S12b), y compris dans make_project.py, qui sert à la finale.
+
+- 06 h 15 — « La notice » (107) revue 1 : anim 6,8 / art 7,4.
+  - Défauts relevés :
+    - le sol clignote derrière le randonneur (S11b) ;
+    - le repliage du pharmacien, le climax, manque de pose forte (S12-S12b) ;
+    - la tête de l'arbitre gonfle comme un maillage cassé (S12c) ;
+    - des temps morts ;
+    - des temps forts trop petits (rue qui lit le ciel, ministre, « guéri ») ;
+    - le gag de la salle d'attente est répété (S09b et S10b).
+  - Points forts gardés : masque de la notice, ciel de papier, ventres qui gonflent, bras élastique de la présentatrice, boucle finale.
+  - Agent de corrections lancé.
