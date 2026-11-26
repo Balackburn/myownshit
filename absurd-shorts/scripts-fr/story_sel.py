@@ -865,33 +865,42 @@ st.cue('sfx:tick', 'S08b', 0.25, 0.15); st.cue('sfx:tick', 'S08b', 0.48, 0.15)
 D9 = st.dur('S09'); FAM9 = W('S09', 'L09', 6)
 RW9 = 1.6; ROW9 = [0.0, 0.0, 0.0]; OPEN9 = 0.06
 SX9 = [r((i - 2) * RW9) for i in range(5)]
-S9a = [[x, 0.12, -0.55] for x in SX9]; S9b = [[x, 0.12, 0.9] for x in SX9]
-# (round 1) lower and more frontal: the five step out of their doors TOWARD us, chins up, napkins on their chests, each chair tucked under the left arm
-F9, L9, LN9 = FIT([2.6, 1.3, 6.2], {'top0': [SX9[0], 2.45, 0.9], 'top4': [SX9[4], 2.45, 0.9], 'chin0': [SX9[0], 1.7, 0.9], 'chin4': [SX9[4], 1.7, 0.9], 'chair4': [r(SX9[4] + 0.75), 0.6, 0.9]}, margin=0.05, top=0.22, bottom=0.78, lenses=range(24, 60))
-C9 = cam(0.0, F9, add(F9, [-0.15, 0.0, -0.15]), L9, L9, lens=LN9, ease='inOut')
-chkc('S09', C9, {f'top{i}': [SX9[i], 2.4, 0.9] for i in range(5)})
+S9a = [[x, 0.12, -0.55] for x in SX9]; S9b = [[x, 0.12, 0.62] for x in SX9]
+# (round 3) the wide frame made them a tenth of the height: a mid-wide on the three middle doors (the two outer ones at the edges); every door bangs
+# open on the same frame and wobbles; the five step out in unison: a dip, one stride out of the doorway, a chin-up pop on landing, held
+DIP9, STEP9, POP9 = 0.14, 0.22, 0.5
+F9, L9, LN9 = FIT([0.9, 1.3, 7.0], {'top1': [SX9[1], 2.5, 0.62], 'top3': [SX9[3], 2.5, 0.62], 'feet1': [SX9[1], 0.12, 0.62], 'feet3': [SX9[3], 0.12, 0.62], 'door1': [r(SX9[1] - 0.5), 2.4, 0.0], 'door3': [r(SX9[3] + 0.5), 2.4, 0.0],
+                                  'chair3': [r(SX9[3] + 0.6), 0.7, 0.62]}, margin=0.05, top=0.32, bottom=0.76, lenses=range(24, 60))
+C9 = cam(0.0, F9, add(F9, [-0.08, 0.0, -0.22]), L9, L9, lens=LN9, ease='inOut')
+chkc('S09', C9, {**{f'top{i}': [SX9[i], 2.4, 0.62] for i in range(5)}, **{f'feet{i}': [SX9[i], 0.12, 0.62] for i in range(5)}})
 SFS = [{'lid': 0.2, 'mouth': 'smile', 'brow': 0.6}, {'lid': 0.4, 'mouth': 'smirk', 'brow': 0.3}, {'lid': 0.2, 'mouth': 'open', 'jaw': 0.2, 'brow': 0.7}, {'lid': 0.3, 'mouth': 'smile', 'brow': 0.5}, {'lid': 0.35, 'mouth': 'smile', 'brow': 0.4}]
 # (round 1) the chair is carried for real: upright at his left side, its back under his armpit, his left mitten on the seat (elbow bent, a touch in the
 # frame of his torso, so it follows the walk); it was attached at head height and hid every face behind a chair back
 CHT = {'touch': {'L': ['torso', 0.47, 0.13, 0.12, 1]}, 'hands': {'L': 'grip'}}
 def STK(**x): return STANDK(**CHT, **x)
+CHIN = {'neck': [-0.28, 0, 0, 1.12, None]}
 def STRK9(i):
-    return [k(-0.5, look=F9), k(0.0, toon={**STK(), 'face': SFS[i]}, toonDur=0.0), k(r(OPEN9 + 0.04), to=S9b[i], dur=0.55, clip='walk', then='stand', ease='linear', face=0),
-            k(r(OPEN9 + 0.04), toon={**STK(), 'sq': [0.95, 1.06, 0.95], 'face': {**SFS[i], 'brow': 0.9}}, toonDur=0.05),
-            k(0.65, toon={**STK(), 'sq': [1.04, 0.96, 1.04], 'bend': {'neck': [-0.2, 0, 0, 1, None]}, 'face': SFS[i]}, toonDur=0.06),
-            k(0.75, toon={**STK(), 'sq': [0.97, 1.04, 0.97], 'bend': {'neck': [-0.18, 0, 0, 1, None]}, 'face': SFS[i]}, toonDur=0.08), *life(0.9, D9, SFS[i], STK(bend={'neck': [-0.18, 0, 0, 1, None]}), blinks=[r(1.0 + 0.03 * i)], period=0.5)]
+    mid = [S9a[i][0], 0.12, r((S9a[i][2] + S9b[i][2]) / 2)]
+    return [k(-0.5, look=F9), k(0.0, toon={**STK(), 'face': SFS[i]}, toonDur=0.0),
+            k(DIP9, toon={**STK(), 'sq': [1.1, 0.88, 1.1], 'auto': 0, 'face': {**SFS[i], 'lid': 0.5, 'brow': 0.2}}, toonDur=0.06),
+            k(STEP9, to=add(mid, [0, 0.16, 0]), dur=0.14, ease='out', then='stand', face=0), k(r(STEP9 + 0.14), to=S9b[i], dur=0.14, ease='in', then='stand', face=0),
+            k(STEP9, toon={**STK(), 'sq': [0.92, 1.1, 0.92], 'auto': 0, 'face': {**SFS[i], 'brow': 0.9}}, toonDur=0.05),
+            k(r(POP9 - 0.02), toon={**STK(), 'sq': [1.1, 0.9, 1.1], 'auto': 0, 'face': SFS[i]}, toonDur=0.03),
+            k(r(POP9 + 0.04), toon={**STK(), 'sq': [0.95, 1.07, 0.95], 'bend': CHIN, 'auto': 0, 'face': {**SFS[i], 'brow': 1.0}}, toonDur=0.05, toonEase='outBack'),
+            k(r(POP9 + 0.16), toon={**STK(), 'sq': [1.0, 1.0, 1.0], 'bend': CHIN, 'face': SFS[i]}, toonDur=0.08),
+            *life(r(POP9 + 0.3), D9, SFS[i], STK(bend=CHIN), blinks=[r(0.95 + 0.04 * i)], period=0.5)]
 def CARRYPROPS(n, who, colors):
     return [P(f'chaise{n}_{who}', 'seChair', on={'actor': who, 'joint': 'torso', 'offset': [0.5, -0.42, 0.0], 'rot': [0.0, PI / 2, 0.0]}, opts={'color': colors[0], 'cushion': colors[1]}),
             P(f'serviette{n}_{who}', 'seBib', on={'actor': who, 'joint': 'torso', 'offset': [0.0, 0.5, 0.18]}, opts={'s': 0.9})]
 CH9 = [['#6A4430', '#C9483A'], ['#8A5A34', '#3E7A9A'], ['#5A3A26', '#E8B83A'], ['#7A5236', '#4E8A5A'], ['#6A4430', '#B48CD2']]
 STR = ['s1', 's2', 's3', 's4', 's5']
-ROWO = {'n': 5, 'w': RW9, 'h': 3.1, 'colors': ['#F2C4A8', '#C9E0D4', '#F2E2A8', '#D8CCEE', '#F4C8D0'], 'stagger': 0, 'slam': r(OPEN9 + 0.12), 'wob': 0.06, 'swing': 2.9}
+ROWO = {'n': 5, 'w': RW9, 'h': 3.1, 'colors': ['#F2C4A8', '#C9E0D4', '#F2E2A8', '#D8CCEE', '#F4C8D0'], 'stagger': 0, 'slam': r(OPEN9 + 0.034), 'wob': 0.2, 'swing': 3.0}
 st.shot('S09', 'grassland', actors=[act(STR[i], S9a[i], 0, 'stand', 'neutral', keys=STRK9(i)) for i in range(5)],
-        props=[P('rangee9', 'poRowHouses', pos=ROW9, opts={**ROWO, 'open': [[0, 0], [OPEN9, 0], [r(OPEN9 + 0.12), 1.0, 'lin']]}), P('route9', 'roadStrip', pos=[0, 0, 6.0], ry=90, opts={'len': 60, 'w': 5}),
+        props=[P('rangee9', 'poRowHouses', pos=ROW9, opts={**ROWO, 'open': [[0, 0], [OPEN9, 0], [r(OPEN9 + 0.034), 1.0, 'lin']]}),   # (round 3) no road strip here: drawn without a depth test, it painted over the pavement on some frames of the closer framing
                *[q for i in range(5) for q in CARRYPROPS(9, STR[i], CH9[i])]],
         cams=[C9])
 st.card('S09', 'FAMILLE', at=r(FAM9 + 0.02))
-st.cue('thud', 'S09', r(OPEN9 + 0.12), 0.5); st.cue('sfx:stepHeavy', 'S09', 0.3, 0.2); st.cue('sfx:stepHeavy', 'S09', 0.58, 0.2)
+st.cue('thud', 'S09', r(OPEN9 + 0.034), 0.5); st.cue('sfx:stepHeavy', 'S09', r(STEP9 + 0.28), 0.25); st.cue('sfx:boing', 'S09', r(POP9 + 0.04), 0.08)
 
 # 9b: « on vient au repas. » Low at the end of the pavement: they march off in step in the same direction, a column coming at us, chairs under their arms,
 #     napkins bouncing, chins up, the first one large
@@ -1181,14 +1190,14 @@ HK13 = [SIT(), k(-0.5, look=lerp3([r(HS[0] + 1.5), 1.3, HS[2]], F13, 0.6)), k(0.
         *life(0.05, 0.85, SNF, KF(HS, RYS_), blinks=[0.3], period=0.6),
         k(0.85, look=add(SHD13, [0, 0.1, 0]), lookDur=0.12), k(0.86, toon={**KF(HS, RYS_), 'face': {**SNF, 'lid': 0.0, 'brow': 0.8, 'eye': 0.3, 'gy': 0.5}}, toonDur=0.06),
         k(r(BEAM - 0.06), toon={**KF(HS, RYS_), 'sq': [1.08, 0.92, 1.08], 'face': {**HF, 'lid': 0.2, 'mouth': 'smile'}}, toonDur=0.05), k(r(BEAM - 0.04), look='camera', lookDur=0.12),
-        k(BEAM, toon={**KF(HS, RYS_), 'sq': [0.92, 1.12, 0.92], 'hairUp': 0.5, 'face': {'lid': 0.0, 'mouth': 'smile', 'mouthW': 0.4, 'brow': 1.0, 'eye': 0.35, 'cheeks': 0.6}}, toonDur=0.05, toonEase='outBack'),
+        k(BEAM, toon={**KF(HS, RYS_), 'sq': [0.92, 1.12, 0.92], 'face': {'lid': 0.0, 'mouth': 'smile', 'mouthW': 0.4, 'brow': 1.0, 'eye': 0.35, 'cheeks': 0.6}}, toonDur=0.05, toonEase='outBack'),
         k(r(BEAM + 0.2), toon={**KF(HS, RYS_), 'sq': [0.98, 1.03, 0.98], 'face': {'lid': 0.1, 'mouth': 'smile', 'mouthW': 0.4, 'brow': 0.8, 'eye': 0.25, 'cheeks': 0.5}}, toonDur=0.08),
         *life(r(BEAM + 0.32), D13, {'lid': 0.1, 'mouth': 'smile', 'mouthW': 0.35, 'brow': 0.7, 'eye': 0.2, 'cheeks': 0.4}, KF(HS, RYS_), period=0.45)]
 BK13 = [k(0.0, toon={**HOLDK(CB13, RYB13, SP13.grip(0.0), hose=0.1), 'face': CBF}, toonDur=0.0), *FOLLOW(CB13, RYB13, SP13.grip, 0.5, 0.95, CBF, hose=0.1),
         k(1.0, toon={**RESTK(CB13, RYB13), 'face': CBF}, toonDur=0.15)]
 HEADTOP = add(HS, [0.05, 1.9, 0.0])
 # (round 3) the cap on his head read as a beret with eyes (two inked facets of a dome): a flat slab that follows his box head, drips over its edges
-SLAB13 = {'slab': True, 'w': 0.42, 'd': 0.36, 't': 0.07}
+SLAB13 = {'slab': True, 'w': 0.42, 'd': 0.36, 't': 0.055, 'drips': [[-0.32, 1, 0.05], [0.08, 1, 0.075], [0.4, 1, 0.04], [1, 0.25, 0.05], [-1, -0.1, 0.045], [-0.2, -1, 0.04]]}
 st.shot('S13', 'snow', actors=[act('mec', HS, RYS_, 'sit', 'neutral', keys=HK13), act('cB', CB13, RYB13, 'stand', 'neutral', keys=BK13)],
         props=[*SNOWEND(13), UTENSIL('couteau13', 'knife', ubase(KRS), yaw(KRS, F13), snow=1.0), UTENSIL('fourchette13', 'fork', ubase(KLS), yaw(KLS, F13), snow=1.0),
                SHAKER('sel13', SP13.pos0, EMPTY, keys=SP13.keys()),
