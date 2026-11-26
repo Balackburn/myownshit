@@ -3203,3 +3203,9 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 04 h 05 — Disque : suppression des images et vidéos intermédiaires des histoires livrées dans le dossier de travail (voix gardées) et des fichiers de travail de la tartine ; 1,3 Go libres. Finale de « La poule » (104) lancée. « La notice » (107) en mise en scène.
 
 - 04 h 58 — « Le mot » (105), session 87 : revues 5,8/6,8 → 6,6/7,3 → 7,0/7,4, passe finale, brouillon de contrôle, finale 1080x1920 à −16,0 LUFS ; publiée (cmwx2v5cs19t8pj07z4bykctq). Branche fusionnée, leçons ajoutées. Bogue de `build_hf.py` (point isolé après un guillemet fermant) corrigé dans le skill. « Le composteur » (106) confié à la session 87.
+
+- 05 h 40 — « La poule » (104) LIVRÉE et publiée sur TikTok (cmwx4f0ut19gfo307lk72swyo) :
+  - revues 6,8/7,2 → 7,3/7,6 → 7,6/7,6, passe finale, brouillon de contrôle ;
+  - finale 1080x1920, 45,9 s, −16,0 LUFS, crête −4,4 dBFS, HyperFrames 0 erreur, pas de creux ;
+  - planche vérifiée : bouche montrée deux fois seulement (S01b avec le trou, S13 sans dents), cochon entier dans l'image de fin.
+- « La notice » (107) : mise en scène faite (35 plans), brouillon 1 en rendu.
