@@ -3195,3 +3195,8 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
     - anciens tests de mixage.
   - 1,2 Go libres sans toucher aux livrables.
   - Finale de « La tartine » (102) lancée ; celle de « La poule » suivra.
+
+- 03 h 55 — « La tartine » (102) LIVRÉE et publiée sur TikTok (cmwx0ol761910pj071m9we1is) :
+  - revues 6,8/7,3 → 7,4/7,5 → 7,8/7,6, passe finale, brouillon de contrôle, sol de cuisine corrigé ;
+  - finale 1080x1920, 44,7 s, −16,1 LUFS, crête −3,7 dBFS, HyperFrames 0 erreur, pas de creux ;
+  - carrelage stable sur toutes les images.

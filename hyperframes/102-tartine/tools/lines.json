@@ -1,0 +1,155 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a ramassé sa tartine en six secondes. Un inspecteur est sorti de sous la table.",
+  "hl": [
+   "six",
+   "inspecteur"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "« La règle, c'est cinq. » Tartine confisquée.",
+  "hl": [
+   "cinq.",
+   "confisquée."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il habite sous la table. Personne ne sait pourquoi.",
+  "hl": [
+   "habite",
+   "pourquoi."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Nouvelle loi : cinq secondes par terre, et c'est à l'État.",
+  "hl": [
+   "loi",
+   "l'État."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Chaque cuisine a son agent. Côté beurre, taxé double.",
+  "hl": [
+   "agent.",
+   "double."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Les recettes de l'État ont décollé.",
+  "hl": [
+   "recettes",
+   "décollé."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Les ministres ne mangent plus que par terre. C'est le budget.",
+  "hl": [
+   "terre.",
+   "budget."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Puis le pays est devenu adroit.",
+  "hl": [
+   "pays",
+   "adroit."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Les recettes ont chuté. Pas les tartines.",
+  "hl": [
+   "chuté.",
+   "tartines."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "L'État a fait cirer tous les sols.",
+  "hl": [
+   "cirer",
+   "sols."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Quatre millions de tartines par jour. Toutes côté beurre.",
+  "hl": [
+   "millions",
+   "beurre."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Trois ministres ont glissé. Saisis. Personne n'a vu la différence.",
+  "hl": [
+   "Saisis.",
+   "différence."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Hier, ce mec a glissé dans sa cuisine.",
+  "hl": [
+   "glissé",
+   "cuisine."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Il s'est relevé en six secondes.",
+  "hl": [
+   "six",
+   "secondes."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Il appartient à l'État. On l'a affecté sous une table.",
+  "hl": [
+   "appartient",
+   "table."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Celle de l'inspecteur.",
+  "hl": [
+   "Celle",
+   "l'inspecteur."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Lui, c'était sept secondes.",
+  "hl": [
+   "Lui,",
+   "sept"
+  ]
+ }
+]
