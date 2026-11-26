@@ -79,7 +79,15 @@ thing on a floor has a polygon offset or a gap of 10 cm or more, and the street'
 rigged sheep and five people per shot, the masses are faceless fleece blobs; the sheep are clearly sheep (white fleece, black face and legs, a round
 body), the black one an ordinary dark-fleeced sheep; counting by nods and voice only (no digits, no tally); new props prefixed mt; sound names
 checked against audio3.py, audio.py and mix.py; no organisation, brand, flag, emblem, cross, insignia, digit or currency on screen; French only
-(INSOMNIE, DÉCOMPTE are the cards); people keep their shirts on when the jumpers vanish; nobody hurt."""
+(INSOMNIE, DÉCOMPTE are the cards); people keep their shirts on when the jumpers vanish; nobody hurt.
+Round 1 corrections (critics 7.0 / 6.8): S16-S16c the jumps run ACROSS the frame (the fence at 55 degrees), a held crouch, a long arc over the fence,
+a landing squash, his head to the lens at the top, him about a quarter of the frame tall; the film ends with him in the air. The black sheep by night
+(S14-S16c) has a pale moonlit rim, a soft key light and a pale moonlit patch of meadow behind it (the meadow lighter); S14 seen from above its head,
+both eyes to the lens, a big drumming tap; the bubble's sheep a third of the bubble wide, nodding. One fleece everywhere: round lobes with smooth
+shading, a curl pattern, cool white, a thin slate outline, the rigged sheep's bodies included. S01 the fence pops up out of the blanket at his feet;
+S01b the white sheep leave before the black one lands. S03 the block by night with facades, lit windows and a roof, a 2-frame jolt with an overshoot.
+S04 / S10 a multiple-image frame (buzz under a short shutter) and eyes out for 2-3 frames. S07 the stallholder in front of his stall, the flock coming
+toward the lens. S12b one lead action (the last sheep vanishes beside the pail). S12c clean white shirts appear, neutral puffs thrown sideways."""
 from story_kit import *
 import math
 
@@ -542,10 +550,10 @@ st.cue('engine', 'S06b', 0.0, 0.18, D6b); [st.cue('sfx:boing', 'S06b', r(0.12 + 
 
 # ============================== the market stall in the white street
 STALL = [0.0, 0.12, 2.5]; MAR = [0.95, 0, 3.4]; PYJ = [-1.45, 0, 3.55]; RYP = 35   # (round 1) the stallholder out in front of his counter, to the right (behind it his sniff was tiny)
-ROPE_SHEEP = [[-2.75, 0, 3.9], [-2.45, 0, 4.65], [-1.95, 0, 5.25], [-1.3, 0, 5.65], [-0.6, 0, 5.85]]
+ROPE_SHEEP = [[-2.2, 0, 4.15], [-1.75, 0, 4.85], [-1.2, 0, 5.5], [-0.55, 0, 6.05], [0.15, 0, 6.5]]   # (round 1) a line coming toward the lens: the flock fills the bottom of the frame
 COLLAR = lambda p: add(p, [0.22, 0.55, 0.22])
-F7, L7, LN7 = FIT([0.0, 1.45, 9.6], {'marTop': add(MAR, [0.3, 2.4, 0]), 'pyjTop': add(PYJ, [0, 2.35, 0]), 'sheep0': add(ROPE_SHEEP[0], [-0.35, 0.7, 0]), 'sheep4': add(ROPE_SHEEP[4], [0.2, 0.0, 0.6]), 'marFeet': add(MAR, [0.4, 0, 0.3])},
-              margin=0.1, top=0.14, bottom=0.92, lenses=range(32, 58))
+F7, L7, LN7 = FIT([0.3, 1.6, 9.4], {'marTop': add(MAR, [0.3, 2.4, 0]), 'pyjTop': add(PYJ, [0, 2.35, 0]), 'sheep0': add(ROPE_SHEEP[0], [-0.3, 0.7, 0]), 'sheep4': add(ROPE_SHEEP[4], [0.2, 0.0, 0.4]), 'marFeet': add(MAR, [0.4, 0, 0.3])},
+              margin=0.08, top=0.14, bottom=0.9, lenses=range(32, 66))
 MSET = WSET
 MAH = lambda R, L, hr='grip', hl='rest', **x: HAND(R, L, hr, hl, **x)
 MAF = {'lid': 0.3, 'mouth': 'line', 'brow': -0.2}
@@ -553,9 +561,8 @@ PJF = {'lid': 0.45, 'mouth': 'line', 'brow': 0.3, 'bags': 0.9}
 HEAP7 = FLEECE('tas7', [{'kind': 'heap', 'c': [1.9, 0, 1.6], 'r': 1.2, 'h': 1.3, 'n': 45, 's': [0.7, 1.0]}], seed=7)
 ROPEH = lambda t: off(PYJ, RYP, 0.3, -0.32, 1.0)
 def STALLPROPS(n, rope_a, extra=()):
-    return [GCUT(n, WHITE), SNOWLAYER(n, xs=(-14, 14), zs=(-2, 1.2), cnt=60), FLEECE(f'neigeAvant{n}', [{'kind': 'layer', 'x': [-4.5, 4.5], 'z': [6.3, 9.0], 'y': 0.0, 'n': 70, 's': [0.7, 1.1], 'h': 0.2}], seed=17),
-            P(f'etal{n}', 'mtStall', pos=STALL, opts={'w': 2.0}), HEAP7,
-            *[SHEEP(f'mouton{n}_{i}', ROPE_SHEEP[i], [60, 75, 95, 115, 130][i], s=0.66, blinks=[0.3 + 0.27 * i], head=[[0, 0.2 * (1 if i % 2 else -1)]], bleat=[r(0.5 + 0.21 * i)] if i in (1, 3) else []) for i in range(5)],
+    return [GCUT(n, WHITE), SNOWLAYER(n, xs=(-14, 14), zs=(-2, 1.2), cnt=60), P(f'etal{n}', 'mtStall', pos=STALL, opts={'w': 2.0}), HEAP7,
+            *[SHEEP(f'mouton{n}_{i}', ROPE_SHEEP[i], [40, 50, 60, 70, 80][i], s=0.66, blinks=[0.3 + 0.27 * i], head=[[0, 0.2 * (1 if i % 2 else -1)]], bleat=[r(0.5 + 0.21 * i)] if i in (1, 3) else []) for i in range(5)],
             P(f'corde{n}', 'mtRope', pos=[0, 0, 0], opts={'a': rope_a, 'chain': [COLLAR(q) for q in ROPE_SHEEP], 'sag': 0.15}), *extra]
 
 # 7: « La laine ne vaut plus rien. » A market stall in the white street: a man in pyjamas holds a rope leading five sheep; the stallholder picks up a fleece
@@ -586,8 +593,8 @@ st.cue('sfx:sniff', 'S07', 0.3, 0.3); st.cue('whoosh', 'S07', FLICK7, 0.2, 0.25,
 # 7b: « Une tisane vaut un troupeau. » He hands over the rope and takes one steaming cup of herbal tea, sips: his eyelids drop shut at once and he sleeps
 #     standing, swaying; the stallholder loops the rope on his post
 D7b = st.dur('S07b'); GIVE = 0.12; CUP7 = 0.36; SIP = 0.62; ASLEEP7 = 0.86
-F7b, L7b, LN7b = FIT([-0.6, 1.5, 8.6], {'marTop': add(MAR, [0.2, 2.4, 0]), 'pyjTop': add(PYJ, [0, 2.35, 0]), 'cup': off(PYJ, RYP, 0.3, -0.1, 1.9), 'sheep1': add(ROPE_SHEEP[1], [-0.3, 0.7, 0]), 'sheep4': add(ROPE_SHEEP[4], [0.2, 0.0, 0.6]), 'post': add(STALL, [1.02, 1.0, 0.02])},
-                  margin=0.1, top=0.14, bottom=0.92, lenses=range(32, 58))
+F7b, L7b, LN7b = FIT([-0.3, 1.6, 9.2], {'marTop': add(MAR, [0.2, 2.4, 0]), 'pyjTop': add(PYJ, [0, 2.35, 0]), 'cup': off(PYJ, RYP, 0.3, -0.1, 1.9), 'sheep1': add(ROPE_SHEEP[1], [-0.3, 0.7, 0]), 'sheep4': add(ROPE_SHEEP[4], [0.2, 0.0, 0.6]), 'post': add(STALL, [1.02, 1.0, 0.02])},
+                  margin=0.08, top=0.14, bottom=0.9, lenses=range(32, 66))
 C7b = CAM(F7b, L7b, LN7b, 0.12)
 chk2('S07b', C7b, {'marHead': add(MAR, [0, 2.0, 0]), 'pyjHead': add(PYJ, [0, 2.0, 0]), 'cup': off(PYJ, RYP, 0.3, -0.1, 1.9)}, heads=('marHead', 'pyjHead'))
 MEET = [-0.25, 1.2, 3.5]; POST = add(STALL, [1.02, 1.0, 0.02])   # the stall's right post, beside him
@@ -777,7 +784,7 @@ def JUMPERS(n, pops=None):
         if pp is not None:
             out += [P(f'chemise{n}_{nm}', 'mtJumper', on={'actor': nm, 'joint': 'torso', 'offset': [0, -0.05, 0]}, scale=sc, opts={'shirt': True, 'appear': r(pp + 0.06), 'w': 0.58, 'h': 0.62, 'd': 0.4}),
                     *[P(f'mancheB{n}_{nm}{sd}', 'mtKnitSleeve', on={'actor': nm, 'joint': 'shoulder' + sd}, scale=sc, opts={'color': '#F4F4F0', 'len': 0.28, 'r': 0.085, 'appear': r(pp + 0.06)}) for sd in 'LR']]
-        out += [P(f'pull{n}_{nm}', 'mtJumper', on={'actor': nm, 'joint': 'torso', 'offset': [0, -0.05, 0]}, scale=sc, opts={'color': JCOL[nm], **({'pop': pp, 'puffColor': '#EEE8DA', 'puffDz': 0.1, 'puffSpread': 0.7, 'puffUp': 0.7, 'puffN': 6} if pp is not None else {})}),
+        out += [P(f'pull{n}_{nm}', 'mtJumper', on={'actor': nm, 'joint': 'torso', 'offset': [0, -0.05, 0]}, scale=sc, opts={'color': JCOL[nm], **({'pop': pp, 'puffColor': '#EEE8DA', 'puffDz': 0.1, 'puffSpread': 0.75, 'puffUp': 0.05, 'puffN': 6} if pp is not None else {})}),
                 *[P(f'manche{n}_{nm}{sd}', 'mtKnitSleeve', on={'actor': nm, 'joint': 'shoulder' + sd}, scale=sc, opts={'color': JCOL[nm], 'len': 0.3, 'r': 0.09, **({'pop': pp} if pp is not None else {})}) for sd in 'LR']]
     return out
 FAMF = {'lid': 0.2, 'mouth': 'line', 'brow': 0.4}
@@ -889,7 +896,7 @@ F12c, L12c, LN12c = FIT([-0.25, 1.45, 2.4], {'pTop': add(FAM['pere'], [-0.2, 2.1
                   margin=0.12, top=0.14, bottom=0.78, lenses=range(34, 70))
 C12c = CAM(F12c, L12c, LN12c, 0.1)
 chk2('S12c', C12c, {f'{n}Head': add(FAM[n], [0, 1.25 * KID.get(n, 1.0) + 0.7, 0.1]) for n in FAM} | {'bk': [0.0, 0.8, -0.9]}, heads=tuple(f'{n}Head' for n in FAM) + ('bk',))
-HUG = {'touch': {'R': ['torso', 0.22, 0.5, 0.12, 1, 0.0], 'L': ['torso', -0.22, 0.5, 0.12, 1, 0.0]}, 'hands': {'R': 'open', 'L': 'open'}, 'hip': 0}
+HUG = {'touch': {'R': ['torso', 0.2, 0.36, 0.2, 1, 0.0], 'L': ['torso', -0.2, 0.33, 0.24, 1, 0.0]}, 'hands': {'R': 'open', 'L': 'open'}, 'hip': 0}   # (round 1) arms crossed low across the chest (hands up on the shoulders read as stray flaps)
 COLD = {'lid': 0.2, 'mouth': 'clench', 'brow': 0.8, 'tremble': 0.8}
 def FAMK2(n):
     t0 = POPS[n]
@@ -900,7 +907,7 @@ def FAMK2(n):
     while t < D12c - 0.04:
         ks.append(k(t, toon={**HUG, 'face': COLD, 'sq': [r(1.02 + 0.015 * (i % 2)), r(0.97 - 0.01 * (i % 2)), 1.02], 'bend': {'neck': [0.05, r(0.06 * (1 if i % 2 else -1)), 0, 1, None]}}, toonDur=0.04)); t = r(t + 0.07); i += 1
     return ks
-BK12c = BLACK('noir12c', [0.0, -0.95, -0.9], 0, s=0.78, keys=[k(BKUP, to=[0.0, -0.25, -0.9], dur=0.1, ease='out')], blinks=[0.9], chin=[[0, 0.15]])
+BK12c = BLACK('noir12c', [0.0, -0.95, -0.9], 0, s=0.78, keys=[k(BKUP, to=[0.0, 0.0, -0.9], dur=0.1, ease='out')], blinks=[0.9], chin=[[0, 0.15]])   # (round 1) up onto the floor: its head sat in the caption band
 st.shot('S12c', 'livingRoom', setOpts=LSET, look={'sun': 0.9, 'fill': 1.0, 'exposure': 1.1}, actors=[act(n, FAM[n], 0, 'sit', 'neutral', keys=FAMK2(n), **({'scale': KID[n]} if n in KID else {})) for n in FAM],
         props=[*JUMPERS('12c', POPS), BK12c], cams=[C12c])
 for n in FAM: st.cue('sfx:poof', 'S12c', POPS[n], 0.3)
@@ -948,8 +955,9 @@ C14 = CAM(F14, L14, LN14, 0.15)
 chk2('S14', C14, {'bkFace': [0, 0.3, -0.7], 'legs': [0, 1.15, 0.1], 'bub': BUB14}, heads=('bkFace',))
 TAPS = [0.1, 0.42, 0.74, 1.06, 1.38]
 st.shot('S14', 'grassland', setOpts=MSETN, look=NIGHT_OUT, actors=[],
-        props=[BLACK('noir14', BK14, 180, s=0.85, back=[[0, 1.0]], backHead=0.75, tap=TAPS, tapAmp=1.9, tapSq=0.07, blinks=[0.95], expr=[[0, 'surprised']], rim='#B4CCF4', rimT=0.05, key=2.4, keyPos=[0.3, 1.6, 1.3]),
-               P('lueur14', 'mtGlowPatch', pos=[0, 0, 0.1], opts={'r': 2.0, 'a': 0.55, 'color': '#86AACE'}),
+        props=[BLACK('noir14', BK14, 180, s=0.85, back=[[0, 1.0]], backHead=0.75, tap=TAPS, tapAmp=1.6, tapZ=0.9, tapSq=0.1, blinks=[0.95], expr=[[0, 'surprised']], rim='#B4CCF4', rimT=0.05, key=0.5, keyPos=[0.3, 1.6, 1.3],
+                     colors={'body': '#47474F'}),
+               P('lueur14', 'mtGlowPatch', pos=[0, 0, 0.1], opts={'r': 2.2, 'a': 0.72, 'color': '#9DBEDD'}),
                BUBBLE('bulle14', BUB14, F14, w=1.25, state=2, t0=0.1, tail=[0.0, -0.75]), *NIGHTSKY(14)], cams=[C14])
 for tp in TAPS: st.cue('sfx:tick', 'S14', r(tp + 0.1), 0.18)
 
@@ -959,11 +967,11 @@ for tp in TAPS: st.cue('sfx:tick', 'S14', r(tp + 0.1), 0.18)
 D15 = st.dur('S15'); PER15 = 0.8; T015 = 0.05
 BUB15 = [0.15, 2.9, -1.1]; W15 = 1.8
 NOD15 = [r(T015 + PER15 * (j + 0.52)) for j in range(2)]
-C15 = cam(0.0, [0.6, 3.1, 4.6], [0.17, 2.95, 3.6], [0.15, 1.9, -1.1], [0.15, 2.9, -1.1], lens=40, ease='inOut')
+C15 = cam(0.0, [0.5, 3.1, 4.8], [0.17, 2.95, 3.6], [0.15, 2.75, -1.1], [0.15, 2.9, -1.1], lens=40, ease='inOut')   # (round 1) the legs below the frame from the start
 chk2('S15', C15, {'bubL': add(BUB15, [-W15 / 2, 0, 0]), 'bubR': add(BUB15, [W15 / 2, 0, 0]), 'bubT': add(BUB15, [0, W15 * 0.36, 0]), 'bubB': add(BUB15, [0, -W15 * 0.36, 0]), 'legs': add(BK14, [0, 1.15, 0])}, heads=())
 st.shot('S15', 'grassland', setOpts=MSETN, look=NIGHT_OUT, actors=[],
         props=[BLACK('noir15', BK14, 180, s=0.85, back=[[0, 1.0]], nod=NOD15, blinks=[0.6], expr=[[0, 'surprised']], rim='#B4CCF4', rimT=0.05, key=2.0),
-               P('lueur15', 'mtGlowPatch', pos=[0, 0, 0.1], opts={'r': 2.0, 'a': 0.5, 'color': '#86AACE'}),
+               P('lueur15', 'mtGlowPatch', pos=[0, 0, 0.1], opts={'r': 2.2, 'a': 0.72, 'color': '#9DBEDD'}),
                BUBBLE('bulle15', BUB15, [0.17, 2.95, 3.6], w=W15, state=1, night=True, sheep=True, sheepW=0.32, period=PER15, t0=T015, tail=[0.0, -0.9], res=768), *NIGHTSKY(15)], cams=[C15])
 for t in NOD15: st.cue('sfx:boing', 'S15', r(t - 0.15), 0.1)
 
@@ -979,22 +987,22 @@ TAKE = {'lid': 0.0, 'eye': 1.0, 'mouth': 'O', 'jaw': 0.45, 'brow': 1.0, 'pupilSi
 TUCK = {'legL': [-1.6, 0, 0, 1, None], 'shinL': [2.2, 0, 0, 1, None], 'legR': [-1.1, 0, 0, 1, None], 'shinR': [1.8, 0, 0, 1, None]}
 CROUCH = {'spine': [0.28, 0, 0, 1, None]}   # (bent knees under the toon keys folded him at the waist: the crouch is a squash about the feet and a lean)
 RUNF = lambda fc: {'face': fc, 'hip': 0, 'autoSq': 0.3}
-def JUMP(t0, d0=D0, d1=D1, h=HJ, T=0.5, hang=0.12, take=None, fc=TIRED):
+def JUMP(t0, d0=D0, d1=D1, h=HJ, T=0.5, hang=0.12, take=None, fc=TIRED, face=FACEJ):
     # a run-up crouch held 4 frames (squashed, knees bent, leaning in), a stretched take-off, a long arc across the fence with the legs tucked at the top
     # (held), down onto the far side, a squash 3 frames, up again; the head to the lens at the top
     a, b, m = ALONG(d0), ALONG(d1), ALONG((d0 + d1) / 2)
     apex = [r(m[0] - 0.12), h, m[2]]; apex2 = [r(m[0] + 0.12), r(h + 0.03), m[2]]
     air = {'face': take or {**fc, 'lid': 0.0, 'brow': 0.9}, 'hip': 0, 'autoSq': 0, 'bend': TUCK, 'sq': [0.9, 1.12, 0.9], 'hairUp': 0.0,
            'touch': {'R': ['torso', -0.75, 0.95, 0.15, 1, 0.0], 'L': ['torso', 0.75, 0.95, 0.15, 1, 0.0]}, 'hands': {'R': 'spread', 'L': 'spread'}}
-    ks = [k(r(t0 - 0.13), to=a, dur=0.04, glide=True, ease='out', face=FACEJ, auto=0), k(r(t0 - 0.13), clip='stand', blend=0.04),
+    ks = [k(r(t0 - 0.13), to=a, dur=0.04, glide=True, ease='out', face=face, auto=0), k(r(t0 - 0.13), clip='stand', blend=0.04),
           k(r(t0 - 0.13), toon={'face': {**fc, 'brow': 0.9}, 'hip': 0, 'autoSq': 0, 'sq': [1.2, 0.8, 1.2], 'bend': CROUCH}, toonDur=0.04, toonEase='out'),
           k(r(t0 - 0.02), toon={'face': {**fc, 'brow': 0.9}, 'hip': 0, 'autoSq': 0, 'sq': [1.24, 0.76, 1.24], 'bend': CROUCH}, toonDur=0.02),
-          k(t0, to=apex, dur=r(T / 2), glide=True, ease='out', face=FACEJ, auto=0),
+          k(t0, to=apex, dur=r(T / 2), glide=True, ease='out', face=face, auto=0),
           k(t0, toon={**air, 'sq': [0.8, 1.26, 0.8], 'bend': {}}, toonDur=0.03, toonEase='out'),
           k(r(t0 + 0.09), toon=air, toonDur=0.06, toonEase='out'),
           k(r(t0 + T / 2 - 0.04), look='camera', lookDur=0.05),
-          k(r(t0 + T / 2), to=apex2, dur=hang, glide=True, ease='linear', face=FACEJ, auto=0),
-          k(r(t0 + T / 2 + hang), to=b, dur=r(T / 2), glide=True, ease='in', face=FACEJ, auto=0),
+          k(r(t0 + T / 2), to=apex2, dur=hang, glide=True, ease='linear', face=face, auto=0),
+          k(r(t0 + T / 2 + hang), to=b, dur=r(T / 2), glide=True, ease='in', face=face, auto=0),
           k(r(t0 + T / 2 + hang), toon={**air, 'sq': [0.9, 1.14, 0.9], 'bend': {}}, toonDur=0.1),
           k(r(t0 + T + hang), toon={'face': fc, 'hip': 0, 'autoSq': 0, 'sq': [1.26, 0.74, 1.26], 'bend': {'spine': [0.1, 0, 0, 1, None]}}, toonDur=0.03, toonEase='out'),
           k(r(t0 + T + hang + 0.1), toon={'face': fc, 'hip': 0, 'autoSq': 0, 'sq': [0.95, 1.06, 0.95]}, toonDur=0.06)]
@@ -1009,10 +1017,10 @@ def RUN(t0, pts, dur, fc=TIRED, p0=None):
 WOOL = lambda n, pop=None: P(f'laineTete{n}', 'mtWoolHair', on={'actor': 'mec', 'joint': 'head', 'offset': [0, 0.42, -0.02]}, opts={**({'pop': pop} if pop is not None else {}), 'bob': 0.04})
 SWEAT = lambda n: P(f'goutte{n}', 'sweatDrop', on={'actor': 'mec', 'joint': 'head', 'offset': [0.3, 0.44, 0.0]}, opts={'scale': 1.8})   # at the temple, clear of the face
 RIM = '#B4CCF4'
-def FIELD(n, moon=None): return [FENCE(f'barriere{n}', FEN16, FRY16, len=2.2, h=0.62), P(f'lueur{n}', 'mtGlowPatch', pos=[-0.2, 0, 0.6], opts={'r': 3.4, 'a': 0.5, 'color': '#86AACE'}),
+def FIELD(n, moon=None): return [FENCE(f'barriere{n}', FEN16, FRY16, len=2.2, h=0.62), P(f'lueur{n}', 'mtGlowPatch', pos=[0.4, 0, 1.0], opts={'r': 3.8, 'a': 0.72, 'color': '#9DBEDD'}),
                                  P(f'lune{n}', 'mtMoon', pos=moon or [-9, 13, -40], ry=r(yaw(moon, [0, 2, 7]) if moon else 12), opts={'r': 3.2 if moon else 4.2}), P(f'etoiles{n}', 'stars', pos=[0, 0, -10], opts={'count': 320, 'radius': 90})]
 def MOONBEHIND(frm, p, f=9.0): return [r(frm[0] + (p[0] - frm[0]) * f), r(frm[1] + (p[1] - frm[1]) * f), r(frm[2] + (p[2] - frm[2]) * f)]
-BKN = lambda pid, pos, ry, **o: BLACK(pid, pos, ry, s=0.85, rim=RIM, rimT=0.05, key=2.2, **o)
+BKN = lambda pid, pos, ry, key=1.4, **o: BLACK(pid, pos, ry, s=0.85, rim=RIM, rimT=0.05, key=key, **o)   # a soft key: a strong one lifted the fleece to the ground's value
 HEADUP = 2.05                                  # his head's middle above his feet
 
 # 16: « Ce mec saute la barrière. » The meadow, for real, the fence of S01: he runs in from the left in his suit, rings down to his chin, crouches and
@@ -1039,7 +1047,7 @@ st.cue('sfx:stepRun', 'S16', 0.05, 0.2); st.cue('sfx:stepRun', 'S16', 0.2, 0.2);
 D16b = st.dur('S16b')
 PANT = {**TIRED, 'mouth': 'O', 'jaw': 0.35, 'tongue': 0.7, 'lid': 0.3}
 J16b = 0.55
-JK16b, AP16b, LD16b = JUMP(J16b, fc=PANT, hang=0.1)
+JK16b, AP16b, LD16b = JUMP(J16b, fc=PANT, hang=0.1, face=34)   # more to the lens: from this side his raised arm hid half his head
 F16b, L16b, LN16b = FIT([-0.9, 1.25, 6.6], {'top': [0, HJ + HEADUP + 0.45, 0], 'off': add(ALONG(D0), [0, HEADUP + 0.3, 0]), 'land': add(ALONG(D1), [0, HEADUP + 0.3, 0]), 'feetA': ALONG(D0), 'feetB': ALONG(D1),
                                          'bk': add(BK16, [0, 1.0, 0]), 'bkF': add(BK16, [0, 0.0, 0.4]), 'mirror': BKM}, margin=0.1, top=0.14, bottom=0.76, lenses=range(30, 60))
 C16b = CAM(F16b, L16b, LN16b, 0.15)
@@ -1057,7 +1065,7 @@ st.cue('sfx:stepRun', 'S16b', 0.1, 0.15); st.cue('sfx:stepRun', 'S16b', 0.3, 0.1
 # 16c: The black sheep, big in front, has shut its eyes and snores, smiling, its snot bubble swelling and shrinking; behind it he trots in and jumps the
 #      fence again: the film ends on him in the air at the top of the jump, his panting face to us (never a standing hold)
 D16c = st.dur('S16c')
-BK16c = [0.55, 0, 2.55]
+BK16c = [1.05, 0, 2.6]   # right of the take-off: his crouch is not hidden behind it
 J16c = r(D16c - 0.33)
 JK16c, AP16c, LD16c = JUMP(J16c, fc=PANT, hang=0.14)
 F16c, L16c, LN16c = FIT([0.95, 0.95, 5.6], {'bk': add(BK16c, [0, 1.0, 0]), 'bkF': add(BK16c, [0, 0.0, 0.45]), 'top': [0, HJ + HEADUP + 0.45, 0], 'off': add(ALONG(D0), [0, HEADUP, 0]),
@@ -1066,8 +1074,8 @@ C16c = CAM(F16c, L16c, LN16c, 0.1)
 chk2('S16c', C16c, {'bkHead': add(BK16c, [0, 0.9, 0.2]), 'apexHead': [0, HJ + HEADUP, 0], 'off': add(ALONG(D0), [0, HEADUP, 0])}, heads=('bkHead', 'apexHead'))
 HK16c = [k(-0.5, look='camera'), *RUN(0.0, [ALONG(-3.4, 0.2), ALONG(D0)], r(J16c - 0.13), PANT), *JK16c]
 st.shot('S16c', 'grassland', setOpts=MSETN, look=NIGHT_OUT, actors=[act('mec', ALONG(-3.4, 0.2), PATHY, 'stand', 'neutral', keys=HK16c)],
-        props=[*FIELD('16c', MOONBEHIND(F16c, [0, HJ + HEADUP, -0.3])), P('lueur16c2', 'mtGlowPatch', pos=add(BK16c, [0.0, 0, -0.6]), opts={'r': 1.6, 'a': 0.45, 'color': '#86AACE'}), WOOL('16c'), SWEAT('16c'),
-               BKN('noir16c', BK16c, r(yaw(BK16c, F16c) - 20), clip=[[0, 'sit']], snore=[[0.0, D16c]], snoreR=0.09, chin=[[0, -0.15]], expr=[[0, 'closed']],
+        props=[*FIELD('16c', MOONBEHIND(F16c, [0, HJ + HEADUP, -0.3])), P('lueur16c2', 'mtGlowPatch', pos=add(BK16c, [0.0, 0, -0.5]), opts={'r': 1.9, 'a': 0.7, 'color': '#9DBEDD'}), WOOL('16c'), SWEAT('16c'),
+               BKN('noir16c', BK16c, r(yaw(BK16c, F16c) - 20), key=0.8, clip=[[0, 'sit']], snore=[[0.0, D16c]], snoreR=0.09, chin=[[0, -0.15]], expr=[[0, 'closed']],
                    sq=[[0, [1, 1, 1]], [0.45, [1.03, 0.97, 1.03]], [0.9, [0.99, 1.02, 0.99]], [1.29, [1.03, 0.97, 1.03]]])], cams=[C16c])
 st.cue('sfx:sniff', 'S16c', 0.1, 0.15); st.cue('sfx:stepRun', 'S16c', 0.3, 0.12); st.cue('sfx:stepRun', 'S16c', 0.6, 0.12); st.cue('sfx:boing', 'S16c', J16c, 0.15)
 

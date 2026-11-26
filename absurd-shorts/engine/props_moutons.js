@@ -113,7 +113,7 @@ export const MOUTONS_PROPS = {
   // o.head [[t, rad]] the head turns (+ = to its left), o.chin [[t, rad]] the head tips up (+); o.nod [t...]: one nod each; o.shake [[t0, t1]]: a slow
   // « no »; o.bleat [t...]: the mouth opens wide, the head lifts, the body squashes; o.chew [[t0, t1]]; o.expr [[t, name]]; o.blinks [t...]; o.pop [t0, t1]:
   // eyes on stalks; o.back [[t, 0..1]]: rolled onto its back, hooves up, the face turned to the sky (o.backHead the head's tip); o.tap [t...]: a front hoof
-  // taps the belly (o.tapAmp how high, 1.3; o.tapSq the body's bounce on each tap); o.snore [[t0, t1]]: a snot bubble swells and shrinks at the nose; o.appear t / o.vanish t: it pops in / vanishes in a puff of wool;
+  // taps the belly (o.tapAmp how high, 1.3; o.tapZ a swing in across the belly; o.tapSq the body's bounce on each tap); o.snore [[t0, t1]]: a snot bubble swells and shrinks at the nose; o.appear t / o.vanish t: it pops in / vanishes in a puff of wool;
   // o.sq [[t, [x, y, z]]]: a squash about its feet; o.bob: a slow ride up and down (on a wave)
   mtSheep(o) {
     const blk = !!o.black, S = o.s ?? 1;
@@ -195,7 +195,7 @@ export const MOUTONS_PROPS = {
       if (back > 0.001) { roll.rotation.z = PI * back; roll.position.set(0, lerp(cy, 0.36 * S, back) - cy * Math.cos(PI * back), 0);
         if (J.head) J.head.rotation.x += (o.backHead ?? 1.2) * back; if (J.neck) J.neck.rotation.x += 0.35 * back;
         for (const lg of ['legFL', 'legFR', 'legBL', 'legBR']) if (J[lg]) J[lg].rotation.z += (lg.endsWith('L') ? 0.18 : -0.18) * back;
-        for (const tp of o.tap || []) { const u = (t - tp) / 0.22; if (u >= 0 && u < 1 && J.legFR) { const e = Math.sin(u * PI); J.legFR.rotation.x += (o.tapAmp ?? 1.3) * e; J.kneeFR.rotation.x -= 0.6 * e;
+        for (const tp of o.tap || []) { const u = (t - tp) / 0.22; if (u >= 0 && u < 1 && J.legFR) { const e = Math.sin(u * PI); J.legFR.rotation.x += (o.tapAmp ?? 1.3) * e; J.legFR.rotation.z += (o.tapZ ?? 0) * e; J.kneeFR.rotation.x -= 0.6 * e;
           if (o.tapSq) { const b = u > 0.5 ? Math.sin((u - 0.5) * 2 * PI) : 0; sqg.scale.multiply(new THREE.Vector3(1 + o.tapSq * b, 1 - o.tapSq * b, 1 + o.tapSq * b)); } } } }
       else { roll.rotation.z = 0; roll.position.set(0, 0, 0); }
       // the snot bubble
