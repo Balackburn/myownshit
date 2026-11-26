@@ -3239,3 +3239,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - aucune réaction du héros sur « Un par jour » ;
   - main du pharmacien qui cache le soleil dessiné.
   Corrections lancées.
+- 08 h 10 — 109 « Le sel » et 110 « Le bulletin » finalisés et enregistrés (stubs, props.js, queue11.sh, test de fumée) :
+  - « Le sel » : plus de falaise ni de salle d'attente, qui doublaient « La notice » ; les trains deviennent des camions ; le tour absurde arrive dès la ligne 2.
+  - « Le bulletin » : la chaîne d'imitation devient un marché du travail ; deux plans d'enfants au plus ; tableau vierge.
