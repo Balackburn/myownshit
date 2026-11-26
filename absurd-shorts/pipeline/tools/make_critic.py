@@ -22,7 +22,7 @@ tl = json.load(open(f'{ROOT}/stories7/{st}/timeline.json', encoding='utf-8'))['l
 plan = [(sc['id'], sc['lines'][0] if sc.get('lines') else None) for sc in d['scenes']]
 cards_raw = open(f'{ROOT}/stories7/{st}/cards.txt', encoding='utf-8').read().strip()
 cards = []
-for c in __import__('re').split(r',(?=S\d+@)', cards_raw):   # a card's own text may hold a comma (0,01 €)
+for c in __import__('re').split(r',(?=S\d+[a-z]*@)', cards_raw):   # a card's own text may hold a comma (0,01 €)
     sh, rest = c.split('@'); at, word = rest.split(':', 1); cards.append((word, shots[sh][0] + float(at), sh))
 card_txt = ', '.join(f"{w} over {cfg.CARD_WHAT[w]} from {t:.2f} s" for w, t, _ in cards)
 # which line each shot speaks (a shot that starts mid-line says the rest of it)

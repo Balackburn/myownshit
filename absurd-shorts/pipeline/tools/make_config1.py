@@ -17,7 +17,7 @@ d = json.load(open(f'{ROOT}/scripts-fr/story_{st}.json', encoding='utf-8'))
 scenes = [(sc['id'], sc['start'], sc['start'] + sc['duration']) for sc in d['scenes']]
 tl = json.load(open(f'{ROOT}/stories7/{st}/timeline.json', encoding='utf-8'))['lines']
 cards = {}
-for c in re.split(r',(?=S\d+@)', open(f'{ROOT}/stories7/{st}/cards.txt', encoding='utf-8').read().strip()):   # a card's own text may hold a comma (0,01 €)
+for c in re.split(r',(?=S\d+[a-z]*@)', open(f'{ROOT}/stories7/{st}/cards.txt', encoding='utf-8').read().strip()):   # a card's own text may hold a comma (0,01 €)
     sh, rest = c.split('@'); at, word = rest.split(':', 1); cards[sh] = (float(at), word)
 # the '# N:' comments: the first sentence paraphrases the line, the rest says what the shot shows
 src = open(f'{ROOT}/scripts-fr/story_{st}.py', encoding='utf-8').read().split('\n')

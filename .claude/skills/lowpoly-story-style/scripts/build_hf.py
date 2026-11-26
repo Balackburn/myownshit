@@ -80,7 +80,7 @@ open(os.path.join(PROJ, 'compositions', 'captions.html'), 'w').write(cap_html)
 K = [[0, -200, 1.5], [1, -153, 1.5], [2, 56.5, 3.2], [3, 29, 4.1], [4, 4.5, 3.4], [5, -20, 2.3], [6, -32, 1.3], [7, -30, 0.5], [8, -19.5, 0.4], [9, -7.5, 0.6],
      [10, 1, 1.0], [11, 4.5, 1.4], [12, 2.5, 1.65], [13, -1.5, 1.65], [14, -5, 1.5], [15, -7, 1.3], [16, -7.5, 1.15], [17, -5.5, 1.15], [18, -3.5, 1.15], [19, -1, 1.3], [20, 0, 1.27]]
 K = [[f, round(y * 1.875, 1), r] for f, y, r in K]
-CARDS = [(f'c{i + 1}', kv.split(':', 1)[1]) for i, kv in enumerate(__import__('re').split(r',(?=S\d+[@:])', A.cards)) if kv]   # (story 77) a card's own text may hold a comma (0,01 €)
+CARDS = [(f'c{i + 1}', kv.split(':', 1)[1]) for i, kv in enumerate(__import__('re').split(r',(?=S\d+[a-z]*[@:])', A.cards)) if kv]   # (story 77) a card's own text may hold a comma (0,01 €)
 for cid, word in CARDS:
     if len(word) > 12 and ' ' in word:   # long titles go on two lines in a taller card (same width, same spring)
         sp = [i for i, ch in enumerate(word) if ch == ' ']; m = min(sp, key=lambda i: abs(i - len(word) / 2)); lines = [word[:m], word[m + 1:]]
