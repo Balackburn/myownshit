@@ -1,0 +1,980 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec habite au septième. La minuterie dure trente secondes.",
+   "hl": [
+    "septième.",
+    "trente"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 3.137,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "habite",
+     "s": 0.507,
+     "e": 0.693
+    },
+    {
+     "w": "au",
+     "s": 0.73,
+     "e": 0.767
+    },
+    {
+     "w": "septième.",
+     "s": 0.804,
+     "e": 1.507
+    },
+    {
+     "w": "La",
+     "s": 1.544,
+     "e": 1.581
+    },
+    {
+     "w": "minuterie",
+     "s": 1.656,
+     "e": 2.026
+    },
+    {
+     "w": "dure",
+     "s": 2.063,
+     "e": 2.248
+    },
+    {
+     "w": "trente",
+     "s": 2.285,
+     "e": 2.47
+    },
+    {
+     "w": "secondes.",
+     "s": 2.544,
+     "e": 3.137
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il n'arrivait jamais avant le noir. Il s'est payé un entraîneur.",
+   "hl": [
+    "noir.",
+    "entraîneur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L02.k.wav",
+   "file_start": 3.237,
+   "speech_start": 3.237,
+   "speech_end": 6.274,
+   "words": [
+    {
+     "w": "Il",
+     "s": 3.237,
+     "e": 3.311
+    },
+    {
+     "w": "n'arrivait",
+     "s": 3.385,
+     "e": 3.756
+    },
+    {
+     "w": "jamais",
+     "s": 3.83,
+     "e": 4.052
+    },
+    {
+     "w": "avant",
+     "s": 4.126,
+     "e": 4.274
+    },
+    {
+     "w": "le",
+     "s": 4.311,
+     "e": 4.348
+    },
+    {
+     "w": "noir.",
+     "s": 4.385,
+     "e": 4.966
+    },
+    {
+     "w": "Il",
+     "s": 4.99,
+     "e": 5.015
+    },
+    {
+     "w": "s'est",
+     "s": 5.089,
+     "e": 5.163
+    },
+    {
+     "w": "payé",
+     "s": 5.237,
+     "e": 5.422
+    },
+    {
+     "w": "un",
+     "s": 5.459,
+     "e": 5.496
+    },
+    {
+     "w": "entraîneur.",
+     "s": 5.533,
+     "e": 6.274
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Un soir, il a eu la lumière jusqu'à sa porte.",
+   "hl": [
+    "lumière",
+    "porte."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L03.k.wav",
+   "file_start": 6.374,
+   "speech_start": 6.374,
+   "speech_end": 8.819,
+   "words": [
+    {
+     "w": "Un",
+     "s": 6.374,
+     "e": 6.448
+    },
+    {
+     "w": "soir,",
+     "s": 6.522,
+     "e": 7.041
+    },
+    {
+     "w": "il",
+     "s": 7.115,
+     "e": 7.152
+    },
+    {
+     "w": "a",
+     "s": 7.189,
+     "e": 7.226
+    },
+    {
+     "w": "eu",
+     "s": 7.263,
+     "e": 7.337
+    },
+    {
+     "w": "la",
+     "s": 7.374,
+     "e": 7.411
+    },
+    {
+     "w": "lumière",
+     "s": 7.448,
+     "e": 7.707
+    },
+    {
+     "w": "jusqu'à",
+     "s": 7.781,
+     "e": 8.078
+    },
+    {
+     "w": "sa",
+     "s": 8.152,
+     "e": 8.226
+    },
+    {
+     "w": "porte.",
+     "s": 8.485,
+     "e": 8.819
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Le propriétaire a trouvé ça trop long : quinze secondes.",
+   "hl": [
+    "propriétaire",
+    "quinze"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L04.k.wav",
+   "file_start": 8.919,
+   "speech_start": 8.919,
+   "speech_end": 11.733,
+   "words": [
+    {
+     "w": "Le",
+     "s": 8.919,
+     "e": 9.067
+    },
+    {
+     "w": "propriétaire",
+     "s": 9.215,
+     "e": 9.585
+    },
+    {
+     "w": "a",
+     "s": 9.622,
+     "e": 9.659
+    },
+    {
+     "w": "trouvé",
+     "s": 9.696,
+     "e": 9.956
+    },
+    {
+     "w": "ça",
+     "s": 10.03,
+     "e": 10.104
+    },
+    {
+     "w": "trop",
+     "s": 10.153,
+     "e": 10.252
+    },
+    {
+     "w": "long:",
+     "s": 10.326,
+     "e": 10.819
+    },
+    {
+     "w": "quinze",
+     "s": 10.869,
+     "e": 10.993
+    },
+    {
+     "w": "secondes.",
+     "s": 11.067,
+     "e": 11.733
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Ce mec a suivi. Cinq marches par enjambée.",
+   "hl": [
+    "suivi.",
+    "enjambée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L05.k.wav",
+   "file_start": 11.833,
+   "speech_start": 11.833,
+   "speech_end": 14.278,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 11.833,
+     "e": 11.981
+    },
+    {
+     "w": "mec",
+     "s": 12.019,
+     "e": 12.204
+    },
+    {
+     "w": "a",
+     "s": 12.241,
+     "e": 12.278
+    },
+    {
+     "w": "suivi.",
+     "s": 12.352,
+     "e": 12.944
+    },
+    {
+     "w": "Cinq",
+     "s": 12.981,
+     "e": 13.167
+    },
+    {
+     "w": "marches",
+     "s": 13.241,
+     "e": 13.463
+    },
+    {
+     "w": "par",
+     "s": 13.537,
+     "e": 13.611
+    },
+    {
+     "w": "enjambée.",
+     "s": 13.685,
+     "e": 14.278
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Les champions s'entraînent dans son escalier. Le propriétaire fait payer l'entrée.",
+   "hl": [
+    "champions",
+    "l'entrée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L06.k.wav",
+   "file_start": 14.378,
+   "speech_start": 14.378,
+   "speech_end": 18.156,
+   "words": [
+    {
+     "w": "Les",
+     "s": 14.378,
+     "e": 14.526
+    },
+    {
+     "w": "champions",
+     "s": 14.563,
+     "e": 14.896
+    },
+    {
+     "w": "s'entraînent",
+     "s": 14.933,
+     "e": 15.267
+    },
+    {
+     "w": "dans",
+     "s": 15.304,
+     "e": 15.415
+    },
+    {
+     "w": "son",
+     "s": 15.489,
+     "e": 15.563
+    },
+    {
+     "w": "escalier.",
+     "s": 15.711,
+     "e": 16.329
+    },
+    {
+     "w": "Le",
+     "s": 16.353,
+     "e": 16.378
+    },
+    {
+     "w": "propriétaire",
+     "s": 16.452,
+     "e": 17.044
+    },
+    {
+     "w": "fait",
+     "s": 17.119,
+     "e": 17.193
+    },
+    {
+     "w": "payer",
+     "s": 17.304,
+     "e": 17.415
+    },
+    {
+     "w": "l'entrée.",
+     "s": 17.44,
+     "e": 18.156
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Une minuterie courte, c'est une salle de sport à domicile. Les loyers ont doublé.",
+   "hl": [
+    "sport",
+    "doublé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L07.k.wav",
+   "file_start": 18.256,
+   "speech_start": 18.256,
+   "speech_end": 22.181,
+   "words": [
+    {
+     "w": "Une",
+     "s": 18.256,
+     "e": 18.404
+    },
+    {
+     "w": "minuterie",
+     "s": 18.478,
+     "e": 18.774
+    },
+    {
+     "w": "courte,",
+     "s": 18.848,
+     "e": 19.367
+    },
+    {
+     "w": "c'est",
+     "s": 19.416,
+     "e": 19.515
+    },
+    {
+     "w": "une",
+     "s": 19.589,
+     "e": 19.663
+    },
+    {
+     "w": "salle",
+     "s": 19.712,
+     "e": 19.811
+    },
+    {
+     "w": "de",
+     "s": 19.848,
+     "e": 19.885
+    },
+    {
+     "w": "sport",
+     "s": 19.959,
+     "e": 20.181
+    },
+    {
+     "w": "à",
+     "s": 20.219,
+     "e": 20.256
+    },
+    {
+     "w": "domicile.",
+     "s": 20.355,
+     "e": 20.947
+    },
+    {
+     "w": "Les",
+     "s": 20.971,
+     "e": 20.996
+    },
+    {
+     "w": "loyers",
+     "s": 21.07,
+     "e": 21.367
+    },
+    {
+     "w": "ont",
+     "s": 21.441,
+     "e": 21.515
+    },
+    {
+     "w": "doublé.",
+     "s": 21.552,
+     "e": 22.181
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Tous les propriétaires du pays ont raccourci.",
+   "hl": [
+    "propriétaires",
+    "raccourci."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L08.k.wav",
+   "file_start": 22.281,
+   "speech_start": 22.281,
+   "speech_end": 24.504,
+   "words": [
+    {
+     "w": "Tous",
+     "s": 22.281,
+     "e": 22.356
+    },
+    {
+     "w": "les",
+     "s": 22.43,
+     "e": 22.504
+    },
+    {
+     "w": "propriétaires",
+     "s": 22.652,
+     "e": 23.022
+    },
+    {
+     "w": "du",
+     "s": 23.096,
+     "e": 23.17
+    },
+    {
+     "w": "pays",
+     "s": 23.207,
+     "e": 23.467
+    },
+    {
+     "w": "ont",
+     "s": 23.541,
+     "e": 23.615
+    },
+    {
+     "w": "raccourci.",
+     "s": 23.652,
+     "e": 24.504
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Les grands-parents ont emménagé dans le hall.",
+   "hl": [
+    "grands-parents",
+    "hall."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L09.k.wav",
+   "file_start": 24.604,
+   "speech_start": 24.604,
+   "speech_end": 26.678,
+   "words": [
+    {
+     "w": "Les",
+     "s": 24.604,
+     "e": 24.678
+    },
+    {
+     "w": "grands-parents",
+     "s": 24.752,
+     "e": 25.27
+    },
+    {
+     "w": "ont",
+     "s": 25.344,
+     "e": 25.493
+    },
+    {
+     "w": "emménagé",
+     "s": 25.567,
+     "e": 25.937
+    },
+    {
+     "w": "dans",
+     "s": 25.962,
+     "e": 26.011
+    },
+    {
+     "w": "le",
+     "s": 26.085,
+     "e": 26.159
+    },
+    {
+     "w": "hall.",
+     "s": 26.307,
+     "e": 26.678
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Les déménageurs montent les pianos au pas de course.",
+   "hl": [
+    "déménageurs",
+    "pianos"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L10.k.wav",
+   "file_start": 26.778,
+   "speech_start": 26.778,
+   "speech_end": 29.148,
+   "words": [
+    {
+     "w": "Les",
+     "s": 26.778,
+     "e": 26.926
+    },
+    {
+     "w": "déménageurs",
+     "s": 26.963,
+     "e": 27.519
+    },
+    {
+     "w": "montent",
+     "s": 27.593,
+     "e": 27.778
+    },
+    {
+     "w": "les",
+     "s": 27.815,
+     "e": 27.889
+    },
+    {
+     "w": "pianos",
+     "s": 27.926,
+     "e": 28.185
+    },
+    {
+     "w": "au",
+     "s": 28.259,
+     "e": 28.333
+    },
+    {
+     "w": "pas",
+     "s": 28.37,
+     "e": 28.407
+    },
+    {
+     "w": "de",
+     "s": 28.444,
+     "e": 28.481
+    },
+    {
+     "w": "course.",
+     "s": 28.556,
+     "e": 29.148
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Au championnat du monde d'escalier, ils ont tout gagné.",
+   "hl": [
+    "championnat",
+    "gagné."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L11.k.wav",
+   "file_start": 29.248,
+   "speech_start": 29.248,
+   "speech_end": 31.841,
+   "words": [
+    {
+     "w": "Au",
+     "s": 29.248,
+     "e": 29.322
+    },
+    {
+     "w": "championnat",
+     "s": 29.359,
+     "e": 29.693
+    },
+    {
+     "w": "du",
+     "s": 29.73,
+     "e": 29.767
+    },
+    {
+     "w": "monde",
+     "s": 29.841,
+     "e": 29.989
+    },
+    {
+     "w": "d'escalier,",
+     "s": 30.014,
+     "e": 30.656
+    },
+    {
+     "w": "ils",
+     "s": 30.73,
+     "e": 30.804
+    },
+    {
+     "w": "ont",
+     "s": 30.878,
+     "e": 31.026
+    },
+    {
+     "w": "tout",
+     "s": 31.1,
+     "e": 31.174
+    },
+    {
+     "w": "gagné.",
+     "s": 31.211,
+     "e": 31.841
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Chez ce mec, la minuterie dure une seconde.",
+   "hl": [
+    "minuterie",
+    "seconde."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L12.k.wav",
+   "file_start": 31.941,
+   "speech_start": 31.941,
+   "speech_end": 34.311,
+   "words": [
+    {
+     "w": "Chez",
+     "s": 31.941,
+     "e": 32.138
+    },
+    {
+     "w": "ce",
+     "s": 32.188,
+     "e": 32.237
+    },
+    {
+     "w": "mec,",
+     "s": 32.274,
+     "e": 32.681
+    },
+    {
+     "w": "la",
+     "s": 32.719,
+     "e": 32.756
+    },
+    {
+     "w": "minuterie",
+     "s": 32.83,
+     "e": 33.2
+    },
+    {
+     "w": "dure",
+     "s": 33.237,
+     "e": 33.496
+    },
+    {
+     "w": "une",
+     "s": 33.57,
+     "e": 33.644
+    },
+    {
+     "w": "seconde.",
+     "s": 33.719,
+     "e": 34.311
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Hier, il s'est tordu la cheville au troisième.",
+   "hl": [
+    "cheville",
+    "troisième."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L13.k.wav",
+   "file_start": 34.411,
+   "speech_start": 34.411,
+   "speech_end": 36.633,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 34.411,
+     "e": 34.93
+    },
+    {
+     "w": "il",
+     "s": 35.004,
+     "e": 35.078
+    },
+    {
+     "w": "s'est",
+     "s": 35.115,
+     "e": 35.226
+    },
+    {
+     "w": "tordu",
+     "s": 35.275,
+     "e": 35.448
+    },
+    {
+     "w": "la",
+     "s": 35.485,
+     "e": 35.522
+    },
+    {
+     "w": "cheville",
+     "s": 35.596,
+     "e": 35.819
+    },
+    {
+     "w": "au",
+     "s": 35.856,
+     "e": 35.893
+    },
+    {
+     "w": "troisième.",
+     "s": 35.967,
+     "e": 36.633
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Il est resté assis dans le noir. Dix minutes.",
+   "hl": [
+    "noir.",
+    "minutes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L14.k.wav",
+   "file_start": 36.733,
+   "speech_start": 36.733,
+   "speech_end": 39.104,
+   "words": [
+    {
+     "w": "Il",
+     "s": 36.733,
+     "e": 36.807
+    },
+    {
+     "w": "est",
+     "s": 36.844,
+     "e": 36.881
+    },
+    {
+     "w": "resté",
+     "s": 36.993,
+     "e": 37.178
+    },
+    {
+     "w": "assis",
+     "s": 37.289,
+     "e": 37.4
+    },
+    {
+     "w": "dans",
+     "s": 37.437,
+     "e": 37.548
+    },
+    {
+     "w": "le",
+     "s": 37.573,
+     "e": 37.597
+    },
+    {
+     "w": "noir.",
+     "s": 37.622,
+     "e": 38.289
+    },
+    {
+     "w": "Dix",
+     "s": 38.326,
+     "e": 38.4
+    },
+    {
+     "w": "minutes.",
+     "s": 38.437,
+     "e": 39.104
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Au-dessus de sa tête, il y avait un bouton.",
+   "hl": [
+    "tête,",
+    "bouton."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L15.k.wav",
+   "file_start": 39.204,
+   "speech_start": 39.204,
+   "speech_end": 41.204,
+   "words": [
+    {
+     "w": "Au-dessus",
+     "s": 39.204,
+     "e": 39.5
+    },
+    {
+     "w": "de",
+     "s": 39.537,
+     "e": 39.574
+    },
+    {
+     "w": "sa",
+     "s": 39.648,
+     "e": 39.722
+    },
+    {
+     "w": "tête,",
+     "s": 39.759,
+     "e": 40.167
+    },
+    {
+     "w": "il",
+     "s": 40.204,
+     "e": 40.241
+    },
+    {
+     "w": "y",
+     "s": 40.315,
+     "e": 40.34
+    },
+    {
+     "w": "avait",
+     "s": 40.364,
+     "e": 40.537
+    },
+    {
+     "w": "un",
+     "s": 40.574,
+     "e": 40.611
+    },
+    {
+     "w": "bouton.",
+     "s": 40.685,
+     "e": 41.204
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Il y en a un à chaque étage.",
+   "hl": [
+    "chaque",
+    "étage."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/minuterie/tts/L16.k.wav",
+   "file_start": 41.304,
+   "speech_start": 41.304,
+   "speech_end": 43.081,
+   "words": [
+    {
+     "w": "Il",
+     "s": 41.304,
+     "e": 41.378
+    },
+    {
+     "w": "y",
+     "s": 41.415,
+     "e": 41.452
+    },
+    {
+     "w": "en",
+     "s": 41.526,
+     "e": 41.6
+    },
+    {
+     "w": "a",
+     "s": 41.674,
+     "e": 41.748
+    },
+    {
+     "w": "un",
+     "s": 41.822,
+     "e": 41.97
+    },
+    {
+     "w": "à",
+     "s": 42.119,
+     "e": 42.156
+    },
+    {
+     "w": "chaque",
+     "s": 42.193,
+     "e": 42.341
+    },
+    {
+     "w": "étage.",
+     "s": 42.452,
+     "e": 43.081
+    }
+   ]
+  }
+ ],
+ "total": 44.38
+}
