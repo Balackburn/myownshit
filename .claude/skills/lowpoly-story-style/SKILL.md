@@ -2523,3 +2523,10 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 57) Une pose de gag (le crabe) vient des jambes. Une pose tenue (clip `pose` : genoux écartés, corps abaissé) sous les clés toon se lit mieux qu'un écrasement du corps entier. Pour une pince qui claque, un accessoire tourné vers l'objectif vaut mieux qu'une forme de moufle.
 - (cycle 57) Pour qu'un geste vers un décor se lise (taper le ciel), rapprocher le décor du personnage pour ce plan au lieu d'allonger le bras à l'infini.
 - (cycle 57) Un personnage secondaire (ministre) habillé comme le héros (costume sombre, cravate rouge, tête haute en boîte) se lit comme « ce mec » au téléphone : lui donner un autre costume, une autre cravate, une autre silhouette.
+- (cycle 58, session 87, « Le composteur ») Une étiquette rouge unie avec un disque blanc centré se lit comme un drapeau : trou décentré, coins arrondis.
+- (cycle 58) Un outil en L tenu à l'horizontale vers quelqu'un se lit comme une arme en plan large : pince à deux branches, tenue vers le haut.
+- (cycle 58) Des flammes devant un personnage le font lire « dans le feu » : écarter les gens du foyer, flammes basses, langues arrondies plutôt que cônes (des cônes se lisent comme des plots).
+- (cycle 58) Une casquette posée à hauteur des yeux coupe la tête-boîte : visière au-dessus des yeux peints, sinon le personnage perd son regard et ses clignements.
+- (cycle 58) Le helper de remise d'objet ajoutait sa propre clé à 0 s et écrasait la pose d'ouverture (bras levé au-dessus de la tête) : vérifier la première image de chaque plan avec remise.
+- (cycle 58) Des yeux exorbités en disques noirs se lisent comme des lunettes de soleil : grands blancs, petites pupilles.
+- (cycle 58) Ne pas lancer build.sh des critiques pendant qu'un brouillon rend : la construction des images fixes échoue en silence et les critiques jugent sans elles. Vérifier que frame_s*.jpg existent avant de lancer les critiques.

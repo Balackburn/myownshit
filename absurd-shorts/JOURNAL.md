@@ -3255,3 +3255,8 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - à reprendre : S07 trop petit, coussin et façade qui gonflent en S02-S03, tableau des visites, serveur masqué en S13, sortie du ministre, temps morts, passant à tête de cheval, rime de cadrage avec S02 en S16 ;
   - le mot affiché « DÉMANGEAISONS » est validé (français et prononcé dans la narration) ;
   - passe finale lancée.
+
+- 09 h 12 — « Le composteur » (106), session 87 :
+  - revues 4,5/5,4 → 5,6/5,8 → 6,3/6,3 ; scores plus bas que d'habitude, et au tour 3 les images fixes manquaient ;
+  - passe finale, brouillon de contrôle, finale 1080x1920 à −16,0 LUFS ; publiée (cmwxbzpgp1d5bqd07i5440rnt).
+  - Branche fusionnée, leçons ajoutées. « La sardine » (108) confiée à la session 87.
