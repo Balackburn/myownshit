@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec habite au septième. La minuterie dure trente secondes.",
+  "hl": [
+   "septième.",
+   "trente"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il n'arrivait jamais avant le noir. Il s'est payé un entraîneur.",
+  "hl": [
+   "noir.",
+   "entraîneur."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Un soir, il a eu la lumière jusqu'à sa porte.",
+  "hl": [
+   "lumière",
+   "porte."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Le propriétaire a trouvé ça trop long : quinze secondes.",
+  "hl": [
+   "propriétaire",
+   "quinze"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Ce mec a suivi. Cinq marches par enjambée.",
+  "hl": [
+   "suivi.",
+   "enjambée."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Les champions s'entraînent dans son escalier. Le propriétaire fait payer l'entrée.",
+  "hl": [
+   "champions",
+   "l'entrée."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Une minuterie courte, c'est une salle de sport à domicile. Les loyers ont doublé.",
+  "hl": [
+   "sport",
+   "doublé."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Tous les propriétaires du pays ont raccourci.",
+  "hl": [
+   "propriétaires",
+   "raccourci."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Les grands-parents ont emménagé dans le hall.",
+  "hl": [
+   "grands-parents",
+   "hall."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Les déménageurs montent les pianos au pas de course.",
+  "hl": [
+   "déménageurs",
+   "pianos"
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Au championnat du monde d'escalier, ils ont tout gagné.",
+  "hl": [
+   "championnat",
+   "gagné."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Chez ce mec, la minuterie dure une seconde.",
+  "hl": [
+   "minuterie",
+   "seconde."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Hier, il s'est tordu la cheville au troisième.",
+  "hl": [
+   "cheville",
+   "troisième."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Il est resté assis dans le noir. Dix minutes.",
+  "hl": [
+   "noir.",
+   "minutes."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Au-dessus de sa tête, il y avait un bouton.",
+  "hl": [
+   "tête,",
+   "bouton."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Il y en a un à chaque étage.",
+  "hl": [
+   "chaque",
+   "étage."
+  ]
+ }
+]

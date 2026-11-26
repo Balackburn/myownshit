@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec n'arrivait pas à dormir. Il a compté les moutons.",
+  "hl": [
+   "dormir.",
+   "moutons."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Au matin, ils étaient quatre mille dans sa chambre.",
+  "hl": [
+   "quatre",
+   "chambre."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Les bêlements ont réveillé l'immeuble. Alors l'immeuble a compté les moutons.",
+  "hl": [
+   "bêlements",
+   "l'immeuble."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Plus ils comptent, moins ils dorment. Moins ils dorment, plus ils comptent.",
+  "hl": [
+   "comptent,",
+   "dorment."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Les moutons ont rempli l'escalier. Puis la rue.",
+  "hl": [
+   "l'escalier.",
+   "rue."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "En une semaine, la ville était blanche.",
+  "hl": [
+   "semaine,",
+   "blanche."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "La laine ne vaut plus rien. Une tisane vaut un troupeau.",
+  "hl": [
+   "laine",
+   "tisane"
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Seuls les bergers dormaient. Debout. Ils ont l'habitude.",
+  "hl": [
+   "bergers",
+   "l'habitude."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Le pays entier comptait. Personne ne connaissait la suite.",
+  "hl": [
+   "pays",
+   "suite."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Un comptable a trouvé : compter à rebours.",
+  "hl": [
+   "comptable",
+   "rebours."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "À la télé, le pays a compté : trois, deux, un…",
+  "hl": [
+   "télé,",
+   "trois,"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Plus un seul mouton. Ni dans les fermes, ni dans les pulls.",
+  "hl": [
+   "mouton.",
+   "pulls."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Sauf le mouton noir. Il n'en fait qu'à sa tête.",
+  "hl": [
+   "noir.",
+   "tête."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Lui non plus n'arrivait pas à dormir.",
+  "hl": [
+   "Lui",
+   "dormir."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Alors il a compté les mecs.",
+  "hl": [
+   "compté",
+   "mecs."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Ce mec saute la barrière. Quatre mille fois par nuit.",
+  "hl": [
+   "barrière.",
+   "nuit."
+  ]
+ }
+]

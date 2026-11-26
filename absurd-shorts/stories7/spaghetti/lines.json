@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a lancé un spaghetti au mur. Pour voir s'il était cuit.",
+  "hl": [
+   "spaghetti",
+   "cuit."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il est resté collé. Sa voisine a crié au chef-d'œuvre.",
+  "hl": [
+   "collé.",
+   "chef-d'œuvre."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Le soir même, trois critiques étaient dans sa cuisine.",
+  "hl": [
+   "soir",
+   "critiques"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Un musée a acheté le mur. Ce mec a gardé la casserole.",
+  "hl": [
+   "musée",
+   "casserole."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Les critiques y voient la solitude de l'homme moderne.",
+  "hl": [
+   "solitude",
+   "moderne."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Tous les artistes sont passés aux pâtes.",
+  "hl": [
+   "artistes",
+   "pâtes."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Les écoles d'art ont remplacé les pinceaux par des passoires.",
+  "hl": [
+   "pinceaux",
+   "passoires."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Les raviolis ont réinventé le cubisme. Les coquillettes, le pointillisme.",
+  "hl": [
+   "cubisme.",
+   "pointillisme."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Un paquet de nouilles vaut un appartement. Le pays mange du riz.",
+  "hl": [
+   "nouilles",
+   "riz."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "L'assureur a expertisé l'œuvre. Enfin, le cadre.",
+  "hl": [
+   "L'assureur",
+   "cadre."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Hier, elle est tombée.",
+  "hl": [
+   "Hier,",
+   "tombée."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "On l'a goûtée : elle n'était pas cuite.",
+  "hl": [
+   "goûtée",
+   "cuite."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Puis les autres œuvres. Pas cuites non plus.",
+  "hl": [
+   "œuvres.",
+   "cuites"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Les critiques y voient la chute de l'homme moderne.",
+  "hl": [
+   "chute",
+   "moderne."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Le musée a rendu le spaghetti à ce mec.",
+  "hl": [
+   "rendu",
+   "spaghetti"
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Il l'a remis dans la casserole. Deux minutes de plus.",
+  "hl": [
+   "casserole.",
+   "plus."
+  ]
+ }
+]

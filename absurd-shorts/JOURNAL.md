@@ -3277,3 +3277,4 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - en réserve : « La pomme » (8/7,5/7), écartée du lot car elle double les pommes de « La poule » et finit en Bourse ; « La monnaie » (7,5/8/6,5) ;
   - écartée : « La pépite » (banque nationale, quatrième histoire d'argent).
   Nouveaux pièges de décors ajoutés au skill (tableau du labo, tableau du bureau, guichets, distributeur en anglais, médaille tricolore, globe à drapeau, parachutistes militaires, afficheur d'ascenseur, pièce « 1 CENT », bras levés à l'unisson). Finalisation lancée.
+- 11 h 20 — 111 « Les moutons », 112 « Le spaghetti » et 113 « La minuterie » finalisés et enregistrés (stubs, props.js, queue11.sh, test de fumée). Cartes renommées pour éviter les doublons : KRACH devient SCANDALE (déjà dans 106), RECORD devient VICTOIRE (déjà dans 107).
