@@ -3184,3 +3184,14 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - Ministre : cheveux plaqués.
   - Brouillon de contrôle 4 lancé.
 - « La tartine » (102) : clignotement du sol corrigé (conflit de profondeur entre le carrelage et le grand sol de kitchenDay, prop `ttTileOffset` sur les 14 plans cuisine). Finale prête, en attente de place disque.
+
+- 03 h 25 — « La poule » (104) : brouillon de contrôle 4 propre (0 plan figé, pas de creux) ; planche vérifiée. Prête pour la finale.
+- Disque :
+  - Supprimé :
+    - dossiers out/work des histoires livrées (grincement, pelle, chifoumi, tache, rayon) ; leurs calques 3D sont déjà copiés dans hyperframes/NNN/assets ;
+    - brouillons dépassés ;
+    - images de revue de la poule ;
+    - images fixes de correction de la pelle et du grincement ;
+    - anciens tests de mixage.
+  - 1,2 Go libres sans toucher aux livrables.
+  - Finale de « La tartine » (102) lancée ; celle de « La poule » suivra.
