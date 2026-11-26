@@ -1,0 +1,975 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec voulait vérifier la dose. Il a déplié la notice.",
+   "hl": [
+    "dose.",
+    "notice."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 3.063,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "voulait",
+     "s": 0.519,
+     "e": 0.693
+    },
+    {
+     "w": "vérifier",
+     "s": 0.742,
+     "e": 1.063
+    },
+    {
+     "w": "la",
+     "s": 1.1,
+     "e": 1.137
+    },
+    {
+     "w": "dose.",
+     "s": 1.174,
+     "e": 1.656
+    },
+    {
+     "w": "Il",
+     "s": 1.804,
+     "e": 1.841
+    },
+    {
+     "w": "a",
+     "s": 1.878,
+     "e": 1.952
+    },
+    {
+     "w": "déplié",
+     "s": 2.026,
+     "e": 2.248
+    },
+    {
+     "w": "la",
+     "s": 2.322,
+     "e": 2.396
+    },
+    {
+     "w": "notice.",
+     "s": 2.619,
+     "e": 3.063
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Impossible de la replier. Elle a recouvert la cuisine.",
+   "hl": [
+    "Impossible",
+    "cuisine."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L02.k.wav",
+   "file_start": 3.163,
+   "speech_start": 3.163,
+   "speech_end": 5.83,
+   "words": [
+    {
+     "w": "Impossible",
+     "s": 3.163,
+     "e": 3.607
+    },
+    {
+     "w": "de",
+     "s": 3.681,
+     "e": 3.756
+    },
+    {
+     "w": "la",
+     "s": 3.793,
+     "e": 3.83
+    },
+    {
+     "w": "replier.",
+     "s": 3.904,
+     "e": 4.496
+    },
+    {
+     "w": "Elle",
+     "s": 4.533,
+     "e": 4.607
+    },
+    {
+     "w": "a",
+     "s": 4.644,
+     "e": 4.681
+    },
+    {
+     "w": "recouvert",
+     "s": 4.719,
+     "e": 5.089
+    },
+    {
+     "w": "la",
+     "s": 5.126,
+     "e": 5.163
+    },
+    {
+     "w": "cuisine.",
+     "s": 5.237,
+     "e": 5.83
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Puis l'immeuble. Puis la rue.",
+   "hl": [
+    "l'immeuble.",
+    "rue."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L03.k.wav",
+   "file_start": 5.93,
+   "speech_start": 5.93,
+   "speech_end": 7.707,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 5.93,
+     "e": 6.078
+    },
+    {
+     "w": "l'immeuble.",
+     "s": 6.115,
+     "e": 6.893
+    },
+    {
+     "w": "Puis",
+     "s": 6.942,
+     "e": 7.041
+    },
+    {
+     "w": "la",
+     "s": 7.078,
+     "e": 7.115
+    },
+    {
+     "w": "rue.",
+     "s": 7.189,
+     "e": 7.707
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Les passants ont lu : « Peut provoquer des démangeaisons. » Toute la rue s'est grattée.",
+   "hl": [
+    "démangeaisons.",
+    "grattée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L04.k.wav",
+   "file_start": 7.807,
+   "speech_start": 7.807,
+   "speech_end": 11.807,
+   "words": [
+    {
+     "w": "Les",
+     "s": 7.807,
+     "e": 7.956
+    },
+    {
+     "w": "passants",
+     "s": 8.067,
+     "e": 8.252
+    },
+    {
+     "w": "ont",
+     "s": 8.326,
+     "e": 8.4
+    },
+    {
+     "w": "lu:",
+     "s": 8.474,
+     "e": 8.944
+    },
+    {
+     "w": "Peut",
+     "s": 8.968,
+     "e": 9.067
+    },
+    {
+     "w": "provoquer",
+     "s": 9.141,
+     "e": 9.511
+    },
+    {
+     "w": "des",
+     "s": 9.548,
+     "e": 9.585
+    },
+    {
+     "w": "démangeaisons.",
+     "s": 9.622,
+     "e": 10.474
+    },
+    {
+     "w": "Toute",
+     "s": 10.548,
+     "e": 10.696
+    },
+    {
+     "w": "la",
+     "s": 10.733,
+     "e": 10.77
+    },
+    {
+     "w": "rue",
+     "s": 10.844,
+     "e": 10.993
+    },
+    {
+     "w": "s'est",
+     "s": 11.03,
+     "e": 11.141
+    },
+    {
+     "w": "grattée.",
+     "s": 11.178,
+     "e": 11.807
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Toute la ville a lu : « Somnolence. » Endormie à midi.",
+   "hl": [
+    "Somnolence.",
+    "midi."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L05.k.wav",
+   "file_start": 11.907,
+   "speech_start": 11.907,
+   "speech_end": 15.093,
+   "words": [
+    {
+     "w": "Toute",
+     "s": 11.907,
+     "e": 12.056
+    },
+    {
+     "w": "la",
+     "s": 12.13,
+     "e": 12.204
+    },
+    {
+     "w": "ville",
+     "s": 12.315,
+     "e": 12.426
+    },
+    {
+     "w": "a",
+     "s": 12.463,
+     "e": 12.5
+    },
+    {
+     "w": "lu:",
+     "s": 12.611,
+     "e": 13.093
+    },
+    {
+     "w": "Somnolence.",
+     "s": 13.167,
+     "e": 13.907
+    },
+    {
+     "w": "Endormie",
+     "s": 14.056,
+     "e": 14.5
+    },
+    {
+     "w": "à",
+     "s": 14.537,
+     "e": 14.574
+    },
+    {
+     "w": "midi.",
+     "s": 14.759,
+     "e": 15.093
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "La météo a annoncé : « Couvert, avec des petits caractères. »",
+   "hl": [
+    "Couvert,",
+    "caractères."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L06.k.wav",
+   "file_start": 15.193,
+   "speech_start": 15.193,
+   "speech_end": 18.674,
+   "words": [
+    {
+     "w": "La",
+     "s": 15.193,
+     "e": 15.267
+    },
+    {
+     "w": "météo",
+     "s": 15.341,
+     "e": 15.711
+    },
+    {
+     "w": "a",
+     "s": 15.748,
+     "e": 15.785
+    },
+    {
+     "w": "annoncé:",
+     "s": 15.933,
+     "e": 16.649
+    },
+    {
+     "w": "Couvert,",
+     "s": 16.699,
+     "e": 17.341
+    },
+    {
+     "w": "avec",
+     "s": 17.452,
+     "e": 17.563
+    },
+    {
+     "w": "des",
+     "s": 17.6,
+     "e": 17.637
+    },
+    {
+     "w": "petits",
+     "s": 17.711,
+     "e": 17.859
+    },
+    {
+     "w": "caractères.",
+     "s": 17.933,
+     "e": 18.674
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Tout le pays l'a lue. « Fringale. » Les boulangeries ont été dévalisées.",
+   "hl": [
+    "Fringale.",
+    "dévalisées."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L07.k.wav",
+   "file_start": 18.774,
+   "speech_start": 18.774,
+   "speech_end": 22.552,
+   "words": [
+    {
+     "w": "Tout",
+     "s": 18.774,
+     "e": 18.922
+    },
+    {
+     "w": "le",
+     "s": 18.996,
+     "e": 19.07
+    },
+    {
+     "w": "pays",
+     "s": 19.144,
+     "e": 19.293
+    },
+    {
+     "w": "l'a",
+     "s": 19.33,
+     "e": 19.441
+    },
+    {
+     "w": "lue.",
+     "s": 19.478,
+     "e": 19.959
+    },
+    {
+     "w": "Fringale.",
+     "s": 19.996,
+     "e": 20.848
+    },
+    {
+     "w": "Les",
+     "s": 20.885,
+     "e": 20.922
+    },
+    {
+     "w": "boulangeries",
+     "s": 20.959,
+     "e": 21.367
+    },
+    {
+     "w": "ont",
+     "s": 21.441,
+     "e": 21.515
+    },
+    {
+     "w": "été",
+     "s": 21.589,
+     "e": 21.737
+    },
+    {
+     "w": "dévalisées.",
+     "s": 21.811,
+     "e": 22.552
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "« Effet très rare : marcher en crabe. » Même le ministre de la Santé.",
+   "hl": [
+    "crabe.",
+    "ministre"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L08.k.wav",
+   "file_start": 22.652,
+   "speech_start": 22.652,
+   "speech_end": 26.504,
+   "words": [
+    {
+     "w": "Effet",
+     "s": 22.652,
+     "e": 22.948
+    },
+    {
+     "w": "très",
+     "s": 23.022,
+     "e": 23.17
+    },
+    {
+     "w": "rare:",
+     "s": 23.244,
+     "e": 23.862
+    },
+    {
+     "w": "marcher",
+     "s": 23.886,
+     "e": 24.133
+    },
+    {
+     "w": "en",
+     "s": 24.207,
+     "e": 24.281
+    },
+    {
+     "w": "crabe.",
+     "s": 24.356,
+     "e": 24.948
+    },
+    {
+     "w": "Même",
+     "s": 24.985,
+     "e": 25.096
+    },
+    {
+     "w": "le",
+     "s": 25.17,
+     "e": 25.244
+    },
+    {
+     "w": "ministre",
+     "s": 25.319,
+     "e": 25.615
+    },
+    {
+     "w": "de",
+     "s": 25.652,
+     "e": 25.689
+    },
+    {
+     "w": "la",
+     "s": 25.726,
+     "e": 25.763
+    },
+    {
+     "w": "Santé.",
+     "s": 25.837,
+     "e": 26.504
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Les médecins débordent : le pays entier est malade.",
+   "hl": [
+    "médecins",
+    "malade."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L09.k.wav",
+   "file_start": 26.604,
+   "speech_start": 26.604,
+   "speech_end": 29.493,
+   "words": [
+    {
+     "w": "Les",
+     "s": 26.604,
+     "e": 26.678
+    },
+    {
+     "w": "médecins",
+     "s": 26.752,
+     "e": 27.122
+    },
+    {
+     "w": "débordent:",
+     "s": 27.196,
+     "e": 27.937
+    },
+    {
+     "w": "le",
+     "s": 27.974,
+     "e": 28.011
+    },
+    {
+     "w": "pays",
+     "s": 28.048,
+     "e": 28.307
+    },
+    {
+     "w": "entier",
+     "s": 28.381,
+     "e": 28.678
+    },
+    {
+     "w": "est",
+     "s": 28.715,
+     "e": 28.752
+    },
+    {
+     "w": "malade.",
+     "s": 28.826,
+     "e": 29.493
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Zéro comprimé avalé. Ils l'avaient juste lue.",
+   "hl": [
+    "Zéro",
+    "lue."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L10.k.wav",
+   "file_start": 29.593,
+   "speech_start": 29.593,
+   "speech_end": 32.111,
+   "words": [
+    {
+     "w": "Zéro",
+     "s": 29.593,
+     "e": 29.889
+    },
+    {
+     "w": "comprimé",
+     "s": 29.963,
+     "e": 30.333
+    },
+    {
+     "w": "avalé.",
+     "s": 30.407,
+     "e": 31.0
+    },
+    {
+     "w": "Ils",
+     "s": 31.025,
+     "e": 31.074
+    },
+    {
+     "w": "l'avaient",
+     "s": 31.111,
+     "e": 31.37
+    },
+    {
+     "w": "juste",
+     "s": 31.444,
+     "e": 31.667
+    },
+    {
+     "w": "lue.",
+     "s": 31.704,
+     "e": 32.111
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Dernière ligne : « Demandez conseil à votre pharmacien. »",
+   "hl": [
+    "Dernière",
+    "pharmacien."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L11.k.wav",
+   "file_start": 32.211,
+   "speech_start": 32.211,
+   "speech_end": 34.952,
+   "words": [
+    {
+     "w": "Dernière",
+     "s": 32.211,
+     "e": 32.581
+    },
+    {
+     "w": "ligne:",
+     "s": 32.73,
+     "e": 33.248
+    },
+    {
+     "w": "Demandez",
+     "s": 33.322,
+     "e": 33.544
+    },
+    {
+     "w": "conseil",
+     "s": 33.619,
+     "e": 33.841
+    },
+    {
+     "w": "à",
+     "s": 33.915,
+     "e": 33.97
+    },
+    {
+     "w": "votre",
+     "s": 34.026,
+     "e": 34.137
+    },
+    {
+     "w": "pharmacien.",
+     "s": 34.174,
+     "e": 34.952
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le pharmacien de ce mec a tout replié. Deux secondes. Record du monde.",
+   "hl": [
+    "replié.",
+    "Record"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L12.k.wav",
+   "file_start": 35.052,
+   "speech_start": 35.052,
+   "speech_end": 38.904,
+   "words": [
+    {
+     "w": "Le",
+     "s": 35.052,
+     "e": 35.126
+    },
+    {
+     "w": "pharmacien",
+     "s": 35.2,
+     "e": 35.57
+    },
+    {
+     "w": "de",
+     "s": 35.644,
+     "e": 35.719
+    },
+    {
+     "w": "ce",
+     "s": 35.793,
+     "e": 35.867
+    },
+    {
+     "w": "mec",
+     "s": 35.904,
+     "e": 36.089
+    },
+    {
+     "w": "a",
+     "s": 36.163,
+     "e": 36.311
+    },
+    {
+     "w": "tout",
+     "s": 36.385,
+     "e": 36.459
+    },
+    {
+     "w": "replié.",
+     "s": 36.533,
+     "e": 37.2
+    },
+    {
+     "w": "Deux",
+     "s": 37.237,
+     "e": 37.311
+    },
+    {
+     "w": "secondes.",
+     "s": 37.348,
+     "e": 37.941
+    },
+    {
+     "w": "Record",
+     "s": 38.126,
+     "e": 38.311
+    },
+    {
+     "w": "du",
+     "s": 38.348,
+     "e": 38.385
+    },
+    {
+     "w": "monde.",
+     "s": 38.459,
+     "e": 38.904
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Le pays a guéri d'un coup. Sans ordonnance.",
+   "hl": [
+    "guéri",
+    "ordonnance."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L13.k.wav",
+   "file_start": 39.004,
+   "speech_start": 39.004,
+   "speech_end": 41.596,
+   "words": [
+    {
+     "w": "Le",
+     "s": 39.004,
+     "e": 39.078
+    },
+    {
+     "w": "pays",
+     "s": 39.152,
+     "e": 39.448
+    },
+    {
+     "w": "a",
+     "s": 39.522,
+     "e": 39.596
+    },
+    {
+     "w": "guéri",
+     "s": 39.633,
+     "e": 39.893
+    },
+    {
+     "w": "d'un",
+     "s": 39.93,
+     "e": 40.115
+    },
+    {
+     "w": "coup.",
+     "s": 40.152,
+     "e": 40.596
+    },
+    {
+     "w": "Sans",
+     "s": 40.633,
+     "e": 40.781
+    },
+    {
+     "w": "ordonnance.",
+     "s": 40.856,
+     "e": 41.596
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Ce mec a enfin demandé la dose. Réponse : « Un par jour. »",
+   "hl": [
+    "dose.",
+    "jour."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L14.k.wav",
+   "file_start": 41.696,
+   "speech_start": 41.696,
+   "speech_end": 45.252,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 41.696,
+     "e": 41.77
+    },
+    {
+     "w": "mec",
+     "s": 41.844,
+     "e": 42.141
+    },
+    {
+     "w": "a",
+     "s": 42.215,
+     "e": 42.289
+    },
+    {
+     "w": "enfin",
+     "s": 42.363,
+     "e": 42.659
+    },
+    {
+     "w": "demandé",
+     "s": 42.77,
+     "e": 42.956
+    },
+    {
+     "w": "la",
+     "s": 42.993,
+     "e": 43.03
+    },
+    {
+     "w": "dose.",
+     "s": 43.104,
+     "e": 43.659
+    },
+    {
+     "w": "Réponse:",
+     "s": 43.696,
+     "e": 44.437
+    },
+    {
+     "w": "Un",
+     "s": 44.474,
+     "e": 44.511
+    },
+    {
+     "w": "par",
+     "s": 44.585,
+     "e": 44.659
+    },
+    {
+     "w": "jour.",
+     "s": 44.733,
+     "e": 45.252
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Dessiné sur la boîte. En gros.",
+   "hl": [
+    "Dessiné",
+    "gros."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L15.k.wav",
+   "file_start": 45.352,
+   "speech_start": 45.352,
+   "speech_end": 47.352,
+   "words": [
+    {
+     "w": "Dessiné",
+     "s": 45.352,
+     "e": 45.722
+    },
+    {
+     "w": "sur",
+     "s": 45.796,
+     "e": 45.87
+    },
+    {
+     "w": "la",
+     "s": 45.944,
+     "e": 46.019
+    },
+    {
+     "w": "boîte.",
+     "s": 46.056,
+     "e": 46.685
+    },
+    {
+     "w": "En",
+     "s": 46.722,
+     "e": 46.759
+    },
+    {
+     "w": "gros.",
+     "s": 46.833,
+     "e": 47.352
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Il a déplié la notice. Pour vérifier.",
+   "hl": [
+    "déplié",
+    "vérifier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/notice/tts/L16.k.wav",
+   "file_start": 47.452,
+   "speech_start": 47.452,
+   "speech_end": 49.674,
+   "words": [
+    {
+     "w": "Il",
+     "s": 47.452,
+     "e": 47.526
+    },
+    {
+     "w": "a",
+     "s": 47.563,
+     "e": 47.6
+    },
+    {
+     "w": "déplié",
+     "s": 47.674,
+     "e": 47.97
+    },
+    {
+     "w": "la",
+     "s": 48.044,
+     "e": 48.119
+    },
+    {
+     "w": "notice.",
+     "s": 48.341,
+     "e": 48.859
+    },
+    {
+     "w": "Pour",
+     "s": 48.896,
+     "e": 48.933
+    },
+    {
+     "w": "vérifier.",
+     "s": 49.007,
+     "e": 49.674
+    }
+   ]
+  }
+ ],
+ "total": 50.97
+}
