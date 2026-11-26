@@ -1,0 +1,146 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a planté sa tente. Il manquait une sardine.",
+  "hl": [
+   "tente.",
+   "sardine."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Alors il a planté une vraie sardine. À l'huile.",
+  "hl": [
+   "vraie",
+   "l'huile."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "La nuit, l'orage a emporté tout le camping. Sauf sa tente.",
+  "hl": [
+   "l'orage",
+   "Sauf"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Le lendemain, tout le camping a planté à l'huile.",
+  "hl": [
+   "camping",
+   "l'huile."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Puis toute la côte. Puis la montagne.",
+  "hl": [
+   "côte.",
+   "montagne."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Les sardines passent au rayon camping. Le thon, au rayon caravanes.",
+  "hl": [
+   "thon,",
+   "caravanes."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Les poissonniers vendent des maillets.",
+  "hl": [
+   "poissonniers",
+   "maillets."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Les mouettes ont suivi l'odeur. Jusqu'en montagne.",
+  "hl": [
+   "mouettes",
+   "l'odeur."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Chaque nuit, elles déplantent un camping entier. Sardine par sardine.",
+  "hl": [
+   "déplantent",
+   "Sardine"
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Trente mille tentes migrent vers le sud. En V.",
+  "hl": [
+   "migrent",
+   "V."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Les ornithologues les baguent au passage.",
+  "hl": [
+   "ornithologues",
+   "baguent"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Il n'en reste qu'une debout : celle de ce mec. Les mouettes l'évitent.",
+  "hl": [
+   "debout",
+   "l'évitent."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Tout le pays a dormi dedans. Serrés comme des sardines.",
+  "hl": [
+   "Serrés",
+   "sardines."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Au matin, sa sardine avait disparu.",
+  "hl": [
+   "sardine",
+   "disparu."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "La tente a décollé. Il manquait une sardine.",
+  "hl": [
+   "décollé.",
+   "manquait"
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "On a planté la plus grosse sardine : ce mec.",
+  "hl": [
+   "grosse",
+   "mec."
+  ]
+ }
+]
