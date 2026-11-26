@@ -1,0 +1,935 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec n'avait pas composté son billet de train. Amende.",
+   "hl": [
+    "composté",
+    "Amende."
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.915,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "n'avait",
+     "s": 0.507,
+     "e": 0.767
+    },
+    {
+     "w": "pas",
+     "s": 0.804,
+     "e": 0.841
+    },
+    {
+     "w": "composté",
+     "s": 0.915,
+     "e": 1.285
+    },
+    {
+     "w": "son",
+     "s": 1.359,
+     "e": 1.433
+    },
+    {
+     "w": "billet",
+     "s": 1.47,
+     "e": 1.656
+    },
+    {
+     "w": "de",
+     "s": 1.693,
+     "e": 1.73
+    },
+    {
+     "w": "train.",
+     "s": 1.841,
+     "e": 2.026
+    },
+    {
+     "w": "Amende.",
+     "s": 2.322,
+     "e": 2.915
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Alors il l'a composté. Au fond du jardin. Avec l'amende.",
+   "hl": [
+    "jardin.",
+    "l'amende."
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L02.k.wav",
+   "file_start": 3.015,
+   "speech_start": 3.015,
+   "speech_end": 6.496,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 3.015,
+     "e": 3.311
+    },
+    {
+     "w": "il",
+     "s": 3.459,
+     "e": 3.533
+    },
+    {
+     "w": "l'a",
+     "s": 3.57,
+     "e": 3.681
+    },
+    {
+     "w": "composté.",
+     "s": 3.756,
+     "e": 4.496
+    },
+    {
+     "w": "Au",
+     "s": 4.57,
+     "e": 4.644
+    },
+    {
+     "w": "fond",
+     "s": 4.681,
+     "e": 4.793
+    },
+    {
+     "w": "du",
+     "s": 4.83,
+     "e": 4.867
+    },
+    {
+     "w": "jardin.",
+     "s": 4.941,
+     "e": 5.533
+    },
+    {
+     "w": "Avec",
+     "s": 5.57,
+     "e": 5.756
+    },
+    {
+     "w": "l'amende.",
+     "s": 5.793,
+     "e": 6.496
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Au printemps, un arbre a poussé. Un arbre à billets. De banque.",
+   "hl": [
+    "billets.",
+    "banque."
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L03.k.wav",
+   "file_start": 6.596,
+   "speech_start": 6.596,
+   "speech_end": 10.522,
+   "words": [
+    {
+     "w": "Au",
+     "s": 6.596,
+     "e": 6.744
+    },
+    {
+     "w": "printemps,",
+     "s": 6.856,
+     "e": 7.374
+    },
+    {
+     "w": "un",
+     "s": 7.411,
+     "e": 7.485
+    },
+    {
+     "w": "arbre",
+     "s": 7.559,
+     "e": 7.781
+    },
+    {
+     "w": "a",
+     "s": 7.819,
+     "e": 7.856
+    },
+    {
+     "w": "poussé.",
+     "s": 7.93,
+     "e": 8.571
+    },
+    {
+     "w": "Un",
+     "s": 8.621,
+     "e": 8.67
+    },
+    {
+     "w": "arbre",
+     "s": 8.744,
+     "e": 8.893
+    },
+    {
+     "w": "à",
+     "s": 8.967,
+     "e": 9.041
+    },
+    {
+     "w": "billets.",
+     "s": 9.115,
+     "e": 9.682
+    },
+    {
+     "w": "De",
+     "s": 9.732,
+     "e": 9.781
+    },
+    {
+     "w": "banque.",
+     "s": 9.856,
+     "e": 10.522
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Ses voisins ont acheté des billets de train. Pour les enterrer.",
+   "hl": [
+    "voisins",
+    "enterrer."
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L04.k.wav",
+   "file_start": 10.622,
+   "speech_start": 10.622,
+   "speech_end": 13.437,
+   "words": [
+    {
+     "w": "Ses",
+     "s": 10.622,
+     "e": 10.77
+    },
+    {
+     "w": "voisins",
+     "s": 10.807,
+     "e": 11.067
+    },
+    {
+     "w": "ont",
+     "s": 11.141,
+     "e": 11.215
+    },
+    {
+     "w": "acheté",
+     "s": 11.289,
+     "e": 11.511
+    },
+    {
+     "w": "des",
+     "s": 11.585,
+     "e": 11.659
+    },
+    {
+     "w": "billets",
+     "s": 11.696,
+     "e": 11.881
+    },
+    {
+     "w": "de",
+     "s": 11.919,
+     "e": 11.956
+    },
+    {
+     "w": "train.",
+     "s": 12.104,
+     "e": 12.474
+    },
+    {
+     "w": "Pour",
+     "s": 12.511,
+     "e": 12.548
+    },
+    {
+     "w": "les",
+     "s": 12.622,
+     "e": 12.696
+    },
+    {
+     "w": "enterrer.",
+     "s": 12.77,
+     "e": 13.437
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Les trains partent complets. Et vides.",
+   "hl": [
+    "complets.",
+    "vides."
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L05.k.wav",
+   "file_start": 13.537,
+   "speech_start": 13.537,
+   "speech_end": 15.914,
+   "words": [
+    {
+     "w": "Les",
+     "s": 13.537,
+     "e": 13.685
+    },
+    {
+     "w": "trains",
+     "s": 13.722,
+     "e": 13.907
+    },
+    {
+     "w": "partent",
+     "s": 13.981,
+     "e": 14.278
+    },
+    {
+     "w": "complets.",
+     "s": 14.389,
+     "e": 15.068
+    },
+    {
+     "w": "Et",
+     "s": 15.118,
+     "e": 15.167
+    },
+    {
+     "w": "vides.",
+     "s": 15.5,
+     "e": 15.907
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Le prix du billet a triplé. Personne ne râle : ça rapporte.",
+   "hl": [
+    "triplé.",
+    "rapporte."
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L06.k.wav",
+   "file_start": 16.014,
+   "speech_start": 16.014,
+   "speech_end": 19.348,
+   "words": [
+    {
+     "w": "Le",
+     "s": 16.014,
+     "e": 16.089
+    },
+    {
+     "w": "prix",
+     "s": 16.163,
+     "e": 16.311
+    },
+    {
+     "w": "du",
+     "s": 16.348,
+     "e": 16.385
+    },
+    {
+     "w": "billet",
+     "s": 16.459,
+     "e": 16.681
+    },
+    {
+     "w": "a",
+     "s": 16.755,
+     "e": 16.903
+    },
+    {
+     "w": "triplé.",
+     "s": 16.94,
+     "e": 17.57
+    },
+    {
+     "w": "Personne",
+     "s": 17.681,
+     "e": 17.866
+    },
+    {
+     "w": "ne",
+     "s": 17.94,
+     "e": 18.014
+    },
+    {
+     "w": "râle:",
+     "s": 18.051,
+     "e": 18.57
+    },
+    {
+     "w": "ça",
+     "s": 18.607,
+     "e": 18.681
+    },
+    {
+     "w": "rapporte.",
+     "s": 18.755,
+     "e": 19.348
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Tout le pays s'y est mis. L'argent pousse enfin sur les arbres.",
+   "hl": [
+    "L'argent",
+    "arbres."
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L07.k.wav",
+   "file_start": 19.448,
+   "speech_start": 19.448,
+   "speech_end": 22.707,
+   "words": [
+    {
+     "w": "Tout",
+     "s": 19.448,
+     "e": 19.596
+    },
+    {
+     "w": "le",
+     "s": 19.67,
+     "e": 19.744
+    },
+    {
+     "w": "pays",
+     "s": 19.818,
+     "e": 19.966
+    },
+    {
+     "w": "s'y",
+     "s": 20.04,
+     "e": 20.189
+    },
+    {
+     "w": "est",
+     "s": 20.226,
+     "e": 20.263
+    },
+    {
+     "w": "mis.",
+     "s": 20.374,
+     "e": 20.781
+    },
+    {
+     "w": "L'argent",
+     "s": 20.806,
+     "e": 21.151
+    },
+    {
+     "w": "pousse",
+     "s": 21.251,
+     "e": 21.448
+    },
+    {
+     "w": "enfin",
+     "s": 21.559,
+     "e": 21.818
+    },
+    {
+     "w": "sur",
+     "s": 21.892,
+     "e": 21.966
+    },
+    {
+     "w": "les",
+     "s": 22.04,
+     "e": 22.114
+    },
+    {
+     "w": "arbres.",
+     "s": 22.189,
+     "e": 22.707
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Les écureuils enterrent les billets pour l'hiver. Ça repousse.",
+   "hl": [
+    "écureuils",
+    "repousse."
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L08.k.wav",
+   "file_start": 22.807,
+   "speech_start": 22.807,
+   "speech_end": 25.918,
+   "words": [
+    {
+     "w": "Les",
+     "s": 22.807,
+     "e": 22.955
+    },
+    {
+     "w": "écureuils",
+     "s": 23.029,
+     "e": 23.474
+    },
+    {
+     "w": "enterrent",
+     "s": 23.548,
+     "e": 23.844
+    },
+    {
+     "w": "les",
+     "s": 23.881,
+     "e": 23.918
+    },
+    {
+     "w": "billets",
+     "s": 23.992,
+     "e": 24.214
+    },
+    {
+     "w": "pour",
+     "s": 24.289,
+     "e": 24.363
+    },
+    {
+     "w": "l'hiver.",
+     "s": 24.4,
+     "e": 25.066
+    },
+    {
+     "w": "Ça",
+     "s": 25.103,
+     "e": 25.177
+    },
+    {
+     "w": "repousse.",
+     "s": 25.289,
+     "e": 25.918
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "En automne, les billets sont tombés. Tous en même temps.",
+   "hl": [
+    "automne,",
+    "tombés."
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L09.k.wav",
+   "file_start": 26.018,
+   "speech_start": 26.018,
+   "speech_end": 28.759,
+   "words": [
+    {
+     "w": "En",
+     "s": 26.018,
+     "e": 26.166
+    },
+    {
+     "w": "automne,",
+     "s": 26.314,
+     "e": 26.759
+    },
+    {
+     "w": "les",
+     "s": 26.833,
+     "e": 26.907
+    },
+    {
+     "w": "billets",
+     "s": 26.981,
+     "e": 27.129
+    },
+    {
+     "w": "sont",
+     "s": 27.203,
+     "e": 27.351
+    },
+    {
+     "w": "tombés.",
+     "s": 27.401,
+     "e": 27.87
+    },
+    {
+     "w": "Tous",
+     "s": 27.944,
+     "e": 28.092
+    },
+    {
+     "w": "en",
+     "s": 28.129,
+     "e": 28.166
+    },
+    {
+     "w": "même",
+     "s": 28.277,
+     "e": 28.389
+    },
+    {
+     "w": "temps.",
+     "s": 28.463,
+     "e": 28.759
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "On les ratisse par milliards. On se chauffe avec.",
+   "hl": [
+    "milliards.",
+    "chauffe"
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L10.k.wav",
+   "file_start": 28.859,
+   "speech_start": 28.859,
+   "speech_end": 31.679,
+   "words": [
+    {
+     "w": "On",
+     "s": 28.859,
+     "e": 28.933
+    },
+    {
+     "w": "les",
+     "s": 29.007,
+     "e": 29.081
+    },
+    {
+     "w": "ratisse",
+     "s": 29.118,
+     "e": 29.451
+    },
+    {
+     "w": "par",
+     "s": 29.563,
+     "e": 29.674
+    },
+    {
+     "w": "milliards.",
+     "s": 29.785,
+     "e": 30.514
+    },
+    {
+     "w": "On",
+     "s": 30.538,
+     "e": 30.563
+    },
+    {
+     "w": "se",
+     "s": 30.637,
+     "e": 30.711
+    },
+    {
+     "w": "chauffe",
+     "s": 30.785,
+     "e": 30.97
+    },
+    {
+     "w": "avec.",
+     "s": 31.007,
+     "e": 31.674
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Seul le billet de train vaut encore quelque chose. Un aller simple : une forêt.",
+   "hl": [
+    "Seul",
+    "forêt."
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L11.k.wav",
+   "file_start": 31.779,
+   "speech_start": 31.779,
+   "speech_end": 35.779,
+   "words": [
+    {
+     "w": "Seul",
+     "s": 31.779,
+     "e": 32.002
+    },
+    {
+     "w": "le",
+     "s": 32.076,
+     "e": 32.15
+    },
+    {
+     "w": "billet",
+     "s": 32.187,
+     "e": 32.372
+    },
+    {
+     "w": "de",
+     "s": 32.409,
+     "e": 32.446
+    },
+    {
+     "w": "train",
+     "s": 32.52,
+     "e": 32.742
+    },
+    {
+     "w": "vaut",
+     "s": 32.792,
+     "e": 32.891
+    },
+    {
+     "w": "encore",
+     "s": 32.928,
+     "e": 33.113
+    },
+    {
+     "w": "quelque",
+     "s": 33.187,
+     "e": 33.409
+    },
+    {
+     "w": "chose.",
+     "s": 33.483,
+     "e": 33.965
+    },
+    {
+     "w": "Un",
+     "s": 34.002,
+     "e": 34.039
+    },
+    {
+     "w": "aller",
+     "s": 34.076,
+     "e": 34.298
+    },
+    {
+     "w": "simple:",
+     "s": 34.557,
+     "e": 34.866
+    },
+    {
+     "w": "une",
+     "s": 34.891,
+     "e": 35.039
+    },
+    {
+     "w": "forêt.",
+     "s": 35.113,
+     "e": 35.779
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Ce matin, au fond du jardin, l'amende aussi avait poussé.",
+   "hl": [
+    "l'amende",
+    "poussé."
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L12.k.wav",
+   "file_start": 35.879,
+   "speech_start": 35.879,
+   "speech_end": 39.139,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 35.879,
+     "e": 35.954
+    },
+    {
+     "w": "matin,",
+     "s": 36.028,
+     "e": 36.595
+    },
+    {
+     "w": "au",
+     "s": 36.645,
+     "e": 36.694
+    },
+    {
+     "w": "fond",
+     "s": 36.731,
+     "e": 36.842
+    },
+    {
+     "w": "du",
+     "s": 36.879,
+     "e": 36.917
+    },
+    {
+     "w": "jardin,",
+     "s": 36.991,
+     "e": 37.62
+    },
+    {
+     "w": "l'amende",
+     "s": 37.657,
+     "e": 37.954
+    },
+    {
+     "w": "aussi",
+     "s": 38.065,
+     "e": 38.213
+    },
+    {
+     "w": "avait",
+     "s": 38.25,
+     "e": 38.398
+    },
+    {
+     "w": "poussé.",
+     "s": 38.435,
+     "e": 39.139
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Un contrôleur.",
+   "hl": [
+    "Un",
+    "contrôleur."
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L13.k.wav",
+   "file_start": 39.239,
+   "speech_start": 39.239,
+   "speech_end": 40.202,
+   "words": [
+    {
+     "w": "Un",
+     "s": 39.239,
+     "e": 39.313
+    },
+    {
+     "w": "contrôleur.",
+     "s": 39.387,
+     "e": 40.202
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "« Billet, s'il vous plaît. »",
+   "hl": [
+    "Billet,",
+    "plaît."
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L14.k.wav",
+   "file_start": 40.302,
+   "speech_start": 40.302,
+   "speech_end": 41.561,
+   "words": [
+    {
+     "w": "Billet,",
+     "s": 40.302,
+     "e": 40.82
+    },
+    {
+     "w": "s'il",
+     "s": 40.869,
+     "e": 40.968
+    },
+    {
+     "w": "vous",
+     "s": 41.005,
+     "e": 41.042
+    },
+    {
+     "w": "plaît.",
+     "s": 41.117,
+     "e": 41.561
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Ce mec avait composté tous ses billets.",
+   "hl": [
+    "composté",
+    "billets."
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L15.k.wav",
+   "file_start": 41.661,
+   "speech_start": 41.661,
+   "speech_end": 43.735,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 41.661,
+     "e": 41.735
+    },
+    {
+     "w": "mec",
+     "s": 41.809,
+     "e": 42.031
+    },
+    {
+     "w": "avait",
+     "s": 42.068,
+     "e": 42.254
+    },
+    {
+     "w": "composté",
+     "s": 42.328,
+     "e": 42.772
+    },
+    {
+     "w": "tous",
+     "s": 42.809,
+     "e": 42.92
+    },
+    {
+     "w": "ses",
+     "s": 42.994,
+     "e": 43.068
+    },
+    {
+     "w": "billets.",
+     "s": 43.142,
+     "e": 43.735
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Amende.",
+   "hl": [
+    "Amende.",
+    "Amende."
+   ],
+   "file": "/tmp/pipe/s7/composteur/tts/L16.k.wav",
+   "file_start": 43.835,
+   "speech_start": 43.835,
+   "speech_end": 44.65,
+   "words": [
+    {
+     "w": "Amende.",
+     "s": 43.835,
+     "e": 44.65
+    }
+   ]
+  }
+ ],
+ "total": 45.95
+}
