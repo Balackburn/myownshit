@@ -79,7 +79,13 @@ then he scuttles off with the aides after him; the minister in sage green with a
 S10b at waist height, the crabber bouncing behind, big leaflet drops; S11b no second hat gag; S12b the sky peel keyed on the edge's frame position
 (seven frames at 15 fps); S12c a referee's striped shirt (noRefShirt); S13 a mid shot of three, one-frame snap, head turns two frames apart; S13b
 the three, eyes to the lens on « ordonnance »; S14b the hero's take (to the pharmacist, down to the box, up, bulge) and the pharmacist's finger
-tapping the box's top edge and pointing from above; S16 / S16b his free hand behind his back."""
+tapping the box's top edge and pointing from above; S16 / S16b his free hand behind his back.
+Review 3 (cycle 57): S07 low and close, cropped at the knees, the four holding one strip of the sheet at hip height, PAIN in the top third, the
+balloon held 4 frames; S02 a step closer, a big held pillow, mittens and paper squashed on the slam; S03 the front swells 9 then 10 % (outElastic);
+S03b the passer-by three-quarter with a take and a cube mop (noCurlyMop), the pigeon riding the roll; S08b the minister alone scuttles out left,
+light grey hair, no spikes; S09 an insert on the board's corner (a fresh stroke, chalk dust, 3 frames of jolts); S09b the crabber on a bench in the
+gap; S11b the loupe leans in, the eye grows and blinks (noLoupe grow / lid); S04b the first itch twitch; S12c the chest-out and slow blink; S13 the
+waiter in the gap a step back; S16 / S16b high and tilted down, the hero more central, his mitten on the box's edge, an up-and-shake before FLAP."""
 from story_kit import *
 import math
 

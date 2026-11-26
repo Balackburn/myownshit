@@ -2534,3 +2534,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 58) Une bouffée blanche opaque qui passe devant un visage se lit comme des yeux exorbités : rien de blanc et rond à hauteur de visage.
 - (cycle 58) Une salière qu'on incline doit tourner autour de la prise, pas autour de sa base : calculer la base à partir de la prise et de l'angle, puis guider la main sur la prise.
 - (cycle 58) Depuis l'intérieur, une porte ouverte réduit le champ à son embrasure : tout ce qui se penche hors de la file se penche du côté libre, jamais derrière le battant.
+- (cycle 57, « La notice », passe finale) Cadrage coupé aux genoux avec la caméra à hauteur des ventres : tous les ventres tombent à la même hauteur de l'image, quelle que soit leur distance. C'est la profondeur, pas l'alignement, qui fait tenir plusieurs personnages.
+- (cycle 57) Un panneau lointain passe sous les têtes proches dès que la caméra descend : vérifier la hauteur du panneau avec `project()`, monter la façade pour ce plan si besoin.
+- (cycle 57) Rapprocher un objet de la caméra le long de l'axe de visée ne le déplace pas dans l'image : pour qu'un geste « vers l'objectif » se lise, le décaler aussi en travers ou en hauteur.
+- (cycle 57) Les épis de cheveux viennent du vent apparent d'un saut ou d'une course, pas d'une clé : pour un personnage dont la silhouette compte, mettre `cloth` à 0 ou 0,12 dans son casting.
