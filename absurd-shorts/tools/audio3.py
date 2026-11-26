@@ -180,7 +180,21 @@ def sfx(name, seed=0):
         for i, f in enumerate((780, 820, 900)): seg = (tone(f, 0.06, 'square') * decay(int(0.06 * SR), 6) * 0.25); st = int(i * 0.14 * SR); out[st:st + len(seg)] += seg
         return bp(out, 400, 3000)
     if name == 'baa':
-        # (cycle 59, « Les moutons ») a sheep's bleat: a nasal sawtooth near 470 Hz with a fast tremolo (the « bêêê »), falling a little at the end
+        # (round 1 of story 111) a sheep's bleat by formants: a nasal « bè » (a nasal pole near 270 Hz, F1 600, F2 1800, F3 2600 Hz) on a buzzy source
+        # near 300 Hz with an irregular 6-9 Hz vibrato and jitter that the loudness follows (the « bê-ê-ê »), a short lip burst before the voice (the
+        # « b »), a little breath. The sawtooth version stays as 'baaSaw'
+        d = 0.78; n = int(d * SR); t = np.arange(n) / SR
+        rate = 7.5 + 1.5 * np.interp(t, np.linspace(0, d, 8), r.uniform(-1, 1, 8)); vib = np.sin(2 * np.pi * np.cumsum(rate) / SR + r.uniform(0, 6.3))
+        jit = lfilter([0.002], [1, -0.998], np.cumsum(r.normal(0, 1, n))); jit = (jit - jit.mean()) / (np.abs(jit).max() + 1e-9)
+        f0 = 300 * (1 + 0.04 * r.uniform(-1, 1)) * (1 + 0.035 * vib + 0.012 * jit) * (1 + 0.1 * np.minimum(1, t / 0.08) - 0.16 * t / d)
+        ph = np.cumsum(f0) / SR; src = lfilter([1, -0.92], [1], (2 * (ph % 1) - 1) + 0.06 * r.uniform(-1, 1, n))
+        def res(x, f, bw, g): R_ = np.exp(-np.pi * bw / SR); return g * lfilter([1 - R_], [1, -2 * R_ * np.cos(2 * np.pi * f / SR), R_ * R_], x)
+        v = res(src, 270, 80, 0.35) + res(src, 600, 90, 1.0) + res(src, 1800, 140, 1.6) + res(src, 2600, 180, 1.1)
+        env = np.minimum(1, np.maximum(0, t - 0.018) / 0.03) * np.minimum(1, (d - t) / 0.16) * np.exp(-t * 0.7); out = v * (0.72 + 0.28 * (0.5 + 0.5 * vib)) * env
+        nb = int(0.02 * SR); out[:nb] += bp(r.uniform(-1, 1, nb).astype(np.float32), 300, 2500) * np.exp(-np.linspace(0, 6, nb)) * np.abs(v).max() * 0.6
+        return (out / (np.abs(out).max() + 1e-9) * 0.42).astype(np.float32)
+    if name == 'baaSaw':
+        # (cycle 59, « Les moutons ») the first bleat, kept: a nasal sawtooth near 470 Hz with a fast tremolo (the « bêêê »), falling a little at the end
         d = 0.72; t = np.arange(int(d * SR)) / SR; f0 = 470 * (1 + 0.05 * r.uniform(-1, 1)) * (1 - 0.14 * t / d)
         ph = np.cumsum(f0) / SR; saw = (2 * (ph % 1) - 1).astype(np.float32)
         trem = 0.5 + 0.5 * np.abs(np.sin(2 * np.pi * 12 * t)); env = np.minimum(1, t / 0.035) * np.minimum(1, (d - t) / 0.12) * np.exp(-t * 0.9)

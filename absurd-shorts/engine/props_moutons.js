@@ -42,37 +42,56 @@ const canvas = (w, h) => { const c = document.createElement('canvas'); c.width =
 const texOf = cv => { const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t; };
 const L = (c, o = {}) => new THREE.MeshLambertMaterial({ color: c, ...o });
 
-// a fleece blob geometry: a cluster of jittered icospheres (faceted, no head, no legs), about 1 m across, its middle at the origin
+// a fleece blob geometry: a cluster of round lobes (jittered icospheres with smooth normals, so each lobe shades soft and round, no facets), small curls on
+// top, no head, no legs, about 1 m across, its middle at the origin. (round 1 of 111) one fleece look for every wool mass, blob and sheep body
 const _blobGeos = {};
 function blobGeo(seed = 1) {
   if (_blobGeos[seed]) return _blobGeos[seed];
-  const parts = [[0, 0, 0, 0.4], [0.3, 0.06, 0.06, 0.27], [-0.29, 0.04, -0.08, 0.28], [0.06, 0.16, -0.27, 0.26], [-0.06, 0.15, 0.28, 0.25], [0.02, 0.3, 0.0, 0.24], [0.22, -0.04, -0.22, 0.22], [-0.2, 0.1, 0.22, 0.22], [0.2, 0.2, 0.2, 0.2], [-0.22, 0.22, -0.18, 0.2]];
-  const pos = [];
+  const parts = [[0, 0, 0, 0.4], [0.3, 0.06, 0.06, 0.27], [-0.29, 0.04, -0.08, 0.28], [0.06, 0.16, -0.27, 0.26], [-0.06, 0.15, 0.28, 0.25], [0.02, 0.3, 0.0, 0.24], [0.22, -0.04, -0.22, 0.22], [-0.2, 0.1, 0.22, 0.22], [0.2, 0.2, 0.2, 0.2], [-0.22, 0.22, -0.18, 0.2],
+    [0.14, 0.34, 0.14, 0.13], [-0.16, 0.33, 0.06, 0.13], [0.36, 0.14, -0.06, 0.13], [-0.36, 0.12, 0.08, 0.13], [0.08, 0.1, 0.4, 0.12], [-0.06, 0.12, -0.4, 0.12]];
+  const pos = [], nor = [], uvs = [];
   parts.forEach(([x, y, z, r], pi) => {
-    const g = new THREE.IcosahedronGeometry(1, 1), p = g.attributes.position, off = new Map();
+    const g = new THREE.IcosahedronGeometry(1, 1), p = g.attributes.position, uv = g.attributes.uv, off = new Map();
     for (let i = 0; i < p.count; i++) {
       const vx = p.getX(i), vy = p.getY(i), vz = p.getZ(i), key = `${Math.round(vx * 99)},${Math.round(vy * 99)},${Math.round(vz * 99)}`;
-      if (!off.has(key)) off.set(key, 1 + (hsh(seed * 53 + pi * 17 + off.size * 3.1) - 0.5) * 0.16);
+      if (!off.has(key)) off.set(key, 1 + (hsh(seed * 53 + pi * 17 + off.size * 3.1) - 0.5) * 0.08);
       const f = off.get(key) * r * (0.85 + 0.3 * hsh(seed * 7 + pi));
-      pos.push(x + vx * f, y * 0.9 + vy * f * 0.88, z + vz * f);
+      pos.push(x + vx * f, y * 0.9 + vy * f * 0.88, z + vz * f); nor.push(vx, vy / 0.88, vz); uvs.push(uv.getX(i) * 2 + pi * 0.37, uv.getY(i) * 2);
     }
     g.dispose();
   });
-  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.computeVertexNormals(); geo.computeBoundingSphere();
+  for (let i = 0; i < nor.length; i += 3) { const l = Math.hypot(nor[i], nor[i + 1], nor[i + 2]) || 1; nor[i] /= l; nor[i + 1] /= l; nor[i + 2] /= l; }
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3));
+  geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2)); geo.computeBoundingSphere(); geo.computeBoundingBox();
   _blobGeos[seed] = geo; return geo;
 }
 const WOOL = '#FBFBF8';
-const woolMat = () => mat(WOOL, { emissive: '#5C6170', noGrain: true });
+// a soft curl pattern (pale blue-grey arcs on white) that the fleece material multiplies: the lobes read as wool, not as paper or ice
+let _curlTex = null;
+function curlTex() {
+  if (_curlTex) return _curlTex;
+  const cv = canvas(128, 128), c = cv.getContext('2d'); c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, 128, 128); c.strokeStyle = '#CBD3E2'; c.lineWidth = 3; c.lineCap = 'round';
+  for (let i = 0; i < 46; i++) { const x = hsh(i * 3 + 1) * 128, y = hsh(i * 5 + 2) * 128, r = 5 + 5 * hsh(i * 7 + 3), a = hsh(i * 11 + 4) * TAU;
+    for (const dx of [-128, 0, 128]) for (const dy of [-128, 0, 128]) { c.beginPath(); c.arc(x + dx, y + dy, r, a, a + PI * 1.3); c.stroke(); } }
+  _curlTex = texOf(cv); _curlTex.wrapS = _curlTex.wrapT = THREE.RepeatWrapping; return _curlTex;
+}
+// the fleece material: soft cool white, smooth shading, a little emissive (it glows a touch in shade and by night), the curl pattern; o.color for a
+// dark fleece (the black sheep)
+const _woolMats = {};
+const woolMat = (color = '#F2F5FA', emissive = '#566078') => _woolMats[color + emissive] || (_woolMats[color + emissive] = new THREE.MeshLambertMaterial({ color, emissive, map: curlTex() }));
+// the fleece's outline: thin and cool slate instead of black ink (where two lobes meet, a black hull drew cracks)
+const woolInk = new THREE.MeshBasicMaterial({ color: '#363D52', side: THREE.BackSide });
 // one fleece blob as a plain mesh (inked), for props that carry a few
 function blobMesh(s = 1, seed = 1, color = WOOL) {
-  const m = new THREE.Mesh(blobGeo(seed), color === WOOL ? woolMat() : mat(color, { emissive: '#2A2C33', noGrain: true })); m.scale.setScalar(s); m.castShadow = m.receiveShadow = true;
-  const o = new THREE.Mesh(blobGeo(seed), inkMat); o.scale.setScalar(1.05); o.name = 'outline'; m.add(o); return m;
+  const m = new THREE.Mesh(blobGeo(seed), color === WOOL ? woolMat() : woolMat(color, '#2A2C33')); m.scale.setScalar(s); m.castShadow = m.receiveShadow = true;
+  const o = new THREE.Mesh(blobGeo(seed), woolInk); o.scale.setScalar(1.035); o.name = 'outline'; m.add(o); return m;
 }
-// a burst of opaque inked puffs that fly out and shrink to nothing (never a translucent cloud): o.at, o.r (size), o.color, o.n
+// a burst of opaque inked puffs that fly out and shrink to nothing (never a translucent cloud): o.at, o.r (size), o.color, o.n; o.dz the depth of the
+// scatter (0.7; 0.1 keeps them out to the sides, off a chest), o.up their rise
 function puffBurst(o = {}) {
   const g = grp(), n = o.n ?? 7, R = o.r ?? 0.2, C = o.color || '#FFFFFF', ps = [];
   for (let i = 0; i < n; i++) { const m = sphere(R, C, 1, { noGrain: true, emissive: '#4A4A50' }); ink(m, 0.08); m.castShadow = false; const a = i / n * TAU + hsh(i + 3) * 0.6;
-    ps.push({ m, dx: Math.cos(a), dy: 0.35 + 0.5 * hsh(i + 9), dz: Math.sin(a) * 0.7, k: 0.8 + 0.4 * hsh(i + 5) }); g.add(m); }
+    ps.push({ m, dx: Math.cos(a), dy: (o.up ?? 0.35) + 0.5 * hsh(i + 9), dz: Math.sin(a) * (o.dz ?? 0.7), k: 0.8 + 0.4 * hsh(i + 5) }); g.add(m); }
   g.userData.burst = (t, t0) => { const u = t0 == null ? -1 : (t - t0) / (o.dur ?? 0.42); const on = u >= 0 && u < 1; g.visible = on; if (!on) return;
     const e = 1 - (1 - u) * (1 - u), s = (u < 0.25 ? u / 0.25 : 1 - (u - 0.25) / 0.75);
     for (const p of ps) { p.m.position.set(p.dx * (o.spread ?? 0.55) * e * p.k, p.dy * (o.spread ?? 0.55) * e, p.dz * (o.spread ?? 0.55) * e * p.k); p.m.scale.setScalar(Math.max(0.001, s * p.k * (0.6 + 0.6 * u))); } };
@@ -94,7 +113,7 @@ export const MOUTONS_PROPS = {
   // o.head [[t, rad]] the head turns (+ = to its left), o.chin [[t, rad]] the head tips up (+); o.nod [t...]: one nod each; o.shake [[t0, t1]]: a slow
   // « no »; o.bleat [t...]: the mouth opens wide, the head lifts, the body squashes; o.chew [[t0, t1]]; o.expr [[t, name]]; o.blinks [t...]; o.pop [t0, t1]:
   // eyes on stalks; o.back [[t, 0..1]]: rolled onto its back, hooves up, the face turned to the sky (o.backHead the head's tip); o.tap [t...]: a front hoof
-  // taps the belly; o.snore [[t0, t1]]: a snot bubble swells and shrinks at the nose; o.appear t / o.vanish t: it pops in / vanishes in a puff of wool;
+  // taps the belly (o.tapAmp how high, 1.3; o.tapSq the body's bounce on each tap); o.snore [[t0, t1]]: a snot bubble swells and shrinks at the nose; o.appear t / o.vanish t: it pops in / vanishes in a puff of wool;
   // o.sq [[t, [x, y, z]]]: a squash about its feet; o.bob: a slow ride up and down (on a wave)
   mtSheep(o) {
     const blk = !!o.black, S = o.s ?? 1;
@@ -102,6 +121,20 @@ export const MOUTONS_PROPS = {
     const cr = buildCreature('sheep', { seed: o.seed ?? 3, colors, scale: S });
     const J = cr.userData.joints, anim = cr.userData.animate, g = grp(), mv = grp(), sqg = grp(), turn = grp(), roll = grp();
     g.add(mv); mv.add(sqg); sqg.add(turn); turn.add(roll); roll.add(cr);
+    // (round 1) the faceted body lumps become the same round fleece as the masses (one wool look); o.rim: a pale moonlit rim around the fleece (a dark
+    // sheep on a night meadow read as a hole); o.key: a small cool key light above and in front of it (intensity), o.keyPos
+    const bodyHex = new THREE.Color(colors.body || '#F4F0E4').getHexString(), swaps = [];
+    cr.traverse(m => { if (m.isMesh && m.name !== 'outline' && m.material?.color && m.material.color.getHexString() === bodyHex) swaps.push(m); });
+    const rimMat = o.rim ? new THREE.MeshBasicMaterial({ color: o.rim, side: THREE.BackSide }) : null;
+    swaps.forEach((m, i) => {
+      if (!m.geometry.boundingBox) m.geometry.computeBoundingBox();
+      const bb = m.geometry.boundingBox, sz = bb.getSize(new THREE.Vector3()), c = bb.getCenter(new THREE.Vector3()), src = blobGeo(40 + ((o.seed ?? 3) + i) % 6), sb = src.boundingBox, ss = sb.getSize(new THREE.Vector3()), sc = sb.getCenter(new THREE.Vector3());
+      const geo = src.clone(); geo.translate(-sc.x, -sc.y, -sc.z); geo.scale(sz.x / ss.x * 1.06, sz.y / ss.y * 1.06, sz.z / ss.z * 1.06); geo.translate(c.x, c.y, c.z); geo.computeBoundingBox(); geo.computeBoundingSphere();
+      m.geometry = geo; m.material = blk ? woolMat(colors.body, o.rim ? '#262A3A' : '#1A1C22') : woolMat();
+      for (const ch of m.children) if (ch.name === 'outline') { ch.geometry = geo; ch.material = woolInk; }
+      if (rimMat) { const rm = new THREE.Mesh(geo, rimMat), k = o.rimT ?? 0.07; rm.scale.set(1 + 2 * k / sz.x, 1 + 2 * k / sz.y, 1 + 2 * k / sz.z); rm.position.set(c.x * (1 - rm.scale.x), c.y * (1 - rm.scale.y), c.z * (1 - rm.scale.z)); rm.name = 'rim'; m.add(rm); }
+    });
+    if (o.key) { const kl = new THREE.PointLight(o.keyColor || '#C8D8FF', o.key, 4.5 * S, 1.2); kl.position.set(...(o.keyPos || [0.6 * S, 1.8 * S, 1.4 * S])); kl.castShadow = false; turn.add(kl); }
     // the eyes: found by their white; the black sheep's are bigger, wider apart, rimmed thick red, with grey bags under them
     const eyes = [];
     cr.traverse(m => { if (m.isMesh && m.geometry?.type === 'SphereGeometry' && m.material?.color && m.material.color.getHexString() === 'f8f5ec') eyes.push(m); });
@@ -162,7 +195,8 @@ export const MOUTONS_PROPS = {
       if (back > 0.001) { roll.rotation.z = PI * back; roll.position.set(0, lerp(cy, 0.36 * S, back) - cy * Math.cos(PI * back), 0);
         if (J.head) J.head.rotation.x += (o.backHead ?? 1.2) * back; if (J.neck) J.neck.rotation.x += 0.35 * back;
         for (const lg of ['legFL', 'legFR', 'legBL', 'legBR']) if (J[lg]) J[lg].rotation.z += (lg.endsWith('L') ? 0.18 : -0.18) * back;
-        for (const tp of o.tap || []) { const u = (t - tp) / 0.22; if (u >= 0 && u < 1 && J.legFR) { J.legFR.rotation.x += 1.3 * Math.sin(u * PI); J.kneeFR.rotation.x -= 0.6 * Math.sin(u * PI); } } }
+        for (const tp of o.tap || []) { const u = (t - tp) / 0.22; if (u >= 0 && u < 1 && J.legFR) { const e = Math.sin(u * PI); J.legFR.rotation.x += (o.tapAmp ?? 1.3) * e; J.kneeFR.rotation.x -= 0.6 * e;
+          if (o.tapSq) { const b = u > 0.5 ? Math.sin((u - 0.5) * 2 * PI) : 0; sqg.scale.multiply(new THREE.Vector3(1 + o.tapSq * b, 1 - o.tapSq * b, 1 + o.tapSq * b)); } } } }
       else { roll.rotation.z = 0; roll.position.set(0, 0, 0); }
       // the snot bubble
       snot.visible = !!snoring; if (snoring) { const u = (t - snoring[0]) / (o.snorePer ?? 0.9), k = 0.3 + 0.7 * (0.5 - 0.5 * Math.cos(u * TAU)), R = (o.snoreR ?? 0.07) * k; snot.scale.setScalar(R); snot.position.set(0.03, 0.06, 0.16 + R); }
@@ -193,8 +227,11 @@ export const MOUTONS_PROPS = {
     }
     // o.holes [[x, z, r, ymax], ...]: no blob whose top rises above ymax within r of (x, z) (a head that pokes out of the wool, a sheep buried to the chin)
     for (const [hx, hz, hr, hy] of o.holes || []) for (let i = P.length - 1; i >= 0; i--) { const q = P[i]; if (Math.hypot(q[0] - hx, q[2] - hz) < hr + 0.35 * q[3] && q[1] + 0.45 * q[3] > hy) P.splice(i, 1); }
-    const n = P.length, geo = blobGeo(o.seed ?? 1), M = new THREE.InstancedMesh(geo, o.color ? mat(o.color, { emissive: '#4A4E58', noGrain: true }) : woolMat(), Math.max(1, n));
-    const OL = new THREE.InstancedMesh(geo, inkMat, Math.max(1, n)); M.castShadow = M.receiveShadow = true; OL.castShadow = false;
+    const n = P.length, geo = blobGeo(o.seed ?? 1), M = new THREE.InstancedMesh(geo, o.color ? woolMat(o.color, '#4A4E58') : woolMat(), Math.max(1, n));
+    const OL = new THREE.InstancedMesh(geo, woolInk, Math.max(1, n)); M.castShadow = M.receiveShadow = true; OL.castShadow = false;
+    // a slight cool or warm tint per lobe cluster (one flat white read as a sheet of paper)
+    const tint = new THREE.Color(); for (let i = 0; i < n; i++) { const v = hsh(i * 4.7 + 1.3); tint.setRGB(0.93 + 0.07 * v, 0.95 + 0.05 * v, 0.98 + 0.02 * hsh(i * 2.9)); M.setColorAt(i, tint); }
+    if (M.instanceColor) M.instanceColor.needsUpdate = true;
     g.add(M, OL);
     const rot = P.map((_, i) => [hsh(i * 3.1) * TAU, hsh(i * 5.7) * TAU]), rank = P.map((_, i) => hsh(i * 9.3 + 2)), ph = P.map((_, i) => hsh(i * 2.3) * TAU);
     const ys = P.map(q => q[1]), y0 = Math.min(...ys, 0), y1 = Math.max(...ys, 1);
@@ -208,7 +245,7 @@ export const MOUTONS_PROPS = {
         if (o.bob) dy += o.bob * Math.sin(t * (o.bobF ?? 4.5) + ph[i]);
         const s = Math.max(0.0001, q[3] * k);
         ob.position.set(q[0], q[1] + dy, q[2]); ob.rotation.set(0.25 * Math.sin(rot[i][0]), rot[i][1], 0.25 * Math.cos(rot[i][0])); ob.scale.setScalar(s); ob.updateMatrix(); M.setMatrixAt(i, ob.matrix);
-        ob.scale.setScalar(s * 1.045); ob.updateMatrix(); OL.setMatrixAt(i, ob.matrix);
+        ob.scale.setScalar(s * 1.03); ob.updateMatrix(); OL.setMatrixAt(i, ob.matrix);
       }
       M.instanceMatrix.needsUpdate = true; OL.instanceMatrix.needsUpdate = true; M.computeBoundingSphere(); OL.computeBoundingSphere();
     };
@@ -233,7 +270,7 @@ export const MOUTONS_PROPS = {
   // ---------------------------------------------------------------- the black sheep's thought bubble (pivot at its middle, faces +Z, unlit so it stays white by
   // night): a scalloped cloud with an ink border and three little circles trailing down toward o.tail [x, y] (bubble plane, metres); inside, a 2D loop: a
   // tiny box-headed man in a dark suit and a red tie runs and hops a little white fence. o.w (1.1); o.state 0 plain, 1 leaning forward, 2 panting (tongue
-  // out, sweat, a lower, slower hop), or [[t, state]]; o.night: a moonlit meadow inside; o.sheep: a small black sheep in the corner nods at each hop;
+  // out, sweat, a lower, slower hop), or [[t, state]]; o.night: a moonlit meadow inside; o.sheep: a black sheep in the left corner (o.sheepW of the width, 0.3) nods at each hop;
   // o.period (s, 0.9), o.t0 (the phase); o.pop t: it pops in; o.res (512)
   mtBubble(o) {
     const W = o.w ?? 1.1, H = W * (o.aspect ?? 0.72), g = grp(), k = grp(); g.add(k);
@@ -264,7 +301,7 @@ export const MOUTONS_PROPS = {
       for (let i = 0; i < 4; i++) { const x = fx - fw / 2 + i * fw / 3 - w * 0.012; cx.beginPath(); cx.moveTo(x, gy); cx.lineTo(x, gy - fh); cx.lineTo(x + w * 0.012, gy - fh - w * 0.015); cx.lineTo(x + w * 0.024, gy - fh); cx.lineTo(x + w * 0.024, gy); cx.closePath(); cx.fill(); cx.stroke(); }
       cx.fillRect(fx - fw / 2 - w * 0.02, gy - fh * 0.75, fw + w * 0.04, h * 0.025); cx.strokeRect(fx - fw / 2 - w * 0.02, gy - fh * 0.75, fw + w * 0.04, h * 0.025);
       // the little man: runs left to right, hops the fence, runs out, comes back in
-      const per = st >= 2 ? PER * 1.2 : PER, u = (((t - T0) / per) % 1 + 1) % 1, x0 = w * 0.14, x1 = w * 0.9;
+      const per = st >= 2 ? PER * 1.2 : PER, u = (((t - T0) / per) % 1 + 1) % 1, x0 = o.sheep ? w * 0.36 : w * 0.14, x1 = w * 0.92;
       const xm = lerp(x0, x1, u), ju = clamp01((u - 0.32) / 0.4), hop = Math.sin(ju * PI) * h * (st >= 2 ? 0.2 : 0.27) * (ju > 0 && ju < 1 ? 1 : 0);
       const S_ = h * 0.2, lean = st >= 1 ? 0.32 : 0.08, run = Math.sin(u * TAU * 4);
       cx.save(); cx.translate(xm, gy - hop); cx.rotate(lean);
@@ -291,11 +328,21 @@ export const MOUTONS_PROPS = {
         cx.fillStyle = '#9FD3E8'; for (let i = 0; i < 2; i++) { const yy = -S_ * (1.3 - ((t * 1.6 + i * 0.5) % 1) * 0.3); cx.beginPath(); cx.arc(-S_ * 0.26 - i * S_ * 0.06, yy, S_ * 0.035, 0, TAU); cx.fill(); cx.stroke(); } }
       else { cx.fillStyle = '#1A1A1E'; cx.fillRect(-S_ * 0.05, -S_ * 1.04, S_ * 0.1, S_ * 0.02); }
       cx.restore();
-      // a little black sheep in the corner nods at each hop
-      if (o.sheep) { const nod = Math.max(0, Math.sin(clamp01((u - 0.45) / 0.2) * PI)), sx = w * 0.13, sy = h * 0.86;
-        cx.fillStyle = '#55555D'; cx.beginPath(); cx.ellipse(sx, sy, w * 0.07, h * 0.06, 0, 0, TAU); cx.fill(); cx.stroke();
-        cx.save(); cx.translate(sx + w * 0.07, sy - h * 0.03); cx.rotate(0.5 * nod); cx.fillStyle = '#141418'; cx.fillRect(-w * 0.02, -h * 0.05, w * 0.045, h * 0.07);
-        cx.fillStyle = '#FFFFFF'; cx.beginPath(); cx.arc(w * 0.006, -h * 0.025, w * 0.009, 0, TAU); cx.fill(); cx.strokeStyle = '#D2333C'; cx.stroke(); cx.restore(); cx.strokeStyle = INK; }
+      // (round 1) the black sheep in the corner: a clear silhouette about a third of the bubble wide (a dark fleece of round lobes with a pale moonlit
+      // rim, black legs, a black head with big white red-rimmed eyes), its head nodding hard at each hop (down at the top of the hop, back up after)
+      if (o.sheep) { const nod = Math.sin(clamp01((u - 0.4) / 0.32) * PI), SW = w * (o.sheepW ?? 0.3), sx = w * 0.04 + SW * 0.5, sy = gy - SW * 0.3, R = SW * 0.2;
+        const lobes = [[0, 0, 1.25], [-0.85, 0.15, 0.9], [0.85, 0.1, 0.95], [-0.45, -0.55, 0.85], [0.45, -0.6, 0.85], [-0.4, 0.62, 0.8], [0.4, 0.6, 0.8], [-1.15, -0.25, 0.65], [1.1, -0.3, 0.7]];
+        cx.fillStyle = '#141418'; for (const dx of [-0.75, -0.3, 0.35, 0.8]) { cx.fillRect(sx + dx * R - R * 0.14, sy + R * 0.5, R * 0.28, SW * 0.3 - R * 0.2 + h * 0.005); }
+        cx.fillStyle = '#B9CCF2'; for (const [lx, ly, lr] of lobes) { cx.beginPath(); cx.arc(sx + lx * R, sy + ly * R, lr * R + w * 0.009, 0, TAU); cx.fill(); }
+        cx.fillStyle = '#4E5262'; for (const [lx, ly, lr] of lobes) { cx.beginPath(); cx.arc(sx + lx * R, sy + ly * R, lr * R, 0, TAU); cx.fill(); }
+        cx.fillStyle = '#5E6274'; for (const [lx, ly, lr] of lobes.slice(0, 3)) { cx.beginPath(); cx.arc(sx + lx * R - lr * R * 0.2, sy + ly * R - lr * R * 0.25, lr * R * 0.5, 0, TAU); cx.fill(); }
+        cx.save(); cx.translate(sx + R * 1.55, sy - R * 0.55); cx.rotate(0.15 + 0.85 * nod); const HW = R * 0.95, HH = R * 1.25;
+        cx.fillStyle = '#B9CCF2'; cx.beginPath(); cx.ellipse(HW * 0.35, HH * 0.15, HW * 0.62 + w * 0.009, HH * 0.6 + w * 0.009, 0.25, 0, TAU); cx.fill();
+        cx.fillStyle = '#141418'; cx.beginPath(); cx.ellipse(HW * 0.35, HH * 0.15, HW * 0.62, HH * 0.6, 0.25, 0, TAU); cx.fill();
+        cx.beginPath(); cx.ellipse(HW * -0.1, -HH * 0.25, HW * 0.32, HH * 0.14, -0.5, 0, TAU); cx.fill();
+        for (const ex of [0.1, 0.62]) { cx.fillStyle = '#FFFFFF'; cx.strokeStyle = '#D2333C'; cx.lineWidth = w * 0.007; cx.beginPath(); cx.arc(HW * ex, -HH * 0.05, HW * 0.2, 0, TAU); cx.fill(); cx.stroke();
+          cx.fillStyle = '#111111'; cx.beginPath(); cx.arc(HW * ex + HW * 0.04, -HH * 0.02 + HW * 0.06 * nod, HW * 0.07, 0, TAU); cx.fill(); }
+        cx.restore(); cx.strokeStyle = INK; cx.lineWidth = w * 0.006; }
       tx.needsUpdate = true;
     };
     g.userData.update = t => {
@@ -453,18 +500,20 @@ export const MOUTONS_PROPS = {
     return g;
   },
   // ---------------------------------------------------------------- a small TV studio (pivot at the floor, faces +Z): a plain news desk and a blue backdrop with
-  // a big plain white sheep shape (o.sheepX: where across, 0..1); no logo, no text, no figures on any screen
+  // a big plain white sheep shape (o.sheepX: where across, 0..1; o.sheepR its size, 0.17 of the height); no logo, no text, no figures on any screen
   mtStudio(o) {
     const g = grp(), BW = o.bw ?? 5.5, BH = o.bh ?? 3.6;
     const cv = canvas(512, Math.round(512 * BH / BW)), c = cv.getContext('2d'), w = cv.width, h = cv.height;
     const gr = c.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#2C5DB0'); gr.addColorStop(1, '#1E3F86'); c.fillStyle = gr; c.fillRect(0, 0, w, h);
     c.fillStyle = 'rgba(255,255,255,0.06)'; for (let i = 0; i < 8; i++) c.fillRect(i * w / 8, 0, w / 16, h);
     // the sheep shape: a fluffy cloud body, a head, four legs, all plain white
-    const sx = w * (o.sheepX ?? 0.5), sy = h * 0.42, R = h * 0.17; c.fillStyle = '#FFFFFF';
+    const sx = w * (o.sheepX ?? 0.5), sy = h * 0.42, R = h * (o.sheepR ?? 0.17); c.fillStyle = '#FFFFFF';
     for (let i = 0; i < 9; i++) { const a = i / 9 * TAU; c.beginPath(); c.arc(sx + Math.cos(a) * R * 1.25, sy + Math.sin(a) * R * 0.75, R * 0.5, 0, TAU); c.fill(); }
     c.beginPath(); c.ellipse(sx, sy, R * 1.3, R * 0.85, 0, 0, TAU); c.fill();
     c.beginPath(); c.ellipse(sx + R * 1.55, sy - R * 0.35, R * 0.38, R * 0.5, 0.4, 0, TAU); c.fill();
     for (const dx of [-0.8, -0.35, 0.35, 0.8]) c.fillRect(sx + dx * R - R * 0.1, sy + R * 0.6, R * 0.2, R * 0.75);
+    // (round 1) an ear and an eye on the head, so the shape reads as a sheep and not as a cloud
+    c.beginPath(); c.ellipse(sx + R * 1.3, sy - R * 0.78, R * 0.22, R * 0.1, -0.5, 0, TAU); c.fill(); c.fillStyle = '#1E3F86'; c.beginPath(); c.arc(sx + R * 1.68, sy - R * 0.45, R * 0.07, 0, TAU); c.fill();
     const bd = new THREE.Mesh(new THREE.PlaneGeometry(BW, BH), new THREE.MeshLambertMaterial({ map: texOf(cv), emissive: '#FFFFFF', emissiveMap: texOf(cv), emissiveIntensity: 0.45 })); bd.position.set(0, BH / 2 + 0.2, -1.6); g.add(bd);
     g.add(at(box(BW + 0.2, BH + 0.2, 0.08, '#1A2238', { outline: 0.004 }), 0, BH / 2 + 0.2, -1.66));
     // the desk: a curved front of three panels, a light top
@@ -478,24 +527,39 @@ export const MOUTONS_PROPS = {
   // ---------------------------------------------------------------- a yellow pencil (attach to a hand with rot [PI, 0, 0]: it sticks out of the fist)
   mtPencil(o) { const g = grp(at(cyl(0.012, 0.012, 0.3, '#F2C230', 6, { pivot: 'bottom', outline: 0.05 }), 0, 0, 0), at(new THREE.Mesh(new THREE.ConeGeometry(0.012, 0.04, 6), mat('#E8C9A0')), 0, 0.32, 0), at(cyl(0.013, 0.013, 0.03, '#E87A8A', 6), 0, -0.01, 0)); return g; },
   // ---------------------------------------------------------------- a chunky wool jumper (attach to the torso joint, offset [0, -0.05, 0]): a knitted body with a
-  // ribbed rollneck; o.color; o.pop t: it bursts off into nothing (swells, then gone in a puff of tufts of its colour) and the shirt under it shows
+  // ribbed rollneck; o.color; o.pop t: it bursts off into nothing (swells, then gone in a puff of tufts of its colour) and the shirt under it shows;
+  // o.shirt: a plain white shirt instead, o.appear t: hidden until then
   mtJumper(o) {
-    const C = new THREE.Color(o.color || '#C8402E'), w = o.w ?? 0.6, h = o.h ?? 0.64, d = o.d ?? 0.42, g = grp(), k = grp(); g.add(k);
-    const cv = canvas(128, 128), c = cv.getContext('2d'); c.fillStyle = C.getStyle(); c.fillRect(0, 0, 128, 128); c.strokeStyle = 'rgba(0,0,0,0.2)'; c.lineWidth = 3;
-    for (let x = 0; x < 8; x++) for (let y = 0; y < 10; y++) { const cx = (x + 0.5) * 16, cy = (y + 0.5) * 12.8; c.beginPath(); c.moveTo(cx - 5, cy - 4); c.lineTo(cx, cy + 4); c.lineTo(cx + 5, cy - 4); c.stroke(); }
-    c.fillStyle = C.clone().multiplyScalar(0.8).getStyle(); c.fillRect(0, 112, 128, 16);
-    const kt = texOf(cv);
-    const body = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), new THREE.MeshLambertMaterial({ map: kt })); body.position.y = h / 2; ink(body, 0.012); body.castShadow = true; k.add(body);
-    k.add(at(cyl(0.15, 0.16, 0.12, C.clone().multiplyScalar(0.85).getStyle(), 10, { outline: 0.03 }), 0, h + 0.02, 0.0));
-    const puff = puffBurst({ r: 0.1, color: C.getStyle(), spread: 0.45, n: 8 }); puff.position.y = h * 0.6; g.add(puff);
+    const C = new THREE.Color(o.color || (o.shirt ? '#F4F4F0' : '#C8402E')), w = o.w ?? 0.6, h = o.h ?? 0.64, d = o.d ?? 0.42, g = grp(), k = grp(); g.add(k);
+    let body;
+    if (o.shirt) {
+      // (round 1) o.shirt: a clean white shirt shell (the rig's white pyjama top showed broken wedges and flaps under a popped jumper): a plain body,
+      // a pointed collar, a row of buttons; shown from o.appear
+      body = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat(C.getStyle(), { noGrain: true, emissive: '#2A2C30' })); body.position.y = h / 2; ink(body, 0.012); body.castShadow = true; k.add(body);
+      for (const sx of [-1, 1]) k.add(at(box(0.13, 0.09, 0.03, C.getStyle(), { outline: 0.04, noGrain: true, emissive: '#2A2C30' }), sx * 0.07, h - 0.04, d / 2 + 0.01, 0, 0, sx * 0.7));
+      for (let i = 0; i < 3; i++) k.add(at(sphere(0.012, '#B8BCC6', 0, { noGrain: true }), 0, h - 0.17 - i * 0.14, d / 2 + 0.01));
+    } else {
+      const cv = canvas(128, 128), c = cv.getContext('2d'); c.fillStyle = C.getStyle(); c.fillRect(0, 0, 128, 128); c.strokeStyle = 'rgba(0,0,0,0.2)'; c.lineWidth = 3;
+      for (let x = 0; x < 8; x++) for (let y = 0; y < 10; y++) { const cx = (x + 0.5) * 16, cy = (y + 0.5) * 12.8; c.beginPath(); c.moveTo(cx - 5, cy - 4); c.lineTo(cx, cy + 4); c.lineTo(cx + 5, cy - 4); c.stroke(); }
+      c.fillStyle = C.clone().multiplyScalar(0.8).getStyle(); c.fillRect(0, 112, 128, 16);
+      const kt = texOf(cv);
+      body = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), new THREE.MeshLambertMaterial({ map: kt })); body.position.y = h / 2; ink(body, 0.012); body.castShadow = true; k.add(body);
+      k.add(at(cyl(0.15, 0.16, 0.12, C.clone().multiplyScalar(0.85).getStyle(), 10, { outline: 0.03 }), 0, h + 0.02, 0.0));
+    }
+    // the pop's puffs: of its colour by default; o.puffColor, o.puffDz (0.1 sends them out to the sides, off the chest)
+    const puff = puffBurst({ r: 0.1, color: o.puffColor || C.getStyle(), spread: o.puffSpread ?? 0.45, n: o.puffN ?? 8, dz: o.puffDz ?? 0.7, up: o.puffUp ?? 0.35 }); puff.position.y = h * 0.6; g.add(puff);
     g.userData.update = t => { let s = 1; if (o.pop != null) { const v = t - o.pop; if (v >= 0) s = v < 0.05 ? 1 + 0.22 * v / 0.05 : Math.max(0, 1.22 * (1 - (v - 0.05) / 0.06)); }
+      if (o.appear != null) s *= popK(o.appear, t, 0.08);
       k.scale.setScalar(Math.max(0.0001, s)); k.visible = s > 0.001; puff.userData.burst(t, o.pop != null ? o.pop + 0.04 : null); };
     g.userData.update(0); return g;
   },
-  // ---------------------------------------------------------------- a knitted sleeve (attach to a shoulder or an elbow joint: a tube down the limb, -Y); o.pop
+  // ---------------------------------------------------------------- a knitted sleeve (attach to a shoulder or an elbow joint: a tube down the limb, -Y); o.pop;
+  // o.appear t: hidden until then (a shirt sleeve under a popped one)
   mtKnitSleeve(o) {
     const C = o.color || '#C8402E', Lk = o.len ?? 0.28, g = grp(), k = grp(at(cyl(o.r ?? 0.085, (o.r ?? 0.085) * 0.9, Lk, C, 8, { outline: 0.02 }), 0, -(o.y ?? Lk / 2), 0)); g.add(k);
-    g.userData.update = t => { let s = 1; if (o.pop != null) { const v = t - o.pop; if (v >= 0) s = v < 0.05 ? 1 + 0.2 * v / 0.05 : Math.max(0, 1.2 * (1 - (v - 0.05) / 0.06)); } k.scale.setScalar(Math.max(0.0001, s)); k.visible = s > 0.001; };
+    g.userData.update = t => { let s = 1; if (o.pop != null) { const v = t - o.pop; if (v >= 0) s = v < 0.05 ? 1 + 0.2 * v / 0.05 : Math.max(0, 1.2 * (1 - (v - 0.05) / 0.06)); }
+      if (o.appear != null) s *= popK(o.appear, t, 0.08);
+      k.scale.setScalar(Math.max(0.0001, s)); k.visible = s > 0.001; };
     g.userData.update(0); return g;
   },
   // ---------------------------------------------------------------- a lit window by night with one big silhouette in it (pivot at the window's middle, faces
@@ -553,10 +617,10 @@ export const MOUTONS_PROPS = {
     return g;
   },
   // ---------------------------------------------------------------- the milk spilled on the ground (pivot at the floor): a white puddle that spreads from o.at,
-  // drops that fly out (polygon offset: no flicker on the grass)
+  // drops that fly out (polygon offset: no flicker on the grass); o.s its size (1), o.n the drops, o.up how high they fly
   mtMilk(o) {
-    const g = grp(), pud = new THREE.Mesh(new THREE.CircleGeometry(0.55, 20), new THREE.MeshLambertMaterial({ color: '#FFFFFF', emissive: '#9A9A9A', ...OFF })); pud.rotation.x = -PI / 2; pud.position.y = 0.02; g.add(pud);
-    const burst = puffBurst({ r: 0.07, n: 8, spread: 0.6 }); burst.position.y = 0.15; g.add(burst);
+    const g = grp(), S_ = o.s ?? 1, pud = new THREE.Mesh(new THREE.CircleGeometry(0.55 * S_, 20), new THREE.MeshLambertMaterial({ color: '#FFFFFF', emissive: '#9A9A9A', ...OFF })); pud.rotation.x = -PI / 2; pud.position.y = 0.02; g.add(pud);
+    const burst = puffBurst({ r: 0.07 * S_, n: o.n ?? 8, spread: 0.6 * S_, up: o.up ?? 0.35 }); burst.position.y = 0.15; g.add(burst);
     g.userData.update = t => { const v = t - (o.at ?? 0); pud.visible = v > 0; pud.scale.set(Math.max(0.001, Math.min(1, v / 0.3)), Math.max(0.001, Math.min(1, v / 0.3)) * 0.7, 1); burst.userData.burst(t, o.at ?? 0); };
     g.userData.update(0); return g;
   },
@@ -567,4 +631,31 @@ export const MOUTONS_PROPS = {
   mtBlob(o) { const g = grp(), m = blobMesh(o.s ?? 1, o.seed ?? 2); g.add(m); const b = puffBurst({ r: 0.15 * (o.s ?? 1), spread: 0.5 * (o.s ?? 1) }); g.add(b);
     g.userData.update = t => { let s = popK(o.pop, t, 0.14); if (o.vanish != null) { const v = t - o.vanish; if (v >= 0) s = v < 0.05 ? 1.15 : Math.max(0, 1.15 * (1 - (v - 0.05) / 0.08)); } m.scale.setScalar(Math.max(0.0001, s * (o.s ?? 1))); m.visible = s > 0.001; b.userData.burst(t, o.vanish != null ? o.vanish + 0.04 : null); };
     g.userData.update(0); return g; },
+  // ---------------------------------------------------------------- (round 1) a pale moonlit patch on the ground (pivot at the floor, flat): a soft round
+  // glow fading to nothing at its edge, so a dark sheep on a night meadow has a lighter ground behind it; o.r (1.6), o.color, o.a (its opacity at the
+  // middle, 0.55); polygon offset, never flickers
+  mtGlowPatch(o) {
+    const cv = canvas(128, 128), c = cv.getContext('2d'), gr = c.createRadialGradient(64, 64, 4, 64, 64, 64), col = new THREE.Color(o.color || '#7FA6C8'), rgb = `${Math.round(col.r * 255)},${Math.round(col.g * 255)},${Math.round(col.b * 255)}`;
+    gr.addColorStop(0, `rgba(${rgb},${o.a ?? 0.55})`); gr.addColorStop(0.55, `rgba(${rgb},${(o.a ?? 0.55) * 0.6})`); gr.addColorStop(1, `rgba(${rgb},0)`); c.fillStyle = gr; c.fillRect(0, 0, 128, 128);
+    const m = new THREE.Mesh(new THREE.CircleGeometry(o.r ?? 1.6, 32), new THREE.MeshBasicMaterial({ map: texOf(cv), transparent: true, depthWrite: false, toneMapped: false, ...OFF }));
+    m.rotation.x = -PI / 2; m.position.y = 0.03; m.renderOrder = 1; return grp(m);
+  },
+  // ---------------------------------------------------------------- (round 1) the outside of a block of flats cut open, by night (pivot at the floor in the
+  // middle of the cut, faces +Z): two facade strips either side of the cut (o.cw wide, 3.6) with warm lit windows, a cornice, a pitched roof with a
+  // chimney over the whole width (o.h tall, 8.8), a deep blue night sky plane with stars behind (o.sky), a dark pavement in front. No lettering
+  mtBlockNight(o) {
+    const CW = o.cw ?? 3.6, H = o.h ?? 8.8, SW = o.sw ?? 1.5, FC = o.facade || '#7A84A8', g = grp(), WIN = '#FFD27A';
+    for (const sx of [-1, 1]) { const x = sx * (CW / 2 + SW / 2);
+      g.add(at(box(SW, H, 2.4, FC, { pivot: 'bottom', outline: 0.006 }), x, 0, -0.1));
+      for (let f = 0; f < 3; f++) { const y = 1.1 + f * 2.85; g.add(at(box(0.62, 0.85, 0.04, WIN, { emissive: '#E0A040', noGrain: true }), x + sx * 0.05, y + 0.45, 1.12), at(box(0.74, 0.08, 0.1, '#E8E2D2', { outline: 0.02 }), x + sx * 0.05, y, 1.14)); } }
+    const TW = CW + 2 * SW + 0.3;
+    g.add(at(box(TW, 0.22, 2.7, '#9AA2C4', { outline: 0.006 }), 0, H + 0.11, -0.1));
+    const roof = box(TW + 0.2, 1.7, 2.9, '#6A5A7E', { pivot: 'bottom', taper: { x: 1, z: 0.06 }, outline: 0.006 }); roof.position.set(0, H + 0.22, -0.1); g.add(roof);
+    g.add(at(box(0.5, 1.2, 0.5, '#5A5470', { pivot: 'bottom', outline: 0.01 }), TW * 0.3, H + 0.9, -0.3));
+    g.add(at(box(TW + 6, 0.1, 3.2, '#3A4060', { outline: 0.004 }), 0, -0.05, 1.3));
+    const cv = canvas(128, 256), c = cv.getContext('2d'), gr = c.createLinearGradient(0, 0, 0, 256); gr.addColorStop(0, '#0E1A44'); gr.addColorStop(1, '#2A3C70'); c.fillStyle = gr; c.fillRect(0, 0, 128, 256);
+    c.fillStyle = '#FFF6D8'; for (let i = 0; i < 40; i++) c.fillRect(128 * hsh(i + 1), 200 * hsh(i + 9), 1.6, 1.6);
+    const sky = new THREE.Mesh(new THREE.PlaneGeometry(o.skyW ?? 40, o.skyH ?? 40), new THREE.MeshBasicMaterial({ map: texOf(cv), toneMapped: false, fog: false })); sky.position.set(0, (o.skyH ?? 40) / 2 - 8, o.skyZ ?? -12); g.add(sky);
+    return g;
+  },
 };
