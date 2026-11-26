@@ -3249,3 +3249,9 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - le bras de la présentatrice tape le ciel de papier, abaissé pour ce plan ;
   - double take du héros sur « Un par jour », soleil dessiné dégagé.
   - Brouillon 3 lancé.
+- 09 h 30 — « La notice » (107) :
+  - brouillon 3 : 0 zone figée, pas de creux ;
+  - revue 3 : anim 7,6 / art 8,0 ;
+  - à reprendre : S07 trop petit, coussin et façade qui gonflent en S02-S03, tableau des visites, serveur masqué en S13, sortie du ministre, temps morts, passant à tête de cheval, rime de cadrage avec S02 en S16 ;
+  - le mot affiché « DÉMANGEAISONS » est validé (français et prononcé dans la narration) ;
+  - passe finale lancée.
