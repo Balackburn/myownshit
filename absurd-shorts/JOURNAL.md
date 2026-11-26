@@ -3221,3 +3221,13 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
     - le gag de la salle d'attente est répété (S09b et S10b).
   - Points forts gardés : masque de la notice, ciel de papier, ventres qui gonflent, bras élastique de la présentatrice, boucle finale.
   - Agent de corrections lancé.
+- 07 h 15 — « La notice » (107) corrections de revue 1 faites :
+  - sol de la falaise : deux boîtes coplanaires, roche abaissée de 15 cm, mesuré sur 86 images consécutives ;
+  - randonneur à quatre pattes avec une loupe qui grossit l'œil ;
+  - repliage du pharmacien : accroupi, coup de fouet, vague, puis ciel qui se retire en 5 images avec rebond ;
+  - temps morts remplis ;
+  - « guéri » : tous figés sur la même image ;
+  - S10b différent de S09b ;
+  - comprimé en gélule.
+  - Brouillon 2 lancé.
+  - Incident mineur : un rendu de débogage nommé dbg.json a écrasé out/work/dbg (sorties régénérables).
