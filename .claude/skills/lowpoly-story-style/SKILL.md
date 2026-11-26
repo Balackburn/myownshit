@@ -2566,3 +2566,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 58) Un objet porté flotte quand les mains le lâchent avant qu'il tombe, pas parce que la cible des mains est fausse : garder les paumes ouvertes à sa hauteur deux images, puis une chute de moins de 0,15 s, un claquement et un rebond.
 - (cycle 58) Avant de retoucher un objet que le critique dit « invisible », projeter sa position à l'écran : la rallonge de S04 était là depuis le début, cachée derrière la tête du héros.
 - (cycle 58) Un camion se reconnaît à trois signes vus ensemble : un bout de pare-brise, l'arche de roue et l'intérieur éclairé de la cabine. Un volant sous le rebord de la vitre ne se voit pas : le remonter.
+- (cycle 59, histoire 111) Une barrière vue dans l'axe de la caméra disparaît : en vue subjective, la tourner d'environ 40° et faire venir le saut en diagonale vers l'objectif.
+- (cycle 59) Un personnage noir la nuit ne se lit qu'en silhouette : la lune juste derrière sa tête, ou une lumière d'appoint sur son visage.
+- (cycle 59) Une foule de laine en blocs facettés à gros contour se lit comme du papier froissé : des lobes ronds, un blanc froid un peu émissif et un contour fin la font lire comme de la laine.
+- (cycle 59) Avant de cadrer un accessoire posé dans un décor, vérifier ce que les accessoires d'ambiance placent au même endroit : la rangée de maisons de nuit avalait le toit où se tenait le mouton.

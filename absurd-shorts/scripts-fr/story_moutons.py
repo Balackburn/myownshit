@@ -379,10 +379,10 @@ SITF = lambda fc, **x: {'face': fc, 'hip': 0, **x}
 # 4: « Plus ils comptent, moins ils dorment. » A neighbour's bedroom, mint by night: he sits up in bed counting; a sheep hops the fence beside the bed and
 #    bleats at him; his eyes snap wider; he nods faster; a second sheep, a louder bleat, his eyes bigger, pinpoint pupils
 D4 = st.dur('S04'); HA4, HB4 = 0.08, 0.92
-F4, L4, LN4 = FIT([-0.85, 2.0, 2.9], {'top': add(V2, [0, 1.75, 0]), 'chin': add(V2, [0, 1.15, 0]), 'fence': [FXV, 0.5, -1.2], 'sheepIn': [-0.7, 1.0, -1.4], 'landA': [-1.95, 0.9, -1.55], 'bedF': add(BED, [0.4, 0.6, 1.0])},
-              margin=0.14, top=0.27, bottom=0.8, lenses=range(30, 62), inside=(-4.3, 4.3, 0.3, 6, -2.8, 13))
+F4, L4, LN4 = FIT([-1.85, 2.05, 3.0], {'top': add(V2, [0, 2.45, 0]), 'chin': add(V2, [0, 1.75, 0]), 'headL': add(V2, [-0.35, 2.1, 0]), 'fence': [FXV, 0.5, -1.2], 'landA': [-1.95, 0.9, -1.55]},
+              margin=0.14, top=0.16, bottom=0.8, lenses=range(30, 62), inside=(-4.3, 4.3, 0.3, 6, -2.8, 13))
 C4 = CAM(F4, L4, LN4, 0.15)
-chk2('S04', C4, {'head': add(V2, [0, 1.45, 0]), 'top': add(V2, [0, 1.75, 0]), 'landA': [-1.95, 0.9, -1.55], 'fence': [FXV, 0.5, -1.2]}, heads=('head',))
+chk2('S04', C4, {'head': add(V2, [0, 2.05, 0]), 'top': add(V2, [0, 2.45, 0]), 'landA': [-1.95, 0.9, -1.55], 'fence': [FXV, 0.5, -1.2]}, heads=('head',))
 F4E = {**WIDE, 'mouth': 'line', 'jaw': 0, 'eye': 0.35, 'bags': 0.7}
 HK4 = [k(0.0, clip='sitFloor'), k(-0.5, look='camera'), k(0.0, toon=SITF(F4E), toonDur=0.0),
        k(r(HA4 + 0.02), look=[-1.2, 1.4, -1.0], lookDur=0.1),
