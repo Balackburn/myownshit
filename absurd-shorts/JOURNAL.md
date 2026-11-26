@@ -3304,3 +3304,7 @@ Notes anim/art : 5,0/5,4 au premier tour, 6,4/6,0 au deuxième, 6,9/6,4 au trois
 Conformité : un seul rouge à l'écran, la cravate du héros. Le tablier tricolore est devenu marine et blanc, et la fourche est tenue verticale. En S16, le héros est enterré jusqu'à la taille : sa tête posée seule au bord du trou se lisait comme coupée.
 Leçons ajoutées au skill : tête coupée, tricolore involontaire, fourche-fusil, tentes-méduses, éclairs plein cadre, figurant sosie du héros.
 Prochaine histoire pour la session parallèle : « Le bulletin » (110).
+
+## 14 h 30 — « Le sel » (109) brouillon 3, « Les moutons » (111) mis en scène
+« Le sel » : les corrections de la revue 2 sont faites et vérifiées sur des images fixes aux instants cités par les critiques. Le « carré blanc » de S14 était un flocon collé à l'objectif, la rallonge de S04 était cachée derrière la tête du héros, et la feuille de S12b tombe maintenant sous des paumes encore ouvertes. Brouillon 3 en rendu, consignes de la revue 3 prêtes.
+« Les moutons » : 32 plans, 47,3 s, accessoires préfixés mt, un bêlement ajouté au mixeur. Le mouton noir ne se lit la nuit qu'avec la lune derrière la tête. Brouillon 1 en file derrière celui du « Sel ».
