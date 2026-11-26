@@ -3319,3 +3319,20 @@ Passe finale lancée sur :
 - S16b, le bras de mamie en planche, et le plan final figé ;
 - S09, trop large ;
 - les poses tenues mortes de S05b, S08 et S03.
+
+## 15 h 20 — « Les moutons » (111) revue 1 : anim 7,0 / art 6,8
+À garder :
+- le mouton noir présent dans chaque plan de moutons, avec ses yeux cernés de rouge et sa bulle ;
+- sa silhouette sur le toit contre la lune (S09b), le meilleur plan du film ;
+- la main qui dépasse de la laine en S04b ;
+- le mouton qui atterrit sur le chapeau du berger ;
+- les pulls qui sautent.
+
+À reprendre :
+- le saut final, qui monte à la verticale au lieu de passer par-dessus la barrière ;
+- le mouton noir à peine visible sur le pré de nuit (contraste 1,15:1) ;
+- trois rendus de laine différents, dont un qui ressemble à du papier craquelé dans l'accroche ;
+- la coupe de l'immeuble éclairée comme en plein jour ;
+- les gags trop petits pour un téléphone.
+
+Corrections lancées. « Le sel » est en passe finale en parallèle.
